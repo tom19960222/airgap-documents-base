@@ -1,0 +1,9 @@
+name = "ceph-19"
+collection = "ceph"
+version = "19.2.2"
+# squid = Ceph 19.2.x 系列的 release codename
+base_url = "https://docs.ceph.com/en/squid/"
+content_selector = "div[role=main]"
+deny_prefixes = ["releases/"]
+max_pages = 3000
+delay_seconds = 0.3

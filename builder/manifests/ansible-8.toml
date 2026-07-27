@@ -1,0 +1,8 @@
+name = "ansible-8"
+collection = "ansible"
+version = "8"
+base_url = "https://docs.ansible.com/projects/ansible/8/"
+content_selector = "div[role=main]"
+deny_prefixes = []
+max_pages = 12000
+delay_seconds = 0.3
