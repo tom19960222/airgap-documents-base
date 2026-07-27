@@ -1,0 +1,5 @@
+# 建置端產物，不進 git（見 ADR-0001）
+raw/
+index/
+builder/.venv/
+__pycache__/
