@@ -43,7 +43,10 @@ class SphinxConverter(MarkdownConverter):
 def rewrite_links(main, page_url: str, page_relpath: PurePosixPath, manifest: Manifest) -> None:
     """站內連結改寫成 corpus 內的相對 .md 路徑，站外保留絕對 URL。"""
     for a in main.find_all("a", href=True):
-        absolute = urljoin(page_url, a["href"])
+        try:
+            absolute = urljoin(page_url, a["href"])
+        except ValueError:  # 頁面上寫壞的 URL：原樣保留，不改寫
+            continue
         _, fragment = urldefrag(absolute)
         canonical = canonicalize(a["href"], page_url)  # 去 fragment/query，與 crawl 的頁面身分一致
         if in_scope(canonical, manifest) and canonical.startswith(manifest.base_url):
