@@ -1,0 +1,131 @@
+---
+collection: ansible
+version: "6"
+title: "community.general.onepassword lookup – fetch field values from 1Password"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/community/general/onepassword_lookup.html
+fetched_at: 2026-07-27T17:15:08+00:00
+---
+# community.general.onepassword lookup – fetch field values from 1Password
+
+> **Note:**
+>
+> This lookup plugin is part of the [community.general collection](https://galaxy.ansible.com/community/general) (version 5.8.3).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install community.general`.
+> You need further requirements to be able to use this lookup plugin,
+> see [Requirements](onepassword_lookup.md#ansible-collections-community-general-onepassword-lookup-requirements) for details.
+>
+> To use it in a playbook, specify: `community.general.onepassword`.
+
+- [Synopsis](onepassword_lookup.md#synopsis)
+- [Requirements](onepassword_lookup.md#requirements)
+- [Terms](onepassword_lookup.md#terms)
+- [Keyword parameters](onepassword_lookup.md#keyword-parameters)
+- [Notes](onepassword_lookup.md#notes)
+- [Examples](onepassword_lookup.md#examples)
+- [Return Value](onepassword_lookup.md#return-value)
+
+## [Synopsis](onepassword_lookup.md#id1)
+
+- `onepassword` wraps the `op` command line utility to fetch specific field values from 1Password.
+
+## [Requirements](onepassword_lookup.md#id2)
+
+The below requirements are needed on the local controller node that executes this lookup.
+
+- `op` 1Password command line utility. See <https://support.1password.com/command-line/>
+
+## [Terms](onepassword_lookup.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **Terms**  string / required | identifier(s) (UUID, name, or subdomain; case-insensitive) of item(s) to retrieve. |
+
+## [Keyword parameters](onepassword_lookup.md#id4)
+
+This describes keyword parameters of the lookup. These are the values `key1=value1`, `key2=value2` and so on in the following
+examples: `lookup('community.general.onepassword', key1=value1, key2=value2, ...)` and `query('community.general.onepassword', key1=value1, key2=value2, ...)`
+
+| Parameter | Comments |
+| --- | --- |
+| **domain**  string  added in community.general 3.2.0 | Domain of 1Password. Default is 1password.com.  Default: `"1password.com"` |
+| **field**  string | field to return from each matching item (case-insensitive).  Default: `"password"` |
+| **master_password**  aliases: vault_password  string | The password used to unlock the specified vault. |
+| **secret_key**  string | The secret key used when performing an initial sign in. |
+| **section**  string | Item section containing the field to retrieve (case-insensitive). If absent will return first match from any section. |
+| **subdomain**  string | The 1Password subdomain to authenticate against. |
+| **username**  string | The username used to sign in. |
+| **vault**  string | Vault containing the item to retrieve (case-insensitive). If absent will search all vaults. |
+
+## [Notes](onepassword_lookup.md#id5)
+
+> **Note:**
+>
+> - When keyword and positional parameters are used together, positional parameters must be listed before keyword parameters:
+>   `lookup('community.general.onepassword', term1, term2, key1=value1, key2=value2)` and `query('community.general.onepassword', term1, term2, key1=value1, key2=value2)`
+> - This lookup will use an existing 1Password session if one exists. If not, and you have already performed an initial sign in (meaning `~/.op/config`, `~/.config/op/config` or `~/.config/.op/config` exists), then only the `master_password` is required. You may optionally specify `subdomain` in this scenario, otherwise the last used subdomain will be used by `op`.
+> - This lookup can perform an initial login by providing `subdomain`, `username`, `secret_key`, and `master_password`.
+> - Due to the **very** sensitive nature of these credentials, it is **highly** recommended that you only pass in the minimal credentials needed at any given time. Also, store these credentials in an Ansible Vault using a key that is equal to or greater in strength to the 1Password master password.
+> - This lookup stores potentially sensitive data from 1Password as Ansible facts. Facts are subject to caching if enabled, which means this data could be stored in clear text on disk or in a database.
+> - Tested with `op` version 0.5.3
+
+## [Examples](onepassword_lookup.md#id6)
+
+```yaml+jinja
+# These examples only work when already signed in to 1Password
+- name: Retrieve password for KITT when already signed in to 1Password
+  ansible.builtin.debug:
+    var: lookup('community.general.onepassword', 'KITT')
+
+- name: Retrieve password for Wintermute when already signed in to 1Password
+  ansible.builtin.debug:
+    var: lookup('community.general.onepassword', 'Tessier-Ashpool', section='Wintermute')
+
+- name: Retrieve username for HAL when already signed in to 1Password
+  ansible.builtin.debug:
+    var: lookup('community.general.onepassword', 'HAL 9000', field='username', vault='Discovery')
+
+- name: Retrieve password for HAL when not signed in to 1Password
+  ansible.builtin.debug:
+    var: lookup('community.general.onepassword'
+                'HAL 9000'
+                subdomain='Discovery'
+                master_password=vault_master_password)
+
+- name: Retrieve password for HAL when never signed in to 1Password
+  ansible.builtin.debug:
+    var: lookup('community.general.onepassword'
+                'HAL 9000'
+                subdomain='Discovery'
+                master_password=vault_master_password
+                username='tweety@acme.com'
+                secret_key=vault_secret_key)
+```
+
+## [Return Value](onepassword_lookup.md#id7)
+
+| Key | Description |
+| --- | --- |
+| **Return value**  list / elements=string | field data requested  Returned: success |
+
+### Authors
+
+- Scott Buchanan (@scottsb)
+- Andrew Zenk (@azenk)
+- Sam Doran (@samdoran)
+
+> **Hint:**
+>
+> Configuration entries for each entry type have a low to high priority order. For example, a variable that is lower in the list will override a variable that is higher up.
+
+### Collection links
+
+[Issue Tracker](https://github.com/ansible-collections/community.general/issues)
+[Repository (Sources)](https://github.com/ansible-collections/community.general)
+[Submit a bug report](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=bug_report.yml)
+[Request a feature](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=feature_request.yml)
+[Communication](index.md#communication-for-community-general)

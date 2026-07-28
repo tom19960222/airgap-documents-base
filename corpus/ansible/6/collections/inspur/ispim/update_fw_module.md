@@ -1,0 +1,115 @@
+---
+collection: ansible
+version: "6"
+title: "inspur.ispim.update_fw module – Update firmware"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/inspur/ispim/update_fw_module.html
+fetched_at: 2026-07-27T17:52:31+00:00
+---
+# inspur.ispim.update_fw module – Update firmware
+
+> **Note:**
+>
+> This module is part of the [inspur.ispim collection](https://galaxy.ansible.com/inspur/ispim) (version 1.2.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install inspur.ispim`.
+> You need further requirements to be able to use this module,
+> see [Requirements](update_fw_module.md#ansible-collections-inspur-ispim-update-fw-module-requirements) for details.
+>
+> To use it in a playbook, specify: `inspur.ispim.update_fw`.
+
+New in inspur.ispim 1.0.0
+
+- [Synopsis](update_fw_module.md#synopsis)
+- [Requirements](update_fw_module.md#requirements)
+- [Parameters](update_fw_module.md#parameters)
+- [Notes](update_fw_module.md#notes)
+- [Examples](update_fw_module.md#examples)
+- [Return Values](update_fw_module.md#return-values)
+
+## [Synopsis](update_fw_module.md#id1)
+
+- Update firmware on Inspur server.
+
+## [Requirements](update_fw_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- Python 3.7+
+- inspursmsdk
+
+## [Parameters](update_fw_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **dual_image**  string | (M5)update dual image(default) or not.  Only the M5 model supports this parameter.  Choices:   - `"single"` - `"dual"` ← (default) |
+| **has_me**  integer | (M5-BIOS)update me or not when update bios,only work in INTEL platform,0-no,1-yes.  Only the M5 model supports this parameter.  Choices:   - `0` - `1` ← (default) |
+| **host**  string | Specifies the DNS host name or address for connecting to the remote device over the specified transport. The value of host is used as the destination address for the transport. |
+| **mode**  string | (BMC)active mode, Manual or Auto(default).  Choices:   - `"Auto"` ← (default) - `"Manual"` |
+| **over_ride**  integer | Reserve Configrations,0-reserve, 1-override.  Choices:   - `0` ← (default) - `1` |
+| **password**  string | Specifies the password to use to authenticate the connection to the remote device. If the value is not specified in the task, the value of environment variable `ANSIBLE_NET_PASSWORD` will be used instead. |
+| **provider**  dictionary | A dict object containing connection details. |
+| **host**  string | Specifies the DNS host name or address for connecting to the remote device over the specified transport. The value of host is used as the destination address for the transport. |
+| **password**  string | Specifies the password to use to authenticate the connection to the remote device. If the value is not specified in the task, the value of environment variable `ANSIBLE_NET_PASSWORD` will be used instead. |
+| **username**  string | Configures the username to use to authenticate the connection to the remote device. If the value is not specified in the task, the value of environment variable `ANSIBLE_NET_USERNAME` will be used instead. |
+| **type**  string | Firmware type.  Choices:   - `"BMC"` - `"BIOS"` |
+| **url**  string / required | Firmware image url. |
+| **username**  string | Configures the username to use to authenticate the connection to the remote device. If the value is not specified in the task, the value of environment variable `ANSIBLE_NET_USERNAME` will be used instead. |
+
+## [Notes](update_fw_module.md#id4)
+
+> **Note:**
+>
+> - Does not support `check_mode`.
+
+## [Examples](update_fw_module.md#id5)
+
+```yaml+jinja
+- name: Update fw test
+  hosts: ism
+  connection: local
+  gather_facts: no
+  vars:
+    ism:
+      host: "{{ ansible_ssh_host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  tasks:
+
+  - name: "update bios"
+    inspur.ispim.update_fw:
+      url: "/home/wbs/SA5112M5_BIOS_4.1.8_Standard_20200117.bin"
+      type: "BIOS"
+      provider: "{{ ism }}"
+
+  - name: "update bmc"
+    inspur.ispim.update_fw:
+      url: "/home/wbs/SA5112M5_BMC_4.17.7_Standard_20200430"
+      mode: "Auto"
+      type: "BMC"
+      dual_image: "dual"
+      provider: "{{ ism }}"
+```
+
+## [Return Values](update_fw_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **changed**  boolean | Check to see if a change was made on the device.  Returned: always |
+| **message**  string | Messages returned after module execution.  Returned: always |
+| **state**  string | Status after module execution.  Returned: always |
+
+### Authors
+
+- WangBaoshan (@ispim)
+
+### Collection links
+
+[Issue Tracker](https://github.com/ispim/inspur.ispim/issues)
+[Repository (Sources)](https://github.com/ispim/inspur.ispim)

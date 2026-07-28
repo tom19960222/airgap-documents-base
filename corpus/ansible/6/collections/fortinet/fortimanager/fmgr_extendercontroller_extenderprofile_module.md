@@ -1,0 +1,287 @@
+---
+collection: ansible
+version: "6"
+title: "fortinet.fortimanager.fmgr_extendercontroller_extenderprofile module – no description"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/fortinet/fortimanager/fmgr_extendercontroller_extenderprofile_module.html
+fetched_at: 2026-07-27T17:30:27+00:00
+---
+# fortinet.fortimanager.fmgr_extendercontroller_extenderprofile module – no description
+
+> **Note:**
+>
+> This module is part of the [fortinet.fortimanager collection](https://galaxy.ansible.com/fortinet/fortimanager) (version 2.1.7).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install fortinet.fortimanager`.
+>
+> To use it in a playbook, specify: `fortinet.fortimanager.fmgr_extendercontroller_extenderprofile`.
+
+New in fortinet.fortimanager 1.0.0
+
+- [Synopsis](fmgr_extendercontroller_extenderprofile_module.md#synopsis)
+- [Parameters](fmgr_extendercontroller_extenderprofile_module.md#parameters)
+- [Notes](fmgr_extendercontroller_extenderprofile_module.md#notes)
+- [Examples](fmgr_extendercontroller_extenderprofile_module.md#examples)
+- [Return Values](fmgr_extendercontroller_extenderprofile_module.md#return-values)
+
+## [Synopsis](fmgr_extendercontroller_extenderprofile_module.md#id1)
+
+- This module is able to configure a FortiManager device.
+- Examples include all parameters and values which need to be adjusted to data sources before usage.
+
+## [Parameters](fmgr_extendercontroller_extenderprofile_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **adom**  string / required | the parameter (adom) in requested url |
+| **bypass_validation**  boolean | only set to True when module schema diffs with FortiManager API structure,  module continues to execute without validating parameters  Choices:   - `false` ← (default) - `true` |
+| **enable_log**  boolean | Enable/Disable logging for task  Choices:   - `false` ← (default) - `true` |
+| **extendercontroller_extenderprofile**  dictionary | the top level parameters set |
+| **allowaccess**  list / elements=string | description  Choices:   - `"https"` - `"ping"` - `"ssh"` - `"snmp"` - `"http"` - `"telnet"` |
+| **bandwidth-limit**  integer | no description |
+| **cellular**  dictionary | no description |
+| **controller-report**  dictionary | no description |
+| **interval**  integer | no description |
+| **signal-threshold**  integer | no description |
+| **status**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **dataplan**  string | description |
+| **modem1**  dictionary | no description |
+| **auto-switch**  dictionary | no description |
+| **dataplan**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **disconnect**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **disconnect-period**  integer | no description |
+| **disconnect-threshold**  integer | no description |
+| **signal**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **switch-back**  list / elements=string | description  Choices:   - `"time"` - `"timer"` |
+| **switch-back-time**  string | no description |
+| **switch-back-timer**  integer | no description |
+| **conn-status**  integer | no description |
+| **default-sim**  string | no description  Choices:   - `"sim1"` - `"sim2"` - `"carrier"` - `"cost"` |
+| **gps**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **modem-id**  integer | no description |
+| **preferred-carrier**  string | no description |
+| **redundant-intf**  string | no description |
+| **redundant-mode**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **sim1-pin**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **sim1-pin-code**  string | description |
+| **sim2-pin**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **sim2-pin-code**  string | description |
+| **modem2**  dictionary | no description |
+| **auto-switch**  dictionary | no description |
+| **dataplan**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **disconnect**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **disconnect-period**  integer | no description |
+| **disconnect-threshold**  integer | no description |
+| **signal**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **switch-back**  list / elements=string | description  Choices:   - `"time"` - `"timer"` |
+| **switch-back-time**  string | no description |
+| **switch-back-timer**  integer | no description |
+| **conn-status**  integer | no description |
+| **default-sim**  string | no description  Choices:   - `"sim1"` - `"sim2"` - `"carrier"` - `"cost"` |
+| **gps**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **modem-id**  integer | no description |
+| **preferred-carrier**  string | no description |
+| **redundant-intf**  string | no description |
+| **redundant-mode**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **sim1-pin**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **sim1-pin-code**  string | description |
+| **sim2-pin**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **sim2-pin-code**  string | description |
+| **sms-notification**  dictionary | no description |
+| **alert**  dictionary | no description |
+| **data-exhausted**  string | no description |
+| **fgt-backup-mode-switch**  string | no description |
+| **low-signal-strength**  string | no description |
+| **mode-switch**  string | no description |
+| **os-image-fallback**  string | no description |
+| **session-disconnect**  string | no description |
+| **system-reboot**  string | no description |
+| **receiver**  list / elements=string | description |
+| **alert**  list / elements=string | description  Choices:   - `"system-reboot"` - `"data-exhausted"` - `"session-disconnect"` - `"low-signal-strength"` - `"mode-switch"` - `"os-image-fallback"` - `"fgt-backup-mode-switch"` |
+| **name**  string | no description |
+| **phone-number**  string | no description |
+| **status**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **status**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **enforce-bandwidth**  string | no description  Choices:   - `"disable"` - `"enable"` |
+| **extension**  string | no description  Choices:   - `"wan-extension"` - `"lan-extension"` |
+| **id**  integer | no description |
+| **lan-extension**  dictionary | no description |
+| **backhaul**  list / elements=string | description |
+| **name**  string | no description |
+| **port**  string | no description  Choices:   - `"wan"` - `"lte1"` - `"lte2"` - `"port1"` - `"port2"` - `"port3"` - `"port4"` - `"port5"` - `"sfp"` |
+| **role**  string | no description  Choices:   - `"primary"` - `"secondary"` |
+| **weight**  integer | no description |
+| **backhaul-interface**  string | no description |
+| **backhaul-ip**  string | no description |
+| **ipsec-tunnel**  string | no description |
+| **link-loadbalance**  string | no description  Choices:   - `"activebackup"` - `"loadbalance"` |
+| **login-password**  string | description |
+| **login-password-change**  string | no description  Choices:   - `"no"` - `"yes"` - `"default"` |
+| **model**  string | no description  Choices:   - `"FX201E"` - `"FX211E"` - `"FX200F"` - `"FXA11F"` - `"FXE11F"` - `"FXA21F"` - `"FXE21F"` - `"FXA22F"` - `"FXE22F"` - `"FX212F"` - `"FX311F"` - `"FX312F"` - `"FX511F"` - `"FVG21F"` - `"FVA21F"` - `"FVG22F"` - `"FVA22F"` - `"FX04DA"` |
+| **name**  string | no description |
+| **proposed_method**  string | The overridden method for the underlying Json RPC request  Choices:   - `"update"` - `"set"` - `"add"` |
+| **rc_failed**  list / elements=string | the rc codes list with which the conditions to fail will be overriden |
+| **rc_succeeded**  list / elements=string | the rc codes list with which the conditions to succeed will be overriden |
+| **state**  string / required | the directive to create, update or delete an object  Choices:   - `"present"` - `"absent"` |
+| **workspace_locking_adom**  string | the adom to lock for FortiManager running in workspace mode, the value can be global and others including root |
+| **workspace_locking_timeout**  integer | the maximum time in seconds to wait for other user to release the workspace lock  Default: `300` |
+
+## [Notes](fmgr_extendercontroller_extenderprofile_module.md#id3)
+
+> **Note:**
+>
+> - Running in workspace locking mode is supported in this FortiManager module, the top level parameters workspace_locking_adom and workspace_locking_timeout help do the work.
+> - To create or update an object, use state present directive.
+> - To delete an object, use state absent directive.
+> - Normally, running one module can fail when a non-zero rc is returned. you can also override the conditions to fail or succeed with parameters rc_failed and rc_succeeded
+
+## [Examples](fmgr_extendercontroller_extenderprofile_module.md#id4)
+
+```yaml+jinja
+- hosts: fortimanager-inventory
+  collections:
+    - fortinet.fortimanager
+  connection: httpapi
+  vars:
+     ansible_httpapi_use_ssl: True
+     ansible_httpapi_validate_certs: False
+     ansible_httpapi_port: 443
+  tasks:
+   - name: no description
+     fmgr_extendercontroller_extenderprofile:
+        bypass_validation: False
+        workspace_locking_adom: <value in [global, custom adom including root]>
+        workspace_locking_timeout: 300
+        rc_succeeded: [0, -2, -3, ...]
+        rc_failed: [-2, -3, ...]
+        adom: <your own value>
+        state: <value in [present, absent]>
+        extendercontroller_extenderprofile:
+           allowaccess:
+             - https
+             - ping
+             - ssh
+             - snmp
+             - http
+             - telnet
+           bandwidth-limit: <value of integer>
+           cellular:
+              controller-report:
+                 interval: <value of integer>
+                 signal-threshold: <value of integer>
+                 status: <value in [disable, enable]>
+              dataplan: <value of string>
+              modem1:
+                 auto-switch:
+                    dataplan: <value in [disable, enable]>
+                    disconnect: <value in [disable, enable]>
+                    disconnect-period: <value of integer>
+                    disconnect-threshold: <value of integer>
+                    signal: <value in [disable, enable]>
+                    switch-back:
+                      - time
+                      - timer
+                    switch-back-time: <value of string>
+                    switch-back-timer: <value of integer>
+                 conn-status: <value of integer>
+                 default-sim: <value in [sim1, sim2, carrier, ...]>
+                 gps: <value in [disable, enable]>
+                 modem-id: <value of integer>
+                 preferred-carrier: <value of string>
+                 redundant-intf: <value of string>
+                 redundant-mode: <value in [disable, enable]>
+                 sim1-pin: <value in [disable, enable]>
+                 sim1-pin-code: <value of string>
+                 sim2-pin: <value in [disable, enable]>
+                 sim2-pin-code: <value of string>
+              modem2:
+                 auto-switch:
+                    dataplan: <value in [disable, enable]>
+                    disconnect: <value in [disable, enable]>
+                    disconnect-period: <value of integer>
+                    disconnect-threshold: <value of integer>
+                    signal: <value in [disable, enable]>
+                    switch-back:
+                      - time
+                      - timer
+                    switch-back-time: <value of string>
+                    switch-back-timer: <value of integer>
+                 conn-status: <value of integer>
+                 default-sim: <value in [sim1, sim2, carrier, ...]>
+                 gps: <value in [disable, enable]>
+                 modem-id: <value of integer>
+                 preferred-carrier: <value of string>
+                 redundant-intf: <value of string>
+                 redundant-mode: <value in [disable, enable]>
+                 sim1-pin: <value in [disable, enable]>
+                 sim1-pin-code: <value of string>
+                 sim2-pin: <value in [disable, enable]>
+                 sim2-pin-code: <value of string>
+              sms-notification:
+                 alert:
+                    data-exhausted: <value of string>
+                    fgt-backup-mode-switch: <value of string>
+                    low-signal-strength: <value of string>
+                    mode-switch: <value of string>
+                    os-image-fallback: <value of string>
+                    session-disconnect: <value of string>
+                    system-reboot: <value of string>
+                 receiver:
+                   -
+                       alert:
+                         - system-reboot
+                         - data-exhausted
+                         - session-disconnect
+                         - low-signal-strength
+                         - mode-switch
+                         - os-image-fallback
+                         - fgt-backup-mode-switch
+                       name: <value of string>
+                       phone-number: <value of string>
+                       status: <value in [disable, enable]>
+                 status: <value in [disable, enable]>
+           enforce-bandwidth: <value in [disable, enable]>
+           extension: <value in [wan-extension, lan-extension]>
+           id: <value of integer>
+           lan-extension:
+              backhaul:
+                -
+                    name: <value of string>
+                    port: <value in [wan, lte1, lte2, ...]>
+                    role: <value in [primary, secondary]>
+                    weight: <value of integer>
+              backhaul-interface: <value of string>
+              backhaul-ip: <value of string>
+              ipsec-tunnel: <value of string>
+              link-loadbalance: <value in [activebackup, loadbalance]>
+           login-password: <value of string>
+           login-password-change: <value in [no, yes, default]>
+           model: <value in [FX201E, FX211E, FX200F, ...]>
+           name: <value of string>
+```
+
+## [Return Values](fmgr_extendercontroller_extenderprofile_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **request_url**  string | The full url requested  Returned: always  Sample: `"/sys/login/user"` |
+| **response_code**  integer | The status of api request  Returned: always  Sample: `0` |
+| **response_message**  string | The descriptive message of the api response  Returned: always  Sample: `"OK."` |
+
+### Authors
+
+- Link Zheng (@chillancezen)
+- Jie Xue (@JieX19)
+- Frank Shen (@fshen01)
+- Hongbin Lu (@fgtdev-hblu)
+
+### Collection links
+
+[Issue Tracker](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortimanager-collection/issues)
+[Homepage](https://fortinet.com)
+[Repository (Sources)](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortimanager-collection/tree/galaxy/2.1.7)

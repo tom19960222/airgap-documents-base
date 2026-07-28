@@ -1,0 +1,37 @@
+---
+collection: ansible
+version: "8"
+title: "GitHub Admins"
+source_url: https://docs.ansible.com/projects/ansible/8/community/github_admins.html
+fetched_at: 2026-07-28T00:59:03+00:00
+---
+# [GitHub Admins](github_admins.md#id2)
+
+Topics
+
+- [GitHub Admins](github_admins.md#github-admins)
+
+  - [Adding and removing committers](github_admins.md#adding-and-removing-committers)
+  - [Changing branch permissions for releases](github_admins.md#changing-branch-permissions-for-releases)
+
+GitHub Admins have more permissions on GitHub than normal contributors or even committers. There are
+a few responsibilities that come with that increased power.
+
+## [Adding and removing committers](github_admins.md#id3)
+
+The Ansible Team will periodically review who is actively contributing to Ansible to grant or revoke
+contributors’ ability to commit on their own. GitHub Admins are the people who have the power to
+actually manage the GitHub permissions.
+
+## [Changing branch permissions for releases](github_admins.md#id4)
+
+When we make releases we make people go through a [Release Manager Guidelines](release_managers.md#release-managers) to push commits to that
+branch. The GitHub admins are responsible for setting the branch so only the Release Manager can
+commit to the branch when the release process reaches that stage and later opening the branch once
+the release has been made. The Release manager will let the GitHub Admin know when this needs to be
+done.
+
+> **See also:**
+>
+> The [GitHub Admin Process Docs](https://docs.google.com/document/d/1gWPtxNX4J39uIzwqQWLIsTZ1dY_AwEZzAd9bJ4XtZso/edit#heading=h.2wezayw9xsqz) for instructions
+> on how to change branch permissions.

@@ -1,0 +1,1215 @@
+---
+collection: ansible
+version: "8"
+title: "Fortinet.Fortimanager"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/fortinet/fortimanager/index.html
+fetched_at: 2026-07-28T01:02:32+00:00
+---
+# Fortinet.Fortimanager
+
+Collection version 2.3.0
+
+- [Description](index.md#description)
+- [Plugin Index](index.md#plugin-index)
+
+## [Description](index.md#id1)
+
+The FortiManager Ansible Collection.
+
+**Authors:**
+
+- Xinwei Du (@dux-fortinet)
+- Xing Li (@lix-fortinet)
+- Xue Jie (@JieX19)
+- Link Zheng (@chillancezen)
+- Hongbin Lu (@fgtdev-hblu)
+- Frank Shen (@frankshen01)
+
+**Supported ansible-core versions:**
+
+- 2.9.0 or newer
+
+- [Issue Tracker](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortimanager-collection/issues)
+- [Homepage](https://fortinet.com)
+- [Repository (Sources)](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortimanager-collection)
+
+## [Plugin Index](index.md#id2)
+
+These are the plugins in the fortinet.fortimanager collection:
+
+### Modules
+
+- [fmgr_adom_options module](fmgr_adom_options_module.md#ansible-collections-fortinet-fortimanager-fmgr-adom-options-module) – no description
+- [fmgr_antivirus_mmschecksum module](fmgr_antivirus_mmschecksum_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-mmschecksum-module) – Configure MMS content checksum list.
+- [fmgr_antivirus_mmschecksum_entries module](fmgr_antivirus_mmschecksum_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-mmschecksum-entries-module) – modify this MMS content checksum list
+- [fmgr_antivirus_notification module](fmgr_antivirus_notification_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-notification-module) – Configure AntiVirus notification lists.
+- [fmgr_antivirus_notification_entries module](fmgr_antivirus_notification_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-notification-entries-module) – modify this antivirus notification list
+- [fmgr_antivirus_profile module](fmgr_antivirus_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-module) – Configure AntiVirus profiles.
+- [fmgr_antivirus_profile_cifs module](fmgr_antivirus_profile_cifs_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-cifs-module) – Configure CIFS AntiVirus options.
+- [fmgr_antivirus_profile_contentdisarm module](fmgr_antivirus_profile_contentdisarm_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-contentdisarm-module) – AV Content Disarm and Reconstruction settings.
+- [fmgr_antivirus_profile_ftp module](fmgr_antivirus_profile_ftp_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-ftp-module) – Configure FTP AntiVirus options.
+- [fmgr_antivirus_profile_http module](fmgr_antivirus_profile_http_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-http-module) – Configure HTTP AntiVirus options.
+- [fmgr_antivirus_profile_imap module](fmgr_antivirus_profile_imap_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-imap-module) – Configure IMAP AntiVirus options.
+- [fmgr_antivirus_profile_mapi module](fmgr_antivirus_profile_mapi_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-mapi-module) – Configure MAPI AntiVirus options.
+- [fmgr_antivirus_profile_nacquar module](fmgr_antivirus_profile_nacquar_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-nacquar-module) – Configure AntiVirus quarantine settings.
+- [fmgr_antivirus_profile_nntp module](fmgr_antivirus_profile_nntp_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-nntp-module) – Configure NNTP AntiVirus options.
+- [fmgr_antivirus_profile_outbreakprevention module](fmgr_antivirus_profile_outbreakprevention_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-outbreakprevention-module) – Configure Virus Outbreak Prevention settings.
+- [fmgr_antivirus_profile_pop3 module](fmgr_antivirus_profile_pop3_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-pop3-module) – Configure POP3 AntiVirus options.
+- [fmgr_antivirus_profile_smb module](fmgr_antivirus_profile_smb_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-smb-module) – Configure SMB AntiVirus options.
+- [fmgr_antivirus_profile_smtp module](fmgr_antivirus_profile_smtp_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-smtp-module) – Configure SMTP AntiVirus options.
+- [fmgr_antivirus_profile_ssh module](fmgr_antivirus_profile_ssh_module.md#ansible-collections-fortinet-fortimanager-fmgr-antivirus-profile-ssh-module) – Configure SFTP and SCP AntiVirus options.
+- [fmgr_apcfgprofile module](fmgr_apcfgprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-apcfgprofile-module) – Configure AP local configuration profiles.
+- [fmgr_apcfgprofile_commandlist module](fmgr_apcfgprofile_commandlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-apcfgprofile-commandlist-module) – AP local configuration command list.
+- [fmgr_application_casi_profile module](fmgr_application_casi_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-casi-profile-module) – Cloud Access Security Inspection.
+- [fmgr_application_casi_profile_entries module](fmgr_application_casi_profile_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-casi-profile-entries-module) – Application entries.
+- [fmgr_application_categories module](fmgr_application_categories_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-categories-module) – no description
+- [fmgr_application_custom module](fmgr_application_custom_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-custom-module) – Configure custom application signatures.
+- [fmgr_application_group module](fmgr_application_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-group-module) – Configure firewall application groups.
+- [fmgr_application_internetservice module](fmgr_application_internetservice_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-internetservice-module) – Show Internet service application.
+- [fmgr_application_internetservice_entry module](fmgr_application_internetservice_entry_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-internetservice-entry-module) – Entries in the Internet service database.
+- [fmgr_application_internetservicecustom module](fmgr_application_internetservicecustom_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-internetservicecustom-module) – Configure custom Internet service applications.
+- [fmgr_application_internetservicecustom_disableentry module](fmgr_application_internetservicecustom_disableentry_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-internetservicecustom-disableentry-module) – Disable entries in the Internet service database.
+- [fmgr_application_internetservicecustom_disableentry_iprange module](fmgr_application_internetservicecustom_disableentry_iprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-internetservicecustom-disableentry-iprange-module) – IP ranges in the disable entry.
+- [fmgr_application_internetservicecustom_entry module](fmgr_application_internetservicecustom_entry_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-internetservicecustom-entry-module) – Entries added to the Internet service database and custom database.
+- [fmgr_application_internetservicecustom_entry_portrange module](fmgr_application_internetservicecustom_entry_portrange_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-internetservicecustom-entry-portrange-module) – Port ranges in the custom entry.
+- [fmgr_application_list module](fmgr_application_list_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-list-module) – Configure application control lists.
+- [fmgr_application_list_defaultnetworkservices module](fmgr_application_list_defaultnetworkservices_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-list-defaultnetworkservices-module) – Default network service entries.
+- [fmgr_application_list_entries module](fmgr_application_list_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-list-entries-module) – Application list entries.
+- [fmgr_application_list_entries_parameters module](fmgr_application_list_entries_parameters_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-list-entries-parameters-module) – Application parameters.
+- [fmgr_application_list_entries_parameters_members module](fmgr_application_list_entries_parameters_members_module.md#ansible-collections-fortinet-fortimanager-fmgr-application-list-entries-parameters-members-module) – Parameter tuple members.
+- [fmgr_arrpprofile module](fmgr_arrpprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-arrpprofile-module) – Configure WiFi Automatic Radio Resource Provisioning
+- [fmgr_authentication_scheme module](fmgr_authentication_scheme_module.md#ansible-collections-fortinet-fortimanager-fmgr-authentication-scheme-module) – Configure Authentication Schemes.
+- [fmgr_bleprofile module](fmgr_bleprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-bleprofile-module) – Configure Bluetooth Low Energy profile.
+- [fmgr_bonjourprofile module](fmgr_bonjourprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-bonjourprofile-module) – Configure Bonjour profiles.
+- [fmgr_bonjourprofile_policylist module](fmgr_bonjourprofile_policylist_module.md#ansible-collections-fortinet-fortimanager-fmgr-bonjourprofile-policylist-module) – Bonjour policy list.
+- [fmgr_casb_profile module](fmgr_casb_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-profile-module) – Configure CASB profile.
+- [fmgr_casb_profile_saasapplication module](fmgr_casb_profile_saasapplication_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-profile-saasapplication-module) – CASB profile SaaS application.
+- [fmgr_casb_profile_saasapplication_accessrule module](fmgr_casb_profile_saasapplication_accessrule_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-profile-saasapplication-accessrule-module) – CASB profile access rule.
+- [fmgr_casb_profile_saasapplication_customcontrol module](fmgr_casb_profile_saasapplication_customcontrol_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-profile-saasapplication-customcontrol-module) – CASB profile custom control.
+- [fmgr_casb_profile_saasapplication_customcontrol_option module](fmgr_casb_profile_saasapplication_customcontrol_option_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-profile-saasapplication-customcontrol-option-module) – CASB custom control option.
+- [fmgr_casb_saasapplication module](fmgr_casb_saasapplication_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-saasapplication-module) – Configure CASB SaaS application.
+- [fmgr_casb_useractivity module](fmgr_casb_useractivity_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-useractivity-module) – Configure CASB user activity.
+- [fmgr_casb_useractivity_controloptions module](fmgr_casb_useractivity_controloptions_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-useractivity-controloptions-module) – CASB control options.
+- [fmgr_casb_useractivity_controloptions_operations module](fmgr_casb_useractivity_controloptions_operations_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-useractivity-controloptions-operations-module) – CASB control option operations.
+- [fmgr_casb_useractivity_match module](fmgr_casb_useractivity_match_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-useractivity-match-module) – CASB user activity match rules.
+- [fmgr_casb_useractivity_match_rules module](fmgr_casb_useractivity_match_rules_module.md#ansible-collections-fortinet-fortimanager-fmgr-casb-useractivity-match-rules-module) – CASB user activity rules.
+- [fmgr_certificate_template module](fmgr_certificate_template_module.md#ansible-collections-fortinet-fortimanager-fmgr-certificate-template-module) – no description
+- [fmgr_cifs_domaincontroller module](fmgr_cifs_domaincontroller_module.md#ansible-collections-fortinet-fortimanager-fmgr-cifs-domaincontroller-module) – Define known domain controller servers.
+- [fmgr_cifs_profile module](fmgr_cifs_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-cifs-profile-module) – Configure CIFS profile.
+- [fmgr_cifs_profile_filefilter module](fmgr_cifs_profile_filefilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-cifs-profile-filefilter-module) – File filter.
+- [fmgr_cifs_profile_filefilter_entries module](fmgr_cifs_profile_filefilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-cifs-profile-filefilter-entries-module) – File filter entries.
+- [fmgr_cifs_profile_serverkeytab module](fmgr_cifs_profile_serverkeytab_module.md#ansible-collections-fortinet-fortimanager-fmgr-cifs-profile-serverkeytab-module) – Server keytab.
+- [fmgr_clone module](fmgr_clone_module.md#ansible-collections-fortinet-fortimanager-fmgr-clone-module) – Clone an object in FortiManager.
+- [fmgr_cloud_orchestaws module](fmgr_cloud_orchestaws_module.md#ansible-collections-fortinet-fortimanager-fmgr-cloud-orchestaws-module) – no description
+- [fmgr_cloud_orchestawsconnector module](fmgr_cloud_orchestawsconnector_module.md#ansible-collections-fortinet-fortimanager-fmgr-cloud-orchestawsconnector-module) – no description
+- [fmgr_cloud_orchestawstemplate_autoscaleexistingvpc module](fmgr_cloud_orchestawstemplate_autoscaleexistingvpc_module.md#ansible-collections-fortinet-fortimanager-fmgr-cloud-orchestawstemplate-autoscaleexistingvpc-module) – no description
+- [fmgr_cloud_orchestawstemplate_autoscalenewvpc module](fmgr_cloud_orchestawstemplate_autoscalenewvpc_module.md#ansible-collections-fortinet-fortimanager-fmgr-cloud-orchestawstemplate-autoscalenewvpc-module) – no description
+- [fmgr_cloud_orchestawstemplate_autoscaletgwnewvpc module](fmgr_cloud_orchestawstemplate_autoscaletgwnewvpc_module.md#ansible-collections-fortinet-fortimanager-fmgr-cloud-orchestawstemplate-autoscaletgwnewvpc-module) – no description
+- [fmgr_cloud_orchestration module](fmgr_cloud_orchestration_module.md#ansible-collections-fortinet-fortimanager-fmgr-cloud-orchestration-module) – no description
+- [fmgr_credentialstore_domaincontroller module](fmgr_credentialstore_domaincontroller_module.md#ansible-collections-fortinet-fortimanager-fmgr-credentialstore-domaincontroller-module) – Define known domain controller servers.
+- [fmgr_devprof_device_profile_fortianalyzer module](fmgr_devprof_device_profile_fortianalyzer_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-device-profile-fortianalyzer-module) – no description
+- [fmgr_devprof_device_profile_fortiguard module](fmgr_devprof_device_profile_fortiguard_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-device-profile-fortiguard-module) – no description
+- [fmgr_devprof_import module](fmgr_devprof_import_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-import-module) – no description
+- [fmgr_devprof_log_fortianalyzer_setting module](fmgr_devprof_log_fortianalyzer_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-fortianalyzer-setting-module) – Global FortiAnalyzer settings.
+- [fmgr_devprof_log_fortianalyzercloud_setting module](fmgr_devprof_log_fortianalyzercloud_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-fortianalyzercloud-setting-module) – Global FortiAnalyzer Cloud settings.
+- [fmgr_devprof_log_syslogd_filter module](fmgr_devprof_log_syslogd_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-syslogd-filter-module) – Filters for remote system server.
+- [fmgr_devprof_log_syslogd_filter_excludelist module](fmgr_devprof_log_syslogd_filter_excludelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-syslogd-filter-excludelist-module) – no description
+- [fmgr_devprof_log_syslogd_filter_excludelist_fields module](fmgr_devprof_log_syslogd_filter_excludelist_fields_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-syslogd-filter-excludelist-fields-module) – no description
+- [fmgr_devprof_log_syslogd_filter_freestyle module](fmgr_devprof_log_syslogd_filter_freestyle_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-syslogd-filter-freestyle-module) – Free style filters.
+- [fmgr_devprof_log_syslogd_setting module](fmgr_devprof_log_syslogd_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-syslogd-setting-module) – Global settings for remote syslog server.
+- [fmgr_devprof_log_syslogd_setting_customfieldname module](fmgr_devprof_log_syslogd_setting_customfieldname_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-log-syslogd-setting-customfieldname-module) – Custom field name for CEF format logging.
+- [fmgr_devprof_system_centralmanagement module](fmgr_devprof_system_centralmanagement_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-centralmanagement-module) – Configure central management.
+- [fmgr_devprof_system_centralmanagement_serverlist module](fmgr_devprof_system_centralmanagement_serverlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-centralmanagement-serverlist-module) – Additional severs that the FortiGate can use for updates
+- [fmgr_devprof_system_dns module](fmgr_devprof_system_dns_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-dns-module) – Configure DNS.
+- [fmgr_devprof_system_emailserver module](fmgr_devprof_system_emailserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-emailserver-module) – Configure the email server used by the FortiGate various things.
+- [fmgr_devprof_system_global module](fmgr_devprof_system_global_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-global-module) – Configure global attributes.
+- [fmgr_devprof_system_ntp module](fmgr_devprof_system_ntp_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-ntp-module) – Configure system NTP information.
+- [fmgr_devprof_system_ntp_ntpserver module](fmgr_devprof_system_ntp_ntpserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-ntp-ntpserver-module) – Configure the FortiGate to connect to any available third-party NTP server.
+- [fmgr_devprof_system_replacemsg_admin module](fmgr_devprof_system_replacemsg_admin_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-admin-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_alertmail module](fmgr_devprof_system_replacemsg_alertmail_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-alertmail-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_auth module](fmgr_devprof_system_replacemsg_auth_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-auth-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_devicedetectionportal module](fmgr_devprof_system_replacemsg_devicedetectionportal_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-devicedetectionportal-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_ec module](fmgr_devprof_system_replacemsg_ec_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-ec-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_fortiguardwf module](fmgr_devprof_system_replacemsg_fortiguardwf_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-fortiguardwf-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_ftp module](fmgr_devprof_system_replacemsg_ftp_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-ftp-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_http module](fmgr_devprof_system_replacemsg_http_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-http-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_mail module](fmgr_devprof_system_replacemsg_mail_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-mail-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_mms module](fmgr_devprof_system_replacemsg_mms_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-mms-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_nacquar module](fmgr_devprof_system_replacemsg_nacquar_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-nacquar-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_nntp module](fmgr_devprof_system_replacemsg_nntp_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-nntp-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_spam module](fmgr_devprof_system_replacemsg_spam_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-spam-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_sslvpn module](fmgr_devprof_system_replacemsg_sslvpn_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-sslvpn-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_trafficquota module](fmgr_devprof_system_replacemsg_trafficquota_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-trafficquota-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_utm module](fmgr_devprof_system_replacemsg_utm_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-utm-module) – Replacement messages.
+- [fmgr_devprof_system_replacemsg_webproxy module](fmgr_devprof_system_replacemsg_webproxy_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-replacemsg-webproxy-module) – Replacement messages.
+- [fmgr_devprof_system_snmp_community module](fmgr_devprof_system_snmp_community_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-snmp-community-module) – SNMP community configuration.
+- [fmgr_devprof_system_snmp_community_hosts module](fmgr_devprof_system_snmp_community_hosts_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-snmp-community-hosts-module) – Configure IPv4 SNMP managers
+- [fmgr_devprof_system_snmp_community_hosts6 module](fmgr_devprof_system_snmp_community_hosts6_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-snmp-community-hosts6-module) – Configure IPv6 SNMP managers.
+- [fmgr_devprof_system_snmp_sysinfo module](fmgr_devprof_system_snmp_sysinfo_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-snmp-sysinfo-module) – SNMP system info configuration.
+- [fmgr_devprof_system_snmp_user module](fmgr_devprof_system_snmp_user_module.md#ansible-collections-fortinet-fortimanager-fmgr-devprof-system-snmp-user-module) – SNMP user configuration.
+- [fmgr_dlp_datatype module](fmgr_dlp_datatype_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-datatype-module) – Configure predefined data type used by DLP blocking.
+- [fmgr_dlp_dictionary module](fmgr_dlp_dictionary_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-dictionary-module) – Configure dictionaries used by DLP blocking.
+- [fmgr_dlp_dictionary_entries module](fmgr_dlp_dictionary_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-dictionary-entries-module) – DLP dictionary entries.
+- [fmgr_dlp_filepattern module](fmgr_dlp_filepattern_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-filepattern-module) – Configure file patterns used by DLP blocking.
+- [fmgr_dlp_filepattern_entries module](fmgr_dlp_filepattern_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-filepattern-entries-module) – Configure file patterns used by DLP blocking.
+- [fmgr_dlp_fpsensitivity module](fmgr_dlp_fpsensitivity_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-fpsensitivity-module) – Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source.
+- [fmgr_dlp_profile module](fmgr_dlp_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-profile-module) – Configure DLP profiles.
+- [fmgr_dlp_profile_rule module](fmgr_dlp_profile_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-profile-rule-module) – Set up DLP rules for this profile.
+- [fmgr_dlp_sensitivity module](fmgr_dlp_sensitivity_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-sensitivity-module) – Create self-explanatory DLP sensitivity levels to be used when setting sensitivity under config fp-doc-source.
+- [fmgr_dlp_sensor module](fmgr_dlp_sensor_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-sensor-module) – Configure DLP sensors.
+- [fmgr_dlp_sensor_entries module](fmgr_dlp_sensor_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-sensor-entries-module) – DLP sensor entries.
+- [fmgr_dlp_sensor_filter module](fmgr_dlp_sensor_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-dlp-sensor-filter-module) – Set up DLP filters for this sensor.
+- [fmgr_dnsfilter_domainfilter module](fmgr_dnsfilter_domainfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-domainfilter-module) – Configure DNS domain filters.
+- [fmgr_dnsfilter_domainfilter_entries module](fmgr_dnsfilter_domainfilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-domainfilter-entries-module) – DNS domain filter entries.
+- [fmgr_dnsfilter_profile module](fmgr_dnsfilter_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-profile-module) – Configure DNS domain filter profiles.
+- [fmgr_dnsfilter_profile_dnstranslation module](fmgr_dnsfilter_profile_dnstranslation_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-profile-dnstranslation-module) – DNS translation settings.
+- [fmgr_dnsfilter_profile_domainfilter module](fmgr_dnsfilter_profile_domainfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-profile-domainfilter-module) – Domain filter settings.
+- [fmgr_dnsfilter_profile_ftgddns module](fmgr_dnsfilter_profile_ftgddns_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-profile-ftgddns-module) – FortiGuard DNS Filter settings.
+- [fmgr_dnsfilter_profile_ftgddns_filters module](fmgr_dnsfilter_profile_ftgddns_filters_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-profile-ftgddns-filters-module) – FortiGuard DNS domain filters.
+- [fmgr_dnsfilter_profile_urlfilter module](fmgr_dnsfilter_profile_urlfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-profile-urlfilter-module) – URL filter settings.
+- [fmgr_dnsfilter_urlfilter module](fmgr_dnsfilter_urlfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-urlfilter-module) – Configure URL filter list.
+- [fmgr_dnsfilter_urlfilter_entries module](fmgr_dnsfilter_urlfilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-dnsfilter-urlfilter-entries-module) – DNS URL filter.
+- [fmgr_dvm_cmd_add_device module](fmgr_dvm_cmd_add_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-add-device-module) – Add a device to the Device Manager database.
+- [fmgr_dvm_cmd_add_devlist module](fmgr_dvm_cmd_add_devlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-add-devlist-module) – Add multiple devices to the Device Manager database.
+- [fmgr_dvm_cmd_changehaseq module](fmgr_dvm_cmd_changehaseq_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-changehaseq-module) – Modify HA sequence to promote a slave to become the master of the cluster.
+- [fmgr_dvm_cmd_del_device module](fmgr_dvm_cmd_del_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-del-device-module) – Delete a device.
+- [fmgr_dvm_cmd_del_devlist module](fmgr_dvm_cmd_del_devlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-del-devlist-module) – Delete a list of devices.
+- [fmgr_dvm_cmd_discover_device module](fmgr_dvm_cmd_discover_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-discover-device-module) – Probe a remote device and retrieve its device information and system status.
+- [fmgr_dvm_cmd_import_devlist module](fmgr_dvm_cmd_import_devlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-import-devlist-module) – Import a list of ADOMs and devices.
+- [fmgr_dvm_cmd_reload_devlist module](fmgr_dvm_cmd_reload_devlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-reload-devlist-module) – Retrieve a list of devices.
+- [fmgr_dvm_cmd_update_device module](fmgr_dvm_cmd_update_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-update-device-module) – Refresh the FGFM connection and system information of a device.
+- [fmgr_dvm_cmd_update_devlist module](fmgr_dvm_cmd_update_devlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvm-cmd-update-devlist-module) – Refresh FGFM connection and system information for a list of devices.
+- [fmgr_dvmdb_adom module](fmgr_dvmdb_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-adom-module) – ADOM table, most attributes are read-only and can only be changed internally.
+- [fmgr_dvmdb_adom_objectmember module](fmgr_dvmdb_adom_objectmember_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-adom-objectmember-module) – ADOM table, most attributes are read-only and can only be changed internally.
+- [fmgr_dvmdb_device module](fmgr_dvmdb_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-device-module) – Device table, most attributes are read-only and can only be changed internally.
+- [fmgr_dvmdb_device_replace_sn module](fmgr_dvmdb_device_replace_sn_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-device-replace-sn-module) – Replace devices serial number with new value.
+- [fmgr_dvmdb_device_vdom module](fmgr_dvmdb_device_vdom_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-device-vdom-module) – Device VDOM table.
+- [fmgr_dvmdb_folder module](fmgr_dvmdb_folder_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-folder-module) – no description
+- [fmgr_dvmdb_group module](fmgr_dvmdb_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-group-module) – Device group table.
+- [fmgr_dvmdb_group_objectmember module](fmgr_dvmdb_group_objectmember_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-group-objectmember-module) – Device group table.
+- [fmgr_dvmdb_metafields_adom module](fmgr_dvmdb_metafields_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-metafields-adom-module) – no description
+- [fmgr_dvmdb_metafields_device module](fmgr_dvmdb_metafields_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-metafields-device-module) – no description
+- [fmgr_dvmdb_metafields_group module](fmgr_dvmdb_metafields_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-metafields-group-module) – no description
+- [fmgr_dvmdb_revision module](fmgr_dvmdb_revision_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-revision-module) – ADOM revision table.
+- [fmgr_dvmdb_script module](fmgr_dvmdb_script_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-script-module) – Script table.
+- [fmgr_dvmdb_script_execute module](fmgr_dvmdb_script_execute_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-script-execute-module) – Run script.
+- [fmgr_dvmdb_script_objectmember module](fmgr_dvmdb_script_objectmember_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-script-objectmember-module) – Script table.
+- [fmgr_dvmdb_script_scriptschedule module](fmgr_dvmdb_script_scriptschedule_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-script-scriptschedule-module) – Script schedule table.
+- [fmgr_dvmdb_upgrade module](fmgr_dvmdb_upgrade_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-upgrade-module) – no description
+- [fmgr_dvmdb_workflow_approve module](fmgr_dvmdb_workflow_approve_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-approve-module) – no description
+- [fmgr_dvmdb_workflow_discard module](fmgr_dvmdb_workflow_discard_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-discard-module) – no description
+- [fmgr_dvmdb_workflow_drop module](fmgr_dvmdb_workflow_drop_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-drop-module) – no description
+- [fmgr_dvmdb_workflow_reject module](fmgr_dvmdb_workflow_reject_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-reject-module) – no description
+- [fmgr_dvmdb_workflow_repair module](fmgr_dvmdb_workflow_repair_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-repair-module) – no description
+- [fmgr_dvmdb_workflow_revert module](fmgr_dvmdb_workflow_revert_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-revert-module) – no description
+- [fmgr_dvmdb_workflow_review module](fmgr_dvmdb_workflow_review_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-review-module) – no description
+- [fmgr_dvmdb_workflow_save module](fmgr_dvmdb_workflow_save_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-save-module) – no description
+- [fmgr_dvmdb_workflow_start module](fmgr_dvmdb_workflow_start_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-start-module) – Continue a workflow session.
+- [fmgr_dvmdb_workflow_submit module](fmgr_dvmdb_workflow_submit_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workflow-submit-module) – no description
+- [fmgr_dvmdb_workspace_commit module](fmgr_dvmdb_workspace_commit_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-commit-module) – Commit change
+- [fmgr_dvmdb_workspace_commit_dev module](fmgr_dvmdb_workspace_commit_dev_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-commit-dev-module) – Commit change
+- [fmgr_dvmdb_workspace_commit_obj module](fmgr_dvmdb_workspace_commit_obj_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-commit-obj-module) – Commit change
+- [fmgr_dvmdb_workspace_commit_pkg module](fmgr_dvmdb_workspace_commit_pkg_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-commit-pkg-module) – Commit change
+- [fmgr_dvmdb_workspace_lock module](fmgr_dvmdb_workspace_lock_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-lock-module) – Lock an entire ADOM.
+- [fmgr_dvmdb_workspace_lock_dev module](fmgr_dvmdb_workspace_lock_dev_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-lock-dev-module) – Lock a device.
+- [fmgr_dvmdb_workspace_lock_obj module](fmgr_dvmdb_workspace_lock_obj_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-lock-obj-module) – Lock a specific object, where the url contains the full path to the object
+- [fmgr_dvmdb_workspace_lock_pkg module](fmgr_dvmdb_workspace_lock_pkg_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-lock-pkg-module) – Lock a specific package, where the url includes both the folder
+- [fmgr_dvmdb_workspace_unlock module](fmgr_dvmdb_workspace_unlock_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-unlock-module) – Unlock an entire ADOM.
+- [fmgr_dvmdb_workspace_unlock_dev module](fmgr_dvmdb_workspace_unlock_dev_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-unlock-dev-module) – Unlock a device.
+- [fmgr_dvmdb_workspace_unlock_obj module](fmgr_dvmdb_workspace_unlock_obj_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-unlock-obj-module) – Unlock a specific object, where the url contains the full path to the object
+- [fmgr_dvmdb_workspace_unlock_pkg module](fmgr_dvmdb_workspace_unlock_pkg_module.md#ansible-collections-fortinet-fortimanager-fmgr-dvmdb-workspace-unlock-pkg-module) – Unlock a specific package, where the url includes both the folder
+- [fmgr_dynamic_address module](fmgr_dynamic_address_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-address-module) – no description
+- [fmgr_dynamic_address_dynamicaddrmapping module](fmgr_dynamic_address_dynamicaddrmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-address-dynamicaddrmapping-module) – no description
+- [fmgr_dynamic_certificate_local module](fmgr_dynamic_certificate_local_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-certificate-local-module) – no description
+- [fmgr_dynamic_certificate_local_dynamicmapping module](fmgr_dynamic_certificate_local_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-certificate-local-dynamicmapping-module) – no description
+- [fmgr_dynamic_input_interface module](fmgr_dynamic_input_interface_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-input-interface-module) – no description
+- [fmgr_dynamic_input_interface_dynamicmapping module](fmgr_dynamic_input_interface_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-input-interface-dynamicmapping-module) – no description
+- [fmgr_dynamic_interface module](fmgr_dynamic_interface_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-interface-module) – no description
+- [fmgr_dynamic_interface_dynamicmapping module](fmgr_dynamic_interface_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-interface-dynamicmapping-module) – no description
+- [fmgr_dynamic_interface_platformmapping module](fmgr_dynamic_interface_platformmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-interface-platformmapping-module) – no description
+- [fmgr_dynamic_ippool module](fmgr_dynamic_ippool_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-ippool-module) – no description
+- [fmgr_dynamic_multicast_interface module](fmgr_dynamic_multicast_interface_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-multicast-interface-module) – no description
+- [fmgr_dynamic_multicast_interface_dynamicmapping module](fmgr_dynamic_multicast_interface_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-multicast-interface-dynamicmapping-module) – no description
+- [fmgr_dynamic_vip module](fmgr_dynamic_vip_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-vip-module) – no description
+- [fmgr_dynamic_virtualwanlink_members module](fmgr_dynamic_virtualwanlink_members_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-virtualwanlink-members-module) – FortiGate interfaces added to the virtual-wan-link.
+- [fmgr_dynamic_virtualwanlink_members_dynamicmapping module](fmgr_dynamic_virtualwanlink_members_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-virtualwanlink-members-dynamicmapping-module) – FortiGate interfaces added to the virtual-wan-link.
+- [fmgr_dynamic_virtualwanlink_neighbor module](fmgr_dynamic_virtualwanlink_neighbor_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-virtualwanlink-neighbor-module) – no description
+- [fmgr_dynamic_virtualwanlink_neighbor_dynamicmapping module](fmgr_dynamic_virtualwanlink_neighbor_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-virtualwanlink-neighbor-dynamicmapping-module) – no description
+- [fmgr_dynamic_virtualwanlink_server module](fmgr_dynamic_virtualwanlink_server_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-virtualwanlink-server-module) – no description
+- [fmgr_dynamic_virtualwanlink_server_dynamicmapping module](fmgr_dynamic_virtualwanlink_server_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-virtualwanlink-server-dynamicmapping-module) – no description
+- [fmgr_dynamic_vpntunnel module](fmgr_dynamic_vpntunnel_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-vpntunnel-module) – no description
+- [fmgr_dynamic_vpntunnel_dynamicmapping module](fmgr_dynamic_vpntunnel_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-dynamic-vpntunnel-dynamicmapping-module) – no description
+- [fmgr_emailfilter_blockallowlist module](fmgr_emailfilter_blockallowlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-blockallowlist-module) – Configure anti-spam block/allow list.
+- [fmgr_emailfilter_blockallowlist_entries module](fmgr_emailfilter_blockallowlist_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-blockallowlist-entries-module) – Anti-spam block/allow entries.
+- [fmgr_emailfilter_bwl module](fmgr_emailfilter_bwl_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-bwl-module) – Configure anti-spam black/white list.
+- [fmgr_emailfilter_bwl_entries module](fmgr_emailfilter_bwl_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-bwl-entries-module) – Anti-spam black/white list entries.
+- [fmgr_emailfilter_bword module](fmgr_emailfilter_bword_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-bword-module) – Configure AntiSpam banned word list.
+- [fmgr_emailfilter_bword_entries module](fmgr_emailfilter_bword_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-bword-entries-module) – Spam filter banned word.
+- [fmgr_emailfilter_dnsbl module](fmgr_emailfilter_dnsbl_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-dnsbl-module) – Configure AntiSpam DNSBL/ORBL.
+- [fmgr_emailfilter_dnsbl_entries module](fmgr_emailfilter_dnsbl_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-dnsbl-entries-module) – Spam filter DNSBL and ORBL server.
+- [fmgr_emailfilter_fortishield module](fmgr_emailfilter_fortishield_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-fortishield-module) – Configure FortiGuard - AntiSpam.
+- [fmgr_emailfilter_iptrust module](fmgr_emailfilter_iptrust_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-iptrust-module) – Configure AntiSpam IP trust.
+- [fmgr_emailfilter_iptrust_entries module](fmgr_emailfilter_iptrust_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-iptrust-entries-module) – Spam filter trusted IP addresses.
+- [fmgr_emailfilter_mheader module](fmgr_emailfilter_mheader_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-mheader-module) – Configure AntiSpam MIME header.
+- [fmgr_emailfilter_mheader_entries module](fmgr_emailfilter_mheader_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-mheader-entries-module) – Spam filter mime header content.
+- [fmgr_emailfilter_options module](fmgr_emailfilter_options_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-options-module) – Configure AntiSpam options.
+- [fmgr_emailfilter_profile module](fmgr_emailfilter_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-module) – Configure Email Filter profiles.
+- [fmgr_emailfilter_profile_filefilter module](fmgr_emailfilter_profile_filefilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-filefilter-module) – File filter.
+- [fmgr_emailfilter_profile_filefilter_entries module](fmgr_emailfilter_profile_filefilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-filefilter-entries-module) – File filter entries.
+- [fmgr_emailfilter_profile_gmail module](fmgr_emailfilter_profile_gmail_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-gmail-module) – Gmail.
+- [fmgr_emailfilter_profile_imap module](fmgr_emailfilter_profile_imap_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-imap-module) – IMAP.
+- [fmgr_emailfilter_profile_mapi module](fmgr_emailfilter_profile_mapi_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-mapi-module) – MAPI.
+- [fmgr_emailfilter_profile_msnhotmail module](fmgr_emailfilter_profile_msnhotmail_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-msnhotmail-module) – MSN Hotmail.
+- [fmgr_emailfilter_profile_otherwebmails module](fmgr_emailfilter_profile_otherwebmails_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-otherwebmails-module) – Other supported webmails.
+- [fmgr_emailfilter_profile_pop3 module](fmgr_emailfilter_profile_pop3_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-pop3-module) – POP3.
+- [fmgr_emailfilter_profile_smtp module](fmgr_emailfilter_profile_smtp_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-smtp-module) – SMTP.
+- [fmgr_emailfilter_profile_yahoomail module](fmgr_emailfilter_profile_yahoomail_module.md#ansible-collections-fortinet-fortimanager-fmgr-emailfilter-profile-yahoomail-module) – Yahoo! Mail.
+- [fmgr_endpointcontrol_fctems module](fmgr_endpointcontrol_fctems_module.md#ansible-collections-fortinet-fortimanager-fmgr-endpointcontrol-fctems-module) – Configure FortiClient Enterprise Management Server
+- [fmgr_exec_fgfm_reclaimdevtunnel module](fmgr_exec_fgfm_reclaimdevtunnel_module.md#ansible-collections-fortinet-fortimanager-fmgr-exec-fgfm-reclaimdevtunnel-module) – Reclaim management tunnel to device.
+- [fmgr_export_playbooks module](fmgr_export_playbooks_module.md#ansible-collections-fortinet-fortimanager-fmgr-export-playbooks-module) – Export fortimanager configuration as playbooks.
+- [fmgr_extendercontroller_dataplan module](fmgr_extendercontroller_dataplan_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-dataplan-module) – FortiExtender dataplan configuration.
+- [fmgr_extendercontroller_extenderprofile module](fmgr_extendercontroller_extenderprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-module) – FortiExtender extender profile configuration.
+- [fmgr_extendercontroller_extenderprofile_cellular module](fmgr_extendercontroller_extenderprofile_cellular_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-module) – FortiExtender cellular configuration.
+- [fmgr_extendercontroller_extenderprofile_cellular_controllerreport module](fmgr_extendercontroller_extenderprofile_cellular_controllerreport_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-controllerreport-module) – FortiExtender controller report configuration.
+- [fmgr_extendercontroller_extenderprofile_cellular_modem1 module](fmgr_extendercontroller_extenderprofile_cellular_modem1_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-modem1-module) – Configuration options for modem 1.
+- [fmgr_extendercontroller_extenderprofile_cellular_modem1_autoswitch module](fmgr_extendercontroller_extenderprofile_cellular_modem1_autoswitch_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-modem1-autoswitch-module) – FortiExtender auto switch configuration.
+- [fmgr_extendercontroller_extenderprofile_cellular_modem2 module](fmgr_extendercontroller_extenderprofile_cellular_modem2_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-modem2-module) – Configuration options for modem 2.
+- [fmgr_extendercontroller_extenderprofile_cellular_modem2_autoswitch module](fmgr_extendercontroller_extenderprofile_cellular_modem2_autoswitch_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-modem2-autoswitch-module) – FortiExtender auto switch configuration.
+- [fmgr_extendercontroller_extenderprofile_cellular_smsnotification module](fmgr_extendercontroller_extenderprofile_cellular_smsnotification_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-smsnotification-module) – FortiExtender cellular SMS notification configuration.
+- [fmgr_extendercontroller_extenderprofile_cellular_smsnotification_alert module](fmgr_extendercontroller_extenderprofile_cellular_smsnotification_alert_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-smsnotification-alert-module) – SMS alert list.
+- [fmgr_extendercontroller_extenderprofile_cellular_smsnotification_receiver module](fmgr_extendercontroller_extenderprofile_cellular_smsnotification_receiver_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-cellular-smsnotification-receiver-module) – SMS notification receiver list.
+- [fmgr_extendercontroller_extenderprofile_lanextension module](fmgr_extendercontroller_extenderprofile_lanextension_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-lanextension-module) – FortiExtender lan extension configuration.
+- [fmgr_extendercontroller_extenderprofile_lanextension_backhaul module](fmgr_extendercontroller_extenderprofile_lanextension_backhaul_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-extenderprofile-lanextension-backhaul-module) – LAN extension backhaul tunnel configuration.
+- [fmgr_extendercontroller_simprofile module](fmgr_extendercontroller_simprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-simprofile-module) – no description
+- [fmgr_extendercontroller_simprofile_autoswitchprofile module](fmgr_extendercontroller_simprofile_autoswitchprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-simprofile-autoswitchprofile-module) – no description
+- [fmgr_extendercontroller_template module](fmgr_extendercontroller_template_module.md#ansible-collections-fortinet-fortimanager-fmgr-extendercontroller-template-module) – no description
+- [fmgr_extensioncontroller_dataplan module](fmgr_extensioncontroller_dataplan_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-dataplan-module) – FortiExtender dataplan configuration.
+- [fmgr_extensioncontroller_extenderprofile module](fmgr_extensioncontroller_extenderprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-module) – FortiExtender extender profile configuration.
+- [fmgr_extensioncontroller_extenderprofile_cellular module](fmgr_extensioncontroller_extenderprofile_cellular_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-module) – FortiExtender cellular configuration.
+- [fmgr_extensioncontroller_extenderprofile_cellular_controllerreport module](fmgr_extensioncontroller_extenderprofile_cellular_controllerreport_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-controllerreport-module) – FortiExtender controller report configuration.
+- [fmgr_extensioncontroller_extenderprofile_cellular_modem1 module](fmgr_extensioncontroller_extenderprofile_cellular_modem1_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-modem1-module) – Configuration options for modem 1.
+- [fmgr_extensioncontroller_extenderprofile_cellular_modem1_autoswitch module](fmgr_extensioncontroller_extenderprofile_cellular_modem1_autoswitch_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-modem1-autoswitch-module) – FortiExtender auto switch configuration.
+- [fmgr_extensioncontroller_extenderprofile_cellular_modem2 module](fmgr_extensioncontroller_extenderprofile_cellular_modem2_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-modem2-module) – Configuration options for modem 2.
+- [fmgr_extensioncontroller_extenderprofile_cellular_modem2_autoswitch module](fmgr_extensioncontroller_extenderprofile_cellular_modem2_autoswitch_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-modem2-autoswitch-module) – FortiExtender auto switch configuration.
+- [fmgr_extensioncontroller_extenderprofile_cellular_smsnotification module](fmgr_extensioncontroller_extenderprofile_cellular_smsnotification_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-smsnotification-module) – FortiExtender cellular SMS notification configuration.
+- [fmgr_extensioncontroller_extenderprofile_cellular_smsnotification_alert module](fmgr_extensioncontroller_extenderprofile_cellular_smsnotification_alert_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-smsnotification-alert-module) – SMS alert list.
+- [fmgr_extensioncontroller_extenderprofile_cellular_smsnotification_receiver module](fmgr_extensioncontroller_extenderprofile_cellular_smsnotification_receiver_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-cellular-smsnotification-receiver-module) – SMS notification receiver list.
+- [fmgr_extensioncontroller_extenderprofile_lanextension module](fmgr_extensioncontroller_extenderprofile_lanextension_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-lanextension-module) – FortiExtender lan extension configuration.
+- [fmgr_extensioncontroller_extenderprofile_lanextension_backhaul module](fmgr_extensioncontroller_extenderprofile_lanextension_backhaul_module.md#ansible-collections-fortinet-fortimanager-fmgr-extensioncontroller-extenderprofile-lanextension-backhaul-module) – LAN extension backhaul tunnel configuration.
+- [fmgr_fact module](fmgr_fact_module.md#ansible-collections-fortinet-fortimanager-fmgr-fact-module) – Gather fortimanager facts.
+- [fmgr_filefilter_profile module](fmgr_filefilter_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-filefilter-profile-module) – Configure file-filter profiles.
+- [fmgr_filefilter_profile_rules module](fmgr_filefilter_profile_rules_module.md#ansible-collections-fortinet-fortimanager-fmgr-filefilter-profile-rules-module) – File filter rules.
+- [fmgr_firewall_accessproxy module](fmgr_firewall_accessproxy_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-module) – Configure Access Proxy.
+- [fmgr_firewall_accessproxy6 module](fmgr_firewall_accessproxy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-module) – Configure IPv6 access proxy.
+- [fmgr_firewall_accessproxy6_apigateway module](fmgr_firewall_accessproxy6_apigateway_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway-module) – Set IPv4 API Gateway.
+- [fmgr_firewall_accessproxy6_apigateway6 module](fmgr_firewall_accessproxy6_apigateway6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway6-module) – Set IPv6 API Gateway.
+- [fmgr_firewall_accessproxy6_apigateway6_quic module](fmgr_firewall_accessproxy6_apigateway6_quic_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway6-quic-module) – QUIC setting.
+- [fmgr_firewall_accessproxy6_apigateway6_realservers module](fmgr_firewall_accessproxy6_apigateway6_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway6-realservers-module) – Select the real servers that this Access Proxy will distribute traffic to.
+- [fmgr_firewall_accessproxy6_apigateway6_sslciphersuites module](fmgr_firewall_accessproxy6_apigateway6_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway6-sslciphersuites-module) – SSL/TLS cipher suites to offer to a server, ordered by priority.
+- [fmgr_firewall_accessproxy6_apigateway_quic module](fmgr_firewall_accessproxy6_apigateway_quic_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway-quic-module) – QUIC setting.
+- [fmgr_firewall_accessproxy6_apigateway_realservers module](fmgr_firewall_accessproxy6_apigateway_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway-realservers-module) – Select the real servers that this Access Proxy will distribute traffic to.
+- [fmgr_firewall_accessproxy6_apigateway_sslciphersuites module](fmgr_firewall_accessproxy6_apigateway_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy6-apigateway-sslciphersuites-module) – SSL/TLS cipher suites to offer to a server, ordered by priority.
+- [fmgr_firewall_accessproxy_apigateway module](fmgr_firewall_accessproxy_apigateway_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway-module) – Set API Gateway.
+- [fmgr_firewall_accessproxy_apigateway6 module](fmgr_firewall_accessproxy_apigateway6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway6-module) – Set IPv6 API Gateway.
+- [fmgr_firewall_accessproxy_apigateway6_quic module](fmgr_firewall_accessproxy_apigateway6_quic_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway6-quic-module) – QUIC setting.
+- [fmgr_firewall_accessproxy_apigateway6_realservers module](fmgr_firewall_accessproxy_apigateway6_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway6-realservers-module) – Select the real servers that this Access Proxy will distribute traffic to.
+- [fmgr_firewall_accessproxy_apigateway6_sslciphersuites module](fmgr_firewall_accessproxy_apigateway6_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway6-sslciphersuites-module) – SSL/TLS cipher suites to offer to a server, ordered by priority.
+- [fmgr_firewall_accessproxy_apigateway_quic module](fmgr_firewall_accessproxy_apigateway_quic_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway-quic-module) – QUIC setting.
+- [fmgr_firewall_accessproxy_apigateway_realservers module](fmgr_firewall_accessproxy_apigateway_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway-realservers-module) – Select the real servers that this Access Proxy will distribute traffic to.
+- [fmgr_firewall_accessproxy_apigateway_sslciphersuites module](fmgr_firewall_accessproxy_apigateway_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-apigateway-sslciphersuites-module) – SSL/TLS cipher suites to offer to a server, ordered by priority.
+- [fmgr_firewall_accessproxy_realservers module](fmgr_firewall_accessproxy_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-realservers-module) – Select the SSL real servers that this Access Proxy will distribute traffic to.
+- [fmgr_firewall_accessproxy_serverpubkeyauthsettings module](fmgr_firewall_accessproxy_serverpubkeyauthsettings_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-serverpubkeyauthsettings-module) – Server SSH public key authentication settings.
+- [fmgr_firewall_accessproxy_serverpubkeyauthsettings_certextension module](fmgr_firewall_accessproxy_serverpubkeyauthsettings_certextension_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxy-serverpubkeyauthsettings-certextension-module) – Configure certificate extension for user certificate.
+- [fmgr_firewall_accessproxyvirtualhost module](fmgr_firewall_accessproxyvirtualhost_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-accessproxyvirtualhost-module) – Configure Access Proxy virtual hosts.
+- [fmgr_firewall_address module](fmgr_firewall_address_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address-module) – Configure IPv4 addresses.
+- [fmgr_firewall_address6 module](fmgr_firewall_address6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6-module) – Configure IPv6 firewall addresses.
+- [fmgr_firewall_address6_dynamicmapping module](fmgr_firewall_address6_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6-dynamicmapping-module) – Configure IPv6 firewall addresses.
+- [fmgr_firewall_address6_dynamicmapping_subnetsegment module](fmgr_firewall_address6_dynamicmapping_subnetsegment_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6-dynamicmapping-subnetsegment-module) – IPv6 subnet segments.
+- [fmgr_firewall_address6_list module](fmgr_firewall_address6_list_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6-list-module) – IP address list.
+- [fmgr_firewall_address6_profilelist module](fmgr_firewall_address6_profilelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6-profilelist-module) – List of NSX service profiles that use this address.
+- [fmgr_firewall_address6_subnetsegment module](fmgr_firewall_address6_subnetsegment_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6-subnetsegment-module) – IPv6 subnet segments.
+- [fmgr_firewall_address6_tagging module](fmgr_firewall_address6_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6-tagging-module) – Config object tagging
+- [fmgr_firewall_address6template module](fmgr_firewall_address6template_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6template-module) – Configure IPv6 address templates.
+- [fmgr_firewall_address6template_subnetsegment module](fmgr_firewall_address6template_subnetsegment_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6template-subnetsegment-module) – IPv6 subnet segments.
+- [fmgr_firewall_address6template_subnetsegment_values module](fmgr_firewall_address6template_subnetsegment_values_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address6template-subnetsegment-values-module) – Subnet segment values.
+- [fmgr_firewall_address_dynamicmapping module](fmgr_firewall_address_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address-dynamicmapping-module) – Configure IPv4 addresses.
+- [fmgr_firewall_address_list module](fmgr_firewall_address_list_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address-list-module) – IP address list.
+- [fmgr_firewall_address_profilelist module](fmgr_firewall_address_profilelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address-profilelist-module) – List of NSX service profiles that use this address.
+- [fmgr_firewall_address_tagging module](fmgr_firewall_address_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-address-tagging-module) – Config object tagging.
+- [fmgr_firewall_addrgrp module](fmgr_firewall_addrgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-addrgrp-module) – Configure IPv4 address groups.
+- [fmgr_firewall_addrgrp6 module](fmgr_firewall_addrgrp6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-addrgrp6-module) – Configure IPv6 address groups.
+- [fmgr_firewall_addrgrp6_dynamicmapping module](fmgr_firewall_addrgrp6_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-addrgrp6-dynamicmapping-module) – Configure IPv6 address groups.
+- [fmgr_firewall_addrgrp6_tagging module](fmgr_firewall_addrgrp6_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-addrgrp6-tagging-module) – Config object tagging.
+- [fmgr_firewall_addrgrp_dynamicmapping module](fmgr_firewall_addrgrp_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-addrgrp-dynamicmapping-module) – Configure IPv4 address groups.
+- [fmgr_firewall_addrgrp_tagging module](fmgr_firewall_addrgrp_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-addrgrp-tagging-module) – Config object tagging.
+- [fmgr_firewall_carrierendpointbwl module](fmgr_firewall_carrierendpointbwl_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-carrierendpointbwl-module) – Carrier end point black/white list tables.
+- [fmgr_firewall_carrierendpointbwl_entries module](fmgr_firewall_carrierendpointbwl_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-carrierendpointbwl-entries-module) – Carrier end point black/white list.
+- [fmgr_firewall_casbprofile module](fmgr_firewall_casbprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-casbprofile-module) – no description
+- [fmgr_firewall_casbprofile_saasapplication module](fmgr_firewall_casbprofile_saasapplication_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-casbprofile-saasapplication-module) – no description
+- [fmgr_firewall_casbprofile_saasapplication_accessrule module](fmgr_firewall_casbprofile_saasapplication_accessrule_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-casbprofile-saasapplication-accessrule-module) – no description
+- [fmgr_firewall_casbprofile_saasapplication_customcontrol module](fmgr_firewall_casbprofile_saasapplication_customcontrol_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-casbprofile-saasapplication-customcontrol-module) – no description
+- [fmgr_firewall_casbprofile_saasapplication_customcontrol_option module](fmgr_firewall_casbprofile_saasapplication_customcontrol_option_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-casbprofile-saasapplication-customcontrol-option-module) – no description
+- [fmgr_firewall_decryptedtrafficmirror module](fmgr_firewall_decryptedtrafficmirror_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-decryptedtrafficmirror-module) – Configure decrypted traffic mirror.
+- [fmgr_firewall_explicitproxyaddress module](fmgr_firewall_explicitproxyaddress_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-explicitproxyaddress-module) – Explicit web proxy address configuration.
+- [fmgr_firewall_explicitproxyaddress_headergroup module](fmgr_firewall_explicitproxyaddress_headergroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-explicitproxyaddress-headergroup-module) – HTTP header group.
+- [fmgr_firewall_explicitproxyaddrgrp module](fmgr_firewall_explicitproxyaddrgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-explicitproxyaddrgrp-module) – Explicit web proxy address group configuration.
+- [fmgr_firewall_gtp module](fmgr_firewall_gtp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-module) – Configure GTP.
+- [fmgr_firewall_gtp_apn module](fmgr_firewall_gtp_apn_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-apn-module) – APN.
+- [fmgr_firewall_gtp_ieremovepolicy module](fmgr_firewall_gtp_ieremovepolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-ieremovepolicy-module) – IE remove policy.
+- [fmgr_firewall_gtp_ievalidation module](fmgr_firewall_gtp_ievalidation_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-ievalidation-module) – IE validation.
+- [fmgr_firewall_gtp_imsi module](fmgr_firewall_gtp_imsi_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-imsi-module) – IMSI.
+- [fmgr_firewall_gtp_ippolicy module](fmgr_firewall_gtp_ippolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-ippolicy-module) – IP policy.
+- [fmgr_firewall_gtp_messagefilter module](fmgr_firewall_gtp_messagefilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-messagefilter-module) – Message filter.
+- [fmgr_firewall_gtp_messageratelimit module](fmgr_firewall_gtp_messageratelimit_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-messageratelimit-module) – Message rate limiting.
+- [fmgr_firewall_gtp_messageratelimitv0 module](fmgr_firewall_gtp_messageratelimitv0_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-messageratelimitv0-module) – Message rate limiting for GTP version 0.
+- [fmgr_firewall_gtp_messageratelimitv1 module](fmgr_firewall_gtp_messageratelimitv1_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-messageratelimitv1-module) – Message rate limiting for GTP version 1.
+- [fmgr_firewall_gtp_messageratelimitv2 module](fmgr_firewall_gtp_messageratelimitv2_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-messageratelimitv2-module) – Message rate limiting for GTP version 2.
+- [fmgr_firewall_gtp_noippolicy module](fmgr_firewall_gtp_noippolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-noippolicy-module) – No IP policy.
+- [fmgr_firewall_gtp_perapnshaper module](fmgr_firewall_gtp_perapnshaper_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-perapnshaper-module) – Per APN shaper.
+- [fmgr_firewall_gtp_policy module](fmgr_firewall_gtp_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-policy-module) – Policy.
+- [fmgr_firewall_gtp_policyv2 module](fmgr_firewall_gtp_policyv2_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-gtp-policyv2-module) – Apply allow or deny action to each GTPv2-c packet.
+- [fmgr_firewall_identitybasedroute module](fmgr_firewall_identitybasedroute_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-identitybasedroute-module) – Configure identity based routing.
+- [fmgr_firewall_identitybasedroute_rule module](fmgr_firewall_identitybasedroute_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-identitybasedroute-rule-module) – Rule.
+- [fmgr_firewall_internetservice module](fmgr_firewall_internetservice_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservice-module) – Show Internet Service application.
+- [fmgr_firewall_internetservice_entry module](fmgr_firewall_internetservice_entry_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservice-entry-module) – Entries in the Internet Service database.
+- [fmgr_firewall_internetserviceaddition module](fmgr_firewall_internetserviceaddition_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetserviceaddition-module) – Configure Internet Services Addition.
+- [fmgr_firewall_internetserviceaddition_entry module](fmgr_firewall_internetserviceaddition_entry_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetserviceaddition-entry-module) – Entries added to the Internet Service addition database.
+- [fmgr_firewall_internetserviceaddition_entry_portrange module](fmgr_firewall_internetserviceaddition_entry_portrange_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetserviceaddition-entry-portrange-module) – Port ranges in the custom entry.
+- [fmgr_firewall_internetservicecustom module](fmgr_firewall_internetservicecustom_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicecustom-module) – Configure custom Internet Services.
+- [fmgr_firewall_internetservicecustom_disableentry module](fmgr_firewall_internetservicecustom_disableentry_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicecustom-disableentry-module) – Disable entries in the Internet Service database.
+- [fmgr_firewall_internetservicecustom_disableentry_iprange module](fmgr_firewall_internetservicecustom_disableentry_iprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicecustom-disableentry-iprange-module) – IP ranges in the disable entry.
+- [fmgr_firewall_internetservicecustom_entry module](fmgr_firewall_internetservicecustom_entry_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicecustom-entry-module) – Entries added to the Internet Service database and custom database.
+- [fmgr_firewall_internetservicecustom_entry_portrange module](fmgr_firewall_internetservicecustom_entry_portrange_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicecustom-entry-portrange-module) – Port ranges in the custom entry.
+- [fmgr_firewall_internetservicecustomgroup module](fmgr_firewall_internetservicecustomgroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicecustomgroup-module) – Configure custom Internet Service group.
+- [fmgr_firewall_internetservicegroup module](fmgr_firewall_internetservicegroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicegroup-module) – Configure group of Internet Service.
+- [fmgr_firewall_internetservicename module](fmgr_firewall_internetservicename_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-internetservicename-module) – Define internet service names.
+- [fmgr_firewall_ippool module](fmgr_firewall_ippool_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-ippool-module) – Configure IPv4 IP pools.
+- [fmgr_firewall_ippool6 module](fmgr_firewall_ippool6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-ippool6-module) – Configure IPv6 IP pools.
+- [fmgr_firewall_ippool6_dynamicmapping module](fmgr_firewall_ippool6_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-ippool6-dynamicmapping-module) – Configure IPv6 IP pools.
+- [fmgr_firewall_ippool_dynamicmapping module](fmgr_firewall_ippool_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-ippool-dynamicmapping-module) – Configure IPv4 IP pools.
+- [fmgr_firewall_ippoolgrp module](fmgr_firewall_ippoolgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-ippoolgrp-module) – Configure IPv4 pool groups.
+- [fmgr_firewall_ldbmonitor module](fmgr_firewall_ldbmonitor_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-ldbmonitor-module) – Configure server load balancing health monitors.
+- [fmgr_firewall_mmsprofile module](fmgr_firewall_mmsprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-mmsprofile-module) – Configure MMS profiles.
+- [fmgr_firewall_mmsprofile_dupe module](fmgr_firewall_mmsprofile_dupe_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-mmsprofile-dupe-module) – Duplicate configuration.
+- [fmgr_firewall_mmsprofile_flood module](fmgr_firewall_mmsprofile_flood_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-mmsprofile-flood-module) – Flood configuration.
+- [fmgr_firewall_mmsprofile_notification module](fmgr_firewall_mmsprofile_notification_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-mmsprofile-notification-module) – Notification configuration.
+- [fmgr_firewall_mmsprofile_notifmsisdn module](fmgr_firewall_mmsprofile_notifmsisdn_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-mmsprofile-notifmsisdn-module) – Notification for MSISDNs.
+- [fmgr_firewall_mmsprofile_outbreakprevention module](fmgr_firewall_mmsprofile_outbreakprevention_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-mmsprofile-outbreakprevention-module) – Configure Virus Outbreak Prevention settings.
+- [fmgr_firewall_multicastaddress module](fmgr_firewall_multicastaddress_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-multicastaddress-module) – Configure multicast addresses.
+- [fmgr_firewall_multicastaddress6 module](fmgr_firewall_multicastaddress6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-multicastaddress6-module) – Configure IPv6 multicast address.
+- [fmgr_firewall_multicastaddress6_tagging module](fmgr_firewall_multicastaddress6_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-multicastaddress6-tagging-module) – Config object tagging.
+- [fmgr_firewall_multicastaddress_tagging module](fmgr_firewall_multicastaddress_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-multicastaddress-tagging-module) – Config object tagging.
+- [fmgr_firewall_networkservicedynamic module](fmgr_firewall_networkservicedynamic_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-networkservicedynamic-module) – Configure Dynamic Network Services.
+- [fmgr_firewall_profilegroup module](fmgr_firewall_profilegroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profilegroup-module) – Configure profile groups.
+- [fmgr_firewall_profileprotocoloptions module](fmgr_firewall_profileprotocoloptions_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-module) – Configure protocol options.
+- [fmgr_firewall_profileprotocoloptions_cifs module](fmgr_firewall_profileprotocoloptions_cifs_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-cifs-module) – Configure CIFS protocol options.
+- [fmgr_firewall_profileprotocoloptions_cifs_filefilter module](fmgr_firewall_profileprotocoloptions_cifs_filefilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-cifs-filefilter-module) – File filter.
+- [fmgr_firewall_profileprotocoloptions_cifs_filefilter_entries module](fmgr_firewall_profileprotocoloptions_cifs_filefilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-cifs-filefilter-entries-module) – File filter entries.
+- [fmgr_firewall_profileprotocoloptions_cifs_serverkeytab module](fmgr_firewall_profileprotocoloptions_cifs_serverkeytab_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-cifs-serverkeytab-module) – Server keytab.
+- [fmgr_firewall_profileprotocoloptions_dns module](fmgr_firewall_profileprotocoloptions_dns_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-dns-module) – Configure DNS protocol options.
+- [fmgr_firewall_profileprotocoloptions_ftp module](fmgr_firewall_profileprotocoloptions_ftp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-ftp-module) – Configure FTP protocol options.
+- [fmgr_firewall_profileprotocoloptions_http module](fmgr_firewall_profileprotocoloptions_http_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-http-module) – Configure HTTP protocol options.
+- [fmgr_firewall_profileprotocoloptions_imap module](fmgr_firewall_profileprotocoloptions_imap_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-imap-module) – Configure IMAP protocol options.
+- [fmgr_firewall_profileprotocoloptions_mailsignature module](fmgr_firewall_profileprotocoloptions_mailsignature_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-mailsignature-module) – Configure Mail signature.
+- [fmgr_firewall_profileprotocoloptions_mapi module](fmgr_firewall_profileprotocoloptions_mapi_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-mapi-module) – Configure MAPI protocol options.
+- [fmgr_firewall_profileprotocoloptions_nntp module](fmgr_firewall_profileprotocoloptions_nntp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-nntp-module) – Configure NNTP protocol options.
+- [fmgr_firewall_profileprotocoloptions_pop3 module](fmgr_firewall_profileprotocoloptions_pop3_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-pop3-module) – Configure POP3 protocol options.
+- [fmgr_firewall_profileprotocoloptions_smtp module](fmgr_firewall_profileprotocoloptions_smtp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-smtp-module) – Configure SMTP protocol options.
+- [fmgr_firewall_profileprotocoloptions_ssh module](fmgr_firewall_profileprotocoloptions_ssh_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-profileprotocoloptions-ssh-module) – Configure SFTP and SCP protocol options.
+- [fmgr_firewall_proxyaddress module](fmgr_firewall_proxyaddress_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-proxyaddress-module) – Web proxy address configuration.
+- [fmgr_firewall_proxyaddress_headergroup module](fmgr_firewall_proxyaddress_headergroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-proxyaddress-headergroup-module) – HTTP header group.
+- [fmgr_firewall_proxyaddress_tagging module](fmgr_firewall_proxyaddress_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-proxyaddress-tagging-module) – Config object tagging.
+- [fmgr_firewall_proxyaddrgrp module](fmgr_firewall_proxyaddrgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-proxyaddrgrp-module) – Web proxy address group configuration.
+- [fmgr_firewall_proxyaddrgrp_tagging module](fmgr_firewall_proxyaddrgrp_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-proxyaddrgrp-tagging-module) – Config object tagging.
+- [fmgr_firewall_schedule_group module](fmgr_firewall_schedule_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-schedule-group-module) – Schedule group configuration.
+- [fmgr_firewall_schedule_onetime module](fmgr_firewall_schedule_onetime_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-schedule-onetime-module) – Onetime schedule configuration.
+- [fmgr_firewall_schedule_recurring module](fmgr_firewall_schedule_recurring_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-schedule-recurring-module) – Recurring schedule configuration.
+- [fmgr_firewall_service_category module](fmgr_firewall_service_category_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-service-category-module) – Configure service categories.
+- [fmgr_firewall_service_custom module](fmgr_firewall_service_custom_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-service-custom-module) – Configure custom services.
+- [fmgr_firewall_service_group module](fmgr_firewall_service_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-service-group-module) – Configure service groups.
+- [fmgr_firewall_shaper_peripshaper module](fmgr_firewall_shaper_peripshaper_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-shaper-peripshaper-module) – Configure per-IP traffic shaper.
+- [fmgr_firewall_shaper_trafficshaper module](fmgr_firewall_shaper_trafficshaper_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-shaper-trafficshaper-module) – Configure shared traffic shaper.
+- [fmgr_firewall_shapingprofile module](fmgr_firewall_shapingprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-shapingprofile-module) – Configure shaping profiles.
+- [fmgr_firewall_shapingprofile_shapingentries module](fmgr_firewall_shapingprofile_shapingentries_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-shapingprofile-shapingentries-module) – Define shaping entries of this shaping profile.
+- [fmgr_firewall_ssh_localca module](fmgr_firewall_ssh_localca_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-ssh-localca-module) – SSH proxy local CA.
+- [fmgr_firewall_sslsshprofile module](fmgr_firewall_sslsshprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-module) – Configure SSL/SSH protocol options.
+- [fmgr_firewall_sslsshprofile_dot module](fmgr_firewall_sslsshprofile_dot_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-dot-module) – Configure DNS over TLS options.
+- [fmgr_firewall_sslsshprofile_ftps module](fmgr_firewall_sslsshprofile_ftps_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-ftps-module) – Configure FTPS options.
+- [fmgr_firewall_sslsshprofile_https module](fmgr_firewall_sslsshprofile_https_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-https-module) – Configure HTTPS options.
+- [fmgr_firewall_sslsshprofile_imaps module](fmgr_firewall_sslsshprofile_imaps_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-imaps-module) – Configure IMAPS options.
+- [fmgr_firewall_sslsshprofile_pop3s module](fmgr_firewall_sslsshprofile_pop3s_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-pop3s-module) – Configure POP3S options.
+- [fmgr_firewall_sslsshprofile_smtps module](fmgr_firewall_sslsshprofile_smtps_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-smtps-module) – Configure SMTPS options.
+- [fmgr_firewall_sslsshprofile_ssh module](fmgr_firewall_sslsshprofile_ssh_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-ssh-module) – Configure SSH options.
+- [fmgr_firewall_sslsshprofile_ssl module](fmgr_firewall_sslsshprofile_ssl_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-ssl-module) – Configure SSL options.
+- [fmgr_firewall_sslsshprofile_sslexempt module](fmgr_firewall_sslsshprofile_sslexempt_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-sslexempt-module) – Servers to exempt from SSL inspection.
+- [fmgr_firewall_sslsshprofile_sslserver module](fmgr_firewall_sslsshprofile_sslserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-sslsshprofile-sslserver-module) – SSL servers.
+- [fmgr_firewall_trafficclass module](fmgr_firewall_trafficclass_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-trafficclass-module) – Configure names for shaping classes.
+- [fmgr_firewall_vendormac module](fmgr_firewall_vendormac_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vendormac-module) – Show vendor and the MAC address they have.
+- [fmgr_firewall_vip module](fmgr_firewall_vip_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-module) – Configure virtual IP for IPv4.
+- [fmgr_firewall_vip46 module](fmgr_firewall_vip46_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip46-module) – Configure IPv4 to IPv6 virtual IPs.
+- [fmgr_firewall_vip46_dynamicmapping module](fmgr_firewall_vip46_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip46-dynamicmapping-module) – Configure IPv4 to IPv6 virtual IPs.
+- [fmgr_firewall_vip46_realservers module](fmgr_firewall_vip46_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip46-realservers-module) – Real servers.
+- [fmgr_firewall_vip6 module](fmgr_firewall_vip6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip6-module) – Configure virtual IP for IPv6.
+- [fmgr_firewall_vip64 module](fmgr_firewall_vip64_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip64-module) – Configure IPv6 to IPv4 virtual IPs.
+- [fmgr_firewall_vip64_dynamicmapping module](fmgr_firewall_vip64_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip64-dynamicmapping-module) – Configure IPv6 to IPv4 virtual IPs.
+- [fmgr_firewall_vip64_realservers module](fmgr_firewall_vip64_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip64-realservers-module) – Real servers.
+- [fmgr_firewall_vip6_dynamicmapping module](fmgr_firewall_vip6_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip6-dynamicmapping-module) – Configure virtual IP for IPv6.
+- [fmgr_firewall_vip6_dynamicmapping_realservers module](fmgr_firewall_vip6_dynamicmapping_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip6-dynamicmapping-realservers-module) – Select the real servers that this server load balancing VIP will distribute traffic to.
+- [fmgr_firewall_vip6_dynamicmapping_sslciphersuites module](fmgr_firewall_vip6_dynamicmapping_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip6-dynamicmapping-sslciphersuites-module) – SSL/TLS cipher suites acceptable from a client, ordered by priority.
+- [fmgr_firewall_vip6_realservers module](fmgr_firewall_vip6_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip6-realservers-module) – Select the real servers that this server load balancing VIP will distribute traffic to.
+- [fmgr_firewall_vip6_sslciphersuites module](fmgr_firewall_vip6_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip6-sslciphersuites-module) – SSL/TLS cipher suites acceptable from a client, ordered by priority.
+- [fmgr_firewall_vip6_sslserverciphersuites module](fmgr_firewall_vip6_sslserverciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip6-sslserverciphersuites-module) – SSL/TLS cipher suites to offer to a server, ordered by priority.
+- [fmgr_firewall_vip_dynamicmapping module](fmgr_firewall_vip_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-dynamicmapping-module) – Configure virtual IP for IPv4.
+- [fmgr_firewall_vip_dynamicmapping_realservers module](fmgr_firewall_vip_dynamicmapping_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-dynamicmapping-realservers-module) – Select the real servers that this server load balancing VIP will distribute traffic to.
+- [fmgr_firewall_vip_dynamicmapping_sslciphersuites module](fmgr_firewall_vip_dynamicmapping_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-dynamicmapping-sslciphersuites-module) – SSL/TLS cipher suites acceptable from a client, ordered by priority.
+- [fmgr_firewall_vip_quic module](fmgr_firewall_vip_quic_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-quic-module) – QUIC setting.
+- [fmgr_firewall_vip_realservers module](fmgr_firewall_vip_realservers_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-realservers-module) – Select the real servers that this server load balancing VIP will distribute traffic to.
+- [fmgr_firewall_vip_sslciphersuites module](fmgr_firewall_vip_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-sslciphersuites-module) – SSL/TLS cipher suites acceptable from a client, ordered by priority.
+- [fmgr_firewall_vip_sslserverciphersuites module](fmgr_firewall_vip_sslserverciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vip-sslserverciphersuites-module) – SSL/TLS cipher suites to offer to a server, ordered by priority.
+- [fmgr_firewall_vipgrp module](fmgr_firewall_vipgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vipgrp-module) – Configure IPv4 virtual IP groups.
+- [fmgr_firewall_vipgrp46 module](fmgr_firewall_vipgrp46_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vipgrp46-module) – Configure IPv4 to IPv6 virtual IP groups.
+- [fmgr_firewall_vipgrp6 module](fmgr_firewall_vipgrp6_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vipgrp6-module) – Configure IPv6 virtual IP groups.
+- [fmgr_firewall_vipgrp64 module](fmgr_firewall_vipgrp64_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vipgrp64-module) – Configure IPv6 to IPv4 virtual IP groups.
+- [fmgr_firewall_vipgrp_dynamicmapping module](fmgr_firewall_vipgrp_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-vipgrp-dynamicmapping-module) – Configure IPv4 virtual IP groups.
+- [fmgr_firewall_wildcardfqdn_custom module](fmgr_firewall_wildcardfqdn_custom_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-wildcardfqdn-custom-module) – Config global/VDOM Wildcard FQDN address.
+- [fmgr_firewall_wildcardfqdn_group module](fmgr_firewall_wildcardfqdn_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-firewall-wildcardfqdn-group-module) – Config global Wildcard FQDN address groups.
+- [fmgr_fmg_device_blueprint module](fmgr_fmg_device_blueprint_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmg-device-blueprint-module) – no description
+- [fmgr_fmg_fabric_authorization_template module](fmgr_fmg_fabric_authorization_template_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmg-fabric-authorization-template-module) – no description
+- [fmgr_fmg_fabric_authorization_template_platforms module](fmgr_fmg_fabric_authorization_template_platforms_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmg-fabric-authorization-template-platforms-module) – no description
+- [fmgr_fmg_variable module](fmgr_fmg_variable_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmg-variable-module) – no description
+- [fmgr_fmg_variable_dynamicmapping module](fmgr_fmg_variable_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmg-variable-dynamicmapping-module) – no description
+- [fmgr_fmupdate_analyzer_virusreport module](fmgr_fmupdate_analyzer_virusreport_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-analyzer-virusreport-module) – Send virus detection notification to FortiGuard.
+- [fmgr_fmupdate_avips_advancedlog module](fmgr_fmupdate_avips_advancedlog_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-avips-advancedlog-module) – Enable/disable logging of FortiGuard antivirus and IPS update packages received by FortiManagers built-in FortiGuard.
+- [fmgr_fmupdate_avips_webproxy module](fmgr_fmupdate_avips_webproxy_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-avips-webproxy-module) – Configure the web proxy for use with FortiGuard antivirus and IPS updates.
+- [fmgr_fmupdate_customurllist module](fmgr_fmupdate_customurllist_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-customurllist-module) – Configure the URL database for rating and filtering.
+- [fmgr_fmupdate_diskquota module](fmgr_fmupdate_diskquota_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-diskquota-module) – Configure disk space available for use by the Upgrade Manager.
+- [fmgr_fmupdate_fctservices module](fmgr_fmupdate_fctservices_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fctservices-module) – Configure FortiGuard to provide services to FortiClient installations.
+- [fmgr_fmupdate_fdssetting module](fmgr_fmupdate_fdssetting_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fdssetting-module) – Configure FortiGuard settings.
+- [fmgr_fmupdate_fdssetting_pushoverride module](fmgr_fmupdate_fdssetting_pushoverride_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fdssetting-pushoverride-module) – Enable/disable push updates, and override the default IP address and port used by FortiGuard to send antivirus and IPS push messages for …
+- [fmgr_fmupdate_fdssetting_pushoverridetoclient module](fmgr_fmupdate_fdssetting_pushoverridetoclient_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fdssetting-pushoverridetoclient-module) – Enable/disable push updates, and override the default IP address and port used by FortiGuard to send antivirus and IPS push messages for …
+- [fmgr_fmupdate_fdssetting_pushoverridetoclient_announceip module](fmgr_fmupdate_fdssetting_pushoverridetoclient_announceip_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fdssetting-pushoverridetoclient-announceip-module) – Announce IP addresses for the device.
+- [fmgr_fmupdate_fdssetting_serveroverride module](fmgr_fmupdate_fdssetting_serveroverride_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fdssetting-serveroverride-module) – Server override configure.
+- [fmgr_fmupdate_fdssetting_serveroverride_servlist module](fmgr_fmupdate_fdssetting_serveroverride_servlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fdssetting-serveroverride-servlist-module) – Override server.
+- [fmgr_fmupdate_fdssetting_updateschedule module](fmgr_fmupdate_fdssetting_updateschedule_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fdssetting-updateschedule-module) – Configure the schedule when built-in FortiGuard retrieves antivirus and IPS updates.
+- [fmgr_fmupdate_fwmsetting module](fmgr_fmupdate_fwmsetting_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fwmsetting-module) – Configure firmware management settings.
+- [fmgr_fmupdate_fwmsetting_upgradetimeout module](fmgr_fmupdate_fwmsetting_upgradetimeout_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-fwmsetting-upgradetimeout-module) – Configure the timeout value of image upgrade process.
+- [fmgr_fmupdate_multilayer module](fmgr_fmupdate_multilayer_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-multilayer-module) – Configure multilayer mode.
+- [fmgr_fmupdate_publicnetwork module](fmgr_fmupdate_publicnetwork_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-publicnetwork-module) – Enable/disable access to the public FortiGuard.
+- [fmgr_fmupdate_serveraccesspriorities module](fmgr_fmupdate_serveraccesspriorities_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-serveraccesspriorities-module) – Configure priorities for FortiGate units accessing antivirus updates and web filtering services.
+- [fmgr_fmupdate_serveraccesspriorities_privateserver module](fmgr_fmupdate_serveraccesspriorities_privateserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-serveraccesspriorities-privateserver-module) – Configure multiple FortiManager units and private servers.
+- [fmgr_fmupdate_serveroverridestatus module](fmgr_fmupdate_serveroverridestatus_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-serveroverridestatus-module) – Configure strict/loose server override.
+- [fmgr_fmupdate_service module](fmgr_fmupdate_service_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-service-module) – Enable/disable services provided by the built-in FortiGuard.
+- [fmgr_fmupdate_webspam_fgdsetting module](fmgr_fmupdate_webspam_fgdsetting_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-webspam-fgdsetting-module) – Configure the FortiGuard run parameters.
+- [fmgr_fmupdate_webspam_fgdsetting_serveroverride module](fmgr_fmupdate_webspam_fgdsetting_serveroverride_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-webspam-fgdsetting-serveroverride-module) – Server override configure.
+- [fmgr_fmupdate_webspam_fgdsetting_serveroverride_servlist module](fmgr_fmupdate_webspam_fgdsetting_serveroverride_servlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-webspam-fgdsetting-serveroverride-servlist-module) – Override server.
+- [fmgr_fmupdate_webspam_webproxy module](fmgr_fmupdate_webspam_webproxy_module.md#ansible-collections-fortinet-fortimanager-fmgr-fmupdate-webspam-webproxy-module) – Configure the web proxy for use with FortiGuard antivirus and IPS updates.
+- [fmgr_fsp_vlan module](fmgr_fsp_vlan_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-module) – no description
+- [fmgr_fsp_vlan_dhcpserver module](fmgr_fsp_vlan_dhcpserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dhcpserver-module) – Configure DHCP servers.
+- [fmgr_fsp_vlan_dhcpserver_excluderange module](fmgr_fsp_vlan_dhcpserver_excluderange_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dhcpserver-excluderange-module) – Exclude one or more ranges of IP addresses from being assigned to clients.
+- [fmgr_fsp_vlan_dhcpserver_iprange module](fmgr_fsp_vlan_dhcpserver_iprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dhcpserver-iprange-module) – DHCP IP range configuration.
+- [fmgr_fsp_vlan_dhcpserver_options module](fmgr_fsp_vlan_dhcpserver_options_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dhcpserver-options-module) – DHCP options.
+- [fmgr_fsp_vlan_dhcpserver_reservedaddress module](fmgr_fsp_vlan_dhcpserver_reservedaddress_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dhcpserver-reservedaddress-module) – Options for the DHCP server to assign IP settings to specific MAC addresses.
+- [fmgr_fsp_vlan_dynamicmapping module](fmgr_fsp_vlan_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-module) – no description
+- [fmgr_fsp_vlan_dynamicmapping_dhcpserver module](fmgr_fsp_vlan_dynamicmapping_dhcpserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-dhcpserver-module) – Configure DHCP servers.
+- [fmgr_fsp_vlan_dynamicmapping_dhcpserver_excluderange module](fmgr_fsp_vlan_dynamicmapping_dhcpserver_excluderange_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-dhcpserver-excluderange-module) – Exclude one or more ranges of IP addresses from being assigned to clients.
+- [fmgr_fsp_vlan_dynamicmapping_dhcpserver_iprange module](fmgr_fsp_vlan_dynamicmapping_dhcpserver_iprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-dhcpserver-iprange-module) – DHCP IP range configuration.
+- [fmgr_fsp_vlan_dynamicmapping_dhcpserver_options module](fmgr_fsp_vlan_dynamicmapping_dhcpserver_options_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-dhcpserver-options-module) – DHCP options.
+- [fmgr_fsp_vlan_dynamicmapping_dhcpserver_reservedaddress module](fmgr_fsp_vlan_dynamicmapping_dhcpserver_reservedaddress_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-dhcpserver-reservedaddress-module) – Options for the DHCP server to assign IP settings to specific MAC addresses.
+- [fmgr_fsp_vlan_dynamicmapping_interface module](fmgr_fsp_vlan_dynamicmapping_interface_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-module) – no description
+- [fmgr_fsp_vlan_dynamicmapping_interface_ipv6 module](fmgr_fsp_vlan_dynamicmapping_interface_ipv6_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-ipv6-module) – IPv6 of interface.
+- [fmgr_fsp_vlan_dynamicmapping_interface_ipv6_ip6delegatedprefixlist module](fmgr_fsp_vlan_dynamicmapping_interface_ipv6_ip6delegatedprefixlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-ipv6-ip6delegatedprefixlist-module) – Advertised IPv6 delegated prefix list.
+- [fmgr_fsp_vlan_dynamicmapping_interface_ipv6_ip6extraaddr module](fmgr_fsp_vlan_dynamicmapping_interface_ipv6_ip6extraaddr_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-ipv6-ip6extraaddr-module) – Extra IPv6 address prefixes of interface.
+- [fmgr_fsp_vlan_dynamicmapping_interface_ipv6_ip6prefixlist module](fmgr_fsp_vlan_dynamicmapping_interface_ipv6_ip6prefixlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-ipv6-ip6prefixlist-module) – Advertised prefix list.
+- [fmgr_fsp_vlan_dynamicmapping_interface_ipv6_vrrp6 module](fmgr_fsp_vlan_dynamicmapping_interface_ipv6_vrrp6_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-ipv6-vrrp6-module) – IPv6 VRRP configuration.
+- [fmgr_fsp_vlan_dynamicmapping_interface_secondaryip module](fmgr_fsp_vlan_dynamicmapping_interface_secondaryip_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-secondaryip-module) – Second IP address of interface.
+- [fmgr_fsp_vlan_dynamicmapping_interface_vrrp module](fmgr_fsp_vlan_dynamicmapping_interface_vrrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-vrrp-module) – VRRP configuration.
+- [fmgr_fsp_vlan_dynamicmapping_interface_vrrp_proxyarp module](fmgr_fsp_vlan_dynamicmapping_interface_vrrp_proxyarp_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-dynamicmapping-interface-vrrp-proxyarp-module) – VRRP Proxy ARP configuration.
+- [fmgr_fsp_vlan_interface module](fmgr_fsp_vlan_interface_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-module) – Configure interfaces.
+- [fmgr_fsp_vlan_interface_ipv6 module](fmgr_fsp_vlan_interface_ipv6_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-ipv6-module) – IPv6 of interface.
+- [fmgr_fsp_vlan_interface_ipv6_ip6delegatedprefixlist module](fmgr_fsp_vlan_interface_ipv6_ip6delegatedprefixlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-ipv6-ip6delegatedprefixlist-module) – Advertised IPv6 delegated prefix list.
+- [fmgr_fsp_vlan_interface_ipv6_ip6extraaddr module](fmgr_fsp_vlan_interface_ipv6_ip6extraaddr_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-ipv6-ip6extraaddr-module) – Extra IPv6 address prefixes of interface.
+- [fmgr_fsp_vlan_interface_ipv6_ip6prefixlist module](fmgr_fsp_vlan_interface_ipv6_ip6prefixlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-ipv6-ip6prefixlist-module) – Advertised prefix list.
+- [fmgr_fsp_vlan_interface_ipv6_vrrp6 module](fmgr_fsp_vlan_interface_ipv6_vrrp6_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-ipv6-vrrp6-module) – IPv6 VRRP configuration.
+- [fmgr_fsp_vlan_interface_secondaryip module](fmgr_fsp_vlan_interface_secondaryip_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-secondaryip-module) – Second IP address of interface.
+- [fmgr_fsp_vlan_interface_vrrp module](fmgr_fsp_vlan_interface_vrrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-vrrp-module) – VRRP configuration.
+- [fmgr_fsp_vlan_interface_vrrp_proxyarp module](fmgr_fsp_vlan_interface_vrrp_proxyarp_module.md#ansible-collections-fortinet-fortimanager-fmgr-fsp-vlan-interface-vrrp-proxyarp-module) – VRRP Proxy ARP configuration.
+- [fmgr_generic module](fmgr_generic_module.md#ansible-collections-fortinet-fortimanager-fmgr-generic-module) – Build and send generic FortiManager API request.
+- [fmgr_gtp_apn module](fmgr_gtp_apn_module.md#ansible-collections-fortinet-fortimanager-fmgr-gtp-apn-module) – Configure APN for GTP.
+- [fmgr_gtp_apngrp module](fmgr_gtp_apngrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-gtp-apngrp-module) – Configure APN groups for GTP.
+- [fmgr_gtp_iewhitelist module](fmgr_gtp_iewhitelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-gtp-iewhitelist-module) – IE white list.
+- [fmgr_gtp_iewhitelist_entries module](fmgr_gtp_iewhitelist_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-gtp-iewhitelist-entries-module) – Entries of white list
+- [fmgr_gtp_messagefilterv0v1 module](fmgr_gtp_messagefilterv0v1_module.md#ansible-collections-fortinet-fortimanager-fmgr-gtp-messagefilterv0v1-module) – Message filter for GTPv0/v1 messages.
+- [fmgr_gtp_messagefilterv2 module](fmgr_gtp_messagefilterv2_module.md#ansible-collections-fortinet-fortimanager-fmgr-gtp-messagefilterv2-module) – Message filter for GTPv2 messages.
+- [fmgr_gtp_tunnellimit module](fmgr_gtp_tunnellimit_module.md#ansible-collections-fortinet-fortimanager-fmgr-gtp-tunnellimit-module) – GTP tunnel limiter.
+- [fmgr_hotspot20_anqp3gppcellular module](fmgr_hotspot20_anqp3gppcellular_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqp3gppcellular-module) – Configure 3GPP public land mobile network
+- [fmgr_hotspot20_anqp3gppcellular_mccmnclist module](fmgr_hotspot20_anqp3gppcellular_mccmnclist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqp3gppcellular-mccmnclist-module) – Mobile Country Code and Mobile Network Code configuration.
+- [fmgr_hotspot20_anqpipaddresstype module](fmgr_hotspot20_anqpipaddresstype_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpipaddresstype-module) – Configure IP address type availability.
+- [fmgr_hotspot20_anqpnairealm module](fmgr_hotspot20_anqpnairealm_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpnairealm-module) – Configure network access identifier
+- [fmgr_hotspot20_anqpnairealm_nailist module](fmgr_hotspot20_anqpnairealm_nailist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpnairealm-nailist-module) – NAI list.
+- [fmgr_hotspot20_anqpnairealm_nailist_eapmethod module](fmgr_hotspot20_anqpnairealm_nailist_eapmethod_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpnairealm-nailist-eapmethod-module) – EAP Methods.
+- [fmgr_hotspot20_anqpnairealm_nailist_eapmethod_authparam module](fmgr_hotspot20_anqpnairealm_nailist_eapmethod_authparam_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpnairealm-nailist-eapmethod-authparam-module) – EAP auth param.
+- [fmgr_hotspot20_anqpnetworkauthtype module](fmgr_hotspot20_anqpnetworkauthtype_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpnetworkauthtype-module) – Configure network authentication type.
+- [fmgr_hotspot20_anqproamingconsortium module](fmgr_hotspot20_anqproamingconsortium_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqproamingconsortium-module) – Configure roaming consortium.
+- [fmgr_hotspot20_anqproamingconsortium_oilist module](fmgr_hotspot20_anqproamingconsortium_oilist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqproamingconsortium-oilist-module) – Organization identifier list.
+- [fmgr_hotspot20_anqpvenuename module](fmgr_hotspot20_anqpvenuename_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpvenuename-module) – Configure venue name duple.
+- [fmgr_hotspot20_anqpvenuename_valuelist module](fmgr_hotspot20_anqpvenuename_valuelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpvenuename-valuelist-module) – Name list.
+- [fmgr_hotspot20_anqpvenueurl module](fmgr_hotspot20_anqpvenueurl_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpvenueurl-module) – Configure venue URL.
+- [fmgr_hotspot20_anqpvenueurl_valuelist module](fmgr_hotspot20_anqpvenueurl_valuelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-anqpvenueurl-valuelist-module) – URL list.
+- [fmgr_hotspot20_h2qpadviceofcharge module](fmgr_hotspot20_h2qpadviceofcharge_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qpadviceofcharge-module) – Configure advice of charge.
+- [fmgr_hotspot20_h2qpadviceofcharge_aoclist module](fmgr_hotspot20_h2qpadviceofcharge_aoclist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qpadviceofcharge-aoclist-module) – AOC list.
+- [fmgr_hotspot20_h2qpadviceofcharge_aoclist_planinfo module](fmgr_hotspot20_h2qpadviceofcharge_aoclist_planinfo_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qpadviceofcharge-aoclist-planinfo-module) – Plan info.
+- [fmgr_hotspot20_h2qpconncapability module](fmgr_hotspot20_h2qpconncapability_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qpconncapability-module) – Configure connection capability.
+- [fmgr_hotspot20_h2qpoperatorname module](fmgr_hotspot20_h2qpoperatorname_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qpoperatorname-module) – Configure operator friendly name.
+- [fmgr_hotspot20_h2qpoperatorname_valuelist module](fmgr_hotspot20_h2qpoperatorname_valuelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qpoperatorname-valuelist-module) – Name list.
+- [fmgr_hotspot20_h2qposuprovider module](fmgr_hotspot20_h2qposuprovider_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qposuprovider-module) – Configure online sign up
+- [fmgr_hotspot20_h2qposuprovider_friendlyname module](fmgr_hotspot20_h2qposuprovider_friendlyname_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qposuprovider-friendlyname-module) – OSU provider friendly name.
+- [fmgr_hotspot20_h2qposuprovider_servicedescription module](fmgr_hotspot20_h2qposuprovider_servicedescription_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qposuprovider-servicedescription-module) – OSU service name.
+- [fmgr_hotspot20_h2qposuprovidernai module](fmgr_hotspot20_h2qposuprovidernai_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qposuprovidernai-module) – Configure online sign up
+- [fmgr_hotspot20_h2qposuprovidernai_nailist module](fmgr_hotspot20_h2qposuprovidernai_nailist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qposuprovidernai-nailist-module) – OSU NAI list.
+- [fmgr_hotspot20_h2qptermsandconditions module](fmgr_hotspot20_h2qptermsandconditions_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qptermsandconditions-module) – Configure terms and conditions.
+- [fmgr_hotspot20_h2qpwanmetric module](fmgr_hotspot20_h2qpwanmetric_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-h2qpwanmetric-module) – Configure WAN metrics.
+- [fmgr_hotspot20_hsprofile module](fmgr_hotspot20_hsprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-hsprofile-module) – Configure hotspot profile.
+- [fmgr_hotspot20_icon module](fmgr_hotspot20_icon_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-icon-module) – Configure OSU provider icon.
+- [fmgr_hotspot20_icon_iconlist module](fmgr_hotspot20_icon_iconlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-icon-iconlist-module) – Icon list.
+- [fmgr_hotspot20_qosmap module](fmgr_hotspot20_qosmap_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-qosmap-module) – Configure QoS map set.
+- [fmgr_hotspot20_qosmap_dscpexcept module](fmgr_hotspot20_qosmap_dscpexcept_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-qosmap-dscpexcept-module) – Differentiated Services Code Point
+- [fmgr_hotspot20_qosmap_dscprange module](fmgr_hotspot20_qosmap_dscprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-hotspot20-qosmap-dscprange-module) – Differentiated Services Code Point
+- [fmgr_icap_profile module](fmgr_icap_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-icap-profile-module) – Configure ICAP profiles.
+- [fmgr_icap_profile_icapheaders module](fmgr_icap_profile_icapheaders_module.md#ansible-collections-fortinet-fortimanager-fmgr-icap-profile-icapheaders-module) – Configure ICAP forwarded request headers.
+- [fmgr_icap_profile_respmodforwardrules module](fmgr_icap_profile_respmodforwardrules_module.md#ansible-collections-fortinet-fortimanager-fmgr-icap-profile-respmodforwardrules-module) – ICAP response mode forward rules.
+- [fmgr_icap_profile_respmodforwardrules_headergroup module](fmgr_icap_profile_respmodforwardrules_headergroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-icap-profile-respmodforwardrules-headergroup-module) – HTTP header group.
+- [fmgr_icap_server module](fmgr_icap_server_module.md#ansible-collections-fortinet-fortimanager-fmgr-icap-server-module) – Configure ICAP servers.
+- [fmgr_ips_baseline_sensor module](fmgr_ips_baseline_sensor_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-baseline-sensor-module) – Configure IPS sensor.
+- [fmgr_ips_baseline_sensor_entries module](fmgr_ips_baseline_sensor_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-baseline-sensor-entries-module) – IPS sensor filter.
+- [fmgr_ips_baseline_sensor_entries_exemptip module](fmgr_ips_baseline_sensor_entries_exemptip_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-baseline-sensor-entries-exemptip-module) – Traffic from selected source or destination IP addresses is exempt from this signature.
+- [fmgr_ips_baseline_sensor_filter module](fmgr_ips_baseline_sensor_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-baseline-sensor-filter-module) – no description
+- [fmgr_ips_baseline_sensor_override module](fmgr_ips_baseline_sensor_override_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-baseline-sensor-override-module) – no description
+- [fmgr_ips_baseline_sensor_override_exemptip module](fmgr_ips_baseline_sensor_override_exemptip_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-baseline-sensor-override-exemptip-module) – no description
+- [fmgr_ips_custom module](fmgr_ips_custom_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-custom-module) – Configure IPS custom signature.
+- [fmgr_ips_sensor module](fmgr_ips_sensor_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-sensor-module) – Configure IPS sensor.
+- [fmgr_ips_sensor_entries module](fmgr_ips_sensor_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-sensor-entries-module) – IPS sensor filter.
+- [fmgr_ips_sensor_entries_exemptip module](fmgr_ips_sensor_entries_exemptip_module.md#ansible-collections-fortinet-fortimanager-fmgr-ips-sensor-entries-exemptip-module) – Traffic from selected source or destination IP addresses is exempt from this signature.
+- [fmgr_log_customfield module](fmgr_log_customfield_module.md#ansible-collections-fortinet-fortimanager-fmgr-log-customfield-module) – Configure custom log fields.
+- [fmgr_log_npuserver module](fmgr_log_npuserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-log-npuserver-module) – Configure all the log servers and create the server groups.
+- [fmgr_log_npuserver_servergroup module](fmgr_log_npuserver_servergroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-log-npuserver-servergroup-module) – create server group.
+- [fmgr_log_npuserver_serverinfo module](fmgr_log_npuserver_serverinfo_module.md#ansible-collections-fortinet-fortimanager-fmgr-log-npuserver-serverinfo-module) – configure server info.
+- [fmgr_metafields_system_admin_user module](fmgr_metafields_system_admin_user_module.md#ansible-collections-fortinet-fortimanager-fmgr-metafields-system-admin-user-module) – no description
+- [fmgr_move module](fmgr_move_module.md#ansible-collections-fortinet-fortimanager-fmgr-move-module) – Move fortimanager defined Object.
+- [fmgr_mpskprofile module](fmgr_mpskprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-mpskprofile-module) – Configure MPSK profile.
+- [fmgr_mpskprofile_mpskgroup module](fmgr_mpskprofile_mpskgroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-mpskprofile-mpskgroup-module) – List of multiple PSK groups.
+- [fmgr_mpskprofile_mpskgroup_mpskkey module](fmgr_mpskprofile_mpskgroup_mpskkey_module.md#ansible-collections-fortinet-fortimanager-fmgr-mpskprofile-mpskgroup-mpskkey-module) – List of multiple PSK entries.
+- [fmgr_nacprofile module](fmgr_nacprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-nacprofile-module) – Configure WiFi network access control
+- [fmgr_pkg_authentication_rule module](fmgr_pkg_authentication_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-authentication-rule-module) – Configure Authentication Rules.
+- [fmgr_pkg_authentication_setting module](fmgr_pkg_authentication_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-authentication-setting-module) – Configure authentication setting.
+- [fmgr_pkg_central_dnat module](fmgr_pkg_central_dnat_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-central-dnat-module) – no description
+- [fmgr_pkg_central_dnat6 module](fmgr_pkg_central_dnat6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-central-dnat6-module) – no description
+- [fmgr_pkg_firewall_acl module](fmgr_pkg_firewall_acl_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-acl-module) – Configure IPv4 access control list.
+- [fmgr_pkg_firewall_acl6 module](fmgr_pkg_firewall_acl6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-acl6-module) – Configure IPv6 access control list.
+- [fmgr_pkg_firewall_centralsnatmap module](fmgr_pkg_firewall_centralsnatmap_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-centralsnatmap-module) – Configure central SNAT policies.
+- [fmgr_pkg_firewall_consolidated_policy module](fmgr_pkg_firewall_consolidated_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-consolidated-policy-module) – Configure consolidated IPv4/IPv6 policies.
+- [fmgr_pkg_firewall_consolidated_policy_sectionvalue module](fmgr_pkg_firewall_consolidated_policy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-consolidated-policy-sectionvalue-module) – Configure consolidated IPv4/IPv6 policies.
+- [fmgr_pkg_firewall_dospolicy module](fmgr_pkg_firewall_dospolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-dospolicy-module) – Configure IPv4 DoS policies.
+- [fmgr_pkg_firewall_dospolicy6 module](fmgr_pkg_firewall_dospolicy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-dospolicy6-module) – Configure IPv6 DoS policies.
+- [fmgr_pkg_firewall_dospolicy6_anomaly module](fmgr_pkg_firewall_dospolicy6_anomaly_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-dospolicy6-anomaly-module) – Anomaly name.
+- [fmgr_pkg_firewall_dospolicy_anomaly module](fmgr_pkg_firewall_dospolicy_anomaly_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-dospolicy-anomaly-module) – Anomaly name.
+- [fmgr_pkg_firewall_explicitproxypolicy module](fmgr_pkg_firewall_explicitproxypolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-explicitproxypolicy-module) – Configure Explicit proxy policies.
+- [fmgr_pkg_firewall_explicitproxypolicy_identitybasedpolicy module](fmgr_pkg_firewall_explicitproxypolicy_identitybasedpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-explicitproxypolicy-identitybasedpolicy-module) – Identity-based policy.
+- [fmgr_pkg_firewall_explicitproxypolicy_sectionvalue module](fmgr_pkg_firewall_explicitproxypolicy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-explicitproxypolicy-sectionvalue-module) – Configure Explicit proxy policies.
+- [fmgr_pkg_firewall_hyperscalepolicy module](fmgr_pkg_firewall_hyperscalepolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-hyperscalepolicy-module) – Configure IPv4/IPv6 policies.
+- [fmgr_pkg_firewall_hyperscalepolicy46 module](fmgr_pkg_firewall_hyperscalepolicy46_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-hyperscalepolicy46-module) – Configure IPv4 to IPv6 policies.
+- [fmgr_pkg_firewall_hyperscalepolicy6 module](fmgr_pkg_firewall_hyperscalepolicy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-hyperscalepolicy6-module) – Configure IPv6 policies.
+- [fmgr_pkg_firewall_hyperscalepolicy64 module](fmgr_pkg_firewall_hyperscalepolicy64_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-hyperscalepolicy64-module) – Configure IPv6 to IPv4 policies.
+- [fmgr_pkg_firewall_interfacepolicy module](fmgr_pkg_firewall_interfacepolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-interfacepolicy-module) – Configure IPv4 interface policies.
+- [fmgr_pkg_firewall_interfacepolicy6 module](fmgr_pkg_firewall_interfacepolicy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-interfacepolicy6-module) – Configure IPv6 interface policies.
+- [fmgr_pkg_firewall_interfacepolicy6_sectionvalue module](fmgr_pkg_firewall_interfacepolicy6_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-interfacepolicy6-sectionvalue-module) – Configure IPv6 interface policies.
+- [fmgr_pkg_firewall_interfacepolicy_sectionvalue module](fmgr_pkg_firewall_interfacepolicy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-interfacepolicy-sectionvalue-module) – Configure IPv4 interface policies.
+- [fmgr_pkg_firewall_localinpolicy module](fmgr_pkg_firewall_localinpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-localinpolicy-module) – Configure user defined IPv4 local-in policies.
+- [fmgr_pkg_firewall_localinpolicy6 module](fmgr_pkg_firewall_localinpolicy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-localinpolicy6-module) – Configure user defined IPv6 local-in policies.
+- [fmgr_pkg_firewall_multicastpolicy module](fmgr_pkg_firewall_multicastpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-multicastpolicy-module) – Configure multicast NAT policies.
+- [fmgr_pkg_firewall_multicastpolicy6 module](fmgr_pkg_firewall_multicastpolicy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-multicastpolicy6-module) – Configure IPv6 multicast NAT policies.
+- [fmgr_pkg_firewall_policy module](fmgr_pkg_firewall_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy-module) – Configure IPv4 policies.
+- [fmgr_pkg_firewall_policy46 module](fmgr_pkg_firewall_policy46_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy46-module) – Configure IPv4 to IPv6 policies.
+- [fmgr_pkg_firewall_policy6 module](fmgr_pkg_firewall_policy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy6-module) – Configure IPv6 policies.
+- [fmgr_pkg_firewall_policy64 module](fmgr_pkg_firewall_policy64_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy64-module) – Configure IPv6 to IPv4 policies.
+- [fmgr_pkg_firewall_policy6_sectionvalue module](fmgr_pkg_firewall_policy6_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy6-sectionvalue-module) – Configure IPv6 policies.
+- [fmgr_pkg_firewall_policy_sectionvalue module](fmgr_pkg_firewall_policy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy-sectionvalue-module) – Configure IPv4 policies.
+- [fmgr_pkg_firewall_policy_vpndstnode module](fmgr_pkg_firewall_policy_vpndstnode_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy-vpndstnode-module) – no description
+- [fmgr_pkg_firewall_policy_vpnsrcnode module](fmgr_pkg_firewall_policy_vpnsrcnode_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-policy-vpnsrcnode-module) – no description
+- [fmgr_pkg_firewall_proxypolicy module](fmgr_pkg_firewall_proxypolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-proxypolicy-module) – Configure proxy policies.
+- [fmgr_pkg_firewall_proxypolicy_sectionvalue module](fmgr_pkg_firewall_proxypolicy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-proxypolicy-sectionvalue-module) – Configure proxy policies.
+- [fmgr_pkg_firewall_securitypolicy module](fmgr_pkg_firewall_securitypolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-securitypolicy-module) – Configure NGFW IPv4/IPv6 application policies.
+- [fmgr_pkg_firewall_securitypolicy_sectionvalue module](fmgr_pkg_firewall_securitypolicy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-securitypolicy-sectionvalue-module) – Configure NGFW IPv4/IPv6 application policies.
+- [fmgr_pkg_firewall_shapingpolicy module](fmgr_pkg_firewall_shapingpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-firewall-shapingpolicy-module) – Configure shaping policies.
+- [fmgr_pkg_footer_policy module](fmgr_pkg_footer_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-footer-policy-module) – Configure IPv4/IPv6 policies.
+- [fmgr_pkg_footer_policy6 module](fmgr_pkg_footer_policy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-footer-policy6-module) – Configure IPv6 policies.
+- [fmgr_pkg_footer_shapingpolicy module](fmgr_pkg_footer_shapingpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-footer-shapingpolicy-module) – Configure shaping policies.
+- [fmgr_pkg_header_policy module](fmgr_pkg_header_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-header-policy-module) – Configure IPv4/IPv6 policies.
+- [fmgr_pkg_header_policy6 module](fmgr_pkg_header_policy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-header-policy6-module) – Configure IPv6 policies.
+- [fmgr_pkg_header_shapingpolicy module](fmgr_pkg_header_shapingpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-header-shapingpolicy-module) – Configure shaping policies.
+- [fmgr_pkg_user_nacpolicy module](fmgr_pkg_user_nacpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pkg-user-nacpolicy-module) – Configure NAC policy matching pattern to identify matching NAC devices.
+- [fmgr_pm_config_meta_reference module](fmgr_pm_config_meta_reference_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-meta-reference-module) – no description
+- [fmgr_pm_config_metafields_firewall_address module](fmgr_pm_config_metafields_firewall_address_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-metafields-firewall-address-module) – no description
+- [fmgr_pm_config_metafields_firewall_addrgrp module](fmgr_pm_config_metafields_firewall_addrgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-metafields-firewall-addrgrp-module) – no description
+- [fmgr_pm_config_metafields_firewall_centralsnatmap module](fmgr_pm_config_metafields_firewall_centralsnatmap_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-metafields-firewall-centralsnatmap-module) – no description
+- [fmgr_pm_config_metafields_firewall_policy module](fmgr_pm_config_metafields_firewall_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-metafields-firewall-policy-module) – no description
+- [fmgr_pm_config_metafields_firewall_service_custom module](fmgr_pm_config_metafields_firewall_service_custom_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-metafields-firewall-service-custom-module) – no description
+- [fmgr_pm_config_metafields_firewall_service_group module](fmgr_pm_config_metafields_firewall_service_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-metafields-firewall-service-group-module) – no description
+- [fmgr_pm_config_pblock_firewall_consolidated_policy module](fmgr_pm_config_pblock_firewall_consolidated_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-consolidated-policy-module) – Configure consolidated IPv4/IPv6 policies.
+- [fmgr_pm_config_pblock_firewall_consolidated_policy_sectionvalue module](fmgr_pm_config_pblock_firewall_consolidated_policy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-consolidated-policy-sectionvalue-module) – Configure consolidated IPv4/IPv6 policies.
+- [fmgr_pm_config_pblock_firewall_policy module](fmgr_pm_config_pblock_firewall_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-policy-module) – Configure IPv4/IPv6 policies.
+- [fmgr_pm_config_pblock_firewall_policy6 module](fmgr_pm_config_pblock_firewall_policy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-policy6-module) – Configure IPv6 policies.
+- [fmgr_pm_config_pblock_firewall_policy6_sectionvalue module](fmgr_pm_config_pblock_firewall_policy6_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-policy6-sectionvalue-module) – Configure IPv6 policies.
+- [fmgr_pm_config_pblock_firewall_policy_sectionvalue module](fmgr_pm_config_pblock_firewall_policy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-policy-sectionvalue-module) – Configure IPv4/IPv6 policies.
+- [fmgr_pm_config_pblock_firewall_securitypolicy module](fmgr_pm_config_pblock_firewall_securitypolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-securitypolicy-module) – Configure NGFW IPv4/IPv6 application policies.
+- [fmgr_pm_config_pblock_firewall_securitypolicy_sectionvalue module](fmgr_pm_config_pblock_firewall_securitypolicy_sectionvalue_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-pblock-firewall-securitypolicy-sectionvalue-module) – Configure NGFW IPv4/IPv6 application policies.
+- [fmgr_pm_config_reset_database module](fmgr_pm_config_reset_database_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-reset-database-module) – Reset Global ADOM to a specific version.
+- [fmgr_pm_config_upgrade module](fmgr_pm_config_upgrade_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-upgrade-module) – Upgrade an ADOM to the next version.
+- [fmgr_pm_config_workspace_commit module](fmgr_pm_config_workspace_commit_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-workspace-commit-module) – Commit changes to an ADOM.
+- [fmgr_pm_config_workspace_lock module](fmgr_pm_config_workspace_lock_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-workspace-lock-module) – Lock an ADOM in workspace mode.
+- [fmgr_pm_config_workspace_unlock module](fmgr_pm_config_workspace_unlock_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-config-workspace-unlock-module) – Unlock an ADOM.
+- [fmgr_pm_devprof_adom module](fmgr_pm_devprof_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-devprof-adom-module) – no description
+- [fmgr_pm_devprof_pkg module](fmgr_pm_devprof_pkg_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-devprof-pkg-module) – no description
+- [fmgr_pm_devprof_scopemember module](fmgr_pm_devprof_scopemember_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-devprof-scopemember-module) – no description
+- [fmgr_pm_pblock_adom module](fmgr_pm_pblock_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-pblock-adom-module) – no description
+- [fmgr_pm_pblock_obj module](fmgr_pm_pblock_obj_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-pblock-obj-module) – no description
+- [fmgr_pm_pkg module](fmgr_pm_pkg_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-pkg-module) – Policy package or folder.
+- [fmgr_pm_pkg_adom module](fmgr_pm_pkg_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-pkg-adom-module) – Policy package or folder.
+- [fmgr_pm_pkg_global module](fmgr_pm_pkg_global_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-pkg-global-module) – Policy package or folder.
+- [fmgr_pm_pkg_scopemember module](fmgr_pm_pkg_scopemember_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-pkg-scopemember-module) – Policy package or folder.
+- [fmgr_pm_wanprof_adom module](fmgr_pm_wanprof_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-wanprof-adom-module) – no description
+- [fmgr_pm_wanprof_pkg module](fmgr_pm_wanprof_pkg_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-wanprof-pkg-module) – no description
+- [fmgr_pm_wanprof_scopemember module](fmgr_pm_wanprof_scopemember_module.md#ansible-collections-fortinet-fortimanager-fmgr-pm-wanprof-scopemember-module) – no description
+- [fmgr_qosprofile module](fmgr_qosprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-qosprofile-module) – Configure WiFi quality of service
+- [fmgr_region module](fmgr_region_module.md#ansible-collections-fortinet-fortimanager-fmgr-region-module) – Configure FortiAP regions
+- [fmgr_rename module](fmgr_rename_module.md#ansible-collections-fortinet-fortimanager-fmgr-rename-module) – Rename an object in FortiManager.
+- [fmgr_router_accesslist module](fmgr_router_accesslist_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-accesslist-module) – Configure access lists.
+- [fmgr_router_accesslist6 module](fmgr_router_accesslist6_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-accesslist6-module) – Configure IPv6 access lists.
+- [fmgr_router_accesslist6_rule module](fmgr_router_accesslist6_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-accesslist6-rule-module) – Rule.
+- [fmgr_router_accesslist_rule module](fmgr_router_accesslist_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-accesslist-rule-module) – Rule.
+- [fmgr_router_aspathlist module](fmgr_router_aspathlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-aspathlist-module) – Configure Autonomous System
+- [fmgr_router_aspathlist_rule module](fmgr_router_aspathlist_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-aspathlist-rule-module) – AS path list rule.
+- [fmgr_router_communitylist module](fmgr_router_communitylist_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-communitylist-module) – Configure community lists.
+- [fmgr_router_communitylist_rule module](fmgr_router_communitylist_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-communitylist-rule-module) – Community list rule.
+- [fmgr_router_prefixlist module](fmgr_router_prefixlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-prefixlist-module) – Configure IPv4 prefix lists.
+- [fmgr_router_prefixlist6 module](fmgr_router_prefixlist6_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-prefixlist6-module) – Configure IPv6 prefix lists.
+- [fmgr_router_prefixlist6_rule module](fmgr_router_prefixlist6_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-prefixlist6-rule-module) – IPv6 prefix list rule.
+- [fmgr_router_prefixlist_rule module](fmgr_router_prefixlist_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-prefixlist-rule-module) – IPv4 prefix list rule.
+- [fmgr_router_routemap module](fmgr_router_routemap_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-routemap-module) – Configure route maps.
+- [fmgr_router_routemap_rule module](fmgr_router_routemap_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-router-routemap-rule-module) – Rule.
+- [fmgr_securityconsole_abort module](fmgr_securityconsole_abort_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-abort-module) – Abort and cancel a security console task.
+- [fmgr_securityconsole_assign_package module](fmgr_securityconsole_assign_package_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-assign-package-module) – Assign or unassign global policy package to ADOM packages.
+- [fmgr_securityconsole_cliprof_check module](fmgr_securityconsole_cliprof_check_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-cliprof-check-module) – no description
+- [fmgr_securityconsole_import_dev_objs module](fmgr_securityconsole_import_dev_objs_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-import-dev-objs-module) – Import objects from device to ADOM, or from ADOM to Global.
+- [fmgr_securityconsole_install_device module](fmgr_securityconsole_install_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-install-device-module) – no description
+- [fmgr_securityconsole_install_objects_v2 module](fmgr_securityconsole_install_objects_v2_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-install-objects-v2-module) – no description
+- [fmgr_securityconsole_install_package module](fmgr_securityconsole_install_package_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-install-package-module) – Copy and install a policy package to devices.
+- [fmgr_securityconsole_install_preview module](fmgr_securityconsole_install_preview_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-install-preview-module) – Generate install preview for a device.
+- [fmgr_securityconsole_package_cancel_install module](fmgr_securityconsole_package_cancel_install_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-package-cancel-install-module) – Cancel policy install and clear preview cache.
+- [fmgr_securityconsole_package_clone module](fmgr_securityconsole_package_clone_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-package-clone-module) – Clone a policy package within the same ADOM.
+- [fmgr_securityconsole_package_commit module](fmgr_securityconsole_package_commit_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-package-commit-module) – Install policies to device from preview cache.
+- [fmgr_securityconsole_package_move module](fmgr_securityconsole_package_move_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-package-move-module) – Move and/or rename a policy package within the same ADOM.
+- [fmgr_securityconsole_pblock_clone module](fmgr_securityconsole_pblock_clone_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-pblock-clone-module) – no description
+- [fmgr_securityconsole_preview_result module](fmgr_securityconsole_preview_result_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-preview-result-module) – Retrieve the result of previous install/preview command.
+- [fmgr_securityconsole_reinstall_package module](fmgr_securityconsole_reinstall_package_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-reinstall-package-module) – Re-install a policy package that had been previously installed.
+- [fmgr_securityconsole_sign_certificate_template module](fmgr_securityconsole_sign_certificate_template_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-sign-certificate-template-module) – Generate and sign certificate on the target device.
+- [fmgr_securityconsole_template_cli_preview module](fmgr_securityconsole_template_cli_preview_module.md#ansible-collections-fortinet-fortimanager-fmgr-securityconsole-template-cli-preview-module) – no description
+- [fmgr_spamfilter_bwl module](fmgr_spamfilter_bwl_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-bwl-module) – Configure anti-spam black/white list.
+- [fmgr_spamfilter_bwl_entries module](fmgr_spamfilter_bwl_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-bwl-entries-module) – Anti-spam black/white list entries.
+- [fmgr_spamfilter_bword module](fmgr_spamfilter_bword_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-bword-module) – Configure AntiSpam banned word list.
+- [fmgr_spamfilter_bword_entries module](fmgr_spamfilter_bword_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-bword-entries-module) – Spam filter banned word.
+- [fmgr_spamfilter_dnsbl module](fmgr_spamfilter_dnsbl_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-dnsbl-module) – Configure AntiSpam DNSBL/ORBL.
+- [fmgr_spamfilter_dnsbl_entries module](fmgr_spamfilter_dnsbl_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-dnsbl-entries-module) – Spam filter DNSBL and ORBL server.
+- [fmgr_spamfilter_iptrust module](fmgr_spamfilter_iptrust_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-iptrust-module) – Configure AntiSpam IP trust.
+- [fmgr_spamfilter_iptrust_entries module](fmgr_spamfilter_iptrust_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-iptrust-entries-module) – Spam filter trusted IP addresses.
+- [fmgr_spamfilter_mheader module](fmgr_spamfilter_mheader_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-mheader-module) – Configure AntiSpam MIME header.
+- [fmgr_spamfilter_mheader_entries module](fmgr_spamfilter_mheader_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-mheader-entries-module) – Spam filter mime header content.
+- [fmgr_spamfilter_profile module](fmgr_spamfilter_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-module) – Configure AntiSpam profiles.
+- [fmgr_spamfilter_profile_gmail module](fmgr_spamfilter_profile_gmail_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-gmail-module) – Gmail.
+- [fmgr_spamfilter_profile_imap module](fmgr_spamfilter_profile_imap_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-imap-module) – IMAP.
+- [fmgr_spamfilter_profile_mapi module](fmgr_spamfilter_profile_mapi_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-mapi-module) – MAPI.
+- [fmgr_spamfilter_profile_msnhotmail module](fmgr_spamfilter_profile_msnhotmail_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-msnhotmail-module) – MSN Hotmail.
+- [fmgr_spamfilter_profile_pop3 module](fmgr_spamfilter_profile_pop3_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-pop3-module) – POP3.
+- [fmgr_spamfilter_profile_smtp module](fmgr_spamfilter_profile_smtp_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-smtp-module) – SMTP.
+- [fmgr_spamfilter_profile_yahoomail module](fmgr_spamfilter_profile_yahoomail_module.md#ansible-collections-fortinet-fortimanager-fmgr-spamfilter-profile-yahoomail-module) – Yahoo! Mail.
+- [fmgr_sshfilter_profile module](fmgr_sshfilter_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-sshfilter-profile-module) – SSH filter profile.
+- [fmgr_sshfilter_profile_filefilter module](fmgr_sshfilter_profile_filefilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-sshfilter-profile-filefilter-module) – File filter.
+- [fmgr_sshfilter_profile_filefilter_entries module](fmgr_sshfilter_profile_filefilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-sshfilter-profile-filefilter-entries-module) – File filter entries.
+- [fmgr_sshfilter_profile_shellcommands module](fmgr_sshfilter_profile_shellcommands_module.md#ansible-collections-fortinet-fortimanager-fmgr-sshfilter-profile-shellcommands-module) – SSH command filter.
+- [fmgr_switchcontroller_acl_group module](fmgr_switchcontroller_acl_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-acl-group-module) – Configure ACL groups to be applied on managed FortiSwitch ports.
+- [fmgr_switchcontroller_acl_ingress module](fmgr_switchcontroller_acl_ingress_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-acl-ingress-module) – Configure ingress ACL policies to be applied on managed FortiSwitch ports.
+- [fmgr_switchcontroller_acl_ingress_action module](fmgr_switchcontroller_acl_ingress_action_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-acl-ingress-action-module) – ACL actions.
+- [fmgr_switchcontroller_acl_ingress_classifier module](fmgr_switchcontroller_acl_ingress_classifier_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-acl-ingress-classifier-module) – ACL classifiers.
+- [fmgr_switchcontroller_customcommand module](fmgr_switchcontroller_customcommand_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-customcommand-module) – Configure the FortiGate switch controller to send custom commands to managed FortiSwitch devices.
+- [fmgr_switchcontroller_dsl_policy module](fmgr_switchcontroller_dsl_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-dsl-policy-module) – DSL policy.
+- [fmgr_switchcontroller_dynamicportpolicy module](fmgr_switchcontroller_dynamicportpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-dynamicportpolicy-module) – Configure Dynamic port policy to be applied on the managed FortiSwitch ports through DPP device.
+- [fmgr_switchcontroller_dynamicportpolicy_policy module](fmgr_switchcontroller_dynamicportpolicy_policy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-dynamicportpolicy-policy-module) – Port policies with matching criteria and actions.
+- [fmgr_switchcontroller_fortilinksettings module](fmgr_switchcontroller_fortilinksettings_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-fortilinksettings-module) – Configure integrated FortiLink settings for FortiSwitch.
+- [fmgr_switchcontroller_fortilinksettings_nacports module](fmgr_switchcontroller_fortilinksettings_nacports_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-fortilinksettings-nacports-module) – NAC specific configuration.
+- [fmgr_switchcontroller_lldpprofile module](fmgr_switchcontroller_lldpprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-lldpprofile-module) – Configure FortiSwitch LLDP profiles.
+- [fmgr_switchcontroller_lldpprofile_customtlvs module](fmgr_switchcontroller_lldpprofile_customtlvs_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-lldpprofile-customtlvs-module) – Configuration method to edit custom TLV entries.
+- [fmgr_switchcontroller_lldpprofile_medlocationservice module](fmgr_switchcontroller_lldpprofile_medlocationservice_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-lldpprofile-medlocationservice-module) – Configuration method to edit Media Endpoint Discovery
+- [fmgr_switchcontroller_lldpprofile_mednetworkpolicy module](fmgr_switchcontroller_lldpprofile_mednetworkpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-lldpprofile-mednetworkpolicy-module) – Configuration method to edit Media Endpoint Discovery
+- [fmgr_switchcontroller_macpolicy module](fmgr_switchcontroller_macpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-macpolicy-module) – Configure MAC policy to be applied on the managed FortiSwitch devices through NAC device.
+- [fmgr_switchcontroller_managedswitch module](fmgr_switchcontroller_managedswitch_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-module) – Configure FortiSwitch devices that are managed by this FortiGate.
+- [fmgr_switchcontroller_managedswitch_8021xsettings module](fmgr_switchcontroller_managedswitch_8021xsettings_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-8021xsettings-module) – Configuration method to edit FortiSwitch 802.
+- [fmgr_switchcontroller_managedswitch_customcommand module](fmgr_switchcontroller_managedswitch_customcommand_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-customcommand-module) – Configuration method to edit FortiSwitch commands to be pushed to this FortiSwitch device upon rebooting the FortiGate switch controller …
+- [fmgr_switchcontroller_managedswitch_dhcpsnoopingstaticclient module](fmgr_switchcontroller_managedswitch_dhcpsnoopingstaticclient_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-dhcpsnoopingstaticclient-module) – Configure FortiSwitch DHCP snooping static clients.
+- [fmgr_switchcontroller_managedswitch_igmpsnooping module](fmgr_switchcontroller_managedswitch_igmpsnooping_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-igmpsnooping-module) – Configure FortiSwitch IGMP snooping global settings.
+- [fmgr_switchcontroller_managedswitch_ipsourceguard module](fmgr_switchcontroller_managedswitch_ipsourceguard_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-ipsourceguard-module) – IP source guard.
+- [fmgr_switchcontroller_managedswitch_ipsourceguard_bindingentry module](fmgr_switchcontroller_managedswitch_ipsourceguard_bindingentry_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-ipsourceguard-bindingentry-module) – IP and MAC address configuration.
+- [fmgr_switchcontroller_managedswitch_mirror module](fmgr_switchcontroller_managedswitch_mirror_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-mirror-module) – Configuration method to edit FortiSwitch packet mirror.
+- [fmgr_switchcontroller_managedswitch_ports module](fmgr_switchcontroller_managedswitch_ports_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-ports-module) – Managed-switch port list.
+- [fmgr_switchcontroller_managedswitch_ports_dhcpsnoopoption82override module](fmgr_switchcontroller_managedswitch_ports_dhcpsnoopoption82override_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-ports-dhcpsnoopoption82override-module) – Configure DHCP snooping option 82 override.
+- [fmgr_switchcontroller_managedswitch_remotelog module](fmgr_switchcontroller_managedswitch_remotelog_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-remotelog-module) – Configure logging by FortiSwitch device to a remote syslog server.
+- [fmgr_switchcontroller_managedswitch_routeoffloadrouter module](fmgr_switchcontroller_managedswitch_routeoffloadrouter_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-routeoffloadrouter-module) – Configure route offload MCLAG IP address.
+- [fmgr_switchcontroller_managedswitch_snmpcommunity module](fmgr_switchcontroller_managedswitch_snmpcommunity_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-snmpcommunity-module) – Configuration method to edit Simple Network Management Protocol
+- [fmgr_switchcontroller_managedswitch_snmpcommunity_hosts module](fmgr_switchcontroller_managedswitch_snmpcommunity_hosts_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-snmpcommunity-hosts-module) – Configure IPv4 SNMP managers
+- [fmgr_switchcontroller_managedswitch_snmpsysinfo module](fmgr_switchcontroller_managedswitch_snmpsysinfo_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-snmpsysinfo-module) – Configuration method to edit Simple Network Management Protocol
+- [fmgr_switchcontroller_managedswitch_snmptrapthreshold module](fmgr_switchcontroller_managedswitch_snmptrapthreshold_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-snmptrapthreshold-module) – Configuration method to edit Simple Network Management Protocol
+- [fmgr_switchcontroller_managedswitch_snmpuser module](fmgr_switchcontroller_managedswitch_snmpuser_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-snmpuser-module) – Configuration method to edit Simple Network Management Protocol
+- [fmgr_switchcontroller_managedswitch_staticmac module](fmgr_switchcontroller_managedswitch_staticmac_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-staticmac-module) – Configuration method to edit FortiSwitch Static and Sticky MAC.
+- [fmgr_switchcontroller_managedswitch_stormcontrol module](fmgr_switchcontroller_managedswitch_stormcontrol_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-stormcontrol-module) – Configuration method to edit FortiSwitch storm control for measuring traffic activity using data rates to prevent traffic disruption.
+- [fmgr_switchcontroller_managedswitch_stpinstance module](fmgr_switchcontroller_managedswitch_stpinstance_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-stpinstance-module) – Configuration method to edit Spanning Tree Protocol
+- [fmgr_switchcontroller_managedswitch_stpsettings module](fmgr_switchcontroller_managedswitch_stpsettings_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-stpsettings-module) – Configuration method to edit Spanning Tree Protocol
+- [fmgr_switchcontroller_managedswitch_switchlog module](fmgr_switchcontroller_managedswitch_switchlog_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-switchlog-module) – Configuration method to edit FortiSwitch logging settings
+- [fmgr_switchcontroller_managedswitch_switchstpsettings module](fmgr_switchcontroller_managedswitch_switchstpsettings_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-managedswitch-switchstpsettings-module) – Configure spanning tree protocol
+- [fmgr_switchcontroller_ptp_profile module](fmgr_switchcontroller_ptp_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-ptp-profile-module) – Global PTP profile.
+- [fmgr_switchcontroller_qos_dot1pmap module](fmgr_switchcontroller_qos_dot1pmap_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-qos-dot1pmap-module) – Configure FortiSwitch QoS 802.
+- [fmgr_switchcontroller_qos_ipdscpmap module](fmgr_switchcontroller_qos_ipdscpmap_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-qos-ipdscpmap-module) – Configure FortiSwitch QoS IP precedence/DSCP.
+- [fmgr_switchcontroller_qos_ipdscpmap_map module](fmgr_switchcontroller_qos_ipdscpmap_map_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-qos-ipdscpmap-map-module) – Maps between IP-DSCP value to COS queue.
+- [fmgr_switchcontroller_qos_qospolicy module](fmgr_switchcontroller_qos_qospolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-qos-qospolicy-module) – Configure FortiSwitch QoS policy.
+- [fmgr_switchcontroller_qos_queuepolicy module](fmgr_switchcontroller_qos_queuepolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-qos-queuepolicy-module) – Configure FortiSwitch QoS egress queue policy.
+- [fmgr_switchcontroller_qos_queuepolicy_cosqueue module](fmgr_switchcontroller_qos_queuepolicy_cosqueue_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-qos-queuepolicy-cosqueue-module) – COS queue configuration.
+- [fmgr_switchcontroller_securitypolicy_8021x module](fmgr_switchcontroller_securitypolicy_8021x_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-securitypolicy-8021x-module) – Configure 802.
+- [fmgr_switchcontroller_securitypolicy_captiveportal module](fmgr_switchcontroller_securitypolicy_captiveportal_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-securitypolicy-captiveportal-module) – Names of VLANs that use captive portal authentication.
+- [fmgr_switchcontroller_switchinterfacetag module](fmgr_switchcontroller_switchinterfacetag_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-switchinterfacetag-module) – Configure switch object tags.
+- [fmgr_switchcontroller_trafficpolicy module](fmgr_switchcontroller_trafficpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-trafficpolicy-module) – Configure FortiSwitch traffic policy.
+- [fmgr_switchcontroller_vlanpolicy module](fmgr_switchcontroller_vlanpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-switchcontroller-vlanpolicy-module) – Configure VLAN policy to be applied on the managed FortiSwitch ports through dynamic-port-policy.
+- [fmgr_sys_api_sdnconnector module](fmgr_sys_api_sdnconnector_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-api-sdnconnector-module) – Query SDN connector data.
+- [fmgr_sys_cloud_orchest module](fmgr_sys_cloud_orchest_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-cloud-orchest-module) – no description
+- [fmgr_sys_generate_wsdl module](fmgr_sys_generate_wsdl_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-generate-wsdl-module) – Generate WSDL for specific module and objects.
+- [fmgr_sys_hitcount module](fmgr_sys_hitcount_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-hitcount-module) – no description
+- [fmgr_sys_login_challenge module](fmgr_sys_login_challenge_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-login-challenge-module) – Answer a log in challenge question, used following a login/user or login/challenge command.
+- [fmgr_sys_login_user module](fmgr_sys_login_user_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-login-user-module) – Log into the device with user name and password.
+- [fmgr_sys_logout module](fmgr_sys_logout_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-logout-module) – Log out a session.
+- [fmgr_sys_proxy_json module](fmgr_sys_proxy_json_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-proxy-json-module) – Send and receive JSON request to/from managed devices.
+- [fmgr_sys_reboot module](fmgr_sys_reboot_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-reboot-module) – Restart FortiManager.
+- [fmgr_sys_task_result module](fmgr_sys_task_result_module.md#ansible-collections-fortinet-fortimanager-fmgr-sys-task-result-module) – no description
+- [fmgr_system_admin_group module](fmgr_system_admin_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-group-module) – User group.
+- [fmgr_system_admin_group_member module](fmgr_system_admin_group_member_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-group-member-module) – Group members.
+- [fmgr_system_admin_ldap module](fmgr_system_admin_ldap_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-ldap-module) – LDAP server entry configuration.
+- [fmgr_system_admin_ldap_adom module](fmgr_system_admin_ldap_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-ldap-adom-module) – Admin domain.
+- [fmgr_system_admin_profile module](fmgr_system_admin_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-profile-module) – Admin profile.
+- [fmgr_system_admin_profile_datamaskcustomfields module](fmgr_system_admin_profile_datamaskcustomfields_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-profile-datamaskcustomfields-module) – Customized datamask fields.
+- [fmgr_system_admin_radius module](fmgr_system_admin_radius_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-radius-module) – Configure radius.
+- [fmgr_system_admin_setting module](fmgr_system_admin_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-setting-module) – Admin setting.
+- [fmgr_system_admin_tacacs module](fmgr_system_admin_tacacs_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-tacacs-module) – TACACS+ server entry configuration.
+- [fmgr_system_admin_user module](fmgr_system_admin_user_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-module) – Admin user.
+- [fmgr_system_admin_user_adom module](fmgr_system_admin_user_adom_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-adom-module) – Admin domain.
+- [fmgr_system_admin_user_adomexclude module](fmgr_system_admin_user_adomexclude_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-adomexclude-module) – Excluding admin domain.
+- [fmgr_system_admin_user_appfilter module](fmgr_system_admin_user_appfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-appfilter-module) – App filter.
+- [fmgr_system_admin_user_dashboard module](fmgr_system_admin_user_dashboard_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-dashboard-module) – Custom dashboard widgets.
+- [fmgr_system_admin_user_dashboardtabs module](fmgr_system_admin_user_dashboardtabs_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-dashboardtabs-module) – Custom dashboard.
+- [fmgr_system_admin_user_ipsfilter module](fmgr_system_admin_user_ipsfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-ipsfilter-module) – IPS filter.
+- [fmgr_system_admin_user_metadata module](fmgr_system_admin_user_metadata_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-metadata-module) – Configure meta data.
+- [fmgr_system_admin_user_policypackage module](fmgr_system_admin_user_policypackage_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-policypackage-module) – Policy package access.
+- [fmgr_system_admin_user_restrictdevvdom module](fmgr_system_admin_user_restrictdevvdom_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-restrictdevvdom-module) – Restricted to these devices/VDOMs.
+- [fmgr_system_admin_user_webfilter module](fmgr_system_admin_user_webfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-admin-user-webfilter-module) – Web filter.
+- [fmgr_system_alertconsole module](fmgr_system_alertconsole_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-alertconsole-module) – Alert console.
+- [fmgr_system_alertemail module](fmgr_system_alertemail_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-alertemail-module) – Configure alertemail.
+- [fmgr_system_alertevent module](fmgr_system_alertevent_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-alertevent-module) – Alert events.
+- [fmgr_system_alertevent_alertdestination module](fmgr_system_alertevent_alertdestination_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-alertevent-alertdestination-module) – Alert destination.
+- [fmgr_system_autodelete module](fmgr_system_autodelete_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-autodelete-module) – Automatic deletion policy for logs, reports, archived, and quarantined files.
+- [fmgr_system_autodelete_dlpfilesautodeletion module](fmgr_system_autodelete_dlpfilesautodeletion_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-autodelete-dlpfilesautodeletion-module) – Automatic deletion policy for DLP archives.
+- [fmgr_system_autodelete_logautodeletion module](fmgr_system_autodelete_logautodeletion_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-autodelete-logautodeletion-module) – Automatic deletion policy for device logs.
+- [fmgr_system_autodelete_quarantinefilesautodeletion module](fmgr_system_autodelete_quarantinefilesautodeletion_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-autodelete-quarantinefilesautodeletion-module) – Automatic deletion policy for quarantined files.
+- [fmgr_system_autodelete_reportautodeletion module](fmgr_system_autodelete_reportautodeletion_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-autodelete-reportautodeletion-module) – Automatic deletion policy for reports.
+- [fmgr_system_backup_allsettings module](fmgr_system_backup_allsettings_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-backup-allsettings-module) – Scheduled backup settings.
+- [fmgr_system_certificate_ca module](fmgr_system_certificate_ca_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-certificate-ca-module) – CA certificate.
+- [fmgr_system_certificate_crl module](fmgr_system_certificate_crl_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-certificate-crl-module) – Certificate Revocation List.
+- [fmgr_system_certificate_local module](fmgr_system_certificate_local_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-certificate-local-module) – Local keys and certificates.
+- [fmgr_system_certificate_oftp module](fmgr_system_certificate_oftp_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-certificate-oftp-module) – OFTP certificates and keys.
+- [fmgr_system_certificate_remote module](fmgr_system_certificate_remote_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-certificate-remote-module) – Remote certificate.
+- [fmgr_system_certificate_ssh module](fmgr_system_certificate_ssh_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-certificate-ssh-module) – SSH certificates and keys.
+- [fmgr_system_connector module](fmgr_system_connector_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-connector-module) – Configure connector.
+- [fmgr_system_csf module](fmgr_system_csf_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-csf-module) – Add this device to a Security Fabric or set up a new Security Fabric on this device.
+- [fmgr_system_csf_fabricconnector module](fmgr_system_csf_fabricconnector_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-csf-fabricconnector-module) – Fabric connector configuration.
+- [fmgr_system_csf_trustedlist module](fmgr_system_csf_trustedlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-csf-trustedlist-module) – Pre-authorized and blocked security fabric nodes.
+- [fmgr_system_customlanguage module](fmgr_system_customlanguage_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-customlanguage-module) – Configure custom languages.
+- [fmgr_system_dhcp_server module](fmgr_system_dhcp_server_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-dhcp-server-module) – Configure DHCP servers.
+- [fmgr_system_dhcp_server_excluderange module](fmgr_system_dhcp_server_excluderange_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-dhcp-server-excluderange-module) – Exclude one or more ranges of IP addresses from being assigned to clients.
+- [fmgr_system_dhcp_server_iprange module](fmgr_system_dhcp_server_iprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-dhcp-server-iprange-module) – DHCP IP range configuration.
+- [fmgr_system_dhcp_server_options module](fmgr_system_dhcp_server_options_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-dhcp-server-options-module) – DHCP options.
+- [fmgr_system_dhcp_server_reservedaddress module](fmgr_system_dhcp_server_reservedaddress_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-dhcp-server-reservedaddress-module) – Options for the DHCP server to assign IP settings to specific MAC addresses.
+- [fmgr_system_dm module](fmgr_system_dm_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-dm-module) – Configure dm.
+- [fmgr_system_dns module](fmgr_system_dns_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-dns-module) – DNS configuration.
+- [fmgr_system_docker module](fmgr_system_docker_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-docker-module) – Docker host.
+- [fmgr_system_externalresource module](fmgr_system_externalresource_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-externalresource-module) – Configure external resource.
+- [fmgr_system_fips module](fmgr_system_fips_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-fips-module) – Settings for FIPS-CC mode.
+- [fmgr_system_fortiguard module](fmgr_system_fortiguard_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-fortiguard-module) – Configure FortiGuard services.
+- [fmgr_system_fortiview_autocache module](fmgr_system_fortiview_autocache_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-fortiview-autocache-module) – FortiView auto-cache settings.
+- [fmgr_system_fortiview_setting module](fmgr_system_fortiview_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-fortiview-setting-module) – FortiView settings.
+- [fmgr_system_geoipcountry module](fmgr_system_geoipcountry_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-geoipcountry-module) – no description
+- [fmgr_system_geoipoverride module](fmgr_system_geoipoverride_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-geoipoverride-module) – Configure geographical location mapping for IP address
+- [fmgr_system_geoipoverride_ip6range module](fmgr_system_geoipoverride_ip6range_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-geoipoverride-ip6range-module) – Table of IPv6 ranges assigned to country.
+- [fmgr_system_geoipoverride_iprange module](fmgr_system_geoipoverride_iprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-geoipoverride-iprange-module) – Table of IP ranges assigned to country.
+- [fmgr_system_global module](fmgr_system_global_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-global-module) – Global range attributes.
+- [fmgr_system_guiact module](fmgr_system_guiact_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-guiact-module) – System settings through GUI.
+- [fmgr_system_ha module](fmgr_system_ha_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-ha-module) – HA configuration.
+- [fmgr_system_ha_monitoredinterfaces module](fmgr_system_ha_monitoredinterfaces_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-ha-monitoredinterfaces-module) – Monitored interfaces.
+- [fmgr_system_ha_monitoredips module](fmgr_system_ha_monitoredips_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-ha-monitoredips-module) – Monitored IP addresses.
+- [fmgr_system_ha_peer module](fmgr_system_ha_peer_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-ha-peer-module) – Peer.
+- [fmgr_system_hascheduledcheck module](fmgr_system_hascheduledcheck_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-hascheduledcheck-module) – Scheduled HA integrity check.
+- [fmgr_system_interface module](fmgr_system_interface_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-interface-module) – Interface configuration.
+- [fmgr_system_interface_ipv6 module](fmgr_system_interface_ipv6_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-interface-ipv6-module) – IPv6 of interface.
+- [fmgr_system_interface_member module](fmgr_system_interface_member_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-interface-member-module) – Physical interfaces that belong to the aggregate or redundant interface.
+- [fmgr_system_localinpolicy module](fmgr_system_localinpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-localinpolicy-module) – IPv4 local in policy configuration.
+- [fmgr_system_localinpolicy6 module](fmgr_system_localinpolicy6_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-localinpolicy6-module) – IPv6 local in policy configuration.
+- [fmgr_system_locallog_disk_filter module](fmgr_system_locallog_disk_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-disk-filter-module) – Filter for disk logging.
+- [fmgr_system_locallog_disk_setting module](fmgr_system_locallog_disk_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-disk-setting-module) – Settings for local disk logging.
+- [fmgr_system_locallog_fortianalyzer2_filter module](fmgr_system_locallog_fortianalyzer2_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-fortianalyzer2-filter-module) – Filter for FortiAnalyzer2 logging.
+- [fmgr_system_locallog_fortianalyzer2_setting module](fmgr_system_locallog_fortianalyzer2_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-fortianalyzer2-setting-module) – Settings for locallog to fortianalyzer.
+- [fmgr_system_locallog_fortianalyzer3_filter module](fmgr_system_locallog_fortianalyzer3_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-fortianalyzer3-filter-module) – Filter for FortiAnalyzer3 logging.
+- [fmgr_system_locallog_fortianalyzer3_setting module](fmgr_system_locallog_fortianalyzer3_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-fortianalyzer3-setting-module) – Settings for locallog to fortianalyzer.
+- [fmgr_system_locallog_fortianalyzer_filter module](fmgr_system_locallog_fortianalyzer_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-fortianalyzer-filter-module) – Filter for FortiAnalyzer logging.
+- [fmgr_system_locallog_fortianalyzer_setting module](fmgr_system_locallog_fortianalyzer_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-fortianalyzer-setting-module) – Settings for locallog to fortianalyzer.
+- [fmgr_system_locallog_memory_filter module](fmgr_system_locallog_memory_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-memory-filter-module) – Filter for memory logging.
+- [fmgr_system_locallog_memory_setting module](fmgr_system_locallog_memory_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-memory-setting-module) – Settings for memory buffer.
+- [fmgr_system_locallog_setting module](fmgr_system_locallog_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-setting-module) – Settings for locallog logging.
+- [fmgr_system_locallog_syslogd2_filter module](fmgr_system_locallog_syslogd2_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-syslogd2-filter-module) – Filter for syslog logging.
+- [fmgr_system_locallog_syslogd2_setting module](fmgr_system_locallog_syslogd2_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-syslogd2-setting-module) – Settings for remote syslog server.
+- [fmgr_system_locallog_syslogd3_filter module](fmgr_system_locallog_syslogd3_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-syslogd3-filter-module) – Filter for syslog logging.
+- [fmgr_system_locallog_syslogd3_setting module](fmgr_system_locallog_syslogd3_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-syslogd3-setting-module) – Settings for remote syslog server.
+- [fmgr_system_locallog_syslogd_filter module](fmgr_system_locallog_syslogd_filter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-syslogd-filter-module) – Filter for syslog logging.
+- [fmgr_system_locallog_syslogd_setting module](fmgr_system_locallog_syslogd_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-locallog-syslogd-setting-module) – Settings for remote syslog server.
+- [fmgr_system_log_alert module](fmgr_system_log_alert_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-alert-module) – Log based alert settings.
+- [fmgr_system_log_devicedisable module](fmgr_system_log_devicedisable_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-devicedisable-module) – Disable client device logging.
+- [fmgr_system_log_fospolicystats module](fmgr_system_log_fospolicystats_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-fospolicystats-module) – FortiOS policy statistics settings.
+- [fmgr_system_log_interfacestats module](fmgr_system_log_interfacestats_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-interfacestats-module) – Interface statistics settings.
+- [fmgr_system_log_ioc module](fmgr_system_log_ioc_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-ioc-module) – IoC settings.
+- [fmgr_system_log_maildomain module](fmgr_system_log_maildomain_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-maildomain-module) – FortiMail domain setting.
+- [fmgr_system_log_ratelimit module](fmgr_system_log_ratelimit_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-ratelimit-module) – Logging rate limit.
+- [fmgr_system_log_ratelimit_device module](fmgr_system_log_ratelimit_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-ratelimit-device-module) – Device log rate limit.
+- [fmgr_system_log_ratelimit_ratelimits module](fmgr_system_log_ratelimit_ratelimits_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-ratelimit-ratelimits-module) – Per device or ADOM log rate limits.
+- [fmgr_system_log_settings module](fmgr_system_log_settings_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-settings-module) – Log settings.
+- [fmgr_system_log_settings_rollinganalyzer module](fmgr_system_log_settings_rollinganalyzer_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-settings-rollinganalyzer-module) – Log rolling policy for Network Analyzer logs.
+- [fmgr_system_log_settings_rollinglocal module](fmgr_system_log_settings_rollinglocal_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-settings-rollinglocal-module) – Log rolling policy for local logs.
+- [fmgr_system_log_settings_rollingregular module](fmgr_system_log_settings_rollingregular_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-settings-rollingregular-module) – Log rolling policy for device logs.
+- [fmgr_system_log_topology module](fmgr_system_log_topology_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-log-topology-module) – Logging topology settings.
+- [fmgr_system_logfetch_clientprofile module](fmgr_system_logfetch_clientprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-logfetch-clientprofile-module) – Log-fetch client profile settings.
+- [fmgr_system_logfetch_clientprofile_devicefilter module](fmgr_system_logfetch_clientprofile_devicefilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-logfetch-clientprofile-devicefilter-module) – List of device filter.
+- [fmgr_system_logfetch_clientprofile_logfilter module](fmgr_system_logfetch_clientprofile_logfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-logfetch-clientprofile-logfilter-module) – Log content filters.
+- [fmgr_system_logfetch_serversettings module](fmgr_system_logfetch_serversettings_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-logfetch-serversettings-module) – Log-fetch server settings.
+- [fmgr_system_mail module](fmgr_system_mail_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-mail-module) – Alert emails.
+- [fmgr_system_mcpolicydisabledadoms module](fmgr_system_mcpolicydisabledadoms_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-mcpolicydisabledadoms-module) – Multicast policy disabled adoms.
+- [fmgr_system_meta module](fmgr_system_meta_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-meta-module) – no description
+- [fmgr_system_meta_sysmetafields module](fmgr_system_meta_sysmetafields_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-meta-sysmetafields-module) – no description
+- [fmgr_system_metadata_admins module](fmgr_system_metadata_admins_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-metadata-admins-module) – Configure admins.
+- [fmgr_system_npu module](fmgr_system_npu_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-module) – Configure NPU attributes.
+- [fmgr_system_npu_backgroundssescan module](fmgr_system_npu_backgroundssescan_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-backgroundssescan-module) – Configure driver background scan for SSE.
+- [fmgr_system_npu_dosoptions module](fmgr_system_npu_dosoptions_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-dosoptions-module) – NPU DoS configurations.
+- [fmgr_system_npu_dswdtsprofile module](fmgr_system_npu_dswdtsprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-dswdtsprofile-module) – Configure NPU DSW DTS profile.
+- [fmgr_system_npu_dswqueuedtsprofile module](fmgr_system_npu_dswqueuedtsprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-dswqueuedtsprofile-module) – Configure NPU DSW Queue DTS profile.
+- [fmgr_system_npu_fpanomaly module](fmgr_system_npu_fpanomaly_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-fpanomaly-module) – NP6Lite anomaly protection
+- [fmgr_system_npu_hpe module](fmgr_system_npu_hpe_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-hpe-module) – Host protection engine configuration.
+- [fmgr_system_npu_ipreassembly module](fmgr_system_npu_ipreassembly_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-ipreassembly-module) – IP reassebmly engine configuration.
+- [fmgr_system_npu_isfnpqueues module](fmgr_system_npu_isfnpqueues_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-isfnpqueues-module) – Configure queues of switch port connected to NP6 XAUI on ingress path.
+- [fmgr_system_npu_npqueues module](fmgr_system_npu_npqueues_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-npqueues-module) – Configure queue assignment on NP7.
+- [fmgr_system_npu_npqueues_ethernettype module](fmgr_system_npu_npqueues_ethernettype_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-npqueues-ethernettype-module) – Configure a NP7 QoS Ethernet Type.
+- [fmgr_system_npu_npqueues_ipprotocol module](fmgr_system_npu_npqueues_ipprotocol_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-npqueues-ipprotocol-module) – Configure a NP7 QoS IP Protocol.
+- [fmgr_system_npu_npqueues_ipservice module](fmgr_system_npu_npqueues_ipservice_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-npqueues-ipservice-module) – Configure a NP7 QoS IP Service.
+- [fmgr_system_npu_npqueues_profile module](fmgr_system_npu_npqueues_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-npqueues-profile-module) – Configure a NP7 class profile.
+- [fmgr_system_npu_npqueues_scheduler module](fmgr_system_npu_npqueues_scheduler_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-npqueues-scheduler-module) – Configure a NP7 QoS Scheduler.
+- [fmgr_system_npu_portcpumap module](fmgr_system_npu_portcpumap_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-portcpumap-module) – Configure NPU interface to CPU core mapping.
+- [fmgr_system_npu_portnpumap module](fmgr_system_npu_portnpumap_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-portnpumap-module) – Configure port to NPU group mapping.
+- [fmgr_system_npu_portpathoption module](fmgr_system_npu_portpathoption_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-portpathoption-module) – Configure port using NPU or Intel-NIC.
+- [fmgr_system_npu_priorityprotocol module](fmgr_system_npu_priorityprotocol_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-priorityprotocol-module) – Configure NPU priority protocol.
+- [fmgr_system_npu_ssehascan module](fmgr_system_npu_ssehascan_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-ssehascan-module) – Configure driver HA scan for SSE.
+- [fmgr_system_npu_swehhash module](fmgr_system_npu_swehhash_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-swehhash-module) – Configure switch enhanced hashing.
+- [fmgr_system_npu_swtrhash module](fmgr_system_npu_swtrhash_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-swtrhash-module) – Configure switch traditional hashing.
+- [fmgr_system_npu_tcptimeoutprofile module](fmgr_system_npu_tcptimeoutprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-tcptimeoutprofile-module) – Configure TCP timeout profile.
+- [fmgr_system_npu_udptimeoutprofile module](fmgr_system_npu_udptimeoutprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-npu-udptimeoutprofile-module) – Configure UDP timeout profile.
+- [fmgr_system_ntp module](fmgr_system_ntp_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-ntp-module) – NTP settings.
+- [fmgr_system_ntp_ntpserver module](fmgr_system_ntp_ntpserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-ntp-ntpserver-module) – NTP server.
+- [fmgr_system_objecttag module](fmgr_system_objecttag_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-objecttag-module) – Configure object tags.
+- [fmgr_system_objecttagging module](fmgr_system_objecttagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-objecttagging-module) – Configure object tagging.
+- [fmgr_system_passwordpolicy module](fmgr_system_passwordpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-passwordpolicy-module) – Password policy.
+- [fmgr_system_replacemsggroup module](fmgr_system_replacemsggroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-module) – Configure replacement message groups.
+- [fmgr_system_replacemsggroup_admin module](fmgr_system_replacemsggroup_admin_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-admin-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_alertmail module](fmgr_system_replacemsggroup_alertmail_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-alertmail-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_auth module](fmgr_system_replacemsggroup_auth_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-auth-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_automation module](fmgr_system_replacemsggroup_automation_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-automation-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_custommessage module](fmgr_system_replacemsggroup_custommessage_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-custommessage-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_devicedetectionportal module](fmgr_system_replacemsggroup_devicedetectionportal_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-devicedetectionportal-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_ec module](fmgr_system_replacemsggroup_ec_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-ec-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_fortiguardwf module](fmgr_system_replacemsggroup_fortiguardwf_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-fortiguardwf-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_ftp module](fmgr_system_replacemsggroup_ftp_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-ftp-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_http module](fmgr_system_replacemsggroup_http_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-http-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_icap module](fmgr_system_replacemsggroup_icap_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-icap-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_mail module](fmgr_system_replacemsggroup_mail_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-mail-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_mm1 module](fmgr_system_replacemsggroup_mm1_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-mm1-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_mm3 module](fmgr_system_replacemsggroup_mm3_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-mm3-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_mm4 module](fmgr_system_replacemsggroup_mm4_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-mm4-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_mm7 module](fmgr_system_replacemsggroup_mm7_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-mm7-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_mms module](fmgr_system_replacemsggroup_mms_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-mms-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_nacquar module](fmgr_system_replacemsggroup_nacquar_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-nacquar-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_nntp module](fmgr_system_replacemsggroup_nntp_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-nntp-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_spam module](fmgr_system_replacemsggroup_spam_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-spam-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_sslvpn module](fmgr_system_replacemsggroup_sslvpn_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-sslvpn-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_trafficquota module](fmgr_system_replacemsggroup_trafficquota_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-trafficquota-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_utm module](fmgr_system_replacemsggroup_utm_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-utm-module) – Replacement message table entries.
+- [fmgr_system_replacemsggroup_webproxy module](fmgr_system_replacemsggroup_webproxy_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsggroup-webproxy-module) – Replacement message table entries.
+- [fmgr_system_replacemsgimage module](fmgr_system_replacemsgimage_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-replacemsgimage-module) – Configure replacement message images.
+- [fmgr_system_report_autocache module](fmgr_system_report_autocache_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-report-autocache-module) – Report auto-cache settings.
+- [fmgr_system_report_estbrowsetime module](fmgr_system_report_estbrowsetime_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-report-estbrowsetime-module) – Report estimated browse time settings
+- [fmgr_system_report_group module](fmgr_system_report_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-report-group-module) – Report group.
+- [fmgr_system_report_group_chartalternative module](fmgr_system_report_group_chartalternative_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-report-group-chartalternative-module) – Chart alternatives.
+- [fmgr_system_report_group_groupby module](fmgr_system_report_group_groupby_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-report-group-groupby-module) – Group-by variables.
+- [fmgr_system_report_setting module](fmgr_system_report_setting_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-report-setting-module) – Report settings.
+- [fmgr_system_route module](fmgr_system_route_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-route-module) – Routing table configuration.
+- [fmgr_system_route6 module](fmgr_system_route6_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-route6-module) – Routing table configuration.
+- [fmgr_system_saml module](fmgr_system_saml_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-saml-module) – Global settings for SAML authentication.
+- [fmgr_system_saml_fabricidp module](fmgr_system_saml_fabricidp_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-saml-fabricidp-module) – Authorized identity providers.
+- [fmgr_system_sdnconnector module](fmgr_system_sdnconnector_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-module) – Configure connection to SDN Connector.
+- [fmgr_system_sdnconnector_compartmentlist module](fmgr_system_sdnconnector_compartmentlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-compartmentlist-module) – Configure OCI compartment list.
+- [fmgr_system_sdnconnector_externalaccountlist module](fmgr_system_sdnconnector_externalaccountlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-externalaccountlist-module) – Configure AWS external account list.
+- [fmgr_system_sdnconnector_externalip module](fmgr_system_sdnconnector_externalip_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-externalip-module) – Configure GCP external IP.
+- [fmgr_system_sdnconnector_forwardingrule module](fmgr_system_sdnconnector_forwardingrule_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-forwardingrule-module) – Configure GCP forwarding rule.
+- [fmgr_system_sdnconnector_gcpprojectlist module](fmgr_system_sdnconnector_gcpprojectlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-gcpprojectlist-module) – Configure GCP project list.
+- [fmgr_system_sdnconnector_nic module](fmgr_system_sdnconnector_nic_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-nic-module) – Configure Azure network interface.
+- [fmgr_system_sdnconnector_nic_ip module](fmgr_system_sdnconnector_nic_ip_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-nic-ip-module) – Configure IP configuration.
+- [fmgr_system_sdnconnector_ociregionlist module](fmgr_system_sdnconnector_ociregionlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-ociregionlist-module) – Configure OCI region list.
+- [fmgr_system_sdnconnector_route module](fmgr_system_sdnconnector_route_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-route-module) – Configure GCP route.
+- [fmgr_system_sdnconnector_routetable module](fmgr_system_sdnconnector_routetable_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-routetable-module) – Configure Azure route table.
+- [fmgr_system_sdnconnector_routetable_route module](fmgr_system_sdnconnector_routetable_route_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnconnector-routetable-route-module) – Configure Azure route.
+- [fmgr_system_sdnproxy module](fmgr_system_sdnproxy_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sdnproxy-module) – Configure SDN proxy.
+- [fmgr_system_smsserver module](fmgr_system_smsserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-smsserver-module) – Configure SMS server for sending SMS messages to support user authentication.
+- [fmgr_system_sniffer module](fmgr_system_sniffer_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sniffer-module) – Interface sniffer.
+- [fmgr_system_snmp_community module](fmgr_system_snmp_community_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-snmp-community-module) – SNMP community configuration.
+- [fmgr_system_snmp_community_hosts module](fmgr_system_snmp_community_hosts_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-snmp-community-hosts-module) – Allow hosts configuration.
+- [fmgr_system_snmp_community_hosts6 module](fmgr_system_snmp_community_hosts6_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-snmp-community-hosts6-module) – Allow hosts configuration for IPv6.
+- [fmgr_system_snmp_sysinfo module](fmgr_system_snmp_sysinfo_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-snmp-sysinfo-module) – SNMP configuration.
+- [fmgr_system_snmp_user module](fmgr_system_snmp_user_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-snmp-user-module) – SNMP user configuration.
+- [fmgr_system_socfabric module](fmgr_system_socfabric_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-socfabric-module) – SOC Fabric.
+- [fmgr_system_socfabric_trustedlist module](fmgr_system_socfabric_trustedlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-socfabric-trustedlist-module) – Pre-authorized security fabric nodes
+- [fmgr_system_sql module](fmgr_system_sql_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sql-module) – SQL settings.
+- [fmgr_system_sql_customindex module](fmgr_system_sql_customindex_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sql-customindex-module) – List of SQL index fields.
+- [fmgr_system_sql_customskipidx module](fmgr_system_sql_customskipidx_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sql-customskipidx-module) – List of aditional SQL skip index fields.
+- [fmgr_system_sql_tsindexfield module](fmgr_system_sql_tsindexfield_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sql-tsindexfield-module) – List of SQL text search index fields.
+- [fmgr_system_sslciphersuites module](fmgr_system_sslciphersuites_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-sslciphersuites-module) – Configure preferred SSL/TLS cipher suites
+- [fmgr_system_syslog module](fmgr_system_syslog_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-syslog-module) – Syslog servers.
+- [fmgr_system_virtualwirepair module](fmgr_system_virtualwirepair_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-virtualwirepair-module) – Configure virtual wire pairs.
+- [fmgr_system_webproxy module](fmgr_system_webproxy_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-webproxy-module) – Configure system web proxy.
+- [fmgr_system_workflow_approvalmatrix module](fmgr_system_workflow_approvalmatrix_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-workflow-approvalmatrix-module) – workflow approval matrix.
+- [fmgr_system_workflow_approvalmatrix_approver module](fmgr_system_workflow_approvalmatrix_approver_module.md#ansible-collections-fortinet-fortimanager-fmgr-system-workflow-approvalmatrix-approver-module) – Approver.
+- [fmgr_template module](fmgr_template_module.md#ansible-collections-fortinet-fortimanager-fmgr-template-module) – no description
+- [fmgr_templategroup module](fmgr_templategroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-templategroup-module) – no description
+- [fmgr_um_image_upgrade module](fmgr_um_image_upgrade_module.md#ansible-collections-fortinet-fortimanager-fmgr-um-image-upgrade-module) – The older API for updating the firmware of specific device.
+- [fmgr_um_image_upgrade_ext module](fmgr_um_image_upgrade_ext_module.md#ansible-collections-fortinet-fortimanager-fmgr-um-image-upgrade-ext-module) – Update the firmware of specific device.
+- [fmgr_user_adgrp module](fmgr_user_adgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-adgrp-module) – Configure FSSO groups.
+- [fmgr_user_certificate module](fmgr_user_certificate_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-certificate-module) – Configure certificate users.
+- [fmgr_user_clearpass module](fmgr_user_clearpass_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-clearpass-module) – no description
+- [fmgr_user_connector module](fmgr_user_connector_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-connector-module) – no description
+- [fmgr_user_device module](fmgr_user_device_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-device-module) – Configure devices.
+- [fmgr_user_device_dynamicmapping module](fmgr_user_device_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-device-dynamicmapping-module) – Configure devices.
+- [fmgr_user_device_tagging module](fmgr_user_device_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-device-tagging-module) – Config object tagging.
+- [fmgr_user_deviceaccesslist module](fmgr_user_deviceaccesslist_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-deviceaccesslist-module) – Configure device access control lists.
+- [fmgr_user_deviceaccesslist_devicelist module](fmgr_user_deviceaccesslist_devicelist_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-deviceaccesslist-devicelist-module) – Device list.
+- [fmgr_user_devicecategory module](fmgr_user_devicecategory_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-devicecategory-module) – Configure device categories.
+- [fmgr_user_devicegroup module](fmgr_user_devicegroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-devicegroup-module) – Configure device groups.
+- [fmgr_user_devicegroup_dynamicmapping module](fmgr_user_devicegroup_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-devicegroup-dynamicmapping-module) – Configure device groups.
+- [fmgr_user_devicegroup_tagging module](fmgr_user_devicegroup_tagging_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-devicegroup-tagging-module) – Config object tagging.
+- [fmgr_user_domaincontroller module](fmgr_user_domaincontroller_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-domaincontroller-module) – Configure domain controller entries.
+- [fmgr_user_domaincontroller_extraserver module](fmgr_user_domaincontroller_extraserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-domaincontroller-extraserver-module) – extra servers.
+- [fmgr_user_exchange module](fmgr_user_exchange_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-exchange-module) – Configure MS Exchange server entries.
+- [fmgr_user_flexvm module](fmgr_user_flexvm_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-flexvm-module) – no description
+- [fmgr_user_fortitoken module](fmgr_user_fortitoken_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-fortitoken-module) – Configure FortiToken.
+- [fmgr_user_fsso module](fmgr_user_fsso_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-fsso-module) – Configure Fortinet Single Sign On
+- [fmgr_user_fsso_dynamicmapping module](fmgr_user_fsso_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-fsso-dynamicmapping-module) – Configure Fortinet Single Sign On
+- [fmgr_user_fssopolling module](fmgr_user_fssopolling_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-fssopolling-module) – Configure FSSO active directory servers for polling mode.
+- [fmgr_user_fssopolling_adgrp module](fmgr_user_fssopolling_adgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-fssopolling-adgrp-module) – LDAP Group Info.
+- [fmgr_user_group module](fmgr_user_group_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-group-module) – Configure user groups.
+- [fmgr_user_group_dynamicmapping module](fmgr_user_group_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-group-dynamicmapping-module) – Configure user groups.
+- [fmgr_user_group_dynamicmapping_guest module](fmgr_user_group_dynamicmapping_guest_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-group-dynamicmapping-guest-module) – Guest User.
+- [fmgr_user_group_dynamicmapping_match module](fmgr_user_group_dynamicmapping_match_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-group-dynamicmapping-match-module) – Group matches.
+- [fmgr_user_group_dynamicmapping_sslvpnoschecklist module](fmgr_user_group_dynamicmapping_sslvpnoschecklist_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-group-dynamicmapping-sslvpnoschecklist-module) – no description
+- [fmgr_user_group_guest module](fmgr_user_group_guest_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-group-guest-module) – Guest User.
+- [fmgr_user_group_match module](fmgr_user_group_match_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-group-match-module) – Group matches.
+- [fmgr_user_json module](fmgr_user_json_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-json-module) – no description
+- [fmgr_user_krbkeytab module](fmgr_user_krbkeytab_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-krbkeytab-module) – Configure Kerberos keytab entries.
+- [fmgr_user_ldap module](fmgr_user_ldap_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-ldap-module) – Configure LDAP server entries.
+- [fmgr_user_ldap_dynamicmapping module](fmgr_user_ldap_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-ldap-dynamicmapping-module) – Configure LDAP server entries.
+- [fmgr_user_local module](fmgr_user_local_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-local-module) – Configure local users.
+- [fmgr_user_nsx module](fmgr_user_nsx_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-nsx-module) – no description
+- [fmgr_user_nsx_service module](fmgr_user_nsx_service_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-nsx-service-module) – no description
+- [fmgr_user_passwordpolicy module](fmgr_user_passwordpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-passwordpolicy-module) – Configure user password policy.
+- [fmgr_user_peer module](fmgr_user_peer_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-peer-module) – Configure peer users.
+- [fmgr_user_peergrp module](fmgr_user_peergrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-peergrp-module) – Configure peer groups.
+- [fmgr_user_pop3 module](fmgr_user_pop3_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-pop3-module) – POP3 server entry configuration.
+- [fmgr_user_pxgrid module](fmgr_user_pxgrid_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-pxgrid-module) – no description
+- [fmgr_user_radius module](fmgr_user_radius_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-radius-module) – Configure RADIUS server entries.
+- [fmgr_user_radius_accountingserver module](fmgr_user_radius_accountingserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-radius-accountingserver-module) – Additional accounting servers.
+- [fmgr_user_radius_dynamicmapping module](fmgr_user_radius_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-radius-dynamicmapping-module) – Configure RADIUS server entries.
+- [fmgr_user_radius_dynamicmapping_accountingserver module](fmgr_user_radius_dynamicmapping_accountingserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-radius-dynamicmapping-accountingserver-module) – Additional accounting servers.
+- [fmgr_user_saml module](fmgr_user_saml_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-saml-module) – SAML server entry configuration.
+- [fmgr_user_saml_dynamicmapping module](fmgr_user_saml_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-saml-dynamicmapping-module) – SAML server entry configuration.
+- [fmgr_user_securityexemptlist module](fmgr_user_securityexemptlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-securityexemptlist-module) – Configure security exemption list.
+- [fmgr_user_securityexemptlist_rule module](fmgr_user_securityexemptlist_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-securityexemptlist-rule-module) – Configure rules for exempting users from captive portal authentication.
+- [fmgr_user_tacacs module](fmgr_user_tacacs_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-tacacs-module) – Configure TACACS+ server entries.
+- [fmgr_user_tacacs_dynamicmapping module](fmgr_user_tacacs_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-tacacs-dynamicmapping-module) – Configure TACACS+ server entries.
+- [fmgr_user_vcenter module](fmgr_user_vcenter_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-vcenter-module) – no description
+- [fmgr_user_vcenter_rule module](fmgr_user_vcenter_rule_module.md#ansible-collections-fortinet-fortimanager-fmgr-user-vcenter-rule-module) – no description
+- [fmgr_utmprofile module](fmgr_utmprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-utmprofile-module) – Configure UTM
+- [fmgr_vap module](fmgr_vap_module.md#ansible-collections-fortinet-fortimanager-fmgr-vap-module) – Configure Virtual Access Points
+- [fmgr_vap_dynamicmapping module](fmgr_vap_dynamicmapping_module.md#ansible-collections-fortinet-fortimanager-fmgr-vap-dynamicmapping-module) – Configure Virtual Access Points
+- [fmgr_vap_macfilterlist module](fmgr_vap_macfilterlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-vap-macfilterlist-module) – Create a list of MAC addresses for MAC address filtering.
+- [fmgr_vap_mpskkey module](fmgr_vap_mpskkey_module.md#ansible-collections-fortinet-fortimanager-fmgr-vap-mpskkey-module) – Pre-shared keys that can be used to connect to this virtual access point.
+- [fmgr_vap_portalmessageoverrides module](fmgr_vap_portalmessageoverrides_module.md#ansible-collections-fortinet-fortimanager-fmgr-vap-portalmessageoverrides-module) – Individual message overrides.
+- [fmgr_vap_vlanname module](fmgr_vap_vlanname_module.md#ansible-collections-fortinet-fortimanager-fmgr-vap-vlanname-module) – Table for mapping VLAN name to VLAN ID.
+- [fmgr_vap_vlanpool module](fmgr_vap_vlanpool_module.md#ansible-collections-fortinet-fortimanager-fmgr-vap-vlanpool-module) – VLAN pool.
+- [fmgr_vapgroup module](fmgr_vapgroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-vapgroup-module) – Configure virtual Access Point
+- [fmgr_videofilter_profile module](fmgr_videofilter_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-videofilter-profile-module) – Configure VideoFilter profile.
+- [fmgr_videofilter_profile_fortiguardcategory module](fmgr_videofilter_profile_fortiguardcategory_module.md#ansible-collections-fortinet-fortimanager-fmgr-videofilter-profile-fortiguardcategory-module) – Configure FortiGuard categories.
+- [fmgr_videofilter_profile_fortiguardcategory_filters module](fmgr_videofilter_profile_fortiguardcategory_filters_module.md#ansible-collections-fortinet-fortimanager-fmgr-videofilter-profile-fortiguardcategory-filters-module) – Configure VideoFilter FortiGuard category.
+- [fmgr_videofilter_youtubechannelfilter module](fmgr_videofilter_youtubechannelfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-videofilter-youtubechannelfilter-module) – Configure YouTube channel filter.
+- [fmgr_videofilter_youtubechannelfilter_entries module](fmgr_videofilter_youtubechannelfilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-videofilter-youtubechannelfilter-entries-module) – YouTube filter entries.
+- [fmgr_virtualpatch_profile module](fmgr_virtualpatch_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-virtualpatch-profile-module) – Configure virtual-patch profile.
+- [fmgr_virtualpatch_profile_exemption module](fmgr_virtualpatch_profile_exemption_module.md#ansible-collections-fortinet-fortimanager-fmgr-virtualpatch-profile-exemption-module) – Exempt devices or rules.
+- [fmgr_voip_profile module](fmgr_voip_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-voip-profile-module) – Configure VoIP profiles.
+- [fmgr_voip_profile_msrp module](fmgr_voip_profile_msrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-voip-profile-msrp-module) – MSRP.
+- [fmgr_voip_profile_sccp module](fmgr_voip_profile_sccp_module.md#ansible-collections-fortinet-fortimanager-fmgr-voip-profile-sccp-module) – SCCP.
+- [fmgr_voip_profile_sip module](fmgr_voip_profile_sip_module.md#ansible-collections-fortinet-fortimanager-fmgr-voip-profile-sip-module) – SIP.
+- [fmgr_vpn_certificate_ca module](fmgr_vpn_certificate_ca_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpn-certificate-ca-module) – CA certificate.
+- [fmgr_vpn_certificate_ocspserver module](fmgr_vpn_certificate_ocspserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpn-certificate-ocspserver-module) – OCSP server configuration.
+- [fmgr_vpn_certificate_remote module](fmgr_vpn_certificate_remote_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpn-certificate-remote-module) – Remote certificate as a PEM file.
+- [fmgr_vpn_ipsec_fec module](fmgr_vpn_ipsec_fec_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpn-ipsec-fec-module) – Configure Forward Error Correction
+- [fmgr_vpn_ipsec_fec_mappings module](fmgr_vpn_ipsec_fec_mappings_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpn-ipsec-fec-mappings-module) – FEC redundancy mapping table.
+- [fmgr_vpn_ssl_settings module](fmgr_vpn_ssl_settings_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpn-ssl-settings-module) – Configure SSL VPN.
+- [fmgr_vpn_ssl_settings_authenticationrule module](fmgr_vpn_ssl_settings_authenticationrule_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpn-ssl-settings-authenticationrule-module) – Authentication rule for SSL VPN.
+- [fmgr_vpnmgr_node module](fmgr_vpnmgr_node_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnmgr-node-module) – VPN node for VPN Manager.
+- [fmgr_vpnmgr_node_iprange module](fmgr_vpnmgr_node_iprange_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnmgr-node-iprange-module) – no description
+- [fmgr_vpnmgr_node_ipv4excluderange module](fmgr_vpnmgr_node_ipv4excluderange_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnmgr-node-ipv4excluderange-module) – no description
+- [fmgr_vpnmgr_node_protectedsubnet module](fmgr_vpnmgr_node_protectedsubnet_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnmgr-node-protectedsubnet-module) – no description
+- [fmgr_vpnmgr_node_summaryaddr module](fmgr_vpnmgr_node_summaryaddr_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnmgr-node-summaryaddr-module) – no description
+- [fmgr_vpnmgr_vpntable module](fmgr_vpnmgr_vpntable_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnmgr-vpntable-module) – no description
+- [fmgr_vpnsslweb_hostchecksoftware module](fmgr_vpnsslweb_hostchecksoftware_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-hostchecksoftware-module) – SSL-VPN host check software.
+- [fmgr_vpnsslweb_hostchecksoftware_checkitemlist module](fmgr_vpnsslweb_hostchecksoftware_checkitemlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-hostchecksoftware-checkitemlist-module) – Check item list.
+- [fmgr_vpnsslweb_portal module](fmgr_vpnsslweb_portal_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-module) – Portal.
+- [fmgr_vpnsslweb_portal_bookmarkgroup module](fmgr_vpnsslweb_portal_bookmarkgroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-bookmarkgroup-module) – Portal bookmark group.
+- [fmgr_vpnsslweb_portal_bookmarkgroup_bookmarks module](fmgr_vpnsslweb_portal_bookmarkgroup_bookmarks_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-bookmarkgroup-bookmarks-module) – Bookmark table.
+- [fmgr_vpnsslweb_portal_bookmarkgroup_bookmarks_formdata module](fmgr_vpnsslweb_portal_bookmarkgroup_bookmarks_formdata_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-bookmarkgroup-bookmarks-formdata-module) – Form data.
+- [fmgr_vpnsslweb_portal_landingpage module](fmgr_vpnsslweb_portal_landingpage_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-landingpage-module) – Landing page options.
+- [fmgr_vpnsslweb_portal_landingpage_formdata module](fmgr_vpnsslweb_portal_landingpage_formdata_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-landingpage-formdata-module) – Form data.
+- [fmgr_vpnsslweb_portal_macaddrcheckrule module](fmgr_vpnsslweb_portal_macaddrcheckrule_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-macaddrcheckrule-module) – Client MAC address check rule.
+- [fmgr_vpnsslweb_portal_oschecklist module](fmgr_vpnsslweb_portal_oschecklist_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-oschecklist-module) – SSL VPN OS checks.
+- [fmgr_vpnsslweb_portal_splitdns module](fmgr_vpnsslweb_portal_splitdns_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-portal-splitdns-module) – Split DNS for SSL VPN.
+- [fmgr_vpnsslweb_realm module](fmgr_vpnsslweb_realm_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-realm-module) – Realm.
+- [fmgr_vpnsslweb_virtualdesktopapplist module](fmgr_vpnsslweb_virtualdesktopapplist_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-virtualdesktopapplist-module) – SSL-VPN virtual desktop application list.
+- [fmgr_vpnsslweb_virtualdesktopapplist_apps module](fmgr_vpnsslweb_virtualdesktopapplist_apps_module.md#ansible-collections-fortinet-fortimanager-fmgr-vpnsslweb-virtualdesktopapplist-apps-module) – Applications.
+- [fmgr_waf_mainclass module](fmgr_waf_mainclass_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-mainclass-module) – Hidden table for datasource.
+- [fmgr_waf_profile module](fmgr_waf_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-module) – Web application firewall configuration.
+- [fmgr_waf_profile_addresslist module](fmgr_waf_profile_addresslist_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-addresslist-module) – Black address list and white address list.
+- [fmgr_waf_profile_constraint module](fmgr_waf_profile_constraint_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-module) – WAF HTTP protocol restrictions.
+- [fmgr_waf_profile_constraint_contentlength module](fmgr_waf_profile_constraint_contentlength_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-contentlength-module) – HTTP content length in request.
+- [fmgr_waf_profile_constraint_exception module](fmgr_waf_profile_constraint_exception_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-exception-module) – HTTP constraint exception.
+- [fmgr_waf_profile_constraint_headerlength module](fmgr_waf_profile_constraint_headerlength_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-headerlength-module) – HTTP header length in request.
+- [fmgr_waf_profile_constraint_hostname module](fmgr_waf_profile_constraint_hostname_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-hostname-module) – Enable/disable hostname check.
+- [fmgr_waf_profile_constraint_linelength module](fmgr_waf_profile_constraint_linelength_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-linelength-module) – HTTP line length in request.
+- [fmgr_waf_profile_constraint_malformed module](fmgr_waf_profile_constraint_malformed_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-malformed-module) – Enable/disable malformed HTTP request check.
+- [fmgr_waf_profile_constraint_maxcookie module](fmgr_waf_profile_constraint_maxcookie_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-maxcookie-module) – Maximum number of cookies in HTTP request.
+- [fmgr_waf_profile_constraint_maxheaderline module](fmgr_waf_profile_constraint_maxheaderline_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-maxheaderline-module) – Maximum number of HTTP header line.
+- [fmgr_waf_profile_constraint_maxrangesegment module](fmgr_waf_profile_constraint_maxrangesegment_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-maxrangesegment-module) – Maximum number of range segments in HTTP range line.
+- [fmgr_waf_profile_constraint_maxurlparam module](fmgr_waf_profile_constraint_maxurlparam_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-maxurlparam-module) – Maximum number of parameters in URL.
+- [fmgr_waf_profile_constraint_method module](fmgr_waf_profile_constraint_method_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-method-module) – Enable/disable HTTP method check.
+- [fmgr_waf_profile_constraint_paramlength module](fmgr_waf_profile_constraint_paramlength_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-paramlength-module) – Maximum length of parameter in URL, HTTP POST request or HTTP body.
+- [fmgr_waf_profile_constraint_urlparamlength module](fmgr_waf_profile_constraint_urlparamlength_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-urlparamlength-module) – Maximum length of parameter in URL.
+- [fmgr_waf_profile_constraint_version module](fmgr_waf_profile_constraint_version_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-constraint-version-module) – Enable/disable HTTP version check.
+- [fmgr_waf_profile_method module](fmgr_waf_profile_method_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-method-module) – Method restriction.
+- [fmgr_waf_profile_method_methodpolicy module](fmgr_waf_profile_method_methodpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-method-methodpolicy-module) – HTTP method policy.
+- [fmgr_waf_profile_signature module](fmgr_waf_profile_signature_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-signature-module) – WAF signatures.
+- [fmgr_waf_profile_signature_customsignature module](fmgr_waf_profile_signature_customsignature_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-signature-customsignature-module) – Custom signature.
+- [fmgr_waf_profile_signature_mainclass module](fmgr_waf_profile_signature_mainclass_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-signature-mainclass-module) – Main signature class.
+- [fmgr_waf_profile_urlaccess module](fmgr_waf_profile_urlaccess_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-urlaccess-module) – URL access list
+- [fmgr_waf_profile_urlaccess_accesspattern module](fmgr_waf_profile_urlaccess_accesspattern_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-profile-urlaccess-accesspattern-module) – URL access pattern.
+- [fmgr_waf_signature module](fmgr_waf_signature_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-signature-module) – Hidden table for datasource.
+- [fmgr_waf_subclass module](fmgr_waf_subclass_module.md#ansible-collections-fortinet-fortimanager-fmgr-waf-subclass-module) – Hidden table for datasource.
+- [fmgr_wagprofile module](fmgr_wagprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-wagprofile-module) – Configure wireless access gateway
+- [fmgr_wanopt_authgroup module](fmgr_wanopt_authgroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-authgroup-module) – Configure WAN optimization authentication groups.
+- [fmgr_wanopt_peer module](fmgr_wanopt_peer_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-peer-module) – Configure WAN optimization peers.
+- [fmgr_wanopt_profile module](fmgr_wanopt_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-profile-module) – Configure WAN optimization profiles.
+- [fmgr_wanopt_profile_cifs module](fmgr_wanopt_profile_cifs_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-profile-cifs-module) – Enable/disable CIFS
+- [fmgr_wanopt_profile_ftp module](fmgr_wanopt_profile_ftp_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-profile-ftp-module) – Enable/disable FTP WAN Optimization and configure FTP WAN Optimization features.
+- [fmgr_wanopt_profile_http module](fmgr_wanopt_profile_http_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-profile-http-module) – Enable/disable HTTP WAN Optimization and configure HTTP WAN Optimization features.
+- [fmgr_wanopt_profile_mapi module](fmgr_wanopt_profile_mapi_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-profile-mapi-module) – Enable/disable MAPI email WAN Optimization and configure MAPI WAN Optimization features.
+- [fmgr_wanopt_profile_tcp module](fmgr_wanopt_profile_tcp_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanopt-profile-tcp-module) – Enable/disable TCP WAN Optimization and configure TCP WAN Optimization features.
+- [fmgr_wanprof_system_sdwan module](fmgr_wanprof_system_sdwan_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-module) – Configure redundant internet connections using SD-WAN
+- [fmgr_wanprof_system_sdwan_duplication module](fmgr_wanprof_system_sdwan_duplication_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-duplication-module) – Create SD-WAN duplication rule.
+- [fmgr_wanprof_system_sdwan_healthcheck module](fmgr_wanprof_system_sdwan_healthcheck_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-healthcheck-module) – SD-WAN status checking or health checking.
+- [fmgr_wanprof_system_sdwan_healthcheck_sla module](fmgr_wanprof_system_sdwan_healthcheck_sla_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-healthcheck-sla-module) – Service level agreement
+- [fmgr_wanprof_system_sdwan_members module](fmgr_wanprof_system_sdwan_members_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-members-module) – FortiGate interfaces added to the SD-WAN.
+- [fmgr_wanprof_system_sdwan_neighbor module](fmgr_wanprof_system_sdwan_neighbor_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-neighbor-module) – Create SD-WAN neighbor from BGP neighbor table to control route advertisements according to SLA status.
+- [fmgr_wanprof_system_sdwan_service module](fmgr_wanprof_system_sdwan_service_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-service-module) – Create SD-WAN rules
+- [fmgr_wanprof_system_sdwan_service_sla module](fmgr_wanprof_system_sdwan_service_sla_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-service-sla-module) – Service level agreement
+- [fmgr_wanprof_system_sdwan_zone module](fmgr_wanprof_system_sdwan_zone_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-sdwan-zone-module) – Configure SD-WAN zones.
+- [fmgr_wanprof_system_virtualwanlink module](fmgr_wanprof_system_virtualwanlink_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-virtualwanlink-module) – Configure redundant internet connections using SD-WAN
+- [fmgr_wanprof_system_virtualwanlink_healthcheck module](fmgr_wanprof_system_virtualwanlink_healthcheck_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-virtualwanlink-healthcheck-module) – SD-WAN status checking or health checking.
+- [fmgr_wanprof_system_virtualwanlink_healthcheck_sla module](fmgr_wanprof_system_virtualwanlink_healthcheck_sla_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-virtualwanlink-healthcheck-sla-module) – Service level agreement
+- [fmgr_wanprof_system_virtualwanlink_members module](fmgr_wanprof_system_virtualwanlink_members_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-virtualwanlink-members-module) – Physical FortiGate interfaces added to the virtual-wan-link.
+- [fmgr_wanprof_system_virtualwanlink_neighbor module](fmgr_wanprof_system_virtualwanlink_neighbor_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-virtualwanlink-neighbor-module) – SD-WAN neighbor table.
+- [fmgr_wanprof_system_virtualwanlink_service module](fmgr_wanprof_system_virtualwanlink_service_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-virtualwanlink-service-module) – Create SD-WAN rules or priority rules
+- [fmgr_wanprof_system_virtualwanlink_service_sla module](fmgr_wanprof_system_virtualwanlink_service_sla_module.md#ansible-collections-fortinet-fortimanager-fmgr-wanprof-system-virtualwanlink-service-sla-module) – Service level agreement
+- [fmgr_webfilter_categories module](fmgr_webfilter_categories_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-categories-module) – no description
+- [fmgr_webfilter_content module](fmgr_webfilter_content_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-content-module) – Configure Web filter banned word table.
+- [fmgr_webfilter_content_entries module](fmgr_webfilter_content_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-content-entries-module) – Configure banned word entries.
+- [fmgr_webfilter_contentheader module](fmgr_webfilter_contentheader_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-contentheader-module) – Configure content types used by Web filter.
+- [fmgr_webfilter_contentheader_entries module](fmgr_webfilter_contentheader_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-contentheader-entries-module) – Configure content types used by web filter.
+- [fmgr_webfilter_ftgdlocalcat module](fmgr_webfilter_ftgdlocalcat_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-ftgdlocalcat-module) – Configure FortiGuard Web Filter local categories.
+- [fmgr_webfilter_ftgdlocalrating module](fmgr_webfilter_ftgdlocalrating_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-ftgdlocalrating-module) – Configure local FortiGuard Web Filter local ratings.
+- [fmgr_webfilter_profile module](fmgr_webfilter_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-module) – Configure Web filter profiles.
+- [fmgr_webfilter_profile_antiphish module](fmgr_webfilter_profile_antiphish_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-antiphish-module) – AntiPhishing profile.
+- [fmgr_webfilter_profile_antiphish_custompatterns module](fmgr_webfilter_profile_antiphish_custompatterns_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-antiphish-custompatterns-module) – Custom username and password regex patterns.
+- [fmgr_webfilter_profile_antiphish_inspectionentries module](fmgr_webfilter_profile_antiphish_inspectionentries_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-antiphish-inspectionentries-module) – AntiPhishing entries.
+- [fmgr_webfilter_profile_filefilter module](fmgr_webfilter_profile_filefilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-filefilter-module) – File filter.
+- [fmgr_webfilter_profile_filefilter_entries module](fmgr_webfilter_profile_filefilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-filefilter-entries-module) – File filter entries.
+- [fmgr_webfilter_profile_ftgdwf module](fmgr_webfilter_profile_ftgdwf_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-ftgdwf-module) – FortiGuard Web Filter settings.
+- [fmgr_webfilter_profile_ftgdwf_filters module](fmgr_webfilter_profile_ftgdwf_filters_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-ftgdwf-filters-module) – FortiGuard filters.
+- [fmgr_webfilter_profile_ftgdwf_quota module](fmgr_webfilter_profile_ftgdwf_quota_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-ftgdwf-quota-module) – FortiGuard traffic quota settings.
+- [fmgr_webfilter_profile_override module](fmgr_webfilter_profile_override_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-override-module) – Web Filter override settings.
+- [fmgr_webfilter_profile_urlextraction module](fmgr_webfilter_profile_urlextraction_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-urlextraction-module) – Configure URL Extraction
+- [fmgr_webfilter_profile_web module](fmgr_webfilter_profile_web_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-web-module) – Web content filtering settings.
+- [fmgr_webfilter_profile_youtubechannelfilter module](fmgr_webfilter_profile_youtubechannelfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-profile-youtubechannelfilter-module) – YouTube channel filter.
+- [fmgr_webfilter_urlfilter module](fmgr_webfilter_urlfilter_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-urlfilter-module) – Configure URL filter lists.
+- [fmgr_webfilter_urlfilter_entries module](fmgr_webfilter_urlfilter_entries_module.md#ansible-collections-fortinet-fortimanager-fmgr-webfilter-urlfilter-entries-module) – URL filter entries.
+- [fmgr_webproxy_forwardserver module](fmgr_webproxy_forwardserver_module.md#ansible-collections-fortinet-fortimanager-fmgr-webproxy-forwardserver-module) – Configure forward-server addresses.
+- [fmgr_webproxy_forwardservergroup module](fmgr_webproxy_forwardservergroup_module.md#ansible-collections-fortinet-fortimanager-fmgr-webproxy-forwardservergroup-module) – Configure a forward server group consisting or multiple forward servers.
+- [fmgr_webproxy_forwardservergroup_serverlist module](fmgr_webproxy_forwardservergroup_serverlist_module.md#ansible-collections-fortinet-fortimanager-fmgr-webproxy-forwardservergroup-serverlist-module) – Add web forward servers to a list to form a server group.
+- [fmgr_webproxy_profile module](fmgr_webproxy_profile_module.md#ansible-collections-fortinet-fortimanager-fmgr-webproxy-profile-module) – Configure web proxy profiles.
+- [fmgr_webproxy_profile_headers module](fmgr_webproxy_profile_headers_module.md#ansible-collections-fortinet-fortimanager-fmgr-webproxy-profile-headers-module) – Configure HTTP forwarded requests headers.
+- [fmgr_webproxy_wisp module](fmgr_webproxy_wisp_module.md#ansible-collections-fortinet-fortimanager-fmgr-webproxy-wisp-module) – Configure Wireless Internet service provider
+- [fmgr_widsprofile module](fmgr_widsprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-widsprofile-module) – Configure wireless intrusion detection system
+- [fmgr_wireless_accesscontrollist module](fmgr_wireless_accesscontrollist_module.md#ansible-collections-fortinet-fortimanager-fmgr-wireless-accesscontrollist-module) – Configure WiFi bridge access control list.
+- [fmgr_wireless_accesscontrollist_layer3ipv4rules module](fmgr_wireless_accesscontrollist_layer3ipv4rules_module.md#ansible-collections-fortinet-fortimanager-fmgr-wireless-accesscontrollist-layer3ipv4rules-module) – AP ACL layer3 ipv4 rule list.
+- [fmgr_wireless_accesscontrollist_layer3ipv6rules module](fmgr_wireless_accesscontrollist_layer3ipv6rules_module.md#ansible-collections-fortinet-fortimanager-fmgr-wireless-accesscontrollist-layer3ipv6rules-module) – AP ACL layer3 ipv6 rule list.
+- [fmgr_wireless_address module](fmgr_wireless_address_module.md#ansible-collections-fortinet-fortimanager-fmgr-wireless-address-module) – Configure the client with its MAC address.
+- [fmgr_wireless_addrgrp module](fmgr_wireless_addrgrp_module.md#ansible-collections-fortinet-fortimanager-fmgr-wireless-addrgrp-module) – Configure the MAC address group.
+- [fmgr_wireless_ssidpolicy module](fmgr_wireless_ssidpolicy_module.md#ansible-collections-fortinet-fortimanager-fmgr-wireless-ssidpolicy-module) – Configure WiFi SSID policies.
+- [fmgr_wireless_syslogprofile module](fmgr_wireless_syslogprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-wireless-syslogprofile-module) – Configure Wireless Termination Points
+- [fmgr_wtpprofile module](fmgr_wtpprofile_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-module) – Configure WTP profiles or FortiAP profiles that define radio settings for manageable FortiAP platforms.
+- [fmgr_wtpprofile_denymaclist module](fmgr_wtpprofile_denymaclist_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-denymaclist-module) – List of MAC addresses that are denied access to this WTP, FortiAP, or AP.
+- [fmgr_wtpprofile_eslsesdongle module](fmgr_wtpprofile_eslsesdongle_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-eslsesdongle-module) – ESL SES-imagotag dongle configuration.
+- [fmgr_wtpprofile_lan module](fmgr_wtpprofile_lan_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-lan-module) – WTP LAN port mapping.
+- [fmgr_wtpprofile_lbs module](fmgr_wtpprofile_lbs_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-lbs-module) – Set various location based service
+- [fmgr_wtpprofile_platform module](fmgr_wtpprofile_platform_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-platform-module) – WTP, FortiAP, or AP platform.
+- [fmgr_wtpprofile_radio1 module](fmgr_wtpprofile_radio1_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-radio1-module) – Configuration options for radio 1.
+- [fmgr_wtpprofile_radio2 module](fmgr_wtpprofile_radio2_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-radio2-module) – Configuration options for radio 2.
+- [fmgr_wtpprofile_radio3 module](fmgr_wtpprofile_radio3_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-radio3-module) – Configuration options for radio 3.
+- [fmgr_wtpprofile_radio4 module](fmgr_wtpprofile_radio4_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-radio4-module) – Configuration options for radio 4.
+- [fmgr_wtpprofile_splittunnelingacl module](fmgr_wtpprofile_splittunnelingacl_module.md#ansible-collections-fortinet-fortimanager-fmgr-wtpprofile-splittunnelingacl-module) – Split tunneling ACL filter list.
+
+### Httpapi Plugins
+
+- [fortimanager httpapi](fortimanager_httpapi.md#ansible-collections-fortinet-fortimanager-fortimanager-httpapi) – HttpApi Plugin for Fortinet FortiManager Appliance or VM.
+
+> **See also:**
+>
+> List of [collections](../../index.md#list-of-collections) with docs hosted here.

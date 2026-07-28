@@ -1,0 +1,105 @@
+---
+collection: ansible
+version: "8"
+title: "vmware.vmware_rest.appliance_networking_proxy module – Configures which proxy server to use for the specified protocol"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/vmware/vmware_rest/appliance_networking_proxy_module.html
+fetched_at: 2026-07-28T02:57:26+00:00
+---
+# vmware.vmware_rest.appliance_networking_proxy module – Configures which proxy server to use for the specified protocol
+
+> **Note:**
+>
+> This module is part of the [vmware.vmware_rest collection](https://galaxy.ansible.com/ui/repo/published/vmware/vmware_rest/) (version 2.3.1).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install vmware.vmware_rest`.
+> You need further requirements to be able to use this module,
+> see [Requirements](appliance_networking_proxy_module.md#ansible-collections-vmware-vmware-rest-appliance-networking-proxy-module-requirements) for details.
+>
+> To use it in a playbook, specify: `vmware.vmware_rest.appliance_networking_proxy`.
+
+New in vmware.vmware_rest 2.0.0
+
+- [Synopsis](appliance_networking_proxy_module.md#synopsis)
+- [Requirements](appliance_networking_proxy_module.md#requirements)
+- [Parameters](appliance_networking_proxy_module.md#parameters)
+- [Notes](appliance_networking_proxy_module.md#notes)
+- [Examples](appliance_networking_proxy_module.md#examples)
+- [Return Values](appliance_networking_proxy_module.md#return-values)
+
+## [Synopsis](appliance_networking_proxy_module.md#id1)
+
+- Configures which proxy server to use for the specified protocol. This operation sets environment variables for using proxy. In order for this configuration to take effect a logout / service restart is required.
+
+## [Requirements](appliance_networking_proxy_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- vSphere 7.0.2 or greater
+- python >= 3.6
+- aiohttp
+
+## [Parameters](appliance_networking_proxy_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **config**  dictionary | Proxy configuration for the specific protocol. Required with *state=[‘test’]*  Valid attributes are:  - `server` (str): URL of the proxy server ([‘test’])  This key is required with [‘test’]. - `port` (int): Port to connect to the proxy server. In a ‘get’ call, indicates the port connected to the proxy server. In a ‘set’ call, specifies the port to connect to the proxy server. A value of -1 indicates the default port. ([‘test’])  This key is required with [‘test’]. - `username` (str): Username for proxy server. ([‘test’]) - `password` (str): Password for proxy server. ([‘test’]) - `enabled` (bool): In the result of the `#get` and `#list` [{@term](mailto:{%40term) operations} this field indicates whether proxying is enabled for a particular protocol. In the input to the `test` and `set` [{@term](mailto:{%40term) operations} this field specifies whether proxying should be enabled for a particular protocol. ([‘test’])  This key is required with [‘test’]. |
+| **enabled**  boolean | In the result of the `#get` and `#list` [{@term](mailto:{%40term) operations} this field indicates whether proxying is enabled for a particular protocol. In the input to the `test` and `set` [{@term](mailto:{%40term) operations} this field specifies whether proxying should be enabled for a particular protocol. Required with *state=[‘set’]*  **Choices:**   - `false` - `true` |
+| **host**  string | A hostname, IPv4 or Ipv6 address. Required with *state=[‘test’]* |
+| **password**  string | Password for proxy server. |
+| **port**  integer | Port to connect to the proxy server. In a ‘get’ call, indicates the port connected to the proxy server. In a ‘set’ call, specifies the port to connect to the proxy server. A value of -1 indicates the default port. Required with *state=[‘set’]* |
+| **protocol**  string / required | The protocol for which proxy should be set. This parameter is mandatory. |
+| **server**  string | URL of the proxy server Required with *state=[‘set’]* |
+| **session_timeout**  float  *added in vmware.vmware_rest 2.1.0* | Timeout settings for client session.  The maximal number of seconds for the whole operation including connection establishment, request sending and response.  The default value is 300s. |
+| **state**  string | **Choices:**   - `"absent"` - `"set"` ← (default) - `"test"` |
+| **username**  string | Username for proxy server. |
+| **vcenter_hostname**  string / required | The hostname or IP address of the vSphere vCenter  If the value is not specified in the task, the value of environment variable `VMWARE_HOST` will be used instead. |
+| **vcenter_password**  string / required | The vSphere vCenter password  If the value is not specified in the task, the value of environment variable `VMWARE_PASSWORD` will be used instead. |
+| **vcenter_rest_log_file**  string | You can use this optional parameter to set the location of a log file.  This file will be used to record the HTTP REST interaction.  The file will be stored on the host that run the module.  If the value is not specified in the task, the value of  environment variable `VMWARE_REST_LOG_FILE` will be used instead. |
+| **vcenter_username**  string / required | The vSphere vCenter username  If the value is not specified in the task, the value of environment variable `VMWARE_USER` will be used instead. |
+| **vcenter_validate_certs**  boolean | Allows connection when SSL certificates are not valid. Set to `false` when certificates are not trusted.  If the value is not specified in the task, the value of environment variable `VMWARE_VALIDATE_CERTS` will be used instead.  **Choices:**   - `false` - `true` ← (default) |
+
+## [Notes](appliance_networking_proxy_module.md#id4)
+
+> **Note:**
+>
+> - Tested on vSphere 7.0.2
+
+## [Examples](appliance_networking_proxy_module.md#id5)
+
+```yaml+jinja
+- name: Set the HTTP proxy configuration
+  vmware.vmware_rest.appliance_networking_proxy:
+    enabled: true
+    server: http://datastore.test
+    port: 3128
+    protocol: http
+  register: result
+
+- name: Delete the HTTP proxy configuration
+  vmware.vmware_rest.appliance_networking_proxy:
+    protocol: http
+    state: absent
+  register: result
+```
+
+## [Return Values](appliance_networking_proxy_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **value**  dictionary | Delete the HTTP proxy configuration  **Returned:** On success  **Sample:** `{}` |
+
+### Authors
+
+- Ansible Cloud Team (@ansible-collections)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/ansible-collections/vmware.vmware_rest/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+- [Homepage](https://github.com/ansible-collections/vmware.vmware_rest)
+- [Repository (Sources)](https://github.com/ansible-collections/vmware.vmware_rest.git)

@@ -1,0 +1,71 @@
+---
+collection: ansible
+version: "6"
+title: "ibm.spectrum_virtualize.ibm_svcinfo_command module – This module implements SSH Client which helps to run svcinfo CLI command on IBM Spectrum Virtualize family storage systems"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/ibm/spectrum_virtualize/ibm_svcinfo_command_module.html
+fetched_at: 2026-07-27T17:50:44+00:00
+---
+# ibm.spectrum_virtualize.ibm_svcinfo_command module – This module implements SSH Client which helps to run svcinfo CLI command on IBM Spectrum Virtualize family storage systems
+
+> **Note:**
+>
+> This module is part of the [ibm.spectrum_virtualize collection](https://galaxy.ansible.com/ibm/spectrum_virtualize) (version 1.10.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install ibm.spectrum_virtualize`.
+>
+> To use it in a playbook, specify: `ibm.spectrum_virtualize.ibm_svcinfo_command`.
+
+New in ibm.spectrum_virtualize 1.2.0
+
+- [Synopsis](ibm_svcinfo_command_module.md#synopsis)
+- [Parameters](ibm_svcinfo_command_module.md#parameters)
+- [Examples](ibm_svcinfo_command_module.md#examples)
+
+## [Synopsis](ibm_svcinfo_command_module.md#id1)
+
+- Runs single svcinfo CLI command on IBM Spectrum Virtualize family storage systems. Filter options like filtervalue or pipe ‘|’ with grep, awk, and others are not supported in the command in this module. Paramiko must be installed to use this module.
+
+## [Parameters](ibm_svcinfo_command_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **clustername**  string / required | The hostname or management IP of the Spectrum Virtualize storage system. |
+| **command**  string | Single svcinfo CLI command to be executed on Spectrum Virtualize storage system. Each command must start with svcinfo keyword. |
+| **key_filename**  string | SSH client private key filename. By default, `~/.ssh/id_rsa` is used. |
+| **log_path**  string | Path of debug log file. |
+| **password**  string / required | Password for the Spectrum Virtualize storage system. |
+| **username**  string / required | Username for the Spectrum Virtualize storage system. |
+| **usesshkey**  string | For key-pair based SSH connection, set this field as `'yes'`. Provide full path of keyfile in key_filename field. If not provided, default path of SSH key is used.  Choices:   - `"yes"` - `"no"` ← (default) |
+
+## [Examples](ibm_svcinfo_command_module.md#id3)
+
+```yaml+jinja
+- name: Run svcinfo CLI command using SSH client with password
+  ibm.spectrum_virtualize.ibm_svcinfo_command:
+    command: "svcinfo lsuser {{user}}"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/ansible.log
+- name: Run svcinfo CLI command using passwordless SSH Client
+  ibm.spectrum_virtualize.ibm_svcinfo_command:
+    command: "svcinfo lsuser"
+    usesshkey: "yes"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password:
+    log_path: /tmp/ansible.log
+```
+
+### Authors
+
+- Shilpi Jain (@Shilpi-Jain1)
+
+### Collection links
+
+[Issue Tracker](https://github.com/ansible-collections/ibm.spectrum_virtualize/issues)
+[Repository (Sources)](https://github.com/ansible-collections/ibm.spectrum_virtualize)

@@ -1,0 +1,103 @@
+---
+collection: ansible
+version: "6"
+title: "community.general.vdo module – Module to control VDO"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/community/general/vdo_module.html
+fetched_at: 2026-07-27T17:13:51+00:00
+---
+# community.general.vdo module – Module to control VDO
+
+> **Note:**
+>
+> This module is part of the [community.general collection](https://galaxy.ansible.com/community/general) (version 5.8.3).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install community.general`.
+> You need further requirements to be able to use this module,
+> see [Requirements](vdo_module.md#ansible-collections-community-general-vdo-module-requirements) for details.
+>
+> To use it in a playbook, specify: `community.general.vdo`.
+
+- [Synopsis](vdo_module.md#synopsis)
+- [Requirements](vdo_module.md#requirements)
+- [Parameters](vdo_module.md#parameters)
+- [Notes](vdo_module.md#notes)
+- [Examples](vdo_module.md#examples)
+
+## [Synopsis](vdo_module.md#id1)
+
+- This module controls the VDO dedupe and compression device.
+- VDO, or Virtual Data Optimizer, is a device-mapper target that provides inline block-level deduplication, compression, and thin provisioning capabilities to primary storage.
+
+## [Requirements](vdo_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- PyYAML
+- kmod-kvdo
+- vdo
+
+## [Parameters](vdo_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **ackthreads**  string | Specifies the number of threads to use for acknowledging completion of requested VDO I/O operations. Valid values are integer values from 1 to 100 (lower numbers are preferable due to overhead). The default is 1. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook. |
+| **activated**  boolean | The “activate” status for a VDO volume. If this is set to `false`, the VDO volume cannot be started, and it will not start on system startup. However, on initial creation, a VDO volume with “activated” set to “off” will be running, until stopped. This is the default behavior of the “vdo create” command; it provides the user an opportunity to write a base amount of metadata (filesystem, LVM headers, etc.) to the VDO volume prior to stopping the volume, and leaving it deactivated until ready to use.  Choices:   - `false` - `true` |
+| **biothreads**  string | Specifies the number of threads to use for submitting I/O operations to the storage device. Valid values are integer values from 1 to 100 (lower numbers are preferable due to overhead). The default is 4. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook. |
+| **blockmapcachesize**  string | The amount of memory allocated for caching block map pages, in megabytes (or may be issued with an LVM-style suffix of K, M, G, or T). The default (and minimum) value is 128M. The value specifies the size of the cache; there is a 15% memory usage overhead. Each 1.25G of block map covers 1T of logical blocks, therefore a small amount of block map cache memory can cache a significantly large amount of block map data. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook. |
+| **compression**  string | Configures whether compression is enabled. The default for a created volume is ‘enabled’. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.  Choices:   - `"disabled"` - `"enabled"` |
+| **cputhreads**  string | Specifies the number of threads to use for CPU-intensive work such as hashing or compression. Valid values are integer values from 1 to 100 (lower numbers are preferable due to overhead). The default is 2. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook. |
+| **deduplication**  string | Configures whether deduplication is enabled. The default for a created volume is ‘enabled’. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.  Choices:   - `"disabled"` - `"enabled"` |
+| **device**  string | The full path of the device to use for VDO storage.  This is required if “state” is “present”. |
+| **emulate512**  boolean | Enables 512-byte emulation mode, allowing drivers or filesystems to access the VDO volume at 512-byte granularity, instead of the default 4096-byte granularity. Default is ‘disabled’; only recommended when a driver or filesystem requires 512-byte sector level access to a device. This option is only available when creating a new volume, and cannot be changed for an existing volume.  Choices:   - `false` ← (default) - `true` |
+| **force**  boolean  added in community.general 2.4.0 | When creating a volume, ignores any existing file system or VDO signature already present in the storage device. When stopping or removing a VDO volume, first unmounts the file system stored on the device if mounted.  **Warning:** Since this parameter removes all safety checks it is important to make sure that all parameters provided are accurate and intentional.  Choices:   - `false` ← (default) - `true` |
+| **growphysical**  boolean | Specifies whether to attempt to execute a growphysical operation, if there is enough unused space on the device. A growphysical operation will be executed if there is at least 64 GB of free space, relative to the previous physical size of the affected VDO volume.  Choices:   - `false` ← (default) - `true` |
+| **indexmem**  string | Specifies the amount of index memory in gigabytes. The default is 0.25. The special decimal values 0.25, 0.5, and 0.75 can be used, as can any positive integer. This option is only available when creating a new volume, and cannot be changed for an existing volume. |
+| **indexmode**  string | Specifies the index mode of the Albireo index. The default is ‘dense’, which has a deduplication window of 1 GB of index memory per 1 TB of incoming data, requiring 10 GB of index data on persistent storage. The ‘sparse’ mode has a deduplication window of 1 GB of index memory per 10 TB of incoming data, but requires 100 GB of index data on persistent storage. This option is only available when creating a new volume, and cannot be changed for an existing volume.  Choices:   - `"dense"` - `"sparse"` |
+| **logicalsize**  string | The logical size of the VDO volume (in megabytes, or LVM suffix format). If not specified for a new volume, this defaults to the same size as the underlying storage device, which is specified in the ‘device’ parameter. Existing volumes will maintain their size if the logicalsize parameter is not specified, or is smaller than or identical to the current size. If the specified size is larger than the current size, a growlogical operation will be performed. |
+| **logicalthreads**  string | Specifies the number of threads across which to subdivide parts of the VDO processing based on logical block addresses. Valid values are integer values from 1 to 100 (lower numbers are preferable due to overhead). The default is 1. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook. |
+| **name**  string / required | The name of the VDO volume. |
+| **physicalthreads**  string | Specifies the number of threads across which to subdivide parts of the VDO processing based on physical block addresses. Valid values are integer values from 1 to 16 (lower numbers are preferable due to overhead). The physical space used by the VDO volume must be larger than (slabsize \* physicalthreads). The default is 1. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook. |
+| **readcache**  string | Enables or disables the read cache. The default is ‘disabled’. Choosing ‘enabled’ enables a read cache which may improve performance for workloads of high deduplication, read workloads with a high level of compression, or on hard disk storage. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.  The read cache feature is available in VDO 6.1 and older.  Choices:   - `"disabled"` - `"enabled"` |
+| **readcachesize**  string | Specifies the extra VDO device read cache size in megabytes. This is in addition to a system-defined minimum. Using a value with a suffix of K, M, G, or T is optional. The default value is 0. 1.125 MB of memory per bio thread will be used per 1 MB of read cache specified (for example, a VDO volume configured with 4 bio threads will have a read cache memory usage overhead of 4.5 MB per 1 MB of read cache specified). Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.  The read cache feature is available in VDO 6.1 and older. |
+| **running**  boolean | Whether this VDO volume is running.  A VDO volume must be activated in order to be started.  Choices:   - `false` - `true` |
+| **slabsize**  string | The size of the increment by which the physical size of a VDO volume is grown, in megabytes (or may be issued with an LVM-style suffix of K, M, G, or T). Must be a power of two between 128M and 32G. The default is 2G, which supports volumes having a physical size up to 16T. The maximum, 32G, supports a physical size of up to 256T. This option is only available when creating a new volume, and cannot be changed for an existing volume. |
+| **state**  string | Whether this VDO volume should be “present” or “absent”. If a “present” VDO volume does not exist, it will be created. If a “present” VDO volume already exists, it will be modified, by updating the configuration, which will take effect when the VDO volume is restarted. Not all parameters of an existing VDO volume can be modified; the “statusparamkeys” list contains the parameters that can be modified after creation. If an “absent” VDO volume does not exist, it will not be removed.  Choices:   - `"absent"` - `"present"` ← (default) |
+| **writepolicy**  string | Specifies the write policy of the VDO volume. The ‘sync’ mode acknowledges writes only after data is on stable storage. The ‘async’ mode acknowledges writes when data has been cached for writing to stable storage. The default (and highly recommended) ‘auto’ mode checks the storage device to determine whether it supports flushes. Devices that support flushes will result in a VDO volume in ‘async’ mode, while devices that do not support flushes will run in sync mode. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.  Choices:   - `"async"` - `"auto"` - `"sync"` |
+
+## [Notes](vdo_module.md#id4)
+
+> **Note:**
+>
+> - In general, the default thread configuration should be used.
+
+## [Examples](vdo_module.md#id5)
+
+```yaml+jinja
+- name: Create 2 TB VDO volume vdo1 on device /dev/md0
+  community.general.vdo:
+    name: vdo1
+    state: present
+    device: /dev/md0
+    logicalsize: 2T
+
+- name: Remove VDO volume vdo1
+  community.general.vdo:
+    name: vdo1
+    state: absent
+```
+
+### Authors
+
+- Bryan Gurney (@bgurney-rh)
+
+### Collection links
+
+[Issue Tracker](https://github.com/ansible-collections/community.general/issues)
+[Repository (Sources)](https://github.com/ansible-collections/community.general)
+[Submit a bug report](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=bug_report.yml)
+[Request a feature](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=feature_request.yml)
+[Communication](index.md#communication-for-community-general)

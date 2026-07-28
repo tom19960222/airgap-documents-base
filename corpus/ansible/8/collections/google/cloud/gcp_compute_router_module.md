@@ -1,0 +1,142 @@
+---
+collection: ansible
+version: "8"
+title: "google.cloud.gcp_compute_router module – Creates a GCP Router"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/google/cloud/gcp_compute_router_module.html
+fetched_at: 2026-07-28T02:32:43+00:00
+---
+# google.cloud.gcp_compute_router module – Creates a GCP Router
+
+> **Note:**
+>
+> This module is part of the [google.cloud collection](https://galaxy.ansible.com/ui/repo/published/google/cloud/) (version 1.3.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install google.cloud`.
+> You need further requirements to be able to use this module,
+> see [Requirements](gcp_compute_router_module.md#ansible-collections-google-cloud-gcp-compute-router-module-requirements) for details.
+>
+> To use it in a playbook, specify: `google.cloud.gcp_compute_router`.
+
+- [Synopsis](gcp_compute_router_module.md#synopsis)
+- [Requirements](gcp_compute_router_module.md#requirements)
+- [Parameters](gcp_compute_router_module.md#parameters)
+- [Notes](gcp_compute_router_module.md#notes)
+- [Examples](gcp_compute_router_module.md#examples)
+- [Return Values](gcp_compute_router_module.md#return-values)
+
+## [Synopsis](gcp_compute_router_module.md#id1)
+
+- Represents a Router resource.
+
+## [Requirements](gcp_compute_router_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- python >= 2.6
+- requests >= 2.18.4
+- google-auth >= 1.3.0
+
+## [Parameters](gcp_compute_router_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **access_token**  string | An OAuth2 access token if credential type is accesstoken. |
+| **auth_kind**  string / required | The type of credential used.  **Choices:**   - `"application"` - `"machineaccount"` - `"serviceaccount"` - `"accesstoken"` |
+| **bgp**  dictionary | BGP information specific to this router. |
+| **advertise_mode**  string | User-specified flag to indicate which mode to use for advertisement.  Some valid choices include: “DEFAULT”, “CUSTOM”  **Default:** `"DEFAULT"` |
+| **advertised_groups**  list / elements=string | User-specified list of prefix groups to advertise in custom mode.  This field can only be populated if advertiseMode is CUSTOM and is advertised to all peers of the router. These groups will be advertised in addition to any specified prefixes. Leave this field blank to advertise no custom groups.  This enum field has the one valid value: ALL_SUBNETS . |
+| **advertised_ip_ranges**  list / elements=dictionary | User-specified list of individual IP ranges to advertise in custom mode. This field can only be populated if advertiseMode is CUSTOM and is advertised to all peers of the router. These IP ranges will be advertised in addition to any specified groups.  Leave this field blank to advertise no custom IP ranges. |
+| **description**  string | User-specified description for the IP range. |
+| **range**  string / required | The IP range to advertise. The value must be a CIDR-formatted string. |
+| **asn**  integer / required | Local BGP Autonomous System Number (ASN). Must be an RFC6996 private ASN, either 16-bit or 32-bit. The value will be fixed for this router resource. All VPN tunnels that link to this router will have the same local ASN. |
+| **description**  string | An optional description of this resource. |
+| **env_type**  string | Specifies which Ansible environment you’re running this module within.  This should not be set unless you know what you’re doing.  This only alters the User Agent string for any API requests. |
+| **name**  string / required | Name of the resource. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]\*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash. |
+| **network**  dictionary / required | A reference to the network to which this router belongs.  This field represents a link to a Network resource in GCP. It can be specified in two ways. First, you can place a dictionary with key ‘selfLink’ and value of your resource’s selfLink Alternatively, you can add `register: name-of-resource` to a gcp_compute_network task and then set this network field to “{{ name-of-resource }}” |
+| **project**  string | The Google Cloud Platform project to use. |
+| **region**  string / required | Region where the router resides. |
+| **scopes**  list / elements=string | Array of scopes to be used |
+| **service_account_contents**  jsonarg | The contents of a Service Account JSON file, either in a dictionary or as a JSON string that represents it. |
+| **service_account_email**  string | An optional service account email address if machineaccount is selected and the user does not wish to use the default email. |
+| **service_account_file**  path | The path of a Service Account JSON file if serviceaccount is selected as type. |
+| **state**  string | Whether the given object should exist in GCP  **Choices:**   - `"present"` ← (default) - `"absent"` |
+
+## [Notes](gcp_compute_router_module.md#id4)
+
+> **Note:**
+>
+> - API Reference: <https://cloud.google.com/compute/docs/reference/rest/v1/routers>
+> - Google Cloud Router: <https://cloud.google.com/router/docs/>
+> - for authentication, you can set service_account_file using the `GCP_SERVICE_ACCOUNT_FILE` env variable.
+> - for authentication, you can set service_account_contents using the `GCP_SERVICE_ACCOUNT_CONTENTS` env variable.
+> - For authentication, you can set service_account_email using the `GCP_SERVICE_ACCOUNT_EMAIL` env variable.
+> - For authentication, you can set access_token using the `GCP_ACCESS_TOKEN` env variable.
+> - For authentication, you can set auth_kind using the `GCP_AUTH_KIND` env variable.
+> - For authentication, you can set scopes using the `GCP_SCOPES` env variable.
+> - Environment variables values will only be used if the playbook values are not set.
+> - The *service_account_email* and *service_account_file* options are mutually exclusive.
+
+## [Examples](gcp_compute_router_module.md#id5)
+
+```yaml+jinja
+- name: create a network
+  google.cloud.gcp_compute_network:
+    name: network-router
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: network
+
+- name: create a router
+  google.cloud.gcp_compute_router:
+    name: test_object
+    network: "{{ network }}"
+    bgp:
+      asn: 64514
+      advertise_mode: CUSTOM
+      advertised_groups:
+      - ALL_SUBNETS
+      advertised_ip_ranges:
+      - range: 1.2.3.4
+      - range: 6.7.0.0/16
+    region: us-central1
+    project: test_project
+    auth_kind: serviceaccount
+    service_account_file: "/tmp/auth.pem"
+    state: present
+```
+
+## [Return Values](gcp_compute_router_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **bgp**  complex | BGP information specific to this router.  **Returned:** success |
+| **advertisedGroups**  list / elements=string | User-specified list of prefix groups to advertise in custom mode.  This field can only be populated if advertiseMode is CUSTOM and is advertised to all peers of the router. These groups will be advertised in addition to any specified prefixes. Leave this field blank to advertise no custom groups.  This enum field has the one valid value: ALL_SUBNETS .  **Returned:** success |
+| **advertisedIpRanges**  complex | User-specified list of individual IP ranges to advertise in custom mode. This field can only be populated if advertiseMode is CUSTOM and is advertised to all peers of the router. These IP ranges will be advertised in addition to any specified groups.  Leave this field blank to advertise no custom IP ranges.  **Returned:** success |
+| **description**  string | User-specified description for the IP range.  **Returned:** success |
+| **range**  string | The IP range to advertise. The value must be a CIDR-formatted string.  **Returned:** success |
+| **advertiseMode**  string | User-specified flag to indicate which mode to use for advertisement.  **Returned:** success |
+| **asn**  integer | Local BGP Autonomous System Number (ASN). Must be an RFC6996 private ASN, either 16-bit or 32-bit. The value will be fixed for this router resource. All VPN tunnels that link to this router will have the same local ASN.  **Returned:** success |
+| **creationTimestamp**  string | Creation timestamp in RFC3339 text format.  **Returned:** success |
+| **description**  string | An optional description of this resource.  **Returned:** success |
+| **id**  integer | The unique identifier for the resource.  **Returned:** success |
+| **name**  string | Name of the resource. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]\*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.  **Returned:** success |
+| **network**  dictionary | A reference to the network to which this router belongs.  **Returned:** success |
+| **region**  string | Region where the router resides.  **Returned:** success |
+
+### Authors
+
+- Google Inc. (@googlecloudplatform)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/ansible-collections/google.cloud/issues)
+- [Homepage](http://cloud.google.com)
+- [Repository (Sources)](https://github.com/ansible-collections/google.cloud)

@@ -1,0 +1,124 @@
+---
+collection: ansible
+version: "8"
+title: "google.cloud.gcp_spanner_database module – Creates a GCP Database"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/google/cloud/gcp_spanner_database_module.html
+fetched_at: 2026-07-28T02:33:33+00:00
+---
+# google.cloud.gcp_spanner_database module – Creates a GCP Database
+
+> **Note:**
+>
+> This module is part of the [google.cloud collection](https://galaxy.ansible.com/ui/repo/published/google/cloud/) (version 1.3.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install google.cloud`.
+> You need further requirements to be able to use this module,
+> see [Requirements](gcp_spanner_database_module.md#ansible-collections-google-cloud-gcp-spanner-database-module-requirements) for details.
+>
+> To use it in a playbook, specify: `google.cloud.gcp_spanner_database`.
+
+- [Synopsis](gcp_spanner_database_module.md#synopsis)
+- [Requirements](gcp_spanner_database_module.md#requirements)
+- [Parameters](gcp_spanner_database_module.md#parameters)
+- [Notes](gcp_spanner_database_module.md#notes)
+- [Examples](gcp_spanner_database_module.md#examples)
+- [Return Values](gcp_spanner_database_module.md#return-values)
+
+## [Synopsis](gcp_spanner_database_module.md#id1)
+
+- A Cloud Spanner Database which is hosted on a Spanner instance.
+
+## [Requirements](gcp_spanner_database_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- python >= 2.6
+- requests >= 2.18.4
+- google-auth >= 1.3.0
+
+## [Parameters](gcp_spanner_database_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **access_token**  string | An OAuth2 access token if credential type is accesstoken. |
+| **auth_kind**  string / required | The type of credential used.  **Choices:**   - `"application"` - `"machineaccount"` - `"serviceaccount"` - `"accesstoken"` |
+| **encryption_config**  dictionary | Encryption configuration for the database . |
+| **kms_key_name**  string / required | Fully qualified name of the KMS key to use to encrypt this database. This key must exist in the same location as the Spanner Database. |
+| **env_type**  string | Specifies which Ansible environment you’re running this module within.  This should not be set unless you know what you’re doing.  This only alters the User Agent string for any API requests. |
+| **extra_statements**  list / elements=string | An optional list of DDL statements to run inside the newly created database. Statements can create tables, indexes, etc. These statements execute atomically with the creation of the database: if there is an error in any statement, the database is not created. |
+| **instance**  dictionary / required | The instance to create the database on.  This field represents a link to a Instance resource in GCP. It can be specified in two ways. First, you can place a dictionary with key ‘name’ and value of your resource’s name Alternatively, you can add `register: name-of-resource` to a gcp_spanner_instance task and then set this instance field to “{{ name-of-resource }}” |
+| **name**  string / required | A unique identifier for the database, which cannot be changed after the instance is created. Values are of the form [a-z][-a-z0-9]\*[a-z0-9]. |
+| **project**  string | The Google Cloud Platform project to use. |
+| **scopes**  list / elements=string | Array of scopes to be used |
+| **service_account_contents**  jsonarg | The contents of a Service Account JSON file, either in a dictionary or as a JSON string that represents it. |
+| **service_account_email**  string | An optional service account email address if machineaccount is selected and the user does not wish to use the default email. |
+| **service_account_file**  path | The path of a Service Account JSON file if serviceaccount is selected as type. |
+| **state**  string | Whether the given object should exist in GCP  **Choices:**   - `"present"` ← (default) - `"absent"` |
+
+## [Notes](gcp_spanner_database_module.md#id4)
+
+> **Note:**
+>
+> - API Reference: <https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases>
+> - Official Documentation: <https://cloud.google.com/spanner/>
+> - for authentication, you can set service_account_file using the `GCP_SERVICE_ACCOUNT_FILE` env variable.
+> - for authentication, you can set service_account_contents using the `GCP_SERVICE_ACCOUNT_CONTENTS` env variable.
+> - For authentication, you can set service_account_email using the `GCP_SERVICE_ACCOUNT_EMAIL` env variable.
+> - For authentication, you can set access_token using the `GCP_ACCESS_TOKEN` env variable.
+> - For authentication, you can set auth_kind using the `GCP_AUTH_KIND` env variable.
+> - For authentication, you can set scopes using the `GCP_SCOPES` env variable.
+> - Environment variables values will only be used if the playbook values are not set.
+> - The *service_account_email* and *service_account_file* options are mutually exclusive.
+
+## [Examples](gcp_spanner_database_module.md#id5)
+
+```yaml+jinja
+- name: create a instance
+  google.cloud.gcp_spanner_instance:
+    name: instance-database
+    display_name: My Spanner Instance
+    node_count: 2
+    labels:
+      cost_center: ti-1700004
+    config: regional-us-central1
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: instance
+
+- name: create a database
+  google.cloud.gcp_spanner_database:
+    name: webstore
+    instance: "{{ instance }}"
+    project: test_project
+    auth_kind: serviceaccount
+    service_account_file: "/tmp/auth.pem"
+    state: present
+```
+
+## [Return Values](gcp_spanner_database_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **encryptionConfig**  complex | Encryption configuration for the database .  **Returned:** success |
+| **kmsKeyName**  string | Fully qualified name of the KMS key to use to encrypt this database. This key must exist in the same location as the Spanner Database.  **Returned:** success |
+| **extraStatements**  list / elements=string | An optional list of DDL statements to run inside the newly created database. Statements can create tables, indexes, etc. These statements execute atomically with the creation of the database: if there is an error in any statement, the database is not created.  **Returned:** success |
+| **instance**  dictionary | The instance to create the database on.  **Returned:** success |
+| **name**  string | A unique identifier for the database, which cannot be changed after the instance is created. Values are of the form [a-z][-a-z0-9]\*[a-z0-9].  **Returned:** success |
+
+### Authors
+
+- Google Inc. (@googlecloudplatform)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/ansible-collections/google.cloud/issues)
+- [Homepage](http://cloud.google.com)
+- [Repository (Sources)](https://github.com/ansible-collections/google.cloud)

@@ -1,0 +1,157 @@
+---
+collection: ansible
+version: "8"
+title: "ansible.windows.win_dsc module – Invokes a PowerShell DSC configuration"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/ansible/windows/win_dsc_module.html
+fetched_at: 2026-07-28T01:10:34+00:00
+---
+# ansible.windows.win_dsc module – Invokes a PowerShell DSC configuration
+
+> **Note:**
+>
+> This module is part of the [ansible.windows collection](https://galaxy.ansible.com/ui/repo/published/ansible/windows/) (version 1.14.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install ansible.windows`.
+>
+> To use it in a playbook, specify: `ansible.windows.win_dsc`.
+
+- [Synopsis](win_dsc_module.md#synopsis)
+- [Parameters](win_dsc_module.md#parameters)
+- [Notes](win_dsc_module.md#notes)
+- [Examples](win_dsc_module.md#examples)
+- [Return Values](win_dsc_module.md#return-values)
+
+## [Synopsis](win_dsc_module.md#id1)
+
+- Configures a resource using PowerShell DSC.
+- Requires PowerShell version 5.0 or newer.
+- Most of the options for this module are dynamic and will vary depending on the DSC Resource specified in *resource_name*.
+
+## [Parameters](win_dsc_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **free_form**  string / required | The [ansible.windows.win_dsc](win_dsc_module.md#ansible-collections-ansible-windows-win-dsc-module) module takes in multiple free form options based on the DSC resource being invoked by *resource_name*.  There is no option actually named `free_form` so see the examples.  This module will try and convert the option to the correct type required by the DSC resource and throw a warning if it fails.  If the type of the DSC resource option is a `CimInstance` or `CimInstance[]`, this means the value should be a dictionary or list of dictionaries based on the values required by that option.  If the type of the DSC resource option is a `PSCredential` then there needs to be 2 options set in the Ansible task definition suffixed with `_username` and `_password`.  If the type of the DSC resource option is an array, then a list should be provided but a comma separated string also work. Use a list where possible as no escaping is required and it works with more complex types list `CimInstance[]`.  If the type of the DSC resource option is a `DateTime`, you should use a string in the form of an ISO 8901 string to ensure the exact date is used. |
+| **module_version**  string | Can be used to configure the exact version of the DSC resource to be invoked.  Useful if the target node has multiple versions installed of the module containing the DSC resource.  If not specified, the module will follow standard PowerShell convention and use the highest version available.  **Default:** `"latest"` |
+| **resource_name**  string / required | The name of the DSC Resource to use.  Must be accessible to PowerShell using any of the default paths. |
+
+## [Notes](win_dsc_module.md#id3)
+
+> **Note:**
+>
+> - By default there are a few builtin resources that come with PowerShell 5.0, See <https://docs.microsoft.com/en-us/powershell/scripting/dsc/resources/resources> for more information on these resources.
+> - Custom DSC resources can be installed with [community.windows.win_psmodule](../../community/windows/win_psmodule_module.md#ansible-collections-community-windows-win-psmodule-module) using the *name* option.
+> - The DSC engine run’s each task as the SYSTEM account, any resources that need to be accessed with a different account need to have `PsDscRunAsCredential` set.
+> - To see the valid options for a DSC resource, run the module with `-vvv` to show the possible module invocation. Default values are not shown in this output but are applied within the DSC engine.
+> - The DSC engine requires the HTTP WSMan listener to be online and its port configured as the default listener for HTTP. This is set up by default but if a custom HTTP port is used or only a HTTPS listener is present then the module will fail. See the examples for a way to check this out in PowerShell.
+> - The Local Configuration Manager `LCM` on the targeted host in question should be disabled to avoid any conflicts with resources being applied by this module. See <https://devblogs.microsoft.com/powershell/invoking-powershell-dsc-resources-directly/> for more information on hwo to disable `LCM`.
+
+## [Examples](win_dsc_module.md#id4)
+
+```yaml+jinja
+- name: Verify the WSMan HTTP listener is active and configured correctly
+  ansible.windows.win_shell: |
+    $port = (Get-Item -LiteralPath WSMan:\localhost\Client\DefaultPorts\HTTP).Value
+    $onlinePorts = @(Get-ChildItem -LiteralPath WSMan:\localhost\Listener |
+        Where-Object { 'Transport=HTTP' -in $_.Keys } |
+        Get-ChildItem |
+        Where-Object Name -eq Port |
+        Select-Object -ExpandProperty Value)
+
+    if ($port -notin $onlinePorts) {
+        "The default client port $port is not set up as a WSMan HTTP listener, win_dsc will not work."
+    }
+
+- name: Extract zip file
+  ansible.windows.win_dsc:
+    resource_name: Archive
+    Ensure: Present
+    Path: C:\Temp\zipfile.zip
+    Destination: C:\Temp\Temp2
+
+- name: Install a Windows feature with the WindowsFeature resource
+  ansible.windows.win_dsc:
+    resource_name: WindowsFeature
+    Name: telnet-client
+
+- name: Edit HKCU reg key under specific user
+  ansible.windows.win_dsc:
+    resource_name: Registry
+    Ensure: Present
+    Key: HKEY_CURRENT_USER\ExampleKey
+    ValueName: TestValue
+    ValueData: TestData
+    PsDscRunAsCredential_username: '{{ansible_user}}'
+    PsDscRunAsCredential_password: '{{ansible_password}}'
+  no_log: true
+
+- name: Create file with multiple attributes
+  ansible.windows.win_dsc:
+    resource_name: File
+    DestinationPath: C:\ansible\dsc
+    Attributes: # can also be a comma separated string, e.g. 'Hidden, System'
+    - Hidden
+    - System
+    Ensure: Present
+    Type: Directory
+
+- name: Call DSC resource with DateTime option
+  ansible.windows.win_dsc:
+    resource_name: DateTimeResource
+    DateTimeOption: '2019-02-22T13:57:31.2311892+00:00'
+
+# more complex example using custom DSC resource and dict values
+- name: Setup the xWebAdministration module
+  ansible.windows.win_psmodule:
+    name: xWebAdministration
+    state: present
+
+- name: Create IIS Website with Binding and Authentication options
+  ansible.windows.win_dsc:
+    resource_name: xWebsite
+    Ensure: Present
+    Name: DSC Website
+    State: Started
+    PhysicalPath: C:\inetpub\wwwroot
+    BindingInfo: # Example of a CimInstance[] DSC parameter (list of dicts)
+    - Protocol: https
+      Port: 1234
+      CertificateStoreName: MY
+      CertificateThumbprint: C676A89018C4D5902353545343634F35E6B3A659
+      HostName: DSCTest
+      IPAddress: '*'
+      SSLFlags: '1'
+    - Protocol: http
+      Port: 4321
+      IPAddress: '*'
+    AuthenticationInfo: # Example of a CimInstance DSC parameter (dict)
+      Anonymous: no
+      Basic: true
+      Digest: false
+      Windows: yes
+```
+
+## [Return Values](win_dsc_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **module_version**  string | The version of the dsc resource/module used.  **Returned:** always  **Sample:** `"1.0.1"` |
+| **reboot_required**  boolean | Flag returned from the DSC engine indicating whether or not the machine requires a reboot for the invoked changes to take effect.  **Returned:** always  **Sample:** `true` |
+| **verbose_set**  list / elements=string | The verbose output as a list from executing the DSC Set method.  **Returned:** Ansible verbosity is -vvv or greater and a change occurred  **Sample:** `["Perform operation 'Invoke CimMethod' with the following parameters, ", "[SERVER]: LCM: [Start Set ] [[File]DirectResourceAccess]", "Operation 'Invoke CimMethod' complete."]` |
+| **verbose_test**  list / elements=string | The verbose output as a list from executing the DSC test method.  **Returned:** Ansible verbosity is -vvv or greater  **Sample:** `["Perform operation 'Invoke CimMethod' with the following parameters, ", "[SERVER]: LCM: [Start Test ] [[File]DirectResourceAccess]", "Operation 'Invoke CimMethod' complete."]` |
+
+### Authors
+
+- Trond Hindenes (@trondhindenes)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/ansible-collections/ansible.windows/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+- [Repository (Sources)](https://github.com/ansible-collections/ansible.windows)
+- [Communication](index.md#communication-for-ansible-windows)

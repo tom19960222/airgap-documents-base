@@ -1,0 +1,167 @@
+---
+collection: ansible
+version: "6"
+title: "azure.azcollection.azure_rm_firewallpolicy module – Create, delete or update specified firewall policy."
+source_url: https://docs.ansible.com/projects/ansible/6/collections/azure/azcollection/azure_rm_firewallpolicy_module.html
+fetched_at: 2026-07-27T16:46:18+00:00
+---
+# azure.azcollection.azure_rm_firewallpolicy module – Create, delete or update specified firewall policy.
+
+> **Note:**
+>
+> This module is part of the [azure.azcollection collection](https://galaxy.ansible.com/azure/azcollection) (version 1.14.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install azure.azcollection`.
+> You need further requirements to be able to use this module,
+> see [Requirements](azure_rm_firewallpolicy_module.md#ansible-collections-azure-azcollection-azure-rm-firewallpolicy-module-requirements) for details.
+>
+> To use it in a playbook, specify: `azure.azcollection.azure_rm_firewallpolicy`.
+
+New in azure.azcollection 1.13.0
+
+- [Synopsis](azure_rm_firewallpolicy_module.md#synopsis)
+- [Requirements](azure_rm_firewallpolicy_module.md#requirements)
+- [Parameters](azure_rm_firewallpolicy_module.md#parameters)
+- [Notes](azure_rm_firewallpolicy_module.md#notes)
+- [See Also](azure_rm_firewallpolicy_module.md#see-also)
+- [Examples](azure_rm_firewallpolicy_module.md#examples)
+- [Return Values](azure_rm_firewallpolicy_module.md#return-values)
+
+## [Synopsis](azure_rm_firewallpolicy_module.md#id1)
+
+- Creates, deletes, or updates given firewall policy in specified resource group.
+
+## [Requirements](azure_rm_firewallpolicy_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- python >= 2.7
+- The host that executes this module must have the azure.azcollection collection installed via galaxy
+- All python packages listed in collection’s requirements-azure.txt must be installed via pip on the host that executes modules from azure.azcollection
+- Full installation instructions may be found <https://galaxy.ansible.com/azure/azcollection>
+
+## [Parameters](azure_rm_firewallpolicy_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **ad_user**  string | Active Directory username. Use when authenticating with an Active Directory user rather than service principal. |
+| **adfs_authority_url**  string  added in azure.azcollection 0.0.1 | Azure AD authority url. Use when authenticating with Username/password, and has your own ADFS authority. |
+| **api_profile**  string  added in azure.azcollection 0.0.1 | Selects an API profile to use when communicating with Azure services. Default value of `latest` is appropriate for public clouds; future values will allow use with Azure Stack.  Default: `"latest"` |
+| **append_tags**  boolean | Use to control if tags field is canonical or just appends to existing tags.  When canonical, any tags not found in the tags parameter will be removed from the object’s metadata.  Choices:   - `false` - `true` ← (default) |
+| **auth_source**  string  added in azure.azcollection 0.0.1 | Controls the source of the credentials to use for authentication.  Can also be set via the `ANSIBLE_AZURE_AUTH_SOURCE` environment variable.  When set to `auto` (the default) the precedence is module parameters -> `env` -> `credential_file` -> `cli`.  When set to `env`, the credentials will be read from the environment variables  When set to `credential_file`, it will read the profile from `~/.azure/credentials`.  When set to `cli`, the credentials will be sources from the Azure CLI profile. `subscription_id` or the environment variable `AZURE_SUBSCRIPTION_ID` can be used to identify the subscription ID if more than one is present otherwise the default az cli subscription is used.  When set to `msi`, the host machine must be an azure resource with an enabled MSI extension. `subscription_id` or the environment variable `AZURE_SUBSCRIPTION_ID` can be used to identify the subscription ID if the resource is granted access to more than one subscription, otherwise the first subscription is chosen.  The `msi` was added in Ansible 2.6.  Choices:   - `"auto"` ← (default) - `"cli"` - `"credential_file"` - `"env"` - `"msi"` |
+| **base_policy**  string | The name of the parent firewall policy from which rules are inherited. |
+| **cert_validation_mode**  string  added in azure.azcollection 0.0.1 | Controls the certificate validation behavior for Azure endpoints. By default, all modules will validate the server certificate, but when an HTTPS proxy is in use, or against Azure Stack, it may be necessary to disable this behavior by passing `ignore`. Can also be set via credential file profile or the `AZURE_CERT_VALIDATION` environment variable.  Choices:   - `"ignore"` - `"validate"` |
+| **client_id**  string | Azure client ID. Use when authenticating with a Service Principal. |
+| **cloud_environment**  string  added in azure.azcollection 0.0.1 | For cloud environments other than the US public cloud, the environment name (as defined by Azure Python SDK, eg, `AzureChinaCloud`, `AzureUSGovernment`), or a metadata discovery endpoint URL (required for Azure Stack). Can also be set via credential file profile or the `AZURE_CLOUD_ENVIRONMENT` environment variable.  Default: `"AzureCloud"` |
+| **location**  string | Location for firewall policy. Defaults to location of resource group if not specified. |
+| **log_mode**  string | Parent argument. |
+| **log_path**  string | Parent argument. |
+| **name**  string / required | The name of the firewall policy. |
+| **password**  string | Active Directory user password. Use when authenticating with an Active Directory user rather than service principal. |
+| **profile**  string | Security profile found in ~/.azure/credentials file. |
+| **resource_group**  string / required | Name of the resource group. |
+| **secret**  string | Azure client secret. Use when authenticating with a Service Principal. |
+| **state**  string | Assert the state of the firewall policy. Use `present` to create or update and `absent` to delete.  Choices:   - `"absent"` - `"present"` ← (default) |
+| **subscription_id**  string | Your Azure subscription Id. |
+| **tags**  dictionary | Dictionary of string:string pairs to assign as metadata to the object.  Metadata tags on the object will be updated with any provided values.  To remove tags set append_tags option to false.  Currently, Azure DNS zones and Traffic Manager services also don’t allow the use of spaces in the tag.  Azure Front Door doesn’t support the use of  Azure Automation and Azure CDN only support 15 tags on resources. |
+| **tenant**  string | Azure tenant ID. Use when authenticating with a Service Principal. |
+| **threat_intel_mode**  string | The operation mode for Threat Intel.  Choices:   - `"alert"` ← (default) - `"deny"` - `"off"` |
+| **threat_intel_whitelist**  dictionary | ThreatIntel Whitelist for Firewall Policy. |
+| **append_fqdns**  boolean | Flag to indicate if the fqdns to be appended or not.  Choices:   - `false` - `true` ← (default) |
+| **append_ip_addresses**  boolean | Flag to indicate if the ip_addresses to be appended or not.  Choices:   - `false` - `true` ← (default) |
+| **fqdns**  list / elements=string | List of FQDNs for the ThreatIntel Whitelist |
+| **ip_addresses**  list / elements=string | List of IP addresses for the ThreatIntel Whitelist. |
+| **thumbprint**  string  added in azure.azcollection 1.14.0 | The thumbprint of the private key specified in *x509_certificate_path*.  Use when authenticating with a Service Principal.  Required if *x509_certificate_path* is defined. |
+| **x509_certificate_path**  path  added in azure.azcollection 1.14.0 | Path to the X509 certificate used to create the service principal in PEM format.  The certificate must be appended to the private key.  Use when authenticating with a Service Principal. |
+
+## [Notes](azure_rm_firewallpolicy_module.md#id4)
+
+> **Note:**
+>
+> - For authentication with Azure you can pass parameters, set environment variables, use a profile stored in ~/.azure/credentials, or log in before you run your tasks or playbook with `az login`.
+> - Authentication is also possible using a service principal or Active Directory user.
+> - To authenticate via service principal, pass subscription_id, client_id, secret and tenant or set environment variables AZURE_SUBSCRIPTION_ID, AZURE_CLIENT_ID, AZURE_SECRET and AZURE_TENANT.
+> - To authenticate via Active Directory user, pass ad_user and password, or set AZURE_AD_USER and AZURE_PASSWORD in the environment.
+> - Alternatively, credentials can be stored in ~/.azure/credentials. This is an ini file containing a [default] section and the following keys: subscription_id, client_id, secret and tenant or subscription_id, ad_user and password. It is also possible to add additional profiles. Specify the profile by passing profile or setting AZURE_PROFILE in the environment.
+
+## [See Also](azure_rm_firewallpolicy_module.md#id5)
+
+> **See also:**
+>
+> [Sign in with Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest)
+> :   How to authenticate using the `az login` command.
+
+## [Examples](azure_rm_firewallpolicy_module.md#id6)
+
+```yaml+jinja
+- name: Create a Firewall Policy
+  azure_rm_firewallpolicy:
+    resource_group: myAzureResourceGroup
+    name: myfirewallpolicy
+    base_policy: firewallparentpolicy
+    threat_intel_mode: alert
+    threat_intel_whitelist:
+      ip_addresses:
+        - 10.0.0.1
+        - 10.0.0.2
+      fqdns:
+        - "*.microsoft.com"
+        - "*.azure.com"
+    state: present
+
+- name: Update Firewall Policy
+  azure_rm_firewallpolicy:
+    resource_group: myAzureResourceGroup
+    name: myfirewallpolicy
+    base_policy: firewallparentpolicy
+    threat_intel_mode: deny
+    threat_intel_whitelist:
+      ip_addresses:
+        - 10.0.0.1
+      fqdns:
+        - "*.microsoft.com"
+    state: present
+    tags:
+      key1: "value1"
+
+- name: Delete Firewall Policy
+  azure_rm_firewallpolicy:
+    resource_group: myAzureResourceGroup
+    name: myfirewallpolicy
+    state: absent
+```
+
+## [Return Values](azure_rm_firewallpolicy_module.md#id7)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **state**  complex | Current state of the Firewall Policy.  Returned: always |
+| **base_policy**  dictionary | The parent firewall policy from which rules are inherited.  Returned: always  Sample: `{"id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/MyAzureResourceGroup/providers/ Microsoft.Network/firewallPolicies/firewallparentpolicy"}` |
+| **child_policies**  list / elements=dictionary | List of references to Child Firewall Policies.  Returned: always  Sample: `[{"id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/MyAzureResourceGroup/providers/ Microsoft.Network/firewallPolicies/childpolicy1"}]` |
+| **etag**  string | The etag of the firewall policy.  Returned: always  Sample: `"7cb2538e-0e52-4435-8979-4f417e7269d1"` |
+| **firewalls**  list / elements=dictionary | List of references to Azure Firewalls that this Firewall Policy is associated with.  Returned: always  Sample: `[{"id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myAzureResourceGroup/providers/ Microsoft.Network/azureFirewalls/azurefirewall"}]` |
+| **id**  string | The firewall policy ID.  Returned: always  Sample: `"/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/MyAzureResourceGroup/providers/ Microsoft.Network/firewallPolicies/myfirewallpolicy"` |
+| **location**  string | The Azure Region where the resource lives.  Returned: always  Sample: `"eastus"` |
+| **name**  string | The firewall policy name.  Returned: always  Sample: `"myfirewallpolicy"` |
+| **provisioning_state**  string | The provisioning state of the resource.  Returned: always  Sample: `"Succeeded"` |
+| **rule_collection_groups**  list / elements=dictionary | List of references to FirewallPolicyRuleCollectionGroups.  Returned: always  Sample: `[{"id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/MyAzureResourceGroup/providers/ Microsoft.Network/firewallPolicies/myfirewallpolicy/ ruleCollectionGroups/DefaultNetworkRuleCollectionGroup"}]` |
+| **tags**  list / elements=string | Resource tags.  Returned: always  Sample: `[{"key1": "value1"}]` |
+| **threat_intel_mode**  string | The operation mode for Threat Intelligence.  Returned: always  Sample: `"Alert"` |
+| **threat_intel_whitelist**  dictionary | ThreatIntel Whitelist for Firewall Policy.  Returned: always  Sample: `{"fqdns": ["*.microsoft.com", "*.azure.com"], "ip_addresses": ["10.0.0.1", "10.0.0.2"]}` |
+| **type**  string | The type of resource.  Returned: always  Sample: `"Microsoft.Network/FirewallPolicies"` |
+
+### Authors
+
+- Aparna Patil (@aparna-patil)
+
+### Collection links
+
+[Issue Tracker](https://github.com/ansible-collections/azure/issues)
+[Homepage](https://azure.microsoft.com)
+[Repository (Sources)](https://github.com/ansible-collections/azure)

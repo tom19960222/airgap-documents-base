@@ -1,0 +1,111 @@
+---
+collection: ansible
+version: "6"
+title: "google.cloud.gcp_spanner_instance module – Creates a GCP Instance"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/google/cloud/gcp_spanner_instance_module.html
+fetched_at: 2026-07-27T17:49:26+00:00
+---
+# google.cloud.gcp_spanner_instance module – Creates a GCP Instance
+
+> **Note:**
+>
+> This module is part of the [google.cloud collection](https://galaxy.ansible.com/google/cloud) (version 1.0.2).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install google.cloud`.
+> You need further requirements to be able to use this module,
+> see [Requirements](gcp_spanner_instance_module.md#ansible-collections-google-cloud-gcp-spanner-instance-module-requirements) for details.
+>
+> To use it in a playbook, specify: `google.cloud.gcp_spanner_instance`.
+
+- [Synopsis](gcp_spanner_instance_module.md#synopsis)
+- [Requirements](gcp_spanner_instance_module.md#requirements)
+- [Parameters](gcp_spanner_instance_module.md#parameters)
+- [Notes](gcp_spanner_instance_module.md#notes)
+- [Examples](gcp_spanner_instance_module.md#examples)
+- [Return Values](gcp_spanner_instance_module.md#return-values)
+
+## [Synopsis](gcp_spanner_instance_module.md#id1)
+
+- An isolated set of Cloud Spanner resources on which databases can be hosted.
+
+## [Requirements](gcp_spanner_instance_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- python >= 2.6
+- requests >= 2.18.4
+- google-auth >= 1.3.0
+
+## [Parameters](gcp_spanner_instance_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **auth_kind**  string / required | The type of credential used.  Choices:   - `"application"` - `"machineaccount"` - `"serviceaccount"` |
+| **config**  string / required | The name of the instance’s configuration (similar but not quite the same as a region) which defines defines the geographic placement and replication of your databases in this instance. It determines where your data is stored. Values are typically of the form `regional-europe-west1` , `us-central` etc.  In order to obtain a valid list please consult the [Configuration section of the docs](<https://cloud.google.com/spanner/docs/instances>). |
+| **display_name**  string / required | The descriptive name for this instance as it appears in UIs. Must be unique per project and between 4 and 30 characters in length. |
+| **env_type**  string | Specifies which Ansible environment you’re running this module within.  This should not be set unless you know what you’re doing.  This only alters the User Agent string for any API requests. |
+| **labels**  dictionary | An object containing a list of “key”: value pairs.  Example: { “name”: “wrench”, “mass”: “1.3kg”, “count”: “3” }. |
+| **name**  string / required | A unique identifier for the instance, which cannot be changed after the instance is created. The name must be between 6 and 30 characters in length. |
+| **node_count**  integer | The number of nodes allocated to this instance.  Default: `1` |
+| **project**  string | The Google Cloud Platform project to use. |
+| **scopes**  list / elements=string | Array of scopes to be used |
+| **service_account_contents**  jsonarg | The contents of a Service Account JSON file, either in a dictionary or as a JSON string that represents it. |
+| **service_account_email**  string | An optional service account email address if machineaccount is selected and the user does not wish to use the default email. |
+| **service_account_file**  path | The path of a Service Account JSON file if serviceaccount is selected as type. |
+| **state**  string | Whether the given object should exist in GCP  Choices:   - `"present"` ← (default) - `"absent"` |
+
+## [Notes](gcp_spanner_instance_module.md#id4)
+
+> **Note:**
+>
+> - API Reference: <https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances>
+> - Official Documentation: <https://cloud.google.com/spanner/>
+> - for authentication, you can set service_account_file using the `gcp_service_account_file` env variable.
+> - for authentication, you can set service_account_contents using the `GCP_SERVICE_ACCOUNT_CONTENTS` env variable.
+> - For authentication, you can set service_account_email using the `GCP_SERVICE_ACCOUNT_EMAIL` env variable.
+> - For authentication, you can set auth_kind using the `GCP_AUTH_KIND` env variable.
+> - For authentication, you can set scopes using the `GCP_SCOPES` env variable.
+> - Environment variables values will only be used if the playbook values are not set.
+> - The *service_account_email* and *service_account_file* options are mutually exclusive.
+
+## [Examples](gcp_spanner_instance_module.md#id5)
+
+```yaml+jinja
+- name: create a instance
+  google.cloud.gcp_spanner_instance:
+    name: testinstance
+    display_name: My Spanner Instance
+    node_count: 2
+    labels:
+      cost_center: ti-1700004
+    config: regional-us-central1
+    project: test_project
+    auth_kind: serviceaccount
+    service_account_file: "/tmp/auth.pem"
+    state: present
+```
+
+## [Return Values](gcp_spanner_instance_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **config**  string | The name of the instance’s configuration (similar but not quite the same as a region) which defines defines the geographic placement and replication of your databases in this instance. It determines where your data is stored. Values are typically of the form `regional-europe-west1` , `us-central` etc.  In order to obtain a valid list please consult the [Configuration section of the docs](<https://cloud.google.com/spanner/docs/instances>).  Returned: success |
+| **displayName**  string | The descriptive name for this instance as it appears in UIs. Must be unique per project and between 4 and 30 characters in length.  Returned: success |
+| **labels**  dictionary | An object containing a list of “key”: value pairs.  Example: { “name”: “wrench”, “mass”: “1.3kg”, “count”: “3” }.  Returned: success |
+| **name**  string | A unique identifier for the instance, which cannot be changed after the instance is created. The name must be between 6 and 30 characters in length.  Returned: success |
+| **nodeCount**  integer | The number of nodes allocated to this instance.  Returned: success |
+
+### Authors
+
+- Google Inc. (@googlecloudplatform)
+
+### Collection links
+
+[Homepage](http://cloud.google.com)
+[Repository (Sources)](http://github.com/ansible/ansible_collections_google)

@@ -1,0 +1,74 @@
+---
+collection: ansible
+version: "8"
+title: "Collection Galaxy metadata structure"
+source_url: https://docs.ansible.com/projects/ansible/8/dev_guide/collections_galaxy_meta.html
+fetched_at: 2026-07-28T00:59:20+00:00
+---
+# Collection Galaxy metadata structure
+
+A key component of an Ansible collection is the `galaxy.yml` file placed in the root directory of a collection. This
+file contains the metadata of the collection that is used to generate a collection artifact.
+
+## Structure
+
+The `galaxy.yml` file must contain the following keys in valid YAML:
+
+| Key | Comment |
+| --- | --- |
+| namespace  string  /  required | The namespace of the collection.  This can be a company/brand/organization or product namespace under which all content lives.  May only contain alphanumeric lowercase characters and underscores. Namespaces cannot start with underscores or numbers and cannot contain consecutive underscores. |
+| name  string  /  required | The name of the collection.  Has the same character restrictions as `namespace`. |
+| version  string  /  required | The version of the collection.  Must be compatible with semantic versioning. |
+| readme  string  /  required | The path to the Markdown (.md) readme file.  This path is relative to the root of the collection. |
+| authors  list  /  required | A list of the collection’s content authors.  Can be just the name or in the format ‘Full Name <email> (url) @nicks:irc/im.site#channel’. |
+| description  string | A short summary description of the collection. |
+| license  list | Either a single license or a list of licenses for content inside of a collection.  Ansible Galaxy currently only accepts [SPDX](https://spdx.org/licenses/) licenses  This key is mutually exclusive with `license_file`. |
+| license_file  string | The path to the license file for the collection.  This path is relative to the root of the collection.  This key is mutually exclusive with `license`. |
+| tags  list | A list of tags you want to associate with the collection for indexing/searching.  A tag name has the same character requirements as `namespace` and `name`. |
+| dependencies  dictionary | Collections that this collection requires to be installed for it to be usable.  The key of the dict is the collection label `namespace.name`.  The value is a version range [specifiers](https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification).  Multiple version range specifiers can be set and are separated by `,`. |
+| repository  string | The URL of the originating SCM repository. |
+| documentation  string | The URL to any online docs. |
+| homepage  string | The URL to the homepage of the collection/project. |
+| issues  string | The URL to the collection issue tracker. |
+| build_ignore  list  version_added: 2.10 | A list of file glob-like patterns used to filter any files or directories that should not be included in the build artifact.  A pattern is matched from the relative path of the file or directory of the collection directory.  This uses `fnmatch` to match the files or directories.  Some directories and files like `galaxy.yml`, `*.pyc`, `*.retry`, and `.git` are always filtered.  Mutually exclusive with `manifest` |
+| manifest  sentinel  version_added: 2.14 | A dict controlling use of manifest directives used in building the collection artifact.  The key `directives` is a list of MANIFEST.in style [directives](https://packaging.python.org/en/latest/guides/using-manifest-in/#manifest-in-commands)  The key `omit_default_directives` is a boolean that controls whether the default directives are used  Mutually exclusive with `build_ignore` |
+
+## Examples
+
+```yaml
+namespace: "namespace_name"
+name: "collection_name"
+version: "1.0.12"
+readme: "README.md"
+authors:
+    - "Author1"
+    - "Author2 (https://author2.example.com)"
+    - "Author3 <author3@example.com>"
+dependencies:
+    "other_namespace.collection1": ">=1.0.0"
+    "other_namespace.collection2": ">=2.0.0,<3.0.0"
+    "anderson55.my_collection": "*"    # note: "*" selects the highest version available
+license:
+    - "MIT"
+tags:
+    - demo
+    - collection
+repository: "https://www.github.com/my_org/my_collection"
+```
+
+> **See also:**
+>
+> [Developing collections](developing_collections.md#developing-collections)
+> :   Develop or modify a collection.
+>
+> [Developing modules](developing_modules_general.md#developing-modules-general)
+> :   Learn about how to write Ansible modules
+>
+> [Using Ansible collections](../collections_guide/index.md#collections)
+> :   Learn how to install and use collections.
+>
+> [Mailing List](https://groups.google.com/group/ansible-devel)
+> :   The development mailing list
+>
+> [irc.libera.chat](https://libera.chat/)
+> :   #ansible IRC chat channel

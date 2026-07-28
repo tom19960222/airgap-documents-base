@@ -1,0 +1,168 @@
+---
+collection: ansible
+version: "8"
+title: "community.general.keycloak_client_rolemapping module – Allows administration of Keycloak client_rolemapping with the Keycloak API"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/community/general/keycloak_client_rolemapping_module.html
+fetched_at: 2026-07-28T01:47:11+00:00
+---
+# community.general.keycloak_client_rolemapping module – Allows administration of Keycloak client_rolemapping with the Keycloak API
+
+> **Note:**
+>
+> This module is part of the [community.general collection](https://galaxy.ansible.com/ui/repo/published/community/general/) (version 7.5.2).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install community.general`.
+>
+> To use it in a playbook, specify: `community.general.keycloak_client_rolemapping`.
+
+New in community.general 3.5.0
+
+- [Synopsis](keycloak_client_rolemapping_module.md#synopsis)
+- [Parameters](keycloak_client_rolemapping_module.md#parameters)
+- [Attributes](keycloak_client_rolemapping_module.md#attributes)
+- [Examples](keycloak_client_rolemapping_module.md#examples)
+- [Return Values](keycloak_client_rolemapping_module.md#return-values)
+
+## [Synopsis](keycloak_client_rolemapping_module.md#id1)
+
+- This module allows you to add, remove or modify Keycloak client_rolemapping with the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
+- The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at <https://www.keycloak.org/docs-api/8.0/rest-api/index.html>.
+- Attributes are multi-valued in the Keycloak API. All attributes are lists of individual values and will be returned that way by this module. You may pass single values for attributes when calling the module, and this will be translated into a list suitable for the API.
+- When updating a client_rolemapping, where possible provide the role ID to the module. This removes a lookup to the API to translate the name into the role ID.
+
+Aliases: identity.keycloak.keycloak_client_rolemapping
+
+## [Parameters](keycloak_client_rolemapping_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **auth_client_id**  string | OpenID Connect `client_id` to authenticate to the API with.  **Default:** `"admin-cli"` |
+| **auth_client_secret**  string | Client Secret to use in conjunction with `auth_client_id` (if required). |
+| **auth_keycloak_url**  aliases: url  string / required | URL to the Keycloak instance. |
+| **auth_password**  aliases: password  string | Password to authenticate for API access with. |
+| **auth_realm**  string | Keycloak realm name to authenticate to for API access. |
+| **auth_username**  aliases: username  string | Username to authenticate for API access with. |
+| **cid**  string | Id of the client to be mapped.  This parameter is not required for updating or deleting the rolemapping but providing it will reduce the number of API calls required. |
+| **client_id**  string | Name of the client to be mapped (different than `cid`).  This parameter is required (can be replaced by cid for less API call). |
+| **connection_timeout**  integer  *added in community.general 4.5.0* | Controls the HTTP connections timeout period (in seconds) to Keycloak API.  **Default:** `10` |
+| **gid**  string | Id of the group to be mapped.  This parameter is not required for updating or deleting the rolemapping but providing it will reduce the number of API calls required. |
+| **group_name**  string | Name of the group to be mapped.  This parameter is required (can be replaced by gid for less API call). |
+| **http_agent**  string  *added in community.general 5.4.0* | Configures the HTTP User-Agent header.  **Default:** `"Ansible"` |
+| **parents**  list / elements=dictionary  *added in community.general 7.1.0* | List of parent groups for the group to handle sorted top to bottom.  Set this if your group is a subgroup and you do not provide the GID in `gid`. |
+| **id**  string | Identify parent by ID.  Needs less API calls than using `parents[].name`.  A deep parent chain can be started at any point when first given parent is given as ID.  Note that in principle both ID and name can be specified at the same time but current implementation only always use just one of them, with ID being preferred. |
+| **name**  string | Identify parent by name.  Needs more internal API calls than using `parents[].id` to map names to ID’s under the hood.  When giving a parent chain with only names it must be complete up to the top.  Note that in principle both ID and name can be specified at the same time but current implementation only always use just one of them, with ID being preferred. |
+| **realm**  string | They Keycloak realm under which this role_representation resides.  **Default:** `"master"` |
+| **roles**  list / elements=dictionary | Roles to be mapped to the group. |
+| **id**  string | The unique identifier for this role_representation.  This parameter is not required for updating or deleting a role_representation but providing it will reduce the number of API calls required. |
+| **name**  string | Name of the role_representation.  This parameter is required only when creating or updating the role_representation. |
+| **state**  string | State of the client_rolemapping.  On `present`, the client_rolemapping will be created if it does not yet exist, or updated with the parameters you provide.  On `absent`, the client_rolemapping will be removed if it exists.  **Choices:**   - `"present"` ← (default) - `"absent"` |
+| **token**  string  *added in community.general 3.0.0* | Authentication token for Keycloak API. |
+| **validate_certs**  boolean | Verify TLS certificates (do not disable this in production).  **Choices:**   - `false` - `true` ← (default) |
+
+## [Attributes](keycloak_client_rolemapping_module.md#id3)
+
+| Attribute | Support | Description |
+| --- | --- | --- |
+| **check_mode** | **Support:** **full** | Can run in `check_mode` and return changed status prediction without modifying target. |
+| **diff_mode** | **Support:** **full** | Will return details on what has changed (or possibly needs changing in `check_mode`), when in diff mode. |
+
+## [Examples](keycloak_client_rolemapping_module.md#id4)
+
+```yaml+jinja
+- name: Map a client role to a group, authentication with credentials
+  community.general.keycloak_client_rolemapping:
+    realm: MyCustomRealm
+    auth_client_id: admin-cli
+    auth_keycloak_url: https://auth.example.com/auth
+    auth_realm: master
+    auth_username: USERNAME
+    auth_password: PASSWORD
+    state: present
+    client_id: client1
+    group_name: group1
+    roles:
+      - name: role_name1
+        id: role_id1
+      - name: role_name2
+        id: role_id2
+  delegate_to: localhost
+
+- name: Map a client role to a group, authentication with token
+  community.general.keycloak_client_rolemapping:
+    realm: MyCustomRealm
+    auth_client_id: admin-cli
+    auth_keycloak_url: https://auth.example.com/auth
+    token: TOKEN
+    state: present
+    client_id: client1
+    group_name: group1
+    roles:
+      - name: role_name1
+        id: role_id1
+      - name: role_name2
+        id: role_id2
+  delegate_to: localhost
+
+- name: Map a client role to a subgroup, authentication with token
+  community.general.keycloak_client_rolemapping:
+    realm: MyCustomRealm
+    auth_client_id: admin-cli
+    auth_keycloak_url: https://auth.example.com/auth
+    token: TOKEN
+    state: present
+    client_id: client1
+    group_name: subgroup1
+    parents:
+      - name: parent-group
+    roles:
+      - name: role_name1
+        id: role_id1
+      - name: role_name2
+        id: role_id2
+  delegate_to: localhost
+
+- name: Unmap client role from a group
+  community.general.keycloak_client_rolemapping:
+    realm: MyCustomRealm
+    auth_client_id: admin-cli
+    auth_keycloak_url: https://auth.example.com/auth
+    auth_realm: master
+    auth_username: USERNAME
+    auth_password: PASSWORD
+    state: absent
+    client_id: client1
+    group_name: group1
+    roles:
+      - name: role_name1
+        id: role_id1
+      - name: role_name2
+        id: role_id2
+  delegate_to: localhost
+```
+
+## [Return Values](keycloak_client_rolemapping_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **end_state**  dictionary | Representation of client role mapping after module execution.  The sample is truncated.  **Returned:** on success  **Sample:** `{"adminUrl": "http://www.example.com/admin_url", "attributes": {"request.object.signature.alg": "RS256"}}` |
+| **existing**  dictionary | Representation of existing client role mapping.  The sample is truncated.  **Returned:** always  **Sample:** `{"adminUrl": "http://www.example.com/admin_url", "attributes": {"request.object.signature.alg": "RS256"}}` |
+| **msg**  string | Message as to what action was taken.  **Returned:** always  **Sample:** `"Role role1 assigned to group group1."` |
+| **proposed**  dictionary | Representation of proposed client role mapping.  **Returned:** always  **Sample:** `{"clientId": "test"}` |
+
+### Authors
+
+- Gaëtan Daubresse (@Gaetan2907)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/ansible-collections/community.general/issues)
+- [Repository (Sources)](https://github.com/ansible-collections/community.general)
+- [Submit a bug report](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=bug_report.yml)
+- [Request a feature](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=feature_request.yml)
+- [Communication](index.md#communication-for-community-general)

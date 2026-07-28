@@ -1,0 +1,160 @@
+---
+collection: ansible
+version: "8"
+title: "fortinet.fortios.fortios_switch_controller_flow_tracking module – Configure FortiSwitch flow tracking and export via ipfix/netflow in Fortinet’s FortiOS and FortiGate."
+source_url: https://docs.ansible.com/projects/ansible/8/collections/fortinet/fortios/fortios_switch_controller_flow_tracking_module.html
+fetched_at: 2026-07-28T02:27:12+00:00
+---
+# fortinet.fortios.fortios_switch_controller_flow_tracking module – Configure FortiSwitch flow tracking and export via ipfix/netflow in Fortinet’s FortiOS and FortiGate.
+
+> **Note:**
+>
+> This module is part of the [fortinet.fortios collection](https://galaxy.ansible.com/ui/repo/published/fortinet/fortios/) (version 2.3.4).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install fortinet.fortios`.
+> You need further requirements to be able to use this module,
+> see [Requirements](fortios_switch_controller_flow_tracking_module.md#ansible-collections-fortinet-fortios-fortios-switch-controller-flow-tracking-module-requirements) for details.
+>
+> To use it in a playbook, specify: `fortinet.fortios.fortios_switch_controller_flow_tracking`.
+
+New in fortinet.fortios 2.0.0
+
+- [Synopsis](fortios_switch_controller_flow_tracking_module.md#synopsis)
+- [Requirements](fortios_switch_controller_flow_tracking_module.md#requirements)
+- [Parameters](fortios_switch_controller_flow_tracking_module.md#parameters)
+- [Notes](fortios_switch_controller_flow_tracking_module.md#notes)
+- [Examples](fortios_switch_controller_flow_tracking_module.md#examples)
+- [Return Values](fortios_switch_controller_flow_tracking_module.md#return-values)
+
+## [Synopsis](fortios_switch_controller_flow_tracking_module.md#id1)
+
+- This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the user to set and modify switch_controller feature and flow_tracking category. Examples include all parameters and values need to be adjusted to datasources before usage. Tested with FOS v6.0.0
+
+## [Requirements](fortios_switch_controller_flow_tracking_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- ansible>=2.14
+
+## [Parameters](fortios_switch_controller_flow_tracking_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **access_token**  string | Token-based authentication. Generated from GUI of Fortigate. |
+| **enable_log**  boolean | Enable/Disable logging for task.  **Choices:**   - `false` ← (default) - `true` |
+| **member_path**  string | Member attribute path to operate on.  Delimited by a slash character if there are more than one attribute.  Parameter marked with member_path is legitimate for doing member operation. |
+| **member_state**  string | Add or delete a member under specified attribute path.  When member_state is specified, the state option is ignored.  **Choices:**   - `"present"` - `"absent"` |
+| **switch_controller_flow_tracking**  dictionary | Configure FortiSwitch flow tracking and export via ipfix/netflow. |
+| **aggregates**  list / elements=dictionary | Configure aggregates in which all traffic sessions matching the IP Address will be grouped into the same flow. |
+| **id**  integer / required | Aggregate id. see <a href=’#notes’>Notes</a>. |
+| **ip**  string | IP address to group all matching traffic sessions to a flow. |
+| **collector_ip**  string | Configure collector ip address. |
+| **collector_port**  integer | Configure collector port number(0-65535). |
+| **collectors**  list / elements=dictionary | Configure collectors for the flow. |
+| **ip**  string | Collector IP address. |
+| **name**  string / required | Collector name. |
+| **port**  integer | Collector port number(0-65535). |
+| **transport**  string | Collector L4 transport protocol for exporting packets.  **Choices:**   - `"udp"` - `"tcp"` - `"sctp"` |
+| **format**  string | Configure flow tracking protocol.  **Choices:**   - `"netflow1"` - `"netflow5"` - `"netflow9"` - `"ipfix"` |
+| **level**  string | Configure flow tracking level.  **Choices:**   - `"vlan"` - `"ip"` - `"port"` - `"proto"` - `"mac"` |
+| **max_export_pkt_size**  integer | Configure flow max export packet size (512-9216). |
+| **sample_mode**  string | Configure sample mode for the flow tracking.  **Choices:**   - `"local"` - `"perimeter"` - `"device-ingress"` |
+| **sample_rate**  integer | Configure sample rate for the perimeter and device-ingress sampling(0 - 99999). |
+| **template_export_period**  integer | Configure template export period (1-60). |
+| **timeout_general**  integer | Configure flow session general timeout (60-604800). |
+| **timeout_icmp**  integer | Configure flow session ICMP timeout (60-604800). |
+| **timeout_max**  integer | Configure flow session max timeout (60-604800). |
+| **timeout_tcp**  integer | Configure flow session TCP timeout (60-604800). |
+| **timeout_tcp_fin**  integer | Configure flow session TCP FIN timeout (60-604800). |
+| **timeout_tcp_rst**  integer | Configure flow session TCP RST timeout (60-604800). |
+| **timeout_udp**  integer | Configure flow session UDP timeout (60-604800). |
+| **transport**  string | Configure L4 transport protocol for exporting packets.  **Choices:**   - `"udp"` - `"tcp"` - `"sctp"` |
+| **vdom**  string | Virtual domain, among those defined previously. A vdom is a virtual instance of the FortiGate that can be configured and used as a different unit.  **Default:** `"root"` |
+
+## [Notes](fortios_switch_controller_flow_tracking_module.md#id4)
+
+> **Note:**
+>
+> - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
+
+## [Examples](fortios_switch_controller_flow_tracking_module.md#id5)
+
+```yaml+jinja
+- hosts: fortigates
+  collections:
+    - fortinet.fortios
+  connection: httpapi
+  vars:
+   vdom: "root"
+   ansible_httpapi_use_ssl: yes
+   ansible_httpapi_validate_certs: no
+   ansible_httpapi_port: 443
+  tasks:
+  - name: Configure FortiSwitch flow tracking and export via ipfix/netflow.
+    fortios_switch_controller_flow_tracking:
+      vdom:  "{{ vdom }}"
+      switch_controller_flow_tracking:
+        aggregates:
+         -
+            id:  "4"
+            ip: "<your_own_value>"
+        collector_ip: "<your_own_value>"
+        collector_port: "0"
+        collectors:
+         -
+            ip: "<your_own_value>"
+            name: "default_name_10"
+            port: "0"
+            transport: "udp"
+        format: "netflow1"
+        level: "vlan"
+        max_export_pkt_size: "512"
+        sample_mode: "local"
+        sample_rate: "512"
+        template_export_period: "5"
+        timeout_general: "3600"
+        timeout_icmp: "300"
+        timeout_max: "604800"
+        timeout_tcp: "3600"
+        timeout_tcp_fin: "300"
+        timeout_tcp_rst: "120"
+        timeout_udp: "300"
+        transport: "udp"
+```
+
+## [Return Values](fortios_switch_controller_flow_tracking_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **build**  string | Build number of the fortigate image  **Returned:** always  **Sample:** `"1547"` |
+| **http_method**  string | Last method used to provision the content into FortiGate  **Returned:** always  **Sample:** `"PUT"` |
+| **http_status**  string | Last result given by FortiGate on last operation applied  **Returned:** always  **Sample:** `"200"` |
+| **mkey**  string | Master key (id) used in the last call to FortiGate  **Returned:** success  **Sample:** `"id"` |
+| **name**  string | Name of the table used to fulfill the request  **Returned:** always  **Sample:** `"urlfilter"` |
+| **path**  string | Path of the table used to fulfill the request  **Returned:** always  **Sample:** `"webfilter"` |
+| **revision**  string | Internal revision number  **Returned:** always  **Sample:** `"17.0.2.10658"` |
+| **serial**  string | Serial number of the unit  **Returned:** always  **Sample:** `"FGVMEVYYQT3AB5352"` |
+| **status**  string | Indication of the operation’s result  **Returned:** always  **Sample:** `"success"` |
+| **vdom**  string | Virtual domain used  **Returned:** always  **Sample:** `"root"` |
+| **version**  string | Version of the FortiGate  **Returned:** always  **Sample:** `"v5.6.3"` |
+
+### Authors
+
+- Link Zheng (@chillancezen)
+- Jie Xue (@JieX19)
+- Hongbin Lu (@fgtdev-hblu)
+- Frank Shen (@frankshen01)
+- Miguel Angel Munoz (@mamunozgonzalez)
+- Nicolas Thomas (@thomnico)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues)
+- [Homepage](https://www.fortinet.com)
+- [Repository (Sources)](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection)

@@ -1,0 +1,20 @@
+---
+collection: ansible
+version: "8"
+title: "Red Hat Ansible Automation Platform"
+source_url: https://docs.ansible.com/projects/ansible/8/reference_appendices/tower.html
+fetched_at: 2026-07-28T00:58:07+00:00
+---
+# Red Hat Ansible Automation Platform
+
+> **Important:**
+>
+> Red Hat Ansible Automation Platform is available on multiple cloud platforms. See [Ansible on Clouds](https://access.redhat.com/documentation/en-us/ansible_on_clouds/2.x) for details.
+
+[Red Hat Ansible Automation Platform](https://www.ansible.com/products/automation-platform) (RHAAP) is an integrated solution for operationalizing Ansible across your team, organization, and enterprise. The platform includes a controller with a web console and REST API, analytics, execution environments, and much more.
+
+RHAAP gives you role-based access control, including control over the use of securely stored credentials for SSH and other services. You can sync your inventory with a wide variety of cloud sources, and powerful multi-playbook workflows allow you to model complex processes.
+
+RHAAP logs all of your jobs, integrates well with LDAP, SAML, and other authentication sources, and has an amazing browsable REST API. Command line tools are available for easy integration with Jenkins as well.
+
+RHAAP incorporates the downstream Red Hat supported product version of Ansible AWX, the downstream Red Hat supported product version of Ansible Galaxy, and multiple SaaS offerings. Find out more about RHAAP features and on the [Red Hat Ansible Automation Platform webpage](https://www.ansible.com/products/automation-platform). A Red Hat Ansible Automation Platform subscription includes support from Red Hat, Inc.

@@ -1,0 +1,149 @@
+---
+collection: ansible
+version: "8"
+title: "cisco.aci.aci_interface_policy_ospf module – Manage OSPF interface policies (ospf:IfPol)"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/cisco/aci/aci_interface_policy_ospf_module.html
+fetched_at: 2026-07-28T01:20:04+00:00
+---
+# cisco.aci.aci_interface_policy_ospf module – Manage OSPF interface policies (ospf:IfPol)
+
+> **Note:**
+>
+> This module is part of the [cisco.aci collection](https://galaxy.ansible.com/ui/repo/published/cisco/aci/) (version 2.8.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install cisco.aci`.
+>
+> To use it in a playbook, specify: `cisco.aci.aci_interface_policy_ospf`.
+
+- [Synopsis](aci_interface_policy_ospf_module.md#synopsis)
+- [Parameters](aci_interface_policy_ospf_module.md#parameters)
+- [See Also](aci_interface_policy_ospf_module.md#see-also)
+- [Examples](aci_interface_policy_ospf_module.md#examples)
+- [Return Values](aci_interface_policy_ospf_module.md#return-values)
+
+## [Synopsis](aci_interface_policy_ospf_module.md#id1)
+
+- Manage OSPF interface policies on Cisco ACI fabrics.
+
+## [Parameters](aci_interface_policy_ospf_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **annotation**  string | User-defined string for annotating an object.  If the value is not specified in the task, the value of environment variable `ACI_ANNOTATION` will be used instead.  If the value is not specified in the task and environment variable `ACI_ANNOTATION` then the default value will be used.  **Default:** `"orchestrator:ansible"` |
+| **certificate_name**  aliases: cert_name  string | The X.509 certificate name attached to the APIC AAA user used for signature-based authentication.  If a `private_key` filename was provided, this defaults to the `private_key` basename, without extension.  If PEM-formatted content was provided for `private_key`, this defaults to the `username` value.  If the value is not specified in the task, the value of environment variable `ACI_CERTIFICATE_NAME` will be used instead. |
+| **controls**  list / elements=string | The interface policy controls.  This is a list of one or more of the following controls:  `advert-subnet` – Advertise IP subnet instead of a host mask in the router LSA.  `bfd` – Bidirectional Forwarding Detection  `mtu-ignore` – Disables MTU mismatch detection on an interface.  `passive` – The interface does not participate in the OSPF protocol and will not establish adjacencies or send routing updates. However the interface is announced as part of the routing network.  **Choices:**   - `"advert-subnet"` - `"bfd"` - `"mtu-ignore"` - `"passive"` - `"unspecified"` |
+| **cost**  integer | The OSPF cost of the interface.  The cost (also called metric) of an interface in OSPF is an indication of the overhead required to send packets across a certain interface. The cost of an interface is inversely proportional to the bandwidth of that interface. A higher bandwidth indicates a lower cost. There is more overhead (higher cost) and time delays involved in crossing a 56k serial line than crossing a 10M ethernet line. The formula used to calculate the cost is `cost= 10000 0000/bandwith in bps` For example, it will cost 10 EXP8/10 EXP7 = 10 to cross a 10M Ethernet line and will cost 10 EXP8/1544000 = 64 to cross a T1 line.  By default, the cost of an interface is calculated based on the bandwidth; you can force the cost of an interface with the ip ospf cost value interface subconfiguration mode command.  Accepted values range between `1` and `450`.  The APIC defaults to `0` when unset during creation. |
+| **dead_interval**  integer | The interval between hello packets from a neighbor before the router declares the neighbor as down.  This value must be the same for all networking devices on a specific network.  Specifying a smaller dead interval (seconds) will give faster detection of a neighbor being down and improve convergence, but might cause more routing instability.  Accepted values range between `1` and `65535`.  The APIC defaults to `40` when unset during creation. |
+| **description**  aliases: descr  string | The description of the OSPF interface. |
+| **hello_interval**  integer | The interval between hello packets that OSPF sends on the interface.  Note that the smaller the hello interval, the faster topological changes will be detected, but more routing traffic will ensue.  This value must be the same for all routers and access servers on a specific network.  Accepted values range between `1` and `65535`.  The APIC defaults to `10` when unset during creation. |
+| **host**  aliases: hostname  string | IP Address or hostname of APIC resolvable by Ansible control host.  If the value is not specified in the task, the value of environment variable `ACI_HOST` will be used instead. |
+| **name_alias**  string | The alias for the current object. This relates to the nameAlias field in ACI. |
+| **network_type**  string | The OSPF interface policy network type.  OSPF supports broadcast and point-to-point.  The APIC defaults to `unspecified` when unset during creation.  **Choices:**   - `"bcast"` - `"p2p"` - `"unspecified"` |
+| **ospf**  aliases: ospf_interface, name  string | The OSPF interface policy name.  This name can be between 1 and 64 alphanumeric characters.  Note that you cannot change this name after the object has been saved. |
+| **output_level**  string | Influence the output of this ACI module.  `normal` means the standard output, incl. `current` dict  `info` adds informational output, incl. `previous`, `proposed` and `sent` dicts  `debug` adds debugging output, incl. `filter_string`, `method`, `response`, `status` and `url` information  If the value is not specified in the task, the value of environment variable `ACI_OUTPUT_LEVEL` will be used instead.  **Choices:**   - `"debug"` - `"info"` - `"normal"` ← (default) |
+| **output_path**  string | Path to a file that will be used to dump the ACI JSON configuration objects generated by the module.  If the value is not specified in the task, the value of environment variable `ACI_OUTPUT_PATH` will be used instead. |
+| **owner_key**  string | User-defined string for the ownerKey attribute of an ACI object.  This attribute represents a key for enabling clients to own their data for entity correlation.  If the value is not specified in the task, the value of environment variable `ACI_OWNER_KEY` will be used instead. |
+| **owner_tag**  string | User-defined string for the ownerTag attribute of an ACI object.  This attribute represents a tag for enabling clients to add their own data.  For example, to indicate who created this object.  If the value is not specified in the task, the value of environment variable `ACI_OWNER_TAG` will be used instead. |
+| **password**  string | The password to use for authentication.  This option is mutual exclusive with `private_key`. If `private_key` is provided too, it will be used instead.  If the value is not specified in the task, the value of environment variables `ACI_PASSWORD` or `ANSIBLE_NET_PASSWORD` will be used instead. |
+| **port**  integer | Port number to be used for REST connection.  The default value depends on parameter `use_ssl`.  If the value is not specified in the task, the value of environment variable `ACI_PORT` will be used instead. |
+| **prefix_suppression**  string | Whether prefix suppressions is enabled or disabled.  The APIC defaults to `inherit` when unset during creation.  **Choices:**   - `"inherit"` - `"enable"` - `"disable"` |
+| **priority**  integer | The priority for the OSPF interface profile.  Accepted values ranges between `0` and `255`.  The APIC defaults to `1` when unset during creation. |
+| **private_key**  aliases: cert_key  string | Either a PEM-formatted private key file or the private key content used for signature-based authentication.  This value also influences the default `certificate_name` that is used.  This option is mutual exclusive with `password`. If `password` is provided too, it will be ignored.  If the value is not specified in the task, the value of environment variable `ACI_PRIVATE_KEY` or `ANSIBLE_NET_SSH_KEYFILE` will be used instead. |
+| **retransmit_interval**  integer | The interval between LSA retransmissions.  The retransmit interval occurs while the router is waiting for an acknowledgement from the neighbor router that it received the LSA.  If no acknowledgment is received at the end of the interval, then the LSA is resent.  Accepted values range between `1` and `65535`.  The APIC defaults to `5` when unset during creation. |
+| **state**  string | Use `present` or `absent` for adding or removing.  Use `query` for listing an object or multiple objects.  **Choices:**   - `"absent"` - `"present"` ← (default) - `"query"` |
+| **tenant**  aliases: tenant_name  string | The name of the Tenant the OSPF interface policy should belong to. |
+| **timeout**  integer | The socket level timeout in seconds.  If the value is not specified in the task, the value of environment variable `ACI_TIMEOUT` will be used instead.  The default value is 30. |
+| **transmit_delay**  integer | The delay time needed to send an LSA update packet.  OSPF increments the LSA age time by the transmit delay amount before transmitting the LSA update.  You should take into account the transmission and propagation delays for the interface when you set this value.  Accepted values range between `1` and `450`.  The APIC defaults to `1` when unset during creation. |
+| **use_proxy**  boolean | If `false`, it will not use a proxy, even if one is defined in an environment variable on the target hosts.  If the value is not specified in the task, the value of environment variable `ACI_USE_PROXY` will be used instead.  The default value is true.  **Choices:**   - `false` - `true` |
+| **use_ssl**  boolean | If `false`, an HTTP connection will be used instead of the default HTTPS connection.  If the value is not specified in the task, the value of environment variable `ACI_USE_SSL` will be used instead.  The default value is true when the connection is local.  **Choices:**   - `false` - `true` |
+| **username**  aliases: user  string | The username to use for authentication.  If the value is not specified in the task, the value of environment variables `ACI_USERNAME` or `ANSIBLE_NET_USERNAME` will be used instead.  The default value is admin. |
+| **validate_certs**  boolean | If `false`, SSL certificates will not be validated.  This should only set to `false` when used on personally controlled sites using self-signed certificates.  If the value is not specified in the task, the value of environment variable `ACI_VALIDATE_CERTS` will be used instead.  The default value is true.  **Choices:**   - `false` - `true` |
+
+## [See Also](aci_interface_policy_ospf_module.md#id3)
+
+> **See also:**
+>
+> [APIC Management Information Model reference](https://developer.cisco.com/docs/apic-mim-ref/)
+> :   More information about the internal APIC class **ospf:IfPol**.
+>
+> [Cisco ACI Guide](../../../scenario_guides/guide_aci.md#aci-guide)
+> :   Detailed information on how to manage your ACI infrastructure using Ansible.
+>
+> [Developing Cisco ACI modules](https://docs.ansible.com/ansible/6/dev_guide/developing_modules_general_aci.html#aci-dev-guide "(in Ansible v6)")
+> :   Detailed guide on how to write your own Cisco ACI modules to contribute.
+
+## [Examples](aci_interface_policy_ospf_module.md#id4)
+
+```yaml+jinja
+- name: Ensure ospf interface policy exists
+  cisco.aci.aci_interface_policy_ospf:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    tenant: production
+    ospf: ospf1
+    state: present
+  delegate_to: localhost
+
+- name: Ensure ospf interface policy does not exist
+  cisco.aci.aci_interface_policy_ospf:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    tenant: production
+    ospf: ospf1
+    state: present
+  delegate_to: localhost
+
+- name: Query an ospf interface policy
+  cisco.aci.aci_interface_policy_ospf:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    tenant: production
+    ospf: ospf1
+    state: query
+  delegate_to: localhost
+  register: query_result
+
+- name: Query all ospf interface policies in tenant production
+  cisco.aci.aci_interface_policy_ospf:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    tenant: production
+    state: query
+  delegate_to: localhost
+  register: query_result
+```
+
+## [Return Values](aci_interface_policy_ospf_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **current**  list / elements=string | The existing configuration from the APIC after the module has finished  **Returned:** success  **Sample:** `[{"fvTenant": {"attributes": {"descr": "Production environment", "dn": "uni/tn-production", "name": "production", "nameAlias": "", "ownerKey": "", "ownerTag": ""}}}]` |
+| **error**  dictionary | The error information as returned from the APIC  **Returned:** failure  **Sample:** `{"code": "122", "text": "unknown managed object class foo"}` |
+| **filter_string**  string | The filter string used for the request  **Returned:** failure or debug  **Sample:** `"?rsp-prop-include=config-only"` |
+| **method**  string | The HTTP method used for the request to the APIC  **Returned:** failure or debug  **Sample:** `"POST"` |
+| **previous**  list / elements=string | The original configuration from the APIC before the module has started  **Returned:** info  **Sample:** `[{"fvTenant": {"attributes": {"descr": "Production", "dn": "uni/tn-production", "name": "production", "nameAlias": "", "ownerKey": "", "ownerTag": ""}}}]` |
+| **proposed**  dictionary | The assembled configuration from the user-provided parameters  **Returned:** info  **Sample:** `{"fvTenant": {"attributes": {"descr": "Production environment", "name": "production"}}}` |
+| **raw**  string | The raw output returned by the APIC REST API (xml or json)  **Returned:** parse error  **Sample:** `"<?xml version=\"1.0\" encoding=\"UTF-8\"?><imdata totalCount=\"1\"><error code=\"122\" text=\"unknown managed object class foo\"/></imdata>"` |
+| **response**  string | The HTTP response from the APIC  **Returned:** failure or debug  **Sample:** `"OK (30 bytes)"` |
+| **sent**  list / elements=string | The actual/minimal configuration pushed to the APIC  **Returned:** info  **Sample:** `{"fvTenant": {"attributes": {"descr": "Production environment"}}}` |
+| **status**  integer | The HTTP status from the APIC  **Returned:** failure or debug  **Sample:** `200` |
+| **url**  string | The HTTP url used for the request to the APIC  **Returned:** failure or debug  **Sample:** `"https://10.11.12.13/api/mo/uni/tn-production.json"` |
+
+### Authors
+
+- Dag Wieers (@dagwieers)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/CiscoDevNet/ansible-aci/issues)
+- [Repository (Sources)](https://github.com/CiscoDevNet/ansible-aci)

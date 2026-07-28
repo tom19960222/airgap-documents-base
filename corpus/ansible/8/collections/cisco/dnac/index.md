@@ -1,0 +1,435 @@
+---
+collection: ansible
+version: "8"
+title: "Cisco.Dnac"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/cisco/dnac/index.html
+fetched_at: 2026-07-28T01:01:57+00:00
+---
+# Cisco.Dnac
+
+Collection version 6.9.0
+
+- [Description](index.md#description)
+- [Plugin Index](index.md#plugin-index)
+
+## [Description](index.md#id1)
+
+Ansible Modules for Cisco DNA Center
+
+**Authors:**
+
+- Rafael Campos <[rcampos@altus.cr](mailto:rcampos%40altus.cr)>
+- William Astorga <[wastorga@altus.cr](mailto:wastorga%40altus.cr)>
+- Jose Bogarin <[jbogarin@altus.cr](mailto:jbogarin%40altus.cr)>
+- Bryan Vargas <[bvargas@altus.cr](mailto:bvargas%40altus.cr)>
+- Francisco Muñoz <[fmunoz@altus.cr](mailto:fmunoz%40altus.cr)>
+- Madhan Sankaranarayanan (@madhansansel)
+- Rishita Chowdhary (@rishitachowdhary)
+
+**Supported ansible-core versions:**
+
+- 2.9.10 or newer
+
+- [Issue Tracker](https://github.com/cisco-en-programmability/dnacenter-ansible/issues)
+- [Repository (Sources)](https://github.com/cisco-en-programmability/dnacenter-ansible)
+
+## [Plugin Index](index.md#id2)
+
+These are the plugins in the cisco.dnac collection:
+
+### Modules
+
+- [accesspoint_configuration_details_by_task_id_info module](accesspoint_configuration_details_by_task_id_info_module.md#ansible-collections-cisco-dnac-accesspoint-configuration-details-by-task-id-info-module) – Information module for Accesspoint Configuration Details By Task Id
+- [app_policy_default_info module](app_policy_default_info_module.md#ansible-collections-cisco-dnac-app-policy-default-info-module) – Information module for App Policy Default
+- [app_policy_info module](app_policy_info_module.md#ansible-collections-cisco-dnac-app-policy-info-module) – Information module for App Policy
+- [app_policy_intent_create module](app_policy_intent_create_module.md#ansible-collections-cisco-dnac-app-policy-intent-create-module) – Resource module for App Policy Intent Create
+- [app_policy_queuing_profile module](app_policy_queuing_profile_module.md#ansible-collections-cisco-dnac-app-policy-queuing-profile-module) – Resource module for App Policy Queuing Profile
+- [app_policy_queuing_profile_count_info module](app_policy_queuing_profile_count_info_module.md#ansible-collections-cisco-dnac-app-policy-queuing-profile-count-info-module) – Information module for App Policy Queuing Profile Count
+- [app_policy_queuing_profile_info module](app_policy_queuing_profile_info_module.md#ansible-collections-cisco-dnac-app-policy-queuing-profile-info-module) – Information module for App Policy Queuing Profile
+- [application_sets module](application_sets_module.md#ansible-collections-cisco-dnac-application-sets-module) – Resource module for Application Sets
+- [application_sets_count_info module](application_sets_count_info_module.md#ansible-collections-cisco-dnac-application-sets-count-info-module) – Information module for Application Sets Count
+- [application_sets_info module](application_sets_info_module.md#ansible-collections-cisco-dnac-application-sets-info-module) – Information module for Application Sets
+- [applications module](applications_module.md#ansible-collections-cisco-dnac-applications-module) – Resource module for Applications
+- [applications_count_info module](applications_count_info_module.md#ansible-collections-cisco-dnac-applications-count-info-module) – Information module for Applications Count
+- [applications_health_info module](applications_health_info_module.md#ansible-collections-cisco-dnac-applications-health-info-module) – Information module for Applications Health
+- [applications_info module](applications_info_module.md#ansible-collections-cisco-dnac-applications-info-module) – Information module for Applications
+- [assign_device_to_site module](assign_device_to_site_module.md#ansible-collections-cisco-dnac-assign-device-to-site-module) – Resource module for Assign Device To Site
+- [associate_site_to_network_profile module](associate_site_to_network_profile_module.md#ansible-collections-cisco-dnac-associate-site-to-network-profile-module) – Resource module for Associate Site To Network Profile
+- [authentication_import_certificate module](authentication_import_certificate_module.md#ansible-collections-cisco-dnac-authentication-import-certificate-module) – Resource module for Authentication Import Certificate
+- [authentication_import_certificate_p12 module](authentication_import_certificate_p12_module.md#ansible-collections-cisco-dnac-authentication-import-certificate-p12-module) – Resource module for Authentication Import Certificate P12
+- [authentication_policy_servers_info module](authentication_policy_servers_info_module.md#ansible-collections-cisco-dnac-authentication-policy-servers-info-module) – Information module for Authentication Policy Servers
+- [buildings_planned_access_points_info module](buildings_planned_access_points_info_module.md#ansible-collections-cisco-dnac-buildings-planned-access-points-info-module) – Information module for Buildings Planned Access Points
+- [business_sda_hostonboarding_ssid_ippool module](business_sda_hostonboarding_ssid_ippool_module.md#ansible-collections-cisco-dnac-business-sda-hostonboarding-ssid-ippool-module) – Resource module for Business Sda Hostonboarding Ssid Ippool
+- [business_sda_hostonboarding_ssid_ippool_info module](business_sda_hostonboarding_ssid_ippool_info_module.md#ansible-collections-cisco-dnac-business-sda-hostonboarding-ssid-ippool-info-module) – Information module for Business Sda Hostonboarding Ssid Ippool
+- [business_sda_virtual_network_summary_info module](business_sda_virtual_network_summary_info_module.md#ansible-collections-cisco-dnac-business-sda-virtual-network-summary-info-module) – Information module for Business Sda Virtual Network Summary
+- [business_sda_wireless_controller_create module](business_sda_wireless_controller_create_module.md#ansible-collections-cisco-dnac-business-sda-wireless-controller-create-module) – Resource module for Business Sda Wireless Controller Create
+- [business_sda_wireless_controller_delete module](business_sda_wireless_controller_delete_module.md#ansible-collections-cisco-dnac-business-sda-wireless-controller-delete-module) – Resource module for Business Sda Wireless Controller Delete
+- [cli_credential module](cli_credential_module.md#ansible-collections-cisco-dnac-cli-credential-module) – Resource module for Cli Credential
+- [client_detail_info module](client_detail_info_module.md#ansible-collections-cisco-dnac-client-detail-info-module) – Information module for Client Detail
+- [client_enrichment_details_info module](client_enrichment_details_info_module.md#ansible-collections-cisco-dnac-client-enrichment-details-info-module) – Information module for Client Enrichment Details
+- [client_health_info module](client_health_info_module.md#ansible-collections-cisco-dnac-client-health-info-module) – Information module for Client Health
+- [client_proximity_info module](client_proximity_info_module.md#ansible-collections-cisco-dnac-client-proximity-info-module) – Information module for Client Proximity
+- [command_runner_run_command module](command_runner_run_command_module.md#ansible-collections-cisco-dnac-command-runner-run-command-module) – Resource module for Command Runner Run Command
+- [compliance_check_run module](compliance_check_run_module.md#ansible-collections-cisco-dnac-compliance-check-run-module) – Resource module for Compliance Check Run
+- [compliance_device_by_id_info module](compliance_device_by_id_info_module.md#ansible-collections-cisco-dnac-compliance-device-by-id-info-module) – Information module for Compliance Device By Id
+- [compliance_device_details_count_info module](compliance_device_details_count_info_module.md#ansible-collections-cisco-dnac-compliance-device-details-count-info-module) – Information module for Compliance Device Details Count
+- [compliance_device_details_info module](compliance_device_details_info_module.md#ansible-collections-cisco-dnac-compliance-device-details-info-module) – Information module for Compliance Device Details
+- [compliance_device_info module](compliance_device_info_module.md#ansible-collections-cisco-dnac-compliance-device-info-module) – Information module for Compliance Device
+- [compliance_device_status_count_info module](compliance_device_status_count_info_module.md#ansible-collections-cisco-dnac-compliance-device-status-count-info-module) – Information module for Compliance Device Status Count
+- [configuration_template module](configuration_template_module.md#ansible-collections-cisco-dnac-configuration-template-module) – Resource module for Configuration Template
+- [configuration_template_clone module](configuration_template_clone_module.md#ansible-collections-cisco-dnac-configuration-template-clone-module) – Resource module for Configuration Template Clone
+- [configuration_template_create module](configuration_template_create_module.md#ansible-collections-cisco-dnac-configuration-template-create-module) – Resource module for Configuration Template Create
+- [configuration_template_deploy module](configuration_template_deploy_module.md#ansible-collections-cisco-dnac-configuration-template-deploy-module) – Resource module for Configuration Template Deploy
+- [configuration_template_deploy_status_info module](configuration_template_deploy_status_info_module.md#ansible-collections-cisco-dnac-configuration-template-deploy-status-info-module) – Information module for Configuration Template Deploy Status
+- [configuration_template_deploy_v2 module](configuration_template_deploy_v2_module.md#ansible-collections-cisco-dnac-configuration-template-deploy-v2-module) – Resource module for Configuration Template Deploy V2
+- [configuration_template_export_project module](configuration_template_export_project_module.md#ansible-collections-cisco-dnac-configuration-template-export-project-module) – Resource module for Configuration Template Export Project
+- [configuration_template_export_template module](configuration_template_export_template_module.md#ansible-collections-cisco-dnac-configuration-template-export-template-module) – Resource module for Configuration Template Export Template
+- [configuration_template_import_project module](configuration_template_import_project_module.md#ansible-collections-cisco-dnac-configuration-template-import-project-module) – Resource module for Configuration Template Import Project
+- [configuration_template_import_template module](configuration_template_import_template_module.md#ansible-collections-cisco-dnac-configuration-template-import-template-module) – Resource module for Configuration Template Import Template
+- [configuration_template_info module](configuration_template_info_module.md#ansible-collections-cisco-dnac-configuration-template-info-module) – Information module for Configuration Template
+- [configuration_template_project module](configuration_template_project_module.md#ansible-collections-cisco-dnac-configuration-template-project-module) – Resource module for Configuration Template Project
+- [configuration_template_project_info module](configuration_template_project_info_module.md#ansible-collections-cisco-dnac-configuration-template-project-info-module) – Information module for Configuration Template Project
+- [configuration_template_version_create module](configuration_template_version_create_module.md#ansible-collections-cisco-dnac-configuration-template-version-create-module) – Resource module for Configuration Template Version Create
+- [configuration_template_version_info module](configuration_template_version_info_module.md#ansible-collections-cisco-dnac-configuration-template-version-info-module) – Information module for Configuration Template Version
+- [credential_to_site_by_siteid_create_v2 module](credential_to_site_by_siteid_create_v2_module.md#ansible-collections-cisco-dnac-credential-to-site-by-siteid-create-v2-module) – Resource module for Credential To Site By Siteid Create V2
+- [device_configurations_export module](device_configurations_export_module.md#ansible-collections-cisco-dnac-device-configurations-export-module) – Resource module for Device Configurations Export
+- [device_credential_create module](device_credential_create_module.md#ansible-collections-cisco-dnac-device-credential-create-module) – Resource module for Device Credential Create
+- [device_credential_delete module](device_credential_delete_module.md#ansible-collections-cisco-dnac-device-credential-delete-module) – Resource module for Device Credential Delete
+- [device_credential_info module](device_credential_info_module.md#ansible-collections-cisco-dnac-device-credential-info-module) – Information module for Device Credential
+- [device_credential_intent module](device_credential_intent_module.md#ansible-collections-cisco-dnac-device-credential-intent-module) – Resource module for Global Device Credentials and Assigning Credentials to sites.
+- [device_credential_update module](device_credential_update_module.md#ansible-collections-cisco-dnac-device-credential-update-module) – Resource module for Device Credential Update
+- [device_details_info module](device_details_info_module.md#ansible-collections-cisco-dnac-device-details-info-module) – Information module for Device Details
+- [device_enrichment_details_info module](device_enrichment_details_info_module.md#ansible-collections-cisco-dnac-device-enrichment-details-info-module) – Information module for Device Enrichment Details
+- [device_family_identifiers_details_info module](device_family_identifiers_details_info_module.md#ansible-collections-cisco-dnac-device-family-identifiers-details-info-module) – Information module for Device Family Identifiers Details
+- [device_health_info module](device_health_info_module.md#ansible-collections-cisco-dnac-device-health-info-module) – Information module for Device Health
+- [device_interface_by_ip_info module](device_interface_by_ip_info_module.md#ansible-collections-cisco-dnac-device-interface-by-ip-info-module) – Information module for Device Interface By Ip
+- [device_interface_count_info module](device_interface_count_info_module.md#ansible-collections-cisco-dnac-device-interface-count-info-module) – Information module for Device Interface Count
+- [device_interface_info module](device_interface_info_module.md#ansible-collections-cisco-dnac-device-interface-info-module) – Information module for Device Interface
+- [device_interface_isis_info module](device_interface_isis_info_module.md#ansible-collections-cisco-dnac-device-interface-isis-info-module) – Information module for Device Interface Isis
+- [device_interface_ospf_info module](device_interface_ospf_info_module.md#ansible-collections-cisco-dnac-device-interface-ospf-info-module) – Information module for Device Interface Ospf
+- [device_reboot_apreboot module](device_reboot_apreboot_module.md#ansible-collections-cisco-dnac-device-reboot-apreboot-module) – Resource module for Device Reboot Apreboot
+- [device_reboot_apreboot_info module](device_reboot_apreboot_info_module.md#ansible-collections-cisco-dnac-device-reboot-apreboot-info-module) – Information module for Device Reboot Apreboot
+- [device_replacement module](device_replacement_module.md#ansible-collections-cisco-dnac-device-replacement-module) – Resource module for Device Replacement
+- [device_replacement_count_info module](device_replacement_count_info_module.md#ansible-collections-cisco-dnac-device-replacement-count-info-module) – Information module for Device Replacement Count
+- [device_replacement_deploy module](device_replacement_deploy_module.md#ansible-collections-cisco-dnac-device-replacement-deploy-module) – Resource module for Device Replacement Deploy
+- [device_replacement_info module](device_replacement_info_module.md#ansible-collections-cisco-dnac-device-replacement-info-module) – Information module for Device Replacement
+- [disassociate_site_to_network_profile module](disassociate_site_to_network_profile_module.md#ansible-collections-cisco-dnac-disassociate-site-to-network-profile-module) – Resource module for Disassociate Site To Network Profile
+- [disasterrecovery_system_operationstatus_info module](disasterrecovery_system_operationstatus_info_module.md#ansible-collections-cisco-dnac-disasterrecovery-system-operationstatus-info-module) – Information module for Disasterrecovery System Operationstatus
+- [disasterrecovery_system_status_info module](disasterrecovery_system_status_info_module.md#ansible-collections-cisco-dnac-disasterrecovery-system-status-info-module) – Information module for Disasterrecovery System Status
+- [discovery module](discovery_module.md#ansible-collections-cisco-dnac-discovery-module) – Resource module for Discovery
+- [discovery_count_info module](discovery_count_info_module.md#ansible-collections-cisco-dnac-discovery-count-info-module) – Information module for Discovery Count
+- [discovery_device_count_info module](discovery_device_count_info_module.md#ansible-collections-cisco-dnac-discovery-device-count-info-module) – Information module for Discovery Device Count
+- [discovery_device_info module](discovery_device_info_module.md#ansible-collections-cisco-dnac-discovery-device-info-module) – Information module for Discovery Device
+- [discovery_device_range_info module](discovery_device_range_info_module.md#ansible-collections-cisco-dnac-discovery-device-range-info-module) – Information module for Discovery Device Range
+- [discovery_info module](discovery_info_module.md#ansible-collections-cisco-dnac-discovery-info-module) – Information module for Discovery
+- [discovery_job_info module](discovery_job_info_module.md#ansible-collections-cisco-dnac-discovery-job-info-module) – Information module for Discovery Job
+- [discovery_range_delete module](discovery_range_delete_module.md#ansible-collections-cisco-dnac-discovery-range-delete-module) – Resource module for Discovery Range Delete
+- [discovery_range_info module](discovery_range_info_module.md#ansible-collections-cisco-dnac-discovery-range-info-module) – Information module for Discovery Range
+- [discovery_summary_info module](discovery_summary_info_module.md#ansible-collections-cisco-dnac-discovery-summary-info-module) – Information module for Discovery Summary
+- [dna_command_runner_keywords_info module](dna_command_runner_keywords_info_module.md#ansible-collections-cisco-dnac-dna-command-runner-keywords-info-module) – Information module for Dna Command Runner Keywords
+- [dnac_packages_info module](dnac_packages_info_module.md#ansible-collections-cisco-dnac-dnac-packages-info-module) – Information module for Dnac Packages
+- [dnacaap_management_execution_status_info module](dnacaap_management_execution_status_info_module.md#ansible-collections-cisco-dnac-dnacaap-management-execution-status-info-module) – Information module for Dnacaap Management Execution Status
+- [endpoint_analytics_profiling_rules module](endpoint_analytics_profiling_rules_module.md#ansible-collections-cisco-dnac-endpoint-analytics-profiling-rules-module) – Resource module for Endpoint Analytics Profiling Rules
+- [endpoint_analytics_profiling_rules_info module](endpoint_analytics_profiling_rules_info_module.md#ansible-collections-cisco-dnac-endpoint-analytics-profiling-rules-info-module) – Information module for Endpoint Analytics Profiling Rules
+- [eox_status_device_info module](eox_status_device_info_module.md#ansible-collections-cisco-dnac-eox-status-device-info-module) – Information module for Eox Status Device
+- [eox_status_summary_info module](eox_status_summary_info_module.md#ansible-collections-cisco-dnac-eox-status-summary-info-module) – Information module for Eox Status Summary
+- [event_api_status_info module](event_api_status_info_module.md#ansible-collections-cisco-dnac-event-api-status-info-module) – Information module for Event Api Status
+- [event_artifact_count_info module](event_artifact_count_info_module.md#ansible-collections-cisco-dnac-event-artifact-count-info-module) – Information module for Event Artifact Count
+- [event_artifact_info module](event_artifact_info_module.md#ansible-collections-cisco-dnac-event-artifact-info-module) – Information module for Event Artifact
+- [event_config_connector_types_info module](event_config_connector_types_info_module.md#ansible-collections-cisco-dnac-event-config-connector-types-info-module) – Information module for Event Config Connector Types
+- [event_count_info module](event_count_info_module.md#ansible-collections-cisco-dnac-event-count-info-module) – Information module for Event Count
+- [event_email_config module](event_email_config_module.md#ansible-collections-cisco-dnac-event-email-config-module) – Resource module for Event Email Config
+- [event_email_config_create module](event_email_config_create_module.md#ansible-collections-cisco-dnac-event-email-config-create-module) – Resource module for Event Email Config Create
+- [event_email_config_info module](event_email_config_info_module.md#ansible-collections-cisco-dnac-event-email-config-info-module) – Information module for Event Email Config
+- [event_email_config_update module](event_email_config_update_module.md#ansible-collections-cisco-dnac-event-email-config-update-module) – Resource module for Event Email Config Update
+- [event_info module](event_info_module.md#ansible-collections-cisco-dnac-event-info-module) – Information module for Event
+- [event_series_audit_logs_info module](event_series_audit_logs_info_module.md#ansible-collections-cisco-dnac-event-series-audit-logs-info-module) – Information module for Event Series Audit Logs
+- [event_series_audit_logs_parent_records_info module](event_series_audit_logs_parent_records_info_module.md#ansible-collections-cisco-dnac-event-series-audit-logs-parent-records-info-module) – Information module for Event Series Audit Logs Parent Records
+- [event_series_audit_logs_summary_info module](event_series_audit_logs_summary_info_module.md#ansible-collections-cisco-dnac-event-series-audit-logs-summary-info-module) – Information module for Event Series Audit Logs Summary
+- [event_series_count_info module](event_series_count_info_module.md#ansible-collections-cisco-dnac-event-series-count-info-module) – Information module for Event Series Count
+- [event_series_info module](event_series_info_module.md#ansible-collections-cisco-dnac-event-series-info-module) – Information module for Event Series
+- [event_snmp_config_info module](event_snmp_config_info_module.md#ansible-collections-cisco-dnac-event-snmp-config-info-module) – Information module for Event Snmp Config
+- [event_subscription module](event_subscription_module.md#ansible-collections-cisco-dnac-event-subscription-module) – Resource module for Event Subscription
+- [event_subscription_count_info module](event_subscription_count_info_module.md#ansible-collections-cisco-dnac-event-subscription-count-info-module) – Information module for Event Subscription Count
+- [event_subscription_details_email_info module](event_subscription_details_email_info_module.md#ansible-collections-cisco-dnac-event-subscription-details-email-info-module) – Information module for Event Subscription Details Email
+- [event_subscription_details_rest_info module](event_subscription_details_rest_info_module.md#ansible-collections-cisco-dnac-event-subscription-details-rest-info-module) – Information module for Event Subscription Details Rest
+- [event_subscription_details_syslog_info module](event_subscription_details_syslog_info_module.md#ansible-collections-cisco-dnac-event-subscription-details-syslog-info-module) – Information module for Event Subscription Details Syslog
+- [event_subscription_email module](event_subscription_email_module.md#ansible-collections-cisco-dnac-event-subscription-email-module) – Resource module for Event Subscription Email
+- [event_subscription_email_info module](event_subscription_email_info_module.md#ansible-collections-cisco-dnac-event-subscription-email-info-module) – Information module for Event Subscription Email
+- [event_subscription_info module](event_subscription_info_module.md#ansible-collections-cisco-dnac-event-subscription-info-module) – Information module for Event Subscription
+- [event_subscription_rest module](event_subscription_rest_module.md#ansible-collections-cisco-dnac-event-subscription-rest-module) – Resource module for Event Subscription Rest
+- [event_subscription_rest_info module](event_subscription_rest_info_module.md#ansible-collections-cisco-dnac-event-subscription-rest-info-module) – Information module for Event Subscription Rest
+- [event_subscription_syslog module](event_subscription_syslog_module.md#ansible-collections-cisco-dnac-event-subscription-syslog-module) – Resource module for Event Subscription Syslog
+- [event_subscription_syslog_info module](event_subscription_syslog_info_module.md#ansible-collections-cisco-dnac-event-subscription-syslog-info-module) – Information module for Event Subscription Syslog
+- [event_syslog_config module](event_syslog_config_module.md#ansible-collections-cisco-dnac-event-syslog-config-module) – Resource module for Event Syslog Config
+- [event_syslog_config_info module](event_syslog_config_info_module.md#ansible-collections-cisco-dnac-event-syslog-config-info-module) – Information module for Event Syslog Config
+- [event_webhook_create module](event_webhook_create_module.md#ansible-collections-cisco-dnac-event-webhook-create-module) – Resource module for Event Webhook Create
+- [event_webhook_update module](event_webhook_update_module.md#ansible-collections-cisco-dnac-event-webhook-update-module) – Resource module for Event Webhook Update
+- [execute_suggested_actions_commands module](execute_suggested_actions_commands_module.md#ansible-collections-cisco-dnac-execute-suggested-actions-commands-module) – Resource module for Execute Suggested Actions Commands
+- [file_import module](file_import_module.md#ansible-collections-cisco-dnac-file-import-module) – Resource module for File Import
+- [file_info module](file_info_module.md#ansible-collections-cisco-dnac-file-info-module) – Information module for File
+- [file_namespace_files_info module](file_namespace_files_info_module.md#ansible-collections-cisco-dnac-file-namespace-files-info-module) – Information module for File Namespace Files
+- [file_namespaces_info module](file_namespaces_info_module.md#ansible-collections-cisco-dnac-file-namespaces-info-module) – Information module for File Namespaces
+- [global_credential_delete module](global_credential_delete_module.md#ansible-collections-cisco-dnac-global-credential-delete-module) – Resource module for Global Credential Delete
+- [global_credential_info module](global_credential_info_module.md#ansible-collections-cisco-dnac-global-credential-info-module) – Information module for Global Credential
+- [global_credential_update module](global_credential_update_module.md#ansible-collections-cisco-dnac-global-credential-update-module) – Resource module for Global Credential Update
+- [global_credential_v2 module](global_credential_v2_module.md#ansible-collections-cisco-dnac-global-credential-v2-module) – Resource module for Global Credential V2
+- [global_credential_v2_info module](global_credential_v2_info_module.md#ansible-collections-cisco-dnac-global-credential-v2-info-module) – Information module for Global Credential V2
+- [global_pool module](global_pool_module.md#ansible-collections-cisco-dnac-global-pool-module) – Resource module for Global Pool
+- [global_pool_info module](global_pool_info_module.md#ansible-collections-cisco-dnac-global-pool-info-module) – Information module for Global Pool
+- [golden_image_create module](golden_image_create_module.md#ansible-collections-cisco-dnac-golden-image-create-module) – Resource module for Golden Image Create
+- [golden_tag_image_delete module](golden_tag_image_delete_module.md#ansible-collections-cisco-dnac-golden-tag-image-delete-module) – Resource module for Golden Tag Image Delete
+- [golden_tag_image_details_info module](golden_tag_image_details_info_module.md#ansible-collections-cisco-dnac-golden-tag-image-details-info-module) – Information module for Golden Tag Image Details
+- [http_read_credential module](http_read_credential_module.md#ansible-collections-cisco-dnac-http-read-credential-module) – Resource module for Http Read Credential
+- [http_write_credential module](http_write_credential_module.md#ansible-collections-cisco-dnac-http-write-credential-module) – Resource module for Http Write Credential
+- [integration_settings_instances_itsm module](integration_settings_instances_itsm_module.md#ansible-collections-cisco-dnac-integration-settings-instances-itsm-module) – Resource module for Integration Settings Instances Itsm
+- [integration_settings_instances_itsm_info module](integration_settings_instances_itsm_info_module.md#ansible-collections-cisco-dnac-integration-settings-instances-itsm-info-module) – Information module for Integration Settings Instances Itsm
+- [interface_info module](interface_info_module.md#ansible-collections-cisco-dnac-interface-info-module) – Information module for Interface
+- [interface_network_device_detail_info module](interface_network_device_detail_info_module.md#ansible-collections-cisco-dnac-interface-network-device-detail-info-module) – Information module for Interface Network Device Detail
+- [interface_network_device_info module](interface_network_device_info_module.md#ansible-collections-cisco-dnac-interface-network-device-info-module) – Information module for Interface Network Device
+- [interface_network_device_range_info module](interface_network_device_range_info_module.md#ansible-collections-cisco-dnac-interface-network-device-range-info-module) – Information module for Interface Network Device Range
+- [interface_operation_create module](interface_operation_create_module.md#ansible-collections-cisco-dnac-interface-operation-create-module) – Resource module for Interface Operation Create
+- [interface_update module](interface_update_module.md#ansible-collections-cisco-dnac-interface-update-module) – Resource module for Interface Update
+- [inventory_intent module](inventory_intent_module.md#ansible-collections-cisco-dnac-inventory-intent-module) – Resource module for Network Device
+- [issues_enrichment_details_info module](issues_enrichment_details_info_module.md#ansible-collections-cisco-dnac-issues-enrichment-details-info-module) – Information module for Issues Enrichment Details
+- [issues_info module](issues_info_module.md#ansible-collections-cisco-dnac-issues-info-module) – Information module for Issues
+- [itsm_cmdb_sync_status_info module](itsm_cmdb_sync_status_info_module.md#ansible-collections-cisco-dnac-itsm-cmdb-sync-status-info-module) – Information module for Itsm Cmdb Sync Status
+- [itsm_integration_events_failed_info module](itsm_integration_events_failed_info_module.md#ansible-collections-cisco-dnac-itsm-integration-events-failed-info-module) – Information module for Itsm Integration Events Failed
+- [itsm_integration_events_retry module](itsm_integration_events_retry_module.md#ansible-collections-cisco-dnac-itsm-integration-events-retry-module) – Resource module for Itsm Integration Events Retry
+- [lan_automation_count_info module](lan_automation_count_info_module.md#ansible-collections-cisco-dnac-lan-automation-count-info-module) – Information module for Lan Automation Count
+- [lan_automation_create module](lan_automation_create_module.md#ansible-collections-cisco-dnac-lan-automation-create-module) – Resource module for Lan Automation Create
+- [lan_automation_delete module](lan_automation_delete_module.md#ansible-collections-cisco-dnac-lan-automation-delete-module) – Resource module for Lan Automation Delete
+- [lan_automation_log_by_serial_number_info module](lan_automation_log_by_serial_number_info_module.md#ansible-collections-cisco-dnac-lan-automation-log-by-serial-number-info-module) – Information module for Lan Automation Log By Serial Number
+- [lan_automation_log_info module](lan_automation_log_info_module.md#ansible-collections-cisco-dnac-lan-automation-log-info-module) – Information module for Lan Automation Log
+- [lan_automation_status_info module](lan_automation_status_info_module.md#ansible-collections-cisco-dnac-lan-automation-status-info-module) – Information module for Lan Automation Status
+- [license_device_count_info module](license_device_count_info_module.md#ansible-collections-cisco-dnac-license-device-count-info-module) – Information module for License Device Count
+- [license_device_deregistration module](license_device_deregistration_module.md#ansible-collections-cisco-dnac-license-device-deregistration-module) – Resource module for License Device Deregistration
+- [license_device_license_details_info module](license_device_license_details_info_module.md#ansible-collections-cisco-dnac-license-device-license-details-info-module) – Information module for License Device License Details
+- [license_device_license_summary_info module](license_device_license_summary_info_module.md#ansible-collections-cisco-dnac-license-device-license-summary-info-module) – Information module for License Device License Summary
+- [license_device_registration module](license_device_registration_module.md#ansible-collections-cisco-dnac-license-device-registration-module) – Resource module for License Device Registration
+- [license_smart_account_details_info module](license_smart_account_details_info_module.md#ansible-collections-cisco-dnac-license-smart-account-details-info-module) – Information module for License Smart Account Details
+- [license_term_details_info module](license_term_details_info_module.md#ansible-collections-cisco-dnac-license-term-details-info-module) – Information module for License Term Details
+- [license_usage_details_info module](license_usage_details_info_module.md#ansible-collections-cisco-dnac-license-usage-details-info-module) – Information module for License Usage Details
+- [license_virtual_account_change module](license_virtual_account_change_module.md#ansible-collections-cisco-dnac-license-virtual-account-change-module) – Resource module for License Virtual Account Change
+- [license_virtual_account_details_info module](license_virtual_account_details_info_module.md#ansible-collections-cisco-dnac-license-virtual-account-details-info-module) – Information module for License Virtual Account Details
+- [netconf_credential module](netconf_credential_module.md#ansible-collections-cisco-dnac-netconf-credential-module) – Resource module for Netconf Credential
+- [network_create module](network_create_module.md#ansible-collections-cisco-dnac-network-create-module) – Resource module for Network Create
+- [network_device module](network_device_module.md#ansible-collections-cisco-dnac-network-device-module) – Resource module for Network Device
+- [network_device_by_ip_info module](network_device_by_ip_info_module.md#ansible-collections-cisco-dnac-network-device-by-ip-info-module) – Information module for Network Device By Ip
+- [network_device_by_serial_number_info module](network_device_by_serial_number_info_module.md#ansible-collections-cisco-dnac-network-device-by-serial-number-info-module) – Information module for Network Device By Serial Number
+- [network_device_chassis_details_info module](network_device_chassis_details_info_module.md#ansible-collections-cisco-dnac-network-device-chassis-details-info-module) – Information module for Network Device Chassis Details
+- [network_device_config_count_info module](network_device_config_count_info_module.md#ansible-collections-cisco-dnac-network-device-config-count-info-module) – Information module for Network Device Config Count
+- [network_device_config_info module](network_device_config_info_module.md#ansible-collections-cisco-dnac-network-device-config-info-module) – Information module for Network Device Config
+- [network_device_count_info module](network_device_count_info_module.md#ansible-collections-cisco-dnac-network-device-count-info-module) – Information module for Network Device Count
+- [network_device_custom_prompt module](network_device_custom_prompt_module.md#ansible-collections-cisco-dnac-network-device-custom-prompt-module) – Resource module for Network Device Custom Prompt
+- [network_device_custom_prompt_info module](network_device_custom_prompt_info_module.md#ansible-collections-cisco-dnac-network-device-custom-prompt-info-module) – Information module for Network Device Custom Prompt Info
+- [network_device_equipment_info module](network_device_equipment_info_module.md#ansible-collections-cisco-dnac-network-device-equipment-info-module) – Information module for Network Device Equipment
+- [network_device_export module](network_device_export_module.md#ansible-collections-cisco-dnac-network-device-export-module) – Resource module for Network Device Export
+- [network_device_functional_capability_info module](network_device_functional_capability_info_module.md#ansible-collections-cisco-dnac-network-device-functional-capability-info-module) – Information module for Network Device Functional Capability
+- [network_device_global_polling_interval_info module](network_device_global_polling_interval_info_module.md#ansible-collections-cisco-dnac-network-device-global-polling-interval-info-module) – Information module for Network Device Global Polling Interval
+- [network_device_info module](network_device_info_module.md#ansible-collections-cisco-dnac-network-device-info-module) – Information module for Network Device
+- [network_device_interface_neighbor_info module](network_device_interface_neighbor_info_module.md#ansible-collections-cisco-dnac-network-device-interface-neighbor-info-module) – Information module for Network Device Interface Neighbor
+- [network_device_interface_poe_info module](network_device_interface_poe_info_module.md#ansible-collections-cisco-dnac-network-device-interface-poe-info-module) – Information module for Network Device Interface Poe
+- [network_device_inventory_insight_link_mismatch_info module](network_device_inventory_insight_link_mismatch_info_module.md#ansible-collections-cisco-dnac-network-device-inventory-insight-link-mismatch-info-module) – Information module for Network Device Inventory Insight Link Mismatch
+- [network_device_lexicographically_sorted_info module](network_device_lexicographically_sorted_info_module.md#ansible-collections-cisco-dnac-network-device-lexicographically-sorted-info-module) – Information module for Network Device Lexicographically Sorted
+- [network_device_linecard_details_info module](network_device_linecard_details_info_module.md#ansible-collections-cisco-dnac-network-device-linecard-details-info-module) – Information module for Network Device Linecard Details
+- [network_device_meraki_organization_info module](network_device_meraki_organization_info_module.md#ansible-collections-cisco-dnac-network-device-meraki-organization-info-module) – Information module for Network Device Meraki Organization
+- [network_device_module_count_info module](network_device_module_count_info_module.md#ansible-collections-cisco-dnac-network-device-module-count-info-module) – Information module for Network Device Module Count
+- [network_device_module_info module](network_device_module_info_module.md#ansible-collections-cisco-dnac-network-device-module-info-module) – Information module for Network Device Module
+- [network_device_poe_info module](network_device_poe_info_module.md#ansible-collections-cisco-dnac-network-device-poe-info-module) – Information module for Network Device Poe
+- [network_device_polling_interval_info module](network_device_polling_interval_info_module.md#ansible-collections-cisco-dnac-network-device-polling-interval-info-module) – Information module for Network Device Polling Interval
+- [network_device_range_info module](network_device_range_info_module.md#ansible-collections-cisco-dnac-network-device-range-info-module) – Information module for Network Device Range
+- [network_device_register_for_wsa_info module](network_device_register_for_wsa_info_module.md#ansible-collections-cisco-dnac-network-device-register-for-wsa-info-module) – Information module for Network Device Register For Wsa
+- [network_device_stack_details_info module](network_device_stack_details_info_module.md#ansible-collections-cisco-dnac-network-device-stack-details-info-module) – Information module for Network Device Stack Details
+- [network_device_summary_info module](network_device_summary_info_module.md#ansible-collections-cisco-dnac-network-device-summary-info-module) – Information module for Network Device Summary
+- [network_device_supervisor_card_details_info module](network_device_supervisor_card_details_info_module.md#ansible-collections-cisco-dnac-network-device-supervisor-card-details-info-module) – Information module for Network Device Supervisor Card Details
+- [network_device_sync module](network_device_sync_module.md#ansible-collections-cisco-dnac-network-device-sync-module) – Resource module for Network Device Sync
+- [network_device_update_role module](network_device_update_role_module.md#ansible-collections-cisco-dnac-network-device-update-role-module) – Resource module for Network Device Update Role
+- [network_device_user_defined_field module](network_device_user_defined_field_module.md#ansible-collections-cisco-dnac-network-device-user-defined-field-module) – Resource module for Network Device User Defined Field
+- [network_device_user_defined_field_info module](network_device_user_defined_field_info_module.md#ansible-collections-cisco-dnac-network-device-user-defined-field-info-module) – Information module for Network Device User Defined Field
+- [network_device_vlan_info module](network_device_vlan_info_module.md#ansible-collections-cisco-dnac-network-device-vlan-info-module) – Information module for Network Device Vlan
+- [network_device_wireless_lan_info module](network_device_wireless_lan_info_module.md#ansible-collections-cisco-dnac-network-device-wireless-lan-info-module) – Information module for Network Device Wireless Lan
+- [network_device_with_snmp_v3_des_info module](network_device_with_snmp_v3_des_info_module.md#ansible-collections-cisco-dnac-network-device-with-snmp-v3-des-info-module) – Information module for Network Device With Snmp V3 Des
+- [network_info module](network_info_module.md#ansible-collections-cisco-dnac-network-info-module) – Information module for Network
+- [network_settings_intent module](network_settings_intent_module.md#ansible-collections-cisco-dnac-network-settings-intent-module) – Resource module for IP Address pools and network functions
+- [network_update module](network_update_module.md#ansible-collections-cisco-dnac-network-update-module) – Resource module for Network Update
+- [network_v2 module](network_v2_module.md#ansible-collections-cisco-dnac-network-v2-module) – Resource module for Network V2
+- [network_v2_info module](network_v2_info_module.md#ansible-collections-cisco-dnac-network-v2-info-module) – Information module for Network V2
+- [nfv_profile module](nfv_profile_module.md#ansible-collections-cisco-dnac-nfv-profile-module) – Resource module for Nfv Profile
+- [nfv_profile_info module](nfv_profile_info_module.md#ansible-collections-cisco-dnac-nfv-profile-info-module) – Information module for Nfv Profile
+- [nfv_provision module](nfv_provision_module.md#ansible-collections-cisco-dnac-nfv-provision-module) – Resource module for Nfv Provision
+- [nfv_provision_detail_info module](nfv_provision_detail_info_module.md#ansible-collections-cisco-dnac-nfv-provision-detail-info-module) – Information module for Nfv Provision Detail
+- [nfv_provision_details module](nfv_provision_details_module.md#ansible-collections-cisco-dnac-nfv-provision-details-module) – Resource module for Nfv Provision Details
+- [path_trace module](path_trace_module.md#ansible-collections-cisco-dnac-path-trace-module) – Resource module for Path Trace
+- [path_trace_info module](path_trace_info_module.md#ansible-collections-cisco-dnac-path-trace-info-module) – Information module for Path Trace
+- [planned_access_points_info module](planned_access_points_info_module.md#ansible-collections-cisco-dnac-planned-access-points-info-module) – Information module for Planned Access Points
+- [platform_nodes_configuration_summary_info module](platform_nodes_configuration_summary_info_module.md#ansible-collections-cisco-dnac-platform-nodes-configuration-summary-info-module) – Information module for Platform Nodes Configuration Summary
+- [platform_release_summary_info module](platform_release_summary_info_module.md#ansible-collections-cisco-dnac-platform-release-summary-info-module) – Information module for Platform Release Summary
+- [pnp_device module](pnp_device_module.md#ansible-collections-cisco-dnac-pnp-device-module) – Resource module for Pnp Device
+- [pnp_device_authorize module](pnp_device_authorize_module.md#ansible-collections-cisco-dnac-pnp-device-authorize-module) – Resource module for Pnp Device Authorize
+- [pnp_device_claim module](pnp_device_claim_module.md#ansible-collections-cisco-dnac-pnp-device-claim-module) – Resource module for Pnp Device Claim
+- [pnp_device_claim_to_site module](pnp_device_claim_to_site_module.md#ansible-collections-cisco-dnac-pnp-device-claim-to-site-module) – Resource module for Pnp Device Claim To Site
+- [pnp_device_config_preview module](pnp_device_config_preview_module.md#ansible-collections-cisco-dnac-pnp-device-config-preview-module) – Resource module for Pnp Device Config Preview
+- [pnp_device_count_info module](pnp_device_count_info_module.md#ansible-collections-cisco-dnac-pnp-device-count-info-module) – Information module for Pnp Device Count
+- [pnp_device_history_info module](pnp_device_history_info_module.md#ansible-collections-cisco-dnac-pnp-device-history-info-module) – Information module for Pnp Device History
+- [pnp_device_import module](pnp_device_import_module.md#ansible-collections-cisco-dnac-pnp-device-import-module) – Resource module for Pnp Device Import
+- [pnp_device_info module](pnp_device_info_module.md#ansible-collections-cisco-dnac-pnp-device-info-module) – Information module for Pnp Device
+- [pnp_device_reset module](pnp_device_reset_module.md#ansible-collections-cisco-dnac-pnp-device-reset-module) – Resource module for Pnp Device Reset
+- [pnp_device_unclaim module](pnp_device_unclaim_module.md#ansible-collections-cisco-dnac-pnp-device-unclaim-module) – Resource module for Pnp Device Unclaim
+- [pnp_global_settings module](pnp_global_settings_module.md#ansible-collections-cisco-dnac-pnp-global-settings-module) – Resource module for Pnp Global Settings
+- [pnp_global_settings_info module](pnp_global_settings_info_module.md#ansible-collections-cisco-dnac-pnp-global-settings-info-module) – Information module for Pnp Global Settings
+- [pnp_intent module](pnp_intent_module.md#ansible-collections-cisco-dnac-pnp-intent-module) – Resource module for Site and PnP related functions
+- [pnp_server_profile_update module](pnp_server_profile_update_module.md#ansible-collections-cisco-dnac-pnp-server-profile-update-module) – Resource module for Pnp Server Profile Update
+- [pnp_smart_account_domains_info module](pnp_smart_account_domains_info_module.md#ansible-collections-cisco-dnac-pnp-smart-account-domains-info-module) – Information module for Pnp Smart Account Domains
+- [pnp_virtual_account_add module](pnp_virtual_account_add_module.md#ansible-collections-cisco-dnac-pnp-virtual-account-add-module) – Resource module for Pnp Virtual Account Add
+- [pnp_virtual_account_deregister module](pnp_virtual_account_deregister_module.md#ansible-collections-cisco-dnac-pnp-virtual-account-deregister-module) – Resource module for Pnp Virtual Account Deregister
+- [pnp_virtual_account_devices_sync module](pnp_virtual_account_devices_sync_module.md#ansible-collections-cisco-dnac-pnp-virtual-account-devices-sync-module) – Resource module for Pnp Virtual Account Devices Sync
+- [pnp_virtual_account_sync_result_info module](pnp_virtual_account_sync_result_info_module.md#ansible-collections-cisco-dnac-pnp-virtual-account-sync-result-info-module) – Information module for Pnp Virtual Account Sync Result
+- [pnp_virtual_accounts_info module](pnp_virtual_accounts_info_module.md#ansible-collections-cisco-dnac-pnp-virtual-accounts-info-module) – Information module for Pnp Virtual Accounts
+- [pnp_workflow module](pnp_workflow_module.md#ansible-collections-cisco-dnac-pnp-workflow-module) – Resource module for Pnp Workflow
+- [pnp_workflow_count_info module](pnp_workflow_count_info_module.md#ansible-collections-cisco-dnac-pnp-workflow-count-info-module) – Information module for Pnp Workflow Count
+- [pnp_workflow_info module](pnp_workflow_info_module.md#ansible-collections-cisco-dnac-pnp-workflow-info-module) – Information module for Pnp Workflow
+- [profiling_rules_count_info module](profiling_rules_count_info_module.md#ansible-collections-cisco-dnac-profiling-rules-count-info-module) – Information module for Profiling Rules Count
+- [profiling_rules_in_bulk_create module](profiling_rules_in_bulk_create_module.md#ansible-collections-cisco-dnac-profiling-rules-in-bulk-create-module) – Resource module for Profiling Rules In Bulk Create
+- [projects_details_info module](projects_details_info_module.md#ansible-collections-cisco-dnac-projects-details-info-module) – Information module for Projects Details
+- [qos_device_interface module](qos_device_interface_module.md#ansible-collections-cisco-dnac-qos-device-interface-module) – Resource module for Qos Device Interface
+- [qos_device_interface_info module](qos_device_interface_info_module.md#ansible-collections-cisco-dnac-qos-device-interface-info-module) – Information module for Qos Device Interface
+- [qos_device_interface_info_count_info module](qos_device_interface_info_count_info_module.md#ansible-collections-cisco-dnac-qos-device-interface-info-count-info-module) – Information module for Qos Device Interface Info Count
+- [reports module](reports_module.md#ansible-collections-cisco-dnac-reports-module) – Resource module for Reports
+- [reports_executions_info module](reports_executions_info_module.md#ansible-collections-cisco-dnac-reports-executions-info-module) – Information module for Reports Executions
+- [reports_info module](reports_info_module.md#ansible-collections-cisco-dnac-reports-info-module) – Information module for Reports
+- [reports_view_group_info module](reports_view_group_info_module.md#ansible-collections-cisco-dnac-reports-view-group-info-module) – Information module for Reports View Group
+- [reports_view_group_view_info module](reports_view_group_view_info_module.md#ansible-collections-cisco-dnac-reports-view-group-view-info-module) – Information module for Reports View Group View
+- [reserve_ip_subpool module](reserve_ip_subpool_module.md#ansible-collections-cisco-dnac-reserve-ip-subpool-module) – Resource module for Reserve Ip Subpool
+- [reserve_ip_subpool_create module](reserve_ip_subpool_create_module.md#ansible-collections-cisco-dnac-reserve-ip-subpool-create-module) – Resource module for Reserve Ip Subpool Create
+- [reserve_ip_subpool_delete module](reserve_ip_subpool_delete_module.md#ansible-collections-cisco-dnac-reserve-ip-subpool-delete-module) – Resource module for Reserve Ip Subpool Delete
+- [reserve_ip_subpool_info module](reserve_ip_subpool_info_module.md#ansible-collections-cisco-dnac-reserve-ip-subpool-info-module) – Information module for Reserve Ip Subpool
+- [reserve_ip_subpool_update module](reserve_ip_subpool_update_module.md#ansible-collections-cisco-dnac-reserve-ip-subpool-update-module) – Resource module for Reserve Ip Subpool Update
+- [role_permissions_info module](role_permissions_info_module.md#ansible-collections-cisco-dnac-role-permissions-info-module) – Information module for Role Permissions
+- [roles_info module](roles_info_module.md#ansible-collections-cisco-dnac-roles-info-module) – Information module for Roles
+- [sda_count_info module](sda_count_info_module.md#ansible-collections-cisco-dnac-sda-count-info-module) – Information module for Sda Count
+- [sda_device_info module](sda_device_info_module.md#ansible-collections-cisco-dnac-sda-device-info-module) – Information module for Sda Device
+- [sda_device_role_info module](sda_device_role_info_module.md#ansible-collections-cisco-dnac-sda-device-role-info-module) – Information module for Sda Device Role
+- [sda_fabric module](sda_fabric_module.md#ansible-collections-cisco-dnac-sda-fabric-module) – Resource module for Sda Fabric
+- [sda_fabric_authentication_profile module](sda_fabric_authentication_profile_module.md#ansible-collections-cisco-dnac-sda-fabric-authentication-profile-module) – Resource module for Sda Fabric Authentication Profile
+- [sda_fabric_authentication_profile_info module](sda_fabric_authentication_profile_info_module.md#ansible-collections-cisco-dnac-sda-fabric-authentication-profile-info-module) – Information module for Sda Fabric Authentication Profile
+- [sda_fabric_border_device module](sda_fabric_border_device_module.md#ansible-collections-cisco-dnac-sda-fabric-border-device-module) – Resource module for Sda Fabric Border Device
+- [sda_fabric_border_device_info module](sda_fabric_border_device_info_module.md#ansible-collections-cisco-dnac-sda-fabric-border-device-info-module) – Information module for Sda Fabric Border Device
+- [sda_fabric_control_plane_device module](sda_fabric_control_plane_device_module.md#ansible-collections-cisco-dnac-sda-fabric-control-plane-device-module) – Resource module for Sda Fabric Control Plane Device
+- [sda_fabric_control_plane_device_info module](sda_fabric_control_plane_device_info_module.md#ansible-collections-cisco-dnac-sda-fabric-control-plane-device-info-module) – Information module for Sda Fabric Control Plane Device
+- [sda_fabric_edge_device module](sda_fabric_edge_device_module.md#ansible-collections-cisco-dnac-sda-fabric-edge-device-module) – Resource module for Sda Fabric Edge Device
+- [sda_fabric_edge_device_info module](sda_fabric_edge_device_info_module.md#ansible-collections-cisco-dnac-sda-fabric-edge-device-info-module) – Information module for Sda Fabric Edge Device
+- [sda_fabric_info module](sda_fabric_info_module.md#ansible-collections-cisco-dnac-sda-fabric-info-module) – Information module for Sda Fabric
+- [sda_fabric_site module](sda_fabric_site_module.md#ansible-collections-cisco-dnac-sda-fabric-site-module) – Resource module for Sda Fabric Site
+- [sda_fabric_site_info module](sda_fabric_site_info_module.md#ansible-collections-cisco-dnac-sda-fabric-site-info-module) – Information module for Sda Fabric Site
+- [sda_multicast module](sda_multicast_module.md#ansible-collections-cisco-dnac-sda-multicast-module) – Resource module for Sda Multicast
+- [sda_multicast_info module](sda_multicast_info_module.md#ansible-collections-cisco-dnac-sda-multicast-info-module) – Information module for Sda Multicast
+- [sda_port_assignment_for_access_point module](sda_port_assignment_for_access_point_module.md#ansible-collections-cisco-dnac-sda-port-assignment-for-access-point-module) – Resource module for Sda Port Assignment For Access Point
+- [sda_port_assignment_for_access_point_info module](sda_port_assignment_for_access_point_info_module.md#ansible-collections-cisco-dnac-sda-port-assignment-for-access-point-info-module) – Information module for Sda Port Assignment For Access Point
+- [sda_port_assignment_for_user_device module](sda_port_assignment_for_user_device_module.md#ansible-collections-cisco-dnac-sda-port-assignment-for-user-device-module) – Resource module for Sda Port Assignment For User Device
+- [sda_port_assignment_for_user_device_info module](sda_port_assignment_for_user_device_info_module.md#ansible-collections-cisco-dnac-sda-port-assignment-for-user-device-info-module) – Information module for Sda Port Assignment For User Device
+- [sda_provision_device module](sda_provision_device_module.md#ansible-collections-cisco-dnac-sda-provision-device-module) – Resource module for Sda Provision Device
+- [sda_provision_device_info module](sda_provision_device_info_module.md#ansible-collections-cisco-dnac-sda-provision-device-info-module) – Information module for Sda Provision Device
+- [sda_virtual_network module](sda_virtual_network_module.md#ansible-collections-cisco-dnac-sda-virtual-network-module) – Resource module for Sda Virtual Network
+- [sda_virtual_network_info module](sda_virtual_network_info_module.md#ansible-collections-cisco-dnac-sda-virtual-network-info-module) – Information module for Sda Virtual Network
+- [sda_virtual_network_ip_pool module](sda_virtual_network_ip_pool_module.md#ansible-collections-cisco-dnac-sda-virtual-network-ip-pool-module) – Resource module for Sda Virtual Network Ip Pool
+- [sda_virtual_network_ip_pool_info module](sda_virtual_network_ip_pool_info_module.md#ansible-collections-cisco-dnac-sda-virtual-network-ip-pool-info-module) – Information module for Sda Virtual Network Ip Pool
+- [sda_virtual_network_v2 module](sda_virtual_network_v2_module.md#ansible-collections-cisco-dnac-sda-virtual-network-v2-module) – Resource module for Sda Virtual Network V2
+- [sda_virtual_network_v2_info module](sda_virtual_network_v2_info_module.md#ansible-collections-cisco-dnac-sda-virtual-network-v2-info-module) – Information module for Sda Virtual Network V2
+- [security_advisories_devices_info module](security_advisories_devices_info_module.md#ansible-collections-cisco-dnac-security-advisories-devices-info-module) – Information module for Security Advisories Devices
+- [security_advisories_ids_per_device_info module](security_advisories_ids_per_device_info_module.md#ansible-collections-cisco-dnac-security-advisories-ids-per-device-info-module) – Information module for Security Advisories Ids Per Device
+- [security_advisories_info module](security_advisories_info_module.md#ansible-collections-cisco-dnac-security-advisories-info-module) – Information module for Security Advisories
+- [security_advisories_per_device_info module](security_advisories_per_device_info_module.md#ansible-collections-cisco-dnac-security-advisories-per-device-info-module) – Information module for Security Advisories Per Device
+- [security_advisories_summary_info module](security_advisories_summary_info_module.md#ansible-collections-cisco-dnac-security-advisories-summary-info-module) – Information module for Security Advisories Summary
+- [sensor module](sensor_module.md#ansible-collections-cisco-dnac-sensor-module) – Resource module for Sensor
+- [sensor_info module](sensor_info_module.md#ansible-collections-cisco-dnac-sensor-info-module) – Information module for Sensor
+- [sensor_test_run module](sensor_test_run_module.md#ansible-collections-cisco-dnac-sensor-test-run-module) – Resource module for Sensor Test Run
+- [sensor_test_template_duplicate module](sensor_test_template_duplicate_module.md#ansible-collections-cisco-dnac-sensor-test-template-duplicate-module) – Resource module for Sensor Test Template Duplicate
+- [sensor_test_template_edit module](sensor_test_template_edit_module.md#ansible-collections-cisco-dnac-sensor-test-template-edit-module) – Resource module for Sensor Test Template Edit
+- [service_provider_create module](service_provider_create_module.md#ansible-collections-cisco-dnac-service-provider-create-module) – Resource module for Service Provider Create
+- [service_provider_info module](service_provider_info_module.md#ansible-collections-cisco-dnac-service-provider-info-module) – Information module for Service Provider
+- [service_provider_profile_delete module](service_provider_profile_delete_module.md#ansible-collections-cisco-dnac-service-provider-profile-delete-module) – Resource module for Service Provider Profile Delete
+- [service_provider_update module](service_provider_update_module.md#ansible-collections-cisco-dnac-service-provider-update-module) – Resource module for Service Provider Update
+- [service_provider_v2 module](service_provider_v2_module.md#ansible-collections-cisco-dnac-service-provider-v2-module) – Resource module for Service Provider V2
+- [service_provider_v2_info module](service_provider_v2_info_module.md#ansible-collections-cisco-dnac-service-provider-v2-info-module) – Information module for Service Provider V2
+- [site_assign_credential module](site_assign_credential_module.md#ansible-collections-cisco-dnac-site-assign-credential-module) – Resource module for Site Assign Credential
+- [site_assign_device module](site_assign_device_module.md#ansible-collections-cisco-dnac-site-assign-device-module) – Resource module for Site Assign Device
+- [site_count_info module](site_count_info_module.md#ansible-collections-cisco-dnac-site-count-info-module) – Information module for Site Count
+- [site_create module](site_create_module.md#ansible-collections-cisco-dnac-site-create-module) – Resource module for Site Create
+- [site_delete module](site_delete_module.md#ansible-collections-cisco-dnac-site-delete-module) – Resource module for Site Delete
+- [site_design_floormap module](site_design_floormap_module.md#ansible-collections-cisco-dnac-site-design-floormap-module) – Resource module for Site Design Floormap
+- [site_design_floormap_info module](site_design_floormap_info_module.md#ansible-collections-cisco-dnac-site-design-floormap-info-module) – Information module for Site Design Floormap
+- [site_health_info module](site_health_info_module.md#ansible-collections-cisco-dnac-site-health-info-module) – Information module for Site Health
+- [site_info module](site_info_module.md#ansible-collections-cisco-dnac-site-info-module) – Information module for Site
+- [site_intent module](site_intent_module.md#ansible-collections-cisco-dnac-site-intent-module) – Resource module for Site operations
+- [site_membership_info module](site_membership_info_module.md#ansible-collections-cisco-dnac-site-membership-info-module) – Information module for Site Membership
+- [site_update module](site_update_module.md#ansible-collections-cisco-dnac-site-update-module) – Resource module for Site Update
+- [snmp_properties module](snmp_properties_module.md#ansible-collections-cisco-dnac-snmp-properties-module) – Resource module for Snmp Properties
+- [snmp_properties_info module](snmp_properties_info_module.md#ansible-collections-cisco-dnac-snmp-properties-info-module) – Information module for Snmp Properties
+- [snmpv2_read_community_credential module](snmpv2_read_community_credential_module.md#ansible-collections-cisco-dnac-snmpv2-read-community-credential-module) – Resource module for Snmpv2 Read Community Credential
+- [snmpv2_write_community_credential module](snmpv2_write_community_credential_module.md#ansible-collections-cisco-dnac-snmpv2-write-community-credential-module) – Resource module for Snmpv2 Write Community Credential
+- [snmpv3_credential module](snmpv3_credential_module.md#ansible-collections-cisco-dnac-snmpv3-credential-module) – Resource module for Snmpv3 Credential
+- [sp_profile_delete_v2 module](sp_profile_delete_v2_module.md#ansible-collections-cisco-dnac-sp-profile-delete-v2-module) – Resource module for Sp Profile Delete V2
+- [swim_image_details_info module](swim_image_details_info_module.md#ansible-collections-cisco-dnac-swim-image-details-info-module) – Information module for Swim Image Details
+- [swim_import_local module](swim_import_local_module.md#ansible-collections-cisco-dnac-swim-import-local-module) – Resource module for Swim Import Local
+- [swim_import_via_url module](swim_import_via_url_module.md#ansible-collections-cisco-dnac-swim-import-via-url-module) – Resource module for Swim Import Via Url
+- [swim_intent module](swim_intent_module.md#ansible-collections-cisco-dnac-swim-intent-module) – Intent module for SWIM related functions
+- [swim_trigger_activation module](swim_trigger_activation_module.md#ansible-collections-cisco-dnac-swim-trigger-activation-module) – Resource module for Swim Trigger Activation
+- [swim_trigger_distribution module](swim_trigger_distribution_module.md#ansible-collections-cisco-dnac-swim-trigger-distribution-module) – Resource module for Swim Trigger Distribution
+- [syslog_config_create module](syslog_config_create_module.md#ansible-collections-cisco-dnac-syslog-config-create-module) – Resource module for Syslog Config Create
+- [syslog_config_update module](syslog_config_update_module.md#ansible-collections-cisco-dnac-syslog-config-update-module) – Resource module for Syslog Config Update
+- [system_health_count_info module](system_health_count_info_module.md#ansible-collections-cisco-dnac-system-health-count-info-module) – Information module for System Health Count
+- [system_health_info module](system_health_info_module.md#ansible-collections-cisco-dnac-system-health-info-module) – Information module for System Health
+- [system_performance_historical_info module](system_performance_historical_info_module.md#ansible-collections-cisco-dnac-system-performance-historical-info-module) – Information module for System Performance Historical
+- [system_performance_info module](system_performance_info_module.md#ansible-collections-cisco-dnac-system-performance-info-module) – Information module for System Performance
+- [tag module](tag_module.md#ansible-collections-cisco-dnac-tag-module) – Resource module for Tag
+- [tag_count_info module](tag_count_info_module.md#ansible-collections-cisco-dnac-tag-count-info-module) – Information module for Tag Count
+- [tag_info module](tag_info_module.md#ansible-collections-cisco-dnac-tag-info-module) – Information module for Tag
+- [tag_member module](tag_member_module.md#ansible-collections-cisco-dnac-tag-member-module) – Resource module for Tag Member
+- [tag_member_count_info module](tag_member_count_info_module.md#ansible-collections-cisco-dnac-tag-member-count-info-module) – Information module for Tag Member Count
+- [tag_member_info module](tag_member_info_module.md#ansible-collections-cisco-dnac-tag-member-info-module) – Information module for Tag Member
+- [tag_member_type_info module](tag_member_type_info_module.md#ansible-collections-cisco-dnac-tag-member-type-info-module) – Information module for Tag Member Type
+- [tag_membership module](tag_membership_module.md#ansible-collections-cisco-dnac-tag-membership-module) – Resource module for Tag Membership
+- [task_count_info module](task_count_info_module.md#ansible-collections-cisco-dnac-task-count-info-module) – Information module for Task Count
+- [task_info module](task_info_module.md#ansible-collections-cisco-dnac-task-info-module) – Information module for Task
+- [task_operation_info module](task_operation_info_module.md#ansible-collections-cisco-dnac-task-operation-info-module) – Information module for Task Operation
+- [task_tree_info module](task_tree_info_module.md#ansible-collections-cisco-dnac-task-tree-info-module) – Information module for Task Tree
+- [template_intent module](template_intent_module.md#ansible-collections-cisco-dnac-template-intent-module) – Resource module for Template functions
+- [template_preview module](template_preview_module.md#ansible-collections-cisco-dnac-template-preview-module) – Resource module for Template Preview
+- [templates_details_info module](templates_details_info_module.md#ansible-collections-cisco-dnac-templates-details-info-module) – Information module for Templates Details
+- [threat_detail module](threat_detail_module.md#ansible-collections-cisco-dnac-threat-detail-module) – Resource module for Threat Detail
+- [threat_detail_count module](threat_detail_count_module.md#ansible-collections-cisco-dnac-threat-detail-count-module) – Resource module for Threat Detail Count
+- [threat_summary module](threat_summary_module.md#ansible-collections-cisco-dnac-threat-summary-module) – Resource module for Threat Summary
+- [topology_layer_2_info module](topology_layer_2_info_module.md#ansible-collections-cisco-dnac-topology-layer-2-info-module) – Information module for Topology Layer 2
+- [topology_layer_3_info module](topology_layer_3_info_module.md#ansible-collections-cisco-dnac-topology-layer-3-info-module) – Information module for Topology Layer 3
+- [topology_network_health_info module](topology_network_health_info_module.md#ansible-collections-cisco-dnac-topology-network-health-info-module) – Information module for Topology Network Health
+- [topology_physical_info module](topology_physical_info_module.md#ansible-collections-cisco-dnac-topology-physical-info-module) – Information module for Topology Physical
+- [topology_site_info module](topology_site_info_module.md#ansible-collections-cisco-dnac-topology-site-info-module) – Information module for Topology Site
+- [topology_vlan_details_info module](topology_vlan_details_info_module.md#ansible-collections-cisco-dnac-topology-vlan-details-info-module) – Information module for Topology Vlan Details
+- [transit_peer_network module](transit_peer_network_module.md#ansible-collections-cisco-dnac-transit-peer-network-module) – Resource module for Transit Peer Network
+- [transit_peer_network_info module](transit_peer_network_info_module.md#ansible-collections-cisco-dnac-transit-peer-network-info-module) – Information module for Transit Peer Network
+- [user module](user_module.md#ansible-collections-cisco-dnac-user-module) – Resource module for User
+- [user_enrichment_details_info module](user_enrichment_details_info_module.md#ansible-collections-cisco-dnac-user-enrichment-details-info-module) – Information module for User Enrichment Details
+- [user_info module](user_info_module.md#ansible-collections-cisco-dnac-user-info-module) – Information module for User
+- [users_external_servers_info module](users_external_servers_info_module.md#ansible-collections-cisco-dnac-users-external-servers-info-module) – Information module for Users External Servers
+- [wireless_accespoint_configuration module](wireless_accespoint_configuration_module.md#ansible-collections-cisco-dnac-wireless-accespoint-configuration-module) – Resource module for Wireless Accespoint Configuration
+- [wireless_accesspoint_configuration_summary_info module](wireless_accesspoint_configuration_summary_info_module.md#ansible-collections-cisco-dnac-wireless-accesspoint-configuration-summary-info-module) – Information module for Wireless Accesspoint Configuration Summary
+- [wireless_dynamic_interface module](wireless_dynamic_interface_module.md#ansible-collections-cisco-dnac-wireless-dynamic-interface-module) – Resource module for Wireless Dynamic Interface
+- [wireless_dynamic_interface_info module](wireless_dynamic_interface_info_module.md#ansible-collections-cisco-dnac-wireless-dynamic-interface-info-module) – Information module for Wireless Dynamic Interface
+- [wireless_enterprise_ssid module](wireless_enterprise_ssid_module.md#ansible-collections-cisco-dnac-wireless-enterprise-ssid-module) – Resource module for Wireless Enterprise Ssid
+- [wireless_enterprise_ssid_info module](wireless_enterprise_ssid_info_module.md#ansible-collections-cisco-dnac-wireless-enterprise-ssid-info-module) – Information module for Wireless Enterprise Ssid
+- [wireless_profile module](wireless_profile_module.md#ansible-collections-cisco-dnac-wireless-profile-module) – Resource module for Wireless Profile
+- [wireless_profile_info module](wireless_profile_info_module.md#ansible-collections-cisco-dnac-wireless-profile-info-module) – Information module for Wireless Profile
+- [wireless_provision_access_point module](wireless_provision_access_point_module.md#ansible-collections-cisco-dnac-wireless-provision-access-point-module) – Resource module for Wireless Provision Access Point
+- [wireless_provision_device_create module](wireless_provision_device_create_module.md#ansible-collections-cisco-dnac-wireless-provision-device-create-module) – Resource module for Wireless Provision Device Create
+- [wireless_provision_device_update module](wireless_provision_device_update_module.md#ansible-collections-cisco-dnac-wireless-provision-device-update-module) – Resource module for Wireless Provision Device Update
+- [wireless_provision_ssid_create_provision module](wireless_provision_ssid_create_provision_module.md#ansible-collections-cisco-dnac-wireless-provision-ssid-create-provision-module) – Resource module for Wireless Provision Ssid Create Provision
+- [wireless_provision_ssid_delete_reprovision module](wireless_provision_ssid_delete_reprovision_module.md#ansible-collections-cisco-dnac-wireless-provision-ssid-delete-reprovision-module) – Resource module for Wireless Provision Ssid Delete Reprovision
+- [wireless_psk_override module](wireless_psk_override_module.md#ansible-collections-cisco-dnac-wireless-psk-override-module) – Resource module for Wireless Psk Override
+- [wireless_rf_profile module](wireless_rf_profile_module.md#ansible-collections-cisco-dnac-wireless-rf-profile-module) – Resource module for Wireless Rf Profile
+- [wireless_rf_profile_info module](wireless_rf_profile_info_module.md#ansible-collections-cisco-dnac-wireless-rf-profile-info-module) – Information module for Wireless Rf Profile
+- [wireless_sensor_test_results_info module](wireless_sensor_test_results_info_module.md#ansible-collections-cisco-dnac-wireless-sensor-test-results-info-module) – Information module for Wireless Sensor Test Results
+
+> **See also:**
+>
+> List of [collections](../../index.md#list-of-collections) with docs hosted here.

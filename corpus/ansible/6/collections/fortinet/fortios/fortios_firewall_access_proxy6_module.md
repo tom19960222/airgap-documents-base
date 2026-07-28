@@ -1,0 +1,331 @@
+---
+collection: ansible
+version: "6"
+title: "fortinet.fortios.fortios_firewall_access_proxy6 module – Configure IPv6 access proxy in Fortinet’s FortiOS and FortiGate."
+source_url: https://docs.ansible.com/projects/ansible/6/collections/fortinet/fortios/fortios_firewall_access_proxy6_module.html
+fetched_at: 2026-07-27T17:40:37+00:00
+---
+# fortinet.fortios.fortios_firewall_access_proxy6 module – Configure IPv6 access proxy in Fortinet’s FortiOS and FortiGate.
+
+> **Note:**
+>
+> This module is part of the [fortinet.fortios collection](https://galaxy.ansible.com/fortinet/fortios) (version 2.2.1).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install fortinet.fortios`.
+> You need further requirements to be able to use this module,
+> see [Requirements](fortios_firewall_access_proxy6_module.md#ansible-collections-fortinet-fortios-fortios-firewall-access-proxy6-module-requirements) for details.
+>
+> To use it in a playbook, specify: `fortinet.fortios.fortios_firewall_access_proxy6`.
+
+New in fortinet.fortios 2.0.0
+
+- [Synopsis](fortios_firewall_access_proxy6_module.md#synopsis)
+- [Requirements](fortios_firewall_access_proxy6_module.md#requirements)
+- [Parameters](fortios_firewall_access_proxy6_module.md#parameters)
+- [Notes](fortios_firewall_access_proxy6_module.md#notes)
+- [Examples](fortios_firewall_access_proxy6_module.md#examples)
+- [Return Values](fortios_firewall_access_proxy6_module.md#return-values)
+
+## [Synopsis](fortios_firewall_access_proxy6_module.md#id1)
+
+- This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the user to set and modify firewall feature and access_proxy6 category. Examples include all parameters and values need to be adjusted to datasources before usage. Tested with FOS v6.0.0
+
+## [Requirements](fortios_firewall_access_proxy6_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- ansible>=2.9
+
+## [Parameters](fortios_firewall_access_proxy6_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **access_token**  string | Token-based authentication. Generated from GUI of Fortigate. |
+| **enable_log**  boolean | Enable/Disable logging for task.  Choices:   - `false` ← (default) - `true` |
+| **firewall_access_proxy6**  dictionary | Configure IPv6 access proxy. |
+| **add_vhost_domain_to_dnsdb**  string | Enable/disable adding vhost/domain to dnsdb for ztna dox tunnel.  Choices:   - `"enable"` - `"disable"` |
+| **api_gateway**  list / elements=dictionary | Set IPv4 API Gateway. |
+| **application**  list / elements=dictionary | SaaS application controlled by this Access Proxy. |
+| **name**  string | SaaS application name. |
+| **http_cookie_age**  integer | Time in minutes that client web browsers should keep a cookie. Default is 60 minutes. 0 = no time limit. |
+| **http_cookie_domain**  string | Domain that HTTP cookie persistence should apply to. |
+| **http_cookie_domain_from_host**  string | Enable/disable use of HTTP cookie domain from host field in HTTP.  Choices:   - `"disable"` - `"enable"` |
+| **http_cookie_generation**  integer | Generation of HTTP cookie to be accepted. Changing invalidates all existing cookies. |
+| **http_cookie_path**  string | Limit HTTP cookie persistence to the specified path. |
+| **http_cookie_share**  string | Control sharing of cookies across API Gateway. Use of same-ip means a cookie from one virtual server can be used by another. Disable stops cookie sharing.  Choices:   - `"disable"` - `"same-ip"` |
+| **https_cookie_secure**  string | Enable/disable verification that inserted HTTPS cookies are secure.  Choices:   - `"disable"` - `"enable"` |
+| **id**  integer | API Gateway ID. |
+| **ldb_method**  string | Method used to distribute sessions to real servers.  Choices:   - `"static"` - `"round-robin"` - `"weighted"` - `"first-alive"` - `"http-host"` |
+| **persistence**  string | Configure how to make sure that clients connect to the same server every time they make a request that is part of the same session.  Choices:   - `"none"` - `"http-cookie"` |
+| **realservers**  list / elements=dictionary | Select the real servers that this Access Proxy will distribute traffic to. |
+| **addr_type**  string | Type of address.  Choices:   - `"ip"` - `"fqdn"` |
+| **address**  string | Address or address group of the real server. Source firewall.address.name firewall.addrgrp.name. |
+| **domain**  string | Wildcard domain name of the real server. |
+| **health_check**  string | Enable to check the responsiveness of the real server before forwarding traffic.  Choices:   - `"disable"` - `"enable"` |
+| **health_check_proto**  string | Protocol of the health check monitor to use when polling to determine server”s connectivity status.  Choices:   - `"ping"` - `"http"` - `"tcp-connect"` |
+| **holddown_interval**  string | Enable/disable holddown timer. Server will be considered active and reachable once the holddown period has expired (30 seconds).  Choices:   - `"enable"` - `"disable"` |
+| **http_host**  string | HTTP server domain name in HTTP header. |
+| **id**  integer | Real server ID. |
+| **ip**  string | IP address of the real server. |
+| **mappedport**  string | Port for communicating with the real server. |
+| **port**  integer | Port for communicating with the real server. |
+| **ssh_client_cert**  string | Set access-proxy SSH client certificate profile. Source firewall.access-proxy-ssh-client-cert.name. |
+| **ssh_host_key**  list / elements=dictionary | One or more server host key. |
+| **name**  string | Server host key name. Source firewall.ssh.host-key.name. |
+| **ssh_host_key_validation**  string | Enable/disable SSH real server host key validation.  Choices:   - `"disable"` - `"enable"` |
+| **status**  string | Set the status of the real server to active so that it can accept traffic, or on standby or disabled so no traffic is sent.  Choices:   - `"active"` - `"standby"` - `"disable"` |
+| **type**  string | TCP forwarding server type.  Choices:   - `"tcp-forwarding"` - `"ssh"` |
+| **weight**  integer | Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more connections. |
+| **saml_redirect**  string | Enable/disable SAML redirection after successful authentication.  Choices:   - `"disable"` - `"enable"` |
+| **saml_server**  string | SAML service provider configuration for VIP authentication. Source user.saml.name. |
+| **service**  string | Service.  Choices:   - `"http"` - `"https"` - `"tcp-forwarding"` - `"samlsp"` - `"web-portal"` - `"saas"` |
+| **ssl_algorithm**  string | Permitted encryption algorithms for the server side of SSL full mode sessions according to encryption strength.  Choices:   - `"high"` - `"medium"` - `"low"` |
+| **ssl_cipher_suites**  list / elements=dictionary | SSL/TLS cipher suites to offer to a server, ordered by priority. |
+| **cipher**  string | Cipher suite name.  Choices:   - `"TLS-AES-128-GCM-SHA256"` - `"TLS-AES-256-GCM-SHA384"` - `"TLS-CHACHA20-POLY1305-SHA256"` - `"TLS-ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-CHACHA20-POLY1305-SHA256"` - `"TLS-DHE-RSA-WITH-CHACHA20-POLY1305-SHA256"` - `"TLS-DHE-RSA-WITH-AES-128-CBC-SHA"` - `"TLS-DHE-RSA-WITH-AES-256-CBC-SHA"` - `"TLS-DHE-RSA-WITH-AES-128-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-AES-128-GCM-SHA256"` - `"TLS-DHE-RSA-WITH-AES-256-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-AES-256-GCM-SHA384"` - `"TLS-DHE-DSS-WITH-AES-128-CBC-SHA"` - `"TLS-DHE-DSS-WITH-AES-256-CBC-SHA"` - `"TLS-DHE-DSS-WITH-AES-128-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-AES-128-GCM-SHA256"` - `"TLS-DHE-DSS-WITH-AES-256-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-AES-256-GCM-SHA384"` - `"TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA"` - `"TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256"` - `"TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256"` - `"TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA"` - `"TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA384"` - `"TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384"` - `"TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA"` - `"TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA"` - `"TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384"` - `"TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384"` - `"TLS-RSA-WITH-AES-128-CBC-SHA"` - `"TLS-RSA-WITH-AES-256-CBC-SHA"` - `"TLS-RSA-WITH-AES-128-CBC-SHA256"` - `"TLS-RSA-WITH-AES-128-GCM-SHA256"` - `"TLS-RSA-WITH-AES-256-CBC-SHA256"` - `"TLS-RSA-WITH-AES-256-GCM-SHA384"` - `"TLS-RSA-WITH-CAMELLIA-128-CBC-SHA"` - `"TLS-RSA-WITH-CAMELLIA-256-CBC-SHA"` - `"TLS-RSA-WITH-CAMELLIA-128-CBC-SHA256"` - `"TLS-RSA-WITH-CAMELLIA-256-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-3DES-EDE-CBC-SHA"` - `"TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA"` - `"TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA"` - `"TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA"` - `"TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA"` - `"TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-SEED-CBC-SHA"` - `"TLS-DHE-DSS-WITH-SEED-CBC-SHA"` - `"TLS-DHE-RSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-DHE-DSS-WITH-ARIA-128-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-ARIA-256-CBC-SHA384"` - `"TLS-RSA-WITH-SEED-CBC-SHA"` - `"TLS-RSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-RSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-ECDHE-RSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-ECDHE-RSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-ECDHE-ECDSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-ECDHE-RSA-WITH-RC4-128-SHA"` - `"TLS-ECDHE-RSA-WITH-3DES-EDE-CBC-SHA"` - `"TLS-DHE-DSS-WITH-3DES-EDE-CBC-SHA"` - `"TLS-RSA-WITH-3DES-EDE-CBC-SHA"` - `"TLS-RSA-WITH-RC4-128-MD5"` - `"TLS-RSA-WITH-RC4-128-SHA"` - `"TLS-DHE-RSA-WITH-DES-CBC-SHA"` - `"TLS-DHE-DSS-WITH-DES-CBC-SHA"` - `"TLS-RSA-WITH-DES-CBC-SHA"` |
+| **priority**  integer | SSL/TLS cipher suites priority. |
+| **versions**  list / elements=string | SSL/TLS versions that the cipher suite can be used with.  Choices:   - `"tls-1.0"` - `"tls-1.1"` - `"tls-1.2"` - `"tls-1.3"` |
+| **ssl_dh_bits**  string | Number of bits to use in the Diffie-Hellman exchange for RSA encryption of SSL sessions.  Choices:   - `"768"` - `"1024"` - `"1536"` - `"2048"` - `"3072"` - `"4096"` |
+| **ssl_max_version**  string | Highest SSL/TLS version acceptable from a server.  Choices:   - `"tls-1.0"` - `"tls-1.1"` - `"tls-1.2"` - `"tls-1.3"` |
+| **ssl_min_version**  string | Lowest SSL/TLS version acceptable from a server.  Choices:   - `"tls-1.0"` - `"tls-1.1"` - `"tls-1.2"` - `"tls-1.3"` |
+| **ssl_vpn_web_portal**  string | SSL-VPN web portal. Source vpn.ssl.web.portal.name. |
+| **url_map**  string | URL pattern to match. |
+| **url_map_type**  string | Type of url-map.  Choices:   - `"sub-string"` - `"wildcard"` - `"regex"` |
+| **virtual_host**  string | Virtual host. Source firewall.access-proxy-virtual-host.name. |
+| **api_gateway6**  list / elements=dictionary | Set IPv6 API Gateway. |
+| **application**  list / elements=dictionary | SaaS application controlled by this Access Proxy. |
+| **name**  string | SaaS application name. |
+| **http_cookie_age**  integer | Time in minutes that client web browsers should keep a cookie. Default is 60 minutes. 0 = no time limit. |
+| **http_cookie_domain**  string | Domain that HTTP cookie persistence should apply to. |
+| **http_cookie_domain_from_host**  string | Enable/disable use of HTTP cookie domain from host field in HTTP.  Choices:   - `"disable"` - `"enable"` |
+| **http_cookie_generation**  integer | Generation of HTTP cookie to be accepted. Changing invalidates all existing cookies. |
+| **http_cookie_path**  string | Limit HTTP cookie persistence to the specified path. |
+| **http_cookie_share**  string | Control sharing of cookies across API Gateway. Use of same-ip means a cookie from one virtual server can be used by another. Disable stops cookie sharing.  Choices:   - `"disable"` - `"same-ip"` |
+| **https_cookie_secure**  string | Enable/disable verification that inserted HTTPS cookies are secure.  Choices:   - `"disable"` - `"enable"` |
+| **id**  integer | API Gateway ID. |
+| **ldb_method**  string | Method used to distribute sessions to real servers.  Choices:   - `"static"` - `"round-robin"` - `"weighted"` - `"first-alive"` - `"http-host"` |
+| **persistence**  string | Configure how to make sure that clients connect to the same server every time they make a request that is part of the same session.  Choices:   - `"none"` - `"http-cookie"` |
+| **realservers**  list / elements=dictionary | Select the real servers that this Access Proxy will distribute traffic to. |
+| **addr_type**  string | Type of address.  Choices:   - `"ip"` - `"fqdn"` |
+| **address**  string | Address or address group of the real server. Source firewall.address6.name firewall.addrgrp6.name. |
+| **domain**  string | Wildcard domain name of the real server. |
+| **health_check**  string | Enable to check the responsiveness of the real server before forwarding traffic.  Choices:   - `"disable"` - `"enable"` |
+| **health_check_proto**  string | Protocol of the health check monitor to use when polling to determine server”s connectivity status.  Choices:   - `"ping"` - `"http"` - `"tcp-connect"` |
+| **holddown_interval**  string | Enable/disable holddown timer. Server will be considered active and reachable once the holddown period has expired (30 seconds).  Choices:   - `"enable"` - `"disable"` |
+| **http_host**  string | HTTP server domain name in HTTP header. |
+| **id**  integer | Real server ID. |
+| **ip**  string | IPv6 address of the real server. |
+| **mappedport**  string | Port for communicating with the real server. |
+| **port**  integer | Port for communicating with the real server. |
+| **ssh_client_cert**  string | Set access-proxy SSH client certificate profile. Source firewall.access-proxy-ssh-client-cert.name. |
+| **ssh_host_key**  list / elements=dictionary | One or more server host key. |
+| **name**  string | Server host key name. Source firewall.ssh.host-key.name. |
+| **ssh_host_key_validation**  string | Enable/disable SSH real server host key validation.  Choices:   - `"disable"` - `"enable"` |
+| **status**  string | Set the status of the real server to active so that it can accept traffic, or on standby or disabled so no traffic is sent.  Choices:   - `"active"` - `"standby"` - `"disable"` |
+| **type**  string | TCP forwarding server type.  Choices:   - `"tcp-forwarding"` - `"ssh"` |
+| **weight**  integer | Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more connections. |
+| **saml_redirect**  string | Enable/disable SAML redirection after successful authentication.  Choices:   - `"disable"` - `"enable"` |
+| **saml_server**  string | SAML service provider configuration for VIP authentication. Source user.saml.name. |
+| **service**  string | Service.  Choices:   - `"http"` - `"https"` - `"tcp-forwarding"` - `"samlsp"` - `"web-portal"` - `"saas"` |
+| **ssl_algorithm**  string | Permitted encryption algorithms for the server side of SSL full mode sessions according to encryption strength.  Choices:   - `"high"` - `"medium"` - `"low"` |
+| **ssl_cipher_suites**  list / elements=dictionary | SSL/TLS cipher suites to offer to a server, ordered by priority. |
+| **cipher**  string | Cipher suite name.  Choices:   - `"TLS-AES-128-GCM-SHA256"` - `"TLS-AES-256-GCM-SHA384"` - `"TLS-CHACHA20-POLY1305-SHA256"` - `"TLS-ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-CHACHA20-POLY1305-SHA256"` - `"TLS-DHE-RSA-WITH-CHACHA20-POLY1305-SHA256"` - `"TLS-DHE-RSA-WITH-AES-128-CBC-SHA"` - `"TLS-DHE-RSA-WITH-AES-256-CBC-SHA"` - `"TLS-DHE-RSA-WITH-AES-128-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-AES-128-GCM-SHA256"` - `"TLS-DHE-RSA-WITH-AES-256-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-AES-256-GCM-SHA384"` - `"TLS-DHE-DSS-WITH-AES-128-CBC-SHA"` - `"TLS-DHE-DSS-WITH-AES-256-CBC-SHA"` - `"TLS-DHE-DSS-WITH-AES-128-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-AES-128-GCM-SHA256"` - `"TLS-DHE-DSS-WITH-AES-256-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-AES-256-GCM-SHA384"` - `"TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA"` - `"TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256"` - `"TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256"` - `"TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA"` - `"TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA384"` - `"TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384"` - `"TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA"` - `"TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA"` - `"TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384"` - `"TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384"` - `"TLS-RSA-WITH-AES-128-CBC-SHA"` - `"TLS-RSA-WITH-AES-256-CBC-SHA"` - `"TLS-RSA-WITH-AES-128-CBC-SHA256"` - `"TLS-RSA-WITH-AES-128-GCM-SHA256"` - `"TLS-RSA-WITH-AES-256-CBC-SHA256"` - `"TLS-RSA-WITH-AES-256-GCM-SHA384"` - `"TLS-RSA-WITH-CAMELLIA-128-CBC-SHA"` - `"TLS-RSA-WITH-CAMELLIA-256-CBC-SHA"` - `"TLS-RSA-WITH-CAMELLIA-128-CBC-SHA256"` - `"TLS-RSA-WITH-CAMELLIA-256-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-3DES-EDE-CBC-SHA"` - `"TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA"` - `"TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA"` - `"TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA"` - `"TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA"` - `"TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-CAMELLIA-128-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-CAMELLIA-256-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-SEED-CBC-SHA"` - `"TLS-DHE-DSS-WITH-SEED-CBC-SHA"` - `"TLS-DHE-RSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-DHE-RSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-DHE-DSS-WITH-ARIA-128-CBC-SHA256"` - `"TLS-DHE-DSS-WITH-ARIA-256-CBC-SHA384"` - `"TLS-RSA-WITH-SEED-CBC-SHA"` - `"TLS-RSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-RSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-ECDHE-RSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-ECDHE-RSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-ECDHE-ECDSA-WITH-ARIA-128-CBC-SHA256"` - `"TLS-ECDHE-ECDSA-WITH-ARIA-256-CBC-SHA384"` - `"TLS-ECDHE-RSA-WITH-RC4-128-SHA"` - `"TLS-ECDHE-RSA-WITH-3DES-EDE-CBC-SHA"` - `"TLS-DHE-DSS-WITH-3DES-EDE-CBC-SHA"` - `"TLS-RSA-WITH-3DES-EDE-CBC-SHA"` - `"TLS-RSA-WITH-RC4-128-MD5"` - `"TLS-RSA-WITH-RC4-128-SHA"` - `"TLS-DHE-RSA-WITH-DES-CBC-SHA"` - `"TLS-DHE-DSS-WITH-DES-CBC-SHA"` - `"TLS-RSA-WITH-DES-CBC-SHA"` |
+| **priority**  integer | SSL/TLS cipher suites priority. |
+| **versions**  list / elements=string | SSL/TLS versions that the cipher suite can be used with.  Choices:   - `"tls-1.0"` - `"tls-1.1"` - `"tls-1.2"` - `"tls-1.3"` |
+| **ssl_dh_bits**  string | Number of bits to use in the Diffie-Hellman exchange for RSA encryption of SSL sessions.  Choices:   - `"768"` - `"1024"` - `"1536"` - `"2048"` - `"3072"` - `"4096"` |
+| **ssl_max_version**  string | Highest SSL/TLS version acceptable from a server.  Choices:   - `"tls-1.0"` - `"tls-1.1"` - `"tls-1.2"` - `"tls-1.3"` |
+| **ssl_min_version**  string | Lowest SSL/TLS version acceptable from a server.  Choices:   - `"tls-1.0"` - `"tls-1.1"` - `"tls-1.2"` - `"tls-1.3"` |
+| **ssl_vpn_web_portal**  string | SSL-VPN web portal. Source vpn.ssl.web.portal.name. |
+| **url_map**  string | URL pattern to match. |
+| **url_map_type**  string | Type of url-map.  Choices:   - `"sub-string"` - `"wildcard"` - `"regex"` |
+| **virtual_host**  string | Virtual host. Source firewall.access-proxy-virtual-host.name. |
+| **auth_portal**  string | Enable/disable authentication portal.  Choices:   - `"disable"` - `"enable"` |
+| **auth_virtual_host**  string | Virtual host for authentication portal. Source firewall.access-proxy-virtual-host.name. |
+| **client_cert**  string | Enable/disable to request client certificate.  Choices:   - `"disable"` - `"enable"` |
+| **decrypted_traffic_mirror**  string | Decrypted traffic mirror. Source firewall.decrypted-traffic-mirror.name. |
+| **empty_cert_action**  string | Action of an empty client certificate.  Choices:   - `"accept"` - `"block"` - `"accept-unmanageable"` |
+| **log_blocked_traffic**  string | Enable/disable logging of blocked traffic.  Choices:   - `"enable"` - `"disable"` |
+| **name**  string / required | Access Proxy name. |
+| **user_agent_detect**  string | Enable/disable to detect device type by HTTP user-agent if no client certificate provided.  Choices:   - `"disable"` - `"enable"` |
+| **vip**  string | Virtual IP name. Source firewall.vip6.name. |
+| **member_path**  string | Member attribute path to operate on.  Delimited by a slash character if there are more than one attribute.  Parameter marked with member_path is legitimate for doing member operation. |
+| **member_state**  string | Add or delete a member under specified attribute path.  When member_state is specified, the state option is ignored.  Choices:   - `"present"` - `"absent"` |
+| **state**  string / required | Indicates whether to create or remove the object.  Choices:   - `"present"` - `"absent"` |
+| **vdom**  string | Virtual domain, among those defined previously. A vdom is a virtual instance of the FortiGate that can be configured and used as a different unit.  Default: `"root"` |
+
+## [Notes](fortios_firewall_access_proxy6_module.md#id4)
+
+> **Note:**
+>
+> - Legacy fortiosapi has been deprecated, httpapi is the preferred way to run playbooks
+
+## [Examples](fortios_firewall_access_proxy6_module.md#id5)
+
+```yaml+jinja
+- hosts: fortigates
+  collections:
+    - fortinet.fortios
+  connection: httpapi
+  vars:
+   vdom: "root"
+   ansible_httpapi_use_ssl: yes
+   ansible_httpapi_validate_certs: no
+   ansible_httpapi_port: 443
+  tasks:
+  - name: Configure IPv6 access proxy.
+    fortios_firewall_access_proxy6:
+      vdom:  "{{ vdom }}"
+      state: "present"
+      access_token: "<your_own_value>"
+      firewall_access_proxy6:
+        add_vhost_domain_to_dnsdb: "enable"
+        api_gateway:
+         -
+            application:
+             -
+                name: "default_name_6"
+            http_cookie_age: "60"
+            http_cookie_domain: "<your_own_value>"
+            http_cookie_domain_from_host: "disable"
+            http_cookie_generation: "0"
+            http_cookie_path: "<your_own_value>"
+            http_cookie_share: "disable"
+            https_cookie_secure: "disable"
+            id:  "14"
+            ldb_method: "static"
+            persistence: "none"
+            realservers:
+             -
+                addr_type: "ip"
+                address: "<your_own_value> (source firewall.address.name firewall.addrgrp.name)"
+                domain: "<your_own_value>"
+                health_check: "disable"
+                health_check_proto: "ping"
+                holddown_interval: "enable"
+                http_host: "myhostname"
+                id:  "25"
+                ip: "<your_own_value>"
+                mappedport: "<your_own_value>"
+                port: "443"
+                ssh_client_cert: "<your_own_value> (source firewall.access-proxy-ssh-client-cert.name)"
+                ssh_host_key:
+                 -
+                    name: "default_name_31 (source firewall.ssh.host-key.name)"
+                ssh_host_key_validation: "disable"
+                status: "active"
+                type: "tcp-forwarding"
+                weight: "1"
+            saml_redirect: "disable"
+            saml_server: "<your_own_value> (source user.saml.name)"
+            service: "http"
+            ssl_algorithm: "high"
+            ssl_cipher_suites:
+             -
+                cipher: "TLS-AES-128-GCM-SHA256"
+                priority: "0"
+                versions: "tls-1.0"
+            ssl_dh_bits: "768"
+            ssl_max_version: "tls-1.0"
+            ssl_min_version: "tls-1.0"
+            ssl_vpn_web_portal: "<your_own_value> (source vpn.ssl.web.portal.name)"
+            url_map: "<your_own_value>"
+            url_map_type: "sub-string"
+            virtual_host: "myhostname (source firewall.access-proxy-virtual-host.name)"
+        api_gateway6:
+         -
+            application:
+             -
+                name: "default_name_53"
+            http_cookie_age: "60"
+            http_cookie_domain: "<your_own_value>"
+            http_cookie_domain_from_host: "disable"
+            http_cookie_generation: "0"
+            http_cookie_path: "<your_own_value>"
+            http_cookie_share: "disable"
+            https_cookie_secure: "disable"
+            id:  "61"
+            ldb_method: "static"
+            persistence: "none"
+            realservers:
+             -
+                addr_type: "ip"
+                address: "<your_own_value> (source firewall.address6.name firewall.addrgrp6.name)"
+                domain: "<your_own_value>"
+                health_check: "disable"
+                health_check_proto: "ping"
+                holddown_interval: "enable"
+                http_host: "myhostname"
+                id:  "72"
+                ip: "<your_own_value>"
+                mappedport: "<your_own_value>"
+                port: "443"
+                ssh_client_cert: "<your_own_value> (source firewall.access-proxy-ssh-client-cert.name)"
+                ssh_host_key:
+                 -
+                    name: "default_name_78 (source firewall.ssh.host-key.name)"
+                ssh_host_key_validation: "disable"
+                status: "active"
+                type: "tcp-forwarding"
+                weight: "1"
+            saml_redirect: "disable"
+            saml_server: "<your_own_value> (source user.saml.name)"
+            service: "http"
+            ssl_algorithm: "high"
+            ssl_cipher_suites:
+             -
+                cipher: "TLS-AES-128-GCM-SHA256"
+                priority: "0"
+                versions: "tls-1.0"
+            ssl_dh_bits: "768"
+            ssl_max_version: "tls-1.0"
+            ssl_min_version: "tls-1.0"
+            ssl_vpn_web_portal: "<your_own_value> (source vpn.ssl.web.portal.name)"
+            url_map: "<your_own_value>"
+            url_map_type: "sub-string"
+            virtual_host: "myhostname (source firewall.access-proxy-virtual-host.name)"
+        auth_portal: "disable"
+        auth_virtual_host: "myhostname (source firewall.access-proxy-virtual-host.name)"
+        client_cert: "disable"
+        decrypted_traffic_mirror: "<your_own_value> (source firewall.decrypted-traffic-mirror.name)"
+        empty_cert_action: "accept"
+        log_blocked_traffic: "enable"
+        name: "default_name_104"
+        user_agent_detect: "disable"
+        vip: "<your_own_value> (source firewall.vip6.name)"
+```
+
+## [Return Values](fortios_firewall_access_proxy6_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **build**  string | Build number of the fortigate image  Returned: always  Sample: `"1547"` |
+| **http_method**  string | Last method used to provision the content into FortiGate  Returned: always  Sample: `"PUT"` |
+| **http_status**  string | Last result given by FortiGate on last operation applied  Returned: always  Sample: `"200"` |
+| **mkey**  string | Master key (id) used in the last call to FortiGate  Returned: success  Sample: `"id"` |
+| **name**  string | Name of the table used to fulfill the request  Returned: always  Sample: `"urlfilter"` |
+| **path**  string | Path of the table used to fulfill the request  Returned: always  Sample: `"webfilter"` |
+| **revision**  string | Internal revision number  Returned: always  Sample: `"17.0.2.10658"` |
+| **serial**  string | Serial number of the unit  Returned: always  Sample: `"FGVMEVYYQT3AB5352"` |
+| **status**  string | Indication of the operation’s result  Returned: always  Sample: `"success"` |
+| **vdom**  string | Virtual domain used  Returned: always  Sample: `"root"` |
+| **version**  string | Version of the FortiGate  Returned: always  Sample: `"v5.6.3"` |
+
+### Authors
+
+- Link Zheng (@chillancezen)
+- Jie Xue (@JieX19)
+- Hongbin Lu (@fgtdev-hblu)
+- Frank Shen (@frankshen01)
+- Miguel Angel Munoz (@mamunozgonzalez)
+- Nicolas Thomas (@thomnico)
+
+### Collection links
+
+[Issue Tracker](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection/issues)
+[Homepage](https://www.fortinet.com)
+[Repository (Sources)](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortios-collection)

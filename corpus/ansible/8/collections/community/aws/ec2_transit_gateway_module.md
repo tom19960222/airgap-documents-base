@@ -1,0 +1,152 @@
+---
+collection: ansible
+version: "8"
+title: "community.aws.ec2_transit_gateway module – Create and delete AWS Transit Gateways"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/community/aws/ec2_transit_gateway_module.html
+fetched_at: 2026-07-28T01:40:44+00:00
+---
+# community.aws.ec2_transit_gateway module – Create and delete AWS Transit Gateways
+
+> **Note:**
+>
+> This module is part of the [community.aws collection](https://galaxy.ansible.com/ui/repo/published/community/aws/) (version 6.4.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install community.aws`.
+> You need further requirements to be able to use this module,
+> see [Requirements](ec2_transit_gateway_module.md#ansible-collections-community-aws-ec2-transit-gateway-module-requirements) for details.
+>
+> To use it in a playbook, specify: `community.aws.ec2_transit_gateway`.
+
+New in community.aws 1.0.0
+
+- [Synopsis](ec2_transit_gateway_module.md#synopsis)
+- [Requirements](ec2_transit_gateway_module.md#requirements)
+- [Parameters](ec2_transit_gateway_module.md#parameters)
+- [Notes](ec2_transit_gateway_module.md#notes)
+- [Examples](ec2_transit_gateway_module.md#examples)
+- [Return Values](ec2_transit_gateway_module.md#return-values)
+
+## [Synopsis](ec2_transit_gateway_module.md#id1)
+
+- Creates AWS Transit Gateways.
+- Deletes AWS Transit Gateways.
+- Updates tags on existing transit gateways.
+
+## [Requirements](ec2_transit_gateway_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- python >= 3.6
+- boto3 >= 1.22.0
+- botocore >= 1.25.0
+
+## [Parameters](ec2_transit_gateway_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **access_key**  aliases: aws_access_key_id, aws_access_key, ec2_access_key  string | AWS access key ID.  See the AWS documentation for more information about access tokens <https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys>.  The `AWS_ACCESS_KEY_ID`, `AWS_ACCESS_KEY` or `EC2_ACCESS_KEY` environment variables may also be used in decreasing order of preference.  The *aws_access_key* and *profile* options are mutually exclusive.  The *aws_access_key_id* alias was added in release 5.1.0 for consistency with the AWS botocore SDK.  The *ec2_access_key* alias has been deprecated and will be removed in a release after 2024-12-01.  Support for the `EC2_ACCESS_KEY` environment variable has been deprecated and will be removed in a release after 2024-12-01. |
+| **asn**  integer | A private Autonomous System Number (ASN) for the Amazon side of a BGP session.  The range is 64512 to 65534 for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. |
+| **auto_associate**  boolean | Enable or disable automatic association with the default association route table.  **Choices:**   - `false` - `true` ← (default) |
+| **auto_attach**  boolean | Enable or disable automatic acceptance of attachment requests.  **Choices:**   - `false` ← (default) - `true` |
+| **auto_propagate**  boolean | Enable or disable automatic propagation of routes to the default propagation route table.  **Choices:**   - `false` - `true` ← (default) |
+| **aws_ca_bundle**  path | The location of a CA Bundle to use when validating SSL certificates.  The `AWS_CA_BUNDLE` environment variable may also be used. |
+| **aws_config**  dictionary | A dictionary to modify the botocore configuration.  Parameters can be found in the AWS documentation <https://botocore.amazonaws.com/v1/documentation/api/latest/reference/config.html#botocore.config.Config>. |
+| **debug_botocore_endpoint_logs**  boolean | Use a `botocore.endpoint` logger to parse the unique (rather than total) `"resource:action"` API calls made during a task, outputing the set to the resource_actions key in the task results. Use the `aws_resource_action` callback to output to total list made during a playbook.  The `ANSIBLE_DEBUG_BOTOCORE_LOGS` environment variable may also be used.  **Choices:**   - `false` ← (default) - `true` |
+| **description**  string | The description of the transit gateway. |
+| **dns_support**  boolean | Whether to enable AWS DNS support.  **Choices:**   - `false` - `true` ← (default) |
+| **endpoint_url**  aliases: ec2_url, aws_endpoint_url, s3_url  string | URL to connect to instead of the default AWS endpoints. While this can be used to connection to other AWS-compatible services the amazon.aws and community.aws collections are only tested against AWS.  The `AWS_URL` or `EC2_URL` environment variables may also be used, in decreasing order of preference.  The *ec2_url* and *s3_url* aliases have been deprecated and will be removed in a release after 2024-12-01.  Support for the `EC2_URL` environment variable has been deprecated and will be removed in a release after 2024-12-01. |
+| **profile**  aliases: aws_profile  string | A named AWS profile to use for authentication.  See the AWS documentation for more information about named profiles <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html>.  The `AWS_PROFILE` environment variable may also be used.  The *profile* option is mutually exclusive with the *aws_access_key*, *aws_secret_key* and *security_token* options. |
+| **purge_tags**  boolean | If *purge_tags=true* and *tags* is set, existing tags will be purged from the resource to match exactly what is defined by *tags* parameter.  If the *tags* parameter is not set then tags will not be modified, even if *purge_tags=True*.  Tag keys beginning with `aws:` are reserved by Amazon and can not be modified. As such they will be ignored for the purposes of the *purge_tags* parameter. See the Amazon documentation for more information <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions>.  **Choices:**   - `false` - `true` ← (default) |
+| **region**  aliases: aws_region, ec2_region  string | The AWS region to use.  For global services such as IAM, Route53 and CloudFront, *region* is ignored.  The `AWS_REGION` or `EC2_REGION` environment variables may also be used.  See the Amazon AWS documentation for more information <http://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region>.  The `ec2_region` alias has been deprecated and will be removed in a release after 2024-12-01  Support for the `EC2_REGION` environment variable has been deprecated and will be removed in a release after 2024-12-01. |
+| **secret_key**  aliases: aws_secret_access_key, aws_secret_key, ec2_secret_key  string | AWS secret access key.  See the AWS documentation for more information about access tokens <https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys>.  The `AWS_SECRET_ACCESS_KEY`, `AWS_SECRET_KEY`, or `EC2_SECRET_KEY` environment variables may also be used in decreasing order of preference.  The *secret_key* and *profile* options are mutually exclusive.  The *aws_secret_access_key* alias was added in release 5.1.0 for consistency with the AWS botocore SDK.  The *ec2_secret_key* alias has been deprecated and will be removed in a release after 2024-12-01.  Support for the `EC2_SECRET_KEY` environment variable has been deprecated and will be removed in a release after 2024-12-01. |
+| **session_token**  aliases: aws_session_token, security_token, aws_security_token, access_token  string | AWS STS session token for use with temporary credentials.  See the AWS documentation for more information about access tokens <https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys>.  The `AWS_SESSION_TOKEN`, `AWS_SECURITY_TOKEN` or `EC2_SECURITY_TOKEN` environment variables may also be used in decreasing order of preference.  The *security_token* and *profile* options are mutually exclusive.  Aliases *aws_session_token* and *session_token* were added in release 3.2.0, with the parameter being renamed from *security_token* to *session_token* in release 6.0.0.  The *security_token*, *aws_security_token*, and *access_token* aliases have been deprecated and will be removed in a release after 2024-12-01.  Support for the `EC2_SECRET_KEY` and `AWS_SECURITY_TOKEN` environment variables has been deprecated and will be removed in a release after 2024-12-01. |
+| **state**  string | `present` to ensure resource is created.  `absent` to remove resource.  **Choices:**   - `"present"` ← (default) - `"absent"` |
+| **tags**  aliases: resource_tags  dictionary | A dictionary representing the tags to be applied to the resource.  If the *tags* parameter is not set then tags will not be modified. |
+| **transit_gateway_id**  string | The ID of the transit gateway. |
+| **validate_certs**  boolean | When set to `false`, SSL certificates will not be validated for communication with the AWS APIs.  Setting *validate_certs=false* is strongly discouraged, as an alternative, consider setting *aws_ca_bundle* instead.  **Choices:**   - `false` - `true` ← (default) |
+| **vpn_ecmp_support**  boolean | Enable or disable Equal Cost Multipath Protocol support.  **Choices:**   - `false` - `true` ← (default) |
+| **wait**  boolean | Whether to wait for status  **Choices:**   - `false` - `true` ← (default) |
+| **wait_timeout**  integer | number of seconds to wait for status  **Default:** `300` |
+
+## [Notes](ec2_transit_gateway_module.md#id4)
+
+> **Note:**
+>
+> - **Caution:** For modules, environment variables and configuration files are read from the Ansible ‘host’ context and not the ‘controller’ context. As such, files may need to be explicitly copied to the ‘host’. For lookup and connection plugins, environment variables and configuration files are read from the Ansible ‘controller’ context and not the ‘host’ context.
+> - The AWS SDK (boto3) that Ansible uses may also read defaults for credentials and other settings, such as the region, from its configuration files in the Ansible ‘host’ context (typically `~/.aws/credentials`). See <https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html> for more information.
+
+## [Examples](ec2_transit_gateway_module.md#id5)
+
+```yaml+jinja
+- name: Create a new transit gateway using defaults
+  community.aws.ec2_transit_gateway:
+    state: present
+    region: us-east-1
+    description: personal-testing
+  register: created_tgw
+
+- name: Create a new transit gateway with options
+  community.aws.ec2_transit_gateway:
+    asn: 64514
+    auto_associate: false
+    auto_propagate: false
+    dns_support: True
+    description: "nonprod transit gateway"
+    purge_tags: False
+    state: present
+    region: us-east-1
+    tags:
+      Name: nonprod transit gateway
+      status: testing
+
+- name: Remove a transit gateway by description
+  community.aws.ec2_transit_gateway:
+    state: absent
+    region: us-east-1
+    description: personal-testing
+
+- name: Remove a transit gateway by id
+  community.aws.ec2_transit_gateway:
+    state: absent
+    region: ap-southeast-2
+    transit_gateway_id: tgw-3a9aa123
+  register: deleted_tgw
+```
+
+## [Return Values](ec2_transit_gateway_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **transit_gateway**  complex | The attributes of the transit gateway.  **Returned:** *state=present* |
+| **creation_time**  string | The creation time of the transit gateway.  **Returned:** always  **Sample:** `"2019-03-06T17:13:51+00:00"` |
+| **description**  string | The description of the transit gateway.  **Returned:** always  **Sample:** `"my test tgw"` |
+| **options**  complex | The options attributes of the transit gateway  **Returned:** always |
+| **amazon_side_asn**  string | A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to 65534 for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.  **Returned:** always  **Sample:** `"64512"` |
+| **association_default_route_table_id**  string | The ID of the default association route table.  **Returned:** Iwhen exists  **Sample:** `"tgw-rtb-abc123444"` |
+| **auto_accept_shared_attachements**  string | Indicates whether attachment requests are automatically accepted.  **Returned:** always  **Sample:** `"disable"` |
+| **default_route_table_association**  string | Indicates whether resource attachments are automatically associated with the default association route table.  **Returned:** always  **Sample:** `"enable"` |
+| **default_route_table_propagation**  string | Indicates whether resource attachments automatically propagate routes to the default propagation route table.  **Returned:** always  **Sample:** `"disable"` |
+| **dns_support**  string | Indicates whether DNS support is enabled.  **Returned:** always  **Sample:** `"enable"` |
+| **propagation_default_route_table_id**  string | The ID of the default propagation route table.  **Returned:** when exists  **Sample:** `"tgw-rtb-def456777"` |
+| **vpn_ecmp_support**  string | Indicates whether Equal Cost Multipath Protocol support is enabled.  **Returned:** always  **Sample:** `"enable"` |
+| **owner_id**  string | The account that owns the transit gateway.  **Returned:** always  **Sample:** `"123456789012"` |
+| **state**  string | The state of the transit gateway.  **Returned:** always  **Sample:** `"pending"` |
+| **tags**  dictionary | A dictionary of resource tags  **Returned:** always  **Sample:** `{"tags": {"Name": "nonprod_tgw"}}` |
+| **transit_gateway_arn**  string | The ID of the transit_gateway.  **Returned:** always  **Sample:** `"tgw-3a9aa123"` |
+| **transit_gateway_id**  string | The ID of the transit_gateway.  **Returned:** always  **Sample:** `"tgw-3a9aa123"` |
+
+### Authors
+
+- Bob Boldin (@BobBoldin)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/ansible-collections/community.aws/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+- [Repository (Sources)](https://github.com/ansible-collections/community.aws)
+- [Communication](index.md#communication-for-community-aws)

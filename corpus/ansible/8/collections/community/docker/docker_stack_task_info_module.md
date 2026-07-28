@@ -1,0 +1,76 @@
+---
+collection: ansible
+version: "8"
+title: "community.docker.docker_stack_task_info module – Return information of the tasks on a docker stack"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/community/docker/docker_stack_task_info_module.html
+fetched_at: 2026-07-28T01:43:56+00:00
+---
+# community.docker.docker_stack_task_info module – Return information of the tasks on a docker stack
+
+> **Note:**
+>
+> This module is part of the [community.docker collection](https://galaxy.ansible.com/ui/repo/published/community/docker/) (version 3.4.11).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install community.docker`.
+>
+> To use it in a playbook, specify: `community.docker.docker_stack_task_info`.
+
+- [Synopsis](docker_stack_task_info_module.md#synopsis)
+- [Parameters](docker_stack_task_info_module.md#parameters)
+- [Attributes](docker_stack_task_info_module.md#attributes)
+- [Examples](docker_stack_task_info_module.md#examples)
+- [Return Values](docker_stack_task_info_module.md#return-values)
+
+## [Synopsis](docker_stack_task_info_module.md#id1)
+
+- Retrieve information on docker stacks tasks using the `docker stack` command on the target node (see examples).
+
+## [Parameters](docker_stack_task_info_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **name**  string / required | Stack name. |
+
+## [Attributes](docker_stack_task_info_module.md#id3)
+
+| Attribute | Support | Description |
+| --- | --- | --- |
+| **check_mode** | **Support:** **full**  This action does not modify state. | Can run in `check_mode` and return changed status prediction without modifying target. |
+| **diff_mode** | **Support:**  N/A  This action does not modify state. | Will return details on what has changed (or possibly needs changing in `check_mode`), when in diff mode. |
+
+## [Examples](docker_stack_task_info_module.md#id4)
+
+```yaml+jinja
+- name: Shows stack info
+  community.docker.docker_stack_task_info:
+    name: test_stack
+  register: result
+
+- name: Show results
+  ansible.builtin.debug:
+    var: result.results
+```
+
+## [Return Values](docker_stack_task_info_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **results**  list / elements=dictionary | List of dictionaries containing the list of tasks associated to a stack name.  **Returned:** always  **Sample:** `"[{\"CurrentState\":\"Running\",\"DesiredState\":\"Running\",\"Error\":\"\",\"ID\":\"7wqv6m02ugkw\",\"Image\":\"busybox\",\"Name\":\"test_stack.1\",\"Node\":\"swarm\",\"Ports\":\"\"}]\n"` |
+
+### Authors
+
+- Jose Angel Munoz (@imjoseangel)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/ansible-collections/community.docker/issues)
+- [Repository (Sources)](https://github.com/ansible-collections/community.docker)
+- [Submit a bug report](https://github.com/ansible-collections/community.docker/issues/new?assignees=&labels=&template=bug_report.md)
+- [Request a feature](https://github.com/ansible-collections/community.docker/issues/new?assignees=&labels=&template=feature_request.md)
+- [Communication](index.md#communication-for-community-docker)

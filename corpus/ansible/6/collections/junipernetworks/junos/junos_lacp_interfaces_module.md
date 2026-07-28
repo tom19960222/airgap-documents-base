@@ -1,0 +1,828 @@
+---
+collection: ansible
+version: "6"
+title: "junipernetworks.junos.junos_lacp_interfaces module – LACP interfaces resource module"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/junipernetworks/junos/junos_lacp_interfaces_module.html
+fetched_at: 2026-07-27T17:54:21+00:00
+---
+# junipernetworks.junos.junos_lacp_interfaces module – LACP interfaces resource module
+
+> **Note:**
+>
+> This module is part of the [junipernetworks.junos collection](https://galaxy.ansible.com/junipernetworks/junos) (version 3.1.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install junipernetworks.junos`.
+>
+> To use it in a playbook, specify: `junipernetworks.junos.junos_lacp_interfaces`.
+
+New in junipernetworks.junos 1.0.0
+
+- [Synopsis](junos_lacp_interfaces_module.md#synopsis)
+- [Parameters](junos_lacp_interfaces_module.md#parameters)
+- [Examples](junos_lacp_interfaces_module.md#examples)
+- [Return Values](junos_lacp_interfaces_module.md#return-values)
+
+## [Synopsis](junos_lacp_interfaces_module.md#id1)
+
+- This module manages Link Aggregation Control Protocol (LACP) attributes of interfaces on Juniper JUNOS devices.
+
+> **Note:**
+>
+> This module has a corresponding [action plugin](../../../plugins/action.md#action-plugins).
+
+## [Parameters](junos_lacp_interfaces_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **config**  list / elements=dictionary | The list of dictionaries of LACP interfaces options. |
+| **force_up**  boolean | This is a boolean argument to control if the port should be up in absence of received link Aggregation Control Protocol Data Unit (LACPDUS). This value is applicable for member interfaces only.  Choices:   - `false` - `true` |
+| **name**  string | Name Identifier of the interface or link aggregation group. |
+| **period**  string | Timer interval for periodic transmission of LACP packets. If the value is set to `fast` the packets are received every second and if the value is `slow` the packets are received every 30 seconds. This value is applicable for aggregate interface only.  Choices:   - `"fast"` - `"slow"` |
+| **port_priority**  integer | Priority of the member port. This value is applicable for member interfaces only.  Refer to vendor documentation for valid values. |
+| **sync_reset**  string | The argument notifies minimum-link failure out of sync to peer. If the value is `disable` it disables minimum-link failure handling at LACP level and if value is `enable` it enables minimum-link failure handling at LACP level. This value is applicable for aggregate interface only.  Choices:   - `"disable"` - `"enable"` |
+| **system**  dictionary | This dict object contains configurable options related to LACP system parameters for the link aggregation group. This value is applicable for aggregate interface only. |
+| **mac**  dictionary | Specifies the system ID to use in LACP negotiations for the bundle, encoded as a MAC address. |
+| **address**  string | The system ID to use in LACP negotiations. |
+| **priority**  integer | Specifies the system priority to use in LACP negotiations for the bundle.  Refer to vendor documentation for valid values. |
+| **running_config**  string | This option is used only with state *parsed*.  The value of this option should be the output received from the Junos device by executing the command **show interface**.  The state *parsed* reads the configuration from `running_config` option and transforms it into Ansible structured data as per the resource module’s argspec and the value is then returned in the *parsed* key within the result. |
+| **state**  string | The state of the configuration after module completion.  Choices:   - `"merged"` ← (default) - `"replaced"` - `"overridden"` - `"deleted"` - `"gathered"` - `"parsed"` - `"rendered"` |
+
+## [Examples](junos_lacp_interfaces_module.md#id3)
+
+```yaml+jinja
+# Using merged
+# Before state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae4;
+#     }
+# }
+# ge-0/0/3 {
+#    ether-options {
+#         802.3ad ae0;
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+
+- name: Merge provided configuration with device configuration
+  junipernetworks.junos.junos_lacp_interfaces:
+    config:
+    - name: ae0
+      period: fast
+      sync_reset: enable
+      system:
+        priority: 100
+        mac:
+          address: 00:00:00:00:00:02
+    - name: ge-0/0/3
+      port_priority: 100
+      force_up: true
+    state: merged
+
+# After state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae4;
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae0;
+#         }
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             periodic fast;
+#             sync-reset enable;
+#             system-priority 100;
+#             system-id 00:00:00:00:00:02;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+
+# Using replaced
+# Before state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae4;
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae0;
+#         }
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             periodic fast;
+#             sync-reset enable;
+#             system-priority 100;
+#             system-id 00:00:00:00:00:02;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+
+- name: Replace device LACP interfaces configuration with provided configuration
+  junipernetworks.junos.junos_lacp_interfaces:
+    config:
+    - name: ae0
+      period: slow
+    state: replaced
+
+# After state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae4;
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae0;
+#         }
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             periodic slow;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+
+# Using overridden
+# Before state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae4;
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae0;
+#         }
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             periodic slow;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+
+- name: Overrides all device LACP interfaces configuration with provided configuration
+  junipernetworks.junos.junos_lacp_interfaces:
+    config:
+    - name: ae0
+      system:
+        priority: 300
+        mac:
+          address: 00:00:00:00:00:03
+    - name: ge-0/0/2
+      port_priority: 200
+      force_up: false
+    state: overridden
+
+# After state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 port-priority 200;
+#             }
+#             ae4;
+#         }
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae0;
+#         }
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             system-priority 300;
+#             system-id 00:00:00:00:00:03;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+
+# Using deleted
+# Before state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 port-priority 200;
+#             }
+#             ae4;
+#         }
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae0;
+#         }
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             system-priority 300;
+#             system-id 00:00:00:00:00:03;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+
+- name: "Delete LACP interfaces attributes of given interfaces (Note: This won't delete the interface itself)"
+  junipernetworks.junos.junos_lacp_interfaces:
+    config:
+    - name: ae0
+    - name: ge-0/0/3
+    - name: ge-0/0/2
+    state: deleted
+
+# After state:
+# -------------
+# user@junos01# show interfaces
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae4;
+#     }
+# }
+# ge-0/0/3 {
+#    ether-options {
+#         802.3ad ae0;
+#     }
+# }
+# ae0 {
+#     description "lag interface merged";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#         }
+#     }
+# }
+# ae4 {
+#     description "test aggregate interface";
+#     aggregated-ether-options {
+#         lacp {
+#             passive;
+#             link-protection;
+#         }
+#     }
+# }
+# Using gathered
+# Before state:
+# ------------
+#
+# user@junos01# show interfaces
+# ansible@cm123456tr21# show interfaces
+# ge-0/0/1 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae1;
+#         }
+#     }
+# }
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae1;
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad ae2;
+#     }
+# }
+# ge-0/0/4 {
+#     ether-options {
+#         802.3ad ae2;
+#     }
+# }
+# ge-1/0/0 {
+#     unit 0 {
+#         family inet {
+#             address 192.168.100.1/24;
+#             address 10.200.16.20/24;
+#         }
+#         family inet6;
+#     }
+# }
+# ge-2/0/0 {
+#     unit 0 {
+#         family inet {
+#             address 192.168.100.2/24;
+#             address 10.200.16.21/24;
+#         }
+#         family inet6;
+#     }
+# }
+# ge-3/0/0 {
+#     unit 0 {
+#         family inet {
+#             address 192.168.100.3/24;
+#             address 10.200.16.22/24;
+#         }
+#         family inet6;
+#     }
+# }
+# ae1 {
+#     description "Configured by Ansible";
+#     aggregated-ether-options {
+#         lacp {
+#             periodic fast;
+#             sync-reset enable;
+#             system-priority 100;
+#             system-id 00:00:00:00:00:02;
+#         }
+#     }
+# }
+# ae2 {
+#     description "Configured by Ansible";
+# }
+# em1 {
+#     description TEST;
+# }
+# fxp0 {
+#     description ANSIBLE;
+#     speed 1g;
+#     link-mode automatic;
+#     unit 0 {
+#         family inet {
+#             address 10.8.38.38/24;
+#         }
+#     }
+# }
+- name: Gather junos lacp interfaces as in given arguments
+  junipernetworks.junos.junos_lacp_interfaces:
+    state: gathered
+# Task Output (redacted)
+# -----------------------
+#
+# "gathered": [
+#         {
+#             "force_up": true,
+#             "name": "ge-0/0/1",
+#             "port_priority": 100
+#         },
+#         {
+#             "name": "ae1",
+#             "period": "fast",
+#             "sync_reset": "enable",
+#             "system": {
+#                 "mac": {
+#                     "address": "00:00:00:00:00:02"
+#                 },
+#                 "priority": 100
+#             }
+#         }
+#     ]
+# After state:
+# ------------
+#
+# ansible@cm123456tr21# show interfaces
+# ge-0/0/1 {
+#     ether-options {
+#         802.3ad {
+#             lacp {
+#                 force-up;
+#                 port-priority 100;
+#             }
+#             ae1;
+#         }
+#     }
+# }
+# ge-0/0/2 {
+#     ether-options {
+#         802.3ad ae1;
+#     }
+# }
+# ge-0/0/3 {
+#     ether-options {
+#         802.3ad ae2;
+#     }
+# }
+# ge-0/0/4 {
+#     ether-options {
+#         802.3ad ae2;
+#     }
+# }
+# ge-1/0/0 {
+#     unit 0 {
+#         family inet {
+#             address 192.168.100.1/24;
+#             address 10.200.16.20/24;
+#         }
+#         family inet6;
+#     }
+# }
+# ge-2/0/0 {
+#     unit 0 {
+#         family inet {
+#             address 192.168.100.2/24;
+#             address 10.200.16.21/24;
+#         }
+#         family inet6;
+#     }
+# }
+# ge-3/0/0 {
+#     unit 0 {
+#         family inet {
+#             address 192.168.100.3/24;
+#             address 10.200.16.22/24;
+#         }
+#         family inet6;
+#     }
+# }
+# ae1 {
+#     description "Configured by Ansible";
+#     aggregated-ether-options {
+#         lacp {
+#             periodic fast;
+#             sync-reset enable;
+#             system-priority 100;
+#             system-id 00:00:00:00:00:02;
+#         }
+#     }
+# }
+# ae2 {
+#     description "Configured by Ansible";
+# }
+# em1 {
+#     description TEST;
+# }
+# fxp0 {
+#     description ANSIBLE;
+#     speed 1g;
+#     link-mode automatic;
+#     unit 0 {
+#         family inet {
+#             address 10.8.38.38/24;
+#         }
+#     }
+# }
+# Using parsed
+# parsed.cfg
+# ------------
+#
+# <?xml version="1.0" encoding="UTF-8"?>
+# <rpc-reply message-id="urn:uuid:0cadb4e8-5bba-47f4-986e-72906227007f">
+#     <configuration changed-seconds="1590139550" changed-localtime="2020-05-22 09:25:50 UTC">
+# <interfaces>
+#         <interface>
+#             <name>ge-0/0/1</name>
+#             <ether-options>
+#                 <ieee-802.3ad>
+#                     <lacp>
+#                         <force-up/>
+#                         <port-priority>100</port-priority>
+#                     </lacp>
+#                     <bundle>ae1</bundle>
+#                 </ieee-802.3ad>
+#             </ether-options>
+#         </interface>
+#         <interface>
+#             <name>ge-0/0/2</name>
+#             <ether-options>
+#                 <ieee-802.3ad>
+#                     <bundle>ae1</bundle>
+#                 </ieee-802.3ad>
+#             </ether-options>
+#         </interface>
+#         <interface>
+#             <name>ge-0/0/3</name>
+#             <ether-options>
+#                 <ieee-802.3ad>
+#                     <bundle>ae2</bundle>
+#                 </ieee-802.3ad>
+#             </ether-options>
+#         </interface>
+#         <interface>
+#             <name>ge-0/0/4</name>
+#             <ether-options>
+#                 <ieee-802.3ad>
+#                     <bundle>ae2</bundle>
+#                 </ieee-802.3ad>
+#             </ether-options>
+#         </interface>
+#         <interface>
+#             <name>ge-1/0/0</name>
+#             <unit>
+#                 <name>0</name>
+#                 <family>
+#                     <inet>
+#                         <address>
+#                             <name>192.168.100.1/24</name>
+#                         </address>
+#                         <address>
+#                             <name>10.200.16.20/24</name>
+#                         </address>
+#                     </inet>
+#                     <inet6>
+#                     </inet6>
+#                 </family>
+#             </unit>
+#         </interface>
+#         <interface>
+#             <name>ge-2/0/0</name>
+#             <unit>
+#                 <name>0</name>
+#                 <family>
+#                     <inet>
+#                         <address>
+#                             <name>192.168.100.2/24</name>
+#                         </address>
+#                         <address>
+#                             <name>10.200.16.21/24</name>
+#                         </address>
+#                     </inet>
+#                     <inet6>
+#                     </inet6>
+#                 </family>
+#             </unit>
+#         </interface>
+#         <interface>
+#             <name>ge-3/0/0</name>
+#             <unit>
+#                 <name>0</name>
+#                 <family>
+#                     <inet>
+#                         <address>
+#                             <name>192.168.100.3/24</name>
+#                         </address>
+#                         <address>
+#                             <name>10.200.16.22/24</name>
+#                         </address>
+#                     </inet>
+#                     <inet6>
+#                     </inet6>
+#                 </family>
+#             </unit>
+#         </interface>
+#         <interface>
+#             <name>ae1</name>
+#             <description>Configured by Ansible</description>
+#             <aggregated-ether-options>
+#                 <lacp>
+#                     <periodic>fast</periodic>
+#                     <sync-reset>enable</sync-reset>
+#                     <system-priority>100</system-priority>
+#                     <system-id>00:00:00:00:00:02</system-id>
+#                 </lacp>
+#             </aggregated-ether-options>
+#         </interface>
+#         <interface>
+#             <name>ae2</name>
+#             <description>Configured by Ansible</description>
+#         </interface>
+#         <interface>
+#             <name>em1</name>
+#             <description>TEST</description>
+#         </interface>
+#         <interface>
+#             <name>fxp0</name>
+#             <description>ANSIBLE</description>
+#             <speed>1g</speed>
+#             <link-mode>automatic</link-mode>
+#             <unit>
+#                 <name>0</name>
+#                 <family>
+#                     <inet>
+#                         <address>
+#                             <name>10.8.38.38/24</name>
+#                         </address>
+#                     </inet>
+#                 </family>
+#             </unit>
+#         </interface>
+#     </interfaces>
+#     </configuration>
+# </rpc-reply>
+# - name: Convert interfaces config to argspec without connecting to the appliance
+#   junipernetworks.junos.junos_lacp_interfaces:
+#     running_config: "{{ lookup('file', './parsed.cfg') }}"
+#     state: parsed
+# Task Output (redacted)
+# -----------------------
+# "parsed": [
+#         {
+#             "force_up": true,
+#             "name": "ge-0/0/1",
+#             "port_priority": 100
+#         },
+#         {
+#             "name": "ae1",
+#             "period": "fast",
+#             "sync_reset": "enable",
+#             "system": {
+#                 "mac": {
+#                     "address": "00:00:00:00:00:02"
+#                 },
+#                 "priority": 100
+#             }
+#         }
+#     ]
+# Using rendered
+- name: Render platform specific xml from task input using rendered state
+  junipernetworks.junos.junos_lacp_interfaces:
+    config:
+     - name: ae1
+       period: fast
+       sync_reset: enable
+       system:
+         priority: 100
+         mac:
+           address: 00:00:00:00:00:02
+
+     - name: ge-0/0/1
+       port_priority: 100
+       force_up: true
+    state: rendered
+# Task Output (redacted)
+# -----------------------
+# "rendered": "<nc:interfaces
+#     xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+#     <nc:interface>
+#         <nc:name>ae1</nc:name>
+#         <nc:aggregated-ether-options>
+#             <nc:lacp>
+#                 <nc:periodic>fast</nc:periodic>
+#                 <nc:sync-reset>enable</nc:sync-reset>
+#                 <nc:system-id>00:00:00:00:00:02</nc:system-id>
+#                 <nc:system-priority>100</nc:system-priority>
+#             </nc:lacp>
+#         </nc:aggregated-ether-options>
+#     </nc:interface>
+#     <nc:interface>
+#         <nc:name>ge-0/0/1</nc:name>
+#         <nc:ether-options>
+#             <nc:ieee-802.3ad>
+#                 <nc:lacp>
+#                     <nc:port-priority>100</nc:port-priority>
+#                     <nc:force-up/>
+#                 </nc:lacp>
+#             </nc:ieee-802.3ad>
+#         </nc:ether-options>
+#     </nc:interface>
+# </nc:interfaces>"
+```
+
+## [Return Values](junos_lacp_interfaces_module.md#id4)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **after**  list / elements=string | The configuration as structured data after module completion.  Returned: when changed  Sample: `["The configuration returned will always be in the same format\n of the parameters above.\n"]` |
+| **before**  list / elements=string | The configuration as structured data prior to module invocation.  Returned: always  Sample: `["The configuration returned will always be in the same format\n of the parameters above.\n"]` |
+| **commands**  list / elements=string | The set of commands pushed to the remote device.  Returned: always  Sample: `["<nc:interfaces xmlns:nc=\"urn:ietf:params:xml:ns:netconf:base:1.0\"> <nc:interface> <nc:name>ae1</nc:name> <nc:aggregated-ether-options> <nc:lacp> <nc:periodic>fast</nc:periodic> <nc:sync-reset>enable</nc:sync-reset> <nc:system-id>00:00:00:00:00:02</nc:system-id> <nc:system-priority>100</nc:system-priority> </nc:lacp> </nc:aggregated-ether-options> </nc:interface> <nc:interface> <nc:name>ge-0/0/1</nc:name> <nc:ether-options> <nc:ieee-802.3ad> <nc:lacp> <nc:port-priority>100</nc:port-priority> <nc:force-up/> </nc:lacp> </nc:ieee-802.3ad> </nc:ether-options> </nc:interface> </nc:interfaces>", "xml 2", "xml 3"]` |
+
+### Authors
+
+- Ganesh Nalawade (@ganeshrn)
+
+### Collection links
+
+[Issue Tracker](https://github.com/ansible-collections/junipernetworks.junos/issues)
+[Repository (Sources)](https://github.com/ansible-collections/junipernetworks.junos)

@@ -1,0 +1,115 @@
+---
+collection: ansible
+version: "8"
+title: "sensu.sensu_go.silence module – Manage Sensu silences"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/sensu/sensu_go/silence_module.html
+fetched_at: 2026-07-28T02:53:36+00:00
+---
+# sensu.sensu_go.silence module – Manage Sensu silences
+
+> **Note:**
+>
+> This module is part of the [sensu.sensu_go collection](https://galaxy.ansible.com/ui/repo/published/sensu/sensu_go/) (version 1.14.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install sensu.sensu_go`.
+> You need further requirements to be able to use this module,
+> see [Requirements](silence_module.md#ansible-collections-sensu-sensu-go-silence-module-requirements) for details.
+>
+> To use it in a playbook, specify: `sensu.sensu_go.silence`.
+
+New in sensu.sensu_go 1.0.0
+
+- [Synopsis](silence_module.md#synopsis)
+- [Requirements](silence_module.md#requirements)
+- [Parameters](silence_module.md#parameters)
+- [See Also](silence_module.md#see-also)
+- [Examples](silence_module.md#examples)
+- [Return Values](silence_module.md#return-values)
+
+## [Synopsis](silence_module.md#id1)
+
+- Create, update or delete Sensu silence.
+- For more information, refer to the Sensu documentation at <https://docs.sensu.io/sensu-go/latest/reference/silencing/>.
+
+## [Requirements](silence_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- python >= 2.7
+
+## [Parameters](silence_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **annotations**  dictionary | Custom metadata fields with fewer restrictions, as key/value pairs.  These are preserved by Sensu but not accessible as tokens or identifiers, and are mainly intended for use with external tools.  **Default:** `{}` |
+| **auth**  dictionary | Authentication parameters. Can define each of them with ENV as well. |
+| **api_key**  string  *added in sensu.sensu_go 1.3.0* | The API key that should be used when authenticating. If this is not set, the value of the SENSU_API_KEY environment variable will be checked.  This replaces *auth.user* and *auth.password* parameters.  For more information about the API key, refer to the official Sensu documentation at <https://docs.sensu.io/sensu-go/latest/guides/use-apikey-feature/>. |
+| **ca_path**  path  *added in sensu.sensu_go 1.5.0* | Path to the CA bundle that should be used to validate the backend certificate.  If this parameter is not set, module will use the CA bundle that python is using.  It is also possible to set this parameter via the *SENSU_CA_PATH* environment variable. |
+| **password**  string | The Sensu user’s password. If this is not set the value of the SENSU_PASSWORD environment variable will be checked.  This parameter is ignored if the *auth.api_key* parameter is set.  **Default:** `"P@ssw0rd!"` |
+| **url**  string | Location of the Sensu backend API. If this is not set the value of the SENSU_URL environment variable will be checked.  **Default:** `"http://localhost:8080"` |
+| **user**  string | The username to use for connecting to the Sensu API. If this is not set the value of the SENSU_USER environment variable will be checked.  This parameter is ignored if the *auth.api_key* parameter is set.  **Default:** `"admin"` |
+| **verify**  boolean  *added in sensu.sensu_go 1.5.0* | Flag that controls the certificate validation.  If you are using self-signed certificates, you can set this parameter to `false`.  ONLY USE THIS PARAMETER IN DEVELOPMENT SCENARIOS! In you use self-signed certificates in production, see the *auth.ca_path* parameter.  It is also possible to set this parameter via the *SENSU_VERIFY* environment variable.  **Choices:**   - `false` - `true` ← (default) |
+| **begin**  integer | UNIX time at which silence entry goes into effect. |
+| **check**  string | The name of the check the entry should match.  If left empty a silencing entry will contain an asterisk in the check position. This indicates that any event where the originating entities subscriptions match the subscription specified in the entry will be marked as silenced, regardless of the check name.  This parameter is required if the *subscription* parameter is absent. |
+| **expire**  integer | Number of seconds until the silence expires. |
+| **expire_on_resolve**  boolean | If the entry should be deleted when a check begins return OK status (resolves).  **Choices:**   - `false` - `true` |
+| **labels**  dictionary | Custom metadata fields that can be accessed within Sensu, as key/value pairs.  **Default:** `{}` |
+| **namespace**  string | RBAC namespace to operate in. If this is not set the value of the SENSU_NAMESPACE environment variable will be used.  **Default:** `"default"` |
+| **reason**  string | Reason for silencing. |
+| **state**  string | Target state of the Sensu object.  **Choices:**   - `"present"` ← (default) - `"absent"` |
+| **subscription**  string | The name of the subscription the entry should match.  If left empty a silencing entry will contain an asterisk in the subscription position. This indicates that any event with a matching check name will be marked as silenced, regardless of the originating entities subscriptions.  Specific entity can also be targeted by taking advantage of per-entity subscription (entity:<entity_name>).  This parameter is required if the *check* parameter is absent. |
+
+## [See Also](silence_module.md#id4)
+
+> **See also:**
+>
+> [sensu.sensu_go.silence_info](silence_info_module.md#ansible-collections-sensu-sensu-go-silence-info-module)
+> :   List Sensu silence entries.
+
+## [Examples](silence_module.md#id5)
+
+```yaml+jinja
+- name: Silence a specific check
+  sensu.sensu_go.silence:
+    subscription: proxy
+    check: check-disk
+
+- name: Silence specific check regardless of the originating entities subscription
+  sensu.sensu_go.silence:
+    check: check-cpu
+
+- name: Silence all checks on a specific entity
+  sensu.sensu_go.silence:
+    subscription: entity:important-entity
+    expire: 120
+    reason: rebooting the world
+
+- name: Delete a silencing entry
+  sensu.sensu_go.silence:
+    subscription: entity:important-entity
+    state: absent
+```
+
+## [Return Values](silence_module.md#id6)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **object**  dictionary | Object representing Sensu silence.  **Returned:** success  **Sample:** `{"begin": 1542671205, "check": null, "creator": "admin", "expire": -1, "expire_on_resolve": false, "metadata": {"annotations": null, "labels": null, "name": "entity:i-424242:*", "namespace": "default"}, "reason": null, "subscription": "entity:i-424242"}` |
+
+### Authors
+
+- Paul Arthur (@flowerysong)
+- Aljaz Kosir (@aljazkosir)
+- Manca Bizjak (@mancabizjak)
+- Tadej Borovsak (@tadeboro)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/sensu/sensu-go-ansible/issues)
+- [Repository (Sources)](https://github.com/sensu/sensu-go-ansible)

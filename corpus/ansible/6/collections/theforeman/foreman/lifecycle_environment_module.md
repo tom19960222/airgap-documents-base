@@ -1,0 +1,91 @@
+---
+collection: ansible
+version: "6"
+title: "theforeman.foreman.lifecycle_environment module – Manage Lifecycle Environments"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/theforeman/foreman/lifecycle_environment_module.html
+fetched_at: 2026-07-28T00:20:52+00:00
+---
+# theforeman.foreman.lifecycle_environment module – Manage Lifecycle Environments
+
+> **Note:**
+>
+> This module is part of the [theforeman.foreman collection](https://galaxy.ansible.com/theforeman/foreman) (version 3.7.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install theforeman.foreman`.
+> You need further requirements to be able to use this module,
+> see [Requirements](lifecycle_environment_module.md#ansible-collections-theforeman-foreman-lifecycle-environment-module-requirements) for details.
+>
+> To use it in a playbook, specify: `theforeman.foreman.lifecycle_environment`.
+
+New in theforeman.foreman 1.0.0
+
+- [Synopsis](lifecycle_environment_module.md#synopsis)
+- [Requirements](lifecycle_environment_module.md#requirements)
+- [Parameters](lifecycle_environment_module.md#parameters)
+- [Examples](lifecycle_environment_module.md#examples)
+- [Return Values](lifecycle_environment_module.md#return-values)
+
+## [Synopsis](lifecycle_environment_module.md#id1)
+
+- Create and manage lifecycle environments
+
+## [Requirements](lifecycle_environment_module.md#id2)
+
+The below requirements are needed on the host that executes this module.
+
+- requests
+
+## [Parameters](lifecycle_environment_module.md#id3)
+
+| Parameter | Comments |
+| --- | --- |
+| **description**  string | Description of the lifecycle environment |
+| **label**  string | Label of the lifecycle environment. This field cannot be updated. |
+| **name**  string / required | Name of the lifecycle environment |
+| **organization**  string / required | Organization that the entity is in |
+| **password**  string / required | Password of the user accessing the Foreman server.  If the value is not specified in the task, the value of environment variable `FOREMAN_PASSWORD` will be used instead. |
+| **prior**  string | Name of the parent lifecycle environment |
+| **server_url**  string / required | URL of the Foreman server.  If the value is not specified in the task, the value of environment variable `FOREMAN_SERVER_URL` will be used instead. |
+| **state**  string | State of the entity  Choices:   - `"present"` ← (default) - `"absent"` |
+| **username**  string / required | Username accessing the Foreman server.  If the value is not specified in the task, the value of environment variable `FOREMAN_USERNAME` will be used instead. |
+| **validate_certs**  boolean | Whether or not to verify the TLS certificates of the Foreman server.  If the value is not specified in the task, the value of environment variable `FOREMAN_VALIDATE_CERTS` will be used instead.  Choices:   - `false` - `true` ← (default) |
+
+## [Examples](lifecycle_environment_module.md#id4)
+
+```yaml+jinja
+- name: "Add a production lifecycle environment"
+  theforeman.foreman.lifecycle_environment:
+    username: "admin"
+    password: "changeme"
+    server_url: "https://foreman.example.com"
+    name: "Production"
+    label: "production"
+    organization: "Default Organization"
+    prior: "Library"
+    description: "The production environment"
+    state: "present"
+```
+
+## [Return Values](lifecycle_environment_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **entity**  dictionary | Final state of the affected entities grouped by their type.  Returned: success |
+| **lifecycle_environments**  list / elements=dictionary | List of lifecycle environments.  Returned: success |
+
+### Authors
+
+- Andrew Kofink (@akofink)
+- Baptiste Agasse (@bagasse)
+
+### Collection links
+
+[Issue Tracker](https://github.com/theforeman/foreman-ansible-modules/issues)
+[Homepage](https://theforeman.org/)
+[Repository (Sources)](https://github.com/theforeman/foreman-ansible-modules)

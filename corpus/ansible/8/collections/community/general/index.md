@@ -1,0 +1,787 @@
+---
+collection: ansible
+version: "8"
+title: "Community.General"
+source_url: https://docs.ansible.com/projects/ansible/8/collections/community/general/index.html
+fetched_at: 2026-07-28T01:02:12+00:00
+---
+# Community.General
+
+Collection version 7.5.2
+
+- [Description](index.md#description)
+- [Communication](index.md#communication)
+- [Guides](index.md#guides)
+- [Plugin Index](index.md#plugin-index)
+
+## [Description](index.md#id1)
+
+**Author:**
+
+- Ansible (<https://github.com/ansible>)
+
+**Supported ansible-core versions:**
+
+- 2.11.0 or newer
+
+- [Issue Tracker](https://github.com/ansible-collections/community.general/issues)
+- [Repository (Sources)](https://github.com/ansible-collections/community.general)
+- [Submit a bug report](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=bug_report.yml)
+- [Request a feature](https://github.com/ansible-collections/community.general/issues/new?assignees=&labels=&template=feature_request.yml)
+
+## [Communication](index.md#id2)
+
+- Matrix room `#users:ansible.im`: [General usage and support questions](https://matrix.to/#/#users:ansible.im).
+- IRC channel `#ansible` (Libera network):
+  [General usage and support questions](https://web.libera.chat/?channel=#ansible).
+- Mailing list: [Ansible Project List](https://groups.google.com/g/ansible-project).
+  ([Subscribe](mailto:ansible-project+subscribe%40googlegroups.com?subject=subscribe))
+
+## [Guides](index.md#id3)
+
+- [community.general Filter Guide](docsite/filter_guide.md)
+- [community.general Test (Plugin) Guide](docsite/test_guide.md)
+
+## [Plugin Index](index.md#id4)
+
+These are the plugins in the community.general collection:
+
+### Modules
+
+- [aerospike_migrations module](aerospike_migrations_module.md#ansible-collections-community-general-aerospike-migrations-module) – Check or wait for migrations between nodes
+- [airbrake_deployment module](airbrake_deployment_module.md#ansible-collections-community-general-airbrake-deployment-module) – Notify airbrake about app deployments
+- [aix_devices module](aix_devices_module.md#ansible-collections-community-general-aix-devices-module) – Manages AIX devices
+- [aix_filesystem module](aix_filesystem_module.md#ansible-collections-community-general-aix-filesystem-module) – Configure LVM and NFS file systems for AIX
+- [aix_inittab module](aix_inittab_module.md#ansible-collections-community-general-aix-inittab-module) – Manages the inittab on AIX
+- [aix_lvg module](aix_lvg_module.md#ansible-collections-community-general-aix-lvg-module) – Manage LVM volume groups on AIX
+- [aix_lvol module](aix_lvol_module.md#ansible-collections-community-general-aix-lvol-module) – Configure AIX LVM logical volumes
+- [alerta_customer module](alerta_customer_module.md#ansible-collections-community-general-alerta-customer-module) – Manage customers in Alerta
+- [ali_instance module](ali_instance_module.md#ansible-collections-community-general-ali-instance-module) – Create, Start, Stop, Restart or Terminate an Instance in ECS; Add or Remove Instance to/from a Security Group
+- [ali_instance_info module](ali_instance_info_module.md#ansible-collections-community-general-ali-instance-info-module) – Gather information on instances of Alibaba Cloud ECS
+- [alternatives module](alternatives_module.md#ansible-collections-community-general-alternatives-module) – Manages alternative programs for common commands
+- [ansible_galaxy_install module](ansible_galaxy_install_module.md#ansible-collections-community-general-ansible-galaxy-install-module) – Install Ansible roles or collections using ansible-galaxy
+- [apache2_mod_proxy module](apache2_mod_proxy_module.md#ansible-collections-community-general-apache2-mod-proxy-module) – Set and/or get members’ attributes of an Apache httpd 2.4 mod_proxy balancer pool
+- [apache2_module module](apache2_module_module.md#ansible-collections-community-general-apache2-module-module) – Enables/disables a module of the Apache2 webserver
+- [apk module](apk_module.md#ansible-collections-community-general-apk-module) – Manages apk packages
+- [apt_repo module](apt_repo_module.md#ansible-collections-community-general-apt-repo-module) – Manage APT repositories via apt-repo
+- [apt_rpm module](apt_rpm_module.md#ansible-collections-community-general-apt-rpm-module) – APT-RPM package manager
+- [archive module](archive_module.md#ansible-collections-community-general-archive-module) – Creates a compressed archive of one or more files or trees
+- [atomic_container module](atomic_container_module.md#ansible-collections-community-general-atomic-container-module) – Manage the containers on the atomic host platform
+- [atomic_host module](atomic_host_module.md#ansible-collections-community-general-atomic-host-module) – Manage the atomic host platform
+- [atomic_image module](atomic_image_module.md#ansible-collections-community-general-atomic-image-module) – Manage the container images on the atomic host platform
+- [awall module](awall_module.md#ansible-collections-community-general-awall-module) – Manage awall policies
+- [beadm module](beadm_module.md#ansible-collections-community-general-beadm-module) – Manage ZFS boot environments on FreeBSD/Solaris/illumos systems
+- [bearychat module](bearychat_module.md#ansible-collections-community-general-bearychat-module) – Send BearyChat notifications
+- [bigpanda module](bigpanda_module.md#ansible-collections-community-general-bigpanda-module) – Notify BigPanda about deployments
+- [bitbucket_access_key module](bitbucket_access_key_module.md#ansible-collections-community-general-bitbucket-access-key-module) – Manages Bitbucket repository access keys
+- [bitbucket_pipeline_key_pair module](bitbucket_pipeline_key_pair_module.md#ansible-collections-community-general-bitbucket-pipeline-key-pair-module) – Manages Bitbucket pipeline SSH key pair
+- [bitbucket_pipeline_known_host module](bitbucket_pipeline_known_host_module.md#ansible-collections-community-general-bitbucket-pipeline-known-host-module) – Manages Bitbucket pipeline known hosts
+- [bitbucket_pipeline_variable module](bitbucket_pipeline_variable_module.md#ansible-collections-community-general-bitbucket-pipeline-variable-module) – Manages Bitbucket pipeline variables
+- [bower module](bower_module.md#ansible-collections-community-general-bower-module) – Manage bower packages with bower
+- [btrfs_info module](btrfs_info_module.md#ansible-collections-community-general-btrfs-info-module) – Query btrfs filesystem info
+- [btrfs_subvolume module](btrfs_subvolume_module.md#ansible-collections-community-general-btrfs-subvolume-module) – Manage btrfs subvolumes
+- [bundler module](bundler_module.md#ansible-collections-community-general-bundler-module) – Manage Ruby Gem dependencies with Bundler
+- [bzr module](bzr_module.md#ansible-collections-community-general-bzr-module) – Deploy software (or files) from bzr branches
+- [campfire module](campfire_module.md#ansible-collections-community-general-campfire-module) – Send a message to Campfire
+- [capabilities module](capabilities_module.md#ansible-collections-community-general-capabilities-module) – Manage Linux capabilities
+- [cargo module](cargo_module.md#ansible-collections-community-general-cargo-module) – Manage Rust packages with cargo
+- [catapult module](catapult_module.md#ansible-collections-community-general-catapult-module) – Send a sms / mms using the catapult bandwidth api
+- [circonus_annotation module](circonus_annotation_module.md#ansible-collections-community-general-circonus-annotation-module) – Create an annotation in circonus
+- [cisco_webex module](cisco_webex_module.md#ansible-collections-community-general-cisco-webex-module) – Send a message to a Cisco Webex Teams Room or Individual
+- [clc_aa_policy module](clc_aa_policy_module.md#ansible-collections-community-general-clc-aa-policy-module) – Create or Delete Anti Affinity Policies at CenturyLink Cloud
+- [clc_alert_policy module](clc_alert_policy_module.md#ansible-collections-community-general-clc-alert-policy-module) – Create or Delete Alert Policies at CenturyLink Cloud
+- [clc_blueprint_package module](clc_blueprint_package_module.md#ansible-collections-community-general-clc-blueprint-package-module) – Deploys a blue print package on a set of servers in CenturyLink Cloud
+- [clc_firewall_policy module](clc_firewall_policy_module.md#ansible-collections-community-general-clc-firewall-policy-module) – Create/delete/update firewall policies
+- [clc_group module](clc_group_module.md#ansible-collections-community-general-clc-group-module) – Create/delete Server Groups at Centurylink Cloud
+- [clc_loadbalancer module](clc_loadbalancer_module.md#ansible-collections-community-general-clc-loadbalancer-module) – Create, Delete shared loadbalancers in CenturyLink Cloud
+- [clc_modify_server module](clc_modify_server_module.md#ansible-collections-community-general-clc-modify-server-module) – Modify servers in CenturyLink Cloud
+- [clc_publicip module](clc_publicip_module.md#ansible-collections-community-general-clc-publicip-module) – Add and Delete public ips on servers in CenturyLink Cloud
+- [clc_server module](clc_server_module.md#ansible-collections-community-general-clc-server-module) – Create, Delete, Start and Stop servers in CenturyLink Cloud
+- [clc_server_snapshot module](clc_server_snapshot_module.md#ansible-collections-community-general-clc-server-snapshot-module) – Create, Delete and Restore server snapshots in CenturyLink Cloud
+- [cloud_init_data_facts module](cloud_init_data_facts_module.md#ansible-collections-community-general-cloud-init-data-facts-module) – Retrieve facts of cloud-init
+- [cloudflare_dns module](cloudflare_dns_module.md#ansible-collections-community-general-cloudflare-dns-module) – Manage Cloudflare DNS records
+- [cobbler_sync module](cobbler_sync_module.md#ansible-collections-community-general-cobbler-sync-module) – Sync Cobbler
+- [cobbler_system module](cobbler_system_module.md#ansible-collections-community-general-cobbler-system-module) – Manage system objects in Cobbler
+- [composer module](composer_module.md#ansible-collections-community-general-composer-module) – Dependency Manager for PHP
+- [consul module](consul_module.md#ansible-collections-community-general-consul-module) – Add, modify & delete services within a consul cluster
+- [consul_acl module](consul_acl_module.md#ansible-collections-community-general-consul-acl-module) – Manipulate Consul ACL keys and rules
+- [consul_kv module](consul_kv_module.md#ansible-collections-community-general-consul-kv-module) – Manipulate entries in the key/value store of a consul cluster
+- [consul_policy module](consul_policy_module.md#ansible-collections-community-general-consul-policy-module) – Manipulate Consul policies
+- [consul_role module](consul_role_module.md#ansible-collections-community-general-consul-role-module) – Manipulate Consul roles
+- [consul_session module](consul_session_module.md#ansible-collections-community-general-consul-session-module) – Manipulate consul sessions
+- [copr module](copr_module.md#ansible-collections-community-general-copr-module) – Manage one of the Copr repositories
+- [cpanm module](cpanm_module.md#ansible-collections-community-general-cpanm-module) – Manages Perl library dependencies
+- [cronvar module](cronvar_module.md#ansible-collections-community-general-cronvar-module) – Manage variables in crontabs
+- [crypttab module](crypttab_module.md#ansible-collections-community-general-crypttab-module) – Encrypted Linux block devices
+- [datadog_downtime module](datadog_downtime_module.md#ansible-collections-community-general-datadog-downtime-module) – Manages Datadog downtimes
+- [datadog_event module](datadog_event_module.md#ansible-collections-community-general-datadog-event-module) – Posts events to Datadog service
+- [datadog_monitor module](datadog_monitor_module.md#ansible-collections-community-general-datadog-monitor-module) – Manages Datadog monitors
+- [dconf module](dconf_module.md#ansible-collections-community-general-dconf-module) – Modify and read dconf database
+- [deploy_helper module](deploy_helper_module.md#ansible-collections-community-general-deploy-helper-module) – Manages some of the steps common in deploying projects
+- [dimensiondata_network module](dimensiondata_network_module.md#ansible-collections-community-general-dimensiondata-network-module) – Create, update, and delete MCP 1.0 & 2.0 networks
+- [dimensiondata_vlan module](dimensiondata_vlan_module.md#ansible-collections-community-general-dimensiondata-vlan-module) – Manage a VLAN in a Cloud Control network domain
+- [discord module](discord_module.md#ansible-collections-community-general-discord-module) – Send Discord messages
+- [django_manage module](django_manage_module.md#ansible-collections-community-general-django-manage-module) – Manages a Django application
+- [dnf_versionlock module](dnf_versionlock_module.md#ansible-collections-community-general-dnf-versionlock-module) – Locks package versions in `dnf` based systems
+- [dnsimple module](dnsimple_module.md#ansible-collections-community-general-dnsimple-module) – Interface with dnsimple.com (a DNS hosting service)
+- [dnsimple_info module](dnsimple_info_module.md#ansible-collections-community-general-dnsimple-info-module) – Pull basic info from DNSimple API
+- [dnsmadeeasy module](dnsmadeeasy_module.md#ansible-collections-community-general-dnsmadeeasy-module) – Interface with dnsmadeeasy.com (a DNS hosting service)
+- [dpkg_divert module](dpkg_divert_module.md#ansible-collections-community-general-dpkg-divert-module) – Override a debian package’s version of a file
+- [easy_install module](easy_install_module.md#ansible-collections-community-general-easy-install-module) – Installs Python libraries
+- [ejabberd_user module](ejabberd_user_module.md#ansible-collections-community-general-ejabberd-user-module) – Manages users for ejabberd servers
+- [elasticsearch_plugin module](elasticsearch_plugin_module.md#ansible-collections-community-general-elasticsearch-plugin-module) – Manage Elasticsearch plugins
+- [emc_vnx_sg_member module](emc_vnx_sg_member_module.md#ansible-collections-community-general-emc-vnx-sg-member-module) – Manage storage group member on EMC VNX
+- [etcd3 module](etcd3_module.md#ansible-collections-community-general-etcd3-module) – Set or delete key value pairs from an etcd3 cluster
+- [facter module](facter_module.md#ansible-collections-community-general-facter-module) – Runs the discovery program `facter` on the remote system
+- [filesize module](filesize_module.md#ansible-collections-community-general-filesize-module) – Create a file with a given size, or resize it if it exists
+- [filesystem module](filesystem_module.md#ansible-collections-community-general-filesystem-module) – Makes a filesystem
+- [flatpak module](flatpak_module.md#ansible-collections-community-general-flatpak-module) – Manage flatpaks
+- [flatpak_remote module](flatpak_remote_module.md#ansible-collections-community-general-flatpak-remote-module) – Manage flatpak repository remotes
+- [flowdock module](flowdock_module.md#ansible-collections-community-general-flowdock-module) – Send a message to a flowdock
+- [gandi_livedns module](gandi_livedns_module.md#ansible-collections-community-general-gandi-livedns-module) – Manage Gandi LiveDNS records
+- [gconftool2 module](gconftool2_module.md#ansible-collections-community-general-gconftool2-module) – Edit GNOME Configurations
+- [gconftool2_info module](gconftool2_info_module.md#ansible-collections-community-general-gconftool2-info-module) – Retrieve GConf configurations
+- [gem module](gem_module.md#ansible-collections-community-general-gem-module) – Manage Ruby gems
+- [gio_mime module](gio_mime_module.md#ansible-collections-community-general-gio-mime-module) – Set default handler for MIME type, for applications using Gnome GIO
+- [git_config module](git_config_module.md#ansible-collections-community-general-git-config-module) – Read and write git configuration
+- [github_deploy_key module](github_deploy_key_module.md#ansible-collections-community-general-github-deploy-key-module) – Manages deploy keys for GitHub repositories
+- [github_issue module](github_issue_module.md#ansible-collections-community-general-github-issue-module) – View GitHub issue
+- [github_key module](github_key_module.md#ansible-collections-community-general-github-key-module) – Manage GitHub access keys
+- [github_release module](github_release_module.md#ansible-collections-community-general-github-release-module) – Interact with GitHub Releases
+- [github_repo module](github_repo_module.md#ansible-collections-community-general-github-repo-module) – Manage your repositories on Github
+- [github_webhook module](github_webhook_module.md#ansible-collections-community-general-github-webhook-module) – Manage GitHub webhooks
+- [github_webhook_info module](github_webhook_info_module.md#ansible-collections-community-general-github-webhook-info-module) – Query information about GitHub webhooks
+- [gitlab_branch module](gitlab_branch_module.md#ansible-collections-community-general-gitlab-branch-module) – Create or delete a branch
+- [gitlab_deploy_key module](gitlab_deploy_key_module.md#ansible-collections-community-general-gitlab-deploy-key-module) – Manages GitLab project deploy keys
+- [gitlab_group module](gitlab_group_module.md#ansible-collections-community-general-gitlab-group-module) – Creates/updates/deletes GitLab Groups
+- [gitlab_group_members module](gitlab_group_members_module.md#ansible-collections-community-general-gitlab-group-members-module) – Manage group members on GitLab Server
+- [gitlab_group_variable module](gitlab_group_variable_module.md#ansible-collections-community-general-gitlab-group-variable-module) – Creates, updates, or deletes GitLab groups variables
+- [gitlab_hook module](gitlab_hook_module.md#ansible-collections-community-general-gitlab-hook-module) – Manages GitLab project hooks
+- [gitlab_instance_variable module](gitlab_instance_variable_module.md#ansible-collections-community-general-gitlab-instance-variable-module) – Creates, updates, or deletes GitLab instance variables
+- [gitlab_merge_request module](gitlab_merge_request_module.md#ansible-collections-community-general-gitlab-merge-request-module) – Create, update, or delete GitLab merge requests
+- [gitlab_project module](gitlab_project_module.md#ansible-collections-community-general-gitlab-project-module) – Creates/updates/deletes GitLab Projects
+- [gitlab_project_badge module](gitlab_project_badge_module.md#ansible-collections-community-general-gitlab-project-badge-module) – Manage project badges on GitLab Server
+- [gitlab_project_members module](gitlab_project_members_module.md#ansible-collections-community-general-gitlab-project-members-module) – Manage project members on GitLab Server
+- [gitlab_project_variable module](gitlab_project_variable_module.md#ansible-collections-community-general-gitlab-project-variable-module) – Creates/updates/deletes GitLab Projects Variables
+- [gitlab_protected_branch module](gitlab_protected_branch_module.md#ansible-collections-community-general-gitlab-protected-branch-module) – Manage protection of existing branches
+- [gitlab_runner module](gitlab_runner_module.md#ansible-collections-community-general-gitlab-runner-module) – Create, modify and delete GitLab Runners
+- [gitlab_user module](gitlab_user_module.md#ansible-collections-community-general-gitlab-user-module) – Creates/updates/deletes/blocks/unblocks GitLab Users
+- [grove module](grove_module.md#ansible-collections-community-general-grove-module) – Sends a notification to a grove.io channel
+- [gunicorn module](gunicorn_module.md#ansible-collections-community-general-gunicorn-module) – Run gunicorn with various settings
+- [haproxy module](haproxy_module.md#ansible-collections-community-general-haproxy-module) – Enable, disable, and set weights for HAProxy backend servers using socket commands
+- [heroku_collaborator module](heroku_collaborator_module.md#ansible-collections-community-general-heroku-collaborator-module) – Add or delete app collaborators on Heroku
+- [hg module](hg_module.md#ansible-collections-community-general-hg-module) – Manages Mercurial (hg) repositories
+- [hipchat module](hipchat_module.md#ansible-collections-community-general-hipchat-module) – Send a message to Hipchat
+- [homebrew module](homebrew_module.md#ansible-collections-community-general-homebrew-module) – Package manager for Homebrew
+- [homebrew_cask module](homebrew_cask_module.md#ansible-collections-community-general-homebrew-cask-module) – Install and uninstall homebrew casks
+- [homebrew_tap module](homebrew_tap_module.md#ansible-collections-community-general-homebrew-tap-module) – Tap a Homebrew repository
+- [homectl module](homectl_module.md#ansible-collections-community-general-homectl-module) – Manage user accounts with systemd-homed
+- [honeybadger_deployment module](honeybadger_deployment_module.md#ansible-collections-community-general-honeybadger-deployment-module) – Notify Honeybadger.io about app deployments
+- [hpilo_boot module](hpilo_boot_module.md#ansible-collections-community-general-hpilo-boot-module) – Boot system using specific media through HP iLO interface
+- [hpilo_info module](hpilo_info_module.md#ansible-collections-community-general-hpilo-info-module) – Gather information through an HP iLO interface
+- [hponcfg module](hponcfg_module.md#ansible-collections-community-general-hponcfg-module) – Configure HP iLO interface using hponcfg
+- [htpasswd module](htpasswd_module.md#ansible-collections-community-general-htpasswd-module) – Manage user files for basic authentication
+- [hwc_ecs_instance module](hwc_ecs_instance_module.md#ansible-collections-community-general-hwc-ecs-instance-module) – Creates a resource of Ecs/Instance in Huawei Cloud
+- [hwc_evs_disk module](hwc_evs_disk_module.md#ansible-collections-community-general-hwc-evs-disk-module) – Creates a resource of Evs/Disk in Huawei Cloud
+- [hwc_network_vpc module](hwc_network_vpc_module.md#ansible-collections-community-general-hwc-network-vpc-module) – Creates a Huawei Cloud VPC
+- [hwc_smn_topic module](hwc_smn_topic_module.md#ansible-collections-community-general-hwc-smn-topic-module) – Creates a resource of SMNTopic in Huaweicloud Cloud
+- [hwc_vpc_eip module](hwc_vpc_eip_module.md#ansible-collections-community-general-hwc-vpc-eip-module) – Creates a resource of Vpc/EIP in Huawei Cloud
+- [hwc_vpc_peering_connect module](hwc_vpc_peering_connect_module.md#ansible-collections-community-general-hwc-vpc-peering-connect-module) – Creates a resource of Vpc/PeeringConnect in Huawei Cloud
+- [hwc_vpc_port module](hwc_vpc_port_module.md#ansible-collections-community-general-hwc-vpc-port-module) – Creates a resource of Vpc/Port in Huawei Cloud
+- [hwc_vpc_private_ip module](hwc_vpc_private_ip_module.md#ansible-collections-community-general-hwc-vpc-private-ip-module) – Creates a resource of Vpc/PrivateIP in Huawei Cloud
+- [hwc_vpc_route module](hwc_vpc_route_module.md#ansible-collections-community-general-hwc-vpc-route-module) – Creates a resource of Vpc/Route in Huawei Cloud
+- [hwc_vpc_security_group module](hwc_vpc_security_group_module.md#ansible-collections-community-general-hwc-vpc-security-group-module) – Creates a resource of Vpc/SecurityGroup in Huawei Cloud
+- [hwc_vpc_security_group_rule module](hwc_vpc_security_group_rule_module.md#ansible-collections-community-general-hwc-vpc-security-group-rule-module) – Creates a resource of Vpc/SecurityGroupRule in Huawei Cloud
+- [hwc_vpc_subnet module](hwc_vpc_subnet_module.md#ansible-collections-community-general-hwc-vpc-subnet-module) – Creates a resource of Vpc/Subnet in Huawei Cloud
+- [ibm_sa_domain module](ibm_sa_domain_module.md#ansible-collections-community-general-ibm-sa-domain-module) – Manages domains on IBM Spectrum Accelerate Family storage systems
+- [ibm_sa_host module](ibm_sa_host_module.md#ansible-collections-community-general-ibm-sa-host-module) – Adds hosts to or removes them from IBM Spectrum Accelerate Family storage systems
+- [ibm_sa_host_ports module](ibm_sa_host_ports_module.md#ansible-collections-community-general-ibm-sa-host-ports-module) – Add host ports on IBM Spectrum Accelerate Family storage systems
+- [ibm_sa_pool module](ibm_sa_pool_module.md#ansible-collections-community-general-ibm-sa-pool-module) – Handles pools on IBM Spectrum Accelerate Family storage systems
+- [ibm_sa_vol module](ibm_sa_vol_module.md#ansible-collections-community-general-ibm-sa-vol-module) – Handle volumes on IBM Spectrum Accelerate Family storage systems
+- [ibm_sa_vol_map module](ibm_sa_vol_map_module.md#ansible-collections-community-general-ibm-sa-vol-map-module) – Handles volume mapping on IBM Spectrum Accelerate Family storage systems
+- [icinga2_feature module](icinga2_feature_module.md#ansible-collections-community-general-icinga2-feature-module) – Manage Icinga2 feature
+- [icinga2_host module](icinga2_host_module.md#ansible-collections-community-general-icinga2-host-module) – Manage a host in Icinga2
+- [idrac_redfish_command module](idrac_redfish_command_module.md#ansible-collections-community-general-idrac-redfish-command-module) – Manages Out-Of-Band controllers using iDRAC OEM Redfish APIs
+- [idrac_redfish_config module](idrac_redfish_config_module.md#ansible-collections-community-general-idrac-redfish-config-module) – Manages servers through iDRAC using Dell Redfish APIs
+- [idrac_redfish_info module](idrac_redfish_info_module.md#ansible-collections-community-general-idrac-redfish-info-module) – Gather PowerEdge server information through iDRAC using Redfish APIs
+- [ilo_redfish_command module](ilo_redfish_command_module.md#ansible-collections-community-general-ilo-redfish-command-module) – Manages Out-Of-Band controllers using Redfish APIs
+- [ilo_redfish_config module](ilo_redfish_config_module.md#ansible-collections-community-general-ilo-redfish-config-module) – Sets or updates configuration attributes on HPE iLO with Redfish OEM extensions
+- [ilo_redfish_info module](ilo_redfish_info_module.md#ansible-collections-community-general-ilo-redfish-info-module) – Gathers server information through iLO using Redfish APIs
+- [imc_rest module](imc_rest_module.md#ansible-collections-community-general-imc-rest-module) – Manage Cisco IMC hardware through its REST API
+- [imgadm module](imgadm_module.md#ansible-collections-community-general-imgadm-module) – Manage SmartOS images
+- [infinity module](infinity_module.md#ansible-collections-community-general-infinity-module) – Manage Infinity IPAM using Rest API
+- [influxdb_database module](influxdb_database_module.md#ansible-collections-community-general-influxdb-database-module) – Manage InfluxDB databases
+- [influxdb_query module](influxdb_query_module.md#ansible-collections-community-general-influxdb-query-module) – Query data points from InfluxDB
+- [influxdb_retention_policy module](influxdb_retention_policy_module.md#ansible-collections-community-general-influxdb-retention-policy-module) – Manage InfluxDB retention policies
+- [influxdb_user module](influxdb_user_module.md#ansible-collections-community-general-influxdb-user-module) – Manage InfluxDB users
+- [influxdb_write module](influxdb_write_module.md#ansible-collections-community-general-influxdb-write-module) – Write data points into InfluxDB
+- [ini_file module](ini_file_module.md#ansible-collections-community-general-ini-file-module) – Tweak settings in INI files
+- [installp module](installp_module.md#ansible-collections-community-general-installp-module) – Manage packages on AIX
+- [interfaces_file module](interfaces_file_module.md#ansible-collections-community-general-interfaces-file-module) – Tweak settings in `/etc/network/interfaces` files
+- [ip_netns module](ip_netns_module.md#ansible-collections-community-general-ip-netns-module) – Manage network namespaces
+- [ipa_config module](ipa_config_module.md#ansible-collections-community-general-ipa-config-module) – Manage Global FreeIPA Configuration Settings
+- [ipa_dnsrecord module](ipa_dnsrecord_module.md#ansible-collections-community-general-ipa-dnsrecord-module) – Manage FreeIPA DNS records
+- [ipa_dnszone module](ipa_dnszone_module.md#ansible-collections-community-general-ipa-dnszone-module) – Manage FreeIPA DNS Zones
+- [ipa_group module](ipa_group_module.md#ansible-collections-community-general-ipa-group-module) – Manage FreeIPA group
+- [ipa_hbacrule module](ipa_hbacrule_module.md#ansible-collections-community-general-ipa-hbacrule-module) – Manage FreeIPA HBAC rule
+- [ipa_host module](ipa_host_module.md#ansible-collections-community-general-ipa-host-module) – Manage FreeIPA host
+- [ipa_hostgroup module](ipa_hostgroup_module.md#ansible-collections-community-general-ipa-hostgroup-module) – Manage FreeIPA host-group
+- [ipa_otpconfig module](ipa_otpconfig_module.md#ansible-collections-community-general-ipa-otpconfig-module) – Manage FreeIPA OTP Configuration Settings
+- [ipa_otptoken module](ipa_otptoken_module.md#ansible-collections-community-general-ipa-otptoken-module) – Manage FreeIPA OTPs
+- [ipa_pwpolicy module](ipa_pwpolicy_module.md#ansible-collections-community-general-ipa-pwpolicy-module) – Manage FreeIPA password policies
+- [ipa_role module](ipa_role_module.md#ansible-collections-community-general-ipa-role-module) – Manage FreeIPA role
+- [ipa_service module](ipa_service_module.md#ansible-collections-community-general-ipa-service-module) – Manage FreeIPA service
+- [ipa_subca module](ipa_subca_module.md#ansible-collections-community-general-ipa-subca-module) – Manage FreeIPA Lightweight Sub Certificate Authorities
+- [ipa_sudocmd module](ipa_sudocmd_module.md#ansible-collections-community-general-ipa-sudocmd-module) – Manage FreeIPA sudo command
+- [ipa_sudocmdgroup module](ipa_sudocmdgroup_module.md#ansible-collections-community-general-ipa-sudocmdgroup-module) – Manage FreeIPA sudo command group
+- [ipa_sudorule module](ipa_sudorule_module.md#ansible-collections-community-general-ipa-sudorule-module) – Manage FreeIPA sudo rule
+- [ipa_user module](ipa_user_module.md#ansible-collections-community-general-ipa-user-module) – Manage FreeIPA users
+- [ipa_vault module](ipa_vault_module.md#ansible-collections-community-general-ipa-vault-module) – Manage FreeIPA vaults
+- [ipbase_info module](ipbase_info_module.md#ansible-collections-community-general-ipbase-info-module) – Retrieve IP geolocation and other facts of a host’s IP address using the ipbase.com API
+- [ipify_facts module](ipify_facts_module.md#ansible-collections-community-general-ipify-facts-module) – Retrieve the public IP of your internet gateway
+- [ipinfoio_facts module](ipinfoio_facts_module.md#ansible-collections-community-general-ipinfoio-facts-module) – Retrieve IP geolocation facts of a host’s IP address
+- [ipmi_boot module](ipmi_boot_module.md#ansible-collections-community-general-ipmi-boot-module) – Management of order of boot devices
+- [ipmi_power module](ipmi_power_module.md#ansible-collections-community-general-ipmi-power-module) – Power management for machine
+- [iptables_state module](iptables_state_module.md#ansible-collections-community-general-iptables-state-module) – Save iptables state into a file or restore it from a file
+- [ipwcli_dns module](ipwcli_dns_module.md#ansible-collections-community-general-ipwcli-dns-module) – Manage DNS Records for Ericsson IPWorks via ipwcli
+- [irc module](irc_module.md#ansible-collections-community-general-irc-module) – Send a message to an IRC channel or a nick
+- [iso_create module](iso_create_module.md#ansible-collections-community-general-iso-create-module) – Generate ISO file with specified files or folders
+- [iso_customize module](iso_customize_module.md#ansible-collections-community-general-iso-customize-module) – Add/remove/change files in ISO file
+- [iso_extract module](iso_extract_module.md#ansible-collections-community-general-iso-extract-module) – Extract files from an ISO image
+- [jabber module](jabber_module.md#ansible-collections-community-general-jabber-module) – Send a message to jabber user or chat room
+- [java_cert module](java_cert_module.md#ansible-collections-community-general-java-cert-module) – Uses keytool to import/remove certificate to/from java keystore (cacerts)
+- [java_keystore module](java_keystore_module.md#ansible-collections-community-general-java-keystore-module) – Create a Java keystore in JKS format
+- [jboss module](jboss_module.md#ansible-collections-community-general-jboss-module) – Deploy applications to JBoss
+- [jenkins_build module](jenkins_build_module.md#ansible-collections-community-general-jenkins-build-module) – Manage jenkins builds
+- [jenkins_build_info module](jenkins_build_info_module.md#ansible-collections-community-general-jenkins-build-info-module) – Get information about Jenkins builds
+- [jenkins_job module](jenkins_job_module.md#ansible-collections-community-general-jenkins-job-module) – Manage jenkins jobs
+- [jenkins_job_info module](jenkins_job_info_module.md#ansible-collections-community-general-jenkins-job-info-module) – Get information about Jenkins jobs
+- [jenkins_plugin module](jenkins_plugin_module.md#ansible-collections-community-general-jenkins-plugin-module) – Add or remove Jenkins plugin
+- [jenkins_script module](jenkins_script_module.md#ansible-collections-community-general-jenkins-script-module) – Executes a groovy script in the jenkins instance
+- [jira module](jira_module.md#ansible-collections-community-general-jira-module) – Create and modify issues in a JIRA instance
+- [kdeconfig module](kdeconfig_module.md#ansible-collections-community-general-kdeconfig-module) – Manage KDE configuration files
+- [kernel_blacklist module](kernel_blacklist_module.md#ansible-collections-community-general-kernel-blacklist-module) – Blacklist kernel modules
+- [keycloak_authentication module](keycloak_authentication_module.md#ansible-collections-community-general-keycloak-authentication-module) – Configure authentication in Keycloak
+- [keycloak_authentication_required_actions module](keycloak_authentication_required_actions_module.md#ansible-collections-community-general-keycloak-authentication-required-actions-module) – Allows administration of Keycloak authentication required actions
+- [keycloak_authz_authorization_scope module](keycloak_authz_authorization_scope_module.md#ansible-collections-community-general-keycloak-authz-authorization-scope-module) – Allows administration of Keycloak client authorization scopes via Keycloak API
+- [keycloak_authz_custom_policy module](keycloak_authz_custom_policy_module.md#ansible-collections-community-general-keycloak-authz-custom-policy-module) – Allows administration of Keycloak client custom Javascript policies via Keycloak API
+- [keycloak_authz_permission module](keycloak_authz_permission_module.md#ansible-collections-community-general-keycloak-authz-permission-module) – Allows administration of Keycloak client authorization permissions via Keycloak API
+- [keycloak_authz_permission_info module](keycloak_authz_permission_info_module.md#ansible-collections-community-general-keycloak-authz-permission-info-module) – Query Keycloak client authorization permissions information
+- [keycloak_client module](keycloak_client_module.md#ansible-collections-community-general-keycloak-client-module) – Allows administration of Keycloak clients via Keycloak API
+- [keycloak_client_rolemapping module](keycloak_client_rolemapping_module.md#ansible-collections-community-general-keycloak-client-rolemapping-module) – Allows administration of Keycloak client_rolemapping with the Keycloak API
+- [keycloak_clientscope module](keycloak_clientscope_module.md#ansible-collections-community-general-keycloak-clientscope-module) – Allows administration of Keycloak client_scopes via Keycloak API
+- [keycloak_clientscope_type module](keycloak_clientscope_type_module.md#ansible-collections-community-general-keycloak-clientscope-type-module) – Set the type of aclientscope in realm or client via Keycloak API
+- [keycloak_clientsecret_info module](keycloak_clientsecret_info_module.md#ansible-collections-community-general-keycloak-clientsecret-info-module) – Retrieve client secret via Keycloak API
+- [keycloak_clientsecret_regenerate module](keycloak_clientsecret_regenerate_module.md#ansible-collections-community-general-keycloak-clientsecret-regenerate-module) – Regenerate Keycloak client secret via Keycloak API
+- [keycloak_clienttemplate module](keycloak_clienttemplate_module.md#ansible-collections-community-general-keycloak-clienttemplate-module) – Allows administration of Keycloak client templates via Keycloak API
+- [keycloak_group module](keycloak_group_module.md#ansible-collections-community-general-keycloak-group-module) – Allows administration of Keycloak groups via Keycloak API
+- [keycloak_identity_provider module](keycloak_identity_provider_module.md#ansible-collections-community-general-keycloak-identity-provider-module) – Allows administration of Keycloak identity providers via Keycloak API
+- [keycloak_realm module](keycloak_realm_module.md#ansible-collections-community-general-keycloak-realm-module) – Allows administration of Keycloak realm via Keycloak API
+- [keycloak_realm_info module](keycloak_realm_info_module.md#ansible-collections-community-general-keycloak-realm-info-module) – Allows obtaining Keycloak realm public information via Keycloak API
+- [keycloak_realm_key module](keycloak_realm_key_module.md#ansible-collections-community-general-keycloak-realm-key-module) – Allows administration of Keycloak realm keys via Keycloak API
+- [keycloak_role module](keycloak_role_module.md#ansible-collections-community-general-keycloak-role-module) – Allows administration of Keycloak roles via Keycloak API
+- [keycloak_user module](keycloak_user_module.md#ansible-collections-community-general-keycloak-user-module) – Create and configure a user in Keycloak
+- [keycloak_user_federation module](keycloak_user_federation_module.md#ansible-collections-community-general-keycloak-user-federation-module) – Allows administration of Keycloak user federations via Keycloak API
+- [keycloak_user_rolemapping module](keycloak_user_rolemapping_module.md#ansible-collections-community-general-keycloak-user-rolemapping-module) – Allows administration of Keycloak user_rolemapping with the Keycloak API
+- [keyring module](keyring_module.md#ansible-collections-community-general-keyring-module) – Set or delete a passphrase using the Operating System’s native keyring
+- [keyring_info module](keyring_info_module.md#ansible-collections-community-general-keyring-info-module) – Get a passphrase using the Operating System’s native keyring
+- [kibana_plugin module](kibana_plugin_module.md#ansible-collections-community-general-kibana-plugin-module) – Manage Kibana plugins
+- [launchd module](launchd_module.md#ansible-collections-community-general-launchd-module) – Manage macOS services
+- [layman module](layman_module.md#ansible-collections-community-general-layman-module) – Manage Gentoo overlays
+- [lbu module](lbu_module.md#ansible-collections-community-general-lbu-module) – Local Backup Utility for Alpine Linux
+- [ldap_attrs module](ldap_attrs_module.md#ansible-collections-community-general-ldap-attrs-module) – Add or remove multiple LDAP attribute values
+- [ldap_entry module](ldap_entry_module.md#ansible-collections-community-general-ldap-entry-module) – Add or remove LDAP entries
+- [ldap_passwd module](ldap_passwd_module.md#ansible-collections-community-general-ldap-passwd-module) – Set passwords in LDAP
+- [ldap_search module](ldap_search_module.md#ansible-collections-community-general-ldap-search-module) – Search for entries in a LDAP server
+- [librato_annotation module](librato_annotation_module.md#ansible-collections-community-general-librato-annotation-module) – Create an annotation in librato
+- [linode module](linode_module.md#ansible-collections-community-general-linode-module) – Manage instances on the Linode Public Cloud
+- [linode_v4 module](linode_v4_module.md#ansible-collections-community-general-linode-v4-module) – Manage instances on the Linode cloud
+- [listen_ports_facts module](listen_ports_facts_module.md#ansible-collections-community-general-listen-ports-facts-module) – Gather facts on processes listening on TCP and UDP ports
+- [lldp module](lldp_module.md#ansible-collections-community-general-lldp-module) – Get details reported by lldp
+- [locale_gen module](locale_gen_module.md#ansible-collections-community-general-locale-gen-module) – Creates or removes locales
+- [logentries module](logentries_module.md#ansible-collections-community-general-logentries-module) – Module for tracking logs via logentries.com
+- [logentries_msg module](logentries_msg_module.md#ansible-collections-community-general-logentries-msg-module) – Send a message to logentries
+- [logstash_plugin module](logstash_plugin_module.md#ansible-collections-community-general-logstash-plugin-module) – Manage Logstash plugins
+- [lvg module](lvg_module.md#ansible-collections-community-general-lvg-module) – Configure LVM volume groups
+- [lvg_rename module](lvg_rename_module.md#ansible-collections-community-general-lvg-rename-module) – Renames LVM volume groups
+- [lvol module](lvol_module.md#ansible-collections-community-general-lvol-module) – Configure LVM logical volumes
+- [lxc_container module](lxc_container_module.md#ansible-collections-community-general-lxc-container-module) – Manage LXC Containers
+- [lxca_cmms module](lxca_cmms_module.md#ansible-collections-community-general-lxca-cmms-module) – Custom module for lxca cmms inventory utility
+- [lxca_nodes module](lxca_nodes_module.md#ansible-collections-community-general-lxca-nodes-module) – Custom module for lxca nodes inventory utility
+- [lxd_container module](lxd_container_module.md#ansible-collections-community-general-lxd-container-module) – Manage LXD instances
+- [lxd_profile module](lxd_profile_module.md#ansible-collections-community-general-lxd-profile-module) – Manage LXD profiles
+- [lxd_project module](lxd_project_module.md#ansible-collections-community-general-lxd-project-module) – Manage LXD projects
+- [macports module](macports_module.md#ansible-collections-community-general-macports-module) – Package manager for MacPorts
+- [mail module](mail_module.md#ansible-collections-community-general-mail-module) – Send an email
+- [make module](make_module.md#ansible-collections-community-general-make-module) – Run targets in a Makefile
+- [manageiq_alert_profiles module](manageiq_alert_profiles_module.md#ansible-collections-community-general-manageiq-alert-profiles-module) – Configuration of alert profiles for ManageIQ
+- [manageiq_alerts module](manageiq_alerts_module.md#ansible-collections-community-general-manageiq-alerts-module) – Configuration of alerts in ManageIQ
+- [manageiq_group module](manageiq_group_module.md#ansible-collections-community-general-manageiq-group-module) – Management of groups in ManageIQ
+- [manageiq_policies module](manageiq_policies_module.md#ansible-collections-community-general-manageiq-policies-module) – Management of resource policy_profiles in ManageIQ
+- [manageiq_policies_info module](manageiq_policies_info_module.md#ansible-collections-community-general-manageiq-policies-info-module) – Listing of resource policy_profiles in ManageIQ
+- [manageiq_provider module](manageiq_provider_module.md#ansible-collections-community-general-manageiq-provider-module) – Management of provider in ManageIQ
+- [manageiq_tags module](manageiq_tags_module.md#ansible-collections-community-general-manageiq-tags-module) – Management of resource tags in ManageIQ
+- [manageiq_tags_info module](manageiq_tags_info_module.md#ansible-collections-community-general-manageiq-tags-info-module) – Retrieve resource tags in ManageIQ
+- [manageiq_tenant module](manageiq_tenant_module.md#ansible-collections-community-general-manageiq-tenant-module) – Management of tenants in ManageIQ
+- [manageiq_user module](manageiq_user_module.md#ansible-collections-community-general-manageiq-user-module) – Management of users in ManageIQ
+- [mas module](mas_module.md#ansible-collections-community-general-mas-module) – Manage Mac App Store applications with mas-cli
+- [matrix module](matrix_module.md#ansible-collections-community-general-matrix-module) – Send notifications to matrix
+- [mattermost module](mattermost_module.md#ansible-collections-community-general-mattermost-module) – Send Mattermost notifications
+- [maven_artifact module](maven_artifact_module.md#ansible-collections-community-general-maven-artifact-module) – Downloads an Artifact from a Maven Repository
+- [memset_dns_reload module](memset_dns_reload_module.md#ansible-collections-community-general-memset-dns-reload-module) – Request reload of Memset’s DNS infrastructure,
+- [memset_memstore_info module](memset_memstore_info_module.md#ansible-collections-community-general-memset-memstore-info-module) – Retrieve Memstore product usage information
+- [memset_server_info module](memset_server_info_module.md#ansible-collections-community-general-memset-server-info-module) – Retrieve server information
+- [memset_zone module](memset_zone_module.md#ansible-collections-community-general-memset-zone-module) – Creates and deletes Memset DNS zones
+- [memset_zone_domain module](memset_zone_domain_module.md#ansible-collections-community-general-memset-zone-domain-module) – Create and delete domains in Memset DNS zones
+- [memset_zone_record module](memset_zone_record_module.md#ansible-collections-community-general-memset-zone-record-module) – Create and delete records in Memset DNS zones
+- [mksysb module](mksysb_module.md#ansible-collections-community-general-mksysb-module) – Generates AIX mksysb rootvg backups
+- [modprobe module](modprobe_module.md#ansible-collections-community-general-modprobe-module) – Load or unload kernel modules
+- [monit module](monit_module.md#ansible-collections-community-general-monit-module) – Manage the state of a program monitored via Monit
+- [mqtt module](mqtt_module.md#ansible-collections-community-general-mqtt-module) – Publish a message on an MQTT topic for the IoT
+- [mssql_db module](mssql_db_module.md#ansible-collections-community-general-mssql-db-module) – Add or remove MSSQL databases from a remote host
+- [mssql_script module](mssql_script_module.md#ansible-collections-community-general-mssql-script-module) – Execute SQL scripts on a MSSQL database
+- [nagios module](nagios_module.md#ansible-collections-community-general-nagios-module) – Perform common tasks in Nagios related to downtime and notifications
+- [netcup_dns module](netcup_dns_module.md#ansible-collections-community-general-netcup-dns-module) – Manage Netcup DNS records
+- [newrelic_deployment module](newrelic_deployment_module.md#ansible-collections-community-general-newrelic-deployment-module) – Notify New Relic about app deployments
+- [nexmo module](nexmo_module.md#ansible-collections-community-general-nexmo-module) – Send a SMS via nexmo
+- [nginx_status_info module](nginx_status_info_module.md#ansible-collections-community-general-nginx-status-info-module) – Retrieve information on nginx status
+- [nictagadm module](nictagadm_module.md#ansible-collections-community-general-nictagadm-module) – Manage nic tags on SmartOS systems
+- [nmcli module](nmcli_module.md#ansible-collections-community-general-nmcli-module) – Manage Networking
+- [nomad_job module](nomad_job_module.md#ansible-collections-community-general-nomad-job-module) – Launch a Nomad Job
+- [nomad_job_info module](nomad_job_info_module.md#ansible-collections-community-general-nomad-job-info-module) – Get Nomad Jobs info
+- [nosh module](nosh_module.md#ansible-collections-community-general-nosh-module) – Manage services with nosh
+- [npm module](npm_module.md#ansible-collections-community-general-npm-module) – Manage node.js packages with npm
+- [nsupdate module](nsupdate_module.md#ansible-collections-community-general-nsupdate-module) – Manage DNS records
+- [ocapi_command module](ocapi_command_module.md#ansible-collections-community-general-ocapi-command-module) – Manages Out-Of-Band controllers using Open Composable API (OCAPI)
+- [ocapi_info module](ocapi_info_module.md#ansible-collections-community-general-ocapi-info-module) – Manages Out-Of-Band controllers using Open Composable API (OCAPI)
+- [oci_vcn module](oci_vcn_module.md#ansible-collections-community-general-oci-vcn-module) – Manage Virtual Cloud Networks(VCN) in OCI
+- [odbc module](odbc_module.md#ansible-collections-community-general-odbc-module) – Execute SQL via ODBC
+- [office_365_connector_card module](office_365_connector_card_module.md#ansible-collections-community-general-office-365-connector-card-module) – Use webhooks to create Connector Card messages within an Office 365 group
+- [ohai module](ohai_module.md#ansible-collections-community-general-ohai-module) – Returns inventory data from *Ohai*
+- [omapi_host module](omapi_host_module.md#ansible-collections-community-general-omapi-host-module) – Setup OMAPI hosts
+- [one_host module](one_host_module.md#ansible-collections-community-general-one-host-module) – Manages OpenNebula Hosts
+- [one_image module](one_image_module.md#ansible-collections-community-general-one-image-module) – Manages OpenNebula images
+- [one_image_info module](one_image_info_module.md#ansible-collections-community-general-one-image-info-module) – Gather information on OpenNebula images
+- [one_service module](one_service_module.md#ansible-collections-community-general-one-service-module) – Deploy and manage OpenNebula services
+- [one_template module](one_template_module.md#ansible-collections-community-general-one-template-module) – Manages OpenNebula templates
+- [one_vm module](one_vm_module.md#ansible-collections-community-general-one-vm-module) – Creates or terminates OpenNebula instances
+- [oneandone_firewall_policy module](oneandone_firewall_policy_module.md#ansible-collections-community-general-oneandone-firewall-policy-module) – Configure 1&1 firewall policy
+- [oneandone_load_balancer module](oneandone_load_balancer_module.md#ansible-collections-community-general-oneandone-load-balancer-module) – Configure 1&1 load balancer
+- [oneandone_monitoring_policy module](oneandone_monitoring_policy_module.md#ansible-collections-community-general-oneandone-monitoring-policy-module) – Configure 1&1 monitoring policy
+- [oneandone_private_network module](oneandone_private_network_module.md#ansible-collections-community-general-oneandone-private-network-module) – Configure 1&1 private networking
+- [oneandone_public_ip module](oneandone_public_ip_module.md#ansible-collections-community-general-oneandone-public-ip-module) – Configure 1&1 public IPs
+- [oneandone_server module](oneandone_server_module.md#ansible-collections-community-general-oneandone-server-module) – Create, destroy, start, stop, and reboot a 1&1 Host server
+- [onepassword_info module](onepassword_info_module.md#ansible-collections-community-general-onepassword-info-module) – Gather items from 1Password
+- [oneview_datacenter_info module](oneview_datacenter_info_module.md#ansible-collections-community-general-oneview-datacenter-info-module) – Retrieve information about the OneView Data Centers
+- [oneview_enclosure_info module](oneview_enclosure_info_module.md#ansible-collections-community-general-oneview-enclosure-info-module) – Retrieve information about one or more Enclosures
+- [oneview_ethernet_network module](oneview_ethernet_network_module.md#ansible-collections-community-general-oneview-ethernet-network-module) – Manage OneView Ethernet Network resources
+- [oneview_ethernet_network_info module](oneview_ethernet_network_info_module.md#ansible-collections-community-general-oneview-ethernet-network-info-module) – Retrieve the information about one or more of the OneView Ethernet Networks
+- [oneview_fc_network module](oneview_fc_network_module.md#ansible-collections-community-general-oneview-fc-network-module) – Manage OneView Fibre Channel Network resources
+- [oneview_fc_network_info module](oneview_fc_network_info_module.md#ansible-collections-community-general-oneview-fc-network-info-module) – Retrieve the information about one or more of the OneView Fibre Channel Networks
+- [oneview_fcoe_network module](oneview_fcoe_network_module.md#ansible-collections-community-general-oneview-fcoe-network-module) – Manage OneView FCoE Network resources
+- [oneview_fcoe_network_info module](oneview_fcoe_network_info_module.md#ansible-collections-community-general-oneview-fcoe-network-info-module) – Retrieve the information about one or more of the OneView FCoE Networks
+- [oneview_logical_interconnect_group module](oneview_logical_interconnect_group_module.md#ansible-collections-community-general-oneview-logical-interconnect-group-module) – Manage OneView Logical Interconnect Group resources
+- [oneview_logical_interconnect_group_info module](oneview_logical_interconnect_group_info_module.md#ansible-collections-community-general-oneview-logical-interconnect-group-info-module) – Retrieve information about one or more of the OneView Logical Interconnect Groups
+- [oneview_network_set module](oneview_network_set_module.md#ansible-collections-community-general-oneview-network-set-module) – Manage HPE OneView Network Set resources
+- [oneview_network_set_info module](oneview_network_set_info_module.md#ansible-collections-community-general-oneview-network-set-info-module) – Retrieve information about the OneView Network Sets
+- [oneview_san_manager module](oneview_san_manager_module.md#ansible-collections-community-general-oneview-san-manager-module) – Manage OneView SAN Manager resources
+- [oneview_san_manager_info module](oneview_san_manager_info_module.md#ansible-collections-community-general-oneview-san-manager-info-module) – Retrieve information about one or more of the OneView SAN Managers
+- [online_server_info module](online_server_info_module.md#ansible-collections-community-general-online-server-info-module) – Gather information about Online servers
+- [online_user_info module](online_user_info_module.md#ansible-collections-community-general-online-user-info-module) – Gather information about Online user
+- [open_iscsi module](open_iscsi_module.md#ansible-collections-community-general-open-iscsi-module) – Manage iSCSI targets with Open-iSCSI
+- [openbsd_pkg module](openbsd_pkg_module.md#ansible-collections-community-general-openbsd-pkg-module) – Manage packages on OpenBSD
+- [opendj_backendprop module](opendj_backendprop_module.md#ansible-collections-community-general-opendj-backendprop-module) – Will update the backend configuration of OpenDJ via the dsconfig set-backend-prop command
+- [openwrt_init module](openwrt_init_module.md#ansible-collections-community-general-openwrt-init-module) – Manage services on OpenWrt
+- [opkg module](opkg_module.md#ansible-collections-community-general-opkg-module) – Package manager for OpenWrt and Openembedded/Yocto based Linux distributions
+- [osx_defaults module](osx_defaults_module.md#ansible-collections-community-general-osx-defaults-module) – Manage macOS user defaults
+- [ovh_ip_failover module](ovh_ip_failover_module.md#ansible-collections-community-general-ovh-ip-failover-module) – Manage OVH IP failover address
+- [ovh_ip_loadbalancing_backend module](ovh_ip_loadbalancing_backend_module.md#ansible-collections-community-general-ovh-ip-loadbalancing-backend-module) – Manage OVH IP LoadBalancing backends
+- [ovh_monthly_billing module](ovh_monthly_billing_module.md#ansible-collections-community-general-ovh-monthly-billing-module) – Manage OVH monthly billing
+- [pacemaker_cluster module](pacemaker_cluster_module.md#ansible-collections-community-general-pacemaker-cluster-module) – Manage pacemaker clusters
+- [packet_device module](packet_device_module.md#ansible-collections-community-general-packet-device-module) – Manage a bare metal server in the Packet Host
+- [packet_ip_subnet module](packet_ip_subnet_module.md#ansible-collections-community-general-packet-ip-subnet-module) – Assign IP subnet to a bare metal server
+- [packet_project module](packet_project_module.md#ansible-collections-community-general-packet-project-module) – Create/delete a project in Packet host
+- [packet_sshkey module](packet_sshkey_module.md#ansible-collections-community-general-packet-sshkey-module) – Create/delete an SSH key in Packet host
+- [packet_volume module](packet_volume_module.md#ansible-collections-community-general-packet-volume-module) – Create/delete a volume in Packet host
+- [packet_volume_attachment module](packet_volume_attachment_module.md#ansible-collections-community-general-packet-volume-attachment-module) – Attach/detach a volume to a device in the Packet host
+- [pacman module](pacman_module.md#ansible-collections-community-general-pacman-module) – Manage packages with *pacman*
+- [pacman_key module](pacman_key_module.md#ansible-collections-community-general-pacman-key-module) – Manage pacman’s list of trusted keys
+- [pagerduty module](pagerduty_module.md#ansible-collections-community-general-pagerduty-module) – Create PagerDuty maintenance windows
+- [pagerduty_alert module](pagerduty_alert_module.md#ansible-collections-community-general-pagerduty-alert-module) – Trigger, acknowledge or resolve PagerDuty incidents
+- [pagerduty_change module](pagerduty_change_module.md#ansible-collections-community-general-pagerduty-change-module) – Track a code or infrastructure change as a PagerDuty change event
+- [pagerduty_user module](pagerduty_user_module.md#ansible-collections-community-general-pagerduty-user-module) – Manage a user account on PagerDuty
+- [pam_limits module](pam_limits_module.md#ansible-collections-community-general-pam-limits-module) – Modify Linux PAM limits
+- [pamd module](pamd_module.md#ansible-collections-community-general-pamd-module) – Manage PAM Modules
+- [parted module](parted_module.md#ansible-collections-community-general-parted-module) – Configure block device partitions
+- [pear module](pear_module.md#ansible-collections-community-general-pear-module) – Manage pear/pecl packages
+- [pids module](pids_module.md#ansible-collections-community-general-pids-module) – Retrieves process IDs list if the process is running otherwise return empty list
+- [pingdom module](pingdom_module.md#ansible-collections-community-general-pingdom-module) – Pause/unpause Pingdom alerts
+- [pip_package_info module](pip_package_info_module.md#ansible-collections-community-general-pip-package-info-module) – Pip package information
+- [pipx module](pipx_module.md#ansible-collections-community-general-pipx-module) – Manages applications installed with pipx
+- [pipx_info module](pipx_info_module.md#ansible-collections-community-general-pipx-info-module) – Rretrieves information about applications installed with pipx
+- [pkg5 module](pkg5_module.md#ansible-collections-community-general-pkg5-module) – Manages packages with the Solaris 11 Image Packaging System
+- [pkg5_publisher module](pkg5_publisher_module.md#ansible-collections-community-general-pkg5-publisher-module) – Manages Solaris 11 Image Packaging System publishers
+- [pkgin module](pkgin_module.md#ansible-collections-community-general-pkgin-module) – Package manager for SmartOS, NetBSD, et al
+- [pkgng module](pkgng_module.md#ansible-collections-community-general-pkgng-module) – Package manager for FreeBSD >= 9.0
+- [pkgutil module](pkgutil_module.md#ansible-collections-community-general-pkgutil-module) – OpenCSW package management on Solaris
+- [pmem module](pmem_module.md#ansible-collections-community-general-pmem-module) – Configure Intel Optane Persistent Memory modules
+- [pnpm module](pnpm_module.md#ansible-collections-community-general-pnpm-module) – Manage node.js packages with pnpm
+- [portage module](portage_module.md#ansible-collections-community-general-portage-module) – Package manager for Gentoo
+- [portinstall module](portinstall_module.md#ansible-collections-community-general-portinstall-module) – Installing packages from FreeBSD’s ports system
+- [pritunl_org module](pritunl_org_module.md#ansible-collections-community-general-pritunl-org-module) – Manages Pritunl Organizations using the Pritunl API
+- [pritunl_org_info module](pritunl_org_info_module.md#ansible-collections-community-general-pritunl-org-info-module) – List Pritunl Organizations using the Pritunl API
+- [pritunl_user module](pritunl_user_module.md#ansible-collections-community-general-pritunl-user-module) – Manage Pritunl Users using the Pritunl API
+- [pritunl_user_info module](pritunl_user_info_module.md#ansible-collections-community-general-pritunl-user-info-module) – List Pritunl Users using the Pritunl API
+- [profitbricks module](profitbricks_module.md#ansible-collections-community-general-profitbricks-module) – Create, destroy, start, stop, and reboot a ProfitBricks virtual machine
+- [profitbricks_datacenter module](profitbricks_datacenter_module.md#ansible-collections-community-general-profitbricks-datacenter-module) – Create or destroy a ProfitBricks Virtual Datacenter
+- [profitbricks_nic module](profitbricks_nic_module.md#ansible-collections-community-general-profitbricks-nic-module) – Create or Remove a NIC
+- [profitbricks_volume module](profitbricks_volume_module.md#ansible-collections-community-general-profitbricks-volume-module) – Create or destroy a volume
+- [profitbricks_volume_attachments module](profitbricks_volume_attachments_module.md#ansible-collections-community-general-profitbricks-volume-attachments-module) – Attach or detach a volume
+- [proxmox module](proxmox_module.md#ansible-collections-community-general-proxmox-module) – Management of instances in Proxmox VE cluster
+- [proxmox_disk module](proxmox_disk_module.md#ansible-collections-community-general-proxmox-disk-module) – Management of a disk of a Qemu(KVM) VM in a Proxmox VE cluster
+- [proxmox_domain_info module](proxmox_domain_info_module.md#ansible-collections-community-general-proxmox-domain-info-module) – Retrieve information about one or more Proxmox VE domains
+- [proxmox_group_info module](proxmox_group_info_module.md#ansible-collections-community-general-proxmox-group-info-module) – Retrieve information about one or more Proxmox VE groups
+- [proxmox_kvm module](proxmox_kvm_module.md#ansible-collections-community-general-proxmox-kvm-module) – Management of Qemu(KVM) Virtual Machines in Proxmox VE cluster
+- [proxmox_nic module](proxmox_nic_module.md#ansible-collections-community-general-proxmox-nic-module) – Management of a NIC of a Qemu(KVM) VM in a Proxmox VE cluster
+- [proxmox_pool module](proxmox_pool_module.md#ansible-collections-community-general-proxmox-pool-module) – Pool management for Proxmox VE cluster
+- [proxmox_pool_member module](proxmox_pool_member_module.md#ansible-collections-community-general-proxmox-pool-member-module) – Add or delete members from Proxmox VE cluster pools
+- [proxmox_snap module](proxmox_snap_module.md#ansible-collections-community-general-proxmox-snap-module) – Snapshot management of instances in Proxmox VE cluster
+- [proxmox_storage_info module](proxmox_storage_info_module.md#ansible-collections-community-general-proxmox-storage-info-module) – Retrieve information about one or more Proxmox VE storages
+- [proxmox_tasks_info module](proxmox_tasks_info_module.md#ansible-collections-community-general-proxmox-tasks-info-module) – Retrieve information about one or more Proxmox VE tasks
+- [proxmox_template module](proxmox_template_module.md#ansible-collections-community-general-proxmox-template-module) – Management of OS templates in Proxmox VE cluster
+- [proxmox_user_info module](proxmox_user_info_module.md#ansible-collections-community-general-proxmox-user-info-module) – Retrieve information about one or more Proxmox VE users
+- [proxmox_vm_info module](proxmox_vm_info_module.md#ansible-collections-community-general-proxmox-vm-info-module) – Retrieve information about one or more Proxmox VE virtual machines
+- [pubnub_blocks module](pubnub_blocks_module.md#ansible-collections-community-general-pubnub-blocks-module) – PubNub blocks management module
+- [pulp_repo module](pulp_repo_module.md#ansible-collections-community-general-pulp-repo-module) – Add or remove Pulp repos from a remote host
+- [puppet module](puppet_module.md#ansible-collections-community-general-puppet-module) – Runs puppet
+- [pushbullet module](pushbullet_module.md#ansible-collections-community-general-pushbullet-module) – Sends notifications to Pushbullet
+- [pushover module](pushover_module.md#ansible-collections-community-general-pushover-module) – Send notifications via <https://pushover.net>
+- [python_requirements_info module](python_requirements_info_module.md#ansible-collections-community-general-python-requirements-info-module) – Show python path and assert dependency versions
+- [rax module](rax_module.md#ansible-collections-community-general-rax-module) – Create / delete an instance in Rackspace Public Cloud
+- [rax_cbs module](rax_cbs_module.md#ansible-collections-community-general-rax-cbs-module) – Manipulate Rackspace Cloud Block Storage Volumes
+- [rax_cbs_attachments module](rax_cbs_attachments_module.md#ansible-collections-community-general-rax-cbs-attachments-module) – Manipulate Rackspace Cloud Block Storage Volume Attachments
+- [rax_cdb module](rax_cdb_module.md#ansible-collections-community-general-rax-cdb-module) – Create/delete or resize a Rackspace Cloud Databases instance
+- [rax_cdb_database module](rax_cdb_database_module.md#ansible-collections-community-general-rax-cdb-database-module) – Create / delete a database in the Cloud Databases
+- [rax_cdb_user module](rax_cdb_user_module.md#ansible-collections-community-general-rax-cdb-user-module) – Create / delete a Rackspace Cloud Database
+- [rax_clb module](rax_clb_module.md#ansible-collections-community-general-rax-clb-module) – Create / delete a load balancer in Rackspace Public Cloud
+- [rax_clb_nodes module](rax_clb_nodes_module.md#ansible-collections-community-general-rax-clb-nodes-module) – Add, modify and remove nodes from a Rackspace Cloud Load Balancer
+- [rax_clb_ssl module](rax_clb_ssl_module.md#ansible-collections-community-general-rax-clb-ssl-module) – Manage SSL termination for a Rackspace Cloud Load Balancer
+- [rax_dns module](rax_dns_module.md#ansible-collections-community-general-rax-dns-module) – Manage domains on Rackspace Cloud DNS
+- [rax_dns_record module](rax_dns_record_module.md#ansible-collections-community-general-rax-dns-record-module) – Manage DNS records on Rackspace Cloud DNS
+- [rax_facts module](rax_facts_module.md#ansible-collections-community-general-rax-facts-module) – Gather facts for Rackspace Cloud Servers
+- [rax_files module](rax_files_module.md#ansible-collections-community-general-rax-files-module) – Manipulate Rackspace Cloud Files Containers
+- [rax_files_objects module](rax_files_objects_module.md#ansible-collections-community-general-rax-files-objects-module) – Upload, download, and delete objects in Rackspace Cloud Files
+- [rax_identity module](rax_identity_module.md#ansible-collections-community-general-rax-identity-module) – Load Rackspace Cloud Identity
+- [rax_keypair module](rax_keypair_module.md#ansible-collections-community-general-rax-keypair-module) – Create a keypair for use with Rackspace Cloud Servers
+- [rax_meta module](rax_meta_module.md#ansible-collections-community-general-rax-meta-module) – Manipulate metadata for Rackspace Cloud Servers
+- [rax_mon_alarm module](rax_mon_alarm_module.md#ansible-collections-community-general-rax-mon-alarm-module) – Create or delete a Rackspace Cloud Monitoring alarm
+- [rax_mon_check module](rax_mon_check_module.md#ansible-collections-community-general-rax-mon-check-module) – Create or delete a Rackspace Cloud Monitoring check for an existing entity.
+- [rax_mon_entity module](rax_mon_entity_module.md#ansible-collections-community-general-rax-mon-entity-module) – Create or delete a Rackspace Cloud Monitoring entity
+- [rax_mon_notification module](rax_mon_notification_module.md#ansible-collections-community-general-rax-mon-notification-module) – Create or delete a Rackspace Cloud Monitoring notification
+- [rax_mon_notification_plan module](rax_mon_notification_plan_module.md#ansible-collections-community-general-rax-mon-notification-plan-module) – Create or delete a Rackspace Cloud Monitoring notification plan.
+- [rax_network module](rax_network_module.md#ansible-collections-community-general-rax-network-module) – Create / delete an isolated network in Rackspace Public Cloud
+- [rax_queue module](rax_queue_module.md#ansible-collections-community-general-rax-queue-module) – Create / delete a queue in Rackspace Public Cloud
+- [rax_scaling_group module](rax_scaling_group_module.md#ansible-collections-community-general-rax-scaling-group-module) – Manipulate Rackspace Cloud Autoscale Groups
+- [rax_scaling_policy module](rax_scaling_policy_module.md#ansible-collections-community-general-rax-scaling-policy-module) – Manipulate Rackspace Cloud Autoscale Scaling Policy
+- [read_csv module](read_csv_module.md#ansible-collections-community-general-read-csv-module) – Read a CSV file
+- [redfish_command module](redfish_command_module.md#ansible-collections-community-general-redfish-command-module) – Manages Out-Of-Band controllers using Redfish APIs
+- [redfish_config module](redfish_config_module.md#ansible-collections-community-general-redfish-config-module) – Manages Out-Of-Band controllers using Redfish APIs
+- [redfish_info module](redfish_info_module.md#ansible-collections-community-general-redfish-info-module) – Manages Out-Of-Band controllers using Redfish APIs
+- [redhat_subscription module](redhat_subscription_module.md#ansible-collections-community-general-redhat-subscription-module) – Manage registration and subscriptions to RHSM using `subscription-manager`
+- [redis module](redis_module.md#ansible-collections-community-general-redis-module) – Various redis commands, replica and flush
+- [redis_data module](redis_data_module.md#ansible-collections-community-general-redis-data-module) – Set key value pairs in Redis
+- [redis_data_incr module](redis_data_incr_module.md#ansible-collections-community-general-redis-data-incr-module) – Increment keys in Redis
+- [redis_data_info module](redis_data_info_module.md#ansible-collections-community-general-redis-data-info-module) – Get value of key in Redis database
+- [redis_info module](redis_info_module.md#ansible-collections-community-general-redis-info-module) – Gather information about Redis servers
+- [rhevm module](rhevm_module.md#ansible-collections-community-general-rhevm-module) – RHEV/oVirt automation
+- [rhn_channel module](rhn_channel_module.md#ansible-collections-community-general-rhn-channel-module) – Adds or removes Red Hat software channels
+- [rhn_register module](rhn_register_module.md#ansible-collections-community-general-rhn-register-module) – Manage Red Hat Network registration using the `rhnreg_ks` command
+- [rhsm_release module](rhsm_release_module.md#ansible-collections-community-general-rhsm-release-module) – Set or Unset RHSM Release version
+- [rhsm_repository module](rhsm_repository_module.md#ansible-collections-community-general-rhsm-repository-module) – Manage RHSM repositories using the subscription-manager command
+- [riak module](riak_module.md#ansible-collections-community-general-riak-module) – This module handles some common Riak operations
+- [rocketchat module](rocketchat_module.md#ansible-collections-community-general-rocketchat-module) – Send notifications to Rocket Chat
+- [rollbar_deployment module](rollbar_deployment_module.md#ansible-collections-community-general-rollbar-deployment-module) – Notify Rollbar about app deployments
+- [rpm_ostree_pkg module](rpm_ostree_pkg_module.md#ansible-collections-community-general-rpm-ostree-pkg-module) – Install or uninstall overlay additional packages
+- [rundeck_acl_policy module](rundeck_acl_policy_module.md#ansible-collections-community-general-rundeck-acl-policy-module) – Manage Rundeck ACL policies
+- [rundeck_job_executions_info module](rundeck_job_executions_info_module.md#ansible-collections-community-general-rundeck-job-executions-info-module) – Query executions for a Rundeck job
+- [rundeck_job_run module](rundeck_job_run_module.md#ansible-collections-community-general-rundeck-job-run-module) – Run a Rundeck job
+- [rundeck_project module](rundeck_project_module.md#ansible-collections-community-general-rundeck-project-module) – Manage Rundeck projects
+- [runit module](runit_module.md#ansible-collections-community-general-runit-module) – Manage runit services
+- [say module](say_module.md#ansible-collections-community-general-say-module) – Makes a computer to speak
+- [scaleway_compute module](scaleway_compute_module.md#ansible-collections-community-general-scaleway-compute-module) – Scaleway compute management module
+- [scaleway_compute_private_network module](scaleway_compute_private_network_module.md#ansible-collections-community-general-scaleway-compute-private-network-module) – Scaleway compute - private network management
+- [scaleway_container module](scaleway_container_module.md#ansible-collections-community-general-scaleway-container-module) – Scaleway Container management
+- [scaleway_container_info module](scaleway_container_info_module.md#ansible-collections-community-general-scaleway-container-info-module) – Retrieve information on Scaleway Container
+- [scaleway_container_namespace module](scaleway_container_namespace_module.md#ansible-collections-community-general-scaleway-container-namespace-module) – Scaleway Container namespace management
+- [scaleway_container_namespace_info module](scaleway_container_namespace_info_module.md#ansible-collections-community-general-scaleway-container-namespace-info-module) – Retrieve information on Scaleway Container namespace
+- [scaleway_container_registry module](scaleway_container_registry_module.md#ansible-collections-community-general-scaleway-container-registry-module) – Scaleway Container registry management module
+- [scaleway_container_registry_info module](scaleway_container_registry_info_module.md#ansible-collections-community-general-scaleway-container-registry-info-module) – Scaleway Container registry info module
+- [scaleway_database_backup module](scaleway_database_backup_module.md#ansible-collections-community-general-scaleway-database-backup-module) – Scaleway database backups management module
+- [scaleway_function module](scaleway_function_module.md#ansible-collections-community-general-scaleway-function-module) – Scaleway Function management
+- [scaleway_function_info module](scaleway_function_info_module.md#ansible-collections-community-general-scaleway-function-info-module) – Retrieve information on Scaleway Function
+- [scaleway_function_namespace module](scaleway_function_namespace_module.md#ansible-collections-community-general-scaleway-function-namespace-module) – Scaleway Function namespace management
+- [scaleway_function_namespace_info module](scaleway_function_namespace_info_module.md#ansible-collections-community-general-scaleway-function-namespace-info-module) – Retrieve information on Scaleway Function namespace
+- [scaleway_image_info module](scaleway_image_info_module.md#ansible-collections-community-general-scaleway-image-info-module) – Gather information about the Scaleway images available
+- [scaleway_ip module](scaleway_ip_module.md#ansible-collections-community-general-scaleway-ip-module) – Scaleway IP management module
+- [scaleway_ip_info module](scaleway_ip_info_module.md#ansible-collections-community-general-scaleway-ip-info-module) – Gather information about the Scaleway ips available
+- [scaleway_lb module](scaleway_lb_module.md#ansible-collections-community-general-scaleway-lb-module) – Scaleway load-balancer management module
+- [scaleway_organization_info module](scaleway_organization_info_module.md#ansible-collections-community-general-scaleway-organization-info-module) – Gather information about the Scaleway organizations available
+- [scaleway_private_network module](scaleway_private_network_module.md#ansible-collections-community-general-scaleway-private-network-module) – Scaleway private network management
+- [scaleway_security_group module](scaleway_security_group_module.md#ansible-collections-community-general-scaleway-security-group-module) – Scaleway Security Group management module
+- [scaleway_security_group_info module](scaleway_security_group_info_module.md#ansible-collections-community-general-scaleway-security-group-info-module) – Gather information about the Scaleway security groups available
+- [scaleway_security_group_rule module](scaleway_security_group_rule_module.md#ansible-collections-community-general-scaleway-security-group-rule-module) – Scaleway Security Group Rule management module
+- [scaleway_server_info module](scaleway_server_info_module.md#ansible-collections-community-general-scaleway-server-info-module) – Gather information about the Scaleway servers available
+- [scaleway_snapshot_info module](scaleway_snapshot_info_module.md#ansible-collections-community-general-scaleway-snapshot-info-module) – Gather information about the Scaleway snapshots available
+- [scaleway_sshkey module](scaleway_sshkey_module.md#ansible-collections-community-general-scaleway-sshkey-module) – Scaleway SSH keys management module
+- [scaleway_user_data module](scaleway_user_data_module.md#ansible-collections-community-general-scaleway-user-data-module) – Scaleway user_data management module
+- [scaleway_volume module](scaleway_volume_module.md#ansible-collections-community-general-scaleway-volume-module) – Scaleway volumes management module
+- [scaleway_volume_info module](scaleway_volume_info_module.md#ansible-collections-community-general-scaleway-volume-info-module) – Gather information about the Scaleway volumes available
+- [sefcontext module](sefcontext_module.md#ansible-collections-community-general-sefcontext-module) – Manages SELinux file context mapping definitions
+- [selinux_permissive module](selinux_permissive_module.md#ansible-collections-community-general-selinux-permissive-module) – Change permissive domain in SELinux policy
+- [selogin module](selogin_module.md#ansible-collections-community-general-selogin-module) – Manages linux user to SELinux user mapping
+- [sendgrid module](sendgrid_module.md#ansible-collections-community-general-sendgrid-module) – Sends an email with the SendGrid API
+- [sensu_check module](sensu_check_module.md#ansible-collections-community-general-sensu-check-module) – Manage Sensu checks
+- [sensu_client module](sensu_client_module.md#ansible-collections-community-general-sensu-client-module) – Manages Sensu client configuration
+- [sensu_handler module](sensu_handler_module.md#ansible-collections-community-general-sensu-handler-module) – Manages Sensu handler configuration
+- [sensu_silence module](sensu_silence_module.md#ansible-collections-community-general-sensu-silence-module) – Manage Sensu silence entries
+- [sensu_subscription module](sensu_subscription_module.md#ansible-collections-community-general-sensu-subscription-module) – Manage Sensu subscriptions
+- [seport module](seport_module.md#ansible-collections-community-general-seport-module) – Manages SELinux network port type definitions
+- [serverless module](serverless_module.md#ansible-collections-community-general-serverless-module) – Manages a Serverless Framework project
+- [shutdown module](shutdown_module.md#ansible-collections-community-general-shutdown-module) – Shut down a machine
+- [simpleinit_msb module](simpleinit_msb_module.md#ansible-collections-community-general-simpleinit-msb-module) – Manage services on Source Mage GNU/Linux
+- [sl_vm module](sl_vm_module.md#ansible-collections-community-general-sl-vm-module) – Create or cancel a virtual instance in SoftLayer
+- [slack module](slack_module.md#ansible-collections-community-general-slack-module) – Send Slack notifications
+- [slackpkg module](slackpkg_module.md#ansible-collections-community-general-slackpkg-module) – Package manager for Slackware >= 12.2
+- [smartos_image_info module](smartos_image_info_module.md#ansible-collections-community-general-smartos-image-info-module) – Get SmartOS image details
+- [snap module](snap_module.md#ansible-collections-community-general-snap-module) – Manages snaps
+- [snap_alias module](snap_alias_module.md#ansible-collections-community-general-snap-alias-module) – Manages snap aliases
+- [snmp_facts module](snmp_facts_module.md#ansible-collections-community-general-snmp-facts-module) – Retrieve facts for a device using SNMP
+- [solaris_zone module](solaris_zone_module.md#ansible-collections-community-general-solaris-zone-module) – Manage Solaris zones
+- [sorcery module](sorcery_module.md#ansible-collections-community-general-sorcery-module) – Package manager for Source Mage GNU/Linux
+- [spectrum_device module](spectrum_device_module.md#ansible-collections-community-general-spectrum-device-module) – Creates/deletes devices in CA Spectrum
+- [spectrum_model_attrs module](spectrum_model_attrs_module.md#ansible-collections-community-general-spectrum-model-attrs-module) – Enforce a model’s attributes in CA Spectrum
+- [spotinst_aws_elastigroup module](spotinst_aws_elastigroup_module.md#ansible-collections-community-general-spotinst-aws-elastigroup-module) – Create, update or delete Spotinst AWS Elastigroups
+- [ss_3par_cpg module](ss_3par_cpg_module.md#ansible-collections-community-general-ss-3par-cpg-module) – Manage HPE StoreServ 3PAR CPG
+- [ssh_config module](ssh_config_module.md#ansible-collections-community-general-ssh-config-module) – Manage SSH config for user
+- [stackdriver module](stackdriver_module.md#ansible-collections-community-general-stackdriver-module) – Send code deploy and annotation events to stackdriver
+- [stacki_host module](stacki_host_module.md#ansible-collections-community-general-stacki-host-module) – Add or remove host to stacki front-end
+- [statsd module](statsd_module.md#ansible-collections-community-general-statsd-module) – Send metrics to StatsD
+- [statusio_maintenance module](statusio_maintenance_module.md#ansible-collections-community-general-statusio-maintenance-module) – Create maintenance windows for your status.io dashboard
+- [sudoers module](sudoers_module.md#ansible-collections-community-general-sudoers-module) – Manage sudoers files
+- [supervisorctl module](supervisorctl_module.md#ansible-collections-community-general-supervisorctl-module) – Manage the state of a program or group of programs running via supervisord
+- [svc module](svc_module.md#ansible-collections-community-general-svc-module) – Manage daemontools services
+- [svr4pkg module](svr4pkg_module.md#ansible-collections-community-general-svr4pkg-module) – Manage Solaris SVR4 packages
+- [swdepot module](swdepot_module.md#ansible-collections-community-general-swdepot-module) – Manage packages with swdepot package manager (HP-UX)
+- [swupd module](swupd_module.md#ansible-collections-community-general-swupd-module) – Manages updates and bundles in ClearLinux systems
+- [syslogger module](syslogger_module.md#ansible-collections-community-general-syslogger-module) – Log messages in the syslog
+- [syspatch module](syspatch_module.md#ansible-collections-community-general-syspatch-module) – Manage OpenBSD system patches
+- [sysrc module](sysrc_module.md#ansible-collections-community-general-sysrc-module) – Manage FreeBSD using sysrc
+- [sysupgrade module](sysupgrade_module.md#ansible-collections-community-general-sysupgrade-module) – Manage OpenBSD system upgrades
+- [taiga_issue module](taiga_issue_module.md#ansible-collections-community-general-taiga-issue-module) – Creates/deletes an issue in a Taiga Project Management Platform
+- [telegram module](telegram_module.md#ansible-collections-community-general-telegram-module) – Send notifications via telegram
+- [terraform module](terraform_module.md#ansible-collections-community-general-terraform-module) – Manages a Terraform deployment (and plans)
+- [timezone module](timezone_module.md#ansible-collections-community-general-timezone-module) – Configure timezone setting
+- [twilio module](twilio_module.md#ansible-collections-community-general-twilio-module) – Sends a text message to a mobile phone through Twilio
+- [typetalk module](typetalk_module.md#ansible-collections-community-general-typetalk-module) – Send a message to typetalk
+- [udm_dns_record module](udm_dns_record_module.md#ansible-collections-community-general-udm-dns-record-module) – Manage dns entries on a univention corporate server
+- [udm_dns_zone module](udm_dns_zone_module.md#ansible-collections-community-general-udm-dns-zone-module) – Manage dns zones on a univention corporate server
+- [udm_group module](udm_group_module.md#ansible-collections-community-general-udm-group-module) – Manage of the posix group
+- [udm_share module](udm_share_module.md#ansible-collections-community-general-udm-share-module) – Manage samba shares on a univention corporate server
+- [udm_user module](udm_user_module.md#ansible-collections-community-general-udm-user-module) – Manage posix users on a univention corporate server
+- [ufw module](ufw_module.md#ansible-collections-community-general-ufw-module) – Manage firewall with UFW
+- [uptimerobot module](uptimerobot_module.md#ansible-collections-community-general-uptimerobot-module) – Pause and start Uptime Robot monitoring
+- [urpmi module](urpmi_module.md#ansible-collections-community-general-urpmi-module) – Urpmi manager
+- [utm_aaa_group module](utm_aaa_group_module.md#ansible-collections-community-general-utm-aaa-group-module) – Create, update or destroy an aaa group object in Sophos UTM
+- [utm_aaa_group_info module](utm_aaa_group_info_module.md#ansible-collections-community-general-utm-aaa-group-info-module) – Get info for reverse_proxy frontend entry in Sophos UTM
+- [utm_ca_host_key_cert module](utm_ca_host_key_cert_module.md#ansible-collections-community-general-utm-ca-host-key-cert-module) – Create, update or destroy ca host_key_cert entry in Sophos UTM
+- [utm_ca_host_key_cert_info module](utm_ca_host_key_cert_info_module.md#ansible-collections-community-general-utm-ca-host-key-cert-info-module) – Get info for a ca host_key_cert entry in Sophos UTM
+- [utm_dns_host module](utm_dns_host_module.md#ansible-collections-community-general-utm-dns-host-module) – Create, update or destroy dns entry in Sophos UTM
+- [utm_network_interface_address module](utm_network_interface_address_module.md#ansible-collections-community-general-utm-network-interface-address-module) – Create, update or destroy network/interface_address object
+- [utm_network_interface_address_info module](utm_network_interface_address_info_module.md#ansible-collections-community-general-utm-network-interface-address-info-module) – Get info for a network/interface_address object
+- [utm_proxy_auth_profile module](utm_proxy_auth_profile_module.md#ansible-collections-community-general-utm-proxy-auth-profile-module) – Create, update or destroy reverse_proxy auth_profile entry in Sophos UTM
+- [utm_proxy_exception module](utm_proxy_exception_module.md#ansible-collections-community-general-utm-proxy-exception-module) – Create, update or destroy reverse_proxy exception entry in Sophos UTM
+- [utm_proxy_frontend module](utm_proxy_frontend_module.md#ansible-collections-community-general-utm-proxy-frontend-module) – Create, update or destroy reverse_proxy frontend entry in Sophos UTM
+- [utm_proxy_frontend_info module](utm_proxy_frontend_info_module.md#ansible-collections-community-general-utm-proxy-frontend-info-module) – Create, update or destroy reverse_proxy frontend entry in Sophos UTM
+- [utm_proxy_location module](utm_proxy_location_module.md#ansible-collections-community-general-utm-proxy-location-module) – Create, update or destroy reverse_proxy location entry in Sophos UTM
+- [utm_proxy_location_info module](utm_proxy_location_info_module.md#ansible-collections-community-general-utm-proxy-location-info-module) – Create, update or destroy reverse_proxy location entry in Sophos UTM
+- [vdo module](vdo_module.md#ansible-collections-community-general-vdo-module) – Module to control VDO
+- [vertica_configuration module](vertica_configuration_module.md#ansible-collections-community-general-vertica-configuration-module) – Updates Vertica configuration parameters
+- [vertica_info module](vertica_info_module.md#ansible-collections-community-general-vertica-info-module) – Gathers Vertica database facts
+- [vertica_role module](vertica_role_module.md#ansible-collections-community-general-vertica-role-module) – Adds or removes Vertica database roles and assigns roles to them
+- [vertica_schema module](vertica_schema_module.md#ansible-collections-community-general-vertica-schema-module) – Adds or removes Vertica database schema and roles
+- [vertica_user module](vertica_user_module.md#ansible-collections-community-general-vertica-user-module) – Adds or removes Vertica database users and assigns roles
+- [vexata_eg module](vexata_eg_module.md#ansible-collections-community-general-vexata-eg-module) – Manage export groups on Vexata VX100 storage arrays
+- [vexata_volume module](vexata_volume_module.md#ansible-collections-community-general-vexata-volume-module) – Manage volumes on Vexata VX100 storage arrays
+- [vmadm module](vmadm_module.md#ansible-collections-community-general-vmadm-module) – Manage SmartOS virtual machines and zones
+- [wakeonlan module](wakeonlan_module.md#ansible-collections-community-general-wakeonlan-module) – Send a magic Wake-on-LAN (WoL) broadcast packet
+- [wdc_redfish_command module](wdc_redfish_command_module.md#ansible-collections-community-general-wdc-redfish-command-module) – Manages WDC UltraStar Data102 Out-Of-Band controllers using Redfish APIs
+- [wdc_redfish_info module](wdc_redfish_info_module.md#ansible-collections-community-general-wdc-redfish-info-module) – Manages WDC UltraStar Data102 Out-Of-Band controllers using Redfish APIs
+- [webfaction_app module](webfaction_app_module.md#ansible-collections-community-general-webfaction-app-module) – Add or remove applications on a Webfaction host
+- [webfaction_db module](webfaction_db_module.md#ansible-collections-community-general-webfaction-db-module) – Add or remove a database on Webfaction
+- [webfaction_domain module](webfaction_domain_module.md#ansible-collections-community-general-webfaction-domain-module) – Add or remove domains and subdomains on Webfaction
+- [webfaction_mailbox module](webfaction_mailbox_module.md#ansible-collections-community-general-webfaction-mailbox-module) – Add or remove mailboxes on Webfaction
+- [webfaction_site module](webfaction_site_module.md#ansible-collections-community-general-webfaction-site-module) – Add or remove a website on a Webfaction host
+- [xattr module](xattr_module.md#ansible-collections-community-general-xattr-module) – Manage user defined extended attributes
+- [xbps module](xbps_module.md#ansible-collections-community-general-xbps-module) – Manage packages with XBPS
+- [xcc_redfish_command module](xcc_redfish_command_module.md#ansible-collections-community-general-xcc-redfish-command-module) – Manages Lenovo Out-Of-Band controllers using Redfish APIs
+- [xenserver_facts module](xenserver_facts_module.md#ansible-collections-community-general-xenserver-facts-module) – Get facts reported on xenserver
+- [xenserver_guest module](xenserver_guest_module.md#ansible-collections-community-general-xenserver-guest-module) – Manages virtual machines running on Citrix Hypervisor/XenServer host or pool
+- [xenserver_guest_info module](xenserver_guest_info_module.md#ansible-collections-community-general-xenserver-guest-info-module) – Gathers information for virtual machines running on Citrix Hypervisor/XenServer host or pool
+- [xenserver_guest_powerstate module](xenserver_guest_powerstate_module.md#ansible-collections-community-general-xenserver-guest-powerstate-module) – Manages power states of virtual machines running on Citrix Hypervisor/XenServer host or pool
+- [xfconf module](xfconf_module.md#ansible-collections-community-general-xfconf-module) – Edit XFCE4 Configurations
+- [xfconf_info module](xfconf_info_module.md#ansible-collections-community-general-xfconf-info-module) – Retrieve XFCE4 configurations
+- [xfs_quota module](xfs_quota_module.md#ansible-collections-community-general-xfs-quota-module) – Manage quotas on XFS filesystems
+- [xml module](xml_module.md#ansible-collections-community-general-xml-module) – Manage bits and pieces of XML files or strings
+- [yarn module](yarn_module.md#ansible-collections-community-general-yarn-module) – Manage node.js packages with Yarn
+- [yum_versionlock module](yum_versionlock_module.md#ansible-collections-community-general-yum-versionlock-module) – Locks / unlocks a installed package(s) from being updated by yum package manager
+- [zfs module](zfs_module.md#ansible-collections-community-general-zfs-module) – Manage zfs
+- [zfs_delegate_admin module](zfs_delegate_admin_module.md#ansible-collections-community-general-zfs-delegate-admin-module) – Manage ZFS delegated administration (user admin privileges)
+- [zfs_facts module](zfs_facts_module.md#ansible-collections-community-general-zfs-facts-module) – Gather facts about ZFS datasets
+- [znode module](znode_module.md#ansible-collections-community-general-znode-module) – Create, delete, retrieve, and update znodes using ZooKeeper
+- [zpool_facts module](zpool_facts_module.md#ansible-collections-community-general-zpool-facts-module) – Gather facts about ZFS pools
+- [zypper module](zypper_module.md#ansible-collections-community-general-zypper-module) – Manage packages on SUSE and openSUSE
+- [zypper_repository module](zypper_repository_module.md#ansible-collections-community-general-zypper-repository-module) – Add and remove Zypper repositories
+
+### Become Plugins
+
+- [doas become](doas_become.md#ansible-collections-community-general-doas-become) – Do As user
+- [dzdo become](dzdo_become.md#ansible-collections-community-general-dzdo-become) – Centrify’s Direct Authorize
+- [ksu become](ksu_become.md#ansible-collections-community-general-ksu-become) – Kerberos substitute user
+- [machinectl become](machinectl_become.md#ansible-collections-community-general-machinectl-become) – Systemd’s machinectl privilege escalation
+- [pbrun become](pbrun_become.md#ansible-collections-community-general-pbrun-become) – PowerBroker run
+- [pfexec become](pfexec_become.md#ansible-collections-community-general-pfexec-become) – profile based execution
+- [pmrun become](pmrun_become.md#ansible-collections-community-general-pmrun-become) – Privilege Manager run
+- [sesu become](sesu_become.md#ansible-collections-community-general-sesu-become) – CA Privileged Access Manager
+- [sudosu become](sudosu_become.md#ansible-collections-community-general-sudosu-become) – Run tasks using sudo su -
+
+### Cache Plugins
+
+- [memcached cache](memcached_cache.md#ansible-collections-community-general-memcached-cache) – Use memcached DB for cache
+- [pickle cache](pickle_cache.md#ansible-collections-community-general-pickle-cache) – Pickle formatted files.
+- [redis cache](redis_cache.md#ansible-collections-community-general-redis-cache) – Use Redis DB for cache
+- [yaml cache](yaml_cache.md#ansible-collections-community-general-yaml-cache) – YAML formatted files.
+
+### Callback Plugins
+
+- [cgroup_memory_recap callback](cgroup_memory_recap_callback.md#ansible-collections-community-general-cgroup-memory-recap-callback) – Profiles maximum memory usage of tasks and full execution using cgroups
+- [context_demo callback](context_demo_callback.md#ansible-collections-community-general-context-demo-callback) – demo callback that adds play/task context
+- [counter_enabled callback](counter_enabled_callback.md#ansible-collections-community-general-counter-enabled-callback) – adds counters to the output items (tasks and hosts/task)
+- [dense callback](dense_callback.md#ansible-collections-community-general-dense-callback) – minimal stdout output
+- [diy callback](diy_callback.md#ansible-collections-community-general-diy-callback) – Customize the output
+- [elastic callback](elastic_callback.md#ansible-collections-community-general-elastic-callback) – Create distributed traces for each Ansible task in Elastic APM
+- [hipchat callback](hipchat_callback.md#ansible-collections-community-general-hipchat-callback) – post task events to hipchat
+- [jabber callback](jabber_callback.md#ansible-collections-community-general-jabber-callback) – post task events to a jabber server
+- [log_plays callback](log_plays_callback.md#ansible-collections-community-general-log-plays-callback) – write playbook output to log file
+- [loganalytics callback](loganalytics_callback.md#ansible-collections-community-general-loganalytics-callback) – Posts task results to Azure Log Analytics
+- [logdna callback](logdna_callback.md#ansible-collections-community-general-logdna-callback) – Sends playbook logs to LogDNA
+- [logentries callback](logentries_callback.md#ansible-collections-community-general-logentries-callback) – Sends events to Logentries
+- [logstash callback](logstash_callback.md#ansible-collections-community-general-logstash-callback) – Sends events to Logstash
+- [mail callback](mail_callback.md#ansible-collections-community-general-mail-callback) – Sends failure events via email
+- [nrdp callback](nrdp_callback.md#ansible-collections-community-general-nrdp-callback) – Post task results to a Nagios server through nrdp
+- [null callback](null_callback.md#ansible-collections-community-general-null-callback) – Don’t display stuff to screen
+- [opentelemetry callback](opentelemetry_callback.md#ansible-collections-community-general-opentelemetry-callback) – Create distributed traces with OpenTelemetry
+- [say callback](say_callback.md#ansible-collections-community-general-say-callback) – notify using software speech synthesizer
+- [selective callback](selective_callback.md#ansible-collections-community-general-selective-callback) – only print certain tasks
+- [slack callback](slack_callback.md#ansible-collections-community-general-slack-callback) – Sends play events to a Slack channel
+- [splunk callback](splunk_callback.md#ansible-collections-community-general-splunk-callback) – Sends task result events to Splunk HTTP Event Collector
+- [sumologic callback](sumologic_callback.md#ansible-collections-community-general-sumologic-callback) – Sends task result events to Sumologic
+- [syslog_json callback](syslog_json_callback.md#ansible-collections-community-general-syslog-json-callback) – sends JSON events to syslog
+- [unixy callback](unixy_callback.md#ansible-collections-community-general-unixy-callback) – condensed Ansible output
+- [yaml callback](yaml_callback.md#ansible-collections-community-general-yaml-callback) – YAML-ized Ansible screen output
+
+### Connection Plugins
+
+- [chroot connection](chroot_connection.md#ansible-collections-community-general-chroot-connection) – Interact with local chroot
+- [funcd connection](funcd_connection.md#ansible-collections-community-general-funcd-connection) – Use funcd to connect to target
+- [iocage connection](iocage_connection.md#ansible-collections-community-general-iocage-connection) – Run tasks in iocage jails
+- [jail connection](jail_connection.md#ansible-collections-community-general-jail-connection) – Run tasks in jails
+- [lxc connection](lxc_connection.md#ansible-collections-community-general-lxc-connection) – Run tasks in lxc containers via lxc python library
+- [lxd connection](lxd_connection.md#ansible-collections-community-general-lxd-connection) – Run tasks in lxc containers via lxc CLI
+- [qubes connection](qubes_connection.md#ansible-collections-community-general-qubes-connection) – Interact with an existing QubesOS AppVM
+- [saltstack connection](saltstack_connection.md#ansible-collections-community-general-saltstack-connection) – Allow ansible to piggyback on salt minions
+- [zone connection](zone_connection.md#ansible-collections-community-general-zone-connection) – Run tasks in a zone instance
+
+### Filter Plugins
+
+- [counter filter](counter_filter.md#ansible-collections-community-general-counter-filter) – Counts hashable elements in a sequence
+- [crc32 filter](crc32_filter.md#ansible-collections-community-general-crc32-filter) – Generate a CRC32 checksum
+- [dict filter](dict_filter.md#ansible-collections-community-general-dict-filter) – Convert a list of tuples into a dictionary
+- [dict_kv filter](dict_kv_filter.md#ansible-collections-community-general-dict-kv-filter) – Convert a value to a dictionary with a single key-value pair
+- [from_csv filter](from_csv_filter.md#ansible-collections-community-general-from-csv-filter) – Converts CSV text input into list of dicts
+- [groupby_as_dict filter](groupby_as_dict_filter.md#ansible-collections-community-general-groupby-as-dict-filter) – Transform a sequence of dictionaries to a dictionary where the dictionaries are indexed by an attribute
+- [hashids_decode filter](hashids_decode_filter.md#ansible-collections-community-general-hashids-decode-filter) – Decodes a sequence of numbers from a YouTube-like hash
+- [hashids_encode filter](hashids_encode_filter.md#ansible-collections-community-general-hashids-encode-filter) – Encodes YouTube-like hashes from a sequence of integers
+- [jc filter](jc_filter.md#ansible-collections-community-general-jc-filter) – Convert output of many shell commands and file-types to JSON
+- [json_query filter](json_query_filter.md#ansible-collections-community-general-json-query-filter) – Select a single element or a data subset from a complex data structure
+- [lists_mergeby filter](lists_mergeby_filter.md#ansible-collections-community-general-lists-mergeby-filter) – Merge two or more lists of dictionaries by a given attribute
+- [random_mac filter](random_mac_filter.md#ansible-collections-community-general-random-mac-filter) – Generate a random MAC address
+- [to_days filter](to_days_filter.md#ansible-collections-community-general-to-days-filter) – Converte a duration string to days
+- [to_hours filter](to_hours_filter.md#ansible-collections-community-general-to-hours-filter) – Converte a duration string to hours
+- [to_milliseconds filter](to_milliseconds_filter.md#ansible-collections-community-general-to-milliseconds-filter) – Converte a duration string to milliseconds
+- [to_minutes filter](to_minutes_filter.md#ansible-collections-community-general-to-minutes-filter) – Converte a duration string to minutes
+- [to_months filter](to_months_filter.md#ansible-collections-community-general-to-months-filter) – Converte a duration string to months
+- [to_seconds filter](to_seconds_filter.md#ansible-collections-community-general-to-seconds-filter) – Converte a duration string to seconds
+- [to_time_unit filter](to_time_unit_filter.md#ansible-collections-community-general-to-time-unit-filter) – Converte a duration string to the given time unit
+- [to_weeks filter](to_weeks_filter.md#ansible-collections-community-general-to-weeks-filter) – Converte a duration string to weeks
+- [to_years filter](to_years_filter.md#ansible-collections-community-general-to-years-filter) – Converte a duration string to years
+- [unicode_normalize filter](unicode_normalize_filter.md#ansible-collections-community-general-unicode-normalize-filter) – Normalizes unicode strings to facilitate comparison of characters with normalized forms
+- [version_sort filter](version_sort_filter.md#ansible-collections-community-general-version-sort-filter) – Sort a list according to version order instead of pure alphabetical one
+
+### Inventory Plugins
+
+- [cobbler inventory](cobbler_inventory.md#ansible-collections-community-general-cobbler-inventory) – Cobbler inventory source
+- [gitlab_runners inventory](gitlab_runners_inventory.md#ansible-collections-community-general-gitlab-runners-inventory) – Ansible dynamic inventory plugin for GitLab runners.
+- [icinga2 inventory](icinga2_inventory.md#ansible-collections-community-general-icinga2-inventory) – Icinga2 inventory source
+- [linode inventory](linode_inventory.md#ansible-collections-community-general-linode-inventory) – Ansible dynamic inventory plugin for Linode.
+- [lxd inventory](lxd_inventory.md#ansible-collections-community-general-lxd-inventory) – Returns Ansible inventory from lxd host
+- [nmap inventory](nmap_inventory.md#ansible-collections-community-general-nmap-inventory) – Uses nmap to find hosts to target
+- [online inventory](online_inventory.md#ansible-collections-community-general-online-inventory) – Scaleway (previously Online SAS or Online.net) inventory source
+- [opennebula inventory](opennebula_inventory.md#ansible-collections-community-general-opennebula-inventory) – OpenNebula inventory source
+- [proxmox inventory](proxmox_inventory.md#ansible-collections-community-general-proxmox-inventory) – Proxmox inventory source
+- [scaleway inventory](scaleway_inventory.md#ansible-collections-community-general-scaleway-inventory) – Scaleway inventory source
+- [stackpath_compute inventory](stackpath_compute_inventory.md#ansible-collections-community-general-stackpath-compute-inventory) – StackPath Edge Computing inventory source
+- [virtualbox inventory](virtualbox_inventory.md#ansible-collections-community-general-virtualbox-inventory) – virtualbox inventory source
+- [xen_orchestra inventory](xen_orchestra_inventory.md#ansible-collections-community-general-xen-orchestra-inventory) – Xen Orchestra inventory source
+
+### Lookup Plugins
+
+- [bitwarden lookup](bitwarden_lookup.md#ansible-collections-community-general-bitwarden-lookup) – Retrieve secrets from Bitwarden
+- [bitwarden_secrets_manager lookup](bitwarden_secrets_manager_lookup.md#ansible-collections-community-general-bitwarden-secrets-manager-lookup) – Retrieve secrets from Bitwarden Secrets Manager
+- [cartesian lookup](cartesian_lookup.md#ansible-collections-community-general-cartesian-lookup) – returns the cartesian product of lists
+- [chef_databag lookup](chef_databag_lookup.md#ansible-collections-community-general-chef-databag-lookup) – fetches data from a Chef Databag
+- [collection_version lookup](collection_version_lookup.md#ansible-collections-community-general-collection-version-lookup) – Retrieves the version of an installed collection
+- [consul_kv lookup](consul_kv_lookup.md#ansible-collections-community-general-consul-kv-lookup) – Fetch metadata from a Consul key value store.
+- [credstash lookup](credstash_lookup.md#ansible-collections-community-general-credstash-lookup) – retrieve secrets from Credstash on AWS
+- [cyberarkpassword lookup](cyberarkpassword_lookup.md#ansible-collections-community-general-cyberarkpassword-lookup) – get secrets from CyberArk AIM
+- [dependent lookup](dependent_lookup.md#ansible-collections-community-general-dependent-lookup) – Composes a list with nested elements of other lists or dicts which can depend on previous loop variables
+- [dig lookup](dig_lookup.md#ansible-collections-community-general-dig-lookup) – query DNS using the dnspython library
+- [dnstxt lookup](dnstxt_lookup.md#ansible-collections-community-general-dnstxt-lookup) – query a domain(s)’s DNS txt fields
+- [dsv lookup](dsv_lookup.md#ansible-collections-community-general-dsv-lookup) – Get secrets from Thycotic DevOps Secrets Vault
+- [etcd lookup](etcd_lookup.md#ansible-collections-community-general-etcd-lookup) – get info from an etcd server
+- [etcd3 lookup](etcd3_lookup.md#ansible-collections-community-general-etcd3-lookup) – Get key values from etcd3 server
+- [filetree lookup](filetree_lookup.md#ansible-collections-community-general-filetree-lookup) – recursively match all files in a directory tree
+- [flattened lookup](flattened_lookup.md#ansible-collections-community-general-flattened-lookup) – return single list completely flattened
+- [hiera lookup](hiera_lookup.md#ansible-collections-community-general-hiera-lookup) – get info from hiera data
+- [keyring lookup](keyring_lookup.md#ansible-collections-community-general-keyring-lookup) – grab secrets from the OS keyring
+- [lastpass lookup](lastpass_lookup.md#ansible-collections-community-general-lastpass-lookup) – fetch data from LastPass
+- [lmdb_kv lookup](lmdb_kv_lookup.md#ansible-collections-community-general-lmdb-kv-lookup) – fetch data from LMDB
+- [manifold lookup](manifold_lookup.md#ansible-collections-community-general-manifold-lookup) – get credentials from Manifold.co
+- [merge_variables lookup](merge_variables_lookup.md#ansible-collections-community-general-merge-variables-lookup) – merge variables with a certain suffix
+- [onepassword lookup](onepassword_lookup.md#ansible-collections-community-general-onepassword-lookup) – fetch field values from 1Password
+- [onepassword_raw lookup](onepassword_raw_lookup.md#ansible-collections-community-general-onepassword-raw-lookup) – fetch an entire item from 1Password
+- [passwordstore lookup](passwordstore_lookup.md#ansible-collections-community-general-passwordstore-lookup) – manage passwords with passwordstore.org’s pass utility
+- [random_pet lookup](random_pet_lookup.md#ansible-collections-community-general-random-pet-lookup) – Generates random pet names
+- [random_string lookup](random_string_lookup.md#ansible-collections-community-general-random-string-lookup) – Generates random string
+- [random_words lookup](random_words_lookup.md#ansible-collections-community-general-random-words-lookup) – Return a number of random words
+- [redis lookup](redis_lookup.md#ansible-collections-community-general-redis-lookup) – fetch data from Redis
+- [revbitspss lookup](revbitspss_lookup.md#ansible-collections-community-general-revbitspss-lookup) – Get secrets from RevBits PAM server
+- [shelvefile lookup](shelvefile_lookup.md#ansible-collections-community-general-shelvefile-lookup) – read keys from Python shelve file
+- [tss lookup](tss_lookup.md#ansible-collections-community-general-tss-lookup) – Get secrets from Thycotic Secret Server
+
+### Test Plugins
+
+- [a_module test](a_module_test.md#ansible-collections-community-general-a-module-test) – Test whether a given string refers to an existing module or action plugin
+
+> **See also:**
+>
+> List of [collections](../../index.md#list-of-collections) with docs hosted here.

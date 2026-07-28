@@ -1,0 +1,122 @@
+---
+collection: ansible
+version: "6"
+title: "community.network.netact_cm_command module – Manage network configuration data in Nokia Core and Radio networks"
+source_url: https://docs.ansible.com/projects/ansible/6/collections/community/network/netact_cm_command_module.html
+fetched_at: 2026-07-27T17:18:59+00:00
+---
+# community.network.netact_cm_command module – Manage network configuration data in Nokia Core and Radio networks
+
+> **Note:**
+>
+> This module is part of the [community.network collection](https://galaxy.ansible.com/community/network) (version 4.0.2).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install community.network`.
+>
+> To use it in a playbook, specify: `community.network.netact_cm_command`.
+
+- [Synopsis](netact_cm_command_module.md#synopsis)
+- [Parameters](netact_cm_command_module.md#parameters)
+- [Notes](netact_cm_command_module.md#notes)
+- [Examples](netact_cm_command_module.md#examples)
+- [Return Values](netact_cm_command_module.md#return-values)
+
+## [Synopsis](netact_cm_command_module.md#id1)
+
+- netact_cm_command can be used to run various configuration management operations. This module requires that the target hosts have Nokia NetAct network management system installed. Module will access the Configurator command line interface in NetAct to upload network configuration to NetAct, run configuration export, plan import and configuration provision operations To set the scope of the operation, define Distinguished Name (DN) or Working Set (WS) or Maintenance Region (MR) as input
+
+## [Parameters](netact_cm_command_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **backupPlanName**  string | Specifies a backup plan name |
+| **createBackupPlan**  boolean | Specifies if backup plan generation is enabled.  Choices:   - `false` - `true` |
+| **DN**  string | Sets the exact scope of the operation in form of a list of managed object Distinguished Names (DN) in the network. A single DN or a list of DNs can be given (comma separated list without spaces). Alternatively, if DN or a list of DNs is not given, working set (WS) or Maintenance Region (MR) must be provided as parameter to set the scope of operation. |
+| **extra_opts**  string | Extra options to be set for operations. Check Configuration Management > Configuration Management Operating Procedures > Command Line Operations in Nokia NetAct user documentation for further information for extra options. |
+| **fileFormat**  string | Indicates file format.  Choices:   - `"RAML2"` - `"CSV"` - `"XLSX"` |
+| **fileName**  string | Specifies a file name. Valid for Import and Export operations. |
+| **inputFile**  string | Specifies full path to plan file location for the import operation. This parameter (inputFile) or the fileName parameter must be filled. If both are present then the inputFile is used. |
+| **MR**  string | Sets the scope of the operation to network elements assigned to a Maintenance Region (MR) Value can be set as MR IDs including the Maintenance Region Collection (MRC) information (for example MRC-FIN1/MR-Hel). Multiple MRs can be given (comma-separated list without spaces) The value of this parameter is searched through MR IDs under given MRC. If there is no match, then it is searched from all MR names. Alternatively, if MR ID or a list or MR IDs is not given, Distinguished Name (DN) or Working Set (WS) must be provided as parameter to set the scope of operation. |
+| **operation**  aliases: op  string / required | Supported operations allow user to upload actual configuration from the network, to import and provision prepared plans, or export reference or actual configuration for planning purposes. Provision_Mass_Modification enables provisioning the same parameters to multiple network elements. This operation supports modifications only to one object class at a time. With this option NetAct Configurator creates and provisions a plan to the network with the given scope and options.  Choices:   - `"upload"` - `"provision"` - `"import"` - `"export"` - `"Provision_Mass_Modification"` |
+| **opsName**  string | user specified operation name |
+| **planName**  string | Specifies a plan name. |
+| **typeOption**  aliases: type  string | Specifies the type of the export operation.  Choices:   - `"plan"` - `"actual"` - `"reference"` - `"template"` - `"siteTemplate"` |
+| **verbose**  string | NetAct Configurator will print more info |
+| **WS**  string | Sets the scope of the operation to use one or more pre-defined working sets (WS) in NetAct. A working set contains network elements selected by user according to defined criteria. A single WS name, or multiple WSs can be provided (comma-separated list without spaces). Alternatively, if a WS name or a list of WSs is not given, Distinguished Name (DN) or Maintenance Region(MR) must be provided as parameter to set the scope of operation. |
+
+## [Notes](netact_cm_command_module.md#id3)
+
+> **Note:**
+>
+> - Check mode is not currently supported
+
+## [Examples](netact_cm_command_module.md#id4)
+
+```yaml+jinja
+# Pass in a message
+- name: Upload
+  community.network.netact_cm_command:
+    operation: "Upload"
+    opsname: 'Uploading_test'
+    dn: "PLMN-PLMN/MRBTS-746"
+    extra_opts: '-btsContentInUse true'
+
+- name: Provision
+  community.network.netact_cm_command:
+    operation: "Provision"
+    opsname: 'Provision_test'
+    dn: "PLMN-PLMN/MRBTS-746"
+    planName: 'mySiteTemplate'
+    type: 'actual'
+    createBackupPlan: true
+    backupPlanName: 'myBackupPlanName'
+
+- name: Export and fetching data from target
+  community.network.netact_cm_command:
+    operation: "Export"
+    opsname: 'Export_test'
+    planName: 'mySiteTemplate'
+    type: 'actual'
+    fileName: 'exportTest.xml'
+- ansible.builtin.fetch:
+    src: /var/opt/nokia/oss/global/racops/export/exportTest.xml
+    dest: fetched
+
+- name: Import
+  community.network.netact_cm_command:
+    operation: "Import"
+    opsname: 'Import_test'
+    fileFormat: 'CSV'
+    type: 'plan'
+    fileName: 'myCSVFile'
+    planName: 'myPlanName'
+    extra_ops: 'enablePolicyPlans true'
+
+# fail the module
+- name: Test failure of the module
+  community.network.netact_cm_command:
+    name: fail me
+```
+
+## [Return Values](netact_cm_command_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **changed**  boolean | data changed  Returned: true if data is changed |
+| **message**  string | The output message that the netact_cm_command module generates  Returned: Command output message |
+| **original_message**  string | The original name param that was passed in  Returned: Command line  Sample: `"/opt/oss/bin/racclimx.sh -op Upload -opsName Uploading_testi -DN PLMN-PLMN/MRBTS-746"` |
+
+### Authors
+
+- Harri Tuominen (@hatuomin)
+
+### Collection links
+
+[Issue Tracker](https://github.com/ansible-collections/community.network/issues)
+[Repository (Sources)](https://github.com/ansible-collections/community.network)

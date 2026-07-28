@@ -1,0 +1,161 @@
+---
+collection: ansible
+version: "8"
+title: "fortinet.fortimanager.fmgr_log_npuserver module – Configure all the log servers and create the server groups."
+source_url: https://docs.ansible.com/projects/ansible/8/collections/fortinet/fortimanager/fmgr_log_npuserver_module.html
+fetched_at: 2026-07-28T02:14:59+00:00
+---
+# fortinet.fortimanager.fmgr_log_npuserver module – Configure all the log servers and create the server groups.
+
+> **Note:**
+>
+> This module is part of the [fortinet.fortimanager collection](https://galaxy.ansible.com/ui/repo/published/fortinet/fortimanager/) (version 2.3.0).
+>
+> You might already have this collection installed if you are using the `ansible` package.
+> It is not included in `ansible-core`.
+> To check whether it is installed, run `ansible-galaxy collection list`.
+>
+> To install it, use: `ansible-galaxy collection install fortinet.fortimanager`.
+>
+> To use it in a playbook, specify: `fortinet.fortimanager.fmgr_log_npuserver`.
+
+New in fortinet.fortimanager 2.2.0
+
+- [Synopsis](fmgr_log_npuserver_module.md#synopsis)
+- [Parameters](fmgr_log_npuserver_module.md#parameters)
+- [Notes](fmgr_log_npuserver_module.md#notes)
+- [Examples](fmgr_log_npuserver_module.md#examples)
+- [Return Values](fmgr_log_npuserver_module.md#return-values)
+
+## [Synopsis](fmgr_log_npuserver_module.md#id1)
+
+- This module is able to configure a FortiManager device.
+- Examples include all parameters and values which need to be adjusted to data sources before usage.
+
+## [Parameters](fmgr_log_npuserver_module.md#id2)
+
+| Parameter | Comments |
+| --- | --- |
+| **access_token**  string | The token to access FortiManager without using username and password. |
+| **adom**  string / required | the parameter (adom) in requested url |
+| **bypass_validation**  boolean | Only set to True when module schema diffs with FortiManager API structure, module continues to execute without validating parameters.  **Choices:**   - `false` ← (default) - `true` |
+| **enable_log**  boolean | Enable/Disable logging for task.  **Choices:**   - `false` ← (default) - `true` |
+| **forticloud_access_token**  string | Authenticate Ansible client with forticloud API access token. |
+| **log_npuserver**  dictionary | the top level parameters set |
+| **log-processing**  string | configure log processed by host to drop or no drop.  **Choices:**   - `"may-drop"` - `"no-drop"` |
+| **log-processor**  string | configure the log module.  **Choices:**   - `"hardware"` - `"host"` |
+| **netflow-ver**  string | configure the netfow verson.  **Choices:**   - `"v9"` - `"v10"` |
+| **server-group**  list / elements=dictionary | no description |
+| **group-name**  string | server group name. |
+| **log-format**  string | Set the log format  **Choices:**   - `"syslog"` - `"netflow"` |
+| **log-gen-event**  string | Enable/disbale generating event for Per-Mapping log  **Choices:**   - `"disable"` - `"enable"` |
+| **log-mode**  string | Set the log mode  **Choices:**   - `"per-session"` - `"per-nat-mapping"` - `"per-session-ending"` |
+| **log-tx-mode**  string | Configure log transmit mode.  **Choices:**   - `"multicast"` - `"roundrobin"` |
+| **log-user-info**  string | Enable/disbale logging user information.  **Choices:**   - `"disable"` - `"enable"` |
+| **server-number**  integer | server number in this group. |
+| **server-start-id**  integer | the start id of the continuous server series in this group,[1,16]. |
+| **sw-log-flags**  any | (int or str) Set flags for software logging via driver. |
+| **server-info**  list / elements=dictionary | no description |
+| **dest-port**  integer | set the dest port for the log packet |
+| **id**  integer | server id. |
+| **ip-family**  string | set the version the IP address  **Choices:**   - `"v4"` - `"v6"` |
+| **ipv4-server**  string | set the IPv4 address for the log server |
+| **ipv6-server**  string | set the IPv6 address for the log server |
+| **source-port**  integer | set the source port for the log packet |
+| **template-tx-timeout**  integer | set the template tx timeout |
+| **vdom**  string | Interface connected to the log server is in this virtual domain |
+| **syslog-facility**  integer | configure the syslog facility. |
+| **syslog-severity**  integer | configure the syslog severity. |
+| **proposed_method**  string | The overridden method for the underlying Json RPC request.  **Choices:**   - `"update"` - `"set"` - `"add"` |
+| **rc_failed**  list / elements=integer | The rc codes list with which the conditions to fail will be overriden. |
+| **rc_succeeded**  list / elements=integer | The rc codes list with which the conditions to succeed will be overriden. |
+| **workspace_locking_adom**  string | The adom to lock for FortiManager running in workspace mode, the value can be global and others including root. |
+| **workspace_locking_timeout**  integer | The maximum time in seconds to wait for other user to release the workspace lock.  **Default:** `300` |
+
+## [Notes](fmgr_log_npuserver_module.md#id3)
+
+> **Note:**
+>
+> - Running in workspace locking mode is supported in this FortiManager module, the top level parameters workspace_locking_adom and workspace_locking_timeout help do the work.
+> - To create or update an object, use state present directive.
+> - To delete an object, use state absent directive.
+> - Normally, running one module can fail when a non-zero rc is returned. you can also override the conditions to fail or succeed with parameters rc_failed and rc_succeeded
+
+## [Examples](fmgr_log_npuserver_module.md#id4)
+
+```yaml+jinja
+- hosts: fortimanager-inventory
+  collections:
+    - fortinet.fortimanager
+  connection: httpapi
+  vars:
+    ansible_httpapi_use_ssl: True
+    ansible_httpapi_validate_certs: False
+    ansible_httpapi_port: 443
+  tasks:
+    - name: Configure all the log servers and create the server groups.
+      fmgr_log_npuserver:
+        bypass_validation: False
+        workspace_locking_adom: <value in [global, custom adom including root]>
+        workspace_locking_timeout: 300
+        rc_succeeded: [0, -2, -3, ...]
+        rc_failed: [-2, -3, ...]
+        adom: <your own value>
+        log_npuserver:
+          log-processing: <value in [may-drop, no-drop]>
+          log-processor: <value in [hardware, host]>
+          netflow-ver: <value in [v9, v10]>
+          server-group:
+            -
+              group-name: <string>
+              log-format: <value in [syslog, netflow]>
+              log-mode: <value in [per-session, per-nat-mapping, per-session-ending]>
+              log-tx-mode: <value in [multicast, roundrobin]>
+              server-number: <integer>
+              server-start-id: <integer>
+              sw-log-flags: <integer or string> <value in [tcp-udp-only, enable-all-log, disable-all-log]>
+              log-gen-event: <value in [disable, enable]>
+              log-user-info: <value in [disable, enable]>
+          server-info:
+            -
+              dest-port: <integer>
+              id: <integer>
+              ip-family: <value in [v4, v6]>
+              ipv4-server: <string>
+              ipv6-server: <string>
+              source-port: <integer>
+              template-tx-timeout: <integer>
+              vdom: <string>
+          syslog-facility: <integer>
+          syslog-severity: <integer>
+```
+
+## [Return Values](fmgr_log_npuserver_module.md#id5)
+
+Common return values are documented [here](../../../reference_appendices/common_return_values.md#common-return-values), the following are the fields unique to this module:
+
+| Key | Description |
+| --- | --- |
+| **meta**  dictionary | The result of the request.  **Returned:** always |
+| **request_url**  string | The full url requested.  **Returned:** always  **Sample:** `"/sys/login/user"` |
+| **response_code**  integer | The status of api request.  **Returned:** always  **Sample:** `0` |
+| **response_data**  list / elements=string | The api response.  **Returned:** always |
+| **response_message**  string | The descriptive message of the api response.  **Returned:** always  **Sample:** `"OK."` |
+| **system_information**  dictionary | The information of the target system.  **Returned:** always |
+| **rc**  integer | The status the request.  **Returned:** always  **Sample:** `0` |
+| **version_check_warning**  list / elements=string | Warning if the parameters used in the playbook are not supported by the current FortiManager version.  **Returned:** complex |
+
+### Authors
+
+- Xinwei Du (@dux-fortinet)
+- Xing Li (@lix-fortinet)
+- Jie Xue (@JieX19)
+- Link Zheng (@chillancezen)
+- Frank Shen (@fshen01)
+- Hongbin Lu (@fgtdev-hblu)
+
+### Collection links
+
+- [Issue Tracker](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortimanager-collection/issues)
+- [Homepage](https://fortinet.com)
+- [Repository (Sources)](https://github.com/fortinet-ansible-dev/ansible-galaxy-fortimanager-collection)
