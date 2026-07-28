@@ -44,11 +44,14 @@ def load_manifest(path: str | Path) -> Manifest:
 
 
 def canonicalize(url: str, page_url: str) -> str:
-    """把頁面內的連結轉成絕對 URL，去掉 fragment 與 query。"""
-    absolute = urljoin(page_url, url)
-    absolute, _ = urldefrag(absolute)
-    parsed = urlparse(absolute)
-    return parsed._replace(query="").geturl()
+    """把頁面內的連結轉成絕對 URL，去掉 fragment 與 query。壞 URL 回空字串。"""
+    try:
+        absolute = urljoin(page_url, url)
+        absolute, _ = urldefrag(absolute)
+        parsed = urlparse(absolute)
+        return parsed._replace(query="").geturl()
+    except ValueError:  # 例如頁面上寫壞的 IPv6 bracket URL
+        return ""
 
 
 def in_scope(url: str, manifest: Manifest) -> bool:
