@@ -1,0 +1,63 @@
+---
+collection: qemu
+version: "11.1.0"
+title: "QEMU Community Processes"
+source_url: https://www.qemu.org/docs/master/devel/index-process.html
+fetched_at: 2026-08-21T03:23:03+00:00
+---
+# QEMU Community Processes
+
+Notes about how to interact with the community and how and where to submit patches.
+
+- [Code of Conduct](code-of-conduct.md)
+  - [Sources](code-of-conduct.md#sources)
+- [Conflict Resolution Policy](conflict-resolution.md)
+  - [How we resolve conflicts](conflict-resolution.md#how-we-resolve-conflicts)
+  - [Remedies](conflict-resolution.md#remedies)
+  - [Sources](conflict-resolution.md#sources)
+- [The Role of Maintainers](maintainers.md)
+  - [The MAINTAINERS file](maintainers.md#the-maintainers-file)
+  - [Becoming a reviewer](maintainers.md#becoming-a-reviewer)
+  - [Becoming a maintainer](maintainers.md#becoming-a-maintainer)
+- [QEMU Coding Style](style.md)
+  - [Formatting and style](style.md#formatting-and-style)
+  - [Language usage](style.md#language-usage)
+  - [QEMU Specific Idioms](style.md#qemu-specific-idioms)
+- [Submitting a Patch](submitting-a-patch.md)
+  - [Writing your Patches](submitting-a-patch.md#writing-your-patches)
+  - [Submitting your Patches](submitting-a-patch.md#submitting-your-patches)
+  - [Retrieve an existing series](submitting-a-patch.md#retrieve-an-existing-series)
+  - [Participating in Code Review](submitting-a-patch.md#id21)
+  - [Tips and Tricks](submitting-a-patch.md#tips-and-tricks)
+- [Code provenance](code-provenance.md)
+  - [Certifying patch submissions](code-provenance.md#certifying-patch-submissions)
+  - [Multiple authorship](code-provenance.md#multiple-authorship)
+  - [Other commit tags](code-provenance.md#other-commit-tags)
+  - [Subsystem maintainer requirements](code-provenance.md#subsystem-maintainer-requirements)
+  - [Tools for adding `Signed-off-by`](code-provenance.md#tools-for-adding-signed-off-by)
+  - [Re-starting abandoned work](code-provenance.md#re-starting-abandoned-work)
+  - [Inclusion of generated files](code-provenance.md#inclusion-of-generated-files)
+  - [Use of AI-generated content](code-provenance.md#use-of-ai-generated-content)
+- [Trivial Patches](trivial-patches.md)
+  - [Overview](trivial-patches.md#overview)
+  - [Repositories](trivial-patches.md#repositories)
+  - [Workflow](trivial-patches.md#workflow)
+  - [Team](trivial-patches.md#team)
+- [QEMU and the stable process](stable-process.md)
+  - [QEMU stable releases](stable-process.md#qemu-stable-releases)
+  - [What should go into a stable release?](stable-process.md#what-should-go-into-a-stable-release)
+  - [How to get a patch into QEMU stable](stable-process.md#how-to-get-a-patch-into-qemu-stable)
+  - [Stable release process](stable-process.md#stable-release-process)
+- [Submitting a Pull Request](submitting-a-pull-request.md)
+- [Secure Coding Practices](secure-coding-practices.md)
+  - [Reporting Security Bugs](secure-coding-practices.md#reporting-security-bugs)
+  - [General Secure C Coding Practices](secure-coding-practices.md#general-secure-c-coding-practices)
+  - [Input Validation](secure-coding-practices.md#input-validation)
+  - [Unexpected Device Accesses](secure-coding-practices.md#unexpected-device-accesses)
+  - [Live Migration](secure-coding-practices.md#live-migration)
+  - [Guest Memory Access Races](secure-coding-practices.md#guest-memory-access-races)
+  - [Use of null-co block drivers](secure-coding-practices.md#use-of-null-co-block-drivers)
+- [Rust in QEMU](rust.md)
+  - [Building the Rust in QEMU code](rust.md#building-the-rust-in-qemu-code)
+  - [Writing Rust code in QEMU](rust.md#writing-rust-code-in-qemu)
+  - [Adding dependencies](rust.md#adding-dependencies)
