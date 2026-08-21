@@ -1,0 +1,11 @@
+name = "kubevirt-1.9"
+collection = "kubevirt"
+version = "1.9.0"
+# kubevirt.io/user-guide 網站本身不分版本，永遠只放主線最新內容，
+# 沒有保留舊版路徑（例如 1.6.4 release 當時的內容已不可考）。
+# 這裡如實標成爬取當下對應的最新穩定版 KubeVirt release（v1.9.0）。
+base_url = "https://kubevirt.io/user-guide/"
+content_selector = "article.md-content__inner"
+deny_prefixes = []
+max_pages = 300
+delay_seconds = 0.3
