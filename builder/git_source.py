@@ -188,17 +188,80 @@ def format_admonition(kind: str, title: str, inner_text: str) -> str:
     return f"\n\n> {header}\n\n"
 
 
-def clean_hugo_shortcodes(content: str, repo_dir: Path) -> str:
+HEADINGS: dict[str, str] = {
+    "whatsnext": "What's next",
+    "prerequisites": "Before you begin",
+    "objectives": "Objectives",
+    "cleanup": "Cleaning up",
+    "synopsis": "Synopsis",
+    "seealso": "See also",
+    "options": "Options",
+    "parentoptions": "Options inherited from parent commands",
+    "envvars": "Environment variables",
+    "examples": "Examples",
+}
+
+
+def resolve_include_file(repo_dir: Path, file_path_str: str) -> Path | None:
+    """尋找 Hugo shortcode 引用的 include 檔案路徑。"""
+    rel = file_path_str.strip("/\\")
+    candidates = [
+        repo_dir / "content/en/includes" / rel,
+        repo_dir / "content/includes" / rel,
+        repo_dir / "content/en/docs" / rel,
+        repo_dir / "content/en" / rel,
+        repo_dir / rel,
+    ]
+    for cand in candidates:
+        if cand.is_file():
+            return cand
+    return None
+
+
+def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
     """處理 Kubernetes 等 Hugo 網站 markdown 中的 shortcode。"""
+    if depth > 5:
+        return content
     text = content
 
-    # 1. 移除 Hugo 註解 {{/* ... */}}
-    text = re.sub(r"\{\{/\*.*?\*/\}\}", "", text, flags=re.DOTALL)
+    # 1. 移除 Hugo 註解 {{/* ... */}} 與 {{< comment >}}...{{< /comment >}} 以及 {{</* ... */>}}
+    text = re.sub(r"\{\{[<%]?/\*.*?\*/[>%]?\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*comment\s*[>%]\}\}.*?\{\{[<%]\s*/comment\s*[>%]\}\}", "", text, flags=re.DOTALL)
 
-    # 2. 處理 Hugo admonitions: {{< (note|warning|caution|tip|important) ... >}}...{{< /... >}}
-    # 以及 {{% note %}}...{{% /note %}}
+    # 2. 處理 {{< include "..." >}}
+    def replace_include(m: re.Match) -> str:
+        inc_path = m.group(1).strip("\"'")
+        resolved = resolve_include_file(repo_dir, inc_path)
+        if resolved:
+            try:
+                inc_text = resolved.read_text(encoding="utf-8", errors="replace")
+                inc_text = re.sub(r"^---\r?\n.*?\r?\n---\r?\n?", "", inc_text, flags=re.DOTALL)
+                return clean_hugo_shortcodes(inc_text, repo_dir, depth + 1)
+            except Exception:
+                return f"\n[Include {inc_path}]\n"
+        return f"\n[Include {inc_path}]\n"
+
+    text = re.sub(r"\{\{[<%]\s*include\s+[\"']?([^\"'\s>]+)[\"']?\s*[>%]\}\}", replace_include, text, flags=re.DOTALL)
+
+    # 3. 處理 {{% heading "whatsnext" %}} 或 ## {{% heading "whatsnext" %}}
+    def replace_heading(m: re.Match) -> str:
+        hashes = m.group(1) or "##"
+        h_key = m.group(2).strip("\"'").lower()
+        title = HEADINGS.get(h_key, h_key.replace("_", " ").title())
+        return f"\n\n{hashes} {title}\n\n"
+
+    text = re.sub(
+        r"(?:^|\n)[ \t]*(#{1,6})?[ \t]*\{\{[<%]\s*heading\s+[\"']?([\w\-]+)[\"']?\s*[>%]\}\}",
+        replace_heading,
+        text,
+        flags=re.DOTALL,
+    )
+    # 清理多餘的空白標題行 (例如單獨的 ##)
+    text = re.sub(r"(?m)^[ \t]*#{1,6}[ \t]*$", "", text)
+
+    # 4. 處理 Hugo admonitions: {{< (note|warning|caution|tip|important|alert) ... >}}...{{< /... >}}
     admonition_pattern = re.compile(
-        r"\{\{[<%]\s*(note|warning|caution|tip|important)(?:\s+title=\"([^\"]*)\"|\s+title='([^']*)'|\s+([^>%]*))?\s*[>%]\}\}"
+        r"\{\{[<%]\s*(note|warning|caution|tip|important|alert)(?:\s+title=[\"']([^\"']*)[\"']|\s+title=([^\s>%]+)|\s+([^>%]*?))?\s*[>%]\}\}"
         r"(.*?)"
         r"\{\{[<%]\s*/\1\s*[>%]\}\}",
         re.DOTALL | re.IGNORECASE,
@@ -210,20 +273,21 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path) -> str:
         inner = m.group(5)
         return format_admonition(kind, title, inner)
 
-    # 遞迴或多次置換以防巢狀
-    for _ in range(3):
+    for _ in range(5):
         if not admonition_pattern.search(text):
             break
         text = admonition_pattern.sub(replace_admonition, text)
 
-    # 3. 處理 {{< codenew file="..." >}} 或 {{< code file="..." >}}
+    # 5. 處理 {{< code_sample file="..." >}}、{{< codenew file="..." >}}、{{< code file="..." >}}、{{< example file="..." >}}
     code_pattern = re.compile(
-        r"\{\{[<%]\s*(?:codenew|code)\s+.*?file=[\"']([^\"']+)[\"'].*?[>%]\}\}",
+        r"\{\{[<%]\s*(?:code_sample|codenew|code|example)\s+(?:.*?file=[\"']([^\"']+)[\"']|([^\s>%]+)).*?[>%]\}\}",
         re.DOTALL,
     )
 
     def replace_code_include(m: re.Match) -> str:
-        file_path = m.group(1)
+        file_path = m.group(1) or m.group(2)
+        if not file_path:
+            return ""
         resolved = resolve_example_file(repo_dir, file_path)
         if resolved:
             try:
@@ -237,30 +301,142 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path) -> str:
 
     text = code_pattern.sub(replace_code_include, text)
 
-    # 4. 處理 {{< glossary_tooltip text="..." term_id="..." >}}
-    def replace_glossary(m: re.Match) -> str:
+    # 6. 處理 {{< highlight yaml ... >}}...{{< /highlight >}}
+    def replace_highlight(m: re.Match) -> str:
+        lang = m.group(1).strip()
+        inner = m.group(2)
+        return f"\n```{lang}\n{inner.strip()}\n```\n"
+
+    text = re.sub(
+        r"\{\{[<%]\s*highlight\s+([a-zA-Z0-9_\-]+)(?:.*?)?[>%]\}\}(.*?)\{\{[<%]\s*/highlight\s*[>%]\}\}",
+        replace_highlight,
+        text,
+        flags=re.DOTALL,
+    )
+
+    # 7. 處理 {{< mermaid >}}...{{< /mermaid >}}
+    def replace_mermaid(m: re.Match) -> str:
+        inner = m.group(1).strip()
+        return f"\n\n```mermaid\n{inner}\n```\n\n"
+
+    text = re.sub(r"\{\{[<%]\s*mermaid\s*[>%]\}\}(.*?)\{\{[<%]\s*/mermaid\s*[>%]\}\}", replace_mermaid, text, flags=re.DOTALL)
+
+    # 8. 處理 {{< details summary="..." >}}...{{< /details >}}
+    def replace_details(m: re.Match) -> str:
+        summary_m = re.search(r'summary=["\']([^"\']*)["\']', m.group(1) or "", re.DOTALL)
+        summary = summary_m.group(1) if summary_m else (m.group(1).strip() if m.group(1) else "Details")
+        inner = m.group(2).strip()
+        return f"\n\n<details>\n<summary>{summary}</summary>\n\n{inner}\n\n</details>\n\n"
+
+    text = re.sub(
+        r"\{\{[<%]\s*details(?:\s+([^>%]*?))?\s*[>%]\}\}(.*?)\{\{[<%]\s*/details\s*[>%]\}\}",
+        replace_details,
+        text,
+        flags=re.DOTALL,
+    )
+
+    # 9. 處理 {{< skew ... >}}
+    def replace_skew(m: re.Match) -> str:
+        args = m.group(1).strip().split()
+        if not args:
+            return "1.31"
+        arg0 = args[0].strip("\"'")
+        if arg0 in ("currentVersion", "latestVersion"):
+            return "1.31"
+        elif arg0 == "prevMinorVersion":
+            return "1.30"
+        elif arg0 == "oldestMinorVersion":
+            return "1.29"
+        elif arg0 == "nextMinorVersion":
+            return "1.32"
+        elif arg0 == "currentPatchVersion":
+            return "1.31.6"
+        elif "AddMinor" in arg0 and len(args) >= 2:
+            try:
+                offset = int(args[1])
+                sep = args[2].strip("\"'") if len(args) >= 3 else "."
+                return f"1{sep}{31 + offset}"
+            except ValueError:
+                return "1.31"
+        return "1.31"
+
+    text = re.sub(r"\{\{[<%]\s*skew\s+(.*?)\s*[>%]\}\}", replace_skew, text, flags=re.DOTALL)
+
+    # 10. 處理 {{< glossary_tooltip text="..." term_id="..." >}}
+    def replace_glossary_tooltip(m: re.Match) -> str:
         params_str = m.group(1)
-        text_match = re.search(r'text=["\']([^"\']*)["\']', params_str)
-        term_match = re.search(r'term_id=["\']([^"\']*)["\']', params_str)
+        text_match = re.search(r'text=["\']([^"\']*)["\']', params_str, re.DOTALL)
+        term_match = re.search(r'term_id=["\']([^"\']*)["\']', params_str, re.DOTALL)
         if text_match and text_match.group(1):
             return text_match.group(1)
         if term_match and term_match.group(1):
             return term_match.group(1)
-        # Positional param or fallback
-        m_pos = re.match(r'["\']([^"\']*)["\']', params_str.strip())
+        m_pos = re.search(r'["\']([^"\']*)["\']', params_str, re.DOTALL)
         if m_pos:
             return m_pos.group(1)
-        return params_str.strip()
+        return " ".join(params_str.split())
 
-    text = re.sub(r"\{\{[<%]\s*glossary_tooltip\s+(.*?)\s*[>%]\}\}", replace_glossary, text)
-    text = re.sub(r"\{\{[<%]\s*glossary_definition\s+(.*?)\s*[>%]\}\}", replace_glossary, text)
+    text = re.sub(r"\{\{[<%]\s*glossary_tooltip\s+(.*?)\s*[>%]\}\}", replace_glossary_tooltip, text, flags=re.DOTALL)
 
-    # 5. 處理 {{< feature-state ... >}}
+    # 11. 處理 {{< glossary_definition ... >}}
+    def replace_glossary_definition(m: re.Match) -> str:
+        params_str = m.group(1)
+        term_m = re.search(r'term_id=["\']([^"\']+)["\']', params_str, re.DOTALL)
+        prepend_m = re.search(r'prepend=["\']([^"\']+)["\']', params_str, re.DOTALL)
+        prepend = prepend_m.group(1).strip() if prepend_m else ""
+        length_m = re.search(r'length=["\']([^"\']+)["\']', params_str, re.DOTALL)
+        length = length_m.group(1) if length_m else "all"
+
+        if term_m:
+            term_id = term_m.group(1)
+            term_candidates = [
+                repo_dir / "content/en/docs/reference/glossary" / f"{term_id}.md",
+                repo_dir / "content/docs/reference/glossary" / f"{term_id}.md",
+                repo_dir / "content/en/reference/glossary" / f"{term_id}.md",
+            ]
+            for cand in term_candidates:
+                if cand.is_file():
+                    try:
+                        raw = cand.read_text(encoding="utf-8", errors="replace")
+                        fm_m = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?(.*)$", raw, re.DOTALL)
+                        body = fm_m.group(2) if fm_m else raw
+                        if length == "short":
+                            parts = re.split(r"<!--more-->", body, flags=re.IGNORECASE)
+                            body = parts[0].strip()
+                        else:
+                            body = re.sub(r"<!--more-->", "", body, flags=re.IGNORECASE)
+                        # Clean inner glossary_tooltip
+                        body = re.sub(
+                            r'\{\{[<%]\s*glossary_tooltip\s+(?:.*?text=["\']([^"\']+)["\']|.*?term_id=["\']([^"\']+)["\']).*?[>%]\}\}',
+                            lambda tm: tm.group(1) or tm.group(2),
+                            body,
+                            flags=re.DOTALL,
+                        )
+                        body = body.strip()
+                        if prepend and body:
+                            first_char = body[0].lower()
+                            rest = body[1:]
+                            body = f"{prepend} {first_char}{rest}"
+                        return f"\n\n{body}\n\n"
+                    except Exception:
+                        break
+            if prepend:
+                return f"{prepend} {term_id}"
+            return term_id
+
+        m_pos = re.search(r'["\']([^"\']*)["\']', params_str, re.DOTALL)
+        if m_pos:
+            return m_pos.group(1)
+        return " ".join(params_str.split())
+
+    text = re.sub(r"\{\{[<%]\s*glossary_definition\s+(.*?)\s*[>%]\}\}", replace_glossary_definition, text, flags=re.DOTALL)
+
+    # 12. 處理 {{< feature-state ... >}}
     def replace_feature_state(m: re.Match) -> str:
         params_str = m.group(1)
-        state_m = re.search(r'state=["\']?([a-zA-Z0-9_\-]+)["\']?', params_str)
-        for_k8s_m = re.search(r'for_k8s_version=["\']?([a-zA-Z0-9_\.\-]+)["\']?', params_str)
-        gate_m = re.search(r'feature_gate_name=["\']?([a-zA-Z0-9_\-]+)["\']?', params_str)
+        state_m = re.search(r'state=["\']?([a-zA-Z0-9_\-]+)["\']?', params_str, re.DOTALL)
+        for_k8s_m = re.search(r'for_k8s_version=["\']?([a-zA-Z0-9_\.\-]+)["\']?', params_str, re.DOTALL)
+        gate_m = re.search(r'feature_gate_name=["\']?([a-zA-Z0-9_\-]+)["\']?', params_str, re.DOTALL)
         
         parts = []
         if state_m:
@@ -271,80 +447,150 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path) -> str:
             parts.append(f"gate: {gate_m.group(1)}")
         if parts:
             return f"(Feature {', '.join(parts)})"
-        return f"(Feature state: {params_str.strip()})"
+        return f"(Feature state: {' '.join(params_str.split())})"
 
-    text = re.sub(r"\{\{[<%]\s*feature-state\s+(.*?)\s*[>%]\}\}", replace_feature_state, text)
+    text = re.sub(r"\{\{[<%]\s*feature-state\s+(.*?)\s*[>%]\}\}", replace_feature_state, text, flags=re.DOTALL)
 
-    # 6. 處理 {{< ref "..." >}} 與 {{< relref "..." >}}
+    # 13. 處理 {{< ref "..." >}} 與 {{< relref "..." >}}
     def replace_ref(m: re.Match) -> str:
         raw_ref = m.group(1).strip()
-        ref_match = re.search(r'["\']([^"\']+)["\']', raw_ref)
+        ref_match = re.search(r'["\']([^"\']+)["\']', raw_ref, re.DOTALL)
         if ref_match:
             return ref_match.group(1)
         return raw_ref
 
-    text = re.sub(r"\{\{[<%]\s*(?:relref|ref)\s+(.*?)\s*[>%]\}\}", replace_ref, text)
+    text = re.sub(r"\{\{[<%]\s*(?:relref|ref)\s+(.*?)\s*[>%]\}\}", replace_ref, text, flags=re.DOTALL)
 
-    # 7. 處理 {{< tabs ... >}} 與 {{% tab name="..." %}}
-    text = re.sub(r"\{\{[<%]\s*tabs(?:\s+.*?)?\s*[>%]\}\}", "", text)
-    text = re.sub(r"\{\{[<%]\s*/tabs\s*[>%]\}\}", "", text)
+    # 14. 處理 {{< tabs ... >}} 與 {{% tab name="..." %}}
+    text = re.sub(r"\{\{[<%]\s*tabs(?:\s+.*?)?\s*[>%]\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*/tabs\s*[>%]\}\}", "", text, flags=re.DOTALL)
 
     def replace_tab_start(m: re.Match) -> str:
         params_str = m.group(1)
-        name_m = re.search(r'name=["\']([^"\']+)["\']', params_str)
+        name_m = re.search(r'name=["\']([^"\']+)["\']', params_str, re.DOTALL)
         if name_m:
             return f"\n\n**Tab: {name_m.group(1)}**\n\n"
-        # Positional param
-        pos_m = re.search(r'["\']([^"\']+)["\']', params_str)
+        pos_m = re.search(r'["\']([^"\']+)["\']', params_str, re.DOTALL)
         if pos_m:
             return f"\n\n**Tab: {pos_m.group(1)}**\n\n"
         return "\n\n**Tab:**\n\n"
 
-    text = re.sub(r"\{\{[<%]\s*tab\s+(.*?)\s*[>%]\}\}", replace_tab_start, text)
-    text = re.sub(r"\{\{[<%]\s*/tab\s*[>%]\}\}", "", text)
+    text = re.sub(r"\{\{[<%]\s*tab\s+(.*?)\s*[>%]\}\}", replace_tab_start, text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*/tab\s*[>%]\}\}", "", text, flags=re.DOTALL)
 
-    # 8. 處理 {{< table caption="..." >}}
+    # 15. 處理 {{< table caption="..." >}}
     def replace_table_start(m: re.Match) -> str:
-        params_str = m.group(1)
-        cap_m = re.search(r'caption=["\']([^"\']+)["\']', params_str)
+        params_str = m.group(1) or ""
+        cap_m = re.search(r'caption\s*=\s*["\']([^"\']+)["\']', params_str, re.DOTALL)
         if cap_m:
             return f"\n\n**Table: {cap_m.group(1)}**\n\n"
         return "\n\n"
 
-    text = re.sub(r"\{\{[<%]\s*table(?:\s+(.*?))?\s*[>%]\}\}", replace_table_start, text)
-    text = re.sub(r"\{\{[<%]\s*/table\s*[>%]\}\}", "\n\n", text)
+    text = re.sub(r"\{\{[<%]\s*table(?:\s+(.*?))?\s*[>%]\}\}", replace_table_start, text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*/table\s*[>%]\}\}", "\n\n", text, flags=re.DOTALL)
 
-    # 9. 處理 {{< figure ... >}}
+    # 16. 處理 {{< figure ... >}}
     def replace_figure(m: re.Match) -> str:
         params_str = m.group(1)
-        src_m = re.search(r'src=["\']([^"\']+)["\']', params_str)
-        alt_m = re.search(r'alt=["\']([^"\']+)["\']', params_str)
-        title_m = re.search(r'title=["\']([^"\']+)["\']', params_str)
-        src = src_m.group(1) if src_m else ""
-        alt = alt_m.group(1) if alt_m else (title_m.group(1) if title_m else "")
+        src_m = re.search(r'src=["\']([^"\']+)["\']', params_str, re.DOTALL)
+        alt_m = re.search(r'alt=["\']([^"\']*)["\']', params_str, re.DOTALL)
+        title_m = re.search(r'title=["\']([^"\']*)["\']', params_str, re.DOTALL)
+        caption_m = re.search(r'caption=["\']([^"\']*)["\']', params_str, re.DOTALL)
+        
+        src = src_m.group(1).strip() if src_m else ""
+        alt = ""
+        if alt_m and alt_m.group(1).strip():
+            alt = alt_m.group(1).strip()
+        elif title_m and title_m.group(1).strip():
+            alt = title_m.group(1).strip()
+        elif caption_m and caption_m.group(1).strip():
+            alt = caption_m.group(1).strip()
+            
+        alt = " ".join(alt.split())
         if src:
             return f"\n\n![{alt}]({src})\n\n"
         return ""
 
-    text = re.sub(r"\{\{[<%]\s*figure\s+(.*?)\s*[>%]\}\}", replace_figure, text)
+    text = re.sub(r"\{\{[<%]\s*figure\s+(.*?)\s*[>%]\}\}", replace_figure, text, flags=re.DOTALL)
 
-    # 10. 處理 {{< param ... >}} / {{% param ... %}}
+    # 17. 處理 {{< param ... >}} / {{% param ... %}}
     def replace_param(m: re.Match) -> str:
         param_str = m.group(1).strip().strip("'\"")
         return param_str
 
-    text = re.sub(r"\{\{[<%]\s*param\s+(.*?)\s*[>%]\}\}", replace_param, text)
+    text = re.sub(r"\{\{[<%]\s*param\s+(.*?)\s*[>%]\}\}", replace_param, text, flags=re.DOTALL)
 
-    # 11. 處理 {{< version-check >}} 等無內文 shortcodes
+    # 18. 處理 {{< link text="..." url="..." >}}
+    def replace_link(m: re.Match) -> str:
+        p_str = m.group(1)
+        text_m = re.search(r'text=["\']([^"\']+)["\']', p_str, re.DOTALL)
+        url_m = re.search(r'url=["\']([^"\']+)["\']', p_str, re.DOTALL)
+        link_text = text_m.group(1) if text_m else "link"
+        url = url_m.group(1) if url_m else ""
+        if url:
+            return f"[{link_text}]({url})"
+        return link_text
+
+    text = re.sub(r"\{\{[<%]\s*link\s+(.*?)\s*[>%]\}\}", replace_link, text, flags=re.DOTALL)
+
+    # 19. 處理 {{< api-reference ... >}} 與 {{< page-api-reference ... >}}
+    def replace_api_ref(m: re.Match) -> str:
+        p_str = m.group(1)
+        page_m = re.search(r'page=["\']([^"\']+)["\']', p_str, re.DOTALL)
+        kind_m = re.search(r'kind=["\']([^"\']+)["\']', p_str, re.DOTALL)
+        text_m = re.search(r'text=["\']([^"\']+)["\']', p_str, re.DOTALL)
+        anchor_m = re.search(r'anchor=["\']([^"\']+)["\']', p_str, re.DOTALL)
+        page = page_m.group(1) if page_m else (kind_m.group(1) if kind_m else "")
+        anchor = f"#{anchor_m.group(1)}" if anchor_m else ""
+        label = text_m.group(1) if text_m else (anchor_m.group(1) if anchor_m else page.split("/")[-1])
+        return f"[{label}](/docs/reference/kubernetes-api/{page}{anchor})"
+
+    text = re.sub(r"\{\{[<%]\s*(?:api-reference|page-api-reference)\s+(.*?)\s*[>%]\}\}", replace_api_ref, text, flags=re.DOTALL)
+
+    # 20. 常用固定短標籤 shortcodes
+    text = re.sub(
+        r"\{\{[<%]\s*thirdparty-content.*?[>%]\}\}",
+        "> **Note:** This section links to third-party projects that provide functionality required by Kubernetes. The Kubernetes authors aren't responsible for these projects.\n",
+        text,
+        flags=re.DOTALL,
+    )
+    text = re.sub(
+        r"\{\{[<%]\s*dockershim-removal.*?[>%]\}\}",
+        "> **Note:** Dockershim was removed from Kubernetes in v1.24.\n",
+        text,
+        flags=re.DOTALL,
+    )
+    text = re.sub(
+        r"\{\{[<%]\s*legacy-repos-deprecation.*?[>%]\}\}",
+        "> **Warning:** The legacy package repositories (apt.kubernetes.io and yum.kubernetes.io) are deprecated and frozen.\n",
+        text,
+        flags=re.DOTALL,
+    )
+    text = re.sub(
+        r"\{\{[<%]\s*feature-gate-(?:table|list|description).*?[>%]\}\}",
+        "(See Kubernetes Feature Gates documentation for feature stages and versions)",
+        text,
+        flags=re.DOTALL,
+    )
+    text = re.sub(r"\{\{[<%]\s*version-check\s*[>%]\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*latest-version\s*[>%]\}\}", "v1.31", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*latest-semver\s*[>%]\}\}", "1.31.6", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*release-branch\s*[>%]\}\}", "release-1.31", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*latest-release-notes\s*[>%]\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*doc-versions-list(?:\s+.*?)?\s*[>%]\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*kat-button(?:\s+.*?)?\s*[>%]\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*cve-feed(?:\s+.*?)?\s*[>%]\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(r"\{\{[<%]\s*cncf-landscape(?:\s+.*?)?\s*[>%]\}\}", "", text, flags=re.DOTALL)
+
+    # 21. 通用未列出 shortcode 的保留可讀字串處理
     def replace_generic_shortcode(m: re.Match) -> str:
         tag_content = m.group(1).strip()
-        # 如果是結束標籤例如 /note
         if tag_content.startswith("/"):
             return ""
-        # 保留可讀摘要
-        return f"[{tag_content}]"
+        cleaned = " ".join(tag_content.split())
+        return f"[{cleaned}]"
 
-    text = re.sub(r"\{\{[<%]\s*(.*?)\s*[>%]\}\}", replace_generic_shortcode, text)
+    text = re.sub(r"\{\{[<%]\s*(.*?)\s*[>%]\}\}", replace_generic_shortcode, text, flags=re.DOTALL)
 
     return text
 

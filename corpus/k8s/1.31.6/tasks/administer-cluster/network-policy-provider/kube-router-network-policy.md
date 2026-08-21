@@ -1,0 +1,21 @@
+---
+collection: k8s
+version: "1.31.6"
+title: "Use Kube-router for NetworkPolicy"
+source_url: https://github.com/kubernetes/website/blob/release-1.31/content/en/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy.md
+fetched_at: 2026-01-16T10:18:07+05:30
+---
+<!-- overview -->
+This page shows how to use [Kube-router](https://github.com/cloudnativelabs/kube-router) for NetworkPolicy.
+
+## Before you begin
+
+You need to have a Kubernetes cluster running. If you do not already have a cluster, you can create one by using any of the cluster installers like Kops, Bootkube, Kubeadm etc.
+
+<!-- steps -->
+## Installing Kube-router addon
+The Kube-router Addon comes with a Network Policy Controller that watches Kubernetes API server for any NetworkPolicy and pods updated and configures iptables rules and ipsets to allow or block traffic as directed by the policies. Please follow the [trying Kube-router with cluster installers](https://www.kube-router.io/docs/user-guide/#try-kube-router-with-cluster-installers) guide to install Kube-router addon.
+
+## What's next
+
+Once you have installed the Kube-router addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
