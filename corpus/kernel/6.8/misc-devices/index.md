@@ -1,0 +1,78 @@
+---
+collection: kernel
+version: "6.8"
+title: "Assorted Miscellaneous Devices Documentation"
+source_url: https://www.kernel.org/doc/html/v6.8/misc-devices/index.html
+fetched_at: 2026-08-21T03:33:10+00:00
+---
+# Assorted Miscellaneous Devices Documentation
+
+This documentation contains information for assorted devices that do not
+fit into other categories.
+
+Table of contents
+
+- [AD525x Digital Potentiometers](ad525x_dpot.md)
+  - [Files](ad525x_dpot.md#files)
+  - [Example](ad525x_dpot.md#example)
+- [Kernel driver apds990x](apds990x.md)
+  - [Description](apds990x.md#description)
+  - [SYSFS](apds990x.md#sysfs)
+- [Kernel driver bh1770glc](bh1770glc.md)
+  - [Description](bh1770glc.md#description)
+  - [SYSFS](bh1770glc.md#sysfs)
+- [C2 port support](c2port.md)
+  - [Overview](c2port.md#overview)
+  - [References](c2port.md#references)
+  - [Using the driver](c2port.md#using-the-driver)
+- [Driver for Synopsys DesignWare PCIe traffic generator (also known as xData)](dw-xdata-pcie.md)
+  - [Description](dw-xdata-pcie.md#description)
+  - [Example](dw-xdata-pcie.md#example)
+- [IBM Virtual Management Channel Kernel Driver (IBMVMC)](ibmvmc.md)
+  - [Introduction](ibmvmc.md#introduction)
+  - [Example Management Partition VMC Driver Interface](ibmvmc.md#example-management-partition-vmc-driver-interface)
+  - [Additional Information](ibmvmc.md#additional-information)
+- [Kernel driver ics932s401](ics932s401.md)
+  - [Description](ics932s401.md#description)
+  - [Special Features](ics932s401.md#special-features)
+- [Kernel driver isl29003](isl29003.md)
+  - [Description](isl29003.md#description)
+  - [Detection](isl29003.md#detection)
+  - [Sysfs entries](isl29003.md#sysfs-entries)
+- [Kernel driver lis3lv02d](lis3lv02d.md)
+  - [Description](lis3lv02d.md#description)
+  - [Axes orientation](lis3lv02d.md#axes-orientation)
+  - [Q&A](lis3lv02d.md#q-a)
+- [Kernel driver max6875](max6875.md)
+  - [Description](max6875.md#description)
+  - [Sysfs entries](max6875.md#sysfs-entries)
+  - [General Remarks](max6875.md#general-remarks)
+  - [Programming the chip using i2c-dev](max6875.md#programming-the-chip-using-i2c-dev)
+- [Notes on Oxford Semiconductor PCIe (Tornado) 950 serial port devices](oxsemi-tornado.md)
+- [Driver for PCI Endpoint Test Function](pci-endpoint-test.md)
+  - [ioctl](pci-endpoint-test.md#ioctl)
+- [Spear PCIe Gadget Driver](spear-pcie-gadget.md)
+  - [Author](spear-pcie-gadget.md#author)
+  - [Location](spear-pcie-gadget.md#location)
+  - [Supported Chip:](spear-pcie-gadget.md#supported-chip)
+  - [Menuconfig option:](spear-pcie-gadget.md#menuconfig-option)
+  - [purpose](spear-pcie-gadget.md#purpose)
+  - [Description of different nodes:](spear-pcie-gadget.md#description-of-different-nodes)
+  - [Node programming example](spear-pcie-gadget.md#node-programming-example)
+- [Texas Instruments TPS6594 PFSM driver](tps6594-pfsm.md)
+  - [Overview](tps6594-pfsm.md#overview)
+  - [Driver location](tps6594-pfsm.md#driver-location)
+  - [Driver type definitions](tps6594-pfsm.md#driver-type-definitions)
+  - [Driver IOCTLs](tps6594-pfsm.md#driver-ioctls)
+  - [Driver usage](tps6594-pfsm.md#driver-usage)
+- [Introduction of Uacce](uacce.md)
+- [Architecture](uacce.md#architecture)
+- [How does it work](uacce.md#how-does-it-work)
+- [The Uacce register API](uacce.md#the-uacce-register-api)
+- [The user driver](uacce.md#the-user-driver)
+- [Xilinx SD-FEC Driver](xilinx_sdfec.md)
+  - [Overview](xilinx_sdfec.md#overview)
+  - [Driver Structure](xilinx_sdfec.md#driver-structure)
+  - [Driver Usage](xilinx_sdfec.md#driver-usage)
+  - [Driver IOCTLs](xilinx_sdfec.md#driver-ioctls)
+  - [Driver Type Definitions](xilinx_sdfec.md#driver-type-definitions)

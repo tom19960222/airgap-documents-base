@@ -1,0 +1,11 @@
+name = "kernel-6.8"
+collection = "kernel"
+version = "6.8"
+# kernel.org 的文件是以 major.minor（v6.8）為單位建置，不會對每個 stable patch 或發行版打包版本
+# （例如「6.8.0-52」是 Ubuntu 的核心套件編號，不是上游版本號）分別建置文件。
+# 這裡對應到上游的 v6.8 文件樹。
+base_url = "https://www.kernel.org/doc/html/v6.8/"
+content_selector = "div[role=main]"
+deny_prefixes = []
+max_pages = 5000
+delay_seconds = 0.3

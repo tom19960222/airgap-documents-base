@@ -1,0 +1,60 @@
+---
+collection: kernel
+version: "6.8"
+title: "Linux Input Subsystem userspace API"
+source_url: https://www.kernel.org/doc/html/v6.8/input/input_uapi.html
+fetched_at: 2026-08-21T03:47:09+00:00
+---
+# Linux Input Subsystem userspace API
+
+Table of Contents
+
+- [1. Introduction](input.md)
+  - [1.1. Architecture](input.md#architecture)
+  - [1.2. Simple Usage](input.md#simple-usage)
+  - [1.3. Detailed Description](input.md#detailed-description)
+  - [1.4. Verifying if it works](input.md#verifying-if-it-works)
+  - [1.5. Event interface](input.md#event-interface)
+- [2. Input event codes](event-codes.md)
+  - [2.1. Event types](event-codes.md#event-types)
+  - [2.2. Event codes](event-codes.md#event-codes)
+  - [2.3. Device properties](event-codes.md#device-properties)
+  - [2.4. Guidelines](event-codes.md#guidelines)
+- [3. Multi-touch (MT) Protocol](multi-touch-protocol.md)
+  - [3.1. Introduction](multi-touch-protocol.md#introduction)
+  - [3.2. Protocol Usage](multi-touch-protocol.md#protocol-usage)
+  - [3.3. Protocol Example A](multi-touch-protocol.md#protocol-example-a)
+  - [3.4. Protocol Example B](multi-touch-protocol.md#protocol-example-b)
+  - [3.5. Event Usage](multi-touch-protocol.md#event-usage)
+  - [3.6. Event Semantics](multi-touch-protocol.md#event-semantics)
+  - [3.7. Event Computation](multi-touch-protocol.md#event-computation)
+  - [3.8. Finger Tracking](multi-touch-protocol.md#finger-tracking)
+  - [3.9. Gestures](multi-touch-protocol.md#gestures)
+  - [3.10. Notes](multi-touch-protocol.md#notes)
+- [4. Linux Gamepad Specification](gamepad.md)
+  - [4.1. Introduction](gamepad.md#introduction)
+  - [4.2. Geometry](gamepad.md#geometry)
+  - [4.3. Detection](gamepad.md#detection)
+  - [4.4. Events](gamepad.md#events)
+- [5. Force feedback for Linux](ff.md)
+  - [5.1. Introduction](ff.md#introduction)
+  - [5.2. Instructions to the user](ff.md#instructions-to-the-user)
+  - [5.3. Instructions to the developer](ff.md#instructions-to-the-developer)
+- [6. Linux Joystick support](joydev/index.md)
+  - [6.1. Introduction](joydev/joystick.md)
+  - [6.2. Usage](joydev/joystick.md#usage)
+  - [6.3. Hardware-specific driver information](joydev/joystick.md#hardware-specific-driver-information)
+  - [6.4. Troubleshooting](joydev/joystick.md#troubleshooting)
+  - [6.5. FAQ](joydev/joystick.md#faq)
+  - [6.6. Programming Interface](joydev/joystick-api.md)
+- [7. uinput module](uinput.md)
+  - [7.1. Introduction](uinput.md#introduction)
+  - [7.2. Interface](uinput.md#interface)
+  - [7.3. libevdev](uinput.md#libevdev)
+  - [7.4. Examples](uinput.md#examples)
+- [8. The userio Protocol](userio.md)
+  - [8.1. Introduction](userio.md#introduction)
+  - [8.2. Usage overview](userio.md#usage-overview)
+  - [8.3. Command Structure](userio.md#command-structure)
+  - [8.4. Commands](userio.md#commands)
+  - [8.5. Userspace tools](userio.md#userspace-tools)
