@@ -1,0 +1,110 @@
+---
+collection: kernel
+version: "6.8"
+title: "Crypto API"
+source_url: https://www.kernel.org/doc/html/v6.8/crypto/index.html
+fetched_at: 2026-08-21T03:33:08+00:00
+---
+# Crypto API
+
+Author
+:   Stephan Mueller
+
+Author
+:   Marek Vasut
+
+This documentation outlines the Linux kernel crypto API with its
+concepts, details about developing cipher implementations, employment of the API
+for cryptographic use cases, as well as programming examples.
+
+Table of contents
+
+- [Kernel Crypto API Interface Specification](intro.md)
+  - [Introduction](intro.md#introduction)
+  - [Terminology](intro.md#terminology)
+- [Scatterlist Cryptographic API](api-intro.md)
+  - [Introduction](api-intro.md#introduction)
+  - [Details](api-intro.md#details)
+  - [Developer Notes](api-intro.md#developer-notes)
+  - [Adding New Algorithms](api-intro.md#adding-new-algorithms)
+  - [Bugs](api-intro.md#bugs)
+  - [Further Information](api-intro.md#further-information)
+  - [Authors](api-intro.md#authors)
+  - [Credits](api-intro.md#credits)
+- [Kernel Crypto API Architecture](architecture.md)
+  - [Cipher algorithm types](architecture.md#cipher-algorithm-types)
+  - [Ciphers And Templates](architecture.md#ciphers-and-templates)
+  - [Synchronous And Asynchronous Operation](architecture.md#synchronous-and-asynchronous-operation)
+  - [Crypto API Cipher References And Priority](architecture.md#crypto-api-cipher-references-and-priority)
+  - [Key Sizes](architecture.md#key-sizes)
+  - [Cipher Allocation Type And Masks](architecture.md#cipher-allocation-type-and-masks)
+  - [Internal Structure of Kernel Crypto API](architecture.md#internal-structure-of-kernel-crypto-api)
+- [Asynchronous Transfers/Transforms API](async-tx-api.md)
+  - [1. Introduction](async-tx-api.md#introduction)
+  - [2.Genealogy](async-tx-api.md#genealogy)
+  - [3. Usage](async-tx-api.md#usage)
+  - [4. Driver Development Notes](async-tx-api.md#driver-development-notes)
+- [Asymmetric / Public-key Cryptography Key Type](asymmetric-keys.md)
+  - [Overview](asymmetric-keys.md#overview)
+  - [Key Identification](asymmetric-keys.md#key-identification)
+  - [Accessing Asymmetric Keys](asymmetric-keys.md#accessing-asymmetric-keys)
+  - [Asymmetric Key Subtypes](asymmetric-keys.md#asymmetric-key-subtypes)
+  - [Instantiation Data Parsers](asymmetric-keys.md#instantiation-data-parsers)
+  - [Keyring Link Restrictions](asymmetric-keys.md#keyring-link-restrictions)
+- [Developing Cipher Algorithms](devel-algos.md)
+  - [Registering And Unregistering Transformation](devel-algos.md#registering-and-unregistering-transformation)
+  - [Single-Block Symmetric Ciphers [CIPHER]](devel-algos.md#single-block-symmetric-ciphers-cipher)
+  - [Multi-Block Ciphers](devel-algos.md#multi-block-ciphers)
+  - [Hashing [HASH]](devel-algos.md#hashing-hash)
+- [User Space Interface](userspace-if.md)
+  - [Introduction](userspace-if.md#introduction)
+  - [User Space API General Remarks](userspace-if.md#user-space-api-general-remarks)
+  - [In-place Cipher operation](userspace-if.md#in-place-cipher-operation)
+  - [Message Digest API](userspace-if.md#message-digest-api)
+  - [Symmetric Cipher API](userspace-if.md#symmetric-cipher-api)
+  - [AEAD Cipher API](userspace-if.md#aead-cipher-api)
+  - [Random Number Generator API](userspace-if.md#random-number-generator-api)
+  - [Zero-Copy Interface](userspace-if.md#zero-copy-interface)
+  - [Setsockopt Interface](userspace-if.md#setsockopt-interface)
+  - [User space API example](userspace-if.md#user-space-api-example)
+- [Crypto Engine](crypto_engine.md)
+  - [Overview](crypto_engine.md#overview)
+  - [Requirement](crypto_engine.md#requirement)
+  - [Order of operations](crypto_engine.md#order-of-operations)
+- [Programming Interface](api.md)
+  - [Block Cipher Algorithm Definitions](api-skcipher.md)
+  - [Symmetric Key Cipher API](api-skcipher.md#symmetric-key-cipher-api)
+  - [Symmetric Key Cipher Request Handle](api-skcipher.md#symmetric-key-cipher-request-handle)
+  - [Single Block Cipher API](api-skcipher.md#single-block-cipher-api)
+  - [Authenticated Encryption With Associated Data (AEAD) Algorithm Definitions](api-aead.md)
+  - [Authenticated Encryption With Associated Data (AEAD) Cipher API](api-aead.md#authenticated-encryption-with-associated-data-aead-cipher-api)
+  - [Asynchronous AEAD Request Handle](api-aead.md#asynchronous-aead-request-handle)
+  - [Message Digest Algorithm Definitions](api-digest.md)
+  - [Asynchronous Message Digest API](api-digest.md#asynchronous-message-digest-api)
+  - [Asynchronous Hash Request Handle](api-digest.md#asynchronous-hash-request-handle)
+  - [Synchronous Message Digest API](api-digest.md#synchronous-message-digest-api)
+  - [Random Number Algorithm Definitions](api-rng.md)
+  - [Crypto API Random Number API](api-rng.md#crypto-api-random-number-api)
+  - [Asymmetric Cipher Algorithm Definitions](api-akcipher.md)
+  - [Asymmetric Cipher API](api-akcipher.md#asymmetric-cipher-api)
+  - [Asymmetric Cipher Request Handle](api-akcipher.md#asymmetric-cipher-request-handle)
+  - [Key-agreement Protocol Primitives (KPP) Cipher Algorithm Definitions](api-kpp.md)
+  - [Key-agreement Protocol Primitives (KPP) Cipher API](api-kpp.md#key-agreement-protocol-primitives-kpp-cipher-api)
+  - [Key-agreement Protocol Primitives (KPP) Cipher Request Handle](api-kpp.md#key-agreement-protocol-primitives-kpp-cipher-request-handle)
+  - [ECDH Helper Functions](api-kpp.md#ecdh-helper-functions)
+  - [DH Helper Functions](api-kpp.md#dh-helper-functions)
+- [Code Examples](api-samples.md)
+  - [Code Example For Symmetric Key Cipher Operation](api-samples.md#code-example-for-symmetric-key-cipher-operation)
+  - [Code Example For Use of Operational State Memory With SHASH](api-samples.md#code-example-for-use-of-operational-state-memory-with-shash)
+  - [Code Example For Random Number Generator Usage](api-samples.md#code-example-for-random-number-generator-usage)
+- [Fast & Portable DES encryption & decryption](descore-readme.md)
+  - [motivation and history](descore-readme.md#motivation-and-history)
+  - [porting notes](descore-readme.md#porting-notes)
+  - [OPTIONAL performance optimizations](descore-readme.md#optional-performance-optimizations)
+  - [coding notes](descore-readme.md#coding-notes)
+  - [special efficient data format](descore-readme.md#special-efficient-data-format)
+  - [Getting it to compile on your machine](descore-readme.md#getting-it-to-compile-on-your-machine)
+  - [Speeding up kerberos (and/or its des library)](descore-readme.md#speeding-up-kerberos-and-or-its-des-library)
+  - [Other uses](descore-readme.md#other-uses)
+- [Hardware Device Driver Specific Documentation](device_drivers/index.md)
+  - [octeontx2 devlink support](device_drivers/octeontx2.md)

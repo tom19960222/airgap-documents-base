@@ -1,0 +1,53 @@
+---
+collection: kernel
+version: "6.8"
+title: "KVM for x86 systems"
+source_url: https://www.kernel.org/doc/html/v6.8/virt/kvm/x86/index.html
+fetched_at: 2026-08-21T03:52:46+00:00
+---
+# KVM for x86 systems
+
+- [Secure Encrypted Virtualization (SEV)](amd-memory-encryption.md)
+  - [Overview](amd-memory-encryption.md#overview)
+  - [SEV Key Management](amd-memory-encryption.md#sev-key-management)
+  - [References](amd-memory-encryption.md#references)
+- [KVM CPUID bits](cpuid.md)
+- [Known limitations of CPU virtualization](errata.md)
+  - [x86](errata.md#x86)
+- [Linux KVM Hypercall](hypercalls.md)
+  - [KVM Hypercalls Documentation](hypercalls.md#kvm-hypercalls-documentation)
+- [The x86 kvm shadow mmu](mmu.md)
+  - [Acronyms](mmu.md#acronyms)
+  - [Virtual and real hardware supported](mmu.md#virtual-and-real-hardware-supported)
+  - [Translation](mmu.md#translation)
+  - [Memory](mmu.md#memory)
+  - [Events](mmu.md#events)
+  - [Shadow pages](mmu.md#shadow-pages)
+  - [Reverse map](mmu.md#reverse-map)
+  - [Synchronized and unsynchronized pages](mmu.md#synchronized-and-unsynchronized-pages)
+  - [Reaction to events](mmu.md#reaction-to-events)
+  - [Emulating cr0.wp](mmu.md#emulating-cr0-wp)
+  - [Large pages](mmu.md#large-pages)
+  - [Fast invalidation of MMIO sptes](mmu.md#fast-invalidation-of-mmio-sptes)
+  - [Further reading](mmu.md#further-reading)
+- [KVM-specific MSRs](msr.md)
+  - [Custom MSR list](msr.md#custom-msr-list)
+- [Nested VMX](nested-vmx.md)
+  - [Overview](nested-vmx.md#overview)
+  - [Terminology](nested-vmx.md#terminology)
+  - [Running nested VMX](nested-vmx.md#running-nested-vmx)
+  - [ABIs](nested-vmx.md#abis)
+  - [Authors](nested-vmx.md#authors)
+- [Running nested guests with KVM](running-nested-guests.md)
+  - [Use Cases](running-nested-guests.md#use-cases)
+  - [Enabling "nested" (x86)](running-nested-guests.md#enabling-nested-x86)
+  - [Additional nested-related kernel parameters (x86)](running-nested-guests.md#additional-nested-related-kernel-parameters-x86)
+  - [Starting a nested guest (x86)](running-nested-guests.md#starting-a-nested-guest-x86)
+  - [Enabling "nested" (s390x)](running-nested-guests.md#enabling-nested-s390x)
+  - [Live migration with nested KVM](running-nested-guests.md#live-migration-with-nested-kvm)
+  - [Reporting bugs from nested setups](running-nested-guests.md#reporting-bugs-from-nested-setups)
+- [Timekeeping Virtualization for X86-Based Architectures](timekeeping.md)
+  - [1. Overview](timekeeping.md#overview)
+  - [2. Timing Devices](timekeeping.md#timing-devices)
+  - [3. TSC Hardware](timekeeping.md#tsc-hardware)
+  - [4. Virtualization Problems](timekeeping.md#virtualization-problems)

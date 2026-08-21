@@ -1,0 +1,7 @@
+name = "cdi-1.64"
+collection = "cdi"
+version = "1.64.0"
+source_type = "git"
+repo_url = "https://github.com/kubevirt/containerized-data-importer"
+git_ref = "v1.64.0"
+docs_paths = ["doc", "README.md"]

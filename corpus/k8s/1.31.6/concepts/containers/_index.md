@@ -1,0 +1,59 @@
+---
+collection: k8s
+version: "1.31.6"
+title: "Containers"
+source_url: https://github.com/kubernetes/website/blob/release-1.31/content/en/docs/concepts/containers/_index.md
+fetched_at: 2026-01-16T10:18:07+05:30
+---
+<!-- overview -->
+
+This page will discuss containers and container images, as well as their use in operations and solution development.
+
+The word _container_ is an overloaded term. Whenever you use the word, check whether your audience uses the same definition.
+
+Each container that you run is repeatable; the standardization from having
+dependencies included means that you get the same behavior wherever you
+run it.
+
+Containers decouple applications from the underlying host infrastructure.
+This makes deployment easier in different cloud or OS environments.
+
+Each node in a Kubernetes
+cluster runs the containers that form the
+[Pods](/docs/concepts/workloads/pods/) assigned to that node.
+Containers in a Pod are co-located and co-scheduled to run on the same node.
+
+<!-- body -->
+
+## Container images
+A [container image](/docs/concepts/containers/images/) is a ready-to-run
+software package containing everything needed to run an application:
+the code and any runtime it requires, application and system libraries,
+and default values for any essential settings.
+
+Containers are intended to be stateless and
+[immutable](https://glossary.cncf.io/immutable-infrastructure/):
+you should not change
+the code of a container that is already running. If you have a containerized
+application and want to make changes, the correct process is to build a new
+image that includes the change, then recreate the container to start from the
+updated image.
+
+## Container runtimes
+
+A fundamental component that empowers Kubernetes to run containers effectively.
+ It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.
+
+Kubernetes supports container runtimes such as
+containerd, cri-o,
+and any other implementation of the [Kubernetes CRI (Container Runtime
+Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+
+Usually, you can allow your cluster to pick the default container runtime
+for a Pod. If you need to use more than one container runtime in your cluster,
+you can specify the [RuntimeClass](/docs/concepts/containers/runtime-class/)
+for a Pod to make sure that Kubernetes runs those containers using a
+particular container runtime.
+
+You can also use RuntimeClass to run different Pods with the same container
+runtime but with different settings.

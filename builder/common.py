@@ -23,11 +23,15 @@ class Manifest:
     name: str
     collection: str
     version: str
-    base_url: str
-    content_selector: str
+    base_url: str = ""
+    content_selector: str = ""
     deny_prefixes: list[str] = field(default_factory=list)
     max_pages: int = 5000
     delay_seconds: float = 0.5
+    source_type: str = "html"
+    repo_url: str = ""
+    git_ref: str = ""
+    docs_paths: list[str] = field(default_factory=list)
 
     @property
     def raw_dir(self) -> Path:

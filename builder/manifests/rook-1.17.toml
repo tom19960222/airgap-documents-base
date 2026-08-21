@@ -1,0 +1,9 @@
+name = "rook-1.17"
+collection = "rook"
+version = "1.17.2"
+# Rook 文件站以 minor 版本分版，v1.17 這個路徑涵蓋整個 1.17.x patch 系列
+base_url = "https://rook.io/docs/rook/v1.17/"
+content_selector = "article.md-content__inner"
+deny_prefixes = []
+max_pages = 300
+delay_seconds = 0.3

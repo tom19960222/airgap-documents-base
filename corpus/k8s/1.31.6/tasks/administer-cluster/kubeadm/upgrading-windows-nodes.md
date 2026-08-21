@@ -1,0 +1,98 @@
+---
+collection: k8s
+version: "1.31.6"
+title: "Upgrading Windows nodes"
+source_url: https://github.com/kubernetes/website/blob/release-1.31/content/en/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes.md
+fetched_at: 2026-01-16T10:18:07+05:30
+---
+<!-- overview -->
+
+(Feature state: beta, as of v1.18)
+
+This page explains how to upgrade a Windows node created with kubeadm.
+
+## Before you begin
+
+ 
+You need to have shell access to all the nodes, and the kubectl command-line tool must
+be configured to communicate with your cluster. It is recommended to run this tutorial 
+on a cluster with at least two nodes that are not acting as control plane hosts.
+ 
+* Familiarize yourself with [the process for upgrading the rest of your kubeadm
+cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
+upgrade the control plane nodes before upgrading your Windows nodes.
+
+<!-- steps -->
+
+## Upgrading worker nodes
+
+### Upgrade kubeadm
+
+1.  From the Windows node, upgrade kubeadm:
+
+    ```powershell
+    # replace 1.31.6 with your desired version
+    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/v1.31.6/bin/windows/amd64/kubeadm.exe"
+    ```
+
+### Drain the node
+
+1.  From a machine with access to the Kubernetes API,
+    prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+
+    ```shell
+    # replace <node-to-drain> with the name of your node you are draining
+    kubectl drain <node-to-drain> --ignore-daemonsets
+    ```
+
+    You should see output similar to this:
+
+    ```
+    node/ip-172-31-85-18 cordoned
+    node/ip-172-31-85-18 drained
+    ```
+
+### Upgrade the kubelet configuration
+
+1.  From the Windows node, call the following command to sync new kubelet configuration:
+
+    ```powershell
+    kubeadm upgrade node
+    ```
+
+### Upgrade kubelet and kube-proxy
+
+1.  From the Windows node, upgrade and restart the kubelet:
+
+    ```powershell
+    stop-service kubelet
+    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/v1.31.6/bin/windows/amd64/kubelet.exe"
+    restart-service kubelet
+    ```
+
+2. From the Windows node, upgrade and restart the kube-proxy.
+
+    ```powershell
+    stop-service kube-proxy
+    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/v1.31.6/bin/windows/amd64/kube-proxy.exe"
+    restart-service kube-proxy
+    ```
+
+> **Note:**
+>
+> If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service,
+> you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+
+### Uncordon the node
+
+1.  From a machine with access to the Kubernetes API,
+bring the node back online by marking it schedulable:
+
+    ```shell
+    # replace <node-to-drain> with the name of your node
+    kubectl uncordon <node-to-drain>
+    ```
+
+## What's next
+
+* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).

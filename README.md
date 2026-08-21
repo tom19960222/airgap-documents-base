@@ -4,11 +4,23 @@
 
 ## 建置端（可連網）
 
+### HTML 來源（文件網站）
+
 ```bash
 cd builder
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python crawl.py manifests/ceph-19.toml       # 爬 → raw/（可中斷續跑）
 .venv/bin/python normalize.py manifests/ceph-19.toml   # raw → corpus/（離線可重跑）
+```
+
+### Git 來源（GitHub repo 內的 Markdown 文件）
+
+```bash
+cd builder
+.venv/bin/python git_source.py fetch manifests/node-driver-registrar-2.13.toml      # git clone → raw/
+.venv/bin/python git_source.py normalize manifests/node-driver-registrar-2.13.toml  # raw → corpus/（離線可重跑）
+# 或一次執行 fetch + normalize：
+.venv/bin/python git_source.py all manifests/node-driver-registrar-2.13.toml
 ```
 
 產出的 `corpus/` 進 git；`raw/` 只留在建置端。

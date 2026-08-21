@@ -1,0 +1,206 @@
+---
+collection: libvirt
+version: "12.7.0"
+title: "virtvzd"
+source_url: https://libvirt.org/manpages/virtvzd.html
+fetched_at: 2026-08-21T04:10:30+00:00
+---
+# virtvzd
+
+libvirt Virtuozzo management daemon
+
+Manual section
+:   8
+
+Manual group
+:   Virtualization Support
+
+Contents
+
+- [SYNOPSIS](virtvzd.md#synopsis)
+- [DESCRIPTION](virtvzd.md#description)
+- [DAEMON STARTUP MODES](virtvzd.md#daemon-startup-modes)
+
+  - [Socket activation mode](virtvzd.md#socket-activation-mode)
+  - [Traditional service mode](virtvzd.md#traditional-service-mode)
+- [OPTIONS](virtvzd.md#options)
+- [SIGNALS](virtvzd.md#signals)
+- [FILES](virtvzd.md#files)
+
+  - [When run as *root*](virtvzd.md#when-run-as-root)
+  - [When run as *non-root*](virtvzd.md#when-run-as-non-root)
+- [EXAMPLES](virtvzd.md#examples)
+- [BUGS](virtvzd.md#bugs)
+- [AUTHORS](virtvzd.md#authors)
+- [COPYRIGHT](virtvzd.md#copyright)
+- [LICENSE](virtvzd.md#license)
+- [SEE ALSO](virtvzd.md#see-also)
+
+# [SYNOPSIS](virtvzd.md#id1)
+
+virtvzd [*OPTION*]...
+
+# [DESCRIPTION](virtvzd.md#id2)
+
+The virtvzd program is a server side daemon component of the libvirt
+virtualization management system.
+
+It is one of a collection of modular daemons that replace functionality
+previously provided by the monolithic libvirtd daemon.
+
+This daemon runs on virtualization hosts to provide management for Virtuozzo
+virtual machines.
+
+The virtvzd daemon only listens for requests on a local Unix domain
+socket. Remote access via TLS/TCP and backwards compatibility with legacy
+clients expecting libvirtd is provided by the virtproxyd daemon.
+
+Restarting virtvzd does not interrupt running guests. Guests continue to
+operate and changes in their state will generally be picked up automatically
+during startup. None the less it is recommended to avoid restarting with
+running guests whenever practical.
+
+# [DAEMON STARTUP MODES](virtvzd.md#id3)
+
+The virtvzd daemon is capable of starting in two modes.
+
+## [Socket activation mode](virtvzd.md#id4)
+
+On hosts with systemd it is started in socket activation mode and it will rely
+on systemd to create and listen on the UNIX sockets and pass them as pre-opened
+file descriptors. In this mode most of the socket related config options in
+/etc/libvirt/virtvzd.conf will no longer have any effect.
+
+## [Traditional service mode](virtvzd.md#id5)
+
+On hosts without systemd, it will create and listen on UNIX sockets itself.
+
+# [OPTIONS](virtvzd.md#id6)
+
+-h, --help
+
+Display command line help usage then exit.
+
+-d, --daemon
+
+Run as a daemon & write PID file.
+
+-f, --config \*FILE\*
+
+Use this configuration file, overriding the default value.
+
+-p, --pid-file \*FILE\*
+
+Use this name for the PID file, overriding the default value.
+
+-t, --timeout \*SECONDS\*
+
+Exit after timeout period (in seconds), provided there are no client
+connections.
+
+-v, --verbose
+
+Enable output of verbose messages.
+
+--version
+
+Display version information then exit.
+
+# [SIGNALS](virtvzd.md#id7)
+
+On receipt of SIGHUP virtvzd will reload its configuration.
+
+# [FILES](virtvzd.md#id8)
+
+## [When run as *root*](virtvzd.md#id9)
+
+- /etc/libvirt/virtvzd.conf
+
+The default configuration file used by virtvzd, unless overridden on the
+command line using the -f | --config option.
+
+- /run/libvirt/virtvzd-sock
+- /run/libvirt/virtvzd-sock-ro
+- /run/libvirt/virtvzd-admin-sock
+
+The sockets virtvzd will use.
+
+The TLS **Server** private key virtvzd will use.
+
+- /run/virtvzd.pid
+
+The PID file to use, unless overridden by the -p | --pid-file option.
+
+## [When run as *non-root*](virtvzd.md#id10)
+
+- $XDG_CONFIG_HOME/libvirt/virtvzd.conf
+
+The default configuration file used by virtvzd, unless overridden on the
+command line using the -f``|--config`` option.
+
+- $XDG_RUNTIME_DIR/libvirt/virtvzd-sock
+- $XDG_RUNTIME_DIR/libvirt/virtvzd-admin-sock
+
+The sockets virtvzd will use.
+
+- $XDG_RUNTIME_DIR/libvirt/virtvzd.pid
+
+The PID file to use, unless overridden by the -p``|--pid-file`` option.
+
+If $XDG_CONFIG_HOME is not set in your environment, virtvzd will use
+$HOME/.config
+
+If $XDG_RUNTIME_DIR is not set in your environment, virtvzd will use
+$HOME/.cache
+
+# [EXAMPLES](virtvzd.md#id11)
+
+To retrieve the version of virtvzd:
+
+```
+# virtvzd --version
+virtvzd (libvirt) 12.7.0
+```
+
+To start virtvzd, instructing it to daemonize and create a PID file:
+
+```
+# virtvzd -d
+# ls -la /run/virtvzd.pid
+-rw-r--r-- 1 root root 6 Jul  9 02:40 /run/virtvzd.pid
+```
+
+# [BUGS](virtvzd.md#id12)
+
+Please report all bugs you discover. This should be done via either:
+
+1. the mailing list
+
+   <https://libvirt.org/contact.html>
+2. the bug tracker
+
+   [https://libvirt.org/bugs.html](../bugs.md)
+
+Alternatively, you may report bugs to your software distributor / vendor.
+
+# [AUTHORS](virtvzd.md#id13)
+
+Please refer to the AUTHORS file distributed with libvirt.
+
+# [COPYRIGHT](virtvzd.md#id14)
+
+Copyright (C) 2006-2020 Red Hat, Inc., and the authors listed in the
+libvirt AUTHORS file.
+
+# [LICENSE](virtvzd.md#id15)
+
+virtvzd is distributed under the terms of the GNU LGPL v2.1+.
+This is free software; see the source for copying conditions. There
+is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE
+
+# [SEE ALSO](virtvzd.md#id16)
+
+virsh(1), libvirtd(8),
+[https://libvirt.org/daemons.html](../daemons.md),
+[https://libvirt.org/drvopenvz.html](../drvopenvz.md)

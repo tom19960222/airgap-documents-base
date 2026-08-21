@@ -1,0 +1,7 @@
+name = "cephcsi-3.14"
+collection = "cephcsi"
+version = "3.14.0"
+source_type = "git"
+repo_url = "https://github.com/ceph/ceph-csi"
+git_ref = "v3.14.0"
+docs_paths = ["docs", "README.md"]

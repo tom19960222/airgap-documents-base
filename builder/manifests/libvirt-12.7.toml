@@ -1,0 +1,10 @@
+name = "libvirt-12.7"
+collection = "libvirt"
+version = "12.7.0"
+# libvirt.org 的文件頁面沒有獨立子路徑，跟網站其他內容（news/sponsors/downloads/contact/governance...）
+# 混在同一個 domain 下，用 deny_prefixes 排除明顯非文件的區塊。
+base_url = "https://libvirt.org/"
+content_selector = "div.document"
+deny_prefixes = ["news.html", "sponsors.html", "downloads.html", "contact.html", "governance.html", "sitemap.html", "ci.html", "securityprocess.html", "html/"]
+max_pages = 300
+delay_seconds = 0.3

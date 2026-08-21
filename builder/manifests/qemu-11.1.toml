@@ -1,0 +1,10 @@
+name = "qemu-11.1"
+collection = "qemu"
+version = "11.1.0"
+# qemu.org 只公開 master(dev) 的文件樹，沒有版本化路徑；11.1.0 是爬取當下 QEMU 最新的穩定版 release tag，
+# 這裡如實標成這個版本（跟文件樹實際內容可能略有超前的落差，見 commit message）。
+base_url = "https://www.qemu.org/docs/master/"
+content_selector = "div[role=main]"
+deny_prefixes = []
+max_pages = 800
+delay_seconds = 0.3
