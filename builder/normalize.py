@@ -69,9 +69,23 @@ def transform_admonitions(main) -> None:
 
 
 def clean(main) -> None:
+    # pymdownx 行號表格：拔掉行號欄並以實際代碼區塊取代 table，避免轉出表格與雙重 code fence
+    for table in main.select("table.highlighttable"):
+        code_td = table.select_one("td.code")
+        if code_td:
+            pre = code_td.find("pre")
+            if pre:
+                table.replace_with(pre)
+            else:
+                table.replace_with(*code_td.children)
+        else:
+            table.decompose()
+
     # #banner: Ansible 的 unmaintained-version 警告；Report_Documentation_Bugs: Ceph 的回報連結
+    # .linenodiv, a[id^="__codelineno"]: mkdocs-material / pymdownx 行號側欄與代碼錨點
     for el in main.select(
-        'a.headerlink, script, style, #banner, a[href*="Report_Documentation_Bugs"]'
+        'a.headerlink, script, style, #banner, a[href*="Report_Documentation_Bugs"], '
+        '.linenodiv, a[id^="__codelineno"], a[name^="__codelineno"]'
     ):
         el.decompose()
 
