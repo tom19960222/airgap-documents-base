@@ -93,17 +93,25 @@ def fetch(manifest: Manifest) -> None:
         shutil.rmtree(repo_dir)
 
     print(f"[{manifest.name}] Cloning {manifest.repo_url} (branch/tag: {manifest.git_ref}) to {repo_dir}...")
-    cmd = [
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "--branch",
-        manifest.git_ref,
-        manifest.repo_url,
-        str(repo_dir),
-    ]
+    cmd = ["git", "clone", "--depth", "1", "--branch", manifest.git_ref]
+    if manifest.sparse_paths:
+        cmd.extend(["--filter=blob:none", "--sparse"])
+    cmd.extend([manifest.repo_url, str(repo_dir)])
     subprocess.run(cmd, check=True)
+
+    if manifest.sparse_paths:
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo_dir),
+                "sparse-checkout",
+                "set",
+                "--no-cone",
+                *manifest.sparse_paths,
+            ],
+            check=True,
+        )
 
     commit_date = get_git_commit_date(repo_dir)
     commit_hash = get_git_commit_hash(repo_dir)
@@ -595,6 +603,72 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
     return text
 
 
+def clean_gitlab_shortcodes(content: str) -> str:
+    """Convert GitLab Docs Hugo shortcodes into readable plain Markdown."""
+    # Some upstream API examples contain credential-shaped values. Keep the
+    # examples useful without copying token-like values into the corpus.
+    text = re.sub(
+        r'("personal_access_token"\s*:\s*")[^"<]+(")',
+        r"\1<your_bitbucket_server_personal_access_token>\2",
+        content,
+    )
+
+    alert_pattern = re.compile(
+        r'\{\{<\s*alert\s+type=["\']([^"\']+)["\']\s*>\}\}'
+        r"(.*?)"
+        r"\{\{<\s*/alert\s*>\}\}",
+        re.DOTALL | re.IGNORECASE,
+    )
+    text = alert_pattern.sub(
+        lambda match: format_admonition(match.group(1), "", match.group(2)),
+        text,
+    )
+
+    # These containers carry useful prose; only their presentation is site-specific.
+    text = re.sub(r"\{\{<\s*details\s*>\}\}", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\{\{<\s*/details\s*>\}\}", "", text, flags=re.IGNORECASE)
+    text = re.sub(
+        r"\{\{<\s*history\s*>\}\}",
+        "\n\n**History:**\n\n",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(r"\{\{<\s*/history\s*>\}\}", "", text, flags=re.IGNORECASE)
+
+    text = re.sub(r"\{\{<\s*tabs\s*>\}\}", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\{\{<\s*/tabs\s*>\}\}", "", text, flags=re.IGNORECASE)
+    text = re.sub(
+        r'\{\{<\s*tab\s+title=["\']([^"\']+)["\']\s*>\}\}',
+        lambda match: f"\n\n**Tab: {match.group(1)}**\n\n",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(r"\{\{<\s*/tab\s*>\}\}", "", text, flags=re.IGNORECASE)
+
+    text = re.sub(
+        r'\{\{<\s*icon\s+name=["\']([^"\']+)["\']\s*>\}\}',
+        lambda match: f"[icon: {match.group(1)}]",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(
+        r"\{\{<\s*feature-flags\s*>\}\}",
+        "\n\n**Feature flags:**\n\n",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(r"\{\{<\s*/feature-flags\s*>\}\}", "", text, flags=re.IGNORECASE)
+
+    # Preserve the arguments of any future shortcode instead of leaving template syntax.
+    text = re.sub(
+        r"\{\{<\s*(/)?([\w-]+)(.*?)>\}\}",
+        lambda match: "" if match.group(1) else f"[{match.group(2)}{match.group(3)}]",
+        text,
+        flags=re.DOTALL,
+    )
+    return text
+
+
 def normalize(manifest: Manifest) -> None:
     """Normalize 階段：將 repo 內的 Markdown 檔案轉入 corpus。"""
     repo_dir = manifest.raw_dir / "repo"
@@ -619,7 +693,8 @@ def normalize(manifest: Manifest) -> None:
     written = 0
 
     base_repo_url = manifest.repo_url.rstrip("/")
-    is_k8s = (manifest.collection == "k8s")
+    is_k8s = manifest.collection == "k8s"
+    is_gitlab = manifest.collection == "gitlab"
 
     for doc_item in manifest.docs_paths:
         item_path = repo_dir / doc_item
@@ -640,7 +715,14 @@ def normalize(manifest: Manifest) -> None:
 
         for file_path, rel_out_path_str in files_to_process:
             repo_rel_path = file_path.relative_to(repo_dir).as_posix()
-            source_url = f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
+            if manifest.source_url_template:
+                source_url = manifest.source_url_template.format(
+                    repo_url=base_repo_url,
+                    git_ref=manifest.git_ref,
+                    path=repo_rel_path,
+                )
+            else:
+                source_url = f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
 
             try:
                 raw_text = file_path.read_text(encoding="utf-8", errors="replace")
@@ -655,6 +737,9 @@ def normalize(manifest: Manifest) -> None:
 
             if is_k8s:
                 body = clean_hugo_shortcodes(body, repo_dir)
+            elif is_gitlab:
+                body = clean_gitlab_shortcodes(body)
+                body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
 
             body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
 

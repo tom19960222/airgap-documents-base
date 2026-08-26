@@ -1,0 +1,19 @@
+---
+collection: gitlab
+version: "17.9.8"
+title: "Open redirect"
+source_url: https://gitlab.com/gitlab-org/gitlab/-/blob/v17.9.8-ee/doc/user/application_security/api_security_testing/checks/open_redirect_check.md
+fetched_at: 2025-05-07T10:05:15Z
+---
+## Description
+
+Identify open redirects and determine if they can be abused by attackers.
+
+## Remediation
+
+Unvalidated redirects and forwards are possible when a web application accepts untrusted input that could cause the web application to redirect the request to a URL contained within untrusted input. By modifying untrusted URL input to a malicious site, an attacker may successfully launch a phishing scam and steal user credentials. Because the server name in the modified link is identical to the original site, phishing attempts may have a more trustworthy appearance. Unvalidated redirect and forward attacks can also be used to maliciously craft a URL that would pass the application’s access control check and then forward the attacker to privileged functions that they would normally not be able to access.
+
+## Links
+
+- [OWASP](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+- [CWE](https://cwe.mitre.org/data/definitions/601.html)

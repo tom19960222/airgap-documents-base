@@ -1,0 +1,9 @@
+name = "gitlab-17.9"
+collection = "gitlab"
+version = "17.9.8"
+source_type = "git"
+repo_url = "https://gitlab.com/gitlab-org/gitlab"
+git_ref = "v17.9.8-ee"
+docs_paths = ["doc"]
+sparse_paths = ["doc"]
+source_url_template = "{repo_url}/-/blob/{git_ref}/{path}"
