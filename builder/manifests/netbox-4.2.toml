@@ -1,0 +1,9 @@
+name = "netbox-4.2"
+collection = "netbox"
+version = "4.2.9"
+source_type = "git"
+repo_url = "https://github.com/netbox-community/netbox"
+git_ref = "v4.2.9"
+docs_paths = ["docs"]
+sparse_paths = ["docs"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"
