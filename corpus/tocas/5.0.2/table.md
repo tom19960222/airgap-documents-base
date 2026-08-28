@@ -1,0 +1,1012 @@
+---
+collection: tocas
+version: "5.0.2"
+title: "表格 - Tocas UI"
+source_url: https://github.com/teacat/tocas-docs/blob/e62614c61a3fdb5d75cc5573e66f64dbfdbb7be7/docs/5.0/zh-tw/table.html
+fetched_at: 2025-03-22T01:53:10+08:00
+---
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>對空音商事有限公司</td>
+                <td>Sorae & Co., Ltd.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>卡莉絲伊繁星</td>
+                <td>Caris Events</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">統計筆數：2</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+```
+
+## 概要
+
+表格沒有外距且會貼齊父容器。若希望表格有外框線，請使用[箱型容器](box.md)包覆其元件。
+
+## 種類
+
+### [定義](table.md#definition)
+
+表格中的第一個欄位都是該行的標題。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-definition">
+        <thead>
+            <tr>
+                <th></th>
+                <th>參數</th>
+                <th>說明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>header()</td>
+                <td>title[<em>string</em>]</td>
+                <td>輸出網頁標頭。</td>
+            </tr>
+            <tr>
+                <td>footer()</td>
+                <td>path[<em>string</em>]</td>
+                <td>於網頁最底部輸出內容。</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [網狀的](table.md#celled)
+
+無論是否為同行的欄位都會被分隔線區隔，令整個表格看起來像是網狀的一樣。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-celled is-striped">
+        <thead>
+            <tr>
+                <th colspan="3">Git 倉庫</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="is-collapsed">
+                    <span class="ts-icon is-folder-icon is-end-spaced"></span>
+                    node_modules
+                </td>
+                <td>第一次 Commit！</td>
+                <td class="is-collapsed">10 小時前</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="ts-icon is-folder-icon is-end-spaced"></span>
+                    build
+                </td>
+                <td>第一次 Commit！</td>
+                <td class="is-collapsed">10 小時前</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="ts-icon is-file-icon is-regular is-end-spaced"></span>
+                    package.json
+                </td>
+                <td>第一次 Commit！</td>
+                <td class="is-collapsed">10 小時前</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [基本的](table.md#basic)
+
+基本的表格會沒有標頭、頁腳的深色背景，而一個更加基本的表格會連項目之間的分隔線都沒有。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-basic">
+        <thead>
+            <tr>
+                <th>檔案名稱</th>
+                <th>分類</th>
+                <th>說明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>file.php</td>
+                <td>Controller</td>
+                <td>用來處理檔案相關程式。</td>
+            </tr>
+            <tr>
+                <td>star.php</td>
+                <td>Controller</td>
+                <td>處理星號程式。</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table is-very-basic">
+        <thead>
+            <tr>
+                <th>檔案名稱</th>
+                <th>分類</th>
+                <th>說明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>file.php</td>
+                <td>Controller</td>
+                <td>用來處理檔案相關程式。</td>
+            </tr>
+            <tr>
+                <td>star.php</td>
+                <td>Controller</td>
+                <td>處理星號程式。</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [條狀間隔的](table.md#striped)
+
+在不同行之間以不同的背景色調營造出條紋感，讓使用者更能區分不同行列。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-striped">
+        <thead>
+            <tr>
+                <th>IP 位置</th>
+                <th>協議</th>
+                <th>註釋</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>164.17.183.5</td>
+                <td>HTTP</td>
+                <td>Yami 的虛擬機。</td>
+            </tr>
+            <tr>
+                <td>186.173.16.34</td>
+                <td>HTTP</td>
+                <td>台北客戶的部落格網站。</td>
+            </tr>
+            <tr>
+                <td>204.57.189.23</td>
+                <td>HTTP</td>
+                <td>測試伺服器，預計每日自動重新啟動。</td>
+            </tr>
+            <tr>
+                <td>183.46.31.8</td>
+                <td>HTTP</td>
+                <td>香港醫療業務專用。</td>
+            </tr>
+            <tr>
+                <td>89.42.6.1</td>
+                <td>HTTP</td>
+                <td>提供給日本保險公司的備援伺服器。</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+## 外觀
+
+### [閉合的](table.md#collapsed-table)
+
+閉合的表格會讓其寬度符合內容，而不會呈現全寬。
+
+```html
+<div class="ts-box is-collapsed">
+    <table class="ts-table is-collapsed">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>英文暱稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>卡莉絲</td>
+                <td>Caris</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>橙希</td>
+                <td>Orenji</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>白音</td>
+                <td>Shirone</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [單行的](table.md#single-line)
+
+表格裡的文字絕對不換行，若文字太長則會超出其範圍。通常用於避免會被意外換行的欄位或標頭。
+
+```html
+<table class="ts-table is-single-line">
+    <thead>
+        <tr>
+            <th>文章名稱</th>
+            <th>註釋</th>
+            <th>狀態</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Bibendum</td>
+            <td>Et venenatis orci placerat vitae. Sed posuere auctor.</td>
+            <td>核准</td>
+        </tr>
+        <tr>
+            <td>Feugiat</td>
+            <td>Aliquam varius, mi ut convallis rhoncus, nunc dolor feugiat mi.</td>
+            <td>拒絕</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+### [截斷的](table.md#truncated)
+
+表格內所有欲換行的文字會直接被截斷。
+
+```html
+<table class="ts-table is-truncated is-basic">
+    <thead>
+        <tr>
+            <th>文章名稱</th>
+            <th>狀態</th>
+            <th>註釋</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Lorem Ipsum</td>
+            <td>核准</td>
+            <td>Etiam aliquet pulvinar sapien, et venenatis orci placerat vitae. Sed posuere bibendum ante et porttitor. Fusce auctor.</td>
+        </tr>
+        <tr>
+            <td>Etiam aliquet</td>
+            <td>核准</td>
+            <td>Nulla sed ex eget ligula gravida condimentum non id dui. Donec rutrum accumsan augue vitae pretium.</td>
+        </tr>
+        <tr>
+            <td>Aliquam</td>
+            <td>拒絕</td>
+            <td>Curabitur volutpat tristique erat ut pulvinar. Aliquam varius, mi ut convallis rhoncus, nunc dolor feugiat mi.</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+### [可選擇的](table.md#selectable)
+
+使某個行列在游標移上時有反應。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-selectable">
+        <thead>
+            <tr>
+                <th>食物</th>
+                <th>熱量</th>
+                <th>蛋白質</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>香蕉</td>
+                <td>88 kcal / 100g</td>
+                <td>1.1g</td>
+            </tr>
+            <tr>
+                <td>蘋果</td>
+                <td>52 kcal / 100g</td>
+                <td>0.3g</td>
+            </tr>
+            <tr>
+                <td>西瓜</td>
+                <td>30 kcal / 100g</td>
+                <td>0.6g</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [貼邊的](table.md#sticked)
+
+使文字左右靠齊邊緣而不會有內距。
+
+```html
+<table class="ts-table is-sticked is-basic">
+    <tbody>
+        <tr>
+            <td><strong>總計：</strong></td>
+            <td>340,953</td>
+        </tr>
+        <tr>
+            <td><strong>稅收（9.3%）：</strong></td>
+            <td>31,708</td>
+        </tr>
+        <tr>
+            <td><strong>運費：</strong></td>
+            <td>4,102</td>
+        </tr>
+        <tr>
+            <td><strong>總計：</strong></td>
+            <td>376,763</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+### [尺寸](table.md#sizes)
+
+更改表格的大小。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-small">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>對空音商事有限公司</td>
+                <td>Sorae & Co., Ltd.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>對空音商事有限公司</td>
+                <td>Sorae & Co., Ltd.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table is-large">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>對空音商事有限公司</td>
+                <td>Sorae & Co., Ltd.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [增加內距](table.md#padded)
+
+加大片段的內距使欄位內容不那麼擁擠。
+
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>卡莉絲伊繁星</td>
+                <td>Caris Events</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table is-padded">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>卡莉絲伊繁星</td>
+                <td>Caris Events</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table is-horizontally-padded">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>卡莉絲伊繁星</td>
+                <td>Caris Events</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [無內距](table.md#fitted)
+
+移除欄位的內距。
+
+```html
+<table class="ts-table is-fitted">
+    <tbody>
+        <tr>
+            <td><strong>訂單編號：</strong></td>
+            <td>123718975123</td>
+        </tr>
+        <tr>
+            <td><strong>開立時間：</strong></td>
+            <td>2022-12-05 16:26:01 UTC</td>
+        </tr>
+        <tr>
+            <td><strong>付款時間：</strong></td>
+            <td>未付款</td>
+        </tr>
+        <tr>
+            <td><strong>帳號：</strong></td>
+            <td>yamiodymel</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+### [密度](table.md#density)
+
+變更元件的內距，令元素之間看起來更密集。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-relaxed">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>半音商業銀行</td>
+                <td>Flat Bank</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>對空音商事有限公司</td>
+                <td>Sorae & Co., Ltd.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>半音商業銀行</td>
+                <td>Flat Bank</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>對空音商事有限公司</td>
+                <td>Sorae & Co., Ltd.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table is-dense">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名稱</th>
+                <th>英文名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>半音商業銀行</td>
+                <td>Flat Bank</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>對空音商事有限公司</td>
+                <td>Sorae & Co., Ltd.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [水平密度](table.md#horizontal-density)
+
+變更欄位的左右水平內距，令欄位之間看起來更密集。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-celled">
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>網址</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="ts-input">
+                        <input type="text">
+                    </div>
+                </td>
+                <td>
+                    <div class="ts-input">
+                        <input type="text">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ts-box">
+    <table class="ts-table is-compact is-celled">
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>網址</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="ts-input">
+                        <input type="text">
+                    </div>
+                </td>
+                <td>
+                    <div class="ts-input">
+                        <input type="text">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+## 欄位狀態
+
+### [啟用的](table.md#active)
+
+呈現像是被選取的模樣。
+
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th class="is-collapsed"></th>
+                <th>名稱</th>
+                <th>狀態</th>
+                <th>註解</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label class="ts-checkbox">
+                        <input type="checkbox">
+                    </label>
+                </td>
+                <td>Yan-K</td>
+                <td>照會中</td>
+                <td>需要檢查年齡。</td>
+            </tr>
+            <tr class="is-active">
+                <td>
+                    <label class="ts-checkbox">
+                        <input type="checkbox" checked>
+                    </label>
+                </td>
+                <td>Tsundere Chen</td>
+                <td>照會中</td>
+                <td>階級身份 32 等。</td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="ts-checkbox">
+                        <input type="checkbox">
+                    </label>
+                </td>
+                <td>Hiram Huang</td>
+                <td>已通過</td>
+                <td>無</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [次要的](table.md#secondary)
+
+使某個欄位或是行列的背景淡化呈現。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-celled">
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>狀態</th>
+                <th>註解</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Yan-K</td>
+                <td class="is-secondary">照會中</td>
+                <td>需要檢查年齡。</td>
+            </tr>
+            <tr>
+                <td>Fan Kangtai</td>
+                <td>已通過</td>
+                <td>無</td>
+            </tr>
+            <tr class="is-secondary">
+                <td>Tsundere Chen</td>
+                <td>照會中</td>
+                <td>階級身份 32 等。</td>
+            </tr>
+            <tr>
+                <td>Hiram Huang</td>
+                <td>已通過</td>
+                <td>無</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [不重要的](table.md#tertiary)
+
+使某個欄位或是行列的背景以更深沈、不重要的顏色呈現。
+
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>起始日期</th>
+                <th>應用程式名稱</th>
+                <th>上架手續費</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2021/01/03</td>
+                <td class="is-tertiary">半音商業銀行</td>
+                <td>TWD $80</td>
+            </tr>
+            <tr class="is-tertiary">
+                <td>2021/02/15</td>
+                <td>Google Play</td>
+                <td>TWD $4,500</td>
+            </tr>
+            <tr>
+                <td>2021/03/19</td>
+                <td>App Store</td>
+                <td>TWD $1,200</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [指示的](table.md#indicated)
+
+用特殊方式凸顯表格中的行列或欄位。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-celled is-single-line">
+        <thead>
+            <tr>
+                <th>動畫名稱</th>
+                <th>放映起始日期</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>WorldEnd: What do you do at the end of the world?</td>
+                <td>Apr 11, 2017</td>
+            </tr>
+            <tr class="is-indicated">
+                <td>Eromanga Sensei</td>
+                <td>Apr 09, 2017</td>
+            </tr>
+            <tr class="is-negative is-indicated">
+                <td>Armed Girl's Machiavellism</td>
+                <td>Apr 05, 2017</td>
+            </tr>
+            <tr>
+                <td>Grimoire of Zero</td>
+                <td class="is-positive is-indicated">Apr 10, 2017</td>
+            </tr>
+            <tr>
+                <td>Attack on Titan Season 2</td>
+                <td>Apr 01, 2017</td>
+            </tr>
+            <tr class="is-warning is-indicated">
+                <td>Akashic Records of Bastard Magic Instructor;</td>
+                <td>Apr 04, 2017</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [停用的](table.md#disabled)
+
+淡化和禁止與某個行列、欄位互動。
+
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>使用者名稱</th>
+                <th>電子郵件信箱</th>
+                <th>啟用日期</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="is-disabled">
+                <td>yamiodymel</td>
+                <td>yamiodymel@example.com</td>
+                <td>2013/09/14</td>
+            </tr>
+            <tr>
+                <td>karisu</td>
+                <td>superkari007@example.com</td>
+                <td>2020/11/03</td>
+            </tr>
+            <tr>
+                <td class="is-disabled">shiroteacat</td>
+                <td>shiroteacat@example.com</td>
+                <td>2009/07/15</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+## 欄位外觀
+
+### [閉合的](table.md#collapsed)
+
+閉合欄位會依照內容而最小化其寬度。
+
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>醫院種類</th>
+                <th>名稱</th>
+                <th class="is-collapsed">建立於</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="is-collapsed">東京 AH 綜合醫院</td>
+                <td>醫學藥品</td>
+                <td>2021/08/01</td>
+            </tr>
+            <tr>
+                <td class="is-collapsed">東京 AH 綜合醫院</td>
+                <td>常規心電圖</td>
+                <td>2021/08/01</td>
+            </tr>
+            <tr>
+                <td class="is-collapsed">己律知能研究院</td>
+                <td>放射性治療</td>
+                <td>2021/06/13</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [內陷的](table.md#insetted)
+
+讓某個欄位有內部陰影看起來就像是向內部凹陷一樣，很適合用來作為展開欄位呈現某個資料的詳細情形。
+
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>交易日期</th>
+                <th>項目名稱</th>
+                <th>實際金額</th>
+                <th class="is-collapsed"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2021/02/03</td>
+                <td>煤果交換所</td>
+                <td>TWD $80</td>
+                <td>
+                    <button class="ts-button is-outlined">檢視</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="is-secondary is-padded is-insetted" colspan="4">
+                    此筆訂單的下次付款日期：2022/01/02（每月）
+                </td>
+            </tr>
+            <tr>
+                <td>2021/05/18</td>
+                <td>台灣推進委員會</td>
+                <td>TWD $40</td>
+                <td>
+                    <button class="ts-button is-outlined">檢視</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [無內容的](table.md#empty)
+
+欄位可以被標註為無內容的，令使用者知道這個欄位是沒有記載內容但又不至於留空。
+
+```html
+<div class="ts-box">
+    <table class="ts-table">
+        <thead>
+            <tr>
+                <th>使用者帳號</th>
+                <th>最後一次登入</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>yamiodymel</td>
+                <td>2022/01/30</td>
+            </tr>
+            <tr>
+                <td>haneda_shirone</td>
+                <td class="is-empty"></td>
+            </tr>
+            <tr>
+                <td>karisu-events</td>
+                <td class="is-empty"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```
+
+### [對齊](table.md#aligns)
+
+欄位裡的內容可以置上、下和左右。
+
+```html
+<div class="ts-box">
+    <table class="ts-table is-celled">
+        <thead>
+            <tr>
+                <th>欄位 #1</th>
+                <th>欄位 #2</th>
+                <th>欄位 #3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="is-top-aligned">
+                    <p>置上</p>
+                    <p>&nbsp;</p>
+                </td>
+                <td class="is-middle-aligned">
+                    <p>置中</p>
+                </td>
+                <td class="is-bottom-aligned">
+                    <p>置下</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="is-start-aligned">
+                    <p>置起始</p>
+                </td>
+                <td class="is-center-aligned">
+                    <p>置中間</p>
+                </td>
+                <td class="is-end-aligned">
+                    <p>置結束</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+```

@@ -25,6 +25,7 @@ from typing import Any
 import yaml
 
 from common import REPO_ROOT, Manifest, load_manifest
+from normalize import to_markdown as html_to_markdown
 
 FRONTMATTER_PATTERN = re.compile(r"^---\r?\n(.*?)\r?\n---\r?\n?", re.DOTALL)
 HEADING1_PATTERN = re.compile(r"^#\s+(.+)$", re.MULTILINE)
@@ -92,26 +93,44 @@ def fetch(manifest: Manifest) -> None:
         print(f"[{manifest.name}] Existing repo directory found at {repo_dir}, removing before clone...")
         shutil.rmtree(repo_dir)
 
-    print(f"[{manifest.name}] Cloning {manifest.repo_url} (branch/tag: {manifest.git_ref}) to {repo_dir}...")
-    cmd = ["git", "clone", "--depth", "1", "--branch", manifest.git_ref]
-    if manifest.sparse_paths:
-        cmd.extend(["--filter=blob:none", "--sparse"])
-    cmd.extend([manifest.repo_url, str(repo_dir)])
-    subprocess.run(cmd, check=True)
-
-    if manifest.sparse_paths:
+    print(f"[{manifest.name}] Cloning {manifest.repo_url} (branch/tag/commit: {manifest.git_ref}) to {repo_dir}...")
+    if re.fullmatch(r"[0-9a-fA-F]{40}", manifest.git_ref):
+        # `git clone --branch` does not accept a raw commit ID. Fetch the exact
+        # reachable commit so documentation snapshots can still be immutable
+        # when an upstream documentation repository does not publish tags.
+        subprocess.run(["git", "init", str(repo_dir)], check=True)
+        subprocess.run(["git", "-C", str(repo_dir), "remote", "add", "origin", manifest.repo_url], check=True)
+        if manifest.sparse_paths:
+            subprocess.run(["git", "-C", str(repo_dir), "sparse-checkout", "init", "--no-cone"], check=True)
+            subprocess.run(
+                ["git", "-C", str(repo_dir), "sparse-checkout", "set", "--no-cone", *manifest.sparse_paths],
+                check=True,
+            )
         subprocess.run(
-            [
-                "git",
-                "-C",
-                str(repo_dir),
-                "sparse-checkout",
-                "set",
-                "--no-cone",
-                *manifest.sparse_paths,
-            ],
+            ["git", "-C", str(repo_dir), "fetch", "--depth", "1", "origin", manifest.git_ref],
             check=True,
         )
+        subprocess.run(["git", "-C", str(repo_dir), "checkout", "--detach", "FETCH_HEAD"], check=True)
+    else:
+        cmd = ["git", "clone", "--depth", "1", "--branch", manifest.git_ref]
+        if manifest.sparse_paths:
+            cmd.extend(["--filter=blob:none", "--sparse"])
+        cmd.extend([manifest.repo_url, str(repo_dir)])
+        subprocess.run(cmd, check=True)
+
+        if manifest.sparse_paths:
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(repo_dir),
+                    "sparse-checkout",
+                    "set",
+                    "--no-cone",
+                    *manifest.sparse_paths,
+                ],
+                check=True,
+            )
 
     commit_date = get_git_commit_date(repo_dir)
     commit_hash = get_git_commit_hash(repo_dir)
@@ -670,7 +689,7 @@ def clean_gitlab_shortcodes(content: str) -> str:
 
 
 def normalize(manifest: Manifest) -> None:
-    """Normalize 階段：將 repo 內的 Markdown 檔案轉入 corpus。"""
+    """Normalize 階段：將 repo 內的 Markdown/HTML 文件轉入 corpus。"""
     repo_dir = manifest.raw_dir / "repo"
     if not repo_dir.exists():
         print(f"[{manifest.name}] raw repo not found at {repo_dir}. Please run fetch first.", file=sys.stderr)
@@ -702,14 +721,18 @@ def normalize(manifest: Manifest) -> None:
             print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
             continue
 
+        supported_suffixes = {".md", ".markdown"}
+        if manifest.content_selector:
+            supported_suffixes.add(".html")
+
         if item_path.is_file():
-            if item_path.suffix.lower() not in {".md", ".markdown"}:
+            if item_path.suffix.lower() not in supported_suffixes:
                 continue
             files_to_process = [(item_path, Path(doc_item).name)]
         else:
             files_to_process = []
             for p in sorted(item_path.rglob("*")):
-                if p.is_file() and p.suffix.lower() in {".md", ".markdown"}:
+                if p.is_file() and p.suffix.lower() in supported_suffixes:
                     rel_to_item = p.relative_to(item_path).as_posix()
                     files_to_process.append((p, rel_to_item))
 
@@ -720,6 +743,7 @@ def normalize(manifest: Manifest) -> None:
                     repo_url=base_repo_url,
                     git_ref=manifest.git_ref,
                     path=repo_rel_path,
+                    doc_path=rel_out_path_str,
                 )
             else:
                 source_url = f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
@@ -733,7 +757,16 @@ def normalize(manifest: Manifest) -> None:
             target_rel = Path(rel_out_path_str).with_suffix(".md")
             default_title = target_rel.stem
 
-            title, body = extract_frontmatter(raw_text, default_title=default_title)
+            if file_path.suffix.lower() == ".html":
+                page_url = f"{manifest.base_url.rstrip('/')}/{rel_out_path_str}"
+                html_result = html_to_markdown(raw_text, page_url, manifest)
+                if html_result is None:
+                    print(f"[{manifest.name}] Skipping HTML with no matching content: {repo_rel_path}", file=sys.stderr)
+                    continue
+                title, body = html_result
+                body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
+            else:
+                title, body = extract_frontmatter(raw_text, default_title=default_title)
 
             if is_k8s:
                 body = clean_hugo_shortcodes(body, repo_dir)

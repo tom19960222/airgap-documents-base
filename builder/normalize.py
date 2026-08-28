@@ -23,6 +23,8 @@ from common import Manifest, canonicalize, in_scope, load_manifest, url_key, url
 
 def code_language(el, _style=None) -> str:
     """從 Sphinx 的 <div class="highlight-yaml ..."> 外層找語言標記。"""
+    if el.find("code", class_="hljs"):
+        return "html"
     for parent in el.parents:
         for cls in parent.get("class") or []:
             if cls.startswith("highlight-"):
@@ -68,7 +70,7 @@ def transform_admonitions(main) -> None:
         box.name = "blockquote"
 
 
-def clean(main) -> None:
+def clean(main, collection: str = "") -> None:
     # pymdownx 行號表格：拔掉行號欄並以實際代碼區塊取代 table，避免轉出表格與雙重 code fence
     for table in main.select("table.highlighttable"):
         code_td = table.select_one("td.code")
@@ -89,6 +91,25 @@ def clean(main) -> None:
     ):
         el.decompose()
 
+    if collection == "tocas":
+        # The checked-in TOCAS pages contain both a rendered component preview
+        # and its source. The preview is presentation-only and would duplicate
+        # labels in plain text; retain the code example instead.
+        for el in main.select(
+            ".主體-格局-內容-工具列, "
+            ".主體-格局-內容-主要範例-實際效果, "
+            ".主體-格局-內容-單個範例-範例-實際效果, "
+            ".主體-格局-內容-單個範例-文字-標題-切換原始碼"
+        ):
+            el.decompose()
+
+        # TOCAS uses styled divs instead of semantic headings in generated
+        # pages. Restore hierarchy before converting the document to Markdown.
+        for el in main.select(".主體-格局-內容-標題_章節, .文件內容-範例清單-段落-標題, .主要內容-內容區塊-標題"):
+            el.name = "h2"
+        for el in main.select(".主體-格局-內容-單個範例-文字-標題_段落, .文件內容-範例清單-段落-項目清單-項目-標題"):
+            el.name = "h3"
+
 
 def page_title(main, soup) -> str:
     h1 = main.find("h1")
@@ -101,11 +122,23 @@ def page_title(main, soup) -> str:
 
 def to_markdown(html: str, page_url: str, manifest: Manifest) -> tuple[str, str] | None:
     soup = BeautifulSoup(html, "lxml")
-    main = soup.select_one(manifest.content_selector)
+    if manifest.collection == "tocas":
+        # `select_one("main, ..., body")` returns the earliest node in document
+        # order, which is always body. Try the TOCAS page layouts in priority
+        # order so navigation chrome is excluded from documentation pages while
+        # standalone demo pages can still fall back to their body.
+        main = (
+            soup.find("main")
+            or soup.select_one(".主要內容")
+            or soup.select_one(".文件內容")
+            or soup.body
+        )
+    else:
+        main = soup.select_one(manifest.content_selector)
     if main is None:
         return None
     page_relpath = PurePosixPath(url_to_relpath(page_url, manifest).as_posix())
-    clean(main)
+    clean(main, manifest.collection)
     transform_admonitions(main)
     rewrite_links(main, page_url, page_relpath, manifest)
     title = page_title(main, soup)
