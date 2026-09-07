@@ -1,4 +1,4 @@
-"""Git 來源建置：clone git repo 並正規化 Markdown 文件成 corpus。
+"""Git 來源建置：clone git repo 並正規化 Markdown/RST 文件成 corpus。
 
 用法：
     python git_source.py fetch manifests/node-driver-registrar-2.13.toml
@@ -6,7 +6,7 @@
     python git_source.py all manifests/node-driver-registrar-2.13.toml
 
 fetch 階段會 clone 指定 tag/branch 到 raw/<collection>/<version>/repo，並記錄 commit date。
-normalize 階段可離線重跑，將 docs_paths 下的 Markdown 檔案轉換並附加統一 frontmatter。
+normalize 階段可離線重跑，將 docs_paths 下的 Markdown/RST 檔案轉換並附加統一 frontmatter。
 """
 
 from __future__ import annotations
@@ -22,13 +22,301 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from common import REPO_ROOT, Manifest, load_manifest
-from normalize import to_markdown as html_to_markdown
 
 FRONTMATTER_PATTERN = re.compile(r"^---\r?\n(.*?)\r?\n---\r?\n?", re.DOTALL)
 HEADING1_PATTERN = re.compile(r"^#\s+(.+)$", re.MULTILINE)
+
+RST_SECTION_LEVELS = {
+    "=": 1,
+    "-": 2,
+    "^": 3,
+    "~": 4,
+    '"': 5,
+    "'": 6,
+    "*": 3,
+    "`": 3,
+    "+": 4,
+    "_": 5,
+    ".": 6,
+    "|": 6,
+    "#": 6,
+}
+RST_DIRECTIVE_PATTERN = re.compile(
+    r"^(?P<indent>[ ]*)\.\.\s+(?P<name>[A-Za-z0-9_.-]+)::(?:[ \t]*(?P<argument>.*))?$"
+)
+RST_TARGET_PATTERN = re.compile(r"^[ ]*\.\.\s+_[^:]+:\s*$")
+RST_ADMONITIONS = {
+    "attention",
+    "caution",
+    "danger",
+    "error",
+    "hint",
+    "important",
+    "note",
+    "seealso",
+    "tip",
+    "warning",
+}
+RST_CODE_DIRECTIVES = {"code", "code-block", "sourcecode", "prompt"}
+
+
+def _indent_width(line: str) -> int:
+    return len(line) - len(line.lstrip(" "))
+
+
+def _is_section_underline(line: str) -> bool:
+    stripped = line.strip()
+    return (
+        len(stripped) >= 3
+        and len(set(stripped)) == 1
+        and stripped[0] in RST_SECTION_LEVELS
+    )
+
+
+def _section_level(line: str) -> int:
+    return RST_SECTION_LEVELS[line.strip()[0]]
+
+
+def _deindent(lines: list[str], minimum: int | None = None) -> list[str]:
+    nonblank = [_indent_width(line) for line in lines if line.strip()]
+    if not nonblank:
+        return ["" if not line.strip() else line for line in lines]
+    amount = min(nonblank) if minimum is None else minimum
+    result = []
+    for line in lines:
+        if not line.strip():
+            result.append("")
+        else:
+            result.append(line[min(amount, _indent_width(line)):])
+    return result
+
+
+def _inline_rst_to_markdown(line: str) -> str:
+    """Convert safe inline RST constructs without interpreting unknown roles."""
+
+    def explicit_link(match: re.Match[str]) -> str:
+        label = match.group(1).strip()
+        target = match.group(2).strip()
+        return f"[{label}]({target})"
+
+    def role_value(match: re.Match[str]) -> str:
+        value = match.group(2).strip()
+        if "<" in value and value.endswith(">"):
+            value = value.rsplit("<", 1)[0].strip() or value[1:-1].strip()
+        return value
+
+    line = re.sub(r"`([^`]+?)\s+<([^>]+)>`_", explicit_link, line)
+    line = re.sub(r":([A-Za-z][\w.-]*):`([^`]+)`", role_value, line)
+    line = re.sub(r"`([^`]+)`_", r"\1", line)
+    line = re.sub(r"``([^`]+)``", r"`\1`", line)
+    line = re.sub(r"^(\s*)#\.\s+", r"\g<1>1. ", line)
+    return line
+
+
+def _directive_block(lines: list[str], start: int) -> tuple[str, str, list[str], int] | None:
+    match = RST_DIRECTIVE_PATTERN.match(lines[start])
+    if match is None:
+        return None
+    indent = len(match.group("indent"))
+    name = match.group("name").lower()
+    argument = (match.group("argument") or "").strip()
+    end = start + 1
+    while end < len(lines):
+        line = lines[end]
+        if line.strip() and _indent_width(line) <= indent:
+            break
+        end += 1
+    return name, argument, lines[start + 1:end], end
+
+
+def _directive_content(body: list[str]) -> list[str]:
+    """Drop directive options and normalize the indentation of its content."""
+
+    content = body[:]
+    while content:
+        if not content[0].strip():
+            content.pop(0)
+            continue
+        # Directive options have a space or end-of-line after the closing
+        # colon.  Do not mistake an inline role such as ``:ref:`...`` for an
+        # option in the directive body.
+        if re.match(r"^[ ]+:[^:]+:(?:[ \t].*)?$", content[0]):
+            content.pop(0)
+            continue
+        break
+    while content and not content[-1].strip():
+        content.pop()
+    return _deindent(content)
+
+
+def _directive_option(body: list[str], name: str) -> str:
+    pattern = re.compile(rf"^[ ]+:{re.escape(name)}:(?:[ \t]+(.*))?$")
+    for line in body:
+        match = pattern.match(line)
+        if match:
+            return (match.group(1) or "").strip()
+    return ""
+
+
+def _resolve_literalinclude(
+    argument: str,
+    raw_body: list[str],
+    repo_dir: Path | None,
+    source_path: Path | None,
+) -> tuple[str, str, list[str]] | None:
+    """Resolve a safe, unsliced literalinclude inside the fixed source tree."""
+
+    if repo_dir is None or source_path is None or not argument:
+        return None
+    options = {
+        match.group(1)
+        for line in raw_body
+        if (match := re.match(r"^[ ]+:([^:]+):", line))
+    }
+    if options - {"language", "linenos", "caption", "name", "class"}:
+        return None
+
+    repo_root = repo_dir.resolve()
+    include_path = (source_path.parent / argument.strip()).resolve()
+    try:
+        include_rel = include_path.relative_to(repo_root).as_posix()
+    except ValueError:
+        return None
+    if not include_path.is_file() or include_path.stat().st_size > 1_000_000:
+        return None
+    try:
+        content = include_path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+    language = _directive_option(raw_body, "language")
+    if not language:
+        language = include_path.suffix.removeprefix(".")
+    return include_rel, language, content.rstrip("\n").splitlines()
+
+
+def rst_to_markdown(
+    text: str,
+    default_title: str = "",
+    *,
+    repo_dir: Path | None = None,
+    source_path: Path | None = None,
+) -> tuple[str, str]:
+    """Convert Ceph's RST to conservative Markdown while retaining unknown RST.
+
+    This is deliberately not a Sphinx reimplementation.  Structural headings,
+    code directives, admonitions, links, and common roles become Markdown; all
+    other directives remain visible as indented RST so source content is not
+    silently discarded when the upstream documentation adds a directive.
+    """
+
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    output: list[str] = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+
+        directive = _directive_block(lines, i)
+        if directive is not None:
+            name, argument, raw_body, end = directive
+            content = _directive_content(raw_body)
+            if name == "literalinclude":
+                included = _resolve_literalinclude(argument, raw_body, repo_dir, source_path)
+                if included is not None:
+                    include_rel, language, include_lines = included
+                    output.extend([f"Included file `{include_rel}`:", "", f"```{language}".rstrip()])
+                    output.extend(include_lines)
+                    output.extend(["```", ""])
+                else:
+                    output.append(f".. {name}::{(' ' + argument) if argument else ''}".rstrip())
+                    for raw_line in _deindent(raw_body):
+                        output.append(f"   {raw_line}" if raw_line else "")
+                    output.append("")
+            elif name in RST_CODE_DIRECTIVES:
+                language = argument.split()[0] if argument else ""
+                output.extend(["", f"```{language}".rstrip()])
+                output.extend(content)
+                output.extend(["```", ""])
+            elif name in RST_ADMONITIONS:
+                label = name.capitalize()
+                first = _inline_rst_to_markdown(argument) if argument else ""
+                output.append(f"> **{label}:**" + (f" {first}" if first else ""))
+                for content_line in content:
+                    output.append(">" if not content_line else f"> {_inline_rst_to_markdown(content_line)}")
+                output.append("")
+            else:
+                output.append(f".. {name}::{(' ' + argument) if argument else ''}".rstrip())
+                for content_line in _deindent(raw_body):
+                    output.append(f"   {content_line}" if content_line else "")
+                output.append("")
+            i = end
+            continue
+
+        if RST_TARGET_PATTERN.match(line):
+            output.append(line.strip())
+            i += 1
+            continue
+
+        if (
+            _indent_width(line) == 0
+            and _is_section_underline(line)
+            and i + 2 < len(lines)
+            and lines[i + 1].strip()
+            and lines[i + 2].strip() == line.strip()
+        ):
+            # RST's overline/title/underline form, used by document roots.
+            output.append(f"{'#' * _section_level(line)} {lines[i + 1].strip()}")
+            i += 3
+            continue
+
+        if (
+            line.strip()
+            and _indent_width(line) == 0
+            and i + 1 < len(lines)
+            and _is_section_underline(lines[i + 1])
+        ):
+            # RST's title/underline form for ordinary sections.
+            output.append(f"{'#' * _section_level(lines[i + 1])} {line.strip()}")
+            i += 2
+            continue
+
+        if (
+            line.strip().endswith("::")
+            and i + 1 < len(lines)
+            and not line.lstrip().startswith(".. ")
+        ):
+            body_start = i + 1
+            if body_start < len(lines) and not lines[body_start].strip():
+                body_start += 1
+            base_indent = _indent_width(line)
+            body_end = body_start
+            while body_end < len(lines):
+                if lines[body_end].strip() and _indent_width(lines[body_end]) <= base_indent:
+                    break
+                body_end += 1
+            if body_end > body_start and any(lines[k].strip() for k in range(body_start, body_end)):
+                output.append(_inline_rst_to_markdown(line.rstrip()[:-1]))
+                literal = _deindent(lines[body_start:body_end])
+                while literal and not literal[-1].strip():
+                    literal.pop()
+                output.extend(["", "```"])
+                output.extend(literal)
+                output.extend(["```", ""])
+                i = body_end
+                continue
+
+        output.append(_inline_rst_to_markdown(line.rstrip()))
+        i += 1
+
+    body = re.sub(r"[ \t]+$", "", "\n".join(output), flags=re.MULTILINE)
+    body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
+    title = ""
+    for candidate in body.splitlines():
+        heading = re.match(r"^#\s+(.+)$", candidate)
+        if heading:
+            title = heading.group(1).strip()
+            break
+    return title or default_title, body
 
 # 副檔名與代碼語言對映
 EXT_TO_LANG: dict[str, str] = {
@@ -157,6 +445,8 @@ def extract_frontmatter(content: str, default_title: str) -> tuple[str, str]:
         raw_yaml = match.group(1)
         body = content[match.end():]
         try:
+            import yaml
+
             parsed = yaml.safe_load(raw_yaml)
             if isinstance(parsed, dict) and "title" in parsed:
                 t = parsed["title"]
@@ -688,6 +978,102 @@ def clean_gitlab_shortcodes(content: str) -> str:
     return text
 
 
+def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Path, str]]:
+    supported_suffixes = {".md", ".markdown", ".rst"}
+    if manifest.content_selector:
+        supported_suffixes.add(".html")
+
+    discovered: list[tuple[Path, str]] = []
+    for doc_item in manifest.docs_paths:
+        item_path = repo_dir / doc_item
+        if not item_path.exists():
+            print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
+            continue
+        if item_path.is_file():
+            if item_path.suffix.lower() in supported_suffixes:
+                discovered.append((item_path, Path(doc_item).name))
+            continue
+        for path in sorted(item_path.rglob("*")):
+            if path.is_file() and path.suffix.lower() in supported_suffixes:
+                discovered.append((path, path.relative_to(item_path).as_posix()))
+    return discovered
+
+
+def _has_source_content(text: str) -> bool:
+    return bool(text.strip())
+
+
+def _source_link_candidates(file_path: Path, target: str) -> list[Path]:
+    target_path = target.split("#", 1)[0].split("?", 1)[0]
+    if not target_path:
+        return []
+    candidates: list[Path] = []
+    for base in (file_path.parent / file_path.stem, file_path.parent):
+        candidate = Path(os.path.normpath(str(base / target_path)))
+        candidates.append(candidate)
+        if candidate.suffix == "":
+            for suffix in (".rst", ".md", ".markdown"):
+                candidates.append(candidate.with_suffix(suffix))
+            candidates.extend((candidate / "index.rst", candidate / "index.md"))
+    return candidates
+
+
+def _rewrite_source_links(
+    body: str,
+    file_path: Path,
+    target_rel: Path,
+    repo_dir: Path,
+    source_outputs: dict[str, str],
+    manifest: Manifest,
+) -> str:
+    """Make source-relative text links point at corpus pages or fixed assets."""
+
+    repo_root = repo_dir.resolve()
+    base_repo_url = manifest.repo_url.rstrip("/")
+    link_pattern = re.compile(r"(?P<open>!?\[[^\]]*\]\()(?P<target>[^)]+)(?P<close>\))")
+
+    def replacement(match: re.Match[str]) -> str:
+        target = match.group("target").strip()
+        if (
+            not target
+            or target.startswith(("#", "/", "//", "http:", "https:", "mailto:", "ftp:"))
+            or re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", target)
+            or ("@" in target and "/" not in target)
+            or re.match(r"^[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+){2,}(?:/|$)", target)
+        ):
+            return match.group(0)
+
+        path_part, hash_mark, fragment = target.partition("#")
+        query = ""
+        if "?" in path_part:
+            path_part, query = path_part.split("?", 1)
+        suffix = (f"?{query}" if query else "") + (f"#{fragment}" if hash_mark else "")
+
+        for candidate in _source_link_candidates(file_path, path_part):
+            try:
+                repo_rel = candidate.resolve().relative_to(repo_root).as_posix()
+            except ValueError:
+                continue
+            output_path = source_outputs.get(repo_rel)
+            if output_path is not None:
+                relative = os.path.relpath(output_path, start=target_rel.parent.as_posix()).replace(os.sep, "/")
+                return f"{match.group('open')}{relative}{suffix}{match.group('close')}"
+            if candidate.is_file():
+                if manifest.source_url_template:
+                    asset_url = manifest.source_url_template.format(
+                        repo_url=base_repo_url,
+                        git_ref=manifest.git_ref,
+                        path=repo_rel,
+                        doc_path=repo_rel,
+                    )
+                else:
+                    asset_url = f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel}"
+                return f"{match.group('open')}{asset_url}{suffix}{match.group('close')}"
+        return match.group(0)
+
+    return link_pattern.sub(replacement, body)
+
+
 def normalize(manifest: Manifest) -> None:
     """Normalize 階段：將 repo 內的 Markdown/HTML 文件轉入 corpus。"""
     repo_dir = manifest.raw_dir / "repo"
@@ -715,83 +1101,89 @@ def normalize(manifest: Manifest) -> None:
     is_k8s = manifest.collection == "k8s"
     is_gitlab = manifest.collection == "gitlab"
 
-    for doc_item in manifest.docs_paths:
-        item_path = repo_dir / doc_item
-        if not item_path.exists():
-            print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
+    files_to_process = _discover_source_files(manifest, repo_dir)
+    source_outputs = {
+        file_path.relative_to(repo_dir).as_posix(): Path(rel_out_path).with_suffix(".md").as_posix()
+        for file_path, rel_out_path in files_to_process
+    }
+
+    for file_path, rel_out_path_str in files_to_process:
+        repo_rel_path = file_path.relative_to(repo_dir).as_posix()
+        if manifest.source_url_template:
+            source_url = manifest.source_url_template.format(
+                repo_url=base_repo_url,
+                git_ref=manifest.git_ref,
+                path=repo_rel_path,
+                doc_path=rel_out_path_str,
+            )
+        else:
+            source_url = f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
+
+        try:
+            raw_text = file_path.read_text(encoding="utf-8", errors="replace")
+        except Exception as e:
+            print(f"[{manifest.name}] Error reading {file_path}: {e}", file=sys.stderr)
+            continue
+        if not _has_source_content(raw_text):
+            print(f"[{manifest.name}] Skipping empty source: {repo_rel_path}")
             continue
 
-        supported_suffixes = {".md", ".markdown"}
-        if manifest.content_selector:
-            supported_suffixes.add(".html")
+        target_rel = Path(rel_out_path_str).with_suffix(".md")
+        default_title = target_rel.stem
 
-        if item_path.is_file():
-            if item_path.suffix.lower() not in supported_suffixes:
+        if file_path.suffix.lower() == ".html":
+            from normalize import to_markdown as html_to_markdown
+
+            page_url = f"{manifest.base_url.rstrip('/')}/{rel_out_path_str}"
+            html_result = html_to_markdown(raw_text, page_url, manifest)
+            if html_result is None:
+                print(f"[{manifest.name}] Skipping HTML with no matching content: {repo_rel_path}", file=sys.stderr)
                 continue
-            files_to_process = [(item_path, Path(doc_item).name)]
+            title, body = html_result
+            body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
+        elif file_path.suffix.lower() == ".rst":
+            title, body = rst_to_markdown(
+                raw_text,
+                default_title=default_title,
+                repo_dir=repo_dir,
+                source_path=file_path,
+            )
         else:
-            files_to_process = []
-            for p in sorted(item_path.rglob("*")):
-                if p.is_file() and p.suffix.lower() in supported_suffixes:
-                    rel_to_item = p.relative_to(item_path).as_posix()
-                    files_to_process.append((p, rel_to_item))
+            title, body = extract_frontmatter(raw_text, default_title=default_title)
 
-        for file_path, rel_out_path_str in files_to_process:
-            repo_rel_path = file_path.relative_to(repo_dir).as_posix()
-            if manifest.source_url_template:
-                source_url = manifest.source_url_template.format(
-                    repo_url=base_repo_url,
-                    git_ref=manifest.git_ref,
-                    path=repo_rel_path,
-                    doc_path=rel_out_path_str,
-                )
-            else:
-                source_url = f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
+        if is_k8s:
+            body = clean_hugo_shortcodes(body, repo_dir)
+        elif is_gitlab:
+            body = clean_gitlab_shortcodes(body)
 
-            try:
-                raw_text = file_path.read_text(encoding="utf-8", errors="replace")
-            except Exception as e:
-                print(f"[{manifest.name}] Error reading {file_path}: {e}", file=sys.stderr)
-                continue
+        if file_path.suffix.lower() in {".md", ".markdown", ".rst"}:
+            body = _rewrite_source_links(
+                body,
+                file_path,
+                target_rel,
+                repo_dir,
+                source_outputs,
+                manifest,
+            )
+        body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
+        body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
 
-            target_rel = Path(rel_out_path_str).with_suffix(".md")
-            default_title = target_rel.stem
+        out_path = corpus_dir / target_rel
+        out_path.parent.mkdir(parents=True, exist_ok=True)
 
-            if file_path.suffix.lower() == ".html":
-                page_url = f"{manifest.base_url.rstrip('/')}/{rel_out_path_str}"
-                html_result = html_to_markdown(raw_text, page_url, manifest)
-                if html_result is None:
-                    print(f"[{manifest.name}] Skipping HTML with no matching content: {repo_rel_path}", file=sys.stderr)
-                    continue
-                title, body = html_result
-                body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
-            else:
-                title, body = extract_frontmatter(raw_text, default_title=default_title)
+        frontmatter = "\n".join([
+            "---",
+            f"collection: {manifest.collection}",
+            f'version: "{manifest.version}"',
+            f"title: {json.dumps(title, ensure_ascii=False)}",
+            f"source_url: {source_url}",
+            f"fetched_at: {fetched_at}",
+            "---",
+            "",
+        ])
 
-            if is_k8s:
-                body = clean_hugo_shortcodes(body, repo_dir)
-            elif is_gitlab:
-                body = clean_gitlab_shortcodes(body)
-                body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
-
-            body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
-
-            out_path = corpus_dir / target_rel
-            out_path.parent.mkdir(parents=True, exist_ok=True)
-
-            frontmatter = "\n".join([
-                "---",
-                f"collection: {manifest.collection}",
-                f'version: "{manifest.version}"',
-                f"title: {json.dumps(title, ensure_ascii=False)}",
-                f"source_url: {source_url}",
-                f"fetched_at: {fetched_at}",
-                "---",
-                "",
-            ])
-
-            out_path.write_text(frontmatter + body, encoding="utf-8")
-            written += 1
+        out_path.write_text(frontmatter + body, encoding="utf-8")
+        written += 1
 
     print(f"[{manifest.name}] corpus written: {written} pages")
 
