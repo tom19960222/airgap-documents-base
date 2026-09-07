@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-.. _ceph_osd-daemon:
+<a id="ceph-osd-daemon"></a>
 
 # ceph-osd -- ceph object storage daemon
 
@@ -24,11 +24,11 @@ fetched_at: 2026-08-18T01:32:45Z
 distributed file system. It manages data on local storage with redundancy and
 provides access to that data over the network.
 
-For Filestore-backed clusters, the argument of the `--osd-data datapath`
-option (which is `datapath` in this example) should be a directory on an XFS
+For Filestore-backed clusters, the argument of the ``--osd-data datapath``
+option (which is ``datapath`` in this example) should be a directory on an XFS
 file system where the object data resides. The journal is optional. The journal
 improves performance only when it resides on a different disk than the disk
-specified by `datapath` . The storage medium on which the journal is stored
+specified by ``datapath`` . The storage medium on which the journal is stored
 should be a low-latency medium (ideally, an SSD device).
 
 # Options
@@ -36,7 +36,7 @@ should be a low-latency medium (ideally, an SSD device).
 .. option:: -f, --foreground
 
    Foreground: do not daemonize after startup (run in foreground). Do
-   not generate a pid file. Useful when run via :doc:`ceph-run <ceph-run>`\(8).
+   not generate a pid file. Useful when run via [ceph-run](ceph-run.md)\(8).
 
 .. option:: -d
 
@@ -82,7 +82,7 @@ should be a low-latency medium (ideally, an SSD device).
 
    Generate a new secret key. This is normally used in combination
    with ``--mkfs`` as it is more convenient than generating a key by
-   hand with :doc:`ceph-authtool <ceph-authtool>`\(8).
+   hand with [ceph-authtool](ceph-authtool.md)\(8).
 
 .. option:: --mkjournal
 
@@ -134,7 +134,7 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8),
-ceph-mds\(8),
-ceph-mon\(8),
-ceph-authtool\(8)
+[ceph](../../install/clone-source.md)\(8),
+[ceph-mds](ceph-mds.md)\(8),
+[ceph-mon](ceph-mon.md)\(8),
+[ceph-authtool](ceph-authtool.md)\(8)

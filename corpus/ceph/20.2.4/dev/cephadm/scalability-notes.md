@@ -46,24 +46,24 @@ to be mitigated at some point.
    host. Having two distinct transport layers feels odd, and we might
    want to consider reducing it to only a single protocol.
 
--  The current approach of delivering `bin/cephadm` to the host doesn't
+-  The current approach of delivering ``bin/cephadm`` to the host doesn't
    allow the use of external dependencies. This means that we're stuck
    with the built-in HTTP server lib, which isn't great for providing a
-   good developer experience. `bin/cephadm` needs to be packaged and
+   good developer experience. ``bin/cephadm`` needs to be packaged and
    distributed (one way or the other) for us to make use of a better
    http server library.
 
 ### MON's config-key store
 
-After the `mgr/cephadm` queried metadata from each host, cephadm stores
+After the ``mgr/cephadm`` queried metadata from each host, cephadm stores
 the data within the mon's k-v store.
 
 If each host would be allowed to write their own metadata to the store,
-`mgr/cephadm` would no longer be required to gather the data.
+``mgr/cephadm`` would no longer be required to gather the data.
 
 Some questions arise:
 
--  `mgr/cephadm` now needs to query data from the config-key store,
+-  ``mgr/cephadm`` now needs to query data from the config-key store,
    instead of relying on cached data.
 
 -  cephadm knows three different types of data: (1) Data that is
@@ -74,7 +74,7 @@ Some questions arise:
 
 ### Increase the worker pool size
 
-`mgr/cephadm` is currently able to scrape 10 nodes at the same time.
+``mgr/cephadm`` is currently able to scrape 10 nodes at the same time.
 
 The scrape of a individual host takes the same amount of time persists.
 We'd just reduce the overall execution time.

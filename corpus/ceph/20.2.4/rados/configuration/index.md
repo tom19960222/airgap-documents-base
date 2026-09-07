@@ -17,7 +17,7 @@ specific daemon, process, or client.
 
 .. raw:: html
 
-	<table cellpadding="10"><colgroup><col width="50%"><col width="50%"></colgroup><tbody valign="top"><tr><td><h3>Configuring the Object Store</h3>
+   <table cellpadding="10"><colgroup><col width="50%"><col width="50%"></colgroup><tbody valign="top"><tr><td><h3>Configuring the Object Store</h3>
 
 For general object store configuration, refer to the following:
 
@@ -29,7 +29,7 @@ For general object store configuration, refer to the following:
 
 .. raw:: html
 
-	</td><td><h3>Reference</h3>
+   </td><td><h3>Reference</h3>
 
 To optimize the performance of your cluster, refer to the following:
 
@@ -53,4 +53,4 @@ To optimize the performance of your cluster, refer to the following:
 
 .. raw:: html
 
-	</td></tr></tbody></table>
+   </td></tr></tbody></table>

@@ -5,7 +5,7 @@ title: "SDK for Ceph Object Classes"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/api/objclass-sdk.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _`rados-objclass-api-sdk`:
+<a id="rados-objclass-api-sdk"></a>
 
 # SDK for Ceph Object Classes
 
@@ -22,15 +22,15 @@ project decouples object class development from Ceph and encourages creation
 and distribution of object classes as packages.
 
 In order to demonstrate the use of this framework, we have provided an example
-called `cls_sdk`, which is a very simple object class that makes use of the
-SDK framework. This object class resides in the `src/cls` directory.
+called ``cls_sdk``, which is a very simple object class that makes use of the
+SDK framework. This object class resides in the ``src/cls`` directory.
 
 ## Installing objclass.h
 
 The object class interface that enables out-of-tree development of object
-classes resides in `src/include/rados/` and gets installed with `Ceph`
-installation. After running `make install`, you should be able to see it
-in `<prefix>/include/rados`. :
+classes resides in ``src/include/rados/`` and gets installed with `Ceph`
+installation. After running ``make install``, you should be able to see it
+in ``<prefix>/include/rados``. :
 
 ```
 ls /usr/local/include/rados
@@ -38,7 +38,7 @@ ls /usr/local/include/rados
 
 ## Using the SDK example
 
-The `cls_sdk` object class resides in `src/cls/sdk/`. This gets built and
+The ``cls_sdk`` object class resides in ``src/cls/sdk/``. This gets built and
 loaded into Ceph, with the Ceph build process. You can run the
-`ceph_test_cls_sdk` unittest, which resides in `src/test/cls_sdk/`,
+``ceph_test_cls_sdk`` unittest, which resides in ``src/test/cls_sdk/``,
 to test this class.

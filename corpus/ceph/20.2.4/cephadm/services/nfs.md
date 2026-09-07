@@ -5,22 +5,22 @@ title: "NFS Service"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/services/nfs.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _deploy-cephadm-nfs-ganesha:
+<a id="deploy-cephadm-nfs-ganesha"></a>
 
 # NFS Service
 
 > **Note:** Only the NFSv4 protocol is supported.
 
-The simplest way to manage NFS is via the `ceph nfs cluster ...`
-commands; see mgr-nfs.  This document covers how to manage the
+The simplest way to manage NFS is via the ``ceph nfs cluster ...``
+commands; see [mgr-nfs](../../mgr/nfs.md#mgr-nfs).  This document covers how to manage the
 cephadm services directly, which should only be necessary for unusual NFS
 configurations.
 
 # Deploying NFS ganesha
 
 Cephadm deploys NFS Ganesha daemon (or set of daemons).  The configuration for
-NFS is stored in the `.nfs` pool and exports are managed via the
-`ceph nfs export ...` commands and via the dashboard.
+NFS is stored in the ``.nfs`` pool and exports are managed via the
+``ceph nfs export ...`` commands and via the dashboard.
 
 To deploy a NFS Ganesha gateway, run the following command:
 
@@ -35,7 +35,7 @@ port 2049 with the default placement of a single daemon:
 ceph orch apply nfs foo
 ```
 
-See orchestrator-cli-placement-spec for the details of the placement
+See [orchestrator-cli-placement-spec](index.md#orchestrator-cli-placement-spec) for the details of the placement
 specification.
 
 # Service Specification
@@ -55,10 +55,10 @@ spec:
   enable_nfsv3: true
 ```
 
-In this example, we run the server on the non-default `port` of
-12345 (instead of the default 2049) on `host1` and `host2`.
+In this example, we run the server on the non-default ``port`` of
+12345 (instead of the default 2049) on ``host1`` and ``host2``.
 By default, only the NFSv4 protocol is enabled. NFSv3 can be enabled by setting
-`enable_nfsv3` to `true` in the service specification.
+``enable_nfsv3`` to ``true`` in the service specification.
 
 The specification can then be applied by running the following command:
 
@@ -66,7 +66,7 @@ The specification can then be applied by running the following command:
 ceph orch apply -i nfs.yaml
 ```
 
-.. _cephadm-ha-nfs:
+<a id="cephadm-ha-nfs"></a>
 
 # High-availability NFS
 
@@ -77,7 +77,7 @@ Deploying an *ingress* service for an existing *nfs* service will provide:
 * load distribution across multiple NFS gateways (although this is rarely necessary)
 
 Ingress for NFS can be deployed for an existing NFS service
-(`nfs.mynfs` in this example) with the following specification:
+(``nfs.mynfs`` in this example) with the following specification:
 
 ```yaml
 service_type: ingress
@@ -98,26 +98,24 @@ A few notes:
     first identified network interface that has an existing IP in the
     same subnet.  You can also specify a *virtual_interface_networks*
     property to match against IPs in other networks; see
-    ingress-virtual-ip for more information.
+    [ingress-virtual-ip](rgw.md#ingress-virtual-ip) for more information.
   * The *monitor_port* is used to access the haproxy load status
-    page.  The user is `admin` by default, but can be modified by
+    page.  The user is ``admin`` by default, but can be modified by
     via an *admin* property in the spec.  If a password is not
     specified via a *password* property in the spec, the auto-generated password
     can be found with:
 
 ```bash
+ceph config-key get mgr/cephadm/ingress.*{svc_id}*/monitor_password
 ```
-
-	ceph config-key get mgr/cephadm/ingress.*{svc_id}*/monitor_password
 
     For example:
 
 ```bash
+ceph config-key get mgr/cephadm/ingress.nfs.myfoo/monitor_password
 ```
 
-	ceph config-key get mgr/cephadm/ingress.nfs.myfoo/monitor_password
-
-  * The backend service (`nfs.mynfs` in this example) should include
+  * The backend service (``nfs.mynfs`` in this example) should include
     a *port* property that is not 2049 to avoid conflicting with the
     ingress service, which could be placed on the same host(s).
 
@@ -128,9 +126,9 @@ offers a virtual ip supported by keepalived that the nfs daemon can directly bin
 to instead of having traffic go through haproxy.
 
 In this setup, you'll either want to set up the service using the nfs module
-(see nfs-module-cluster-create) or place the ingress service first, so
+(see [nfs-module-cluster-create](../../mgr/nfs.md#nfs-module-cluster-create)) or place the ingress service first, so
 the virtual IP is present for the nfs daemon to bind to. The ingress service
-should include the attribute `keepalive_only` set to true. For example
+should include the attribute ``keepalive_only`` set to true. For example
 
 ```yaml
 service_type: ingress
@@ -148,7 +146,7 @@ spec:
   keepalive_only: true
 ```
 
-Then, an nfs service could be created that specifies a `virtual_ip` attribute
+Then, an nfs service could be created that specifies a ``virtual_ip`` attribute
 that will tell it to bind to that specific IP.
 
 ```yaml
@@ -165,7 +163,7 @@ spec:
   virtual_ip: 192.168.122.100
 ```
 
-Note that in these setups, one should make sure to include `count: 1` in the
+Note that in these setups, one should make sure to include ``count: 1`` in the
 nfs placement, as it's only possible for one nfs daemon to bind to the virtual IP.
 
 ## NFS with HAProxy Protocol Support
@@ -173,14 +171,12 @@ nfs placement, as it's only possible for one nfs daemon to bind to the virtual I
 Cephadm supports deploying NFS in High-Availability mode with additional
 HAProxy protocol support. This works just like High-availability NFS but also
 supports client IP level configuration on NFS Exports.  This feature requires
-NFS-Ganesha v5.0 or later.
-
-.. _NFS-Ganesha v5.0: https://github.com/nfs-ganesha/nfs-ganesha/wiki/ReleaseNotes_5
+[NFS-Ganesha v5.0](https://github.com/nfs-ganesha/nfs-ganesha/wiki/ReleaseNotes_5) or later.
 
 To use this mode, you'll either want to set up the service using the nfs module
-(see nfs-module-cluster-create) or manually create services with the
-extra parameter `enable_haproxy_protocol` set to true. Both NFS Service and
-Ingress service must have `enable_haproxy_protocol` set to the same value.
+(see [nfs-module-cluster-create](../../mgr/nfs.md#nfs-module-cluster-create)) or manually create services with the
+extra parameter ``enable_haproxy_protocol`` set to true. Both NFS Service and
+Ingress service must have ``enable_haproxy_protocol`` set to the same value.
 For example:
 
 ```yaml
@@ -215,5 +211,5 @@ spec:
 
 # Further Reading
 
-* CephFS: cephfs-nfs
-* MGR: mgr-nfs
+* CephFS: [cephfs-nfs](../../cephfs/nfs.md#cephfs-nfs)
+* MGR: [mgr-nfs](../../mgr/nfs.md#mgr-nfs)

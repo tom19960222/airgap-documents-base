@@ -114,7 +114,7 @@ We recommend that all Dumpling users upgrade at their convenience.
 * rgw: set truncation flag correctly in bucket listing (Yehuda Sadeh)
 * sysvinit: continue starting daemons after pre-mount error (#8554, Sage Weil)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.10.txt -->.
 
 # v0.67.9 "Dumpling"
 
@@ -140,7 +140,7 @@ We recommend that all Dumpling users upgrade at their convenience.
 * rgw: allow setting ACLs with empty owner (#6892, Yehuda Sadeh)
 * rgw: send user manifest header field (#8170, Yehuda Sadeh)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.9.txt -->.
 
 # v0.67.8 "Dumpling"
 
@@ -196,7 +196,7 @@ We recommend that all users upgrade at their convenience.
 * rgw: fix whitespace trimming in http headers (#7543, Yehuda Sadeh)
 * rgw: make multi-object deletion idempotent (#7346, Yehuda Sadeh)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.8.txt -->.
 
 # v0.67.7 "Dumpling"
 
@@ -217,7 +217,7 @@ recommend that all v0.67.5 (or older) users upgrade.
 * osd: fix problem reading xattrs due to incomplete backport in v0.67.6
 * radosgw-admin: fix reading object policy
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.7.txt -->.
 
 # v0.67.6 "Dumpling"
 
@@ -283,7 +283,7 @@ We recommend that all 0.67.x Dumpling users skip this release and upgrade to v0.
 * rgw: fix S3 auth when using response-* query string params (Sylvain Munaut)
 * rgw: use correct secret key for POST authentication (Robin H. Johnson)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.6.txt -->.
 
 # v0.67.5 "Dumpling"
 
@@ -316,7 +316,7 @@ We recommend that all 0.67.x Dumpling users upgrade.
 * rgw: various DR bug fixes
 * sysvinit, upstart: prevent starting daemons using both init systems
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.5.txt -->.
 
 # v0.67.4 "Dumpling"
 
@@ -346,7 +346,7 @@ keystone authentication token caching, and CORS.  All users
 * rgw: fix minor memory leaks
 * rgw: fix null termination of buffer
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.4.txt -->.
 
 # v0.67.3 "Dumpling"
 
@@ -378,7 +378,7 @@ upgrade.
 * rgw: reorder init/startup
 * rpm: fix debuginfo package build
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.3.txt -->.
 
 # v0.67.2 "Dumpling"
 
@@ -399,7 +399,7 @@ and cleans up the radosgw shutdown sequence.
 * rgw: drain requests on shutdown
 * rgw: misc memory leaks on shutdown
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.2.txt -->.
 
 # v0.67.1 "Dumpling"
 
@@ -416,7 +416,7 @@ OpenStack and librbd hangs when caching is disabled.
 * fixes 'ceph daemon ... config set ...' command for boolean config
   options.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.1.txt -->.
 
 # v0.67 "Dumpling"
 
@@ -437,7 +437,7 @@ headline features for this release include:
 
 * Object namespaces in librados.
 
-.. _dumpling-upgrade:
+<a id="dumpling-upgrade"></a>
 
 ## Upgrade Sequencing
 
@@ -527,10 +527,10 @@ ceph daemon osd.0 config set debug_ms 1
 In addition to the above notes about upgrading from v0.66:
 
 * There has been a huge revamp of the 'ceph' command-line interface
-  implementation.  The `ceph-common` client library needs to be
-  upgrade before `ceph-mon` is restarted in order to avoid problems
-  using the CLI (the old `ceph` client utility cannot talk to the
-  new `ceph-mon`).
+  implementation.  The ``ceph-common`` client library needs to be
+  upgrade before ``ceph-mon`` is restarted in order to avoid problems
+  using the CLI (the old ``ceph`` client utility cannot talk to the
+  new ``ceph-mon``).
 
 * The CLI is now very careful about sending the 'status' one-liner
   output to stderr and command output to stdout.  Scripts relying on
@@ -572,7 +572,7 @@ id (integer) or name (osd.<id>)::
   renamed to 'mon osd min down {reporters|reports}', and the
   documentation has been updated to reflect that these options apply
   to the monitors (who process failure reports) and not OSDs.  If you
-  have adjusted these settings, please update your `ceph.conf`
+  have adjusted these settings, please update your ``ceph.conf``
   accordingly.
 
 ## Notable changes since v0.66
@@ -753,10 +753,10 @@ id (integer) or name (osd.<id>)::
 ## Upgrading
 
 * Huge revamp of the 'ceph' command-line interface implementation.
-  The `ceph-common` client library needs to be upgrade before
-  `ceph-mon` is restarted in order to avoid problems using the CLI
-  (the old `ceph` client utility cannot talk to the new
-  `ceph-mon`).
+  The ``ceph-common`` client library needs to be upgrade before
+  ``ceph-mon`` is restarted in order to avoid problems using the CLI
+  (the old ``ceph`` client utility cannot talk to the new
+  ``ceph-mon``).
 
 * The CLI is now very careful about sending the 'status' one-liner
   output to stderr and command output to stdout.  Scripts relying on
@@ -858,7 +858,7 @@ id (integer) or name (osd.<id>)::
   renamed to 'mon osd min down {reporters|reports}', and the
   documentation has been updated to reflect that these options apply
   to the monitors (who process failure reports) and not OSDs.  If you
-  have adjusted these settings, please update your `ceph.conf`
+  have adjusted these settings, please update your ``ceph.conf``
   accordingly.
 
 ## Notable Changes

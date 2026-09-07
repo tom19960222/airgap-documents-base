@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Compatibility and Stability
 
-.. _cephadm-compatibility-with-podman:
+<a id="cephadm-compatibility-with-podman"></a>
 
 ## Compatibility with Podman Versions
 
@@ -16,19 +16,13 @@ must be taken in finding a version of Podman that is compatible with Ceph.
 
 This table shows which version pairs are expected to work or not work together:
 
-+-----------+-----------------------------------------------+
-|  Ceph     |                 Podman                        |
-+-----------+-------+-------+-------+-------+-------+-------+
-|           | 1.9   |  2.0  |  2.1  |  2.2  |  3.0  | > 3.0 |
-+===========+=======+=======+=======+=======+=======+=======+
-| <= 15.2.5 | True  | False | False | False | False | False |
-+-----------+-------+-------+-------+-------+-------+-------+
-| >= 15.2.6 | True  | True  | True  | False | False | False |
-+-----------+-------+-------+-------+-------+-------+-------+
-| >= 16.2.1 | False | True  | True  | False | True  | True  |
-+-----------+-------+-------+-------+-------+-------+-------+
-| >= 17.2.0 | False | True  | True  | False | True  | True  |
-+-----------+-------+-------+-------+-------+-------+-------+
+| Ceph | Podman |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- |
+|  | 1.9 | 2.0 | 2.1 | 2.2 | 3.0 | > 3.0 |
+| <= 15.2.5 | True | False | False | False | False | False |
+| >= 15.2.6 | True | True | True | False | False | False |
+| >= 16.2.1 | False | True | True | False | True | True |
+| >= 17.2.0 | False | True | True | False | True | True |
 
 > **Note:**
 > While not all Podman versions have been actively tested against
@@ -43,7 +37,7 @@ This table shows which version pairs are expected to work or not work together:
 > "Kubic stable" is known to work with Ceph Pacific, but it must be run
 > with a newer kernel.
 
-.. _cephadm-stability:
+<a id="cephadm-stability"></a>
 
 ## Stability
 
@@ -60,5 +54,5 @@ Cephadm support remains under development for the following features:
 - cephadm agent
 
 If a cephadm command fails or a service stops running properly, see
-cephadm-pause for instructions on how to pause the Ceph cluster's
+[cephadm-pause](troubleshooting.md#cephadm-pause) for instructions on how to pause the Ceph cluster's
 background activity and how to disable cephadm.

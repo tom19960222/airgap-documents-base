@@ -86,11 +86,18 @@ source_url_template = "{repo_url}/blob/{git_ref}/{path}"
 ```
 
 既有 `git_source.py` 原本只處理 Markdown/HTML；本次加入最小的 RST-to-Markdown
-normalizer。它會把 RST section title、code/code-block/prompt、常見 admonition、
-安全的 explicit link 與 inline role 轉成可搜尋 Markdown；source-relative text link
-會改成 corpus page 的相對路徑，source asset 則改成同一個 commit 的固定
-GitHub URL。未知 directive 與無法安全判斷的結構保留成原始 RST 文字，不猜測
-Sphinx 語意，也不丟掉程式碼。
+normalizer。它會把 RST section title、grid/simple table、`table::`、
+code/code-block/prompt、常見 admonition、image/include、safe explicit link 與
+inline role 轉成可搜尋 Markdown；source-relative text link 會改成 corpus page
+的相對路徑，source asset 則改成同一個 commit 的固定 GitHub URL。named reference、
+`:ref:`、`:doc:`、`:download:` 與 `.rst` target 會盡量解析；same-page section
+reference 會使用該頁的 Markdown anchor。固定 source 中不存在或在 corpus 範圍外的
+link 會保留可讀的原始 link，並附上 `unresolved-source-link` classification marker；
+無法解析的 RST reference 也會保留 label 並附上 `unresolved-rst-link` marker。validator
+會把這些列為明確分類，不把它們誤報成全部解析成功；真正殘留的 RST syntax、錯誤的
+local target 或 source/commit metadata mismatch 才是 failure。
+未知 directive 與無法安全判斷的結構保留成原始 RST 文字，不猜測 Sphinx 語意，也
+不丟掉程式碼或 ditaa/CLI 圖形。
 因此不需要安裝完整 Sphinx/Read the Docs build stack，normalize 可以在無網路環境
 從已 checkout 的固定 source 重跑。
 
@@ -113,15 +120,22 @@ builder/.venv/bin/python builder/git_source.py normalize builder/manifests/ceph-
 
 - raw inventory：571 個 source candidate；567 個 `.rst`、4 個 `.md`；570 個
   非空 source，1 個空檔跳過；corpus 產生 570 頁；
-- metadata、source URL、fenced code block、trailing whitespace 與 source-to-
-  corpus link mapping 全部通過；3 個剩餘的 relative-looking reference 明確
-  分類為 generated Javadoc、`doc/` 範圍外的 source tree，或 fixed source 已
-  移除的舊連結；
-- `literalinclude` 的兩個設定檔範例均確認有嵌入，並通過 repo-root path
-  escape 測試；token、private-key、conflict-marker 掃描沒有命中，剩餘的
-  password-like 字串都是官方文件中的測試值、placeholder 或教學範例；
-- SQLite `integrity_check` 為 `ok`；Ceph 20.2.4 在 index 中為 570 頁、
-  6048 chunks。FTS5 對 `mclock`、`cephadm`、
-  `osd_mclock_max_capacity_iops_ssd`、`osd_pool_default_size` 的查詢均命中
-  且 source URL 保持同一個 peeled commit；
-- `python3 -m unittest discover -s builder/tests -v`：7 tests，全部通過。
+- validator：142 個 GFM table separator rows；一般內容沒有殘留 RST table
+  border；79 個 fenced-code border lines 與 402 個 `ditaa` border lines 明確
+  保留；`pinned-assets=54`；未解析 RST reference 分類為 `download=67`、
+  `named=18`、`ref=9`，另有 4 個 source-relative link classification。這些
+  classification marker 會留在輸出中，不冒充全數 offline link 已解析；真正殘留
+  RST syntax、失效 local target 與 source/commit mismatch 仍會使 validator fail。
+- credential-shaped upstream examples：raw source 分類 59 筆、corpus 分類 59 筆，
+  包含 CephX 41、certificate 8、private-key 7、X-Auth-Token 3；PEM delimiter/body
+  與 CephX token 保持原文，opaque payload fingerprint preservation failures 為 0。
+  這是唯讀 inventory，不是遮罩或 blocker。
+- `literalinclude` 的兩個設定檔範例均確認有嵌入，並通過 repo-root path escape
+  測試；固定 source 中不存在或超出 corpus 範圍的四個舊連結保留原始 target 並附上
+  `unresolved-source-link` marker，沒有被誤轉成另一個 local page。
+- SQLite `integrity_check` 為 `ok`；Ceph 20.2.4 在 index 中為 570 頁、6025
+  chunks。FTS 對 `mclock`、`cephadm`、`osd_mclock_max_capacity_iops_ssd`、
+  `osd_pool_default_size` 分別命中 162、1412、10、31 chunks，source URL 保持
+  同一個 peeled commit；
+- `builder/.venv/bin/python -m unittest discover -s builder/tests -v`：24 tests，
+  全部通過。

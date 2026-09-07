@@ -36,13 +36,13 @@ or implement a layer 3 multipath strategy with FRR or similar technlogy. When
 using LACP bonding it is important to consult your organization's network team
 to determine the proper transmit hash policy Usually this is 2+3 or 3+4. The
 wrong choice can result in imbalanced network link utilization with a fraction
-of the available throughput.  Network observability tools including `bmon`
-and `iftop` and `netstat` are invaluable when ensuring that bond member
+of the available throughput.  Network observability tools including ``bmon``
+and ``iftop`` and ``netstat`` are invaluable when ensuring that bond member
 links are well-utilized.
 
 If, despite the complexity, one still wishes to provision a dedicated replication
 network for a Ceph cluster, each Ceph Node will need to have more than
-one network interface or VLAN. See Hardware Recommendations - Networks for additional details.
+one network interface or VLAN. See [Hardware Recommendations - Networks](../../start/hardware-recommendations.md#networks) for additional details.
 
 .. ditaa::
                                  +-------------+
@@ -71,38 +71,39 @@ one network interface or VLAN. See Hardware Recommendations - Networks for addit
 
 # IP Tables
 
-By default, daemons bind to ports within the `6800:7568` range. You may
+By default, daemons [bind](network-config-ref.md#bind) to ports within the ``6800:7568`` range. You may
 configure this range at your discretion. Before configuring your IP tables,
-check the default `iptables` configuration.
+check the default ``iptables`` configuration.
 
 ```bash
 sudo iptables -L
 ```
 
 Some Linux distributions include rules that reject all inbound requests
-except SSH from all network interfaces. For example::
+except SSH from all network interfaces. For example:
 
-	REJECT all -- anywhere anywhere reject-with icmp-host-prohibited
+```
+REJECT all -- anywhere anywhere reject-with icmp-host-prohibited
+```
 
 You will need to delete these rules on both your public and cluster networks
 initially, and replace them with appropriate rules when you are ready to
 harden the ports on your Ceph Nodes.
 
 > **Note:** Docker and Podman containers may experience disruption when rules
-
-	  are adjusted or reloaded.  You may find it best to update rules on
-	  cluster nodes by serially setting maintenance mode, stopping
-	  container services, applying rule changes, then starting container
-	  services and exiting maintenance mode.
+> are adjusted or reloaded.  You may find it best to update rules on
+> cluster nodes by serially setting maintenance mode, stopping
+> container services, applying rule changes, then starting container
+> services and exiting maintenance mode.
 
 ## Monitor IP Tables
 
-Ceph Monitors listen on ports `3300` and `6789` by
+Ceph Monitors listen on ports ``3300`` and ``6789`` by
 default. Additionally, Ceph Monitors always operate on the public
 network. When you add the rule using the example below, make sure you
-replace `{iface}` with the public network interface (e.g., `eth0`,
-`eth1`, etc.), `{ip-address}` with the IP address of the public
-network and `{netmask}` with the netmask for the public network. :
+replace ``{iface}`` with the public network interface (e.g., ``eth0``,
+``eth1``, etc.), ``{ip-address}`` with the IP address of the public
+network and ``{netmask}`` with the netmask for the public network. :
 
 ```bash
 sudo iptables -A INPUT -i {iface} -p tcp -s {ip-address}/{netmask} --dport 6789 -j ACCEPT
@@ -116,9 +117,9 @@ behavior is not deterministic, so if you are running more than one OSD or MDS
 on the same host, or if you restart the daemons within a short window of time,
 the daemons will bind to higher ports. You should open the entire 6800-7568
 range by default.  When you add the rule using the example below, make sure
-you replace `{iface}` with the public network interface (e.g., `eth0`,
-`eth1`, etc.), `{ip-address}` with the IP address of the public network
-and `{netmask}` with the netmask of the public network.
+you replace ``{iface}`` with the public network interface (e.g., ``eth0``,
+``eth1``, etc.), ``{ip-address}`` with the IP address of the public network
+and ``{netmask}`` with the netmask of the public network.
 
 For example:
 
@@ -128,7 +129,7 @@ sudo iptables -A INPUT -i {iface} -m multiport -p tcp -s {ip-address}/{netmask} 
 
 ## OSD IP Tables
 
-By default, Ceph OSD Daemons bind to the first available ports on a Ceph Node
+By default, Ceph OSD Daemons [bind](network-config-ref.md#bind) to the first available ports on a Ceph Node
 beginning at port 6800.  Note that this behavior is not deterministic, so if you
 are running more than one OSD or MDS on the same host, or if you restart the
 daemons within a short window of time, the daemons will bind to higher ports.
@@ -159,8 +160,8 @@ If you set up separate public and cluster networks, you must add rules for both
 the public network and the cluster network, because clients will connect using
 the public network and other Ceph OSD Daemons will connect using the cluster
 network. When you add the rule using the example below, make sure you replace
-`{iface}` with the network interface (e.g., `eth0`, `eth1`, etc.),
-`{ip-address}` with the IP address and `{netmask}` with the netmask of the
+``{iface}`` with the network interface (e.g., ``eth0``, ``eth1``, etc.),
+``{ip-address}`` with the IP address and ``{netmask}`` with the netmask of the
 public or cluster network. For example:
 
 ```bash
@@ -173,7 +174,7 @@ sudo iptables -A INPUT -i {iface}  -m multiport -p tcp -s {ip-address}/{netmask}
 # Ceph Networks
 
 To configure Ceph networks, you must add a network configuration to the
-`[global]` section of the configuration file. Our 5-minute Quick Start
+``[global]`` section of the configuration file. Our 5-minute Quick Start
 provides a trivial Ceph configuration file that assumes one public network
 with client and server on the same network and subnet. Ceph functions just fine
 with a public network only. However, Ceph allows you to establish much more
@@ -182,7 +183,7 @@ public network. You can also establish a separate cluster network to handle OSD
 heartbeat, object replication and recovery traffic. Don't confuse the IP
 addresses you set in your configuration with the public-facing IP addresses
 network clients may use to access your service. Typical internal IP networks are
-often `192.168.0.0` or `10.0.0.0`.
+often ``192.168.0.0`` or ``10.0.0.0``.
 
 > **Tip:** If you specify more than one IP address and subnet mask for
 > either the public or the cluster network, the subnets within the network
@@ -190,7 +191,7 @@ often `192.168.0.0` or `10.0.0.0`.
 > include each IP address/subnet in your IP tables and open ports for them
 > as necessary.
 
-> **Note:** Ceph uses CIDR notation for subnets (e.g., `10.0.0.0/24`).
+> **Note:** Ceph uses [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation for subnets (e.g., ``10.0.0.0/24``).
 
 When you have configured your networks, you may restart your cluster or restart
 each daemon. Ceph daemons bind dynamically, so you do not have to restart the
@@ -198,31 +199,29 @@ entire cluster at once if you change your network configuration.
 
 ## Public Network
 
-To configure a public network, add the following option to the `[global]`
+To configure a public network, add the following option to the ``[global]``
 section of your Ceph configuration file.
 
 ```ini
+[global]
+        # ... elided configuration
+        public_network = {public-network/netmask}
 ```
 
-	[global]
-		# ... elided configuration
-		public_network = {public-network/netmask}
-
-.. _cluster-network:
+<a id="cluster-network"></a>
 
 ## Cluster Network
 
 If you declare a cluster network, OSDs will route heartbeat, object replication
 and recovery traffic over the cluster network. This may improve performance
 compared to using a single network. To configure a cluster network, add the
-following option to the `[global]` section of your Ceph configuration file.
+following option to the ``[global]`` section of your Ceph configuration file.
 
 ```ini
+[global]
+        # ... elided configuration
+        cluster_network = {cluster-network/netmask}
 ```
-
-	[global]
-		# ... elided configuration
-		cluster_network = {cluster-network/netmask}
 
 We prefer that the cluster network is **NOT** reachable from the public network
 or the Internet for added security.
@@ -231,33 +230,32 @@ or the Internet for added security.
 
 Monitor daemons are each configured to bind to a specific IP address.  These
 addresses are normally configured by your deployment tool.  Other components
-in the Ceph cluster discover the monitors via the `mon host` configuration
-option, normally specified in the `[global]` section of the `ceph.conf` file.
+in the Ceph cluster discover the monitors via the ``mon host`` configuration
+option, normally specified in the ``[global]`` section of the ``ceph.conf`` file.
 
 ```ini
 [global]
     mon_host = 10.0.0.2, 10.0.0.3, 10.0.0.4
 ```
 
-The `mon_host` value can be a list of IP addresses or a name that is
+The ``mon_host`` value can be a list of IP addresses or a name that is
 looked up via DNS.  In the case of a DNS name with multiple A or AAAA
 records, all records are probed in order to discover a monitor.  Once
 one monitor is reached, all other current monitors are discovered, so
-the `mon host` configuration option only needs to be sufficiently up
+the ``mon host`` configuration option only needs to be sufficiently up
 to date such that a client can reach one monitor that is currently online.
 
 The MGR, OSD, and MDS daemons will bind to any available address and
 do not require any special configuration.  However, it is possible to
 specify a specific IP address for them to bind to with the ``public
-addr` (and/or, in the case of OSD daemons, the `cluster addr``)
+addr`` (and/or, in the case of OSD daemons, the ``cluster addr``)
 configuration option.  For example,
 
 ```ini
+[osd.0]
+        public_addr = {host-public-ip-address}
+        cluster_addr = {host-cluster-ip-address}
 ```
-
-	[osd.0]
-		public_addr = {host-public-ip-address}
-		cluster_addr = {host-cluster-ip-address}
 
 .. topic:: One NIC OSD in a Two Network Cluster
 
@@ -279,7 +277,7 @@ network.
 
 The public network configuration allows you specifically define IP addresses
 and subnets for the public network. You may specifically assign static IP
-addresses or override `public_network` settings using the `public_addr`
+addresses or override ``public_network`` settings using the ``public_addr``
 setting for a specific daemon.
 
 .. confval:: public_network_interface
@@ -292,8 +290,8 @@ setting for a specific daemon.
 
 The cluster network configuration allows you to declare a cluster network, and
 specifically define IP addresses and subnets for the cluster network. You may
-specifically assign static IP  addresses or override `cluster_network`
-settings using the `cluster_addr` setting for specific OSD daemons.
+specifically assign static IP  addresses or override ``cluster_network``
+settings using the ``cluster_addr`` setting for specific OSD daemons.
 
 .. confval:: cluster_network_interface
 
@@ -304,7 +302,7 @@ settings using the `cluster_addr` setting for specific OSD daemons.
 ## Bind
 
 Bind settings set the default port ranges Ceph OSD and MDS daemons use. The
-default range is `6800:7568`. Ensure that your IP Tables configuration
+default range is ``6800:7568``. Ensure that your [IP Tables](network-config-ref.md#ip-tables) configuration
 allows you to use the configured port range.
 
 You may also enable Ceph daemons to bind to IPv6 addresses instead of IPv4
@@ -343,11 +341,3 @@ Ceph disables TCP buffering by default.
 .. confval:: ms_dispatch_throttle_bytes
 
 .. confval:: ms_inject_socket_failures
-
-.. _Scalability and High Availability: ../../../architecture#scalability-and-high-availability
-.. _Hardware Recommendations - Networks: ../../../start/hardware-recommendations#networks
-.. _hardware recommendations: ../../../start/hardware-recommendations
-.. _Monitor / OSD Interaction: ../mon-osd-interaction
-.. _Message Signatures: ../auth-config-ref#signatures
-.. _CIDR: https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
-.. _Nagle's Algorithm: https://en.wikipedia.org/wiki/Nagle's_algorithm

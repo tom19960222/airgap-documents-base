@@ -5,7 +5,7 @@ title: "Using cephadm to Deploy a New Ceph Cluster"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/install.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephadm_deploying_new_cluster:
+<a id="cephadm-deploying-new-cluster"></a>
 
 # Using cephadm to Deploy a New Ceph Cluster
 
@@ -15,14 +15,14 @@ then deploying the needed services.
 
 .. highlight:: console
 
-.. _cephadm-host-requirements:
+<a id="cephadm-host-requirements"></a>
 
 # Requirements
 
 - Python 3
 - Systemd
 - Podman or Docker for running containers
-- Time synchronization (such as Chrony or the legacy `ntpd`)
+- Time synchronization (such as Chrony or the legacy ``ntpd``)
 - LVM2 for provisioning storage devices
 
 Any modern Linux distribution should be sufficient.  Dependencies
@@ -32,23 +32,22 @@ See [Docker Live Restore](https://docs.docker.com/engine/daemon/live-restore/)
 for an optional feature that allows restarting Docker Engine without restarting
 all running containers.
 
-See the section :ref:`Compatibility With Podman
-Versions<cephadm-compatibility-with-podman>` for a table of Ceph versions that
+See the section [Compatibility With Podman Versions](compatibility.md#cephadm-compatibility-with-podman) for a table of Ceph versions that
 are compatible with Podman. Not every version of Podman is compatible with
 Ceph.
 
-.. _get-cephadm:
+<a id="get-cephadm"></a>
 
 # Install cephadm
 
 When installing cephadm there are two key steps: first you need to acquire
 an initial copy of cephadm, then the second step is to ensure you have an
-up-to-date cephadm. There are two ways to get the initial `cephadm`:
+up-to-date cephadm. There are two ways to get the initial ``cephadm``:
 
-1. distribution-specific installation methods
-1. a curl-based installation method
+1. [distribution-specific installation methods](install.md#cephadm-install-distros)
+1. a [curl-based installation](install.md#cephadm-install-curl) method
 
-> **Important:** These methods of installing `cephadm` are mutually exclusive.
+> **Important:** These methods of installing ``cephadm`` are mutually exclusive.
 > Choose either the distribution-specific method or the curl-based method. Do
 > not attempt to use both these methods on one system.
 
@@ -56,10 +55,10 @@ up-to-date cephadm. There are two ways to get the initial `cephadm`:
 > Unlike for earlier versions of Ceph it is no longer sufficient to copy a
 > single script from Ceph's git tree and run it. If you wish to run
 > cephadm using a development version you should create your own build of
-> cephadm. See compiling-cephadm for details on how to create your own
+> cephadm. See [compiling-cephadm](../dev/cephadm/developing-cephadm.md#compiling-cephadm) for details on how to create your own
 > standalone cephadm executable.
 
-.. _cephadm_install_distros:
+<a id="cephadm-install-distros"></a>
 
 ## distribution-specific installations
 
@@ -92,29 +91,28 @@ dnf -y install cephadm
 zypper install -y cephadm
 ```
 
-.. _cephadm_install_curl:
+<a id="cephadm-install-curl"></a>
 
 ## Using curl to install cephadm
 
 1. Determine which version of Ceph you will install. Use the releases page to
-   find the `latest active releases
-   <https://docs.ceph.com/en/latest/releases/#active-releases>`_.  For example,
-   you might find that `18.2.1` is the latest active release.
+   find the [latest active releases](https://docs.ceph.com/en/latest/releases/#active-releases).  For example,
+   you might find that ``18.2.1`` is the latest active release.
 
-1. Use `curl` to fetch a build of cephadm for that release.
+1. Use ``curl`` to fetch a build of cephadm for that release.
 
 ```bash
 CEPH_RELEASE=18.2.0 # replace this with the active release
 curl --silent --remote-name --location https://download.ceph.com/rpm-${CEPH_RELEASE}/el9/noarch/cephadm
 ```
 
-1. Use `chmod` to make the `cephadm` file executable:
+1. Use ``chmod`` to make the ``cephadm`` file executable:
 
 ```bash
 chmod +x cephadm
 ```
 
-   After `chmod` has been run on cephadm, it can be run from the current
+   After ``chmod`` has been run on cephadm, it can be run from the current
    directory:
 
 ```bash
@@ -123,8 +121,8 @@ chmod +x cephadm
 
 ### cephadm Requires Python 3.6 or Later
 
-* `cephadm` requires Python 3.6 or later. If you encounter difficulties
-  running `cephadm`, then you may not have Python or the correct version of
+* ``cephadm`` requires Python 3.6 or later. If you encounter difficulties
+  running ``cephadm``, then you may not have Python or the correct version of
   Python installed. This includes any errors that include the message ``bad
   interpreter``.
 
@@ -137,9 +135,9 @@ python3.8 ./cephadm <arguments...>
 
 ### Installing cephadm on the Host
 
-Although the standalone `cephadm` is sufficient to bootstrap a cluster, it is
-best to have the `cephadm` command installed on the host. To install the
-packages that provide the `cephadm` command, run the following commands:
+Although the standalone ``cephadm`` is sufficient to bootstrap a cluster, it is
+best to have the ``cephadm`` command installed on the host. To install the
+packages that provide the ``cephadm`` command, run the following commands:
 
 1. Add the repository:
 
@@ -147,19 +145,19 @@ packages that provide the `cephadm` command, run the following commands:
 ./cephadm add-repo --release |stable-release|
 ```
 
-1. Run `cephadm install`:
+1. Run ``cephadm install``:
 
 ```bash
 ./cephadm install
 ```
 
-1. Confirm that `cephadm` is now in your PATH by running `which`:
+1. Confirm that ``cephadm`` is now in your PATH by running ``which``:
 
 ```bash
 which cephadm
 ```
 
-   A successful `which cephadm` command will return this:
+   A successful ``which cephadm`` command will return this:
 
 ```bash
 /usr/sbin/cephadm
@@ -171,12 +169,12 @@ which cephadm
 
 The first step in creating a new Ceph cluster is running the ``cephadm
 bootstrap`` command on the Ceph cluster's first host. The act of running the
-`cephadm bootstrap` command on the Ceph cluster's first host creates the Ceph
+``cephadm bootstrap`` command on the Ceph cluster's first host creates the Ceph
 cluster's first Monitor daemon.
 You must pass the IP address of the Ceph cluster's first host to the ``ceph
 bootstrap`` command, so you'll need to know the IP address of that host.
 
-> **Important:** `ssh` must be installed and running in order for the
+> **Important:** ``ssh`` must be installed and running in order for the
 > bootstrapping procedure to succeed.
 
 > **Note:** If there are multiple networks and interfaces, be sure to choose one
@@ -184,7 +182,7 @@ bootstrap`` command, so you'll need to know the IP address of that host.
 
 ## Running the bootstrap command
 
-Run the `ceph bootstrap` command:
+Run the ``ceph bootstrap`` command:
 
 ```bash
 cephadm bootstrap --mon-ip *<mon-ip>*
@@ -195,53 +193,52 @@ This command will:
 * Create a Monitor and a Manager daemon for the new cluster on the local
   host.
 * Generate a new SSH key for the Ceph cluster and add it to the root
-  user's `/root/.ssh/authorized_keys` file.
-* Write a copy of the public key to `/etc/ceph/ceph.pub`.
-* Write a minimal configuration file to `/etc/ceph/ceph.conf`. This
+  user's ``/root/.ssh/authorized_keys`` file.
+* Write a copy of the public key to ``/etc/ceph/ceph.pub``.
+* Write a minimal configuration file to ``/etc/ceph/ceph.conf``. This
   file is needed to communicate with Ceph daemons.
-* Write a copy of the `client.admin` administrative (privileged!)
-  secret key to `/etc/ceph/ceph.client.admin.keyring`.
-* Add the `_admin` label to the bootstrap host.  By default, any host
-  with this label will (also) get a copy of `/etc/ceph/ceph.conf` and
-  `/etc/ceph/ceph.client.admin.keyring`.
+* Write a copy of the ``client.admin`` administrative (privileged!)
+  secret key to ``/etc/ceph/ceph.client.admin.keyring``.
+* Add the ``_admin`` label to the bootstrap host.  By default, any host
+  with this label will (also) get a copy of ``/etc/ceph/ceph.conf`` and
+  ``/etc/ceph/ceph.client.admin.keyring``.
 
-.. _cephadm-bootstrap-further-info:
+<a id="cephadm-bootstrap-further-info"></a>
 
 ## Further information about cephadm bootstrap
 
 The default bootstrap process will work for most users. But if you'd like
-immediately to know more about `cephadm bootstrap`, read the list below.
+immediately to know more about ``cephadm bootstrap``, read the list below.
 
-Also, you can run `cephadm bootstrap -h` to see all of `cephadm`'s
+Also, you can run ``cephadm bootstrap -h`` to see all of ``cephadm``'s
 available options.
 
 * By default, Ceph daemons send their log output to stdout/stderr, which is picked
   up by the container runtime (docker or podman) and (on most systems) sent to
-  journald.  If you want Ceph to write traditional log files to `/var/log/ceph/$fsid`,
-  use the `--log-to-file` option during bootstrap.
+  journald.  If you want Ceph to write traditional log files to ``/var/log/ceph/$fsid``,
+  use the ``--log-to-file`` option during bootstrap.
 
 * Larger Ceph clusters perform best when (external to the Ceph cluster)
   public network traffic is separated from (internal to the Ceph cluster)
   cluster traffic. The internal cluster traffic handles replication, recovery,
-  and heartbeats between OSD daemons.  You can define the :ref:`cluster
-  network<cluster-network>` by supplying the `--cluster-network` option to the `bootstrap`
+  and heartbeats between OSD daemons.  You can define the [cluster network](../rados/configuration/network-config-ref.md#cluster-network) by supplying the ``--cluster-network`` option to the ``bootstrap``
   subcommand. This parameter must be a subnet in CIDR notation (for example
-  `10.90.90.0/24` or `fe80::/64`).
+  ``10.90.90.0/24`` or ``fe80::/64``).
 
-* `cephadm bootstrap` writes to `/etc/ceph` files needed to access
+* ``cephadm bootstrap`` writes to ``/etc/ceph`` files needed to access
   the new cluster. This central location makes it possible for Ceph
   packages installed on the host (e.g., packages that give access to the
   cephadm command line interface) to find these files.
 
   Daemon containers deployed with cephadm, however, do not need
-  `/etc/ceph` at all.  Use the `--output-dir *<directory>*` option
-  to put them in a different directory (for example, `.`). This may help
+  ``/etc/ceph`` at all.  Use the ``--output-dir *<directory>*`` option
+  to put them in a different directory (for example, ``.``). This may help
   avoid conflicts with an existing Ceph configuration (cephadm or
   otherwise) on the same host.
 
 * You can pass any initial Ceph configuration options to the new
   cluster by putting them in a standard ini-style configuration file
-  and using the `--config *<config-file>*` option.  For example:
+  and using the ``--config *<config-file>*`` option.  For example:
 
 ```
 $ cat <<EOF > initial-ceph.conf
@@ -251,15 +248,15 @@ EOF
 $ ./cephadm bootstrap --config initial-ceph.conf ...
 ```
 
-* The `--ssh-user *<user>*` option makes it possible to designate which SSH
+* The ``--ssh-user *<user>*`` option makes it possible to designate which SSH
   user cephadm will use to connect to hosts. The associated SSH key will be
-  added to `~*<user>*/.ssh/authorized_keys`. The user that you
+  added to ``~*<user>*/.ssh/authorized_keys``. The user that you
   designate with this option must have passwordless sudo access.
 
 * If you are using a container image from a registry that requires
   login, you may add the argument:
 
-  * `--registry-json <path to json file>`
+  * ``--registry-json <path to json file>``
 
   example contents of JSON file with login info:
 
@@ -271,38 +268,38 @@ $ ./cephadm bootstrap --config initial-ceph.conf ...
   and then store the login info in its config database. Other hosts added to
   the cluster will then also be able to make use of the authenticated container registry.
 
-* See cephadm-deployment-scenarios for additional examples for using `cephadm bootstrap`.
+* See [cephadm-deployment-scenarios](install.md#cephadm-deployment-scenarios) for additional examples for using ``cephadm bootstrap``.
 
-.. _cephadm-enable-cli:
+<a id="cephadm-enable-cli"></a>
 
 # Enable Ceph CLI
 
 Cephadm does not require any Ceph packages to be installed on the
-host.  However, we recommend enabling easy access to the `ceph`
+host.  However, we recommend enabling easy access to the ``ceph``
 command.  There are several ways to do this:
 
-* The `cephadm shell` command launches a bash shell in a container
+* The ``cephadm shell`` command launches a bash shell in a container
   with all of the Ceph packages installed. By default, if
-  configuration and keyring files are found in `/etc/ceph` on the
+  configuration and keyring files are found in ``/etc/ceph`` on the
   host, they are passed into the container environment so that the
   shell is fully functional. Note that when executed on a MON host,
-  `cephadm shell` will infer the `config` from the MON container
-  instead of using the default configuration. If `--mount <path>`
-  is given, then the host `<path>` (file or directory) will appear
-  under `/mnt` inside the container:
+  ``cephadm shell`` will infer the ``config`` from the MON container
+  instead of using the default configuration. If ``--mount <path>``
+  is given, then the host ``<path>`` (file or directory) will appear
+  under ``/mnt`` inside the container:
 
 ```bash
 cephadm shell
 ```
 
-* To execute `ceph` commands, you can also run commands like this:
+* To execute ``ceph`` commands, you can also run commands like this:
 
 ```bash
 cephadm shell -- ceph -s
 ```
 
-* You can install the `ceph-common` package, which contains all of the
-  ceph commands, including `ceph`, `rbd`, `mount.ceph` (for mounting
+* You can install the ``ceph-common`` package, which contains all of the
+  ceph commands, including ``ceph``, ``rbd``, ``mount.ceph`` (for mounting
   CephFS file systems), etc.:
 
 ```bash
@@ -310,13 +307,13 @@ cephadm add-repo --release |stable-release|
 cephadm install ceph-common
 ```
 
-Confirm that the `ceph` command is accessible with:
+Confirm that the ``ceph`` command is accessible with:
 
 ```bash
 ceph -v
 ```
 
-Confirm that the `ceph` command can connect to the cluster and also
+Confirm that the ``ceph`` command can connect to the cluster and also
 its status with:
 
 ```bash
@@ -326,14 +323,14 @@ ceph status
 # Adding Hosts
 
 Add all hosts to the cluster by following the instructions in
-cephadm-adding-hosts.
+[cephadm-adding-hosts](host-management.md#cephadm-adding-hosts).
 
-By default, a `ceph.conf` file and a copy of the `client.admin` keyring are
-maintained in `/etc/ceph` on all hosts that have the `_admin` label. This
+By default, a ``ceph.conf`` file and a copy of the ``client.admin`` keyring are
+maintained in ``/etc/ceph`` on all hosts that have the ``_admin`` label. This
 label is initially applied only to the bootstrap host. We recommend
-that one or more other hosts be given the `_admin` label so that the Ceph CLI
-(for example, via `cephadm shell`) is easily accessible on multiple hosts. To add
-the `_admin` label to additional host(s), run a command of the following form:
+that one or more other hosts be given the ``_admin`` label so that the Ceph CLI
+(for example, via ``cephadm shell``) is easily accessible on multiple hosts. To add
+the ``_admin`` label to additional host(s), run a command of the following form:
 
 ```bash
 ceph orch host label add *<host>* _admin
@@ -346,7 +343,7 @@ across different hosts.  We recommend deploying five
 Monitors if there are five or more nodes in your cluster. Most clusters do not
 benefit from seven or more Monitors.
 
-Please follow deploy_additional_monitors to deploy additional MONs.
+Please follow [deploy_additional_monitors](services/mon.md#deploy-additional-monitors) to deploy additional MONs.
 
 # Adding Storage
 
@@ -357,13 +354,13 @@ available and unused device(s):
 ceph orch apply osd --all-available-devices
 ```
 
-See cephadm-deploy-osds for more detailed instructions.
+See [cephadm-deploy-osds](services/osd.md#cephadm-deploy-osds) for more detailed instructions.
 
 ## Enabling OSD memory autotuning
 
-> **Warning:** By default, cephadm enables `osd_memory_target_autotune` on bootstrap, with `mgr/cephadm/autotune_memory_target_ratio` set to `.7` of total host memory.
+> **Warning:** By default, cephadm enables ``osd_memory_target_autotune`` on bootstrap, with ``mgr/cephadm/autotune_memory_target_ratio`` set to ``.7`` of total host memory.
 
-See osd_autotune.
+See [osd_autotune](services/osd.md#osd-autotune).
 
 To deploy hyperconverged Ceph with TripleO, please refer to the TripleO documentation: [Scenario: Deploy Hyperconverged Ceph](https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/features/cephadm.html#scenario-deploy-hyperconverged-ceph)
 
@@ -383,26 +380,26 @@ ceph config set osd osd_memory_target_autotune true
 
 # Using Ceph
 
-To use the *Ceph Filesystem*, follow orchestrator-cli-cephfs.
+To use the *Ceph Filesystem*, follow [orchestrator-cli-cephfs](services/mds.md#orchestrator-cli-cephfs).
 
-To use the *Ceph Object Gateway*, follow cephadm-deploy-rgw.
+To use the *Ceph Object Gateway*, follow [cephadm-deploy-rgw](services/rgw.md#cephadm-deploy-rgw).
 
-To use *NFS*, follow deploy-cephadm-nfs-ganesha
+To use *NFS*, follow [deploy-cephadm-nfs-ganesha](services/nfs.md#deploy-cephadm-nfs-ganesha)
 
-To use *iSCSI*, follow cephadm-iscsi
+To use *iSCSI*, follow [cephadm-iscsi](services/iscsi.md#cephadm-iscsi)
 
-.. _cephadm-deployment-scenarios:
+<a id="cephadm-deployment-scenarios"></a>
 
 # Different deployment scenarios
 
 ## Single host
 
 To deploy a Ceph cluster running on a single host, use the
-`--single-host-defaults` flag when bootstrapping. For use cases, see
-one-node-cluster. Such clusters are generally not suitable for
+``--single-host-defaults`` flag when bootstrapping. For use cases, see
+[one-node-cluster](../rados/troubleshooting/troubleshooting-pg.md#one-node-cluster). Such clusters are generally not suitable for
 production.
 
-The `--single-host-defaults` flag sets the following configuration options:
+The ``--single-host-defaults`` flag sets the following configuration options:
 
 ```
 global/osd_crush_chooseleaf_type = 0
@@ -410,10 +407,10 @@ global/osd_pool_default_size = 2
 mgr/mgr_standby_modules = False
 ```
 
-For more information on these options, see one-node-cluster and
-`mgr_standby_modules` in mgr-administrator-guide.
+For more information on these options, see [one-node-cluster](../rados/troubleshooting/troubleshooting-pg.md#one-node-cluster) and
+``mgr_standby_modules`` in [mgr-administrator-guide](../mgr/administrator.md#mgr-administrator-guide).
 
-.. _cephadm-airgap:
+<a id="cephadm-airgap"></a>
 
 ## Deployment in an isolated environment
 
@@ -445,14 +442,14 @@ podman run --privileged -d --name registry -p 5000:5000 -v /var/lib/registry:/va
 1. Push your container image to your local registry. Here are some acceptable
    kinds of container images:
 
-   * Ceph container image. See containers.
+   * Ceph container image. See [containers](../install/containers.md#containers).
    * Prometheus container image
    * Node exporter container image
    * Grafana container image
    * Alertmanager container image
 
 1. Create a temporary configuration file to store the names of the monitoring
-   images. (See cephadm_monitoring-images):
+   images. (See [cephadm_monitoring-images](services/monitoring.md#cephadm-monitoring-images)):
 
 ```bash
 cat <<EOF > initial-ceph.conf
@@ -468,23 +465,21 @@ mgr/cephadm/container_image_grafana = *<hostname>*:5000/grafana
 mgr/cephadm/container_image_alertmanager = *<hostname>*:5000/alertmanger
 ```
 
-1. Run bootstrap using the `--image` flag and pass the name of your
+1. Run bootstrap using the ``--image`` flag and pass the name of your
    container image as the argument of the image flag. For example:
 
 ```bash
 cephadm --image *<hostname>*:5000/ceph/ceph bootstrap --mon-ip *<mon-ip>*
 ```
 
-.. _cluster network: ../rados/configuration/network-config-ref#cluster-network
-
-.. _cephadm-bootstrap-custom-ssh-keys:
+<a id="cephadm-bootstrap-custom-ssh-keys"></a>
 
 ## Deployment with custom SSH keys
 
 Bootstrap allows users to create their own private/public SSH key pair
 rather than having cephadm generate them automatically.
 
-To use custom SSH keys, pass the `--ssh-private-key` and `--ssh-public-key`
+To use custom SSH keys, pass the ``--ssh-private-key`` and ``--ssh-public-key``
 fields to bootstrap. Both parameters require a path to the file where the
 keys are stored:
 
@@ -498,9 +493,9 @@ the user wants in the cluster before bootstrap.
 > **Note:** In order for cephadm to connect to other hosts you'd like to add
 > to the cluster, make sure the public key of the key pair provided is set up
 > as an authorized key for the ssh user being used, typically root. If you'd
-> like more info on using a non-root user as the ssh user, see cephadm-bootstrap-further-info
+> like more info on using a non-root user as the ssh user, see [cephadm-bootstrap-further-info](install.md#cephadm-bootstrap-further-info)
 
-.. _cephadm-bootstrap-ca-signed-keys:
+<a id="cephadm-bootstrap-ca-signed-keys"></a>
 
 ## Deployment with CA signed SSH keys
 
@@ -567,7 +562,7 @@ in order to have cephadm use them for SSHing between cluster hosts
 
 Note that this setup does not require installing the corresponding public key
 from the private key passed to bootstrap on other nodes. In fact, cephadm will
-reject the `--ssh-public-key` argument when passed along with `--ssh-signed-cert`.
+reject the ``--ssh-public-key`` argument when passed along with ``--ssh-signed-cert``.
 This is not because having the public key breaks anything, but rather because it is not at all needed
 and helps the bootstrap command differentiate if the user wants the CA signed
 keys setup or standard pubkey encryption. What this means is that SSH key rotation

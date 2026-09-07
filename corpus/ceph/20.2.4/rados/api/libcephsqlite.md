@@ -5,11 +5,11 @@ title: "Ceph SQLite VFS"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/api/libcephsqlite.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _libcephsqlite:
+<a id="libcephsqlite"></a>
 
 # Ceph SQLite VFS
 
-This SQLite VFS may be used for storing and accessing a SQLite database
+This [SQLite VFS](https://www.sqlite.org/vfs.html) may be used for storing and accessing a [SQLite](https://sqlite.org/index.html) database
 backed by RADOS. This allows you to fully decentralize your database using
 Ceph's object store for improved availability, accessibility, and use of
 storage.
@@ -26,13 +26,13 @@ controlled by RADOS locks managed by the Ceph SQLite VFS.
 ### Usage
 
 Normal unmodified applications (including the sqlite command-line toolset
-binary) may load the *ceph* VFS using the SQLite Extension Loading API.
+binary) may load the *ceph* VFS using the [SQLite Extension Loading API](https://sqlite.org/c3ref/load_extension.html).
 
 ```sql
 .LOAD libcephsqlite.so
 ```
 
-or during the invocation of `sqlite3`
+or during the invocation of ``sqlite3``
 
 ```sh
 sqlite3 -cmd '.load libcephsqlite.so'
@@ -44,10 +44,10 @@ A database file is formatted as a SQLite URI:
 file:///<"*"poolid|poolname>:[namespace]/<dbname>?vfs=ceph
 ```
 
-The RADOS `namespace` is optional. Note the triple `///` in the path. The URI
+The RADOS ``namespace`` is optional. Note the triple ``///`` in the path. The URI
 authority must be empty or localhost in SQLite. Only the path part of the URI
 is parsed. For this reason, the URI will not parse properly if you only use two
-`//`.
+``//``.
 
 A complete example of (optionally) creating a database and opening:
 
@@ -56,7 +56,7 @@ sqlite3 -cmd '.load libcephsqlite.so' -cmd '.open file:///foo:bar/baz.db?vfs=cep
 ```
 
 Note you cannot specify the database file as the normal positional argument to
-`sqlite3`. This is because the `.load libcephsqlite.so` command is applied
+``sqlite3``. This is because the ``.load libcephsqlite.so`` command is applied
 after opening the database, but opening the database depends on the extension
 being loaded first.
 
@@ -80,7 +80,7 @@ sqlite3 -cmd '.load libcephsqlite.so' -cmd '.open file:///foo:bar/baz.db?vfs=cep
 ```
 
 The default operation would look at the standard Ceph configuration file path
-using the `client.admin` user.
+using the ``client.admin`` user.
 
 ### User
 
@@ -92,15 +92,15 @@ hosting the database. This can be done with authorizations as simply as:
 ceph auth get-or-create client.X mon 'allow r, allow command "osd blocklist" with blocklistop=add' osd 'allow rwx'
 ```
 
-> **Note:** The terminology change from `blacklist` to `blocklist`; older clusters may require using the old terms.
+> **Note:** The terminology change from ``blacklist`` to ``blocklist``; older clusters may require using the old terms.
 
-You may also simplify using the `simple-rados-client-with-blocklist` profile:
+You may also simplify using the ``simple-rados-client-with-blocklist`` profile:
 
 ```sh
 ceph auth get-or-create client.X mon 'profile simple-rados-client-with-blocklist' osd 'allow rwx'
 ```
 
-To learn why blocklisting is necessary, see libcephsqlite-corrupt.
+To learn why blocklisting is necessary, see [libcephsqlite-corrupt](libcephsqlite.md#libcephsqlite-corrupt).
 
 ### Page Size
 
@@ -126,7 +126,7 @@ for most workloads and should therefore increase it significantly:
 PRAGMA cache_size = 4096
 ```
 
-Which will cache 4096 pages or 256MB (with 64K `page_cache`).
+Which will cache 4096 pages or 256MB (with 64K ``page_cache``).
 
 ### Journal Persistence
 
@@ -145,7 +145,7 @@ of the rollback journal (based on transaction type and size).
 
 ### Exclusive Lock Mode
 
-SQLite operates in a `NORMAL` locking mode where each transaction requires
+SQLite operates in a ``NORMAL`` locking mode where each transaction requires
 locking the backing database file. This can add unnecessary overhead to
 transactions when you know there's only ever one user of the database at a
 given time. You can have SQLite lock the database once for the duration of the
@@ -161,13 +161,13 @@ mind this prevents other clients from accessing the database.
 In this locking mode, each write transaction to the database requires 3
 synchronization events: once to write to the journal, another to write to the
 database file, and a final write to invalidate the journal header (in
-`PERSIST` journaling mode).
+``PERSIST`` journaling mode).
 
 ### WAL Journal
 
-The WAL Journal Mode is only available when SQLite is operating in exclusive
+The [WAL Journal Mode](https://sqlite.org/wal.html) is only available when SQLite is operating in exclusive
 lock mode. This is because it requires shared memory communication with other
-readers and writers when in the `NORMAL` locking mode.
+readers and writers when in the ``NORMAL`` locking mode.
 
 As with local disk databases, WAL mode may significantly reduce small
 transaction latency. Testing has shown it can provide more than 50% speedup
@@ -182,13 +182,13 @@ database on SSD. Latency can be a major factor. It is advisable to be familiar
 with SQL transactions and other strategies for efficient database updates.
 Depending on the performance of the underlying pool, you can expect small
 transactions to take up to 30 milliseconds to complete. If you use the
-`EXCLUSIVE` locking mode, it can be reduced further to 15 milliseconds per
-transaction. A WAL journal in `EXCLUSIVE` locking mode can further reduce
+``EXCLUSIVE`` locking mode, it can be reduced further to 15 milliseconds per
+transaction. A WAL journal in ``EXCLUSIVE`` locking mode can further reduce
 this as low as ~2-5 milliseconds (or the time to complete a RADOS write; you
 won't get better than that!).
 
 There is no limit to the size of a SQLite database on RADOS imposed by the Ceph
-VFS. There are standard SQLite Limits to be aware of, notably the maximum
+VFS. There are standard [SQLite Limits](https://www.sqlite.org/limits.html) to be aware of, notably the maximum
 database size of 281 TB. Large databases may or may not be performant on Ceph.
 Experimentation for your own use-case is advised.
 
@@ -231,7 +231,7 @@ potential race with other SQLite clients when extracting both files. That could
 result in fetching a corrupt journal.
 
 Instead of manually extracting the files, it would be more advisable to use the
-SQLite Backup mechanism instead.
+[SQLite Backup](https://www.sqlite.org/backup.html) mechanism instead.
 
 ### Temporary Tables
 
@@ -240,7 +240,7 @@ this is that the VFS lacks context about where it should put the database, i.e.
 which RADOS pool. The persistent database associated with the temporary
 database is not communicated via the SQLite VFS API.
 
-Instead, it's suggested to attach a secondary local or In-Memory Database
+Instead, it's suggested to attach a secondary local or [In-Memory Database](https://www.sqlite.org/inmemorydb.html)
 and put the temporary tables there. Alternatively, you may set a connection
 pragma:
 
@@ -248,7 +248,7 @@ pragma:
 PRAGMA temp_store=memory
 ```
 
-.. _libcephsqlite-breaking-locks:
+<a id="libcephsqlite-breaking-locks"></a>
 
 ### Breaking Locks
 
@@ -270,7 +270,7 @@ prevent potential database corruption from rogue writes.
 
 The holder of the exclusive lock on the database will periodically renew the
 lock so it does not lose the lock. This is necessary for large transactions or
-database connections operating in `EXCLUSIVE` locking mode. The lock renewal
+database connections operating in ``EXCLUSIVE`` locking mode. The lock renewal
 interval is adjustable via:
 
 ```
@@ -290,11 +290,11 @@ $ rados --pool=foo --namespace bar lock info baz.db.0000000000000000 striper.loc
 $ rados --pool=foo --namespace bar lock break baz.db.0000000000000000 striper.lock client.4463 --lock-cookie 555c7208-db39-48e8-a4d7-3ba92433a41a
 ```
 
-.. _libcephsqlite-corrupt:
+<a id="libcephsqlite-corrupt"></a>
 
 ### How to Corrupt Your Database
 
-There is the usual reading on How to Corrupt Your SQLite Database that you
+There is the usual reading on [How to Corrupt Your SQLite Database](https://www.sqlite.org/howtocorrupt.html) that you
 should review before using this tool. To add to that, the most likely way you
 may corrupt your database is by a rogue process transiently losing network
 connectivity and then resuming its work. The exclusive RADOS lock it held will
@@ -319,15 +319,15 @@ fail if it cannot blocklist the prior instance (due to lack of authorization,
 for example).
 
 One example where out-of-band mechanisms exist to blocklist the last dead
-holder of the exclusive lock on the database is in the `ceph-mgr`. The
+holder of the exclusive lock on the database is in the ``ceph-mgr``. The
 monitors are made aware of the RADOS connection used for the *ceph* VFS and will
-blocklist the instance during `ceph-mgr` failover. This prevents a zombie
-`ceph-mgr` from continuing work and potentially corrupting the database. For
+blocklist the instance during ``ceph-mgr`` failover. This prevents a zombie
+``ceph-mgr`` from continuing work and potentially corrupting the database. For
 this reason, it is not necessary for the *ceph* VFS to do the blocklist command
-in the new instance of the `ceph-mgr` (but it still does so, harmlessly).
+in the new instance of the ``ceph-mgr`` (but it still does so, harmlessly).
 
 To blocklist the *ceph* VFS manually, you may see the instance address of the
-*ceph* VFS using the `ceph_status` SQL function:
+*ceph* VFS using the ``ceph_status`` SQL function:
 
 ```sql
 SELECT ceph_status();
@@ -337,7 +337,7 @@ SELECT ceph_status();
 {"id":788461300,"addr":"172.21.10.4:0/1472139388"}
 ```
 
-You may easily manipulate that information using the JSON1 extension:
+You may easily manipulate that information using the [JSON1 extension](https://www.sqlite.org/json1.html):
 
 ```sql
 SELECT json_extract(ceph_status(), '$.addr');
@@ -355,7 +355,7 @@ ceph osd blocklist add 172.21.10.4:0/3082314560
 
 ### Performance Statistics
 
-The *ceph* VFS provides a SQLite function, `ceph_perf`, for querying the
+The *ceph* VFS provides a SQLite function, ``ceph_perf``, for querying the
 performance statistics of the VFS. The data is from "performance counters" as
 in other Ceph services normally queried via an admin socket.
 
@@ -367,7 +367,7 @@ SELECT ceph_perf();
 {"libcephsqlite_vfs":{"op_open":{"avgcount":2,"sum":0.150001291,"avgtime":0.075000645},"op_delete":{"avgcount":0,"sum":0.000000000,"avgtime":0.000000000},"op_access":{"avgcount":1,"sum":0.003000026,"avgtime":0.003000026},"op_fullpathname":{"avgcount":1,"sum":0.064000551,"avgtime":0.064000551},"op_currenttime":{"avgcount":0,"sum":0.000000000,"avgtime":0.000000000},"opf_close":{"avgcount":1,"sum":0.000000000,"avgtime":0.000000000},"opf_read":{"avgcount":3,"sum":0.036000310,"avgtime":0.012000103},"opf_write":{"avgcount":0,"sum":0.000000000,"avgtime":0.000000000},"opf_truncate":{"avgcount":0,"sum":0.000000000,"avgtime":0.000000000},"opf_sync":{"avgcount":0,"sum":0.000000000,"avgtime":0.000000000},"opf_filesize":{"avgcount":2,"sum":0.000000000,"avgtime":0.000000000},"opf_lock":{"avgcount":1,"sum":0.158001360,"avgtime":0.158001360},"opf_unlock":{"avgcount":1,"sum":0.101000871,"avgtime":0.101000871},"opf_checkreservedlock":{"avgcount":1,"sum":0.002000017,"avgtime":0.002000017},"opf_filecontrol":{"avgcount":4,"sum":0.000000000,"avgtime":0.000000000},"opf_sectorsize":{"avgcount":0,"sum":0.000000000,"avgtime":0.000000000},"opf_devicecharacteristics":{"avgcount":4,"sum":0.000000000,"avgtime":0.000000000}},"libcephsqlite_striper":{"update_metadata":0,"update_allocated":0,"update_size":0,"update_version":0,"shrink":0,"shrink_bytes":0,"lock":1,"unlock":1}}
 ```
 
-You may easily manipulate that information using the JSON1 extension:
+You may easily manipulate that information using the [JSON1 extension](https://www.sqlite.org/json1.html):
 
 ```sql
 SELECT json_extract(ceph_perf(), '$.libcephsqlite_vfs.opf_sync.avgcount');
@@ -378,7 +378,7 @@ SELECT json_extract(ceph_perf(), '$.libcephsqlite_vfs.opf_sync.avgcount');
 ```
 
 That tells you the number of times SQLite has called the xSync method of the
-SQLite IO Methods of the VFS (for **all** open database connections in the
+[SQLite IO Methods](https://www.sqlite.org/c3ref/io_methods.html) of the VFS (for **all** open database connections in the
 process). You could analyze the performance stats before and after a number of
 queries to see the number of file system syncs required (this would just be
 proportional to the number of transactions). Alternatively, you may be more
@@ -416,21 +416,10 @@ Debugging libcephsqlite can be turned on via:
 debug_cephsqlite
 ```
 
-If running the `sqlite3` command-line tool, use:
+If running the ``sqlite3`` command-line tool, use:
 
 ```sh
 env CEPH_ARGS='--log_to_file true --log-file sqlite3.log --debug_cephsqlite 20 --debug_ms 1' sqlite3 ...
 ```
 
-This will save all the usual Ceph debugging to a file `sqlite3.log` for inspection.
-
-.. _SQLite: https://sqlite.org/index.html
-.. _SQLite VFS: https://www.sqlite.org/vfs.html
-.. _SQLite Backup: https://www.sqlite.org/backup.html
-.. _SQLite Limits: https://www.sqlite.org/limits.html
-.. _SQLite Extension Loading API: https://sqlite.org/c3ref/load_extension.html
-.. _In-Memory Database: https://www.sqlite.org/inmemorydb.html
-.. _WAL Journal Mode: https://sqlite.org/wal.html
-.. _How to Corrupt Your SQLite Database: https://www.sqlite.org/howtocorrupt.html
-.. _JSON1 Extension: https://www.sqlite.org/json1.html
-.. _SQLite IO Methods: https://www.sqlite.org/c3ref/io_methods.html
+This will save all the usual Ceph debugging to a file ``sqlite3.log`` for inspection.

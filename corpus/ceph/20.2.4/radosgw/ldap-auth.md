@@ -27,7 +27,7 @@ example requiring specific group membership, custom object classes, or
 attributes.
 
 The LDAP credentials must be available on the server to perform the LDAP
-authentication. Make sure to set the `rgw` log level low enough to hide the
+authentication. Make sure to set the ``rgw`` log level low enough to hide the
 base-64-encoded credentials / access tokens.
 
 # Requirements
@@ -44,7 +44,7 @@ base-64-encoded credentials / access tokens.
 
 # Sanity checks
 
-Use the `ldapsearch` utility to verify the service account or the LDAP connection:
+Use the ``ldapsearch`` utility to verify the service account or the LDAP connection:
 
 :
 
@@ -61,29 +61,29 @@ Use the `ldapsearch` utility to verify the service account or the LDAP connectio
 The following parameters in the Ceph configuration file are related to the LDAP
 authentication:
 
-- `rgw_s3_auth_use_ldap`: Set this to `true` to enable S3 authentication with LDAP
-- `rgw_ldap_uri`:  Specifies the LDAP server to use. Make sure to use the
-  `ldaps://<fqdn>:<port>` parameter to not transmit clear text credentials
+- ``rgw_s3_auth_use_ldap``: Set this to ``true`` to enable S3 authentication with LDAP
+- ``rgw_ldap_uri``:  Specifies the LDAP server to use. Make sure to use the
+  ``ldaps://<fqdn>:<port>`` parameter to not transmit clear text credentials
   over the wire.
-- `rgw_ldap_binddn`: The Distinguished Name (DN) of the service account used
+- ``rgw_ldap_binddn``: The Distinguished Name (DN) of the service account used
   by the Ceph Object Gateway
-- `rgw_ldap_secret`: Path to file containing credentials for `rgw_ldap_binddn`
-- `rgw_ldap_searchdn`: Specifies the base in the directory information tree
+- ``rgw_ldap_secret``: Path to file containing credentials for ``rgw_ldap_binddn``
+- ``rgw_ldap_searchdn``: Specifies the base in the directory information tree
   for searching users. This might be your users organizational unit or some
   more specific Organizational Unit (OU).
-- `rgw_ldap_dnattr`: The attribute being used in the constructed search
+- ``rgw_ldap_dnattr``: The attribute being used in the constructed search
   filter to match a username. Depending on your Directory Information Tree
-  (DIT) this would probably be `uid` or `cn`. The generated filter string
-  will be, e.g., `cn=some_username`.
-- `rgw_ldap_searchfilter`: If not specified, the Ceph Object Gateway
-  automatically constructs the search filter with the `rgw_ldap_dnattr`
+  (DIT) this would probably be ``uid`` or ``cn``. The generated filter string
+  will be, e.g., ``cn=some_username``.
+- ``rgw_ldap_searchfilter``: If not specified, the Ceph Object Gateway
+  automatically constructs the search filter with the ``rgw_ldap_dnattr``
   setting. Use this parameter to narrow the list of allowed users in very
   flexible ways. Consult the *Using a custom search filter to limit user access
   section* for details
 
 # Using a custom search filter to limit user access
 
-There are two ways to use the `rgw_search_filter` parameter:
+There are two ways to use the ``rgw_search_filter`` parameter:
 
 ## Specifying a partial filter to further limit the constructed search filter
 
@@ -96,8 +96,8 @@ An example for a partial filter:
 ```
 
 The Ceph Object Gateway will generate the search filter as usual with the
-user name from the token and the value of `rgw_ldap_dnattr`. The constructed
-filter is then combined with the partial filter from the `rgw_search_filter`
+user name from the token and the value of ``rgw_ldap_dnattr``. The constructed
+filter is then combined with the partial filter from the ``rgw_search_filter``
 attribute. Depending on the user name and the settings the final search filter
 might become:
 
@@ -107,14 +107,14 @@ might become:
 "(&(uid=hari)(objectclass=inetorgperson))"
 ```
 
-So user `hari` will only be granted access if he is found in the LDAP
-directory, has an object class of `inetorgperson`, and did specify a valid
+So user ``hari`` will only be granted access if he is found in the LDAP
+directory, has an object class of ``inetorgperson``, and did specify a valid
 password.
 
 ## Specifying a complete filter
 
-A complete filter must contain a `@USERNAME@` token which will be substituted
-with the user name during the authentication attempt. The `rgw_ldap_dnattr`
+A complete filter must contain a ``@USERNAME@`` token which will be substituted
+with the user name during the authentication attempt. The ``rgw_ldap_dnattr``
 parameter is not used anymore in this case. For example, to limit valid users
 to a specific group, use the following filter:
 
@@ -124,12 +124,12 @@ to a specific group, use the following filter:
 "(&(uid=@USERNAME@)(memberOf=cn=ceph-users,ou=groups,dc=mycompany,dc=com))"
 ```
 
-> **Note:** Using the `memberOf` attribute in LDAP searches requires server side
+> **Note:** Using the ``memberOf`` attribute in LDAP searches requires server side
 > support from you specific LDAP server implementation.
 
 # Generating an access token for LDAP authentication
 
-The `radosgw-token` utility generates the access token based on the LDAP
+The ``radosgw-token`` utility generates the access token based on the LDAP
 user name and password. It will output a base-64 encoded string which is the
 access token.
 
@@ -145,7 +145,7 @@ access token.
 > the LDAP credentials as a clear text.
 
 Alternatively, users can also generate the token manually by base-64-encoding
-this JSON snippet, if they do not have the `radosgw-token` tool installed.
+this JSON snippet, if they do not have the ``radosgw-token`` tool installed.
 
 :
 

@@ -21,7 +21,7 @@ ceph daemon osd.0 perf histogram dump
 
 ## Collections
 
-The histograms are grouped into named collections, normally representing a subsystem or an instance of a subsystem.  For example, the internal `throttle` mechanism reports statistics on how it is throttling, and each instance is named something like:
+The histograms are grouped into named collections, normally representing a subsystem or an instance of a subsystem.  For example, the internal ``throttle`` mechanism reports statistics on how it is throttling, and each instance is named something like:
 
 ```
 
@@ -33,19 +33,14 @@ op_rw_latency_out_bytes_histogram
 
 ## Schema
 
-The `perf histogram schema` command dumps a json description of which values are available, and what their type is.  Each named value as a `type` bitfield, with the 5-th bit always set and following bits defined.
+The ``perf histogram schema`` command dumps a json description of which values are available, and what their type is.  Each named value as a ``type`` bitfield, with the 5-th bit always set and following bits defined.
 
-+------+-------------------------------------+
-| bit  | meaning                             |
-+======+=====================================+
-| 1    | floating point value                |
-+------+-------------------------------------+
-| 2    | unsigned 64-bit integer value       |
-+------+-------------------------------------+
-| 4    | average (sum + count pair)          |
-+------+-------------------------------------+
-| 8    | counter (vs gauge)                  |
-+------+-------------------------------------+
+| bit | meaning |
+| --- | --- |
+| 1 | floating point value |
+| 2 | unsigned 64-bit integer value |
+| 4 | average (sum + count pair) |
+| 8 | counter (vs gauge) |
 
 In other words, histogram of type "18" is a histogram of unsigned 64-bit integer values (16 + 2).
 

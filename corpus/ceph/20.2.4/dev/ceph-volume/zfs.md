@@ -5,10 +5,10 @@ title: "ZFS"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/ceph-volume/zfs.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-zfs-api:
+<a id="ceph-volume-zfs-api"></a>
 
 # ZFS
-The backend of `ceph-volume zfs` is ZFS, it relies heavily on the usage of
+The backend of ``ceph-volume zfs`` is ZFS, it relies heavily on the usage of
 tags, which is a way for ZFS to allow extending its volume metadata. These
 values can later be queried against devices and it is how they get discovered
 later.
@@ -19,7 +19,7 @@ Currently this interface is only usable when running on FreeBSD.
 > it is clear what the tool is doing behind the scenes. Do not alter
 > any of these values.
 
-.. _ceph-volume-zfs-tag-api:
+<a id="ceph-volume-zfs-tag-api"></a>
 
 ## Tag API
 The process of identifying filesystems, volumes and pools as part of Ceph relies
@@ -30,7 +30,7 @@ namespace that looks like:
 ceph.<tag name>=<tag value>
 ```
 
-All tags are prefixed by the `ceph` keyword to claim ownership of that
+All tags are prefixed by the ``ceph`` keyword to claim ownership of that
 namespace and make it easily identifiable. This is how the OSD ID would be used
 in the context of zfs tags:
 
@@ -40,9 +40,9 @@ ceph.osd_id=0
 
 Tags on filesystems are stored as property.
 Tags on a zpool are stored in the comment property as a concatenated list
-separated by `;`
+separated by ``;``
 
-.. _ceph-volume-zfs-tags:
+<a id="ceph-volume-zfs-tags"></a>
 
 ## Metadata
 The following describes all the metadata from Ceph OSDs that is stored on a
@@ -171,8 +171,8 @@ ceph.wal_uuid=A58D1C68-0D6E-4CB3-8E99-B261AD47CC39
 A compression-enabled device can always be set using the native zfs settings on
 a volume or filesystem. This will/can be activated during creation of the volume
 of filesystem.
-When activated by `ceph-volume zfs` this tag will be created.
-Compression manually set AFTER `ceph-volume` will go unnoticed, unless this
+When activated by ``ceph-volume zfs`` this tag will be created.
+Compression manually set AFTER ``ceph-volume`` will go unnoticed, unless this
 tag is also manually set.
 
 Example for an enabled compression device:

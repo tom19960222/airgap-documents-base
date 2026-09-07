@@ -22,7 +22,7 @@ with a signal indicating it crashed and possibly core dumped (that is,
 signals 3, 4, 5, 6, 8, or 11).
 
 The command should run the daemon in the foreground. For Ceph daemons,
-that means the `-f` option.
+that means the ``-f`` option.
 
 # Options
 
@@ -35,7 +35,7 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8),
-ceph-mon\(8),
-ceph-mds\(8),
-ceph-osd\(8)
+[ceph](../../install/clone-source.md)\(8),
+[ceph-mon](ceph-mon.md)\(8),
+[ceph-mds](ceph-mds.md)\(8),
+[ceph-osd](ceph-osd.md)\(8)

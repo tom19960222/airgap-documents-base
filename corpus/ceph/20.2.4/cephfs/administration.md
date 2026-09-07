@@ -5,7 +5,7 @@ title: "CephFS Administrative commands"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/administration.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs-administration:
+<a id="cephfs-administration"></a>
 
 # CephFS Administrative commands
 
@@ -16,7 +16,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 These commands operate on the CephFS file systems in your Ceph cluster.
 Note that by default only one file system is permitted: to enable
-creation of multiple file systems use `ceph fs flag set enable_multiple true`.
+creation of multiple file systems use ``ceph fs flag set enable_multiple true``.
 
 :
 
@@ -73,7 +73,7 @@ ceph fs get <file system name>
 ```
 
 Get information about the named file system, including settings and ranks. This
-is a subset of the same information from the `ceph fs dump` command.
+is a subset of the same information from the ``ceph fs dump`` command.
 
 :
 
@@ -83,11 +83,11 @@ ceph fs set <file system name> <var> <val> [--yes-i-really-mean-it]
 
 Change a setting on a file system. These settings are specific to the named
 file system and do not affect other file systems. Confirmation flag is only
-needed for changing `max_mds` when cluster is unhealthy.
+needed for changing ``max_mds`` when cluster is unhealthy.
 
 > **Note:** It is mandatory to pass confirmation flag (--yes--i-really-mean-it)
-> for modifying FS setting variable `max_mds` when cluster is unhealthy.
-> It has been added a precaution to tell users that modifying `max_mds`
+> for modifying FS setting variable ``max_mds`` when cluster is unhealthy.
+> It has been added a precaution to tell users that modifying ``max_mds``
 > during troubleshooting or recovery might not help. Instead, it might
 > further destabilize the cluster.
 
@@ -132,7 +132,7 @@ fs swap <fs1-name> <fs1_id> <fs2-name> <fs2_id> [--swap-fscids=yes|no] [--yes-i-
 Swaps names of two Ceph file sytems and updates the application tags on all
 pools of both FSs accordingly. Certain tools that track FSCIDs of the file
 systems, besides the FS names, might get confused due to this operation. For
-this reason, mandatory option `--swap-fscids` has been provided that must be
+this reason, mandatory option ``--swap-fscids`` has been provided that must be
 used to indicate whether or not FSCIDs must be swapped.
 
 > **Note:** FSCID stands for "File System Cluster ID".
@@ -140,12 +140,12 @@ used to indicate whether or not FSCIDs must be swapped.
 Before the swap, mirroring should be disabled on both the CephFSs
 (because the cephfs-mirror daemon uses the fscid internally and changing it
 while the daemon is running could result in undefined behaviour), both the
-CephFSs should be offline and the file system flag `refuse_client_sessions`
+CephFSs should be offline and the file system flag ``refuse_client_sessions``
 must be set for both the CephFS.
 
 The function of this API is to facilitate disaster recovery where a new file
 system reconstructed from the previous one is ready to take over for the
-possibly damaged file system. Instead of two `fs rename` operations, the
+possibly damaged file system. Instead of two ``fs rename`` operations, the
 operator can use a swap so there is no FSMap epoch where the primary (or
 production) named file system does not exist. This is important when Ceph is
 monitored by automatic storage operators like (Rook) which try to reconcile
@@ -179,7 +179,7 @@ CephFS has a configurable maximum file size, and it's 1TB by default.
 You may wish to set this limit higher if you expect to store large files
 in CephFS. It is a 64-bit field.
 
-Setting `max_file_size` to 0 does not disable the limit. It would
+Setting ``max_file_size`` to 0 does not disable the limit. It would
 simply limit clients to only creating empty files.
 
 ## Maximum file sizes and performance
@@ -193,7 +193,7 @@ to have to do a large number of operations to check if any of the RADOS
 objects within the range that could exist (according to the file size)
 really existed.
 
-The `max_file_size` setting prevents users from creating files that
+The ``max_file_size`` setting prevents users from creating files that
 appear to be eg. exabytes in size, causing load on the MDS as it tries
 to enumerate the objects during operations like stats or deletes.
 
@@ -222,7 +222,7 @@ client I/O is stopped.
 ## Taking the cluster down rapidly for deletion or disaster recovery
 
 To allow rapidly deleting a file system (for testing) or to quickly bring the
-file system and MDS daemons down, use the `ceph fs fail` command:
+file system and MDS daemons down, use the ``ceph fs fail`` command:
 
 :
 
@@ -235,7 +235,7 @@ ceph fs fail <fs_name> {--yes-i-really-mean-it}
 > MDS_CACHE_OVERSIZED.
 
 This command sets a file system flag to prevent standbys from
-activating on the file system (the `joinable` flag).
+activating on the file system (the ``joinable`` flag).
 
 This process can also be done manually by doing the following:
 
@@ -272,7 +272,7 @@ ceph fs set <fs_name> joinable true
 
 ## Daemons
 
-Most commands manipulating MDSs take a `<role>` argument which can take one
+Most commands manipulating MDSs take a ``<role>`` argument which can take one
 of three forms:
 
 :
@@ -293,11 +293,11 @@ ceph mds fail <gid/name/role>
 
 Mark an MDS daemon as failed.  This is equivalent to what the cluster
 would do if an MDS daemon had failed to send a message to the mon
-for `mds_beacon_grace` second.  If the daemon was active and a suitable
-standby is available, using `ceph mds fail` will force a failover to the
+for ``mds_beacon_grace`` second.  If the daemon was active and a suitable
+standby is available, using ``ceph mds fail`` will force a failover to the
 standby.
 
-If the MDS daemon was in reality still running, then using `ceph mds fail`
+If the MDS daemon was in reality still running, then using ``ceph mds fail``
 will cause the daemon to restart.  If it was active and a standby was
 available, then the "failed" daemon will return as a standby.
 
@@ -307,8 +307,8 @@ available, then the "failed" daemon will return as a standby.
 ceph tell mds.<daemon name> command ...
 ```
 
-Send a command to the MDS daemon(s). Use `mds.*` to send a command to all
-daemons. Use `ceph tell mds.* help` to learn available commands.
+Send a command to the MDS daemon(s). Use ``mds.*`` to send a command to all
+daemons. Use ``ceph tell mds.* help`` to learn available commands.
 
 :
 
@@ -334,9 +334,9 @@ marked damaged.
 ceph mds last-seen <name>
 ```
 
-Learn the when the MDS named `name` was last in the FSMap. The JSON output
+Learn the when the MDS named ``name`` was last in the FSMap. The JSON output
 includes the epoch the MDS was last seen. Historically information is limited by
-the following `mon` configuration:
+the following ``mon`` configuration:
 
 .. confval:: mon_fsmap_prune_threshold
 
@@ -368,43 +368,25 @@ Clients that are missing newly added features will be evicted automatically.
 
 Here are the current CephFS features and first release they came out:
 
-+----------------------------+--------------+-----------------+
-| Feature                    | Ceph release | Upstream Kernel |
-+============================+==============+=================+
-| jewel                      | jewel        | 4.5             |
-+----------------------------+--------------+-----------------+
-| kraken                     | kraken       | 4.13            |
-+----------------------------+--------------+-----------------+
-| luminous                   | luminous     | 4.13            |
-+----------------------------+--------------+-----------------+
-| mimic                      | mimic        | 4.19            |
-+----------------------------+--------------+-----------------+
-| reply_encoding             | nautilus     | 5.1             |
-+----------------------------+--------------+-----------------+
-| reclaim_client             | nautilus     | N/A             |
-+----------------------------+--------------+-----------------+
-| lazy_caps_wanted           | nautilus     | 5.1             |
-+----------------------------+--------------+-----------------+
-| multi_reconnect            | nautilus     | 5.1             |
-+----------------------------+--------------+-----------------+
-| deleg_ino                  | octopus      | 5.6             |
-+----------------------------+--------------+-----------------+
-| metric_collect             | pacific      | N/A             |
-+----------------------------+--------------+-----------------+
-| alternate_name             | pacific      | 6.5             |
-+----------------------------+--------------+-----------------+
-| notify_session_state       | quincy       | 5.19            |
-+----------------------------+--------------+-----------------+
-| op_getvxattr               | quincy       | 6.0             |
-+----------------------------+--------------+-----------------+
-| 32bits_retry_fwd           | reef         | 6.6             |
-+----------------------------+--------------+-----------------+
-| new_snaprealm_info         | reef         | UNKNOWN         |
-+----------------------------+--------------+-----------------+
-| has_owner_uidgid           | reef         | 6.6             |
-+----------------------------+--------------+-----------------+
-| client_mds_auth_caps       | squid+bp     | PLANNED         |
-+----------------------------+--------------+-----------------+
+| Feature | Ceph release | Upstream Kernel |
+| --- | --- | --- |
+| jewel | jewel | 4.5 |
+| kraken | kraken | 4.13 |
+| luminous | luminous | 4.13 |
+| mimic | mimic | 4.19 |
+| reply_encoding | nautilus | 5.1 |
+| reclaim_client | nautilus | N/A |
+| lazy_caps_wanted | nautilus | 5.1 |
+| multi_reconnect | nautilus | 5.1 |
+| deleg_ino | octopus | 5.6 |
+| metric_collect | pacific | N/A |
+| alternate_name | pacific | 6.5 |
+| notify_session_state | quincy | 5.19 |
+| op_getvxattr | quincy | 6.0 |
+| 32bits_retry_fwd | reef | 6.6 |
+| new_snaprealm_info | reef | UNKNOWN |
+| has_owner_uidgid | reef | 6.6 |
+| client_mds_auth_caps | squid+bp | PLANNED |
 
 ..
     Comment: use `git describe --tags --abbrev=0 <commit>` to lookup release
@@ -479,8 +461,8 @@ to be used for encrypted file name support.
 client_mds_auth_caps
 ```
 
-To effectively implement `root_squash` in a client's `mds` caps, the client
-must understand that it is enforcing `root_squash` and other cap metadata.
+To effectively implement ``root_squash`` in a client's ``mds`` caps, the client
+must understand that it is enforcing ``root_squash`` and other cap metadata.
 Clients without this feature are in danger of dropping updates to files.  It is
 recommend to set this feature bit.
 
@@ -500,7 +482,7 @@ Some flags require you to confirm your intentions with "--yes-i-really-mean-it"
 or a similar string they will prompt you with. Consider these actions carefully
 before proceeding; they are placed on especially dangerous activities.
 
-.. _advanced-cephfs-admin-settings:
+<a id="advanced-cephfs-admin-settings"></a>
 
 ## Advanced
 

@@ -5,16 +5,16 @@ title: "RGW Module"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/rgw.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _mgr-rgw-module:
+<a id="mgr-rgw-module"></a>
 
 # RGW Module
-The `rgw` module provides a simple interface to deploy RGW multisite.
+The ``rgw`` module provides a simple interface to deploy RGW [multisite](../radosgw/bucket_logging.md#multisite).
 It helps with bootstrapping and configuring RGW realm, zonegroup and
 the different related entities.
 
 ## Enabling
 
-To enable the `rgw` module, run the following command:
+To enable the ``rgw`` module, run the following command:
 
 ```bash
 ceph mgr module enable rgw
@@ -32,7 +32,7 @@ supports passing the arguments through the command line or as a spec file:
 ceph rgw realm bootstrap [--realm-name] [--zonegroup-name] [--zone-name] [--port] [--placement] [--start-radosgw]
 ```
 
-The command supports configuration through a spec file (`-i` option):
+The command supports configuration through a spec file (``-i`` option):
 
 ```bash
 ceph rgw realm bootstrap -i myrgw.yaml
@@ -72,7 +72,7 @@ zone_endpoints: http://<rgw_host1>:<rgw_port1>, http://<rgw_host2>:<rgw_port2>
 Users can list the available tokens for the created (or already existing) realms.
 The token is a base64 string that encapsulates the realm information and its
 master zone endpoint authentication data. Following is an example of
-the `ceph rgw realm tokens` output:
+the ``ceph rgw realm tokens`` output:
 
 ```bash
 ceph rgw realm tokens | jq
@@ -93,7 +93,7 @@ ceph rgw realm tokens | jq
 
 User can use the token to pull a realm to create secondary zone on a
 different cluster that syncs with the master zone on the primary cluster
-by using `ceph rgw zone create` command and providing the corresponding token.
+by using ``ceph rgw zone create`` command and providing the corresponding token.
 
 Following is an example of zone spec file:
 
@@ -175,7 +175,7 @@ openssl x509 -in <cert_name>.crt -noout -text
 update-ca-trust
 ```
 
-1. From the primary cluster, ensure that the `curl` command can be run by the
+1. From the primary cluster, ensure that the ``curl`` command can be run by the
    user:
 
 ```bash

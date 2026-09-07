@@ -91,7 +91,7 @@ in order.
 
 # Example
 
-Say you want to examine an attribute on an object stored by `ceph-osd`.  You can do this:
+Say you want to examine an attribute on an object stored by ``ceph-osd``.  You can do this:
 
 :
 
@@ -148,4 +148,4 @@ information.
 
 # See also
 
-ceph\(8)
+[ceph](../../install/clone-source.md)\(8)

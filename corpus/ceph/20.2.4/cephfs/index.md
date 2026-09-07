@@ -5,7 +5,7 @@ title: "Ceph File System"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/index.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-file-system:
+<a id="ceph-file-system"></a>
 
 # Ceph File System
 
@@ -30,7 +30,7 @@ into a series of efficient writes to a journal on RADOS; no metadata state is
 stored locally by the MDS. This model allows for coherent and rapid
 collaboration between clients within the context of a POSIX file system.
 
-.. image:: cephfs-architecture.svg
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/cephfs-architecture.svg)
 
 CephFS is the subject of numerous academic papers for its novel designs and
 contributions to file system research. It is the oldest storage interface in
@@ -47,21 +47,12 @@ For most deployments of Ceph, setting up your first CephFS file system is as sim
 ceph fs volume create cephfs
 ```
 
-The Ceph Orchestrator  will automatically create and configure MDS for
+The Ceph [Orchestrator](../mgr/orchestrator.md)  will automatically create and configure MDS for
 your file system if the back-end deployment technology supports it (see
-Orchestrator deployment table). Otherwise, please `deploy MDS manually
-as needed`_. You can also create other CephFS volumes.
+[Orchestrator deployment table](../mgr/orchestrator.md#current-implementation-status)). Otherwise, please [deploy MDS manually as needed](add-remove-mds.md). You can also [create other CephFS volumes](fs-volumes.md).
 
-Finally, to mount CephFS on your client nodes, see `Mount CephFS:
-Prerequisites`_ page. Additionally, a command-line shell utility is available
-for interactive access or scripting via the cephfs-shell.
-
-.. _Orchestrator: ../mgr/orchestrator
-.. _deploy MDS manually as needed: add-remove-mds
-.. _create other CephFS volumes: fs-volumes
-.. _Orchestrator deployment table: ../mgr/orchestrator/#current-implementation-status
-.. _Mount CephFS\: Prerequisites: mount-prerequisites
-.. _cephfs-shell: ../man/8/cephfs-shell
+Finally, to mount CephFS on your client nodes, see [Mount CephFS: Prerequisites](mount-prerequisites.md#mount-cephfs-prerequisites) page. Additionally, a command-line shell utility is available
+for interactive access or scripting via the [cephfs-shell](../man/8/cephfs-shell.md).
 
 .. raw:: html
 

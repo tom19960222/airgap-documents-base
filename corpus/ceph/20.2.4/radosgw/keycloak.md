@@ -5,7 +5,7 @@ title: "Integrating Keycloak with RadosGW"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/keycloak.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw_keycloak:
+<a id="radosgw-keycloak"></a>
 
 # Integrating Keycloak with RadosGW
 
@@ -92,8 +92,8 @@ secret, username, and password as follows:
  KC_ACCESS_TOKEN=$(echo $KC_RESPONSE| jq -r .access_token)
 ```
 
-`KC_ACCESS_TOKEN` can be used to invoke `AssumeRoleWithWebIdentity`: see
-STS.
+``KC_ACCESS_TOKEN`` can be used to invoke ``AssumeRoleWithWebIdentity``: see
+[STS](STS.md).
 
 # Adding tags to a user in Keycloak
 
@@ -102,34 +102,29 @@ steps:
 
 1. Add a user:
 
-.. image:: ../images/keycloak-adduser.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/keycloak-adduser.png)
 
 1. Add user details:
 
-.. image:: ../images/keycloak-userdetails.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/keycloak-userdetails.png)
 
 1. Add user credentials:
 
-.. image:: ../images/keycloak-usercredentials.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/keycloak-usercredentials.png)
 
 1. Add tags to the 'attributes' tab of the user:
 
-.. image:: ../images/keycloak-usertags.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/keycloak-usertags.png)
 
 1. Add a protocol mapper that maps the user attribute to a client:
 
-.. image:: ../images/keycloak-userclientmapper.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/keycloak-userclientmapper.png)
 
 After these steps have been completed, the tag 'Department' will appear in the
 JWT (web token), under the 'https://aws.amazon.com/tags' namespace.
 
 Tags can be verified by performing token introspection on a JWT. To introspect
-a token, use `client id` and `client secret` as follows:
+a token, use ``client id`` and ``client secret`` as follows:
 
 ```
 KC_REALM=demo

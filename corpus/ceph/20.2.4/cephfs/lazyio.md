@@ -17,25 +17,25 @@ Libcephfs supports LazyIO since nautilus release.
 
 LazyIO can be enabled by following ways.
 
-- `client_force_lazyio` option enables LAZY_IO globally for libcephfs and
+- ``client_force_lazyio`` option enables LAZY_IO globally for libcephfs and
   ceph-fuse mount.
 
-- `ceph_lazyio(...)` and `ceph_ll_lazyio(...)` enable LAZY_IO for file handle
+- ``ceph_lazyio(...)`` and ``ceph_ll_lazyio(...)`` enable LAZY_IO for file handle
   in libcephfs.
 
 # Using LazyIO
 
-LazyIO includes two methods `lazyio_propagate()` and `lazyio_synchronize()`.
+LazyIO includes two methods ``lazyio_propagate()`` and ``lazyio_synchronize()``.
 With LazyIO enabled, writes may not be visible to other clients until
-`lazyio_propagate()` is called. Reads may come from local cache (irrespective of
-changes to the file by other clients) until `lazyio_synchronize()` is called.
+``lazyio_propagate()`` is called. Reads may come from local cache (irrespective of
+changes to the file by other clients) until ``lazyio_synchronize()`` is called.
 
-- `lazyio_propagate(int fd, loff_t offset, size_t count)` - Ensures that any
+- ``lazyio_propagate(int fd, loff_t offset, size_t count)`` - Ensures that any
   buffered writes of the client, in the specific region (offset to offset+count),
   has been propagated to the shared file. If offset and count are both 0, the
   operation is performed on the entire file. Currently only this is supported.
 
-- `lazyio_synchronize(int fd, loff_t offset, size_t count)` - Ensures that the
+- ``lazyio_synchronize(int fd, loff_t offset, size_t count)`` - Ensures that the
   client is, in a subsequent read call, able to read the updated file with all
   the propagated writes of the other clients. In CephFS this is facilitated by
   invalidating the file caches pertaining to the inode and hence forces the

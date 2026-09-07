@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 ## Introduction
 
-The parameters interpreted by the `jerasure` plugin are:
+The parameters interpreted by the ``jerasure`` plugin are:
 
 :
 
@@ -29,13 +29,10 @@ The coding techniques can be chosen among *reed_sol_van*,
 The *src/erasure-code/jerasure* directory contains the
 implementation. It is a wrapper around the code found at
 [https://github.com/ceph/jerasure](https://github.com/ceph/jerasure)
-and `https://github.com/ceph/gf-complete
-<https://github.com/ceph/gf-complete>`_ , pinned to the latest stable
+and [https://github.com/ceph/gf-complete](https://github.com/ceph/gf-complete) , pinned to the latest stable
 version in *.gitmodules*. These repositories are copies of the
-upstream repositories `http://jerasure.org/jerasure/jerasure
-<http://jerasure.org/jerasure/jerasure>`_ and
-`http://jerasure.org/jerasure/gf-complete
-<http://jerasure.org/jerasure/gf-complete>`_ . The difference
+upstream repositories [http://jerasure.org/jerasure/jerasure](http://jerasure.org/jerasure/jerasure) and
+[http://jerasure.org/jerasure/gf-complete](http://jerasure.org/jerasure/gf-complete) . The difference
 between the two, if any, should match pull requests against upstream.
-Note that as of 2023, the `jerasure.org` web site may no longer be
+Note that as of 2023, the ``jerasure.org`` web site may no longer be
 legitimate and/or associated with the original project.

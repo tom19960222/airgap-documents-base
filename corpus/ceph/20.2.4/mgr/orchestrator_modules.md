@@ -5,7 +5,7 @@ title: "ceph-mgr orchestrator modules"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/orchestrator_modules.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _orchestrator-modules:
+<a id="orchestrator-modules"></a>
 
 .. py:currentmodule:: orchestrator
 
@@ -19,11 +19,11 @@ In this context, *orchestrator* refers to some external service that
 provides the ability to discover devices and create Ceph services.  This
 includes external projects such as Rook.
 
-An *orchestrator module* is a ceph-mgr module (mgr-module-dev)
+An *orchestrator module* is a ceph-mgr module ([mgr-module-dev](modules.md#mgr-module-dev))
 which implements common management operations using a particular
 orchestrator.
 
-Orchestrator modules subclass the `Orchestrator` class: this class is
+Orchestrator modules subclass the ``Orchestrator`` class: this class is
 an interface, it only provides method definitions to be implemented
 by subclasses.  The purpose of defining this common interface
 for different orchestrators is to enable common UI code, such as
@@ -131,9 +131,9 @@ In detail, orchestrators need to explicitly deal with different kinds of errors:
 
 2. An orchestrator doesn't implement a specific method.
 
-   For example, an Orchestrator doesn't support `add_host`.
+   For example, an Orchestrator doesn't support ``add_host``.
 
-   In this case, a `NotImplementedError` is raised.
+   In this case, a ``NotImplementedError`` is raised.
 
 3. Missing features within implemented methods.
 
@@ -144,7 +144,7 @@ In detail, orchestrators need to explicitly deal with different kinds of errors:
 
 4. Input validation errors
 
-   The `orchestrator` module and other calling modules are supposed to
+   The ``orchestrator`` module and other calling modules are supposed to
    provide meaningful error messages.
 
    See OrchestratorValidationError.
@@ -152,7 +152,7 @@ In detail, orchestrators need to explicitly deal with different kinds of errors:
 5. Errors when actually executing commands
 
    The resulting Completion should contain an error string that assists in understanding the
-   problem. In addition, Completion.is_errored is set to `True`
+   problem. In addition, Completion.is_errored is set to ``True``
 
 6. Invalid configuration in the orchestrator modules
 
@@ -205,7 +205,7 @@ Completion.result may contain an error message.
 
 ## Placement
 
-A orchestrator-cli-placement-spec defines the placement of
+A [orchestrator-cli-placement-spec](../cephadm/services/index.md#orchestrator-cli-placement-spec) defines the placement of
 daemons of a specific service.
 
 In general, stateless services do not require any specific placement
@@ -260,16 +260,16 @@ specify a location when creating a stateless service.
 
 .. autoclass:: DeviceLightLoc
 
-.. _orchestrator-osd-replace:
+<a id="orchestrator-osd-replace"></a>
 
 ### OSD Replacement
 
-See rados-replacing-an-osd for the underlying process.
+See [rados-replacing-an-osd](../rados/operations/add-or-rm-osds.md#rados-replacing-an-osd) for the underlying process.
 
 Replacing OSDs is fundamentally a two-staged process, as users need to
 physically replace drives. The orchestrator therefore exposes this two-staged process.
 
-Phase one is a call to Orchestrator.remove_daemons with `destroy=True` in order to mark
+Phase one is a call to Orchestrator.remove_daemons with ``destroy=True`` in order to mark
 the OSD as destroyed.
 
 Phase two is a call to  Orchestrator.create_osds with a Drive Group with

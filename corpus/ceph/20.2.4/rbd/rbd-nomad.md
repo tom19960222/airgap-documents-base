@@ -8,16 +8,16 @@ fetched_at: 2026-08-18T01:32:45Z
 # Block Devices and Nomad
 
 Like Kubernetes, Nomad can use Ceph Block Device. This is made possible by
-ceph-csi, which allows you to dynamically provision RBD images or import
+[ceph-csi](https://github.com/ceph/ceph-csi/), which allows you to dynamically provision RBD images or import
 existing RBD images.
 
-Every version of Nomad is compatible with ceph-csi, but the reference
+Every version of Nomad is compatible with [ceph-csi](https://github.com/ceph/ceph-csi/), but the reference
 version of Nomad that was used to generate the procedures and guidance in this
 document is Nomad v1.1.2, the latest version available at the time of the
 writing of the document.
 
 To use Ceph Block Devices with Nomad, you must install
-and configure `ceph-csi` within your Nomad environment. The following
+and configure ``ceph-csi`` within your Nomad environment. The following
 diagram shows the Nomad/Ceph technology stack.
 
 .. ditaa::
@@ -54,23 +54,23 @@ diagram shows the Nomad/Ceph technology stack.
 > Nomad has many possible task drivers, but this example uses only a Docker container.
 
 > **Important:**
-> `ceph-csi` uses the RBD kernel modules by default, which may not support
-> all Ceph CRUSH tunables or RBD image features.
+> ``ceph-csi`` uses the RBD kernel modules by default, which may not support
+> all Ceph [CRUSH tunables](../rados/operations/crush-map.md#tunables) or [RBD image features](rbd-config-ref.md#image-features).
 
 # Create a Pool
 
-By default, Ceph block devices use the `rbd` pool. Ensure that your Ceph
+By default, Ceph block devices use the ``rbd`` pool. Ensure that your Ceph
 cluster is running, then create a pool for Nomad persistent storage:
 
 ```bash
 ceph osd pool create nomad
 ```
 
-See Create a Pool for details on specifying the number of placement groups
-for your pools. See Placement Groups for details on the number of placement
+See [Create a Pool](../rados/operations/pools.md#createpool) for details on specifying the number of placement groups
+for your pools. See [Placement Groups](../rados/operations/placement-groups.md) for details on the number of placement
 groups you should set for your pools.
 
-A newly created pool must be initialized prior to use. Use the `rbd` tool
+A newly created pool must be initialized prior to use. Use the ``rbd`` tool
 to initialize the pool:
 
 ```bash
@@ -133,13 +133,13 @@ sudo systemctl restart nomad
 
 # Create ceph-csi controller and plugin nodes
 
-The ceph-csi plugin requires two components:
+The [ceph-csi](https://github.com/ceph/ceph-csi/) plugin requires two components:
 
 - **Controller plugin**: communicates with the provider's API.
 - **Node plugin**: executes tasks on the client.
 
 > **Note:**
-> We'll set the ceph-csi's version in those files. See ceph-csi release
+> We'll set the ceph-csi's version in those files. See [ceph-csi release](https://github.com/ceph/ceph-csi#ceph-csi-container-images-and-release-compatibility)
 > for information about ceph-csi's compatibility with other versions.
 
 ## Configure controller plugin
@@ -158,7 +158,7 @@ fsid b9127830-b0cc-4e34-aa47-9d1a2e9949a8
 2: [v2:192.168.1.3:3300/0,v1:192.168.1.3:6789/0] mon.c
 ```
 
-Generate a `ceph-csi-plugin-controller.nomad` file similar to the example
+Generate a ``ceph-csi-plugin-controller.nomad`` file similar to the example
 below. Substitute the `fsid` for "clusterID", and the monitor addresses for
 "monitors":
 
@@ -234,7 +234,7 @@ EOF
 
 ## Configure plugin node
 
-Generate a `ceph-csi-plugin-nodes.nomad` file similar to the example below.
+Generate a ``ceph-csi-plugin-nodes.nomad`` file similar to the example below.
 Substitute the `fsid` for "clusterID" and the monitor addresses for
 "monitors":
 
@@ -319,7 +319,7 @@ nomad job run ceph-csi-plugin-controller.nomad
 nomad job run ceph-csi-plugin-nodes.nomad
 ```
 
-The ceph-csi image will be downloaded.
+The [ceph-csi](https://github.com/ceph/ceph-csi/) image will be downloaded.
 
 Check the plugin status after a few minutes:
 
@@ -343,8 +343,8 @@ fee74115  a61ef171  controller  6        run      running  3h26m ago  3h25m ago
 
 ## Create rbd image
 
-`ceph-csi` requires the cephx credentials for communicating with the Ceph
-cluster. Generate a `ceph-volume.hcl` file similar to the example below,
+``ceph-csi`` requires the cephx credentials for communicating with the Ceph
+cluster. Generate a ``ceph-volume.hcl`` file similar to the example below,
 using the newly created nomad user id and cephx key:
 
 ```
@@ -373,7 +373,7 @@ parameters {
 }
 ```
 
-After the `ceph-volume.hcl` file has been generated, create the volume:
+After the ``ceph-volume.hcl`` file has been generated, create the volume:
 
 ```bash
 nomad volume create ceph-volume.hcl
@@ -382,9 +382,9 @@ nomad volume create ceph-volume.hcl
 ## Use rbd image with a container
 
 As an exercise in using an rbd image with a container, modify the Hashicorp
-nomad stateful example.
+[nomad stateful](https://learn.hashicorp.com/tutorials/nomad/stateful-workloads-csi-volumes?in=nomad/stateful-workloads#create-the-job-file) example.
 
-Generate a `mysql.nomad` file similar to the example below:
+Generate a ``mysql.nomad`` file similar to the example below:
 
 ```
 job "mysql-server" {
@@ -464,12 +464,3 @@ ID        Node ID   Task Group    Version  Desired  Status   Created  Modified
 To check that data are persistent, modify the database, purge the job, then
 create it using the same file. The same RBD image will be used (re-used,
 really).
-
-.. _ceph-csi: https://github.com/ceph/ceph-csi/
-.. _csi: https://www.nomadproject.io/docs/internals/plugins/csi
-.. _Create a Pool: ../../rados/operations/pools#createpool
-.. _Placement Groups: ../../rados/operations/placement-groups
-.. _CRUSH tunables: ../../rados/operations/crush-map/#tunables
-.. _RBD image features: ../rbd-config-ref/#image-features
-.. _nomad stateful: https://learn.hashicorp.com/tutorials/nomad/stateful-workloads-csi-volumes?in=nomad/stateful-workloads#create-the-job-file
-.. _ceph-csi release: https://github.com/ceph/ceph-csi#ceph-csi-container-images-and-release-compatibility

@@ -8,7 +8,7 @@ fetched_at: 2026-08-18T01:32:45Z
 # CephFS Snapshots
 
 CephFS supports snapshots, generally created by invoking mkdir within the
-`.snap` directory. Note this is a hidden, special directory, not visible
+``.snap`` directory. Note this is a hidden, special directory, not visible
 during a directory listing.
 
 ## Overview
@@ -49,12 +49,12 @@ $ ceph fs set <fs_name> allow_new_snaps true
 ```
 
 When snapshots are enabled, all directories in CephFS will have a special
-`.snap` directory. (You may configure a different name with the ``client
+``.snap`` directory. (You may configure a different name with the ``client
 snapdir`` setting if you wish.)
 
 To create a CephFS snapshot, create a subdirectory under
-`.snap` with a name of your choice. For example, to create a snapshot on
-directory "/1/2/3/", invoke `mkdir /1/2/3/.snap/my-snapshot-name` .
+``.snap`` with a name of your choice. For example, to create a snapshot on
+directory "/1/2/3/", invoke ``mkdir /1/2/3/.snap/my-snapshot-name`` .
 
 > **Note:**
 > Snapshot names can not start with an underscore ('_'), as these names are

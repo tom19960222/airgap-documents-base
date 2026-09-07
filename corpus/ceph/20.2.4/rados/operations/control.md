@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Monitor Commands
 
-To issue monitor commands, use the `ceph` utility:
+To issue monitor commands, use the ``ceph`` utility:
 
 ```bash
 ceph [-m monhost] {command}
@@ -54,7 +54,7 @@ run the following command:
 ceph tell mon.[id] mon_status
 ```
 
-Here the value of `[id]` can be found by consulting the output of ``ceph
+Here the value of ``[id]`` can be found by consulting the output of ``ceph
 -s``.
 
 # Authentication Subsystem
@@ -80,11 +80,11 @@ command:
 ceph pg dump [--format {format}]
 ```
 
-Here the valid formats are `plain` (default), `json` `json-pretty`,
-`xml`, and `xml-pretty`.  When implementing monitoring tools and other
-tools, it is best to use the `json` format.  JSON parsing is more
-deterministic than the `plain` format (which is more human readable), and the
-layout is much more consistent from release to release. The `jq` utility is
+Here the valid formats are ``plain`` (default), ``json`` ``json-pretty``,
+``xml``, and ``xml-pretty``.  When implementing monitoring tools and other
+tools, it is best to use the ``json`` format.  JSON parsing is more
+deterministic than the ``plain`` format (which is more human readable), and the
+layout is much more consistent from release to release. The ``jq`` utility is
 very useful for extracting data from JSON output.
 
 To display the statistics for all PGs stuck in a specified state, run the
@@ -94,18 +94,18 @@ following command:
 ceph pg dump_stuck inactive|unclean|stale|undersized|degraded [--format {format}] [-t|--threshold {seconds}]
 ```
 
-Here `--format` may be `plain` (default), `json`, `json-pretty`,
-`xml`, or `xml-pretty`.
+Here ``--format`` may be ``plain`` (default), ``json``, ``json-pretty``,
+``xml``, or ``xml-pretty``.
 
-The `--threshold` argument determines the time interval (in seconds) for a PG
-to be considered `stuck` (default: 300).
+The ``--threshold`` argument determines the time interval (in seconds) for a PG
+to be considered ``stuck`` (default: 300).
 
 PGs might be stuck in any of the following states:
 
 **Inactive**
 
     PGs are unable to process reads or writes because they are waiting for an
-    OSD that has the most up-to-date data to return to an `up` state.
+    OSD that has the most up-to-date data to return to an ``up`` state.
 
 **Unclean**
 
@@ -116,9 +116,9 @@ PGs might be stuck in any of the following states:
 
     PGs are in an unknown state, because the OSDs that host them have not
     reported to the monitor cluster for a certain period of time (specified by
-    the `mon_osd_report_timeout` configuration setting).
+    the ``mon_osd_report_timeout`` configuration setting).
 
-To delete a `lost` object or revert an object to its prior state, either by
+To delete a ``lost`` object or revert an object to its prior state, either by
 reverting it to its previous version or by deleting it because it was just
 created and has no previous version, run the following command:
 
@@ -126,7 +126,7 @@ created and has no previous version, run the following command:
 ceph pg {pgid} mark_unfound_lost revert|delete
 ```
 
-.. _osd-subsystem:
+<a id="osd-subsystem"></a>
 
 # OSD Subsystem
 
@@ -136,8 +136,7 @@ To query OSD subsystem status, run the following command:
 ceph osd stat
 ```
 
-To write a copy of the most recent OSD map to a file (see :ref:`osdmaptool
-<osdmaptool>`), run the following command:
+To write a copy of the most recent OSD map to a file (see [osdmaptool](../../man/8/osdmaptool.md#osdmaptool)), run the following command:
 
 ```bash
 ceph osd getmap -o file
@@ -164,8 +163,8 @@ To dump the OSD map, run the following command:
 ceph osd dump [--format {format}]
 ```
 
-The `--format` option accepts the following arguments: `plain` (default),
-`json`, `json-pretty`, `xml`, and `xml-pretty`. As noted above, JSON is
+The ``--format`` option accepts the following arguments: ``plain`` (default),
+``json``, ``json-pretty``, ``xml``, and ``xml-pretty``. As noted above, JSON is
 the recommended format for tools, scripting, and other forms of automation.
 
 To dump the OSD map as a tree that lists one OSD per line and displays
@@ -209,14 +208,14 @@ run the following command:
 ceph osd crush move {id} {loc1} [{loc2} ...]
 ```
 
-To set the CRUSH weight of a specific OSD (specified by `{name}`) to
-`{weight}`, run the following command:
+To set the CRUSH weight of a specific OSD (specified by ``{name}``) to
+``{weight}``, run the following command:
 
 ```bash
 ceph osd crush reweight {name} {weight}
 ```
 
-To mark an OSD as `lost`, run the following command:
+To mark an OSD as ``lost``, run the following command:
 
 ```bash
 ceph osd lost {id} [--yes-i-really-mean-it]
@@ -240,7 +239,7 @@ To remove one or more specific OSDs, run the following command:
 ceph osd rm [{id}...]
 ```
 
-To display the current `max_osd` parameter in the OSD map, run the following
+To display the current ``max_osd`` parameter in the OSD map, run the following
 command:
 
 ```bash
@@ -253,7 +252,7 @@ To import a specific CRUSH map, run the following command:
 ceph osd setcrushmap -i file
 ```
 
-To set the `max_osd` parameter in the OSD map, run the following command:
+To set the ``max_osd`` parameter in the OSD map, run the following command:
 
 ```bash
 ceph osd setmaxosd
@@ -262,20 +261,20 @@ ceph osd setmaxosd
 The parameter has a default value of 10000. Most operators will never need to
 adjust it.
 
-To mark a specific OSD `down`, run the following command:
+To mark a specific OSD ``down``, run the following command:
 
 ```bash
 ceph osd down {osd-num}
 ```
 
-To mark a specific OSD `out` (so that no data will be allocated to it), run
+To mark a specific OSD ``out`` (so that no data will be allocated to it), run
 the following command:
 
 ```bash
 ceph osd out {osd-num}
 ```
 
-To mark a specific OSD `in` (so that data will be allocated to it), run the
+To mark a specific OSD ``in`` (so that data will be allocated to it), run the
 following command:
 
 ```bash
@@ -292,13 +291,13 @@ ceph osd pause
 ceph osd unpause
 ```
 
-You can assign an override or `reweight` weight value to a specific OSD if
+You can assign an override or ``reweight`` weight value to a specific OSD if
 the normal CRUSH distribution seems to be suboptimal. The weight of an OSD
 helps determine the extent of its I/O requests and data storage: two OSDs with
 the same weight will receive approximately the same number of I/O requests and
-store approximately the same amount of data. The `ceph osd reweight` command
+store approximately the same amount of data. The ``ceph osd reweight`` command
 assigns an override weight to an OSD. The weight value is in the range 0 to 1,
-and the command forces CRUSH to relocate a certain amount (1 - `weight`) of
+and the command forces CRUSH to relocate a certain amount (1 - ``weight``) of
 the data that would otherwise be on this OSD. The command does not change the
 weights of the buckets above the OSD in the CRUSH map. Using the command is
 merely a corrective measure: for example, if one of your OSDs is at 90% and the
@@ -312,10 +311,10 @@ ceph osd reweight {osd-num} {weight}
 
 > **Note:** Any assigned override reweight value will conflict with the balancer.
 > This means that if the balancer is in use, all override reweight values
-> should be `1.0000` in order to avoid suboptimal cluster behavior.
+> should be ``1.0000`` in order to avoid suboptimal cluster behavior.
 
 A cluster's OSDs can be reweighted in order to maintain balance if some OSDs
-are being disproportionately utilized. Note that override or `reweight`
+are being disproportionately utilized. Note that override or ``reweight``
 weights have values relative to one another that default to 1.00000; their
 values are not absolute, and these weights must be distinguished from CRUSH
 weights (which reflect the absolute capacity of a bucket, as measured in TiB).
@@ -327,32 +326,32 @@ ceph osd reweight-by-utilization [threshold [max_change [max_osds]]] [--no-incre
 
 By default, this command adjusts the override weight of OSDs that have ±20% of
 the average utilization, but you can specify a different percentage in the
-`threshold` argument.
+``threshold`` argument.
 
 To limit the increment by which any OSD's reweight is to be changed, use the
-`max_change` argument (default: 0.05). To limit the number of OSDs that are
-to be adjusted, use the `max_osds` argument (default: 4). Increasing these
+``max_change`` argument (default: 0.05). To limit the number of OSDs that are
+to be adjusted, use the ``max_osds`` argument (default: 4). Increasing these
 variables can accelerate the reweighting process, but perhaps at the cost of
 slower client operations (as a result of the increase in data movement).
 
-You can test the `osd reweight-by-utilization` command before running it. To
+You can test the ``osd reweight-by-utilization`` command before running it. To
 find out which and how many PGs and OSDs will be affected by a specific use of
-the `osd reweight-by-utilization` command, run the following command:
+the ``osd reweight-by-utilization`` command, run the following command:
 
 ```bash
 ceph osd test-reweight-by-utilization [threshold [max_change max_osds]] [--no-increasing]
 ```
 
-The `--no-increasing` option can be added to the `reweight-by-utilization`
-and `test-reweight-by-utilization` commands in order to prevent any override
+The ``--no-increasing`` option can be added to the ``reweight-by-utilization``
+and ``test-reweight-by-utilization`` commands in order to prevent any override
 weights that are currently less than 1.00000 from being increased. This option
 can be useful in certain circumstances: for example, when you are hastily
-balancing in order to remedy `full` or `nearfull` OSDs, or when there are
+balancing in order to remedy ``full`` or ``nearfull`` OSDs, or when there are
 OSDs being evacuated or slowly brought into service.
 
 Operators of deployments that utilize Nautilus or newer (or later revisions of
 Luminous and Mimic) and that have no pre-Luminous clients might likely instead
-want to enable the `balancer` module for `ceph-mgr``.
+want to enable the `balancer`` module for ``ceph-mgr``.
 
 The blocklist can be modified by adding or removing an IP address or a CIDR
 range. If an address is blocklisted, it will be unable to connect to any OSD.
@@ -367,10 +366,10 @@ ceph osd blocklist ["range"] add ADDRESS[:source_port][/netmask_bits] [TIME]
 ceph osd blocklist ["range"] rm ADDRESS[:source_port][/netmask_bits]
 ```
 
-If you add something to the blocklist with the above `add` command, you can
-use the `TIME` keyword to specify the length of time (in seconds) that it
+If you add something to the blocklist with the above ``add`` command, you can
+use the ``TIME`` keyword to specify the length of time (in seconds) that it
 will remain on the blocklist (default: one hour). To add or remove a CIDR
-range, use the `range` keyword in the above commands.
+range, use the ``range`` keyword in the above commands.
 
 Note that these commands are useful primarily in failure testing. Under normal
 conditions, blocklists are maintained automatically and do not need any manual
@@ -401,10 +400,10 @@ ceph osd pool set {pool-name} {field} {value}
 
 The following are valid fields:
 
-    * `size`: The number of copies of data in the pool.
-    * `pg_num`: The PG number.
-    * `pgp_num`: The effective number of PGs when calculating placement.
-    * `crush_rule`: The rule number for mapping placement.
+    * ``size``: The number of copies of data in the pool.
+    * ``pg_num``: The PG number.
+    * ``pgp_num``: The effective number of PGs when calculating placement.
+    * ``crush_rule``: The rule number for mapping placement.
 
 To retrieve the value of a pool setting, run the following command:
 
@@ -414,17 +413,17 @@ ceph osd pool get {pool-name} {field}
 
 Valid fields are:
 
-    * `pg_num`: The PG number.
-    * `pgp_num`: The effective number of PGs when calculating placement.
+    * ``pg_num``: The PG number.
+    * ``pgp_num``: The effective number of PGs when calculating placement.
 
-To send a scrub command to a specific OSD, or to all OSDs (by using `*`), run
+To send a scrub command to a specific OSD, or to all OSDs (by using ``*``), run
 the following command:
 
 ```bash
 ceph osd scrub {osd-num}
 ```
 
-To send a repair command to a specific OSD, or to all OSDs (by using `*`),
+To send a repair command to a specific OSD, or to all OSDs (by using ``*``),
 run the following command:
 
 ```bash
@@ -432,8 +431,8 @@ ceph osd repair N
 ```
 
 You can run a simple throughput benchmark test against a specific OSD. This
-test writes a total size of `TOTAL_DATA_BYTES` (default: 1 GB) incrementally,
-in multiple write requests that each have a size of `BYTES_PER_WRITE`
+test writes a total size of ``TOTAL_DATA_BYTES`` (default: 1 GB) incrementally,
+in multiple write requests that each have a size of ``BYTES_PER_WRITE``
 (default: 4 MB). The test is not destructive and it will not overwrite existing
 live OSD data, but it might temporarily affect the performance of clients that
 are concurrently accessing the OSD. To launch this benchmark test, run the
@@ -502,7 +501,7 @@ This command returns output similar to the following:
 e2: 3 mons at {a=127.0.0.1:40000/0,b=127.0.0.1:40001/0,c=127.0.0.1:40002/0}, election epoch 6, quorum 0,1,2 a,b,c
 ```
 
-There is a `quorum` list at the end of the output. It lists those monitor
+There is a ``quorum`` list at the end of the output. It lists those monitor
 nodes that are part of the current quorum.
 
 To retrieve this information in a more direct way, run the following command:
@@ -570,8 +569,8 @@ To see the status of a specific monitor, run the following command:
 ceph tell mon.[name] mon_status
 ```
 
-Here the value of `[name]` can be found by consulting the output of the
-`ceph quorum_status` command. This command returns output similar to the
+Here the value of ``[name]`` can be found by consulting the output of the
+``ceph quorum_status`` command. This command returns output similar to the
 following:
 
 :

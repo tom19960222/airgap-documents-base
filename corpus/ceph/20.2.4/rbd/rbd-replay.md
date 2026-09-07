@@ -10,14 +10,14 @@ fetched_at: 2026-08-18T01:32:45Z
 .. index:: Ceph Block Device; RBD Replay
 
 RBD Replay is a set of tools for capturing and replaying RADOS Block Device
-(RBD) workloads. To capture an RBD workload, `lttng-tools` must be installed
-on the client, and `librbd` on the client must be the v0.87 (Giant) release
-or later. To replay an RBD workload, `librbd` on the client must be the Giant
+(RBD) workloads. To capture an RBD workload, ``lttng-tools`` must be installed
+on the client, and ``librbd`` on the client must be the v0.87 (Giant) release
+or later. To replay an RBD workload, ``librbd`` on the client must be the Giant
 release or later.
 
 Capture and replay takes three steps:
 
-1. Capture the trace.  Make sure to capture `pthread_id` context:
+1. Capture the trace.  Make sure to capture ``pthread_id`` context:
 
 ```
 mkdir -p traces
@@ -29,25 +29,22 @@ lttng start
 lttng stop
 ```
 
-1. Process the trace with rbd-replay-prep:
+1. Process the trace with [rbd-replay-prep](../man/8/rbd-replay-prep.md):
 
 ```
 rbd-replay-prep traces/ust/uid/*/* replay.bin
 ```
 
-1. Replay the trace with rbd-replay. Use read-only until you know
+1. Replay the trace with [rbd-replay](../man/8/rbd-replay.md). Use read-only until you know
    it's doing what you want:
 
 ```
 rbd-replay --read-only replay.bin
 ```
 
-> **Important:** `rbd-replay` will destroy data by default.  Do not use against
-> an image you wish to keep, unless you use the `--read-only` option.
+> **Important:** ``rbd-replay`` will destroy data by default.  Do not use against
+> an image you wish to keep, unless you use the ``--read-only`` option.
 
 The replayed workload does not have to be against the same RBD image or even the
 same cluster as the captured workload. To account for differences, you may need
-to use the `--pool` and `--map-image` options of `rbd-replay`.
-
-.. _rbd-replay: ../../man/8/rbd-replay
-.. _rbd-replay-prep: ../../man/8/rbd-replay-prep
+to use the ``--pool`` and ``--map-image`` options of ``rbd-replay``.

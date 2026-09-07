@@ -5,7 +5,7 @@ title: "Ceph Foundation"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/foundation.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _foundation:
+<a id="foundation"></a>
 
 # Ceph Foundation
 
@@ -21,8 +21,7 @@ yearly fee to become members. Associate members are educational
 institutions or government organizations and are invited to join at no
 cost.
 
-For more information, see `https://ceph.com/foundation
-<https://ceph.com/foundation>`_.
+For more information, see [https://ceph.com/foundation](https://ceph.com/foundation).
 
 # Members
 
@@ -87,8 +86,8 @@ governance body). The board is responsible for:
 The Ceph Foundation board is not responsible for and does not have any
 direct control over the technical governance of Ceph. Development and
 engineering activities are managed through traditional open source
-processes and are overseen by the csc. For more
-information see governance.
+processes and are overseen by the [csc](governance.md#csc). For more
+information see [governance](governance.md#governance).
 
 ## Members
 

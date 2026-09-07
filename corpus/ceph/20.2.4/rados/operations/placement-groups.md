@@ -5,7 +5,7 @@ title: "Placement Groups"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/placement-groups.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _placement groups:
+<a id="placement-groups"></a>
 
 # Placement Groups
 
@@ -19,12 +19,11 @@ otherwise identical cluster with a smaller number of placement groups.
 Ceph’s internal RADOS objects are each mapped to a specific placement group,
 and each placement group belongs to exactly one Ceph pool.
 
-See Sage Weil's blog post `New in Nautilus: PG merging and autotuning
-<https://ceph.io/en/news/blog/2019/new-in-nautilus-pg-merging-and-autotuning/>`_
+See Sage Weil's blog post [New in Nautilus: PG merging and autotuning](https://ceph.io/en/news/blog/2019/new-in-nautilus-pg-merging-and-autotuning/)
 for more information about the relationship of placement groups to pools and to
 objects.
 
-.. _pg-autoscaler:
+<a id="pg-autoscaler"></a>
 
 # Autoscaling placement groups
 
@@ -32,17 +31,17 @@ Placement groups (PGs) are an internal implementation detail of how Ceph
 distributes data. Autoscaling provides a way to manage PGs, and especially to
 manage the number of PGs present in different pools.  When *pg-autoscaling* is
 enabled, the cluster makes recommendations or automatic
-adjustments with respect to the number of PGs for each pool (`pgp_num`) in
+adjustments with respect to the number of PGs for each pool (``pgp_num``) in
 accordance with observed and expected pool utilization.
 
-Each pool has a `pg_autoscale_mode` property that can be set to `off`,
-`on`, or `warn`:
+Each pool has a ``pg_autoscale_mode`` property that can be set to ``off``,
+``on``, or ``warn``:
 
-* `off`: Disable autoscaling for this pool. It is up to the administrator to
-  choose an appropriate `pg_num` for each pool. For more information, see
-  choosing-number-of-placement-groups.
-* `on`: Enable automated adjustments of the PG count for the given pool.
-* `warn`: Raise health checks when the PG count is in need of adjustment.
+* ``off``: Disable autoscaling for this pool. It is up to the administrator to
+  choose an appropriate ``pg_num`` for each pool. For more information, see
+  [choosing-number-of-placement-groups](placement-groups.md#choosing-number-of-placement-groups).
+* ``on``: Enable automated adjustments of the PG count for the given pool.
+* ``warn``: Raise health checks when the PG count is in need of adjustment.
 
 To set the autoscaling mode for an existing pool, run a command of the
 following form:
@@ -51,13 +50,13 @@ following form:
 ceph osd pool set <pool-name> pg_autoscale_mode <mode>
 ```
 
-For example, to enable autoscaling on pool `foo`, run the following command:
+For example, to enable autoscaling on pool ``foo``, run the following command:
 
 ```bash
 ceph osd pool set foo pg_autoscale_mode on
 ```
 
-There is also a central config `pg_autoscale_mode` option that controls the
+There is also a central config ``pg_autoscale_mode`` option that controls the
 autoscale mode for pools that are created
 after the initial setup of the cluster. To change this setting, run a command
 of the following form:
@@ -66,15 +65,15 @@ of the following form:
 ceph config set global osd_pool_default_pg_autoscale_mode <mode>
 ```
 
-You can disable or enable the autoscaler for all pools with the `noautoscale`
-flag. By default, this flag is set to `off`, but you can set it to `on` by
+You can disable or enable the autoscaler for all pools with the ``noautoscale``
+flag. By default, this flag is set to ``off``, but you can set it to ``on`` by
 running the following command:
 
 ```bash
 ceph osd pool set noautoscale
 ```
 
-To set the `noautoscale` flag to `off`, run the following command:
+To set the ``noautoscale`` flag to ``off``, run the following command:
 
 ```bash
 ceph osd pool unset noautoscale
@@ -114,7 +113,7 @@ b         0        953.6M   3.0        82431M  0.0347                           
 
 - **RATE** is the space amplification factor for the pool that indicates how much raw storage
   capacity is consumed for a given amount of user data. For example, a three-replica pool
-  will show a value of 3.0, and a `k=4 m=2` erasure-coded pool will have a value of 1.5.
+  will show a value of 3.0, and a ``k=4 m=2`` erasure-coded pool will have a value of 1.5.
 
 - **RAW CAPACITY** is the total amount of raw storage capacity on the specific
   OSDs available to the pool. Note that in many cases this capacity is shared
@@ -126,11 +125,11 @@ b         0        953.6M   3.0        82431M  0.0347                           
 
 - **TARGET RATIO** (if present) is the ratio of the expected storage of this
   pool relative to the expected storage of all other pools
-  that have target ratios set.  If both `target_size_bytes` and
-  `target_size_ratio` are specified, then `target_size_ratio` takes
+  that have target ratios set.  If both ``target_size_bytes`` and
+  ``target_size_ratio`` are specified, then ``target_size_ratio`` takes
   precedence.  Note that when the BIAS value is other than 1, notably for
   CephFS metadata and RGW index pools, the target ratio is best left alone,
-  as adjusting both can result in inappropriate `pg_num` values via double-dipping.
+  as adjusting both can result in inappropriate ``pg_num`` values via double-dipping.
 
 - **EFFECTIVE RATIO** is the result of making two adjustments to the target
   ratio:
@@ -153,50 +152,50 @@ b         0        953.6M   3.0        82431M  0.0347                           
   a target ratio.
 
 - **PG_NUM** is either the current number of PGs associated with the pool or,
-  if a `pg_num` change is in progress, the target value.
+  if a ``pg_num`` change is in progress, the target value.
 
 - **NEW PG_NUM** (if present) is the value that the system recommends that the
-  `pg_num` of the pool should be. It is always a power of two, and it
+  ``pg_num`` of the pool should be. It is always a power of two, and it
   is present only if the recommended value varies from the current value by
   more than the scaling threshold. This threshold defaults to the configured
-  factor of `3`. While scaling down uses only the configured factor, the
+  factor of ``3``. While scaling down uses only the configured factor, the
   threshold is dynamically reduced when scaling up: it is set to 1.0 if the
   recommended NEW PG_NUM is 512 or 1024, and to 2.0 if the recommended
   NEW PG_NUM is 2048.
   To adjust this multiple (in the following example, it is changed
-  to `2`), run a command of the following form:
+  to ``2``), run a command of the following form:
 
 ```bash
 ceph osd pool set threshold 2.0
 ```
 
-  To get the current `threshold` value, run the following command:
+  To get the current ``threshold`` value, run the following command:
 
 ```bash
 ceph osd pool get threshold
 ```
 
-- **AUTOSCALE** is the pool's `pg_autoscale_mode` and is set to `on`,
-  `off`, or `warn`.
+- **AUTOSCALE** is the pool's ``pg_autoscale_mode`` and is set to ``on``,
+  ``off``, or ``warn``.
 
-- **BULK** determines whether the pool is `bulk`. It has a value of `True`
-  or `False`. A `bulk` pool is expected to be large and should initially
+- **BULK** determines whether the pool is ``bulk``. It has a value of ``True``
+  or ``False``. A ``bulk`` pool is expected to be large and should initially
   have a large number of PGs so that performance does not suffer. On the other
-  hand, a pool that is not `bulk` is expected to be small (for example, a
-  `.mgr` pool or a meta pool).
+  hand, a pool that is not ``bulk`` is expected to be small (for example, a
+  ``.mgr`` pool or a meta pool).
 
 > **Note:**
-> If the `ceph osd pool autoscale-status` command returns no output at all,
+> If the ``ceph osd pool autoscale-status`` command returns no output at all,
 > there is probably at least one pool that spans multiple CRUSH roots.  This
 > 'spanning pool' issue can happen in scenarios like the following:
-> when a new deployment auto-creates the `.mgr` pool on the `default`
+> when a new deployment auto-creates the ``.mgr`` pool on the ``default``
 > CRUSH root, subsequent pools are created with rules that constrain them to a
 > specific shadow CRUSH tree. For example, if you create an RBD metadata pool
-> that is constrained to `deviceclass = ssd` and an RBD data pool that is
-> constrained to `deviceclass = hdd`, you will encounter this issue. To
+> that is constrained to ``deviceclass = ssd`` and an RBD data pool that is
+> constrained to ``deviceclass = hdd``, you will encounter this issue. To
 > remedy this issue, constrain the spanning pool to only one device class. In
-> the above scenario, there is likely to be a `replicated-ssd` CRUSH rule in
-> effect, and the `.mgr` pool can be constrained to `ssd` devices by
+> the above scenario, there is likely to be a ``replicated-ssd`` CRUSH rule in
+> effect, and the ``.mgr`` pool can be constrained to ``ssd`` devices by
 > running the following commands:
 >
 > .. prompt:: bash #
@@ -209,16 +208,16 @@ ceph osd pool get threshold
 ## Automated scaling
 
 In the simplest approach to automated scaling, the cluster is allowed to
-automatically scale each pool's `pg_num` in accordance with usage. Ceph considers the
+automatically scale each pool's ``pg_num`` in accordance with usage. Ceph considers the
 total available storage, the target number of PG replicas for each OSD,
 and how much data is stored in each pool, then apportions PGs accordingly.
 The system is conservative with its approach, making changes to a pool only
-when the current number of PGs (`pg_num`) varies by more than the scaling threshold
+when the current number of PGs (``pg_num``) varies by more than the scaling threshold
 from the recommended number. When scaling down, only this configured factor is used.
 However, when scaling up, the threshold is dynamically reduced: it's automatically
 set to 1.0 when the recommended NEW PG_NUM is 512 or 1024, and to 2.0 when it is 2048.
 
-The target number of PGs per OSD is determined by the `mon_target_pg_per_osd`
+The target number of PGs per OSD is determined by the ``mon_target_pg_per_osd``
 parameter (default: 100), which can be adjusted by running the following
 command:
 
@@ -234,12 +233,12 @@ pool might map to a different CRUSH rule, and each rule might distribute data
 across different and possibly overlapping sets of devices,
 Ceph will consider the utilization of each subtree of
 the CRUSH hierarchy independently. For example, a pool that maps to OSDs of class
-`ssd` and a pool that maps to OSDs of class `hdd` will each have calculated PG
+``ssd`` and a pool that maps to OSDs of class ``hdd`` will each have calculated PG
 counts that are determined by how many OSDs of these two different device types
 there are.
 
 If a pool uses OSDs under two or more CRUSH roots (for example, shadow trees
-with both `ssd` and `hdd` devices), the autoscaler issues a warning to the
+with both ``ssd`` and ``hdd`` devices), the autoscaler issues a warning to the
 user in the manager log. The warning states the name of the pool and the set of
 roots that overlap each other. The autoscaler does not scale any pools with
 overlapping roots because this condition can cause problems with the scaling
@@ -247,37 +246,37 @@ process. We recommend constraining each pool so that it belongs to only one
 root (that is, one device OSD class) to silence the warning and ensure successful
 scaling.
 
-.. _managing_bulk_flagged_pools:
+<a id="managing-bulk-flagged-pools"></a>
 
 #### Managing pools that are flagged with ``bulk``
 
-If a pool is flagged `bulk`, then the autoscaler starts the pool with a full
+If a pool is flagged ``bulk``, then the autoscaler starts the pool with a full
 complement of PGs and then scales down the number of PGs only if the usage
-ratio across the pool is uneven.  However, if a pool is not flagged `bulk`,
+ratio across the pool is uneven.  However, if a pool is not flagged ``bulk``,
 then the autoscaler starts the pool with minimal PGs and creates additional PGs
 only if there is more usage in the pool. This flag should be used with care,
 as it may not have the results one would think.
 
-To create a pool that will be flagged `bulk`, run the following command:
+To create a pool that will be flagged ``bulk``, run the following command:
 
 ```bash
 ceph osd pool create <pool-name> --bulk
 ```
 
-To set or unset the `bulk` flag of an existing pool, run the following
+To set or unset the ``bulk`` flag of an existing pool, run the following
 command:
 
 ```bash
 ceph osd pool set <pool-name> bulk <true/false/1/0>
 ```
 
-To get the `bulk` flag of an existing pool, run the following command:
+To get the ``bulk`` flag of an existing pool, run the following command:
 
 ```bash
 ceph osd pool get <pool-name> bulk
 ```
 
-.. _specifying_pool_target_size:
+<a id="specifying-pool-target-size"></a>
 
 ## Specifying expected pool size
 
@@ -286,24 +285,24 @@ the total cluster capacity and appears to the system as if it should need only
 a small number of PGs. However, in some cases, cluster administrators know
 which pools are likely to consume most of the system capacity in the long run.
 When Ceph is provided with this information, a more appropriate number of PGs
-can be used from the beginning, obviating subsequent changes in `pg_num` and
+can be used from the beginning, obviating subsequent changes in ``pg_num`` and
 the associated overhead cost of relocating data. This also helps with performance
 and data uniformity by ensuring that PGs are placed on all available OSDs.
 
 The *target size* of a pool can be specified in two ways: either in relation to
 the absolute size (in bytes) of the pool, or as a weight relative to all other
-pools that have `target_size_ratio` set.
+pools that have ``target_size_ratio`` set.
 
-For example, to tell the system that `mypool` is expected to consume 100 TB,
+For example, to tell the system that ``mypool`` is expected to consume 100 TB,
 run the following command:
 
 ```bash
 ceph osd pool set mypool target_size_bytes 100T
 ```
 
-Alternatively, to tell the system that `mypool` is expected to consume a
-ratio of 1.0 relative to other pools that have `target_size_ratio` set,
-adjust the `target_size_ratio` setting of `my pool` by running the
+Alternatively, to tell the system that ``mypool`` is expected to consume a
+ratio of 1.0 relative to other pools that have ``target_size_ratio`` set,
+adjust the ``target_size_ratio`` setting of ``my pool`` by running the
 following command:
 
 ```bash
@@ -312,20 +311,20 @@ ceph osd pool set mypool target_size_ratio 1.0
 
 If `mypool` is the only pool in the cluster, then it is expected to use 100% of
 the total cluster capacity. However, if the cluster contains a second pool that
-has `target_size_ratio` set to 1.0, then both pools are expected to use 50%
+has ``target_size_ratio`` set to 1.0, then both pools are expected to use 50%
 of the total cluster capacity.
 
-The `ceph osd pool create` command has two command-line options that can be
+The ``ceph osd pool create`` command has two command-line options that can be
 used to set the target size of a pool at creation time: ``--target-size-bytes
-<bytes>` and `--target-size-ratio <ratio>``.
+<bytes>`` and ``--target-size-ratio <ratio>``.
 
 Note that if the target-size values that have been specified are impossible
 (for example, a capacity larger than the total cluster), then a health check
-(`POOL_TARGET_SIZE_BYTES_OVERCOMMITTED`) will be raised.
+(``POOL_TARGET_SIZE_BYTES_OVERCOMMITTED``) will be raised.
 
-If both `target_size_ratio` and `target_size_bytes` are specified for a
+If both ``target_size_ratio`` and ``target_size_bytes`` are specified for a
 pool, then the latter will be ignored, the former will be used in system
-calculations, and a health check (`POOL_HAS_TARGET_SIZE_BYTES_AND_RATIO`)
+calculations, and a health check (``POOL_HAS_TARGET_SIZE_BYTES_AND_RATIO``)
 will be raised.
 
 Note that in most cases it is advised to not set both a bias value other than 1.0
@@ -340,7 +339,7 @@ for a pool.
 #### Setting a Minimum Number of PGs or a Maximum Number of PGs
 
 If a minimum is set on a pool, then Ceph will not itself reduce (nor recommend that you
-reduce) the `pg_num` for that pool to a value below the configured value. Setting a
+reduce) the ``pg_num`` for that pool to a value below the configured value. Setting a
 minimum serves to establish a lower bound on the amount of parallelism enjoyed
 by a client during I/O, even if a pool is mostly empty.
 
@@ -361,26 +360,26 @@ form:
 ceph osd pool set <pool-name> pg_num_max <num>
 ```
 
-In addition, the `ceph osd pool create` command has two command-line options
+In addition, the ``ceph osd pool create`` command has two command-line options
 that can be used to specify the minimum or maximum PG count of a pool at
-creation time: `--pg-num-min <num>` and `--pg-num-max <num>`.
+creation time: ``--pg-num-min <num>`` and ``--pg-num-max <num>``.
 
-.. _preselection:
+<a id="preselection"></a>
 
 # Preselecting pg_num
 
 When creating a pool with the following command, you have the option to
-preselect the value of the `pg_num` parameter:
+preselect the value of the ``pg_num`` parameter:
 
 ```bash
 ceph osd pool create {pool-name} [pg_num]
 ```
 
-If you opt not to specify `pg_num` in this command, the cluster uses the PG
+If you opt not to specify ``pg_num`` in this command, the cluster uses the PG
 autoscaler to automatically configure the parameter in accordance with the
-amount of data that is stored in the pool (see pg-autoscaler above).
+amount of data that is stored in the pool (see [pg-autoscaler](placement-groups.md#pg-autoscaler) above).
 
-However, your decision of whether or not to specify `pg_num` at creation time
+However, your decision of whether or not to specify ``pg_num`` at creation time
 has no effect on whether the parameter will be automatically tuned by the
 cluster afterwards. As seen above, autoscaling of PGs is enabled or disabled by
 running a command of the following form:
@@ -392,7 +391,7 @@ ceph osd pool set {pool-name} pg_autoscale_mode (on|off|warn)
 Without the balancer, the suggested (but not default) target for most clusters is
 200 PG replicas on each OSD. With the balancer on and default values, an initial
 result of roughly 50-70  PG replicas on each OSD is expected.  This is the value
-reported under the `PGS` column in the output of `ceph df` and is notably
+reported under the ``PGS`` column in the output of ``ceph df`` and is notably
 not the cluster's total number of PGs divided by the number of OSDs.
 
 The autoscaler attempts to satisfy the following conditions:
@@ -433,7 +432,7 @@ objects to efficiently track placement on a per-object basis.
 The Ceph client calculates which PG a RADOS object should be in. As part of
 this calculation, the client hashes the object ID and performs an operation
 involving both the number of PGs in the specified pool and the pool ID. For
-details, see Mapping PGs to OSDs.
+details, see [Mapping PGs to OSDs](../../architecture.md#mapping-pgs-to-osds).
 
 The contents of a RADOS object belonging to a PG are stored in a set of OSDs.
 For example, in a replicated pool of size two, each PG will store objects on
@@ -475,11 +474,11 @@ OSDs weigh in favor of a higher number of PGs. Conserving CPU resources and
 minimizing memory usage weigh in favor of a lower number of PGs.
 The latter was more of a concern before Filestore OSDs were deprecated, so
 most modern clusters with BlueStore OSDs can favor the former by
-configuring a value of 200-250 for `mon_target_pg_per_osd` and
-500 for `mon_max_pg_per_osd`.  Note that the latter is only a failsafe
-and does not itself influence `pg_num` calculations.
+configuring a value of 200-250 for ``mon_target_pg_per_osd`` and
+500 for ``mon_max_pg_per_osd``.  Note that the latter is only a failsafe
+and does not itself influence ``pg_num`` calculations.
 
-.. _data durability:
+<a id="data-durability"></a>
 
 ## Data durability
 
@@ -504,12 +503,12 @@ let's imagine a scenario that results in permanent data loss in a single PG:
    OSD happened to contain the only remaining copy of an object, the object is
    permanently lost.
 
-This is one of the subtle reasons why replicated pools with `size=2` and
-EC pools with `m=1` are risky and generally not recommended.
+This is one of the subtle reasons why replicated pools with ``size=2`` and
+EC pools with ``m=1`` are risky and generally not recommended.
 
 In a cluster containing 10 OSDs and 512 PGs in a three-replica pool, CRUSH
-will place each PG on three OSDs.  Ultimately, each OSD hosts :math:`\frac{(512 *
-3)}{10} = ~150` PGs. So when one OSD fails in the above scenario,
+will place each PG on three OSDs.  Ultimately, each OSD hosts \frac{(512 *
+3)}{10} = ~150 PGs. So when one OSD fails in the above scenario,
 recovery will be triggered for all ~150 PGs that were placed on that OSD.
 
 The 150 PGs to be recovered are likely to be evenly distributed
@@ -553,7 +552,7 @@ with 10 OSDs described above: if any of the OSDs fail, then \approx 17
 (approximately 150 divided by 9) PGs will have only one remaining copy. And if
 any of the 8 remaining OSDs fail, then 2 (approximately 17 divided by 8) PGs
 are likely to lose their remaining objects. This is one reason why setting
-`size=2` is risky.
+``size=2`` is risky.
 
 When the number of OSDs in the cluster increases to 20, the number of PGs that
 would be damaged by the loss of three OSDs significantly decreases. The loss of
@@ -576,7 +575,7 @@ much matter whether there are 512 or 4096 PGs.
 > this process since Ceph populates data into the new PGs before removing it
 > from the old PGs.
 
-.. _object distribution:
+<a id="object-distribution"></a>
 
 ## Object distribution within a pool
 
@@ -605,7 +604,7 @@ added to the pool, the three OSDs supporting the PG in which the RADOS object
 has been placed will each be filled with 400 MB + 400 MB = 800 MB but the seven
 other OSDs will still contain only 400 MB.
 
-.. _resource usage:
+<a id="resource-usage"></a>
 
 ## Memory, CPU and network usage
 
@@ -616,18 +615,18 @@ by aggregating RADOS objects into sets of a manageable size.
 
 For this reason, limiting the number of PGs saves significant resources.
 
-.. _choosing-number-of-placement-groups:
+<a id="choosing-number-of-placement-groups"></a>
 
 # Choosing the Number of PGs
 
 .. note: It is rarely necessary to do the math in this section by hand.
-   Instead, use the `ceph osd pool autoscale-status` command in combination
-   with the `target_size_bytes` or `target_size_ratio` pool properties. For
-   more information, see pg-autoscaler.
+   Instead, use the ``ceph osd pool autoscale-status`` command in combination
+   with the ``target_size_bytes`` or ``target_size_ratio`` pool properties. For
+   more information, see [pg-autoscaler](placement-groups.md#pg-autoscaler).
 
 If you have more than 50 OSDs, we recommend approximately 100-250 PG replicas per OSD in
 order to balance resource usage, data durability, and data distribution. If you
-have fewer than 50 OSDs, follow the guidance in the preselection section.
+have fewer than 50 OSDs, follow the guidance in the [preselection](placement-groups.md#preselection) section.
 For a single pool, use the following formula to get a baseline value:
 
   Total PGs = \frac{OSDs \times 100}{pool \: size}
@@ -637,16 +636,15 @@ K+M sum for erasure-coded pools. To retrieve this sum, run the command ``ceph
 osd erasure-code-profile get``.
 
 Next, check whether the resulting baseline value is consistent with the way you
-designed your Ceph cluster to maximize data durability and `object
-distribution`_ and to minimize resource usage.
+designed your Ceph cluster to maximize [data durability](placement-groups.md#data-durability) and [object distribution](placement-groups.md#object-distribution) and to minimize [resource usage](placement-groups.md#resource-usage).
 
 This value should be **rounded up to the nearest power of two**.
 
-Each pool's `pg_num` should be a power of two. Other values are likely to
+Each pool's ``pg_num`` should be a power of two. Other values are likely to
 result in uneven distribution of data across OSDs. It is best to increase
-`pg_num` for a pool only when it is feasible and desirable to set the next
+``pg_num`` for a pool only when it is feasible and desirable to set the next
 highest power of two. Note that this power of two rule is per-pool; it is
-neither necessary nor easy to align the sum of all pools' `pg_num` to a power
+neither necessary nor easy to align the sum of all pools' ``pg_num`` to a power
 of two.
 
 For example, if you have a cluster with 200 OSDs and a single pool with a size
@@ -667,48 +665,48 @@ pools, each with 512 PGs on 10 OSDs, the OSDs will have to handle ~50,000 PGs
 each. This cluster will require significantly more resources and significantly
 more time for peering.
 
-.. _setting the number of placement groups:
+<a id="setting-the-number-of-placement-groups"></a>
 
 # Setting the Number of PGs
 
-Placement Group Link
+[Placement Group Link](pgcalc/index.md#pgcalc)
 
 Setting the initial number of PGs in a pool is done implicitly or explicitly
-at the time a pool is created. See Create a Pool for details.
+at the time a pool is created. See [Create a Pool](pools.md#createpool) for details.
 
-However, after a pool is created, if the `pg_autoscaler` is not being
-used to manage `pg_num` values, you can change the number of PGs by running a
+However, after a pool is created, if the ``pg_autoscaler`` is not being
+used to manage ``pg_num`` values, you can change the number of PGs by running a
 command of the following form:
 
 ```bash
 ceph osd pool set {pool-name} pg_num {pg_num}
 ```
 
-Since the Nautilus release, Ceph automatically and incrementally steps `pgp_num` for a pool
-whenever `pg_num` is changed, either by the PG autoscaler or manually. Admins
-generally do not need to touch `pgp_num` directly, but can monitor progress
-with `watch ceph osd pool ls detail`. When `pg_num` is changed, the value
-of `pgp_num` is stepped slowly so that the cost of splitting or merging PGs
+Since the Nautilus release, Ceph automatically and incrementally steps ``pgp_num`` for a pool
+whenever ``pg_num`` is changed, either by the PG autoscaler or manually. Admins
+generally do not need to touch ``pgp_num`` directly, but can monitor progress
+with ``watch ceph osd pool ls detail``. When ``pg_num`` is changed, the value
+of ``pgp_num`` is stepped slowly so that the cost of splitting or merging PGs
 is amortized over time to minimize performance impact.
 
-Increasing `pg_num` for a pool splits some PGs in that pool, but data will not be
-migrated to the new PGs via backfill operations until the pool's `pgp_num` is increased.
+Increasing ``pg_num`` for a pool splits some PGs in that pool, but data will not be
+migrated to the new PGs via backfill operations until the pool's ``pgp_num`` is increased.
 
-It is possible but rarely appropriate to manually set the `pgp_num` parameter. The `pgp_num`
-parameter should be equal to the `pg_num` parameter. To increase the number
+It is possible but rarely appropriate to manually set the ``pgp_num`` parameter. The ``pgp_num``
+parameter should be equal to the ``pg_num`` parameter. To increase the number
 of PGs for placement, run a command of the following form:
 
 ```bash
 ceph osd pool set {pool-name} pgp_num {pgp_num}
 ```
 
-If you decrease or increase `pg_num` for a pool, then `pgp_num` is adjusted
+If you decrease or increase ``pg_num`` for a pool, then ``pgp_num`` is adjusted
 automatically. In releases of Ceph beginning with Nautilus,
-when the `pg_autoscaler` is not used, `pgp_num` is automatically stepped to
-match `pg_num`. This process manifests as periods of remapping of PGs and of
+when the ``pg_autoscaler`` is not used, ``pgp_num`` is automatically stepped to
+match ``pg_num``. This process manifests as periods of remapping of PGs and of
 backfill, which is expected behavior.
 
-.. _rados_ops_pgs_get_pg_num:
+<a id="rados-ops-pgs-get-pg-num"></a>
 
 # Get the Number of PGs
 
@@ -727,7 +725,7 @@ form:
 ceph pg dump [--format {format}]
 ```
 
-Valid formats are `plain` (default) and `json`.
+Valid formats are ``plain`` (default) and ``json``.
 
 # Get Statistics for Stuck PGs
 
@@ -739,7 +737,7 @@ ceph pg dump_stuck inactive|unclean|stale|undersized|degraded [--format <format>
 ```
 
 - **Inactive** PGs cannot process reads or writes because they are waiting for
-  enough OSDs with the most up-to-date data to come `up` and `in`.
+  enough OSDs with the most up-to-date data to come ``up`` and ``in``.
 
 - **Undersized** PGs contain objects that have not been replicated the desired
   number of times. Under normal conditions, it can be assumed that these PGs
@@ -747,9 +745,9 @@ ceph pg dump_stuck inactive|unclean|stale|undersized|degraded [--format <format>
 
 - **Stale** PGs are in an unknown state -- the OSDs that host them have not
   reported to the monitor cluster for a certain period of time (determined by
-  `mon_osd_report_timeout`).
+  ``mon_osd_report_timeout``).
 
-Valid formats are `plain` (default) and `json`. The threshold defines the
+Valid formats are ``plain`` (default) and ``json``. The threshold defines the
 minimum number of seconds the PG is stuck before it is included in the returned
 statistics (default: 300).
 
@@ -862,12 +860,12 @@ ceph pg cancel-force-recovery {pg-id} [{pg-id #2}] [{pg-id #3} ...]
 ceph pg cancel-force-backfill {pg-id} [{pg-id #2}] [{pg-id #3} ...]
 ```
 
-These commands remove the `force` flag from the specified PGs, so that the
+These commands remove the ``force`` flag from the specified PGs, so that the
 PGs will be processed in their usual order. As in the case of adding the
-`force` flag, this affects only those PGs that are still queued but does not
+``force`` flag, this affects only those PGs that are still queued but does not
 affect PGs currently undergoing recovery.
 
-The `force` flag is cleared automatically after recovery or backfill of the
+The ``force`` flag is cleared automatically after recovery or backfill of the
 PGs is complete.
 
 Similarly, to instruct Ceph to prioritize all PGs from a specified pool (that
@@ -899,38 +897,38 @@ ceph osd pool set {pool-name} recovery_priority {value}
 ```
 
 For example, if you have twenty pools, you could make the most important pool
-priority `20`, and the next most important pool priority `19`, and so on.
+priority ``20``, and the next most important pool priority ``19``, and so on.
 
 Another option is to set the recovery/backfill priority for only a proper
 subset of pools. In such a scenario, three important pools might (all) be
-assigned priority `1` and all other pools would be left without an assigned
+assigned priority ``1`` and all other pools would be left without an assigned
 recovery/backfill priority.  Another possibility is to select three important
-pools and set their recovery/backfill priorities to `3`, `2`, and `1`
+pools and set their recovery/backfill priorities to ``3``, ``2``, and ``1``
 respectively.
 
 > **Important:** Numbers of greater value have higher priority than numbers of
 > lesser value when using ``ceph osd pool set {pool-name} recovery_priority
 > {value}`` to set their recovery/backfill priority. For example, a pool with
-> the recovery/backfill priority `30` has a higher priority than a pool with
-> the recovery/backfill priority `15`.
+> the recovery/backfill priority ``30`` has a higher priority than a pool with
+> the recovery/backfill priority ``15``.
 
 # Reverting Lost RADOS Objects
 
 If the cluster has lost one or more RADOS objects and you have decided to
 abandon the search for the lost data, you must mark the unfound objects
-`lost`.
+``lost``.
 
-If every possible location has been queried and all OSDs are `up` and `in`,
+If every possible location has been queried and all OSDs are ``up`` and ``in``,
 but certain RADOS objects are still lost, you might have to give up on those
 objects. This situation can arise when rare and unusual combinations of
 failures allow the cluster to learn about writes that were performed before the
 writes themselves were recovered.
 
-The command to mark a RADOS object `lost` has only one supported option:
-`revert`. The `revert` option will either roll back to a previous version
+The command to mark a RADOS object ``lost`` has only one supported option:
+``revert``. The ``revert`` option will either roll back to a previous version
 of the RADOS object (if it is old enough to have a previous version) or forget
 about it entirely (if it is too new to have a previous version). To mark the
-"unfound" objects `lost`, run a command of the following form:
+"unfound" objects ``lost``, run a command of the following form:
 
 ```bash
 ceph pg {pg-id} mark_unfound_lost revert|delete
@@ -944,6 +942,3 @@ ceph pg {pg-id} mark_unfound_lost revert|delete
 
    pg-states
    pg-concepts
-
-.. _Create a Pool: ../pools#createpool
-.. _Mapping PGs to OSDs: ../../../architecture#mapping-pgs-to-osds

@@ -13,19 +13,19 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. versionadded:: Jewel
 
-Placement targets control which radosgw-pools are associated with a particular
+Placement targets control which [radosgw-pools](pools.md#radosgw-pools) are associated with a particular
 bucket. A bucket's placement target is selected on creation, and cannot be
-modified. The `radosgw-admin bucket stats` command will display its
-`placement_rule`.
+modified. The ``radosgw-admin bucket stats`` command will display its
+``placement_rule``.
 
 The zonegroup configuration contains a list of placement targets with an
-initial target named `default-placement`. The zone configuration then maps
+initial target named ``default-placement``. The zone configuration then maps
 each zonegroup placement target name onto its local storage. This zone
-placement information includes the `index_pool` name for the bucket index,
-the `data_extra_pool` name for metadata about incomplete multipart uploads,
-and a `data_pool` name for each storage class.
+placement information includes the ``index_pool`` name for the bucket index,
+the ``data_extra_pool`` name for metadata about incomplete multipart uploads,
+and a ``data_pool`` name for each storage class.
 
-.. _storage_classes:
+<a id="storage-classes"></a>
 
 # Storage Classes
 
@@ -36,12 +36,12 @@ Lifecycle (LC) rules can automate the transition of objects between storage clas
 
 Storage classes are defined in terms of placement targets. Each zonegroup
 placement target lists its available storage classes with an initial class
-named `STANDARD`. The zone configuration is responsible for providing a
-`data_pool` pool name for each of the zonegroup's storage classes.
+named ``STANDARD``. The zone configuration is responsible for providing a
+``data_pool`` pool name for each of the zonegroup's storage classes.
 
 # Zonegroup/Zone Configuration
 
-Placement configuration is performed with `radosgw-admin` commands on
+Placement configuration is performed with ``radosgw-admin`` commands on
 the zonegroups and zones.
 
 The zonegroup placement configuration can be queried with:
@@ -100,16 +100,16 @@ $ radosgw-admin zone get
 }
 ```
 
-> **Note:** If you have not done any previous Multisite Configuration,
-> a `default` zone and zonegroup are created for you, and changes
+> **Note:** If you have not done any previous [Multisite Configuration](bucket_logging.md#multisite),
+> a ``default`` zone and zonegroup are created for you, and changes
 > to the zone/zonegroup will not take effect until the Ceph Object
 > Gateways are restarted. If you have created a realm for multisite,
 > the zone/zonegroup changes will take effect once the changes are
-> committed with `radosgw-admin period update --commit`.
+> committed with ``radosgw-admin period update --commit``.
 
 ## Adding a Placement Target
 
-To create a new placement target named `temporary`, add it to
+To create a new placement target named ``temporary``, add it to
 the zonegroup:
 
 :
@@ -143,14 +143,13 @@ $ radosgw-admin zone placement add \
 > slower devices synchronously while processing the client request. In that case, data associated with the deleted
 > objects is removed asynchronously in the background by garbage collection. Note that inlining is only ever performed
 > when writing to the default storage class.  Inlining is *never* performed when writing to a non-default
+> storage class.
 
-	  storage class.
-
-.. _adding_a_storage_class:
+<a id="adding-a-storage-class"></a>
 
 ## Adding a Storage Class
 
-To add a new storage class named `STANDARD_IA` to the `default-placement` target,
+To add a new storage class named ``STANDARD_IA`` to the ``default-placement`` target,
 start by adding it to the zonegroup:
 
 :
@@ -179,7 +178,7 @@ $ radosgw-admin zone placement add \
 
 ## Default Placement
 
-By default, new buckets will use the zonegroup's `default_placement` target.
+By default, new buckets will use the zonegroup's ``default_placement`` target.
 This zonegroup setting can be changed with:
 
 :
@@ -193,8 +192,8 @@ $ radosgw-admin zonegroup placement default \
 ## User Placement
 
 A Ceph Object Gateway user can override the zonegroup's default placement
-target by setting a non-empty `default_placement` field in the user info.
-Similarly, the `default_storage_class` can override the `STANDARD`
+target by setting a non-empty ``default_placement`` field in the user info.
+Similarly, the ``default_storage_class`` can override the ``STANDARD``
 storage class applied to objects by default.
 
 :
@@ -210,12 +209,12 @@ $ radosgw-admin user info --uid testid
 }
 ```
 
-If a zonegroup's placement target contains any `tags`, users will be unable
+If a zonegroup's placement target contains any ``tags``, users will be unable
 to create buckets with that placement target unless their user info contains
-at least one matching tag in its `placement_tags` field. This can be useful
+at least one matching tag in its ``placement_tags`` field. This can be useful
 to restrict access to certain types of storage.
 
-The `radosgw-admin` command can modify these fields directly with:
+The ``radosgw-admin`` command can modify these fields directly with:
 
 :
 
@@ -227,7 +226,7 @@ $ radosgw-admin user modify \
       --tags <tag1,tag2>
 ```
 
-.. _s3_bucket_placement:
+<a id="s3-bucket-placement"></a>
 
 ## S3 Bucket Placement
 
@@ -235,7 +234,7 @@ When creating a bucket with the S3 protocol, a placement target can be
 provided as part of the LocationConstraint to override the default placement
 targets from the user and zonegroup.
 
-Normally, the LocationConstraint must match the zonegroup's `api_name`:
+Normally, the LocationConstraint must match the zonegroup's ``api_name``:
 
 :
 
@@ -243,7 +242,7 @@ Normally, the LocationConstraint must match the zonegroup's `api_name`:
 <LocationConstraint>default</LocationConstraint>
 ```
 
-A custom placement target can be added to the `api_name` following a colon:
+A custom placement target can be added to the ``api_name`` following a colon:
 
 :
 
@@ -254,7 +253,7 @@ A custom placement target can be added to the `api_name` following a colon:
 ## Swift Bucket Placement
 
 When creating a bucket with the Swift protocol, a placement target can be
-provided in the HTTP header `X-Storage-Policy`:
+provided in the HTTP header ``X-Storage-Policy``:
 
 :
 
@@ -264,25 +263,25 @@ X-Storage-Policy: new-placement
 
 # Using Storage Classes
 
-All placement targets have a `STANDARD` storage class which is applied to
+All placement targets have a ``STANDARD`` storage class which is applied to
 new objects by default. The user can override this default with its
-`default_storage_class`.
+``default_storage_class``.
 
 To create an object in a non-default storage class, provide that storage class
 name in an HTTP header with the request. The S3 protocol uses the
-`X-Amz-Storage-Class` header, while the Swift protocol uses the
-`X-Object-Storage-Class` header.
+``X-Amz-Storage-Class`` header, while the Swift protocol uses the
+``X-Object-Storage-Class`` header.
 
 S3 Object Lifecycle Management can then be used to move object data between
-storage classes using `Transition` actions.
+storage classes using ``Transition`` actions.
 
-When using AWS S3 SDKs such as `boto3`, it is important that
+When using AWS S3 SDKs such as ``boto3``, it is important that
 storage class names match those provided by AWS S3, or else the SDK
 will drop the request and raise an exception.  Moreover, some S3 clients
 and libraries expect AWS-specific behavior when a storage class named
-or prefixed with `GLACIER` is used and thus will fail when accessing
+or prefixed with ``GLACIER`` is used and thus will fail when accessing
 Ceph RGW services.  For this reason we advise that other storage class
-names be used with Ceph, including `INTELLIGENT-TIERING`, `STANDARD_IA`,
-`REDUCED_REDUNDANCY`, and `ONEZONE_IA`. Custom storage class names like
-`CHEAPNDEEP` are accepted by Ceph but might not be by some clients and
+names be used with Ceph, including ``INTELLIGENT-TIERING``, ``STANDARD_IA``,
+``REDUCED_REDUNDANCY``, and ``ONEZONE_IA``. Custom storage class names like
+``CHEAPNDEEP`` are accepted by Ceph but might not be by some clients and
 libraries.

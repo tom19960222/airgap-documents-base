@@ -63,123 +63,139 @@ capable web server.
 
 # Configuration
 
-Earlier RADOS Gateway had to be configured with `Apache` and `mod_fastcgi`.
-Now, `mod_proxy_fcgi` module is used instead of `mod_fastcgi`.
-`mod_proxy_fcgi` works differently than a traditional FastCGI module. This
-module requires the service of `mod_proxy` which provides support for the
-FastCGI protocol. So, to be able to handle FastCGI protocol, both `mod_proxy`
-and `mod_proxy_fcgi` have to be present in the server. Unlike `mod_fastcgi`,
-`mod_proxy_fcgi` cannot start the application process. Some platforms have
-`fcgistarter` for that purpose. However, external launching of application
+Earlier RADOS Gateway had to be configured with ``Apache`` and ``mod_fastcgi``.
+Now, ``mod_proxy_fcgi`` module is used instead of ``mod_fastcgi``.
+``mod_proxy_fcgi`` works differently than a traditional FastCGI module. This
+module requires the service of ``mod_proxy`` which provides support for the
+FastCGI protocol. So, to be able to handle FastCGI protocol, both ``mod_proxy``
+and ``mod_proxy_fcgi`` have to be present in the server. Unlike ``mod_fastcgi``,
+``mod_proxy_fcgi`` cannot start the application process. Some platforms have
+``fcgistarter`` for that purpose. However, external launching of application
 or process management may be available in the FastCGI application framework
 in use.
 
-`Apache` must be configured in a way that enables `mod_proxy_fcgi` to be
+``Apache`` must be configured in a way that enables ``mod_proxy_fcgi`` to be
 used with localhost tcp.
 
 The following steps show the configuration in Ceph's configuration file i.e,
-`/etc/ceph/ceph.conf` and the gateway configuration file i.e,
-`/etc/httpd/conf.d/rgw.conf` (RPM-based distros) or
-`/etc/apache2/conf-available/rgw.conf` (Debian-based distros) with localhost
+``/etc/ceph/ceph.conf`` and the gateway configuration file i.e,
+``/etc/httpd/conf.d/rgw.conf`` (RPM-based distros) or
+``/etc/apache2/conf-available/rgw.conf`` (Debian-based distros) with localhost
 tcp:
 
 1. For distros with Apache 2.2 and early versions of Apache 2.4 that use
-   localhost TCP, append the following contents to `/etc/ceph/ceph.conf`::
+   localhost TCP, append the following contents to ``/etc/ceph/ceph.conf``:
 
-	[client.radosgw.gateway]
-	host = {hostname}
-	keyring = /etc/ceph/ceph.client.radosgw.keyring
-	log_file = /var/log/ceph/client.radosgw.gateway.log
-	rgw_frontends = fastcgi socket_port=9000 socket_host=0.0.0.0
-	rgw_print_continue = false
-
-1. Add the following content in the gateway configuration file:
-
-   For Debian/Ubuntu add in `/etc/apache2/conf-available/rgw.conf`::
-
-		<VirtualHost *:80>
-		ServerName localhost
-		DocumentRoot /var/www/html
-
-		ErrorLog /var/log/apache2/rgw_error.log
-		CustomLog /var/log/apache2/rgw_access.log combined
-
-		# LogLevel debug
-
-		RewriteEngine On
-
-		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
-
-		SetEnv proxy-nokeepalive 1
-
-		ProxyPass / fcgi://localhost:9000/
-
-		</VirtualHost>
-
-   For CentOS/RHEL add in `/etc/httpd/conf.d/rgw.conf`::
-
-		<VirtualHost *:80>
-		ServerName localhost
-		DocumentRoot /var/www/html
-
-		ErrorLog /var/log/httpd/rgw_error.log
-		CustomLog /var/log/httpd/rgw_access.log combined
-
-		# LogLevel debug
-
-		RewriteEngine On
-
-		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
-
-		SetEnv proxy-nokeepalive 1
-
-		ProxyPass / fcgi://localhost:9000/
-
-		</VirtualHost>
+```
+[client.radosgw.gateway]
+host = {hostname}
+keyring = /etc/ceph/ceph.client.radosgw.keyring
+log_file = /var/log/ceph/client.radosgw.gateway.log
+rgw_frontends = fastcgi socket_port=9000 socket_host=0.0.0.0
+rgw_print_continue = false
+```
 
 1. Add the following content in the gateway configuration file:
 
-   For CentOS/RHEL add in `/etc/httpd/conf.d/rgw.conf`::
+   For Debian/Ubuntu add in ``/etc/apache2/conf-available/rgw.conf``:
 
-		<VirtualHost *:80>
-		ServerName localhost
-		DocumentRoot /var/www/html
+```
+<VirtualHost *:80>
+ServerName localhost
+DocumentRoot /var/www/html
 
-		ErrorLog /var/log/httpd/rgw_error.log
-		CustomLog /var/log/httpd/rgw_access.log combined
+ErrorLog /var/log/apache2/rgw_error.log
+CustomLog /var/log/apache2/rgw_access.log combined
 
-		# LogLevel debug
+# LogLevel debug
 
-		RewriteEngine On
+RewriteEngine On
 
-		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 
-		SetEnv proxy-nokeepalive 1
+SetEnv proxy-nokeepalive 1
 
-		ProxyPass / unix:///var/run/ceph/ceph.radosgw.gateway.fastcgi.sock|fcgi://localhost:9000/
+ProxyPass / fcgi://localhost:9000/
 
-		</VirtualHost>
+</VirtualHost>
+```
 
-1. Generate a key for radosgw to use for authentication with the cluster. ::
+   For CentOS/RHEL add in ``/etc/httpd/conf.d/rgw.conf``:
 
-	ceph-authtool -C -n client.radosgw.gateway --gen-key /etc/ceph/keyring.radosgw.gateway
-	ceph-authtool -n client.radosgw.gateway --cap mon 'allow rw' --cap osd 'allow rwx' /etc/ceph/keyring.radosgw.gateway
+```
+<VirtualHost *:80>
+ServerName localhost
+DocumentRoot /var/www/html
 
-1. Add the key to the auth entries. ::
+ErrorLog /var/log/httpd/rgw_error.log
+CustomLog /var/log/httpd/rgw_access.log combined
 
-	ceph auth add client.radosgw.gateway --in-file=keyring.radosgw.gateway
+# LogLevel debug
+
+RewriteEngine On
+
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+
+SetEnv proxy-nokeepalive 1
+
+ProxyPass / fcgi://localhost:9000/
+
+</VirtualHost>
+```
+
+1. Add the following content in the gateway configuration file:
+
+   For CentOS/RHEL add in ``/etc/httpd/conf.d/rgw.conf``:
+
+```
+<VirtualHost *:80>
+ServerName localhost
+DocumentRoot /var/www/html
+
+ErrorLog /var/log/httpd/rgw_error.log
+CustomLog /var/log/httpd/rgw_access.log combined
+
+# LogLevel debug
+
+RewriteEngine On
+
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+
+SetEnv proxy-nokeepalive 1
+
+ProxyPass / unix:///var/run/ceph/ceph.radosgw.gateway.fastcgi.sock|fcgi://localhost:9000/
+
+</VirtualHost>
+```
+
+1. Generate a key for radosgw to use for authentication with the cluster. :
+
+```
+ceph-authtool -C -n client.radosgw.gateway --gen-key /etc/ceph/keyring.radosgw.gateway
+ceph-authtool -n client.radosgw.gateway --cap mon 'allow rw' --cap osd 'allow rwx' /etc/ceph/keyring.radosgw.gateway
+```
+
+1. Add the key to the auth entries. :
+
+```
+ceph auth add client.radosgw.gateway --in-file=keyring.radosgw.gateway
+```
 
 1. Start Apache and radosgw.
 
-   Debian/Ubuntu::
+   Debian/Ubuntu:
 
-		sudo /etc/init.d/apache2 start
-		sudo /etc/init.d/radosgw start
+```
+sudo /etc/init.d/apache2 start
+sudo /etc/init.d/radosgw start
+```
 
-   CentOS/RHEL::
+   CentOS/RHEL:
 
-		sudo apachectl start
-		sudo /etc/init.d/ceph-radosgw start
+```
+sudo apachectl start
+sudo /etc/init.d/ceph-radosgw start
+```
 
 # Usage Logging
 
@@ -219,5 +235,5 @@ more information.
 
 # See also
 
-ceph\(8)
-radosgw-admin\(8)
+[ceph](../../install/clone-source.md)\(8)
+[radosgw-admin](radosgw-admin.md)\(8)

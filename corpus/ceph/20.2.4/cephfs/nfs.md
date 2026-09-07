@@ -5,21 +5,20 @@ title: "NFS"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/nfs.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs-nfs:
+<a id="cephfs-nfs"></a>
 
 # NFS
 
-CephFS namespaces can be exported over NFS protocol using the `NFS-Ganesha NFS
-server`_.  This document provides information on configuring NFS-Ganesha
+CephFS namespaces can be exported over NFS protocol using the [NFS-Ganesha NFS server](https://github.com/nfs-ganesha/nfs-ganesha/wiki).  This document provides information on configuring NFS-Ganesha
 clusters manually.  The simplest and preferred way of managing NFS-Ganesha
-clusters and CephFS exports is using `ceph nfs ...` commands. See
-/mgr/nfs for more details. As the deployment is done using cephadm or
+clusters and CephFS exports is using ``ceph nfs ...`` commands. See
+[/mgr/nfs](../mgr/nfs.md) for more details. As the deployment is done using cephadm or
 rook.
 
 # Requirements
 
 -  Ceph file system
--  `libcephfs2`, `nfs-ganesha` and `nfs-ganesha-ceph` packages on NFS
+-  ``libcephfs2``, ``nfs-ganesha`` and ``nfs-ganesha-ceph`` packages on NFS
    server host machine.
 -  NFS-Ganesha server host connected to the Ceph public network
 
@@ -30,8 +29,8 @@ rook.
 # Configuring NFS-Ganesha to export CephFS
 
 NFS-Ganesha provides a File System Abstraction Layer (FSAL) to plug in
-different storage backends. FSAL_CEPH_ is the plugin FSAL for CephFS. For
-each NFS-Ganesha export, FSAL_CEPH_ uses a libcephfs client to mount the
+different storage backends. [FSAL_CEPH](https://github.com/nfs-ganesha/nfs-ganesha/tree/next/src/FSAL/FSAL_CEPH) is the plugin FSAL for CephFS. For
+each NFS-Ganesha export, [FSAL_CEPH](https://github.com/nfs-ganesha/nfs-ganesha/tree/next/src/FSAL/FSAL_CEPH) uses a libcephfs client to mount the
 CephFS path that NFS-Ganesha exports.
 
 Setting up NFS-Ganesha with CephFS, involves setting up NFS-Ganesha's and
@@ -40,14 +39,14 @@ created by NFS-Ganesha to access CephFS.
 
 ## NFS-Ganesha configuration
 
-Here's a sample ganesha.conf configured with FSAL_CEPH_. It is suitable
+Here's a [sample ganesha.conf](https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/ceph.conf) configured with [FSAL_CEPH](https://github.com/nfs-ganesha/nfs-ganesha/tree/next/src/FSAL/FSAL_CEPH). It is suitable
 for a standalone NFS-Ganesha server, or an active/passive configuration of
 NFS-Ganesha servers, to be managed by some sort of clustering software
 (e.g., Pacemaker). Important details about the options are added as comments
 in the sample conf. There are options to do the following:
 
 - minimize Ganesha caching wherever possible since the libcephfs clients
-  (of FSAL_CEPH_) also cache aggressively
+  (of [FSAL_CEPH](https://github.com/nfs-ganesha/nfs-ganesha/tree/next/src/FSAL/FSAL_CEPH)) also cache aggressively
 
 - read from Ganesha config files stored in RADOS objects
 
@@ -55,8 +54,8 @@ in the sample conf. There are options to do the following:
 
 - mandate NFSv4.1+ access
 
-- enable read delegations (need at least v13.0.1 `libcephfs2` package
-  and v2.6.0 stable `nfs-ganesha` and `nfs-ganesha-ceph` packages)
+- enable read delegations (need at least v13.0.1 ``libcephfs2`` package
+  and v2.6.0 stable ``nfs-ganesha`` and ``nfs-ganesha-ceph`` packages)
 
 > **Important:**
 > Under certain conditions, NFS access using the CephFS FSAL fails. This
@@ -70,9 +69,9 @@ in the sample conf. There are options to do the following:
 
 ## Configuration for libcephfs clients
 
-`ceph.conf` for libcephfs clients includes a `[client]` section with
-`mon_host` option set to let the clients connect to the Ceph cluster's
-monitors, usually generated via `ceph config generate-minimal-conf`.
+``ceph.conf`` for libcephfs clients includes a ``[client]`` section with
+``mon_host`` option set to let the clients connect to the Ceph cluster's
+monitors, usually generated via ``ceph config generate-minimal-conf``.
 For example:
 
 ```
@@ -91,7 +90,3 @@ following conventions work on Linux and some Unix platforms:
 ```bash
 mount -t nfs -o nfsvers=4.1,proto=tcp <ganesha-host-name>:<ganesha-pseudo-path> <mount-point>
 ```
-
-.. _FSAL_CEPH: https://github.com/nfs-ganesha/nfs-ganesha/tree/next/src/FSAL/FSAL_CEPH
-.. _NFS-Ganesha NFS server: https://github.com/nfs-ganesha/nfs-ganesha/wiki
-.. _sample ganesha.conf: https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/ceph.conf

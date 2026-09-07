@@ -53,7 +53,7 @@ be created.
 Some *libcephfs.so* functions will need to be implemented in an special way
 inside the *libcephfsd* daemon to hide the differences caused by sharing the
 same mount instance with more than one client (for example chdir/getcwd cannot
-rely directly on the `ceph_chdir()`/`ceph_getcwd()` of *libcephfs.so*).
+rely directly on the ``ceph_chdir()``/``ceph_getcwd()`` of *libcephfs.so*).
 
 Initially, only the subset of the low-level interface functions of
 *libcephfs.so* that are used by the Samba's VFS CephFS module will be provided.
@@ -154,7 +154,7 @@ same value and in the same order so that two configurations can be considered
 identical.
 
 The check to determine whether two configurations are identical or not will be
-done just before mounting the volume (i.e. `ceph_mount()`). This means that
+done just before mounting the volume (i.e. ``ceph_mount()``). This means that
 during the configuration phase, we may have many simultaneous mounts allocated
 but not yet mounted. However only one of them will become a real mount. The
 others will remain unmounted and will be eventually destroyed once users
@@ -206,7 +206,7 @@ The following functions will be affected:
   if this *ceph_mount_info* structure is not finally mounted because it matches
   with an already existing mount.
 
-  Only if at the time of mount (i.e. `ceph_mount()`) there's no match with
+  Only if at the time of mount (i.e. ``ceph_mount()``) there's no match with
   already existing mounts, then the mount will be initialized and mounted at
   the same time.
 
@@ -283,13 +283,13 @@ The following functions will be affected:
 * **ceph_chdir**
 
   This one will resolve the passed path and store it along the corresponding
-  inode inside the current "virtual" mount. The real `ceph_chdir()` won't be
+  inode inside the current "virtual" mount. The real ``ceph_chdir()`` won't be
   called.
 
 * **ceph_getcwd**
 
   This one will just return the path stored in the "virtual" mount from
-  previous `ceph_chdir()` calls.
+  previous ``ceph_chdir()`` calls.
 
 **Handle AT_FDCWD**
 

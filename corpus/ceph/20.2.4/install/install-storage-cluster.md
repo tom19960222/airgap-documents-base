@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 This guide describes installing Ceph packages manually. This procedure
 is only for users who are not installing with a deployment tool such as
-`cephadm`, `chef`, `juju`, etc.
+``cephadm``, ``chef``, ``juju``, etc.
 
 # Installing with APT
 
@@ -24,23 +24,23 @@ sudo apt-get update && sudo apt-get install ceph ceph-mds
 
 To install Ceph with RPMs, execute the following steps:
 
-1. Install `yum-plugin-priorities`:
+1. Install ``yum-plugin-priorities``:
 
 ```bash
 sudo yum install yum-plugin-priorities
 ```
 
-1. Ensure `/etc/yum/pluginconf.d/priorities.conf` exists.
+1. Ensure ``/etc/yum/pluginconf.d/priorities.conf`` exists.
 
-1. Ensure `priorities.conf` enables the plugin:
+1. Ensure ``priorities.conf`` enables the plugin:
 
 ```
 [main]
 enabled = 1
 ```
 
-1. Ensure your YUM `ceph.repo` entry includes `priority=2`. See
-   Get Packages for details:
+1. Ensure your YUM ``ceph.repo`` entry includes ``priority=2``. See
+   [Get Packages](get-packages.md) for details:
 
 ```
 [ceph]
@@ -75,7 +75,7 @@ sudo yum install snappy gdisk python-argparse gperftools-libs
 ```
 
 Once you have added either release or development packages, or added a
-`ceph.repo` file to `/etc/yum.repos.d`, you can install Ceph packages:
+``ceph.repo`` file to ``/etc/yum.repos.d``, you can install Ceph packages:
 
 ```bash
 sudo yum install ceph
@@ -90,8 +90,6 @@ executing the following:
 sudo ninja install
 ```
 
-If you install Ceph locally, `ninja` will place the executables in
-`usr/local/bin`. You may add the Ceph configuration file to the
-`usr/local/bin` directory to run Ceph from a single directory.
-
-.. _Get Packages: ../get-packages
+If you install Ceph locally, ``ninja`` will place the executables in
+``usr/local/bin``. You may add the Ceph configuration file to the
+``usr/local/bin`` directory to run Ceph from a single directory.

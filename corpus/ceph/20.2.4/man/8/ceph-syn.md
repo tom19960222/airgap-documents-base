@@ -22,7 +22,7 @@ distributed file system. It uses the userspace client library to
 generate simple workloads against a currently running file system. The
 file system need not be mounted via ceph-fuse(8) or the kernel client.
 
-One or more `--syn` command arguments specify the particular
+One or more ``--syn`` command arguments specify the particular
 workload, as documented below.
 
 # Options
@@ -53,7 +53,7 @@ workload, as documented below.
 
 # Workloads
 
-Each workload should be preceded by `--syn` on the command
+Each workload should be preceded by ``--syn`` on the command
 line. This is not a complete list.
 
 mknap *path* *snapname*
@@ -90,5 +90,5 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8),
-ceph-fuse\(8)
+[ceph](../../install/clone-source.md)\(8),
+[ceph-fuse](ceph-fuse.md#options)\(8)

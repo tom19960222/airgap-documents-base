@@ -66,5 +66,5 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8),
-ceph-debugpack\(8),
+[ceph](../../install/clone-source.md)\(8),
+[ceph-debugpack](ceph-debugpack.md)\(8),

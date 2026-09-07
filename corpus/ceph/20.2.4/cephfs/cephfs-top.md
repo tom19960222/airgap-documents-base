@@ -5,7 +5,7 @@ title: "CephFS Top Utility"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/cephfs-top.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs-top:
+<a id="cephfs-top"></a>
 
 # CephFS Top Utility
 
@@ -187,6 +187,6 @@ The metrics display can be scrolled using the Arrow Keys, PgUp/PgDn, Home/End an
 
 Sample screenshot running `cephfs-top` with 2 filesystems:
 
-.. image:: cephfs-top.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/cephfs-top.png)
 
 > **Note:** Minimum compatible python version for cephfs-top is 3.6.0. cephfs-top is supported on distros RHEL 8, Ubuntu 18.04, CentOS 8 and above.

@@ -69,36 +69,36 @@ immediately.
 (Note: error handling omitted for clarity)
 
 ```c
+struct ceph_mount_info *cmount;
+const char *uuid = "foobarbaz";
+
+/* Set up a new cephfs session, but don't mount it yet. */
+rc = ceph_create(&cmount);
+rc = ceph_init(&cmount);
+
+/*
+ * Set the timeout to 5 minutes to lengthen the window of time for
+ * the server to restart, should it crash.
+ */
+ceph_set_session_timeout(cmount, 300);
+
+/*
+ * Start reclaim vs. session with old uuid. Before calling this,
+ * all NFS servers that could acquire conflicting state _must_ be
+ * enforcing their grace period locally.
+ */
+rc = ceph_start_reclaim(cmount, uuid, CEPH_RECLAIM_RESET);
+
+/* Declare reclaim complete */
+rc = ceph_finish_reclaim(cmount);
+
+/* Set uuid held by new session */
+ceph_set_uuid(cmount, nodeid);
+
+/*
+ * Now mount up the file system and do normal open/lock operations to
+ * satisfy reclaim requests.
+ */
+ceph_mount(cmount, rootpath);
+...
 ```
-
-	struct ceph_mount_info *cmount;
-	const char *uuid = "foobarbaz";
-
-	/* Set up a new cephfs session, but don't mount it yet. */
-	rc = ceph_create(&cmount);
-	rc = ceph_init(&cmount);
-
-	/*
-	 * Set the timeout to 5 minutes to lengthen the window of time for
-	 * the server to restart, should it crash.
-	 */
-	ceph_set_session_timeout(cmount, 300);
-
-	/*
-	 * Start reclaim vs. session with old uuid. Before calling this,
-	 * all NFS servers that could acquire conflicting state _must_ be
-	 * enforcing their grace period locally.
-	 */
-	rc = ceph_start_reclaim(cmount, uuid, CEPH_RECLAIM_RESET);
-
-	/* Declare reclaim complete */
-	rc = ceph_finish_reclaim(cmount);
-
-	/* Set uuid held by new session */
-	ceph_set_uuid(cmount, nodeid);
-
-	/*
-	 * Now mount up the file system and do normal open/lock operations to
-	 * satisfy reclaim requests.
-	 */
-###### ceph_mount(cmount, rootpath);

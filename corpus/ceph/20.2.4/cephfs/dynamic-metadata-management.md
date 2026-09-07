@@ -14,7 +14,7 @@ interdependent nature of the file system metadata. So in CephFS,
 the metadata workload is decoupled from data workload so as to
 avoid placing unnecessary strain on the RADOS cluster. The metadata
 is hence handled by a cluster of Metadata Servers (MDSs).
-CephFS distributes metadata across MDSs via [Dynamic Subtree Partitioning](https://ceph.com/assets/pdfs/weil-mds-sc04.pdf)_.
+CephFS distributes metadata across MDSs via [Dynamic Subtree Partitioning](https://ceph.com/assets/pdfs/weil-mds-sc04.pdf).
 
 ## Dynamic Subtree Partitioning
 In traditional subtree partitioning, subtrees of the file system
@@ -23,7 +23,7 @@ strategy provides good hierarchical locality, linear growth of
 cache and horizontal scaling across MDSs and a fairly good distribution
 of metadata across MDSs.
 
-.. image:: subtree-partitioning.svg
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/subtree-partitioning.svg)
 
 The problem with traditional subtree partitioning is that the workload
 growth by depth (across a single MDS) leads to a hotspot of activity.

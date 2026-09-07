@@ -5,7 +5,7 @@ title: "Balancer Module"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/balancer.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _balancer:
+<a id="balancer"></a>
 
 # Balancer Module
 
@@ -23,23 +23,23 @@ ceph balancer status
 
 ## Automatic balancing
 
-When the balancer is in `upmap` mode, which is the default, the automatic
-upmap balancing feature is enabled.  For more details, see upmap.
+When the balancer is in ``upmap`` mode, which is the default, the automatic
+upmap balancing feature is enabled.  For more details, see [upmap](upmap.md#upmap).
 To disable the balancer, run the following command:
 
 ```bash
 ceph balancer off
 ```
 
-The balancer mode can be changed from `upmap` mode to `crush-compat` mode.
-`crush-compat` mode is backward compatible with older clients.  In
-`crush-compat` mode, the balancer automatically makes small changes to the
+The balancer mode can be changed from ``upmap`` mode to ``crush-compat`` mode.
+``crush-compat`` mode is backward compatible with older clients.  In
+``crush-compat`` mode, the balancer automatically makes small changes to the
 data distribution in order to ensure that OSDs are utilized equally.
 
-Additional modes include `upmap-read` and `read`. `upmap-read` mode
+Additional modes include ``upmap-read`` and ``read``. ``upmap-read`` mode
 combines the upmap balancer with the read balancer so that both writes
-and reads are optimized. `read` mode can be used when only read optimization
-is desired. For more details, see read_balancer.
+and reads are optimized. ``read`` mode can be used when only read optimization
+is desired. For more details, see [read_balancer](read-balancer.md#read-balancer).
 
 ## Throttling
 
@@ -51,7 +51,7 @@ When the cluster is healthy, the balancer will remap
 unbalanced PGs in phases to incrementally improve the uniformity
 of PG distribution.  The maximum percentage of PGs to remap (move) in
 a single phase defaults to 5%. To adjust this
-`target_max_misplaced_ratio` threshold setting, run a command
+``target_max_misplaced_ratio`` threshold setting, run a command
 of the following form:
 
 ```bash
@@ -61,15 +61,15 @@ ceph config set mgr target_max_misplaced_ratio .03   # 3%
 A larger value may increase the speed of cluster balancing / convergence
 at the potential cost of greater impact on client operations.
 
-There is a separate setting `upmap_max_deviation` for how uniform the
+There is a separate setting ``upmap_max_deviation`` for how uniform the
 distribution of PGs must be for the module to consider the cluster adequately
-balanced.  At the time of writing (June 2025), this value defaults to `5`,
+balanced.  At the time of writing (June 2025), this value defaults to ``5``,
 which means that if a given OSD's PG replicas vary by five or fewer above or
 below the cluster's average, it will be considered sufficiently balanced.
 
 This value of PG replicas / shards (as distinct from logical PGs) is reported
-by the `ceph osd df` command under the `PGS` column and the variance
-above or below the average under the `VAR` column.  It may seem desirable
+by the ``ceph osd df`` command under the ``PGS`` column and the variance
+above or below the average under the ``VAR`` column.  It may seem desirable
 to specify a perfect or nearly perfect distribution by setting a very low
 value, but in practice this is not advised, especially when a cluster or
 individual pools have fewer PGs configured than is ideal.  An excessively
@@ -109,15 +109,15 @@ ceph config set mgr mgr/balancer/end_time 2359
 ```
 
 Automatic balancing can be restricted to certain days of the week.  To restrict
-it to a specific day of the week or later (as with crontab, `0` is Sunday,
-`1` is Monday, and so on), run the following command:
+it to a specific day of the week or later (as with crontab, ``0`` is Sunday,
+``1`` is Monday, and so on), run the following command:
 
 ```bash
 ceph config set mgr mgr/balancer/begin_weekday 0
 ```
 
 To restrict automatic balancing to a specific day of the week or earlier
-(again, `0` is Sunday, `1` is Monday, and so on), run the following
+(again, ``0`` is Sunday, ``1`` is Monday, and so on), run the following
 command:
 
 ```bash
@@ -161,48 +161,48 @@ There are four supported balancer modes:
 
 1. **upmap**. In Luminous and later releases, the OSDMap can store explicit
    mappings for individual OSDs as exceptions to the normal CRUSH placement
-   calculation. These `upmap` entries provide fine-grained control over the
+   calculation. These ``upmap`` entries provide fine-grained control over the
    PG mapping. This balancer mode optimizes the placement of individual PGs in
    order to achieve a balanced distribution.  In most cases, the resulting
    distribution is nearly perfect: that is, there is an equal number of PGs on
    each OSD (±1 PG, since the total number might not divide evenly).
 
-   To use `upmap`, all clients must be Luminous or newer.
+   To use ``upmap``, all clients must be Luminous or newer.
 
 1. **read**. In Reef and later releases, the OSDMap can store explicit
    mappings for individual primary OSDs as exceptions to the normal CRUSH
-   placement calculation. These `pg-upmap-primary` entries provide fine-grained
+   placement calculation. These ``pg-upmap-primary`` entries provide fine-grained
    control over primary PG mappings. This mode optimizes the placement of individual
    primary PGs in order to achieve balanced reads, or primary PGs, in a cluster.
-   In `read` mode, upmap behavior is not excercised, so this mode is best for
+   In ``read`` mode, upmap behavior is not excercised, so this mode is best for
    uses cases in which only read balancing is desired.
 
-   To use `pg-upmap-primary`, all clients must be Reef or newer. For more
-   details about client compatibility, see read_balancer.
+   To use ``pg-upmap-primary``, all clients must be Reef or newer. For more
+   details about client compatibility, see [read_balancer](read-balancer.md#read-balancer).
 
 1. **upmap-read**. This balancer mode combines optimization benefits of
-   both `upmap` and `read` mode. Like in `read` mode, `upmap-read`
-   makes use of `pg-upmap-primary`. As such, only Reef and later clients
+   both ``upmap`` and ``read`` mode. Like in ``read`` mode, ``upmap-read``
+   makes use of ``pg-upmap-primary``. As such, only Reef and later clients
    are compatible. For more details about client compatibility, see
-   read_balancer.
+   [read_balancer](read-balancer.md#read-balancer).
 
-   `upmap-read` is highly recommended for achieving the `upmap` mode's
-   offering of balanced PG distribution as well as the `read` mode's
+   ``upmap-read`` is highly recommended for achieving the ``upmap`` mode's
+   offering of balanced PG distribution as well as the ``read`` mode's
    offering of balanced reads.
 
-The default mode is `upmap`. The mode can be changed to `crush-compat` by running the following command:
+The default mode is ``upmap``. The mode can be changed to ``crush-compat`` by running the following command:
 
 ```bash
 ceph balancer mode crush-compat
 ```
 
-The mode can be changed to `read` by running the following command:
+The mode can be changed to ``read`` by running the following command:
 
 ```bash
 ceph balancer mode read
 ```
 
-The mode can be changed to `upmap-read` by running the following command:
+The mode can be changed to ``upmap-read`` by running the following command:
 
 ```bash
 ceph balancer mode upmap-read

@@ -225,7 +225,7 @@ recommend all Jewel 10.2.x users to upgrade.
 This point release brings a number of important bugfixes in all major
 components of Ceph, we recommend all Jewel 10.2.x users to upgrade.
 
-For a detailed list of changes refer to :download: `the complete changelog <../changelog/v10.2.10txt>`
+For a detailed list of changes refer to the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.10txt -->
 
 ## Notable Changes
 * build/ops: Add fix subcommand to ceph-disk, fix SELinux denials, and speed up upgrade from non-SELinux enabled ceph to an SELinux enabled one ([issue#20077](http://tracker.ceph.com/issues/20077), [issue#20184](http://tracker.ceph.com/issues/20184), [issue#19545](http://tracker.ceph.com/issues/19545), [pr#14346](https://github.com/ceph/ceph/pull/14346), Boris Ranto)
@@ -345,7 +345,7 @@ This point release fixes a regression introduced in v10.2.8.
 
 We recommend that all Jewel users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.9.txt -->.
 
 ## Notable Changes
 
@@ -359,7 +359,7 @@ MDS damage, and a new release, v10.2.9, was published to address this.
 Therefore, Jewel users should *not* upgrade to this version - instead, we
 recommend upgrading directly to v10.2.9.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.8.txt -->.
 
 ## OSD Removal Caveat
 
@@ -531,7 +531,7 @@ This point release fixes several important bugs in RBD mirroring, librbd &  RGW.
 
 We recommend that all v10.2.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.7.txt -->.
 
 ## Notable Changes
 
@@ -568,7 +568,7 @@ This point release fixes several important bugs in RBD mirroring, RGW multi-site
 
 We recommend that all v10.2.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.6.txt -->.
 
 ## OSDs No Longer Send ENXIO by Default
 
@@ -779,7 +779,7 @@ This point release fixes an important [regression introduced in v10.2.4](http://
 We recommend that all v10.2.x users upgrade.
 
 ## Notable Changes
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.5.txt -->.
 
 * msg/simple/Pipe: avoid returning 0 on poll timeout ([issue#18185](http://tracker.ceph.com/issues/18185), [pr#12376](https://github.com/ceph/ceph/pull/12376), Sage Weil)
 
@@ -802,7 +802,7 @@ doing this, the upgrade path is complete and no more pre-Jewel OSDs may be added
 to the cluster.
 
 ## Notable Changes
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.4.txt -->.
 
 * build/ops: aarch64: Compiler-based detection of crc32 extended CPU type is broken ([issue#17516](http://tracker.ceph.com/issues/17516), [pr#11492](http://github.com/ceph/ceph/pull/11492), Alexander Graf)
 * build/ops: allow building RGW with LDAP disabled ([issue#17312](http://tracker.ceph.com/issues/17312), [pr#11478](http://github.com/ceph/ceph/pull/11478), Daniel Gryniewicz)
@@ -924,7 +924,7 @@ This point release fixes several important bugs in RBD mirroring, RGW multi-site
 
 We recommend that all v10.2.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.3.txt -->.
 
 ## Notable Changes
 
@@ -1074,7 +1074,7 @@ This point release fixes several important bugs in RBD mirroring, RGW multi-site
 
 We recommend that all v10.2.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.2.txt -->.
 
 ## Notable Changes
 
@@ -1147,7 +1147,7 @@ RBD, RGW, and CephFS.
 
 We recommend that all v10.2.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.1.txt -->.
 
 ## Notable Changes
 
@@ -1293,7 +1293,7 @@ process is non-trivial. Please read these release notes carefully.
 
 - *RBD*:
 
-  * The `rbd du` command shows actual usage (quickly, when
+  * The ``rbd du`` command shows actual usage (quickly, when
     object-map is enabled).
   * The object-map feature has seen many stability improvements.
   * The object-map and exclusive-lock features can be enabled or disabled
@@ -1305,8 +1305,8 @@ process is non-trivial. Please read these release notes carefully.
   * The export-diff command is now faster (it uses aio).  There is also
     a new fast-diff feature.
   * The --size argument can be specified with a suffix for units
-    (e.g., `--size 64G`).
-  * There is a new `rbd status` command that, for now, shows who has
+    (e.g., ``--size 64G``).
+  * There is a new ``rbd status`` command that, for now, shows who has
     the image open/mapped.
 
 - *CephFS*:
@@ -1344,14 +1344,14 @@ We now build packages for the following distributions and architectures:
 
 ## Upgrading from Infernalis or Hammer
 
-* We now recommend against using `ext4` as the underlying file
+* We now recommend against using ``ext4`` as the underlying file
   system for Ceph OSDs, especially when RGW or other users of long
   RADOS object names are used.  For more information about why, please
-  see Filesystem Recommendations.
+  see Filesystem Recommendations <!-- unresolved-rst-link: kind=named target=Filesystem Recommendations -->.
 
   If you have an existing cluster that uses ext4 for the OSDs but uses only
   RBD and/or CephFS, then the ext4 limitations will not affect you.  Before
-  upgrading, be sure add the following to `ceph.conf` to allow the OSDs to
+  upgrading, be sure add the following to ``ceph.conf`` to allow the OSDs to
   start:
 
 ```
@@ -1367,8 +1367,6 @@ osd max object namespace len = 64
 ```
 osd check max object name len on startup = false
 ```
-
-.. _Filesystem Recommendations: ../configuration/filesystem-recommendations
 
 * There are no major compatibility changes since Infernalis.  Simply
   upgrading the daemons on each host and restarting all daemons is
@@ -1448,7 +1446,7 @@ systemctl status ceph-osd@12      # check status of osd.12
   The main notable distro that is *not* yet using systemd is Ubuntu trusty
   14.04.  (The next Ubuntu LTS, 16.04, will use systemd instead of upstart.)
 
-* Ceph daemons now run as user and group `ceph` by default.  The
+* Ceph daemons now run as user and group ``ceph`` by default.  The
   ceph user has a static UID assigned by Fedora and Debian (also used by
   derivative distributions like RHEL/CentOS and Ubuntu).  On SUSE the same
   UID/GID as in Fedora and Debian will be used, *provided it is not already
@@ -1461,7 +1459,7 @@ systemctl status ceph-osd@12      # check status of osd.12
 
   When upgrading, administrators have two options:
 
-   1. Add the following line to `ceph.conf` on all hosts:
+   1. Add the following line to ``ceph.conf`` on all hosts:
 
 ```
   setuser match path = /var/lib/ceph/$type/$cluster-$id
@@ -1508,7 +1506,7 @@ systemctl start ceph.target   # debian, centos, fedora, rhel
 
       Alternatively, the same process can be done with a single daemon
       type, for example by stopping only monitors and chowning only
-      `/var/lib/ceph/mon`.
+      ``/var/lib/ceph/mon``.
 
 * The on-disk format for the experimental KeyValueStore OSD backend has
   changed.  You will need to remove any OSDs using that backend before you
@@ -2120,7 +2118,7 @@ ceph osd unset noout
 * librados: move to c++11 concurrency types ([pr#5931](http://github.com/ceph/ceph/pull/5931), Adam C. Emerson)
 * librados: new style (sharded) object listing ([pr#6405](http://github.com/ceph/ceph/pull/6405), John Spray, Sage Weil)
 * librados: op perf counters (John Spray)
-* librados: potential null pointer access in list_(n)objects ([issue#13822](http://tracker.ceph.com/issues/13822), [pr#6639](http://github.com/ceph/ceph/pull/6639), xie xingguo)
+* librados: potential null pointer access in [list](../ceph-volume/lvm/list.md#list)(n)objects ([issue#13822](http://tracker.ceph.com/issues/13822), [pr#6639](http://github.com/ceph/ceph/pull/6639), xie xingguo)
 * librados: pybind: fix binary omap values (Robin H. Johnson)
 * librados: pybind: fix write() method return code (Javier Guerra)
 * librados: race condition on aio_notify completion handling ([pr#7864](http://github.com/ceph/ceph/pull/7864), Jason Dillaman)
@@ -3272,7 +3270,7 @@ ceph osd unset noout
 * Test exit values on test.sh, fix tier.cc ([issue#15165](http://tracker.ceph.com/issues/15165), [pr#8266](http://github.com/ceph/ceph/pull/8266), Samuel Just)
 * test: fix issues discovered via the rbd permissions test case ([pr#8129](http://github.com/ceph/ceph/pull/8129), Jason Dillaman)
 * test: fix osd-scrub-snaps.sh ([pr#6697](http://github.com/ceph/ceph/pull/6697), Xinze Chi)
-* test: Fix test to run with btrfs which has snap_### dirs ([issue#15347](http://tracker.ceph.com/issues/15347), [pr#8420](http://github.com/ceph/ceph/pull/8420), David Zafman)
+* test: Fix test to run with btrfs which has [snap](../man/8/cephfs-shell.md#snap)### dirs ([issue#15347](http://tracker.ceph.com/issues/15347), [pr#8420](http://github.com/ceph/ceph/pull/8420), David Zafman)
 * test: fixup and improvements for rbd-mirror test ([pr#8090](http://github.com/ceph/ceph/pull/8090), Mykola Golub)
 * test: fix ut test failure caused by lfn change ([issue#15464](http://tracker.ceph.com/issues/15464), [pr#8544](http://github.com/ceph/ceph/pull/8544), xie xingguo)
 * test: fix valgrind memcheck issues for rbd-mirror test cases ([issue#15354](http://tracker.ceph.com/issues/15354), [pr#8493](http://github.com/ceph/ceph/pull/8493), Jason Dillaman)

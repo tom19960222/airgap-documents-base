@@ -5,7 +5,7 @@ title: "Role"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/role.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-role:
+<a id="radosgw-role"></a>
 
 # Role
 
@@ -16,28 +16,30 @@ dynamically-created temporary credentials are provided to the user. A role can
 be used to delegate access to users, to applications, and to services that do
 not have permissions to access certain S3 resources.
 
-The following `radosgw-admin` commands can be used to create or delete or
+The following ``radosgw-admin`` commands can be used to create or delete or
 update a role and the permissions associated with it.
 
 ## Create a Role
 
-To create a role, run a command of the following form::
+To create a role, run a command of the following form:
 
-	radosgw-admin role create --role-name={role-name} [--path=="{path to the role}"] [--assume-role-policy-doc={trust-policy-document}]
+```
+radosgw-admin role create --role-name={role-name} [--path=="{path to the role}"] [--assume-role-policy-doc={trust-policy-document}]
+```
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
 
-`path`
+``path``
 
-:Description: Path to the role. The default value is a slash(`/`).
+:Description: Path to the role. The default value is a slash(``/``).
 :Type: String
 
-`assume-role-policy-doc`
+``assume-role-policy-doc``
 
 :Description: The trust relationship policy document that grants an entity
               permission to assume the role.
@@ -71,7 +73,7 @@ radosgw-admin role delete --role-name={role-name}
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
@@ -95,7 +97,7 @@ radosgw-admin role get --role-name={role-name}
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
@@ -128,7 +130,7 @@ radosgw-admin role list [--path-prefix ={path prefix}]
 
 #### Request Parameters
 
-`path-prefix`
+``path-prefix``
 
 :Description: Path prefix for filtering roles. If this is not specified, all
               roles are listed.
@@ -156,18 +158,20 @@ radosgw-admin role list --path-prefix="/application"
 
 ## Update Assume Role Policy Document of a role
 
-To modify a role's assume role policy document, execute the following::
+To modify a role's assume role policy document, execute the following:
 
-	radosgw-admin role-trust-policy modify --role-name={role-name} --assume-role-policy-doc={trust-policy-document}
+```
+radosgw-admin role-trust-policy modify --role-name={role-name} --assume-role-policy-doc={trust-policy-document}
+```
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
 
-`assume-role-policy-doc`
+``assume-role-policy-doc``
 
 :Description: The trust relationship policy document that grants an entity permission to assume the role.
 :Type: String
@@ -194,23 +198,25 @@ In the above example, we are modifying the Principal from TESTER to TESTER2 in i
 
 ## Add/ Update a Policy attached to a Role
 
-To add or update the inline policy attached to a role, execute the following::
+To add or update the inline policy attached to a role, execute the following:
 
-	radosgw-admin role policy put --role-name={role-name} --policy-name={policy-name} --policy-doc={permission-policy-doc}
+```
+radosgw-admin role policy put --role-name={role-name} --policy-name={policy-name} --policy-doc={permission-policy-doc}
+```
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
 
-`policy-name`
+``policy-name``
 
 :Description: Name of the policy.
 :Type: String
 
-`policy-doc`
+``policy-doc``
 
 :Description: The Permission policy document.
 :Type: String
@@ -221,7 +227,7 @@ For example:
 radosgw-admin role-policy put --role-name=S3Access1 --policy-name=Policy1 --policy-doc=\{\"Version\":\"2012-10-17\",\"Statement\":\[\{\"Effect\":\"Allow\",\"Action\":\[\"s3:*\"\],\"Resource\":\"arn:aws:s3:::example_bucket\"\}\]\}
 ```
 
-For passing `policy-doc` as a file:
+For passing ``policy-doc`` as a file:
 
 ```
 radosgw-admin role-policy put --role-name=S3Access1 --policy-name=Policy1 --infile policy-document.json
@@ -231,13 +237,15 @@ In the above example, we are attaching a policy 'Policy1' to role 'S3Access1', w
 
 ## List Permission Policy Names attached to a Role
 
-To list the names of permission policies attached to a role, execute the following::
+To list the names of permission policies attached to a role, execute the following:
 
-	radosgw-admin role policy get --role-name={role-name}
+```
+radosgw-admin role policy get --role-name={role-name}
+```
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
@@ -256,18 +264,20 @@ radosgw-admin role-policy list --role-name=S3Access1
 
 ## Get Permission Policy attached to a Role
 
-To get a specific permission policy attached to a role, execute the following::
+To get a specific permission policy attached to a role, execute the following:
 
-	radosgw-admin role policy get --role-name={role-name} --policy-name={policy-name}
+```
+radosgw-admin role policy get --role-name={role-name} --policy-name={policy-name}
+```
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
 
-`policy-name`
+``policy-name``
 
 :Description: Name of the policy.
 :Type: String
@@ -286,18 +296,20 @@ radosgw-admin role-policy get --role-name=S3Access1 --policy-name=Policy1
 
 ## Delete Policy attached to a Role
 
-To delete permission policy attached to a role, execute the following::
+To delete permission policy attached to a role, execute the following:
 
-	radosgw-admin role policy delete --role-name={role-name} --policy-name={policy-name}
+```
+radosgw-admin role policy delete --role-name={role-name} --policy-name={policy-name}
+```
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
 
-`policy-name`
+``policy-name``
 
 :Description: Name of the policy.
 :Type: String
@@ -310,18 +322,20 @@ radosgw-admin role-policy delete --role-name=S3Access1 --policy-name=Policy1
 
 ## Update a role
 
-To update a role's max-session-duration, execute the following::
+To update a role's max-session-duration, execute the following:
 
-	radosgw-admin role update --role-name={role-name} --max-session-duration={max-session-duration}
+```
+radosgw-admin role update --role-name={role-name} --max-session-duration={max-session-duration}
+```
 
 #### Request Parameters
 
-`role-name`
+``role-name``
 
 :Description: Name of the role.
 :Type: String
 
-`max-session-duration`
+``max-session-duration``
 
 :Description: Maximum session duration for a role.
 :Type: String

@@ -32,7 +32,7 @@ This is the fifth backport release in the Reef series. We recommend that all use
 
 ## Notable Changes
 
-* RBD: The `try-netlink` mapping option for rbd-nbd has become the default
+* RBD: The ``try-netlink`` mapping option for rbd-nbd has become the default
   and is now deprecated. If the NBD netlink interface is not supported by the
   kernel, then the mapping is retried using the legacy ioctl interface.
 
@@ -802,7 +802,7 @@ July 24, 2024
 * RADOS: `get_pool_is_selfmanaged_snaps_mode` C++ API has been deprecated
   due to being prone to false negative results.  Its safer replacement is
   `pool_is_in_selfmanaged_snaps_mode`.
-* RBD: The option `--image-id` has been added to `rbd children` CLI command,
+* RBD: The option ``--image-id`` has been added to `rbd children` CLI command,
   so it can be run for images in the trash.
 
 ## Changelog
@@ -862,7 +862,7 @@ July 24, 2024
 * doc/cephadm: correct nfs config pool name ([pr#55603](https://github.com/ceph/ceph/pull/55603), Zac Dover)
 * doc/cephadm: improve host-management.rst ([pr#56111](https://github.com/ceph/ceph/pull/56111), Anthony D'Atri)
 * doc/cephadm: Improve multiple files ([pr#56130](https://github.com/ceph/ceph/pull/56130), Anthony D'Atri)
-* doc/cephfs/client-auth.rst: correct `fs authorize cephfs1 /dir1 client.x rw` ([pr#55246](https://github.com/ceph/ceph/pull/55246), 叶海丰)
+* doc/cephfs/client-auth.rst: correct ``fs authorize cephfs1 /dir1 client.x rw`` ([pr#55246](https://github.com/ceph/ceph/pull/55246), 叶海丰)
 * doc/cephfs: edit add-remove-mds ([pr#55648](https://github.com/ceph/ceph/pull/55648), Zac Dover)
 * doc/cephfs: fix architecture link to correct relative path ([pr#56340](https://github.com/ceph/ceph/pull/56340), molpako)
 * doc/cephfs: Update disaster-recovery-experts.rst to mention Slack ([pr#55044](https://github.com/ceph/ceph/pull/55044), Dhairya Parmar)
@@ -1229,8 +1229,8 @@ December 18, 2023
 
 * RGW: S3 multipart uploads using Server-Side Encryption now replicate correctly in
   a multi-site deployment. Previously, the replicas of such objects were corrupted on
-  decryption. A new command, `radosgw-admin bucket resync encrypted multipart`, can be
-  used to identify these original multipart uploads. The `LastModified` timestamp of
+  decryption. A new command, ``radosgw-admin bucket resync encrypted multipart``, can be
+  used to identify these original multipart uploads. The ``LastModified`` timestamp of
   any identified object is incremented by 1ns to cause peer zones to replicate it again.
   For multi-site deployments that make any use of Server-Side Encryption, we
   recommended running this command against every bucket in every zone after all
@@ -1241,7 +1241,7 @@ December 18, 2023
   the RADOS operation exceeding the size threshold. `mds_session_metadata_threshold`
   config controls the maximum size that an (encoded) session metadata can grow.
 
-* RGW: New tools have been added to `radosgw-admin` for identifying and
+* RGW: New tools have been added to ``radosgw-admin`` for identifying and
   correcting issues with versioned bucket indexes. Historical bugs with the
   versioned bucket index transaction workflow made it possible for the index
   to accumulate extraneous "book-keeping" olh (object logical head) entries
@@ -1251,7 +1251,7 @@ December 18, 2023
   present in a single bucket index shard, they can cause high bucket listing
   latencies and lifecycle processing failures. To check whether a versioned
   bucket has unnecessary olh entries, users can now run ``radosgw-admin
-  bucket check olh`. If the `--fix`` flag is used, the extra entries will
+  bucket check olh``. If the ``--fix`` flag is used, the extra entries will
   be safely removed. A distinct issue from the one described thus far, it is
   also possible that some versioned buckets are maintaining extra unlinked
   objects that are not listable from the S3/ Swift APIs. These extra objects
@@ -1264,13 +1264,13 @@ December 18, 2023
   the nature of the failure mode that produced them, where a client of a bucket
   that was a victim of this bug may find the object associated with the key to
   be in an inconsistent state. To check whether a versioned bucket has unlinked
-  entries, users can now run `radosgw-admin bucket check unlinked`. If the
-  `--fix` flag is used, the unlinked objects will be safely removed. Finally,
+  entries, users can now run ``radosgw-admin bucket check unlinked``. If the
+  ``--fix`` flag is used, the unlinked objects will be safely removed. Finally,
   a third issue made it possible for versioned bucket index stats to be
   accounted inaccurately. The tooling for recalculating versioned bucket stats
   also had a bug, and was not previously capable of fixing these inaccuracies.
   This release resolves those issues and users can now expect that the existing
-  `radosgw-admin bucket check` command will produce correct results. We
+  ``radosgw-admin bucket check`` command will produce correct results. We
   recommend that users with versioned buckets, especially those that existed
   on prior releases, use these new tools to check whether their buckets are
   affected and to clean them up accordingly.
@@ -1278,10 +1278,10 @@ December 18, 2023
 * mgr/snap-schedule: For clusters with multiple CephFS file systems, all the
   snap-schedule commands now expect the '--fs' argument.
 
-* RADOS: A `POOL_APP_NOT_ENABLED` health warning will now be reported if the
+* RADOS: A ``POOL_APP_NOT_ENABLED`` health warning will now be reported if the
   application is not enabled for the pool whether the pool is in use or not.
   Always tag a pool with an application using ``ceph osd pool application
-  enable` command to avoid reporting `POOL_APP_NOT_ENABLED`` for that pool.
+  enable`` command to avoid reporting ``POOL_APP_NOT_ENABLED`` for that pool.
   The user might temporarily mute this warning using ``ceph health mute
   POOL_APP_NOT_ENABLED``.
 
@@ -1734,8 +1734,8 @@ See the relevant sections below for more details on these changes.
 * **RADOS** FileStore is not supported in Reef.
 * **RADOS:** RocksDB has been upgraded to version 7.9.2.
 * **RADOS:** There have been significant improvements to RocksDB iteration overhead and performance.
-* **RADOS:** The `perf dump` and `perf schema` commands have been deprecated in
-  favor of the new `counter dump` and `counter schema` commands.
+* **RADOS:** The ``perf dump`` and ``perf schema`` commands have been deprecated in
+  favor of the new ``counter dump`` and ``counter schema`` commands.
 * **RADOS:** Cache tiering is now deprecated.
 * **RADOS:** A new feature, the "read balancer", is now available, which allows users to balance primary PGs per pool on their clusters.
 * **RGW:** Bucket resharding is now supported for multi-site configurations.
@@ -1747,15 +1747,15 @@ See the relevant sections below for more details on these changes.
 
 #### CephFS
 
-* CephFS: The `mds_max_retries_on_remount_failure` option has been renamed to
-  `client_max_retries_on_remount_failure` and moved from `mds.yaml.in` to
-  `mds-client.yaml.in`. This change was made because the option has always
+* CephFS: The ``mds_max_retries_on_remount_failure`` option has been renamed to
+  ``client_max_retries_on_remount_failure`` and moved from ``mds.yaml.in`` to
+  ``mds-client.yaml.in``. This change was made because the option has always
   been used only by the MDS client.
 * CephFS: It is now possible to delete the recovered files in the
-  `lost+found` directory after a CephFS post has been recovered in accordance
+  ``lost+found`` directory after a CephFS post has been recovered in accordance
   with disaster recovery procedures.
-* The `AT_NO_ATTR_SYNC` macro has been deprecated in favor of the standard
-  `AT_STATX_DONT_SYNC` macro. The `AT_NO_ATTR_SYNC` macro will be removed
+* The ``AT_NO_ATTR_SYNC`` macro has been deprecated in favor of the standard
+  ``AT_STATX_DONT_SYNC`` macro. The ``AT_NO_ATTR_SYNC`` macro will be removed
   in the future.
 
 #### Dashboard
@@ -1808,11 +1808,11 @@ See the relevant sections below for more details on these changes.
 
 * mgr/snap_schedule: The snap-schedule manager module now retains one snapshot
   less than the number mentioned against the config option
-  `mds_max_snaps_per_dir`. This means that a new snapshot can be created and
+  ``mds_max_snaps_per_dir``. This means that a new snapshot can be created and
   retained during the next schedule run.
-* The `ceph mgr dump` command now outputs `last_failure_osd_epoch` and
-  `active_clients` fields at the top level. Previously, these fields were
-  output under the `always_on_modules` field.
+* The ``ceph mgr dump`` command now outputs ``last_failure_osd_epoch`` and
+  ``active_clients`` fields at the top level. Previously, these fields were
+  output under the ``always_on_modules`` field.
 
 #### RADOS
 
@@ -1828,8 +1828,8 @@ See the relevant sections below for more details on these changes.
 * Trimming of PGLog dups is now controlled by the size rather than the version.
   This change fixes the PGLog inflation issue that was happening when the
   online (in OSD) trimming got jammed after a PG split operation. Also, a new
-  offline mechanism has been added: `ceph-objectstore-tool` has a new
-  operation called `trim-pg-log-dups` that targets situations in which an OSD
+  offline mechanism has been added: ``ceph-objectstore-tool`` has a new
+  operation called ``trim-pg-log-dups`` that targets situations in which an OSD
   is unable to boot because of the inflated dups. In such situations, the "You
   can be hit by THE DUPS BUG" warning is visible in OSD logs. Relevant tracker:
   https://tracker.ceph.com/issues/53729
@@ -1840,21 +1840,21 @@ See the relevant sections below for more details on these changes.
   undergone significant usability and design improvements to address the slow
   backfill issue. The following is a list of some important changes:
 
-  * The `balanced` profile is set as the default mClock profile because it
+  * The ``balanced`` profile is set as the default mClock profile because it
     represents a compromise between prioritizing client I/O and prioritizing
-    recovery I/O. Users can then choose either the `high_client_ops` profile
-    to prioritize client I/O or the `high_recovery_ops` profile to prioritize
+    recovery I/O. Users can then choose either the ``high_client_ops`` profile
+    to prioritize client I/O or the ``high_recovery_ops`` profile to prioritize
     recovery I/O.
-  * QoS parameters including `reservation` and `limit` are now specified in
+  * QoS parameters including ``reservation`` and ``limit`` are now specified in
     terms of a fraction (range: 0.0 to 1.0) of the OSD's IOPS capacity.
-  * The cost parameters (`osd_mclock_cost_per_io_usec_*` and
-    `osd_mclock_cost_per_byte_usec_*`) have been removed. The cost of an
+  * The cost parameters (``osd_mclock_cost_per_io_usec_*`` and
+    ``osd_mclock_cost_per_byte_usec_*``) have been removed. The cost of an
     operation is now a function of the random IOPS and maximum sequential
     bandwidth capability of the OSD's underlying device.
   * Degraded object recovery is given higher priority than misplaced
     object recovery because degraded objects present a data safety issue that
     is not present with objects that are merely misplaced. As a result,
-    backfilling operations with the `balanced` and `high_client_ops` mClock
+    backfilling operations with the ``balanced`` and ``high_client_ops`` mClock
     profiles might progress more slowly than in the past, when backfilling
     operations used the 'WeightedPriorityQueue' (WPQ) scheduler.
   * The QoS allocations in all the mClock profiles are optimized in
@@ -1863,21 +1863,21 @@ See the relevant sections below for more details on these changes.
     https://docs.ceph.com/en/reef/rados/configuration/mclock-config-ref/
 * A new feature, the "read balancer", is now available, which allows
   users to balance primary PGs per pool on their clusters. The read balancer is
-  currently available as an offline option via the `osdmaptool`. By providing
-  a copy of their osdmap and a pool they want balanced to the `osdmaptool`, users
+  currently available as an offline option via the ``osdmaptool``. By providing
+  a copy of their osdmap and a pool they want balanced to the ``osdmaptool``, users
   can generate a preview of optimal primary PG mappings that they can then choose to
   apply to their cluster. For more details, see
   https://docs.ceph.com/en/latest/dev/balancer-design/#read-balancing
-* The `active_clients` array displayed by the `ceph mgr dump` command now
-  has a `name` field that shows the name of the manager module that
-  registered a RADOS client. Previously, the `active_clients` array showed
+* The ``active_clients`` array displayed by the ``ceph mgr dump`` command now
+  has a ``name`` field that shows the name of the manager module that
+  registered a RADOS client. Previously, the ``active_clients`` array showed
   the address of a module's RADOS client, but not the name of the module.
-* The `perf dump` and `perf schema` commands have been deprecated in
-  favor of the new `counter dump` and `counter schema` commands. These new
+* The ``perf dump`` and ``perf schema`` commands have been deprecated in
+  favor of the new ``counter dump`` and ``counter schema`` commands. These new
   commands add support for labeled perf counters and also emit existing
   unlabeled perf counters. Some unlabeled perf counters became labeled in this
   release, and more will be labeled in future releases; such converted perf
-  counters are no longer emitted by the `perf dump` and `perf schema`
+  counters are no longer emitted by the ``perf dump`` and ``perf schema``
   commands.
 * Cache tiering is now deprecated.
 * The SPDK backend for BlueStore can now connect to an NVMeoF target. This
@@ -1891,27 +1891,27 @@ See the relevant sections below for more details on these changes.
   associated with them are larger. The previous behavior of comparing up to the
   size of the compare buffer was prone to subtle breakage upon straddling a
   stripe unit boundary.
-* The `compare-and-write` operation is no longer limited to 512-byte
+* The ``compare-and-write`` operation is no longer limited to 512-byte
   sectors. Assuming proper alignment, it now allows operating on stripe units
   (4MB by default).
-* There is a new `rbd_aio_compare_and_writev` API method that supports
+* There is a new ``rbd_aio_compare_and_writev`` API method that supports
   scatter/gather on compare buffers as well as on write buffers. This
-  complements the existing `rbd_aio_readv` and `rbd_aio_writev` methods.
-* The `rbd device unmap` command now has a `--namespace` option.
+  complements the existing ``rbd_aio_readv`` and ``rbd_aio_writev`` methods.
+* The ``rbd device unmap`` command now has a ``--namespace`` option.
   Support for namespaces was added to RBD in Nautilus 14.2.0, and since then it
   has been possible to map and unmap images in namespaces using the
-  `image-spec` syntax. However, the corresponding option available in most
+  ``image-spec`` syntax. However, the corresponding option available in most
   other commands was missing.
 * All rbd-mirror daemon perf counters have become labeled and are now
-  emitted only by the new `counter dump` and `counter schema` commands. As
+  emitted only by the new ``counter dump`` and ``counter schema`` commands. As
   part of the conversion, many were also renamed in order to better
   disambiguate journal-based and snapshot-based mirroring.
 * The list-watchers C++ API (`Image::list_watchers`) now clears the passed
   `std::list` before appending to it. This aligns with the semantics of the C
-  API (`rbd_watchers_list`).
+  API (``rbd_watchers_list``).
 * Trailing newline in passphrase files (for example: the
-  `<passphrase-file>` argument of the `rbd encryption format` command and
-  the `--encryption-passphrase-file` option of other commands) is no longer
+  ``<passphrase-file>`` argument of the ``rbd encryption format`` command and
+  the ``--encryption-passphrase-file`` option of other commands) is no longer
   stripped.
 * Support for layered client-side encryption has been added. It is now
   possible to encrypt cloned images with a distinct encryption format and
@@ -1923,65 +1923,65 @@ See the relevant sections below for more details on these changes.
 
 * Bucket resharding is now supported for multi-site configurations. This
   feature is enabled by default for new deployments. Existing deployments must
-  enable the `resharding` feature manually after all zones have upgraded.
+  enable the ``resharding`` feature manually after all zones have upgraded.
   See https://docs.ceph.com/en/reef/radosgw/multisite/#zone-features for
   details.
 * The RGW policy parser now rejects unknown principals by default. If you are
   mirroring policies between RGW and AWS, you might want to set
-  `rgw_policy_reject_invalid_principals` to `false`. This change affects
+  ``rgw_policy_reject_invalid_principals`` to ``false``. This change affects
   only newly set policies, not policies that are already in place.
-* RGW's default backend for `rgw_enable_ops_log` has changed from `RADOS`
-  to `file`. The default value of `rgw_ops_log_rados` is now `false`, and
-  `rgw_ops_log_file_path` now defaults to
-  `/var/log/ceph/ops-log-$cluster-$name.log`.
-* RGW's pubsub interface now returns boolean fields using `bool`. Before this
-  change, `/topics/<topic-name>` returned `stored_secret` and
-  `persistent` using a string of `"true"` or `"false"` that contains
+* RGW's default backend for ``rgw_enable_ops_log`` has changed from ``RADOS``
+  to ``file``. The default value of ``rgw_ops_log_rados`` is now ``false``, and
+  ``rgw_ops_log_file_path`` now defaults to
+  ``/var/log/ceph/ops-log-$cluster-$name.log``.
+* RGW's pubsub interface now returns boolean fields using ``bool``. Before this
+  change, ``/topics/<topic-name>`` returned ``stored_secret`` and
+  ``persistent`` using a string of ``"true"`` or ``"false"`` that contains
   enclosing quotation marks. After this change, these fields are returned
   without enclosing quotation marks so that the fields can be decoded as
-  boolean values in JSON. The same is true of the `is_truncated` field
-  returned by `/subscriptions/<sub-name>`.
-* RGW's response of `Action=GetTopicAttributes&TopicArn=<topic-arn>` REST
-  API now returns `HasStoredSecret` and `Persistent` as boolean in the JSON
-  string that is encoded in `Attributes/EndPoint`.
+  boolean values in JSON. The same is true of the ``is_truncated`` field
+  returned by ``/subscriptions/<sub-name>``.
+* RGW's response of ``Action=GetTopicAttributes&TopicArn=<topic-arn>`` REST
+  API now returns ``HasStoredSecret`` and ``Persistent`` as boolean in the JSON
+  string that is encoded in ``Attributes/EndPoint``.
 * All boolean fields that were previously rendered as strings by the
-  `rgw-admin` command when the JSON format was used are now rendered as
+  ``rgw-admin`` command when the JSON format was used are now rendered as
   boolean. If your scripts and tools rely on this behavior, update them
   accordingly. The following is a list of the field names impacted by this
   change:
 
-      * `absolute`
-      * `add`
-      * `admin`
-      * `appendable`
-      * `bucket_key_enabled`
-      * `delete_marker`
-      * `exists`
-      * `has_bucket_info`
-      * `high_precision_time`
-      * `index`
-      * `is_master`
-      * `is_prefix`
-      * `is_truncated`
-      * `linked`
-      * `log_meta`
-      * `log_op`
-      * `pending_removal`
-      * `read_only`
-      * `retain_head_object`
-      * `rule_exist`
-      * `start_with_full_sync`
-      * `sync_from_all`
-      * `syncstopped`
-      * `system`
-      * `truncated`
-      * `user_stats_sync`
+      * ``absolute``
+      * ``add``
+      * ``admin``
+      * ``appendable``
+      * ``bucket_key_enabled``
+      * ``delete_marker``
+      * ``exists``
+      * ``has_bucket_info``
+      * ``high_precision_time``
+      * ``index``
+      * ``is_master``
+      * ``is_prefix``
+      * ``is_truncated``
+      * ``linked``
+      * ``log_meta``
+      * ``log_op``
+      * ``pending_removal``
+      * ``read_only``
+      * ``retain_head_object``
+      * ``rule_exist``
+      * ``start_with_full_sync``
+      * ``sync_from_all``
+      * ``syncstopped``
+      * ``system``
+      * ``truncated``
+      * ``user_stats_sync``
 * The Beast front end's HTTP access log line now uses a new
-  `debug_rgw_access` configurable. It has the same defaults as
-  `debug_rgw`, but it can be controlled independently.
+  ``debug_rgw_access`` configurable. It has the same defaults as
+  ``debug_rgw``, but it can be controlled independently.
 * The pubsub functionality for storing bucket notifications inside Ceph
   has been removed. As a result, the pubsub zone should not be used anymore.
-  The following have also been removed: the REST operations, `radosgw-admin`
+  The following have also been removed: the REST operations, ``radosgw-admin``
   commands for manipulating subscriptions, fetching the notifications, and
   acking the notifications.
 
@@ -2010,8 +2010,8 @@ See the relevant sections below for more details on these changes.
   provide a description of their cluster that will appear publicly in the
   leaderboard. For more details, see:
   https://docs.ceph.com/en/reef/mgr/telemetry/#leaderboard. To see a sample
-  report, run `ceph telemetry preview`. To opt in to telemetry, run ``ceph
-  telemetry on`. To opt in to the leaderboard, run `ceph config set mgr
+  report, run ``ceph telemetry preview``. To opt in to telemetry, run ``ceph
+  telemetry on``. To opt in to the leaderboard, run ``ceph config set mgr
   mgr/telemetry/leaderboard true``. To add a leaderboard description, run
   ``ceph config set mgr mgr/telemetry/leaderboard_description ‘Cluster
   description’`` (entering your own cluster description).
@@ -2021,7 +2021,7 @@ See the relevant sections below for more details on these changes.
 Before starting, make sure your cluster is stable and healthy (no down or recovering OSDs). (This is optional, but recommended.) You can disable the autoscaler for all pools during the upgrade using the noautoscale flag.
 
 > **Note:**
-> You can monitor the progress of your upgrade at each stage with the `ceph versions` command, which will tell you what ceph version(s) are running for each type of daemon.
+> You can monitor the progress of your upgrade at each stage with the ``ceph versions`` command, which will tell you what ceph version(s) are running for each type of daemon.
 
 #### Upgrading cephadm clusters
 

@@ -20,7 +20,7 @@ multiple OSDs.  Ceph block devices leverage
 RADOS (Reliable Autonomic Distributed Object Store) capabilities
 including snapshotting, replication and strong consistency. Ceph block
 storage clients communicate with Ceph clusters through kernel modules or
-the `librbd` library.
+the ``librbd`` library.
 
 .. ditaa::
 
@@ -32,15 +32,15 @@ the `librbd` library.
    |          OSDs          | |        Monitors        |
    +------------------------+ +------------------------+
 
-> **Note:** Kernel modules can use Linux page caching. For `librbd`-based
-> applications, Ceph supports RBD Caching.
+> **Note:** Kernel modules can use Linux page caching. For ``librbd``-based
+> applications, Ceph supports [RBD Caching](rbd-config-ref.md).
 
 Ceph's block devices deliver high performance with vast scalability to
-kernel modules, or to KVMs (kernel virtual machines) such as QEMU, and
-cloud-based computing systems like OpenStack, OpenNebula and CloudStack
+[kernel modules](rbd-ko.md), or to KVMs (kernel virtual machines) such as [QEMU](qemu-rbd.md), and
+cloud-based computing systems like [OpenStack](rbd-openstack.md), [OpenNebula](https://docs.opennebula.io/stable/open_cluster_deployment/storage_setup/ceph_ds.html) and [CloudStack](rbd-cloudstack.md)
 that rely on libvirt and QEMU to integrate with Ceph block devices. You can use
-the same cluster to operate the Ceph RADOS Gateway, the
-Ceph File System, and Ceph block devices simultaneously.
+the same cluster to operate the [Ceph RADOS Gateway](../radosgw/index.md#object-gateway), the
+[Ceph File System](../cephfs/index.md#ceph-file-system), and Ceph block devices simultaneously.
 
 > **Important:** To use Ceph Block Devices, you must have access to a running
 > Ceph cluster.
@@ -48,7 +48,7 @@ Ceph File System, and Ceph block devices simultaneously.
 .. toctree::
    :maxdepth: 1
 
-	Basic Commands <rados-rbd-cmds>
+   Basic Commands <rados-rbd-cmds>
 
 .. toctree::
    :maxdepth: 2
@@ -56,26 +56,16 @@ Ceph File System, and Ceph block devices simultaneously.
    Operations <rbd-operations>
 
 .. toctree::
+   :maxdepth: 2
 
-	:maxdepth: 2
-
-        Integrations <rbd-integrations>
-
-.. toctree::
-
-	:maxdepth: 2
-
-	Manpages <man/index>
+   Integrations <rbd-integrations>
 
 .. toctree::
+   :maxdepth: 2
 
-	:maxdepth: 2
+   Manpages <man/index>
 
-	APIs <api/index>
+.. toctree::
+   :maxdepth: 2
 
-.. _RBD Caching: ./rbd-config-ref/
-.. _kernel modules: ./rbd-ko/
-.. _QEMU: ./qemu-rbd/
-.. _OpenStack: ./rbd-openstack
-.. _OpenNebula: https://docs.opennebula.io/stable/open_cluster_deployment/storage_setup/ceph_ds.html
-.. _CloudStack: ./rbd-cloudstack
+   APIs <api/index>

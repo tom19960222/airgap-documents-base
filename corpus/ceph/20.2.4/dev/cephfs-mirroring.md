@@ -61,13 +61,13 @@ systemctl start cephfs-mirror@mirror
 ```
 
 Run the `cephfs-mirror` daemon in the foreground by running the following
-command with the `-f` option:
+command with the ``-f`` option:
 
 ```bash
 cephfs-mirror --id mirror --cluster site-a -f
 ```
 
-> **Note:** The user specified here is `mirror`, as created in the `Creating
+> **Note:** The user specified here is ``mirror``, as created in the `Creating
 > Users` section.
 
 ## Mirroring Design
@@ -135,9 +135,9 @@ must be enabled for a given file system. To enable mirroring, run a command of t
 ceph fs snapshot mirror enable <fs_name>
 ```
 
-> **Note:** The mirroring-module commands use the `fs snapshot mirror` prefix
-> as distinct from the monitor commands, which use the `fs mirror` prefix.
-> Make sure to use module (that is, `fs snapshot mirror`) commands.
+> **Note:** The mirroring-module commands use the ``fs snapshot mirror`` prefix
+> as distinct from the monitor commands, which use the ``fs mirror`` prefix.
+> Make sure to use module (that is, ``fs snapshot mirror``) commands.
 
 To disable mirroring, run a command of the following form:
 
@@ -146,7 +146,7 @@ ceph fs snapshot mirror disable <fs_name>
 ```
 
 After mirroring has been enabled, add a peer to which directory snapshots will
-be mirrored. Peers follow the `<client>@<cluster>` specification and get
+be mirrored. Peers follow the ``<client>@<cluster>`` specification and get
 assigned a unique-id (UUID) when added. See the `Creating Users` section for
 information on how to create Ceph users for mirroring.
 
@@ -156,12 +156,12 @@ To add a peer, run a command of the following form:
 ceph fs snapshot mirror peer_add <fs_name> <remote_cluster_spec> [<remote_fs_name>] [<remote_mon_host>] [<cephx_key>]
 ```
 
-`<remote_fs_name>` is optional, and defaults to `<fs_name>` (on the remote
+``<remote_fs_name>`` is optional, and defaults to ``<fs_name>`` (on the remote
 cluster).
 
 This requires that the remote-cluster Ceph configuration and the user keyring
 are available in the primary cluster. See the `Bootstrap Peers` section for
-more information. The `peer_add` subcommand also supports passing the remote
+more information. The ``peer_add`` subcommand also supports passing the remote
 cluster's monitor address and user key. However, bootstrapping a peer is the
 recommended way to add a peer.
 
@@ -196,7 +196,7 @@ ceph fs snapshot mirror remove <fs_name> <path>
 ```
 
 Only absolute directory paths are allowed. Also, paths are normalized by the
-mirroring module. This means that `/a/b/../b` is equivalent to `/a/b`:
+mirroring module. This means that ``/a/b/../b`` is equivalent to ``/a/b``:
 
 ```bash
 mkdir -p /d0/d1/d2
@@ -238,7 +238,7 @@ distribution are detailed in the `Mirror Daemon Status` section.
 
 ## Bootstrap Peers
 
-Adding a peer (via `peer_add`) requires that the peer cluster configuration
+Adding a peer (via ``peer_add``) requires that the peer cluster configuration
 and the user keyring be available in the primary cluster (Manager host and
 hosts running the mirror daemon). This requirement can be avoided by
 bootstrapping and importing a peer token. Peer bootstraping involves creating a
@@ -260,9 +260,9 @@ ceph fs snapshot mirror peer_bootstrap create backup_fs client.mirror_remote sit
 {"token": "eyJmc2lkIjogIjBkZjE3MjE3LWRmY2QtNDAzMC05MDc5LTM2Nzk4NTVkNDJlZiIsICJmaWxlc3lzdGVtIjogImJhY2t1cF9mcyIsICJ1c2VyIjogImNsaWVudC5taXJyb3JfcGVlcl9ib290c3RyYXAiLCAic2l0ZV9uYW1lIjogInNpdGUtcmVtb3RlIiwgImtleSI6ICJBUUFhcDBCZ0xtRmpOeEFBVnNyZXozai9YYUV0T2UrbUJEZlJDZz09IiwgIm1vbl9ob3N0IjogIlt2MjoxOTIuMTY4LjAuNTo0MDkxOCx2MToxOTIuMTY4LjAuNTo0MDkxOV0ifQ=="}
 ```
 
-`site-name` refers to a user-defined string to identify the remote
-filesystem. In the context of the `peer_add` interface, `site-name` is the
-passed in the `cluster` name from `remote_cluster_spec`.
+``site-name`` refers to a user-defined string to identify the remote
+filesystem. In the context of the ``peer_add`` interface, ``site-name`` is the
+passed in the ``cluster`` name from ``remote_cluster_spec``.
 
 Import the bootstrap token in the primary cluster by running a command of the
 following form:
@@ -282,7 +282,7 @@ ceph fs snapshot mirror peer_bootstrap import cephfs eyJmc2lkIjogIjBkZjE3MjE3LWR
 Mirror daemons are asynchronously notified about changes in
 file-system-mirroring status and peer updates.
 
-The CephFS mirroring module provides the `mirror daemon status` interface for
+The CephFS mirroring module provides the ``mirror daemon status`` interface for
 checking the status of the mirror daemon. Run the following command to check
 the status of the mirror daemon:
 
@@ -332,7 +332,7 @@ including configured peers and basic statistics. For more detailed statistics,
 use the admin socket interface as detailed below.
 
 CephFS mirror daemons provide admin socket commands for querying mirror status.
-To list the available commands for `mirror status`, run the following
+To list the available commands for ``mirror status``, run the following
 command:
 
 ```bash
@@ -351,9 +351,9 @@ ceph --admin-daemon /path/to/mirror/daemon/admin/socket help
 }
 ```
 
-Commands that have the `fs mirror status` prefix provide mirror status for
-mirror-enabled file systems. Note that `cephfs@360` has the format
-`filesystem-name@filesystem-id`. This format is required because mirror
+Commands that have the ``fs mirror status`` prefix provide mirror status for
+mirror-enabled file systems. Note that ``cephfs@360`` has the format
+``filesystem-name@filesystem-id``. This format is required because mirror
 daemons are asynchronously notified of file-system mirror status (A file
 system can be deleted and recreated with the same name).
 
@@ -384,13 +384,13 @@ ceph --admin-daemon /var/run/ceph/cephfs-mirror.asok fs mirror status cephfs@360
 }
 ```
 
-The `Peers` section in the command output above shows the peer information
+The ``Peers`` section in the command output above shows the peer information
 such as unique peer-id (UUID) and specification. The peer-id is required to
 remove an existing peer as mentioned in the `Mirror Module and Interface`
 section.
 
-Commands with the `fs mirror peer status` prefix return peer synchronization
-status. Commands of this kind take the form `filesystem-name@filesystem-id peer-uuid`, as in the following example:
+Commands with the ``fs mirror peer status`` prefix return peer synchronization
+status. Commands of this kind take the form ``filesystem-name@filesystem-id peer-uuid``, as in the following example:
 
 ```bash
 ceph --admin-daemon /var/run/ceph/cephfs-mirror.asok fs mirror peer status cephfs@360 a2dc7784-e7a1-4723-b103-03ee8d8768f8
@@ -415,8 +415,8 @@ ceph --admin-daemon /var/run/ceph/cephfs-mirror.asok fs mirror peer status cephf
 }
 ```
 
-Synchronization stats such as `snaps_synced`, `snaps_deleted` and
-`snaps_renamed` are reset when the daemon is restarted or (when multiple
+Synchronization stats such as ``snaps_synced``, ``snaps_deleted`` and
+``snaps_renamed`` are reset when the daemon is restarted or (when multiple
 mirror daemons are deployed), when a directory is reassigned to another mirror
 daemon.
 
@@ -429,15 +429,15 @@ A directory can be in one of the following states:
 ```
 
 When a directory hits a configured number of consecutive synchronization
-failures, the mirror daemon marks it as `failed`. Synchronization for these
+failures, the mirror daemon marks it as ``failed``. Synchronization for these
 directories is retried. By default, the number of consecutive failures before a
 directory is marked as failed is controlled by the
-`cephfs_mirror_max_consecutive_failures_per_directory` configuration option
-(default: `10`). The retry interval for failed directories is controlled by
-the `cephfs_mirror_retry_failed_directories_interval` configuration option
-(default: `60s`).
+``cephfs_mirror_max_consecutive_failures_per_directory`` configuration option
+(default: ``10``). The retry interval for failed directories is controlled by
+the ``cephfs_mirror_retry_failed_directories_interval`` configuration option
+(default: ``60s``).
 
-For example, adding a regular file for synchronization results in a `failed`
+For example, adding a regular file for synchronization results in a ``failed``
 status:
 
 ```bash
@@ -475,7 +475,7 @@ mirror daemon marks the directory as failed and retries (less frequently).
 When the directory comes into existence, the mirror daemons notice the
 successful snapshot synchronization and unmark the failed state.
 
-When mirroring is disabled, the `fs mirror status` command for the file
+When mirroring is disabled, the ``fs mirror status`` command for the file
 system will not show up in command help.
 
 The mirroring module provides a couple of commands to display directory mapping
@@ -496,10 +496,10 @@ ceph fs snapshot mirror dirmap cephfs /d0/d1/d2
 }
 ```
 
-> **Note:** `instance_id` is the RADOS instance-id associated with a mirror
+> **Note:** ``instance_id`` is the RADOS instance-id associated with a mirror
 > daemon.
 
-Other information such as `state` and `last_shuffled` are interesting when
+Other information such as ``state`` and ``last_shuffled`` are interesting when
 running multiple mirror daemons.
 
 If no mirror daemons are running, the same command shows the following:
@@ -524,7 +524,7 @@ stalled.
 
 When re-adding (reassigning) a peer to a file system in another cluster, ensure
 that all mirror daemons have stopped synchronizing with the peer. This can be
-checked via the  `fs mirror status` admin socket command (the `Peer UUID`
+checked via the  ``fs mirror status`` admin socket command (the ``Peer UUID``
 should not show up in the command output). We recommend purging
 synchronized directories from the peer before re-adding them to another file
 system (especially those directories which might exist in the new primary file
@@ -533,7 +533,5 @@ system it was synchronized from before.
 
 ## Feature Status
 
-The `cephfs-mirror` daemon is built by default. It follows the
-`WITH_CEPHFS` CMake rule).
-
-.. _CephFS Snapdiff Feature: https://croit.io/blog/cephfs-snapdiff-feature
+The ``cephfs-mirror`` daemon is built by default. It follows the
+``WITH_CEPHFS`` CMake rule).

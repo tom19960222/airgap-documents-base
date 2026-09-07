@@ -11,7 +11,7 @@ This guide will describe how to build and test Ceph for development.
 
 ## Development
 
-The `run-make-check.sh` script will install Ceph dependencies,
+The ``run-make-check.sh`` script will install Ceph dependencies,
 compile everything in debug mode and run a number of tests to verify
 the result behaves as expected.
 
@@ -42,12 +42,12 @@ Finally, build ceph:
 cmake --build build [--target <target>...]
 ```
 
-Omit `--target...` if you want to do a full build.
+Omit ``--target...`` if you want to do a full build.
 
 ## Running a development deployment
 
-Ceph contains a script called `vstart.sh` (see also
-/dev/dev_cluster_deployment) which allows developers to quickly test
+Ceph contains a script called ``vstart.sh`` (see also
+[/dev/dev_cluster_deployment](dev_cluster_deployment.md)) which allows developers to quickly test
 their code using a simple deployment on your development system. Once the build
 finishes successfully, start the ceph deployment using the following command:
 
@@ -56,13 +56,13 @@ cd build
 ../src/vstart.sh -d -n
 ```
 
-You can also configure `vstart.sh` to use only one monitor and one metadata server by using the following:
+You can also configure ``vstart.sh`` to use only one monitor and one metadata server by using the following:
 
 ```bash
 env MON=1 MDS=1 ../src/vstart.sh -d -n -x
 ```
 
-Most logs from the cluster can be found in `build/out`.
+Most logs from the cluster can be found in ``build/out``.
 
 The system creates two pools on startup: `cephfs_data_a` and `cephfs_metadata_a`.  Let's get some stats on
 the current pools:
@@ -131,7 +131,7 @@ env MDS=1 MON=1 OSD=3 ../src/vstart.sh -n -d
 
 ## Running a RadosGW development environment
 
-Set the `RGW` environment variable when running vstart.sh to enable the RadosGW.
+Set the ``RGW`` environment variable when running vstart.sh to enable the RadosGW.
 
 ```bash
 cd build

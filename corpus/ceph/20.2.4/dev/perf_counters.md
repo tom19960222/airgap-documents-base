@@ -5,17 +5,17 @@ title: "Perf counters"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/perf_counters.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _Perf Counters:
+<a id="perf-counters"></a>
 
 # Perf counters
 
 The perf counters provide generic internal infrastructure for gauges and counters.  The counted values can be both integer and float. There is also an "average" type (normally float) that combines a sum and num counter which can be divided to provide an average.
 
-The intention is that this data will be collected and aggregated by a tool like `collectd` or `statsd` and fed into a tool like `graphite` for graphing and analysis.  Also, note the ../mgr/prometheus and the ../mgr/telemetry.
+The intention is that this data will be collected and aggregated by a tool like ``collectd`` or ``statsd`` and fed into a tool like ``graphite`` for graphing and analysis.  Also, note the [../mgr/prometheus](../mgr/prometheus.md) and the [../mgr/telemetry](../mgr/telemetry.md).
 
-Users and developers can also access perf counter data locally to check a cluster's overall health, identify workload patterns, monitor cluster performance by daemon types, and troubleshoot issues with latency, throttling, memory management, etc. (see Access)
+Users and developers can also access perf counter data locally to check a cluster's overall health, identify workload patterns, monitor cluster performance by daemon types, and troubleshoot issues with latency, throttling, memory management, etc. (see [Access](perf_counters.md#access))
 
-.. _Access:
+<a id="access"></a>
 
 ## Access
 
@@ -28,7 +28,7 @@ ceph daemon osd.0 perf dump
 
 ## Collections
 
-The values are grouped into named collections, normally representing a subsystem or an instance of a subsystem.  For example, the internal `throttle` mechanism reports statistics on how it is throttling, and each instance is named something like:
+The values are grouped into named collections, normally representing a subsystem or an instance of a subsystem.  For example, the internal ``throttle`` mechanism reports statistics on how it is throttling, and each instance is named something like:
 
 ```
 
@@ -40,19 +40,14 @@ throttle-filestore_bytes
 
 ## Schema
 
-The `perf schema` command dumps a json description of which values are available, and what their type is.  Each named value as a `type` bitfield, with the following bits defined.
+The ``perf schema`` command dumps a json description of which values are available, and what their type is.  Each named value as a ``type`` bitfield, with the following bits defined.
 
-+------+-------------------------------------+
-| bit  | meaning                             |
-+======+=====================================+
-| 1    | floating point value                |
-+------+-------------------------------------+
-| 2    | unsigned 64-bit integer value       |
-+------+-------------------------------------+
-| 4    | average (sum + count pair), where   |
-+------+-------------------------------------+
-| 8    | counter (vs gauge)                  |
-+------+-------------------------------------+
+| bit | meaning |
+| --- | --- |
+| 1 | floating point value |
+| 2 | unsigned 64-bit integer value |
+| 4 | average (sum + count pair), where |
+| 8 | counter (vs gauge) |
 
 Every value will have either bit 1 or 2 set to indicate the type
 (float or integer).
@@ -69,10 +64,10 @@ lifetime average value.  Normally these are used to measure latencies
 (number of requests and a sum of request latencies), and the average
 for the previous interval is what is interesting.
 
-Instead of interpreting the bit fields, the `metric type` has a
-value of either `gauge` or `counter`, and the `value type`
-property will be one of `real`, `integer`, `real-integer-pair`
-(for a sum + real count pair), or `integer-integer-pair` (for a
+Instead of interpreting the bit fields, the ``metric type`` has a
+value of either ``gauge`` or ``counter``, and the ``value type``
+property will be one of ``real``, ``integer``, ``real-integer-pair``
+(for a sum + real count pair), or ``integer-integer-pair`` (for a
 sum + integer count pair).
 
 Here is an example of the schema output:
@@ -208,7 +203,7 @@ The actual dump is similar to the schema, except that average values are grouped
 }
 ```
 
-.. _Labeled Perf Counters:
+<a id="labeled-perf-counters"></a>
 
 ## Labeled Perf Counters
 
@@ -249,12 +244,12 @@ For example, the below counters show the number of put requests for different us
 }
 ```
 
-All labeled and unlabeled perf counters can be viewed with `ceph daemon {daemon id} counter dump`.
+All labeled and unlabeled perf counters can be viewed with ``ceph daemon {daemon id} counter dump``.
 
-All labeled and unlabeled perf counter's schema can be viewed with `ceph daemon {daemon id} counter schema`.
+All labeled and unlabeled perf counter's schema can be viewed with ``ceph daemon {daemon id} counter schema``.
 
-In the above example the second counter without labels is a counter that would also be shown in `ceph daemon {daemon id} perf dump`.
+In the above example the second counter without labels is a counter that would also be shown in ``ceph daemon {daemon id} perf dump``.
 
-Since the `counter dump` and `counter schema` commands can be used to view both types of counters it is not recommended to use the `perf dump` and `perf schema` commands which are retained for backwards compatibility and continue to emit only non-labeled counters.
+Since the ``counter dump`` and ``counter schema`` commands can be used to view both types of counters it is not recommended to use the ``perf dump`` and ``perf schema`` commands which are retained for backwards compatibility and continue to emit only non-labeled counters.
 
-Some perf counters that are emitted via `perf dump` and `perf schema` may become labeled in future releases and as such will no longer be emitted by `perf dump` and `perf schema` respectively.
+Some perf counters that are emitted via ``perf dump`` and ``perf schema`` may become labeled in future releases and as such will no longer be emitted by ``perf dump`` and ``perf schema`` respectively.

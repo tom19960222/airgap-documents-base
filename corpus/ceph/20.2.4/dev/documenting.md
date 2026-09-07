@@ -10,31 +10,28 @@ fetched_at: 2026-08-18T01:32:45Z
 # User documentation
 
 The documentation on docs.ceph.com is generated from the reStructuredText
-sources in `/doc/` in the Ceph git repository.
+sources in ``/doc/`` in the Ceph git repository.
 
 Please make sure that your changes are written in a way that is intended
 for end users of the software, unless you are making additions in
-`/doc/dev/`, which is the section for developers.
+``/doc/dev/``, which is the section for developers.
 
 All pull requests that modify user-facing functionality must
 include corresponding updates to documentation: see
-Submitting Patches for more detail.
+[Submitting Patches](https://github.com/ceph/ceph/blob/master/SubmittingPatches.rst) for more detail.
 
 Check your .rst syntax is working as expected by using the "View"
 button in the github user interface when looking at a diff on
-an .rst file, or build the docs locally using the `admin/build-doc`
+an .rst file, or build the docs locally using the ``admin/build-doc``
 script.
 
 For more information about the Ceph documentation, see
-/start/documenting-ceph.
+[/start/documenting-ceph](../start/documenting-ceph.md).
 
 # Code Documentation
 
-C and C++ can be documented with Doxygen_, using the subset of Doxygen
-markup supported by Breathe_.
-
-.. _Doxygen: http://www.doxygen.nl/
-.. _Breathe: https://github.com/michaeljones/breathe
+C and C++ can be documented with [Doxygen](http://www.doxygen.nl/), using the subset of Doxygen
+markup supported by [Breathe](https://github.com/michaeljones/breathe).
 
 The general format for function documentation is
 
@@ -52,9 +49,8 @@ The general format for function documentation is
 ```
 
 This should be in the header where the function is declared, and
-functions should be grouped into logical categories. The `librados C
-API`_ provides a complete example. It is pulled into Sphinx by
-librados.rst, which is rendered at /rados/api/librados.
+functions should be grouped into logical categories. The [librados C API](https://github.com/ceph/ceph/blob/master/src/include/rados/librados.h) provides a complete example. It is pulled into Sphinx by
+[librados.rst](https://github.com/ceph/ceph/raw/master/doc/rados/api/librados.rst), which is rendered at [/rados/api/librados](../rados/api/librados.md).
 
 To generate the doxygen documentation in HTML format use:
 
@@ -64,19 +60,13 @@ To generate the doxygen documentation in HTML format use:
 # cmake --build . --target doxygen
 ```
 
-HTML output will be under: `build-doc/doxygen/html`
-
-.. _`librados C API`: https://github.com/ceph/ceph/blob/master/src/include/rados/librados.h
-.. _`librados.rst`: https://github.com/ceph/ceph/raw/master/doc/rados/api/librados.rst
+HTML output will be under: ``build-doc/doxygen/html``
 
 # Drawing diagrams
 
 ## Graphviz
 
-You can use Graphviz_, as explained in the Graphviz extension documentation.
-
-.. _Graphviz: http://graphviz.org/
-.. _`Graphviz extension documentation`: https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html
+You can use [Graphviz](http://graphviz.org/), as explained in the [Graphviz extension documentation](https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html).
 
 .. graphviz::
 
@@ -100,9 +90,7 @@ GraphViz.
 
 ## Ditaa
 
-You can use Ditaa_:
-
-.. _Ditaa: http://ditaa.sourceforge.net/
+You can use [Ditaa](http://ditaa.sourceforge.net/):
 
 .. ditaa::
 
@@ -112,22 +100,14 @@ You can use Ditaa_:
 
 ## Blockdiag
 
-If a use arises, we can integrate Blockdiag_. It is a Graphviz-style
+If a use arises, we can integrate [Blockdiag](http://blockdiag.com/en/). It is a Graphviz-style
 declarative language for drawing things, and includes:
 
-- block diagrams: boxes and arrows (automatic layout, as opposed to
-  Ditaa_)
-- sequence diagrams: timelines and messages between them
-- activity diagrams: subsystems and activities in them
-- network diagrams: hosts, LANs, IP addresses etc (with `Cisco
-  icons`_ if wanted)
-
-.. _Blockdiag: http://blockdiag.com/en/
-.. _`Cisco icons`: https://pypi.org/project/blockdiagcontrib-cisco/
-.. _`block diagrams`: http://blockdiag.com/en/blockdiag/
-.. _`sequence diagrams`: http://blockdiag.com/en/seqdiag/index.html
-.. _`activity diagrams`: http://blockdiag.com/en/actdiag/index.html
-.. _`network diagrams`: http://blockdiag.com/en/nwdiag/
+- [block diagrams](http://blockdiag.com/en/blockdiag/): boxes and arrows (automatic layout, as opposed to
+  [Ditaa](http://ditaa.sourceforge.net/))
+- [sequence diagrams](http://blockdiag.com/en/seqdiag/index.html): timelines and messages between them
+- [activity diagrams](http://blockdiag.com/en/actdiag/index.html): subsystems and activities in them
+- [network diagrams](http://blockdiag.com/en/nwdiag/): hosts, LANs, IP addresses etc (with [Cisco icons](https://pypi.org/project/blockdiagcontrib-cisco/) if wanted)
 
 ## Inkscape
 
@@ -142,5 +122,3 @@ By committing the SVG file, others will be able to update the
 SVG diagrams using Inkscape.
 
 HTML5 will support SVG inline.
-
-.. _`Submitting Patches`: https://github.com/ceph/ceph/blob/master/SubmittingPatches.rst

@@ -5,7 +5,7 @@ title: "Host Management"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/host-management.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _orchestrator-cli-host-management:
+<a id="orchestrator-cli-host-management"></a>
 
 # Host Management
 
@@ -44,16 +44,16 @@ ceph-master  192.168.122.73  _admin          QEMU (Standard PC (Q35 + ICH9, 2009
 1 hosts in cluster
 ```
 
-.. _cephadm-adding-hosts:
+<a id="cephadm-adding-hosts"></a>
 
 # Adding Hosts
 
-Hosts must have these cephadm-host-requirements installed.
+Hosts must have these [cephadm-host-requirements](install.md#cephadm-host-requirements) installed.
 Hosts without all the necessary requirements will fail to be added to the cluster.
 
 To add each new host to the cluster, perform two steps:
 
-1. Install the cluster's public SSH key in the new host's root user's `authorized_keys` file:
+1. Install the cluster's public SSH key in the new host's root user's ``authorized_keys`` file:
 
 ```bash
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@*<new-host>*
@@ -84,15 +84,15 @@ ceph orch host add host3 10.10.0.103
    DNS and the result will be used.
 
    One or more labels can also be included to immediately label the
-   new host.  For example, by default the `_admin` label will make
-   cephadm maintain a copy of the `ceph.conf` file and a
-   `client.admin` keyring file in `/etc/ceph`:
+   new host.  For example, by default the ``_admin`` label will make
+   cephadm maintain a copy of the ``ceph.conf`` file and a
+   ``client.admin`` keyring file in ``/etc/ceph``:
 
 ```bash
 ceph orch host add host4 10.10.0.104 --labels _admin
 ```
 
-.. _cephadm-removing-hosts:
+<a id="cephadm-removing-hosts"></a>
 
 # Removing Hosts
 
@@ -105,19 +105,19 @@ To drain all daemons from a host, run a command of the following form:
 ceph orch host drain *<host>*
 ```
 
-The `_no_schedule` and `_no_conf_keyring` labels will be applied to the
-host. See cephadm-special-host-labels.
+The ``_no_schedule`` and ``_no_conf_keyring`` labels will be applied to the
+host. See [cephadm-special-host-labels](host-management.md#cephadm-special-host-labels).
 
 If you want to drain daemons but leave managed `ceph.conf` and keyring
-files on the host, you may pass the `--keep-conf-keyring` flag to the
+files on the host, you may pass the ``--keep-conf-keyring`` flag to the
 drain command.
 
 ```bash
 ceph orch host drain *<host>* --keep-conf-keyring
 ```
 
-This will apply the `_no_schedule` label to the host but not the
-`_no_conf_keyring` label.
+This will apply the ``_no_schedule`` label to the host but not the
+``_no_conf_keyring`` label.
 
 All OSDs on the host will be scheduled to be removed. You can check
 progress of the OSD removal operation with the following command:
@@ -126,9 +126,9 @@ progress of the OSD removal operation with the following command:
 ceph orch osd rm status
 ```
 
-See cephadm-osd-removal for more details about OSD removal.
+See [cephadm-osd-removal](services/osd.md#cephadm-osd-removal) for more details about OSD removal.
 
-The `orch host drain` command also supports a `--zap-osd-devices`
+The ``orch host drain`` command also supports a ``--zap-osd-devices``
 flag. Setting this flag while draining a host will cause cephadm to zap
 the devices of the OSDs it is removing as part of the drain process
 
@@ -160,19 +160,19 @@ ceph orch host rm <host> --offline --force
 ```
 
 > **Warning:** This can potentially cause data loss. This command forcefully
-> purges OSDs from the cluster by calling `osd purge-actual` for each OSD.
+> purges OSDs from the cluster by calling ``osd purge-actual`` for each OSD.
 > Any service specs that still contain this host should be manually updated.
 
-.. _orchestrator-host-labels:
+<a id="orchestrator-host-labels"></a>
 
 # Host labels
 
 The orchestrator supports assigning labels to hosts. Labels
 are free form and have no particular meaning by itself and each host
 can have multiple labels. They can be used to specify placement
-of daemons. See orch-placement-by-labels
+of daemons. See [orch-placement-by-labels](services/index.md#orch-placement-by-labels)
 
-Labels can be added when adding a host with the `--labels` flag:
+Labels can be added when adding a host with the ``--labels`` flag:
 
 ```bash
 ceph orch host add my_hostname --labels=my_label1
@@ -191,39 +191,39 @@ To remove a label, run:
 ceph orch host label rm my_hostname my_label
 ```
 
-.. _cephadm-special-host-labels:
+<a id="cephadm-special-host-labels"></a>
 
 ## Special host labels
 
-The following host labels have a special meaning to cephadm.  All start with `_`.
+The following host labels have a special meaning to cephadm.  All start with ``_``.
 
-* `_no_schedule`: *Do not schedule or deploy daemons on this host*.
+* ``_no_schedule``: *Do not schedule or deploy daemons on this host*.
 
   This label prevents cephadm from deploying daemons on this host.  If it is added to
   an existing host that already contains Ceph daemons, it will cause cephadm to move
   those daemons elsewhere (except OSDs, which are not removed automatically).
 
-* `_no_conf_keyring`: *Do not deploy config files or keyrings on this host*.
+* ``_no_conf_keyring``: *Do not deploy config files or keyrings on this host*.
 
-  This label is effectively the same as `_no_schedule` but instead of working for
+  This label is effectively the same as ``_no_schedule`` but instead of working for
   daemons it works for client keyrings and ceph conf files that are being managed
   by cephadm
 
-* `_no_autotune_memory`: *Do not autotune memory on this host*.
+* ``_no_autotune_memory``: *Do not autotune memory on this host*.
 
   This label will prevent daemon memory from being tuned even when the
-  `osd_memory_target_autotune` or similar option is enabled for one or more daemons
+  ``osd_memory_target_autotune`` or similar option is enabled for one or more daemons
   on that host.
 
-* `_admin`: *Distribute client.admin and ceph.conf to this host*.
+* ``_admin``: *Distribute client.admin and ceph.conf to this host*.
 
-  By default, an `_admin` label is applied to the first host in the cluster (where
-  bootstrap was originally run), and the `client.admin` key is set to be distributed
-  to that host via the `ceph orch client-keyring ...` function.  Adding this label
+  By default, an ``_admin`` label is applied to the first host in the cluster (where
+  bootstrap was originally run), and the ``client.admin`` key is set to be distributed
+  to that host via the ``ceph orch client-keyring ...`` function.  Adding this label
   to additional hosts will normally cause cephadm to deploy config and keyring files
-  in `/etc/ceph`. Starting from versions 16.2.10 (Pacific) and 17.2.1 (Quincy) in
-  addition to the default location `/etc/ceph/` cephadm also stores config and keyring
-  files in the `/var/lib/ceph/<fsid>/config` directory.
+  in ``/etc/ceph``. Starting from versions 16.2.10 (Pacific) and 17.2.1 (Quincy) in
+  addition to the default location ``/etc/ceph/`` cephadm also stores config and keyring
+  files in the ``/var/lib/ceph/<fsid>/config`` directory.
 
 # Maintenance Mode
 
@@ -236,27 +236,27 @@ ceph orch host maintenance enter <hostname> [--force] [--yes-i-really-mean-it]
 ceph orch host maintenance exit <hostname> [--force] [--offline]
 ```
 
-* Adding the `--force` flag to the `enter` command allows the user to bypass
+* Adding the ``--force`` flag to the ``enter`` command allows the user to bypass
   warnings (but not alerts).
-* Adding the `--yes-i-really-mean-it` flag to the `enter` command bypasses
+* Adding the ``--yes-i-really-mean-it`` flag to the ``enter`` command bypasses
   all safety checks and makes an attempt to force the host into maintenance
   mode.
-* Adding the `--force` and `--offline` flags to the `exit` command cause
+* Adding the ``--force`` and ``--offline`` flags to the ``exit`` command cause
   cephadm to mark hosts that are in maintenance mode and offline as no longer
   in maintenance mode. Note that if the host comes online, the Ceph daemons on
-  the host will remain in the stopped state. The `--force` and `--offline`
-  flags of the `exit` command are meant to be run on hosts that are in
+  the host will remain in the stopped state. The ``--force`` and ``--offline``
+  flags of the ``exit`` command are meant to be run on hosts that are in
   maintenance mode and that are permanently offline prior to the removal of
-  those hosts from cephadm management by running the `ceph orch host rm`
+  those hosts from cephadm management by running the ``ceph orch host rm``
   command.
 
-> **Warning:** Using the `--yes-i-really-mean-it` flag to force the host to
+> **Warning:** Using the ``--yes-i-really-mean-it`` flag to force the host to
 > enter maintenance mode can cause loss of data availability, breakdown of the
 > mon quorum due to too few running monitors, unresponsive mgr module commands
-> (such as `ceph orch . . .` commands), and other issues. Use this flag only
+> (such as ``ceph orch . . .`` commands), and other issues. Use this flag only
 > if you're absolutely certain that you know what you're doing.
 
-See also cephadm-fqdn
+See also [cephadm-fqdn](host-management.md#cephadm-fqdn)
 
 # Rescanning Host Devices
 
@@ -268,7 +268,7 @@ A rescan is typically non-disruptive, and can be performed with the following CL
 ceph orch host rescan <hostname> [--with-summary]
 ```
 
-The `with-summary` flag provides a breakdown of the number of HBAs found and scanned, together
+The ``with-summary`` flag provides a breakdown of the number of HBAs found and scanned, together
 with any that failed:
 
 ```bash
@@ -284,7 +284,7 @@ Ok. 2 adapters detected: 2 rescanned, 0 skipped, 0 failed (0.32s)
 # Creating many hosts at once
 
 Many hosts can be added at once using
-`ceph orch apply -i` by submitting a multi-document YAML file:
+``ceph orch apply -i`` by submitting a multi-document YAML file:
 
 ```yaml
 service_type: host
@@ -305,14 +305,14 @@ hostname: node-02
 addr: 192.168.0.12
 ```
 
-This can be combined with service specifications
+This can be combined with [service specifications](services/index.md#orchestrator-cli-service-spec)
 to create a cluster spec file to deploy a whole cluster in one command.  see
-`cephadm bootstrap --apply-spec` also to do this during bootstrap. Cluster
+``cephadm bootstrap --apply-spec`` also to do this during bootstrap. Cluster
 SSH Keys must be copied to hosts prior to adding them.
 
 # Setting the initial CRUSH location of host
 
-Hosts can contain a `location` identifier which will instruct cephadm to
+Hosts can contain a ``location`` identifier which will instruct cephadm to
 create a new CRUSH host bucket located in the specified hierarchy.
 You can specify more than one element of the tree when doing so (for
 instance if you want to ensure that the rack that a host is being
@@ -328,17 +328,17 @@ location:
 ```
 
 > **Note:**
-> The `location` attribute will affect only the initial CRUSH location.
-> Subsequent changes to the `location` property will be ignored.
+> The ``location`` attribute will affect only the initial CRUSH location.
+> Subsequent changes to the ``location`` property will be ignored.
 > Removing a host will not remove an associated CRUSH bucket unless the
-> `--rm-crush-entry` flag is provided to the `orch host rm` command.
+> ``--rm-crush-entry`` flag is provided to the ``orch host rm`` command.
 
-See also crush_map_default_types.
+See also [crush_map_default_types](../rados/operations/crush-map.md#crush-map-default-types).
 
 # Removing a host from the CRUSH map
 
-The `ceph orch host rm` command has support for removing the associated host bucket
-from the CRUSH map. This is done by providing the `--rm-crush-entry` flag.
+The ``ceph orch host rm`` command has support for removing the associated host bucket
+from the CRUSH map. This is done by providing the ``--rm-crush-entry`` flag.
 
 ```bash
 ceph orch host rm host1 --rm-crush-entry
@@ -352,14 +352,14 @@ cephadm control.
 > **Note:**
 > Removal from the CRUSH map will fail if there are OSDs deployed on the
 > host. If you would like to remove all the host's OSDs as well, please start
-> by using  the `ceph orch host drain` command to do so. Once the OSDs
+> by using  the ``ceph orch host drain`` command to do so. Once the OSDs
 > have been removed, then you may direct cephadm remove the CRUSH bucket
-> along with the host using the `--rm-crush-entry` flag.
+> along with the host using the ``--rm-crush-entry`` flag.
 
 # OS Tuning Profiles
 
 Cephadm can be used to manage operating system tuning profiles that apply
-`sysctl` settings to sets of hosts.
+``sysctl`` settings to sets of hosts.
 
 To do so, create a YAML spec file in the following format:
 
@@ -380,28 +380,28 @@ Apply the tuning profile with the following command:
 ceph orch tuned-profile apply -i <tuned-profile-file-name>
 ```
 
-This profile is written to a file under `/etc/sysctl.d/` on each host
-specified in the `placement` block, then `sysctl --system` is
+This profile is written to a file under ``/etc/sysctl.d/`` on each host
+specified in the ``placement`` block, then ``sysctl --system`` is
 run on the host.
 
 > **Note:**
-> The exact filename that the profile is written to within `/etc/sysctl.d/`
-> is `<profile-name>-cephadm-tuned-profile.conf`, where `<profile-name>` is
-> the `profile_name` setting that you specify in the YAML spec. We suggest
-> naming these profiles following the usual `sysctl.d` `NN-xxxxx` convention. Because
+> The exact filename that the profile is written to within ``/etc/sysctl.d/``
+> is ``<profile-name>-cephadm-tuned-profile.conf``, where ``<profile-name>`` is
+> the ``profile_name`` setting that you specify in the YAML spec. We suggest
+> naming these profiles following the usual ``sysctl.d`` `NN-xxxxx` convention. Because
 > sysctl settings are applied in lexicographical order (sorted by the filename
 > in which the setting is specified), you may want to carefully choose
-> the `profile_name` in your spec so that it is applied before or after other
+> the ``profile_name`` in your spec so that it is applied before or after other
 > conf files.  Careful selection ensures that values supplied here override or
-> do not override those in other `sysctl.d` files as desired.
+> do not override those in other ``sysctl.d`` files as desired.
 
 > **Note:**
 > These settings are applied only at the host level, and are not specific
 > to any particular daemon or container.
 
 > **Note:**
-> Applying tuning profiles is idempotent when the `--no-overwrite` option is
-> passed. Moreover, if the `--no-overwrite` option is passed, existing
+> Applying tuning profiles is idempotent when the ``--no-overwrite`` option is
+> passed. Moreover, if the ``--no-overwrite`` option is passed, existing
 > profiles with the same name are not overwritten.
 
 ## Viewing Profiles
@@ -413,8 +413,8 @@ ceph orch tuned-profile ls
 ```
 
 > **Note:**
-> To make modifications and re-apply a profile, pass `--format yaml` to the
-> `tuned-profile ls` command. The `tuned-profile ls --format yaml` command
+> To make modifications and re-apply a profile, pass ``--format yaml`` to the
+> ``tuned-profile ls`` command. The ``tuned-profile ls --format yaml`` command
 > presents the profiles in a format that is easy to copy and re-apply.
 
 ## Removing Profiles
@@ -425,7 +425,7 @@ To remove a previously applied profile, run this command:
 ceph orch tuned-profile rm <profile-name>
 ```
 
-When a profile is removed, cephadm cleans up the file previously written to `/etc/sysctl.d`.
+When a profile is removed, cephadm cleans up the file previously written to ``/etc/sysctl.d``.
 
 ## Modifying Profiles
 
@@ -449,7 +449,7 @@ ceph orch tuned-profile rm-setting <profile-name> <setting-name>
 > Modifying the placement requires re-applying a profile with the same name.
 > Remember that profiles are tracked by their names, so when a profile with the
 > same name as an existing profile is applied, it overwrites the old profile
-> unless the `--no-overwrite` flag is passed.
+> unless the ``--no-overwrite`` flag is passed.
 
 # SSH Configuration
 
@@ -494,7 +494,7 @@ You will then need to restart the mgr daemon to reload the configuration with:
 ceph mgr fail
 ```
 
-.. _cephadm-ssh-user:
+<a id="cephadm-ssh-user"></a>
 
 ## Configuring a different SSH user
 
@@ -514,7 +514,7 @@ authorized_keys file and non-root users must have passwordless sudo access.
 
 ## Customizing the SSH configuration
 
-Cephadm generates an appropriate `ssh_config` file that is
+Cephadm generates an appropriate ``ssh_config`` file that is
 used for connecting to remote hosts.  This configuration looks
 something like this:
 
@@ -551,8 +551,8 @@ ceph config set mgr mgr/cephadm/ssh_config_file <path>
    containers. That means that the file must either be placed
    inside a customized container image for your deployment, or
    manually distributed to the mgr data directory
-   (`/var/lib/ceph/<cluster-fsid>/mgr.<id>` on the host, visible at
-   `/var/lib/ceph/mgr/ceph-<id>` from inside the container).
+   (``/var/lib/ceph/<cluster-fsid>/mgr.<id>`` on the host, visible at
+   ``/var/lib/ceph/mgr/ceph-<id>`` from inside the container).
 
 ## Setting up CA signed keys for the cluster
 
@@ -561,7 +561,7 @@ across cluster nodes. In this setup, instead of needing a private
 key and public key, we instead need a private key and certificate
 created by signing that private key with a CA key. For more info
 on setting up nodes for authentication using a CA signed key, see
-cephadm-bootstrap-ca-signed-keys. Once you have your private
+[cephadm-bootstrap-ca-signed-keys](install.md#cephadm-bootstrap-ca-signed-keys). Once you have your private
 key and signed cert, they can be set up for cephadm to use by running:
 
 ```bash
@@ -569,39 +569,39 @@ ceph config-key set mgr/cephadm/ssh_identity_key -i <private-key-file>
 ceph config-key set mgr/cephadm/ssh_identity_cert -i <signed-cert-file>
 ```
 
-.. _cephadm-fqdn:
+<a id="cephadm-fqdn"></a>
 
 # Fully qualified domain names vs bare host names
 
 > **Note:**
-> cephadm demands that the name of the host given via `ceph orch host add`
-> equals the output of `hostname` on remote hosts.
+> cephadm demands that the name of the host given via ``ceph orch host add``
+> equals the output of ``hostname`` on remote hosts.
 
 Otherwise cephadm can't be sure that names returned by
-`ceph * metadata` match the hosts known to cephadm. This might result
-in a cephadm-stray-host warning.
+``ceph * metadata`` match the hosts known to cephadm. This might result
+in a [cephadm-stray-host](operations.md#cephadm-stray-host) warning.
 
 When configuring new hosts, there are two **valid** ways to set the
-`hostname` of a host:
+``hostname`` of a host:
 
 1. Using the bare host name. In this case:
 
--  `hostname` returns the bare host name.
--  `hostname -f` returns the FQDN.
+-  ``hostname`` returns the bare host name.
+-  ``hostname -f`` returns the FQDN.
 
 2. Using the fully qualified domain name as the host name. In this case:
 
--  `hostname` returns the FQDN
--  `hostname -s` return the bare host name
+-  ``hostname`` returns the FQDN
+-  ``hostname -s`` return the bare host name
 
-Note that `man hostname` recommends `hostname` to return the bare
+Note that ``man hostname`` recommends ``hostname`` to return the bare
 host name:
 
     The FQDN (Fully Qualified Domain Name) of the system is the
     name that the resolver(3) returns for the host name, for example
-    `ursula.example.com`. It is usually the short hostname followed by the DNS
+    ``ursula.example.com``. It is usually the short hostname followed by the DNS
     domain name (the part after the first dot). You can check the FQDN
-    using `hostname --fqdn` or the domain name using `dnsdomainname`.
+    using ``hostname --fqdn`` or the domain name using ``dnsdomainname``.
 
 ```none
 You cannot change the FQDN with hostname or dnsdomainname.
@@ -614,11 +614,11 @@ a line in /etc/hosts which reads
        127.0.1.1    ursula.example.com ursula
 ```
 
-Which means, `man hostname` recommends `hostname` to return the bare
+Which means, ``man hostname`` recommends ``hostname`` to return the bare
 host name. This in turn means that Ceph will return the bare host names
-when executing `ceph * metadata`. This in turn means cephadm also
+when executing ``ceph * metadata``. This in turn means cephadm also
 requires the bare host name when adding a host to the cluster:
-`ceph orch host add <bare-name>`.
+``ceph orch host add <bare-name>``.
 
 ..
   TODO: This chapter needs to provide way for users to configure

@@ -5,14 +5,14 @@ title: "RGW Multi-tenancy"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/multitenancy.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _rgw-multitenancy:
+<a id="rgw-multitenancy"></a>
 
 # RGW Multi-tenancy
 
 .. versionadded:: Jewel
 
 The multi-tenancy feature allows to use buckets and users of the same
-name simultaneously by segregating them under so-called `tenants`.
+name simultaneously by segregating them under so-called ``tenants``.
 This may be useful, for instance, to permit users of Swift API to
 create buckets with easily conflicting names such as "test" or "trove".
 
@@ -77,15 +77,14 @@ https://ep.host.dom/tenant:bucket
 Here's a simple Python sample:
 
 ```python
+from boto.s3.connection import S3Connection, OrdinaryCallingFormat
+c = S3Connection(
+        aws_access_key_id="TESTER",
+        aws_secret_access_key="test123",
+        host="ep.host.dom",
+        calling_format = OrdinaryCallingFormat())
+bucket = c.get_bucket("test5b:testbucket")
 ```
-
-	from boto.s3.connection import S3Connection, OrdinaryCallingFormat
-	c = S3Connection(
-		aws_access_key_id="TESTER",
-		aws_secret_access_key="test123",
-		host="ep.host.dom",
-		calling_format = OrdinaryCallingFormat())
-	bucket = c.get_bucket("test5b:testbucket")
 
 Note that it's not possible to supply an explicit tenant using
 a hostname. Hostnames cannot contain colons, or any other separators
@@ -97,7 +96,7 @@ Due to the fact that the native S3 API does not deal with
 multi-tenancy and radosgw's implementation does, things get a bit
 involved when dealing with signed URLs and public read ACLs.
 
-* A **signed URL** does contain the `AWSAccessKeyId` query
+* A **signed URL** does contain the ``AWSAccessKeyId`` query
   parameters, from which radosgw is able to discern the correct user
   and tenant owning the bucket. In other words, an application
   generating signed URLs should be able to take just the un-prefixed
@@ -105,12 +104,12 @@ involved when dealing with signed URLs and public read ACLs.
   bucket name without the tenant prefix. However, it is *possible* to
   include the prefix if you so choose.
 
-  Thus, accessing a signed URL of an object `bar` in a container
-  `foo` belonging to the tenant `7188e165c0ae4424ac68ae2e89a05c50`
+  Thus, accessing a signed URL of an object ``bar`` in a container
+  ``foo`` belonging to the tenant ``7188e165c0ae4424ac68ae2e89a05c50``
   would be possible either via
-  `http://<host>:<port>/foo/bar?AWSAccessKeyId=b200fb6634c547199e436a0f93c0c46e&Expires=1542890806&Signature=eok6CYQC%2FDwmQQmqvY5jTg6ehXU%3D`,
+  ``http://<host>:<port>/foo/bar?AWSAccessKeyId=b200fb6634c547199e436a0f93c0c46e&Expires=1542890806&Signature=eok6CYQC%2FDwmQQmqvY5jTg6ehXU%3D``,
   or via
-  `http://<host>:<port>/7188e165c0ae4424ac68ae2e89a05c50:foo/bar?AWSAccessKeyId=b200fb6634c547199e436a0f93c0c46e&Expires=1542890806&Signature=eok6CYQC%2FDwmQQmqvY5jTg6ehXU%3D`,
+  ``http://<host>:<port>/7188e165c0ae4424ac68ae2e89a05c50:foo/bar?AWSAccessKeyId=b200fb6634c547199e436a0f93c0c46e&Expires=1542890806&Signature=eok6CYQC%2FDwmQQmqvY5jTg6ehXU%3D``,
   depending on whether or not the tenant prefix was passed in on
   signature generation.
 
@@ -119,11 +118,11 @@ involved when dealing with signed URLs and public read ACLs.
   radosgw to discern tenants. Thus, publicly readable objects must
   always be accessed using the bucket name with the tenant prefix.
 
-  Thus, if you set a public read ACL on an object `bar` in a
-  container `foo` belonging to the tenant
-  `7188e165c0ae4424ac68ae2e89a05c50`, you would need to access that
+  Thus, if you set a public read ACL on an object ``bar`` in a
+  container ``foo`` belonging to the tenant
+  ``7188e165c0ae4424ac68ae2e89a05c50``, you would need to access that
   object via the public URL
-  `http://<host>:<port>/7188e165c0ae4424ac68ae2e89a05c50:foo/bar`.
+  ``http://<host>:<port>/7188e165c0ae4424ac68ae2e89a05c50:foo/bar``.
 
 ## Swift with built-in authenticator
 
@@ -140,7 +139,7 @@ modified using either S3 or Swift.
 
 If you want to enable multitenancy for Swift, particularly if your
 users only ever authenticate against OpenStack Keystone, you should
-enable Keystone-based multitenancy with the following `ceph.conf`
+enable Keystone-based multitenancy with the following ``ceph.conf``
 configuration option:
 
 ```
@@ -149,21 +148,21 @@ rgw keystone implicit tenants = true
 
 Once you enable this option, any newly connecting user (whether they
 are using the Swift API, or Keystone-authenticated S3) will prompt
-radosgw to create a user named `<tenant_id>$<tenant_id`, where
-`<tenant_id>` is a Keystone tenant (project) UUID --- for example,
-`7188e165c0ae4424ac68ae2e89a05c50$7188e165c0ae4424ac68ae2e89a05c50`.
+radosgw to create a user named ``<tenant_id>$<tenant_id``, where
+``<tenant_id>`` is a Keystone tenant (project) UUID --- for example,
+``7188e165c0ae4424ac68ae2e89a05c50$7188e165c0ae4424ac68ae2e89a05c50``.
 
 Whenever that user then creates an Swift container, radosgw internally
 translates the given container name into
-`<tenant_id>/<container_name>`, such as
-`7188e165c0ae4424ac68ae2e89a05c50/foo`. This ensures that if there
+``<tenant_id>/<container_name>``, such as
+``7188e165c0ae4424ac68ae2e89a05c50/foo``. This ensures that if there
 are two or more different tenants all creating a container named
-`foo`, radosgw is able to transparently discern them by their tenant
+``foo``, radosgw is able to transparently discern them by their tenant
 prefix.
 
 It is also possible to limit the effects of implicit tenants
-to only apply to swift or s3, by setting `rgw keystone implicit tenants`
-to either `s3` or `swift`.  This will likely primarily
+to only apply to swift or s3, by setting ``rgw keystone implicit tenants``
+to either ``s3`` or ``swift``.  This will likely primarily
 be of use to users who had previously used implicit tenants
 with older versions of ceph, where implicit tenants
 only applied to the swift protocol.

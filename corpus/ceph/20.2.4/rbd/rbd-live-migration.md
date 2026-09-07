@@ -36,7 +36,7 @@ image is updated to point to the new target image.
 > **Note:**
 > Image live-migration requires the Ceph Nautilus release or later. Support for
 > external data sources requires the Ceph Pacific release of later. The
-> `krbd` kernel module does not support live-migration at this time.
+> ``krbd`` kernel module does not support live-migration at this time.
 
 .. ditaa::
 
@@ -58,7 +58,7 @@ The live-migration process is comprised of three steps:
    mode, the source image will also be linked to the target image and marked
    read-only.
 
-   Similar to layered images, attempts to read uninitialized data extents
+   Similar to [layered images](rbd-snapshot.md#layering), attempts to read uninitialized data extents
    within the target image will internally redirect the read to the source
    image, and writes to uninitialized extents within the target will internally
    deep-copy the overlapping source image block to the target image.
@@ -100,9 +100,9 @@ The `rbd status` command will show the current state of the live-migration:
 $ rbd status migration_target
 Watchers: none
 Migration:
-    	source: rbd/migration_source (5e2cba2f62e)
-    	destination: rbd/migration_target (5e2ed95ed806)
-    	state: prepared
+            source: rbd/migration_source (5e2cba2f62e)
+            destination: rbd/migration_target (5e2ed95ed806)
+            state: prepared
 ```
 
 Note that the source image will be moved to the RBD trash to avoid mistaken
@@ -119,8 +119,8 @@ $ rbd trash ls --all
 
 The import-only live-migration process is initiated by running the same
 `rbd migration prepare` command, but adding the `--import-only` optional
-and providing a JSON-encoded `source-spec` to describe how to access
-the source image data. This `source-spec` can either be passed
+and providing a JSON-encoded ``source-spec`` to describe how to access
+the source image data. This ``source-spec`` can either be passed
 directly via the `--source-spec` optional, or via a file or STDIN via the
 `--source-spec-path` optional:
 
@@ -137,13 +137,12 @@ The `rbd status` command will show the current state of the live-migration:
 $ rbd status migration_target
 Watchers: none
 Migration:
+        source: {"stream":{"file_path":"/mnt/image.raw","type":"file"},"type":"raw"}
+        destination: rbd/migration_target (ac69113dc1d7)
+        state: prepared
 ```
 
-	        source: {"stream":{"file_path":"/mnt/image.raw","type":"file"},"type":"raw"}
-        	destination: rbd/migration_target (ac69113dc1d7)
-	        state: prepared
-
-The general format for the `source-spec` JSON is as follows:
+The general format for the ``source-spec`` JSON is as follows:
 
 ```
 {
@@ -156,14 +155,14 @@ The general format for the `source-spec` JSON is as follows:
 }
 ```
 
-The following formats are currently supported: `native`, `qcow`, and
-`raw`. The following streams are currently supported: `file`, `http`,
-`s3`, and `nbd`.
+The following formats are currently supported: ``native``, ``qcow``, and
+``raw``. The following streams are currently supported: ``file``, ``http``,
+``s3``, and ``nbd``.
 
 #### Formats
 
-The `native` format can be used to describe a native RBD image within a
-Ceph cluster as the source image. Its `source-spec` JSON is encoded
+The ``native`` format can be used to describe a native RBD image within a
+Ceph cluster as the source image. Its ``source-spec`` JSON is encoded
 as follows:
 
 ```
@@ -183,9 +182,9 @@ as follows:
 }
 ```
 
-Note that the `native` format does not include the `stream` object since
+Note that the ``native`` format does not include the ``stream`` object since
 it utilizes native Ceph operations. For example, to import from the image
-`rbd/ns1/image1@snap1`, the `source-spec` could be encoded as:
+``rbd/ns1/image1@snap1``, the ``source-spec`` could be encoded as:
 
 ```
 {
@@ -197,12 +196,12 @@ it utilizes native Ceph operations. For example, to import from the image
 }
 ```
 
-The `qcow` format can be used to describe a QCOW (QEMU copy-on-write) block
+The ``qcow`` format can be used to describe a QCOW (QEMU copy-on-write) block
 device. Both the QCOW (v1) and QCOW2 formats are currently supported with the
 exception of advanced features such as compression, encryption, backing
 files, and external data files. Support for these missing features may be added
-in a future release. The `qcow` format data can be linked to any supported
-stream source described below. For example, its base `source-spec` JSON is
+in a future release. The ``qcow`` format data can be linked to any supported
+stream source described below. For example, its base ``source-spec`` JSON is
 encoded as follows:
 
 ```
@@ -214,10 +213,10 @@ encoded as follows:
 }
 ```
 
-The `raw` format can be used to describe a thick-provisioned, raw block device
-export (i.e. `rbd export --export-format 1 <snap-spec>`). The `raw` format
+The ``raw`` format can be used to describe a thick-provisioned, raw block device
+export (i.e. `rbd export --export-format 1 <snap-spec>`). The ``raw`` format
 data can be linked to any supported stream source described below. For example,
-its base `source-spec` JSON is encoded as follows:
+its base ``source-spec`` JSON is encoded as follows:
 
 ```
 {
@@ -237,16 +236,16 @@ its base `source-spec` JSON is encoded as follows:
 }
 ```
 
-The inclusion of the `snapshots` array is optional and currently only supports
-thick-provisioned `raw` snapshot exports.
+The inclusion of the ``snapshots`` array is optional and currently only supports
+thick-provisioned ``raw`` snapshot exports.
 
 Additional formats such as RBD export-format v2 and RBD export-diff
 snapshots will be added in a future release.
 
 #### Streams
 
-The `file` stream can be used to import from a locally accessible POSIX file
-source. Its `source-spec` JSON is encoded as follows:
+The ``file`` stream can be used to import from a locally accessible POSIX file
+source. Its ``source-spec`` JSON is encoded as follows:
 
 ```
 {
@@ -259,7 +258,7 @@ source. Its `source-spec` JSON is encoded as follows:
 ```
 
 For example, to import a raw-format image from a file located at
-`/mnt/image.raw`, its `source-spec` JSON is encoded as follows:
+`/mnt/image.raw`, its ``source-spec`` JSON is encoded as follows:
 
 ```
 {
@@ -271,8 +270,8 @@ For example, to import a raw-format image from a file located at
 }
 ```
 
-The `http` stream can be used to import from a remote HTTP or HTTPS web
-server. Its `source-spec` JSON is encoded as follows:
+The ``http`` stream can be used to import from a remote HTTP or HTTPS web
+server. Its ``source-spec`` JSON is encoded as follows:
 
 ```
 {
@@ -285,7 +284,7 @@ server. Its `source-spec` JSON is encoded as follows:
 ```
 
 For example, to import a raw-format image from a file located at
-`https://download.ceph.com/image.raw`, its `source-spec` JSON is encoded
+`https://download.ceph.com/image.raw`, its ``source-spec`` JSON is encoded
 as follows:
 
 ```
@@ -298,8 +297,8 @@ as follows:
 }
 ```
 
-The `s3` stream can be used to import from a remote S3 bucket. Its
-`source-spec` JSON is encoded as follows:
+The ``s3`` stream can be used to import from a remote S3 bucket. Its
+``source-spec`` JSON is encoded as follows:
 
 ```
 {
@@ -314,7 +313,7 @@ The `s3` stream can be used to import from a remote S3 bucket. Its
 ```
 
 For example, to import a raw-format image from a file located at
-`https://s3.ceph.com/bucket/image.raw`, its `source-spec` JSON is encoded
+`https://s3.ceph.com/bucket/image.raw`, its ``source-spec`` JSON is encoded
 as follows:
 
 ```
@@ -330,14 +329,14 @@ as follows:
 ```
 
 > **Note:**
-> The `access_key` and `secret_key` parameters support storing the keys in
-> the MON config-key store by prefixing the key values with `config://`
+> The ``access_key`` and ``secret_key`` parameters support storing the keys in
+> the MON config-key store by prefixing the key values with ``config://``
 > followed by the path in the MON config-key store to the value. Values can be
-> stored in the config-key store via `ceph config-key set <key-path> <value>`
-> (e.g. `ceph config-key set rbd/s3/access_key NX5QOQKC6BH2IDN8HC7A`).
+> stored in the config-key store via ``ceph config-key set <key-path> <value>``
+> (e.g. ``ceph config-key set rbd/s3/access_key NX5QOQKC6BH2IDN8HC7A``).
 
-The `nbd` stream can be used to import from a remote NBD export. Its
-`source-spec` JSON is encoded as follows:
+The ``nbd`` stream can be used to import from a remote NBD export. Its
+``source-spec`` JSON is encoded as follows:
 
 ```
 {
@@ -350,7 +349,7 @@ The `nbd` stream can be used to import from a remote NBD export. Its
 ```
 
 For example, to import a raw-format image from an NBD export located at
-`nbd://nbd.ceph.com` with export name `image.raw`, its `source-spec`
+``nbd://nbd.ceph.com`` with export name ``image.raw``, its ``source-spec``
 JSON is encoded as follows:
 
 ```
@@ -363,8 +362,8 @@ JSON is encoded as follows:
 }
 ```
 
-`nbd-uri` parameter should follow the NBD URI specification. The
-default NBD port is `10809`.
+``nbd-uri`` parameter should follow the [NBD URI specification](https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md). The
+default NBD port is ``10809``.
 
 # Execute Migration
 
@@ -383,11 +382,11 @@ migration block deep-copy process:
 ```
 $ rbd status migration_target
 Watchers:
-	watcher=1.2.3.4:0/3695551461 client.123 cookie=123
+    watcher=1.2.3.4:0/3695551461 client.123 cookie=123
 Migration:
-    	source: rbd/migration_source (5e2cba2f62e)
-    	destination: rbd/migration_target (5e2ed95ed806)
-    	state: executing (32% complete)
+            source: rbd/migration_source (5e2cba2f62e)
+            destination: rbd/migration_target (5e2ed95ed806)
+            state: executing (32% complete)
 ```
 
 # Commit Migration
@@ -399,9 +398,9 @@ source image to the target, the migration can be committed:
 $ rbd status migration_target
 Watchers: none
 Migration:
-    	source: rbd/migration_source (5e2cba2f62e)
-    	destination: rbd/migration_target (5e2ed95ed806)
-    	state: executed
+            source: rbd/migration_source (5e2cba2f62e)
+            destination: rbd/migration_target (5e2ed95ed806)
+            state: executed
 $ rbd migration commit migration_target
 Commit image migration: 100% complete...done.
 ```
@@ -434,6 +433,3 @@ to the original source image being restored:
 $ rbd ls
 migration_source
 ```
-
-.. _layered images: ../rbd-snapshot/#layering
-.. _NBD URI specification: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md

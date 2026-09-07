@@ -5,14 +5,14 @@ title: "Admin Guide"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/admin.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-admin-guide:
+<a id="radosgw-admin-guide"></a>
 
 # Admin Guide
 
 After the Ceph Object Storage service is up and running, it can be administered
 with user management, access controls, quotas, and usage tracking.
 
-.. _radosgw-user-management:
+<a id="radosgw-user-management"></a>
 
 # User Management
 
@@ -20,7 +20,7 @@ Ceph Object Storage user management refers only to users of the Ceph Object
 Storage service and not to the Ceph Object Gateway as a user of the Ceph
 Storage Cluster. Create a user, access key, and secret key to enable end users
 to interact with Ceph Object Gateway services. Optionally, the users can belong
-to Accounts for ease of management.
+to [Accounts](account.md) for ease of management.
 
 There are two types of user:
 
@@ -48,8 +48,8 @@ profiles. Keys and secrets can either be specified or generated automatically.
 When generating or specifying keys, remember that user IDs correspond to S3 key
 types and subuser IDs correspond to Swift key types.
 
-Swift keys have access levels of `read`, `write`, `readwrite` and
-`full`.
+Swift keys have access levels of ``read``, ``write``, ``readwrite`` and
+``full``.
 
 ## Create a User
 
@@ -90,20 +90,20 @@ radosgw-admin user create --uid=johndoe --display-name="John Doe" --email=john@e
   "temp_url_keys": []}
 ```
 
-The creation of a user entails the creation of an `access_key` and a
-`secret_key` entry, which can be used with any S3 API-compatible client.
+The creation of a user entails the creation of an ``access_key`` and a
+``secret_key`` entry, which can be used with any S3 API-compatible client.
 
-> **Important:** Check the key output. Sometimes `radosgw-admin` generates a
-> JSON escape (`\`) character, and some clients do not know how to handle
+> **Important:** Check the key output. Sometimes ``radosgw-admin`` generates a
+> JSON escape (``\``) character, and some clients do not know how to handle
 > JSON escape characters. Remedies include removing the JSON escape character
-> (`\`), encapsulating the string in quotes, regenerating the key and
+> (``\``), encapsulating the string in quotes, regenerating the key and
 > ensuring that it does not have a JSON escape character, or specifying the
 > key and secret manually.
 
 ## Create a Subuser
 
 To create a subuser (a user of the Swift interface) for the user, specify the
-user ID (`--uid={username}`), a subuser ID, and the subuser's access level:
+user ID (``--uid={username}``), a subuser ID, and the subuser's access level:
 
 ```bash
 radosgw-admin subuser create --uid={uid} --subuser={uid} --access=[ read | write | readwrite | full ]
@@ -115,8 +115,8 @@ For example:
 radosgw-admin subuser create --uid=johndoe --subuser=johndoe:swift --access=full
 ```
 
-> **Note:** `full` is not the same as `readwrite`. The `full` access level
-> includes `read` and `write`, but it also includes the access control
+> **Note:** ``full`` is not the same as ``readwrite``. The ``full`` access level
+> includes ``read`` and ``write``, but it also includes the access control
 > policy.
 
 ```javascript
@@ -148,8 +148,8 @@ radosgw-admin subuser create --uid=johndoe --subuser=johndoe:swift --access=full
 
 ## Get User Info
 
-To get information about a user, specify `user info` and the user ID
-(`--uid={username}`). Use a command of the following form:
+To get information about a user, specify ``user info`` and the user ID
+(``--uid={username}``). Use a command of the following form:
 
 ```bash
 radosgw-admin user info --uid=johndoe
@@ -157,7 +157,7 @@ radosgw-admin user info --uid=johndoe
 
 ## Modify User Info
 
-To modify information about a user, specify the user ID (`--uid={username}`)
+To modify information about a user, specify the user ID (``--uid={username}``)
 and the attributes that you want to modify. Typical modifications are made to
 keys and secrets, email addresses, display names, and access levels. Use a
 command of the following form:
@@ -166,7 +166,7 @@ command of the following form:
 radosgw-admin user modify --uid=johndoe --display-name="John E. Doe"
 ```
 
-To modify subuser values, specify `subuser modify`, user ID and the subuser
+To modify subuser values, specify ``subuser modify``, user ID and the subuser
 ID. Use a command of the following form:
 
 ```bash
@@ -177,7 +177,7 @@ radosgw-admin subuser modify --uid=johndoe --subuser=johndoe:swift --access=full
 
 When a user is created, the user is enabled by default. However, it is possible
 to suspend user privileges and to re-enable them at a later time. To suspend a
-user, specify `user suspend` and the user ID in a command of the following
+user, specify ``user suspend`` and the user ID in a command of the following
 form:
 
 ```bash
@@ -185,7 +185,7 @@ radosgw-admin user suspend --uid=johndoe
 ```
 
 ## User Enable
-To re-enable a suspended user, provide `user enable` and specify the user ID
+To re-enable a suspended user, provide ``user enable`` and specify the user ID
 in a command of the following form:
 
 ```bash
@@ -199,9 +199,9 @@ radosgw-admin user enable --uid=johndoe
 When you remove a user, you also remove any subusers associated with the user.
 
 It is possible to remove a subuser without removing its associated user. This
-is covered in the section called Remove a Subuser.
+is covered in the section called [Remove a Subuser](admin.md#radosgw-admin-remove-a-subuser).
 
-To remove a user and any subusers associated with it, use the `user rm`
+To remove a user and any subusers associated with it, use the ``user rm``
 command and provide the user ID of the user to be removed. Use a command of the
 following form:
 
@@ -211,13 +211,13 @@ radosgw-admin user rm --uid=johndoe
 
 Options include:
 
-- **Purge Data:** The `--purge-data` option purges all data associated
+- **Purge Data:** The ``--purge-data`` option purges all data associated
   with the UID.
 
-- **Purge Keys:** The `--purge-keys` option purges all keys associated
+- **Purge Keys:** The ``--purge-keys`` option purges all keys associated
   with the UID.
 
-.. _radosgw-admin-remove-a-subuser:
+<a id="radosgw-admin-remove-a-subuser"></a>
 
 ## Remove a Subuser
 
@@ -225,7 +225,7 @@ Removing a subuser removes access to the Swift interface or to S3. The user
 associated with the removed subuser remains in the system after the subuser's
 removal.
 
-To remove the subuser, use the command `subuser rm` and provide the subuser
+To remove the subuser, use the command ``subuser rm`` and provide the subuser
 ID of the subuser to be removed. Use a command of the following form:
 
 ```bash
@@ -234,7 +234,7 @@ radosgw-admin subuser rm --subuser=johndoe:swift
 
 Options include:
 
-- **Purge Keys:** The `--purge-keys` option purges all keys associated
+- **Purge Keys:** The ``--purge-keys`` option purges all keys associated
   with the UID.
 
 ## Add or Remove a Key
@@ -246,12 +246,12 @@ together with its associated user ID. You can create a key and either specify
 or generate the access key or secret key. You can also remove a key. Options
 include:
 
-- `--key-type=<type>` specifies the key type. The options are: `s3`, `swift`
-- `--access-key=<key>` manually specifies an S3 access key.
-- `--secret-key=<key>` manually specifies a S3 secret key or a Swift secret key.
-- `--gen-access-key` automatically generates a random S3 access key.
-- `--gen-secret` automatically generates a random S3 secret key or a random Swift secret key.
-- `--generate-key` create user with or without credentials. If sets to false, then user cannot set `gen-secret/gen-access-key/access-key/secret-key`
+- ``--key-type=<type>`` specifies the key type. The options are: ``s3``, ``swift``
+- ``--access-key=<key>`` manually specifies an S3 access key.
+- ``--secret-key=<key>`` manually specifies a S3 secret key or a Swift secret key.
+- ``--gen-access-key`` automatically generates a random S3 access key.
+- ``--gen-secret`` automatically generates a random S3 secret key or a random Swift secret key.
+- ``--generate-key`` create user with or without credentials. If sets to false, then user cannot set ``gen-secret/gen-access-key/access-key/secret-key``
 
 #### Adding S3 keys
 
@@ -345,7 +345,7 @@ radosgw-admin key rm --subuser=foo:bar --key-type=swift
 
 ## Add or Remove Admin Capabilities
 
-The Ceph Storage Cluster provides an Admin Ops API that enables users to
+The Ceph Storage Cluster provides an [Admin Ops API](adminops.md) that enables users to
 execute administrative functions via the REST API. By default, users do NOT
 have access to this API. To enable a user to exercise administrative
 functionality, provide the user with administrative capabilities.
@@ -370,9 +370,8 @@ form:
 For example:
 
 ```bash
+radosgw-admin caps add --uid=johndoe --caps="users=*;buckets=*"
 ```
-
-	radosgw-admin caps add --uid=johndoe --caps="users=*;buckets=*"
 
 To remove administrative capabilities from a user, run a command of the
 following form:
@@ -383,13 +382,13 @@ radosgw-admin caps rm --uid=johndoe --caps={caps}
 
 ## Admin and System Users
 
-Users with the `--admin` or `--system` flag have global read and write
+Users with the ``--admin`` or ``--system`` flag have global read and write
 permissions. These permissions apply to all APIs including S3 and Swift,
 unlike Admin Capabilities, and cannot be denied by IAM policy.
 
-The `--system` flag should only be used as documented in Multisite Configuration.
+The ``--system`` flag should only be used as documented in [Multisite Configuration](multisite.md).
 
-The `--admin` flag can be useful for troubleshooting and recovery. For
+The ``--admin`` flag can be useful for troubleshooting and recovery. For
 example, if a user accidentally removes their permissions to a bucket or
 object, the admin user's credentials can be used to issue the S3/Swift API
 requests necessary to restore them.
@@ -415,7 +414,7 @@ To remove the admin flag from an existing user:
 radosgw-admin user modify --uid={username} --admin=0
 ```
 
-.. _radosgw-quota-management:
+<a id="radosgw-quota-management"></a>
 
 # Quota Management
 
@@ -423,15 +422,15 @@ The Ceph Object Gateway makes it possible for you to set quotas on users and
 buckets owned by users. Quotas include the maximum number of objects in a
 bucket and the maximum storage size a bucket can hold.
 
-- **Maximum Objects:** The `--max-objects` setting allows you to specify
+- **Maximum Objects:** The ``--max-objects`` setting allows you to specify
   the maximum number of objects. A negative value disables this setting.
 
-- **Maximum Size:** The `--max-size` option allows you to specify a quota
+- **Maximum Size:** The ``--max-size`` option allows you to specify a quota
   size in B/K/M/G/T, where B is the default. A negative value disables this
   setting.
 
-- **Quota Scope:** The `--quota-scope` option sets the scope for the quota.
-  The options are `bucket` and `user`.
+- **Quota Scope:** The ``--quota-scope`` option sets the scope for the quota.
+  The options are ``bucket`` and ``user``.
 
 ## Set User Quota
 
@@ -450,7 +449,7 @@ For example:
 radosgw-admin quota set --quota-scope=user --uid=johndoe --max-objects=1024 --max-size=1024B
 ```
 
-Passing a negative value as an argument of `--max-objects` or `--max-size`
+Passing a negative value as an argument of ``--max-objects`` or ``--max-size``
 disables the given quota attribute.
 
 ## Enabling and Disabling User Quota
@@ -469,8 +468,8 @@ radosgw-admin quota disable --quota-scope=user --uid=<uid>
 
 ## Set Bucket Quota
 
-If the `--bucket` option is specified, the bucket quota applies to a single bucket with the specified name.
-Else, if the `--uid` option is specified, the bucket quota applies to all buckets owned by the user with the specified UID.
+If the ``--bucket`` option is specified, the bucket quota applies to a single bucket with the specified name.
+Else, if the ``--uid`` option is specified, the bucket quota applies to all buckets owned by the user with the specified UID.
 
 To set a bucket quota, run a command of the following form:
 
@@ -478,7 +477,7 @@ To set a bucket quota, run a command of the following form:
 radosgw-admin quota set --quota-scope=bucket {--bucket=<bucket name> | --uid=<uid>} [--max-objects=<num objects>] [--max-size=<max size>]
 ```
 
-A negative value for `--max-objects` or `--max-size` means that the
+A negative value for ``--max-objects`` or ``--max-size`` means that the
 specific quota attribute is disabled.
 
 ## Enable and Disabling Bucket Quota
@@ -517,7 +516,7 @@ latest quota statistics, run a command of the following form:
 radosgw-admin user stats --uid=<uid> --sync-stats
 ```
 
-.. _rgw_user_usage_stats:
+<a id="rgw-user-usage-stats"></a>
 
 ## Get User Usage Stats
 
@@ -528,7 +527,7 @@ form:
 radosgw-admin user stats --uid=<uid>
 ```
 
-> **Note:** Run `radosgw-admin user stats` with the `--sync-stats` option to
+> **Note:** Run ``radosgw-admin user stats`` with the ``--sync-stats`` option to
 > receive the latest data.
 
 ## Default Quotas
@@ -537,11 +536,10 @@ You can set default quotas in the Ceph Object Gateway config. **These defaults
 will be used only when creating new users and will have no effect on existing
 users.** If a default quota is set in the Ceph Object Gateway Config, then that
 quota is set for all subsequently-created users, and that quota is enabled. See
-`rgw_bucket_default_quota_max_objects`,
-`rgw_bucket_default_quota_max_size`, `rgw_user_default_quota_max_objects`,
-`rgw_user_default_quota_max_size`, `rgw_account_default_quota_max_objects`,
-and `rgw_account_default_quota_max_size` in `Ceph Object Gateway Config
-Reference`_.
+``rgw_bucket_default_quota_max_objects``,
+``rgw_bucket_default_quota_max_size``, ``rgw_user_default_quota_max_objects``,
+``rgw_user_default_quota_max_size``, ``rgw_account_default_quota_max_objects``,
+and ``rgw_account_default_quota_max_size`` in [Ceph Object Gateway Config Reference](config-ref.md).
 
 ## Quota Cache
 
@@ -560,9 +558,9 @@ of increasing the likelihood that the multiple RGW instances may not
 consistently have the latest quota settings. Decreasing these values brings
 the multiple RGW instances closer to perfect quota synchronization.
 
-If all three values are set to `0` , then quota caching is effectively
+If all three values are set to ``0`` , then quota caching is effectively
 disabled, and multiple instances will have perfect quota enforcement.  See
-Ceph Object Gateway Config Reference.
+[Ceph Object Gateway Config Reference](config-ref.md).
 
 ## Reading / Writing Global Quotas
 
@@ -573,22 +571,21 @@ view the global quota settings, run the following command:
 radosgw-admin global quota get
 ```
 
-Global quota settings can be manipulated with the `global quota`
-counterparts of the `quota set`, `quota enable`, and `quota disable`
+Global quota settings can be manipulated with the ``global quota``
+counterparts of the ``quota set``, ``quota enable``, and ``quota disable``
 commands, as in the following examples:
 
 ```bash
+radosgw-admin global quota set --quota-scope bucket --max-objects 1024
+radosgw-admin global quota enable --quota-scope bucket
 ```
-
-	radosgw-admin global quota set --quota-scope bucket --max-objects 1024
-	radosgw-admin global quota enable --quota-scope bucket
 
 > **Note:** In a multisite configuration where there is a realm and period
 > present, changes to the global quotas must be committed using ``period
 > update --commit``. If no period is present, the RGW instances must
 > be restarted for the changes to take effect.
 
-.. _radosgw-rate-limit-management:
+<a id="radosgw-rate-limit-management"></a>
 
 # Rate Limit Management
 
@@ -598,7 +595,7 @@ operations (write ops) per minute as well as the number of bytes per minute
 that can be written or read per user or per bucket.
 
 ## Read Requests and Write Requests
-Operations that use the `GET` method or the `HEAD` method in their REST
+Operations that use the ``GET`` method or the ``HEAD`` method in their REST
 requests are "read requests". All other requests are "write requests".
 
 ## How Metrics Work
@@ -606,9 +603,9 @@ Each object gateway tracks per-user metrics separately from bucket metrics.
 These metrics are not shared with other gateways. The configured limits should
 be divided by the number of active object gateways. For example, if "user A" is
 to be be limited to 10 ops per minute and there are two object gateways in the
-cluster, then the limit on "user A" should be `5` (10 ops per minute / 2
+cluster, then the limit on "user A" should be ``5`` (10 ops per minute / 2
 RGWs). If the requests are **not** balanced between RGWs, the rate limit might
-be underutilized. For example: if the ops limit is `5` and there are two
+be underutilized. For example: if the ops limit is ``5`` and there are two
 RGWs, **but** the Load Balancer sends load to only one of those RGWs, the
 effective limit is 5 ops, because this limit is enforced per RGW. If the rate
 limit that has been set for the bucket has been reached but the rate limit that
@@ -624,35 +621,35 @@ of a "debt" consisting of bytes used in excess of the configured value; users
 or buckets that incur this kind of debt are prevented from sending more
 requests until the "debt" has been repaid. The maximum size of the "debt" is
 twice the max-read/write-bytes per minute. If "user A" is subject to a 1-byte
-read limit per minute and they attempt to `GET` an object that is 1 GB in size,
-then the `GET` action will fail. After "user A" has completed this 1 GB
+read limit per minute and they attempt to ``GET`` an object that is 1 GB in size,
+then the ``GET`` action will fail. After "user A" has completed this 1 GB
 operation, RGW blocks the user's requests for up to two minutes. After this
-time has elapsed, "user A" will be able to send `GET` requests again.
+time has elapsed, "user A" will be able to send ``GET`` requests again.
 
-- **Bucket:** The `--bucket` option allows you to specify a rate limit for a
+- **Bucket:** The ``--bucket`` option allows you to specify a rate limit for a
   bucket.
 
-- **User:** The `--uid` option allows you to specify a rate limit for a
+- **User:** The ``--uid`` option allows you to specify a rate limit for a
   user.
 
-- **Maximum Read Ops:** The `--max-read-ops` setting allows you to limit read
-  bytes per minute per RGW instance. A `0` value disables throttling.
+- **Maximum Read Ops:** The ``--max-read-ops`` setting allows you to limit read
+  bytes per minute per RGW instance. A ``0`` value disables throttling.
 
-- **Maximum Read Bytes:** The `--max-read-bytes` setting allows you to limit
-  read bytes per minute per RGW instance. A `0` value disables throttling.
+- **Maximum Read Bytes:** The ``--max-read-bytes`` setting allows you to limit
+  read bytes per minute per RGW instance. A ``0`` value disables throttling.
 
-- **Maximum Write Ops:** The `--max-write-ops` setting allows you to specify
-  the maximum number of write ops per minute per RGW instance. A `0` value
+- **Maximum Write Ops:** The ``--max-write-ops`` setting allows you to specify
+  the maximum number of write ops per minute per RGW instance. A ``0`` value
   disables throttling.
 
-- **Maximum Write Bytes:** The `--max-write-bytes` setting allows you to
+- **Maximum Write Bytes:** The ``--max-write-bytes`` setting allows you to
   specify the maximum number of write bytes per minute per RGW instance. A
-  `0` value disables throttling.
+  ``0`` value disables throttling.
 
-- **Rate Limit Scope:** The `--ratelimit-scope` option sets the scope for the
-  rate limit.  The options are `bucket` , `user` and `anonymous`. Bucket
+- **Rate Limit Scope:** The ``--ratelimit-scope`` option sets the scope for the
+  rate limit.  The options are ``bucket`` , ``user`` and ``anonymous``. Bucket
   rate limit apply to buckets.  The user rate limit applies to a user.  The
-  `anonymous` option applies to an unauthenticated user. Anonymous scope is
+  ``anonymous`` option applies to an unauthenticated user. Anonymous scope is
   available only for global rate limit.
 
 ## Set User Rate Limit
@@ -667,20 +664,20 @@ radosgw-admin ratelimit set --ratelimit-scope=user --uid=<uid> \
                               [--max-write-ops=<num ops>] [--max-write-bytes=<num bytes>]>
 ```
 
-An example of using `radosgw-admin ratelimit set` to set a rate limit might
+An example of using ``radosgw-admin ratelimit set`` to set a rate limit might
 look like this:
 
 ```bash
 radosgw-admin ratelimit set --ratelimit-scope=user --uid=johndoe --max-read-ops=1024 --max-write-bytes=10240
 ```
 
-A value of `0` assigned to `--max-read-ops`, `--max-read-bytes`,
-`--max-write-ops`, or `--max-write-bytes` disables the specified rate
+A value of ``0`` assigned to ``--max-read-ops``, ``--max-read-bytes``,
+``--max-write-ops``, or ``--max-write-bytes`` disables the specified rate
 limit.
 
 ## Get User Rate Limit
 
-The `radosgw-admin ratelimit get` command returns the currently configured
+The ``radosgw-admin ratelimit get`` command returns the currently configured
 rate limit parameters.
 
 The following is the general form of the command that returns the current
@@ -690,15 +687,15 @@ configured limit parameters:
 radosgw-admin ratelimit get --ratelimit-scope=user --uid=<uid>
 ```
 
-An example of using `radosgw-admin ratelimit get` to return the rate limit
+An example of using ``radosgw-admin ratelimit get`` to return the rate limit
 parameters might look like this:
 
 ```bash
 radosgw-admin ratelimit get --ratelimit-scope=user --uid=johndoe
 ```
 
-A value of `0` assigned to `--max-read-ops`, `--max-read-bytes`,
-`--max-write-ops`, or `--max-write-bytes` disables the specified rate
+A value of ``0`` assigned to ``--max-read-ops``, ``--max-read-bytes``,
+``--max-write-ops``, or ``--max-write-bytes`` disables the specified rate
 limit.
 
 ## Enable and Disable User Rate Limit
@@ -727,20 +724,20 @@ radosgw-admin ratelimit set --ratelimit-scope=bucket --bucket=<bucket> \
                               [--max-write-ops=<num ops>] [--max-write-bytes=<num bytes>]>
 ```
 
-An example of using `radosgw-admin ratelimit set` to set a rate limit for a
+An example of using ``radosgw-admin ratelimit set`` to set a rate limit for a
 bucket might look like this:
 
 ```bash
 radosgw-admin ratelimit set --ratelimit-scope=bucket --bucket=mybucket --max-read-ops=1024 --max-write-bytes=10240
 ```
 
-A value of `0` assigned to `--max-read-ops`, `--max-read-bytes`,
-`--max-write-ops`, or `-max-write-bytes` disables the specified bucket rate
+A value of ``0`` assigned to ``--max-read-ops``, ``--max-read-bytes``,
+``--max-write-ops``, or ``-max-write-bytes`` disables the specified bucket rate
 limit.
 
 ## Get Bucket Rate Limit
 
-The `radosgw-admin ratelimit get` command returns the current configured rate
+The ``radosgw-admin ratelimit get`` command returns the current configured rate
 limit parameters.
 
 The following is the general form of the command that returns the current
@@ -750,21 +747,21 @@ configured limit parameters:
 radosgw-admin ratelimit get --ratelimit-scope=bucket --bucket=<bucket>
 ```
 
-An example of using `radosgw-admin ratelimit get` to return the rate limit
+An example of using ``radosgw-admin ratelimit get`` to return the rate limit
 parameters for a bucket might look like this:
 
 ```bash
 radosgw-admin ratelimit get --ratelimit-scope=bucket --bucket=mybucket
 ```
 
-A value of `0` assigned to `--max-read-ops`, `--max-read-bytes`,
-`--max-write-ops`, or `--max-write-bytes` disables the specified rate
+A value of ``0`` assigned to ``--max-read-ops``, ``--max-read-bytes``,
+``--max-write-ops``, or ``--max-write-bytes`` disables the specified rate
 limit.
 
 ## Enable and Disable Bucket Rate Limit
 
 After you set a bucket rate limit, you can enable it. The following is the
-general form of the `radosgw-admin ratelimit enable` command that enables
+general form of the ``radosgw-admin ratelimit enable`` command that enables
 bucket rate limits:
 
 ```bash
@@ -786,8 +783,8 @@ To view the global rate limit settings, run the following command:
 radosgw-admin global ratelimit get
 ```
 
-The global rate limit settings can be manipulated with the `global ratelimit`
-counterparts of the `ratelimit set`, `ratelimit enable`, and ``ratelimit
+The global rate limit settings can be manipulated with the ``global ratelimit``
+counterparts of the ``ratelimit set``, ``ratelimit enable``, and ``ratelimit
 disable`` commands. Per-user and per-bucket ratelimit configurations override
 the global configuration:
 
@@ -822,31 +819,31 @@ radosgw-admin global ratelimit enable --ratelimit-scope=anonymous
 The Ceph Object Gateway logs the usage of each user. You can track the usage of
 each user within a specified date range.
 
-- Add `rgw_enable_usage_log = true` in the `[client.rgw]` section of
-  `ceph.conf` and restart the `radosgw` service.
+- Add ``rgw_enable_usage_log = true`` in the ``[client.rgw]`` section of
+  ``ceph.conf`` and restart the ``radosgw`` service.
 
-> **Note:** Until Ceph has a linkable macro that handles all the many ways that options can be set, we advise that you set `rgw_enable_usage_log = true` in central config or in `ceph.conf` and restart all RGWs.
+> **Note:** Until Ceph has a linkable macro that handles all the many ways that options can be set, we advise that you set ``rgw_enable_usage_log = true`` in central config or in ``ceph.conf`` and restart all RGWs.
 
 Options include:
 
-- **Start Date:** The `--start-date` option allows you to filter usage
+- **Start Date:** The ``--start-date`` option allows you to filter usage
   stats from a specified start date and an optional start time
-  (**format:** `yyyy-mm-dd [HH:MM:SS]`).
+  (**format:** ``yyyy-mm-dd [HH:MM:SS]``).
 
-- **End Date:** The `--end-date` option allows you to filter usage up
+- **End Date:** The ``--end-date`` option allows you to filter usage up
   to a particular end date and an optional end time
-  (**format:** `yyyy-mm-dd [HH:MM:SS]`).
+  (**format:** ``yyyy-mm-dd [HH:MM:SS]``).
 
-- **Log Entries:** The `--show-log-entries` option allows you to specify
+- **Log Entries:** The ``--show-log-entries`` option allows you to specify
   whether to include log entries with the usage stats
-  (options: `true` | `false`).
+  (options: ``true`` | ``false``).
 
 > **Note:** You can specify time to a precision of minutes and seconds, but the
 > specified time is stored only with a one-hour resolution.
 
 ## Show Usage
 
-To show usage statistics, use the `radosgw-admin usage show` command. To show
+To show usage statistics, use the ``radosgw-admin usage show`` command. To show
 usage for a particular user, you must specify a user ID. You can also specify a
 start date, end date, and whether to show log entries. The following is an example
 of such a command:
@@ -874,10 +871,3 @@ radosgw-admin usage trim --start-date=2010-01-01 --end-date=2010-12-31
 radosgw-admin usage trim --uid=johndoe
 radosgw-admin usage trim --uid=johndoe --end-date=2013-12-31
 ```
-
-.. _radosgw-admin: ../../man/8/radosgw-admin/
-.. _Pool Configuration: ../../rados/configuration/pool-pg-config-ref/
-.. _Ceph Object Gateway Config Reference: ../config-ref/
-.. _Accounts: ../account/
-.. _Admin Ops API: ../adminops/
-.. _Multisite Configuration: ../multisite/

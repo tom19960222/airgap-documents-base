@@ -5,7 +5,7 @@ title: "Infernalis"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/releases/infernalis.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _infernalis-release-notes:
+<a id="infernalis-release-notes"></a>
 
 # Infernalis
 
@@ -21,7 +21,7 @@ bugs, and a range of miscellaneous bug fixes across the system.
 
 We recommend that all infernalis v9.2.0 users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v9.2.1.txt -->.
 
 ## Upgrading
 
@@ -118,7 +118,7 @@ upgrade process is non-trivial.  Please read these release notes carefully.
 
 - *RBD*:
 
-  * The `rbd du` command shows actual usage (quickly, when
+  * The ``rbd du`` command shows actual usage (quickly, when
     object-map is enabled).
   * The object-map feature has seen many stability improvements.
   * Object-map and exclusive-lock features can be enabled or disabled
@@ -130,8 +130,8 @@ upgrade process is non-trivial.  Please read these release notes carefully.
   * The export-diff command is now faster (it uses aio).  There is also
     a new fast-diff feature.
   * The --size argument can be specified with a suffix for units
-    (e.g., `--size 64G`).
-  * There is a new `rbd status` command that, for now, shows who has
+    (e.g., ``--size 64G``).
+  * There is a new ``rbd status`` command that, for now, shows who has
     the image open/mapped.
 
 - *CephFS*:
@@ -203,7 +203,7 @@ systemctl status ceph-osd@12      # check status of osd.12
   The main notable distro that is *not* yet using systemd is Ubuntu trusty
   14.04.  (The next Ubuntu LTS, 16.04, will use systemd instead of upstart.)
 
-* Ceph daemons now run as user and group `ceph` by default.  The
+* Ceph daemons now run as user and group ``ceph`` by default.  The
   ceph user has a static UID assigned by Fedora and Debian (also used
   by derivative distributions like RHEL/CentOS and Ubuntu).  On SUSE
   the ceph user will currently get a dynamically assigned UID when the
@@ -215,7 +215,7 @@ systemctl status ceph-osd@12      # check status of osd.12
 
   When upgrading, administrators have two options:
 
-   1. Add the following line to `ceph.conf` on all hosts:
+   1. Add the following line to ``ceph.conf`` on all hosts:
 
 ```
   setuser match path = /var/lib/ceph/$type/$cluster-$id
@@ -262,7 +262,7 @@ systemctl start ceph.target   # debian, centos, fedora, rhel
 
       Alternatively, the same process can be done with a single daemon
       type, for example by stopping only monitors and chowning only
-      `/var/lib/ceph/mon`.
+      ``/var/lib/ceph/mon``.
 
 * The on-disk format for the experimental KeyValueStore OSD backend has
   changed.  You will need to remove any OSDs using that backend before you
@@ -830,7 +830,7 @@ ceph-deploy install --testing HOST
 
 - *RBD*:
 
-  * The `rbd du` command shows actual usage (quickly, when
+  * The ``rbd du`` command shows actual usage (quickly, when
     object-map is enabled).
   * The object-map feature has seen many stability improvements.
   * Object-map and exclusive-lock features can be enabled or disabled
@@ -842,8 +842,8 @@ ceph-deploy install --testing HOST
   * The export-diff command is now faster (it uses aio).  There is also
     a new fast-diff feature.
   * The --size argument can be specified with a suffix for units
-    (e.g., `--size 64G`).
-  * There is a new `rbd status` command that, for now, shows who has
+    (e.g., ``--size 64G``).
+  * There is a new ``rbd status`` command that, for now, shows who has
     the image open/mapped.
 
 - *CephFS*:
@@ -902,7 +902,7 @@ systemctl status ceph-osd@12      # check status of osd.12
   The main notable distro that is *not* yet using systemd is Ubuntu trusty
   14.04.  (The next Ubuntu LTS, 16.04, will use systemd instead of upstart.)
 
-* Ceph daemons now run as user and group `ceph` by default.  The
+* Ceph daemons now run as user and group ``ceph`` by default.  The
   ceph user has a static UID assigned by Fedora and Debian (also used
   by derivative distributions like RHEL/CentOS and Ubuntu).  On SUSE
   the ceph user will currently get a dynamically assigned UID when the
@@ -914,7 +914,7 @@ systemctl status ceph-osd@12      # check status of osd.12
 
   When upgrading, administrators have two options:
 
-   1. Add the following line to `ceph.conf` on all hosts:
+   1. Add the following line to ``ceph.conf`` on all hosts:
 
 ```
   setuser match path = /var/lib/ceph/$type/$cluster-$id

@@ -32,7 +32,7 @@ The file system can be unmounted with:
 fusermount -u mountpoint
 ```
 
-or by sending `SIGINT` to the `rbd-fuse` process.
+or by sending ``SIGINT`` to the ``rbd-fuse`` process.
 
 # Options
 
@@ -55,4 +55,4 @@ the Ceph documentation at https://docs.ceph.com for more information.
 # See also
 
 fusermount(8),
-rbd\(8)
+[rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

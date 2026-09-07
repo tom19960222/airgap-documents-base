@@ -16,15 +16,15 @@ from a myriad of incrementals, it can also become a burden once we start
 keeping an unbounded number of osdmaps.
 
 The monitors will attempt to keep a bounded number of osdmaps in the store.
-This number is defined (and configurable) via `mon_min_osdmap_epochs`, and
+This number is defined (and configurable) via ``mon_min_osdmap_epochs``, and
 defaults to 500 epochs. Generally speaking, we will remove older osdmap
 epochs once we go over this limit.
 
 However, there are a few constraints to removing osdmaps. These are all
-defined in `OSDMonitor::get_trim_to()`.
+defined in ``OSDMonitor::get_trim_to()``.
 
 In the event one of these conditions is not met, we may go over the bounds
-defined by `mon_min_osdmap_epochs`. And if the cluster does not meet the
+defined by ``mon_min_osdmap_epochs``. And if the cluster does not meet the
 trim criteria for some time (e.g., unclean pgs), the monitor may start
 keeping a lot of osdmaps. This can start putting pressure on the underlying
 key/value store, as well as on the available disk space.
@@ -47,25 +47,25 @@ Instead of not keeping full osdmap epochs, we are going to prune some of
 them when we have too many.
 
 Deciding whether we have too many will be dictated by a configurable option
-`mon_osdmap_full_prune_min` (default: 10000). The pruning algorithm will be
+``mon_osdmap_full_prune_min`` (default: 10000). The pruning algorithm will be
 engaged once we go over this threshold.
 
-We will not remove all `mon_osdmap_full_prune_min` full osdmap epochs
+We will not remove all ``mon_osdmap_full_prune_min`` full osdmap epochs
 though. Instead, we are going to poke some holes in the sequence of full
 maps. By default, we will keep one full osdmap per 10 maps since the last
 map kept; i.e., if we keep epoch 1, we will also keep epoch 10 and remove
 full map epochs 2 to 9. The size of this interval is configurable with
-`mon_osdmap_full_prune_interval`.
+``mon_osdmap_full_prune_interval``.
 
 Essentially, we are proposing to keep ~10% of the full maps, but we will
 always honour the minimum number of osdmap epochs, as defined by
-`mon_min_osdmap_epochs`, and these won't be used for the count of the
+``mon_min_osdmap_epochs``, and these won't be used for the count of the
 minimum versions to prune. For instance, if we have on-disk versions
 [1..50000], we would allow the pruning algorithm to operate only over
 osdmap epochs [1..49500); but, if have on-disk versions [1..10200], we
 won't be pruning because the algorithm would only operate on versions
 [1..9700), and this interval contains less versions than the minimum
-required by `mon_osdmap_full_prune_min`.
+required by ``mon_osdmap_full_prune_min``.
 
 # ALGORITHM
 
@@ -83,11 +83,11 @@ defaults for all configurable options.
 
 We will prune when all the following constraints are met:
 
-1. number of versions is greater than `mon_min_osdmap_epochs`;
+1. number of versions is greater than ``mon_min_osdmap_epochs``;
 
-2. the number of versions between `first` and `prune_to` is greater (or
-   equal) than `mon_osdmap_full_prune_min`, with `prune_to` being equal to
-   `last` minus `mon_min_osdmap_epochs`.
+2. the number of versions between ``first`` and ``prune_to`` is greater (or
+   equal) than ``mon_osdmap_full_prune_min``, with ``prune_to`` being equal to
+   ``last`` minus ``mon_min_osdmap_epochs``.
 
 If any of these conditions fails, we will *not* prune any maps.
 
@@ -103,7 +103,7 @@ pruned.
 
 While pinned maps are not removed from the store, maps between two consecutive
 pinned maps will; and the number of maps to be removed will be dictated by the
-configurable option `mon_osdmap_full_prune_interval`. The algorithm makes an
+configurable option ``mon_osdmap_full_prune_interval``. The algorithm makes an
 effort to keep pinned maps apart by as many maps as defined by this option,
 but in the event of corner cases it may allow smaller intervals. Additionally,
 as this is a configurable option that is read any time a prune iteration
@@ -143,32 +143,32 @@ simply base itself on the manifest's last pinned map (which we can obtain by
 reading the element at the tail of the manifest's pinned maps list).
 
 We'll next need to determine the interval of maps to be removed: all the maps
-from `last_pinned` up to `new_pinned`, which in turn is nothing more than
-`last_pinned` plus `mon_osdmap_full_prune_interval`. We know that all maps
-between these two values, `last_pinned` and `new_pinned` can be removed,
-considering `new_pinned` has been pinned.
+from ``last_pinned`` up to ``new_pinned``, which in turn is nothing more than
+``last_pinned`` plus ``mon_osdmap_full_prune_interval``. We know that all maps
+between these two values, ``last_pinned`` and ``new_pinned`` can be removed,
+considering ``new_pinned`` has been pinned.
 
 The algorithm ceases to execute as soon as one of the two initial
 preconditions is not met, or if we do not meet two additional conditions that
 have no weight on the algorithm's correctness:
 
 1. We will stop if we are not able to create a new pruning interval properly
-   aligned with `mon_osdmap_full_prune_interval` that is lower than
-   `last_pruned`. There is no particular technical reason why we enforce
+   aligned with ``mon_osdmap_full_prune_interval`` that is lower than
+   ``last_pruned``. There is no particular technical reason why we enforce
    this requirement, besides allowing us to keep the intervals with an
    expected size, and preventing small, irregular intervals that would be
    bound to happen eventually (e.g., pruning continues over the course of
    several iterations, removing one or two or three maps each time).
 
 2. We will stop once we know that we have pruned more than a certain number of
-   maps. This value is defined by `mon_osdmap_full_prune_txsize`, and
+   maps. This value is defined by ``mon_osdmap_full_prune_txsize``, and
    ensures we don't spend an unbounded number of cycles pruning maps. We don't
    enforce this value religiously (deletes do not cost much), but we make an
    effort to honor it.
 
 We could do the removal in one go, but we have no idea how long that would
 take. Therefore, we will perform several iterations, removing at most
-`mon_osdmap_full_prune_txsize` osdmaps per iteration.
+``mon_osdmap_full_prune_txsize`` osdmaps per iteration.
 
 In the end, our on-disk map sequence will look similar to:
 
@@ -181,7 +181,7 @@ In the end, our on-disk map sequence will look similar to:
 
 Because we are not pruning all versions in one go, we need to keep state
 about how far along on our pruning we are. With that in mind, we have
-created a data structure, `osdmap_manifest_t`, that holds the set of pinned
+created a data structure, ``osdmap_manifest_t``, that holds the set of pinned
 maps::
 
 ```
@@ -226,7 +226,7 @@ keep the osdmap manifest: the osdmap manifest will no longer be required once
 the monitor trims osdmaps and the earliest available epoch in the store is
 greater than the last map we pruned.
 
-The same conditions from `OSDMonitor::get_trim_to()` that force the monitor
+The same conditions from ``OSDMonitor::get_trim_to()`` that force the monitor
 to keep a lot of osdmaps, thus requiring us to prune, may eventually change
 and allow the monitor to remove some of its oldest maps.
 
@@ -247,8 +247,8 @@ pinned = {1, 10, 20, ..., 490, 500}
 ```
 
 Now let us assume that the monitor will trim up to epoch 501. This means
-removing all maps prior to epoch 501, and updating the `first_committed`
-pointer to `501`. Given removing all those maps would invalidate our
+removing all maps prior to epoch 501, and updating the ``first_committed``
+pointer to ``501``. Given removing all those maps would invalidate our
 existing pruning efforts, we can consider our pruning has finished and drop
 our osdmap manifest. Doing so also simplifies starting a new prune, if all
 the starting conditions are met once we refreshed our state from the
@@ -269,7 +269,7 @@ store.
 
 Given we will always need to have the oldest known map in the store, before
 we trim we will have to check whether that map is in the prune interval
-(i.e., if said map epoch belongs to `[ pinned.first()..pinned.last() )`).
+(i.e., if said map epoch belongs to ``[ pinned.first()..pinned.last() )``).
 If so, we need to check if this is a pinned map, in which case we don't have
 much to be concerned aside from removing lower epochs from the manifest's
 pinned list. On the other hand, if the map being trimmed to is not a pinned
@@ -310,24 +310,24 @@ options. Enjoy.
 We perform additional checks before pruning to ensure all configuration
 options involved are sane:
 
-1. If `mon_osdmap_full_prune_interval` is zero we will not prune; we
+1. If ``mon_osdmap_full_prune_interval`` is zero we will not prune; we
    require an actual positive number, greater than one, to be able to prune
    maps. If the interval is one, we would not actually be pruning any maps, as
    the interval between pinned maps would essentially be a single epoch. This
    means we would have zero maps in-between pinned maps, hence no maps would
    ever be pruned.
 
-2. If `mon_osdmap_full_prune_min` is zero we will not prune; we require a
+2. If ``mon_osdmap_full_prune_min`` is zero we will not prune; we require a
    positive, greater than zero, value so we know the threshold over which we
    should prune. We don't want to guess.
 
-3. If `mon_osdmap_full_prune_interval` is greater than
-   `mon_osdmap_full_prune_min` we will not prune, as it is impossible to
+3. If ``mon_osdmap_full_prune_interval`` is greater than
+   ``mon_osdmap_full_prune_min`` we will not prune, as it is impossible to
    ascertain a proper prune interval.
 
-4. If `mon_osdmap_full_prune_txsize` is lower than
-   `mon_osdmap_full_prune_interval` we will not prune; we require a
-   `txsize` with a value at least equal than `interval`, and (depending on
+4. If ``mon_osdmap_full_prune_txsize`` is lower than
+   ``mon_osdmap_full_prune_interval`` we will not prune; we require a
+   ``txsize`` with a value at least equal than ``interval``, and (depending on
    the value of the latter) ideally higher.
 
 ## REQUIREMENTS, CONDITIONS & INVARIANTS

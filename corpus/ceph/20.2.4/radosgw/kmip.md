@@ -5,12 +5,12 @@ title: "KMIP Integration"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/kmip.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-kmip:
+<a id="radosgw-kmip"></a>
 
 # KMIP Integration
 
-KMIP can be used as a secure key management service for
-Server-Side Encryption (SSE-KMS).
+[KMIP](http://www.oasis-open.org/committees/kmip/) can be used as a secure key management service for
+[Server-Side Encryption](encryption.md) (SSE-KMS).
 
 .. ditaa::
 
@@ -40,10 +40,10 @@ Server-Side Encryption (SSE-KMS).
         |                 | object          |             |
         |                 |------------------------------>|
 
-1. Setting KMIP Access for Ceph
-1. Creating Keys in KMIP
-1. Configure the Ceph Object Gateway
-1. Upload object
+1. [Setting KMIP Access for Ceph](kmip.md#setting-kmip-access-for-ceph)
+1. [Creating Keys in KMIP](kmip.md#creating-keys-in-kmip)
+1. [Configure the Ceph Object Gateway](kmip.md#configure-the-ceph-object-gateway)
+1. [Upload object](kmip.md#upload-object)
 
 Before you can use KMIP with ceph, you will need to do three things.
 You will need to associate ceph with client information in KMIP,
@@ -56,12 +56,10 @@ Setting up Ceph in KMIP is very dependent on the mechanism(s) supported
 by your implementation of KMIP.  Two implementations are described
 here,
 
-1. IBM Security Guardium Key Lifecycle Manager (SKLM)_.  This is a well
+1. [IBM Security Guardium Key Lifecycle Manager (SKLM)](https://www.ibm.com/products/ibm-security-key-lifecycle-manager).  This is a well
    supported commercial product.
 
-__ SKLM_
-
-2. PyKMIP_.  This is a small python project, suitable for experimental
+2. [PyKMIP](https://pykmip.readthedocs.io/en/latest/).  This is a small python project, suitable for experimental
    and testing use only.
 
 ## Using IBM SKLM
@@ -75,21 +73,19 @@ but it will leave an "untrusted client device certificate" in SKLM.
 This can be then upgraded to a registered client using the web
 interface to complete the registration process.
 
-__ SKLM_
-
-Find untrusted clients under `Advanced Configuration`,
-`Client Device Communication Certificates`.  Select
-`Modify SSL/KMIP Certificates for Clients`, then toggle the flag
-`allow the server to trust this certificate and communicate...`.
+Find untrusted clients under ``Advanced Configuration``,
+``Client Device Communication Certificates``.  Select
+``Modify SSL/KMIP Certificates for Clients``, then toggle the flag
+``allow the server to trust this certificate and communicate...``.
 
 ## Using PyKMIP
 
-PyKMIP_ has no special registration process, it simply
+[PyKMIP](https://pykmip.readthedocs.io/en/latest/) has no special registration process, it simply
 trusts the certificate.  However, the certificate has to
 be issued by a certificate authority that is trusted by
 pykmip.  PyKMIP also prefers that the certificate contain
 an extension for "extended key usage".  However, that
-can be defeated by specifying `enable_tls_client_auth=False`
+can be defeated by specifying ``enable_tls_client_auth=False``
 in the server configuration.
 
 # Creating Keys in KMIP
@@ -150,23 +146,22 @@ while True:
   if keyname == "": break
   with c:
     key_id = c.create(
+        enums.CryptographicAlgorithm.AES,
+        256,
+        operation_policy_name='default',
+        name=keyname,
+        cryptographic_usage_mask=[
+            enums.CryptographicUsageMask.ENCRYPT,
+            enums.CryptographicUsageMask.DECRYPT
+        ]
+    )
+    c.activate(key_id)
+    attrs = c.get_attributes(uid=key_id)
+    r = {}
+    for a in attrs[1]:
+     r[str(a.attribute_name)] = str(a.attribute_value)
+    print (json.dumps(r))
 ```
-
-	  enums.CryptographicAlgorithm.AES,
-	  256,
-	  operation_policy_name='default',
-	  name=keyname,
-	  cryptographic_usage_mask=[
-	      enums.CryptographicUsageMask.ENCRYPT,
-	      enums.CryptographicUsageMask.DECRYPT
-	  ]
-      )
-      c.activate(key_id)
-      attrs = c.get_attributes(uid=key_id)
-      r = {}
-      for a in attrs[1]:
-       r[str(a.attribute_name)] = str(a.attribute_value)
-      print (json.dumps(r))
 
 If this is all entered at the shell prompt, python will
 prompt with ">>>" then "..." until the script is read in,
@@ -220,7 +215,7 @@ it in the bucket. Any request to download the object will make the Gateway
 automatically retrieve the correspondent key from Vault and decrypt the object.
 
 Note that the secret will be fetched from kmip using a name constructed
-from the key template, replacing `$keyid` with the key provided.
+from the key template, replacing ``$keyid`` with the key provided.
 
 With the ceph configuration given above,
 radosgw would fetch the secret from:
@@ -228,8 +223,3 @@ radosgw would fetch the secret from:
 ```
 pykmip-mybucketkey
 ```
-
-.. _Server-Side Encryption: ../encryption
-.. _KMIP: http://www.oasis-open.org/committees/kmip/
-.. _SKLM: https://www.ibm.com/products/ibm-security-key-lifecycle-manager
-.. _PyKMIP: https://pykmip.readthedocs.io/en/latest/

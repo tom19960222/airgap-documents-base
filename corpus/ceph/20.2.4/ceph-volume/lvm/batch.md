@@ -1,60 +1,60 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "``batch``"
+title: "`batch`"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/lvm/batch.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-lvm-batch:
+<a id="ceph-volume-lvm-batch"></a>
 
 # ``batch``
 The subcommand allows to create multiple OSDs at the same time given
-an input of devices. The `batch` subcommand is closely related to
+an input of devices. The ``batch`` subcommand is closely related to
 drive-groups. One individual drive group specification translates to a single
-`batch` invocation.
+``batch`` invocation.
 
-The subcommand is based to ceph-volume-lvm-create, and will use the very
-same code path. All `batch` does is to calculate the appropriate sizes of all
+The subcommand is based to [ceph-volume-lvm-create](create.md#ceph-volume-lvm-create), and will use the very
+same code path. All ``batch`` does is to calculate the appropriate sizes of all
 volumes and skip over already created volumes.
 
-All the features that `ceph-volume lvm create` supports, like `dmcrypt`,
-avoiding `systemd` units from starting, defining bluestore,
+All the features that ``ceph-volume lvm create`` supports, like ``dmcrypt``,
+avoiding ``systemd`` units from starting, defining bluestore,
 is supported.
 
-.. _ceph-volume-lvm-batch_auto:
+<a id="ceph-volume-lvm-batch-auto"></a>
 
 ## Automatic sorting of disks
-If `batch` receives only a single list of data devices and other options are
-passed , `ceph-volume` will auto-sort disks by its rotational
-property and use non-rotating disks for `block.db` or `journal` depending
+If ``batch`` receives only a single list of data devices and other options are
+passed , ``ceph-volume`` will auto-sort disks by its rotational
+property and use non-rotating disks for ``block.db`` or ``journal`` depending
 on the objectstore used. If all devices are to be used for standalone OSDs,
-no matter if rotating or solid state, pass `--no-auto`.
-For example assuming bluestore is used and `--no-auto` is not passed,
+no matter if rotating or solid state, pass ``--no-auto``.
+For example assuming bluestore is used and ``--no-auto`` is not passed,
 the deprecated behavior would deploy the following, depending on the devices
 passed:
 
 1. Devices are all spinning HDDs: 1 OSD is created per device
 1. Devices are all SSDs: 2 OSDs are created per device
 1. Devices are a mix of HDDs and SSDs: data is placed on the spinning device,
-   the `block.db` is created on the SSD, as large as possible.
+   the ``block.db`` is created on the SSD, as large as possible.
 
-> **Note:** Although operations in `ceph-volume lvm create` allow usage of
-> `block.wal` it isn't supported with the `auto` behavior.
+> **Note:** Although operations in ``ceph-volume lvm create`` allow usage of
+> ``block.wal`` it isn't supported with the ``auto`` behavior.
 
 This default auto-sorting behavior is now DEPRECATED and will be changed in future releases.
-Instead devices are not automatically sorted unless the `--auto` option is passed
+Instead devices are not automatically sorted unless the ``--auto`` option is passed
 
-It is recommended to make use of the explicit device lists for `block.db`,
-   `block.wal` and `journal`.
+It is recommended to make use of the explicit device lists for ``block.db``,
+   ``block.wal`` and ``journal``.
 
-.. _ceph-volume-lvm-batch_bluestore:
+<a id="ceph-volume-lvm-batch-bluestore"></a>
 
 # Reporting
-By default `batch` will print a report of the computed OSD layout and ask the
-user to confirm. This can be overridden by passing `--yes`.
+By default ``batch`` will print a report of the computed OSD layout and ask the
+user to confirm. This can be overridden by passing ``--yes``.
 
 If one wants to try out several invocations with being asked to deploy
-`--report` can be passed. `ceph-volume` will exit after printing the report.
+``--report`` can be passed. ``ceph-volume`` will exit after printing the report.
 
 Consider the following invocation:
 
@@ -62,12 +62,12 @@ Consider the following invocation:
 $ ceph-volume lvm batch --report /dev/sdb /dev/sdc /dev/sdd --db-devices /dev/nvme0n1
 ```
 
-This will deploy three OSDs with external `db` and `wal` volumes on
+This will deploy three OSDs with external ``db`` and ``wal`` volumes on
 an NVME device.
 
 ## Pretty reporting
 
-The `pretty` report format (the default) would
+The ``pretty`` report format (the default) would
 look like this:
 
 ```
@@ -92,8 +92,8 @@ Total OSDs: 3
 
 ## JSON reporting
 
-Reporting can produce a structured output with `--format json` or
-`--format json-pretty`:
+Reporting can produce a structured output with ``--format json`` or
+``--format json-pretty``:
 
 ```
 $ ceph-volume lvm batch --report --format json-pretty /dev/sdb /dev/sdc /dev/sdd --db-devices /dev/nvme0n1
@@ -141,9 +141,9 @@ on `ceph-volume` automatic sizing.
 Users can provide hints to `ceph-volume` as to how many data devices should have
 their external volumes on a set of fast devices. These options are:
 
-* `--block-db-slots`
-* `--block-wal-slots`
-* `--journal-slots`
+* ``--block-db-slots``
+* ``--block-wal-slots``
+* ``--journal-slots``
 
 For example, consider an OSD host that is supposed to contain 5 data devices and
 one device for wal/db volumes. However, one data device is currently broken and
@@ -157,9 +157,9 @@ $ ceph-volume lvm batch --report /dev/sdb /dev/sdc /dev/sdd /dev/sde --db-device
 ## Explicit sizing
 It is also possible to provide explicit sizes to `ceph-volume` via the arguments
 
-* `--block-db-size`
-* `--block-wal-size`
-* `--journal-size`
+* ``--block-db-size``
+* ``--block-wal-size``
+* ``--journal-size``
 
 `ceph-volume` will try to satisfy the requested sizes given the passed disks. If
 this is not possible, no OSDs will be deployed.
@@ -181,4 +181,4 @@ replacing the hardware, you can again call the same command and `ceph-volume`
 will detect that only two out of the three wanted OSDs are setup and re-create
 the missing OSD.
 
-This idempotency notion is tightly coupled to and extensively used by drivegroups.
+This idempotency notion is tightly coupled to and extensively used by [drivegroups](../../cephadm/services/osd.md#drivegroups).

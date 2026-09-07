@@ -91,62 +91,62 @@ Placement groups are a part of pools.
 
 ## MDS
 A metadata server (MDS) is necessary for the proper functioning of CephFS.
-See orchestrator-cli-cephfs and arch-cephfs.
+See [orchestrator-cli-cephfs](../cephadm/services/mds.md#orchestrator-cli-cephfs) and [arch-cephfs](../architecture.md#arch-cephfs).
 
 # Vstart Cluster Installation and Configuration Procedure
 
-1. Clone the `ceph/ceph` repository:
+1. Clone the ``ceph/ceph`` repository:
 
 ```bash
 git clone git@github.com:ceph/ceph
 ```
 
-1. Update the submodules in the `ceph/ceph` repository:
+1. Update the submodules in the ``ceph/ceph`` repository:
 
 ```bash
 git submodule update --init --recursive --progress
 ```
 
-1. Run `install-deps.sh` from within the directory into which you cloned the
-   `ceph/ceph` repository:
+1. Run ``install-deps.sh`` from within the directory into which you cloned the
+   ``ceph/ceph`` repository:
 
 ```bash
 ./install-deps.sh
 ```
 
-1. Install the `python3-routes` package:
+1. Install the ``python3-routes`` package:
 
 ```bash
 apt install python3-routes
 ```
 
-1. Move into the `ceph` directory. You will know that you are in the correct
-   directory if it contains the file `do_cmake.sh`:
+1. Move into the ``ceph`` directory. You will know that you are in the correct
+   directory if it contains the file ``do_cmake.sh``:
 
 ```bash
 cd ceph
 ```
 
-1. Run the `do_cmake.sh` script:
+1. Run the ``do_cmake.sh`` script:
 
 ```bash
 ./do_cmake.sh
 ```
 
-1. The `do_cmake.sh` script creates a `build/` directory. Move into the
-   `build/` directory:
+1. The ``do_cmake.sh`` script creates a ``build/`` directory. Move into the
+   ``build/`` directory:
 
 ```bash
 cd build
 ```
 
-1. Use `ninja` to build the development environment:
+1. Use ``ninja`` to build the development environment:
 
 ```bash
 ninja -j3
 ```
 
-> **Note:** This step takes a long time to run. The `ninja -j3` command
+> **Note:** This step takes a long time to run. The ``ninja -j3`` command
 > kicks off a process consisting of 2289 steps. This step took over three
 > hours when I ran it on an Intel NUC with an i7 in September of 2024.
 
@@ -170,7 +170,7 @@ ninja vstart
 ../src/vstart.sh --debug --new -x --localhost --bluestore
 ```
 
-> **Note:** Run this command from within the `ceph/build` directory.
+> **Note:** Run this command from within the ``ceph/build`` directory.
 
 ## LINKS
 

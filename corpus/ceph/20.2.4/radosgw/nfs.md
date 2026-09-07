@@ -18,15 +18,15 @@ In particular, the Ceph Object Gateway can now be configured to
 provide file-based access when embedded in the NFS-Ganesha NFS server.
 
 The simplest and preferred way of managing nfs-ganesha clusters and rgw exports
-is using `ceph nfs ...` commands. See /mgr/nfs for more details.
+is using ``ceph nfs ...`` commands. See [/mgr/nfs](../mgr/nfs.md) for more details.
 
 # librgw
 
-The `librgw` library provides a loadable interface to
+The ``librgw`` library provides a loadable interface to
 Ceph Object Gateway services, and instantiates a full Ceph Object Gateway
 instance on initialization.
 
-In turn, `librgw` exports `rgw_file`, a stateful API for file-oriented
+In turn, ``librgw`` exports ``rgw_file``, a stateful API for file-oriented
 access to RGW buckets and objects.  The API is general, but its design
 is strongly influenced by the File System Abstraction Layer (FSAL) API
 of NFS-Ganesha, for which it has been primarily designed.
@@ -118,18 +118,18 @@ ganesha.conf.
 Required ceph.conf configuration for RGW NFS includes:
 
 * valid [client.rgw.{instance-name}] section
-* valid values for minimal instance configuration, in particular, an installed and correct `keyring`
+* valid values for minimal instance configuration, in particular, an installed and correct ``keyring``
 
-Other config variables (e.g., `rgw data` and `rgw backend store`) are
+Other config variables (e.g., ``rgw data`` and ``rgw backend store``) are
 optional.
 
-A small number of config variables (e.g., `rgw_nfs_namespace_expire_secs`)
+A small number of config variables (e.g., ``rgw_nfs_namespace_expire_secs``)
 are unique to RGW NFS.
 
 In particular, front-end selection is handled specially by the librgw.so runtime.  By default, only the
-`rgw-nfs` frontend is started. Additional frontends (e.g., `beast`) are enabled via the
-`rgw nfs frontends` config option.  Its syntax is identical to the ordinary `rgw frontends` option.
-Default options for non-default frontends are specified via `rgw frontend defaults` as normal.
+``rgw-nfs`` frontend is started. Additional frontends (e.g., ``beast``) are enabled via the
+``rgw nfs frontends`` config option.  Its syntax is identical to the ordinary ``rgw frontends`` option.
+Default options for non-default frontends are specified via ``rgw frontend defaults`` as normal.
 
 ## ganesha.conf
 
@@ -159,16 +159,16 @@ EXPORT
 }
 ```
 
-`Export_ID` must have an integer value, e.g., "77"
+``Export_ID`` must have an integer value, e.g., "77"
 
-`Path` (for RGW) should be "/"
+``Path`` (for RGW) should be "/"
 
-`Pseudo` defines an NFSv4 pseudo root name (NFSv4 only)
+``Pseudo`` defines an NFSv4 pseudo root name (NFSv4 only)
 
-`SecType = sys;` allows clients to attach without Kerberos
+``SecType = sys;`` allows clients to attach without Kerberos
 authentication
 
-`Squash = No_Root_Squash;` enables the client root user to override
+``Squash = No_Root_Squash;`` enables the client root user to override
 permissions (Unix convention).  When root-squashing is enabled,
 operations attempted by the root user are performed as if by the local
 "nobody" (and "nogroup") user on the NFS-Ganesha server
@@ -185,11 +185,11 @@ RGW {
 }
 ```
 
-`cluster` sets a Ceph cluster name (must match the cluster being exported)
+``cluster`` sets a Ceph cluster name (must match the cluster being exported)
 
-`name` sets an RGW instance name (must match the cluster being exported)
+``name`` sets an RGW instance name (must match the cluster being exported)
 
-`ceph_conf` gives a path to a non-default ceph.conf file to use
+``ceph_conf`` gives a path to a non-default ceph.conf file to use
 
 #### Other useful NFS-Ganesha configuration:
 
@@ -242,48 +242,48 @@ component logging include:
 Example:
 
 ```
-LOG {
-```
+ LOG {
 
-	Components {
-		MEMLEAKS = FATAL;
-		FSAL = FATAL;
-		NFSPROTO = FATAL;
-		NFS_V4 = FATAL;
-		EXPORT = FATAL;
-		FILEHANDLE = FATAL;
-		DISPATCH = FATAL;
-		CACHE_INODE = FATAL;
-		CACHE_INODE_LRU = FATAL;
-		HASHTABLE = FATAL;
-		HASHTABLE_CACHE = FATAL;
-		DUPREQ = FATAL;
-		INIT = DEBUG;
-		MAIN = DEBUG;
-		IDMAPPER = FATAL;
-		NFS_READDIR = FATAL;
-		NFS_V4_LOCK = FATAL;
-		CONFIG = FATAL;
-		CLIENTID = FATAL;
-		SESSIONS = FATAL;
-		PNFS = FATAL;
-		RW_LOCK = FATAL;
-		NLM = FATAL;
-		RPC = FATAL;
-		NFS_CB = FATAL;
-		THREAD = FATAL;
-		NFS_V4_ACL = FATAL;
-		STATE = FATAL;
-		FSAL_UP = FATAL;
-		DBUS = FATAL;
-	}
-	# optional: redirect log output
- #	Facility {
- #		name = FILE;
- #		destination = "/tmp/ganesha-rgw.log";
- #		enable = active;
-	}
- }
+       Components {
+               MEMLEAKS = FATAL;
+               FSAL = FATAL;
+               NFSPROTO = FATAL;
+               NFS_V4 = FATAL;
+               EXPORT = FATAL;
+               FILEHANDLE = FATAL;
+               DISPATCH = FATAL;
+               CACHE_INODE = FATAL;
+               CACHE_INODE_LRU = FATAL;
+               HASHTABLE = FATAL;
+               HASHTABLE_CACHE = FATAL;
+               DUPREQ = FATAL;
+               INIT = DEBUG;
+               MAIN = DEBUG;
+               IDMAPPER = FATAL;
+               NFS_READDIR = FATAL;
+               NFS_V4_LOCK = FATAL;
+               CONFIG = FATAL;
+               CLIENTID = FATAL;
+               SESSIONS = FATAL;
+               PNFS = FATAL;
+               RW_LOCK = FATAL;
+               NLM = FATAL;
+               RPC = FATAL;
+               NFS_CB = FATAL;
+               THREAD = FATAL;
+               NFS_V4_ACL = FATAL;
+               STATE = FATAL;
+               FSAL_UP = FATAL;
+               DBUS = FATAL;
+       }
+       # optional: redirect log output
+#      Facility {
+#              name = FILE;
+#              destination = "/tmp/ganesha-rgw.log";
+#              enable = active;
+       }
+}
+```
 
 # Running Multiple NFS Gateways
 
@@ -308,15 +308,15 @@ currently not supported.
 
 When adding objects and buckets outside of NFS, those objects will
 appear in the NFS namespace in the time set by
-`rgw_nfs_namespace_expire_secs`, which defaults to 300 seconds (5 minutes).
-Override the default value for `rgw_nfs_namespace_expire_secs` in the
+``rgw_nfs_namespace_expire_secs``, which defaults to 300 seconds (5 minutes).
+Override the default value for ``rgw_nfs_namespace_expire_secs`` in the
 Ceph configuration file to change the refresh rate.
 
 If exporting Swift containers that do not conform to valid S3 bucket
-naming requirements, set `rgw_relaxed_s3_bucket_names` to true in the
+naming requirements, set ``rgw_relaxed_s3_bucket_names`` to true in the
 [client.rgw] section of the Ceph configuration file. For example,
 if a Swift container name contains underscores, it is not a valid S3
-bucket name and will be rejected unless `rgw_relaxed_s3_bucket_names`
+bucket name and will be rejected unless ``rgw_relaxed_s3_bucket_names``
 is set to true.
 
 # Configuring NFSv4 clients
@@ -352,8 +352,8 @@ the client.
 # Configuring NFSv3 Clients
 
 Linux clients can be configured to mount with NFSv3 by supplying
-`nfsvers=3` and `noacl` as mount options. To use UDP as the
-transport, add `proto=udp` to the mount options. However, TCP is the
+``nfsvers=3`` and ``noacl`` as mount options. To use UDP as the
+transport, add ``proto=udp`` to the mount options. However, TCP is the
 preferred transport:
 
 ```
@@ -371,7 +371,7 @@ beginning and ending of file upload transactions. Instead, RGW NFS
 starts a new upload when the first write is sent to a file at offset
 0, and finalizes the upload when no new writes to the file have been
 seen for a period of time, by default, 10 seconds. To change this
-timeout, set an alternate value for `rgw_nfs_write_completion_interval_s`
+timeout, set an alternate value for ``rgw_nfs_write_completion_interval_s``
 in the RGW section(s) of the Ceph configuration file.
 
 # References

@@ -7,18 +7,18 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Memory Profiling
 
-Ceph Monitor, OSD, and MDS can report `TCMalloc` heap profiles. Install
-`google-perftools` if you want to generate these. Your OS distribution might
-package this under a different name (for example, `gperftools`), and your OS
+Ceph Monitor, OSD, and MDS can report ``TCMalloc`` heap profiles. Install
+``google-perftools`` if you want to generate these. Your OS distribution might
+package this under a different name (for example, ``gperftools``), and your OS
 distribution might use a different package manager. Run a command similar to
-this one to install `google-perftools`:
+this one to install ``google-perftools``:
 
 ```bash
 sudo apt-get install google-perftools
 ```
 
-The profiler dumps output to your `log file` directory (`/var/log/ceph`).
-See Logging and Debugging for details.
+The profiler dumps output to your ``log file`` directory (``/var/log/ceph``).
+See [Logging and Debugging](log-and-debug.md) for details.
 
 To view the profiler logs with Google's performance tools, run the following
 command:
@@ -76,15 +76,15 @@ $ google-pprof --text --base out/osd.0.profile.0001.heap \
  0.0   0.8%  98.5%      0.0   0.8% __gnu_cxx::new_allocator::allocate
 ```
 
-See Google Heap Profiler for additional details.
+See [Google Heap Profiler](http://goog-perftools.sourceforge.net/doc/heap_profiler.html) for additional details.
 
 After you have installed the heap profiler, start your cluster and begin using
 the heap profiler. You can enable or disable the heap profiler at runtime, or
 ensure that it runs continuously. When running commands based on the examples
 that follow, do the following:
 
-1. replace `{daemon-type}` with `mon`, `osd` or `mds`
-1. replace `{daemon-id}` with the OSD number or the MON ID or the MDS ID
+1. replace ``{daemon-type}`` with ``mon``, ``osd`` or ``mds``
+1. replace ``{daemon-id}`` with the OSD number or the MON ID or the MDS ID
 
 ## Starting the Profiler
 
@@ -100,7 +100,7 @@ For example:
 ceph tell osd.1 heap start_profiler
 ```
 
-Alternatively, if the `CEPH_HEAP_PROFILER_INIT=true` variable is found in the
+Alternatively, if the ``CEPH_HEAP_PROFILER_INIT=true`` variable is found in the
 environment, the profile will be started when the daemon starts running.
 
 ## Printing Stats
@@ -139,7 +139,7 @@ ceph tell mds.a heap dump
 
 ## Releasing Memory
 
-To release memory that `tcmalloc` has allocated but which is not being used
+To release memory that ``tcmalloc`` has allocated but which is not being used
 by the Ceph daemon itself, run a command of the following form:
 
 ```bash
@@ -166,9 +166,6 @@ For example:
 ceph tell osd.0 heap stop_profiler
 ```
 
-.. _Logging and Debugging: ../log-and-debug
-.. _Google Heap Profiler: http://goog-perftools.sourceforge.net/doc/heap_profiler.html
-
 ## Alternative Methods of  Memory Profiling
 
 #### Running Massif heap profiler with Valgrind
@@ -176,8 +173,7 @@ ceph tell osd.0 heap stop_profiler
 The Massif heap profiler tool can be used with Valgrind to measure how much
 heap memory is used. This method is well-suited to troubleshooting RadosGW.
 
-See the `Massif documentation
-<https://valgrind.org/docs/manual/ms-manual.html>`_ for more information.
+See the [Massif documentation](https://valgrind.org/docs/manual/ms-manual.html) for more information.
 
 Install Valgrind from the package manager for your distribution then start the
 Ceph daemon you want to troubleshoot:
@@ -187,12 +183,12 @@ sudo -u ceph valgrind --max-threads=1024 --tool=massif /usr/bin/radosgw -f --clu
 ```
 
 When this command has completed its run, a file with a name of the form
-`massif.out.<pid>` will be saved in your current working directory. To run
+``massif.out.<pid>`` will be saved in your current working directory. To run
 the command above, the user who runs it must have write permissions in the
 current directory.
 
-Run the `ms_print` command to get a graph and statistics from the collected
-data in the `massif.out.<pid>` file:
+Run the ``ms_print`` command to get a graph and statistics from the collected
+data in the ``massif.out.<pid>`` file:
 
 ```bash
 ms_print massif.out.12345

@@ -194,17 +194,17 @@ Configuration:
 When starting the shell, cephadm looks for configuration in the following order.
 Only the first values found are used:
 
-1. An explicit, user provided path to a config file (`-c/--config` option)
-2. Config file for daemon specified with `--name` parameter (`/var/lib/ceph/<fsid>/<daemon-name>/config`)
-3. `/var/lib/ceph/<fsid>/config/ceph.conf` if it exists
-4. The config file for a `mon` daemon (`/var/lib/ceph/<fsid>/mon.<mon-id>/config`) if it exists
-5. Finally: fallback to the default file `/etc/ceph/ceph.conf`
+1. An explicit, user provided path to a config file (``-c/--config`` option)
+2. Config file for daemon specified with ``--name`` parameter (``/var/lib/ceph/<fsid>/<daemon-name>/config``)
+3. ``/var/lib/ceph/<fsid>/config/ceph.conf`` if it exists
+4. The config file for a ``mon`` daemon (``/var/lib/ceph/<fsid>/mon.<mon-id>/config``) if it exists
+5. Finally: fallback to the default file ``/etc/ceph/ceph.conf``
 
 ## bootstrap
 
 Bootstrap a cluster on the local host. It deploys a MON and a MGR and then also automatically
 deploys the monitoring stack on this host (see --skip-monitoring-stack) and calls
-`ceph orch host add $(hostname)` (see --skip-ssh).
+``ceph orch host add $(hostname)`` (see --skip-ssh).
 
 Arguments:
 
@@ -323,7 +323,7 @@ Positional arguments:
 ## inspect-image
 
 Inspect local Ceph container image. From Reef onward, requires specifying
-the image to inspect with `--image`:
+the image to inspect with ``--image``:
 
 ```
 cephadm --image IMAGE_NAME inspect-image
@@ -538,4 +538,4 @@ the documentation at http://docs.ceph.com/ for more information.
 
 # See also
 
-ceph-volume\(8),
+[ceph-volume](cephadm.md#ceph-volume)\(8),

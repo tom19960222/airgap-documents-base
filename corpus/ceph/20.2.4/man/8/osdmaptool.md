@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-.. _osdmaptool:
+<a id="osdmaptool"></a>
 
 # osdmaptool -- ceph osd cluster map manipulation tool
 
@@ -370,5 +370,5 @@ information.
 
 # See also
 
-ceph\(8),
-crushtool\(8),
+[ceph](../../install/clone-source.md)\(8),
+[crushtool](crushtool.md)\(8),

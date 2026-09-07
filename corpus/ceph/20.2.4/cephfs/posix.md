@@ -38,18 +38,18 @@ POSIX semantics for various reasons:
   A's page is not coherently invalidated.  (Shared writable mmap
   appears to be quite rare--we have yet to hear any complaints about this
   behavior, and implementing cache coherency properly is complex.)
-- CephFS clients present a hidden `.snap` directory that is used to
+- CephFS clients present a hidden ``.snap`` directory that is used to
   access, create, delete, and rename snapshots.  Although the virtual
   directory is excluded from readdir(2), any process that tries to
   create a file or directory with the same name will get an error
   code.  The name of this hidden directory can be changed at mount
-  time with `-o snapdirname=.somethingelse` (Linux) or the config
-  option `client_snapdir` (libcephfs, ceph-fuse).
-- CephFS does not currently maintain the `atime` field. Most applications
+  time with ``-o snapdirname=.somethingelse`` (Linux) or the config
+  option ``client_snapdir`` (libcephfs, ceph-fuse).
+- CephFS does not currently maintain the ``atime`` field. Most applications
   do not care, though this impacts some backup and data tiering
   applications that can move unused data to a secondary storage system.
   You may be able to workaround this for some use cases, as CephFS does
-  support setting `atime` via the `setattr` operation.
+  support setting ``atime`` via the ``setattr`` operation.
 
 ## Perspective
 
@@ -101,7 +101,5 @@ once to every file description that is open at the time of the error. In
 addition, unreported errors that occurred before the file description was
 opened will also be returned on fsync.
 
-See `PostgreSQL's summary of fsync() error reporting across operating systems
-<https://wiki.postgresql.org/wiki/Fsync_Errors>`_ and `Matthew Wilcox's
-presentation on Linux IO error handling
-<https://www.youtube.com/watch?v=74c19hwY2oE>`_ for more information.
+See [PostgreSQL's summary of fsync() error reporting across operating systems](https://wiki.postgresql.org/wiki/Fsync_Errors) and [Matthew Wilcox's
+presentation on Linux IO error handling](https://www.youtube.com/watch?v=74c19hwY2oE) for more information.

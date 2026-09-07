@@ -18,7 +18,7 @@ event, to alert the Administrator to the issue.
 # Prerequisites
 In order to effectively analyse the hosts that Ceph is deployed to, this feature requires a cache
 of host-related metadata. The metadata is already available from cephadm's HostFacts class and the
-`gather-facts` cephadm command. For the purposes of this document, we will assume that this
+``gather-facts`` cephadm command. For the purposes of this document, we will assume that this
 data is available within the mgr/cephadm "cache" structure.
 
 Some checks will require that the host status is also populated e.g. ONLINE, OFFLINE, MAINTENANCE
@@ -39,9 +39,9 @@ ceph cephadm compliance get-check-interval
 The status option would show the enabled/disabled state of the feature, along with the
 check-interval.
 
-The `ls` subcommand would show all checks in the following format;
+The ``ls`` subcommand would show all checks in the following format;
 
-`check-name status description`
+``check-name status description``
 
 # Proposed Integration
 The compliance checks are not required to run all the time, but instead should run at discrete

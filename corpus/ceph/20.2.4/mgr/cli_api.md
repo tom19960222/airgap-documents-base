@@ -12,13 +12,13 @@ This API can be benchmarked.
 
 ## Enabling
 
-Enable the `cli api` module by running the following command:
+Enable the ``cli api`` module by running the following command:
 
 ```bash
 ceph mgr module enable cli_api
 ```
 
-Ensure that the `cli api` module is enabled by running the following command:
+Ensure that the ``cli api`` module is enabled by running the following command:
 
 ```bash
 ceph mgr module ls | grep cli_api
@@ -51,7 +51,7 @@ ceph mgr cli_benchmark <number of calls> <number of threads> <command> <param>
 ```
 
 For example, run the following command to benchmark the command to get
-`osd_map`:
+``osd_map``:
 
 ```bash
 ceph mgr cli_benchmark 100 10 get osd_map

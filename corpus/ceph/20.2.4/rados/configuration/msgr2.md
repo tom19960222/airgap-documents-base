@@ -5,7 +5,7 @@ title: "Messenger v2"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/configuration/msgr2.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _msgr2:
+<a id="msgr2"></a>
 
 # Messenger v2
 
@@ -23,27 +23,27 @@ Ceph's on-wire protocol.  It brings with it several key features:
 Ceph daemons can now bind to multiple ports, allowing both legacy Ceph
 clients and new v2-capable clients to connect to the same cluster.
 
-By default, monitors now bind to the new IANA-assigned port `3300`
+By default, monitors now bind to the new IANA-assigned port ``3300``
 (ce4h or 0xce4) for the new v2 protocol, while also binding to the
-old default port `6789` for the legacy v1 protocol.
+old default port ``6789`` for the legacy v1 protocol.
 
-.. _address_formats:
+<a id="address-formats"></a>
 
 ## Address formats
 
 Prior to Nautilus, all network addresses were rendered like
-`1.2.3.4:567/89012` where there was an IP address, a port, and a
+``1.2.3.4:567/89012`` where there was an IP address, a port, and a
 nonce to uniquely identify a client or daemon on the network.
 Starting with Nautilus, we now have three different address types:
 
-* **v2**: `v2:1.2.3.4:578/89012` identifies a daemon binding to a
+* **v2**: ``v2:1.2.3.4:578/89012`` identifies a daemon binding to a
   port speaking the new v2 protocol
-* **v1**: `v1:1.2.3.4:578/89012` identifies a daemon binding to a
+* **v1**: ``v1:1.2.3.4:578/89012`` identifies a daemon binding to a
   port speaking the legacy v1 protocol.  Any address that was
-  previously shown with any prefix is now shown as a `v1:` address.
-* **TYPE_ANY** `any:1.2.3.4:578/89012` identifies a client that can
+  previously shown with any prefix is now shown as a ``v1:`` address.
+* **TYPE_ANY** ``any:1.2.3.4:578/89012`` identifies a client that can
   speak either version of the protocol. Prior to nautilus, clients would appear as
-  `1.2.3.4:0/123456`, where the port of 0 indicates they are clients
+  ``1.2.3.4:0/123456``, where the port of 0 indicates they are clients
   and do not accept incoming connections.  Starting with Nautilus,
   these clients are now internally represented by a **TYPE_ANY**
   address, and still shown with no prefix, because they may
@@ -73,7 +73,7 @@ possible; otherwise it will back to the legacy v1 protocol.  Legacy
 clients will only see the v1 addresses and will continue to connect as
 they did before, with the v1 protocol.
 
-Starting in Nautilus, the `mon_host` configuration option and ``-m
+Starting in Nautilus, the ``mon_host`` configuration option and ``-m
 <mon-host>`` command line options support the same bracketed address
 vector syntax.
 
@@ -122,8 +122,7 @@ The v2 protocol supports two connection modes:
   - full encryption of all post-authentication traffic, including a
     cryptographic integrity check.
 
-  In Nautilus, secure mode uses the `AES-GCM
-  <https://en.wikipedia.org/wiki/Galois/Counter_Mode>`_ stream cipher,
+  In Nautilus, secure mode uses the [AES-GCM](https://en.wikipedia.org/wiki/Galois/Counter_Mode) stream cipher,
   which is generally very fast on modern processors (e.g., faster than
   a SHA-256 cryptographic hash).
 
@@ -182,11 +181,11 @@ allowing administrators to set different requirements on communication between O
 
 ## Transitioning from v1-only to v2-plus-v1
 
-By default, `ms_bind_msgr2` is true starting with Nautilus 14.2.z.
+By default, ``ms_bind_msgr2`` is true starting with Nautilus 14.2.z.
 However, until the monitors start using v2, only limited services will
 start advertising v2 addresses.
 
-For most users, the monitors are binding to the default legacy port `6789`
+For most users, the monitors are binding to the default legacy port ``6789``
 for the v1 protocol.  When this is the case, enabling v2 is as simple as:
 
 ```bash
@@ -195,8 +194,8 @@ ceph mon enable-msgr2
 
 If the monitors are bound to non-standard ports, you will need to
 specify an additional port for v2 explicitly.  For example, if your
-monitor `mon.a` binds to `1.2.3.4:1111`, and you want to add v2 on
-port `1112`:
+monitor ``mon.a`` binds to ``1.2.3.4:1111``, and you want to add v2 on
+port ``1112``:
 
 ```bash
 ceph mon set-addrs a [v2:1.2.3.4:1112,v1:1.2.3.4:1111]
@@ -205,12 +204,12 @@ ceph mon set-addrs a [v2:1.2.3.4:1112,v1:1.2.3.4:1111]
 Once the monitors bind to v2, each daemon will start advertising a v2
 address when it is next restarted.
 
-.. _msgr2_ceph_conf:
+<a id="msgr2-ceph-conf"></a>
 
 ## Updating ceph.conf and mon_host
 
 Prior to Nautilus, a CLI user or daemon will normally discover the
-monitors via the `mon_host` option in `/etc/ceph/ceph.conf`.  The
+monitors via the ``mon_host`` option in ``/etc/ceph/ceph.conf``.  The
 syntax for this option has expanded starting with Nautilus to allow
 support the new bracketed list format.  For example, an old line
 like:
@@ -225,24 +224,24 @@ Can be changed to:
 mon_host = [v2:10.0.0.1:3300/0,v1:10.0.0.1:6789/0],[v2:10.0.0.2:3300/0,v1:10.0.0.2:6789/0],[v2:10.0.0.3:3300/0,v1:10.0.0.3:6789/0]
 ```
 
-However, when default ports are used (`3300` and `6789`), they can
+However, when default ports are used (``3300`` and ``6789``), they can
 be omitted:
 
 ```
 mon_host = 10.0.0.1,10.0.0.2,10.0.0.3
 ```
 
-Once v2 has been enabled on the monitors, `ceph.conf` may need to be
+Once v2 has been enabled on the monitors, ``ceph.conf`` may need to be
 updated to either specify no ports (this is usually simplest), or
 explicitly specify both the v2 and v1 addresses.  Note, however, that
 the new bracketed syntax is only understood by Nautilus and later, so
 do not make that change on hosts that have not yet had their ceph
 packages upgraded.
 
-When you are updating `ceph.conf`, note the new ``ceph config
+When you are updating ``ceph.conf``, note the new ``ceph config
 generate-minimal-conf`` command (which generates a barebones config
 file with just enough information to reach the monitors) and the
-`ceph config assimilate-conf` (which moves config file options into
+``ceph config assimilate-conf`` (which moves config file options into
 the monitors' configuration database) may be helpful.  For example,:
 
 ```
@@ -258,4 +257,4 @@ the monitors' configuration database) may be helpful.  For example,:
 
 ## Protocol
 
-For a detailed description of the v2 wire protocol, see msgr2-protocol.
+For a detailed description of the v2 wire protocol, see [msgr2-protocol](../../dev/msgr2.md#msgr2-protocol).

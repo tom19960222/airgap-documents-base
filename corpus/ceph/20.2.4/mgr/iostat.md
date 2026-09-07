@@ -5,22 +5,22 @@ title: "iostat"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/iostat.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _mgr-iostat-overview:
+<a id="mgr-iostat-overview"></a>
 
 # iostat
 
-The `iostat` module reports metrics for cluster throughpout and IOPS.
+The ``iostat`` module reports metrics for cluster throughpout and IOPS.
 
 ## Enabling
 
-To determine whether the `iostat` module is enabled, run the following
+To determine whether the ``iostat`` module is enabled, run the following
 command:
 
 ```bash
 ceph mgr module ls
 ```
 
-To enable the `iostat` module, run the following command:
+To enable the ``iostat`` module, run the following command:
 
 ```bash
 ceph mgr module enable iostat
@@ -32,7 +32,7 @@ To execute the module, run the following command:
 ceph iostat
 ```
 
-To change the frequency at which the statistics are printed, use the `-p`
+To change the frequency at which the statistics are printed, use the ``-p``
 option:
 
 ```bash
@@ -46,4 +46,4 @@ seconds:
 ceph iostat -p 5
 ```
 
-To stop the module, press `Ctrl-C`.
+To stop the module, press ``Ctrl-C``.

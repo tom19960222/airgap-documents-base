@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Handling a full Ceph file system
 
-When a RADOS cluster reaches its `mon_osd_full_ratio` (default
+When a RADOS cluster reaches its ``mon_osd_full_ratio`` (default
 95%) capacity, it is marked with the OSD full flag.  This flag causes
 most normal RADOS clients to pause all operations until it is resolved
 (for example by adding more capacity to the cluster).
@@ -23,28 +23,28 @@ results from:
  * Metadata operations other than deletes and truncates
 
 Because the full condition may not be encountered until
-data is flushed to disk (sometime after a `write` call has already
+data is flushed to disk (sometime after a ``write`` call has already
 returned 0), the ENOSPC error may not be seen until the application
-calls `fsync` or `fclose` (or equivalent) on the file handle.
+calls ``fsync`` or ``fclose`` (or equivalent) on the file handle.
 
-Calling `fsync` is guaranteed to reliably indicate whether the data
-made it to disk, and will return an error if it doesn't.  `fclose` will
+Calling ``fsync`` is guaranteed to reliably indicate whether the data
+made it to disk, and will return an error if it doesn't.  ``fclose`` will
 only return an error if buffered data happened to be flushed since
-the last write -- a successful `fclose` does not guarantee that the
+the last write -- a successful ``fclose`` does not guarantee that the
 data made it to disk, and in a full-space situation, buffered data
-may be discarded after an `fclose` if no space is available to persist it.
+may be discarded after an ``fclose`` if no space is available to persist it.
 
 > **Warning:**
 > If an application appears to be misbehaving on a full file system,
-> check that it is performing `fsync()` calls as necessary to ensure
+> check that it is performing ``fsync()`` calls as necessary to ensure
 > data is on disk before proceeding.
 
 Data writes may be cancelled by the client if they are in flight at the
-time the OSD full flag is sent.  Clients update the `osd_epoch_barrier`
+time the OSD full flag is sent.  Clients update the ``osd_epoch_barrier``
 when releasing capabilities on files affected by cancelled operations, in
 order to ensure that these cancelled operations do not interfere with
 subsequent access to the data objects by the MDS or other clients.  For
-more on the epoch barrier mechanism, see background_blocklisting_and_osd_epoch_barrier.
+more on the epoch barrier mechanism, see [background_blocklisting_and_osd_epoch_barrier](eviction.md#background-blocklisting-and-osd-epoch-barrier).
 
 ## Legacy (pre-hammer) behavior
 

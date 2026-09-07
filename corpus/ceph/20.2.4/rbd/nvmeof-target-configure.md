@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Prerequisites
 
--  A working Ceph Tentacle or later storage cluster, deployed with `cephadm`
+-  A working Ceph Tentacle or later storage cluster, deployed with ``cephadm``
 
 -  NVMe-oF gateways, which can either be colocated with OSD nodes or on dedicated nodes
 
@@ -49,7 +49,7 @@ ceph orch apply nvmeof NVME-OF_POOL_NAME --placement="host01, host02"
 
 # Configuration
 
-Download the `nvmeof-cli` container before first use.
+Download the ``nvmeof-cli`` container before first use.
 To download it use the following command:
 
 ```bash
@@ -62,7 +62,7 @@ podman pull quay.io/ceph/nvmeof-cli:latest
 podman run -it --rm quay.io/ceph/nvmeof-cli:latest --server-address GATEWAY_IP --server-port GATEWAY_PORT 5500 subsystem add --subsystem SUSYSTEM_NQN
 ```
 
-   The subsystem NQN is a user defined string, for example `nqn.2016-06.io.spdk:cnode1`.
+   The subsystem NQN is a user defined string, for example ``nqn.2016-06.io.spdk:cnode1``.
 
 1. Define the IP port on the gateway that will process the NVME/TCP commands and I/O:
 

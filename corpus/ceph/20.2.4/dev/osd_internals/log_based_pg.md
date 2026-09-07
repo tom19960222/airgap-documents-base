@@ -5,7 +5,7 @@ title: "Log Based PG"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/osd_internals/log_based_pg.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _log-based-pg:
+<a id="log-based-pg"></a>
 
 # Log Based PG
 
@@ -33,13 +33,13 @@ using two numbers: the epoch of the map on the primary in which the
 most recent write started (this is a bit stranger than it might seem
 since map distribution itself is asynchronous -- see Peering and the
 concept of interval changes) and an increasing per-PG version number
--- this is referred to in the code with type `eversion_t` and stored as
-`pg_info_t::last_update`.  Furthermore, we maintain a log of "recent"
+-- this is referred to in the code with type ``eversion_t`` and stored as
+``pg_info_t::last_update``.  Furthermore, we maintain a log of "recent"
 operations extending back at least far enough to include any
 *unstable* writes (writes which have been started but not committed)
 and objects which aren't up-to-date locally (see recovery and
 backfill).  In practice, the log will extend much further
-(`osd_min_pg_log_entries` when clean and `osd_max_pg_log_entries` when not
+(``osd_min_pg_log_entries`` when clean and ``osd_max_pg_log_entries`` when not
 clean) because it's handy for quickly performing recovery.
 
 Using this log, as long as we talk to a non-empty subset of the OSDs
@@ -52,7 +52,7 @@ newer cannot have completed without that log containing it) and the
 newest head remembered (clearly, all writes in the log were started,
 so it's fine for us to remember them) as the new head.  This is the
 main point of divergence between replicated pools and EC pools in
-`PG/PrimaryLogPG`: replicated pools try to choose the newest valid
+``PG/PrimaryLogPG``: replicated pools try to choose the newest valid
 option to avoid the client needing to replay those operations and
 instead recover the other copies.  EC pools instead try to choose
 the *oldest* option available to them.
@@ -60,7 +60,7 @@ the *oldest* option available to them.
 The reason for this gets to the heart of the rest of the differences
 in implementation: one copy will not generally be enough to
 reconstruct an EC object.  Indeed, there are encodings where some log
-combinations would leave unrecoverable objects (as with a `k=4,m=2` encoding
+combinations would leave unrecoverable objects (as with a ``k=4,m=2`` encoding
 where 3 of the replicas remember a write, but the other 3 do not -- we
 don't have 3 copies of either version).  For this reason, log entries
 representing *unstable* writes (writes not yet committed to the
@@ -70,8 +70,8 @@ via a delayed application or via a set of instructions for rolling
 back an inplace update) or not.  Replicated pool log entries are
 never able to be rolled back.
 
-For more details, see `PGLog.h/cc`, `osd_types.h:pg_log_t`,
-`osd_types.h:pg_log_entry_t`, and peering in general.
+For more details, see ``PGLog.h/cc``, ``osd_types.h:pg_log_t``,
+``osd_types.h:pg_log_entry_t``, and peering in general.
 
 # ReplicatedBackend/ECBackend unification strategy
 
@@ -80,7 +80,7 @@ For more details, see `PGLog.h/cc`, `osd_types.h:pg_log_t`,
 The fundamental difference between replication and erasure coding
 is that replication can do destructive updates while erasure coding
 cannot.  It would be really annoying if we needed to have two entire
-implementations of `PrimaryLogPG` since there
+implementations of ``PrimaryLogPG`` since there
 are really only a few fundamental differences:
 
 1. How reads work -- async only, requires remote reads for EC
@@ -101,20 +101,20 @@ and so many similarities
 
 Instead, we choose a few abstractions (and a few kludges) to paper over the differences:
 
-1. `PGBackend`
-1. `PGTransaction`
-1. `PG::choose_acting` chooses between `calc_replicated_acting` and `calc_ec_acting`
+1. ``PGBackend``
+1. ``PGTransaction``
+1. ``PG::choose_acting`` chooses between ``calc_replicated_acting`` and ``calc_ec_acting``
 1. Various bits of the write pipeline disallow some operations based on pool
    type -- like omap operations, class operation reads, and writes which are
    not aligned appends (officially, so far) for EC
 1. Misc other kludges here and there
 
-`PGBackend` and `PGTransaction` enable abstraction of differences 1 and 2 above
+``PGBackend`` and ``PGTransaction`` enable abstraction of differences 1 and 2 above
 and the addition of 4 as needed to the log entries.
 
-The replicated implementation is in `ReplicatedBackend.h/cc` and doesn't
-require much additional explanation.  More detail on the `ECBackend` can be
-found in `doc/dev/osd_internals/erasure_coding/ecbackend.rst`.
+The replicated implementation is in ``ReplicatedBackend.h/cc`` and doesn't
+require much additional explanation.  More detail on the ``ECBackend`` can be
+found in ``doc/dev/osd_internals/erasure_coding/ecbackend.rst``.
 
 # PGBackend Interface Explanation
 
@@ -126,13 +126,13 @@ and is probably out of date w.r.t. some of the method names.
 For a replicated pool, an object is readable IFF it is present on
 the primary (at the right version).  For an EC pool, we need at least
 `m` shards present to perform a read, and we need it on the primary.  For
-this reason, `PGBackend` needs to include some interfaces for determining
+this reason, ``PGBackend`` needs to include some interfaces for determining
 when recovery is required to serve a read vs a write.  This also
 changes the rules for when peering has enough logs to prove that it
 
 Core Changes:
 
-- | `PGBackend` needs to be able to return `IsPG(Recoverable|Readable)Predicate`
+- | ``PGBackend`` needs to be able to return ``IsPG(Recoverable|Readable)Predicate``
   | objects to allow the user to make these determinations.
 
 ## Client Reads
@@ -140,14 +140,14 @@ Core Changes:
 Reads from a replicated pool can always be satisfied
 synchronously by the primary OSD.  Within an erasure coded pool,
 the primary will need to request data from some number of replicas in
-order to satisfy a read.  `PGBackend` will therefore need to provide
-separate `objects_read_sync` and `objects_read_async` interfaces where
-the former won't be implemented by the `ECBackend`.
+order to satisfy a read.  ``PGBackend`` will therefore need to provide
+separate ``objects_read_sync`` and ``objects_read_async`` interfaces where
+the former won't be implemented by the ``ECBackend``.
 
-`PGBackend` interfaces:
+``PGBackend`` interfaces:
 
-- `objects_read_sync`
-- `objects_read_async`
+- ``objects_read_sync``
+- ``objects_read_async``
 
 ## Scrubs
 
@@ -165,12 +165,12 @@ each object.  The primary gathers these scrubmaps from each replica
 and performs a comparison identifying inconsistent objects.
 
 Most of this can work essentially unchanged with erasure coded PG with
-the caveat that the `PGBackend` implementation must be in charge of
+the caveat that the ``PGBackend`` implementation must be in charge of
 actually doing the scan.
 
-`PGBackend` interfaces:
+``PGBackend`` interfaces:
 
-- `be_*`
+- ``be_*``
 
 ## Recovery
 
@@ -182,15 +182,15 @@ minimum number of replica chunks required to reconstruct the object
 and push out the replacement chunks concurrently.
 
 Another difference is that objects in erasure coded PG may be
-unrecoverable without being unfound.  The `unfound` state
-should probably be renamed to `unrecoverable`.  Also, the
-`PGBackend` implementation will have to be able to direct the search
+unrecoverable without being unfound.  The ``unfound`` state
+should probably be renamed to ``unrecoverable``.  Also, the
+``PGBackend`` implementation will have to be able to direct the search
 for PG replicas with unrecoverable object chunks and to be able
 to determine whether a particular object is recoverable.
 
 Core changes:
 
-- `s/unfound/unrecoverable`
+- ``s/unfound/unrecoverable``
 
 PGBackend interfaces:
 

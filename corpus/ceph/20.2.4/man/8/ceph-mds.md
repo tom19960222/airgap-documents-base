@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-.. _ceph_mds_man:
+<a id="ceph-mds-man"></a>
 
 # ceph-mds -- ceph metadata server daemon
 
@@ -36,8 +36,7 @@ other behaviors.
 .. option:: -f, --foreground
 
    Foreground: do not daemonize after startup (run in foreground). Do
-   not generate a pid file. Useful when run via :doc:`ceph-run
-   <ceph-run>`\(8).
+   not generate a pid file. Useful when run via [ceph-run](ceph-run.md)\(8).
 
 .. option:: -d
 
@@ -81,6 +80,6 @@ https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8),
-ceph-mon\(8),
-ceph-osd\(8)
+[ceph](../../install/clone-source.md)\(8),
+[ceph-mon](ceph-mon.md)\(8),
+[ceph-osd](ceph-osd.md)\(8)

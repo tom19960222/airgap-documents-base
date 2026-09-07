@@ -5,7 +5,7 @@ title: "Multiple Ceph File Systems"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/multifs.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs-multifs:
+<a id="cephfs-multifs"></a>
 
 # Multiple Ceph File Systems
 
@@ -23,7 +23,7 @@ New Ceph clusters automatically set this.
 
 ## Creating a new Ceph File System
 
-The new `volumes` plugin interface (see: /cephfs/fs-volumes) automates
+The new ``volumes`` plugin interface (see: [/cephfs/fs-volumes](fs-volumes.md)) automates
 most of the work of configuring a new file system. The "volume" concept is
 simply a new file system. This can be done via:
 
@@ -33,7 +33,7 @@ ceph fs volume create <fs_name>
 
 Ceph will create the new pools and automate the deployment of new MDS to
 support the new file system. The deployment technology used, e.g. cephadm, will
-also configure the MDS affinity (see: mds-join-fs) of new MDS daemons to
+also configure the MDS affinity (see: [mds-join-fs](standby.md#mds-join-fs)) of new MDS daemons to
 operate the new file system.
 
 If the data and metadata pools for the volume are already present, the names of
@@ -45,8 +45,8 @@ ceph fs volume create <vol-name> --meta-pool <meta-pool-name> --data-pool <data-
 
 ## Securing access
 
-The `fs authorize` command allows configuring the client's access to a
-particular file system. See also in fs-authorize-multifs. The client will
+The ``fs authorize`` command allows configuring the client's access to a
+particular file system. See also in [fs-authorize-multifs](client-auth.md#fs-authorize-multifs). The client will
 only have visibility of authorized file systems and the Monitors/MDS will
 reject access to clients without authorization.
 

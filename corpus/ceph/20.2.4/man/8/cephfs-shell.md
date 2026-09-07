@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-.. _cephfs-shell:
+<a id="cephfs-shell"></a>
 
 # cephfs-shell -- Shell-like tool talking with CephFS
 
@@ -31,8 +31,8 @@ executed command. In non-interactive mode, cephfs-shell issues a command and
 exits right after the command's execution is complete with the command's
 return value.
 
-Behaviour of CephFS Shell can be tweaked using `cephfs-shell.conf`. Refer to
-CephFS Shell Configuration File for details.
+Behaviour of CephFS Shell can be tweaked using ``cephfs-shell.conf``. Refer to
+[CephFS Shell Configuration File](cephfs-shell.md#cephfs-shell-configuration-file) for details.
 
 # Options
 
@@ -66,7 +66,7 @@ CephFS Shell Configuration File for details.
 
 > **Note:**
 > Apart from Ceph File System, CephFS Shell commands can also interact
-> directly with the local file system. To achieve this, `!` (an
+> directly with the local file system. To achieve this, ``!`` (an
 > exclamation point) must precede the CephFS Shell command.
 >
 > Usage :
@@ -143,7 +143,7 @@ Usage :
     * By default current working directory's files/directories are listed.
 
 Options:
-  -l, --long	    list with long format - show permissions
+  -l, --long        list with long format - show permissions
   -r, --reverse     reverse sort
   -H                human readable
   -a, -all          ignore entries starting with .
@@ -300,7 +300,7 @@ Usage:
   However, you cannot run nested "py" or "pyscript" commands from within this
   script. Paths or arguments that contain spaces must be enclosed in quotes
 
-> **Note:** This command is available as `pyscript` for cmd2 versions 0.9.13
+> **Note:** This command is available as ``pyscript`` for cmd2 versions 0.9.13
 > or less.
 
 py
@@ -386,7 +386,7 @@ Usage:
 
 * file_path - a file path pointing to a script
 
-> **Note:** This command is available as `load` for cmd2 versions 0.9.13
+> **Note:** This command is available as ``load`` for cmd2 versions 0.9.13
 > or less.
 
 ## shell
@@ -527,15 +527,15 @@ Options :
   --max_files MAX_FILES    Set total number of files under this directory tree
 
 # CephFS Shell Configuration File
-By default, CephFS Shell looks for `cephfs-shell.conf` in the path provided
-by the environment variable `CEPHFS_SHELL_CONF` and then in user's home
-directory (`~/.cephfs-shell.conf`).
+By default, CephFS Shell looks for ``cephfs-shell.conf`` in the path provided
+by the environment variable ``CEPHFS_SHELL_CONF`` and then in user's home
+directory (``~/.cephfs-shell.conf``).
 
-Right now, CephFS Shell inherits all its options from its dependency `cmd2`.
-Therefore, these options might vary with the version of `cmd2` installed on
-your system. Refer to `cmd2` docs for a description of these options.
+Right now, CephFS Shell inherits all its options from its dependency ``cmd2``.
+Therefore, these options might vary with the version of ``cmd2`` installed on
+your system. Refer to ``cmd2`` docs for a description of these options.
 
-Following is a sample `cephfs-shell.conf`
+Following is a sample ``cephfs-shell.conf``
 
 ```ini
 [cephfs-shell]
@@ -559,54 +559,31 @@ locals_in_py = True
 
 Following exit codes are returned by cephfs shell
 
-+-----------------------------------------------+-----------+
-| Error Type                                    | Exit Code |
-+===============================================+===========+
-| Miscellaneous                                 |     1     |
-+-----------------------------------------------+-----------+
-| Keyboard Interrupt                            |     2     |
-+-----------------------------------------------+-----------+
-| Operation not permitted                       |     3     |
-+-----------------------------------------------+-----------+
-| Permission denied                             |     4     |
-+-----------------------------------------------+-----------+
-| No such file or directory                     |     5     |
-+-----------------------------------------------+-----------+
-| I/O error                                     |     6     |
-+-----------------------------------------------+-----------+
-| No space left on device                       |     7     |
-+-----------------------------------------------+-----------+
-| File exists                                   |     8     |
-+-----------------------------------------------+-----------+
-| No data available                             |     9     |
-+-----------------------------------------------+-----------+
-| Invalid argument                              |     10    |
-+-----------------------------------------------+-----------+
-| Operation not supported on transport endpoint |     11    |
-+-----------------------------------------------+-----------+
-| Range error                                   |     12    |
-+-----------------------------------------------+-----------+
-| Operation would block                         |     13    |
-+-----------------------------------------------+-----------+
-| Directory not empty                           |     14    |
-+-----------------------------------------------+-----------+
-| Not a directory                               |     15    |
-+-----------------------------------------------+-----------+
-| Disk quota exceeded                           |     16    |
-+-----------------------------------------------+-----------+
-| Broken pipe                                   |     17    |
-+-----------------------------------------------+-----------+
-| Cannot send after transport endpoint shutdown |     18    |
-+-----------------------------------------------+-----------+
-| Connection aborted                            |     19    |
-+-----------------------------------------------+-----------+
-| Connection refused                            |     20    |
-+-----------------------------------------------+-----------+
-| Connection reset                              |     21    |
-+-----------------------------------------------+-----------+
-| Interrupted function call                     |     22    |
-+-----------------------------------------------+-----------+
+| Error Type | Exit Code |
+| --- | --- |
+| Miscellaneous | 1 |
+| Keyboard Interrupt | 2 |
+| Operation not permitted | 3 |
+| Permission denied | 4 |
+| No such file or directory | 5 |
+| I/O error | 6 |
+| No space left on device | 7 |
+| File exists | 8 |
+| No data available | 9 |
+| Invalid argument | 10 |
+| Operation not supported on transport endpoint | 11 |
+| Range error | 12 |
+| Operation would block | 13 |
+| Directory not empty | 14 |
+| Not a directory | 15 |
+| Disk quota exceeded | 16 |
+| Broken pipe | 17 |
+| Cannot send after transport endpoint shutdown | 18 |
+| Connection aborted | 19 |
+| Connection refused | 20 |
+| Connection reset | 21 |
+| Interrupted function call | 22 |
 
 # Files
 
-`~/.cephfs-shell.conf`
+``~/.cephfs-shell.conf``

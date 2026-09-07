@@ -13,7 +13,7 @@ request(s) to the hardware QuickAssist accelerators, which are more efficient
 in terms of cost and power than general purpose CPUs for those specific
 compute-intensive workloads.
 
-See QAT Support for Compression and QAT based Encryption for RGW.
+See [QAT Support for Compression](https://github.com/ceph/ceph/pull/19714) and [QAT based Encryption for RGW](https://github.com/ceph/ceph/pull/19386).
 
 # QAT in the Software Stack
 
@@ -35,10 +35,9 @@ OpenSSL* libcrypto*, and the Linux* Kernel Crypto Framework).
    encryption and compression services. And QAT driver in kernel space have to
    be loaded to drive the hardware.
 
-The out-of-tree QAT driver package can be downloaded from `Intel Quickassist
-Technology`_.
+The out-of-tree QAT driver package can be downloaded from [Intel Quickassist Technology](https://01.org/intel-quickassist-technology).
 
-The QATlib can be downloaded from qatlib, which is used for the in-tree QAT
+The QATlib can be downloaded from [qatlib](https://github.com/intel/qatlib), which is used for the in-tree QAT
 driver.
 
 > **Note:**
@@ -50,13 +49,13 @@ driver.
    top of the QAT API. At the time of writing (July 2024), QATzip speeds up
    gzip compression and decompression.
 
-See QATzip.
+See [QATzip](https://github.com/intel/QATzip).
 
 # Implementation
 1. QAT based Encryption for RGW
 
-OpenSSL support for RGW encryption has been merged into Ceph, and Intel also
-provides one QAT Engine for OpenSSL. Theoretically, QAT-based encryption in
+[OpenSSL support for RGW encryption](https://github.com/ceph/ceph/pull/15168) has been merged into Ceph, and Intel also
+provides one [QAT Engine](https://github.com/intel/QAT_Engine) for OpenSSL. Theoretically, QAT-based encryption in
 Ceph can be directly supported through the OpenSSl+QAT Engine.
 
 However, the QAT Engine for OpenSSL currently supports only chained operations,
@@ -81,12 +80,12 @@ the zlib compressor if QAT hardware is available.
    **For out-of-tree QAT**
 
    Make sure the out-of-tree QAT driver with version v1.7.L.4.14.0 or higher
-   has been installed.  Remember to set an environment variable `ICP_ROOT`
+   has been installed.  Remember to set an environment variable ``ICP_ROOT``
    for your QAT driver package root directory.
 
    To enable the QAT based encryption and compression, the user must modify the
    QAT configuration files. For example, for the Intel QuickAssist Adapter 8970
-   product, revise `c6xx_dev0/1/2.conf` in the directory `/etc/` and keep them
+   product, revise ``c6xx_dev0/1/2.conf`` in the directory ``/etc/`` and keep them
    the same. For example:
 
 ```ini
@@ -114,15 +113,15 @@ Dc0CoreAffinity = 0
    **For in-tree QAT**
 
    There are some prerequisites for using QATlib. Make sure that your system
-   meets the QATlib System Requirements .
+   meets the [QATlib System Requirements](https://intel.github.io/quickassist/qatlib/requirements.html) .
 
    * To properly use the QATlib library, the Intel VT-d and SR-IOV parameters
      must be enabled in the platform BIOS.
    * Some QATlib features require a recent kernel driver or firmware version.
-     See QATlib Kernel Driver Releases.
+     See [QATlib Kernel Driver Releases](https://intel.github.io/quickassist/RN/In-Tree/in_tree_firmware_RN.html#qat-kernel-driver-releases-features).
    * The supported platform contains a 4xxx Intel Communications device or
      newer.
-   * The `intel_iommu` parameter must be enabled. Verify that this setting is
+   * The ``intel_iommu`` parameter must be enabled. Verify that this setting is
      enabled by running the following commands:
 
 ```bash
@@ -131,12 +130,12 @@ sudo sh -c 'echo "@qat - memlock 204800" >> /etc/security/limits.conf'
 sudo su -l $USER
 ```
 
-   For configuration and Tuning see QATlib Configuration and Tuning.
+   For configuration and Tuning see [QATlib Configuration and Tuning](https://intel.github.io/quickassist/qatlib/configuration.html).
 
 1. QAT-based Encryption for RGW
 
-   The CMake option `WITH_QATDRV=ON` must be set. If you build Ceph from
-   source code (see: build-ceph), navigate to your cloned Ceph repository
+   The CMake option ``WITH_QATDRV=ON`` must be set. If you build Ceph from
+   source code (see: [build-ceph](../install/build-ceph.md#build-ceph)), navigate to your cloned Ceph repository
    and execute the following:
 
 ```bash
@@ -146,10 +145,10 @@ cd build
 ininja
 ```
 
-> **Note:** The section name in QAT configuration files must be `CEPH`,
-> because the section name is set to `CEPH` in the Ceph crypto source code.
+> **Note:** The section name in QAT configuration files must be ``CEPH``,
+> because the section name is set to ``CEPH`` in the Ceph crypto source code.
 
-   Edit the Ceph configuration file (usually `ceph.conf`) to make use of the
+   Edit the Ceph configuration file (usually ``ceph.conf``) to make use of the
    QAT-based crypto plugin:
 
 ```
@@ -161,8 +160,8 @@ plugin crypto accelerator = crypto_qat
    **For out-of-tree QAT**
 
    For the out-of-tree QAT driver package, before building ensure that both the QAT
-   driver and QATzip  have been installed. In addition to `ICP_ROOT`,
-   set the environment variable `QZ_ROOT` to the root directory of your QATzip
+   driver and [QATzip](https://github.com/intel/QATzip)  have been installed. In addition to ``ICP_ROOT``,
+   set the environment variable ``QZ_ROOT`` to the root directory of your QATzip
    source tree.
 
    The following CMake options must be configured to trigger QAT-based
@@ -181,10 +180,9 @@ export QAT_SECTION_NAME=CEPH
 
    **For in-tree QAT**
 
-   For in-tree QAT, ensure that your system meets the `QATlib System
-   Requirements`_.  QATlib can be installed from pre-built packages or from
-   source code.  See QATlib Installation . After QATlib is installed, you
-   can run `cpa_sample_code` to check if the QAT environment is OK.
+   For in-tree QAT, ensure that your system meets the [QATlib System Requirements](https://intel.github.io/quickassist/qatlib/requirements.html).  QATlib can be installed from pre-built packages or from
+   source code.  See [QATlib Installation](https://intel.github.io/quickassist/qatlib/install.html) . After QATlib is installed, you
+   can run ``cpa_sample_code`` to check if the QAT environment is OK.
 
    If you are using QATlib source code, the Ceph `cmake` build enables the
    qatlib and qatzip options by default. Our normal compilation
@@ -203,7 +201,7 @@ export QAT_SECTION_NAME=CEPH
 
    **For both out-of-tree QAT and in-tree QAT**
 
-   Edit Ceph's central config DB or configuration file (usually `ceph.conf`) to enable QAT
+   Edit Ceph's central config DB or configuration file (usually ``ceph.conf``) to enable QAT
    support for *zlib* compression:
 
 ```
@@ -222,21 +220,8 @@ radosgw-admin zone placement add --rgw-zone default --placement-id default-place
 
 # CONFIG REFERENCE
 The following QAT-related settings can be added to the Ceph configuration file
-(usually `ceph.conf`) under the `[client.rgw.{instance-name}]` section.
+(usually `ceph.conf`) under the ``[client.rgw.{instance-name}]`` section.
 
 .. confval:: qat_compressor_session_max_number
 
 .. confval:: qat_compressor_busy_polling
-
-.. _QAT Support for Compression: https://github.com/ceph/ceph/pull/19714
-.. _QAT based Encryption for RGW: https://github.com/ceph/ceph/pull/19386
-.. _Intel Quickassist Technology: https://01.org/intel-quickassist-technology
-.. _QATzip: https://github.com/intel/QATzip
-.. _OpenSSL support for RGW encryption: https://github.com/ceph/ceph/pull/15168
-.. _QAT Engine: https://github.com/intel/QAT_Engine
-.. _qatlib: https://github.com/intel/qatlib
-.. _QATlib User's Guide: https://intel.github.io/quickassist/qatlib/index.html
-.. _QATlib System Requirements: https://intel.github.io/quickassist/qatlib/requirements.html
-.. _QATlib Installation: https://intel.github.io/quickassist/qatlib/install.html
-.. _QATlib Configuration and Tuning: https://intel.github.io/quickassist/qatlib/configuration.html
-.. _QATlib Kernel Driver Releases: https://intel.github.io/quickassist/RN/In-Tree/in_tree_firmware_RN.html#qat-kernel-driver-releases-features

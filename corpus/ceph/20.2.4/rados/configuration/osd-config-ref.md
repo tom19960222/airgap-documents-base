@@ -12,33 +12,34 @@ fetched_at: 2026-08-18T01:32:45Z
 You can configure Ceph OSD Daemons in the Ceph configuration file (or in recent
 releases, the central config store), but Ceph OSD
 Daemons can use the default values and a very minimal configuration. A minimal
-Ceph OSD Daemon configuration sets `host` and
+Ceph OSD Daemon configuration sets ``host`` and
 uses default values for nearly everything else.
 
 Ceph OSD Daemons are numerically identified in incremental fashion, beginning
-with `0` using the following convention. ::
+with ``0`` using the following convention. :
 
-	osd.0
-	osd.1
-	osd.2
+```
+osd.0
+osd.1
+osd.2
+```
 
 In a configuration file, you may specify settings for all Ceph OSD Daemons in
-the cluster by adding configuration settings to the `[osd]` section of your
+the cluster by adding configuration settings to the ``[osd]`` section of your
 configuration file. To add settings directly to a specific Ceph OSD Daemon
-(e.g., `host`), enter  it in an OSD-specific section of your configuration
+(e.g., ``host``), enter  it in an OSD-specific section of your configuration
 file. For example:
 
 ```ini
+[osd]
+        osd_journal_size = 5120
+
+[osd.0]
+        host = osd-host-a
+
+[osd.1]
+        host = osd-host-b
 ```
-
-	[osd]
-		osd_journal_size = 5120
-
-	[osd.0]
-		host = osd-host-a
-
-	[osd.1]
-		host = osd-host-b
 
 .. index:: OSD; config settings
 
@@ -52,7 +53,7 @@ automatically.
 > makes it more problematic to troubleshoot Ceph later.
 
 When using Filestore, the journal size should be at least twice the product of the expected drive
-speed multiplied by `filestore_max_sync_interval`. However, the most common
+speed multiplied by ``filestore_max_sync_interval``. However, the most common
 practice is to partition the journal drive (often an SSD), and mount it such
 that Ceph uses the entire partition for the journal. Note that Filestore has been
 deprecated for several releases and any legacy Filestore OSDs should be migrated
@@ -76,12 +77,12 @@ to BlueStore.
 # File System Settings
 Ceph builds and mounts file systems which are used for Ceph OSDs.
 
-`osd_mkfs_options {fs-type}`
+``osd_mkfs_options {fs-type}``
 
 :Description: Options used when creating a new Ceph Filestore OSD of type {fs-type}.
 
 :Type: String
-:Default for xfs: `-f -i 2048`
+:Default for xfs: ``-f -i 2048``
 :Default for other file systems: {empty string}
 
 For example:
@@ -90,13 +91,13 @@ For example:
 ``osd_mkfs_options_xfs = -f -d agcount=24``
 ```
 
-`osd_mount_options {fs-type}`
+``osd_mount_options {fs-type}``
 
 :Description: Options used when mounting a Ceph Filestore OSD of type {fs-type}.
 
 :Type: String
-:Default for xfs: `rw,noatime,inode64`
-:Default for other file systems: `rw, noatime`
+:Default for xfs: ``rw,noatime,inode64``
+:Default for other file systems: ``rw, noatime``
 
 For example:
 
@@ -112,49 +113,53 @@ This section applies only to the older Filestore OSD back end.  Since Luminous
 BlueStore has been default and preferred.
 
 By default, Ceph expects that you will provision a Ceph OSD Daemon's journal at
-the following path, which is usually a symlink to a device or partition::
+the following path, which is usually a symlink to a device or partition:
 
-	/var/lib/ceph/osd/$cluster-$id/journal
+```
+/var/lib/ceph/osd/$cluster-$id/journal
+```
 
 When using a single device type (for example, spinning drives), the journals
 should be *colocated*: the logical volume (or partition) should be in the same
-device as the `data` logical volume.
+device as the ``data`` logical volume.
 
 When using a mix of fast (SSDs, NVMe) devices with slower ones (like spinning
 drives) it makes sense to place the journal on the faster device, while
-`data` occupies the slower device fully.
+``data`` occupies the slower device fully.
 
-The default `osd_journal_size` value is 5120 (5 gigabytes), but it can be
-larger, in which case it will need to be set in the `ceph.conf` file.
-A value of 10 gigabytes is common in practice::
+The default ``osd_journal_size`` value is 5120 (5 gigabytes), but it can be
+larger, in which case it will need to be set in the ``ceph.conf`` file.
+A value of 10 gigabytes is common in practice:
 
-	osd_journal_size = 10240
+```
+osd_journal_size = 10240
+```
 
 .. confval:: osd_journal
 
 .. confval:: osd_journal_size
 
-See Journal Config Reference for additional details.
+See [Journal Config Reference](journal-ref.md) for additional details.
 
 # Monitor OSD Interaction
 
 Ceph OSD Daemons check each other's heartbeats and report to monitors
 periodically. Ceph can use default values in many cases. However, if your
 network has latency issues, you may need to adopt longer intervals. See
-Configuring Monitor/OSD Interaction for a detailed discussion of heartbeats.
+[Configuring Monitor/OSD Interaction](mon-osd-interaction.md) for a detailed discussion of heartbeats.
 
 # Data Placement
 
-See Pool & PG Config Reference for details.
+See [Pool & PG Config Reference](pool-pg-config-ref.md) for details.
 
 .. index:: OSD; scrubbing
 
-.. _rados_config_scrubbing:
+<a id="rados-config-scrubbing"></a>
 
 # Scrubbing
 
 One way that Ceph ensures data integrity is by "scrubbing" placement groups.
-Ceph scrubbing is analogous to `fsck` on the object storage layer. Ceph
+Ceph scrubbing is analogous to ``fsck`` on the object storage layer. Ceph
 generates a catalog of all objects in each placement group and compares each
 primary object to its replicas, ensuring that no objects are missing or
 mismatched. Light scrubbing checks the object size and attributes, and is
@@ -257,21 +262,21 @@ increase or decrease the frequency and depth of scrubbing operations.
 .. confval:: osd_op_thread_suicide_timeout
 
 > **Note:** See https://old.ceph.com/planet/dealing-with-some-osd-timeouts/ for
-> more on `osd_op_thread_suicide_timeout`. Be aware that this is a link to a
+> more on ``osd_op_thread_suicide_timeout``. Be aware that this is a link to a
 > reworking of a blog post from 2017, and that its conclusion will direct you
 > back to this page "for more information".
 
-.. _dmclock-qos:
+<a id="dmclock-qos"></a>
 
 ## QoS Based on mClock
 
 Ceph's use of mClock is now more refined and can be used by following the
-steps as described in mClock Config Reference.
+steps as described in [mClock Config Reference](mclock-config-ref.md).
 
 ### Core Concepts
 
 Ceph's QoS support is implemented using a queueing scheduler
-based on the dmClock algorithm. This algorithm allocates the I/O
+based on [the dmClock algorithm](https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Gulati.pdf). This algorithm allocates the I/O
 resources of the Ceph cluster in proportion to weights, and enforces
 the constraints of minimum reservation and maximum limitation, so that
 the services can compete for the resources fairly. Currently the
@@ -339,7 +344,7 @@ of the current time. The ultimate lesson is that values for weight
 should not be too large. They should be under the number of requests
 one expects to be serviced each second.
 
-.. _dmclock-qos-caveats:
+<a id="dmclock-qos-caveats"></a>
 
 ### Caveats
 
@@ -386,7 +391,7 @@ the distributed version of mClock).
 Various organizations and individuals are currently experimenting with
 mClock as it exists in this code base along with their modifications
 to the code base. We hope you'll share you're experiences with your
-mClock and dmClock experiments on the `ceph-devel` mailing list.
+mClock and dmClock experiments on the ``ceph-devel`` mailing list.
 
 .. confval:: osd_async_recovery_min_cost
 
@@ -410,8 +415,6 @@ mClock and dmClock experiments on the `ceph-devel` mailing list.
 
 .. confval:: osd_mclock_scheduler_background_best_effort_lim
 
-.. _the dmClock algorithm: https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Gulati.pdf
-
 .. index:: OSD; backfilling
 
 # Backfilling
@@ -424,8 +427,8 @@ considerably. To maintain operational performance, Ceph performs this migration
 with 'backfilling', which allows Ceph to set backfill operations to a lower
 priority than requests to read or write data.
 
-> **Note:** Some of these settings are automatically reset if the mClock
-> 		    scheduler is active, see mClock backfill.
+> **Note:** Some of these settings are automatically reset if the [mClock](mclock-config-ref.md)
+> scheduler is active, see [mClock backfill](mclock-config-ref.md#recovery-backfill-options).
 
 .. confval:: osd_max_backfills
 
@@ -455,7 +458,7 @@ Ceph performs well as the OSD map grows larger.
 
 When the cluster starts or when a Ceph OSD Daemon crashes and restarts, the OSD
 begins peering with other Ceph OSD Daemons before writes can occur.  See
-Monitoring OSDs and PGs for details.
+[Monitoring OSDs and PGs](../operations/monitoring-osd-pg.md#peering) for details.
 
 If a Ceph OSD Daemon crashes and comes back online, usually it will be out of
 sync with other Ceph OSD Daemons containing more recent versions of objects in
@@ -471,8 +474,8 @@ To maintain operational performance, Ceph performs recovery with limitations on
 the number recovery requests, threads and object chunk sizes which allows Ceph
 perform well in a degraded state.
 
-> **Note:** Some of these settings are automatically reset if the mClock
-> scheduler is active, see mClock backfill.
+> **Note:** Some of these settings are automatically reset if the [mClock](mclock-config-ref.md)
+> scheduler is active, see [mClock backfill](mclock-config-ref.md#recovery-backfill-options).
 
 .. confval:: osd_recovery_delay_start
 
@@ -512,7 +515,7 @@ perform well in a degraded state.
 
 .. confval:: osd_agent_max_low_ops
 
-See cache target dirty high ratio for when the tiering agent flushes dirty
+See [cache target dirty high ratio](../operations/pools.md#cache-target-dirty-high-ratio) for when the tiering agent flushes dirty
 objects within the high speed mode.
 
 # Miscellaneous
@@ -532,13 +535,3 @@ objects within the high speed mode.
 .. confval:: osd_command_max_records
 
 .. confval:: osd_fast_fail_on_connection_refused
-
-.. _pool: ../../operations/pools
-.. _Configuring Monitor/OSD Interaction: ../mon-osd-interaction
-.. _Monitoring OSDs and PGs: ../../operations/monitoring-osd-pg#peering
-.. _mClock: ../mclock-config-ref
-.. _mClock backfill: ../mclock-config-ref#recovery-backfill-options
-.. _Pool & PG Config Reference: ../pool-pg-config-ref
-.. _Journal Config Reference: ../journal-ref
-.. _cache target dirty high ratio: ../../operations/pools#cache-target-dirty-high-ratio
-.. _mClock Config Reference: ../mclock-config-ref

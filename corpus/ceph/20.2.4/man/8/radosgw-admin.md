@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-.. _man-radosgw-admin:
+<a id="man-radosgw-admin"></a>
 
 # radosgw-admin -- rados REST gateway user administration utility
 
@@ -992,13 +992,17 @@ Remove a user and all associated buckets with their contents:
 $ radosgw-admin user rm --uid=johnny --purge-data
 ```
 
-Remove a bucket::
+Remove a bucket:
 
-	$ radosgw-admin bucket rm --bucket=foo
+```
+$ radosgw-admin bucket rm --bucket=foo
+```
 
-Link bucket to specified user::
+Link bucket to specified user:
 
-	$ radosgw-admin bucket link --bucket=foo --bucket_id=<bucket id> --uid=johnny
+```
+$ radosgw-admin bucket link --bucket=foo --bucket_id=<bucket id> --uid=johnny
+```
 
 Unlink bucket from specified user:
 
@@ -1057,5 +1061,5 @@ https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8)
-radosgw\(8)
+[ceph](../../install/clone-source.md)\(8)
+[radosgw](../../dev/deduplication.md#radosgw)\(8)

@@ -148,8 +148,7 @@ chunks are lost, it is not possible to recover the object.
 
 Reading the original content of object O can be a simple
 concatenation of O1, O2, ... OM, because the plugins are using
-`systematic codes
-<https://en.wikipedia.org/wiki/Systematic_code>`_. Otherwise the chunks
+[systematic codes](https://en.wikipedia.org/wiki/Systematic_code). Otherwise the chunks
 must be given to the erasure code library *decode* method to retrieve
 the content of the object.
 
@@ -161,9 +160,7 @@ means more calls and more overhead.
 Although Reed-Solomon is provided as a default, Ceph uses it via an
 [abstract API](https://github.com/ceph/ceph/blob/v0.78/src/erasure-code/ErasureCodeInterface.h) designed to
 allow each pool to choose the plugin that implements it using
-key=value pairs stored in an erasure code profile.
-
-.. _erasure code profile: ../../../erasure-coded-pool
+key=value pairs stored in an [erasure code profile](../../erasure-coded-pool.md).
 
 :
 

@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 There are several Ceph daemons in a storage cluster:
 
-.. _rados_configuration_storage-devices_ceph_osd:
+<a id="rados-configuration-storage-devices-ceph-osd"></a>
 
 * **Ceph OSDs** (Object Storage Daemons) store most of the data
   in Ceph. Usually each OSD is backed by a single storage device.
@@ -30,7 +30,7 @@ There are several Ceph daemons in a storage cluster:
   additional monitoring and providing interfaces to external
   monitoring and management systems.
 
-.. _rados_config_storage_devices_osd_backends:
+<a id="rados-config-storage-devices-osd-backends"></a>
 
 # OSD Back Ends
 
@@ -38,7 +38,7 @@ There are two ways that OSDs manage the data they store.  As of the Luminous
 12.2.z release, the default (and recommended) back end is *BlueStore*.  Prior
 to the Luminous release, the default (and only) back end was *Filestore*.
 
-.. _rados_config_storage_devices_bluestore:
+<a id="rados-config-storage-devices-bluestore"></a>
 
 ## BlueStore
 
@@ -71,7 +71,7 @@ Key BlueStore features include:
   and for erasure-coded pools (which rely on cloning to implement
   efficient two-phase commits).
 
-For more information, see bluestore-config-ref and /rados/operations/bluestore-migration.
+For more information, see [bluestore-config-ref](bluestore-config-ref.md) and [/rados/operations/bluestore-migration](../operations/bluestore-migration.md).
 
 ## FileStore
 > **Warning:** Filestore has been deprecated in the Reef release and is no longer supported.
@@ -91,4 +91,4 @@ XFS file system be used with Ceph. Both btrfs and ext4 have known bugs and
 deficiencies and their use may lead to data loss. By default, all Ceph
 provisioning tools use XFS.
 
-For more information, see filestore-config-ref.
+For more information, see [filestore-config-ref](filestore-config-ref.md).

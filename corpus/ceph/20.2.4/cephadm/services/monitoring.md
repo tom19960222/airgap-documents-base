@@ -5,16 +5,15 @@ title: "Monitoring Services"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/services/monitoring.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _mgr-cephadm-monitoring:
+<a id="mgr-cephadm-monitoring"></a>
 
 # Monitoring Services
 
-Ceph Dashboard uses [Prometheus](https://prometheus.io/), `Grafana
-<https://grafana.com/>`_, and related tools to store and visualize detailed
+Ceph Dashboard uses [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/), and related tools to store and visualize detailed
 metrics on cluster utilization and performance.  Ceph users have three options:
 
 1. Have cephadm deploy and configure these services.  This is the default
-   when bootstrapping a new cluster unless the `--skip-monitoring-stack`
+   when bootstrapping a new cluster unless the ``--skip-monitoring-stack``
    option is used.
 1. Deploy and configure these services manually.  This is recommended for users
    with existing prometheus services in their environment (and in cases where
@@ -23,10 +22,8 @@ metrics on cluster utilization and performance.  Ceph users have three options:
    not be available.
 
 The monitoring stack consists of [Prometheus](https://prometheus.io/),
-Prometheus exporters (mgr-prometheus, `Node exporter
-<https://prometheus.io/docs/guides/node-exporter/>`_), `Prometheus Alert
-Manager <https://prometheus.io/docs/alerting/alertmanager/>`_ and `Grafana
-<https://grafana.com/>`_.
+Prometheus exporters ([mgr-prometheus](../../mgr/prometheus.md#mgr-prometheus), [Node exporter](https://prometheus.io/docs/guides/node-exporter/)), [Prometheus Alert
+Manager](https://prometheus.io/docs/alerting/alertmanager/) and [Grafana](https://grafana.com/).
 
 > **Note:**
 > Prometheus' security model presumes that untrusted users have access to the
@@ -45,11 +42,11 @@ Manager <https://prometheus.io/docs/alerting/alertmanager/>`_ and `Grafana
 
 ## Deploying monitoring with cephadm
 
-The default behavior of `cephadm` is to deploy a basic monitoring stack.  It
+The default behavior of ``cephadm`` is to deploy a basic monitoring stack.  It
 is however possible that you have a Ceph cluster without a monitoring stack,
 and you would like to add a monitoring stack to it. (Here are some ways that
 you might have come to have a Ceph cluster without a monitoring stack: You
-might have passed the `--skip-monitoring stack` option to `cephadm` during
+might have passed the ``--skip-monitoring stack`` option to ``cephadm`` during
 the installation of the cluster, or you might have converted an existing
 cluster (which had no monitoring stack) to cephadm management.)
 
@@ -93,7 +90,7 @@ By default, in a cephadm-managed cluster, the monitoring components are set up a
 While this suffices for certain deployments, others with strict security needs may find it necessary to protect the
 monitoring stack against unauthorized access. In such cases, cephadm relies on a specific configuration parameter,
 `mgr/cephadm/secure_monitoring_stack`, which toggles the security settings for all monitoring components. To activate security
-measures, set this option to `true` with a command of the following form:
+measures, set this option to ``true`` with a command of the following form:
 
 ```bash
 ceph config set mgr mgr/cephadm/secure_monitoring_stack true
@@ -109,15 +106,15 @@ few minutes until all components are fully operational. The updated secure confi
 
 In this secure setup, users will need to setup authentication
 (username/password) for both Prometheus and Alertmanager. By default the
-username and password are set to `admin`/`admin`. The user can change these
-value with the commands `ceph orch prometheus set-credentials` and ``ceph
+username and password are set to ``admin``/``admin``. The user can change these
+value with the commands ``ceph orch prometheus set-credentials`` and ``ceph
 orch alertmanager set-credentials`` respectively. These commands offer the
 flexibility to input the username/password either as parameters or via a JSON
 file, which enhances security. Additionally, Cephadm provides the commands
 `orch prometheus get-credentials` and `orch alertmanager get-credentials` to
 retrieve the current credentials.
 
-.. _cephadm-monitoring-centralized-logs:
+<a id="cephadm-monitoring-centralized-logs"></a>
 
 #### Centralized Logging in Ceph
 
@@ -130,20 +127,20 @@ Some of the advantages are:
 1. **Flexible retention policies**: with per-daemon logs, log rotation is usually set to a short interval (1-2 weeks) to save disk usage.
 1. **Increased security & backup**: logs can contain sensitive information and expose usage patterns. Additionally, centralized logging allows for HA, etc.
 
-Centralized Logging in Ceph is implemented using two new services - `loki` & `promtail`.
+Centralized Logging in Ceph is implemented using two new services - ``loki`` & ``promtail``.
 
 Loki: It is basically a log aggregation system and is used to query logs. It can be configured as a datasource in Grafana.
 
 Promtail: It acts as an agent that gathers logs from the system and makes them available to Loki.
 
-These two services are not deployed by default in a Ceph cluster. To enable the centralized logging you can follow the steps mentioned here centralized-logging.
+These two services are not deployed by default in a Ceph cluster. To enable the centralized logging you can follow the steps mentioned here [centralized-logging](../../mgr/dashboard.md#centralized-logging).
 
-.. _cephadm-monitoring-networks-ports:
+<a id="cephadm-monitoring-networks-ports"></a>
 
 #### Networks and Ports
 
 All monitoring services can have the network and port they bind to configured with a yaml service specification. By default
-cephadm will use `https` protocol when configuring Grafana daemons unless the user explicitly sets the protocol to `http`.
+cephadm will use ``https`` protocol when configuring Grafana daemons unless the user explicitly sets the protocol to ``http``.
 
 example spec file:
 
@@ -159,18 +156,18 @@ spec:
   protocol: http
 ```
 
-.. _cephadm_monitoring-images:
+<a id="cephadm-monitoring-images"></a>
 
-.. _cephadm_default_images:
+<a id="cephadm-default-images"></a>
 
 #### Default images
 
 *The information in this section was developed by Eugen Block in a thread on
 the [ceph-users] mailing list in April of 2024. The thread can be viewed here:
-`https://lists.ceph.io/hyperkitty/list/ceph-users@ceph.io/thread/QGC66QIFBKRTPZAQMQEYFXOGZJ7RLWBN/`.*
+``https://lists.ceph.io/hyperkitty/list/ceph-users@ceph.io/thread/QGC66QIFBKRTPZAQMQEYFXOGZJ7RLWBN/``.*
 
-`cephadm` stores a local copy of the `cephadm` binary in
-`var/lib/ceph/{FSID}/cephadm.{DIGEST}`, where `{DIGEST}` is an alphanumeric
+``cephadm`` stores a local copy of the ``cephadm`` binary in
+``var/lib/ceph/{FSID}/cephadm.{DIGEST}``, where ``{DIGEST}`` is an alphanumeric
 string representing the currently-running version of Ceph.
 
 To see the default container images, run below command:
@@ -180,7 +177,7 @@ cephadm list-images
 ```
 
 Default monitoring images are specified in
-`/src/python-common/ceph/cephadm/images.py`.
+``/src/python-common/ceph/cephadm/images.py``.
 
 .. autoclass:: ceph.cephadm.images.DefaultImages
    :members:
@@ -193,21 +190,21 @@ It is possible to install or upgrade monitoring components based on other
 images. The ID of the image that you plan to use must be stored in the
 configuration. The following configuration options are available:
 
-- `container_image_prometheus`
-- `container_image_grafana`
-- `container_image_alertmanager`
-- `container_image_node_exporter`
-- `container_image_loki`
-- `container_image_promtail`
-- `container_image_haproxy`
-- `container_image_keepalived`
-- `container_image_snmp_gateway`
-- `container_image_elasticsearch`
-- `container_image_jaeger_agent`
-- `container_image_jaeger_collector`
-- `container_image_jaeger_query`
+- ``container_image_prometheus``
+- ``container_image_grafana``
+- ``container_image_alertmanager``
+- ``container_image_node_exporter``
+- ``container_image_loki``
+- ``container_image_promtail``
+- ``container_image_haproxy``
+- ``container_image_keepalived``
+- ``container_image_snmp_gateway``
+- ``container_image_elasticsearch``
+- ``container_image_jaeger_agent``
+- ``container_image_jaeger_collector``
+- ``container_image_jaeger_query``
 
-Custom images can be set with the `ceph config` command. To set custom images, run a command of the following form:
+Custom images can be set with the ``ceph config`` command. To set custom images, run a command of the following form:
 
 ```bash
 ceph config set mgr mgr/cephadm/<option_name> <value>
@@ -240,7 +237,7 @@ ceph orch redeploy prometheus
 >
 > If you choose to accept the recommendations, you can reset the custom
 > image that you have set before. If you do this, the default value will be
-> used again.  Use `ceph config rm` to reset the configuration option, in
+> used again.  Use ``ceph config rm`` to reset the configuration option, in
 > a command of the following form:
 >
 > .. prompt:: bash #
@@ -253,24 +250,22 @@ ceph orch redeploy prometheus
 >
 >    ceph config rm mgr mgr/cephadm/container_image_prometheus
 
-See also cephadm-airgap.
+See also [cephadm-airgap](../install.md#cephadm-airgap).
 
-.. _cephadm-overwrite-jinja2-templates:
+<a id="cephadm-overwrite-jinja2-templates"></a>
 
 #### Using custom configuration files
 
 By overriding cephadm templates, it is possible to completely customize the
 configuration files for monitoring services.
 
-Internally, cephadm already uses `Jinja2
-<https://jinja.palletsprojects.com/en/2.11.x/>`_ templates to generate the
+Internally, cephadm already uses [Jinja2](https://jinja.palletsprojects.com/en/2.11.x/) templates to generate the
 configuration files for all monitoring components. Starting from version 17.2.3,
 cephadm supports Prometheus http service discovery, and uses this endpoint for the
 definition and management of the embedded Prometheus service. The endpoint listens on
-`https://<mgr-ip>:8765/sd/` (the port is
-configurable through the variable `service_discovery_port`) and returns scrape target
-information in `http_sd_config format
-<https://prometheus.io/docs/prometheus/latest/configuration/configuration/#http_sd_config>`_
+``https://<mgr-ip>:8765/sd/`` (the port is
+configurable through the variable ``service_discovery_port``) and returns scrape target
+information in [http_sd_config format](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#http_sd_config)
 
 Customers with external monitoring stack can use `ceph-mgr` service discovery endpoint
 to get scraping configuration. Root certificate of the server can be obtained by the
@@ -293,48 +288,48 @@ and automatically applied on future deployments of these services.
 ##### Option names
 
 The following templates for files that will be generated by cephadm can be
-overridden. These are the names to be used when storing with `ceph config-key set`:
+overridden. These are the names to be used when storing with ``ceph config-key set``:
 
-- `services/alertmanager/alertmanager.yml`
-- `services/alertmanager/web.yml`
-- `services/grafana/ceph-dashboard.yml`
-- `services/grafana/grafana.ini`
-- `services/ingress/haproxy.cfg`
-- `services/ingress/keepalived.conf`
-- `services/iscsi/iscsi-gateway.cfg`
-- `services/mgmt-gateway/external_server.conf`
-- `services/mgmt-gateway/internal_server.conf`
-- `services/mgmt-gateway/nginx.conf`
-- `services/nfs/ganesha.conf`
-- `services/node-exporter/web.yml`
-- `services/nvmeof/ceph-nvmeof.conf`
-- `services/oauth2-proxy/oauth2-proxy.conf`
-- `services/prometheus/prometheus.yml`
-- `services/prometheus/web.yml`
-- `services/loki.yml`
-- `services/promtail.yml`
+- ``services/alertmanager/alertmanager.yml``
+- ``services/alertmanager/web.yml``
+- ``services/grafana/ceph-dashboard.yml``
+- ``services/grafana/grafana.ini``
+- ``services/ingress/haproxy.cfg``
+- ``services/ingress/keepalived.conf``
+- ``services/iscsi/iscsi-gateway.cfg``
+- ``services/mgmt-gateway/external_server.conf``
+- ``services/mgmt-gateway/internal_server.conf``
+- ``services/mgmt-gateway/nginx.conf``
+- ``services/nfs/ganesha.conf``
+- ``services/node-exporter/web.yml``
+- ``services/nvmeof/ceph-nvmeof.conf``
+- ``services/oauth2-proxy/oauth2-proxy.conf``
+- ``services/prometheus/prometheus.yml``
+- ``services/prometheus/web.yml``
+- ``services/loki.yml``
+- ``services/promtail.yml``
 
 You can look up the file templates that are currently used by cephadm in
-`src/pybind/mgr/cephadm/templates`:
+``src/pybind/mgr/cephadm/templates``:
 
-- `services/alertmanager/alertmanager.yml.j2`
-- `services/alertmanager/web.yml.j2`
-- `services/grafana/ceph-dashboard.yml.j2`
-- `services/grafana/grafana.ini.j2`
-- `services/ingress/haproxy.cfg.j2`
-- `services/ingress/keepalived.conf.j2`
-- `services/iscsi/iscsi-gateway.cfg.j2`
-- `services/mgmt-gateway/external_server.conf.j2`
-- `services/mgmt-gateway/internal_server.conf.j2`
-- `services/mgmt-gateway/nginx.conf.j2`
-- `services/nfs/ganesha.conf.j2`
-- `services/node-exporter/web.yml.j2`
-- `services/nvmeof/ceph-nvmeof.conf.j2`
-- `services/oauth2-proxy/oauth2-proxy.conf.j2`
-- `services/prometheus/prometheus.yml.j2`
-- `services/prometheus/web.yml.j2`
-- `services/loki.yml.j2`
-- `services/promtail.yml.j2`
+- ``services/alertmanager/alertmanager.yml.j2``
+- ``services/alertmanager/web.yml.j2``
+- ``services/grafana/ceph-dashboard.yml.j2``
+- ``services/grafana/grafana.ini.j2``
+- ``services/ingress/haproxy.cfg.j2``
+- ``services/ingress/keepalived.conf.j2``
+- ``services/iscsi/iscsi-gateway.cfg.j2``
+- ``services/mgmt-gateway/external_server.conf.j2``
+- ``services/mgmt-gateway/internal_server.conf.j2``
+- ``services/mgmt-gateway/nginx.conf.j2``
+- ``services/nfs/ganesha.conf.j2``
+- ``services/node-exporter/web.yml.j2``
+- ``services/nvmeof/ceph-nvmeof.conf.j2``
+- ``services/oauth2-proxy/oauth2-proxy.conf.j2``
+- ``services/prometheus/prometheus.yml.j2``
+- ``services/prometheus/web.yml.j2``
+- ``services/loki.yml.j2``
+- ``services/promtail.yml.j2``
 
 ##### Usage
 
@@ -344,14 +339,14 @@ The following command applies a single line value:
 ceph config-key set mgr/cephadm/<option_name> <value>
 ```
 
-To set contents of files as template use the `-i` argument:
+To set contents of files as template use the ``-i`` argument:
 
 ```bash
 ceph config-key set mgr/cephadm/<option_name> -i $PWD/<filename>
 ```
 
 > **Note:**
-> When using files as input to `config-key` an absolute path to the file must
+> When using files as input to ``config-key`` an absolute path to the file must
 > be used.
 
 Then the configuration file for the service needs to be recreated.
@@ -393,10 +388,9 @@ ceph mgr module enable prometheus
   running a ceph-mgr daemon.  Configure prometheus to scrape these.
 
 To make this integration easier, cephadm provides a service discovery endpoint at
-`https://<mgr-ip>:8765/sd/`. This endpoint can be used by an external
+``https://<mgr-ip>:8765/sd/``. This endpoint can be used by an external
 Prometheus server to retrieve target information for a specific service. Information returned
-by this endpoint uses the format specified by the Prometheus `http_sd_config option
-<https://prometheus.io/docs/prometheus/latest/configuration/configuration/#http_sd_config/>`_
+by this endpoint uses the format specified by the Prometheus [http_sd_config option](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#http_sd_config/)
 
 Here's an example prometheus job definition that uses the cephadm service discovery endpoint
 
@@ -406,9 +400,9 @@ Here's an example prometheus job definition that uses the cephadm service discov
   - url: http://<mgr-ip>:8765/sd/prometheus/sd-config?service=ceph-exporter
 ```
 
-* To enable the dashboard's prometheus-based alerting, see dashboard-alerting.
+* To enable the dashboard's prometheus-based alerting, see [dashboard-alerting](../../mgr/dashboard.md#dashboard-alerting).
 
-* To enable dashboard integration with Grafana, see dashboard-grafana.
+* To enable dashboard integration with Grafana, see [dashboard-grafana](../../mgr/dashboard.md#dashboard-grafana).
 
 ## Disabling monitoring
 
@@ -422,20 +416,20 @@ $ ceph orch rm alertmanager
 $ ceph mgr module disable prometheus
 ```
 
-See also orch-rm.
+See also [orch-rm](index.md#orch-rm).
 
 ## Setting up RBD-Image monitoring
 
 Due to performance reasons, monitoring of RBD images is disabled by default. For more information please see
-prometheus-rbd-io-statistics. If disabled, the overview and details dashboards will stay empty in Grafana
+[prometheus-rbd-io-statistics](../../mgr/prometheus.md#prometheus-rbd-io-statistics). If disabled, the overview and details dashboards will stay empty in Grafana
 and the metrics will not be visible in Prometheus.
 
 ## Setting up Prometheus
 
 #### Setting Prometheus Retention Size and Time
 
-Cephadm can configure Prometheus TSDB retention by specifying `retention_time`
-and `retention_size` values in the Prometheus service spec.
+Cephadm can configure Prometheus TSDB retention by specifying ``retention_time``
+and ``retention_size`` values in the Prometheus service spec.
 The retention time value defaults to 15 days (15d). Users can set a different value/unit where
 supported units are: 'y', 'w', 'd', 'h', 'm' and 's'. The retention size value defaults
 to 0 (disabled). Supported units in this case are: 'B', 'KB', 'MB', 'GB', 'TB', 'PB' and 'EB'.
@@ -455,7 +449,7 @@ spec:
 > If you already had Prometheus daemon(s) deployed before and are updating an
 > existent spec as opposed to doing a fresh Prometheus deployment, you must also
 > tell cephadm to redeploy the Prometheus daemon(s) to put this change into effect.
-> This can be done with a `ceph orch redeploy prometheus` command.
+> This can be done with a ``ceph orch redeploy prometheus`` command.
 
 ## Setting up Grafana
 
@@ -478,7 +472,7 @@ ceph dashboard set-grafana-frontend-api-url <grafana-server-api>
 ```
 
 It might take a minute or two for services to be deployed. After the
-services have been deployed, you should see something like this when you issue the command `ceph orch ls`:
+services have been deployed, you should see something like this when you issue the command ``ceph orch ls``:
 
 ```console
 $ ceph orch ls
@@ -492,8 +486,8 @@ prometheus         1/1  6s ago     docker.io/prom/prometheus:latest             
 
 #### Configuring SSL/TLS for Grafana
 
-`cephadm` deploys Grafana using the certificate defined in the ceph
-key/value store. If no certificate is specified, `cephadm` generates a
+``cephadm`` deploys Grafana using the certificate defined in the ceph
+key/value store. If no certificate is specified, ``cephadm`` generates a
 self-signed certificate during the deployment of the Grafana service. Each
 certificate is specific for the host it was generated on.
 
@@ -506,20 +500,20 @@ ceph config-key set mgr/cephadm/{hostname}/grafana_crt -i $PWD/certificate.pem
 
 Where `hostname` is the hostname for the host where grafana service is deployed.
 
-If you have already deployed Grafana, run `reconfig` on the service to
+If you have already deployed Grafana, run ``reconfig`` on the service to
 update its configuration:
 
 ```bash
 ceph orch reconfig grafana
 ```
 
-The `reconfig` command also sets the proper URL for Ceph Dashboard.
+The ``reconfig`` command also sets the proper URL for Ceph Dashboard.
 
 #### Setting the initial admin password
 
 By default, Grafana will not create an initial
 admin user. In order to create the admin user, please create a file
-`grafana.yaml` with this content:
+``grafana.yaml`` with this content:
 
 ```yaml
 service_type: grafana
@@ -534,7 +528,7 @@ ceph orch apply -i grafana.yaml
 ceph orch redeploy grafana
 ```
 
-Grafana will now create an admin user called `admin` with the
+Grafana will now create an admin user called ``admin`` with the
 given password.
 
 #### Turning off anonymous access
@@ -542,7 +536,7 @@ given password.
 By default, cephadm allows anonymous users (users who have not provided any
 login information) limited, viewer only access to the grafana dashboard. In
 order to set up grafana to only allow viewing from logged in users, you can
-set `anonymous_access: False` in your grafana spec.
+set ``anonymous_access: False`` in your grafana spec.
 
 ```yaml
 service_type: grafana
@@ -556,7 +550,7 @@ spec:
 
 Since deploying grafana with anonymous access set to false without an initial
 admin password set would make the dashboard inaccessible, cephadm requires
-setting the `initial_admin_password` when `anonymous_access` is set to false.
+setting the ``initial_admin_password`` when ``anonymous_access`` is set to false.
 
 ## Setting up Alertmanager
 
@@ -574,10 +568,10 @@ spec:
     - "https://bar"
 ```
 
-Where `default_webhook_urls` is a list of additional URLs that are
-added to the default receivers' `<webhook_configs>` configuration.
+Where ``default_webhook_urls`` is a list of additional URLs that are
+added to the default receivers' ``<webhook_configs>`` configuration.
 
-Run `reconfig` on the service to update its configuration:
+Run ``reconfig`` on the service to update its configuration:
 
 ```bash
 ceph orch reconfig alertmanager
@@ -604,4 +598,4 @@ ceph orch reconfig alertmanager
 
 ## Further Reading
 
-* mgr-prometheus
+* [mgr-prometheus](../../mgr/prometheus.md#mgr-prometheus)

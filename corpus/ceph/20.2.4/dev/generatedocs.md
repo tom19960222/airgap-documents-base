@@ -21,14 +21,18 @@ To build the Ceph documentation set, you must:
 
 ## Clone the Ceph Repository
 
-To clone the Ceph repository, you must have `git` installed
-on your local host. To install `git`, execute::
+To clone the Ceph repository, you must have ``git`` installed
+on your local host. To install ``git``, execute:
 
-	sudo apt-get install git
+```
+sudo apt-get install git
+```
 
-To clone the Ceph repository, execute::
+To clone the Ceph repository, execute:
 
-	git clone git://github.com/ceph/ceph
+```
+git clone git://github.com/ceph/ceph
+```
 
 You should have a full copy of the Ceph repository.
 
@@ -49,26 +53,30 @@ missing dependencies.
 ## Build the Documents
 
 Once you have installed all the dependencies, execute the build (the
-same command as above)::
+same command as above):
 
-	cd ceph
-	admin/build-doc
+```
+cd ceph
+admin/build-doc
+```
 
-Once you build the documentation set, you may navigate to the source directory to view it::
+Once you build the documentation set, you may navigate to the source directory to view it:
 
-	cd build-doc/output
+```
+cd build-doc/output
+```
 
-There should be an `html` directory and a `man` directory containing documentation
+There should be an ``html`` directory and a ``man`` directory containing documentation
 in HTML and manpage formats respectively.
 
-`admin/build-doc` takes a long time to prepare the environment and build the document.
+``admin/build-doc`` takes a long time to prepare the environment and build the document.
 But you can just rebuild the document on changes using:
 
 ```
 admin/build-doc livehtml
 ```
 
-This feature uses `sphinx-autobuild` under the hood. You can also pass options to it. For
+This feature uses ``sphinx-autobuild`` under the hood. You can also pass options to it. For
 instance, to open the browser after building the documentation:
 
 ```
@@ -80,10 +88,12 @@ Please see [sphinx-autobuild](https://pypi.org/project/sphinx-autobuild/) for mo
 ## Demo the Documents
 
 Once you build the documentation, as described above, you can demo the rendered documents
-by running `serve-doc`::
+by running ``serve-doc``:
 
-	cd ceph
-	admin/serve-doc
+```
+cd ceph
+admin/serve-doc
+```
 
-This will serve the `build-doc/output/html` directory over port 8080 via
-Python's `SimpleHTTPServer` module.
+This will serve the ``build-doc/output/html`` directory over port 8080 via
+Python's ``SimpleHTTPServer`` module.

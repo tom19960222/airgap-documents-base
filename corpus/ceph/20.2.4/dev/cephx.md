@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Cephx
 
-.. _cephx:
+<a id="cephx"></a>
 
 ## Intro
 
@@ -24,7 +24,7 @@ enforced by the service daemons.
 ## Other references
 
 - A write-up from 2012 on cephx as it existed at that time by Peter
-  Reiher: cephx_2012_peter
+  Reiher: [cephx_2012_peter](cephx_protocol.md#cephx-2012-peter)
 
 ## Terms
 
@@ -51,14 +51,14 @@ enforced by the service daemons.
 
 ## Terminology
 
-`{X, Y, ...}^secret` denotes encryption of values `X + Y + ...` by `secret`.
+``{X, Y, ...}^secret`` denotes encryption of values ``X + Y + ...`` by ``secret``.
 
 ## Context
 
 The authentication messages described here are specific to the cephx
 auth implementation.  The messages are transferred by the Messenger
 protocol or by MAuth messages, depending on the version of the
-messenger protocol.  See also msgr2-protocol.
+messenger protocol.  See also [msgr2-protocol](msgr2.md#msgr2-protocol).
 
 An initial (messenger) handshake negotiates an authentication method
 to be used (cephx vs none or krb or whatever) and an assertion of what
@@ -107,12 +107,12 @@ CephXAuthenticate {
 ```
 
 > **Note:** This is not an authentication step in this protocol. The
-> `server_challenge` is vulnerable to MitM attacks. This can be
+> ``server_challenge`` is vulnerable to MitM attacks. This can be
 > considered a DoS filter and little else.
 
-The monitor looks up `principal_secret` in database, and verifies the key is
-correct.  If `old_ticket` is present, verify that it is valid and reuse the
-same `global_id`. Otherwise, the monitors assign a new `global_id`:
+The monitor looks up ``principal_secret`` in database, and verifies the key is
+correct.  If ``old_ticket`` is present, verify that it is valid and reuse the
+same ``global_id``. Otherwise, the monitors assign a new ``global_id``:
 
 ```
 a->p :
@@ -234,12 +234,12 @@ CephxAuthorize msg {
 ```
 
 The monitor validates the authorizer by decrypting the auth_ticket with
-`rotating_service_secret` and confirming that it says this principal is who
+``rotating_service_secret`` and confirming that it says this principal is who
 they say they are in the CephxAuthorizer fields.  Note that the nonce random
 bytes aren't used here (the field exists for Phase III below).
 
 Assuming all is well, the authorizer can generate service tickets
-based on the CEPH_ENTITY_TYPE_* bits in the `keys` bitmask.
+based on the CEPH_ENTITY_TYPE_* bits in the ``keys`` bitmask.
 
 The response looks like:
 

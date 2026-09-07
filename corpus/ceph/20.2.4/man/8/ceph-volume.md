@@ -26,12 +26,12 @@ fetched_at: 2026-08-18T01:32:45Z
 # Description
 
 ceph-volume is a single purpose command line tool to deploy logical
-volumes as OSDs, trying to maintain a similar API to `ceph-disk` when
+volumes as OSDs, trying to maintain a similar API to ``ceph-disk`` when
 preparing, activating, and creating OSDs.
 
-It deviates from `ceph-disk` by not interacting or relying on the udev rules
+It deviates from ``ceph-disk`` by not interacting or relying on the udev rules
 that come installed for Ceph. These rules allow automatic detection of
-previously setup devices that are in turn fed into `ceph-disk` to activate
+previously setup devices that are in turn fed into ``ceph-disk`` to activate
 them.
 
 # Commands
@@ -69,7 +69,7 @@ Optional arguments:
 
 .. program:: ceph-volume lvm
 
-By making use of LVM tags, the `lvm` sub-command is able to store and later
+By making use of LVM tags, the ``lvm`` sub-command is able to store and later
 re-discover and query devices associated with OSDs so that they can later
 activated.
 
@@ -79,7 +79,7 @@ Subcommands:
 
 .. program:: ceph-volume lvm batch
 
-Creates OSDs from a list of devices using a `bluestore` (default) setup.
+Creates OSDs from a list of devices using a ``bluestore`` (default) setup.
 It will create all necessary volume groups and logical volumes required to have a working OSD.
 
 Example usage with three devices:
@@ -152,7 +152,7 @@ Required positional arguments:
 .. program:: ceph-volume lvm activate
 
 Enables a systemd unit that persists the OSD ID and its UUID (also called
-`fsid` in Ceph CLI tools), so that at boot time it can understand what OSD is
+``fsid`` in Ceph CLI tools), so that at boot time it can understand what OSD is
 enabled and needs to be mounted.
 
 Usage:
@@ -185,7 +185,7 @@ Optional Arguments:
    Skip creating and enabling systemd units and starting of OSD
    services
 
-Multiple OSDs can be activated at once by using the (idempotent) `--all` flag:
+Multiple OSDs can be activated at once by using the (idempotent) ``--all`` flag:
 
 ```
 ceph-volume lvm activate --all
@@ -195,7 +195,7 @@ ceph-volume lvm activate --all
 
 .. program:: ceph-volume lvm prepare
 
-Prepares a logical volume to be used as an OSD and journal using a `bluestore` (default) setup.
+Prepares a logical volume to be used as an OSD and journal using a ``bluestore`` (default) setup.
 It will not create or modify the logical volumes except for adding extra metadata.
 
 Usage:
@@ -248,24 +248,24 @@ Required arguments:
 
    A logical group name or a path to a logical volume
 
-For encrypting an OSD, the `--dmcrypt` flag must be added when preparing
-(also supported in the `create` sub-command).
+For encrypting an OSD, the ``--dmcrypt`` flag must be added when preparing
+(also supported in the ``create`` sub-command).
 
 ### create
 
-Wraps the two-step process to provision a new osd (calling `prepare` first
-and then `activate`) into a single one. The reason to prefer `prepare` and
-then `activate` is to gradually introduce new OSDs into a cluster, and
+Wraps the two-step process to provision a new osd (calling ``prepare`` first
+and then ``activate``) into a single one. The reason to prefer ``prepare`` and
+then ``activate`` is to gradually introduce new OSDs into a cluster, and
 avoiding large amounts of data being rebalanced.
 
-The single-call process unifies exactly what `prepare` and `activate` do,
+The single-call process unifies exactly what ``prepare`` and ``activate`` do,
 with the convenience of doing it all at once. Flags and general usage are
-equivalent to those of the `prepare` and `activate` subcommand.
+equivalent to those of the ``prepare`` and ``activate`` subcommand.
 
 ### trigger
 
 This subcommand is not meant to be used directly, and it is used by systemd so
-that it proxies input to `ceph-volume lvm activate` by parsing the
+that it proxies input to ``ceph-volume lvm activate`` by parsing the
 input from systemd, detecting the UUID and ID associated with an OSD.
 
 Usage:
@@ -344,7 +344,7 @@ Usage, for logical partitions:
 ceph-volume lvm zap /dev/sdc1
 ```
 
-For full removal of the device use the `--destroy` flag (allowed for all
+For full removal of the device use the ``--destroy`` flag (allowed for all
 device types):
 
 ```
@@ -476,9 +476,9 @@ Subcommands:
 .. program:: ceph-volume simple activate
 
 Enables a systemd unit that persists the OSD ID and its UUID (also called
-`fsid` in Ceph CLI tools), so that at boot time it can understand what OSD is
+``fsid`` in Ceph CLI tools), so that at boot time it can understand what OSD is
 enabled and needs to be mounted, while reading information that was previously
-created and persisted at `/etc/ceph/osd/` in JSON format.
+created and persisted at ``/etc/ceph/osd/`` in JSON format.
 
 Usage:
 
@@ -553,7 +553,7 @@ Optional Positional arguments:
 ### trigger
 
 This subcommand is not meant to be used directly, and it is used by systemd so
-that it proxies input to `ceph-volume simple activate` by parsing the
+that it proxies input to ``ceph-volume simple activate`` by parsing the
 input from systemd, detecting the UUID and ID associated with an OSD.
 
 Usage:
@@ -584,4 +584,4 @@ the documentation at http://docs.ceph.com/ for more information.
 
 # See also
 
-ceph-osd\(8),
+[ceph-osd](ceph-osd.md)\(8),

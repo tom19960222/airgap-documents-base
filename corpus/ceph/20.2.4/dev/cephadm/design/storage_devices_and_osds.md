@@ -9,10 +9,10 @@ fetched_at: 2026-08-18T01:32:45Z
 The cluster storage devices are the physical storage devices installed in each of the cluster’s hosts. We need to execute different operations over them and also to retrieve information about physical features and working behavior.
 The basic use cases we have in this area are:
 
-- 1. Retrieve device information. Inventory
-- 2. Add OSDs
-- 3. Remove OSDs
-- 4. Replace OSDs
+- [1. Retrieve device information. Inventory](storage_devices_and_osds.md#1-retrieve-device-information-inventory)
+- [2. Add OSDs](storage_devices_and_osds.md#2-add-osds)
+- [3. Remove OSDs](storage_devices_and_osds.md#3-remove-osds)
+- [4. Replace OSDs](storage_devices_and_osds.md#4-replace-osds)
 
 # 1. Retrieve device information. Inventory
 We must be able to review what is the current state and condition of the cluster storage devices. We need the identification and features detail (including ident/fault led on/off capable) and if the device is used or not as an OSD/DB/WAL device.
@@ -146,8 +146,7 @@ OSD ids coming from previously deleted OSDs can be available. The user should in
 
 The user interface proposed could be like:
 
-.. image:: ./mockups/OSD_Creation_device_mode.svg
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/cephadm/design/mockups/OSD_Creation_device_mode.svg)
 
 **Host mode**:
 
@@ -176,8 +175,7 @@ A preview/summary of the creation of OSD’s in all the hosts must be provided, 
 
 Information about the progress of OSD creation in all the hosts should be provided.
 
-.. image:: ./mockups/OSD_Creation_host_mode.svg
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/cephadm/design/mockups/OSD_Creation_host_mode.svg)
 
 ## Key points to consider:
 

@@ -18,14 +18,14 @@ install and configure the Ceph iSCSI gateway for basic operation.
 
 -  Red Hat Enterprise Linux/CentOS 7.5 (or newer); Linux kernel v4.16 (or newer)
 
--  The `ceph-iscsi` package installed on all the iSCSI gateway nodes
+-  The ``ceph-iscsi`` package installed on all the iSCSI gateway nodes
 
 **Installation:**
 
 1. On the Ansible installer node, which could be either the administration node
    or a dedicated deployment node, perform the following steps:
 
-   1. As `root`, install the `ceph-ansible` package:
+   1. As ``root``, install the ``ceph-ansible`` package:
 
       :
 
@@ -33,7 +33,7 @@ install and configure the Ceph iSCSI gateway for basic operation.
 # yum install ceph-ansible
 ```
 
-   1. Add an entry in `/etc/ansible/hosts` file for the gateway group:
+   1. Add an entry in ``/etc/ansible/hosts`` file for the gateway group:
 
       :
 
@@ -45,69 +45,34 @@ ceph-igw-2
 
 > **Note:**
 > If co-locating the iSCSI gateway with an OSD node, then add the OSD node to the
-> `[iscsigws]` section.
+> ``[iscsigws]`` section.
 
 **Configuration:**
 
-The `ceph-ansible` package places a file in the `/usr/share/ceph-ansible/group_vars/`
-directory called `iscsigws.yml.sample`. Create a copy of this sample file named
-`iscsigws.yml`. Review the following Ansible variables and descriptions,
-and update accordingly. See the `iscsigws.yml.sample` for a full list of
+The ``ceph-ansible`` package places a file in the ``/usr/share/ceph-ansible/group_vars/``
+directory called ``iscsigws.yml.sample``. Create a copy of this sample file named
+``iscsigws.yml``. Review the following Ansible variables and descriptions,
+and update accordingly. See the ``iscsigws.yml.sample`` for a full list of
 advanced variables.
 
-+--------------------------------------+--------------------------------------+
-| Variable                             | Meaning/Purpose                      |
-+======================================+======================================+
-| `seed_monitor`                     | Each gateway needs access to the     |
-|                                      | ceph cluster for rados and rbd       |
-|                                      | calls. This means the iSCSI gateway  |
-|                                      | must have an appropriate             |
-|                                      | `/etc/ceph/` directory defined.    |
-|                                      | The `seed_monitor` host is used to |
-|                                      | populate the iSCSI gateway’s         |
-|                                      | `/etc/ceph/` directory.            |
-+--------------------------------------+--------------------------------------+
-| `cluster_name`                     | Define a custom storage cluster      |
-|                                      | name.                                |
-+--------------------------------------+--------------------------------------+
-| `gateway_keyring`                  | Define a custom keyring name.        |
-+--------------------------------------+--------------------------------------+
-| `deploy_settings`                  | If set to `true`, then deploy the  |
-|                                      | settings when the playbook is ran.   |
-+--------------------------------------+--------------------------------------+
-| `perform_system_checks`            | This is a boolean value that checks  |
-|                                      | for multipath and lvm configuration  |
-|                                      | settings on each gateway. It must be |
-|                                      | set to true for at least the first   |
-|                                      | run to ensure multipathd and lvm are |
-|                                      | configured properly.                 |
-+--------------------------------------+--------------------------------------+
-| `api_user`                         | The user name for the API. The       |
-|                                      | default is `admin`.                  |
-+--------------------------------------+--------------------------------------+
-| `api_password`                     | The password for using the API. The  |
-|                                      | default is `admin`.                  |
-+--------------------------------------+--------------------------------------+
-| `api_port`                         | The TCP port number for using the    |
-|                                      | API. The default is `5000`.          |
-+--------------------------------------+--------------------------------------+
-| `api_secure`                       | True if TLS must be used. The        |
-|                                      | default is `false`. If true the user |
-|                                      | must create the necessary            |
-|                                      | certificate and key files. See the   |
-|                                      | gwcli man file for details.          |
-+--------------------------------------+--------------------------------------+
-| `trusted_ip_list`                  | A list of IPv4 or IPv6 addresses     |
-|                                      | who have access to the API. By       |
-|                                      | default, only the iSCSI gateway      |
-|                                      | nodes have access.                   |
-+--------------------------------------+--------------------------------------+
+| Variable | Meaning/Purpose |
+| --- | --- |
+| ``seed_monitor`` <br> <br> <br> <br> <br> <br> <br> | Each gateway needs access to the <br> ceph cluster for rados and rbd <br> calls. This means the iSCSI gateway <br> must have an appropriate <br> ``/etc/ceph/`` directory defined. <br> The ``seed_monitor`` host is used to <br> populate the iSCSI gateway’s <br> ``/etc/ceph/`` directory. |
+| ``cluster_name`` <br> | Define a custom storage cluster <br> name. |
+| ``gateway_keyring`` | Define a custom keyring name. |
+| ``deploy_settings`` <br> | If set to ``true``, then deploy the <br> settings when the playbook is ran. |
+| ``perform_system_checks`` <br> <br> <br> <br> <br> | This is a boolean value that checks <br> for multipath and lvm configuration <br> settings on each gateway. It must be <br> set to true for at least the first <br> run to ensure multipathd and lvm are <br> configured properly. |
+| ``api_user`` <br> | The user name for the API. The <br> default is `admin`. |
+| ``api_password`` <br> | The password for using the API. The <br> default is `admin`. |
+| ``api_port`` <br> | The TCP port number for using the <br> API. The default is `5000`. |
+| ``api_secure`` <br> <br> <br> <br> | True if TLS must be used. The <br> default is `false`. If true the user <br> must create the necessary <br> certificate and key files. See the <br> gwcli man file for details. |
+| ``trusted_ip_list`` <br> <br> <br> | A list of IPv4 or IPv6 addresses <br> who have access to the API. By <br> default, only the iSCSI gateway <br> nodes have access. |
 
 **Deployment:**
 
 Perform the following steps on the Ansible installer node.
 
-1. As `root`, execute the Ansible playbook:
+1. As ``root``, execute the Ansible playbook:
 
 ```bash
 cd /usr/share/ceph-ansible
@@ -117,7 +82,7 @@ ansible-playbook site.yml --limit iscsigws
 > **Note:**
 > The Ansible playbook will handle RPM dependencies, setting up daemons,
 > and installing gwcli so it can be used to create iSCSI targets and export
-> RBD images as LUNs. In past versions, `iscsigws.yml` could define the
+> RBD images as LUNs. In past versions, ``iscsigws.yml`` could define the
 > iSCSI target and other objects like clients, images and LUNs, but this is
 > no longer supported.
 
@@ -128,11 +93,11 @@ gwcli ls
 ```
 
 > **Note:**
-> See the Configuring the iSCSI Target using the Command Line Interface
+> See the [Configuring the iSCSI Target using the Command Line Interface](iscsi-target-cli.md)
 > section to create gateways, LUNs, and clients using the `gwcli` tool.
 
 > **Important:**
-> Attempting to use the `targetcli` tool to change the configuration will
+> Attempting to use the ``targetcli`` tool to change the configuration will
 > cause problems including ALUA misconfiguration and path failover
 > issues. There is the potential to corrupt data, to have mismatched
 > configuration across iSCSI gateways, and to have mismatched WWN information,
@@ -140,25 +105,25 @@ gwcli ls
 
 **Service Management:**
 
-The `ceph-iscsi` package installs the configuration management
-logic and a Systemd service called `rbd-target-api`. When the Systemd
-service is enabled, the `rbd-target-api` will start at boot time and
+The ``ceph-iscsi`` package installs the configuration management
+logic and a Systemd service called ``rbd-target-api``. When the Systemd
+service is enabled, the ``rbd-target-api`` will start at boot time and
 will restore the Linux IO state. The Ansible playbook disables the
 target service during the deployment. Below are the outcomes of when
-interacting with the `rbd-target-api` Systemd service.
+interacting with the ``rbd-target-api`` Systemd service.
 
 ```bash
 systemctl <start|stop|restart|reload> rbd-target-api
 ```
 
--  `reload`
+-  ``reload``
 
-   A reload request will force `rbd-target-api` to reread the
+   A reload request will force ``rbd-target-api`` to reread the
    configuration and apply it to the current running environment. This
    is normally not required, since changes are deployed in parallel from
    Ansible to all iSCSI gateway nodes
 
--  `stop`
+-  ``stop``
 
    A stop request will close the gateway’s portal interfaces, dropping
    connections to clients and wipe the current LIO configuration from
@@ -168,9 +133,9 @@ systemctl <start|stop|restart|reload> rbd-target-api
 
 **Removing the Configuration:**
 
-The `ceph-ansible` package provides an Ansible playbook to
+The ``ceph-ansible`` package provides an Ansible playbook to
 remove the iSCSI gateway configuration and related RBD images. The
-Ansible playbook is `/usr/share/ceph-ansible/purge_gateways.yml`. When
+Ansible playbook is ``/usr/share/ceph-ansible/purge_gateways.yml``. When
 this Ansible playbook is ran a prompted for the type of purge to
 perform:
 
@@ -182,7 +147,7 @@ storage cluster.
 
 *all* :
 
-When `all` is chosen, the LIO configuration is removed together with
+When ``all`` is chosen, the LIO configuration is removed together with
 **all** RBD images that were defined within the iSCSI gateway
 environment, other unrelated RBD images will not be removed. Ensure the
 correct mode is chosen, this operation will delete data.
@@ -233,5 +198,3 @@ ceph-igw-1                 : ok=3    changed=2    unreachable=0    failed=0
 ceph-igw-2                 : ok=3    changed=2    unreachable=0    failed=0
 localhost                  : ok=2    changed=0    unreachable=0    failed=0
 ```
-
-.. _Configuring the iSCSI Target using the Command Line Interface: ../iscsi-target-cli

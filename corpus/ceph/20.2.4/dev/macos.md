@@ -57,7 +57,7 @@ cmake .. -DBOOST_J=4 \
   -DWITH_XFS=OFF
 ```
 
-The paths to `nss` and `snappy` might vary if newer versions of the packages are installed.
+The paths to ``nss`` and ``snappy`` might vary if newer versions of the packages are installed.
 
 Also, please consider using boost v1.69 to address the bug of https://github.com/boostorg/atomic/issues/15.
 

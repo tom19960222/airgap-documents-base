@@ -1,11 +1,11 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "``list``"
+title: "`list`"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/lvm/list.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-lvm-list:
+<a id="ceph-volume-lvm-list"></a>
 
 # ``list``
 This subcommand will list any devices (logical and physical) that may be
@@ -13,12 +13,12 @@ associated with a Ceph cluster, as long as they contain enough metadata to
 allow for that discovery.
 
 Output is grouped by the OSD ID associated with the devices, and unlike
-`ceph-disk` it does not provide any information for devices that aren't
+``ceph-disk`` it does not provide any information for devices that aren't
 associated with Ceph.
 
 Command line options:
 
-* `--format` Allows a `json` or `pretty` value. Defaults to `pretty`
+* ``--format`` Allows a ``json`` or ``pretty`` value. Defaults to ``pretty``
   which will group the device information in a human-readable format.
 
 ## Full Reporting
@@ -26,7 +26,7 @@ When no positional arguments are used, a full reporting will be presented. This
 means that all devices and logical volumes found in the system will be
 displayed.
 
-Full `pretty` reporting for two OSDs, one with a lv as a journal, and another
+Full ``pretty`` reporting for two OSDs, one with a lv as a journal, and another
 one with a physical device may look similar to:
 
 ```bash
@@ -81,21 +81,21 @@ ceph-volume lvm list
       PARTUUID                  cd72bd28-002a-48da-bdf6-d5b993e84f3f
 ```
 
-For logical volumes the `devices` key is populated with the physical devices
+For logical volumes the ``devices`` key is populated with the physical devices
 associated with the logical volume. Since LVM allows multiple physical devices
 to be part of a logical volume, the value will be comma separated when using
-`pretty`, but an array when using `json`.
+``pretty``, but an array when using ``json``.
 
-> **Note:** Tags are displayed in a readable format. The `osd id` key is stored
-> as a `ceph.osd_id` tag. For more information on lvm tag conventions
-> see ceph-volume-lvm-tag-api
+> **Note:** Tags are displayed in a readable format. The ``osd id`` key is stored
+> as a ``ceph.osd_id`` tag. For more information on lvm tag conventions
+> see [ceph-volume-lvm-tag-api](../../dev/ceph-volume/lvm.md#ceph-volume-lvm-tag-api)
 
 ## Single Reporting
 Single reporting can consume both devices and logical volumes as input
 (positional parameters). For logical volumes, it is required to use the group
 name as well as the logical volume name.
 
-For example the `data-lv2` logical volume, in the `test_group` volume group
+For example the ``data-lv2`` logical volume, in the ``test_group`` volume group
 can be listed in the following way:
 
 ```bash
@@ -120,12 +120,12 @@ ceph-volume lvm list test_group/data-lv2
       devices                   /dev/sdc
 ```
 
-> **Note:** Tags are displayed in a readable format. The `osd id` key is stored
-> as a `ceph.osd_id` tag. For more information on lvm tag conventions
-> see ceph-volume-lvm-tag-api
+> **Note:** Tags are displayed in a readable format. The ``osd id`` key is stored
+> as a ``ceph.osd_id`` tag. For more information on lvm tag conventions
+> see [ceph-volume-lvm-tag-api](../../dev/ceph-volume/lvm.md#ceph-volume-lvm-tag-api)
 
 For plain disks, the full path to the device is required. For example, for
-a device like `/dev/sdd1` it can look like:
+a device like ``/dev/sdd1`` it can look like:
 
 ```bash
 ceph-volume lvm list /dev/sdd1
@@ -142,14 +142,14 @@ ceph-volume lvm list /dev/sdd1
 ```
 
 ## ``json`` output
-All output using `--format=json` will show everything the system has stored
+All output using ``--format=json`` will show everything the system has stored
 as metadata for the devices, including tags.
 
-No changes for readability are done with `json` reporting, and all
+No changes for readability are done with ``json`` reporting, and all
 information is presented as-is. Full output as well as single devices can be
 listed.
 
-For brevity, this is how a single logical volume would look with `json`
+For brevity, this is how a single logical volume would look with ``json``
 output (note how tags aren't modified):
 
 ```bash
@@ -189,13 +189,13 @@ ceph-volume lvm list --format=json test_group/data-lv1
 ## Synchronized information
 Before any listing type, the lvm API is queried to ensure that physical devices
 that may be in use haven't changed naming. It is possible that non-persistent
-devices like `/dev/sda1` could change to `/dev/sdb1`.
+devices like ``/dev/sda1`` could change to ``/dev/sdb1``.
 
-The detection is possible because the `PARTUUID` is stored as part of the
+The detection is possible because the ``PARTUUID`` is stored as part of the
 metadata in the logical volume for the data lv. Even in the case of a journal
 that is a physical device, this information is still stored on the data logical
 volume associated with it.
 
-If the name is no longer the same (as reported by `blkid` when using the
-`PARTUUID`), the tag will get updated and the report will use the newly
+If the name is no longer the same (as reported by ``blkid`` when using the
+``PARTUUID``), the tag will get updated and the report will use the newly
 refreshed information.

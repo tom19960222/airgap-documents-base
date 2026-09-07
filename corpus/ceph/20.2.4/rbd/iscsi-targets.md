@@ -8,14 +8,14 @@ fetched_at: 2026-08-18T01:32:45Z
 # iSCSI Targets
 
 Traditionally, block-level access to a Ceph storage cluster has been
-limited to QEMU and `librbd`, which is a key enabler for adoption
+limited to QEMU and ``librbd``, which is a key enabler for adoption
 within OpenStack environments. Starting with the Ceph Luminous release,
 block-level access is expanding to offer standard iSCSI support allowing
 wider platform usage, and potentially opening new use cases.
 
 -  Red Hat Enterprise Linux/CentOS 7.5 (or newer); Linux kernel v4.16 (or newer)
 
--  A working Ceph Storage cluster, deployed with `ceph-ansible` or using the command-line interface
+-  A working Ceph Storage cluster, deployed with ``ceph-ansible`` or using the command-line interface
 
 -  iSCSI gateways nodes, which can either be colocated with OSD nodes or on dedicated nodes
 

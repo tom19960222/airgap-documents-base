@@ -5,15 +5,15 @@ title: "Metrics"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/metrics.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs_metrics:
+<a id="cephfs-metrics"></a>
 
 # Metrics
 
-CephFS uses Perf Counters to track metrics. The counters can be labeled (Labeled Perf Counters).
+CephFS uses [Perf Counters](../dev/perf_counters.md#perf-counters) to track metrics. The counters can be labeled ([Labeled Perf Counters](../dev/perf_counters.md#labeled-perf-counters)).
 
 ## Client Metrics
 
-CephFS exports client metrics as Labeled Perf Counters, which could be used to monitor the client performance. CephFS exports the below client metrics.
+CephFS exports client metrics as [Labeled Perf Counters](../dev/perf_counters.md#labeled-perf-counters), which could be used to monitor the client performance. CephFS exports the below client metrics.
 
 .. list-table:: Client Metrics
    :widths: 25 25 75
@@ -73,7 +73,7 @@ CephFS exports client metrics as Labeled Perf Counters, which could be used to m
 
 # Getting Metrics
 
-The metrics could be scraped from the MDS admin socket as well as using the tell interface. The `mds_client_metrics-<fsname>` section in the output of `counter dump` command displays the metrics for each client as shown below:
+The metrics could be scraped from the MDS admin socket as well as using the tell interface. The ``mds_client_metrics-<fsname>`` section in the output of ``counter dump`` command displays the metrics for each client as shown below:
 
 ```
 "mds_client_metrics": [

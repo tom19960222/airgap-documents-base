@@ -24,10 +24,10 @@ requests from similarly stale clients at any point after which a new
 primary may have been allowed to make a write.
 
 We accomplish this via a mechanism that works much like a read lease.
-Each pool may have a `read_lease_interval` property which defines
+Each pool may have a ``read_lease_interval`` property which defines
 how long this is, although by default we simply set it to
-`osd_pool_default_read_lease_ratio` (default: .8) times the
-`osd_heartbeat_grace`.  (This way the lease will generally have
+``osd_pool_default_read_lease_ratio`` (default: .8) times the
+``osd_heartbeat_grace``.  (This way the lease will generally have
 expired by the time we mark a failed OSD down.)
 
 ## readable_until

@@ -5,7 +5,7 @@ title: "librgw (Python)"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/api.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw api:
+<a id="radosgw-api"></a>
 
 # librgw (Python)
 

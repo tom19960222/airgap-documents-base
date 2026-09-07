@@ -5,12 +5,12 @@ title: "HashiCorp Vault Integration"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/vault.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-vault:
+<a id="radosgw-vault"></a>
 
 # HashiCorp Vault Integration
 
-HashiCorp Vault can be used as a secure key management service for
-Server-Side Encryption (SSE-KMS).
+HashiCorp [Vault](https://www.vaultproject.io/docs/) can be used as a secure key management service for
+[Server-Side Encryption](encryption.md) (SSE-KMS).
 
 .. ditaa::
 
@@ -55,8 +55,8 @@ export VAULT_ADDR='https://vault-server-fqdn:8200'
 Vault provides several secrets engines, which can store, generate, and encrypt
 data. Currently, the Object Gateway supports:
 
-- KV secrets engine version 2
-- Transit engine
+- [KV secrets engine](https://www.vaultproject.io/docs/secrets/kv/) version 2
+- [Transit engine](https://www.vaultproject.io/docs/secrets/transit)
 
 ## KV Secrets Engine
 
@@ -94,7 +94,7 @@ rgw crypt vault secret engine = transit
 
 Vault supports several authentication mechanisms. Currently, the Object
 Gateway can be configured to authenticate to Vault using the
-Token authentication method or a Vault agent.
+[Token authentication method](https://www.vaultproject.io/docs/auth/token.html) or a [Vault agent](https://www.vaultproject.io/docs/agent/index.html).
 
 Most tokens in Vault have limited lifetimes and powers.  The only
 sort of Vault token that does not have a lifetime are root tokens.
@@ -232,7 +232,7 @@ vault read auth/approle/role/rgw-ap/role-id -format=json | \
   jq -r .data.role_id
 ```
 
-Store the output in some file, such as `/usr/local/etc/vault/.rgw-ap-role-id`.
+Store the output in some file, such as ``/usr/local/etc/vault/.rgw-ap-role-id``.
 
 Get the secret-id:
 
@@ -241,7 +241,7 @@ vault read auth/approle/role/rgw-ap/role-id -format=json | \
   jq -r .data.role_id
 ```
 
-Store the output in some file, such as `/usr/local/etc/vault/.rgw-ap-secret-id`.
+Store the output in some file, such as ``/usr/local/etc/vault/.rgw-ap-secret-id``.
 
 Create configuration for the Vault agent, such as:
 
@@ -278,11 +278,11 @@ a persistent daemon with the following arguments:
 
 Once the Vault agent is running, you should find it listening
 to port 8100 on localhost, and you should be able to interact
-with it using the `vault` command.
+with it using the ``vault`` command.
 
 # Vault Namespaces
 
-In the Enterprise version, Vault supports the concept of namespaces, which
+In the Enterprise version, Vault supports the concept of [namespaces](https://www.vaultproject.io/docs/enterprise/namespaces/index.html), which
 allows centralized management for teams within an organization while ensuring
 that those teams operate within isolated environments known as tenants.
 
@@ -320,8 +320,8 @@ version          1
 ```
 
 Note that in the KV secrets engine, secrets are stored as key-value pairs, and
-the Object Gateway expects the key name to be `key`, i.e. the secret must be in the
-form `key=<secret key>`.
+the Object Gateway expects the key name to be ``key``, i.e. the secret must be in the
+form ``key=<secret key>``.
 
 ## Using the Transit Engine
 
@@ -333,7 +333,7 @@ vault write -f transit/keys/mybucketkey
 ```
 
 The command above creates a keyring, which contains a key of type
-`aes256-gcm96` by default. To verify that the key was correctly created, use
+``aes256-gcm96`` by default. To verify that the key was correctly created, use
 the following command:
 
 ```
@@ -408,7 +408,7 @@ rgw crypt vault prefix = /v1/transit
 ```
 
 In the example above, the Object Gateway would only fetch transit encryption keys under
-`https://vault-server:8200/v1/transit`.
+``https://vault-server:8200/v1/transit``.
 
 You can use custom SSL certificates to authenticate with Vault with help of
 following options:
@@ -420,16 +420,16 @@ rgw crypt vault ssl clientcert = /etc/ceph/vault.crt
 rgw crypt vault ssl clientkey = /etc/ceph/vault.key
 ```
 
-where `vault.ca` is CA certificate and `vault.key`/`vault.crt` are private key and SSL
+where ``vault.ca`` is CA certificate and ``vault.key``/``vault.crt`` are private key and SSL
 certificate generated for RGW to access the Vault server. It is highly recommended to
-set this option to the value `true`, setting `false` is very dangerous and needs to be avoided since this
+set this option to the value ``true``, setting ``false`` is very dangerous and needs to be avoided since this
 runs in very secured environments.
 
 ## Transit Engine Compatibility Support
 The transit engine has compatibility support for previous
 versions of Ceph, which used the transit engine as a simple key store.
 
-There is a `compat` option which can be given to the transit
+There is a ``compat`` option which can be given to the transit
 engine to configure the compatibility support,
 
 To entirely disable backwards support, use:
@@ -459,7 +459,7 @@ rgw crypt vault secret engine = transit compat=2
 ```
 
 This mode is automatically selected if the Vault prefix
-ends in `export/encryption-key`, which was the previously
+ends in ``export/encryption-key``, which was the previously
 documented setting.
 
 # Upload Object
@@ -482,8 +482,8 @@ it in the bucket. Any request to download the object will make the Object Gatewa
 automatically retrieve the correspondent key from Vault and decrypt the object.
 
 Note that the secret will be fetched from Vault using a URL constructed by
-concatenating the base address (`rgw crypt vault addr`), the (optional)
-URL prefix (`rgw crypt vault prefix`), and finally the key ID.
+concatenating the base address (``rgw crypt vault addr``), the (optional)
+URL prefix (``rgw crypt vault prefix``), and finally the key ID.
 
 In the KV engine example above, the Object Gateway would fetch the secret from:
 
@@ -496,11 +496,3 @@ In the transit engine example above, the Object Gateway would encrypt the secret
 ```
 http://vaultserver:8200/v1/transit/mybucketkey
 ```
-
-.. _Server-Side Encryption: ../encryption
-.. _Vault: https://www.vaultproject.io/docs/
-.. _Token authentication method: https://www.vaultproject.io/docs/auth/token.html
-.. _Vault agent: https://www.vaultproject.io/docs/agent/index.html
-.. _KV Secrets engine: https://www.vaultproject.io/docs/secrets/kv/
-.. _Transit engine: https://www.vaultproject.io/docs/secrets/transit
-.. _namespaces: https://www.vaultproject.io/docs/enterprise/namespaces/index.html

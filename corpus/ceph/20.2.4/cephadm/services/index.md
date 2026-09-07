@@ -39,8 +39,8 @@ of the services running in the Ceph cluster, do the following:
 
 The following command prints a list of services known to the orchestrator. To
 limit the output to services only on a specified host, use the optional
-`--host` parameter. To limit the output to services of only a particular
-type, use the optional `--type` parameter (mon, osd, mgr, mds, rgw):
+``--host`` parameter. To limit the output to services of only a particular
+type, use the optional ``--type`` parameter (mon, osd, mgr, mds, rgw):
 
 ```bash
 ceph orch ls [--service_type type] [--service_name name] [--export] [--format f] [--refresh]
@@ -59,9 +59,9 @@ ceph orch ls --export
 ```
 
 The service specifications exported with this command will be exported as yaml
-and that yaml can be used with the `ceph orch apply -i` command.
+and that yaml can be used with the ``ceph orch apply -i`` command.
 
-For information about retrieving the specifications of single services (including examples of commands), see orchestrator-cli-service-spec-retrieve.
+For information about retrieving the specifications of single services (including examples of commands), see [orchestrator-cli-service-spec-retrieve](index.md#orchestrator-cli-service-spec-retrieve).
 
 # Daemon Status
 
@@ -87,15 +87,15 @@ ceph orch ps --daemon_type osd --daemon_id 0
 ```
 
 > **Note:**
-> The output of the command `ceph orch ps` may not reflect the current status of the daemons. By default,
-> the status is updated every 10 minutes. This interval can be shortened by modifying the `mgr/cephadm/daemon_cache_timeout`
-> configuration variable (in seconds) e.g: `ceph config set mgr mgr/cephadm/daemon_cache_timeout 60` would reduce the refresh
-> interval to one minute. The information is updated every `daemon_cache_timeout` seconds unless the `--refresh` option
+> The output of the command ``ceph orch ps`` may not reflect the current status of the daemons. By default,
+> the status is updated every 10 minutes. This interval can be shortened by modifying the ``mgr/cephadm/daemon_cache_timeout``
+> configuration variable (in seconds) e.g: ``ceph config set mgr mgr/cephadm/daemon_cache_timeout 60`` would reduce the refresh
+> interval to one minute. The information is updated every ``daemon_cache_timeout`` seconds unless the ``--refresh`` option
 > is used. This option would trigger a request to refresh the information, which may take some time depending on the size of
-> the cluster. In general `REFRESHED` value indicates how recent the information displayed by `ceph orch ps` and similar
+> the cluster. In general ``REFRESHED`` value indicates how recent the information displayed by ``ceph orch ps`` and similar
 > commands is.
 
-.. _orchestrator-cli-service-spec:
+<a id="orchestrator-cli-service-spec"></a>
 
 # Service Specification
 
@@ -143,12 +143,12 @@ In this example, the properties of this service specification are:
 
 Each service type can have additional service-specific properties.
 
-Service specifications of type `mon`, `mgr`, and the monitoring
-types do not require a `service_id`.
+Service specifications of type ``mon``, ``mgr``, and the monitoring
+types do not require a ``service_id``.
 
-A service of type `osd` is described in drivegroups
+A service of type ``osd`` is described in [drivegroups](osd.md#drivegroups)
 
-Many service specifications can be applied at once using `ceph orch apply -i`
+Many service specifications can be applied at once using ``ceph orch apply -i``
 by submitting a multi-document YAML file:
 
 ```
@@ -170,11 +170,11 @@ data_devices:
 EOF
 ```
 
-.. _orchestrator-cli-service-spec-retrieve:
+<a id="orchestrator-cli-service-spec-retrieve"></a>
 
 ## Retrieving the running Service Specification
 
-If the services have been started via `ceph orch apply...`, then directly changing
+If the services have been started via ``ceph orch apply...``, then directly changing
 the Services Specification is complicated. Instead of attempting to directly change
 the Services Specification, we suggest exporting the running Service Specification by
 following these instructions:
@@ -190,11 +190,11 @@ The Specification can then be changed and re-applied as above.
 ## Updating Service Specifications
 
 The Ceph Orchestrator maintains a declarative state of each
-service in a `ServiceSpec`. For certain operations, like updating
+service in a ``ServiceSpec``. For certain operations, like updating
 the RGW HTTP port, we need to update the existing
 specification.
 
-1. List the current `ServiceSpec`:
+1. List the current ``ServiceSpec``:
 
 ```bash
 ceph orch ls --service_name=<service-name> --export > myservice.yaml
@@ -206,13 +206,13 @@ ceph orch ls --service_name=<service-name> --export > myservice.yaml
 vi myservice.yaml
 ```
 
-3. Apply the new `ServiceSpec`:
+3. Apply the new ``ServiceSpec``:
 
 ```bash
 ceph orch apply -i myservice.yaml [--dry-run]
 ```
 
-.. _orchestrator-cli-placement-spec:
+<a id="orchestrator-cli-placement-spec"></a>
 
 # Daemon Placement
 
@@ -222,13 +222,13 @@ specification.  Placement specifications can either be passed as command line ar
 or in a YAML files.
 
 > **Note:**
-> cephadm will not deploy daemons on hosts with the `_no_schedule` label; see cephadm-special-host-labels.
+> cephadm will not deploy daemons on hosts with the ``_no_schedule`` label; see [cephadm-special-host-labels](../host-management.md#cephadm-special-host-labels).
 
 > **Note:**
 > The **apply** command can be confusing. For this reason, we recommend using
 > YAML specifications.
 >
-> Each `ceph orch apply <service-name>` command supersedes the one before it.
+> Each ``ceph orch apply <service-name>`` command supersedes the one before it.
 > If you do not use the proper syntax, you will clobber your work
 > as you go.
 >
@@ -255,7 +255,7 @@ or in a YAML files.
 >
 >   ceph orch apply mon "host1,host2,host3"
 >
-> There is another way to apply monitors to multiple hosts: a `yaml` file
+> There is another way to apply monitors to multiple hosts: a ``yaml`` file
 > can be used. Instead of using the "ceph orch apply mon" commands, run a
 > command of this form:
 >
@@ -299,15 +299,15 @@ MONs and other services may require some enhanced network specifications:
 ceph orch daemon add mon --placement="myhost:[v2:1.2.3.4:3300,v1:1.2.3.4:6789]=name"
 ```
 
-where `[v2:1.2.3.4:3300,v1:1.2.3.4:6789]` is the network address of the monitor
-and `=name` specifies the name of the new monitor.
+where ``[v2:1.2.3.4:3300,v1:1.2.3.4:6789]`` is the network address of the monitor
+and ``=name`` specifies the name of the new monitor.
 
-.. _orch-placement-by-labels:
+<a id="orch-placement-by-labels"></a>
 
 ## Placement by labels
 
 Daemon placement can be limited to hosts that match a specific label. To set
-a label `mylabel` to the appropriate hosts, run this command:
+a label ``mylabel`` to the appropriate hosts, run this command:
 
 ```bash
 ceph orch host label add *<hostname>* mylabel
@@ -352,9 +352,9 @@ placement:
   label: "mylabel"
 ```
 
-* See orchestrator-host-labels
+* See [orchestrator-host-labels](../host-management.md#orchestrator-host-labels)
 
-.. _cephadm-services-placement-by-pattern-matching:
+<a id="cephadm-services-placement-by-pattern-matching"></a>
 
 ## Placement by pattern matching
 
@@ -374,7 +374,7 @@ placement:
   host_pattern: "myhost[1-3]"
 ```
 
-To place a service on *all* hosts, use `"*"`:
+To place a service on *all* hosts, use ``"*"``:
 
 ```bash
 ceph orch apply node-exporter --placement='*'
@@ -390,7 +390,7 @@ placement:
 
 The host pattern also has support for using a regex. To use a regex, you
 must either add "regex: " to the start of the pattern when using the
-command line, or specify a `pattern_type` field to be "regex"
+command line, or specify a ``pattern_type`` field to be "regex"
 when using YAML.
 
 On the command line:
@@ -411,7 +411,7 @@ placement:
 
 ## Changing the number of daemons
 
-By specifying `count`, only the number of daemons specified will be created:
+By specifying ``count``, only the number of daemons specified will be created:
 
 ```bash
 ceph orch apply prometheus --placement=3
@@ -451,7 +451,7 @@ placement:
     - host3
 ```
 
-.. _cephadm_co_location:
+<a id="cephadm-co-location"></a>
 
 ## Co-location of daemons
 
@@ -469,8 +469,8 @@ performance benefit for running multiple RGW and MDS daemons on the same host.
 
 See also:
 
-* cephadm_mgr_co_location.
-* cephadm-rgw-designated_gateways.
+* [cephadm_mgr_co_location](mgr.md#cephadm-mgr-co-location).
+* [cephadm-rgw-designated_gateways](rgw.md#cephadm-rgw-designated-gateways).
 
 This feature was introduced in Pacific.
 
@@ -508,7 +508,7 @@ placement:
 ```
 
 This service specification instructs cephadm to deploy three daemons on hosts
-labeled `myfs` across the cluster.
+labeled ``myfs`` across the cluster.
 
 If there are fewer than three daemons deployed on the candidate hosts, cephadm
 randomly chooses hosts on which to deploy new daemons.
@@ -523,9 +523,9 @@ candidate hosts.
 > There is a special case that cephadm must consider.
 >
 > If there are fewer hosts selected by the placement specification than
-> demanded by `count`, cephadm will deploy only on the selected hosts.
+> demanded by ``count``, cephadm will deploy only on the selected hosts.
 
-.. _cephadm-extra-container-args:
+<a id="cephadm-extra-container-args"></a>
 
 # Extra Container Arguments
 
@@ -536,7 +536,7 @@ candidate hosts.
 
 > **Note:**
 > For arguments passed to the process running inside the container rather than the for
-> the container runtime itself, see cephadm-extra-entrypoint-args
+> the container runtime itself, see [cephadm-extra-entrypoint-args](index.md#cephadm-extra-entrypoint-args)
 
 Cephadm supports providing extra miscellaneous container arguments for
 specific cases when they may be necessary. For example, if a user needed
@@ -557,10 +557,10 @@ extra_container_args:
 
 which would cause each mon daemon to be deployed with `--cpus=2`.
 
-There are two ways to express arguments in the `extra_container_args` list.
+There are two ways to express arguments in the ``extra_container_args`` list.
 To start, an item in the list can be a string. When passing an argument
 as a string and the string contains spaces, Cephadm will automatically split it
-into multiple arguments. For example, `--cpus 2` would become ``["--cpus",
+into multiple arguments. For example, ``--cpus 2`` would become ``["--cpus",
 "2"]`` when processed. Example:
 
 ```yaml
@@ -577,12 +577,12 @@ extra_container_args:
 
 As an alternative, an item in the list can be an object (mapping) containing
 the required key "argument" and an optional key "split". The value associated
-with the `argument` key must be a single string. The value associated with
-the `split` key is a boolean value. The `split` key explicitly controls if
+with the ``argument`` key must be a single string. The value associated with
+the ``split`` key is a boolean value. The ``split`` key explicitly controls if
 spaces in the argument value cause the value to be split into multiple
-arguments. If `split` is true then Cephadm will automatically split the value
-into multiple arguments.  If `split` is false then spaces in the value will
-be retained in the argument.  The default, when `split` is not provided, is
+arguments. If ``split`` is true then Cephadm will automatically split the value
+into multiple arguments.  If ``split`` is false then spaces in the value will
+be retained in the argument.  The default, when ``split`` is not provided, is
 false. Examples:
 
 ```yaml
@@ -625,13 +625,13 @@ extra_container_args:
   - "/opt/ceph_cert/host.cert:/etc/grafana/certs/cert_file:ro"
 ```
 
-.. _cephadm-extra-entrypoint-args:
+<a id="cephadm-extra-entrypoint-args"></a>
 
 # Extra Entrypoint Arguments
 
 > **Note:**
 > For arguments intended for the container runtime rather than the process inside
-> it, see cephadm-extra-container-args
+> it, see [cephadm-extra-container-args](index.md#cephadm-extra-container-args)
 
 Similar to extra container args for the container runtime, Cephadm supports
 appending to args passed to the entrypoint process running
@@ -647,11 +647,11 @@ extra_entrypoint_args:
   - "--collector.textfile.directory=/var/lib/node_exporter/textfile_collector2"
 ```
 
-There are two ways to express arguments in the `extra_entrypoint_args` list.
+There are two ways to express arguments in the ``extra_entrypoint_args`` list.
 To start, an item in the list can be a string. When passing an argument as a
 string and the string contains spaces, cephadm will automatically split it into
-multiple arguments. For example, `--debug_ms 10` would become
-`["--debug_ms", "10"]` when processed. Example:
+multiple arguments. For example, ``--debug_ms 10`` would become
+``["--debug_ms", "10"]`` when processed. Example:
 
 ```yaml
 service_type: mon
@@ -667,12 +667,12 @@ extra_entrypoint_args:
 
 As an alternative, an item in the list can be an object (mapping) containing
 the required key "argument" and an optional key "split". The value associated
-with the `argument` key must be a single string. The value associated with
-the `split` key is a boolean value. The `split` key explicitly controls if
+with the ``argument`` key must be a single string. The value associated with
+the ``split`` key is a boolean value. The ``split`` key explicitly controls if
 spaces in the argument value cause the value to be split into multiple
-arguments. If `split` is true then cephadm will automatically split the value
-into multiple arguments.  If `split` is false then spaces in the value will
-be retained in the argument.  The default, when `split` is not provided, is
+arguments. If ``split`` is true then cephadm will automatically split the value
+into multiple arguments.  If ``split`` is false then spaces in the value will
+be retained in the argument.  The default, when ``split`` is not provided, is
 false. Examples:
 
 ```yaml
@@ -745,7 +745,7 @@ For example:
 ceph orch redeploy grafana
 ```
 
-.. _orch-rm:
+<a id="orch-rm"></a>
 
 # Removing a Service
 
@@ -762,21 +762,21 @@ For example:
 ceph orch rm rgw.myrgw
 ```
 
-.. _cephadm-spec-unmanaged:
+<a id="cephadm-spec-unmanaged"></a>
 
 # Disabling automatic deployment of daemons
 
 Cephadm supports disabling the automated deployment and removal of daemons on a
 per service basis. The CLI supports two commands for this.
 
-In order to fully remove a service, see orch-rm.
+In order to fully remove a service, see [orch-rm](index.md#orch-rm).
 
 ## Disabling automatic management of daemons
 
-To disable the automatic management of dameons, set `unmanaged=True` in the
-orchestrator-cli-service-spec (`mgr.yaml`).
+To disable the automatic management of dameons, set ``unmanaged=True`` in the
+[orchestrator-cli-service-spec](index.md#orchestrator-cli-service-spec) (``mgr.yaml``).
 
-`mgr.yaml`:
+``mgr.yaml``:
 
 ```yaml
 service_type: mgr
@@ -790,21 +790,21 @@ ceph orch apply -i mgr.yaml
 ```
 
 Cephadm also supports setting the unmanaged parameter to true or false
-using the `ceph orch set-unmanaged` and `ceph orch set-managed` commands.
-The commands take the service name (as reported in `ceph orch ls`) as
+using the ``ceph orch set-unmanaged`` and ``ceph orch set-managed`` commands.
+The commands take the service name (as reported in ``ceph orch ls``) as
 the only argument. For example,
 
 ```bash
 ceph orch set-unmanaged mon
 ```
 
-would set `unmanaged: true` for the mon service and
+would set ``unmanaged: true`` for the mon service and
 
 ```bash
 ceph orch set-managed mon
 ```
 
-would set `unmanaged: false` for the mon service
+would set ``unmanaged: false`` for the mon service
 
 > **Note:**
 > After you apply this change in the Service Specification, cephadm will no
@@ -814,8 +814,8 @@ would set `unmanaged: false` for the mon service
 > **Note:**
 > The "osd" service used to track OSDs that are not tied to any specific
 > service spec is special and will always be marked unmanaged. Attempting
-> to modify it with `ceph orch set-unmanaged` or `ceph orch set-managed`
-> will result in a message `No service of name osd found. Check "ceph orch ls" for all known services`
+> to modify it with ``ceph orch set-unmanaged`` or ``ceph orch set-managed``
+> will result in a message ``No service of name osd found. Check "ceph orch ls" for all known services``
 
 ## Deploying a daemon on a host manually
 
@@ -826,7 +826,7 @@ would set `unmanaged: false` for the mon service
 To manually deploy a daemon on a host, follow these steps:
 
 Modify the service spec for a service by getting the
-existing spec, adding `unmanaged: true`, and applying the modified spec.
+existing spec, adding ``unmanaged: true``, and applying the modified spec.
 
 Then manually deploy the daemon using the following:
 
@@ -841,7 +841,7 @@ ceph orch daemon add mgr --placement=my_host
 ```
 
 > **Note:**
-> Removing `unmanaged: true` from the service spec will
+> Removing ``unmanaged: true`` from the service spec will
 > enable the reconciliation loop for this service and will
 > potentially lead to the removal of the daemon, depending
 > on the placement spec.
@@ -861,10 +861,10 @@ ceph orch daemon rm mgr.my_host.xyzxyz
 ```
 
 > **Note:**
-> For managed services (`unmanaged=False`), cephadm will automatically
+> For managed services (``unmanaged=False``), cephadm will automatically
 > deploy a new daemon a few seconds later.
 
 ## See also
 
-* See cephadm-osd-declarative for special handling of unmanaged OSDs.
-* See also cephadm-pause
+* See [cephadm-osd-declarative](osd.md#cephadm-osd-declarative) for special handling of unmanaged OSDs.
+* See also [cephadm-pause](../troubleshooting.md#cephadm-pause)

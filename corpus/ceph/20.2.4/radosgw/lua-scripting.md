@@ -13,21 +13,21 @@ fetched_at: 2026-08-18T01:32:45Z
 
 This feature allows users to assign execution context to Lua scripts. The supported contexts are:
 
- - `prerequest` which will execute a script before each operation is performed
- - `postrequest` which will execute after each operation is performed
- - `background` which will execute within a specified time interval
- - `getdata` which will execute on objects' data when objects are downloaded
- - `putdata` which will execute on objects' data when objects are uploaded
- - `preRequest` which will execute a script before each operation is performed
- - `postRequest` which will execute after each operation is performed
+ - ``prerequest`` which will execute a script before each operation is performed
+ - ``postrequest`` which will execute after each operation is performed
+ - ``background`` which will execute within a specified time interval
+ - ``getdata`` which will execute on objects' data when objects are downloaded
+ - ``putdata`` which will execute on objects' data when objects are uploaded
+ - ``preRequest`` which will execute a script before each operation is performed
+ - ``postRequest`` which will execute after each operation is performed
 
 A request (pre or post) or data (get or put) context script may be constrained to operations belonging to a specific tenant's users.
-The request context script can also access fields in the request and modify certain fields, as well as the Global RGW Table.
-The data context script can access the content of the object as well as the request fields and the Global RGW Table.
+The request context script can also access fields in the request and modify certain fields, as well as the [Global RGW Table](lua-scripting.md#global-rgw-table).
+The data context script can access the content of the object as well as the request fields and the [Global RGW Table](lua-scripting.md#global-rgw-table).
 All Lua language features can be used in all contexts.
 An execution of a script in a context can use up to 500K byte of memory. This include all libraries used by Lua, but not the memory which is managed by the RGW itself, and may be accessed from Lua.
-To change this default value, use the `rgw_lua_max_memory_per_state` configuration parameter. Note that the basic overhead of Lua with its standard libraries is ~32K bytes. To disable the limit, use zero.
-By default, the execution of a Lua script is limited to a maximum runtime of 1000 milliseconds. This limit can be changed using the `rgw_lua_max_runtime_per_state` configuration parameter. If a Lua script exceeds this runtime, it will be terminated. To disable the runtime limit, use zero.
+To change this default value, use the ``rgw_lua_max_memory_per_state`` configuration parameter. Note that the basic overhead of Lua with its standard libraries is ~32K bytes. To disable the limit, use zero.
+By default, the execution of a Lua script is limited to a maximum runtime of 1000 milliseconds. This limit can be changed using the ``rgw_lua_max_runtime_per_state`` configuration parameter. If a Lua script exceeds this runtime, it will be terminated. To disable the runtime limit, use zero.
 
 > **Warning:** Be cautious when modifying the memory limit. If the current memory usage exceeds the newly set limit, all previously stored data in the background state will be lost.
 
@@ -37,10 +37,10 @@ By default, all Lua standard libraries are available in the script, however, in 
 
   - Adding a Lua package to the allowlist, or removing a packge from it does not install or remove it. For the changes to take affect a "reload" command should be called.
   - In addition all packages in the allowlist are being re-installed using the luarocks package manager on radosgw restart.
-  - To add a package that contains C source code that needs to be compiled, use the `--allow-compilation` flag. In this case a C compiler needs to be available on the host
+  - To add a package that contains C source code that needs to be compiled, use the ``--allow-compilation`` flag. In this case a C compiler needs to be available on the host
   - Lua packages are installed in, and used from, a directory local to the radosgw. Meaning that Lua packages in the allowlist are separated from any Lua packages available on the host.
-    By default, this directory would be `/tmp/luarocks/<entity name>`. Its prefix part (`/tmp/luarocks/`) could be set to a different location via the `rgw_luarocks_location` configuration parameter.
-    Note that this parameter should not be set to one of the default locations where luarocks install packages (e.g. `$HOME/.luarocks`, `/usr/lib64/lua`, `/usr/share/lua`).
+    By default, this directory would be ``/tmp/luarocks/<entity name>``. Its prefix part (``/tmp/luarocks/``) could be set to a different location via the ``rgw_luarocks_location`` configuration parameter.
+    Note that this parameter should not be set to one of the default locations where luarocks install packages (e.g. ``$HOME/.luarocks``, ``/usr/lib64/lua``, ``/usr/share/lua``).
 
 .. toctree::
    :maxdepth: 1
@@ -55,7 +55,7 @@ To upload a script:
 # radosgw-admin script put --infile={lua-file-path} --context={prerequest|postrequest|background|getdata|putdata} [--tenant={tenant-name}]
 ```
 
-* When uploading a script with the `background` context, a tenant name should not be specified.
+* When uploading a script with the ``background`` context, a tenant name should not be specified.
 
 :
 
@@ -140,8 +140,8 @@ To apply changes from the allowlist to all RGWs:
 
 ## Context Free Functions
 #### Debug Log
-The `RGWDebugLog()` function accepts a string and prints it to the debug log with priority 20.
-Each log message is prefixed `Lua INFO:`. This function has no return value.
+The ``RGWDebugLog()`` function accepts a string and prints it to the debug log with priority 20.
+Each log message is prefixed ``Lua INFO:``. This function has no return value.
 
 ## Request Fields
 
@@ -151,189 +151,106 @@ Each log message is prefixed `Lua INFO:`. This function has no return value.
 > - Although Lua is a case-sensitive language, field names provided by the radosgw are case-insensitive. Function names remain case-sensitive.
 > - Fields marked "optional" can have a nil value.
 > - Fields marked as "iterable" can be used by the pairs() function and with the # length operator.
-> - All table fields can be used with the bracket operator `[]`.
-> - `time` fields are strings with the following format: `%Y-%m-%d %H:%M:%S`.
+> - All table fields can be used with the bracket operator ``[]``.
+> - ``time`` fields are strings with the following format: ``%Y-%m-%d %H:%M:%S``.
 
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| Field                                              | Type     | Description                                                  | Iterable | Writeable | Optional |
-+====================================================+==========+==============================================================+==========+===========+==========+
-| `Request.RGWOp`                                  | string   | radosgw operation                                            | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.DecodedURI`                             | string   | decoded URI                                                  | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.ContentLength`                          | integer  | size of the request                                          | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.GenericAttributes`                      | table    | string to string generic attributes map                      | yes      | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Response`                               | table    | response to the request                                      | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Response.HTTPStatusCode`                | integer  | HTTP status code                                             | no       | yes       | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Response.HTTPStatus`                    | string   | HTTP status text                                             | no       | yes       | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Response.RGWCode`                       | integer  | radosgw error code                                           | no       | yes       | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Response.Message`                       | string   | response message                                             | no       | yes       | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.SwiftAccountName`                       | string   | swift account name                                           | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket`                                 | table    | info on the bucket                                           | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Tenant`                          | string   | tenant of the bucket                                         | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Name`                            | string   | bucket name (writeable only in `prerequest` context)       | no       | yes       | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Marker`                          | string   | bucket marker (initial id)                                   | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Id`                              | string   | bucket id                                                    | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.ZoneGroupId`                     | string   | zone group of the bucket                                     | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.CreationTime`                    | time     | creation time of the bucket                                  | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.MTime`                           | time     | modification time of the bucket                              | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Quota`                           | table    | bucket quota                                                 | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Quota.MaxSize`                   | integer  | bucket quota max size                                        | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Quota.MaxObjects`                | integer  | bucket quota max number of objects                           | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Reques.Bucket.Quota.Enabled`                    | boolean  | bucket quota is enabled                                      | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.Quota.Rounded`                   | boolean  | bucket quota is rounded to 4K                                | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.PlacementRule`                   | table    | bucket placement rule                                        | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.PlacementRule.Name`              | string   | bucket placement rule name                                   | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.PlacementRule.StorageClass`      | string   | bucket placement rule storage class                          | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Bucket.User`                            | string   | owning user/account id                                       | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Object`                                 | table    | info on the object                                           | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Object.Name`                            | string   | object name                                                  | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Object.Instance`                        | string   | object version                                               | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Object.Id`                              | string   | object id                                                    | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Object.Size`                            | integer  | object size                                                  | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Object.MTime`                           | time     | object mtime                                                 | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.CopyFrom`                               | table    | information on copy operation                                | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.CopyFrom.Tenant`                        | string   | tenant of the object copied from                             | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.CopyFrom.Bucket`                        | string   | bucket of the object copied from                             | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.CopyFrom.Object`                        | table    | object copied from. See: `Request.Object`                  | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.ObjectOwner`                            | table    | object owner                                                 | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.ObjectOwner.DisplayName`                | string   | object owner display name                                    | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.ObjectOwner.User`                       | string   | owning user/account id. See: `Request.Bucket.User`         | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.ZoneGroup.Name`                         | string   | name of zone group                                           | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.ZoneGroup.Endpoint`                     | string   | endpoint of zone group                                       | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl`                                | table    | user ACL                                                     | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl.Owner`                          | table    | user ACL owner. See: `Request.ObjectOwner`                 | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl.Grants`                         | table    | user ACL map of string to grant                              | yes      | no        | no       |
-|                                                    |          | note: grants without an Id are not presented when iterated   |          |           |          |
-|                                                    |          | and only one of them can be accessed via brackets            |          |           |          |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl.Grants["<name>"]`               | table    | user ACL grant                                               | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl.Grants["<name>"].Type`          | integer  | user ACL grant type                                          | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl.Grants["<name>"].User`          | string   | user ACL grant user/account id                               | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl.Grants["<name>"].GroupType`     | integer  | user ACL grant group type                                    | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserAcl.Grants["<name>"].Referer`       | string   | user ACL grant referer                                       | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.BucketAcl`                              | table    | bucket ACL. See: `Request.UserAcl`                         | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.ObjectAcl`                              | table    | object ACL. See: `Request.UserAcl`                         | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Environment`                            | table    | string to string environment map                             | yes      | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Policy`                                 | table    | policy                                                       | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Policy.Text`                            | string   | policy text                                                  | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Policy.Id`                              | string   | policy Id                                                    | no       | no        | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Policy.Statements`                      | table    | list of string statements                                    | yes      | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserPolicies`                           | table    | list of user policies                                        | yes      | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.UserPolicies[<index>]`                  | table    | user policy. See: `Request.Policy`                         | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.RGWId`                                  | string   | radosgw host id: `<host>-<zone>-<zonegroup>`               | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP`                                   | table    | HTTP header                                                  | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.Parameters`                        | table    | string to string parameter map                               | yes      | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.Resources`                         | table    | string to string resource map                                | yes      | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.Metadata`                          | table    | string to string metadata map                                | yes      | yes       | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.StorageClass`                      | string   | storage class                                                | no       | yes       | yes      |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.Host`                              | string   | host name                                                    | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.Method`                            | string   | HTTP method                                                  | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.URI`                               | string   | URI                                                          | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.QueryString`                       | string   | HTTP query string                                            | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.HTTP.Domain`                            | string   | domain name                                                  | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Time`                                   | time     | request time                                                 | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Dialect`                                | string   | "S3" or "Swift"                                              | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Id`                                     | string   | request Id                                                   | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.TransactionId`                          | string   | transaction Id                                               | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Tags`                                   | table    | object tags map                                              | yes      | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.User`                                   | table    | user that triggered the request                              | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.User.Tenant`                            | string   | triggering user tenant                                       | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.User.Id`                                | string   | triggering user id                                           | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Trace`                                  | table    | info on trace                                                | no       | no        | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
-| `Request.Trace.Enable`                           | boolean  | tracing is enabled                                           | no       | yes       | no       |
-+----------------------------------------------------+----------+--------------------------------------------------------------+----------+-----------+----------+
+| Field | Type | Description | Iterable | Writeable | Optional |
+| --- | --- | --- | --- | --- | --- |
+| ``Request.RGWOp`` | string | radosgw operation | no | no | no |
+| ``Request.DecodedURI`` | string | decoded URI | no | no | no |
+| ``Request.ContentLength`` | integer | size of the request | no | no | no |
+| ``Request.GenericAttributes`` | table | string to string generic attributes map | yes | no | no |
+| ``Request.Response`` | table | response to the request | no | no | no |
+| ``Request.Response.HTTPStatusCode`` | integer | HTTP status code | no | yes | no |
+| ``Request.Response.HTTPStatus`` | string | HTTP status text | no | yes | no |
+| ``Request.Response.RGWCode`` | integer | radosgw error code | no | yes | no |
+| ``Request.Response.Message`` | string | response message | no | yes | no |
+| ``Request.SwiftAccountName`` | string | swift account name | no | no | yes |
+| ``Request.Bucket`` | table | info on the bucket | no | no | no |
+| ``Request.Bucket.Tenant`` | string | tenant of the bucket | no | no | yes |
+| ``Request.Bucket.Name`` | string | bucket name (writeable only in ``prerequest`` context) | no | yes | no |
+| ``Request.Bucket.Marker`` | string | bucket marker (initial id) | no | no | yes |
+| ``Request.Bucket.Id`` | string | bucket id | no | no | yes |
+| ``Request.Bucket.ZoneGroupId`` | string | zone group of the bucket | no | no | yes |
+| ``Request.Bucket.CreationTime`` | time | creation time of the bucket | no | no | yes |
+| ``Request.Bucket.MTime`` | time | modification time of the bucket | no | no | yes |
+| ``Request.Bucket.Quota`` | table | bucket quota | no | no | yes |
+| ``Request.Bucket.Quota.MaxSize`` | integer | bucket quota max size | no | no | no |
+| ``Request.Bucket.Quota.MaxObjects`` | integer | bucket quota max number of objects | no | no | no |
+| ``Reques.Bucket.Quota.Enabled`` | boolean | bucket quota is enabled | no | no | no |
+| ``Request.Bucket.Quota.Rounded`` | boolean | bucket quota is rounded to 4K | no | no | no |
+| ``Request.Bucket.PlacementRule`` | table | bucket placement rule | no | no | yes |
+| ``Request.Bucket.PlacementRule.Name`` | string | bucket placement rule name | no | no | no |
+| ``Request.Bucket.PlacementRule.StorageClass`` | string | bucket placement rule storage class | no | no | no |
+| ``Request.Bucket.User`` | string | owning user/account id | no | no | yes |
+| ``Request.Object`` | table | info on the object | no | no | yes |
+| ``Request.Object.Name`` | string | object name | no | no | no |
+| ``Request.Object.Instance`` | string | object version | no | no | no |
+| ``Request.Object.Id`` | string | object id | no | no | no |
+| ``Request.Object.Size`` | integer | object size | no | no | no |
+| ``Request.Object.MTime`` | time | object mtime | no | no | no |
+| ``Request.CopyFrom`` | table | information on copy operation | no | no | yes |
+| ``Request.CopyFrom.Tenant`` | string | tenant of the object copied from | no | no | no |
+| ``Request.CopyFrom.Bucket`` | string | bucket of the object copied from | no | no | no |
+| ``Request.CopyFrom.Object`` | table | object copied from. See: ``Request.Object`` | no | no | yes |
+| ``Request.ObjectOwner`` | table | object owner | no | no | no |
+| ``Request.ObjectOwner.DisplayName`` | string | object owner display name | no | no | no |
+| ``Request.ObjectOwner.User`` | string | owning user/account id. See: ``Request.Bucket.User`` | no | no | yes |
+| ``Request.ZoneGroup.Name`` | string | name of zone group | no | no | no |
+| ``Request.ZoneGroup.Endpoint`` | string | endpoint of zone group | no | no | no |
+| ``Request.UserAcl`` | table | user ACL | no | no | no |
+| ``Request.UserAcl.Owner`` | table | user ACL owner. See: ``Request.ObjectOwner`` | no | no | no |
+| ``Request.UserAcl.Grants`` <br> <br> | table <br> <br> | user ACL map of string to grant <br> note: grants without an Id are not presented when iterated <br> and only one of them can be accessed via brackets | yes <br> <br> | no <br> <br> | no <br> <br> |
+| ``Request.UserAcl.Grants["<name>"]`` | table | user ACL grant | no | no | no |
+| ``Request.UserAcl.Grants["<name>"].Type`` | integer | user ACL grant type | no | no | no |
+| ``Request.UserAcl.Grants["<name>"].User`` | string | user ACL grant user/account id | no | no | no |
+| ``Request.UserAcl.Grants["<name>"].GroupType`` | integer | user ACL grant group type | no | no | yes |
+| ``Request.UserAcl.Grants["<name>"].Referer`` | string | user ACL grant referer | no | no | yes |
+| ``Request.BucketAcl`` | table | bucket ACL. See: ``Request.UserAcl`` | no | no | no |
+| ``Request.ObjectAcl`` | table | object ACL. See: ``Request.UserAcl`` | no | no | no |
+| ``Request.Environment`` | table | string to string environment map | yes | no | no |
+| ``Request.Policy`` | table | policy | no | no | yes |
+| ``Request.Policy.Text`` | string | policy text | no | no | no |
+| ``Request.Policy.Id`` | string | policy Id | no | no | yes |
+| ``Request.Policy.Statements`` | table | list of string statements | yes | no | no |
+| ``Request.UserPolicies`` | table | list of user policies | yes | no | no |
+| ``Request.UserPolicies[<index>]`` | table | user policy. See: ``Request.Policy`` | no | no | no |
+| ``Request.RGWId`` | string | radosgw host id: ``<host>-<zone>-<zonegroup>`` | no | no | no |
+| ``Request.HTTP`` | table | HTTP header | no | no | no |
+| ``Request.HTTP.Parameters`` | table | string to string parameter map | yes | no | no |
+| ``Request.HTTP.Resources`` | table | string to string resource map | yes | no | no |
+| ``Request.HTTP.Metadata`` | table | string to string metadata map | yes | yes | no |
+| ``Request.HTTP.StorageClass`` | string | storage class | no | yes | yes |
+| ``Request.HTTP.Host`` | string | host name | no | no | no |
+| ``Request.HTTP.Method`` | string | HTTP method | no | no | no |
+| ``Request.HTTP.URI`` | string | URI | no | no | no |
+| ``Request.HTTP.QueryString`` | string | HTTP query string | no | no | no |
+| ``Request.HTTP.Domain`` | string | domain name | no | no | no |
+| ``Request.Time`` | time | request time | no | no | no |
+| ``Request.Dialect`` | string | "S3" or "Swift" | no | no | no |
+| ``Request.Id`` | string | request Id | no | no | no |
+| ``Request.TransactionId`` | string | transaction Id | no | no | no |
+| ``Request.Tags`` | table | object tags map | yes | no | no |
+| ``Request.User`` | table | user that triggered the request | no | no | no |
+| ``Request.User.Tenant`` | string | triggering user tenant | no | no | no |
+| ``Request.User.Id`` | string | triggering user id | no | no | no |
+| ``Request.Trace`` | table | info on trace | no | no | no |
+| ``Request.Trace.Enable`` | boolean | tracing is enabled | no | yes | no |
 
 ## Request Functions
 #### Operations Log
-The `Request.Log()` function prints the requests into the operations log. This function has no parameters. It returns 0 for success and an error code if it fails.
+The ``Request.Log()`` function prints the requests into the operations log. This function has no parameters. It returns 0 for success and an error code if it fails.
 
 #### Tracing
-Tracing functions can be used only in the `postrequest` context.
+Tracing functions can be used only in the ``postrequest`` context.
 
-- `Request.Trace.SetAttribute(<key>, <value>)` - sets the attribute for the request's trace.
-  The function takes two arguments: the first is the `key`, which should be a string, and the second is the `value`, which can either be a string or a number (integer or double).
+- ``Request.Trace.SetAttribute(<key>, <value>)`` - sets the attribute for the request's trace.
+  The function takes two arguments: the first is the ``key``, which should be a string, and the second is the ``value``, which can either be a string or a number (integer or double).
   You may then locate specific traces by using this attribute.
 
-- `Request.Trace.AddEvent(<name>, <attributes>)` - adds an event to the first span of the request's trace
+- ``Request.Trace.AddEvent(<name>, <attributes>)`` - adds an event to the first span of the request's trace
   An event is defined by event name, event time, and zero or more event attributes.
-  The function accepts one or two arguments: A string containing the event `name` should be the first argument, followed by the event `attributes`, which is optional for events without attributes.
+  The function accepts one or two arguments: A string containing the event ``name`` should be the first argument, followed by the event ``attributes``, which is optional for events without attributes.
   An event's attributes must be a table of strings.
 
 ## Request Blocking and Error Handling
@@ -342,37 +259,37 @@ If the Lua script fails with a syntax or runtime error, RGW will log the error. 
 
 #### Request Blocking and Return Values
 The script's return value determines how RGW proceeds with the request:
-- To block the request: The script must return the value `RGW_ABORT_REQUEST`. RGW interprets this as `-EPERM` and will stop processing the request.
+- To block the request: The script must return the value ``RGW_ABORT_REQUEST``. RGW interprets this as ``-EPERM`` and will stop processing the request.
 - To continue the request: No return value, or any other return value or type will be treated as success.
 
 #### Return Value Context
 The Lua script’s return value is evaluated only during the prerequest context and is ignored in any other RGW request-processing context.
-The HTTP response status code is 403 (Forbidden) by default when a request is blocked by Lua. The response code can be changed using `Request.Response.HTTPStatusCode` and `Request.Response.HTTPStatus`.
-If a request is aborted this way, the `data` and `postrequest` context will also be aborted.
+The HTTP response status code is 403 (Forbidden) by default when a request is blocked by Lua. The response code can be changed using ``Request.Response.HTTPStatusCode`` and ``Request.Response.HTTPStatus``.
+If a request is aborted this way, the ``data`` and ``postrequest`` context will also be aborted.
 ## Background Context
-The `background` context may be used for purposes that include analytics, monitoring, caching data for other context executions.
+The ``background`` context may be used for purposes that include analytics, monitoring, caching data for other context executions.
 - Background script execution default interval is 5 seconds.
 
 ## Data Context
-Both `getdata` and `putdata` contexts have the following fields:
-- `Data` which is read-only and iterable (byte by byte). In case that an object is uploaded or retrieved in multiple chunks, the `Data` field will hold data of one chunk at a time.
-- `Offset` which is holding the offset of the chunk within the entire object.
-- The `Request` fields and the background `RGW` table are also available in these contexts.
+Both ``getdata`` and ``putdata`` contexts have the following fields:
+- ``Data`` which is read-only and iterable (byte by byte). In case that an object is uploaded or retrieved in multiple chunks, the ``Data`` field will hold data of one chunk at a time.
+- ``Offset`` which is holding the offset of the chunk within the entire object.
+- The ``Request`` fields and the background ``RGW`` table are also available in these contexts.
 
 ## Global RGW Table
-The `RGW` Lua table is accessible from all contexts and saves data written to it
+The ``RGW`` Lua table is accessible from all contexts and saves data written to it
 during execution so that it may be read and used later during other executions, from the same context of a different one.
-- Each RGW instance has its own private and ephemeral `RGW` Lua table that is lost when the daemon restarts. Note that `background` context scripts will run on every instance.
+- Each RGW instance has its own private and ephemeral ``RGW`` Lua table that is lost when the daemon restarts. Note that ``background`` context scripts will run on every instance.
 - The maximum number of entries in the table is 100,000. Each entry has a string key a value with a combined length of no more than 1KB.
 A Lua script will abort with an error if the number of entries or entry size exceeds these limits.
-- The `RGW` Lua table uses string indices and can store values of type: string, integer, double and boolean
+- The ``RGW`` Lua table uses string indices and can store values of type: string, integer, double and boolean
 
 #### Increment/Decrement Functions
-Since entries in the `RGW` table could be accessed from multiple places at the same time we need a way
+Since entries in the ``RGW`` table could be accessed from multiple places at the same time we need a way
 to atomically increment and decrement numeric values in it. For that the following functions should be used:
-- `RGW.increment(<key>, [value])` would increment the value of `key` by `value` if value is provided or by 1 if not
-- `RGW.decrement(<key>, [value])` would decrement the value of `key` by `value` if value is provided or by 1 if not
-- if the value of `key` is not numeric, the execution of the script would fail
+- ``RGW.increment(<key>, [value])`` would increment the value of ``key`` by ``value`` if value is provided or by 1 if not
+- ``RGW.decrement(<key>, [value])`` would decrement the value of ``key`` by ``value`` if value is provided or by 1 if not
+- if the value of ``key`` is not numeric, the execution of the script would fail
 - if we try to increment or decrement by non-numeric values, the execution of the script would fail
 
 ## Lua Code Samples
@@ -450,7 +367,7 @@ end
 
 - Add metadata to objects that was not originally sent by the client:
 
-In the `prerequest` context we should add:
+In the ``prerequest`` context we should add:
 
 ```lua
 if Request.RGWOp == 'put_obj' then
@@ -458,7 +375,7 @@ if Request.RGWOp == 'put_obj' then
 end
 ```
 
-In the `postrequest` context we look at the metadata:
+In the ``postrequest`` context we look at the metadata:
 
 ```lua
 RGWDebugLog("number of metadata entries is: " .. #Request.HTTP.Metadata)
@@ -487,7 +404,7 @@ Then, run a server to listen on the Unix socket. For example, use "netcat":
 # nc -vklU /tmp/socket
 ```
 
-And last, do a restart for the radosgw and upload the following script to the `postrequest` context:
+And last, do a restart for the radosgw and upload the following script to the ``postrequest`` context:
 
 ```lua
 if Request.RGWOp == "get_obj" then
@@ -521,8 +438,8 @@ if Request.Bucket.Name == "my-bucket" then
 end
 ```
 
-If tracing is enabled on the RGW, the value of Request.Trace.Enable is true, so we should disable tracing for all other requests that do not match the bucket name.
-In the `prerequest` context:
+If [tracing is enabled](../jaegertracing/index.md#jaegertracing-enable) on the RGW, the value of Request.Trace.Enable is true, so we should disable tracing for all other requests that do not match the bucket name.
+In the ``prerequest`` context:
 
 ```lua
 if Request.Bucket.Name ~= "my-bucket" then
@@ -530,11 +447,11 @@ if Request.Bucket.Name ~= "my-bucket" then
 end
 ```
 
-Note that changing `Request.Trace.Enable` does not change the tracer's state, but disables or enables the tracing for the request only.
+Note that changing ``Request.Trace.Enable`` does not change the tracer's state, but disables or enables the tracing for the request only.
 
 - Add Information for requests traces
 
-in `postrequest` context, we can add attributes and events to the request's trace.
+in ``postrequest`` context, we can add attributes and events to the request's trace.
 
 ```lua
 Request.Trace.AddEvent("lua script execution started")
@@ -552,37 +469,36 @@ Request.Trace.AddEvent("second event", event_attrs)
 - The entropy value of an object could be used to detect whether the object is encrypted.
   The following script calculates the entropy and size of uploaded objects and print to debug log
 
-in the `putdata` context, add the following script
+in the ``putdata`` context, add the following script
 
 ```lua
+function object_entropy()
+        local byte_hist = {}
+        local byte_hist_size = 256
+        for i = 1,byte_hist_size do
+                byte_hist[i] = 0
+        end
+        local total = 0
+
+        for i, c in pairs(Data)  do
+                local byte = c:byte() + 1
+                byte_hist[byte] = byte_hist[byte] + 1
+                total = total + 1
+        end
+
+        entropy = 0
+
+        for _, count in ipairs(byte_hist) do
+                if count ~= 0 then
+                        local p = 1.0 * count / total
+                        entropy = entropy - (p * math.log(p)/math.log(byte_hist_size))
+                end
+        end
+
+        return entropy
+end
+
+local full_name = Request.Bucket.Name.."\\"..Request.Object.Name
+RGWDebugLog("entropy of chunk of: " .. full_name .. " at offset:" .. tostring(Offset)  ..  " is: " .. tostring(object_entropy()))
+RGWDebugLog("payload size of chunk of: " .. full_name .. " is: " .. #Data)
 ```
-
-	function object_entropy()
-		local byte_hist = {}
-		local byte_hist_size = 256
-		for i = 1,byte_hist_size do
-			byte_hist[i] = 0
-		end
-		local total = 0
-
-		for i, c in pairs(Data)  do
-			local byte = c:byte() + 1
-			byte_hist[byte] = byte_hist[byte] + 1
-			total = total + 1
-		end
-
-		entropy = 0
-
-		for _, count in ipairs(byte_hist) do
-			if count ~= 0 then
-				local p = 1.0 * count / total
-				entropy = entropy - (p * math.log(p)/math.log(byte_hist_size))
-			end
-		end
-
-		return entropy
-	end
-
-	local full_name = Request.Bucket.Name.."\\"..Request.Object.Name
-	RGWDebugLog("entropy of chunk of: " .. full_name .. " at offset:" .. tostring(Offset)  ..  " is: " .. tostring(object_entropy()))
-	RGWDebugLog("payload size of chunk of: " .. full_name .. " is: " .. #Data)

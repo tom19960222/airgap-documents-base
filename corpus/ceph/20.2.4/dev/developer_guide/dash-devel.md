@@ -5,7 +5,7 @@ title: "Ceph Dashboard Developer Documentation"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/developer_guide/dash-devel.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _dashdevel:
+<a id="dashdevel"></a>
 
 # Ceph Dashboard Developer Documentation
 
@@ -27,35 +27,30 @@ Ceph Dashboard UI.
 ## Preliminary Steps
 
 The following documentation chapters expect a running Ceph cluster and at
-least a running `dashboard` manager module (with few exceptions). This
+least a running ``dashboard`` manager module (with few exceptions). This
 chapter gives an introduction on how to set up such a system for development,
 without the need to set up a full-blown production environment. All options
-introduced in this chapter are based on a so called `vstart` environment.
+introduced in this chapter are based on a so called ``vstart`` environment.
 
 > **Note:**
-> Every `vstart` environment needs Ceph to be compiled from its GitHub
+> Every ``vstart`` environment needs Ceph [to be compiled](https://docs.ceph.com/docs/master/install/build-ceph/) from its GitHub
 > repository, though Docker environments simplify that step by providing a
 > shell script that contains those instructions.
 >
-> One exception to this rule are the build-free capabilities of
-> ceph-dev. See below for more information.
-
-.. _to be compiled: https://docs.ceph.com/docs/master/install/build-ceph/
+> One exception to this rule are the [build-free](https://github.com/rhcs-dashboard/ceph-dev#quick-install-rpm-based) capabilities of
+> [ceph-dev](https://github.com/rhcs-dashboard/ceph-dev). See below for more information.
 
 #### vstart
 
-"vstart" is actually a shell script in the `src/` directory of the Ceph
-repository (`src/vstart.sh`). It is used to start a single node Ceph
+"vstart" is actually a shell script in the ``src/`` directory of the Ceph
+repository (``src/vstart.sh``). It is used to start a single node Ceph
 cluster on the machine where it is executed. Several required and some
 optional Ceph internal services are started automatically when it is used to
 start a Ceph cluster. vstart is the basis for the three most commonly used
 development environments in Ceph Dashboard.
 
-You can read more about vstart in :ref:`Deploying a development cluster
-<dev_deploying_a_development_cluster>`. Additional information for developers
-can also be found in the Developer Guide.
-
-.. _Developer Guide: https://docs.ceph.com/docs/master/dev/quick_guide/
+You can read more about vstart in [Deploying a development cluster](../dev_cluster_deployment.md#dev-deploying-a-development-cluster). Additional information for developers
+can also be found in the [Developer Guide](https://docs.ceph.com/docs/master/dev/quick_guide/).
 
 #### Host-based vs Docker-based Development Environments
 
@@ -66,22 +61,20 @@ based on vstart. Those are:
 
 - vstart running in a Docker environment
 
-  * ceph-dev-docker_
-  * ceph-dev_
+  * [ceph-dev-docker](https://github.com/ricardoasmarques/ceph-dev-docker)
+  * [ceph-dev](https://github.com/rhcs-dashboard/ceph-dev)
 
   Besides their independent development branches and sometimes slightly
   different approaches, they also differ with respect to their underlying
   operating systems.
 
-  ========= ======================  ========
-  Release   ceph-dev-docker         ceph-dev
-  ========= ======================  ========
-  Mimic     openSUSE Leap 15        CentOS 7
-  Nautilus  openSUSE Leap 15        CentOS 7
-  Octopus   openSUSE Leap 15.2      CentOS 8
-  --------- ----------------------  --------
-  Master    openSUSE Tumbleweed     CentOS 8
-  ========= ======================  ========
+| Release | ceph-dev-docker | ceph-dev |
+| --- | --- | --- |
+| Mimic | openSUSE Leap 15 | CentOS 7 |
+| Nautilus | openSUSE Leap 15 | CentOS 7 |
+| Octopus | openSUSE Leap 15.2 | CentOS 8 |
+| --------- | ---------------------- | -------- |
+| Master | openSUSE Tumbleweed | CentOS 8 |
 
 > **Note:**
 > Independently of which of these environments you will choose, you need to
@@ -92,8 +85,8 @@ based on vstart. Those are:
 > switch to your host system, you will also need to recompile Ceph (or
 > compile Ceph using another separate repository).
 >
-> ceph-dev is an exception to this rule as one of the options it provides
-> is build-free. This is accomplished through a Ceph installation using
+> [ceph-dev](https://github.com/rhcs-dashboard/ceph-dev) is an exception to this rule as one of the options it provides
+> is [build-free](https://github.com/rhcs-dashboard/ceph-dev#quick-install-rpm-based). This is accomplished through a Ceph installation using
 > RPM system packages. You will still be able to work with a local GitHub
 > repository like you are used to.
 
@@ -132,8 +125,6 @@ based on vstart. Those are:
 
 - Works independently of the operating system you use on your host.
 
-.. _build-free: https://github.com/rhcs-dashboard/ceph-dev#quick-install-rpm-based
-
 #### vstart on your host system
 
 The vstart script is usually called from your `build/` directory like so:
@@ -142,10 +133,10 @@ The vstart script is usually called from your `build/` directory like so:
 ../src/vstart.sh -n -d
 ```
 
-In this case `-n` ensures that a new vstart cluster is created and that a
-possibly previously created cluster isn't re-used. `-d` enables debug
+In this case ``-n`` ensures that a new vstart cluster is created and that a
+possibly previously created cluster isn't re-used. ``-d`` enables debug
 messages in log files. There are several more options to chose from. You can
-get a list using the `--help` argument.
+get a list using the ``--help`` argument.
 
 At the end of the output of vstart, there should be information about the
 dashboard and its URLs:
@@ -177,7 +168,7 @@ and you need to use this command to find out which one it has become.
 #### Docker
 
 Docker development environments usually ship with a lot of useful scripts.
-`ceph-dev-docker` for instance contains a file called `start-ceph.sh`,
+``ceph-dev-docker`` for instance contains a file called `start-ceph.sh`,
 which cleans up log files, always starts a Rados Gateway service, sets some
 Ceph Dashboard configuration options and automatically runs a frontend proxy,
 all before or after starting up your vstart cluster.
@@ -185,21 +176,18 @@ all before or after starting up your vstart cluster.
 Instructions on how to use those environments are contained in their
 respective repository README files.
 
-- ceph-dev-docker_
-- ceph-dev_
-
-.. _ceph-dev-docker: https://github.com/ricardoasmarques/ceph-dev-docker
-.. _ceph-dev: https://github.com/rhcs-dashboard/ceph-dev
+- [ceph-dev-docker](https://github.com/ricardoasmarques/ceph-dev-docker)
+- [ceph-dev](https://github.com/rhcs-dashboard/ceph-dev)
 
 ## Frontend Development
 
 Before you can start the dashboard from within a development environment, you
 will need to generate the frontend code and either use a compiled and running
-Ceph cluster (e.g. started by `vstart.sh`) or the standalone development web
+Ceph cluster (e.g. started by ``vstart.sh``) or the standalone development web
 server.
 
 The build process is based on [Node.js](https://nodejs.org/) and requires the
-[Node Package Manager](https://www.npmjs.com/) `npm` to be installed.
+[Node Package Manager](https://www.npmjs.com/) ``npm`` to be installed.
 
 #### Prerequisites
 
@@ -207,24 +195,24 @@ The build process is based on [Node.js](https://nodejs.org/) and requires the
  * NPM 10.5.2 or higher
 
 nodeenv:
-  During Ceph's build we create a virtualenv with `node` and `npm`
+  During Ceph's build we create a virtualenv with ``node`` and ``npm``
   installed, which can be used as an alternative to installing node/npm in your
   system.
 
   If you want to use the node installed in the virtualenv you just need to
   activate the virtualenv before you run any npm commands. To activate it run
-  `. build/src/pybind/mgr/dashboard/node-env/bin/activate`.
+  ``. build/src/pybind/mgr/dashboard/node-env/bin/activate``.
 
-  Once you finish, you can simply run `deactivate` and exit the virtualenv.
+  Once you finish, you can simply run ``deactivate`` and exit the virtualenv.
 
 Angular CLI:
   If you do not have the [Angular CLI](https://github.com/angular/angular-cli)
-  installed globally, then you need to execute `ng` commands with an
-  additional `npm run` before it.
+  installed globally, then you need to execute ``ng`` commands with an
+  additional ``npm run`` before it.
 
 #### Package installation
 
-Run `npm ci` in directory `src/pybind/mgr/dashboard/frontend` to
+Run ``npm ci`` in directory ``src/pybind/mgr/dashboard/frontend`` to
 install the required packages locally.
 
 #### Adding or updating packages
@@ -238,30 +226,30 @@ npm ci
 
 #### Setting up a Development Server
 
-Create the `proxy.conf.json` file based on `proxy.conf.json.sample`.
+Create the ``proxy.conf.json`` file based on ``proxy.conf.json.sample``.
 
-Run `npm start` for a dev server.
-Navigate to `http://localhost:4200/`. The app will automatically
+Run ``npm start`` for a dev server.
+Navigate to ``http://localhost:4200/``. The app will automatically
 reload if you change any of the source files.
 
 #### Code Scaffolding
 
-Run `ng generate component component-name` to generate a new
+Run ``ng generate component component-name`` to generate a new
 component. You can also use
-`ng generate directive|pipe|service|class|guard|interface|enum|module`.
+``ng generate directive|pipe|service|class|guard|interface|enum|module``.
 
 #### Build the Project
 
-Run `npm run build` to build the project. The build artifacts will be
-stored in the `dist/` directory. Use the `--prod` flag for a
-production build (`npm run build -- --prod`). Navigate to `https://localhost:8443`.
+Run ``npm run build`` to build the project. The build artifacts will be
+stored in the ``dist/`` directory. Use the ``--prod`` flag for a
+production build (``npm run build -- --prod``). Navigate to ``https://localhost:8443``.
 
 #### Build the Code Documentation
 
-Run `npm run doc-build` to generate code docs in the `documentation/`
+Run ``npm run doc-build`` to generate code docs in the ``documentation/``
 directory. To make them accessible locally for a web browser, run
-`npm run doc-serve` and they will become available at `http://localhost:8444`.
-With `npm run compodoc -- <opts>` you may
+``npm run doc-serve`` and they will become available at ``http://localhost:8444``.
+With ``npm run compodoc -- <opts>`` you may
 [fully configure it](https://compodoc.app/guides/usage.html).
 
 #### Code linting and formatting
@@ -278,8 +266,8 @@ HTML files:
 
 We added 2 npm scripts to help run these tools:
 
-- `npm run lint`, will check frontend files against all linters
-- `npm run fix`, will try to fix all the detected linting errors
+- ``npm run lint``, will check frontend files against all linters
+- ``npm run fix``, will try to fix all the detected linting errors
 
 #### Ceph Dashboard and Bootstrap
 
@@ -289,10 +277,10 @@ own custom styles and this lead to more and more variables with a single use and
 sometimes are forgotten to be removed or it led to styling be inconsistent because people forgot to change a color or to
 adjust a custom SCSS class.
 
-To get the current version of Bootstrap used inside Ceph please refer to the `package.json` and search for:
+To get the current version of Bootstrap used inside Ceph please refer to the ``package.json`` and search for:
 
-- `bootstrap`: For the Bootstrap version used.
-- `@ng-bootstrap`: For the version of the Angular bindings which we are using.
+- ``bootstrap``: For the Bootstrap version used.
+- ``@ng-bootstrap``: For the version of the Angular bindings which we are using.
 
 So for the future please do the following when visiting a component:
 
@@ -314,22 +302,22 @@ To write unit tests most efficient we have a small collection of tools,
 we use within test suites.
 
 Those tools can be found under
-`src/pybind/mgr/dashboard/frontend/src/testing/`, especially take
-a look at `unit-test-helper.ts`.
+``src/pybind/mgr/dashboard/frontend/src/testing/``, especially take
+a look at ``unit-test-helper.ts``.
 
 There you will be able to find:
 
-`configureTestBed` that replaces the initial `TestBed`
-methods. It takes the same arguments as `TestBed.configureTestingModule`.
+``configureTestBed`` that replaces the initial ``TestBed``
+methods. It takes the same arguments as ``TestBed.configureTestingModule``.
 Using it will run your tests a lot faster in development, as it doesn't
 recreate everything from scratch on every test. To use the default behaviour
-pass `true` as the second argument.
+pass ``true`` as the second argument.
 
-`PermissionHelper` to help determine if
+``PermissionHelper`` to help determine if
 the correct actions are shown based on the current permissions and selection
 in a list.
 
-`FormHelper` which makes testing a form a lot easier
+``FormHelper`` which makes testing a form a lot easier
 with a few simple methods. It allows you to set a control or multiple
 controls, expect if a control is valid or has an error or just do both with
 one method. Additional you can expect a template element or multiple elements
@@ -337,34 +325,32 @@ to be visible in the rendered template.
 
 #### Running Unit Tests
 
-Run `npm run test` to execute the unit tests via `Jest
-<https://facebook.github.io/jest/>`_.
+Run ``npm run test`` to execute the unit tests via [Jest](https://facebook.github.io/jest/).
 
-If you get errors on all tests, it could be because `Jest
-<https://facebook.github.io/jest/>`__ or something else was updated.
+If you get errors on all tests, it could be because [Jest](https://facebook.github.io/jest/) or something else was updated.
 There are a few ways how you can try to resolve this:
 
-- Remove all modules with `rm -rf dist node_modules` and run `npm install`
+- Remove all modules with ``rm -rf dist node_modules`` and run ``npm install``
   again in order to reinstall them
-- Clear the cache of jest by running `npx jest --clearCache`
+- Clear the cache of jest by running ``npx jest --clearCache``
 
 #### Running End-to-End (E2E) Tests
 
-We use [Cypress](https://www.cypress.io/)_ to run our frontend E2E tests.
+We use [Cypress](https://www.cypress.io/) to run our frontend E2E tests.
 
 ###### E2E Prerequisites
 
 You need to previously build the frontend.
 
 In some environments, depending on your user permissions and the CYPRESS_CACHE_FOLDER,
-you might need to run `npm ci` with the `--unsafe-perm` flag.
+you might need to run ``npm ci`` with the ``--unsafe-perm`` flag.
 
 You might need to install additional packages to be able to run Cypress.
-Please run `npx cypress verify` to verify it.
+Please run ``npx cypress verify`` to verify it.
 
 ###### run-frontend-e2e-tests.sh
 
-Our `run-frontend-e2e-tests.sh` script is the go to solution when you wish to
+Our ``run-frontend-e2e-tests.sh`` script is the go to solution when you wish to
 do a full scale e2e run.
 It will verify if everything needed is installed, start a new vstart cluster
 and run the full test suite.
@@ -385,7 +371,7 @@ src/pybind/mgr/dashboard/frontend/cypress/screenshots/
 ```
 
 Device:
-  You can force the script to use a specific device with the `-d` flag:
+  You can force the script to use a specific device with the ``-d`` flag:
 
 ```
 $ ./run-frontend-e2e-tests.sh -d <chrome|chromium|electron|docker>
@@ -394,8 +380,8 @@ $ ./run-frontend-e2e-tests.sh -d <chrome|chromium|electron|docker>
 Remote:
   By default this script will stop and start a new vstart cluster.
   If you want to run the tests outside the ceph environment, you will need to
-  manually define the dashboard url using `-r` and, optionally, credentials
-  (`-u`, `-p`):
+  manually define the dashboard url using ``-r`` and, optionally, credentials
+  (``-u``, ``-p``):
 
 ```
 $ ./run-frontend-e2e-tests.sh -r <DASHBOARD_URL> -u <E2E_LOGIN_USER> -p <E2E_LOGIN_PWD>
@@ -407,11 +393,10 @@ Note:
 
 ###### run-cephadm-e2e-tests.sh
 
-`run-cephadm-e2e-tests.sh` runs a subset of E2E tests to verify that the Dashboard and cephadm as
+``run-cephadm-e2e-tests.sh`` runs a subset of E2E tests to verify that the Dashboard and cephadm as
 Orchestrator backend behave correctly.
 
-Prerequisites: you need to install `KCLI
-<https://kcli.readthedocs.io/en/latest/>`_ and Node.js in your local machine.
+Prerequisites: you need to install [KCLI](https://kcli.readthedocs.io/en/latest/) and Node.js in your local machine.
 
 Configure KCLI plan requirements:
 
@@ -452,7 +437,7 @@ $ ./src/pybind/mgr/dashboard/ci/cephadm/start-cluster.sh --dev-mode
 ```
 
 Note:
-  Add `--expanded` if you need a cluster ready to deploy services (one with enough monitor
+  Add ``--expanded`` if you need a cluster ready to deploy services (one with enough monitor
   daemons spread across different hosts and enough OSDs).
 
 Test your changes by running:
@@ -470,39 +455,39 @@ During active development, it is not recommended to run the previous script,
 as it is not prepared for constant file changes.
 Instead you should use one of the following commands:
 
-- `npm run e2e` - This will run `ng serve` and open the Cypress Test Runner.
-- `npm run e2e:ci` - This will run `ng serve` and run the Cypress Test Runner once.
-- `npx cypress run` - This calls cypress directly and will run the Cypress Test Runner.
+- ``npm run e2e`` - This will run ``ng serve`` and open the Cypress Test Runner.
+- ``npm run e2e:ci`` - This will run ``ng serve`` and run the Cypress Test Runner once.
+- ``npx cypress run`` - This calls cypress directly and will run the Cypress Test Runner.
   You need to have a running frontend server.
-- `npx cypress open` - This calls cypress directly and will open the Cypress Test Runner.
+- ``npx cypress open`` - This calls cypress directly and will open the Cypress Test Runner.
   You need to have a running frontend server.
 
 Calling Cypress directly has the advantage that you can use any of the available
-[flags](https://docs.cypress.io/guides/guides/command-line.html#cypress-run)_
+[flags](https://docs.cypress.io/guides/guides/command-line.html#cypress-run)
 to customize your test run and you don't need to start a frontend server each time.
 
-Using one of the `open` commands, will open a cypress application where you
+Using one of the ``open`` commands, will open a cypress application where you
 can see all the test files you have and run each individually.
 This is going to be run in watch mode, so if you make any changes to test files,
 it will retrigger the test run.
 This cannot be used inside docker, as it requires X11 environment to be able to open.
 
-By default Cypress will look for the web page at `https://localhost:4200/`.
+By default Cypress will look for the web page at ``https://localhost:4200/``.
 If you are serving it in a different URL you will need to configure it by
 exporting the environment variable CYPRESS_BASE_URL with the new value.
-E.g.: `CYPRESS_BASE_URL=https://localhost:41076/ npx cypress open`
+E.g.: ``CYPRESS_BASE_URL=https://localhost:41076/ npx cypress open``
 
 ###### CYPRESS_CACHE_FOLDER
 
 When installing cypress via npm, a binary of the cypress app will also be
 downloaded and stored in a cache folder.
-This removes the need to download it every time you run `npm ci` or even when
+This removes the need to download it every time you run ``npm ci`` or even when
 using cypress in a separate project.
 
 By default Cypress uses ~/.cache to store the binary.
 To prevent changes to the user home directory, we have changed this folder to
-`/ceph/build/src/pybind/mgr/dashboard/cypress`, so when you build ceph or run
-`run-frontend-e2e-tests.sh` this is the directory Cypress will use.
+``/ceph/build/src/pybind/mgr/dashboard/cypress``, so when you build ceph or run
+``run-frontend-e2e-tests.sh`` this is the directory Cypress will use.
 
 When using any other command to install or run cypress,
 it will go back to the default directory. It is recommended that you export the
@@ -513,20 +498,20 @@ use the same directory no matter which command you use.
 
 ###### The PagerHelper class
 
-The `PageHelper` class is supposed to be used for general purpose code that
+The ``PageHelper`` class is supposed to be used for general purpose code that
 can be used on various pages or suites.
 
 Examples are
 
-- `navigateTo()` - Navigates to a specific page and waits for it to load
-- `getFirstTableCell()` - returns the first table cell. You can also pass a
+- ``navigateTo()`` - Navigates to a specific page and waits for it to load
+- ``getFirstTableCell()`` - returns the first table cell. You can also pass a
   string with the desired content and it will return the first cell that
   contains it.
-- `getTabsCount()` - returns the amount of tabs
+- ``getTabsCount()`` - returns the amount of tabs
 
 Every method that could be useful on several pages belongs there. Also, methods
 which enhance the derived classes of the PageHelper belong there. A good
-example for such a case is the `restrictTo()` decorator. It ensures that a
+example for such a case is the ``restrictTo()`` decorator. It ensures that a
 method implemented in a subclass of PageHelper is called on the correct page.
 It will also show a developer-friendly warning if this is not the case.
 
@@ -535,9 +520,9 @@ It will also show a developer-friendly warning if this is not the case.
 ##### Helper Methods
 
 In order to make code reusable which is specific for a particular suite, make
-sure to put it in a derived class of the `PageHelper`. For instance, when
-talking about the pool suite, such methods would be `create()`, `exist()`
-and `delete()`. These methods are specific to a pool but are useful for other
+sure to put it in a derived class of the ``PageHelper``. For instance, when
+talking about the pool suite, such methods would be ``create()``, ``exist()``
+and ``delete()``. These methods are specific to a pool but are useful for other
 suites.
 
 Methods that return HTML elements which can only be found on a specific page,
@@ -546,7 +531,7 @@ or as own methods of the subclass of PageHelper.
 
 ##### Using PageHelpers
 
-In any suite, an instance of the specific `Helper` class should be
+In any suite, an instance of the specific ``Helper`` class should be
 instantiated and called directly.
 
 ```TypeScript
@@ -562,20 +547,19 @@ it('should create a pool', () => {
 
 ###### Code Style
 
-Please refer to the official `Cypress Core Concepts
-<https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html#Cypress-Can-Be-Simple-Sometimes>`__
+Please refer to the official [Cypress Core Concepts](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html#Cypress-Can-Be-Simple-Sometimes)
 for a better insight on how to write and structure tests.
 
 ##### ``describe()`` vs ``it()``
 
-Both `describe()` and `it()` are function blocks, meaning that any
+Both ``describe()`` and ``it()`` are function blocks, meaning that any
 executable code necessary for the test can be contained in either block.
 However, Typescript scoping rules still apply, therefore any variables declared
-in a `describe` are available to the `it()` blocks inside of it.
+in a ``describe`` are available to the ``it()`` blocks inside of it.
 
-`describe()` typically are containers for tests, allowing you to break tests
+``describe()`` typically are containers for tests, allowing you to break tests
 into multiple parts. Likewise, any setup that must be made before your tests are
-run can be initialized within the `describe()` block. Here is an example:
+run can be initialized within the ``describe()`` block. Here is an example:
 
 ```TypeScript
 describe('create, edit & delete image test', () => {
@@ -598,11 +582,11 @@ describe('create, edit & delete image test', () => {
 });
 ```
 
-As shown, we can initiate the variable `poolName` as well as run commands
-before our test suite begins (creating a pool). `describe()` block messages
+As shown, we can initiate the variable ``poolName`` as well as run commands
+before our test suite begins (creating a pool). ``describe()`` block messages
 should include what the test suite is.
 
-`it()` blocks typically are parts of an overarching test. They contain the
+``it()`` blocks typically are parts of an overarching test. They contain the
 functionality of the test suite, each performing individual roles.
 Here is an example:
 
@@ -624,14 +608,14 @@ describe('create, edit & delete image test', () => {
 });
 ```
 
-As shown from the previous example, our `describe()` test suite is to create,
-edit and delete an image. Therefore, each `it()` completes one of these steps,
-one for creating, one for editing, and so on. Likewise, every `it()` blocks
+As shown from the previous example, our ``describe()`` test suite is to create,
+edit and delete an image. Therefore, each ``it()`` completes one of these steps,
+one for creating, one for editing, and so on. Likewise, every ``it()`` blocks
 message should be in lowercase and written so long as "it" can be the prefix of
-the message. For example, `it('edits the test image' () => ...)` vs.
-`it('image edit test' () => ...)`. As shown, the first example makes
-grammatical sense with `it()` as the prefix whereas the second message does
-not. `it()` should describe what the individual test is doing and what it
+the message. For example, ``it('edits the test image' () => ...)`` vs.
+``it('image edit test' () => ...)``. As shown, the first example makes
+grammatical sense with ``it()`` as the prefix whereas the second message does
+not. ``it()`` should describe what the individual test is doing and what it
 expects to happen.
 
 #### Visual Regression Testing
@@ -639,15 +623,15 @@ expects to happen.
 For visual regression testing, we use [Applitools Eyes](https://applitools.com/products-eyes/)
 an AI powered automated  visual regression testing tool.
 Applitools integrates with our existing Cypress E2E tests.
-The tests currently are located at: `ceph/src/pybind/mgr/dashboard/frontend/cypress/integration/visualTests` and
-follow the naming convention: `<component-name>.vrt-spec.ts`.
+The tests currently are located at: ``ceph/src/pybind/mgr/dashboard/frontend/cypress/integration/visualTests`` and
+follow the naming convention: ``<component-name>.vrt-spec.ts``.
 
 ###### Running Visual Regression Tests Locally
 
 To run the tests locally, you'll need an Applitools API key, if you don't have one, you can sign up
-for a free account. After obtaining the API key, export it as an environment variable: `APPLITOOLS_API_KEY`.
+for a free account. After obtaining the API key, export it as an environment variable: ``APPLITOOLS_API_KEY``.
 
-Now you can run the tests like normal cypress E2E tests, using either `npx cypress open` or in headless mode by running `npx cypress run`.
+Now you can run the tests like normal cypress E2E tests, using either ``npx cypress open`` or in headless mode by running ``npx cypress run``.
 
 ###### Capturing Screenshots
 
@@ -745,15 +729,14 @@ shouldn't be used to extensively test a single component of Angular.
 
 As a general guideline we try to follow the 70/20/10 approach - 70% unit tests,
 20% integration tests and 10% end-to-end tests.
-For further information please refer to `this document
-<https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html>`__
+For further information please refer to [this document](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html)
 and the included "Testing Pyramid".
 
 #### Further Help
 
-To get more help on the Angular CLI use `ng help` or go check out the
-`Angular CLI
-README <https://github.com/angular/angular-cli/blob/master/README.md>`__.
+To get more help on the Angular CLI use ``ng help`` or go check out the
+[Angular CLI
+README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 #### Example of a Generator
 
@@ -819,14 +802,13 @@ CephFS, Object over RGW). Nevertheless, as Ceph-Dashboard cannot completely hide
 the Ceph internals, some Ceph-specific names might remain visible.
 
 Regarding the wording for action labels and other textual elements (form titles,
-buttons, etc.), the chosen approach is to follow `these guidelines
-<https://www.patternfly.org/styles/terminology-and-wording/#terminology-and-wording-for-action-labels>`_.
+buttons, etc.), the chosen approach is to follow [these guidelines](https://www.patternfly.org/styles/terminology-and-wording/#terminology-and-wording-for-action-labels).
 As a rule of thumb, 'Create' and 'Delete' are the proper wording for most forms,
 instead of 'Add' and 'Remove', unless some already created item is either added
 or removed to/from a set of items (e.g.: 'Add permission' to a user vs. 'Create
 (new) permission').
 
-In order to enforce the use of this wording, a service `ActionLabelsI18n` has
+In order to enforce the use of this wording, a service ``ActionLabelsI18n`` has
 been created, which provides translated labels for use in UI elements.
 
 #### Frontend branding
@@ -835,11 +817,11 @@ Every vendor can customize the 'Ceph dashboard' to his needs. No matter if
 logo, HTML-Template or TypeScript, every file inside the frontend folder can be
 replaced.
 
-To replace files, open `./frontend/angular.json` and scroll to the section
-`fileReplacements` inside the production configuration. Here you can add the
+To replace files, open ``./frontend/angular.json`` and scroll to the section
+``fileReplacements`` inside the production configuration. Here you can add the
 files you wish to brand. We recommend to place the branded version of a file in
-the same directory as the original one and to add a `.brand` to the file
-name, right in front of the file extension. A `fileReplacement` could for
+the same directory as the original one and to add a ``.brand`` to the file
+name, right in front of the file extension. A ``fileReplacement`` could for
 example look like this:
 
 ```javascript
@@ -859,11 +841,11 @@ or
 
 Unfortunately it's currently not possible to use multiple configurations when
 serving or building the UI at the same time. That means a configuration just
-for the branding `fileReplacements` is not an option, because you want to use
+for the branding ``fileReplacements`` is not an option, because you want to use
 the production configuration anyway
 (https://github.com/angular/angular-cli/issues/10612).
 Furthermore it's also not possible to use glob expressions for
-`fileReplacements`. As long as the feature hasn't been implemented, you have
+``fileReplacements``. As long as the feature hasn't been implemented, you have
 to add the file replacements manually to the angular.json file
 (https://github.com/angular/angular-cli/issues/12354).
 
@@ -871,10 +853,10 @@ Nevertheless you should stick to the suggested naming scheme because it makes
 it easier for you to use glob expressions once it's supported in the future.
 
 To change the variable defaults or add your own ones you can overwrite them in
-`./frontend/src/styles/vendor/_variables.scss`.
-Just reassign the variable you want to change, for example `$color-primary: teal;`
+``./frontend/src/styles/vendor/_variables.scss``.
+Just reassign the variable you want to change, for example ``$color-primary: teal;``
 To overwrite or extend the default CSS, you can add your own styles in
-`./frontend/src/styles/vendor/_style-overrides.scss`.
+``./frontend/src/styles/vendor/_style-overrides.scss``.
 
 #### UI Style Guide
 
@@ -980,21 +962,21 @@ have `text-success` color. Failure notification should have `text-danger` color.
 #### Error Handling
 
 For handling front-end errors, there is a generic Error Component which can be
-found in `./src/pybind/mgr/dashboard/frontend/src/app/core/error`. For
-reporting a new error, you can simply extend the `DashboardError` class
-in `error.ts` file and add specific header and message for the new error. Some
-generic error classes are already in place such as `DashboardNotFoundError`
-and `DashboardForbiddenError` which can be called and reused in different
+found in ``./src/pybind/mgr/dashboard/frontend/src/app/core/error``. For
+reporting a new error, you can simply extend the ``DashboardError`` class
+in ``error.ts`` file and add specific header and message for the new error. Some
+generic error classes are already in place such as ``DashboardNotFoundError``
+and ``DashboardForbiddenError`` which can be called and reused in different
 scenarios.
 
-For example - `throw new DashboardNotFoundError()`.
+For example - ``throw new DashboardNotFoundError()``.
 
 ## Internationalization (i18n)
 
 #### How to extract messages from source code?
 
 To extract the I18N messages from the templates and the TypeScript files just
-run the following command in `src/pybind/mgr/dashboard/frontend`:
+run the following command in ``src/pybind/mgr/dashboard/frontend``:
 
 ```
 $ npm run i18n:extract
@@ -1008,7 +990,7 @@ itself, we are using the
 parse the TypeScript files.
 
 When the command ran successfully, it should have created or updated the file
-`src/locale/messages.xlf`.
+``src/locale/messages.xlf``.
 
 The file isn't tracked by git, you can just use it to start with the
 translation offline or add/update the resource files on transifex.
@@ -1016,18 +998,18 @@ translation offline or add/update the resource files on transifex.
 #### Supported languages
 
 All our supported languages should be registered in both exports in
-`supported-languages.enum.ts` and have a corresponding test in
-`language-selector.component.spec.ts`.
+``supported-languages.enum.ts`` and have a corresponding test in
+``language-selector.component.spec.ts``.
 
-The `SupportedLanguages` enum will provide the list for the default language selection.
+The ``SupportedLanguages`` enum will provide the list for the default language selection.
 
 #### Translating process
 
 To facilitate the translation process of the dashboard we are using a web tool
 called [transifex](https://www.transifex.com/).
 
-If you wish to help translating to any language just go to our `transifex
-project page <https://www.transifex.com/ceph/ceph-dashboard/>`_, join the
+If you wish to help translating to any language just go to our [transifex
+project page](https://www.transifex.com/ceph/ceph-dashboard/), join the
 project and you can start translating immediately.
 
 All translations will then be reviewed and later pushed upstream.
@@ -1057,7 +1039,7 @@ All translations will then be reviewed and later pushed upstream.
 In order to organize the translations, we create a
 [transifex resource](https://www.transifex.com/ceph/ceph-dashboard/content/)
 for every Ceph release. This means, once a new version has been released, the
-`src/pybind/mgr/dashboard/frontend/.tx/config` needs to be updated on
+``src/pybind/mgr/dashboard/frontend/.tx/config`` needs to be updated on
 the release branch.
 
 Please replace::
@@ -1151,7 +1133,7 @@ Keep elements that affect the sentence:
 <span i18n>Profile <b>foo</b> will be removed.</span>
 ```
 
-.. _accessibility:
+<a id="accessibility"></a>
 
 ## Accessibility
 
@@ -1165,10 +1147,10 @@ A few things you should check before introducing a new code change include:
 1) Add [ARIA labels and descriptions](https://www.w3.org/TR/wai-aria/) to actionable HTML elements.
 2) Don't forget to tag ARIA labels/descriptions or any user-readable text for translation (i18n-title, i18n-aria-label...).
 3) Add [ARIA roles](https://www.w3.org/TR/wai-aria/#usage_intro) to tag HTML elements that behave different from their intended behaviour (<a> tags behaving as <buttons>) or that provide extended behaviours (roles).
-4) Avoid poor [color contrast choices](https://www.w3.org/TR/WCAG21/#contrast-minimum) (foreground-background) when styling a component. Here are some tools you can use.
-5) When testing menus or dropdowns, be sure to scan them with an accessibility checker in both opened and closed states. Sometimes issues are hidden when menus are closed.
+4) Avoid poor [color contrast choices](https://www.w3.org/TR/WCAG21/#contrast-minimum) (foreground-background) when styling a component. Here are some [tools](dash-devel.md#color-contrast-checkers) you can use.
+5) When testing menus or dropdowns, be sure to scan them with an [accessibility checker](dash-devel.md#accessibility-checkers) in both opened and closed states. Sometimes issues are hidden when menus are closed.
 
-.. _accessibility-checkers:
+<a id="accessibility-checkers"></a>
 
 #### Accessibility checkers
 
@@ -1180,7 +1162,7 @@ During development, you can test the accessibility compliance of your features u
 
 Testing with two or more of these tools can greatly improve the detection of accessibility violations.
 
-.. _color-contrast-checkers:
+<a id="color-contrast-checkers"></a>
 
 #### Color contrast checkers
 
@@ -1200,7 +1182,7 @@ Our e2e testing suite, which is based on Cypress, supports the addition of acces
 and [cypress-axe](https://github.com/component-driven/cypress-axe). A custom Cypress command, `cy.checkAccessibility`, can also be used directly.
 This is a great way to prevent accessibility regressions on high impact components.
 
-Tests can be found under the [a11y folder](./src/pybind/mgr/dashboard/frontend/cypress/integration/a11y) in the dashboard. Here is an example:
+Tests can be found under the [a11y folder](./src/pybind/mgr/dashboard/frontend/cypress/integration/a11y) <!-- unresolved-source-link: target=./src/pybind/mgr/dashboard/frontend/cypress/integration/a11y --> in the dashboard. Here is an example:
 
 ```TypeScript
 describe('Navigation accessibility', { retries: 0 }, () => {
@@ -1231,30 +1213,28 @@ If you're unsure about which UI pattern to follow in order to implement an acces
 ## Backend Development
 
 The Python backend code of this module requires a number of Python modules to be
-installed. They are listed in file `requirements.txt`. Using `pip
-<https://pypi.python.org/pypi/pip>`_ you may install all required dependencies
-by issuing `pip install -r requirements.txt` in directory
-`src/pybind/mgr/dashboard`.
+installed. They are listed in file ``requirements.txt``. Using [pip](https://pypi.python.org/pypi/pip) you may install all required dependencies
+by issuing ``pip install -r requirements.txt`` in directory
+``src/pybind/mgr/dashboard``.
 
-If you're using the `ceph-dev-docker development environment
-<https://github.com/ricardoasmarques/ceph-dev-docker/>`_, simply run
-`./install_deps.sh` from the toplevel directory to install them.
+If you're using the [ceph-dev-docker development environment](https://github.com/ricardoasmarques/ceph-dev-docker/), simply run
+``./install_deps.sh`` from the toplevel directory to install them.
 
 #### Unit Testing
 
 In dashboard we have two different kinds of backend tests:
 
-1. Unit tests based on `tox`
+1. Unit tests based on ``tox``
 2. API tests based on Teuthology.
 
 #### Unit tests based on tox
 
-We included a `tox` configuration file that will run the unit tests under
+We included a ``tox`` configuration file that will run the unit tests under
 Python 3, as well as linting tools to guarantee the uniformity of code.
 
-You need to install `tox` and `coverage` before running it. To install the
+You need to install ``tox`` and ``coverage`` before running it. To install the
 packages in your system, either install it via your operating system's package
-management tools, e.g. by running `dnf install python-tox python-coverage` on
+management tools, e.g. by running ``dnf install python-tox python-coverage`` on
 Fedora Linux.
 
 Alternatively, you can use Python's native package installation method:
@@ -1264,8 +1244,8 @@ $ pip install tox
 $ pip install coverage
 ```
 
-To run the tests, run `src/script/run_tox.sh` in the dashboard directory (where
-`tox.ini` is located):
+To run the tests, run ``src/script/run_tox.sh`` in the dashboard directory (where
+``tox.ini`` is located):
 
 ```
 ## Run Python 3 tests+lint commands:
@@ -1275,7 +1255,7 @@ $ ../../../script/run_tox.sh --tox-env py3,lint,check
 $ ../../../script/run_tox.sh --tox-env py3 "" tests/test_rgw_client.py::RgwClientTest::test_ssl_verify
 ```
 
-You can also run tox instead of `run_tox.sh`:
+You can also run tox instead of ``run_tox.sh``:
 
 ```
 ## Run Python 3 tests command:
@@ -1286,7 +1266,7 @@ $ tox -e py3 tests/test_rgw_client.py::RgwClientTest::test_ssl_verify
 ```
 
 Python files can be automatically fixed and formatted according to PEP8
-standards by using `run_tox.sh --tox-env fix` or `tox -e fix`.
+standards by using ``run_tox.sh --tox-env fix`` or ``tox -e fix``.
 
 We also collect coverage information from the backend code when you run tests. You can check the
 coverage information provided by the tox output, or by running the following
@@ -1296,7 +1276,7 @@ command after tox has finished successfully:
 $ coverage html
 ```
 
-This command will create a directory `htmlcov` with an HTML representation of
+This command will create a directory ``htmlcov`` with an HTML representation of
 the code coverage of the backend.
 
 #### API tests based on Teuthology
@@ -1306,7 +1286,7 @@ How to run existing API tests:
   framework. This has the advantage of catching bugs originated from changes in
   the internal Ceph code.
 
-  Our `run-backend-api-tests.sh` script will start a `vstart` Ceph cluster
+  Our ``run-backend-api-tests.sh`` script will start a ``vstart`` Ceph cluster
   before running the Teuthology tests, and then it stops the cluster after the
   tests are run. Of course this implies that you have built/compiled Ceph
   previously.
@@ -1323,7 +1303,7 @@ $ ./run-backend-api-tests.sh
 $ ./run-backend-api-tests.sh tasks.mgr.dashboard.test_pool.PoolTest
 ```
 
-  Or, `source` the script and run the tests manually:
+  Or, ``source`` the script and run the tests manually:
 
 ```
 $ source run-backend-api-tests.sh
@@ -1335,21 +1315,21 @@ How to write your own tests:
   There are two possible ways to write your own API tests:
 
   The first is by extending one of the existing test classes in the
-  `qa/tasks/mgr/dashboard` directory.
+  ``qa/tasks/mgr/dashboard`` directory.
 
   The second way is by adding your own API test module if you're creating a new
   controller for example. To do so you'll just need to add the file containing
-  your new test class to the `qa/tasks/mgr/dashboard` directory and implement
+  your new test class to the ``qa/tasks/mgr/dashboard`` directory and implement
   all your tests here.
 
 > **Note:** Don't forget to add the path of the newly created module to
-> `modules` section in `qa/suites/rados/mgr/tasks/dashboard.yaml`.
+> ``modules`` section in ``qa/suites/rados/mgr/tasks/dashboard.yaml``.
 
   Short example: Let's assume you created a new controller called
-  `my_new_controller.py` and the related test module
-  `test_my_new_controller.py`. You'll need to add
-  `tasks.mgr.dashboard.test_my_new_controller` to the `modules` section in
-  the `dashboard.yaml` file.
+  ``my_new_controller.py`` and the related test module
+  ``test_my_new_controller.py``. You'll need to add
+  ``tasks.mgr.dashboard.test_my_new_controller`` to the ``modules`` section in
+  the ``dashboard.yaml`` file.
 
   Also, if you're removing test modules please keep in mind to remove the
   related section. Otherwise the Teuthology test run will fail.
@@ -1366,28 +1346,28 @@ How to write your own tests:
 
 #### How to add a new controller?
 
-A controller is a Python class that extends from the `BaseController` class
-and is decorated with either the `@Controller`, `@ApiController` or
-`@UiApiController` decorators. The Python class must be stored inside a Python
-file located under the `controllers` directory. The Dashboard module will
+A controller is a Python class that extends from the ``BaseController`` class
+and is decorated with either the ``@Controller``, ``@ApiController`` or
+``@UiApiController`` decorators. The Python class must be stored inside a Python
+file located under the ``controllers`` directory. The Dashboard module will
 automatically load your new controller upon start.
 
-`@ApiController` and `@UiApiController` are both specializations of the
-`@Controller` decorator.
+``@ApiController`` and ``@UiApiController`` are both specializations of the
+``@Controller`` decorator.
 
-The `@ApiController` should be used for controllers that provide an API-like
-REST interface and the `@UiApiController` should be used for endpoints consumed
+The ``@ApiController`` should be used for controllers that provide an API-like
+REST interface and the ``@UiApiController`` should be used for endpoints consumed
 by the UI but that are not part of the 'public' API. For any other kinds of
-controllers the `@Controller` decorator should be used.
+controllers the ``@Controller`` decorator should be used.
 
 A controller has a URL prefix path associated that is specified in the
 controller decorator, and all endpoints exposed by the controller will share
 the same URL prefix path.
 
 A controller's endpoint is exposed by implementing a method on the controller
-class decorated with the `@Endpoint` decorator.
+class decorated with the ``@Endpoint`` decorator.
 
-For example create a file `ping.py` under `controllers` directory with the
+For example create a file ``ping.py`` under ``controllers`` directory with the
 following code:
 
 ```python
@@ -1412,58 +1392,58 @@ class UiApiPing(BaseController):
     return {'msg': "Hello"}
 ```
 
-The `hello` endpoint of the `Ping` controller can be reached by the
+The ``hello`` endpoint of the ``Ping`` controller can be reached by the
 following URL: https://mgr_hostname:8443/ping/hello using HTTP GET requests.
-As you can see the controller URL path `/ping` is concatenated to the
-method name `hello` to generate the endpoint's URL.
+As you can see the controller URL path ``/ping`` is concatenated to the
+method name ``hello`` to generate the endpoint's URL.
 
-In the case of the `ApiPing` controller, the `hello` endpoint can be
+In the case of the ``ApiPing`` controller, the ``hello`` endpoint can be
 reached by the following URL: https://mgr_hostname:8443/api/ping/hello using a
 HTTP GET request.
-The API controller URL path `/ping` is prefixed by the `/api` path and then
-concatenated to the method name `hello` to generate the endpoint's URL.
-Internally, the `@ApiController` is actually calling the `@Controller`
-decorator by passing an additional decorator parameter called `base_url`:
+The API controller URL path ``/ping`` is prefixed by the ``/api`` path and then
+concatenated to the method name ``hello`` to generate the endpoint's URL.
+Internally, the ``@ApiController`` is actually calling the ``@Controller``
+decorator by passing an additional decorator parameter called ``base_url``:
 
 ```
 @ApiController('/ping') <=> @Controller('/ping', base_url="/api")
 ```
 
-`UiApiPing` works in a similar way than the `ApiPing`, but the URL will be
-prefixed by `/ui-api`: https://mgr_hostname:8443/ui-api/ping/hello. `UiApiPing` is
-also a `@Controller` extension:
+``UiApiPing`` works in a similar way than the ``ApiPing``, but the URL will be
+prefixed by ``/ui-api``: https://mgr_hostname:8443/ui-api/ping/hello. ``UiApiPing`` is
+also a ``@Controller`` extension:
 
 ```
 @UiApiController('/ping') <=> @Controller('/ping', base_url="/ui-api")
 ```
 
-The `@Endpoint` decorator also supports many parameters to customize the
+The ``@Endpoint`` decorator also supports many parameters to customize the
 endpoint:
 
-* `method="GET"`: the HTTP method allowed to access this endpoint.
-* `path="/<method_name>"`: the URL path of the endpoint, excluding the
+* ``method="GET"``: the HTTP method allowed to access this endpoint.
+* ``path="/<method_name>"``: the URL path of the endpoint, excluding the
   controller URL path prefix.
-* `path_params=[]`: list of method parameter names that correspond to URL
-  path parameters. Can only be used when `method in ['POST', 'PUT']`.
-* `query_params=[]`: list of method parameter names that correspond to URL
+* ``path_params=[]``: list of method parameter names that correspond to URL
+  path parameters. Can only be used when ``method in ['POST', 'PUT']``.
+* ``query_params=[]``: list of method parameter names that correspond to URL
   query parameters.
-* `json_response=True`: indicates if the endpoint response should be
+* ``json_response=True``: indicates if the endpoint response should be
   serialized in JSON format.
-* `proxy=False`: indicates if the endpoint should be used as a proxy.
+* ``proxy=False``: indicates if the endpoint should be used as a proxy.
 
 An endpoint method may have parameters declared. Depending on the HTTP method
 defined for the endpoint the method parameters might be considered either
 path parameters, query parameters, or body parameters.
 
-For `GET` and `DELETE` methods, the method's non-optional parameters are
+For ``GET`` and ``DELETE`` methods, the method's non-optional parameters are
 considered path parameters by default. Optional parameters are considered
-query parameters. By specifying the `query_parameters` in the endpoint
+query parameters. By specifying the ``query_parameters`` in the endpoint
 decorator it is possible to make a non-optional parameter to be a query
 parameter.
 
-For `POST` and `PUT` methods, all method parameters are considered
+For ``POST`` and ``PUT`` methods, all method parameters are considered
 body parameters by default. To override this default, one can use the
-`path_params` and `query_params` to specify which method parameters are
+``path_params`` and ``query_params`` to specify which method parameters are
 path and query parameters respectively.
 Body parameters are decoded from the request body, either from a form format, or
 from a dictionary in JSON format.
@@ -1493,19 +1473,19 @@ class Ping(BaseController):
     """..."""
 ```
 
-In the above example we see how the `path` option can be used to override the
+In the above example we see how the ``path`` option can be used to override the
 generated endpoint URL in order to not use the method's name in the URL. In the
-`index` method we set the `path` to `"/"` to generate an endpoint that is
+``index`` method we set the ``path`` to ``"/"`` to generate an endpoint that is
 accessible by the root URL of the controller.
 
 An alternative approach to generate an endpoint that is accessible through just
-the controller's path URL is by using the `__call__` method, as we show in
+the controller's path URL is by using the ``__call__`` method, as we show in
 the above example.
 
 From the third method you can see that the path parameters are collected from
-the URL by parsing the list of values separated by slashes `/` that come
-after the URL path `/ping` for `index` method case, and `/ping/post` for
-the `post` method case.
+the URL by parsing the list of values separated by slashes ``/`` that come
+after the URL path ``/ping`` for ``index`` method case, and ``/ping/post`` for
+the ``post`` method case.
 
 Defining path parameters in endpoints's URLs using python methods's parameters
 is very easy but it is still a bit strict with respect to the position of these
@@ -1529,24 +1509,24 @@ class Ping(BaseController):
     """ ..."""
 ```
 
-In this example we explicitly declare a path parameter `{node}` in the
-controller URL path, and a path parameter `{date}` in the `latency`
-method. The endpoint for the `latency` method is then accessible through
+In this example we explicitly declare a path parameter ``{node}`` in the
+controller URL path, and a path parameter ``{date}`` in the ``latency``
+method. The endpoint for the ``latency`` method is then accessible through
 the URL: https://mgr_hostname:8443/ping/{node}/stats/{date}/latency .
 
-For a full set of examples on how to use the `@Endpoint`
-decorator please check the unit test file: `tests/test_controllers.py`.
+For a full set of examples on how to use the ``@Endpoint``
+decorator please check the unit test file: ``tests/test_controllers.py``.
 There you will find many examples of how to customize endpoint methods.
 
 #### Implementing Proxy Controller
 
 Sometimes you might need to relay some requests from the Dashboard frontend
 directly to an external service.
-For that purpose we provide a decorator called `@Proxy`.
-(As a concrete example, check the `controllers/rgw.py` file where we
+For that purpose we provide a decorator called ``@Proxy``.
+(As a concrete example, check the ``controllers/rgw.py`` file where we
 implemented an RGW Admin Ops proxy.)
 
-The `@Proxy` decorator is a wrapper of the `@Endpoint` decorator that
+The ``@Proxy`` decorator is a wrapper of the ``@Endpoint`` decorator that
 already customizes the endpoint for working as a proxy.
 A proxy endpoint works by capturing the URL path that follows the controller
 URL prefix path, and does not do any decoding of the request body.
@@ -1570,12 +1550,12 @@ class FooServiceProxy(BaseController):
 #### How does the RESTController work?
 
 We also provide a simple mechanism to create REST based controllers using the
-`RESTController` class. Any class which inherits from `RESTController` will,
+``RESTController`` class. Any class which inherits from ``RESTController`` will,
 by default, return JSON.
 
-The `RESTController` is basically an additional abstraction layer which eases
+The ``RESTController`` is basically an additional abstraction layer which eases
 and unifies the work with collections. A collection is just an array of objects
-with a specific type. `RESTController` enables some default mappings of
+with a specific type. ``RESTController`` enables some default mappings of
 request types and given parameters to specific method names. This may sound
 complicated at first, but it's fairly easy. Lets have look at the following
 example:
@@ -1593,33 +1573,25 @@ class Ping(RESTController):
     return self.objects[id]
 ```
 
-In this case, the `list` method is automatically used for all requests to
-`api/ping` where no additional argument is given and where the request type
-is `GET`. If the request is given an additional argument, the ID in our
-case, it won't map to `list` anymore but to `get` and return the element
-with the given ID (assuming that `self.objects` has been filled before). The
+In this case, the ``list`` method is automatically used for all requests to
+``api/ping`` where no additional argument is given and where the request type
+is ``GET``. If the request is given an additional argument, the ID in our
+case, it won't map to ``list`` anymore but to ``get`` and return the element
+with the given ID (assuming that ``self.objects`` has been filled before). The
 same applies to other request types:
 
-+--------------+------------+----------------+-------------+
-| Request type | Arguments  | Method         | Status Code |
-+==============+============+================+=============+
-| GET          | No         | list           | 200         |
-+--------------+------------+----------------+-------------+
-| PUT          | No         | bulk_set       | 200         |
-+--------------+------------+----------------+-------------+
-| POST         | No         | create         | 201         |
-+--------------+------------+----------------+-------------+
-| DELETE       | No         | bulk_delete    | 204         |
-+--------------+------------+----------------+-------------+
-| GET          | Yes        | get            | 200         |
-+--------------+------------+----------------+-------------+
-| PUT          | Yes        | set            | 200         |
-+--------------+------------+----------------+-------------+
-| DELETE       | Yes        | delete         | 204         |
-+--------------+------------+----------------+-------------+
+| Request type | Arguments | Method | Status Code |
+| --- | --- | --- | --- |
+| GET | No | list | 200 |
+| PUT | No | bulk_set | 200 |
+| POST | No | create | 201 |
+| DELETE | No | bulk_delete | 204 |
+| GET | Yes | get | 200 |
+| PUT | Yes | set | 200 |
+| DELETE | Yes | delete | 204 |
 
 To use a custom endpoint for the above listed methods, you can
-use `@RESTController.MethodMap`
+use ``@RESTController.MethodMap``
 
 ```python
 import cherrypy
@@ -1633,19 +1605,19 @@ from ..tools import ApiController, RESTController
 This decorator supports three parameters to customize the
 endpoint:
 
-* `resource"`: resource id.
-* `status=200`: set the HTTP status response code
-* `version`: version
+* ``resource"``: resource id.
+* ``status=200``: set the HTTP status response code
+* ``version``: version
 
 #### How to use a custom API endpoint in a RESTController?
 
-If you don't have any access restriction you can use `@Endpoint`. If you
+If you don't have any access restriction you can use ``@Endpoint``. If you
 have set a permission scope to restrict access to your endpoints,
-`@Endpoint` will fail, as it doesn't know which permission property should be
-used. To use a custom endpoint inside a restricted `RESTController` use
-`@RESTController.Collection` instead. You can also choose
-`@RESTController.Resource` if you have set a `RESOURCE_ID` in your
-`RESTController` class.
+``@Endpoint`` will fail, as it doesn't know which permission property should be
+used. To use a custom endpoint inside a restricted ``RESTController`` use
+``@RESTController.Collection`` instead. You can also choose
+``@RESTController.Resource`` if you have set a ``RESOURCE_ID`` in your
+``RESTController`` class.
 
 ```python
 import cherrypy
@@ -1667,19 +1639,19 @@ class Ping(RESTController):
 Both decorators also support five parameters to customize the
 endpoint:
 
-* `method="GET"`: the HTTP method allowed to access this endpoint.
-* `path="/<method_name>"`: the URL path of the endpoint, excluding the
+* ``method="GET"``: the HTTP method allowed to access this endpoint.
+* ``path="/<method_name>"``: the URL path of the endpoint, excluding the
   controller URL path prefix.
-* `status=200`: set the HTTP status response code
-* `query_params=[]`: list of method parameter names that correspond to URL
+* ``status=200``: set the HTTP status response code
+* ``query_params=[]``: list of method parameter names that correspond to URL
   query parameters.
-* `version`: version
+* ``version``: version
 
 #### How to restrict access to a controller?
 
 All controllers require authentication by default.
 If you require that the controller can be accessed without authentication,
-then you can add the parameter `secure=False` to the controller decorator.
+then you can add the parameter ``secure=False`` to the controller decorator.
 
 Example:
 
@@ -1697,7 +1669,7 @@ class Ping(RESTController):
 
 Sometimes we want to combine multiple calls into one single call
 to save bandwidth or for other performance reasons.
-In order to achieve that, we first have to create an `@UiApiController` which
+In order to achieve that, we first have to create an ``@UiApiController`` which
 is used for endpoints consumed by the UI but that are not part of the
 'public' API. Let the ui class inherit from the REST controller class.
 Now you can use all methods from the api controller.
@@ -1746,11 +1718,11 @@ class Servers(RESTController):
 
 #### How to write a unit test for a controller?
 
-We provide a test helper class called `ControllerTestCase` to easily create
+We provide a test helper class called ``ControllerTestCase`` to easily create
 unit tests for your controller.
 
-If we want to write a unit test for the above `Ping` controller, create a
-`test_ping.py` file under the `tests` directory with the following code:
+If we want to write a unit test for the above ``Ping`` controller, create a
+``test_ping.py`` file under the ``tests`` directory with the following code:
 
 ```python
 from .helper import ControllerTestCase
@@ -1768,29 +1740,29 @@ class PingTest(ControllerTestCase):
         self.assertJsonBody({'msg': 'Hello'})
 ```
 
-The `ControllerTestCase` class starts by initializing a CherryPy webserver.
-Then it will call the `setup_test()` class method where we can explicitly
+The ``ControllerTestCase`` class starts by initializing a CherryPy webserver.
+Then it will call the ``setup_test()`` class method where we can explicitly
 load the controllers that we want to test. In the above example we are only
-loading the `Ping` controller. We can also provide `cp_config` in order to
+loading the ``Ping`` controller. We can also provide ``cp_config`` in order to
 update the controller's cherrypy config (e.g. enable authentication as shown in the example).
 
 #### How to update or create new dashboards in grafana?
 
-We are using `jsonnet` and `grafonnet-lib` to write code for the grafana dashboards.
-All the dashboards are written inside `grafana_dashboards.jsonnet` file in the
+We are using ``jsonnet`` and ``grafonnet-lib`` to write code for the grafana dashboards.
+All the dashboards are written inside ``grafana_dashboards.jsonnet`` file in the
 monitoring/grafana/dashboards/jsonnet directory.
 
 We generate the dashboard json files directly from this jsonnet file by running this
 command in the grafana/dashboards directory:
-`jsonnet -m . jsonnet/grafana_dashboards.jsonnet`.
-(For the above command to succeed we need `jsonnet` package installed and `grafonnet-lib`
+``jsonnet -m . jsonnet/grafana_dashboards.jsonnet``.
+(For the above command to succeed we need ``jsonnet`` package installed and ``grafonnet-lib``
 directory cloned in our machine. Please refer -
-`https://grafana.github.io/grafonnet-lib/getting-started/` in case you have some trouble.)
+``https://grafana.github.io/grafonnet-lib/getting-started/`` in case you have some trouble.)
 
 To update an existing grafana dashboard or to create a new one, we need to update
-the `grafana_dashboards.jsonnet` file and generate the new/updated json files using the
+the ``grafana_dashboards.jsonnet`` file and generate the new/updated json files using the
 above mentioned command. For people who are not familiar with grafonnet or jsonnet implementation
-can follow this doc - `https://grafana.github.io/grafonnet-lib/`.
+can follow this doc - ``https://grafana.github.io/grafonnet-lib/``.
 
 Example grafana dashboard in jsonnet format:
 
@@ -1829,14 +1801,14 @@ and then use these functions inside the dashboard definition like -
 }
 ```
 
-The valid grafonnet-lib attributes can be found here - `https://grafana.github.io/grafonnet-lib/api-docs/`.
+The valid grafonnet-lib attributes can be found here - ``https://grafana.github.io/grafonnet-lib/api-docs/``.
 
 #### How to listen for manager notifications in a controller?
 
 The manager notifies the modules of several types of cluster events, such
 as cluster logging event, etc...
 
-Each module has a "global" handler function called `notify` that the manager
+Each module has a "global" handler function called ``notify`` that the manager
 calls to notify the module. But this handler function must not block or spend
 too much time processing the event notification.
 For this reason we provide a notification queue that controllers can register
@@ -1872,31 +1844,31 @@ class LiveLog(BaseController):
         return ret
 ```
 
-As you can see above, the `NotificationQueue` class provides a register
+As you can see above, the ``NotificationQueue`` class provides a register
 method that receives the function as its first argument, and receives the
 "notification type" as the second argument.
-You can omit the second argument of the `register` method, and in that case
+You can omit the second argument of the ``register`` method, and in that case
 you are registering to listen all notifications of any type.
 
 Here is an list of notification types (these might change in the future) that
 can be used:
 
-* `clog`: cluster log notifications
-* `command`: notification when a command issued by `MgrModule.send_command`
+* ``clog``: cluster log notifications
+* ``command``: notification when a command issued by ``MgrModule.send_command``
   completes
-* `perf_schema_update`: perf counters schema update
-* `mon_map`: monitor map update
-* `fs_map`: cephfs map update
-* `osd_map`: OSD map update
-* `service_map`: services (RGW, RBD-Mirror, etc.) map update
-* `mon_status`: monitor status regular update
-* `health`: health status regular update
-* `pg_summary`: regular update of PG status information
+* ``perf_schema_update``: perf counters schema update
+* ``mon_map``: monitor map update
+* ``fs_map``: cephfs map update
+* ``osd_map``: OSD map update
+* ``service_map``: services (RGW, RBD-Mirror, etc.) map update
+* ``mon_status``: monitor status regular update
+* ``health``: health status regular update
+* ``pg_summary``: regular update of PG status information
 
 #### How to write a unit test when a controller accesses a Ceph module?
 
 Consider the following example that implements a controller that retrieves the
-list of RBD images of the `rbd` pool:
+list of RBD images of the ``rbd`` pool:
 
 ```python
 import rbd
@@ -1913,7 +1885,7 @@ class RbdImages(RESTController):
         return [{'name': n} for n in self.rbd.list(self.ioctx)]
 ```
 
-In the example above, we want to mock the return value of the `rbd.list`
+In the example above, we want to mock the return value of the ``rbd.list``
 function, so that we can test the JSON response of the controller.
 
 The unit test code will look like the following:
@@ -1937,7 +1909,7 @@ provide an easy mechanism for you to specify/use the new config setting.
 
 For instance, if you want to add a new configuration setting to hold the
 email address of the dashboard admin, just add a setting name as a class
-attribute to the `Options` class in the `settings.py` file:
+attribute to the ``Options`` class in the ``settings.py`` file:
 
 ```
 # ...
@@ -1950,7 +1922,7 @@ class Options(object):
 The value of the class attribute is a pair composed by the default value for that
 setting, and the python type of the value.
 
-By declaring the `ADMIN_EMAIL_ADDRESS` class attribute, when you restart the
+By declaring the ``ADMIN_EMAIL_ADDRESS`` class attribute, when you restart the
 dashboard module, you will automatically gain two additional CLI commands to
 get and set that setting:
 
@@ -1960,7 +1932,7 @@ $ ceph dashboard set-admin-email-address <value>
 ```
 
 To access, or modify the config setting value from your Python code, either
-inside a controller or anywhere else, you just need to import the `Settings`
+inside a controller or anywhere else, you just need to import the ``Settings``
 class and access it like this:
 
 ```python
@@ -1987,7 +1959,7 @@ operations are running in the background.
 
 To help in the development of the above scenario we added the support for
 asynchronous tasks. To trigger the execution of an asynchronous task we must
-use the following class method of the `TaskManager` class:
+use the following class method of the ``TaskManager`` class:
 
 ```
 from ..tools import TaskManager
@@ -1995,43 +1967,43 @@ from ..tools import TaskManager
 TaskManager.run(name, metadata, func, args, kwargs)
 ```
 
-* `name` is a string that can be used to group tasks. For instance
-  for RBD image creation tasks we could specify `"rbd/create"` as the
-  name, or similarly `"rbd/remove"` for RBD image removal tasks.
+* ``name`` is a string that can be used to group tasks. For instance
+  for RBD image creation tasks we could specify ``"rbd/create"`` as the
+  name, or similarly ``"rbd/remove"`` for RBD image removal tasks.
 
-* `metadata` is a dictionary where we can store key-value pairs that
+* ``metadata`` is a dictionary where we can store key-value pairs that
   characterize the task. For instance, when creating a task for creating
   RBD images we can specify the metadata argument as
-  `{'pool_name': "rbd", image_name': "test-img"}`.
+  ``{'pool_name': "rbd", image_name': "test-img"}``.
 
-* `func` is the python function that implements the operation code, which
+* ``func`` is the python function that implements the operation code, which
   will be executed asynchronously.
 
-* `args` and `kwargs` are the positional and named arguments that will be
-  passed to `func` when the task manager starts its execution.
+* ``args`` and ``kwargs`` are the positional and named arguments that will be
+  passed to ``func`` when the task manager starts its execution.
 
-The `TaskManager.run` method triggers the asynchronous execution of function
-`func` and returns a `Task` object.
-The `Task` provides the public method `Task.wait(timeout)`, which can be
+The ``TaskManager.run`` method triggers the asynchronous execution of function
+``func`` and returns a ``Task`` object.
+The ``Task`` provides the public method ``Task.wait(timeout)``, which can be
 used to wait for the task to complete up to a timeout defined in seconds and
-provided as an argument. If no argument is provided the `wait` method
+provided as an argument. If no argument is provided the ``wait`` method
 blocks until the task is finished.
 
-The `Task.wait` is very useful for tasks that usually are fast to execute but
+The ``Task.wait`` is very useful for tasks that usually are fast to execute but
 that sometimes may take a long time to run.
-The return value of the `Task.wait` method is a pair `(state, value)`
-where `state` is a string with following possible values:
+The return value of the ``Task.wait`` method is a pair ``(state, value)``
+where ``state`` is a string with following possible values:
 
-* `VALUE_DONE = "done"`
-* `VALUE_EXECUTING = "executing"`
+* ``VALUE_DONE = "done"``
+* ``VALUE_EXECUTING = "executing"``
 
-The `value` will store the result of the execution of function `func` if
-`state == VALUE_DONE`. If `state == VALUE_EXECUTING` then
-`value == None`.
+The ``value`` will store the result of the execution of function ``func`` if
+``state == VALUE_DONE``. If ``state == VALUE_EXECUTING`` then
+``value == None``.
 
-The pair `(name, metadata)` should unequivocally identify the task being
+The pair ``(name, metadata)`` should unequivocally identify the task being
 run, which means that if you try to trigger a new task that matches the same
-`(name, metadata)` pair of the currently running task, then the new task
+``(name, metadata)`` pair of the currently running task, then the new task
 is not created and you get the task object of the current running task.
 
 For instance, consider the following example:
@@ -2041,22 +2013,22 @@ task1 = TaskManager.run("dummy/task", {'attr': 2}, func)
 task2 = TaskManager.run("dummy/task", {'attr': 2}, func)
 ```
 
-If the second call to `TaskManager.run` executes while the first task is
+If the second call to ``TaskManager.run`` executes while the first task is
 still executing then it will return the same task object:
-`assert task1 == task2`.
+``assert task1 == task2``.
 
 #### How to get the list of executing and finished asynchronous tasks?
 
-The list of executing and finished tasks is included in the `Summary`
+The list of executing and finished tasks is included in the ``Summary``
 controller, which is already polled every 5 seconds by the dashboard frontend.
 But we also provide a dedicated controller to get the same list of executing
 and finished tasks.
 
-The `Task` controller exposes the `/api/task` endpoint that returns the
-list of executing and finished tasks. This endpoint accepts the `name`
+The ``Task`` controller exposes the ``/api/task`` endpoint that returns the
+list of executing and finished tasks. This endpoint accepts the ``name``
 parameter that accepts a glob expression as its value.
-For instance, an HTTP GET request of the URL `/api/task?name=rbd/*`
-will return all executing and finished tasks which name starts with `rbd/`.
+For instance, an HTTP GET request of the URL ``/api/task?name=rbd/*``
+will return all executing and finished tasks which name starts with ``rbd/``.
 
 To prevent the finished tasks list from growing unbounded, we will always
 maintain the 10 most recent finished tasks, and the remaining older finished
@@ -2095,23 +2067,23 @@ Each finished task is represented by the following dictionary:
 
 #### How to use asynchronous APIs with asynchronous tasks?
 
-The `TaskManager.run` method as described in a previous section, is well
+The ``TaskManager.run`` method as described in a previous section, is well
 suited for calling blocking functions, as it runs the function inside a newly
 created thread. But sometimes we want to call some function of an API that is
 already asynchronous by nature.
 
 For these cases we want to avoid creating a new thread for just running a
 non-blocking function, and want to leverage the asynchronous nature of the
-function. The `TaskManager.run` is already prepared to be used with
-non-blocking functions by passing an object of the type `TaskExecutor` as an
-additional parameter called `executor`. The full method signature of
-`TaskManager.run`:
+function. The ``TaskManager.run`` is already prepared to be used with
+non-blocking functions by passing an object of the type ``TaskExecutor`` as an
+additional parameter called ``executor``. The full method signature of
+``TaskManager.run``:
 
 ```
 TaskManager.run(name, metadata, func, args=None, kwargs=None, executor=None)
 ```
 
-The `TaskExecutor` class is responsible for code that executes a given task
+The ``TaskExecutor`` class is responsible for code that executes a given task
 function, and defines three methods that can be overridden by
 subclasses:
 
@@ -2121,23 +2093,23 @@ def start(self)
 def finish(self, ret_value, exception)
 ```
 
-The `init` method is called before the running the task function, and
-receives the task object (of class `Task`).
+The ``init`` method is called before the running the task function, and
+receives the task object (of class ``Task``).
 
-The `start` method runs the task function. The default implementation is to
+The ``start`` method runs the task function. The default implementation is to
 run the task function in the current thread context.
 
-The `finish` method should be called when the task function finishes with
-either the `ret_value` populated with the result of the execution, or with
+The ``finish`` method should be called when the task function finishes with
+either the ``ret_value`` populated with the result of the execution, or with
 an exception object in the case that execution raised an exception.
 
 To leverage the asynchronous nature of a non-blocking function, the developer
 should implement a custom executor by creating a subclass of the
-`TaskExecutor` class, and provide an instance of the custom executor class
-as the `executor` parameter of the `TaskManager.run`.
+``TaskExecutor`` class, and provide an instance of the custom executor class
+as the ``executor`` parameter of the ``TaskManager.run``.
 
 To better understand the expressive power of executors, we write a full example
-of use a custom executor to execute the `MgrModule.send_command` asynchronous
+of use a custom executor to execute the ``MgrModule.send_command`` asynchronous
 function:
 
 ```python
@@ -2192,14 +2164,14 @@ class Test(RESTController):
         return {'status': status, 'value': value}
 ```
 
-The above `SendCommandExecutor` executor class can be used for any call to
-`MgrModule.send_command`. This means that we should need just one custom
+The above ``SendCommandExecutor`` executor class can be used for any call to
+``MgrModule.send_command``. This means that we should need just one custom
 executor class implementation for each non-blocking API that we use in our
 controllers.
 
 The default executor, used when no executor object is passed to
-`TaskManager.run`, is the `ThreadedExecutor`. You can check its
-implementation in the `tools.py` file.
+``TaskManager.run``, is the ``ThreadedExecutor``. You can check its
+implementation in the ``tools.py`` file.
 
 #### How to update the execution progress of an asynchronous task?
 
@@ -2208,7 +2180,7 @@ execution progress of an executing task.
 The progress can be updated from within the code the task is executing, which
 usually is the place where we have the progress information available.
 
-To update the progress from within the task code, the `TaskManager` class
+To update the progress from within the task code, the ``TaskManager`` class
 provides a method to retrieve the current task object:
 
 ```
@@ -2216,16 +2188,16 @@ TaskManager.current_task()
 ```
 
 The above method is only available when using the default executor
-`ThreadedExecutor` for executing the task.
-The `current_task()` method returns the current `Task` object. The
-`Task` object provides two public methods to update the execution progress
-value: the `set_progress(percentage)`, and the `inc_progress(delta)`
+``ThreadedExecutor`` for executing the task.
+The ``current_task()`` method returns the current ``Task`` object. The
+``Task`` object provides two public methods to update the execution progress
+value: the ``set_progress(percentage)``, and the ``inc_progress(delta)``
 methods.
 
-The `set_progress` method receives as argument an integer value representing
+The ``set_progress`` method receives as argument an integer value representing
 the absolute percentage that we want to set to the task.
 
-The `inc_progress` method receives as argument an integer value representing
+The ``inc_progress`` method receives as argument an integer value representing
 the delta we want to increment to the current execution progress percentage.
 
 Take the following example of a controller that triggers a new task and
@@ -2261,42 +2233,42 @@ All executing and most recently finished asynchronous tasks are displayed on
 For each task a operation name for three states (running, success and failure),
 a function that tells who is involved and error descriptions, if any, have to
 be provided. This can be  achieved by appending
-`TaskManagerMessageService.messages`.  This has to be done to achieve
+``TaskManagerMessageService.messages``.  This has to be done to achieve
 consistency among all tasks and states.
 
 Operation Object
   Ensures consistency among all tasks. It consists of three verbs for each
   different state f.e.
-  `{running: 'Creating', failure: 'create', success: 'Created'}`.
+  ``{running: 'Creating', failure: 'create', success: 'Created'}``.
 
-1. Put running operations in present participle f.e. `'Updating'`.
-1. Failed messages always start with `'Failed to '` and should be continued
-   with the operation in present tense f.e. `'update'`.
-1. Put successful operations in past tense f.e. `'Updated'`.
+1. Put running operations in present participle f.e. ``'Updating'``.
+1. Failed messages always start with ``'Failed to '`` and should be continued
+   with the operation in present tense f.e. ``'update'``.
+1. Put successful operations in past tense f.e. ``'Updated'``.
 
 Involves Function
   Ensures consistency among all messages of a task, it resembles who's
   involved by the operation. It's a function that returns a string which
   takes the metadata from the task to return f.e.
-  `"RBD 'somePool/someImage'"`.
+  ``"RBD 'somePool/someImage'"``.
 
 Both combined create the following messages:
 
-* Failure => `"Failed to create RBD 'somePool/someImage'"`
-* Running => `"Creating RBD 'somePool/someImage'"`
-* Success => `"Created RBD 'somePool/someImage'"`
+* Failure => ``"Failed to create RBD 'somePool/someImage'"``
+* Running => ``"Creating RBD 'somePool/someImage'"``
+* Success => ``"Created RBD 'somePool/someImage'"``
 
-For automatic task handling use `TaskWrapperService.wrapTaskAroundCall`.
+For automatic task handling use ``TaskWrapperService.wrapTaskAroundCall``.
 
-If for some reason `wrapTaskAroundCall` is not working for you,
+If for some reason ``wrapTaskAroundCall`` is not working for you,
 you have to subscribe to your asynchronous task manually through
-`TaskManagerService.subscribe`, and provide it with a callback,
+``TaskManagerService.subscribe``, and provide it with a callback,
 in case of a success to notify the user. A notification can
-be triggered with `NotificationService.notifyTask`. It will use
-`TaskManagerMessageService.messages` to display a message based on the state
+be triggered with ``NotificationService.notifyTask``. It will use
+``TaskManagerMessageService.messages`` to display a message based on the state
 of a task.
 
-Notifications of API errors are handled by `ApiInterceptorService`.
+Notifications of API errors are handled by ``ApiInterceptorService``.
 
 Usage example:
 
@@ -2341,14 +2313,14 @@ export class RBDFormComponent {
 #### REST API documentation
 Ceph-Dashboard provides two types of documentation for the **Ceph RESTful API**:
 
-* **Static documentation**: available at mgr ceph api. This comes from a versioned specification located at `src/pybind/mgr/dashboard/openapi.yaml`.
-* **Interactive documentation**: available from a running Ceph-Dashboard instance (top-right `?` icon > API Docs).
+* **Static documentation**: available at [mgr ceph api](../../mgr/ceph_api/index.md#mgr-ceph-api). This comes from a versioned specification located at ``src/pybind/mgr/dashboard/openapi.yaml``.
+* **Interactive documentation**: available from a running Ceph-Dashboard instance (top-right ``?`` icon > API Docs).
 
-If changes are made to the `controllers/` directory, it's very likely that
+If changes are made to the ``controllers/`` directory, it's very likely that
 they will result in changes to the generated OpenAPI specification. For that
 reason, a checker has been implemented to block unintended changes. This check
-is automatically triggered by the Pull Request CI (`make check`) and can be
-also manually invoked: `tox -e openapi-check`.
+is automatically triggered by the Pull Request CI (``make check``) and can be
+also manually invoked: ``tox -e openapi-check``.
 
 If that checker failed, it means that the current Pull Request is modifying the
 Ceph API and therefore:
@@ -2359,35 +2331,35 @@ Ceph API and therefore:
    GitHub CODEOWNERS), in order to assess the impact of changes.
 
 Additionally, Sphinx documentation can be generated from the OpenAPI
-specification with `tox -e openapi-doc`.
+specification with ``tox -e openapi-doc``.
 
 The Ceph RESTful OpenAPI specification is dynamically generated from the
-`Controllers` in `controllers/` directory.  However, by default it is not
+``Controllers`` in ``controllers/`` directory.  However, by default it is not
 very detailed, so there are two decorators that can and should be used to add
 more information:
 
-* `@EndpointDoc()` for documentation of endpoints. It has four optional arguments
-  (explained below): `description`, `group`, `parameters` and
-  `responses`.
-* `@ControllerDoc()` for documentation of controller or group associated with
-  the endpoints. It only takes the two first arguments: `description` and
-  `group`.
+* ``@EndpointDoc()`` for documentation of endpoints. It has four optional arguments
+  (explained below): ``description``, ``group``, ``parameters`` and
+  ``responses``.
+* ``@ControllerDoc()`` for documentation of controller or group associated with
+  the endpoints. It only takes the two first arguments: ``description`` and
+  ``group``.
 
-`description`: A a string with a short (1-2 sentences) description of the object.
+``description``: A a string with a short (1-2 sentences) description of the object.
 
-`group`: By default, an endpoint is grouped together with other endpoints
-within the same controller class. `group` is a string that can be used to
+``group``: By default, an endpoint is grouped together with other endpoints
+within the same controller class. ``group`` is a string that can be used to
 assign an endpoint or all endpoints in a class to another controller or a
 conceived group name.
 
-`parameters`: A dict used to describe path, query or request body parameters.
+``parameters``: A dict used to describe path, query or request body parameters.
 By default, all parameters for an endpoint are listed on the Swagger UI page,
 including information of whether the parameter is optional/required and default
 values. However, there will be no description of the parameter and the parameter
 type will only be displayed in some cases.
 When adding information, each parameters should be described as in the example
 below. Note that the parameter type should be expressed as a built-in python
-type and not as a string. Allowed values are `str`, `int`, `bool`, `float`.
+type and not as a string. Allowed values are ``str``, ``int``, ``bool``, ``float``.
 
 ```python
 @EndpointDoc(parameters={'my_string': (str, 'Description of my_string')})
@@ -2395,10 +2367,10 @@ def method(my_string): pass
 ```
 
 For body parameters, more complex cases are possible. If the parameter is a
-dictionary, the type should be replaced with a `dict` containing its nested
+dictionary, the type should be replaced with a ``dict`` containing its nested
 parameters. When describing nested parameters, the same format as other
 parameters is used. However, all nested parameters are set as required by default.
-If the nested parameter is optional this must be specified as for `item2` in
+If the nested parameter is optional this must be specified as for ``item2`` in
 the example below. If a nested parameters is set to optional, it is also
 possible to specify the default value (this will not be provided automatically
 for nested parameters).
@@ -2413,7 +2385,7 @@ for nested parameters).
 def method(my_dictionary): pass
 ```
 
-If the parameter is a `list` of primitive types, the type should be
+If the parameter is a ``list`` of primitive types, the type should be
 surrounded with square brackets.
 
 ```python
@@ -2421,7 +2393,7 @@ surrounded with square brackets.
 def method(my_list): pass
 ```
 
-If the parameter is a `list` with nested parameters, the nested parameters
+If the parameter is a ``list`` with nested parameters, the nested parameters
 should be placed in a dictionary and surrounded with square brackets.
 
 ```python
@@ -2433,7 +2405,7 @@ should be placed in a dictionary and surrounded with square brackets.
 def method(my_list): pass
 ```
 
-`responses`: A dict used for describing responses. Rules for describing
+``responses``: A dict used for describing responses. Rules for describing
 responses are the same as for request body parameters, with one difference:
 responses also needs to be assigned to the related response code as in the
 example below:
@@ -2513,17 +2485,17 @@ field-related errors in wizards and dialogs or show non-intrusive notifications.
 Handling exceptions in Python should be an exception. In general, we
 should have few exception handlers in our project. Per default, propagate
 errors to the API, as it will take care of all exceptions anyway. In general,
-log the exception by adding `logger.exception()` with a description to the
+log the exception by adding ``logger.exception()`` with a description to the
 handler.
 
 We need to distinguish between user errors from internal errors and
 programming errors. Using different exception types will ease the
 task for the API layer and for the user interface:
 
-Standard Python errors, like `SystemError`, `ValueError` or `KeyError`
+Standard Python errors, like ``SystemError``, ``ValueError`` or ``KeyError``
 will end up as internal server errors in the API.
 
-In general, do not `return` error responses in the REST API. They will be
+In general, do not ``return`` error responses in the REST API. They will be
 returned by the  error handler. Instead, raise the appropriate exception.
 
 #### Plug-ins
@@ -2542,41 +2514,41 @@ checks).
 
 In order to create a new plugin, the following steps are required:
 
-1. Add a new file under `src/pybind/mgr/dashboard/plugins`.
-1. Import the `PLUGIN_MANAGER` instance and the `Interfaces`.
+1. Add a new file under ``src/pybind/mgr/dashboard/plugins``.
+1. Import the ``PLUGIN_MANAGER`` instance and the ``Interfaces``.
 1. Create a class extending the desired interfaces. The plug-in library will
    check if all the methods of the interfaces have been properly overridden.
-1. Register the plugin in the `PLUGIN_MANAGER` instance.
-1. Import the plug-in from within the Ceph Dashboard `module.py` (currently no
+1. Register the plugin in the ``PLUGIN_MANAGER`` instance.
+1. Import the plug-in from within the Ceph Dashboard ``module.py`` (currently no
    dynamic loading is implemented).
 
 The available Mixins (helpers) are:
 
-- `CanMgr`: provides the plug-in with access to the `mgr` instance under `self.mgr`.
+- ``CanMgr``: provides the plug-in with access to the ``mgr`` instance under ``self.mgr``.
 
 The available Interfaces are:
 
-- `Initializable`: requires overriding `init()` hook. This method is run at
+- ``Initializable``: requires overriding ``init()`` hook. This method is run at
   the very beginning of the dashboard module, right after all imports have been
   performed.
-- `Setupable`: requires overriding `setup()` hook. This method is run in the
-  Ceph Dashboard `serve()` method, right after CherryPy has been configured,
+- ``Setupable``: requires overriding ``setup()`` hook. This method is run in the
+  Ceph Dashboard ``serve()`` method, right after CherryPy has been configured,
   but before it is started. It's a placeholder for the plug-in initialization
   logic.
-- `HasOptions`: requires overriding `get_options()` hook by returning a list
-  of `Options()`. The options returned here are added to the
-  `MODULE_OPTIONS`.
-- `HasCommands`: requires overriding `register_commands()` hook by defining
-  the commands the plug-in can handle and decorating them with `@CLICommand`.
+- ``HasOptions``: requires overriding ``get_options()`` hook by returning a list
+  of ``Options()``. The options returned here are added to the
+  ``MODULE_OPTIONS``.
+- ``HasCommands``: requires overriding ``register_commands()`` hook by defining
+  the commands the plug-in can handle and decorating them with ``@CLICommand``.
   The commands can be optionally returned, so that they can be invoked
   externally (which makes unit testing easier).
-- `HasControllers`: requires overriding `get_controllers()` hook by defining
+- ``HasControllers``: requires overriding ``get_controllers()`` hook by defining
   and returning the controllers as usual.
-- `FilterRequest.BeforeHandler`: requires overriding
-  `filter_request_before_handler()` hook. This method receives a
-  `cherrypy.request` object for processing. A usual implementation of this
-  method will allow some requests to pass or will raise a `cherrypy.HTTPError`
-  based on the `request` metadata and other conditions.
+- ``FilterRequest.BeforeHandler``: requires overriding
+  ``filter_request_before_handler()`` hook. This method receives a
+  ``cherrypy.request`` object for processing. A usual implementation of this
+  method will allow some requests to pass or will raise a ``cherrypy.HTTPError``
+  based on the ``request`` metadata and other conditions.
 
 New interfaces and hooks should be added as soon as they are required to
 implement new functionality. The above list only comprises the hooks needed for
@@ -2629,7 +2601,7 @@ class Mute(I.CanMgr, I.Setupable, I.HasOptions, I.HasCommands,
     return [MuteController]
 ```
 
-Additionally, a helper for creating plugins `SimplePlugin` is provided. It
+Additionally, a helper for creating plugins ``SimplePlugin`` is provided. It
 facilitates the basic tasks (Options, Commands, and common Mixins). The previous
 plugin could be rewritten like this:
 

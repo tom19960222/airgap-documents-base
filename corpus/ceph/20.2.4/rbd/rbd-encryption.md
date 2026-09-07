@@ -15,7 +15,7 @@ used to encrypt a specific RBD image. This page describes the scope of the
 RBD encryption feature.
 
 > **Note:**
-> The `krbd` kernel module does not support encryption at this time.
+> The ``krbd`` kernel module does not support encryption at this time.
 
 > **Note:**
 > External tools (e.g. dm-crypt, QEMU) can be used as well to encrypt
@@ -36,7 +36,7 @@ operation will require specifying the encryption format and a secret.
 Some of the encryption metadata may be stored as part of the image data,
 typically an encryption header will be written to the beginning of the raw
 image data. This means that the effective image size of the encrypted image may
-be lower than the raw image size. See the Supported Formats section for more
+be lower than the raw image size. See the [Supported Formats](#supported-formats) section for more
 details.
 
 > **Note:**
@@ -52,7 +52,7 @@ details.
 > though it may still occupy storage resources.
 
 > **Note:**
-> Images with the journal feature enabled cannot be formatted and encrypted
+> Images with the [journal feature](rbd-mirroring.md#enable-image-journaling-feature) enabled cannot be formatted and encrypted
 > by RBD clients.
 
 # Encryption Load
@@ -107,7 +107,7 @@ be stored in-memory by the RBD client until the image is closed.
 
 > **Note:**
 > Encryption load can be automatically applied when mounting RBD images as
-> block devices via rbd-nbd.
+> block devices via [rbd-nbd](../man/8/rbd-nbd.md).
 
 # Supported Formats
 
@@ -152,7 +152,7 @@ The LUKS header size can vary (up to 136MiB in LUKS2), but is usually up to
 performance, the encryption format will set the data offset to be aligned with
 the image stripe period size. For example, expect a minimum overhead of 8MiB if
 using an image configured with an 8MiB object size and a minimum overhead of
-12MiB if using an image configured with a 4MiB object size and stripe count
+12MiB if using an image configured with a 4MiB object size and [stripe count](../man/8/rbd.md#striping)
 of 3.
 
 In LUKS1, sectors, which are the minimal encryption units, are fixed at 512
@@ -186,7 +186,7 @@ rbd encryption format mypool/myimage luks2 passphrase.bin
 rbd resize --size 50G --encryption-passphrase-file passphrase.bin mypool/myimage
 ```
 
-`rbd resize` command at the end grows the image to compensate for the
+``rbd resize`` command at the end grows the image to compensate for the
 overhead associated with the LUKS2 header.
 
 Given a LUKS2-formatted image, create a LUKS2-formatted clone with the
@@ -210,7 +210,7 @@ rbd encryption format mypool/myclone luks1 clone-passphrase.bin
 rbd resize --size 50G --allow-shrink --encryption-passphrase-file clone-passphrase.bin --encryption-passphrase-file passphrase.bin mypool/myclone
 ```
 
-Since LUKS1 header is usually smaller than LUKS2 header, `rbd resize`
+Since LUKS1 header is usually smaller than LUKS2 header, ``rbd resize``
 command at the end shrinks the cloned image to get rid of unneeded
 space allowance.
 
@@ -227,11 +227,11 @@ rbd resize --size 50G --allow-shrink --encryption-passphrase-file passphrase.bin
 rbd resize --size 50G --allow-shrink --encryption-passphrase-file clone-passphrase.bin --encryption-passphrase-file passphrase.bin mypool/myclone
 ```
 
-Since LUKS2 header is usually bigger than LUKS1 header, `rbd resize`
+Since LUKS2 header is usually bigger than LUKS1 header, ``rbd resize``
 command at the beginning temporarily grows the parent image to reserve
 some extra space in the parent snapshot and consequently the cloned
 image. This is necessary to make all parent data accessible in the
-cloned image. `rbd resize` commands at the end shrink the parent
+cloned image. ``rbd resize`` commands at the end shrink the parent
 image back to its original size (this does not impact the parent
 snapshot) and also the cloned image to get rid of unused reserved
 space.
@@ -242,7 +242,7 @@ all.
 
 To map a formatted clone, provide encryption formats and passphrases
 for the clone itself and all of its explicitly formatted parent images.
-The order in which `encryption-format` and `encryption-passphrase-file`
+The order in which ``encryption-format`` and ``encryption-passphrase-file``
 options should be provided is based on the image hierarchy: start with
 that of the cloned image, then its parent and so on.
 
@@ -251,8 +251,3 @@ Here is an example of a command that maps a formatted clone:
 ```bash
 rbd device map -t nbd -o encryption-passphrase-file=clone-passphrase.bin,encryption-passphrase-file=passphrase.bin mypool/myclone
 ```
-
-.. _journal feature: ../rbd-mirroring/#enable-image-journaling-feature
-.. _Supported Formats: #supported-formats
-.. _rbd-nbd: ../../man/8/rbd-nbd
-.. _stripe count: ../../man/8/rbd/#striping

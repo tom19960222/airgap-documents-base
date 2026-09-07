@@ -17,16 +17,14 @@ The following instructions will use the default vSphere web client and esxcli.
 
 1. Enable Software iSCSI
 
-.. image:: ../images/esx_web_client_storage_main.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/esx_web_client_storage_main.png)
 
    Click on "Storage" from "Navigator", and select the "Adapters" tab.
    From there right click "Configure iSCSI".
 
 1. Set Initiator Name
 
-.. image:: ../images/esx_config_iscsi_main.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/esx_config_iscsi_main.png)
 
    If the initiator name in the "Name & alias" section is not the same name
    used when creating the client during gwcli setup or the initiator name used
@@ -55,8 +53,7 @@ The following instructions will use the default vSphere web client and esxcli.
 
 1. Setup CHAP
 
-.. image:: ../images/esx_chap.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/esx_chap.png)
 
    Expand the CHAP authentication section, select "Do not use CHAP unless
    required by target" and enter the CHAP credentials used in the gwcli
@@ -89,15 +86,13 @@ The following instructions will use the default vSphere web client and esxcli.
 
 1. Configure iSCSI Settings
 
-.. image:: ../images/esx_iscsi_recov_timeout.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/esx_iscsi_recov_timeout.png)
 
    Expand Advanced settings and set the "RecoveryTimeout" to 25.
 
 1. Set the discovery address
 
-.. image:: ../images/esx_config_iscsi_main.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/esx_config_iscsi_main.png)
 
    In the Dynamic targets section, click "Add dynamic target" and under
    Addresses add one of the gateway IP addresses added during the iSCSI

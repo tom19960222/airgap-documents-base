@@ -75,17 +75,17 @@ on stderr.
 documented by the **--help-output** option.
 
 Note: Each Placement Group (PG) has an integer ID which can be obtained
-from `ceph pg dump` (for example PG 2.2f means pool id 2, PG id 32).
+from ``ceph pg dump`` (for example PG 2.2f means pool id 2, PG id 32).
 The pool and PG IDs are combined by a function to get a value which is
 given to CRUSH to map it to OSDs. crushtool does not know about PGs or
 pools; it only runs simulations by mapping values in the range
-`[--min-x,--max-x]`.
+``[--min-x,--max-x]``.
 
 .. option:: --show-statistics
 
    Displays a summary of the distribution. For instance::
 
-       rule 1 (metadata) num_rep 5 result size == 5:	1024/1024
+       rule 1 (metadata) num_rep 5 result size == 5:    1024/1024
 
    shows that rule **1** which is named **metadata** successfully
    mapped **1024** values to **result size == 5** devices when trying
@@ -93,9 +93,9 @@ pools; it only runs simulations by mapping values in the range
    required mapping, presumably because the number of **tries** must
    be increased, a breakdown of the failures is displayed. For instance::
 
-       rule 1 (metadata) num_rep 10 result size == 8:	4/1024
-       rule 1 (metadata) num_rep 10 result size == 9:	93/1024
-       rule 1 (metadata) num_rep 10 result size == 10:	927/1024
+       rule 1 (metadata) num_rep 10 result size == 8:   4/1024
+       rule 1 (metadata) num_rep 10 result size == 9:   93/1024
+       rule 1 (metadata) num_rep 10 result size == 10:  927/1024
 
    shows that although **num_rep 10** replicas were required, **4**
    out of **1024** values ( **4/1024** ) were mapped to **result size
@@ -246,18 +246,18 @@ $ crushtool -o crushmap --build --num_osds 320 \
        rack straw 20 \
        row straw 2 \
        root straw 0
-# id	weight	type name	reweight
--87	320	root root
--85	160		row row0
--81	80			rack rack0
--1	4				node node0
-0	1					osd.0	1
-1	1					osd.1	1
-2	1					osd.2	1
-3	1					osd.3	1
--2	4				node node1
-4	1					osd.4	1
-5	1					osd.5	1
+# id        weight  type name       reweight
+-87 320     root root
+-85 160             row row0
+-81 80                      rack rack0
+-1  4                               node node0
+0   1                                       osd.0   1
+1   1                                       osd.1   1
+2   1                                       osd.2   1
+3   1                                       osd.3   1
+-2  4                               node node1
+4   1                                       osd.4   1
+5   1                                       osd.5   1
 ...
 ```
 
@@ -286,7 +286,7 @@ see https://docs.ceph.com/en/latest/rados/operations/crush-map-edits/#migrating-
 # Example output from --test
 
 See https://github.com/ceph/ceph/blob/master/src/test/cli/crushtool/set-choose.t
-for sample `crushtool --test` commands and output produced thereby.
+for sample ``crushtool --test`` commands and output produced thereby.
 
 # Availability
 
@@ -296,8 +296,8 @@ information.
 
 # See also
 
-ceph\(8),
-osdmaptool\(8),
+[ceph](../../install/clone-source.md)\(8),
+[osdmaptool](osdmaptool.md#osdmaptool)\(8),
 
 # Authors
 

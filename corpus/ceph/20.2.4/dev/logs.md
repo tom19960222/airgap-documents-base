@@ -16,9 +16,11 @@ debugging just for the messenger, by setting debug_ms to 10, for example.
 
 The dout macro avoids even generating log messages which are not going to be
 used, by enclosing them in an "if" statement. What this means is that if you
-have the debug level set at 0, and you run this code::
+have the debug level set at 0, and you run this code:
 
-	dout(20) << "myfoo() = " << myfoo() << dendl;
+```
+dout(20) << "myfoo() = " << myfoo() << dendl;
+```
 
 myfoo() will not be called here.
 

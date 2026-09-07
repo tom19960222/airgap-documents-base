@@ -33,7 +33,7 @@ Configure the kernel:
 make defconfig
 ```
 
-> **Note:** You can alternatively use the Ceph Kernel QA Config for building the kernel.
+> **Note:** You can alternatively use the [Ceph Kernel QA Config](https://github.com/ceph/ceph-build/tree/899d0848a0f487f7e4cee773556aaf9529b8db26/kernel/build) for building the kernel.
 
 We now have a kernel config with reasonable defaults for the architecture you're
 building on. The next thing to do is to enable configs which will build Ceph and/or
@@ -63,7 +63,7 @@ Beyond enabling Ceph-related configs, we are also enabling some useful
 debug configs and XFS (as an alternative to ext4 if needed for our root file
 system).
 
-> **Note:** It is a good idea to not build anything as a kernel module. Otherwise, you would need to `make modules_install` on the root drive of the VM.
+> **Note:** It is a good idea to not build anything as a kernel module. Otherwise, you would need to ``make modules_install`` on the root drive of the VM.
 
 Now, merge the configs.
 
@@ -160,7 +160,7 @@ connections, route any sepia-bound traffic, or serve as a DNS proxy. The use of
 a sepia-bounce VM is optional but can be useful, especially if you want to
 create numerous kernel VMs for testing.
 
-I like to use the vossi04 developer playground to build Ceph and setup a
+I like to use the vossi04 [developer playground](https://wiki.sepia.ceph.com/doku.php?id=devplayground#developer_playgrounds) to build Ceph and setup a
 vstart cluster.  It has sufficient resources to make building Ceph very fast
 (~5 minutes cold build) and local disk resources to run a decent vstart
 cluster.
@@ -170,9 +170,9 @@ VM, I will note the following main configurations used for the purpose of
 testing the kernel:
 
 - setup a wireguard tunnel between the machine creating kernel VMs and the sepia-bounce VM
-- use `systemd-resolved` as a DNS resolver and listen on 192.168.20.2 (instead of just localhost)
-- connect to the sepia VPN and use systemd resolved update script to configure `systemd-resolved` to use the DNS servers acquired via DHCP from the sepia VPN
-- configure `firewalld` to allow wireguard traffic and to masquerade and forward traffic to the sepia vpn
+- use ``systemd-resolved`` as a DNS resolver and listen on 192.168.20.2 (instead of just localhost)
+- connect to the sepia [VPN](https://wiki.sepia.ceph.com/doku.php?id=vpnaccess) and use [systemd resolved update script](systemd-resolved: https://wiki.archlinux.org/title/Systemd-resolved) to configure ``systemd-resolved`` to use the DNS servers acquired via DHCP from the sepia VPN
+- configure ``firewalld`` to allow wireguard traffic and to masquerade and forward traffic to the sepia vpn
 
 The next task is to connect the kernel VM to the sepia-bounce VM. A network
 namespace can be useful for this purpose to isolate traffic / routing rules for
@@ -210,8 +210,8 @@ ExecStart=/usr/bin/ip netns exec sepian ip link set br0 up
 ExecStart=/usr/bin/ip netns exec sepian iptables -t nat -A POSTROUTING -o wg-sepian -j MASQUERADE
 ```
 
-When using the network namespace, we will use `ip netns exec`. There is a
-handy feature to automatically bind mount files into the `/etc` namespace for
+When using the network namespace, we will use ``ip netns exec``. There is a
+handy feature to automatically bind mount files into the ``/etc`` namespace for
 commands run via that command:
 
 :
@@ -222,7 +222,7 @@ nameserver 192.168.20.2
 ```
 
 That file will configure the libc name resolution stack to route DNS requests
-for applications to the `systemd-resolved` daemon running on sepia-bounce.
+for applications to the ``systemd-resolved`` daemon running on sepia-bounce.
 Consequently, any application running in that netns will be able to resolve
 sepia hostnames:
 
@@ -249,8 +249,8 @@ sudo ip netns exec sepian qemu-system-x86_64 \
 ```
 
 The new relevant bits here are (a) executing the VM in the netns we have
-constructed; (b) a `-netdev`  command to configure a tap device; (c) a
-virtual network card for the VM. There is also a script `$HOME/bin/qemu-br0`
+constructed; (b) a ``-netdev``  command to configure a tap device; (c) a
+virtual network card for the VM. There is also a script ``$HOME/bin/qemu-br0``
 run by qemu to configure the tap device it creates for the VM:
 
 :
@@ -327,49 +327,51 @@ subnet 192.168.0.0 netmask 255.255.255.0 {
 
 Importantly, this tells the VM to route traffic to 192.168.0.1 (the IP of the
 bridge in the netns) and DNS can be provided by 192.168.20.2 (via
-`systemd-resolved` on the sepia-bounce VM).
+``systemd-resolved`` on the sepia-bounce VM).
 
 In the VM, the networking looks like:
 
-::
+:
 
-	[root@archlinux ~]# ip link
-	1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
-    	link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-	2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
-    	link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
-	3: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000
-    	link/sit 0.0.0.0 brd 0.0.0.0
-	[root@archlinux ~]# ip addr
-	1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    	link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    	inet 127.0.0.1/8 scope host lo
-       	valid_lft forever preferred_lft forever
-    	inet6 ::1/128 scope host noprefixroute
-       	valid_lft forever preferred_lft forever
-	2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
-    	link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
-    	inet 192.168.0.100/24 metric 1024 brd 192.168.0.255 scope global dynamic enp0s3
-       	valid_lft 28435sec preferred_lft 28435sec
-    	inet6 fe80::5054:ff:fe12:3456/64 scope link proto kernel_ll
-       	valid_lft forever preferred_lft forever
-	3: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN group default qlen 1000
-    	link/sit 0.0.0.0 brd 0.0.0.0
-	[root@archlinux ~]# systemd-resolve --status
-	Global
-           	Protocols: +LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
-    	resolv.conf mode: stub
-	Fallback DNS Servers: 1.1.1.1#cloudflare-dns.com 9.9.9.9#dns.quad9.net 8.8.8.8#dns.google 2606:4700:4700::1111#cloudflare-dns.com 2620:fe::9#dns.quad9.net 2001:4860:4860::8888#dns.google
+```
+[root@archlinux ~]# ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
+3: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+link/sit 0.0.0.0 brd 0.0.0.0
+[root@archlinux ~]# ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+inet6 ::1/128 scope host noprefixroute
+valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
+inet 192.168.0.100/24 metric 1024 brd 192.168.0.255 scope global dynamic enp0s3
+valid_lft 28435sec preferred_lft 28435sec
+inet6 fe80::5054:ff:fe12:3456/64 scope link proto kernel_ll
+valid_lft forever preferred_lft forever
+3: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN group default qlen 1000
+link/sit 0.0.0.0 brd 0.0.0.0
+[root@archlinux ~]# systemd-resolve --status
+Global
+        Protocols: +LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
+resolv.conf mode: stub
+Fallback DNS Servers: 1.1.1.1#cloudflare-dns.com 9.9.9.9#dns.quad9.net 8.8.8.8#dns.google 2606:4700:4700::1111#cloudflare-dns.com 2620:fe::9#dns.quad9.net 2001:4860:4860::8888#dns.google
 
-	Link 2 (enp0s3)
-    	Current Scopes: DNS LLMNR/IPv4 LLMNR/IPv6
-         	Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
-	Current DNS Server: 192.168.20.2
-       	DNS Servers: 192.168.20.2
+Link 2 (enp0s3)
+Current Scopes: DNS LLMNR/IPv4 LLMNR/IPv6
+        Protocols: +DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+Current DNS Server: 192.168.20.2
+DNS Servers: 192.168.20.2
 
-	Link 3 (sit0)
-    	Current Scopes: none
-         	Protocols: -DefaultRoute +LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
+Link 3 (sit0)
+Current Scopes: none
+        Protocols: -DefaultRoute +LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
+```
 
 Finally, some other networking configurations to consider:
 
@@ -441,35 +443,29 @@ If you run into difficulties, it may be:
 
 ## Step Five: testing kernel changes in teuthology
 
-There 3 static branches in the ceph kernel git repository managed by the Ceph team:
+There 3 static branches in the [ceph kernel git repository](https://github.com/ceph/ceph-client) managed by the Ceph team:
 
 * [for-linus](https://github.com/ceph/ceph-client/tree/for-linus): A branch managed by the primary Ceph maintainer to share changes with Linus Torvalds (upstream). Do not push to this branch.
 * [master](https://github.com/ceph/ceph-client/tree/master): A staging ground for patches planned to be sent to Linus. Do not push to this branch.
 * [testing](https://github.com/ceph/ceph-client/tree/testing) A staging ground for miscellaneous patches that need wider QA testing (via nightlies or regular Ceph QA testing). Push patches you believe to be nearly ready for upstream acceptance.
 
-You may also push a `wip-$feature` branch to the `ceph-client.git`
+You may also push a ``wip-$feature`` branch to the ``ceph-client.git``
 repository which will be built by Jenkins. Then view the results of the build
 in [Shaman](https://shaman.ceph.com/builds/kernel/).
 
-Once a kernel branch is built, you can test it via the `fs` CephFS QA suite:
+Once a kernel branch is built, you can test it via the ``fs`` CephFS QA suite:
 
 ```bash
 $ teuthology-suite ... --suite fs --kernel wip-$feature --filter k-testing
 ```
 
-The `k-testing` filter is looking for the fragment which normally sets
-`testing` branch of the kernel for routine QA. That is, the `fs` suite
-regularly runs tests against whatever is in the `testing` branch of the
+The ``k-testing`` filter is looking for the fragment which normally sets
+``testing`` branch of the kernel for routine QA. That is, the ``fs`` suite
+regularly runs tests against whatever is in the ``testing`` branch of the
 kernel. We are overriding that choice of kernel branch via the ``--kernel
 wip-$featuree`` switch.
 
-> **Note:** Without filtering for `k-testing`, the `fs` suite will also run jobs using ceph-fuse or stock kernel, libcephfs tests, and other tests that may not be of interest to you when evaluating changes to the kernel.
+> **Note:** Without filtering for ``k-testing``, the ``fs`` suite will also run jobs using ceph-fuse or stock kernel, libcephfs tests, and other tests that may not be of interest to you when evaluating changes to the kernel.
 
 The actual override is controlled using Lua merge scripts in the
-`k-testing.yaml` fragment. See that file for more details.
-
-.. _VPN: https://wiki.sepia.ceph.com/doku.php?id=vpnaccess
-.. _systemd resolved update script: systemd-resolved: https://wiki.archlinux.org/title/Systemd-resolved
-.. _Ceph Kernel QA Config: https://github.com/ceph/ceph-build/tree/899d0848a0f487f7e4cee773556aaf9529b8db26/kernel/build
-.. _developer playground: https://wiki.sepia.ceph.com/doku.php?id=devplayground#developer_playgrounds
-.. _ceph kernel git repository: https://github.com/ceph/ceph-client
+``k-testing.yaml`` fragment. See that file for more details.

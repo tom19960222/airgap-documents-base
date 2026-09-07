@@ -25,7 +25,7 @@ without ill effects depending on your cluster. You hit a bug in how we
 calculate the initial PG number from a cluster description.
 
 There are a couple of different categories of PGs; the 6 that exist
-(in the original emailer's `ceph -s` output) are "local" PGs which
+(in the original emailer's ``ceph -s`` output) are "local" PGs which
 are tied to a specific OSD. However, those aren't actually used in a
 standard Ceph configuration.
 
@@ -54,33 +54,37 @@ storage; it represents 1/pg_num'th of the storage you happen to have
 on your OSDs.
 
 Ignoring the finer points of CRUSH and custom placement, it goes
-something like this in pseudocode::
+something like this in pseudocode:
 
-	locator = object_name
-	obj_hash = hash(locator)
-	pg = obj_hash % num_pg
-	OSDs_for_pg = crush(pg)  # returns a list of OSDs
-	primary = osds_for_pg[0]
-	replicas = osds_for_pg[1:]
+```
+locator = object_name
+obj_hash = hash(locator)
+pg = obj_hash % num_pg
+OSDs_for_pg = crush(pg)  # returns a list of OSDs
+primary = osds_for_pg[0]
+replicas = osds_for_pg[1:]
+```
 
 If you want to understand the crush() part in the above, imagine a
 perfectly spherical datacenter in a vacuum ;) that is, if all OSDs
 have weight 1.0, and there is no topology to the data center (all OSDs
 are on the top level), and you use defaults, etc, it simplifies to
-consistent hashing; you can think of it as::
+consistent hashing; you can think of it as:
 
-	def crush(pg):
-	   all_osds = ['osd.0', 'osd.1', 'osd.2', ...]
-	   result = []
-	   # size is the number of copies; primary+replicas
-	   while len(result) < size:
-	       r = hash(pg)
-	       chosen = all_osds[ r % len(all_osds) ]
-	       if chosen in result:
-	           # OSD can be picked only once
-	           continue
-	       result.append(chosen)
-	   return result
+```
+def crush(pg):
+   all_osds = ['osd.0', 'osd.1', 'osd.2', ...]
+   result = []
+   # size is the number of copies; primary+replicas
+   while len(result) < size:
+       r = hash(pg)
+       chosen = all_osds[ r % len(all_osds) ]
+       if chosen in result:
+           # OSD can be picked only once
+           continue
+       result.append(chosen)
+   return result
+```
 
 # User-visible PG States
 
@@ -122,7 +126,7 @@ consistent hashing; you can think of it as::
   finished, etc.)
 
 *peering*
-  the PG is undergoing the /dev/peering process
+  the PG is undergoing the [/dev/peering](peering.md) process
 
 *repair*
   the PG is being checked and any inconsistencies found will be repaired (if possible)

@@ -45,7 +45,7 @@ packages is available at [RPM-GPG-KEY-Ceph-Community](https://linuxsoft.cern.ch/
   and valid), diff-iterate is now guaranteed to execute locally if exclusive
   lock is available.  This brings a dramatic performance improvement for QEMU
   live disk synchronization and backup use cases.
-* RBD: The option `--image-id` has been added to the `rbd children` CLI command,
+* RBD: The option ``--image-id`` has been added to the `rbd children` CLI command,
   so it can be run for images in the trash.
 * RBD: `RBD_IMAGE_OPTION_CLONE_FORMAT` option has been exposed in Python
   bindings via the `clone_format` optional parameter to `clone`, `deep_copy` and
@@ -813,7 +813,7 @@ that all users update to this release.
   correctly in multi-site. Previously, the replicas of such objects were
   corrupted on decryption.  A new tool, ``radosgw-admin bucket resync encrypted
   multipart``, can be used to identify these original multipart uploads. The
-  `LastModified` timestamp of any identified object is incremented by 1
+  ``LastModified`` timestamp of any identified object is incremented by 1
   nanosecond to cause peer zones to replicate it again.  For multi-site
   deployments that make any use of Server-Side Encryption, we recommended
   running this command against every bucket in every zone after all zones have
@@ -831,7 +831,7 @@ that all users update to this release.
 
 * Dashboard: There is a new Dashboard page with an improved layout. Active alerts
   and some important charts are now displayed inside cards. This new dashboard can
-  be disabled and the older layout brought back by setting `ceph dashboard feature disable dashboard`.
+  be disabled and the older layout brought back by setting ``ceph dashboard feature disable dashboard``.
 
 ## Changelog
 
@@ -1922,8 +1922,8 @@ that all users update to this release.
 
 ## Notable Changes
 
-* Cephfs: The `AT_NO_ATTR_SYNC` macro is deprecated, please use the standard
-  `AT_STATX_DONT_SYNC` macro. The `AT_NO_ATTR_SYNC` macro will be removed in
+* Cephfs: The ``AT_NO_ATTR_SYNC`` macro is deprecated, please use the standard
+  ``AT_STATX_DONT_SYNC`` macro. The ``AT_NO_ATTR_SYNC`` macro will be removed in
   the future.
 
 * OSD: The issue of high CPU utilization during recovery/backfill operations
@@ -1932,20 +1932,20 @@ that all users update to this release.
 * Trimming of PGLog dups is now controlled by size instead of the version.
   This fixes the PGLog inflation issue that was happening when online
   (in OSD) trimming jammed after a PG split operation. Also, a new offline
-  mechanism has been added: `ceph-objectstore-tool` now has a `trim-pg-log-dups` op
+  mechanism has been added: ``ceph-objectstore-tool`` now has a ``trim-pg-log-dups`` op
   that targets situations where an OSD is unable to boot due to those inflated dups.
   If that is the case, in OSD logs the "You can be hit by THE DUPS BUG" warning
   will be visible.
   Relevant tracker: https://tracker.ceph.com/issues/53729
 
 * OSD: Octopus modified the SnapMapper key format from
-  `<LEGACY_MAPPING_PREFIX><snapid>_<shardid>_<hobject_t::to_str()>`
+  ``<LEGACY_MAPPING_PREFIX><snapid>_<shardid>_<hobject_t::to_str()>``
   to
-  `<MAPPING_PREFIX><pool>_<snapid>_<shardid>_<hobject_t::to_str()>`.
+  ``<MAPPING_PREFIX><pool>_<snapid>_<shardid>_<hobject_t::to_str()>``.
   When this change was introduced, [94ebe0e](https://github.com/ceph/ceph/commit/94ebe0eab968068c29fdffa1bfe68c72122db633)
   also introduced a conversion with a crucial bug which essentially
   destroyed legacy keys by mapping them to
-  `<MAPPING_PREFIX><poolid>_<snapid>_`
+  ``<MAPPING_PREFIX><poolid>_<snapid>_``
   without the object-unique suffix. The conversion is fixed in this release.
   Relevant tracker: https://tracker.ceph.com/issues/56147
 
@@ -2256,8 +2256,8 @@ This is a hotfix release that resolves two security flaws.
   segfault.
 
 ## Changelog
-* mgr/volumes: Fix subvolume discover during upgrade (CVE-2022-0670, Kotresh HR)
-* mgr/volumes: V2 Fix for test_subvolume_retain_snapshot_invalid_recreate (CVE-2022-0670, Kotresh HR)
+* mgr/volumes: Fix subvolume discover during upgrade ([CVE-2022-0670](../security/CVE-2022-0670.md#cve-2022-0670), Kotresh HR)
+* mgr/volumes: V2 Fix for test_subvolume_retain_snapshot_invalid_recreate ([CVE-2022-0670](../security/CVE-2022-0670.md#cve-2022-0670), Kotresh HR)
 * qa: validate subvolume discover on upgrade (Kotresh HR)
 * rgw: s3website check for bucket before retargeting (Seena Fallah)
 
@@ -2401,12 +2401,12 @@ This is the first stable release of Ceph Quincy.
   indirect dependency. If your workflow depends on this behavior, you
   might want to install `ceph-mgr-rook` separately.
 
-* The `device_health_metrics` pool has been renamed `.mgr`. It is now
-  used as a common store for all `ceph-mgr` modules. After upgrading to
-  Quincy, the `device_health_metrics` pool will be renamed to `.mgr`
+* The ``device_health_metrics`` pool has been renamed ``.mgr``. It is now
+  used as a common store for all ``ceph-mgr`` modules. After upgrading to
+  Quincy, the ``device_health_metrics`` pool will be renamed to ``.mgr``
   on existing clusters.
 
-* The `ceph pg dump` command now prints three additional columns:
+* The ``ceph pg dump`` command now prints three additional columns:
   `LAST_SCRUB_DURATION` shows the duration (in seconds) of the last completed
   scrub;
   `SCRUB_SCHEDULING` conveys whether a PG is scheduled to be scrubbed at a
@@ -2415,18 +2415,18 @@ This is the first stable release of Ceph Quincy.
   `OBJECTS_SCRUBBED` shows the number of objects scrubbed in a PG after a
   scrub begins.
 
-* A health warning is now reported if the `require-osd-release` flag
+* A health warning is now reported if the ``require-osd-release`` flag
   is not set to the appropriate release after a cluster upgrade.
 
-* LevelDB support has been removed. `WITH_LEVELDB` is no longer a supported
+* LevelDB support has been removed. ``WITH_LEVELDB`` is no longer a supported
   build option. Users *should* migrate their monitors and OSDs to RocksDB
   before upgrading to Quincy.
 
-* Cephadm: `osd_memory_target_autotune` is enabled by default, which sets
-  `mgr/cephadm/autotune_memory_target_ratio` to `0.7` of total RAM. This
+* Cephadm: ``osd_memory_target_autotune`` is enabled by default, which sets
+  ``mgr/cephadm/autotune_memory_target_ratio`` to ``0.7`` of total RAM. This
   is unsuitable for hyperconverged infrastructures. For hyperconverged Ceph,
   please refer to the documentation or set
-  `mgr/cephadm/autotune_memory_target_ratio` to `0.2`.
+  ``mgr/cephadm/autotune_memory_target_ratio`` to ``0.2``.
 
 * telemetry: Improved the opt-in flow so that users can keep sharing the same
   data, even when new data collections are available. A new 'perf' channel that
@@ -2571,7 +2571,7 @@ This is the first stable release of Ceph Quincy.
 * It is possible to specify ssl options and ciphers for beast frontend
   now. The default ssl options setting is
   "no_sslv2:no_sslv3:no_tlsv1:no_tlsv1_1". If you want to return to the old
-  behavior, add 'ssl_options=' (empty) to the `rgw frontends` configuration.
+  behavior, add 'ssl_options=' (empty) to the ``rgw frontends`` configuration.
 
 * The behavior for Multipart Upload was modified so that only
   CompleteMultipartUpload notification is sent at the end of the multipart
@@ -2609,7 +2609,7 @@ the autoscaler for all pools during the upgrade using the noautoscale flag.
 
 > **Note:**
 > You can monitor the progress of your upgrade at each stage with the
-> `ceph versions` command, which will tell you what ceph version(s) are
+> ``ceph versions`` command, which will tell you what ceph version(s) are
 > running for each type of daemon.
 
 #### Upgrading cephadm clusters
@@ -2623,7 +2623,7 @@ ceph orch upgrade start --ceph-version 17.2.0
 
 The same process is used to upgrade to future minor releases.
 
-Upgrade progress can be monitored with `ceph -s` (which provides a simple
+Upgrade progress can be monitored with ``ceph -s`` (which provides a simple
 progress bar) or more verbosely with
 
 ```bash
@@ -2652,9 +2652,9 @@ downgrade back to Octopus or Pacific.
 > If you cluster is running Octopus (15.2.x) or later, you might choose
 > to first convert it to use cephadm so that the upgrade to Quincy
 > is automated (see above).  For more information, see
-> cephadm-adoption.
+> [cephadm-adoption](../cephadm/adoption.md#cephadm-adoption).
 
-1. Set the `noout` flag for the duration of the upgrade. (Optional,
+1. Set the ``noout`` flag for the duration of the upgrade. (Optional,
    but recommended.):
 
 ```bash
@@ -2669,7 +2669,7 @@ systemctl restart ceph-mon.target
 ```
 
    Once all monitors are up, verify that the monitor upgrade is
-   complete by looking for the `quincy` string in the mon
+   complete by looking for the ``quincy`` string in the mon
    map.  The command:
 
 ```bash
@@ -2685,14 +2685,14 @@ min_mon_release 17 (quincy)
    If it doesn't, that implies that one or more monitors hasn't been
    upgraded and restarted and/or the quorum does not include all monitors.
 
-1. Upgrade `ceph-mgr` daemons by installing the new packages and
+1. Upgrade ``ceph-mgr`` daemons by installing the new packages and
    restarting all manager daemons.  For example, on each manager host,:
 
 ```bash
 systemctl restart ceph-mgr.target
 ```
 
-   Verify the `ceph-mgr` daemons are running by checking ``ceph
+   Verify the ``ceph-mgr`` daemons are running by checking ``ceph
    -s``:
 
 ```bash
@@ -2722,41 +2722,36 @@ systemctl restart ceph-osd.target
       so that it may be re-enabled after the upgrade (if currently enabled):
 
 ```bash
+ceph fs get <fs_name> | grep allow_standby_replay
+ceph fs set <fs_name> allow_standby_replay false
 ```
-
-	 ceph fs get <fs_name> | grep allow_standby_replay
-	 ceph fs set <fs_name> allow_standby_replay false
 
    1. Reduce the number of ranks to 1.  (Make note of the original
       number of MDS daemons first if you plan to restore it later.):
 
 ```bash
+ceph fs status
+ceph fs set <fs_name> max_mds 1
 ```
-
-	 ceph fs status
-	 ceph fs set <fs_name> max_mds 1
 
    1. Wait for the cluster to deactivate any non-zero ranks by
       periodically checking the status:
 
 ```bash
+ceph fs status
 ```
-
-	 ceph fs status
 
    1. Take all standby MDS daemons offline on the appropriate hosts with:
 
 ```bash
+systemctl stop ceph-mds@<daemon_name>
 ```
-
-	 systemctl stop ceph-mds@<daemon_name>
 
    1. Confirm that only one MDS is online and is rank 0 for your FS:
 
 ```bash
+ceph fs status
 ```
-
-	 ceph fs status
 
    1. Upgrade the last remaining MDS daemon by installing the new
       packages and restarting the daemon:
@@ -2768,24 +2763,21 @@ systemctl restart ceph-mds.target
    1. Restart all standby MDS daemons that were taken offline:
 
 ```bash
+systemctl start ceph-mds.target
 ```
 
-	 systemctl start ceph-mds.target
-
-   1. Restore the original value of `max_mds` for the volume:
+   1. Restore the original value of ``max_mds`` for the volume:
 
 ```bash
+ceph fs set <fs_name> max_mds <original_max_mds>
 ```
 
-	 ceph fs set <fs_name> max_mds <original_max_mds>
-
-    1. Restore the original value of `allow_standby_replay` for the volume if
-       it was `true`:
+    1. Restore the original value of ``allow_standby_replay`` for the volume if
+       it was ``true``:
 
 ```bash
+ceph fs set <fs_name> allow_standby_replay true
 ```
-
-	 ceph fs set <fs_name> allow_standby_replay true
 
 1. Upgrade all radosgw daemons by upgrading packages and restarting
    daemons on all hosts:
@@ -2801,7 +2793,7 @@ systemctl restart ceph-radosgw.target
 ceph osd require-osd-release quincy
 ```
 
-1. If you set `noout` at the beginning, be sure to clear it with:
+1. If you set ``noout`` at the beginning, be sure to clear it with:
 
 ```bash
 ceph osd unset noout
@@ -2810,11 +2802,11 @@ ceph osd unset noout
 1. Consider transitioning your cluster to use the cephadm deployment
    and orchestration framework to simplify cluster management and
    future upgrades.  For more information on converting an existing
-   cluster to cephadm, see cephadm-adoption.
+   cluster to cephadm, see [cephadm-adoption](../cephadm/adoption.md#cephadm-adoption).
 
 #### Post-upgrade
 
-1. Verify the cluster is healthy with `ceph health`. If your cluster is
+1. Verify the cluster is healthy with ``ceph health``. If your cluster is
    running Filestore, a deprecation warning is expected. This warning can
    be temporarily muted using the following command:
 
@@ -2823,8 +2815,7 @@ ceph health mute OSD_FILESTORE
 ```
 
 1. If you are upgrading from Mimic, or did not already do so when you
-   upgraded to Nautilus, we recommend you enable the new :ref:`v2
-   network protocol <msgr2>`, issue the following command:
+   upgraded to Nautilus, we recommend you enable the new [v2 network protocol](../rados/configuration/msgr2.md#msgr2), issue the following command:
 
 ```bash
 ceph mon enable-msgr2
@@ -2838,10 +2829,10 @@ ceph mon enable-msgr2
 ceph mon dump
 ```
 
-   and verify that each monitor has both a `v2:` and `v1:` address
+   and verify that each monitor has both a ``v2:`` and ``v1:`` address
    listed.
 
-1. Consider enabling the telemetry module to send
+1. Consider enabling the [telemetry module](../mgr/telemetry.md#telemetry) to send
    anonymized usage statistics and crash information to the Ceph
    upstream developers.  To see what would be reported (without actually
    sending any information to anyone),:
@@ -2860,8 +2851,7 @@ ceph telemetry on
    The public dashboard that aggregates Ceph telemetry can be found at
    [https://telemetry-public.ceph.com/](https://telemetry-public.ceph.com/).
 
-   For more information about the telemetry module, see :ref:`the
-   documentation <telemetry>`.
+   For more information about the telemetry module, see [the documentation](../mgr/telemetry.md#telemetry).
 
 ## Upgrading from pre-Octopus releases (like Nautilus)
 

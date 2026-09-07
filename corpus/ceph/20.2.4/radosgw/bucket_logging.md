@@ -46,8 +46,8 @@ For performance reasons, even though the log records are written to persistent
 storage, the log object will appear in the log bucket only after some
 configurable amount of time (or if the maximum object size of 128MB is
 reached). This time (in seconds) can be set per source bucket via a Ceph
-extension to the REST API, or globally via the
-`rgw_bucket_logging_obj_roll_time` configuration option. If not set, the
+extension to the [REST API](s3.md#radosgw-s3), or globally via the
+``rgw_bucket_logging_obj_roll_time`` configuration option. If not set, the
 default time is 5 minutes. Adding a log object to the log bucket is done
 "lazily", meaning that if no more records are written to the object, it may
 remain outside of the log bucket even after the configured time has passed. To
@@ -90,29 +90,18 @@ the logs are written.
 
 The following operations are supported in journal mode:
 
-+-------------------------------+-------------------------------------+-----------------+
-| Operation                     | Operation Name                      | Fails Operation |
-+===============================+=====================================+=================+
-| `PutObject`                 | `REST.PUT.OBJECT`                 | Yes             |
-+-------------------------------+-------------------------------------+-----------------+
-| `DeleteObject`              | `REST.DELETE.OBJECT`              | No              |
-+-------------------------------+-------------------------------------+-----------------+
-| `DeleteObjects`             | `REST.POST.DELETE_MULTI_OBJECT`   | No              |
-+-------------------------------+-------------------------------------+-----------------+
-| `CompleteMultipartUpload`   | `REST.POST.UPLOAD`                | Yes             |
-+-------------------------------+-------------------------------------+-----------------+
-| `CopyObject`                | `REST.PUT.OBJECT`                 | Yes             |
-+-------------------------------+-------------------------------------+-----------------+
-| `PutObjectAcl`              | `REST.PUT.ACL`                    | Yes             |
-+-------------------------------+-------------------------------------+-----------------+
-| `PutObjectLegalHold`        | `REST.PUT.LEGAL_HOLD`             | Yes             |
-+-------------------------------+-------------------------------------+-----------------+
-| `PutObjectRetention`        | `REST.PUT.RETENTION`              | Yes             |
-+-------------------------------+-------------------------------------+-----------------+
-| `PutObjectTagging`          | `REST.PUT.OBJECT_TAGGING`         | Yes             |
-+-------------------------------+-------------------------------------+-----------------+
-| `DeleteObjectTagging`       | `REST.DELETE.OBJECT_TAGGING`      | No              |
-+-------------------------------+-------------------------------------+-----------------+
+| Operation | Operation Name | Fails Operation |
+| --- | --- | --- |
+| ``PutObject`` | ``REST.PUT.OBJECT`` | Yes |
+| ``DeleteObject`` | ``REST.DELETE.OBJECT`` | No |
+| ``DeleteObjects`` | ``REST.POST.DELETE_MULTI_OBJECT`` | No |
+| ``CompleteMultipartUpload`` | ``REST.POST.UPLOAD`` | Yes |
+| ``CopyObject`` | ``REST.PUT.OBJECT`` | Yes |
+| ``PutObjectAcl`` | ``REST.PUT.ACL`` | Yes |
+| ``PutObjectLegalHold`` | ``REST.PUT.LEGAL_HOLD`` | Yes |
+| ``PutObjectRetention`` | ``REST.PUT.RETENTION`` | Yes |
+| ``PutObjectTagging`` | ``REST.PUT.OBJECT_TAGGING`` | Yes |
+| ``DeleteObjectTagging`` | ``REST.DELETE.OBJECT_TAGGING`` | No |
 
 ### Multisite
 In a multi-zone deployment, each zone uses its own log object before the
@@ -125,8 +114,8 @@ holding relevant log records.
 Only the owner of the source bucket is allowed to enable or disable bucket
 logging. For a bucket to be used as a log bucket, it must have a bucket policy
 that allows that (even if the source bucket and the log bucket are owned by the
-same user or account). The bucket policy must allow the `s3:PutObject` action
-for the log bucket, to be performed by the `logging.s3.amazonaws.com` service
+same user or account). The bucket policy must allow the ``s3:PutObject`` action
+for the log bucket, to be performed by the ``logging.s3.amazonaws.com`` service
 principal. The bucket policy should also specify the source bucket and account
 that are expected to write logs to it. For example:
 
@@ -165,7 +154,7 @@ operation fails and as a result the bucket operation also fails. In "Standard"
 mode, the logging operation is skipped, but the bucket operation continues.
 
 ## Bucket Logging REST API
-Detailed under: Bucket Operations.
+Detailed under: [Bucket Operations](s3/bucketops.md).
 
 ## Log Objects Key Format
 
@@ -213,9 +202,9 @@ The "Journal" record format uses minimum amount of data for journaling
 bucket changes (this is a Ceph extension).
 
   - bucket owner (or dash if empty)
-  - bucket name (or dash if empty), in the format: `[tenant:]<bucket name>`
-  - time in the following format: `[day/month/year:hour:minute:second timezone]`
-  - operation in the following format: `WEBSITE/REST.<HTTP method>.<resource>`
+  - bucket name (or dash if empty), in the format: ``[tenant:]<bucket name>``
+  - time in the following format: ``[day/month/year:hour:minute:second timezone]``
+  - operation in the following format: ``WEBSITE/REST.<HTTP method>.<resource>``
   - object key (or dash if empty)
   - object size (or dash if empty)
   - version id (or dash if empty)
@@ -231,17 +220,17 @@ testid fish [06/Aug/2024:09:40:28 +0000] REST.DELETE.OBJECT myfile - - 4cfdfc1f5
 ```
 
 ### Standard
-The "Standard" record format is based on AWS Logging Record Format.
+The "Standard" record format is based on [AWS Logging Record Format](https://docs.aws.amazon.com/AmazonS3/latest/userguide/LogFormat.html).
 
   - bucket owner (or dash if empty)
-  - bucket name (or dash if empty) in the format: `[tenant:]<bucket name>`
-  - time in the following format: `[day/month/year:hour:minute:second timezone]` where "timezone" is in UTC offset
+  - bucket name (or dash if empty) in the format: ``[tenant:]<bucket name>``
+  - time in the following format: ``[day/month/year:hour:minute:second timezone]`` where "timezone" is in UTC offset
   - client IP address (or dash if empty)
   - user or account (or dash if empty)
   - request ID
-  - operation in the following format: `WEBSITE/REST.<HTTP method>.<resource>`
+  - operation in the following format: ``WEBSITE/REST.<HTTP method>.<resource>``
   - object key (or dash if empty)
-  - request URI in the following format: `"<HTTP method> <URI> <HTTP version>"`
+  - request URI in the following format: ``"<HTTP method> <URI> <HTTP version>"``
   - HTTP status (or dash if zero). Note that in most cases log is written before the status is known
   - error code (or dash if empty)
   - bytes sent (or dash if zero)
@@ -251,14 +240,14 @@ The "Standard" record format is based on AWS Logging Record Format.
   - referer (or dash if empty)
   - user agent (or dash if empty) inside double quotes
   - version id (or dash if empty)
-  - host id taken from `x-amz-id-2` (or dash if empty)
+  - host id taken from ``x-amz-id-2`` (or dash if empty)
   - signature version (or dash if empty)
   - cipher suite (or dash if empty)
-  - authentication type (`AuthHeader` for regular auth, `QueryString` for presigned URL or dash if unauthenticated)
+  - authentication type (``AuthHeader`` for regular auth, ``QueryString`` for presigned URL or dash if unauthenticated)
   - host header (or dash if empty)
   - TLS version (or dash if empty)
   - access point ARN (not supported, always a dash)
-  - ACL flag (`Yes` if an ACL was required for authorization, otherwise dash)
+  - ACL flag (``Yes`` if an ACL was required for authorization, otherwise dash)
 
 For example:
 
@@ -269,6 +258,3 @@ testid fish [06/Aug/2024:09:30:25 +0000] - testid 9e369a15-5f43-4f07-b638-de920b
 testid fish [06/Aug/2024:09:30:51 +0000] - testid 9e369a15-5f43-4f07-b638-de920b22f91b.4179.7046073853138417766 REST.GET.OBJECT myfile "GET /fish/myfile HTTP/1.1" 200 - - 512 - - - - - - - - - localhost - -
 testid fish [06/Aug/2024:09:30:56 +0000] - testid 9e369a15-5f43-4f07-b638-de920b22f91b.4179.10723158448701085570 REST.DELETE.OBJECT myfile "DELETE /fish/myfile1 HTTP/1.1" 200 - - 512 - - - - - - - - - localhost - -
 ```
-
-.. _AWS Logging Record Format: https://docs.aws.amazon.com/AmazonS3/latest/userguide/LogFormat.html
-.. _Bucket Operations: ../s3/bucketops

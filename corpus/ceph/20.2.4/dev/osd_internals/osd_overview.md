@@ -18,17 +18,17 @@ fetched_at: 2026-08-18T01:32:45Z
      1. cluster_messenger - handles traffic to other OSDs, monitors
      2. client_messenger - handles client traffic
 
-	 This division allows the OSD to be configured with different interfaces for
-	 client and cluster traffic.
+         This division allows the OSD to be configured with different interfaces for
+         client and cluster traffic.
 
 *Dispatcher*
    See src/msg/Dispatcher.h
 
-	 OSD implements the Dispatcher interface.  Of particular note is ms_dispatch,
-	 which serves as the entry point for messages received via either the client
-	 or cluster messenger.  Because there are two messengers, ms_dispatch may be
-	 called from at least two threads.  The osd_lock is always held during
-	 ms_dispatch.
+         OSD implements the Dispatcher interface.  Of particular note is ms_dispatch,
+         which serves as the entry point for messages received via either the client
+         or cluster messenger.  Because there are two messengers, ms_dispatch may be
+         called from at least two threads.  The osd_lock is always held during
+         ms_dispatch.
 
 *WorkQueue*
   See src/common/WorkQueue.h

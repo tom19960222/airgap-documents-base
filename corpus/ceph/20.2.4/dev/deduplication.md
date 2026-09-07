@@ -88,7 +88,7 @@ scheme between replication and erasure coding depending on
 its usage and each pool can be placed in a different storage
 location depending on the required performance.
 
-Regarding how to use, please see `osd_internals/manifest.rst`
+Regarding how to use, please see ``osd_internals/manifest.rst``
 
 # Usage Patterns
 
@@ -104,7 +104,7 @@ overwrites.  As such, it makes sense to fingerprint and dedup up front.
 Unlike cephfs and rbd, radosgw has a system for storing
 explicit metadata in the head object of a logical s3 object for
 locating the remaining pieces.  As such, radosgw could use the
-refcounting machinery (`osd_internals/refcount.rst`) directly without
+refcounting machinery (``osd_internals/refcount.rst``) directly without
 needing direct support from rados for manifests.
 
 ## RBD/Cephfs
@@ -126,8 +126,8 @@ support needs robust support for snapshots.
 
 # RADOS Machinery
 
-For more information on rados redirect/chunk/dedup support, see `osd_internals/manifest.rst`.
-For more information on rados refcount support, see `osd_internals/refcount.rst`.
+For more information on rados redirect/chunk/dedup support, see ``osd_internals/manifest.rst``.
+For more information on rados refcount support, see ``osd_internals/refcount.rst``.
 
 # Status and Future Work
 
@@ -153,12 +153,12 @@ Below we explain how to perform deduplication.
 ## Prerequisite
 
 If the Ceph cluster is started from Ceph mainline, users need to check
-`ceph-test` package which is including ceph-dedup-tool is installed.
+``ceph-test`` package which is including ceph-dedup-tool is installed.
 
 ## Deatiled Instructions
 
-Users can use ceph-dedup-tool with `estimate`, `sample-dedup`,
-`chunk-scrub`, and `chunk-repair` operations. To provide better
+Users can use ceph-dedup-tool with ``estimate``, ``sample-dedup``,
+``chunk-scrub``, and ``chunk-repair`` operations. To provide better
 convenience for users, we have enabled necessary operations through
 ceph-dedup-tool, and we recommend using the following operations freely
 by using any types of scripts.
@@ -177,9 +177,9 @@ ceph-dedup-tool --op estimate
 This CLI command will show how much storage space can be saved when deduplication
 is applied on the pool. If the amount of the saved space is higher than user's expectation,
 the pool probably is worth performing deduplication.
-Users should specify the `BASE_POOL`, within which the object targeted for deduplication
+Users should specify the ``BASE_POOL``, within which the object targeted for deduplication
 is stored. The users also need to run ceph-dedup-tool multiple time
-with varying `chunk_size` to find the optimal chunk size. Note that the
+with varying ``chunk_size`` to find the optimal chunk size. Note that the
 optimal value probably differs in the content of each object in case of fastcdc
 chunk algorithm (not fixed).
 
@@ -204,12 +204,12 @@ Example output:
 }
 ```
 
-The above is an example output when executing `estimate`. `target_chunk_size` is the same as
-`chunk_size` given by the user. `dedup_bytes_ratio` shows how many bytes are redundant from
-examined bytes. For instance, 1 - `dedup_bytes_ratio` means the percentage of saved storage space.
-`dedup_object_ratio` is the generated chunk objects / `examined_objects`. `chunk_size_average`
-means that the divided chunk size on average when performing CDC---this may differnet from `target_chunk_size`
-because CDC genarates different chunk-boundary depending on the content. `chunk_size_stddev`
+The above is an example output when executing ``estimate``. ``target_chunk_size`` is the same as
+``chunk_size`` given by the user. ``dedup_bytes_ratio`` shows how many bytes are redundant from
+examined bytes. For instance, 1 - ``dedup_bytes_ratio`` means the percentage of saved storage space.
+``dedup_object_ratio`` is the generated chunk objects / ``examined_objects``. ``chunk_size_average``
+means that the divided chunk size on average when performing CDC---this may differnet from ``target_chunk_size``
+because CDC genarates different chunk-boundary depending on the content. ``chunk_size_stddev``
 represents the standard deviation of the chunk size.
 
 ### 2. Create chunk pool.
@@ -237,10 +237,10 @@ ceph-dedup-tool --op sample-dedup
   --snap
 ```
 
-The `sample-dedup` comamnd spawns threads specified by `THREAD_COUNT` to deduplicate objects on
-the `BASE_POOL`. According to sampling-ratio---do a full search if `SAMPLE_RATIO` is 100, the threads selectively
-perform deduplication if the chunk is redundant over `THRESHOLD` times during iteration.
-If --loop is set, the theads will wakeup after `WAKEUP_PERIOD`. If not, the threads will exit after one iteration.
+The ``sample-dedup`` comamnd spawns threads specified by ``THREAD_COUNT`` to deduplicate objects on
+the ``BASE_POOL``. According to sampling-ratio---do a full search if ``SAMPLE_RATIO`` is 100, the threads selectively
+perform deduplication if the chunk is redundant over ``THRESHOLD`` times during iteration.
+If --loop is set, the theads will wakeup after ``WAKEUP_PERIOD``. If not, the threads will exit after one iteration.
 
 Example output:
 
@@ -285,15 +285,15 @@ ceph-dedup-tool --op object-dedup
   --dedup-cdc-chunk-size [CHUNK_SIZE]
 ```
 
-The `object-dedup` command triggers deduplication on the RADOS object specified by `OID`.
-All parameters shown above must be specified. `CHUNK_SIZE` should be taken from
+The ``object-dedup`` command triggers deduplication on the RADOS object specified by ``OID``.
+All parameters shown above must be specified. ``CHUNK_SIZE`` should be taken from
 the results of step 1 above.
-Note that when this command is executed, `fastcdc` will be set by default and other parameters
-such as `fingerprint-algorithm` and `CHUNK_SIZE` will be set as defaults for the pool.
+Note that when this command is executed, ``fastcdc`` will be set by default and other parameters
+such as ``fingerprint-algorithm`` and ``CHUNK_SIZE`` will be set as defaults for the pool.
 Deduplicated objects will appear in the chunk pool. If the object is mutated over time, user needs to re-run
-`object-dedup` because chunk-boundary should be recalculated based on updated contents.
-The user needs to specify `snap` if the target object is snapshotted. After deduplication is done, the target
-object size in `BASE_POOL` is zero (evicted) and chunks objects are genereated---these appear in `CHUNK_POOL`.
+``object-dedup`` because chunk-boundary should be recalculated based on updated contents.
+The user needs to specify ``snap`` if the target object is snapshotted. After deduplication is done, the target
+object size in ``BASE_POOL`` is zero (evicted) and chunks objects are genereated---these appear in ``CHUNK_POOL``.
 
 ### 4. Read/write I/Os
 
@@ -312,8 +312,8 @@ ceph-dedup-tool --op chunk-scrub
   --max-thread [THREAD_COUNT]
 ```
 
-The `chunk-scrub` command identifies reference mismatches between a
-metadata object and a chunk object. The `chunk-pool` parameter tells
+The ``chunk-scrub`` command identifies reference mismatches between a
+metadata object and a chunk object. The ``chunk-pool`` parameter tells
 where the target chunk objects are located to the ceph-dedup-tool.
 
 Example output:
@@ -325,16 +325,16 @@ $ bin/ceph-dedup-tool --op dump-chunk-refs --chunk-pool chunk --object 2ac67f70d
 {
   "type": "by_object",
   "count": 2,
-	"refs": [
+    "refs": [
     {
       "oid": "testfile2",
-    	"key": "",
-    	"snapid": -2,
-    	"hash": 2905889452,
-    	"max": 0,
-    	"pool": 2,
-    	"namespace": ""
-  	},
+            "key": "",
+            "snapid": -2,
+            "hash": 2905889452,
+            "max": 0,
+            "pool": 2,
+            "namespace": ""
+    },
     {
       "oid": "dummy-obj",
       "key": "",
@@ -362,9 +362,9 @@ join
 
 ### 6. Repair a mismatched chunk reference
 
-If any reference mismatches occur after the `chunk-scrub`, it is
-recommended to perform the `chunk-repair` operation to fix reference
-mismatches. The `chunk-repair` operation helps in resolving the
+If any reference mismatches occur after the ``chunk-scrub``, it is
+recommended to perform the ``chunk-repair`` operation to fix reference
+mismatches. The ``chunk-repair`` operation helps in resolving the
 reference mismatch and restoring consistency.
 
 ```bash
@@ -375,9 +375,9 @@ ceph-dedup-tool --op chunk-repair
   --target-ref-pool-id [TARGET_POOL_ID]
 ```
 
-`chunk-repair` fixes the `target-ref`, which is a wrong reference of
-an `object`. To fix it correctly, the users must enter the correct
-`TARGET_OID` and `TARGET_POOL_ID`.
+``chunk-repair`` fixes the ``target-ref``, which is a wrong reference of
+an ``object``. To fix it correctly, the users must enter the correct
+``TARGET_OID`` and ``TARGET_POOL_ID``.
 
 ```bash
 $ bin/ceph-dedup-tool --op chunk-repair --chunk-pool chunk --object 2ac67f70d3dd187f8f332bb1391f61d4e5c9baae --target-ref dummy-obj --target-ref-pool-id 10

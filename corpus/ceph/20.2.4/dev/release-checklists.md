@@ -119,7 +119,7 @@ In the `ceph/ceph-build.git` repo:
 # After dev freeze
 
 - [ ] create branch for new release
-- [ ] remove `doc/releases/*.rst`. This should leave behind `doc/releases/releases.yml` which is used for doc building purposes. See also commit 33d63c3 ("doc: remove release notes for release branch") for details.
+- [ ] remove ``doc/releases/*.rst``. This should leave behind ``doc/releases/releases.yml`` which is used for doc building purposes. See also commit 33d63c3 ("doc: remove release notes for release branch") for details.
 - [ ] cherry-pick 8cf9ad62949516666ad0f2c0bb7726ef68e4d666 ("doc: add releases links to toc"). There will be trivial conflicts.
 - [ ] add redirect for new major release at [RTD](https://readthedocs.org/dashboard/ceph/redirects/).
 - [x] add release name to redmine (using https://tracker.ceph.com/custom_fields/16/edit)
@@ -135,8 +135,8 @@ In the `ceph/ceph-build.git` repo:
 # First stable release
 
 - [x] src/ceph_release: change type `stable`
-- [x] generate new object corpus for encoding/decoding tests - see corpus
+- [x] generate new object corpus for encoding/decoding tests - see [corpus](corpus.md)
 - [x] src/cephadm/cephadmlib/constants.py: update `LATEST_STABLE_RELEASE`
-- [x] activate latest release in readthedocs, as described in `the readthedocs
-  documentation <https://docs.readthedocs.io/en/stable/versions.html>`_
+- [x] activate latest release in readthedocs, as described in [the readthedocs
+  documentation](https://docs.readthedocs.io/en/stable/versions.html)
 - [ ] add release and supported distros to tables in `doc/start/os-recommendations.rst`

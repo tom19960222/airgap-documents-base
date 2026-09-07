@@ -47,11 +47,13 @@ way file data is laid out across Ceph objects.
     A set of objects that together represent a contiguous portion of
     a file.
 
-Three fields in the ceph_file_layout structure define this mapping::
+Three fields in the ceph_file_layout structure define this mapping:
 
-	u32 fl_stripe_unit;
-	u32 fl_stripe_count;
-	u32 fl_object_size;
+```
+u32 fl_stripe_unit;
+u32 fl_stripe_count;
+u32 fl_object_size;
+```
 
 (They are actually maintained in their on-disk format, __le32.)
 
@@ -88,9 +90,8 @@ This means:
 file stripe size = 64KB * 5 = 320KB = 327680 bytes
 each object holds 64GB / 64KB = 1048576 stripe units
 file object set size = 64GB * 5 = 320GB = 343597383680 bytes
+    (also 1048576 stripe units * 327680 bytes per stripe unit)
 ```
-
-	(also 1048576 stripe units * 327680 bytes per stripe unit)
 
 So the file's 1 trillion bytes can be divided into complete object
 sets, then complete stripes, then complete stripe units, and finally

@@ -5,7 +5,7 @@ title: "RGW Support for Multifactor Authentication"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/mfa.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _rgw_mfa:
+<a id="rgw-mfa"></a>
 
 # RGW Support for Multifactor Authentication
 
@@ -31,17 +31,17 @@ different tokens for different zones.
 
 # Terminology
 
--`TOTP`: Time-based One Time Password
+-``TOTP``: Time-based One Time Password
 
--`token serial`: a string that represents the ID of a TOTP token
+-``token serial``: a string that represents the ID of a TOTP token
 
--`token seed`: the secret seed that is used to calculate the TOTP
+-``token seed``: the secret seed that is used to calculate the TOTP
 
--`totp seconds`: the time resolution that is being used for TOTP generation
+-``totp seconds``: the time resolution that is being used for TOTP generation
 
--`totp window`: the number of TOTP tokens that are checked before and after the current token when validating token
+-``totp window``: the number of TOTP tokens that are checked before and after the current token when validating token
 
--`totp pin`: the valid value of a TOTP token at a certain time
+-``totp pin``: the valid value of a TOTP token at a certain time
 
 # Admin commands
 

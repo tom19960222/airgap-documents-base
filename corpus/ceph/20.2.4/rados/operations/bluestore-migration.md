@@ -5,12 +5,11 @@ title: "BlueStore Migration"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/bluestore-migration.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _rados_operations_bluestore_migration:
+<a id="rados-operations-bluestore-migration"></a>
 
 # BlueStore Migration
 > **Warning:** Filestore has been deprecated in the Reef release and is no longer supported.
-
-	     Please migrate to BlueStore.
+> Please migrate to BlueStore.
 
 Each OSD must be formatted as either Filestore or BlueStore. However, a Ceph
 cluster can operate with a mixture of both Filestore OSDs and BlueStore OSDs.
@@ -39,8 +38,8 @@ a failed drive was replaced.
 
 The simplest approach is to verify that the cluster is healthy and
 then follow these steps for each Filestore OSD in succession: mark the OSD
-`out`, wait for the data to replicate across the cluster, reprovision the OSD,
-mark the OSD back `in`, and wait for recovery to complete before proceeding
+``out``, wait for the data to replicate across the cluster, reprovision the OSD,
+mark the OSD back ``in``, and wait for recovery to complete before proceeding
 to the next OSD. This approach is easy to automate, but it entails unnecessary
 data migration that carries costs in time and SSD wear.
 
@@ -63,7 +62,7 @@ data migration that carries costs in time and SSD wear.
       ceph osd count-metadata osd_objectstore
 ```
 
-1. Mark a Filestore OSD `out`:
+1. Mark a Filestore OSD ``out``:
 
 ```bash
 ceph osd out $ID
@@ -81,7 +80,7 @@ while ! ceph osd safe-to-destroy $ID ; do sleep 60 ; done
 systemctl kill ceph-osd@$ID
 ```
 
-.. _osd_id_retrieval:
+<a id="osd-id-retrieval"></a>
 
 1. Note which device the OSD is using:
 
@@ -113,7 +112,7 @@ ceph osd destroy $ID --yes-i-really-mean-it
 1. Provision a BlueStore OSD in place by using the same OSD ID. This requires
    you to identify which device to wipe, and to make certain that you target
    the correct and intended device, using the information that was retrieved in
-   the "Note which device the OSD is using" step.  BE
+   the ["Note which device the OSD is using"](bluestore-migration.md#osd-id-retrieval) step.  BE
    CAREFUL!  Note that you may need to modify these commands when dealing with
    hybrid OSDs:
 
@@ -129,7 +128,7 @@ place concurrently with the draining of the next Filestore OSD, or instead
 however, you must ensure that the cluster is fully clean (in other words, that
 all data has all replicas) before destroying any OSDs. If you opt to reprovision
 multiple OSDs in parallel, be **very** careful to destroy OSDs only within a
-single CRUSH failure domain (for example, `host` or `rack`). Failure to
+single CRUSH failure domain (for example, ``host`` or ``rack``). Failure to
 satisfy this requirement will reduce the redundancy and availability of your
 data and increase the risk of data loss (or even guarantee data loss).
 
@@ -206,17 +205,15 @@ ID CLASS WEIGHT  TYPE NAME     STATUS REWEIGHT PRI-AFF
 ...
 ```
 
-If everything looks good, jump directly to the :ref:`"Wait for the data
-migration to complete" <bluestore_data_migration_step>` step below and proceed
+If everything looks good, jump directly to the ["Wait for the data migration to complete"](bluestore-migration.md#bluestore-data-migration-step) step below and proceed
 from there to clean up the old OSDs.
 
 ### Migration process
 
-If you're using a new host, start at :ref:`the first step
-<bluestore_migration_process_first_step>`. If you're using an existing host,
-jump to this step.
+If you're using a new host, start at [the first step](bluestore-migration.md#bluestore-migration-process-first-step). If you're using an existing host,
+jump to [this step](bluestore-migration.md#bluestore-data-migration-step).
 
-.. _bluestore_migration_process_first_step:
+<a id="bluestore-migration-process-first-step"></a>
 
 1. Provision new BlueStore OSDs for all devices:
 
@@ -230,9 +227,9 @@ ceph-volume lvm create --bluestore --data /dev/$DEVICE
 ceph osd tree
 ```
 
-   You should see the new host `$NEWHOST` with all of the OSDs beneath
+   You should see the new host ``$NEWHOST`` with all of the OSDs beneath
    it, but the host should *not* be nested beneath any other node in the
-   hierarchy (like `root default`).  For example, if `newhost` is
+   hierarchy (like ``root default``).  For example, if ``newhost`` is
    the empty host, you might see something like:
 
 ```
@@ -262,14 +259,14 @@ OLDHOST=<existing-cluster-host-to-convert>
 ceph osd crush swap-bucket $NEWHOST $OLDHOST
 ```
 
-   At this point all data on `$OLDHOST` will begin migrating to the OSDs on
-   `$NEWHOST`.  If there is a difference between the total capacity of the
+   At this point all data on ``$OLDHOST`` will begin migrating to the OSDs on
+   ``$NEWHOST``.  If there is a difference between the total capacity of the
    old hosts and the total capacity of the new hosts, you may also see some
    data migrate to or from other nodes in the cluster. Provided that the hosts
    are similarly sized, however, this will be a relatively small amount of
    data.
 
-.. _bluestore_data_migration_step:
+<a id="bluestore-data-migration-step"></a>
 
 1. Wait for the data migration to complete:
 
@@ -277,7 +274,7 @@ ceph osd crush swap-bucket $NEWHOST $OLDHOST
 while ! ceph osd safe-to-destroy $(ceph osd ls-tree $OLDHOST); do sleep 60 ; done
 ```
 
-1. Stop all old OSDs on the now-empty `$OLDHOST`:
+1. Stop all old OSDs on the now-empty ``$OLDHOST``:
 
 ```bash
 ssh $OLDHOST
@@ -321,8 +318,8 @@ Disadvantages:
 * All migrated data still makes one full hop over the network.
 
 ## Per-OSD device copy
-A single logical OSD can be converted by using the `copy` function
-included in `ceph-objectstore-tool`. This requires that the host have one or more free
+A single logical OSD can be converted by using the ``copy`` function
+included in ``ceph-objectstore-tool``. This requires that the host have one or more free
 devices to provision a new, empty BlueStore OSD. For
 example, if each host in your cluster has twelve OSDs, then you need a
 thirteenth unused OSD so that each OSD can be converted before the
@@ -331,7 +328,7 @@ previous OSD is reclaimed to convert the next OSD.
 Caveats:
 
 * This approach requires that we prepare an empty BlueStore OSD but that we do not allocate
-  a new OSD ID to it. The `ceph-volume` tool does not support such an operation. **IMPORTANT:**
+  a new OSD ID to it. The ``ceph-volume`` tool does not support such an operation. **IMPORTANT:**
   because the setup of *dmcrypt* is closely tied to the identity of the OSD, this approach does not
   work with encrypted OSDs.
 

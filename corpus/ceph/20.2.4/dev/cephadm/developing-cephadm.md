@@ -22,7 +22,7 @@ host is added, so you can deploy additional daemons or add additional hosts.
 
 This works well for developing cephadm itself, because any mgr/cephadm
 or cephadm/cephadm code changes can be applied by kicking ceph-mgr
-with `ceph mgr fail x`.  (When the mgr (re)starts, it loads the
+with ``ceph mgr fail x``.  (When the mgr (re)starts, it loads the
 cephadm/cephadm script into memory.)
 
 :
@@ -31,25 +31,25 @@ cephadm/cephadm script into memory.)
 MON=1 MGR=1 OSD=0 MDS=0 ../src/vstart.sh -d -n -x --cephadm
 ```
 
-- `~/.ssh/id_dsa[.pub]` is used as the cluster key.  It is assumed that
+- ``~/.ssh/id_dsa[.pub]`` is used as the cluster key.  It is assumed that
   this key is authorized to ssh with no passphrase to root@`hostname`.
 - cephadm does not try to manage any daemons started by vstart.sh (any
   nonzero number in the environment variables).  No service spec is defined
   for mon or mgr.
 - You'll see health warnings from cephadm about stray daemons--that's because
   the vstart-launched daemons aren't controlled by cephadm.
-- The default image is `quay.io/ceph-ci/ceph:main`, but you can change
-  this by passing `-o container_image=...` or `ceph config set global container_image ...`.
+- The default image is ``quay.io/ceph-ci/ceph:main``, but you can change
+  this by passing ``-o container_image=...`` or ``ceph config set global container_image ...``.
 
 # cstart and cpatch
 
-The `cstart.sh` script will launch a cluster using cephadm and put the
-conf and keyring in your build dir, so that the `bin/ceph ...` CLI works
-(just like with vstart).  The `ckill.sh` script will tear it down.
+The ``cstart.sh`` script will launch a cluster using cephadm and put the
+conf and keyring in your build dir, so that the ``bin/ceph ...`` CLI works
+(just like with vstart).  The ``ckill.sh`` script will tear it down.
 
-- A unique but stable fsid is stored in `fsid` (in the build dir).
+- A unique but stable fsid is stored in ``fsid`` (in the build dir).
 - The mon port is random, just like with vstart.
-- The container image is `quay.io/ceph-ci/ceph:$tag` where $tag is
+- The container image is ``quay.io/ceph-ci/ceph:$tag`` where $tag is
   the first 8 chars of the fsid.
 - If the container image doesn't exist yet when you run cstart for the
   first time, it is built with cpatch.
@@ -59,7 +59,7 @@ There are a few advantages here:
 - The cluster is a "normal" cephadm cluster that looks and behaves
   just like a user's cluster would.  In contrast, vstart and teuthology
   clusters tend to be special in subtle (and not-so-subtle) ways (e.g.
-  having the `lockdep` turned on).
+  having the ``lockdep`` turned on).
 
 To start a test cluster:
 
@@ -89,7 +89,7 @@ will update the mgr modules (minus the dashboard).  Or:
 sudo ../src/script/cpatch -t quay.io/ceph-ci/ceph:8f509f4e --core
 ```
 
-will do most binaries and libraries.  Pass `-h` to cpatch for all options.
+will do most binaries and libraries.  Pass ``-h`` to cpatch for all options.
 
 Once the container is updated, you can refresh/restart daemons by bouncing
 them with:
@@ -120,10 +120,10 @@ sudo ./cephadm bootstrap --mon-ip 127.0.0.1 \
   --shared_ceph_folder /home/<user>/path/to/ceph/
 ```
 
-- `~/.ssh/id_rsa` is used as the cluster key.  It is assumed that
+- ``~/.ssh/id_rsa`` is used as the cluster key.  It is assumed that
   this key is authorized to ssh with no passphrase to root@`hostname`.
 
-Source code changes made in the `pybind/mgr/` directory then
+Source code changes made in the ``pybind/mgr/`` directory then
 require a daemon restart to take effect.
 
 # Kcli: a virtualization management tool to make easy orchestrators development
@@ -398,75 +398,73 @@ cephadm shell --config /etc/ceph/ceph.conf --keyring /etc/ceph/ceph.kerying
 
 ## Road map
 
-* Create osds with `ceph-volume raw`.
+* Create osds with ``ceph-volume raw``.
 * Enable ceph-volume to mark loopback devices as a valid block device in
   the inventory.
 * Make the box ready to run dashboard CI tests (including cluster expansion).
 
 # Note regarding network calls from CLI handlers
 
-Executing any cephadm CLI commands like `ceph orch ls` will block the
+Executing any cephadm CLI commands like ``ceph orch ls`` will block the
 mon command handler thread within the MGR, thus preventing any concurrent
-CLI calls. Note that pressing `^C` will not resolve this situation,
+CLI calls. Note that pressing ``^C`` will not resolve this situation,
 as *only* the client will be aborted, but not execution of the command
 within the orchestrator manager module itself. This means, cephadm will
 be completely unresponsive until the execution of the CLI handler is
-fully completed. Note that even `ceph orch ps` will not respond while
+fully completed. Note that even ``ceph orch ps`` will not respond while
 another handler is executing.
 
 This means we should do very few synchronous calls to remote hosts.
-As a guideline, cephadm should do at most `O(1)` network calls in CLI handlers.
-Everything else should be done asynchronously in other threads, like `serve()`.
+As a guideline, cephadm should do at most ``O(1)`` network calls in CLI handlers.
+Everything else should be done asynchronously in other threads, like ``serve()``.
 
 # Note regarding different variables used in the code
 
-* a `service_type` is something like mon, mgr, alertmanager etc defined
-  in `ServiceSpec`
-* a `service_id` is the name of the service. Some services don't have
+* a ``service_type`` is something like mon, mgr, alertmanager etc defined
+  in ``ServiceSpec``
+* a ``service_id`` is the name of the service. Some services don't have
   names.
-* a `service_name` is `<service_type>.<service_id>`
-* a `daemon_type` is the same as the service_type, except for ingress,
+* a ``service_name`` is ``<service_type>.<service_id>``
+* a ``daemon_type`` is the same as the service_type, except for ingress,
   which has the haproxy and keepalived daemon types.
-* a `daemon_id` is typically `<service_id>.<hostname>.<random-string>`.
+* a ``daemon_id`` is typically ``<service_id>.<hostname>.<random-string>``.
   (Not the case for e.g. OSDs. OSDs are always called OSD.N)
-* a `daemon_name` is `<daemon_type>.<daemon_id>`
+* a ``daemon_name`` is ``<daemon_type>.<daemon_id>``
 
-.. _compiling-cephadm:
+<a id="compiling-cephadm"></a>
 
 # Compiling cephadm
 
-Recent versions of cephadm are based on Python Zip Application support, and
+Recent versions of cephadm are based on [Python Zip Application](https://peps.python.org/pep-0441/) support, and
 are "compiled" from Python source code files in the ceph tree. To create your
 own copy of the cephadm "binary" use the script located at
-`src/cephadm/build.py` in the Ceph tree.  The command should take the form
-`./src/cephadm/build.py [output]`.
-
-.. _Python Zip Application: https://peps.python.org/pep-0441/
+``src/cephadm/build.py`` in the Ceph tree.  The command should take the form
+``./src/cephadm/build.py [output]``.
 
 You can pass a limited set of version metadata values to be stored in the
 compiled cepadm. These options can be passed to the build script with
-the `--set-version-var` or `-S` option. The values should take the form
-`KEY=VALUE` and valid keys include:
-* `CEPH_GIT_VER`
-* `CEPH_GIT_NICE_VER`
-* `CEPH_RELEASE`
-* `CEPH_RELEASE_NAME`
-* `CEPH_RELEASE_TYPE`
+the ``--set-version-var`` or ``-S`` option. The values should take the form
+``KEY=VALUE`` and valid keys include:
+* ``CEPH_GIT_VER``
+* ``CEPH_GIT_NICE_VER``
+* ``CEPH_RELEASE``
+* ``CEPH_RELEASE_NAME``
+* ``CEPH_RELEASE_TYPE``
 
-Example: `./src/cephadm/build.py -SCEPH_GIT_VER=$(git rev-parse HEAD) -SCEPH_GIT_NICE_VER=$(git describe) /tmp/cephadm`
+Example: ``./src/cephadm/build.py -SCEPH_GIT_VER=$(git rev-parse HEAD) -SCEPH_GIT_NICE_VER=$(git describe) /tmp/cephadm``
 
 Typically these values will be passed to build.py by other, higher level, build
 tools - such as cmake.
 
 The compiled version of the binary may include a curated set of dependencies
 within the zipapp. The tool used to fetch the bundled dependencies can be
-Python's `pip`, locally installed RPMs, or bundled dependencies can be
+Python's ``pip``, locally installed RPMs, or bundled dependencies can be
 disabled. To select the mode for bundled dependencies use the
-`--bundled-dependencies` or `-B` option with a value of `pip`, `rpm`,
-or `none`.
+``--bundled-dependencies`` or ``-B`` option with a value of ``pip``, ``rpm``,
+or ``none``.
 
 The compiled cephadm zipapp file retains metadata about how it was built. This
-can be displayed by running `cephadm version --verbose`.  The command will
+can be displayed by running ``cephadm version --verbose``.  The command will
 emit a JSON formatted object showing version metadata (if available), a list of
 the bundled dependencies generated by the build script (if bundled dependencies
 were enabled), and a summary of the top-level contents of the zipapp. Example:

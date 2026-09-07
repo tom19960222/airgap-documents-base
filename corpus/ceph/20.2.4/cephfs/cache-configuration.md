@@ -74,11 +74,11 @@ The trim configurations control an internal **decay counter**. Anytime metadata
 is trimmed from the cache, the counter is incremented.  The threshold sets the
 maximum size of the counter while the decay rate indicates the exponential half
 life for the counter. If the MDS is continually removing items from its cache,
-it will reach a steady state of `-ln(0.5)/rate*threshold` items removed per
+it will reach a steady state of ``-ln(0.5)/rate*threshold`` items removed per
 second.
 
 > **Note:** Increasing the value of the configuration setting
-> `mds_cache_trim_decay_rate` leads to the MDS spending less time
+> ``mds_cache_trim_decay_rate`` leads to the MDS spending less time
 > trimming the cache. To increase the cache trimming rate, set a lower
 > value.
 
@@ -110,11 +110,11 @@ There is also a global decay counter that throttles for all session recall:
 
 .. confval:: mds_recall_global_max_decay_threshold
 
-its decay rate is the same as `mds_recall_max_decay_rate`. Any recalled
+its decay rate is the same as ``mds_recall_max_decay_rate``. Any recalled
 capability for any session also increments this counter.
 
 If clients are slow to release state, the warning "failing to respond to cache
-pressure" or `MDS_HEALTH_CLIENT_RECALL` will be reported. Each session's rate
+pressure" or ``MDS_HEALTH_CLIENT_RECALL`` will be reported. Each session's rate
 of release is monitored by another decay counter configured by:
 
 .. confval:: mds_recall_warning_threshold
@@ -134,7 +134,7 @@ state.
 
 A trivial "find" command on a large directory hierarchy will cause the client
 to receive caps significantly faster than it will release. The MDS will try
-to have the client reduce its caps below the `mds_max_caps_per_client` limit
+to have the client reduce its caps below the ``mds_max_caps_per_client`` limit
 but the recall throttles prevent it from catching up to the pace of acquisition.
 So the readdir is throttled to control cap acquisition via the following
 configurations:
@@ -155,9 +155,9 @@ the result.
 .. confval:: mds_cap_acquisition_throttle_retry_request_timeout
 
 If the number of caps acquired by the client per session is greater than the
-`mds_session_max_caps_throttle_ratio` and cap acquisition decay counter is
-greater than `mds_session_cap_acquisition_throttle`, the readdir is throttled.
-The readdir request is retried after `mds_cap_acquisition_throttle_retry_request_timeout`
+``mds_session_max_caps_throttle_ratio`` and cap acquisition decay counter is
+greater than ``mds_session_cap_acquisition_throttle``, the readdir is throttled.
+The readdir request is retried after ``mds_cap_acquisition_throttle_retry_request_timeout``
 seconds.
 
 ## Session Liveness
@@ -177,16 +177,16 @@ configuration variables:
 
 .. confval:: mds_session_cache_liveness_decay_rate
 
-The configuration `mds_session_cache_liveness_decay_rate` indicates the
+The configuration ``mds_session_cache_liveness_decay_rate`` indicates the
 half-life for the decay counter tracking the use of capabilities by the client.
 Each time a client manipulates or acquires a capability, the MDS will increment
 the counter. This is a rough but effective way to monitor the utilization of the
 client cache.
 
-The `mds_session_cache_liveness_magnitude` is a base-2 magnitude difference
+The ``mds_session_cache_liveness_magnitude`` is a base-2 magnitude difference
 of the liveness decay counter and the number of capabilities outstanding for
-the session. So if the client has `1*2^20` (1M) capabilities outstanding and
-only uses **less** than `1*2^(20-mds_session_cache_liveness_magnitude)` (1K
+the session. So if the client has ``1*2^20`` (1M) capabilities outstanding and
+only uses **less** than ``1*2^(20-mds_session_cache_liveness_magnitude)`` (1K
 using defaults), the MDS will consider the client to be quiescent and begin
 recall.
 
@@ -204,26 +204,26 @@ some workloads.
 
 ## Dealing with "clients failing to respond to cache pressure" messages
 
-Every second (or every interval set by the `mds_cache_trim_interval`
+Every second (or every interval set by the ``mds_cache_trim_interval``
 configuration paramater), the MDS runs the "cache trim" procedure. One of the
 steps of this procedure is "recall client state". During this step, the MDS
 checks every client (session) to determine whether it needs to recall caps.
 If any of the following are true, then the MDS needs to recall caps:
 
-1. the cache is full (the `mds_cache_memory_limit` has been exceeded) and
+1. the cache is full (the ``mds_cache_memory_limit`` has been exceeded) and
    needs some inodes to be released
-2. the client exceeds `mds_max_caps_per_client` (1M by default)
+2. the client exceeds ``mds_max_caps_per_client`` (1M by default)
 3. the client is inactive
 
 To determine whether a client (a session) is inactive, the session's
-`cache_liveness` parameters is checked and compared with the value:
+``cache_liveness`` parameters is checked and compared with the value:
 
 ```
 (num_caps >> mds_session_cache_liveness_magnitude)
 ```
 
-where `mds_session_cache_liveness_magnitude` is a config param (`10` by
-default). If `cache_liveness` is smaller than this calculated value, the
+where ``mds_session_cache_liveness_magnitude`` is a config param (``10`` by
+default). If ``cache_liveness`` is smaller than this calculated value, the
 session is considered inactive and the MDS sends a "recall caps" request for
 all cached caps (the actual recall value is ``num_caps -
 mds_min_caps_per_client(100)``).
@@ -235,22 +235,22 @@ the "recall caps" request one second later.  This means that the MDS will send
 "recall caps" again and again. The "total" counter of "recall caps" for the
 session will grow and grow, and will eventually exceed the "mon warning limit".
 
-A throttling mechanism, controlled by the `mds_recall_max_decay_threshold`
+A throttling mechanism, controlled by the ``mds_recall_max_decay_threshold``
 parameter (126K by default), is available for reducing the rate of "recall
 caps" counter growth, but sometimes it is not enough to slow the "recall caps"
-counter's growth rate. If altering the `mds_recall_max_decay_threshold` value
+counter's growth rate. If altering the ``mds_recall_max_decay_threshold`` value
 does not sufficiently reduce the rate of the "recall caps" counter's growth,
-decrease `mds_recall_max_caps` incrementally until the "clients failing to
+decrease ``mds_recall_max_caps`` incrementally until the "clients failing to
 respond to cache pressure" messages no longer appear in the logs.
 
 #### Example Scenario
 
 Here is an example. A client is having 20k caps cached. At some moment the
-server decides the client is inactive (because the session's `cache_liveness`
+server decides the client is inactive (because the session's ``cache_liveness``
 value is low). It starts to ask the client to release caps down to
-`mds_min_caps_per_client` value (100 by default). Every second, it
-sends recall_caps asking to release `caps_num - mds_min_caps_per_client` caps
-(but not more than `mds_recall_max_caps`, which is 30k by default). A client
+``mds_min_caps_per_client`` value (100 by default). Every second, it
+sends recall_caps asking to release ``caps_num - mds_min_caps_per_client`` caps
+(but not more than ``mds_recall_max_caps``, which is 30k by default). A client
 is starting to release, but is releasing with a rate of (for example) only 100
 caps per second.
 
@@ -265,5 +265,5 @@ after we set mds_recall_max_caps to 3K, in this situation the mds server sends
 only 3K recall_caps per second, and the maximum value the session's recall_caps
 value may have (if the mds is sending 3K every second for at least one minute)
 is 60 * 3K = 180K. This means that it is still possible to achieve
-`mds_recall_warning_threshold` but only if a client does not "respond" for a
+``mds_recall_warning_threshold`` but only if a client does not "respond" for a
 long time, and as your experiments show it is not the case.

@@ -9,9 +9,9 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. mgr_module:: localpool
 
-The `localpool` module can automatically create RADOS pools that are
+The ``localpool`` module can automatically create RADOS pools that are
 localized to a subset of the overall cluster.  For example, by default, it
-creates a pool for each distinct `rack` in the cluster. This can be
+creates a pool for each distinct ``rack`` in the cluster. This can be
 useful for deployments where it is desirable to distribute some data locally
 and other data globally across the cluster. One use case is measuring
 performance and testing behavior of specific drive, NIC, or chassis models in
@@ -19,7 +19,7 @@ isolation.
 
 ## Enabling
 
-To enable the `localpool` module, run the following command:
+To enable the ``localpool`` module, run the following command:
 
 ```bash
 ceph mgr module enable localpool
@@ -27,7 +27,7 @@ ceph mgr module enable localpool
 
 ## Configuring
 
-The `localpool` module understands the following options:
+The ``localpool`` module understands the following options:
 
 .. confval:: subtree
 
@@ -41,9 +41,9 @@ The `localpool` module understands the following options:
 
 .. confval:: prefix
 
-The default is `by-$subtreetype-`.
+The default is ``by-$subtreetype-``.
 
-These options are set via the `config-key` interface. For example, to change
+These options are set via the ``config-key`` interface. For example, to change
 the replication level to 2x with 64 PGs, run the following two commands:
 
 ```bash

@@ -5,12 +5,12 @@ title: "Ceph Object Gateway"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/index.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _object-gateway:
+<a id="object-gateway"></a>
 
 # Ceph Object Gateway
 
 Ceph Object Gateway is an object storage interface built on top of
-`librados`. It provides a RESTful gateway between applications and Ceph
+``librados``. It provides a RESTful gateway between applications and Ceph
 Storage Clusters. Ceph Object Storage supports two interfaces:
 
 1. **S3-compatible:** Provides object storage functionality with an interface
@@ -19,7 +19,7 @@ Storage Clusters. Ceph Object Storage supports two interfaces:
 1. **Swift-compatible:** Provides object storage functionality with an interface
    that is compatible with a large subset of the OpenStack Swift API.
 
-Ceph Object Storage uses the Ceph Object Gateway daemon (`radosgw`), an HTTP
+Ceph Object Storage uses the Ceph Object Gateway daemon (``radosgw``), an HTTP
 server designed to interact with a Ceph Storage Cluster. The Ceph Object
 Gateway provides interfaces that are compatible with both Amazon S3 and
 OpenStack Swift, and it has its own user management. Ceph Object Gateway can

@@ -5,7 +5,7 @@ title: "Telemetry Module"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/telemetry.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _telemetry:
+<a id="telemetry"></a>
 
 # Telemetry Module
 
@@ -13,8 +13,7 @@ The telemetry module sends anonymous data about the cluster back to the
 developers to report how Ceph is used and to report problems experienced by
 users.
 
-This data is visualized on the `public dashboards
-<https://telemetry-public.ceph.com/>`_ that allow the community to see a
+This data is visualized on the [public dashboards](https://telemetry-public.ceph.com/) that allow the community to see a
 summary of statistics including how many clusters are reporting, their total
 capacity and OSD count, and version distribution trends.
 
@@ -70,7 +69,7 @@ parameters that help the project develop a better understanding of the way Ceph
 is used.
 
 Data is sent secured to
-https://telemetry.ceph.com<https://telemetry.ceph.com>.
+[https://telemetry.ceph.com<https://telemetry.ceph.com>](https://telemetry.ceph.com<https://telemetry.ceph.com>).
 
 Individual channels can be enabled or disabled by running the following
 commands:
@@ -132,12 +131,12 @@ To allow the *telemetry* module to share data, run the following command:
 ceph telemetry on
 ```
 
-Please note: Telemetry data is licensed under the `Community Data License
-Agreement - Sharing - Version 1.0 <https://cdla.io/sharing-1-0/>`_.  This means
+Please note: Telemetry data is licensed under the [Community Data License
+Agreement - Sharing - Version 1.0](https://cdla.io/sharing-1-0/).  This means
 that telemetry module can be enabled only after you add ``--license
-sharing-1-0` to the `ceph telemetry on`` command. After telemetry is on,
+sharing-1-0`` to the ``ceph telemetry on`` command. After telemetry is on,
 consider enabling channels which are off by default, such as the
-`perf` channel.  `ceph telemetry on` output will list the exact command to
+``perf`` channel.  ``ceph telemetry on`` output will list the exact command to
 enable these channels.
 
 Telemetry can be disabled at any time by running the following command:
@@ -180,7 +179,7 @@ report:
 ceph telemetry preview-device
 ```
 
-> **Note:** `smartmontools` version 7.0 or later must be installed so that JSON
+> **Note:** ``smartmontools`` version 7.0 or later must be installed so that JSON
 > output can be specified and parsed. If you have any concerns about privacy
 > with regard to the information included in this report, contact the Ceph
 > developers.
@@ -208,7 +207,7 @@ by a specified channel:
 ceph telemetry show <channel_name>
 ```
 
-Please note: If telemetry is on, and `<channel_name>` is disabled, the
+Please note: If telemetry is on, and ``<channel_name>`` is disabled, the
 command above will output a sample report by that channel, according to the
 collections the user is enrolled to. However this data is not reported, since
 the channel is disabled.
@@ -316,19 +315,19 @@ ceph telemetry send
 ```
 
 If telemetry has not been enabled (by running the command ``ceph telemetry
-on`), add `--license sharing-1-0` to the `ceph telemetry send`` command.
+on``), add ``--license sharing-1-0`` to the ``ceph telemetry send`` command.
 
 ## Sending telemetry through a proxy
 
 If the cluster cannot directly connect to the configured telemetry
-endpoint (default: `telemetry.ceph.com`), configure an HTTP/HTTPS
+endpoint (default: ``telemetry.ceph.com``), configure an HTTP/HTTPS
 proxy server by running a command of the following form:
 
 ```bash
 ceph config set mgr mgr/telemetry/proxy https://10.0.0.1:8080
 ```
 
-Include a colon-separated user and password (`user:pass`) if needed by
+Include a colon-separated user and password (``user:pass``) if needed by
 running a command of the following form:
 
 ```bash
@@ -349,8 +348,7 @@ ceph config set mgr mgr/telemetry/channel_ident true
 
 ## Leaderboard
 
-To participate in a leaderboard in the `public dashboards
-<https://telemetry-public.ceph.com/>`_, run the following command:
+To participate in a leaderboard in the [public dashboards](https://telemetry-public.ceph.com/), run the following command:
 
 ```bash
 ceph config set mgr mgr/telemetry/leaderboard true
@@ -365,5 +363,5 @@ a command of the following form:
 ceph config set mgr mgr/telemetry/leaderboard_description 'Ceph cluster for Computational Biology at the University of XYZ'
 ```
 
-If the `ident` channel is enabled, its details will not be displayed in the
+If the ``ident`` channel is enabled, its details will not be displayed in the
 leaderboard.

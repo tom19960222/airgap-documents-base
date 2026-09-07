@@ -9,13 +9,13 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # The Gateway Won't Start
 
-If you cannot start the gateway (i.e., there is no existing `pid`),
-check to see if there is an existing `.asok` file from another
-user. If an `.asok` file from another user exists and there is no
-running `pid`, remove the `.asok` file and try to start the
-process again. This may occur when you start the process as a `root` user and
+If you cannot start the gateway (i.e., there is no existing ``pid``),
+check to see if there is an existing ``.asok`` file from another
+user. If an ``.asok`` file from another user exists and there is no
+running ``pid``, remove the ``.asok`` file and try to start the
+process again. This may occur when you start the process as a ``root`` user and
 the startup script is trying to start the process as a
-`www-data` or `apache` user and an existing `.asok` is
+``www-data`` or ``apache`` user and an existing ``.asok`` is
 preventing the script from starting the daemon.
 
 The radosgw init script (/etc/init.d/radosgw) also has a verbose argument that
@@ -36,25 +36,25 @@ or :
 Examining the access and error logs for the web server itself is
 probably the first step in identifying what is going on.  If there is
 a 500 error, that usually indicates a problem communicating with the
-`radosgw` daemon.  Ensure the daemon is running, its socket path is
+``radosgw`` daemon.  Ensure the daemon is running, its socket path is
 configured, and that the web server is looking for it in the proper
 location.
 
 # Crashed ``radosgw`` process
 
-If the `radosgw` process dies, you will normally see a 500 error
+If the ``radosgw`` process dies, you will normally see a 500 error
 from the web server (apache, nginx, etc.).  In that situation, simply
 restarting radosgw will restore service.
 
-To diagnose the cause of the crash, check the log in `/var/log/ceph`
+To diagnose the cause of the crash, check the log in ``/var/log/ceph``
 and/or the core file (if one was generated).
 
 # Blocked ``radosgw`` Requests
 
 If some (or all) radosgw requests appear to be blocked, you can get
-some insight into the internal state of the `radosgw` daemon via
+some insight into the internal state of the ``radosgw`` daemon via
 its admin socket.  By default, there will be a socket configured to
-reside in `/var/run/ceph`, and the daemon can be queried with:
+reside in ``/var/run/ceph``, and the daemon can be queried with:
 
 ```
 ceph daemon /var/run/ceph/client.rgw help
@@ -109,7 +109,7 @@ by a non-responsive OSD.  For example, one might see:
 "statfs_ops": []}
 ```
 
-In this dump, two requests are in progress.  The `last_sent` field is
+In this dump, two requests are in progress.  The ``last_sent`` field is
 the time the RADOS request was sent.  If this is a while ago, it suggests
 that the OSD is not responding.  For example, for request 1858, you could
 check the OSD status with:
@@ -120,7 +120,7 @@ ceph pg map 2.d2041a48
 osdmap e9 pg 2.d2041a48 (2.0) -> up [1,0] acting [1,0]
 ```
 
-This tells us to look at `osd.1`, the primary copy for this PG:
+This tells us to look at ``osd.1``, the primary copy for this PG:
 
 ```
 ceph daemon osd.1 ops
@@ -135,8 +135,8 @@ ceph daemon osd.1 ops
 ...
 ```
 
-The `flag_point` field indicates that the OSD is currently waiting
-for replicas to respond, in this case `osd.0`.
+The ``flag_point`` field indicates that the OSD is currently waiting
+for replicas to respond, in this case ``osd.0``.
 
 # Java S3 API Troubleshooting
 
@@ -152,23 +152,27 @@ The Java SDK for S3 requires a valid certificate from a recognized certificate
 authority, because it uses HTTPS by default. If you are just testing the Ceph
 Object Storage services, you can resolve this problem in a few ways:
 
-1. Prepend the IP address or hostname with `http://`. For example, change this::
+1. Prepend the IP address or hostname with ``http://``. For example, change this:
 
-	conn.setEndpoint("myserver");
+```
+     conn.setEndpoint("myserver");
 
-   To::
+To::
 
-	conn.setEndpoint("http://myserver")
+     conn.setEndpoint("http://myserver")
+```
 
 1. After setting your credentials, add a client configuration and set the
-   protocol to `Protocol.HTTP`. ::
+   protocol to ``Protocol.HTTP``. :
 
-			AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+```
+AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
-			ClientConfiguration clientConfig = new ClientConfiguration();
-			clientConfig.setProtocol(Protocol.HTTP);
+ClientConfiguration clientConfig = new ClientConfiguration();
+clientConfig.setProtocol(Protocol.HTTP);
 
-			AmazonS3 conn = new AmazonS3Client(credentials, clientConfig);
+AmazonS3 conn = new AmazonS3Client(credentials, clientConfig);
+```
 
 ## 405 MethodNotAllowed
 
@@ -184,12 +188,12 @@ Also, check to ensure that the default site is disabled. :
 
 # Numerous objects in default.rgw.meta pool
 
-Clusters created prior to *jewel* have a metadata archival feature enabled by default, using the `default.rgw.meta` pool.
-This archive keeps all old versions of user and bucket metadata, resulting in large numbers of objects in the `default.rgw.meta` pool.
+Clusters created prior to *jewel* have a metadata archival feature enabled by default, using the ``default.rgw.meta`` pool.
+This archive keeps all old versions of user and bucket metadata, resulting in large numbers of objects in the ``default.rgw.meta`` pool.
 
 ## Disabling the Metadata Heap
 
-Users who want to disable this feature going forward should set the `metadata_heap` field to an empty string `""`:
+Users who want to disable this feature going forward should set the ``metadata_heap`` field to an empty string ``""``:
 
 ```
 $ radosgw-admin zone get --rgw-zone=default > zone.json
@@ -198,13 +202,13 @@ $ radosgw-admin zone set --rgw-zone=default --infile=zone.json
 $ radosgw-admin period update --commit
 ```
 
-This will stop new metadata from being written to the `default.rgw.meta` pool, but does not remove any existing objects or pool.
+This will stop new metadata from being written to the ``default.rgw.meta`` pool, but does not remove any existing objects or pool.
 
 ## Cleaning the Metadata Heap Pool
 
-Clusters created prior to *jewel* normally use `default.rgw.meta` only for the metadata archival feature.
+Clusters created prior to *jewel* normally use ``default.rgw.meta`` only for the metadata archival feature.
 
-However, from *luminous* onwards, radosgw uses Pool Namespaces within `default.rgw.meta` for an entirely different purpose, that is, to store `user_keys` and other critical metadata.
+However, from *luminous* onwards, radosgw uses [Pool Namespaces](pools.md#radosgw-pool-namespaces) within ``default.rgw.meta`` for an entirely different purpose, that is, to store ``user_keys`` and other critical metadata.
 
 Users should check zone configuration before proceeding any cleanup procedures:
 
@@ -213,4 +217,4 @@ $ radosgw-admin zone get --rgw-zone=default | grep default.rgw.meta
 [should not match any strings]
 ```
 
-Having confirmed that the pool is not used for any purpose, users may safely delete all objects in the `default.rgw.meta` pool, or optionally, delete the entire pool itself.
+Having confirmed that the pool is not used for any purpose, users may safely delete all objects in the ``default.rgw.meta`` pool, or optionally, delete the entire pool itself.

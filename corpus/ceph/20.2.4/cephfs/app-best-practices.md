@@ -19,24 +19,24 @@ local file systems.
 
 ## ls -l
 
-When you run "ls -l", the `ls` program
-is first doing a directory listing, and then calling `stat` on every
+When you run "ls -l", the ``ls`` program
+is first doing a directory listing, and then calling ``stat`` on every
 file in the directory.
 
 This is usually far in excess of what an application really needs, and
 it can be slow for large directories.  If you don't really need all
-this metadata for each file, then use a plain `ls`.
+this metadata for each file, then use a plain ``ls``.
 
 ## ls/stat on files being extended
 
 If another client is currently extending files in the listed directory,
-then an `ls -l` may take an exceptionally long time to complete, as
+then an ``ls -l`` may take an exceptionally long time to complete, as
 the lister must wait for the writer to flush data in order to do a valid
 read of the every file's size.  So unless you *really* need to know the
 exact size of every file in the directory, just don't do it!
 
 This would also apply to any application code that was directly
-issuing `stat` system calls on files being appended from
+issuing ``stat`` system calls on files being appended from
 another node.
 
 ## Very large directories
@@ -46,10 +46,10 @@ fragmentation enables CephFS to handle it, it is always going to be
 less efficient than splitting your files into more modest-sized directories.
 
 Even standard userspace tools can become quite slow when operating on very
-large directories. For example, the default behaviour of `ls`
-is to give an alphabetically ordered result, but `readdir` system
+large directories. For example, the default behaviour of ``ls``
+is to give an alphabetically ordered result, but ``readdir`` system
 calls do not give an ordered result (this is true in general, not just
-with CephFS).  So when you `ls` on a million file directory, it is
+with CephFS).  So when you ``ls`` on a million file directory, it is
 loading a list of a million names into memory, sorting the list, then writing
 it out to the display.
 
@@ -68,7 +68,7 @@ performance is very different for workloads whose metadata fits within
 that cache.
 
 If your workload has more files than fit in your cache (configured using
-`mds_cache_memory_limit` settings), then make sure you test it
+``mds_cache_memory_limit`` settings), then make sure you test it
 appropriately: don't test your system with a small number of files and then
 expect equivalent performance when you move to a much larger number of files.
 
@@ -77,4 +77,4 @@ expect equivalent performance when you move to a much larger number of files.
 Remember that Ceph also includes an object storage interface.  If your
 application needs to store huge flat collections of files where you just
 read and write whole files at once, then you might well be better off
-using the Object Gateway
+using the [Object Gateway](../radosgw/index.md#object-gateway)

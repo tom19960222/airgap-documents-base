@@ -29,7 +29,7 @@ In Ceph, we can balance the write performance if all devices are homogeneous (sa
 
 ## How to Balance Capacity in Ceph
 
-See upmap for more information.
+See [upmap](../rados/operations/upmap.md#upmap) for more information.
 
 # Read Balancing
 
@@ -45,7 +45,7 @@ In Ceph, we can balance the read performance if all devices are homogeneous (sam
 to achieve overall cluster performance in heterogeneous systems.
 
 ## How to Balance Reads in Ceph
-See read_balancer for more information.
+See [read_balancer](../rados/operations/read-balancer.md#read-balancer) for more information.
 
 Also, see the Cephalocon 2023 talk [New Read Balancer in Ceph](https://www.youtube.com/watch?v=AT_cKYaQzcU/) for a demonstration of the offline version
 of the read balancer.

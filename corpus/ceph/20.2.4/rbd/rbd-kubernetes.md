@@ -8,15 +8,15 @@ fetched_at: 2026-08-18T01:32:45Z
 # Block Devices and Kubernetes
 
 You may use Ceph Block Device images with Kubernetes v1.13 and later through
-ceph-csi, which dynamically provisions RBD images to back Kubernetes
-volumes and maps these RBD images as block devices (optionally mounting
+[ceph-csi](https://github.com/ceph/ceph-csi/), which dynamically provisions RBD images to back Kubernetes
+[volumes](https://kubernetes.io/docs/concepts/storage/volumes/) and maps these RBD images as block devices (optionally mounting
 a file system contained within the image) on worker nodes running
-pods that reference an RBD-backed volume. Ceph stripes block device images as
+[pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) that reference an RBD-backed volume. Ceph stripes block device images as
 objects across the cluster, which means that large Ceph Block Device images have
 better performance than a standalone server!
 
 To use Ceph Block Devices with Kubernetes v1.13 and higher, you must install
-and configure `ceph-csi` within your Kubernetes environment. The following
+and configure ``ceph-csi`` within your Kubernetes environment. The following
 diagram depicts the Kubernetes/Ceph technology stack.
 
 .. ditaa::
@@ -39,12 +39,12 @@ diagram depicts the Kubernetes/Ceph technology stack.
    +------------------------+ +------------------------+
 
 > **Important:**
-> `ceph-csi` uses the RBD kernel modules by default which may not support all
-> Ceph CRUSH tunables or RBD image features.
+> ``ceph-csi`` uses the RBD kernel modules by default which may not support all
+> Ceph [CRUSH tunables](../rados/operations/crush-map.md#tunables) or [RBD image features](rbd-config-ref.md#image-features).
 
 # Create a Pool
 
-By default, Ceph block devices use the `rbd` pool. Create a pool for
+By default, Ceph block devices use the ``rbd`` pool. Create a pool for
 Kubernetes volume storage. Ensure your Ceph cluster is running, then create
 the pool. :
 
@@ -52,11 +52,11 @@ the pool. :
 $ ceph osd pool create kubernetes
 ```
 
-See Create a Pool for details on specifying the number of placement groups
-for your pools, and Placement Groups for details on the number of placement
+See [Create a Pool](../rados/operations/pools.md#createpool) for details on specifying the number of placement groups
+for your pools, and [Placement Groups](../rados/operations/placement-groups.md) for details on the number of placement
 groups you should set for your pools.
 
-A newly created pool must be initialized prior to use. Use the `rbd` tool
+A newly created pool must be initialized prior to use. Use the ``rbd`` tool
 to initialize the pool:
 
 ```
@@ -93,7 +93,7 @@ fsid b9127830-b0cc-4e34-aa47-9d1a2e9949a8
 ```
 
 > **Note:**
-> `ceph-csi` currently only supports the legacy V1 protocol.
+> ``ceph-csi`` currently only supports the [legacy V1 protocol](../rados/configuration/msgr2.md#address-formats).
 
 Generate a `csi-config-map.yaml` file similar to the example below, substituting
 the `fsid` for "clusterID", and the monitor addresses for "monitors":
@@ -386,12 +386,3 @@ spec:
 EOF
 $ kubectl apply -f pod.yaml
 ```
-
-.. _ceph-csi: https://github.com/ceph/ceph-csi/
-.. _volumes: https://kubernetes.io/docs/concepts/storage/volumes/
-.. _pods: https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/
-.. _Create a Pool: ../../rados/operations/pools#createpool
-.. _Placement Groups: ../../rados/operations/placement-groups
-.. _CRUSH tunables: ../../rados/operations/crush-map/#tunables
-.. _RBD image features: ../rbd-config-ref/#image-features
-.. _legacy V1 protocol: ../../rados/configuration/msgr2/#address-formats

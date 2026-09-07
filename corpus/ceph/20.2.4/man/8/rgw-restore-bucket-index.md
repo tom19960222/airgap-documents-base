@@ -110,4 +110,4 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-radosgw-admin\(8)
+[radosgw-admin](radosgw-admin.md)\(8)

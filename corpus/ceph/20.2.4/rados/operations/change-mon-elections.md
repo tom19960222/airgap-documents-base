@@ -5,19 +5,19 @@ title: "Configuring Monitor Election Strategies"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/change-mon-elections.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _changing_monitor_elections:
+<a id="changing-monitor-elections"></a>
 
 # Configuring Monitor Election Strategies
 
-By default, the monitors are in `classic` mode. We recommend staying in this
+By default, the monitors are in ``classic`` mode. We recommend staying in this
 mode unless you have a very specific reason.
 
 If you want to switch modes BEFORE constructing the cluster, change the ``mon
 election default strategy`` option. This option takes an integer value:
 
-* `1` for `classic`
-* `2` for `disallow`
-* `3` for `connectivity`
+* ``1`` for ``classic``
+* ``2`` for ``disallow``
+* ``3`` for ``connectivity``
 
 After your cluster has started running, you can change strategies by running a
 command of the following form:
@@ -26,15 +26,15 @@ command of the following form:
 
 # Choosing a mode
 
-The modes other than `classic` provide specific features. We recommend staying
-in `classic` mode if you don't need these extra features because it is the
+The modes other than ``classic`` provide specific features. We recommend staying
+in ``classic`` mode if you don't need these extra features because it is the
 simplest mode.
 
-.. _rados_operations_disallow_mode:
+<a id="rados-operations-disallow-mode"></a>
 
 # Disallow Mode
 
-The `disallow` mode allows you to mark monitors as disallowed. Disallowed
+The ``disallow`` mode allows you to mark monitors as disallowed. Disallowed
 monitors participate in the quorum and serve clients, but cannot be elected
 leader. You might want to use this mode for monitors that are far away from
 clients.
@@ -62,18 +62,18 @@ ceph mon dump
 
 # Connectivity Mode
 
-The `connectivity` mode evaluates connection scores that are provided by each
+The ``connectivity`` mode evaluates connection scores that are provided by each
 monitor for its peers and elects the monitor with the highest score. This mode
 is designed to handle network partitioning (also called *net-splits*): network
 partitioning might occur if your cluster is stretched across multiple data
 centers or otherwise has a non-uniform or unbalanced network topology.
 
-The `connectivity` mode also supports disallowing monitors from being elected
-leader by using the same commands that were presented in Disallow Mode.
+The ``connectivity`` mode also supports disallowing monitors from being elected
+leader by using the same commands that were presented in [Disallow Mode](change-mon-elections.md#rados-operations-disallow-mode).
 
 # Examining connectivity scores
 
-The monitors maintain connection scores even if they aren't in `connectivity`
+The monitors maintain connection scores even if they aren't in ``connectivity``
 mode. To examine a specific monitor's connection scores, run a command of the
 following form:
 
@@ -81,7 +81,7 @@ following form:
 ceph daemon mon.{name} connection scores dump
 ```
 
-Scores for an individual connection range from `0` to `1` inclusive and
+Scores for an individual connection range from ``0`` to ``1`` inclusive and
 include whether the connection is considered alive or dead (as determined by
 whether it returned its latest ping before timeout).
 

@@ -20,9 +20,9 @@ crash consistent. Even if the client cache is lost entirely, the disk image is
 still consistent but the data will appear to be stale.
 
 This cache can be used with PMEM or SSD as a cache device. For PMEM, the cache
-mode is called `replica write log (rwl)`. At present, only local cache is
+mode is called ``replica write log (rwl)``. At present, only local cache is
 supported, and the replica function is under development. For SSD, the cache
-mode is called `ssd`.
+mode is called ``ssd``.
 
 # Usage
 
@@ -52,33 +52,33 @@ rbd_persistent_cache_mode = {cache-mode}
 rbd_plugins = pwl_cache
 ```
 
-Value of {cache-mode} can be `rwl`, `ssd` or `disabled`. By default the
+Value of {cache-mode} can be ``rwl``, ``ssd`` or ``disabled``. By default the
 cache is disabled.
 
-The `rwl` cache mode depends on libpmem library (part of PMDK). It should
+The ``rwl`` cache mode depends on libpmem library (part of PMDK). It should
 be universally available on x86_64 architecture and may also be available on
 ppc64le and aarch64 architectures on some distributions. It is not available
 on s390x architecture.
 
 Here are some cache configuration settings:
 
-- `rbd_persistent_cache_path` A file folder to cache data. This folder must
-  have DAX enabled (see DAX) when using `rwl` mode to avoid performance
+- ``rbd_persistent_cache_path`` A file folder to cache data. This folder must
+  have DAX enabled (see [DAX](https://www.kernel.org/doc/Documentation/filesystems/dax.txt)) when using ``rwl`` mode to avoid performance
   degradation.
 
-- `rbd_persistent_cache_size` The cache size per image. The minimum cache
+- ``rbd_persistent_cache_size`` The cache size per image. The minimum cache
   size is 1 GB.
 
 The above configurations can be set per-host, per-pool, per-image etc. Eg, to
-set per-host, add the overrides to the appropriate section in the host's
-`ceph.conf` file. To set per-pool, per-image, etc, please refer to the
-`rbd config` commands.
+set per-host, add the overrides to the appropriate [section](../rados/configuration/ceph-conf.md#configuration-sections) in the host's
+``ceph.conf`` file. To set per-pool, per-image, etc, please refer to the
+``rbd config`` [commands](../man/8/rbd.md#commands).
 
 ## Cache Status
 
 The PWL cache is enabled when the exclusive lock is acquired,
 and it is closed when the exclusive lock is released. To check the cache status,
-users may use the command `rbd status`.  :
+users may use the command ``rbd status``.  :
 
 ```
 rbd status {pool-name}/{image-name}
@@ -113,7 +113,7 @@ Persistent cache state:
 
 ## Flush Cache
 
-To flush a cache file with `rbd`, specify the `persistent-cache flush`
+To flush a cache file with ``rbd``, specify the ``persistent-cache flush``
 command, the pool name and the image name.  :
 
 ```
@@ -131,8 +131,8 @@ $ rbd persistent-cache flush rbd/foo
 
 ## Invalidate Cache
 
-To invalidate (discard) a cache file with `rbd`, specify the
-`persistent-cache invalidate` command, the pool name and the image name.  :
+To invalidate (discard) a cache file with ``rbd``, specify the
+``persistent-cache invalidate`` command, the pool name and the image name.  :
 
 ```
 rbd persistent-cache invalidate {pool-name}/{image-name}
@@ -146,7 +146,3 @@ For example:
 ```
 $ rbd persistent-cache invalidate rbd/foo
 ```
-
-.. _section: ../../rados/configuration/ceph-conf/#configuration-sections
-.. _commands: ../../man/8/rbd#commands
-.. _DAX: https://www.kernel.org/doc/Documentation/filesystems/dax.txt

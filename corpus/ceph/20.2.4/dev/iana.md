@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 50495
 
-Organization `Ceph`.
+Organization ``Ceph``.
 
 ## Port number (monitor)
 

@@ -5,7 +5,7 @@ title: "Multisite Sync Policy"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/multisite-sync-policy.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-multisite-sync-policy:
+<a id="radosgw-multisite-sync-policy"></a>
 
 # Multisite Sync Policy
 
@@ -13,7 +13,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 Multisite bucket-granularity sync policy provides fine grained control of data movement between buckets in different zones. It extends the zone sync mechanism. Previously buckets were being treated symmetrically, that is -- each (data) zone holds a mirror of that bucket that should be the same as all the other zones. Whereas leveraging the bucket-granularity sync policy is possible for buckets to diverge, and a bucket can pull data from other buckets (ones that don't share its name or its ID) in different zone.  The sync process was assuming therefore that the bucket sync source and the bucket sync destination were always referring to the same bucket, now that is not the case anymore.
 
-The sync policy supersedes the old zonegroup coarse configuration (`sync_from*`). The sync policy can be configured at the zonegroup level (and if it is configured it replaces the old style config), but it can also be configured at the bucket level.
+The sync policy supersedes the old zonegroup coarse configuration (``sync_from*``). The sync policy can be configured at the zonegroup level (and if it is configured it replaces the old style config), but it can also be configured at the bucket level.
 
 In the sync policy multiple groups that can contain lists of data-flow configurations can be defined, as well as lists of pipe configurations. The data-flow defines the flow of data between the different zones. It can define symmetrical data flow, in which multiple zones sync data from each other, and it can define directional data flow, in which the data moves in one way from one zone to another.
 
@@ -21,20 +21,15 @@ A pipe defines the actual buckets that can use these data flows, and the propert
 
 A sync policy group can be in 3 states:
 
-+----------------------------+----------------------------------------+
-|  Value                     | Description                            |
-+============================+========================================+
-| `enabled`                | sync is allowed and enabled            |
-+----------------------------+----------------------------------------+
-| `allowed`                | sync is allowed                        |
-+----------------------------+----------------------------------------+
-| `forbidden`              | sync (as defined by this group) is not |
-|                            | allowed and can override other groups  |
-+----------------------------+----------------------------------------+
+| Value | Description |
+| --- | --- |
+| ``enabled`` | sync is allowed and enabled |
+| ``allowed`` | sync is allowed |
+| ``forbidden`` <br> | sync (as defined by this group) is not <br> allowed and can override other groups |
 
 A policy can be defined at the bucket level. A bucket level sync policy inherits the data flow of the zonegroup policy, and can only define a subset of what the zonegroup allows.
 
-A wildcard zone, and a wildcard bucket parameter in the policy defines all relevant zones, or all relevant buckets. In the context of a bucket policy it means the current bucket instance.  A disaster recovery configuration where entire zones are mirrored doesn't require configuring anything on the buckets. However, for a fine grained bucket sync it would be better to configure the pipes to be synced by allowing (`status=allowed`) them at the zonegroup level (e.g., using wildcards), but only enable the specific sync at the bucket level (`status=enabled`). If needed, the policy at the bucket level can limit the data movement to specific relevant zones.
+A wildcard zone, and a wildcard bucket parameter in the policy defines all relevant zones, or all relevant buckets. In the context of a bucket policy it means the current bucket instance.  A disaster recovery configuration where entire zones are mirrored doesn't require configuring anything on the buckets. However, for a fine grained bucket sync it would be better to configure the pipes to be synced by allowing (``status=allowed``) them at the zonegroup level (e.g., using wildcards), but only enable the specific sync at the bucket level (``status=enabled``). If needed, the policy at the bucket level can limit the data movement to specific relevant zones.
 
 > **Important:** Any changes to the zonegroup policy needs to be applied on the
 > zonegroup master zone, and require period update and commit. Changes
@@ -213,7 +208,7 @@ Since a bucket can define a policy that defines data movement from it towards a 
 
 #### Examples
 
-The system in these examples includes 3 zones: `us-east` (the master zone), `us-west`, `us-west-2`.
+The system in these examples includes 3 zones: ``us-east`` (the master zone), ``us-west``, ``us-west-2``.
 
 # Example 1: Two Zones, Complete Mirror
 
@@ -318,7 +313,7 @@ radosgw-admin sync info --bucket=buck
 
 # Example 2: Directional, Entire Zone Backup
 
-Also similar to older sync capabilities. In here we add a third zone, `us-west-2` that will be a replica of `us-west`, but data will not be replicated back from it.
+Also similar to older sync capabilities. In here we add a third zone, ``us-west-2`` that will be a replica of ``us-west``, but data will not be replicated back from it.
 
 ```bash
 radosgw-admin sync group flow create --group-id=group1 \
@@ -327,7 +322,7 @@ radosgw-admin sync group flow create --group-id=group1 \
 radosgw-admin period update --commit
 ```
 
-Note that `us-west` has two destinations:
+Note that ``us-west`` has two destinations:
 
 ```bash
 radosgw-admin sync info --bucket=buck
@@ -381,7 +376,7 @@ radosgw-admin sync info --bucket=buck
 }
 ```
 
-Whereas `us-west-2` has only source and no destinations:
+Whereas ``us-west-2`` has only source and no destinations:
 
 ```bash
 radosgw-admin sync info --bucket=buck
@@ -412,14 +407,14 @@ radosgw-admin sync info --bucket=buck
 
 # Example 3: Mirror a Specific Bucket
 
-Using the same group configuration, but this time switching it to `allowed` state, which means that sync is allowed but not enabled.
+Using the same group configuration, but this time switching it to ``allowed`` state, which means that sync is allowed but not enabled.
 
 ```bash
 radosgw-admin sync group modify --group-id=group1 --status=allowed
 radosgw-admin period update --commit
 ```
 
-And we will create a bucket level policy rule for existing bucket `buck2`. Note that the bucket needs to exist before being able to set this policy, and admin commands that modify bucket policies need to run on the master zone, however, they do not require period update.  There is no need to change the data flow, as it is inherited from the zonegroup policy. A bucket policy flow will only be a subset of the flow defined in the zonegroup policy. Same goes for pipes, although a bucket policy can enable pipes that are not enabled (albeit not forbidden) at the zonegroup policy.
+And we will create a bucket level policy rule for existing bucket ``buck2``. Note that the bucket needs to exist before being able to set this policy, and admin commands that modify bucket policies need to run on the master zone, however, they do not require period update.  There is no need to change the data flow, as it is inherited from the zonegroup policy. A bucket policy flow will only be a subset of the flow defined in the zonegroup policy. Same goes for pipes, although a bucket policy can enable pipes that are not enabled (albeit not forbidden) at the zonegroup policy.
 
 ```bash
 radosgw-admin sync group create --bucket=buck2 \
@@ -431,7 +426,7 @@ radosgw-admin sync group pipe create --bucket=buck2 \
 
 # Example 4: Limit Bucket Sync to Specific Zones
 
-This will only sync `buck3` to `us-east` (from any zone that flow allows to sync into `us-east`).
+This will only sync ``buck3`` to ``us-east`` (from any zone that flow allows to sync into ``us-east``).
 
 ```bash
 radosgw-admin sync group create --bucket=buck3 \
@@ -445,7 +440,7 @@ radosgw-admin sync group pipe create --bucket=buck3 \
 
 Note that bucket sync only works (currently) across zones and not within the same zone.
 
-Set `buck4` to pull data from `buck5`:
+Set ``buck4`` to pull data from ``buck5``:
 
 ```bash
 radosgw-admin sync group create --bucket=buck4 \
@@ -457,7 +452,7 @@ radosgw-admin sync group pipe create --bucket=buck4 \
 ```
 
 can also limit it to specific zones, for example the following will
-only sync data originated in `us-west`:
+only sync data originated in ``us-west``:
 
 ```bash
 radosgw-admin sync group pipe modify --bucket=buck4 \
@@ -466,7 +461,7 @@ radosgw-admin sync group pipe modify --bucket=buck4 \
                                                 --dest-zones='*'
 ```
 
-Checking the sync info for `buck5` on `us-west` is interesting:
+Checking the sync info for ``buck5`` on ``us-west`` is interesting:
 
 ```bash
 radosgw-admin sync info --bucket=buck5
@@ -520,13 +515,13 @@ radosgw-admin sync info --bucket=buck5
 }
 ```
 
-Note that there are resolved hints, which means that the bucket `buck5` found about `buck4` syncing from it indirectly, and not from its own policy (the policy for `buck5` itself is empty).
+Note that there are resolved hints, which means that the bucket ``buck5`` found about ``buck4`` syncing from it indirectly, and not from its own policy (the policy for ``buck5`` itself is empty).
 
 # Example 6: Sync to Different Bucket
 
 The same mechanism can work for configuring data to be synced to (vs. synced from as in the previous example). Note that internally data is still pulled from the source at the destination zone:
 
-Set `buck6` to "push" data to `buck5`:
+Set ``buck6`` to "push" data to ``buck5``:
 
 ```bash
 radosgw-admin sync group create --bucket=buck6 \
@@ -539,11 +534,11 @@ radosgw-admin sync group pipe create --bucket=buck6 \
 
 A wildcard bucket name means the current bucket in the context of bucket sync policy.
 
-Combined with the configuration in Example 5, we can now write data to `buck6` on `us-east`, data will sync to `buck5` on `us-west`, and from there it will be distributed to `buck4` on `us-east`, and on `us-west-2`.
+Combined with the configuration in Example 5, we can now write data to ``buck6`` on ``us-east``, data will sync to ``buck5`` on ``us-west``, and from there it will be distributed to ``buck4`` on ``us-east``, and on ``us-west-2``.
 
 # Example 7: Source Filters
 
-Sync from `buck8` to `buck9`, but only objects that start with `foo/`:
+Sync from ``buck8`` to ``buck9``, but only objects that start with ``foo/``:
 
 ```bash
 radosgw-admin sync group create --bucket=buck8 \
@@ -554,7 +549,7 @@ radosgw-admin sync group pipe create --bucket=buck8 \
                                                 --dest-bucket=buck9
 ```
 
-Also sync from `buck8` to `buck9` any object that has the tags `color=blue` or `color=red`:
+Also sync from ``buck8`` to ``buck9`` any object that has the tags ``color=blue`` or ``color=red``:
 
 ```bash
 radosgw-admin sync group pipe create --bucket=buck8 \
@@ -563,7 +558,7 @@ radosgw-admin sync group pipe create --bucket=buck8 \
                                                 --dest-zones='*' --dest-bucket=buck9
 ```
 
-And we can check the expected sync in `us-east` (for example):
+And we can check the expected sync in ``us-east`` (for example):
 
 ```bash
 radosgw-admin sync info --bucket=buck8

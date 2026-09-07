@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 Ceph dpdkstack is not compiled by default. Therefore, you need to recompile and
 enable the DPDKstack component.
-Optionally install `dpdk-devel` or `dpdk-dev` on distros with precompiled DPDK packages, and compile
+Optionally install ``dpdk-devel`` or ``dpdk-dev`` on distros with precompiled DPDK packages, and compile
 
 ```bash
 do_cmake.sh -DWITH_DPDK=ON
@@ -30,7 +30,7 @@ modprobe vfio
 modprobe vfio_pci
 ```
 
-Configure Hugepage by editing `/etc/sysctl.conf` :
+Configure Hugepage by editing ``/etc/sysctl.conf`` :
 
 ```
 vm.nr_hugepages = xxx
@@ -52,13 +52,13 @@ dpdk-devbind.py -b vfio-pci 0000:xx:yy.z
 
 By default, the DPDK RTE initialization process requires the root privileges
 for accessing various resources in system. To grant the root access to
-the `ceph` user:
+the ``ceph`` user:
 
 ```bash
 usermod -G root ceph
 ```
 
-The OSD selects the NICs using `ms_dpdk_devs_allowlist`:
+The OSD selects the NICs using ``ms_dpdk_devs_allowlist``:
 
 1. Configure a single NIC.
 
@@ -121,7 +121,7 @@ Run the perf dump command to view DPDKStack statistics:
 ceph daemon osd.$i perf dump | grep dpdk
 ```
 
-if the `dpdk_device_receive_nombuf_errors` keeps increasing, check whether the
+if the ``dpdk_device_receive_nombuf_errors`` keeps increasing, check whether the
 throttling exceeds the limit:
 
 ```bash

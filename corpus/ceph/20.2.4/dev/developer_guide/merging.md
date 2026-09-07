@@ -5,7 +5,7 @@ title: "Commit merging:  scope and cadence"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/developer_guide/merging.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _merging:
+<a id="merging"></a>
 
 # Commit merging:  scope and cadence
 
@@ -104,9 +104,9 @@ After the CLT announces that it is time for phase 2 to happen.
 * Commits should be cherry-picked from *main* when possible
 * Commits that are not cherry-picked from *main* must pertain to a bug unique to
   the stable release
-* See also the backport HOWTO document
+* See also the [backport HOWTO](merging.md#backport-howto) document
 
-.. _`backport HOWTO`:
+<a id="backport-howto"></a>
   http://tracker.ceph.com/projects/ceph-releases/wiki/HOWTO#HOWTO
 
 ### Where ?

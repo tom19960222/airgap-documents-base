@@ -23,11 +23,11 @@ images in remote clusters in a local cluster, for disaster recovery.
 
 It connects to remote clusters via the RADOS protocol, relying on
 default search paths to find ceph.conf files, monitor addresses and
-authentication information for them, i.e. `/etc/ceph/$cluster.conf`,
-`/etc/ceph/$cluster.keyring`, and
-`/etc/ceph/$cluster.$name.keyring`, where `$cluster` is the
-human-friendly name of the cluster, and `$name` is the rados user to
-connect as, e.g. `client.rbd-mirror`.
+authentication information for them, i.e. ``/etc/ceph/$cluster.conf``,
+``/etc/ceph/$cluster.keyring``, and
+``/etc/ceph/$cluster.$name.keyring``, where ``$cluster`` is the
+human-friendly name of the cluster, and ``$name`` is the rados user to
+connect as, e.g. ``client.rbd-mirror``.
 
 # Options
 
@@ -68,4 +68,4 @@ more information.
 
 # See also
 
-rbd\(8)
+[rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

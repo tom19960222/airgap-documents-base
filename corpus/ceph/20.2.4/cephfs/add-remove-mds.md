@@ -5,15 +5,15 @@ title: "Deploying Metadata Servers"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/add-remove-mds.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs_add_remote_mds:
+<a id="cephfs-add-remote-mds"></a>
 
 > **Warning:** The material on this page is to be used only for manually setting
 > up a Ceph cluster. If you intend to use an automated tool such as
-> /cephadm/index to set up a Ceph cluster, do not use the
+> [/cephadm/index](../cephadm/index.md) to set up a Ceph cluster, do not use the
 > instructions on this page.
 
 > **Note:** If you are certain that you know what you are doing and you intend to
-> manually deploy MDS daemons, see /cephadm/services/mds/ before
+> manually deploy MDS daemons, see [/cephadm/services/mds/](../cephadm/services/mds.md) before
 > proceeding.
 
 # Deploying Metadata Servers
@@ -24,7 +24,7 @@ needed.  Rook and ansible (via the ceph-ansible playbooks) are recommended
 tools for doing this. For clarity, we also show the systemd commands here which
 may be run by the deployment technology if executed on bare-metal.
 
-See MDS Config Reference for details on configuring metadata servers.
+See [MDS Config Reference](mds-config-ref.md) for details on configuring metadata servers.
 
 # Provisioning Hardware for an MDS
 
@@ -42,7 +42,7 @@ The other dimension to MDS performance is the available RAM for caching. The
 MDS necessarily manages a distributed and cooperative metadata cache among all
 clients and other active MDSs. Therefore it is essential to provide the MDS
 with sufficient RAM to enable faster metadata access and mutation. The default
-MDS cache size (see also /cephfs/cache-configuration) is 4GB. It is
+MDS cache size (see also [/cephfs/cache-configuration](cache-configuration.md)) is 4GB. It is
 recommended to provision at least 8GB of RAM for the MDS to support this cache
 size.
 
@@ -61,7 +61,7 @@ become clear with workloads on the cluster that performance improves with
 multiple active MDS on the same node rather than a single overloaded MDS.
 
 Finally, be aware that CephFS is a highly-available file system by supporting
-standby MDS (see also mds-standby) for rapid failover. To get a real
+standby MDS (see also [mds-standby](standby.md#mds-standby)) for rapid failover. To get a real
 benefit from deploying standbys, it is usually necessary to distribute MDS
 daemons across at least two nodes in the cluster. Otherwise, a hardware failure
 on a single node may result in the file system becoming unavailable.
@@ -71,11 +71,11 @@ and recommended way to accomplish this so long as all daemons are configured to
 use available hardware within certain limits.  For the MDS, this generally
 means limiting its cache size.
 
-.. _manual-mds:
+<a id="manual-mds"></a>
 
 # Adding an MDS
 
-In the below instructions, `{id}` is an arbitrary name, such as the hostname of the machine.
+In the below instructions, ``{id}`` is an arbitrary name, such as the hostname of the machine.
 
 1. Create the mds data directory.
 
@@ -112,9 +112,9 @@ mds.-1.0 ERROR: failed to authenticate: (22) Invalid argument
    Then make sure you do not have a keyring set in ceph.conf in the global
    section; move it to the client section; or add a keyring setting specific to
    this mds daemon. And verify that you see the same key in the mds data
-   directory and `ceph auth get mds.{id}` output.
+   directory and ``ceph auth get mds.{id}`` output.
 
-1. Optionally, configure the file system the MDS should join (mds-join-fs):
+1. Optionally, configure the file system the MDS should join ([mds-join-fs](standby.md#mds-join-fs)):
 
    :
 
@@ -122,7 +122,7 @@ mds.-1.0 ERROR: failed to authenticate: (22) Invalid argument
 $ ceph config set mds.${id} mds_join_fs ${fs}
 ```
 
-1. Now you are ready to create-fs.
+1. Now you are ready to [create-fs](createfs.md#create-fs).
 
 # Removing an MDS
 
@@ -135,23 +135,25 @@ the following method.
    metadata server before tearing down the metadata server you would like to
    take offline.
 
-1. Stop the MDS to be removed. ::
+1. Stop the MDS to be removed. :
 
-	$ sudo systemctl stop ceph-mds@${id}
+```
+     $ sudo systemctl stop ceph-mds@${id}
 
-   The MDS will automatically notify the Ceph monitors that it is going down.
-   This enables the monitors to perform instantaneous failover to an available
-   standby, if one exists. It is unnecessary to use administrative commands to
-   effect this failover, e.g. through the use of `ceph mds fail mds.${id}`.
+The MDS will automatically notify the Ceph monitors that it is going down.
+This enables the monitors to perform instantaneous failover to an available
+standby, if one exists. It is unnecessary to use administrative commands to
+effect this failover, e.g. through the use of ``ceph mds fail mds.${id}``.
+```
 
-1. Remove the `/var/lib/ceph/mds/ceph-${id}` directory on the MDS. ::
+1. Remove the ``/var/lib/ceph/mds/ceph-${id}`` directory on the MDS. :
 
-	$ sudo rm -rf /var/lib/ceph/mds/ceph-${id}
+```
+$ sudo rm -rf /var/lib/ceph/mds/ceph-${id}
+```
 
 > **Note:** When an active MDS either has health warning MDS_TRIM or
 > MDS_CACHE_OVERSIZED, confirmation flag (--yes-i-really-mean-it)
 > needs to be passed, else the command will fail. It is not recommended to
 > restart an MDS which has these warnings since slow recovery at restart may
 > lead to more problems.
-
-.. _MDS Config Reference: ../mds-config-ref

@@ -59,14 +59,14 @@ rm-prefix
     Remove all KV pairs stored with the URL encoded prefix.
 
 store-copy <path> [num-keys-per-tx]
-    Copy all KV pairs to another directory specified by `path`.
+    Copy all KV pairs to another directory specified by ``path``.
     [num-keys-per-tx] is the number of KV pairs copied for a transaction.
 
 store-crc
-    Store CRC of all KV pairs to a file specified by `path`.
+    Store CRC of all KV pairs to a file specified by ``path``.
 
 compact
-    Subcommand `compact` is used to compact all data of kvstore. It will open
+    Subcommand ``compact`` is used to compact all data of kvstore. It will open
     the database, and trigger a database's compaction. After compaction, some
     disk space may be released.
 
@@ -96,4 +96,4 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8)
+[ceph](../../install/clone-source.md)\(8)

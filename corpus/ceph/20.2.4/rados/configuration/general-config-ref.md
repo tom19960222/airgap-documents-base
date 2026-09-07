@@ -18,7 +18,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. describe:: max_open_files
 
-   If set, when the :term:`Ceph Storage Cluster` starts, Ceph sets
+   If set, when the Ceph Storage Cluster starts, Ceph sets
    the max open FDs at the OS level (i.e., the max # of file
    descriptors). A suitably large value prevents Ceph Daemons from running out
    of file descriptors.

@@ -5,22 +5,22 @@ title: "intro"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/intro.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-overview:
+<a id="ceph-volume-overview"></a>
 
 ## Overview
-The `ceph-volume` tool aims to be a single purpose command line tool to deploy
-logical volumes as OSDs, trying to maintain a similar API to `ceph-disk` when
+The ``ceph-volume`` tool aims to be a single purpose command line tool to deploy
+logical volumes as OSDs, trying to maintain a similar API to ``ceph-disk`` when
 preparing, activating, and creating OSDs.
 
-It deviates from `ceph-disk` by not interacting or relying on the udev rules
+It deviates from ``ceph-disk`` by not interacting or relying on the udev rules
 that come installed for Ceph. These rules allow automatic detection of
-previously setup devices that are in turn fed into `ceph-disk` to activate
+previously setup devices that are in turn fed into ``ceph-disk`` to activate
 them.
 
-.. _ceph-disk-replaced:
+<a id="ceph-disk-replaced"></a>
 
 ## Replacing ``ceph-disk``
-The `ceph-disk` tool was created at a time when the project was required to
+The ``ceph-disk`` tool was created at a time when the project was required to
 support many different types of init systems (upstart, sysvinit, etc...) while
 being able to discover devices. This caused the tool to concentrate initially
 (and exclusively afterwards) on GPT partitions. Specifically on GPT GUIDs,
@@ -30,23 +30,23 @@ which were used to label devices in a unique way to answer questions like:
 * an encrypted data partition?
 * was the device left partially prepared?
 
-To solve these, it used `UDEV` rules to match the GUIDs, that would call
-`ceph-disk`, and end up in a back and forth between the `ceph-disk` systemd
-unit and the `ceph-disk` executable. The process was very unreliable and time
+To solve these, it used ``UDEV`` rules to match the GUIDs, that would call
+``ceph-disk``, and end up in a back and forth between the ``ceph-disk`` systemd
+unit and the ``ceph-disk`` executable. The process was very unreliable and time
 consuming (a timeout of close to three hours **per OSD** had to be put in
 place), and would cause OSDs to not come up at all during the boot process of
 a node.
 
 It was hard to debug, or even replicate these problems given the asynchronous
-behavior of `UDEV`.
+behavior of ``UDEV``.
 
-Since the world-view of `ceph-disk` had to be GPT partitions exclusively, it meant
+Since the world-view of ``ceph-disk`` had to be GPT partitions exclusively, it meant
 that it couldn't work with other technologies like LVM, or similar device
 mapper devices. It was ultimately decided to create something modular, starting
 with LVM support, and the ability to expand on other technologies as needed.
 
 ## GPT partitions are simple?
-Although partitions in general are simple to reason about, `ceph-disk`
+Although partitions in general are simple to reason about, ``ceph-disk``
 partitions were not simple by any means. It required a tremendous amount of
 special flags in order to get them to work correctly with the device discovery
 workflow. Here is an example call to create a data partition:
@@ -58,7 +58,7 @@ workflow. Here is an example call to create a data partition:
 Not only creating these was hard, but these partitions required devices to be
 exclusively owned by Ceph. For example, in some cases a special partition would
 be created when devices were encrypted, which would contain unencrypted keys.
-This was `ceph-disk` domain knowledge, which would not translate to a "GPT
+This was ``ceph-disk`` domain knowledge, which would not translate to a "GPT
 partitions are simple" understanding. Here is an example of that special
 partition being created:
 
@@ -67,16 +67,16 @@ partition being created:
 ```
 
 ## Modularity
-`ceph-volume` was designed to be a modular tool because we anticipate that
+``ceph-volume`` was designed to be a modular tool because we anticipate that
 there are going to be lots of ways that people provision the hardware devices
 that we need to consider. There are already two: legacy ceph-disk devices that
-are still in use and have GPT partitions (handled by ceph-volume-simple),
+are still in use and have GPT partitions (handled by [ceph-volume-simple](simple/index.md#ceph-volume-simple)),
 and lvm. SPDK devices where we manage NVMe devices directly from userspace are
 on the immediate horizon, where LVM won't work there since the kernel isn't
 involved at all.
 
 ## ``ceph-volume lvm``
-By making use of LVM tags, the ceph-volume-lvm sub-command is
+By making use of LVM tags, the [ceph-volume-lvm](lvm/index.md#ceph-volume-lvm) sub-command is
 able to store and later re-discover and query devices associated with OSDs so
 that they can later be activated.
 

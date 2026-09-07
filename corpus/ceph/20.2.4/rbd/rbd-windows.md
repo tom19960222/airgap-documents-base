@@ -7,19 +7,19 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # RBD on Windows
 
-The `rbd` command can be used to create, remove, import, export, map or
+The ``rbd`` command can be used to create, remove, import, export, map or
 unmap images exactly like it would on Linux. Make sure to check the
-RBD basic commands guide.
+[RBD basic commands](rados-rbd-cmds.md) guide.
 
-`librbd.dll` is also available for applications that can natively use Ceph.
+``librbd.dll`` is also available for applications that can natively use Ceph.
 
-Please check the installation guide to get started.
+Please check the [installation guide](../install/windows-install.md) to get started.
 
 > **Note:**
-> Please see the OS recommendations regarding client package support.
+> Please see the [OS recommendations](../start/os-recommendations.md) regarding client package support.
 
 # Windows service
-On MS Windows, `rbd-wnbd` daemons are managed by a centralized service. This allows
+On MS Windows, ``rbd-wnbd`` daemons are managed by a centralized service. This allows
 decoupling the daemons from the Windows session from which they originate. At
 the same time, the service is responsible of recreating persistent mappings,
 usually when the host boots.
@@ -27,19 +27,19 @@ usually when the host boots.
 Note that only one such service may run per host.
 
 By default, all image mappings are persistent. Non-persistent mappings can be
-requested using the `-onon-persistent` `rbd` flag.
+requested using the ``-onon-persistent`` ``rbd`` flag.
 
 Persistent mappings are recreated when the service starts, unless explicitly
 unmapped. The service disconnects the mappings when being stopped. This also
 allows adjusting the Windows service start order so that RBD images can be
 mapped before starting services that may depend on it, such as VMMS.
 
-In order to be able to reconnect the images, `rbd-wnbd` stores mapping
+In order to be able to reconnect the images, ``rbd-wnbd`` stores mapping
 information in the Windows registry at the following location:
-`SYSTEM\CurrentControlSet\Services\rbd-wnbd`.
+``SYSTEM\CurrentControlSet\Services\rbd-wnbd``.
 
 The following command can be used to configure the service. Please update
-the `rbd-wnbd.exe` path accordingly:
+the ``rbd-wnbd.exe`` path accordingly:
 
 ```
 New-Service -Name "ceph-rbd" `
@@ -48,7 +48,7 @@ New-Service -Name "ceph-rbd" `
             -StartupType Automatic
 ```
 
-Note that the Ceph MSI installer takes care of creating the `ceph-rbd`
+Note that the Ceph MSI installer takes care of creating the ``ceph-rbd``
 Windows service.
 
 # Usage
@@ -70,15 +70,15 @@ notable differences:
   Windows. If a device path is provided by the used when mapping an image, it
   will be used as an identifier, which can also be used when unmapping the
   image.
-* the `show` command was added, which describes a specific mapping.
+* the ``show`` command was added, which describes a specific mapping.
   This can be used for retrieving the disk path.
-* the `service` command was added, allowing `rbd-wnbd` to run as a Windows service.
+* the ``service`` command was added, allowing ``rbd-wnbd`` to run as a Windows service.
   All mappings are by default persistent, being recreated when the service
   stops, unless explicitly unmapped. The service disconnects the mappings
   when being stopped.
-* the `list` command also includes a `status` column.
+* the ``list`` command also includes a ``status`` column.
 
-The purpose of the `service` mode is to ensure that mappings survive reboots
+The purpose of the ``service`` mode is to ensure that mappings survive reboots
 and that the Windows service start order can be adjusted so that RBD images can
 be mapped before starting services that may depend on it, such as VMMS.
 
@@ -153,7 +153,7 @@ Get-Disk -Number $diskNumber | `
 ## SAN policy
 
 The Windows SAN policy determines which disks will be automatically mounted.
-The default policy (`offlineShared`) specifies that:
+The default policy (``offlineShared``) specifies that:
 
   All newly discovered disks that do not reside on a shared bus (such as SCSI
   and iSCSI) are brought online and made read-write. Disks that are left
@@ -171,14 +171,14 @@ Set-Disk -Number $diskNumber -IsOffline $false
 Set-Disk -Number $diskNumber -IsReadOnly $false
 ```
 
-Please check the Limitations section to learn about the Windows limitations
+Please check the [Limitations](rbd-windows.md#limitations) section to learn about the Windows limitations
 that affect automatically mounted disks.
 
 Windows documentation:
 
-* SAN policy reference
-* san command
-* StorageSetting command
+* [SAN policy reference](https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-partitionmanager-sanpolicy)
+* [san command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/san)
+* [StorageSetting command](https://learn.microsoft.com/en-us/powershell/module/storage/set-storagesetting?view=windowsserver2022-ps)
 
 ## Limitations
 
@@ -186,7 +186,7 @@ Windows documentation:
 
 At the moment, the Microsoft Failover Cluster can't use WNBD disks as
 Cluster Shared Volumes (CSVs) underlying storage. The main reason is that
-`WNBD` and `rbd-wnbd` don't support the *SCSI Persistent Reservations*
+``WNBD`` and ``rbd-wnbd`` don't support the *SCSI Persistent Reservations*
 feature yet.
 
 #### Hyper-V disk addressing
@@ -201,10 +201,10 @@ There are a few possible ways of avoiding this Hyper-V limitation:
 
 * use an NTFS/ReFS partition to store VHDX image files instead of directly
   attaching the RBD image. This may slightly impact the IO performance.
-* use the Hyper-V `AutomaticStartAction` setting to prevent the VMs from
+* use the Hyper-V ``AutomaticStartAction`` setting to prevent the VMs from
   booting with the incorrect disks and have a script that updates VM disks
-  attachments before powering them back on. The `ElementName` field of the
-  Msvm_StorageAllocationSettingData WMI class may be used to label VM
+  attachments before powering them back on. The ``ElementName`` field of the
+  [Msvm_StorageAllocationSettingData](https://docs.microsoft.com/en-us/windows/win32/hyperv_v2/msvm-storageallocationsettingdata) [WMI](https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-start-page) class may be used to label VM
   disk attachments.
 * use the Openstack Hyper-V driver, which automatically refreshes the VM disk
   attachments before powering them back on.
@@ -218,7 +218,7 @@ Unfortunately, Windows restores the disk status based on the disk number,
 ignoring the disk unique identifier. However, the disk numbers can change
 after being reconnected. This issue also affects iSCSI and Fibre Channel disks.
 
-Let's assume that the SAN policy is set to `offlineShared`, three
+Let's assume that the [SAN policy](rbd-windows.md#san-policy) is set to ``offlineShared``, three
 RBD images are attached and disk 1 is turned online. After a reboot, disk 1
 will become online but it may now correspond to a different RBD image. This can
 be an issue if the disk that was mounted on the host was actually meant for a
@@ -226,15 +226,4 @@ VM.
 
 # Troubleshooting
 
-Please consult the Windows troubleshooting page.
-
-.. _Windows troubleshooting: ../../install/windows-troubleshooting
-.. _installation guide: ../../install/windows-install
-.. _RBD basic commands: ../rados-rbd-cmds
-.. _WNBD driver: https://github.com/cloudbase/wnbd
-.. _Msvm_StorageAllocationSettingData: https://docs.microsoft.com/en-us/windows/win32/hyperv_v2/msvm-storageallocationsettingdata
-.. _WMI: https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-start-page
-.. _san command: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/san
-.. _StorageSetting command: https://learn.microsoft.com/en-us/powershell/module/storage/set-storagesetting?view=windowsserver2022-ps
-.. _SAN policy reference: https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-partitionmanager-sanpolicy
-.. _OS recommendations: ../../start/os-recommendations
+Please consult the [Windows troubleshooting](../install/windows-troubleshooting.md) page.

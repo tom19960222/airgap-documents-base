@@ -17,7 +17,7 @@ drastically improving the performance.
 
 ## Supported platforms
 > **Note:**
-> Please see the OS recommendations regarding client package support.
+> Please see the [OS recommendations](../start/os-recommendations.md) regarding client package support.
 
 Windows Server 2019 and Windows Server 2016 are supported. Previous Windows
 Server versions, including Windows client versions such as Windows 10, might
@@ -28,18 +28,18 @@ might be unavailable.
 
 ## Secure boot
 
-The `WNBD` driver hasn't been signed by Microsoft, which means that Secure Boot
+The ``WNBD`` driver hasn't been signed by Microsoft, which means that Secure Boot
 must be disabled.
 
 ## Dokany
 
-In order to mount Ceph filesystems, `ceph-dokan` requires Dokany to be
+In order to mount Ceph filesystems, ``ceph-dokan`` requires Dokany to be
 installed. You may fetch the installer as well as the source code from the
 Dokany GitHub repository: https://github.com/dokan-dev/dokany/releases
 
 Make sure to install Dokany 2.0.5 or later.
 
-Unlike `WNBD`, Dokany isn't included in the Ceph MSI installer.
+Unlike ``WNBD``, Dokany isn't included in the Ceph MSI installer.
 
 # MSI installer
 
@@ -63,26 +63,17 @@ https://github.com/ceph/ceph/blob/master/README.windows.rst
 
 # Configuration
 
-Please check the Windows configuration sample to get started.
+Please check the [Windows configuration sample](windows-basic-config.md) to get started.
 
-You'll also need a keyring file. The General CephFS Prerequisites page provides a
+You'll also need a keyring file. The [General CephFS Prerequisites](../cephfs/mount-prerequisites.md) page provides a
 simple example, showing how a new CephX user can be created and how its secret
 key can be retrieved.
 
-For more details on CephX user management, see the Client Authentication
-and User Management.
+For more details on CephX user management, see the [Client Authentication](../cephfs/client-auth.md)
+and [User Management](../rados/operations/user-management.md#user-management).
 
 # Further reading
 
-* RBD Windows documentation
-* CephFS Windows documentation
-* Windows troubleshooting
-
-.. _CephFS Windows documentation: ../../cephfs/ceph-dokan
-.. _Windows configuration sample: ../windows-basic-config
-.. _RBD Windows documentation: ../../rbd/rbd-windows/
-.. _Windows troubleshooting: ../windows-troubleshooting
-.. _General CephFS Prerequisites: ../../cephfs/mount-prerequisites
-.. _Client Authentication: ../../cephfs/client-auth
-.. _Windows testing: ../dev/tests-windows
-.. _OS recommendations: ../../start/os-recommendations
+* [RBD Windows documentation](../rbd/rbd-windows.md)
+* [CephFS Windows documentation](../cephfs/ceph-dokan.md)
+* [Windows troubleshooting](windows-troubleshooting.md)

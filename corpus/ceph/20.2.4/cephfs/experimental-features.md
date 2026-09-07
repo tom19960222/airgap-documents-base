@@ -26,7 +26,7 @@ load on the MDS. It is not sufficiently tested to support at this time, although
 failures within it are unlikely to make non-inlined data inaccessible
 
 Inline data has always been off by default and requires setting
-the `inline_data` flag.
+the ``inline_data`` flag.
 
 Inline data has been declared deprecated for the Octopus release, and will
 likely be removed altogether in a future release.
@@ -36,7 +36,7 @@ likely be removed altogether in a future release.
 Mantle is a programmable metadata balancer built into the MDS. The idea is to
 protect the mechanisms for balancing load (migration, replication,
 fragmentation) but stub out the balancing policies using Lua. For details, see
-/cephfs/mantle.
+[/cephfs/mantle](mantle.md).
 
 ## LazyIO
 LazyIO relaxes POSIX semantics. Buffered reads/writes are allowed even when a

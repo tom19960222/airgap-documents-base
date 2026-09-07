@@ -5,7 +5,7 @@ title: "RGW Dynamic Bucket Index Resharding"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/dynamicresharding.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _rgw_dynamic_bucket_index_resharding:
+<a id="rgw-dynamic-bucket-index-resharding"></a>
 
 # RGW Dynamic Bucket Index Resharding
 
@@ -28,7 +28,7 @@ resharding process, but reads are not.
 
 By default dynamic bucket index resharding can only increase the
 number of bucket index shards to 1999, although this upper-bound is a
-configuration parameter (see Configuration below). When
+configuration parameter (see [Configuration](dynamicresharding.md#configuration) below). When
 possible, the process chooses a prime number of shards in order to
 spread the number of entries across the bucket index
 shards more evenly.
@@ -50,7 +50,7 @@ buckets that fluctuate in numbers of objects.
 With Ceph releases prior to Reef, the Ceph Object Gateway (RGW) does not support
 dynamic resharding in a
 multisite deployment. For information on dynamic resharding, see
-Resharding in the RGW multisite documentation.
+[Resharding](zone-features.md#feature-resharding) in the RGW multisite documentation.
 
 # Configuration
 
@@ -100,7 +100,7 @@ radosgw-admin reshard process
 radosgw-admin reshard status --bucket <bucket_name>
 ```
 
-The output is a JSON array of 3 properties (`reshard_status`, `new_bucket_instance_id`, `num_shards`) per shard.
+The output is a JSON array of 3 properties (``reshard_status``, ``new_bucket_instance_id``, ``num_shards``) per shard.
 
 For example, the output at each dynamic resharding stage is shown below:
 
@@ -160,7 +160,7 @@ For example, the output at each dynamic resharding stage is shown below:
 
 > **Note:**
 > Bucket resharding tasks cannot be canceled once they transition to
-> the `in-progress` state from the initial `not-resharding` state.
+> the ``in-progress`` state from the initial ``not-resharding`` state.
 
 ```bash
 radosgw-admin reshard cancel --bucket <bucket_name>
@@ -201,7 +201,7 @@ resharding to a lower number of shards.
 Clusters prior to Luminous 12.2.11 and Mimic 13.2.5 left behind stale bucket
 instance entries, which were not automatically cleaned up. This issue also affected
 lifecycle policies, which were no longer applied to resharded buckets. Both of
-these issues can be remediated by running `radosgw-admin` commands.
+these issues can be remediated by running ``radosgw-admin`` commands.
 
 ## Stale Instance Management
 
@@ -234,7 +234,7 @@ The command to do so is:
 radosgw-admin lc reshard fix --bucket {bucketname}
 ```
 
-If the `--bucket` argument is not provided, this
+If the ``--bucket`` argument is not provided, this
 command will try to fix lifecycle policies for all the buckets in the cluster.
 
 ## Object Expirer Fixes
@@ -244,7 +244,7 @@ been dropped from the log pool and never deleted after the bucket was
 resharded. This would happen if their expiration time was before the
 cluster was upgraded, but if their expiration was after the upgrade
 the objects would be correctly handled. To manage these expire-stale
-objects, `radosgw-admin` provides two subcommands.
+objects, ``radosgw-admin`` provides two subcommands.
 
 Listing:
 

@@ -5,21 +5,21 @@ title: "Ceph RESTful API"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/ceph_api/index.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _mgr ceph api:
+<a id="mgr-ceph-api"></a>
 
 # Ceph RESTful API
 
 # Introduction
 The **Ceph RESTful API** (henceforth **Ceph API**) is provided by the
-mgr-dashboard module. The Ceph API
+[mgr-dashboard](../dashboard.md#mgr-dashboard) module. The Ceph API
 service is available at the same URL as the regular Ceph Dashboard, under the
-`/api` base path (please refer to dashboard-host-name-and-port):
+``/api`` base path (please refer to [dashboard-host-name-and-port](../dashboard.md#dashboard-host-name-and-port)):
 
 ```
 http://<server_addr>:<server_port>/api
 ```
 
-or, if HTTPS is enabled (please refer to dashboard-ssl-tls-support):
+or, if HTTPS is enabled (please refer to [dashboard-ssl-tls-support](../dashboard.md#dashboard-ssl-tls-support)):
 
 ```
 https://<server_addr>:<ssl_server_port>/api
@@ -45,7 +45,7 @@ Requests to the Ceph API pass through two access control checkpoints:
 
 So, prior to start consuming the Ceph API, a valid JSON Web Token (JWT) has to
 be obtained, and it may then be reused for subsequent requests. The
-`/api/auth` endpoint will provide the valid token:
+``/api/auth`` endpoint will provide the valid token:
 
 ```bash
 curl -X POST "https://example.com:8443/api/auth" \
@@ -61,7 +61,7 @@ curl -X POST "https://example.com:8443/api/auth" \
 ```
 
 The token obtained must be passed together with every API request in the
-`Authorization` HTTP header:
+``Authorization`` HTTP header:
 
 ```bash
 curl -H "Authorization: Bearer <token>" ...
@@ -69,17 +69,17 @@ curl -H "Authorization: Bearer <token>" ...
 
 Authentication and authorization can be further configured from the
 Ceph CLI, the Ceph-Dashboard UI and the Ceph API itself (please refer to
-dashboard-user-role-management).
+[dashboard-user-role-management](../dashboard.md#dashboard-user-role-management)).
 
 # Versioning
 
 One of the main goals of the Ceph API is to keep a stable interface. For this
 purpose, Ceph API is built upon the following principles:
 
-* **Mandatory**: in order to avoid implicit defaults, all endpoints require an explicit default version (starting with `1.0`).
+* **Mandatory**: in order to avoid implicit defaults, all endpoints require an explicit default version (starting with ``1.0``).
 * **Per-endpoint**: as this API wraps many different Ceph components, this allows for a finer-grained change control.
-   * **Content/MIME Type**: the version expected from a specific endpoint is stated by the `Accept: application/vnd.ceph.api.v<major>.<minor>+json` HTTP header. If the current Ceph API server is not able to address that specific major version, a [415 - Unsupported Media Type](https://tools.ietf.org/html/rfc7231#section-6.5.13) response will be returned.
-* **Semantic Versioning**: with a `major.minor` version:
+   * **Content/MIME Type**: the version expected from a specific endpoint is stated by the ``Accept: application/vnd.ceph.api.v<major>.<minor>+json`` HTTP header. If the current Ceph API server is not able to address that specific major version, a [415 - Unsupported Media Type](https://tools.ietf.org/html/rfc7231#section-6.5.13) response will be returned.
+* **Semantic Versioning**: with a ``major.minor`` version:
    * Major changes are backward incompatible: they might result in non-additive changes to the request and/or response formats of a specific endpoint.
    * Minor changes are backward/forward compatible: they basically consists of additive changes to the request or response formats of a specific endpoint.
 

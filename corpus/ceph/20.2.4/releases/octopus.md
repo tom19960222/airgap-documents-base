@@ -31,12 +31,12 @@ all users update to this release.
 * The ability to blend all RBD pools together into a single view by invoking
   "rbd perf image iostat" or "rbd perf image iotop" commands without any options
   or positional arguments is resurrected.  Such invocations accidentally became
-  limited to just the default pool (`rbd_default_pool`) in v15.2.14.
+  limited to just the default pool (``rbd_default_pool``) in v15.2.14.
 
 * Users who were running OpenStack Manila to export native CephFS, who
   upgraded their Ceph cluster from Nautilus (or earlier) to a later
   major version, were vulnerable to an attack by malicious users
-  (CVE-2022-0670). The vulnerability allowed users to obtain
+  ([CVE-2022-0670](../security/CVE-2022-0670.md#cve-2022-0670)). The vulnerability allowed users to obtain
   access to arbitrary portions of the CephFS filesystem hierarchy,
   instead of being properly restricted to their own subvolumes. The
   vulnerability is due to a bug in the "volumes" plugin in Ceph Manager.
@@ -360,7 +360,7 @@ users update to this release.
 * RGW: It is possible to specify ssl options and ciphers for beast frontend now.
   The default ssl options setting is "no_sslv2:no_sslv3:no_tlsv1:no_tlsv1_1".
   If you want to return back the old behavior add 'ssl_options=' (empty) to
-  `rgw frontends` configuration.
+  ``rgw frontends`` configuration.
 
 * CephFS: old clusters (pre-Jewel) that did not use CephFS have legacy data
   structures in the ceph-mon stores. These structures are not understood by
@@ -635,9 +635,9 @@ This is a hotfix release addressing a number of security issues and regressions.
 ## Changelog
 
 * mgr/dashboard: fix base-href: revert it to previous approach ([issue#50684](https://tracker.ceph.com/issues/50684), Avan Thakkar)
-* mgr/dashboard: fix cookie injection issue (CVE-2021-3509, Ernesto Puerta)
-* rgw: RGWSwiftWebsiteHandler::is_web_dir checks empty subdir_name (CVE-2021-3531, Felix Huettner)
-* rgw: sanitize \r in s3 CORSConfiguration's ExposeHeader (CVE-2021-3524, Sergey Bobrov, Casey Bodley)
+* mgr/dashboard: fix cookie injection issue ([CVE-2021-3509](../security/CVE-2021-3509.md#cve-2021-3509), Ernesto Puerta)
+* rgw: RGWSwiftWebsiteHandler::is_web_dir checks empty subdir_name ([CVE-2021-3531](../security/CVE-2021-3531.md#cve-2021-3531), Felix Huettner)
+* rgw: sanitize \r in s3 CORSConfiguration's ExposeHeader ([CVE-2021-3524](../security/CVE-2021-3524.md#cve-2021-3524), Sergey Bobrov, Casey Bodley)
 
 # v15.2.11 Octopus
 
@@ -664,7 +664,7 @@ ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM 1h
 ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM_ALLOWED 1h
 ```
 
-  For more information, see CVE-2021-20288.
+  For more information, see [CVE-2021-20288](../security/CVE-2021-20288.md#cve-2021-20288).
 
 # v15.2.10 Octopus
 
@@ -677,7 +677,7 @@ users update to this release.
 
 * RADOS: BlueStore handling of huge(>4GB) writes from RocksDB to BlueFS has been fixed.
 
-* When upgrading from a previous cephadm release, systemctl may hang when trying to start or restart the monitoring containers. (This is caused by a change in the systemd unit to use `type=forking`.) After the upgrade, please run:
+* When upgrading from a previous cephadm release, systemctl may hang when trying to start or restart the monitoring containers. (This is caused by a change in the systemd unit to use ``type=forking``.) After the upgrade, please run:
 
 ```
 ceph orch redeploy nfs
@@ -743,7 +743,7 @@ users update to this release.
 ## Notable Changes
 
 * MGR: progress module can now be turned on/off, using the commands:
-  `ceph progress on` and `ceph progress off`.
+  ``ceph progress on`` and ``ceph progress off``.
 
 * OSD: PG removal has been optimized in this release.
 
@@ -891,23 +891,23 @@ users to update to this release.
   tenant access to any Ceph credential's secret. (Kotresh Hiremath Ravishankar,
   Ramana Raja)
 
-* ceph-volume: The `lvm batch` subcommand received a major rewrite. This closed
+* ceph-volume: The ``lvm batch`` subcommand received a major rewrite. This closed
   a number of bugs and improves usability in terms of size specification and
   calculation, as well as idempotency behaviour and disk replacement process.
   Please refer to https://docs.ceph.com/en/latest/ceph-volume/lvm/batch/ for
   more detailed information.
 
-* MON: The cluster log now logs health detail every `mon_health_to_clog_interval`,
+* MON: The cluster log now logs health detail every ``mon_health_to_clog_interval``,
   which has been changed from 1hr to 10min. Logging of health detail will be
   skipped if there is no change in health summary since last known.
 
-* The `ceph df` command now lists the number of pgs in each pool.
+* The ``ceph df`` command now lists the number of pgs in each pool.
 
-* The `bluefs_preextend_wal_files` option has been removed.
+* The ``bluefs_preextend_wal_files`` option has been removed.
 
 * It is now possible to specify the initial monitor to contact for Ceph tools
-  and daemons using the `mon_host_override` config option or
-  `--mon-host-override <ip>` command-line switch. This generally should only
+  and daemons using the ``mon_host_override`` config option or
+  ``--mon-host-override <ip>`` command-line switch. This generally should only
   be used for debugging and only affects initial communication with Ceph's
   monitor cluster.
 
@@ -1110,7 +1110,7 @@ users to update to this release.
 This is the 7th backport release in the Octopus series. This release fixes
 a serious bug in RGW that has been shown to cause data loss when a read of
 a large RGW object (i.e., one with at least one tail segment) takes longer than
-one half the time specified in the configuration option `rgw_gc_obj_min_wait`.
+one half the time specified in the configuration option ``rgw_gc_obj_min_wait``.
 The bug causes the tail segments of that read object to be added to the RGW
 garbage collection queue, which will in turn cause them to be deleted after
 a period of time.
@@ -1146,9 +1146,9 @@ Octopus users upgrade to this release.
   directories. See the documentation for more information:
   https://docs.ceph.com/docs/master/cephfs/multimds/
 
-* Monitors now have a config option `mon_osd_warn_num_repaired`, 10 by default.
+* Monitors now have a config option ``mon_osd_warn_num_repaired``, 10 by default.
   If any OSD has repaired more than this many I/O errors in stored data a
-  `OSD_TOO_MANY_REPAIRS` health warning is generated.
+  ``OSD_TOO_MANY_REPAIRS`` health warning is generated.
 
 * Now when noscrub and/or no deep-scrub flags are set globally or per pool,
   scheduled scrubs of the type disabled will be aborted. All user initiated
@@ -1342,13 +1342,13 @@ release.
 * Cephadm: There were a lot of small usability improvements and bug fixes:
 
   * Grafana when deployed by Cephadm now binds to all network interfaces.
-  * `cephadm check-host` now prints all detected problems at once.
-  * Cephadm now calls `ceph dashboard set-grafana-api-ssl-verify false`
+  * ``cephadm check-host`` now prints all detected problems at once.
+  * Cephadm now calls ``ceph dashboard set-grafana-api-ssl-verify false``
     when generating an SSL certificate for Grafana.
   * The Alertmanager is now correctly pointed to the Ceph Dashboard
-  * `cephadm adopt` now supports adopting an Alertmanager
-  * `ceph orch ps` now supports filtering by service name
-  * `ceph orch host ls` now marks hosts as offline, if they are not
+  * ``cephadm adopt`` now supports adopting an Alertmanager
+  * ``ceph orch ps`` now supports filtering by service name
+  * ``ceph orch host ls`` now marks hosts as offline, if they are not
     accessible.
 
 * Cephadm can now deploy NFS Ganesha services. For example, to deploy NFS with
@@ -1359,27 +1359,27 @@ release.
 ceph orch apply nfs mynfs nfs-ganesha nfs-ns
 ```
 
-* Cephadm: `ceph orch ls --export` now returns all service specifications in
-  yaml representation that is consumable by `ceph orch apply`. In addition,
-  the commands `orch ps` and `orch ls` now support `--format yaml` and
-  `--format json-pretty`.
+* Cephadm: ``ceph orch ls --export`` now returns all service specifications in
+  yaml representation that is consumable by ``ceph orch apply``. In addition,
+  the commands ``orch ps`` and ``orch ls`` now support ``--format yaml`` and
+  ``--format json-pretty``.
 
-* Cephadm: `ceph orch apply osd` supports a `--preview` flag that prints a preview of
+* Cephadm: ``ceph orch apply osd`` supports a ``--preview`` flag that prints a preview of
   the OSD specification before deploying OSDs. This makes it possible to
   verify that the specification is correct, before applying it.
 
-* RGW: The `radosgw-admin` sub-commands dealing with orphans --
-  `radosgw-admin orphans find`, `radosgw-admin orphans finish`, and
-  `radosgw-admin orphans list-jobs` -- have been deprecated. They have
+* RGW: The ``radosgw-admin`` sub-commands dealing with orphans --
+  ``radosgw-admin orphans find``, ``radosgw-admin orphans finish``, and
+  ``radosgw-admin orphans list-jobs`` -- have been deprecated. They have
   not been actively maintained and they store intermediate results on
   the cluster, which could fill a nearly-full cluster.  They have been
   replaced by a tool, currently considered experimental,
-  `rgw-orphan-list`.
+  ``rgw-orphan-list``.
 
 * RBD: The name of the rbd pool object that is used to store
   rbd trash purge schedule is changed from "rbd_trash_trash_purge_schedule"
   to "rbd_trash_purge_schedule". Users that have already started using
-  `rbd trash purge schedule` functionality and have per pool or namespace
+  ``rbd trash purge schedule`` functionality and have per pool or namespace
   schedules configured should copy "rbd_trash_trash_purge_schedule"
   object to "rbd_trash_purge_schedule" before the upgrade and remove
   "rbd_trash_purge_schedule" using the following commands in every RBD
@@ -1527,7 +1527,7 @@ recommend that all Octopus users upgrade.
 * cephfs,mgr: mgr: force purge normal ceph entities from service map ([issue#44677](http://tracker.ceph.com/issues/44677), [pr#34800](https://github.com/ceph/ceph/pull/34800), Venky Shankar)
 * cephfs,tools: cephfs-journal-tool: correctly parse --dry_run argument ([pr#34804](https://github.com/ceph/ceph/pull/34804), Milind Changire)
 * cephfs,tools: tools/cephfs: add accounted_rstat/rstat when building file dentry ([pr#34803](https://github.com/ceph/ceph/pull/34803), Xiubo Li)
-* cephfs: ceph-fuse: link to libfuse3 and pass `-o big_writes[to libfuse if libfuse](3.0.0 (`pr#34769 <https://github.com/ceph/ceph/pull/34769), Xiubo Li, "Yan, Zheng", Kefu Chai)
+* cephfs: ceph-fuse: link to libfuse3 and pass `-o big_writes` to libfuse if libfuse < 3.0.0 ([pr#34769](https://github.com/ceph/ceph/pull/34769), Xiubo Li, "Yan, Zheng", Kefu Chai)
 * cephfs: client: reset requested_max_size if file write is not wanted ([pr#34766](https://github.com/ceph/ceph/pull/34766), "Yan, Zheng")
 * cephfs: mds: fix 'if there is lock cache on dir' check ([pr#34273](https://github.com/ceph/ceph/pull/34273), "Yan, Zheng")
 * cephfs: mon/FSCommands: Fix 'add_data_pool' command and 'fs new' command ([pr#34775](https://github.com/ceph/ceph/pull/34775), Ramana Raja)
@@ -1629,19 +1629,19 @@ This is the first stable release of Ceph Octopus.
 * A new deployment tool called **cephadm** has been introduced that
   integrates Ceph daemon deployment and management via containers
   into the orchestration layer.  For more information see
-  cephadm.
+  [cephadm](../cephadm/index.md#cephadm).
 * Health alerts can now be muted, either temporarily or permanently.
 * Health alerts are now raised for recent Ceph daemons crashes.
 * A simple 'alerts' module has been introduced to send email
   health alerts for clusters deployed without the benefit of an
   existing external monitoring infrastructure.
-* Packages are built for the following distributions:
+* [Packages](../install/get-packages.md#packages) are built for the following distributions:
 
   - CentOS 8
   - CentOS 7 (partial--see below)
   - Ubuntu 18.04 (Bionic)
   - Debian Buster
-  - Container image (based on CentOS 8)
+  - [Container image](../install/containers.md#containers) (based on CentOS 8)
 
   Note that the dashboard, prometheus, and restful manager modules
   will not work on the CentOS 7 build due to Python 3 module
@@ -1655,7 +1655,7 @@ This is the first stable release of Ceph Octopus.
 
 #### Dashboard
 
-The mgr-dashboard has gained a lot of new features and functionality:
+The [mgr-dashboard](../mgr/dashboard.md#mgr-dashboard) has gained a lot of new features and functionality:
 
 * UI Enhancements
 
@@ -1750,20 +1750,20 @@ New and enhanced management of Ceph features/services:
   deleted or flattened.
 * The trash can be configured to automatically purge on a defined schedule.
 * Images can be online re-sparsified to reduce the usage of zeroed extents.
-* The `rbd-nbd` tool has been improved to use more modern kernel interfaces.
+* The ``rbd-nbd`` tool has been improved to use more modern kernel interfaces.
 * Caching has been improved to be more efficient and performant.
-* `rbd-mirror` automatically adjusts its per-image memory usage based
+* ``rbd-mirror`` automatically adjusts its per-image memory usage based
   upon its memory target.
 * A new persistent read-only caching daemon is available to offload reads from
   shared parent images.
 
 #### RGW object storage
 
-* New Multisite Sync Policy primitives for per-bucket replication. (EXPERIMENTAL)
+* New [Multisite Sync Policy](../radosgw/multisite-sync-policy.md) primitives for per-bucket replication. (EXPERIMENTAL)
 * S3 feature support:
 
   - Bucket Replication (EXPERIMENTAL)
-  - Bucket Notifications via HTTP/S, AMQP and Kafka
+  - [Bucket Notifications](../radosgw/notifications.md) via HTTP/S, AMQP and Kafka
   - Bucket Tagging
   - Object Lock
   - Public Access Block for buckets
@@ -1774,7 +1774,7 @@ New and enhanced management of Ceph features/services:
   - Dynamic resharding prefers prime shard counts for improved distribution.
   - Raised the default number of bucket shards to 11.
 
-* Added HashiCorp Vault Integration for SSE-KMS.
+* Added [HashiCorp Vault Integration](../radosgw/vault.md) for SSE-KMS.
 * Added Keystone token cache for S3 requests.
 
 #### CephFS distributed file system
@@ -1782,7 +1782,7 @@ New and enhanced management of Ceph features/services:
 * Inline data support in CephFS has been deprecated and will likely be
   removed in a future release.
 * MDS daemons can now be assigned to manage a particular file system via the
-  new `mds_join_fs` option.
+  new ``mds_join_fs`` option.
 * MDS now aggressively asks idle clients to trim caps which improves stability
   when file system load changes.
 * The mgr volumes plugin has received numerous improvements to support CephFS
@@ -1793,7 +1793,7 @@ New and enhanced management of Ceph features/services:
 
 > **Note:**
 > You can monitor the progress of your upgrade at each stage with the
-> `ceph versions` command, which will tell you what ceph version(s) are
+> ``ceph versions`` command, which will tell you what ceph version(s) are
 > running for each type of daemon.
 
 #### Instructions
@@ -1803,7 +1803,7 @@ New and enhanced management of Ceph features/services:
 1. Make sure your cluster is stable and healthy (no down or
    recovering OSDs).  (Optional, but recommended.)
 
-1. Set the `noout` flag for the duration of the upgrade. (Optional,
+1. Set the ``noout`` flag for the duration of the upgrade. (Optional,
    but recommended.):
 
 ```
@@ -1818,7 +1818,7 @@ New and enhanced management of Ceph features/services:
 ```
 
    Once all monitors are up, verify that the monitor upgrade is
-   complete by looking for the `octopus` string in the mon
+   complete by looking for the ``octopus`` string in the mon
    map.  The command:
 
 ```
@@ -1834,14 +1834,14 @@ min_mon_release 15 (octopus)
    If it doesn't, that implies that one or more monitors hasn't been
    upgraded and restarted and/or the quorum does not include all monitors.
 
-1. Upgrade `ceph-mgr` daemons by installing the new packages and
+1. Upgrade ``ceph-mgr`` daemons by installing the new packages and
    restarting all manager daemons.  For example, on each manager host,:
 
 ```
 # systemctl restart ceph-mgr.target
 ```
 
-   Verify the `ceph-mgr` daemons are running by checking ``ceph
+   Verify the ``ceph-mgr`` daemons are running by checking ``ceph
    -s``:
 
 ```
@@ -1871,7 +1871,7 @@ min_mon_release 15 (octopus)
 ```
 
    You can monitor the progress of the OSD upgrades with the
-   `ceph versions` or `ceph osd versions` commands:
+   ``ceph versions`` or ``ceph osd versions`` commands:
 
 ```
 # ceph osd versions
@@ -1884,23 +1884,31 @@ min_mon_release 15 (octopus)
 1. Upgrade all CephFS MDS daemons.  For each CephFS file system,
 
    1. Reduce the number of ranks to 1.  (Make note of the original
-      number of MDS daemons first if you plan to restore it later.)::
+      number of MDS daemons first if you plan to restore it later.):
 
-	# ceph status
-	# ceph fs set <fs_name> max_mds 1
+```
+# ceph status
+# ceph fs set <fs_name> max_mds 1
+```
 
    1. Wait for the cluster to deactivate any non-zero ranks by
-      periodically checking the status::
+      periodically checking the status:
 
-	# ceph status
+```
+# ceph status
+```
 
-   1. Take all standby MDS daemons offline on the appropriate hosts with::
+   1. Take all standby MDS daemons offline on the appropriate hosts with:
 
-	# systemctl stop ceph-mds@<daemon_name>
+```
+# systemctl stop ceph-mds@<daemon_name>
+```
 
-   1. Confirm that only one MDS is online and is rank 0 for your FS::
+   1. Confirm that only one MDS is online and is rank 0 for your FS:
 
-	# ceph status
+```
+# ceph status
+```
 
    1. Upgrade the last remaining MDS daemon by installing the new
       packages and restarting the daemon:
@@ -1909,13 +1917,17 @@ min_mon_release 15 (octopus)
 # systemctl restart ceph-mds.target
 ```
 
-   1. Restart all standby MDS daemons that were taken offline::
+   1. Restart all standby MDS daemons that were taken offline:
 
-	# systemctl start ceph-mds.target
+```
+# systemctl start ceph-mds.target
+```
 
-   1. Restore the original value of `max_mds` for the volume::
+   1. Restore the original value of ``max_mds`` for the volume:
 
-	# ceph fs set <fs_name> max_mds <original_max_mds>
+```
+# ceph fs set <fs_name> max_mds <original_max_mds>
+```
 
 1. Upgrade all radosgw daemons by upgrading packages and restarting
    daemons on all hosts:
@@ -1931,13 +1943,13 @@ min_mon_release 15 (octopus)
 # ceph osd require-osd-release octopus
 ```
 
-1. If you set `noout` at the beginning, be sure to clear it with:
+1. If you set ``noout`` at the beginning, be sure to clear it with:
 
 ```
 # ceph osd unset noout
 ```
 
-1. Verify the cluster is healthy with `ceph health`.
+1. Verify the cluster is healthy with ``ceph health``.
 
    If your CRUSH tunables are older than Hammer, Ceph will now issue a
    health warning.  If you see a health alert to that effect, you can
@@ -1965,11 +1977,10 @@ ceph osd setcrushmap -i backup-crushmap
 ```
 
    Moving to 'straw2' buckets will unlock a few recent features, like
-   the `crush-compat` balancer mode added back in Luminous.
+   the `crush-compat` [balancer](../rados/operations/balancer.md#balancer) mode added back in Luminous.
 
 1. If you are upgrading from Mimic, or did not already do so when you
-   upgraded to Nautlius, we recommended you enable the new :ref:`v2
-   network protocol <msgr2>`, issue the following command:
+   upgraded to Nautlius, we recommended you enable the new [v2 network protocol](../rados/configuration/msgr2.md#msgr2), issue the following command:
 
 ```
 ceph mon enable-msgr2
@@ -1983,10 +1994,10 @@ ceph mon enable-msgr2
 ceph mon dump
 ```
 
-   and verify that each monitor has both a `v2:` and `v1:` address
+   and verify that each monitor has both a ``v2:`` and ``v1:`` address
    listed.
 
-1. Consider enabling the telemetry module to send
+1. Consider enabling the [telemetry module](../mgr/telemetry.md#telemetry) to send
    anonymized usage statistics and crash information to the Ceph
    upstream developers.  To see what would be reported (without actually
    sending any information to anyone),:
@@ -2003,8 +2014,7 @@ ceph telemetry show
 ceph telemetry on
 ```
 
-   For more information about the telemetry module, see :ref:`the
-   documentation <telemetry>`.
+   For more information about the telemetry module, see [the documentation](../mgr/telemetry.md#telemetry).
 
 ## Upgrading from pre-Mimic releases (like Luminous)
 
@@ -2014,9 +2024,9 @@ upgrading to Octopus.
 ## Upgrade compatibility notes
 
 * Starting with Octopus, there is now a separate repository directory
-  for each version on `download.ceph.com` (e.g., `rpm-15.2.0` and
-  `debian-15.2.0`).  The traditional package directory that is named
-  after the release (e.g., `rpm-octopus` and `debian-octopus`) is
+  for each version on `download.ceph.com` (e.g., ``rpm-15.2.0`` and
+  ``debian-15.2.0``).  The traditional package directory that is named
+  after the release (e.g., ``rpm-octopus`` and ``debian-octopus``) is
   now a symlink to the most recently bug fix version for that release.
   We no longer generate a single repository that combines all bug fix
   versions for a single named release.
@@ -2029,7 +2039,7 @@ upgrading to Octopus.
 
 * Ceph now packages python bindings for python3.6 instead of
   python3.4, because python3 in EL7/EL8 is now using python3.6
-  as the native python3. see the announcement
+  as the native python3. see the [announcement](https://lists.fedoraproject.org/archives/list/epel-announce@lists.fedoraproject.org/message/EGUMKAIMPK2UD5VSHXM53BH2MBDGDWMO/)
   for more details on the background of this change.
 
 * librbd now uses a write-around cache policy be default,
@@ -2054,7 +2064,7 @@ upgrading to Octopus.
   of the dynamic resharding docs for details.
 
 * RGW: Bucket naming restrictions have changed and likely to cause
-  InvalidBucketName errors. We recommend to set `rgw_relaxed_s3_bucket_names`
+  InvalidBucketName errors. We recommend to set ``rgw_relaxed_s3_bucket_names``
   option to true as a workaround.
 
 * In the Zabbix Mgr Module there was a typo in the key being send
@@ -2070,12 +2080,12 @@ upgrading to Octopus.
 
 * The format of all date + time stamps has been modified to fully
   conform to ISO 8601.  The old format (``YYYY-MM-DD
-  HH:MM:SS.ssssss`) excluded the `T`` separator between the date and
+  HH:MM:SS.ssssss``) excluded the ``T`` separator between the date and
   time and was rendered using the local time zone without any explicit
   indication.  The new format includes the separator as well as a
-  `+nnnn` or `-nnnn` suffix to indicate the time zone, or a `Z`
+  ``+nnnn`` or ``-nnnn`` suffix to indicate the time zone, or a ``Z``
   suffix if the time is UTC.  For example,
-  `2019-04-26T18:40:06.225953+0100`.
+  ``2019-04-26T18:40:06.225953+0100``.
 
   Any code or scripts that was previously parsing date and/or time
   values from the JSON or XML structure CLI output should be checked
@@ -2084,8 +2094,8 @@ upgrading to Octopus.
   output should be modified to parse the structured output instead, as
   the human-readable output may change without notice.
 
-* The `bluestore_no_per_pool_stats_tolerance` config option has been
-  replaced with `bluestore_fsck_error_on_no_per_pool_stats`
+* The ``bluestore_no_per_pool_stats_tolerance`` config option has been
+  replaced with ``bluestore_fsck_error_on_no_per_pool_stats``
   (default: false).  The overall default behavior has not changed:
   fsck will warn but not fail on legacy stores, and repair will
   convert to per-pool stats.
@@ -2093,10 +2103,10 @@ upgrading to Octopus.
 * The disaster-recovery related 'ceph mon sync force' command has been
   replaced with 'ceph daemon <...> sync_force'.
 
-* The `osd_recovery_max_active` option now has
-  `osd_recovery_max_active_hdd` and `osd_recovery_max_active_ssd`
+* The ``osd_recovery_max_active`` option now has
+  ``osd_recovery_max_active_hdd`` and ``osd_recovery_max_active_ssd``
   variants, each with different default values for HDD and SSD-backed
-  OSDs, respectively.  By default `osd_recovery_max_active` now
+  OSDs, respectively.  By default ``osd_recovery_max_active`` now
   defaults to zero, which means that the OSD will conditionally use
   the HDD or SSD option values.  Administrators who have customized
   this value may want to consider whether they have set this to a
@@ -2107,7 +2117,7 @@ upgrading to Octopus.
   on all osds, or provided osds, thus simplifying the process of having to
   parse `osd dump` for the same information.
 
-* The structured output of `ceph status` or `ceph -s` is now more
+* The structured output of ``ceph status`` or ``ceph -s`` is now more
   concise, particularly the `mgrmap` and `monmap` sections, and the
   structure of the `osdmap` section has been cleaned up.
 
@@ -2115,10 +2125,10 @@ upgrading to Octopus.
   time exceeds a configurable threshold for any of the intervals
   computed.  The OSD computes 1 minute, 5 minute and 15 minute
   intervals with average, minimum and maximum values.  New
-  configuration option `mon_warn_on_slow_ping_ratio` specifies a
-  percentage of `osd_heartbeat_grace` to determine the threshold.  A
+  configuration option ``mon_warn_on_slow_ping_ratio`` specifies a
+  percentage of ``osd_heartbeat_grace`` to determine the threshold.  A
   value of zero disables the warning.  New configuration option
-  `mon_warn_on_slow_ping_time` specified in milliseconds over-rides
+  ``mon_warn_on_slow_ping_time`` specified in milliseconds over-rides
   the computed value, causes a warning when OSD heartbeat pings take
   longer than the specified amount.  New admin command ``ceph daemon
   mgr.# dump_osd_network [threshold]`` command will list all
@@ -2130,25 +2140,25 @@ upgrading to Octopus.
 
 * Inline data support for CephFS has been deprecated. When setting the flag,
   users will see a warning to that effect, and enabling it now requires the
-  `--yes-i-really-really-mean-it` flag. If the MDS is started on a
+  ``--yes-i-really-really-mean-it`` flag. If the MDS is started on a
   filesystem that has it enabled, a health warning is generated. Support for
   this feature will be removed in a future release.
 
-* `ceph {set,unset} full` is not supported anymore. We have been using
-  `full` and `nearfull` flags in OSD map for tracking the fullness status
-  of a cluster back since the Hammer release, if the OSD map is marked `full`
+* ``ceph {set,unset} full`` is not supported anymore. We have been using
+  ``full`` and ``nearfull`` flags in OSD map for tracking the fullness status
+  of a cluster back since the Hammer release, if the OSD map is marked ``full``
   all write operations will be blocked until this flag is removed. In the
   Infernalis release and Linux kernel 4.7 client, we introduced the per-pool
   full/nearfull flags to track the status for a finer-grained control, so the
-  clients will hold the write operations if either the cluster-wide `full`
-  flag or the per-pool `full` flag is set. This was a compromise, as we
-  needed to support the cluster with and without per-pool `full` flags
+  clients will hold the write operations if either the cluster-wide ``full``
+  flag or the per-pool ``full`` flag is set. This was a compromise, as we
+  needed to support the cluster with and without per-pool ``full`` flags
   support. But this practically defeated the purpose of introducing the
   per-pool flags. So, in the Mimic release, the new flags finally took the
   place of their cluster-wide counterparts, as the monitor started removing
   these two flags from OSD map. So the clients of Infernalis and up can benefit
   from this change, as they won't be blocked by the full pools which they are
-  not writing to. In this release, `ceph {set,unset} full` is now considered
+  not writing to. In this release, ``ceph {set,unset} full`` is now considered
   as an invalid command. And the clients will continue honoring both the
   cluster-wide and per-pool flags to be backward compatible with pre-infernalis
   clusters.
@@ -2215,23 +2225,23 @@ $ ceph telemetry show basic  # basic cluster info (including all of the new info
 * New OSD daemon command dump_scrub_reservations which reveals the
   scrub reservations that are held for local (primary) and remote (replica) PGs.
 
-* Previously, `ceph tell mgr ...` could be used to call commands
+* Previously, ``ceph tell mgr ...`` could be used to call commands
   implemented by mgr modules.  This is no longer supported.  Since
-  Luminous, using `tell` has not been necessary: those same commands
-  are also accessible without the `tell mgr` portion (e.g., ``ceph
-  tell mgr influx foo` is the same as `ceph influx foo`.  `ceph
+  Luminous, using ``tell`` has not been necessary: those same commands
+  are also accessible without the ``tell mgr`` portion (e.g., ``ceph
+  tell mgr influx foo`` is the same as ``ceph influx foo``.  ``ceph
   tell mgr ...`` will now call admin commands--the same set of
-  commands accessible via `ceph daemon ...` when you are logged into
+  commands accessible via ``ceph daemon ...`` when you are logged into
   the appropriate host.
 
-* The `ceph tell` and `ceph daemon` commands have been unified,
+* The ``ceph tell`` and ``ceph daemon`` commands have been unified,
   such that all such commands are accessible via either interface.
   Note that ceph-mgr tell commands are accessible via either ``ceph
-  tell mgr ...` or `ceph tell mgr.<id> ...``, and it is only
+  tell mgr ...`` or ``ceph tell mgr.<id> ...``, and it is only
   possible to send tell commands to the active daemon (the standbys do
   not accept incoming connections over the network).
 
-* Ceph will now issue a health warning if a RADOS pool as a `pg_num`
+* Ceph will now issue a health warning if a RADOS pool as a ``pg_num``
   value that is not a power of two.  This can be fixed by adjusting
   the pool to a nearby power of two:
 
@@ -2245,54 +2255,54 @@ ceph osd pool set <pool-name> pg_num <new-pg-num>
 ceph config set global mon_warn_on_pool_pg_num_not_power_of_two false
 ```
 
-* The format of MDSs in `ceph fs dump` has changed.
+* The format of MDSs in ``ceph fs dump`` has changed.
 
-* The `mds_cache_size` config option is completely removed. Since Luminous,
-  the `mds_cache_memory_limit` config option has been preferred to configure
+* The ``mds_cache_size`` config option is completely removed. Since Luminous,
+  the ``mds_cache_memory_limit`` config option has been preferred to configure
   the MDS's cache limits.
 
-* The `pg_autoscale_mode` is now set to `on` by default for newly
+* The ``pg_autoscale_mode`` is now set to ``on`` by default for newly
   created pools, which means that Ceph will automatically manage the
   number of PGs.  To change this behavior, or to learn more about PG
-  autoscaling, see pg-autoscaler.  Note that existing pools in
-  upgraded clusters will still be set to `warn` by default.
+  autoscaling, see [pg-autoscaler](../rados/operations/placement-groups.md#pg-autoscaler).  Note that existing pools in
+  upgraded clusters will still be set to ``warn`` by default.
 
-* The pool parameter `target_size_ratio`, used by the pg autoscaler,
+* The pool parameter ``target_size_ratio``, used by the pg autoscaler,
   has changed meaning. It is now normalized across pools, rather than
-  specifying an absolute ratio. For details, see pg-autoscaler.
+  specifying an absolute ratio. For details, see [pg-autoscaler](../rados/operations/placement-groups.md#pg-autoscaler).
   If you have set target size ratios on any pools, you may want to set
-  these pools to autoscale `warn` mode to avoid data movement during
+  these pools to autoscale ``warn`` mode to avoid data movement during
   the upgrade:
 
 ```
 ceph osd pool set <pool-name> pg_autoscale_mode warn
 ```
 
-* The `upmap_max_iterations` config option of mgr/balancer has been
-  renamed to `upmap_max_optimizations` to better match its behaviour.
+* The ``upmap_max_iterations`` config option of mgr/balancer has been
+  renamed to ``upmap_max_optimizations`` to better match its behaviour.
 
-* `mClockClientQueue` and `mClockClassQueue` OpQueue
+* ``mClockClientQueue`` and ``mClockClassQueue`` OpQueue
   implementations have been removed in favor of of a single
-  `mClockScheduler` implementation of a simpler OSD interface.
-  Accordingly, the `osd_op_queue_mclock*` family of config options
-  has been removed in favor of the `osd_mclock_scheduler*` family
+  ``mClockScheduler`` implementation of a simpler OSD interface.
+  Accordingly, the ``osd_op_queue_mclock*`` family of config options
+  has been removed in favor of the ``osd_mclock_scheduler*`` family
   of options.
 
 * The config subsystem now searches dot ('.') delimited prefixes for
-  options.  That means for an entity like `client.foo.bar`, its
+  options.  That means for an entity like ``client.foo.bar``, its
   overall configuration will be a combination of the global options,
-  `client`, `client.foo`, and `client.foo.bar`.  Previously,
-  only global, `client`, and `client.foo.bar` options would apply.
+  ``client``, ``client.foo``, and ``client.foo.bar``.  Previously,
+  only global, ``client``, and ``client.foo.bar`` options would apply.
   This change may affect the configuration for clients that include a
-  `.` in their name.
+  ``.`` in their name.
 
 * MDS default cache memory limit is now 4GB.
 
-* The behaviour of the `-o` argument to the rados tool has been
+* The behaviour of the ``-o`` argument to the rados tool has been
   reverted to its original behaviour of indicating an output file. This
   reverts it to a more consistent behaviour when compared to other
   tools. Specifying object size is now accomplished by using an
-  upper-case O `-O`.
+  upper-case O ``-O``.
 
 * In certain rare cases, OSDs would self-classify themselves as type
   'nvme' instead of 'hdd' or 'ssd'.  This appears to be limited to
@@ -2308,26 +2318,26 @@ ceph osd pool set <pool-name> pg_autoscale_mode warn
   pulling bucket notification from a subscription in a 'pubsub' zone,
   as these are already wrapped inside that array.
 
-* The configuration value `osd_calc_pg_upmaps_max_stddev` used for
+* The configuration value ``osd_calc_pg_upmaps_max_stddev`` used for
   upmap balancing has been removed. Instead use the mgr balancer config
-  `upmap_max_deviation` which now is an integer number of PGs of
+  ``upmap_max_deviation`` which now is an integer number of PGs of
   deviation from the target PGs per OSD.  This can be set with a command
-  like `ceph config set mgr mgr/balancer/upmap_max_deviation 2`. The
-  default `upmap_max_deviation` is 1.  There are situations where
+  like ``ceph config set mgr mgr/balancer/upmap_max_deviation 2``. The
+  default ``upmap_max_deviation`` is 1.  There are situations where
   crush rules would not allow a pool to ever have completely balanced
   PGs. For example, if crush requires 1 replica on each of 3 racks, but
   there are fewer OSDs in one of the racks. In those cases, the
   configuration value can be increased.
 
 * MDS daemons can now be assigned to manage a particular file system via the
-  new `mds_join_fs` option. The monitors will try to use only MDS for a file
+  new ``mds_join_fs`` option. The monitors will try to use only MDS for a file
   system with mds_join_fs equal to the file system name (strong affinity).
   Monitors may also deliberately failover an active MDS to a standby when the
   cluster is otherwise healthy if the standby has stronger affinity.
 
 * RGW Multisite: A new fine grained bucket-granularity policy configuration
   system has been introduced and it supersedes the previous coarse zone sync
-  configuration (specifically the `sync_from` and `sync_from_all` fields
+  configuration (specifically the ``sync_from`` and ``sync_from_all`` fields
   in the zonegroup configuration. New configuration should only be configured
   after all relevant zones in the zonegroup have been upgraded.
 
@@ -2339,9 +2349,9 @@ ceph osd pool set <pool-name> pg_autoscale_mode warn
   from 1 to 11 to increase the amount of write throughput for small buckets
   and delay the onset of dynamic resharding. This change only affects new
   deployments/zones. To change this default value on existing deployments,
-  use `radosgw-admin zonegroup modify --bucket-index-max-shards=11`.
+  use ``radosgw-admin zonegroup modify --bucket-index-max-shards=11``.
   If the zonegroup is part of a realm, the change must be committed with
-  `radosgw-admin period update --commit` - otherwise the change will take
+  ``radosgw-admin period update --commit`` - otherwise the change will take
   effect after radosgws are restarted.
 
 ## Changelog
@@ -6116,8 +6126,3 @@ ceph osd pool set <pool-name> pg_autoscale_mode warn
 * vstart.sh: move extra_seastar_args up in vstart.sh ([pr#32366](https://github.com/ceph/ceph/pull/32366), Chunmei Liu)
 * vstart.sh: unify the indent ([pr#27995](https://github.com/ceph/ceph/pull/27995), Kefu Chai, Richael Zhuang)
 * vstart_runner: split unicode arguments into lists ([pr#28561](https://github.com/ceph/ceph/pull/28561), Rishabh Dave)
-
-.. _announcement: https://lists.fedoraproject.org/archives/list/epel-announce@lists.fedoraproject.org/message/EGUMKAIMPK2UD5VSHXM53BH2MBDGDWMO/
-.. _Bucket Notifications: ../../radosgw/notifications
-.. _HashiCorp Vault Integration: ../../radosgw/vault
-.. _Multisite Sync Policy: ../../radosgw/multisite-sync-policy

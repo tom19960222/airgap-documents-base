@@ -8,15 +8,15 @@ fetched_at: 2026-08-18T01:32:45Z
 # Ceph Object Gateway Config Reference
 
 The following settings may added to the Ceph configuration file (i.e., usually
-`ceph.conf`) under the `[client.radosgw.{instance-name}]` section. The
+``ceph.conf``) under the ``[client.radosgw.{instance-name}]`` section. The
 settings may contain default values. If you do not specify each setting in the
 Ceph configuration file, the default value will be set automatically.
 
-Configuration variables set under the `[client.radosgw.{instance-name}]`
+Configuration variables set under the ``[client.radosgw.{instance-name}]``
 section will not apply to rgw or radosgw-admin commands without an instance-name
 specified in the command. Thus variables meant to be applied to all RGW
-instances or all radosgw-admin options can be put into the `[global]` or the
-`[client]` section to avoid specifying `instance-name`.
+instances or all radosgw-admin options can be put into the ``[global]`` or the
+``[client]`` section to avoid specifying ``instance-name``.
 
 .. confval:: rgw_frontends
 
@@ -153,7 +153,7 @@ To view the queue of objects awaiting garbage collection, execute the following
 radosgw-admin gc list
 ```
 
-> **Note:** Specify `--include-all` to list all entries, including unexpired
+> **Note:** Specify ``--include-all`` to list all entries, including unexpired
 > Garbage Collection objects.
 
 Garbage collection is a background activity that may
@@ -205,7 +205,7 @@ thread running:
 .. versionadded:: Jewel
 
 You may include the following settings in your Ceph configuration
-file under each `[client.radosgw.{instance-name}]` instance.
+file under each ``[client.radosgw.{instance-name}]`` instance.
 
 .. confval:: rgw_zone
 
@@ -385,9 +385,9 @@ file under each `[client.radosgw.{instance-name}]` instance.
 
 .. versionadded:: Nautilus
 
-The older and now non-default`civetweb` frontend has a threading model that uses a thread per
+The older and now non-default``civetweb`` frontend has a threading model that uses a thread per
 connection and hence is automatically throttled by rgw_thread_pool_size
-when accepting connections. The newer and default `beast` frontend is
+when accepting connections. The newer and default ``beast`` frontend is
 not limited by the thread pool size when it comes to accepting new
 connections, so a scheduler abstraction was introduced in the Nautilus release
 to support additional methods of scheduling requests.
@@ -426,14 +426,6 @@ implementation of the *dmclock_client* op queue divides RGW ops into admin, auth
 
 .. confval:: rgw_dmclock_metadata_lim
 
-.. _Architecture: ../../architecture#data-striping
-.. _Pool Configuration: ../../rados/configuration/pool-pg-config-ref/
-.. _Cluster Pools: ../../rados/operations/pools
-.. _Rados cluster handles: ../../rados/api/librados-intro/#step-2-configuring-a-cluster-handle
-.. _Barbican: ../barbican
-.. _Encryption: ../encryption
-.. _HTTP Frontends: ../frontends
-
 # D4N Settings
 
 D4N is a caching architecture that utilizes Redis to speed up S3 object storage
@@ -464,7 +456,7 @@ below.
 # Topic persistency settings
 
 Topic persistency will repeatedly push notifications until they succeed.
-For more information, see Bucket Notifications.
+For more information, see [Bucket Notifications](notifications.md).
 
 The default behavior is to push indefinitely and as frequently as possible.
 With these settings you can control how long and how often to retry an
@@ -481,8 +473,6 @@ retention is indefinite, and notifications are retried as frequently as possible
 .. confval:: rgw_topic_persistency_max_retries
 
 .. confval:: rgw_topic_persistency_sleep_duration
-
-.. _Bucket Notifications: ../notifications
 
 # Cloud Restore settings
 

@@ -14,8 +14,8 @@ time: a checkpoint. One of the advanced features of Ceph block devices is that
 you can create snapshots of images to retain point-in-time state history.  Ceph
 also supports snapshot layering, which allows you to clone images (for example,
 VM images) quickly and easily. Ceph block device snapshots are managed using
-the `rbd` command and several higher-level interfaces, including QEMU,
-libvirt, OpenStack, OpenNebula and CloudStack.
+the ``rbd`` command and several higher-level interfaces, including [QEMU](qemu-rbd.md),
+[libvirt](libvirt.md), [OpenStack](rbd-openstack.md), [OpenNebula](https://docs.opennebula.io/stable/management_and_operations/vm_management/vm_instances.html?highlight=ceph#managing-disk-snapshots) and [CloudStack](rbd-cloudstack.md).
 
 > **Important:** To use RBD snapshots, you must have a running Ceph cluster.
 
@@ -44,35 +44,33 @@ libvirt, OpenStack, OpenNebula and CloudStack.
 
 # Cephx Notes
 
-When cephx authentication is enabled (it is by default), you must specify a
+When [cephx](../rados/configuration/auth-config-ref.md) authentication is enabled (it is by default), you must specify a
 user name or ID and a path to the keyring containing the corresponding key. See
-User Management for details.
+[User Management](../rados/operations/user-management.md#user-management) for details.
 
 ```bash
+rbd --id {user-ID} --keyring /path/to/secret [commands]
+rbd --name {username} --keyring /path/to/secret [commands]
 ```
-
-	rbd --id {user-ID} --keyring /path/to/secret [commands]
-	rbd --name {username} --keyring /path/to/secret [commands]
 
 For example:
 
 ```bash
+rbd --id admin --keyring /etc/ceph/ceph.keyring [commands]
+rbd --name client.admin --keyring /etc/ceph/ceph.keyring [commands]
 ```
 
-	rbd --id admin --keyring /etc/ceph/ceph.keyring [commands]
-	rbd --name client.admin --keyring /etc/ceph/ceph.keyring [commands]
-
-> **Tip:** Add the user and secret to the `CEPH_ARGS` environment variable to
+> **Tip:** Add the user and secret to the ``CEPH_ARGS`` environment variable to
 > avoid re-entry of these parameters.
 
 # Snapshot Basics
 
 The following procedures demonstrate how to create, list, and remove
-snapshots using the `rbd` command.
+snapshots using the ``rbd`` command.
 
 ## Create Snapshot
 
-To create a snapshot, use the `rbd snap create` command and specify the pool
+To create a snapshot, use the ``rbd snap create`` command and specify the pool
 name, the image name, and the snap name:
 
 ```bash
@@ -87,7 +85,7 @@ rbd snap create rbd/foo@snapname
 
 ## List Snapshots
 
-To list the snapshots of an image, use the `rbd snap ls` command and specify
+To list the snapshots of an image, use the ``rbd snap ls`` command and specify
 the pool name and the image name:
 
 ```bash
@@ -102,7 +100,7 @@ rbd snap ls rbd/foo
 
 ## Roll back Snapshot
 
-To roll back to a snapshot,  use the `rbd snap rollback` command and specify
+To roll back to a snapshot,  use the ``rbd snap rollback`` command and specify
 the pool name, the image name, and the snap name:
 
 ```bash
@@ -123,7 +121,7 @@ rbd snap rollback rbd/foo@snapname
 
 ## Delete a Snapshot
 
-To delete a snapshot, use the `rbd snap rm` command and specify the pool
+To delete a snapshot, use the ``rbd snap rm`` command and specify the pool
 name, the image name, and the snap name:
 
 ```bash
@@ -138,11 +136,11 @@ rbd snap rm rbd/foo@snapname
 
 > **Note:** Ceph OSDs delete data asynchronously, so deleting a snapshot  does
 > not immediately free up the capacity of the underlying OSDs. This process is
-> known as "snaptrim", and is referred to as such in `ceph status` output.
+> known as "snaptrim", and is referred to as such in ``ceph status`` output.
 
 ## Purge Snapshots
 
-To delete all snapshots, use the `rbd snap purge` command and specify the
+To delete all snapshots, use the ``rbd snap purge`` command and specify the
 pool name and the image name:
 
 ```bash
@@ -193,7 +191,7 @@ protect the snapshot before you clone it. The diagram below depicts this
 process.
 
 > **Note:** Ceph supports the cloning of only "RBD format 2" images (that is,
-> images created without specifying `--image-format 1`). The Linux kernel
+> images created without specifying ``--image-format 1``). The Linux kernel
 > client supports cloned images beginning with the 3.10 release.
 
 ## Getting Started with Layering
@@ -228,8 +226,8 @@ you may clone snapshots from one pool to images in another pool.
    example: a user may create an image for a Linux distribution (for example,
    Ubuntu 22.04) and create a snapshot of it. The user may occasionally update
    the image and create a new snapshot (by using such commands as ``sudo
-   apt-get update`, `sudo apt-get upgrade`, or `sudo apt-get dist-upgrade``
-   followed by `rbd snap create`). As the image matures, the user can clone
+   apt-get update``, ``sudo apt-get upgrade``, or ``sudo apt-get dist-upgrade``
+   followed by ``rbd snap create``). As the image matures, the user can clone
    any one of the snapshots.
 
 1. **Extended Template:** A more advanced use case includes extending a
@@ -305,7 +303,7 @@ rbd snap unprotect rbd/foo@snapname
 
 ## Listing Children of a Snapshot
 
-To list the children of a snapshot, use the `rbd children` command and
+To list the children of a snapshot, use the ``rbd children`` command and
 specify the pool name, the image name, and the snap name:
 
 ```bash
@@ -338,10 +336,3 @@ rbd flatten rbd/bar
 
 > **Note:** Since a flattened image contains all the data stored in the snapshot,
 > a flattened image takes up more storage space than a layered clone does.
-
-.. _cephx: ../../rados/configuration/auth-config-ref/
-.. _QEMU: ../qemu-rbd/
-.. _OpenStack: ../rbd-openstack/
-.. _OpenNebula: https://docs.opennebula.io/stable/management_and_operations/vm_management/vm_instances.html?highlight=ceph#managing-disk-snapshots
-.. _CloudStack: ../rbd-cloudstack/
-.. _libvirt: ../libvirt/

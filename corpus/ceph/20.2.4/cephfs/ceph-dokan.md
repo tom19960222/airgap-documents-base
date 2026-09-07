@@ -5,17 +5,17 @@ title: "Mount CephFS on Windows"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/ceph-dokan.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-dokan:
+<a id="ceph-dokan"></a>
 # Mount CephFS on Windows
 
-`ceph-dokan` is used to mount CephFS file systems on Windows. It leverages
+``ceph-dokan`` is used to mount CephFS file systems on Windows. It leverages
 Dokany, a Windows driver that allows implementing file systems in userspace in
 a manner similar to FUSE.
 
-See the installation guide to get started.
+See the [installation guide](../install/windows-install.md) to get started.
 
 > **Note:**
-> See the OS recommendations for information about client package support.
+> See the [OS recommendations](../start/os-recommendations.md) for information about client package support.
 
 # Usage
 
@@ -27,15 +27,15 @@ Run the following command to mount a Ceph file system:
 ceph-dokan.exe -c c:\ceph.conf -l x
 ```
 
-This command mounts the default Ceph file system using the drive letter `x`.
-If `ceph.conf` is present in the default location
-(`%ProgramData%\ceph\ceph.conf`, then this argument is optional.
+This command mounts the default Ceph file system using the drive letter ``x``.
+If ``ceph.conf`` is present in the default location
+(``%ProgramData%\ceph\ceph.conf``, then this argument is optional.
 
-The `-l` argument allows the use of an empty folder as the mount point
+The ``-l`` argument allows the use of an empty folder as the mount point
 instead of a drive letter.
 
-The uid and gid used for mounting the file system default to `0` and can be
-changed using the following `ceph.conf` options:
+The uid and gid used for mounting the file system default to ``0`` and can be
+changed using the following ``ceph.conf`` options:
 
 ```
 [client]
@@ -45,21 +45,21 @@ client_mount_gid = 1000
 ```
 
 If you have more than one file system on your Ceph cluster, use the option
-`--client_fs` to mount the non-default file system:
+``--client_fs`` to mount the non-default file system:
 
 ```
 mkdir -Force C:\mnt\mycephfs2
 ceph-dokan.exe --mountpoint C:\mnt\mycephfs2 --client_fs mycephfs2
 ```
 
-Mount CephFS subdirectories by using the `--root-path` parameter:
+Mount CephFS subdirectories by using the ``--root-path`` parameter:
 
 ```
 ceph-dokan -l y --root-path /a
 ```
 
-If the `-o --removable` flags are set, the mounts will show up in the
-`Get-Volume` results:
+If the ``-o --removable`` flags are set, the mounts will show up in the
+``Get-Volume`` results:
 
 ```
 PS C:\> Get-Volume -FriendlyName "Ceph*" | `
@@ -71,11 +71,11 @@ DriveLetter Filesystem FilesystemLabel
           W Ceph       Ceph - new_fs
 ```
 
-Run `ceph-dokan --help` for a full list of arguments.
+Run ``ceph-dokan --help`` for a full list of arguments.
 
 ## Credentials
 
-The `--id` option passes the name of the CephX user whose keyring is used
+The ``--id`` option passes the name of the CephX user whose keyring is used
 when mounting a CephFS file system. The following commands are equivalent:
 
 ```
@@ -105,13 +105,9 @@ ownership or permissions.
 CephFS doesn't support mandatory file locks, which Windows relies heavily upon.
 Ceph relies upon Dokan to handle file locks, which are enforced only locally.
 
-Unlike `rbd-wnbd`, `ceph-dokan` doesn't provide a `service` command. To
-ensure that a CephFS mount survives reboots of its host, use `NSSM`.
+Unlike ``rbd-wnbd``, ``ceph-dokan`` doesn't provide a ``service`` command. To
+ensure that a CephFS mount survives reboots of its host, use ``NSSM``.
 
 # Troubleshooting
 
-See the Windows troubleshooting page.
-
-.. _Windows troubleshooting: ../../install/windows-troubleshooting
-.. _installation guide: ../../install/windows-install
-.. _OS recommendations: ../../start/os-recommendations
+See the [Windows troubleshooting](../install/windows-troubleshooting.md) page.

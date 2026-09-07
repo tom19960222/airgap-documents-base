@@ -17,7 +17,7 @@ daemons that were installed by means of packages.
 Here are some tools and commands to help you troubleshoot your Ceph
 environment.
 
-.. _cephadm-pause:
+<a id="cephadm-pause"></a>
 
 ## Pausing or Disabling cephadm
 
@@ -37,11 +37,11 @@ ceph orch set backend ''
 ceph mgr module disable cephadm
 ```
 
-These commands disable all `ceph orch ...` CLI commands. All
+These commands disable all ``ceph orch ...`` CLI commands. All
 previously deployed daemon containers continue to run and will start just as
 they were before you ran these commands.
 
-See cephadm-spec-unmanaged for more on disabling individual services.
+See [cephadm-spec-unmanaged](services/index.md#cephadm-spec-unmanaged) for more on disabling individual services.
 
 ## Per-service and Per-daemon Events
 
@@ -101,18 +101,18 @@ events:
 ## Checking Cephadm Logs
 
 To learn how to monitor cephadm logs as they are generated, read
-watching_cephadm_logs.
+[watching_cephadm_logs](operations.md#watching-cephadm-logs).
 
 If your Ceph cluster has been configured to log events to files, there will be
-a `ceph.cephadm.log` file on all monitor hosts. See cephadm-logs for a
+a ``ceph.cephadm.log`` file on all monitor hosts. See [cephadm-logs](operations.md#cephadm-logs) for a
 more complete explanation.
 
 ## Gathering Log Files
 
-Use `journalctl` to gather the log files of all daemons:
+Use ``journalctl`` to gather the log files of all daemons:
 
 > **Note:** By default cephadm now stores logs in journald. This means
-> that you will no longer find daemon logs in `/var/log/ceph/`.
+> that you will no longer find daemon logs in ``/var/log/ceph/``.
 
 To read the log file of one specific daemon, run a command of the following
 form:
@@ -123,14 +123,14 @@ cephadm logs --name <name-of-daemon>
 
 > **Note:** This works only when run on the same host that is running the daemon.
 > To get the logs of a daemon that is running on a different host, add the
-> `--fsid` option to the command, as in the following example:
+> ``--fsid`` option to the command, as in the following example:
 >
 > .. prompt:: bash
 >
 >    cephadm logs --fsid <fsid> --name <name-of-daemon>
 >
-> In this example, `<fsid>` corresponds to the cluster ID returned by the
-> `ceph status` command.
+> In this example, ``<fsid>`` corresponds to the cluster ID returned by the
+> ``ceph status`` command.
 
 To fetch all log files of all daemons on a given host, run the following
 for-loop:
@@ -168,15 +168,15 @@ commands:
 podman ps -a --format json | jq '.[].Image' "docker.io/library/centos:8" "registry.opensuse.org/opensuse/leap:15.2"
 ```
 
-> **Note:** `Image` might also be called `ImageID`.
+> **Note:** ``Image`` might also be called ``ImageID``.
 
 ## Manually Running Containers
 
 Cephadm uses small wrappers when running containers. Refer to
-`/var/lib/ceph/<cluster-fsid>/<service-name>/unit.run` for the container
+``/var/lib/ceph/<cluster-fsid>/<service-name>/unit.run`` for the container
 execution command.
 
-.. _cephadm-ssh-errors:
+<a id="cephadm-ssh-errors"></a>
 
 ## SSH Errors
 
@@ -192,9 +192,9 @@ Please make sure that the host is reachable and accepts connections using the ce
 ```
 
 If you receive the above error message, try the following things to
-troubleshoot the SSH connection between `cephadm` and the monitor:
+troubleshoot the SSH connection between ``cephadm`` and the monitor:
 
-1. Ensure that `cephadm` has an SSH identity key:
+1. Ensure that ``cephadm`` has an SSH identity key:
 
 ```
     [root@mon1~]# cephadm shell -- ceph config-key get mgr/cephadm/ssh_identity_key > ~/cephadm_private_key
@@ -225,7 +225,7 @@ or::
 
 #### Verifying that the Public Key is Listed in the authorized_keys file
 
-To verify that the public key is in the `authorized_keys` file, run the
+To verify that the public key is in the ``authorized_keys`` file, run the
 following commands:
 
 ```
@@ -254,12 +254,12 @@ ceph config set mon public_network <mon_network>
 ```
 
 For more detail on operations of this kind, see
-deploy_additional_monitors.
+[deploy_additional_monitors](services/mon.md#deploy-additional-monitors).
 
 ## Accessing the Admin Socket
 
 Each Ceph daemon provides an admin socket that allows runtime option setting and statistic reading. See
-rados-monitoring-using-admin-socket.
+[rados-monitoring-using-admin-socket](../rados/operations/monitoring.md#rados-monitoring-using-admin-socket).
 
 1. To access the admin socket, enter the daemon container on the host:
 
@@ -276,9 +276,9 @@ rados-monitoring-using-admin-socket.
 
 ## Running Various Ceph Tools
 
-To run Ceph tools such as `ceph-objectstore-tool` or
-`ceph-monstore-tool`, invoke the cephadm CLI with
-`cephadm shell --name <daemon-name>`.  For example:
+To run Ceph tools such as ``ceph-objectstore-tool`` or
+``ceph-monstore-tool``, invoke the cephadm CLI with
+``cephadm shell --name <daemon-name>``.  For example:
 
 ```
 root@myhostname # cephadm unit --name mon.myhostname stop
@@ -298,18 +298,18 @@ election_strategy: 1
 The cephadm shell sets up the environment in a way that is suitable for
 extended daemon maintenance and for the interactive running of daemons.
 
-.. _cephadm-restore-quorum:
+<a id="cephadm-restore-quorum"></a>
 
 ## Restoring the Monitor Quorum
 
-If the Ceph Monitor daemons (mons) cannot form a quorum, `cephadm` will not
+If the Ceph Monitor daemons (mons) cannot form a quorum, ``cephadm`` will not
 be able to manage the cluster until quorum is restored.
 
 In order to restore the quorum, remove unhealthy monitors
 form the monmap by following these steps:
 
-1. Stop all Monitors. Use `ssh` to connect to each Monitor's host, and then
-   while connected to the Monitor's host use `cephadm` to stop the Monitor
+1. Stop all Monitors. Use ``ssh`` to connect to each Monitor's host, and then
+   while connected to the Monitor's host use ``cephadm`` to stop the Monitor
    daemon:
 
 ```bash
@@ -324,19 +324,19 @@ ssh {mon-host}
 cephadm enter --name {mon.hostname}
 ```
 
-3. Follow the steps in rados-mon-remove-from-unhealthy.
+3. Follow the steps in [rados-mon-remove-from-unhealthy](../rados/operations/add-or-rm-mons.md#rados-mon-remove-from-unhealthy).
 
-.. _cephadm-manually-deploy-mgr:
+<a id="cephadm-manually-deploy-mgr"></a>
 
 ## Manually Deploying a Manager Daemon
-At least one Manager (`mgr`) daemon is required by cephadm in order to manage
+At least one Manager (``mgr``) daemon is required by cephadm in order to manage
 the cluster. If the last remaining Manager has been removed from the Ceph
 cluster, follow these steps in order to deploy a fresh Manager on an arbitrary
 host in your cluster. In this example, the freshly-deployed Manager daemon is
-called `mgr.hostname.smfvfd`.
+called ``mgr.hostname.smfvfd``.
 
-1. Disable the cephadm scheduler, in order to prevent `cephadm` from removing
-   the new Manager. See cephadm-enable-cli:
+1. Disable the cephadm scheduler, in order to prevent ``cephadm`` from removing
+   the new Manager. See [cephadm-enable-cli](install.md#cephadm-enable-cli):
 
 ```bash
 ceph config-key set mgr/cephadm/pause true
@@ -360,7 +360,7 @@ ceph config generate-minimal-conf
 ceph config get "mgr.hostname.smfvfd" container_image
 ```
 
-1. Create a file called `config-json.json`, which contains the information
+1. Create a file called ``config-json.json``, which contains the information
    necessary to deploy the daemon:
 
 ```json
@@ -378,10 +378,9 @@ cephadm --image <container-image> deploy --fsid <fsid> --name mgr.hostname.smfvf
 
 ## Capturing Core Dumps
 
-A Ceph cluster that uses `cephadm` can be configured to capture core dumps.
+A Ceph cluster that uses ``cephadm`` can be configured to capture core dumps.
 The initial capture and processing of the coredump is performed by
-`systemd-coredump
-<https://www.man7.org/linux/man-pages/man8/systemd-coredump.8.html>`_.
+[systemd-coredump](https://www.man7.org/linux/man-pages/man8/systemd-coredump.8.html).
 
 To enable coredump handling, run the following command
 
@@ -391,17 +390,17 @@ ulimit -c unlimited
 
 > **Note:**
 > Core dumps are not namespaced by the kernel. This means that core dumps are
-> written to `/var/lib/systemd/coredump` on the container host. The ``ulimit
+> written to ``/var/lib/systemd/coredump`` on the container host. The ``ulimit
 > -c unlimited`` setting  will persist  only until the system is rebooted.
 
 Wait for the crash to happen again. To simulate the crash of a daemon, run for
-example `killall -3 ceph-mon`.
+example ``killall -3 ceph-mon``.
 
 ## Running the Debugger with cephadm
 
 #### Running a single debugging session
 
-Initiate a debugging session by using the `cephadm shell` command.
+Initiate a debugging session by using the ``cephadm shell`` command.
 From within the shell container we need to install the debugger and debuginfo
 packages. To debug a core file captured by systemd, run the following:
 
@@ -442,16 +441,16 @@ bt
 
 #### Running repeated debugging sessions
 
-When using `cephadm shell`, as in the example above, any changes made to the
+When using ``cephadm shell``, as in the example above, any changes made to the
 container that is spawned by the shell command are ephemeral. After the shell
 session exits, the files that were downloaded and installed cease to be
-available. You can simply re-run the same commands every time `cephadm shell`
+available. You can simply re-run the same commands every time ``cephadm shell``
 is invoked, but to save time and resources you can create a new container image
 and use it for repeated debugging sessions.
 
 In the following example, we create a simple file that constructs the
 container image. The command below uses podman but it is expected to work
-correctly even if `podman` is replaced with `docker`:
+correctly even if ``podman`` is replaced with ``docker``:
 
 ```
 cat >Containerfile <<EOF
@@ -464,10 +463,10 @@ podman build -t ceph:debugging -f Containerfile .
 # pass --build-arg=BASE_IMG=<your image> to customize the base image
 ```
 
-The above file creates a new local image named `ceph:debugging`. This image
+The above file creates a new local image named ``ceph:debugging``. This image
 can be used on the same machine that built it. The image can also be pushed to
 a container repository or saved and copied to a node that is running other Ceph
-containers. See the `podman` or `docker` documentation for more
+containers. See the ``podman`` or ``docker`` documentation for more
 information about the container workflow.
 
 After the image has been built, it can be used to initiate repeat debugging
@@ -493,19 +492,19 @@ generate a script that can debug a process in a running container.
 cephadm --image ceph:debugging shell --dry-run > /tmp/debug.sh
 ```
 
-This creates a script that includes the container command that `cephadm`
-would use to create a shell. Modify the script by removing the `--init`
+This creates a script that includes the container command that ``cephadm``
+would use to create a shell. Modify the script by removing the ``--init``
 argument and replace it with the argument that joins to the namespace used for
 a running running container. For example, assume we want to debug the Manager
 and have determnined that the Manager is running in a container named
-`ceph-bc615290-685b-11ee-84a6-525400220000-mgr-ceph0-sluwsk`. In this case,
+``ceph-bc615290-685b-11ee-84a6-525400220000-mgr-ceph0-sluwsk``. In this case,
 the argument
-`--pid=container:ceph-bc615290-685b-11ee-84a6-525400220000-mgr-ceph0-sluwsk`
+``--pid=container:ceph-bc615290-685b-11ee-84a6-525400220000-mgr-ceph0-sluwsk``
 should be used.
 
-We can run our debugging container with `sh /tmp/debug.sh`. Within the shell,
-we can run commands such as `ps` to get the PID of the Manager process. In
-the following example this is `2`. While running gdb, we can attach to the
+We can run our debugging container with ``sh /tmp/debug.sh``. Within the shell,
+we can run commands such as ``ps`` to get the PID of the Manager process. In
+the following example this is ``2``. While running gdb, we can attach to the
 running process:
 
 ```bash

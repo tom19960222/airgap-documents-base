@@ -5,30 +5,30 @@ title: "CephFS & RGW Exports over NFS"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/nfs.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _mgr-nfs:
+<a id="mgr-nfs"></a>
 
 # CephFS & RGW Exports over NFS
 
 CephFS namespaces and RGW buckets can be exported over NFS protocol
-using the NFS-Ganesha NFS server.
+using the [NFS-Ganesha NFS server](https://github.com/nfs-ganesha/nfs-ganesha/wiki).
 
-The `nfs` manager module provides a general interface for managing
+The ``nfs`` manager module provides a general interface for managing
 NFS exports of either CephFS directories or RGW buckets.  Exports can
-be managed either via the CLI `ceph nfs export ...` commands
+be managed either via the CLI ``ceph nfs export ...`` commands
 or via the dashboard.
 
 The deployment of the nfs-ganesha daemons can also be managed
-automatically if either the cephadm or mgr-rook
+automatically if either the [cephadm](../cephadm/index.md#cephadm) or [mgr-rook](rook.md#mgr-rook)
 orchestrators are enabled.  If neither are in use (e.g., Ceph is
 deployed via an external orchestrator like Ansible or Puppet), the
 nfs-ganesha daemons must be manually deployed; for more information,
-see nfs-ganesha-config.
+see [nfs-ganesha-config](nfs.md#nfs-ganesha-config).
 
-> **Note:** Starting with Ceph Pacific, the `nfs` mgr module must be enabled.
+> **Note:** Starting with Ceph Pacific, the ``nfs`` mgr module must be enabled.
 
 # NFS Cluster management
 
-.. _nfs-module-cluster-create:
+<a id="nfs-module-cluster-create"></a>
 
 ## Create NFS Ganesha Cluster
 
@@ -37,19 +37,19 @@ ceph nfs cluster create <cluster_id> [<placement>] [--ingress] [--virtual_ip <va
 ```
 
 This creates a common recovery pool for all NFS Ganesha daemons, new user based on
-`cluster_id`, and a common NFS Ganesha config RADOS object.
+``cluster_id``, and a common NFS Ganesha config RADOS object.
 
 > **Note:** Since this command also brings up NFS Ganesha daemons using a ceph-mgr
-> orchestrator module (see /mgr/orchestrator) such as cephadm or rook, at
+> orchestrator module (see [/mgr/orchestrator](orchestrator.md)) such as cephadm or rook, at
 > least one such module must be enabled for it to work.
 >
 > Currently, NFS Ganesha daemon deployed by cephadm listens on the standard
 > port. So only one daemon will be deployed on a host.
 
-`<cluster_id>` is an arbitrary string by which this NFS Ganesha cluster will be
-known (e.g., `mynfs`).
+``<cluster_id>`` is an arbitrary string by which this NFS Ganesha cluster will be
+known (e.g., ``mynfs``).
 
-`<placement>` is an optional string signifying which hosts should have NFS Ganesha
+``<placement>`` is an optional string signifying which hosts should have NFS Ganesha
 daemon containers running on them and, optionally, the total number of NFS
 Ganesha daemons on the cluster (should you want to have more than one NFS Ganesha
 daemon running per node). For example, the following placement string means
@@ -67,26 +67,25 @@ cluster):
 "2 host1,host2"
 ```
 
-NFS can be deployed on a port other than 2049 (the default) with `--port <port>`.
+NFS can be deployed on a port other than 2049 (the default) with ``--port <port>``.
 
 By default, only NFS v4 protocol is enabled. To enable both NFS v3 and v4 protocols,
-add the `--enable-nfsv3` flag.
+add the ``--enable-nfsv3`` flag.
 
 To deploy NFS with a high-availability front-end (virtual IP and load balancer), add the
-`--ingress` flag and specify a virtual IP address. This will deploy a combination
+``--ingress`` flag and specify a virtual IP address. This will deploy a combination
 of keepalived and haproxy to provide an high-availability NFS frontend for the NFS
 service.
 
 > **Note:** The ingress implementation is not yet complete.  Enabling
+> ingress will deploy multiple ganesha instances and balance
+> load across them, but a host failure will not immediately
+> cause cephadm to deploy a replacement daemon before the NFS
+> grace period expires.  This high-availability functionality
+> is expected to be completed by the Quincy release (March
+> 2022).
 
-	  ingress will deploy multiple ganesha instances and balance
-	  load across them, but a host failure will not immediately
-	  cause cephadm to deploy a replacement daemon before the NFS
-	  grace period expires.  This high-availability functionality
-	  is expected to be completed by the Quincy release (March
-	  2022).
-
-For more details, refer orchestrator-cli-placement-spec but keep
+For more details, refer [orchestrator-cli-placement-spec](../cephadm/services/index.md#orchestrator-cli-placement-spec) but keep
 in mind that specifying the placement via a YAML file is not supported.
 
 Deployment of NFS daemons and the ingress service is asynchronous: the
@@ -106,9 +105,9 @@ each of which will provide a working NFS endpoint.  The IP for each
 NFS endpoint will depend on which host the nfs-ganesha daemons are
 deployed.  By default, daemons are placed semi-randomly, but users can
 also explicitly control where daemons are placed; see
-orchestrator-cli-placement-spec.
+[orchestrator-cli-placement-spec](../cephadm/services/index.md#orchestrator-cli-placement-spec).
 
-When a cluster is created with `--ingress`, an *ingress* service is
+When a cluster is created with ``--ingress``, an *ingress* service is
 additionally deployed to provide load balancing and high-availability
 for the NFS servers.  A virtual IP is used to provide a known, stable
 NFS endpoint that all clients can use to mount.  Ceph will take care
@@ -116,31 +115,31 @@ of the details of NFS redirecting traffic on the virtual IP to the
 appropriate backend NFS servers, and redeploying NFS servers when they
 fail.
 
-An optional `--ingress-mode` parameter can be provided to choose
+An optional ``--ingress-mode`` parameter can be provided to choose
 how the *ingress* service is configured:
 
-- Setting `--ingress-mode keepalive-only` deploys a simplified *ingress*
+- Setting ``--ingress-mode keepalive-only`` deploys a simplified *ingress*
   service that provides a virtual IP with the nfs server directly binding to
   that virtual IP and leaves out any sort of load balancing or traffic
   redirection. This setup will restrict users to deploying only 1 nfs daemon
   as multiple cannot bind to the same port on the virtual IP.
-- Setting `--ingress-mode haproxy-standard` deploys a full *ingress* service
+- Setting ``--ingress-mode haproxy-standard`` deploys a full *ingress* service
   to provide load balancing and high-availability using HAProxy and keepalived.
   Client IP addresses are not visible to the back-end NFS server and IP level
   restrictions on NFS exports will not function.
-- Setting `--ingress-mode haproxy-protocol` deploys a full *ingress* service
+- Setting ``--ingress-mode haproxy-protocol`` deploys a full *ingress* service
   to provide load balancing and high-availability using HAProxy and keepalived.
   Client IP addresses are visible to the back-end NFS server and IP level
   restrictions on NFS exports are usable. This mode requires NFS Ganesha version
   5.0 or later.
-- Setting `--ingress-mode default` is equivalent to not providing any other
+- Setting ``--ingress-mode default`` is equivalent to not providing any other
   ingress mode by name. When no other ingress mode is specified by name
-  the default ingress mode used is `haproxy-standard`.
+  the default ingress mode used is ``haproxy-standard``.
 
 Ingress can be added to an existing NFS service (e.g., one initially created
-without the `--ingress` flag), and the basic NFS service can
+without the ``--ingress`` flag), and the basic NFS service can
 also be modified after the fact to include non-default options, by modifying
-the services directly.  For more information, see cephadm-ha-nfs.
+the services directly.  For more information, see [cephadm-ha-nfs](../cephadm/services/nfs.md#cephadm-ha-nfs).
 
 ## Show NFS Cluster IP(s)
 
@@ -183,7 +182,7 @@ ceph orch ls --service_name=ingress.nfs.<cluster_id>
 In order to modify cluster parameters (for example, the port or the placement),
 use the orchestrator interface to update the NFS service spec. The safest way
 to do that is to export the current spec, modify it, and then re-apply it. For
-example, to modify the `nfs.foo` service, run commands of the following
+example, to modify the ``nfs.foo`` service, run commands of the following
 forms:
 
 ```bash
@@ -193,7 +192,7 @@ ceph orch apply -i nfs.foo.yaml
 ```
 
 For more information about the NFS service spec, see
-deploy-cephadm-nfs-ganesha.
+[deploy-cephadm-nfs-ganesha](../cephadm/services/nfs.md#deploy-cephadm-nfs-ganesha).
 
 ## List NFS Ganesha Clusters
 
@@ -203,7 +202,7 @@ ceph nfs cluster ls
 
 This lists deployed clusters.
 
-.. _nfs-cluster-set:
+<a id="nfs-cluster-set"></a>
 
 ## Set Customized NFS Ganesha Configuration
 
@@ -230,7 +229,7 @@ LOG {
 1. Adding custom export block.
 
    The following sample block creates a single export. This export will not be
-   managed by the `ceph nfs export` interface:
+   managed by the ``ceph nfs export`` interface:
 
 ```
 EXPORT {
@@ -293,42 +292,42 @@ ceph nfs export create cephfs --cluster-id <cluster_id> --pseudo-path <pseudo_pa
 
 This creates export RADOS objects containing the export block, where
 
-`<cluster_id>` is the NFS Ganesha cluster ID.
+``<cluster_id>`` is the NFS Ganesha cluster ID.
 
-`<pseudo_path>` is the export position within the NFS v4 Pseudo Filesystem where the export will be available on the server. It must be an absolute path and unique.
+``<pseudo_path>`` is the export position within the NFS v4 Pseudo Filesystem where the export will be available on the server. It must be an absolute path and unique.
 
-`<fsname>` is the name of the FS volume used by the NFS Ganesha cluster
+``<fsname>`` is the name of the FS volume used by the NFS Ganesha cluster
 that will serve this export.
 
-`<path>` is the path within cephfs. Valid path should be given and default
+``<path>`` is the path within cephfs. Valid path should be given and default
 path is '/'. It need not be unique. Subvolume path can be fetched using:
 
 ```bash
 ceph fs subvolume getpath <vol_name> <subvol_name> [--group_name <subvol_group_name>]
 ```
 
-`<client_addr>` is the list of client address for which these export
+``<client_addr>`` is the list of client address for which these export
 permissions will be applicable. By default all clients can access the export
-according to specified export permissions. See the NFS-Ganesha Export Sample
+according to specified export permissions. See the [NFS-Ganesha Export Sample](https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/export.txt)
 for permissible values.
 
-`<squash>` defines the kind of user id squashing to be performed. The default
-value is `no_root_squash`. See the NFS-Ganesha Export Sample for
+``<squash>`` defines the kind of user id squashing to be performed. The default
+value is ``no_root_squash``. See the [NFS-Ganesha Export Sample](https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/export.txt) for
 permissible values.
 
-`<sectype>` specifies which authentication methods will be used when
+``<sectype>`` specifies which authentication methods will be used when
 connecting to the export. Valid values include "krb5p", "krb5i", "krb5", "sys",
 and "none". More than one value can be supplied. The flag may be specified
-multiple times (example: `--sectype=krb5p --sectype=krb5i`) or multiple
-values may be separated by a comma (example: `--sectype krb5p,krb5i`). The
+multiple times (example: ``--sectype=krb5p --sectype=krb5i``) or multiple
+values may be separated by a comma (example: ``--sectype krb5p,krb5i``). The
 server will negotatiate a supported security type with the client preferring
 the supplied methods left-to-right.
 
-`<cmount_path>` specifies the path within the CephFS to mount this export on. It is
-allowed to be any complete path hierarchy between `/` and the `EXPORT {path}`. (i.e. if `EXPORT { Path }` parameter is `/foo/bar` then cmount_path could be `/`, `/foo` or `/foo/bar`).
+``<cmount_path>`` specifies the path within the CephFS to mount this export on. It is
+allowed to be any complete path hierarchy between ``/`` and the ``EXPORT {path}``. (i.e. if ``EXPORT { Path }`` parameter is ``/foo/bar`` then cmount_path could be ``/``, ``/foo`` or ``/foo/bar``).
 
-> **Note:** If this and the other `EXPORT { FSAL {} }` options are the same between multiple exports, those exports will share a single CephFS client.
-> If not specified, the default is `/`.
+> **Note:** If this and the other ``EXPORT { FSAL {} }`` options are the same between multiple exports, those exports will share a single CephFS client.
+> If not specified, the default is ``/``.
 
 > **Note:** Specifying values for sectype that require Kerberos will only function on servers
 > that are configured to support Kerberos. Setting up NFS-Ganesha to support Kerberos
@@ -353,8 +352,8 @@ To export a *bucket*:
 ceph nfs export create rgw --cluster-id <cluster_id> --pseudo-path <pseudo_path> --bucket <bucket_name> [--user-id <user-id>] [--readonly] [--client_addr <value>...] [--squash <value>] [--sectype <value>...]
 ```
 
-For example, to export `mybucket` via NFS cluster `mynfs` at the
-pseudo-path `/bucketdata` to any host in the `192.168.10.0/24` network
+For example, to export ``mybucket`` via NFS cluster ``mynfs`` at the
+pseudo-path ``/bucketdata`` to any host in the ``192.168.10.0/24`` network
 
 ```bash
 ceph nfs export create rgw --cluster-id mynfs --pseudo-path /bucketdata --bucket mybucket --client_addr 192.168.10.0/24
@@ -363,34 +362,33 @@ ceph nfs export create rgw --cluster-id mynfs --pseudo-path /bucketdata --bucket
 > **Note:** Export creation is supported only for NFS Ganesha clusters deployed
 > using nfs interface.
 
-`<cluster_id>` is the NFS Ganesha cluster ID.
+``<cluster_id>`` is the NFS Ganesha cluster ID.
 
-`<pseudo_path>` is the export position within the NFS v4 Pseudo Filesystem
+``<pseudo_path>`` is the export position within the NFS v4 Pseudo Filesystem
 where the export will be available on the server. It must be an absolute path
 and unique.
 
-`<bucket_name>` is the name of the bucket that will be exported.
+``<bucket_name>`` is the name of the bucket that will be exported.
 
-`<user_id>` is optional, and specifies which RGW user will be used for read
+``<user_id>`` is optional, and specifies which RGW user will be used for read
 and write operations to the bucket.  If it is not specified, the user who owns
 the bucket will be used.
 
 > **Note:** Currently, if multi-site RGW is enabled, Ceph can only export RGW
 > buckets in the default realm.
 
-`<client_addr>` is the list of client address for which these export
+``<client_addr>`` is the list of client address for which these export
 permissions will be applicable. By default all clients can access the export
-according to specified export permissions. See the `NFS-Ganesha Export
-Sample`_ for permissible values.
+according to specified export permissions. See the [NFS-Ganesha Export Sample](https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/export.txt) for permissible values.
 
-`<squash>` defines the kind of user id squashing to be performed. The
-default value is `no_root_squash`. See the NFS-Ganesha Export Sample for
+``<squash>`` defines the kind of user id squashing to be performed. The
+default value is ``no_root_squash``. See the [NFS-Ganesha Export Sample](https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/export.txt) for
 permissible values.
 
-`<sectype>` specifies which authentication methods will be used when
+``<sectype>`` specifies which authentication methods will be used when
 connecting to the export. Valid values include "krb5p", "krb5i", "krb5",
 "sys", and "none". More than one value can be supplied. The flag may be
-specified multiple times (example: `--sectype=krb5p --sectype=krb5i`) or
+specified multiple times (example: ``--sectype=krb5p --sectype=krb5i``) or
 multiple values may be separated by a comma (example: ``--sectype
 krb5p,krb5i``). The server will negotatiate a supported security type with the
 client preferring the supplied methods left-to-right.
@@ -407,7 +405,7 @@ To export an RGW *user*:
 ceph nfs export create rgw --cluster-id <cluster_id> --pseudo-path <pseudo_path> --user-id <user-id> [--readonly] [--client_addr <value>...] [--squash <value>]
 ```
 
-For example, to export *myuser* via NFS cluster *mynfs* at the pseudo-path */myuser* to any host in the `192.168.10.0/24` network
+For example, to export *myuser* via NFS cluster *mynfs* at the pseudo-path */myuser* to any host in the ``192.168.10.0/24`` network
 
 ```bash
 ceph nfs export create rgw --cluster-id mynfs --pseudo-path /bucketdata --user-id myuser --client_addr 192.168.10.0/24
@@ -421,9 +419,9 @@ ceph nfs export rm <cluster_id> <pseudo_path>
 
 This deletes an export in an NFS Ganesha cluster, where:
 
-`<cluster_id>` is the NFS Ganesha cluster ID.
+``<cluster_id>`` is the NFS Ganesha cluster ID.
 
-`<pseudo_path>` is the pseudo root path (must be an absolute path).
+``<pseudo_path>`` is the pseudo root path (must be an absolute path).
 
 ## List Exports
 
@@ -433,9 +431,9 @@ ceph nfs export ls <cluster_id> [--detailed]
 
 It lists exports for a cluster, where:
 
-`<cluster_id>` is the NFS Ganesha cluster ID.
+``<cluster_id>`` is the NFS Ganesha cluster ID.
 
-With the `--detailed` option enabled it shows entire export block.
+With the ``--detailed`` option enabled it shows entire export block.
 
 ## Get Export
 
@@ -445,9 +443,9 @@ ceph nfs export info <cluster_id> <pseudo_path>
 
 This displays export block for a cluster based on pseudo root name, where:
 
-`<cluster_id>` is the NFS Ganesha cluster ID.
+``<cluster_id>`` is the NFS Ganesha cluster ID.
 
-`<pseudo_path>` is the pseudo root path (must be an absolute path).
+``<pseudo_path>`` is the pseudo root path (must be an absolute path).
 
 ## Create or update export via JSON specification
 
@@ -508,9 +506,9 @@ as when creating a new export), with the exception of the
 authentication credentials, which will be carried over from the
 previous state of the export where possible.
 
-> **Note:** The `user_id` in the `fsal` block should not be modified or
+> **Note:** The ``user_id`` in the ``fsal`` block should not be modified or
 > mentioned in the JSON file as it is auto-generated for CephFS exports.  It
-> is auto-generated in the format `nfs.<cluster_id>.<fs_name>.<hash_id>`.
+> is auto-generated in the format ``nfs.<cluster_id>.<fs_name>.<hash_id>``.
 
 ```bash
 ceph nfs export apply mynfs -i update_cephfs_export.json
@@ -582,8 +580,8 @@ mount -t nfs <ganesha-host-name>:<pseudo_path> <mount-point>
 ```
 
 For example, if the NFS cluster was created with ``--ingress --virtual-ip
-192.168.10.10` and the export's pseudo-path was `/foo``, the export can be
-mounted at `/mnt` by running the following command:
+192.168.10.10`` and the export's pseudo-path was ``/foo``, the export can be
+mounted at ``/mnt`` by running the following command:
 
 ```bash
 mount -t nfs 192.168.10.10:/foo /mnt
@@ -604,29 +602,29 @@ mount -t nfs -o port=<ganesha-port> <ganesha-host-name>:<ganesha-pseudo_path> <m
 
 There are two methds for examining NFS-Ganesha logs:
 
-1. `cephadm`: List the NFS daemons by running the following command:
+1. ``cephadm``: List the NFS daemons by running the following command:
 
 ```bash
 ceph orch ps --daemon-type nfs
 ```
 
    You can search via the logs for a specific daemon (e.g.,
-   `nfs.mynfs.0.0.myhost.xkfzal`) on the relevant host with:
+   ``nfs.mynfs.0.0.myhost.xkfzal``) on the relevant host with:
 
 ```bash
 cephadm logs --fsid <fsid> --name nfs.mynfs.0.0.myhost.xkfzal
 ```
 
-1. `rook`:
+1. ``rook``:
 
 ```bash
 kubectl logs -n rook-ceph rook-ceph-nfs-<cluster_id>-<node_id> nfs-ganesha
 ```
 
-The NFS log level can be adjusted using the `nfs cluster config set` command
-(see nfs-cluster-set).
+The NFS log level can be adjusted using the ``nfs cluster config set`` command
+(see [nfs-cluster-set](nfs.md#nfs-cluster-set)).
 
-.. _nfs-ganesha-config:
+<a id="nfs-ganesha-config"></a>
 
 # Manual Ganesha deployment
 
@@ -640,27 +638,27 @@ orchestration frameworks such as cephadm or rook.
 ## Limitations
 
 If no orchestrator module is enabled for the Ceph Manager the NFS cluster
-management commands, such as those starting with `ceph nfs cluster`, will not
+management commands, such as those starting with ``ceph nfs cluster``, will not
 function. However, commands that manage NFS exports, like those prefixed with
-`ceph nfs export` are expected to work as long as the necessary RADOS objects
+``ceph nfs export`` are expected to work as long as the necessary RADOS objects
 have already been created. The exact RADOS objects required are not documented
 at this time as support for this feature is incomplete. A curious reader can
 find some details about the object by reading the source code for the
-`mgr/nfs` module (found in the ceph source tree under
-`src/pybind/mgr/nfs`).
+``mgr/nfs`` module (found in the ceph source tree under
+``src/pybind/mgr/nfs``).
 
 ## Requirements
 
 The following packages are required to enable CephFS and RGW exports with nfs-ganesha:
 
--  `nfs-ganesha`, `nfs-ganesha-ceph`, `nfs-ganesha-rados-grace` and
-   `nfs-ganesha-rados-urls` packages (version 3.3 and above)
+-  ``nfs-ganesha``, ``nfs-ganesha-ceph``, ``nfs-ganesha-rados-grace`` and
+   ``nfs-ganesha-rados-urls`` packages (version 3.3 and above)
 
 ## Ganesha Configuration Hierarchy
 
 Cephadm and rook start each nfs-ganesha daemon with a minimal
 `bootstrap` configuration file that pulls from a shared `common`
-configuration stored in the `.nfs` RADOS pool and watches the common
+configuration stored in the ``.nfs`` RADOS pool and watches the common
 config for changes.  Each export is written to a separate RADOS object
 that is referenced by URL from the common config.
 
@@ -699,6 +697,3 @@ that is referenced by URL from the common config.
     |   nfs.$svc.a   |      |   nfs.$svc.b   |      |   nfs.$svc.c   |  (bootstrap config)
     |                |      |                |      |                |
     +----------------+      +----------------+      +----------------+
-
-.. _NFS-Ganesha NFS Server: https://github.com/nfs-ganesha/nfs-ganesha/wiki
-.. _NFS-Ganesha Export Sample: https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/export.txt

@@ -17,7 +17,7 @@ include:
   storing objects. Pools manage the number of placement groups, the number of
   replicas, and the CRUSH rule for the pool. To store data in a pool, it is
   necessary to be an authenticated user with permissions for the pool. Ceph is
-  able to make snapshots of pools. For additional details, see Pools.
+  able to make snapshots of pools. For additional details, see [Pools](pools.md).
 
 - **Placement Groups:** Ceph maps objects to placement groups. Placement
   groups (PGs) are shards or fragments of a logical object pool that place
@@ -25,7 +25,7 @@ include:
   per-object metadata that is necessary for Ceph to store the data in OSDs. A
   greater number of placement groups (for example, 100 PGs per OSD as compared
   with 50 PGs per OSD) leads to better balancing. For additional details, see
-  placement groups.
+  [placement groups](placement-groups.md#placement-groups).
 
 - **CRUSH Maps:**  CRUSH plays a major role in allowing Ceph to scale while
   avoiding certain pitfalls, such as performance bottlenecks, limitations to
@@ -33,7 +33,7 @@ include:
   topology of the cluster to the CRUSH algorithm, so that it can determine both
   (1) where the data for an object and its replicas should be stored and (2)
   how to store that data across failure domains so as to improve data safety.
-  For additional details, see CRUSH Maps.
+  For additional details, see [CRUSH Maps](crush-map.md).
 
 - **Balancer:** The balancer is a feature that automatically optimizes the
   distribution of placement groups across devices in order to achieve a
@@ -46,7 +46,3 @@ Default values are recommended for a test cluster's initial setup. However,
 when planning a large Ceph cluster, values should be customized for
 data-placement operations with reference to the different roles played by
 pools, placement groups, and CRUSH.
-
-.. _Pools: ../pools
-.. _CRUSH Maps: ../crush-map
-.. _Balancer: ../balancer

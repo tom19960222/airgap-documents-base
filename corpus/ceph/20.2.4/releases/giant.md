@@ -66,7 +66,7 @@ We recommend all v0.87.x Giant users upgrade to this release.
 * rgw: send cancel for bucket index pending ops (#10770 Baijiaruo, Yehuda Sadeh)
 * rgw: swift: support X_Remove_Container-Meta-{key} (#01475 Dmytro Iurchenko)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.87.2.txt -->.
 
 # v0.87.1 Giant
 
@@ -150,7 +150,7 @@ We recommend that all v0.87 Giant users upgrade to this release.
 * rgw: use cached attrs while reading object attrs (#10307 Yehuda Sadeh)
 * rgw: use strict_strtoll for content length (#10701 Axel Dunkel, Yehuda Sadeh)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.87.1.txt -->.
 
 # v0.87 Giant
 
@@ -231,22 +231,22 @@ v0.87.x.  Highlights for Giant include:
 * The 'rados getxattr ...' command used to add a gratuitous newline to the attr
   value; it now does not.
 
-* The `*_kb perf` counters on the monitor have been removed.  These are
-  replaced with a new set of `*_bytes` counters (e.g., `cluster_osd_kb` is
-  replaced by `cluster_osd_bytes`).
+* The ``*_kb perf`` counters on the monitor have been removed.  These are
+  replaced with a new set of ``*_bytes`` counters (e.g., ``cluster_osd_kb`` is
+  replaced by ``cluster_osd_bytes``).
 
-* The `rd_kb` and `wr_kb` fields in the JSON dumps for pool stats (accessed
-  via the `ceph df detail -f json-pretty` and related commands) have been
-  replaced with corresponding `*_bytes` fields.  Similarly, the
-  `total_space`, `total_used`, and `total_avail` fields are replaced with
-  `total_bytes`, `total_used_bytes`,  and `total_avail_bytes` fields.
+* The ``rd_kb`` and ``wr_kb`` fields in the JSON dumps for pool stats (accessed
+  via the ``ceph df detail -f json-pretty`` and related commands) have been
+  replaced with corresponding ``*_bytes`` fields.  Similarly, the
+  ``total_space``, ``total_used``, and ``total_avail`` fields are replaced with
+  ``total_bytes``, ``total_used_bytes``,  and ``total_avail_bytes`` fields.
 
-* The `rados df --format=json` output `read_bytes` and `write_bytes`
+* The ``rados df --format=json`` output ``read_bytes`` and ``write_bytes``
   fields were incorrectly reporting ops; this is now fixed.
 
-* The `rados df --format=json` output previously included `read_kb` and
-  `write_kb` fields; these have been removed.  Please use `read_bytes` and
-  `write_bytes` instead (and divide by 1024 if appropriate).
+* The ``rados df --format=json`` output previously included ``read_kb`` and
+  ``write_kb`` fields; these have been removed.  Please use ``read_bytes`` and
+  ``write_bytes`` instead (and divide by 1024 if appropriate).
 
 * The experimental keyvaluestore-dev OSD backend had an on-disk format
   change that prevents existing OSD data from being upgraded.  This
@@ -966,22 +966,22 @@ coming up in the next month.
 
 ## Upgrading
 
-* The `*_kb perf` counters on the monitor have been removed.  These are
-  replaced with a new set of `*_bytes` counters (e.g., `cluster_osd_kb` is
-  replaced by `cluster_osd_bytes`).
+* The ``*_kb perf`` counters on the monitor have been removed.  These are
+  replaced with a new set of ``*_bytes`` counters (e.g., ``cluster_osd_kb`` is
+  replaced by ``cluster_osd_bytes``).
 
-* The `rd_kb` and `wr_kb` fields in the JSON dumps for pool stats (accessed
-  via the `ceph df detail -f json-pretty` and related commands) have been
-  replaced with corresponding `*_bytes` fields.  Similarly, the
-  `total_space`, `total_used`, and `total_avail` fields are replaced with
-  `total_bytes`, `total_used_bytes`,  and `total_avail_bytes` fields.
+* The ``rd_kb`` and ``wr_kb`` fields in the JSON dumps for pool stats (accessed
+  via the ``ceph df detail -f json-pretty`` and related commands) have been
+  replaced with corresponding ``*_bytes`` fields.  Similarly, the
+  ``total_space``, ``total_used``, and ``total_avail`` fields are replaced with
+  ``total_bytes``, ``total_used_bytes``,  and ``total_avail_bytes`` fields.
 
-* The `rados df --format=json` output `read_bytes` and `write_bytes`
+* The ``rados df --format=json`` output ``read_bytes`` and ``write_bytes``
   fields were incorrectly reporting ops; this is now fixed.
 
-* The `rados df --format=json` output previously included `read_kb` and
-  `write_kb` fields; these have been removed.  Please use `read_bytes` and
-  `write_bytes` instead (and divide by 1024 if appropriate).
+* The ``rados df --format=json`` output previously included ``read_kb`` and
+  ``write_kb`` fields; these have been removed.  Please use ``read_bytes`` and
+  ``write_bytes`` instead (and divide by 1024 if appropriate).
 
 ## Notable Changes
 

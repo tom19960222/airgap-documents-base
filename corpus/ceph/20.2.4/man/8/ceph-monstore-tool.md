@@ -85,4 +85,4 @@ https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8)
+[ceph](../../install/clone-source.md)\(8)

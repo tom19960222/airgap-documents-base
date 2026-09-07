@@ -9,33 +9,33 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Ceph RESTful API
 
-See mgr ceph api.
+See [mgr ceph api](../mgr/ceph_api/index.md#mgr-ceph-api).
 
 # Ceph Storage Cluster APIs
 
-See rados api
+See [rados api](../rados/api/index.md#rados-api)
 
 # Ceph File System APIs
 
-See cephfs api
+See [cephfs api](../cephfs/api/index.md#cephfs-api)
 
 # Ceph Block Device APIs
 
-See rbd api py
+See [rbd api py](../rbd/api/librbdpy.md#rbd-api-py)
 
 # Ceph RADOS Gateway APIs
 
-See radosgw api
+See [radosgw api](../radosgw/api.md#radosgw-api)
 
 # Ceph Object Store APIs
 
-- See S3-compatible API.
-- See Swift-compatible API.
-- See Admin Ops API.
+- See [S3-compatible API](../radosgw/s3.md#radosgw-s3).
+- See [Swift-compatible API](../radosgw/swift.md#radosgw-swift).
+- See [Admin Ops API](../radosgw/adminops.md#radosgw-admin-ops).
 
 # Ceph MON Command API
 
-- See Mon command API.
+- See [Mon command API](mon_command_api.md).
 
 .. toctree::
    :hidden:

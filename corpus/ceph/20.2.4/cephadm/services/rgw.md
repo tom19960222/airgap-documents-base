@@ -7,23 +7,23 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # RGW Service
 
-.. _cephadm-deploy-rgw:
+<a id="cephadm-deploy-rgw"></a>
 
 # Deploy RGWs
 
 Cephadm deploys the Object Gateway (RGW) as a collection of daemons that manage a
 single-cluster deployment or a particular *realm* and *zone* in a
 multisite deployment.  (For more information about realms and zones,
-see multisite.)
+see [multisite](../../radosgw/bucket_logging.md#multisite).)
 
-Note that with `cephadm`, `radosgw` daemons are configured via the monitor
+Note that with ``cephadm``, ``radosgw`` daemons are configured via the monitor
 configuration database instead of via a `ceph.conf` or the command line.  If
 that configuration isn't already in place (usually in the
-`client.rgw.<something>` section), then the `radosgw`
+``client.rgw.<something>`` section), then the ``radosgw``
 daemons will start up with default settings (e.g., binding to port
 80).
 
-To deploy a set of `radosgw` daemons, with an arbitrary service name
+To deploy a set of ``radosgw`` daemons, with an arbitrary service name
 *name*, run the following command:
 
 ```bash
@@ -33,13 +33,13 @@ ceph orch apply rgw *<name>* [--realm=*<realm-name>*] [--zone=*<zone-name>*] --p
 ## Trivial setup
 
 For example, to deploy two daemons (the default) for a single-cluster RGW deployment
-with the arbitrary service id `foo`:
+with the arbitrary service id ``foo``:
 
 ```bash
 ceph orch apply rgw foo
 ```
 
-.. _cephadm-rgw-designated_gateways:
+<a id="cephadm-rgw-designated-gateways"></a>
 
 ## Designated gateways
 
@@ -53,9 +53,9 @@ ceph orch host label add gwhost2 rgw
 ceph orch apply rgw foo '--placement=label:rgw count-per-host:2' --port=8000
 ```
 
-See also: cephadm_co_location.
+See also: [cephadm_co_location](index.md#cephadm-co-location).
 
-.. _cephadm-rgw-networks:
+<a id="cephadm-rgw-networks"></a>
 
 ## Specifying Networks
 
@@ -78,7 +78,7 @@ spec:
 ## Passing Frontend Extra Arguments
 
 The RGW service specification can be used to pass extra arguments to the frontend by using
-the `rgw_frontend_extra_args` arguments list.
+the ``rgw_frontend_extra_args`` arguments list.
 
 example spec file:
 
@@ -98,23 +98,22 @@ spec:
   - "max_header_size=65536"
 ```
 
-> **Note:** `cephadm` combines the arguments from the `spec` section with those from
-
-	  `rgw_frontend_extra_args` into a single space-separated arguments list
-	  which is used to set the value of the `rgw_frontends` configuration parameter.
+> **Note:** ``cephadm`` combines the arguments from the ``spec`` section with those from
+> ``rgw_frontend_extra_args`` into a single space-separated arguments list
+> which is used to set the value of the ``rgw_frontends`` configuration parameter.
 
 ## Multisite zones
 
-To deploy RGWs serving the multisite `myorg` realm and the `us-east-1` zone on
-`myhost1` and `myhost2`:
+To deploy RGWs serving the multisite ``myorg`` realm and the ``us-east-1`` zone on
+``myhost1`` and ``myhost2``:
 
 ```bash
 ceph orch apply rgw east --realm=myorg --zonegroup=us-east-zg-1 --zone=us-east-1 --placement="2 myhost1 myhost2"
 ```
 
-Note that in a multisite situation, `cephadm` only deploys the daemons.  It does not create
+Note that in a multisite situation, ``cephadm`` only deploys the daemons.  It does not create
 or update the realm or zone configurations.  To create a new realm, zone, and zonegroup
-use mgr-rgw-module or issue commands of the following form:
+use [mgr-rgw-module](../../mgr/rgw.md#mgr-rgw-module) or issue commands of the following form:
 
 ```bash
 radosgw-admin realm create --rgw-realm=<realm-name>
@@ -132,10 +131,10 @@ radosgw-admin zone create --rgw-zonegroup=<zonegroup-name> --rgw-zone=<zone-name
 radosgw-admin period update --rgw-realm=<realm-name> --commit
 ```
 
-See orchestrator-cli-placement-spec for details of the placement
-specification.  See multisite for more information of setting up multisite RGW.
+See [orchestrator-cli-placement-spec](index.md#orchestrator-cli-placement-spec) for details of the placement
+specification.  See [multisite](../../radosgw/bucket_logging.md#multisite) for more information of setting up multisite RGW.
 
-See also multisite.
+See also [multisite](../../radosgw/bucket_logging.md#multisite).
 
 ## Setting up HTTPS
 
@@ -169,8 +168,8 @@ Then apply this yaml document:
 ceph orch apply -i myrgw.yaml
 ```
 
-Note the value of `rgw_frontend_ssl_certificate` is a literal string as
-indicated by a `|` character preserving newline characters.
+Note the value of ``rgw_frontend_ssl_certificate`` is a literal string as
+indicated by a ``|`` character preserving newline characters.
 
 ## Setting up HTTPS with Wildcard SANs
 
@@ -197,17 +196,17 @@ Then apply this yaml document:
 ceph orch apply -i myrgw.yaml
 ```
 
-The `wildcard_enabled` flag ensures that a wildcard SAN entry is included in the self-signed certificate,
+The ``wildcard_enabled`` flag ensures that a wildcard SAN entry is included in the self-signed certificate,
 allowing access to buckets in virtual host mode. By default, this flag is disabled.
 example: wildcard SAN - (*.s3.cephlab.com)
 
 ## Disabling multisite sync traffic
 
-There is an RGW config option called `rgw_run_sync_thread` that tells the
+There is an RGW config option called ``rgw_run_sync_thread`` that tells the
 RGW daemon to not transmit multisite replication data. This is useful if you want
 that RGW daemon to be dedicated to I/O rather than multisite sync operations.
-The RGW spec file includes a setting `disable_multisite_sync_traffic` that when
-set to "True" will tell cephadm to set `rgw_run_sync_thread` to false for all
+The RGW spec file includes a setting ``disable_multisite_sync_traffic`` that when
+set to "True" will tell cephadm to set ``rgw_run_sync_thread`` to false for all
 RGW daemons deployed for that RGW service. For example
 
 ```yaml
@@ -231,9 +230,9 @@ spec:
 When an RGW daemon is stopped by for any reason, including during the cephadm upgrade process,
 RGW offers a setting to delay shutdown as the RGW daemon attempts to complete ongoing
 client requests. This setting is off by default but activated manually by either passing
-`--stop-timeout=<timeout-in-seconds>` to the RGW process or by setting the
-`rgw_exit_timeout_secs` config option for the RGW daemon. This value may be configured in
-the RGW service spec file by specifying the `rgw_exit_timeout_secs` parameter in the spec
+``--stop-timeout=<timeout-in-seconds>`` to the RGW process or by setting the
+``rgw_exit_timeout_secs`` config option for the RGW daemon. This value may be configured in
+the RGW service spec file by specifying the ``rgw_exit_timeout_secs`` parameter in the spec
 file. For example
 
 ```yaml
@@ -253,11 +252,11 @@ seconds for current client requests to complete. Note that the RGW daemon will r
 new client requests during this time.
 
 > **Note:** In cephadm deployments this setting defaults to on and 120 seconds. If you would
-> like to disable this feature you must set `rgw_exit_timeout_secs` to 0 in the spec
+> like to disable this feature you must set ``rgw_exit_timeout_secs`` to 0 in the spec
 
 > **Note:** Modifications to this setting in the spec will not be picked up by the RGW daemons
-> in the service until they are redeployed using either the `ceph orch redeploy <service-name>`
-> or `ceph orch daemon redeploy <daemon-name>` commands
+> in the service until they are redeployed using either the ``ceph orch redeploy <service-name>``
+> or ``ceph orch daemon redeploy <daemon-name>`` commands
 
 ## Service specification
 
@@ -266,7 +265,7 @@ new client requests during this time.
 .. autoclass:: RGWSpec
    :members:
 
-.. _orchestrator-haproxy-service-spec:
+<a id="orchestrator-haproxy-service-spec"></a>
 
 # High availability service for RGW
 
@@ -280,7 +279,7 @@ will use the `ssl` and `verify none` options in the backend configuration.
 Trust verification is disabled because the backends are accessed by IP
 address instead of FQDN.
 
-.. image:: ../../images/HAProxy_for_RGW.svg
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/HAProxy_for_RGW.svg)
 
 There are N hosts where the ingress service is deployed.  Each host
 has a haproxy daemon and a keepalived daemon.  A virtual IP is
@@ -368,54 +367,54 @@ spec:
 
 where the properties of this service specification are:
 
-* `service_type`
+* ``service_type``
     Mandatory and set to "ingress"
-* `service_id`
+* ``service_id``
     The name of the service.  We suggest naming this after the service you are
-    controlling ingress for (e.g., `rgw.foo`).
-* `placement hosts`
+    controlling ingress for (e.g., ``rgw.foo``).
+* ``placement hosts``
     The hosts where it is desired to run the HA daemons. An haproxy and a
     keepalived container will be deployed on these hosts.  These hosts do not need
     to match the nodes where RGW is deployed.
-* `virtual_ip`
+* ``virtual_ip``
     The virtual IP (and network) in CIDR format where the ingress service will be available.
-* `virtual_ips_list`
+* ``virtual_ips_list``
     The virtual IP address in CIDR format where the ingress service will be available.
     Each virtual IP address will be primary on one node running the ingress service. The number
     of virtual IP addresses must be less than or equal to the number of ingress nodes.
-* `virtual_interface_networks`
+* ``virtual_interface_networks``
     A list of networks to identify which ethernet interface to use for the virtual IP.
-* `frontend_port`
+* ``frontend_port``
     The port used to access the ingress service.
-* `ssl_cert`:
+* ``ssl_cert``:
     SSL certificate, if SSL is to be enabled. This must contain the both the certificate and
     private key blocks in .pem format.
-* `use_keepalived_multicast`
+* ``use_keepalived_multicast``
     Default is False. By default, cephadm will deploy keepalived config to use unicast IPs,
     using the IPs of the hosts. The IPs chosen will be the same IPs cephadm uses to connect
-    to the machines. But if multicast is prefered, we can set `use_keepalived_multicast`
-    to `True` and Keepalived will use multicast IP (224.0.0.18) to communicate between instances,
+    to the machines. But if multicast is prefered, we can set ``use_keepalived_multicast``
+    to ``True`` and Keepalived will use multicast IP (224.0.0.18) to communicate between instances,
     using the same interfaces as where the VIPs are.
-* `vrrp_interface_network`
+* ``vrrp_interface_network``
     By default, cephadm will configure keepalived to use the same interface where the VIPs are
-    for VRRP communication. If another interface is needed, it can be set via `vrrp_interface_network`
+    for VRRP communication. If another interface is needed, it can be set via ``vrrp_interface_network``
     with a network to identify which ethernet interface to use.
-* `first_virtual_router_id`
+* ``first_virtual_router_id``
     Default is 50. When deploying more than 1 ingress, this parameter can be used to ensure each
-    keepalived will have different virtual_router_id. In the case of using `virtual_ips_list`,
-    each IP will create its own virtual router. So the first one will have `first_virtual_router_id`,
-    second one will have `first_virtual_router_id` + 1, etc. Valid values go from 1 to 255.
-* `health_check_interval`
+    keepalived will have different virtual_router_id. In the case of using ``virtual_ips_list``,
+    each IP will create its own virtual router. So the first one will have ``first_virtual_router_id``,
+    second one will have ``first_virtual_router_id`` + 1, etc. Valid values go from 1 to 255.
+* ``health_check_interval``
     Default is 2 seconds. This parameter can be used to set the interval between health checks
     for the haproxy with the backend servers.
 
-.. _ingress-virtual-ip:
+<a id="ingress-virtual-ip"></a>
 
 ## Selecting network interfaces for the virtual IP
 
 You cannot simply provide the name of the network interface on which
 to configure the virtual IP because interface names may vary
-across hosts (and/or reboots).  Instead, `cephadm` will select
+across hosts (and/or reboots).  Instead, ``cephadm`` will select
 interfaces based on other existing IP addresses that are already
 configured.
 
@@ -447,10 +446,10 @@ and reference that dummy network in the networks list (see above).
 
 ## Useful hints for ingress
 
-* It is advised to have at least three `radosgw` daemons for availability and load balancing.
-* We recommend at least three hosts for the `ingress` service.
+* It is advised to have at least three ``radosgw`` daemons for availability and load balancing.
+* We recommend at least three hosts for the ``ingress`` service.
 
 # Further Reading
 
-* object-gateway
-* mgr-rgw-module
+* [object-gateway](../../radosgw/index.md#object-gateway)
+* [mgr-rgw-module](../../mgr/rgw.md#mgr-rgw-module)

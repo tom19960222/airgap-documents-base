@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Config Settings
 
-See Block Device for additional details.
+See [Block Device](index.md) for additional details.
 
 # Generic IO Settings
 
@@ -21,10 +21,10 @@ See Block Device for additional details.
 
 .. sidebar:: Kernel Caching
 
-	The kernel driver for Ceph block devices can use the Linux page cache to
-	improve performance.
+   The kernel driver for Ceph block devices can use the Linux page cache to
+   improve performance.
 
-The user space implementation of the Ceph block device (i.e., `librbd`) cannot
+The user space implementation of the Ceph block device (i.e., ``librbd``) cannot
 take advantage of the Linux page cache, so it includes its own in-memory
 caching, called "RBD caching." RBD caching behaves just like well-behaved hard
 disk caching.  When the OS sends a barrier or a flush request, all dirty data is
@@ -37,7 +37,7 @@ better throughput.
 The librbd cache is enabled by default and supports three different cache
 policies: write-around, write-back, and write-through. Writes return
 immediately under both the write-around and write-back policies, unless there
-are more than `rbd_cache_max_dirty` unwritten bytes to the storage cluster.
+are more than ``rbd_cache_max_dirty`` unwritten bytes to the storage cluster.
 The write-around policy differs from the write-back policy in that it does
 not attempt to service read requests from the cache, unlike the write-back
 policy, and is therefore faster for high performance write workloads. Under the
@@ -58,7 +58,7 @@ is on disk on all replicas.
 > if there are others accessing the image. Running GFS or OCFS on top of
 > RBD will not work with caching enabled.
 
-Option settings for RBD should be set in the `[client]`
+Option settings for RBD should be set in the ``[client]``
 section of your configuration file or the central config store. These settings
 include:
 
@@ -75,8 +75,6 @@ include:
 .. confval:: rbd_cache_target_dirty
 
 .. confval:: rbd_cache_max_dirty_age
-
-.. _Block Device: ../../rbd
 
 # Read-ahead Settings
 
@@ -95,10 +93,10 @@ disabled if caching is disabled or if the policy is write-around.
 
 RBD supports advanced features which can be specified via the command line when
 creating images or the default features can be configured via
-`rbd_default_features = <sum of feature numeric values>` or
-`rbd_default_features = <comma-delimited list of CLI values>`.
+``rbd_default_features = <sum of feature numeric values>`` or
+``rbd_default_features = <comma-delimited list of CLI values>``.
 
-`Layering`
+``Layering``
 
 :Description: Layering enables cloning.
 :Internal value: 1
@@ -107,7 +105,7 @@ creating images or the default features can be configured via
 :KRBD support: since v3.10
 :Default: yes
 
-`Striping v2`
+``Striping v2``
 
 :Description: Striping spreads data across multiple objects. Striping helps with
               parallelism for sequential read/write workloads.
@@ -117,7 +115,7 @@ creating images or the default features can be configured via
 :KRBD support: since v3.10 (default striping only, "fancy" striping added in v4.17)
 :Default: yes
 
-`Exclusive locking`
+``Exclusive locking``
 
 :Description: When enabled, it requires a client to acquire a lock on an object
               before making a write. Exclusive lock should only be enabled when
@@ -128,7 +126,7 @@ creating images or the default features can be configured via
 :KRBD support: since v4.9
 :Default: yes
 
-`Object map`
+``Object map``
 
 :Description: Object map support depends on exclusive lock support. Block
               devices are thin provisioned, which means that they only store
@@ -143,22 +141,22 @@ creating images or the default features can be configured via
 :KRBD support: since v5.3
 :Default: yes
 
-`Fast-diff`
+``Fast-diff``
 
 :Description: Fast-diff support depends on object map support and exclusive lock
               support. It adds another property to the object map, which makes
               it much faster to generate diffs between snapshots of an image.
               It is also much faster to calculate the actual data usage of a
-              snapshot or volume (`rbd du`).
+              snapshot or volume (``rbd du``).
 :Internal value: 16
 :CLI value: fast-diff
 :Added in: v9.0.1 (Infernalis)
 :KRBD support: since v5.3
 :Default: yes
 
-`Deep-flatten`
+``Deep-flatten``
 
-:Description: Deep-flatten enables `rbd flatten` to work on all  snapshots of
+:Description: Deep-flatten enables ``rbd flatten`` to work on all  snapshots of
               an image, in addition to the image itself. Without it, snapshots
               of an image will still rely on the parent, so the parent cannot be
               deleted until the snapshots are first deleted. Deep-flatten makes
@@ -170,12 +168,12 @@ creating images or the default features can be configured via
 :KRBD support: since v5.1
 :Default: yes
 
-`Journaling`
+``Journaling``
 
 :Description: Journaling support depends on exclusive lock support. Journaling
               records all modifications to an image in the order they occur. RBD
               mirroring can utilize the journal to replicate a crash-consistent
-              image to a remote cluster.  It is best to let `rbd-mirror`
+              image to a remote cluster.  It is best to let ``rbd-mirror``
               manage this feature only as needed, as enabling it long term may
               result in substantial additional OSD space consumption.
 :Internal value: 64
@@ -184,7 +182,7 @@ creating images or the default features can be configured via
 :KRBD support: no
 :Default: no
 
-`Data pool`
+``Data pool``
 
 :Description: On erasure-coded pools, the image data block objects need to be stored on a separate pool from the image metadata.
 :Internal value: 128
@@ -192,21 +190,21 @@ creating images or the default features can be configured via
 :KRBD support: since v4.11
 :Default: no
 
-`Operations`
+``Operations``
 
 :Description: Used to restrict older clients from performing certain maintenance operations against an image (e.g. clone, snap create).
 :Internal value: 256
 :Added in: v13.0.2 (Mimic)
 :KRBD support: since v4.16
 
-`Migrating`
+``Migrating``
 
 :Description: Used to restrict older clients from opening an image when it is in migration state.
 :Internal value: 512
 :Added in: v14.0.1 (Nautilus)
 :KRBD support: no
 
-`Non-primary`
+``Non-primary``
 
 :Description: Used to restrict changes to non-primary images using snapshot-based mirroring.
 :Internal value: 1024

@@ -262,14 +262,14 @@ properly:
         - DNS resolution
 
             + Both *(forward and reverse)* zones, with *fully qualified domain
-              name (fqdn)* `(hostname + domain.name)`
+              name (fqdn)* ``(hostname + domain.name)``
 
-            + KDC discover can be set up to use DNS `(srv resources)` as
+            + KDC discover can be set up to use DNS ``(srv resources)`` as
               service location protocol *(RFCs 2052, 2782)*, as well as *host
-              or domain* to the *appropriate realm* `(txt record)`.
+              or domain* to the *appropriate realm* ``(txt record)``.
 
             + Even though these DNS entries/settings are not required to run a
-              `Kerberos realm`, they certainly help to eliminate the need for
+              ``Kerberos realm``, they certainly help to eliminate the need for
               manual configuration on all clients.
 
             + This is extremely important, once most of the Kerberos issues are
@@ -278,7 +278,7 @@ properly:
 
     * Whenever possible, in order to avoid a *single point of failure*, set up
       a *backup, secondary, or slave*, for every piece/part in the
-      infrastructure `(ntp, dns, and kdc servers)`.
+      infrastructure ``(ntp, dns, and kdc servers)``.
 
 Also, the following *Kerberos terminology* is important:
 
@@ -323,9 +323,9 @@ Also, the following *Kerberos terminology* is important:
 
         - It is a unique identity to which Kerberos can assign tickets.
           Principals can have an arbitrary number of components. Each component
-          is separated by a component separator, generally `/`. The last
+          is separated by a component separator, generally ``/``. The last
           component is the *realm*, separated from the rest of the principal by
-          the realm separator, generally `@`.
+          the realm separator, generally ``@``.
 
         - If there is no realm component in the principal, then it will be
           assumed that the principal is in the default realm for the context in
@@ -333,34 +333,34 @@ Also, the following *Kerberos terminology* is important:
 
         - Usually, a principal is divided into three parts:
 
-            + The `primary`, the `instance`, and the `realm`
+            + The ``primary``, the ``instance``, and the ``realm``
 
             + The format of a typical Kerberos V5 principal is
-              `primary/instance@REALM`.
+              ``primary/instance@REALM``.
 
-            + The `primary` is the first part of the principal. In the case
-              of a user, it's the same as the `username`. For a host, the
-              primary is the word `host`. For Ceph, will use `ceph` as a
+            + The ``primary`` is the first part of the principal. In the case
+              of a user, it's the same as the ``username``. For a host, the
+              primary is the word ``host``. For Ceph, will use ``ceph`` as a
               primary name which makes it easier to organize and identify Ceph
               related principals.
 
-            + The `instance` is an optional string that qualifies the
+            + The ``instance`` is an optional string that qualifies the
               primary. The instance is separated from the primary by a slash
-              `/`. In the case of a user, the instance is usually `null`,
+              ``/``. In the case of a user, the instance is usually ``null``,
               but a user might also have an additional principal, with an
-              instance called `admin`, which one uses to administrate a
+              instance called ``admin``, which one uses to administrate a
               database.
 
-              The principal `johndoe@MYDOMAIN.COM` is completely separate
-              from the principal `johndoe/admin@MYDOMAIN.COM`, with a
+              The principal ``johndoe@MYDOMAIN.COM`` is completely separate
+              from the principal ``johndoe/admin@MYDOMAIN.COM``, with a
               separate password, and separate permissions. In the case of a
               host, the instance is the fully qualified hostname,
-              i.e., `osd1.MYDOMAIN.COM`.
+              i.e., ``osd1.MYDOMAIN.COM``.
 
-            + The `realm` is the Kerberos realm. Usually, the Kerberos realm
+            + The ``realm`` is the Kerberos realm. Usually, the Kerberos realm
               is the domain name, in *upper-case letters*. For example, the
-              machine `osd1.MYDOMAIN.COM` would be in the realm
-              `MYDOMAIN.COM`.
+              machine ``osd1.MYDOMAIN.COM`` would be in the realm
+              ``MYDOMAIN.COM``.
 
     * Keytab
 
@@ -377,7 +377,7 @@ Also, the following *Kerberos terminology* is important:
               protected* with appropriate controls to prevent unauthorized
               users from authenticating with it.
 
-            + The default client keytab file is `/etc/krb5.keytab`
+            + The default client keytab file is ``/etc/krb5.keytab``
 
 |
 
@@ -386,7 +386,7 @@ Also, the following *Kerberos terminology* is important:
 In order to configure connections (from Ceph nodes) to the KDC:
 
 1. Login to the Kerberos client (Ceph server nodes) and confirm it is properly
-   configured, by checking and editing `/etc/krb5.conf` file properly:  :
+   configured, by checking and editing ``/etc/krb5.conf`` file properly:  :
 
 ```
 /etc/krb5.conf
@@ -451,7 +451,7 @@ _kpasswd._udp           IN SRV      0 0 464 kerberos
 ```
 
 3. Still on the KDC Server, run the Kerberos administration utility;
-   `kadmin.local` so we can list all the principals already created.  :
+   ``kadmin.local`` so we can list all the principals already created.  :
 
 ```
 kadmin.local:  listprincs
@@ -510,7 +510,7 @@ Principal "johndoe@MYDOMAIN.COM" created.
 
 5. Create a *keytab file* for each Ceph cluster node:
 
-    As the default client keytab file is `/etc/krb5.keytab`, we will want to
+    As the default client keytab file is ``/etc/krb5.keytab``, we will want to
     use a different file name, so we especify which *keytab file to create* and
     which *principal to export keys* from:  :
 
@@ -563,17 +563,17 @@ KVNO Timestamp           Principal
 ...
 ```
 
-6. A new *set parameter* was added in Ceph, `gss_ktab_client_file` which
+6. A new *set parameter* was added in Ceph, ``gss_ktab_client_file`` which
    points to the keytab file related to the Ceph node *(or principal)* in
    question.
 
-    By default it points to `/var/lib/ceph/$name/gss_client_$name.ktab`. So,
-    in the case of a Ceph server `osd1.mydomain.com`, the location and name
-    of the keytab file should be: `/var/lib/ceph/osd1/gss_client_osd1.ktab`
+    By default it points to ``/var/lib/ceph/$name/gss_client_$name.ktab``. So,
+    in the case of a Ceph server ``osd1.mydomain.com``, the location and name
+    of the keytab file should be: ``/var/lib/ceph/osd1/gss_client_osd1.ktab``
 
-    Therefore, we need to `scp` each of these newly created keytab files from
+    Therefore, we need to ``scp`` each of these newly created keytab files from
     the KDC to their respective Ceph cluster nodes (i.e):
-    `# for node in mon1 osd1 osd2 osd3 osd4; do scp /etc/gss_client_$node*.ktab root@ceph-$node:/var/lib/ceph/$node/; done`
+    ``# for node in mon1 osd1 osd2 osd3 osd4; do scp /etc/gss_client_$node*.ktab root@ceph-$node:/var/lib/ceph/$node/; done``
 
     Or whatever other way one feels comfortable with, as long as each keytab
     client file gets copied over to the proper location.
@@ -613,13 +613,13 @@ Valid starting       Expires              Service principal
    principal name of the first entry in the client keytab is used by default
    when obtaining initial credentials:
 
-    a. The `KRB5_CLIENT_KTNAME environment` variable.
-    b. The `default_client_keytab_name` profile variable in `[libdefaults]`.
-    c. The hardcoded default, `DEFCKTNAME`.
+    a. The ``KRB5_CLIENT_KTNAME environment`` variable.
+    b. The ``default_client_keytab_name`` profile variable in ``[libdefaults]``.
+    c. The hardcoded default, ``DEFCKTNAME``.
 
     So, what we do is to internally, set the environment variable
-    `KRB5_CLIENT_KTNAME` to the same location as `gss_ktab_client_file`,
-    so `/var/lib/ceph/osd1/gss_client_osd1.ktab`, and change the `ceph.conf`
+    ``KRB5_CLIENT_KTNAME`` to the same location as ``gss_ktab_client_file``,
+    so ``/var/lib/ceph/osd1/gss_client_osd1.ktab``, and change the ``ceph.conf``
     file to add the new authentication method.  :
 
 ```
@@ -652,9 +652,9 @@ Valid starting       Expires              Service principal
 
 # ** *For Ceph Developers Only* **
 
-We certainly could have used straight native `KRB5 APIs` (instead of
-`GSSAPIs`), but we wanted a more portable option as regards network security,
-which is the hallmark of the `GSS` *(Generic Security Standard)* `-API`.
+We certainly could have used straight native ``KRB5 APIs`` (instead of
+``GSSAPIs``), but we wanted a more portable option as regards network security,
+which is the hallmark of the ``GSS`` *(Generic Security Standard)* ``-API``.
 It does not actually provide security services itself.
 
 Rather, it is a framework that provides security services to callers in a
@@ -723,7 +723,7 @@ GSS-API provides several types of portability for applications:
        become corrupted or compromised.
 
        The GSS-API provides for data to be accompanied by a cryptographic tag,
-       known as an `Message Integrity Code (MIC)`, to prove that the data
+       known as an ``Message Integrity Code (MIC)``, to prove that the data
        that arrives at your doorstep is the same as the data that the sender
        transmitted. This verification of the data's validity is known as
        *"integrity"*.
@@ -765,10 +765,10 @@ Therefore:
 
     There are two different formats:
 
-        1. The first, `{ 1 2 3 4 }`, is officially mandated by the GSS-API
-           specs. `gss_str_to_oid()` expects this first format.
+        1. The first, ``{ 1 2 3 4 }``, is officially mandated by the GSS-API
+           specs. ``gss_str_to_oid()`` expects this first format.
 
-        2. The second, `1.2.3.4`, is more widely used but is not an official
+        2. The second, ``1.2.3.4``, is more widely used but is not an official
            standard format.
 
     Although the GSS-API makes protecting data simple, it does not do certain
@@ -796,8 +796,8 @@ Therefore:
            GSS-API functions.
 
         g. Deallocate GSS-API data spaces. These must be explicitly deallocated
-           with functions such as `gss_release_buffer()` and
-           `gss_delete_name()`.
+           with functions such as ``gss_release_buffer()`` and
+           ``gss_delete_name()``.
 
 |
 
@@ -825,7 +825,7 @@ These are the basic steps in using the GSS-API:
     6. Both applications destroy the shared security context. If necessary,
        they can also deallocate any *"leftover"* GSS-API data.
 
-    Applications that use the GSS-API should include the file `gssapi.h`.
+    Applications that use the GSS-API should include the file ``gssapi.h``.
 
     Good References:
         - [rfc1964](https://tools.ietf.org/html/rfc1964).
@@ -840,18 +840,18 @@ These are the basic steps in using the GSS-API:
 ## ** *Kerberos Server Setup* **
 
 First and foremost, ``this is not a recommendation for a production
-environment`. We are not covering `Master/Slave replication cluster`` or
+environment``. We are not covering ``Master/Slave replication cluster`` or
 anything production environment related (*ntp/chrony, dns, pam/nss, sssd, etc*).
 
 Also, on the server side there might be different dependencies and/or
 configuration steps needed, depending on which backend database will be used.
-`LDAP as a backend database` is a good example of that.
+``LDAP as a backend database`` is a good example of that.
 
 On the client side there are different steps depending on which client backend
-configuration will be used. For example `PAM/NSS` or `SSSD` (along with
+configuration will be used. For example ``PAM/NSS`` or ``SSSD`` (along with
 LDAP for identity service, [and Kerberos for authentication service]) which is
-the best suited option for joining `MS Active Directory domains`, and doing
-`User Logon Management`.
+the best suited option for joining ``MS Active Directory domains``, and doing
+``User Logon Management``.
 
 By no means we intend to cover every possible scenario/combination here. These
 steps are for a simple *get a (MIT) Kerberos Server up and running*.
@@ -860,7 +860,7 @@ Please, note that *rpm packages might have slightly different names*, as well
 as the locations for the binaries and/or configuration files, depending on
 which Linux distro we are referring to.
 
-Finally, keep in mind that some Linux distros will have their own `wizards`,
+Finally, keep in mind that some Linux distros will have their own ``wizards``,
 which can perform the basic needed configuration:  :
 
 ```
@@ -873,7 +873,7 @@ SUSE:
         sssd: yast2 auth-client
 ```
 
-However, we are going through the `manual configuration`.
+However, we are going through the ``manual configuration``.
 
 In order to get a new MIT KDC Server running:
 
@@ -958,7 +958,7 @@ REDHAT: systemctl enable/start krb5kdc
 4. Create a Kerberos Administrator
     Kerberos principals can be created either locally on the KDC server itself
     or through the network, using an 'admin principal'. On the KDC server,
-    using `kadmin.local`:
+    using ``kadmin.local``:
 
     a. List the existing principals:  :
 
@@ -975,9 +975,9 @@ root/admin@MYDOMAIN.COM
 ```
 
     b. In case we don't have a built-in 'admin principal', we then create one
-    (whatever `principal name`, we are using `root`, once by default
-    `kinit` tries to authenticate using the same system login user name,
-    unless a `principal` is passed as an argument `kinit principal`):  :
+    (whatever ``principal name``, we are using ``root``, once by default
+    ``kinit`` tries to authenticate using the same system login user name,
+    unless a ``principal`` is passed as an argument ``kinit principal``):  :
 
 ```
 # kadmin.local -q "addprinc root/admin"
@@ -987,7 +987,7 @@ Enter password for principal "root/admin@MYDOMAIN.COM":
 ```
 
     c. Confirm the newly created 'admin principal' has the needed permissions
-       in the KDC ACL (if ACLs are changed, `kadmind` needs to be restarted):  :
+       in the KDC ACL (if ACLs are changed, ``kadmind`` needs to be restarted):  :
 
 ```
 SUSE: /var/lib/kerberos/krb5kdc/kadm5.acl
@@ -1032,7 +1032,7 @@ Valid starting       Expires              Service principal
         service' principals, refer to The *'Ceph side' of the things* starting
         at step 4.
 
-     b. Make sure you are comfortable with following and their `manpages`:  :
+     b. Make sure you are comfortable with following and their ``manpages``:  :
 
 ```
 krb5.conf       -> Krb client config file
@@ -1056,7 +1056,7 @@ kdestroy        -> Destroy Kerberos tickets tool
 
     a. As described in *The 'Ceph side' of the things*; step 2a, DNS RRs
        greatly improves service location and host/domain resolution, by using
-       `(srv resources)` and `(txt record)` respectively (as per
+       ``(srv resources)`` and ``(txt record)`` respectively (as per
        *Before We Start*; *DNS resolution*).  :
 
 ```
@@ -1074,11 +1074,11 @@ _kpasswd._udp           IN SRV      0 0 464 kerberos
 ```
 
     b. For a small network or development environment, where a *DNS server is
-       not available*, we have the option to use `DNSMasq`, an
+       not available*, we have the option to use ``DNSMasq``, an
        ease-to-configure lightweight DNS server (along with some other
        capabilities).
 
-       These records can be added to `/etc/dnsmasq.conf` (in addition to the
+       These records can be added to ``/etc/dnsmasq.conf`` (in addition to the
        needed 'host records'):  :
 
 ```
@@ -1094,7 +1094,7 @@ srv-host=_kerberos._tcp.mydomain.com,kerberos.mydomain.com,88,1
 ...
 ```
 
-    c. After 'b)' is all set, and `dnsmasq` service up and running, we can
+    c. After 'b)' is all set, and ``dnsmasq`` service up and running, we can
        test it using:  :
 
 ```
@@ -1114,6 +1114,6 @@ _kerberos.mydomain.com descriptive text "MYDOMAIN.COM"
 ...
 ```
 
-    f. As long as `name resolution` is working properly, either `dnsmasq`
-       or `named`, Kerberos should be able to find the needed service
+    f. As long as ``name resolution`` is working properly, either ``dnsmasq``
+       or ``named``, Kerberos should be able to find the needed service
        records.

@@ -286,7 +286,7 @@ the key in the OMAP.
 
 ### Commands
 
-Run the commands in this section as `root` on an OSD node.
+Run the commands in this section as ``root`` on an OSD node.
 
 * **Getting the object map key**
 

@@ -21,7 +21,7 @@ added manually.
 
 ### AWS Signature v4
 
-Please refer to the official documentation in Authenticating Requests (AWS Signature Version 4).
+Please refer to the official documentation in [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
 
 The following values of the `x-amz-content-sha256` request header are supported:
 
@@ -33,7 +33,7 @@ The following values of the `x-amz-content-sha256` request header are supported:
 
 ### AWS Signature v2
 
-Please refer to the official documentation in Authenticating Requests (AWS Signature Version 2).
+Please refer to the official documentation in [Authenticating Requests (AWS Signature Version 2)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/auth-request-sig-v2.html).
 
 > **Note:** While v2 signatures have been deprecated in AWS, RGW continues to support them.
 
@@ -43,8 +43,8 @@ In a radosgw instance that is configured with authentication against
 OpenStack Keystone, it is possible to use Keystone as an authoritative
 source for S3 API authentication. To do so, you must set:
 
-* the `rgw keystone` configuration options explained in ../keystone,
-* `rgw s3 auth use keystone = true`.
+* the ``rgw keystone`` configuration options explained in [../keystone](../keystone.md),
+* ``rgw s3 auth use keystone = true``.
 
 In addition, a user wishing to use the S3 API must obtain an AWS-style
 access key and secret key. They can do so with the ``openstack ec2
@@ -69,7 +69,7 @@ access to radosgw.
 
 > **Note:** Consider that most production radosgw deployments
 > authenticating against OpenStack Keystone are also set up
-> for ../multitenancy, for which special
+> for [../multitenancy](../multitenancy.md), for which special
 > considerations apply with respect to S3 signed URLs and
 > public read ACLs.
 
@@ -80,143 +80,77 @@ that specify which operations a user can perform on a bucket or on an object.
 Each grant has a different meaning when applied to a bucket versus applied to
 an object:
 
-+------------------+--------------------------------------------------------+----------------------------------------------+
-| Permission       | Bucket                                                 | Object                                       |
-+==================+========================================================+==============================================+
-| `READ`         | Grantee can list the objects in the bucket.            | Grantee can read the object.                 |
-+------------------+--------------------------------------------------------+----------------------------------------------+
-| `WRITE`        | Grantee can write or delete objects in the bucket.     | N/A                                          |
-+------------------+--------------------------------------------------------+----------------------------------------------+
-| `READ_ACP`     | Grantee can read bucket ACL.                           | Grantee can read the object ACL.             |
-+------------------+--------------------------------------------------------+----------------------------------------------+
-| `WRITE_ACP`    | Grantee can write bucket ACL.                          | Grantee can write to the object ACL.         |
-+------------------+--------------------------------------------------------+----------------------------------------------+
-| `FULL_CONTROL` | Grantee has full permissions for object in the bucket. | Grantee can read or write to the object ACL. |
-+------------------+--------------------------------------------------------+----------------------------------------------+
+| Permission | Bucket | Object |
+| --- | --- | --- |
+| ``READ`` | Grantee can list the objects in the bucket. | Grantee can read the object. |
+| ``WRITE`` | Grantee can write or delete objects in the bucket. | N/A |
+| ``READ_ACP`` | Grantee can read bucket ACL. | Grantee can read the object ACL. |
+| ``WRITE_ACP`` | Grantee can write bucket ACL. | Grantee can write to the object ACL. |
+| ``FULL_CONTROL`` | Grantee has full permissions for object in the bucket. | Grantee can read or write to the object ACL. |
 
 Internally, S3 operations are mapped to ACL permissions thus:
 
-+---------------------------------------+---------------+
-| Operation                             | Permission    |
-+=======================================+===============+
-| `s3:GetObject`                      | `READ`      |
-+---------------------------------------+---------------+
-| `s3:GetObjectTorrent`               | `READ`      |
-+---------------------------------------+---------------+
-| `s3:GetObjectVersion`               | `READ`      |
-+---------------------------------------+---------------+
-| `s3:GetObjectVersionTorrent`        | `READ`      |
-+---------------------------------------+---------------+
-| `s3:GetObjectTagging`               | `READ`      |
-+---------------------------------------+---------------+
-| `s3:GetObjectVersionTagging`        | `READ`      |
-+---------------------------------------+---------------+
-| `s3:ListAllMyBuckets`               | `READ`      |
-+---------------------------------------+---------------+
-| `s3:ListBucket`                     | `READ`      |
-+---------------------------------------+---------------+
-| `s3:ListBucketMultipartUploads`     | `READ`      |
-+---------------------------------------+---------------+
-| `s3:ListBucketVersions`             | `READ`      |
-+---------------------------------------+---------------+
-| `s3:ListMultipartUploadParts`       | `READ`      |
-+---------------------------------------+---------------+
-| `s3:AbortMultipartUpload`           | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:CreateBucket`                   | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:DeleteBucket`                   | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:DeleteObject`                   | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:s3DeleteObjectVersion`          | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:PutObject`                      | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:PutObjectTagging`               | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:PutObjectVersionTagging`        | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:DeleteObjectTagging`            | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:DeleteObjectVersionTagging`     | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:RestoreObject`                  | `WRITE`     |
-+---------------------------------------+---------------+
-| `s3:GetAccelerateConfiguration`     | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketAcl`                   | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketCORS`                  | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketLocation`              | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketLogging`               | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketNotification`          | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketPolicy`                | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketRequestPayment`        | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketTagging`               | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketVersioning`            | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketWebsite`               | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetLifecycleConfiguration`      | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetObjectAcl`                   | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetObjectVersionAcl`            | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetReplicationConfiguration`    | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:GetBucketEncryption`            | `READ_ACP`  |
-+---------------------------------------+---------------+
-| `s3:DeleteBucketPolicy`             | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:DeleteBucketWebsite`            | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:DeleteReplicationConfiguration` | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutAccelerateConfiguration`     | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketAcl`                   | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketCORS`                  | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketLogging`               | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketNotification`          | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketPolicy`                | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketRequestPayment`        | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketTagging`               | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutPutBucketVersioning`         | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketWebsite`               | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutLifecycleConfiguration`      | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutObjectAcl`                   | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutObjectVersionAcl`            | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutReplicationConfiguration`    | `WRITE_ACP` |
-+---------------------------------------+---------------+
-| `s3:PutBucketEncryption`            | `WRITE_ACP` |
-+---------------------------------------+---------------+
+| Operation | Permission |
+| --- | --- |
+| ``s3:GetObject`` | ``READ`` |
+| ``s3:GetObjectTorrent`` | ``READ`` |
+| ``s3:GetObjectVersion`` | ``READ`` |
+| ``s3:GetObjectVersionTorrent`` | ``READ`` |
+| ``s3:GetObjectTagging`` | ``READ`` |
+| ``s3:GetObjectVersionTagging`` | ``READ`` |
+| ``s3:ListAllMyBuckets`` | ``READ`` |
+| ``s3:ListBucket`` | ``READ`` |
+| ``s3:ListBucketMultipartUploads`` | ``READ`` |
+| ``s3:ListBucketVersions`` | ``READ`` |
+| ``s3:ListMultipartUploadParts`` | ``READ`` |
+| ``s3:AbortMultipartUpload`` | ``WRITE`` |
+| ``s3:CreateBucket`` | ``WRITE`` |
+| ``s3:DeleteBucket`` | ``WRITE`` |
+| ``s3:DeleteObject`` | ``WRITE`` |
+| ``s3:s3DeleteObjectVersion`` | ``WRITE`` |
+| ``s3:PutObject`` | ``WRITE`` |
+| ``s3:PutObjectTagging`` | ``WRITE`` |
+| ``s3:PutObjectVersionTagging`` | ``WRITE`` |
+| ``s3:DeleteObjectTagging`` | ``WRITE`` |
+| ``s3:DeleteObjectVersionTagging`` | ``WRITE`` |
+| ``s3:RestoreObject`` | ``WRITE`` |
+| ``s3:GetAccelerateConfiguration`` | ``READ_ACP`` |
+| ``s3:GetBucketAcl`` | ``READ_ACP`` |
+| ``s3:GetBucketCORS`` | ``READ_ACP`` |
+| ``s3:GetBucketLocation`` | ``READ_ACP`` |
+| ``s3:GetBucketLogging`` | ``READ_ACP`` |
+| ``s3:GetBucketNotification`` | ``READ_ACP`` |
+| ``s3:GetBucketPolicy`` | ``READ_ACP`` |
+| ``s3:GetBucketRequestPayment`` | ``READ_ACP`` |
+| ``s3:GetBucketTagging`` | ``READ_ACP`` |
+| ``s3:GetBucketVersioning`` | ``READ_ACP`` |
+| ``s3:GetBucketWebsite`` | ``READ_ACP`` |
+| ``s3:GetLifecycleConfiguration`` | ``READ_ACP`` |
+| ``s3:GetObjectAcl`` | ``READ_ACP`` |
+| ``s3:GetObjectVersionAcl`` | ``READ_ACP`` |
+| ``s3:GetReplicationConfiguration`` | ``READ_ACP`` |
+| ``s3:GetBucketEncryption`` | ``READ_ACP`` |
+| ``s3:DeleteBucketPolicy`` | ``WRITE_ACP`` |
+| ``s3:DeleteBucketWebsite`` | ``WRITE_ACP`` |
+| ``s3:DeleteReplicationConfiguration`` | ``WRITE_ACP`` |
+| ``s3:PutAccelerateConfiguration`` | ``WRITE_ACP`` |
+| ``s3:PutBucketAcl`` | ``WRITE_ACP`` |
+| ``s3:PutBucketCORS`` | ``WRITE_ACP`` |
+| ``s3:PutBucketLogging`` | ``WRITE_ACP`` |
+| ``s3:PutBucketNotification`` | ``WRITE_ACP`` |
+| ``s3:PutBucketPolicy`` | ``WRITE_ACP`` |
+| ``s3:PutBucketRequestPayment`` | ``WRITE_ACP`` |
+| ``s3:PutBucketTagging`` | ``WRITE_ACP`` |
+| ``s3:PutPutBucketVersioning`` | ``WRITE_ACP`` |
+| ``s3:PutBucketWebsite`` | ``WRITE_ACP`` |
+| ``s3:PutLifecycleConfiguration`` | ``WRITE_ACP`` |
+| ``s3:PutObjectAcl`` | ``WRITE_ACP`` |
+| ``s3:PutObjectVersionAcl`` | ``WRITE_ACP`` |
+| ``s3:PutReplicationConfiguration`` | ``WRITE_ACP`` |
+| ``s3:PutBucketEncryption`` | ``WRITE_ACP`` |
 
-Some mappings, (e.g. `s3:CreateBucket` to `WRITE`) are not
+Some mappings, (e.g. ``s3:CreateBucket`` to ``WRITE``) are not
 applicable to S3 operation, but are required to allow Swift and S3 to
 access the same resources when things like Swift user ACLs are in
 play. This is one of the many reasons that you should use S3 bucket
 policies rather than S3 ACLs when possible.
-
-.. _Authenticating Requests (AWS Signature Version 4): https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html
-.. _Authenticating requests (AWS signature version 2): https://docs.aws.amazon.com/AmazonS3/latest/userguide/auth-request-sig-v2.html

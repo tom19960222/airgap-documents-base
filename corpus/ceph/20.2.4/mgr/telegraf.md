@@ -26,7 +26,7 @@ ceph mgr module enable telegraf
 ```
 
 If you wish to subsequently disable the module, you can use the corresponding
-`disable` command:
+``disable`` command:
 
 ```bash
 ceph mgr module disable telegraf
@@ -43,7 +43,7 @@ Set configuration values using the following command:
 ceph telegraf config-set <key> <value>
 ```
 
-The most important settings are `address` and `interval`.
+The most important settings are ``address`` and ``interval``.
 
 For example, a typical configuration might look like this:
 
@@ -54,8 +54,8 @@ ceph telegraf config-set interval 10
 
 The default values for these configuration keys are:
 
-- `address`: `unixgram:///tmp/telegraf.sock`
-- `interval`: `15`
+- ``address``: ``unixgram:///tmp/telegraf.sock``
+- ``interval``: ``15``
 
 ## Socket Listener
 The module only supports sending data to Telegraf through the socket listener

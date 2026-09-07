@@ -24,7 +24,7 @@ The following instructions will use the default vSphere web client and esxcli.
 esxcli nvme fabric enable --protocol TCP --device vmnicN
 ```
 
-   Replace `N` with the number of the NIC.
+   Replace ``N`` with the number of the NIC.
 
 2. Tag a VMKernel NIC to permit NVMe/TCP traffic:
 
@@ -32,7 +32,7 @@ esxcli nvme fabric enable --protocol TCP --device vmnicN
 esxcli network uip interface tag add --interface-nme vmkN --tagname NVMeTCP
 ```
 
-   Replace `N` with the ID of the VMkernel.
+   Replace ``N`` with the ID of the VMkernel.
 
 3. Configure the VMware ESXi host for NVMe/TCP:
 

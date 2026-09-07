@@ -18,8 +18,8 @@ immediately.
 
 ## Upgrading
 
-* If you are using the undocumented `ceph-disk-prepare` and
-  `ceph-disk-activate` tools, they have several new features and
+* If you are using the undocumented ``ceph-disk-prepare`` and
+  ``ceph-disk-activate`` tools, they have several new features and
   some additional functionality.  Please review the changes in
   behavior carefully before upgrading.
 * The .deb packages now require xfsprogs.
@@ -56,7 +56,7 @@ immediately.
 * debian: depend on xfsprogs (we use xfs by default)
 * rpm: build rpms, some related Makefile changes
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.48.3argonaut.txt -->.
 
 # v0.48.2 "argonaut"
 
@@ -91,7 +91,7 @@ For more detailed information, see the complete changelog.
 * config: add /etc/ceph/ceph.$name.keyring to default keyring search path
 * ceph.spec: don't package crush headers
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.48.2argonaut.txt -->.
 
 # v0.48.1 "argonaut"
 
@@ -129,7 +129,7 @@ For more detailed information, see the complete changelog.
 * debian: remove crush headers, include librados-config
 * rpm: add ceph-disk-{activate, prepare}
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.48.1argonaut.txt -->.
 
 # v0.48 "argonaut"
 
@@ -174,6 +174,6 @@ This will prevent the cluster from marking down OSDs as "out" and re-replicating
 * chef: support for multiple monitor clusters
 * upstart: basic support for monitors, mds, radosgw; osd support still a work in progress.
 
-The new default keyring locations mean that when enabling authentication (`auth supported = cephx`), keyring locations do not need to be specified if the keyring file is located inside the daemon's data directory (`/var/lib/ceph/$type/ceph-$id` by default).
+The new default keyring locations mean that when enabling authentication (``auth supported = cephx``), keyring locations do not need to be specified if the keyring file is located inside the daemon's data directory (``/var/lib/ceph/$type/ceph-$id`` by default).
 
 There is also a lot of librbd code in this release that is laying the groundwork for the upcoming layering functionality, but is not actually used. Likewise, the upstart support is still incomplete and not recommended; we will backport that functionality later if it turns out to be non-disruptive.

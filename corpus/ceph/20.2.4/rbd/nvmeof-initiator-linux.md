@@ -91,7 +91,7 @@ mount NVME_NODE_PATH /mnt/nvmeof
 ls /mnt/nvmeof
 ```
 
-6. Create a text file in the `/mnt/nvmeof` directory:
+6. Create a text file in the ``/mnt/nvmeof`` directory:
 
 ```bash
 echo "Hello NVME-oF" > /mnt/nvmeof/hello.text

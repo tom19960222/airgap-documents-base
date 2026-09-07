@@ -14,8 +14,8 @@ stored beneath that point in the directory hierarchy.
 Like most other things in CephFS, quotas are configured using virtual
 extended attributes:
 
- * `ceph.quota.max_files` -- file limit
- * `ceph.quota.max_bytes` -- byte limit
+ * ``ceph.quota.max_files`` -- file limit
+ * ``ceph.quota.max_bytes`` -- byte limit
 
 If the extended attributes appear on a directory that means a quota is
 configured there. If they are not present then no quota is set on that
@@ -29,7 +29,7 @@ setfattr -n ceph.quota.max_bytes -v 100000000 /some/dir     # 100 MB
 setfattr -n ceph.quota.max_files -v 10000 /some/dir         # 10,000 files
 ```
 
-`ceph.quota.max_bytes` can also be set using human-friendly units:
+``ceph.quota.max_bytes`` can also be set using human-friendly units:
 
 ```
 setfattr -n ceph.quota.max_bytes -v 100K /some/dir          # 100 KiB
@@ -40,10 +40,8 @@ setfattr -n ceph.quota.max_bytes -v 5Gi /some/dir           # 5 GiB
 > are input, e.g. 1K to 1024 bytes.
 
 > **Note:** To enable a client to set a quota by modifying the corresponding
-> extended attribute, in the client's authentication capabilities the `p`
-> flag needs to be set in addition to `rw`. See :ref:`CephFS Client
-> Capabilities - Layout and Quota restriction (the 'p'
-> flag)<cephfs-layout-and-quota-restriction>` for more details.
+> extended attribute, in the client's authentication capabilities the ``p``
+> flag needs to be set in addition to ``rw``. See [CephFS Client Capabilities - Layout and Quota restriction (the 'p' flag)](client-auth.md#cephfs-layout-and-quota-restriction) for more details.
 
 To view quota limit:
 
@@ -57,14 +55,14 @@ $ getfattr -n ceph.quota.max_files /some/dir
 ceph.quota.max_files="10000"
 ```
 
-> **Note:** Running `getfattr /some/dir -d -m -` for a CephFS directory will
+> **Note:** Running ``getfattr /some/dir -d -m -`` for a CephFS directory will
 > print none of the CephFS extended attributes. This is because the CephFS
-> kernel and FUSE clients hide this information from the `listxattr(2)`
+> kernel and FUSE clients hide this information from the ``listxattr(2)``
 > system call. Instead, a specific CephFS extended attribute can be viewed by
-> running `getfattr /some/dir -n ceph.<some-xattr>`.
+> running ``getfattr /some/dir -n ceph.<some-xattr>``.
 
 To remove or disable a quota, remove the respective extended attribute or set
-the value to `0`.
+the value to ``0``.
 
 Utilizing remove:
 
@@ -92,12 +90,12 @@ $ getfattr /some/dir/ -n ceph.quota.max_files
 
 ## Space Usage Reporting and CephFS Quotas
 When the root directory of the CephFS mount has quota set on it, the available
-space on the CephFS reported by space usage report tools (like `df`) is
-based on quota limit. That is, `available space = quota limit - used space`
-instead of `available space = total space - used space`.
+space on the CephFS reported by space usage report tools (like ``df``) is
+based on quota limit. That is, ``available space = quota limit - used space``
+instead of ``available space = total space - used space``.
 
 This behaviour can be disabled by setting following option in client section
-of `ceph.conf`:
+of ``ceph.conf``:
 
 ```
 client quota df = false
@@ -131,18 +129,18 @@ client quota df = false
    mount restrictions.* The client needs to have access to the
    directory inode on which quotas are configured in order to enforce
    them.  If the client has restricted access to a specific path
-   (e.g., `/home/user`) based on the MDS capability, and a quota is
+   (e.g., ``/home/user``) based on the MDS capability, and a quota is
    configured on an ancestor directory they do not have access to
-   (e.g., `/home`), the client will not enforce it.  When using
+   (e.g., ``/home``), the client will not enforce it.  When using
    path-based access restrictions be sure to configure the quota on
-   the directory the client is restricted too (e.g., `/home/user`)
+   the directory the client is restricted too (e.g., ``/home/user``)
    or something nested beneath it.
 
    In case of a kernel client, it needs to have access to the parent
    of the directory inode on which quotas are configured in order to
    enforce them. If quota is configured on a directory path
-   (e.g., `/home/volumes/group`), the kclient needs to have access
-   to the parent (e.g., `/home/volumes`).
+   (e.g., ``/home/volumes/group``), the kclient needs to have access
+   to the parent (e.g., ``/home/volumes``).
 
    An example command to create such an user is as below:
 

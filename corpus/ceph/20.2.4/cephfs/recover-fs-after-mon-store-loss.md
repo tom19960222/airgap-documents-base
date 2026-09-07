@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 During rare occasions, all the monitor stores of a cluster may get corrupted
 or lost. To recover the cluster in such a scenario, you need to rebuild the
-monitor stores using the OSDs (see mon-store-recovery-using-osds),
+monitor stores using the OSDs (see [mon-store-recovery-using-osds](../rados/troubleshooting/troubleshooting-mon.md#mon-store-recovery-using-osds)),
 and get back the pools intact (active+clean state). However, the rebuilt monitor
 stores don't restore the file system maps ("FSMap"). Additional steps are required
 to bring back the file system. The steps to recover a multiple active MDS file
@@ -22,7 +22,7 @@ in more detail below.
 
 First up, recreate the file system using the recovered file system pools. The
 new FSMap will have the filesystem's default settings. However, the user defined
-file system settings such as `standby_count_wanted`, `required_client_features`,
+file system settings such as ``standby_count_wanted``, ``required_client_features``,
 extra data pools, etc., are lost and need to be reapplied later.
 
 :
@@ -31,7 +31,7 @@ extra data pools, etc., are lost and need to be reapplied later.
 ceph fs new <fs_name> <metadata_pool> <data_pool> --force --recover
 ```
 
-The `recover` flag sets the state of file system's rank 0 to existing but
+The ``recover`` flag sets the state of file system's rank 0 to existing but
 failed. So when a MDS daemon eventually picks up rank 0, the daemon reads the
 existing in-RADOS metadata and doesn't overwrite it. The flag also prevents the
 standby MDS daemons to activate the file system.
@@ -39,8 +39,8 @@ standby MDS daemons to activate the file system.
 The file system cluster ID, fscid, of the file system will not be preserved.
 This behaviour may not be desirable for certain applications (e.g., Ceph CSI)
 that expect the file system to be unchanged across recovery. To fix this, you
-can optionally set the `fscid` option in the above command (see
-advanced-cephfs-admin-settings).
+can optionally set the ``fscid`` option in the above command (see
+[advanced-cephfs-admin-settings](administration.md#advanced-cephfs-admin-settings)).
 
 Allow standby MDS daemons to join the file system.
 

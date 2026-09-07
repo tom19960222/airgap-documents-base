@@ -5,10 +5,10 @@ title: "LVM"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/ceph-volume/lvm.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-lvm-api:
+<a id="ceph-volume-lvm-api"></a>
 
 # LVM
-The backend of `ceph-volume lvm` is LVM, it relies heavily on the usage of
+The backend of ``ceph-volume lvm`` is LVM, it relies heavily on the usage of
 tags, which is a way for LVM to allow extending its volume metadata. These
 values can later be queried against devices and it is how they get discovered
 later.
@@ -17,7 +17,7 @@ later.
 > it is clear what the tool is doing behind the scenes. Do not alter
 > any of these values.
 
-.. _ceph-volume-lvm-tag-api:
+<a id="ceph-volume-lvm-tag-api"></a>
 
 ## Tag API
 The process of identifying logical volumes as part of Ceph relies on applying
@@ -28,7 +28,7 @@ looks like:
 ceph.<tag name>=<tag value>
 ```
 
-All tags are prefixed by the `ceph` keyword to claim ownership of that
+All tags are prefixed by the ``ceph`` keyword to claim ownership of that
 namespace and make it easily identifiable. This is how the OSD ID would be used
 in the context of lvm tags:
 
@@ -36,7 +36,7 @@ in the context of lvm tags:
 ceph.osd_id=0
 ```
 
-.. _ceph-volume-lvm-tags:
+<a id="ceph-volume-lvm-tags"></a>
 
 ## Metadata
 The following describes all the metadata from Ceph OSDs that is stored on an
@@ -88,7 +88,7 @@ ceph.journal_uuid=2070E121-C544-4F40-9571-0B7F35C6CB2B
 ```
 
 ## ``encrypted``
-Example for enabled encryption with `luks`:
+Example for enabled encryption with ``luks``:
 
 ```
 ceph.encrypted=1
@@ -177,7 +177,7 @@ ceph.wal_uuid=A58D1C68-0D6E-4CB3-8E99-B261AD47CC39
 ## ``vdo``
 A VDO-enabled device is detected when device is getting prepared, and then
 stored for later checks when activating. This affects mount options by
-appending the `discard` mount flag, regardless of mount flags being used.
+appending the ``discard`` mount flag, regardless of mount flags being used.
 
 Example for an enabled VDO device:
 

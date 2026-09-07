@@ -5,7 +5,7 @@ title: "Configuring the NVMe-oF Initiators"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rbd/nvmeof-initiators.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _configuring-the-nvmeof-initiators:
+<a id="configuring-the-nvmeof-initiators"></a>
 
 # Configuring the NVMe-oF Initiators
 

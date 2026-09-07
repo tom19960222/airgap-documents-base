@@ -5,7 +5,7 @@ title: "Snapshot Scheduling Module"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/snap-schedule.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _snap-schedule:
+<a id="snap-schedule"></a>
 
 # Snapshot Scheduling Module
 This module implements scheduled snapshots for CephFS.
@@ -23,7 +23,7 @@ ceph mgr module enable snap_schedule
 
 # Usage
 
-This module uses /dev/cephfs-snapshots, please consider this documentation
+This module uses [/dev/cephfs-snapshots](../dev/cephfs-snapshots.md), please consider this documentation
 as well.
 
 This module's subcommands live under the `ceph fs snap-schedule` namespace.
@@ -61,9 +61,9 @@ The following time periods are recognized: `h(our)`, `d(ay)`, `w(eek)`, `M(onth)
 the last 10 snapshots regardless of timing,
 
 All subcommands take optional `fs` argument to specify paths in
-multi-fs setups and /cephfs/fs-volumes managed setups. If not
+multi-fs setups and [/cephfs/fs-volumes](fs-volumes.md) managed setups. If not
 passed `fs` defaults to the first file system listed in the fs_map.
-When using /cephfs/fs-volumes the argument `fs` is equivalent to a
+When using [/cephfs/fs-volumes](fs-volumes.md) the argument `fs` is equivalent to a
 `volume`.
 
 When a timestamp is passed (the `start` argument in the `add`, `remove`,
@@ -158,9 +158,9 @@ ceph fs snap-schedule retention remove / 7d4w # remove 7 daily and 4 weekly, lea
 .. note: When adding a path to snap-schedule, remember to strip off the mount
    point path prefix. Paths to snap-schedule should start at the appropriate
    CephFS file system root and not at the host file system root.
-   e.g. if the Ceph File System is mounted at `/mnt` and the path under which
-   snapshots need to be taken is `/mnt/some/path` then the acutal path required
-   by snap-schedule is only `/some/path`.
+   e.g. if the Ceph File System is mounted at ``/mnt`` and the path under which
+   snapshots need to be taken is ``/mnt/some/path`` then the acutal path required
+   by snap-schedule is only ``/some/path``.
 
 .. note: It should be noted that the "created" field in the snap-schedule status
    command output is the timestamp at which the schedule was created. The "created"

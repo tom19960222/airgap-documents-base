@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 It is recommended to provision two to four iSCSI gateway nodes to
 realize a highly available Ceph iSCSI gateway solution.
 
-For hardware recommendations, see hardware-recommendations .
+For hardware recommendations, see [hardware-recommendations](../start/hardware-recommendations.md#hardware-recommendations) .
 
 > **Note:**
 > On iSCSI gateway nodes the memory footprint is a function of
@@ -59,6 +59,6 @@ ceph daemon osd.0 config set osd_heartbeat_interval 5
 ```
 
 For more details on setting Ceph's configuration options, see
-configuring-ceph.  Be sure to persist these settings in
-`/etc/ceph.conf` or, on Mimic and later releases, in the
+[configuring-ceph](../rados/configuration/ceph-conf.md#configuring-ceph).  Be sure to persist these settings in
+``/etc/ceph.conf`` or, on Mimic and later releases, in the
 centralized config store.

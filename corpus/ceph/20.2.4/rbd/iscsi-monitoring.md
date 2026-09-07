@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Ceph provides a tool for iSCSI gateway environments
 to monitor performance of exported RADOS Block Device (RBD) images.
 
-The `gwtop` tool is a `top`-like tool that displays aggregated
+The ``gwtop`` tool is a ``top``-like tool that displays aggregated
 performance metrics of RBD images that are exported to clients over
 iSCSI. The metrics are sourced from a Performance Metrics Domain Agent
 (PMDA). Information from the Linux-IO target (LIO) PMDA is used to list
@@ -23,27 +23,27 @@ metrics.
 
 **Installing:**
 
-1. As `root`, install the `ceph-iscsi-tools` package on each iSCSI
+1. As ``root``, install the ``ceph-iscsi-tools`` package on each iSCSI
    gateway node:
 
 ```bash
 yum install ceph-iscsi-tools
 ```
 
-1. As `root`, install the performance co-pilot package on each iSCSI
+1. As ``root``, install the performance co-pilot package on each iSCSI
    gateway node:
 
 ```bash
 yum install pcp
 ```
 
-1. As `root`, install the LIO PMDA package on each iSCSI gateway node:
+1. As ``root``, install the LIO PMDA package on each iSCSI gateway node:
 
 ```bash
 yum install pcp-pmda-lio
 ```
 
-1. As `root`, enable and start the performance co-pilot service on
+1. As ``root``, enable and start the performance co-pilot service on
    each iSCSI gateway node:
 
 ```bash
@@ -51,25 +51,25 @@ systemctl enable pmcd
 systemctl start pmcd
 ```
 
-1. As `root`, register the `pcp-pmda-lio` agent:
+1. As ``root``, register the ``pcp-pmda-lio`` agent:
 
 ```bash
 cd /var/lib/pcp/pmdas/lio
 ./Install
 ```
 
-By default, `gwtop` assumes the iSCSI gateway configuration object is
-stored in a RADOS object called `gateway.conf` in the `rbd` pool.
+By default, ``gwtop`` assumes the iSCSI gateway configuration object is
+stored in a RADOS object called ``gateway.conf`` in the ``rbd`` pool.
 This configuration defines the iSCSI gateways to contact for gathering
 the performance statistics. This can be overridden by using either the
-`-g` or `-c` flags. See `gwtop --help` for more details.
+``-g`` or ``-c`` flags. See ``gwtop --help`` for more details.
 
 The LIO configuration determines which type of performance statistics to
-extract from performance co-pilot. When `gwtop` starts it looks at the
-LIO configuration, and if it find user-space disks, then `gwtop`
+extract from performance co-pilot. When ``gwtop`` starts it looks at the
+LIO configuration, and if it find user-space disks, then ``gwtop``
 selects the LIO collector automatically.
 
-**Example `gwtop` Outputs**
+**Example ``gwtop`` Outputs**
 
 :
 
@@ -87,6 +87,6 @@ rbd.test_2                1G        0      0.00      0.00
 rbd.testme              500M        0      0.00      0.00
 ```
 
-In the *Client* column, `(CON)` means the iSCSI initiator (client) is
-currently logged into the iSCSI gateway. If `-multi-` is displayed,
+In the *Client* column, ``(CON)`` means the iSCSI initiator (client) is
+currently logged into the iSCSI gateway. If ``-multi-`` is displayed,
 then multiple clients are mapped to the single RBD image.

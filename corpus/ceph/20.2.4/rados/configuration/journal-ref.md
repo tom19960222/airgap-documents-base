@@ -27,8 +27,8 @@ Filestore is preferred for new deployments.
   guarantees atomic compound operations. Ceph OSD Daemons write a description
   of the operation to the journal and apply the operation to the file system.
   This enables atomic updates to an object (for example, placement group
-  metadata). Every few seconds--between `filestore max sync interval` and
-  `filestore min sync interval`--the Ceph OSD Daemon stops writes and
+  metadata). Every few seconds--between ``filestore max sync interval`` and
+  ``filestore min sync interval``--the Ceph OSD Daemon stops writes and
   synchronizes the journal with the file system, allowing Ceph OSD Daemons to
   trim operations from the journal and reuse the space. On failure, Ceph
   OSD Daemons replay the journal starting after the last synchronization

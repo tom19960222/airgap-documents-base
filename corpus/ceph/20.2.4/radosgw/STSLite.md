@@ -87,7 +87,7 @@ rgw s3 auth use keystone = true
 ```
 
 The details of the integrating ldap with Ceph Object Gateway can be found here:
-keystone
+[keystone](keystone.md)
 
 The complete set of configurables to use STS Lite with LDAP are:
 
@@ -106,13 +106,13 @@ rgw_ldap_searchfilter = {search filter}
 ```
 
 The details of the integrating ldap with Ceph Object Gateway can be found here:
-ldap-auth
+[ldap-auth](ldap-auth.md)
 
 Note: By default, STS and S3 APIs co-exist in the same namespace, and both S3
 and STS APIs can be accessed via the same endpoint in Ceph Object Gateway.
 
 A suitable value for rgw_sts_key can be genreated with
-`ceph-authtool --gen-print-key`.
+``ceph-authtool --gen-print-key``.
 The encoded key will also include a key type and timestamp.
 
 # Example showing how to Use STS Lite with Keystone

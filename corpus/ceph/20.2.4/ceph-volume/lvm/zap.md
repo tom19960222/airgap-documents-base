@@ -1,11 +1,11 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "``zap``"
+title: "`zap`"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/lvm/zap.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-lvm-zap:
+<a id="ceph-volume-lvm-zap"></a>
 
 # ``zap``
 
@@ -33,9 +33,9 @@ ceph-volume lvm zap /dev/sdc1
 
 ## Removing Devices
 When zapping, and looking for full removal of the device (lv, vg, or partition)
-use the `--destroy` flag. A common use case is to simply deploy OSDs using
+use the ``--destroy`` flag. A common use case is to simply deploy OSDs using
 a whole raw device. If you do so and then wish to reuse that device for another
-OSD you must use the `--destroy` flag when zapping so that the vgs and lvs
+OSD you must use the ``--destroy`` flag when zapping so that the vgs and lvs
 that ceph-volume created on the raw device will be removed.
 
 > **Note:** Multiple devices can be accepted at once, to zap them all

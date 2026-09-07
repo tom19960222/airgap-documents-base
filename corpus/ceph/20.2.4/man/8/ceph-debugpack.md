@@ -42,5 +42,5 @@ information.
 
 # See also
 
-ceph\(8)
-ceph-post-file\(8)
+[ceph](../../install/clone-source.md)\(8)
+[ceph-post-file](ceph-post-file.md)\(8)

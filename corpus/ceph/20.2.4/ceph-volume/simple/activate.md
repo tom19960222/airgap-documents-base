@@ -1,22 +1,22 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "``activate``"
+title: "`activate`"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/simple/activate.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-simple-activate:
+<a id="ceph-volume-simple-activate"></a>
 
 # ``activate``
-Once ceph-volume-simple-scan has been completed, and all the metadata
-captured for an OSD has been persisted to `/etc/ceph/osd/{id}-{uuid}.json`
+Once [ceph-volume-simple-scan](scan.md#ceph-volume-simple-scan) has been completed, and all the metadata
+captured for an OSD has been persisted to ``/etc/ceph/osd/{id}-{uuid}.json``
 the OSD is now ready to get "activated".
 
-This activation process **disables** all `ceph-disk` systemd units by masking
+This activation process **disables** all ``ceph-disk`` systemd units by masking
 them, to prevent the UDEV/ceph-disk interaction that will attempt to start them
 up at boot time.
 
-The disabling of `ceph-disk` units is done only when calling ``ceph-volume
+The disabling of ``ceph-disk`` units is done only when calling ``ceph-volume
 simple activate`` directly, but is avoided when being called by systemd when
 the system is booting up.
 
@@ -45,17 +45,17 @@ right OSD is being activated. It is entirely possible that a previous OSD with
 the same id exists and would end up activating the incorrect one.
 
 ## Discovery
-With OSDs previously scanned by `ceph-volume`, a *discovery* process is
-performed using `blkid` and `lvm`. There is currently support only for
+With OSDs previously scanned by ``ceph-volume``, a *discovery* process is
+performed using ``blkid`` and ``lvm``. There is currently support only for
 devices with GPT partitions and LVM logical volumes.
 
-The GPT partitions will have a `PARTUUID` that can be queried by calling out
-to `blkid`, and the logical volumes will have a `lv_uuid` that can be
-queried against `lvs` (the LVM tool to list logical volumes).
+The GPT partitions will have a ``PARTUUID`` that can be queried by calling out
+to ``blkid``, and the logical volumes will have a ``lv_uuid`` that can be
+queried against ``lvs`` (the LVM tool to list logical volumes).
 
 This discovery process ensures that devices can be correctly detected even if
 they are repurposed into another system or if their name changes (as in the
-case of non-persisting names like `/dev/sda1`)
+case of non-persisting names like ``/dev/sda1``)
 
 The JSON configuration file used to map what devices go to what OSD will then
 coordinate the mounting and symlinking as part of activation.
@@ -76,16 +76,16 @@ For example:
 systemctl enable ceph-volume@simple-0-8715BEB4-15C5-49DE-BA6F-401086EC7B41
 ```
 
-Would start the discovery process for the OSD with an id of `0` and a UUID of
-`8715BEB4-15C5-49DE-BA6F-401086EC7B41`.
+Would start the discovery process for the OSD with an id of ``0`` and a UUID of
+``8715BEB4-15C5-49DE-BA6F-401086EC7B41``.
 
 The systemd process will call out to activate passing the information needed to
 identify the OSD and its devices, and it will proceed to:
 
 # mount the device in the corresponding location (by convention this is
-  `/var/lib/ceph/osd/<cluster name>-<osd id>/`)
+  ``/var/lib/ceph/osd/<cluster name>-<osd id>/``)
 
 # ensure that all required devices are ready for that OSD and properly linked.
 The symbolic link will **always** be re-done to ensure that the correct device is linked.
 
-# start the `ceph-osd@0` systemd unit
+# start the ``ceph-osd@0`` systemd unit

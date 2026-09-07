@@ -44,9 +44,7 @@ http://sc15.supercomputing.org/schedule/event_detail-evid=pap168.html
 > when developing with vstart all MDSs will lock up and you cannot actually
 > see them spill. It is better to run this on a multi-node cluster.
 
-As a prerequisite, we assume you have installed `mdtest
-<https://sourceforge.net/projects/mdtest/>`_ or pulled the `Docker image
-<https://hub.docker.com/r/michaelsevilla/mdtest/>`_. We use mdtest because we
+As a prerequisite, we assume you have installed [mdtest](https://sourceforge.net/projects/mdtest/) or pulled the [Docker image](https://hub.docker.com/r/michaelsevilla/mdtest/). We use mdtest because we
 need to generate enough load to get over the MIN_OFFLOAD threshold that is
 arbitrarily set in the balancer. For example, this does not create enough
 metadata load:

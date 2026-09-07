@@ -5,7 +5,7 @@ title: "CephFS health messages"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/health-messages.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs-health-messages:
+<a id="cephfs-health-messages"></a>
 
 # CephFS health messages
 
@@ -32,8 +32,8 @@ state (e.g. ranks currently in *replay* state).
 
 Message: mds *names* are laggy
 Description: The named MDS daemons have failed to send beacon messages
-to the monitor for at least `mds_beacon_grace` (default 15s), while
-they are supposed to send beacon messages every `mds_beacon_interval`
+to the monitor for at least ``mds_beacon_grace`` (default 15s), while
+they are supposed to send beacon messages every ``mds_beacon_interval``
 (default 4s).  The daemons may have crashed.  The Ceph monitor will
 automatically replace laggy daemons with standbys if any are available.
 
@@ -42,19 +42,19 @@ Description: One or more file systems are configured to have a certain number
 of standby daemons available (including daemons in standby-replay) but the
 cluster does not have enough standby daemons. The standby daemons not in replay
 count towards any file system (i.e. they may overlap). This warning can
-configured by setting `ceph fs set <fs> standby_count_wanted <count>`.  Use
-zero for `count` to disable.
+configured by setting ``ceph fs set <fs> standby_count_wanted <count>``.  Use
+zero for ``count`` to disable.
 
 # Daemon-reported health checks
 
 MDS daemons can identify a variety of unwanted conditions, and
-indicate these to the operator in the output of `ceph status`.
+indicate these to the operator in the output of ``ceph status``.
 These conditions have human readable messages, and additionally
-a unique code starting with `MDS_`.
+a unique code starting with ``MDS_``.
 
 .. highlight:: console
 
-`ceph health detail` shows the details of the conditions. Following
+``ceph health detail`` shows the details of the conditions. Following
 is a typical health report from a cluster experiencing MDS related
 performance issues:
 
@@ -67,13 +67,13 @@ MDS_SLOW_REQUEST 1 MDSs report slow requests
    mds.fs-01(mds.0): 5 slow requests are blocked > 30 secs
 ```
 
-Where, for instance, `MDS_SLOW_REQUEST` is the unique code representing the
+Where, for instance, ``MDS_SLOW_REQUEST`` is the unique code representing the
 condition where requests are taking long time to complete. And the following
 description shows its severity and the MDS daemons which are serving these
 slow requests.
 
 This page lists the health checks raised by MDS daemons. For the checks from
-other daemons, please see health-checks.
+other daemons, please see [health-checks](../rados/operations/health-checks.md#health-checks).
 
 ## ``MDS_TRIM``
 
@@ -82,12 +82,12 @@ other daemons, please see health-checks.
   Description
     CephFS maintains a metadata journal that is divided into
     *log segments*.  The length of journal (in number of segments) is controlled
-    by the setting `mds_log_max_segments`, and when the number of segments
+    by the setting ``mds_log_max_segments``, and when the number of segments
     exceeds that setting the MDS starts writing back metadata so that it
     can remove (trim) the oldest segments.  If this writeback is happening
     too slowly, or a software bug is preventing trimming, then this health
     message may appear.  The threshold for this message to appear is controlled by
-    the config option `mds_log_warn_factor`, the default is 2.0.
+    the config option ``mds_log_warn_factor``, the default is 2.0.
 
 ## ``MDS_HEALTH_CLIENT_LATE_RELEASE``, ``MDS_HEALTH_CLIENT_LATE_RELEASE_MANY``
 
@@ -99,7 +99,7 @@ other daemons, please see health-checks.
     the MDS will request clients release their capabilities.  If the client
     is unresponsive or buggy, it might fail to do so promptly or fail to do
     so at all.  This message appears if a client has taken longer than
-    `session_timeout` (default 60s) to comply.
+    ``session_timeout`` (default 60s) to comply.
 
 ## ``MDS_CLIENT_RECALL``, ``MDS_HEALTH_CLIENT_RECALL_MANY``
 
@@ -108,14 +108,14 @@ other daemons, please see health-checks.
   Description
     Clients maintain a metadata cache.  Items (such as inodes) in the
     client cache are also pinned in the MDS cache, so when the MDS needs to shrink
-    its cache (to stay within `mds_cache_memory_limit`), it sends messages to
+    its cache (to stay within ``mds_cache_memory_limit``), it sends messages to
     clients to shrink their caches too.  If the client is unresponsive or buggy,
     this can prevent the MDS from properly staying within its cache limits and it
     may eventually run out of memory and crash.  This message appears if a client
     has failed to release more than
-    `mds_recall_warning_threshold` capabilities (decaying with a half-life of
-    `mds_recall_max_decay_rate`) within the last
-    `mds_recall_warning_decay_rate` second.
+    ``mds_recall_warning_threshold`` capabilities (decaying with a half-life of
+    ``mds_recall_max_decay_rate``) within the last
+    ``mds_recall_warning_decay_rate`` second.
 
 ## ``MDS_CLIENT_OLDEST_TID``, ``MDS_CLIENT_OLDEST_TID_MANY``
 
@@ -127,7 +127,7 @@ other daemons, please see health-checks.
     complete and may therefore be forgotten about by the MDS.  If a buggy
     client is failing to advance this field, then the MDS may be prevented
     from properly cleaning up resources used by client requests.  This message
-    appears if a client appears to have more than `max_completed_requests`
+    appears if a client appears to have more than ``max_completed_requests``
     (default 100000) requests that are complete on the MDS side but haven't
     yet been accounted for in the client's *oldest tid* value. The last tid
     used by the MDS to trim completed client requests (or flush) is included
@@ -142,7 +142,7 @@ other daemons, please see health-checks.
     from the metadata pool.  This message indicates that the damage was
     sufficiently isolated for the MDS to continue operating, although
     client accesses to the damaged subtree will return IO errors.  Use
-    the `damage ls` admin socket command to get more detail on the damage.
+    the ``damage ls`` admin socket command to get more detail on the damage.
     This message appears as soon as any damage is encountered.
 
 ## ``MDS_HEALTH_READ_ONLY``
@@ -165,9 +165,9 @@ other daemons, please see health-checks.
     One or more client requests have not been completed promptly,
     indicating that the MDS is either running very slowly, or that the RADOS
     cluster is not acknowledging journal writes promptly, or that there is a bug.
-    Use the `ops` admin socket command to list outstanding metadata operations.
+    Use the ``ops`` admin socket command to list outstanding metadata operations.
     This message appears if any client requests have taken longer than
-    `mds_op_complaint_time` (default 30s).
+    ``mds_op_complaint_time`` (default 30s).
 
 ## ``MDS_CACHE_OVERSIZED``
 
@@ -178,7 +178,7 @@ other daemons, please see health-checks.
     limit set by the administrator.  If the MDS cache becomes too large, the daemon
     may exhaust available memory and crash.  By default, this message appears if
     the actual cache size (in memory) is at least 50% greater than
-    `mds_cache_memory_limit` (default 4GB). Modify `mds_health_cache_threshold`
+    ``mds_cache_memory_limit`` (default 4GB). Modify ``mds_health_cache_threshold``
     to set the warning ratio.
 
 ## ``FS_WITH_FAILED_MDS``
@@ -198,7 +198,7 @@ other daemons, please see health-checks.
 
   Description
     The minimum number of standby(-replay) MDS daemons can be configured by setting
-    `standby_count_wanted` configuration variable. This health warning is generated
+    ``standby_count_wanted`` configuration variable. This health warning is generated
     when the configured value mismatches the number of standby(-replay) MDS daemons
     available.
 
@@ -218,7 +218,7 @@ other daemons, please see health-checks.
     "Number of active ranks are less than configured number of maximum MDSs"
 
   Description
-    The maximum number of MDS ranks can be configured by setting `max_mds`
+    The maximum number of MDS ranks can be configured by setting ``max_mds``
     configuration variable. This health warning is generated when the number
     of MDS ranks falls below this configured value.
 
@@ -238,7 +238,7 @@ other daemons, please see health-checks.
   Description
     If OSD(s) is laggy (due to certain conditions like network cut-off, etc)
     then it might make clients laggy(session might get idle or cannot flush
-    dirty data for cap revokes). If `defer_client_eviction_on_laggy_osds` is
+    dirty data for cap revokes). If ``defer_client_eviction_on_laggy_osds`` is
     set to true (default true), client eviction will not take place and thus
     this health warning will be generated.
 
@@ -256,7 +256,7 @@ other daemons, please see health-checks.
     root_squash in the interim, or silence the warning if desired.
 
     To evict and permanently block broken clients from connecting to the
-    cluster, set the `required_client_feature` bit `client_mds_auth_caps`.
+    cluster, set the ``required_client_feature`` bit ``client_mds_auth_caps``.
 
 ## ``MDS_ESTIMATED_REPLAY_TIME``
   Message

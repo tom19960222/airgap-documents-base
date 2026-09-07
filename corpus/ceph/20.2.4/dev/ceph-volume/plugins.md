@@ -5,10 +5,10 @@ title: "Plugins"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/ceph-volume/plugins.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-plugins:
+<a id="ceph-volume-plugins"></a>
 
 # Plugins
-`ceph-volume` started initially to provide support for using `lvm` as
+``ceph-volume`` started initially to provide support for using ``lvm`` as
 the underlying system for an OSD. It is included as part of the tool but it is
 treated like a plugin.
 
@@ -16,8 +16,8 @@ This modularity, allows for other device or device-like technologies to be able
 to consume and re-use the utilities and workflows provided.
 
 ## Adding Plugins
-As a Python tool, plugins `setuptools` entry points. For a new plugin to be
-available, it should have an entry similar to this in its `setup.py` file:
+As a Python tool, plugins ``setuptools`` entry points. For a new plugin to be
+available, it should have an entry similar to this in its ``setup.py`` file:
 
 ```python
 setup(
@@ -29,11 +29,11 @@ setup(
     ),
 ```
 
-The `MyClass` should be a class that accepts `sys.argv` as its argument,
-`ceph-volume` will pass that in at instantiation and call them `main`
+The ``MyClass`` should be a class that accepts ``sys.argv`` as its argument,
+``ceph-volume`` will pass that in at instantiation and call them ``main``
 method.
 
-This is how a plugin for `ZFS` could look like for example:
+This is how a plugin for ``ZFS`` could look like for example:
 
 ```python
 class ZFS(object):
@@ -54,7 +54,7 @@ Use ZFS as the underlying technology for OSDs
         ...
 ```
 
-And its entry point (via `setuptools`) in `setup.py` would looke like:
+And its entry point (via ``setuptools``) in ``setup.py`` would looke like:
 
 ```python
 entry_points = {
@@ -64,7 +64,7 @@ entry_points = {
 },
 ```
 
-After installation, the `zfs` subcommand would be listed and could be used
+After installation, the ``zfs`` subcommand would be listed and could be used
 as:
 
 ```

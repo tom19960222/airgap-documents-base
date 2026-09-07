@@ -41,7 +41,7 @@ radosgw.  We recommend that all production cuttlefish users upgrade.
 * rgw: fix sysvinit script 'status' command, return value (Danny Al-Gaaf)
 * rgw: reduce default log level (Yehuda Sadeh)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.9.txt -->.
 
 # v0.61.8 "Cuttlefish"
 
@@ -69,7 +69,7 @@ convenience.
 * msgr: fix race conditions during osd network reinitialization
 * ceph-disk: apply mount options when remounting
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.8.txt -->.
 
 # v0.61.7 "Cuttlefish"
 
@@ -83,7 +83,7 @@ Paxos and support for unusual device names in ceph-disk/ceph-deploy.
 * mon: fix a long-standing bug in a paxos corner case
 * ceph-disk: improved support for unusual device names (e.g., /dev/cciss/c0d0)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.7.txt -->.
 
 # v0.61.6 "Cuttlefish"
 
@@ -99,7 +99,7 @@ All users are strongly recommended to upgrade.
 * mon: work around previous bug in which latest full osdmap is not recorded
 * mon: avoid scrub while updating
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.6.txt -->.
 
 # v0.61.5 "Cuttlefish"
 
@@ -140,7 +140,7 @@ that all v0.61.x users upgrade.
 * ceph-disk: better handling for unusual device names
 * sysvinit, upstart: handle symlinks in /var/lib/ceph/*
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.5.txt -->.
 
 # v0.61.4 "Cuttlefish"
 
@@ -176,7 +176,7 @@ OSD memory usage during scrub.
 * ceph-fuse: fix thread creation on startup
 * all daemons: create /var/run/ceph directory on startup if missing
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.4.txt -->.
 
 # v0.61.3 "Cuttlefish"
 
@@ -218,7 +218,7 @@ been seeing.  Please upgrade.
 * sysvinit: fix osd weight calcuation when using -a
 * fix build on unsigned char platforms (e.g., arm)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.3.txt -->.
 
 # v0.61.2 "Cuttlefish"
 
@@ -230,7 +230,7 @@ fixes a bug when upgrade some monitors from bobtail to cuttlefish.
 * mon: fix conversion of stores with duplicated GV values
 * mon: disable 'mon debug dump transactions' by default
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.2.txt -->.
 
 # v0.61.1 "Cuttlefish"
 
@@ -247,7 +247,7 @@ snapshots to cuttlefish.
 * debian: fix squeeze dependency
 * mon: debug options to log or dump leveldb transactions
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.1.txt -->.
 
 # v0.61 "Cuttlefish"
 
@@ -256,16 +256,16 @@ For more detailed information, see the complete changelog.
 * The ceph-deploy tool is now the preferred method of provisioning
   new clusters.  For existing clusters created via mkcephfs that
   would like to transition to the new tool, there is a migration
-  path, documented at Transitioning to ceph-deploy.
+  path, documented at Transitioning to ceph-deploy <!-- unresolved-rst-link: kind=named target=Transitioning to ceph-deploy -->.
 
 * The sysvinit script (/etc/init.d/ceph) will now verify (and, if
   necessary, update) the OSD's position in the CRUSH map on startup.
   (The upstart script has always worked this way.) By default, this
   ensures that the OSD is under a 'host' with a name that matches the
-  hostname (`hostname -s`).  Legacy clusters create with mkcephfs do
+  hostname (``hostname -s``).  Legacy clusters create with mkcephfs do
   this by default, so this should not cause any problems, but legacy
   clusters with customized CRUSH maps with an alternate structure
-  should set `osd crush update on start = false`.
+  should set ``osd crush update on start = false``.
 
 * radosgw-admin now uses the term zone instead of cluster to describe
   each instance of the radosgw data store (and corresponding
@@ -293,25 +293,21 @@ For more detailed information, see the complete changelog.
 
 ## Upgrading from v0.56.4 "Bobtail"
 
-Please see Upgrading from Bobtail to Cuttlefish for details.
-
-.. _Upgrading from Bobtail to Cuttlefish: ../install/upgrading-ceph/#upgrading-from-bobtail-to-cuttlefish
+Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=named target=Upgrading from Bobtail to Cuttlefish --> for details.
 
 * The ceph-deploy tool is now the preferred method of provisioning
   new clusters.  For existing clusters created via mkcephfs that
   would like to transition to the new tool, there is a migration
-  path, documented at Transitioning to ceph-deploy.
-
-.. _Transitioning to ceph-deploy: ../rados/deployment/ceph-deploy-transition
+  path, documented at Transitioning to ceph-deploy <!-- unresolved-rst-link: kind=named target=Transitioning to ceph-deploy -->.
 
 * The sysvinit script (/etc/init.d/ceph) will now verify (and, if
   necessary, update) the OSD's position in the CRUSH map on startup.
   (The upstart script has always worked this way.) By default, this
   ensures that the OSD is under a 'host' with a name that matches the
-  hostname (`hostname -s`).  Legacy clusters create with mkcephfs do
+  hostname (``hostname -s``).  Legacy clusters create with mkcephfs do
   this by default, so this should not cause any problems, but legacy
   clusters with customized CRUSH maps with an alternate structure
-  should set `osd crush update on start = false`.
+  should set ``osd crush update on start = false``.
 
 * radosgw-admin now uses the term zone instead of cluster to describe
   each instance of the radosgw data store (and corresponding
@@ -352,7 +348,7 @@ Please see Upgrading from Bobtail to Cuttlefish for details.
   reflect just that.
 
 * The monitor now enforces that MDS names be unique.  If you have
-  multiple daemons start with the same id (e.g., `mds.a`) the
+  multiple daemons start with the same id (e.g., ``mds.a``) the
   second one will implicitly mark the first as failed.  This makes
   things less confusing and makes a daemon restart faster (we no
   longer wait for the stopped daemon to time out) but existing
@@ -605,7 +601,7 @@ Please see Upgrading from Bobtail to Cuttlefish for details.
 ## Upgrading
 
 * The monitor now enforces that MDS names be unique.  If you have
-  multiple daemons start with the same id (e.g., `mds.a`) the
+  multiple daemons start with the same id (e.g., ``mds.a``) the
   second one will implicitly mark the first as failed.  This makes
   things less confusing and makes a daemon restart faster (we no
   longer wait for the stopped daemon to time out) but existing

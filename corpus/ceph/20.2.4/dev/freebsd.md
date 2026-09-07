@@ -34,16 +34,16 @@ zpool add osd1 log gpt/osd1-cache
 
 ## Configuration
 
-As per FreeBSD default parts of extra software go into `/usr/local/`. Which
-means that for `/etc/ceph.conf` the default location is
-`/usr/local/etc/ceph/ceph.conf`. Smartest thing to do is to create a softlink
-from `/etc/ceph` to `/usr/local/etc/ceph`:
+As per FreeBSD default parts of extra software go into ``/usr/local/``. Which
+means that for ``/etc/ceph.conf`` the default location is
+``/usr/local/etc/ceph/ceph.conf``. Smartest thing to do is to create a softlink
+from ``/etc/ceph`` to ``/usr/local/etc/ceph``:
 
 ```
 ln -s /usr/local/etc/ceph /etc/ceph
 ```
 
-A sample file is provided in `/usr/local/share/doc/ceph/sample.ceph.conf`
+A sample file is provided in ``/usr/local/share/doc/ceph/sample.ceph.conf``
 
 ## MON creation
 
@@ -55,4 +55,4 @@ https://docs.ceph.com/en/latest/install/manual-freebsd-deployment/
 
 ## OSD creation
 
-OSDs can be manually created only, see freebsd_adding_osds
+OSDs can be manually created only, see [freebsd_adding_osds](../install/manual-freebsd-deployment.md#freebsd-adding-osds)

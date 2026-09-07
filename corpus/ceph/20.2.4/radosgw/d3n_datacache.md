@@ -39,13 +39,13 @@ by a request to the data lake (Rados)
 
 * currently only layer 1 cache has been upstreamed.
 
-See MOC D3N (Datacenter-scale Data Delivery Network) and Red Hat Research D3N Cache for Data Centers.
+See [MOC D3N (Datacenter-scale Data Delivery Network)](https://massopen.cloud/research-and-development/cloud-research/d3n/) and [Red Hat Research D3N Cache for Data Centers](https://research.redhat.com/blog/research_project/d3n-multilayer-cache/).
 
 # Implementation
 
 - The D3N cache supports both the `S3` and `Swift` object storage interfaces.
 - D3N currently caches only tail objects, because they are immutable (by default it is parts of objects that are larger than 4MB).
-  (the NGINX RGW Data cache and CDN supports caching of all object sizes)
+  (the NGINX [RGW Data cache and CDN](rgw-cache.md) supports caching of all object sizes)
 
 ## Requirements
 
@@ -57,16 +57,16 @@ See MOC D3N (Datacenter-scale Data Delivery Network) and Red Hat Research D3N Ca
 
 ## Limitations
 
-- D3N will not cache objects compressed by Rados Gateway Compression (OSD level compression is supported).
-- D3N will not cache objects encrypted by Rados Gateway Encryption.
-- D3N will be disabled if the `rgw_max_chunk_size` config variable value differs from the `rgw_obj_stripe_size` config variable value.
+- D3N will not cache objects compressed by [Rados Gateway Compression](compression.md) (OSD level compression is supported).
+- D3N will not cache objects encrypted by [Rados Gateway Encryption](encryption.md).
+- D3N will be disabled if the ``rgw_max_chunk_size`` config variable value differs from the ``rgw_obj_stripe_size`` config variable value.
 
 # D3N Environment Setup
 
 ## Running
 
 To enable D3N on an existing RGWs the following configuration entries are required
-in each Rados Gateways ceph.conf client section, for example for `[client.rgw.8000]`:
+in each Rados Gateways ceph.conf client section, for example for ``[client.rgw.8000]``:
 
 ```
 [client.rgw.8000]
@@ -79,7 +79,7 @@ The above example assumes that the cache backing-store solid state device
 is mounted at `/mnt/nvme0` and has `10 GB` of free space available for the cache.
 
 The persistent path directory has to be created before starting the Gateway.
-(`mkdir -p /mnt/nvme0/rgw_datacache/client.rgw.8000/`)
+(``mkdir -p /mnt/nvme0/rgw_datacache/client.rgw.8000/``)
 
 In containerized deployments the cache directory should be mounted as a volume:
 
@@ -89,12 +89,12 @@ extra_container_args:
   - "/mnt/nvme0/rgw_datacache/client.rgw.8000/:/mnt/nvme0/rgw_datacache/client.rgw.8000/"
 ```
 
-(Reference: Service Management - Mounting Files with Extra Container Arguments)
+(Reference: [Service Management - Mounting Files with Extra Container Arguments](../cephadm/services/index.md#mounting-files-with-extra-container-arguments))
 
 If another Gateway is co-located on the same machine, configure it's persistent path to a discrete directory,
 for example in the case of `[client.rgw.8001]` configure
-`rgw_d3n_l1_datacache_persistent_path = "/mnt/nvme0/rgw_datacache/client.rgw.8001/"`
-in the `[client.rgw.8001]` ceph.conf client section.
+``rgw_d3n_l1_datacache_persistent_path = "/mnt/nvme0/rgw_datacache/client.rgw.8001/"``
+in the ``[client.rgw.8001]`` ceph.conf client section.
 
 In a multiple co-located Gateways configuration consider assigning clients with different workloads
 to each Gateway without a balancer in order to avoid cached data duplication.
@@ -102,12 +102,12 @@ to each Gateway without a balancer in order to avoid cached data duplication.
     NOTE: each time the Rados Gateway is restarted the content of the cache directory is purged.
 
 ## Logs
-- D3N related log lines in `radosgw.*.log` contain the string `d3n` (case insensitive).
-- low level D3N logs can be enabled by the `debug_rgw_datacache` subsystem (up to `debug_rgw_datacache=30`)
+- D3N related log lines in `radosgw.*.log` contain the string ``d3n`` (case insensitive).
+- low level D3N logs can be enabled by the ``debug_rgw_datacache`` subsystem (up to ``debug_rgw_datacache=30``)
 
 # CONFIG REFERENCE
 The following D3N related settings can be added to the Ceph configuration file
-(i.e., usually `ceph.conf`) under the `[client.rgw.{instance-name}]` section.
+(i.e., usually `ceph.conf`) under the ``[client.rgw.{instance-name}]`` section.
 
 .. confval:: rgw_d3n_l1_local_datacache_enabled
 
@@ -116,10 +116,3 @@ The following D3N related settings can be added to the Ceph configuration file
 .. confval:: rgw_d3n_l1_datacache_size
 
 .. confval:: rgw_d3n_l1_eviction_policy
-
-.. _MOC D3N (Datacenter-scale Data Delivery Network): https://massopen.cloud/research-and-development/cloud-research/d3n/
-.. _Red Hat Research D3N Cache for Data Centers: https://research.redhat.com/blog/research_project/d3n-multilayer-cache/
-.. _Rados Gateway Compression: ../compression/
-.. _Rados Gateway Encryption: ../encryption/
-.. _RGW Data cache and CDN: ../rgw-cache/
-.. _Service Management - Mounting Files with Extra Container Arguments: ../cephadm/services/#mounting-files-with-extra-container-arguments

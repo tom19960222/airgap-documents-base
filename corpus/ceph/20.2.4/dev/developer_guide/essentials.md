@@ -14,20 +14,15 @@ to know.
 
 The Ceph project was created by Sage Weil and is led by the Ceph Leadership
 Team (CLT). Each major component of the Ceph project has its own lead. The
-team list on the Ceph community website shows all the leads and their nicks
-on GitHub:
-
-.. _github: https://github.com/
-.. _team list: https://ceph.io/en/community/team
+[team list](https://ceph.io/en/community/team) on the Ceph community website shows all the leads and their nicks
+on [GitHub](https://github.com/):
 
 Ceph-specific acronyms in the table of leads are explained in
-/architecture.
+[/architecture](../../architecture.md).
 
 ## History
 
-See the History chapter of the Wikipedia article.
-
-.. _`History chapter of the Wikipedia article`: https://en.wikipedia.org/wiki/Ceph_%28software%29#History
+See the [History chapter of the Wikipedia article](https://en.wikipedia.org/wiki/[Ceph](../../install/clone-source.md)%28software%29#History).
 
 ## Licensing
 
@@ -35,91 +30,70 @@ Ceph is free software.
 
 Unless stated otherwise, the Ceph source code is distributed under the
 terms of the LGPL2.1 or LGPL3.0. For full details, see the file
-COPYING in the top-level directory of the source-code tree.
+[COPYING](essentials.md#copying) in the top-level directory of the source-code tree.
 
-.. _`COPYING`:
+<a id="copying"></a>
   https://github.com/ceph/ceph/blob/master/COPYING
 
 ## Source code repositories
 
-The source code of Ceph lives on GitHub in a number of repositories below
-the Ceph "organization".
+The source code of Ceph lives on [GitHub](https://github.com/) in a number of repositories below
+the [Ceph "organization"](https://github.com/ceph).
 
-.. _`Ceph "organization"`: https://github.com/ceph
+A working knowledge of [git](https://git-scm.com/doc) is essential to make a meaningful contribution to the project as a developer.
 
-A working knowledge of git_ is essential to make a meaningful contribution to the project as a developer.
-
-.. _git: https://git-scm.com/doc
-
-Although the Ceph "organization" includes several software repositories,
+Although the [Ceph "organization"](https://github.com/ceph) includes several software repositories,
 this document covers only one: https://github.com/ceph/ceph.
 
 ## Redmine issue tracker
 
-Although GitHub is used for code, Ceph-related issues (Bugs, Features,
+Although [GitHub](https://github.com/) is used for code, Ceph-related issues (Bugs, Features,
 Backports, Documentation, etc.) are tracked at http://tracker.ceph.com,
-which is powered by Redmine.
-
-.. _Redmine: http://www.redmine.org
+which is powered by [Redmine](http://www.redmine.org).
 
 The tracker has a Ceph project with a number of subprojects loosely
 corresponding to the various architectural components (see
-/architecture).
+[/architecture](../../architecture.md)).
 
-Mere registration in the tracker automatically grants permissions
+Mere [registration](http://tracker.ceph.com/account/register) in the tracker automatically grants permissions
 sufficient to open new issues and comment on existing ones.
 
-.. _registration: http://tracker.ceph.com/account/register
+To report a bug or propose a new feature, [jump to the Ceph project](http://tracker.ceph.com/projects/ceph) and
+click on [New issue](http://tracker.ceph.com/projects/ceph/issues/new).
 
-To report a bug or propose a new feature, jump to the Ceph project and
-click on New issue.
-
-.. _`jump to the Ceph project`: http://tracker.ceph.com/projects/ceph
-.. _`New issue`: http://tracker.ceph.com/projects/ceph/issues/new
-
-.. _ceph-slack:
+<a id="ceph-slack"></a>
 
 ## Slack
 
-.. _`Ceph's Slack`: https://join.slack.com/t/ceph-storage/shared_invite/zt-32hkefbs5-f6qZDZLd5U8CYj7drBTHFw
-
-.. _mailing-list:
+<a id="mailing-list"></a>
 
 ## Mailing lists
 
-Ceph developers and users discuss the project on Ceph-related mailing lists.
-
-.. _`Ceph-related mailing lists`: https://ceph.io/en/community/connect/
+Ceph developers and users discuss the project on [Ceph-related mailing lists](https://ceph.io/en/community/connect/).
 
 #### Ceph Development Mailing List
-The `dev@ceph.io` list is for discussion about the development of Ceph,
+The ``dev@ceph.io`` list is for discussion about the development of Ceph,
 its interoperability with other technology, and the operations of the
 project itself.
 
 The email discussion list for Ceph development is open to all. Subscribe by
-completing the sign-up form on dev.ceph.io.
-
-.. _`sign-up form on dev.ceph.io`: https://lists.ceph.io/postorius/lists/dev.ceph.io
+completing the [sign-up form on dev.ceph.io](https://lists.ceph.io/postorius/lists/dev.ceph.io).
 
 #### Ceph Client Patch Review Mailing List
-The `ceph-devel@vger.kernel.org` list is for discussion and patch review
+The ``ceph-devel@vger.kernel.org`` list is for discussion and patch review
 for the Linux kernel Ceph client component. Note that this list used to
 be an all-encompassing list for developers. When searching the archives,
 remember that this list contains the generic devel-ceph archives before mid-2018.
 
 Subscribe to the list covering the Linux kernel Ceph client component by using
-the sub link for ceph-devel in vger.kernel.org.
+the [sub link for ceph-devel in vger.kernel.org](https://subspace.kernel.org/vger.kernel.org.html).
 
-.. _`sub link for ceph-devel in vger.kernel.org`: https://subspace.kernel.org/vger.kernel.org.html
-
-.. _irc:
+<a id="irc"></a>
 
 ## IRC
 
 In addition to mailing lists, the Ceph community also communicates in real time
-using Internet Relay Chat.
-
-.. _`Internet Relay Chat`: http://www.irchelp.org/
+using [Internet Relay Chat](http://www.irchelp.org/).
 
 The Ceph community gathers in the #ceph channel of the Open and Free Technology
 Community (OFTC) IRC network.
@@ -148,7 +122,7 @@ register your IRC account.
 #### Channels
 
 To connect to the OFTC IRC network, download an IRC client and configure it to
-connect to `irc.oftc.net`. Then join one or more of the channels. Discussions
+connect to ``irc.oftc.net``. Then join one or more of the channels. Discussions
 inside #ceph are logged and archives are available online.
 
 Here are the real-time discussion channels for the Ceph community:
@@ -160,29 +134,29 @@ Here are the real-time discussion channels for the Ceph community:
   -  #ceph-orchestrators
   -  #sepia
 
-.. _submitting-patches:
+<a id="submitting-patches"></a>
 
 ## Submitting patches
 
 The canonical instructions for submitting patches are contained in the
-file CONTRIBUTING.rst in the top-level directory of the source-code
+file [CONTRIBUTING.rst](essentials.md#contributing-rst) in the top-level directory of the source-code
 tree. There may be some overlap between this guide and that file.
 
-.. _`CONTRIBUTING.rst`:
+<a id="contributing-rst"></a>
   https://github.com/ceph/ceph/blob/main/CONTRIBUTING.rst
 
 All newcomers are encouraged to read that file carefully.
 
 ## Building from source
 
-See instructions at /install/build-ceph.
+See instructions at [/install/build-ceph](../../install/build-ceph.md).
 
 ## Using ccache to speed up local builds
-ccache can make the process of rebuilding the ceph source tree faster.
+[ccache](https://ccache.samba.org/) can make the process of rebuilding the ceph source tree faster.
 
-Before you use ccache to speed up your rebuilds of the ceph source tree,
+Before you use [ccache](https://ccache.samba.org/) to speed up your rebuilds of the ceph source tree,
 make sure that your source tree is clean and will produce no build failures.
-When you have a clean source tree, you can confidently use ccache, secure in
+When you have a clean source tree, you can confidently use [ccache](https://ccache.samba.org/), secure in
 the knowledge that you're not using a dirty tree.
 
 Old build artifacts can cause build failures. You might introduce these
@@ -206,7 +180,7 @@ git clean -fdx; git submodule foreach git clean -fdx
 
 #### Building Ceph with ccache
 
-`ccache` is available as a package in most distros. To build ceph with
+``ccache`` is available as a package in most distros. To build ceph with
 ccache, run the following command.
 
 ```bash
@@ -215,12 +189,12 @@ cmake -DWITH_CCACHE=ON ..
 
 #### Using ccache to Speed Up Build Times
 
-`ccache` can be used for speeding up all builds of the system. For more
-details, refer to the run modes section of the ccache manual. The default
-settings of `ccache` can be displayed with the `ccache -s` command.
+``ccache`` can be used for speeding up all builds of the system. For more
+details, refer to the [run modes](https://ccache.samba.org/manual.html#_run_modes) section of the ccache manual. The default
+settings of ``ccache`` can be displayed with the ``ccache -s`` command.
 
-> **Note:** We recommend overriding the `max_size`. The default is 10G.
-> Use a larger value, like 25G. Refer to the configuration section
+> **Note:** We recommend overriding the ``max_size``. The default is 10G.
+> Use a larger value, like 25G. Refer to the [configuration](https://ccache.samba.org/manual.html#_configuration) section
 > of the ccache manual for more information.
 
 To further increase the cache hit rate and reduce compile times in a
@@ -228,17 +202,17 @@ development environment, set the version information and build timestamps to
 fixed values. This makes it unnecessary to rebuild the binaries that contain
 this information.
 
-This can be achieved by adding the following settings to the `ccache`
-configuration file `ccache.conf`:
+This can be achieved by adding the following settings to the ``ccache``
+configuration file ``ccache.conf``:
 
 ```
 sloppiness = time_macros
 run_second_cpp = true
 ```
 
-Now, set the environment variable `SOURCE_DATE_EPOCH` to a fixed value (a
-UNIX timestamp) and set `ENABLE_GIT_VERSION` to `OFF` when running
-`cmake`:
+Now, set the environment variable ``SOURCE_DATE_EPOCH`` to a fixed value (a
+UNIX timestamp) and set ``ENABLE_GIT_VERSION`` to ``OFF`` when running
+``cmake``:
 
 ```bash
 export SOURCE_DATE_EPOCH=946684800
@@ -249,29 +223,23 @@ cmake -DWITH_CCACHE=ON -DENABLE_GIT_VERSION=OFF ..
 > production or debugging purposes, as they do not contain the correct build
 > time and git version information.
 
-.. _`ccache`: https://ccache.samba.org/
-.. _`run modes`: https://ccache.samba.org/manual.html#_run_modes
-.. _`configuration`: https://ccache.samba.org/manual.html#_configuration
-
 ## Development-mode cluster
 
-See /dev/quick_guide.
+See [/dev/quick_guide](../quick_guide.md).
 
 ## Kubernetes/Rook development cluster
 
-See kubernetes-dev
+See [kubernetes-dev](../kubernetes.md#kubernetes-dev)
 
-.. _backporting:
+<a id="backporting"></a>
 
 ## Backporting
 
-All bugfixes should be merged to the `main` branch before being backported.
-To flag a bugfix for backporting, make sure it has a tracker issue
-associated with it and set the `Backport` field to a comma-separated list of
+All bugfixes should be merged to the ``main`` branch before being backported.
+To flag a bugfix for backporting, make sure it has a [tracker issue](http://tracker.ceph.com/)
+associated with it and set the ``Backport`` field to a comma-separated list of
 previous releases (e.g. "hammer,jewel") that you think need the backport. You
 are responsible for the backporting of pull requests that you raise.
-
-.. _`tracker issue`: http://tracker.ceph.com/
 
 ## Dependabot
 
@@ -286,8 +254,7 @@ where the fix was applied.
 With some configuration, Dependabot can perform non-security updates (for
 example, it can upgrade to the latest minor version or patch version).
 
-Dependabot supports `several languages and package managers
-<https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates#supported-repositories-and-ecosystems>`_.
+Dependabot supports [several languages and package managers](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates#supported-repositories-and-ecosystems).
 As of July 2022, the Ceph project receives alerts only from pip (based on the
 `requirements.txt` files) and npm (`package*.json`). It is possible to extend
 these alerts to git submodules, Golang, and Java. As of July 2022, there is no
@@ -299,10 +266,9 @@ will be a better place to update some of the dependencies). Nonetheless, the
 list of new and existing vulnerabilities generated by Dependabot will be
 useful.
 
-`Here is an example of a Dependabot pull request.
-<https://github.com/ceph/ceph/pull/46998>`_
+[Here is an example of a Dependabot pull request.](https://github.com/ceph/ceph/pull/46998)
 
 ## Guidance for use of cluster log
 
 If your patches emit messages to the Ceph cluster log, please consult
-this: /dev/logging.
+this: [/dev/logging](../logging.md).

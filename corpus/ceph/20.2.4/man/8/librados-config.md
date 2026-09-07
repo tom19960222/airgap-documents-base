@@ -18,7 +18,7 @@ fetched_at: 2026-08-18T01:32:45Z
 # Description
 
 **librados-config** is a utility that displays information about the
-  installed `librados`.
+  installed ``librados``.
 
 # Options
 
@@ -38,5 +38,5 @@ more information.
 
 # See also
 
-ceph\(8),
-rados\(8)
+[ceph](../../install/clone-source.md)\(8),
+[rados](../../cephadm/services/smb.md#rados)\(8)

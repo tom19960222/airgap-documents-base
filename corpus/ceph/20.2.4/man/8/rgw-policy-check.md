@@ -49,6 +49,4 @@ http://ceph.com/docs for more information.
 
 # See also
 
-radosgw\(8)
-
-.. _Bucket Policies: ../../radosgw/bucketpolicy.rst
+[radosgw](../../dev/deduplication.md#radosgw)\(8)

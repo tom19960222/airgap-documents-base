@@ -25,14 +25,16 @@ Volume Manager (LVM) for the default installation. LVM may reserve a large
 portion of disk space of a typical sized virtual disk for the operating system.
 
 Before you can build Ceph source code, you need to install several libraries
-and tools::
+and tools:
 
-	./install-deps.sh
+```
+./install-deps.sh
+```
 
 > **Note:** Some distributions that support Google's memory profiler tool may use
-> a different package name (e.g., `libgoogle-perftools4`).
+> a different package name (e.g., ``libgoogle-perftools4``).
 
-.. _build-ceph:
+<a id="build-ceph"></a>
 
 # Build Ceph
 
@@ -46,52 +48,64 @@ cd build
 ninja
 ```
 
-See Installing a Build to install a build in user space and Ceph README.md
+See [Installing a Build](install-storage-cluster.md#installing-a-build) to install a build in user space and [Ceph README.md](https://github.com/ceph/ceph#building-ceph)
 doc for more details on build.
 
 # Build Ceph Packages
 
-To build packages, you must clone the Ceph repository. You can create
-installation packages from the latest code using `dpkg-buildpackage` for
-Debian/Ubuntu or `rpmbuild` for the RPM Package Manager.
+To build packages, you must clone the [Ceph](clone-source.md) repository. You can create
+installation packages from the latest code using ``dpkg-buildpackage`` for
+Debian/Ubuntu or ``rpmbuild`` for the RPM Package Manager.
 
-> **Tip:** When building on a multi-core CPU, use the `-j` and the number of
-> cores * 2. For example, use `-j4` for a dual-core processor to accelerate
+> **Tip:** When building on a multi-core CPU, use the ``-j`` and the number of
+> cores * 2. For example, use ``-j4`` for a dual-core processor to accelerate
 > the build.
 
 ## Advanced Package Tool (APT)
 
-To create `.deb` packages for Debian/Ubuntu, ensure that you have cloned the
-Ceph repository, installed the Build Prerequisites and installed
-`debhelper`::
+To create ``.deb`` packages for Debian/Ubuntu, ensure that you have cloned the
+[Ceph](clone-source.md) repository, installed the [Build Prerequisites](build-ceph.md#build-prerequisites) and installed
+``debhelper``:
 
-	sudo apt-get install debhelper
+```
+sudo apt-get install debhelper
+```
 
-Once you have installed debhelper, you can build the packages::
+Once you have installed debhelper, you can build the packages:
 
-	sudo dpkg-buildpackage
+```
+sudo dpkg-buildpackage
+```
 
-For multi-processor CPUs use the `-j` option to accelerate the build.
+For multi-processor CPUs use the ``-j`` option to accelerate the build.
 
 ## RPM Package Manager
 
-To create `.rpm` packages, ensure that you have cloned the Ceph repository,
-installed the Build Prerequisites and installed `rpm-build` and
-`rpmdevtools`::
+To create ``.rpm`` packages, ensure that you have cloned the [Ceph](clone-source.md) repository,
+installed the [Build Prerequisites](build-ceph.md#build-prerequisites) and installed ``rpm-build`` and
+``rpmdevtools``:
 
-	yum install rpm-build rpmdevtools
+```
+yum install rpm-build rpmdevtools
+```
 
-Once you have installed the tools, setup an RPM compilation environment::
+Once you have installed the tools, setup an RPM compilation environment:
 
-	rpmdev-setuptree
+```
+rpmdev-setuptree
+```
 
-Fetch the source tarball for the RPM compilation environment::
+Fetch the source tarball for the RPM compilation environment:
 
-	wget -P ~/rpmbuild/SOURCES/ https://download.ceph.com/tarballs/ceph-<version>.tar.bz2
+```
+wget -P ~/rpmbuild/SOURCES/ https://download.ceph.com/tarballs/ceph-<version>.tar.bz2
+```
 
-Or from the EU mirror::
+Or from the EU mirror:
 
-	wget -P ~/rpmbuild/SOURCES/ http://eu.ceph.com/tarballs/ceph-<version>.tar.bz2
+```
+wget -P ~/rpmbuild/SOURCES/ http://eu.ceph.com/tarballs/ceph-<version>.tar.bz2
+```
 
 Extract the specfile:
 
@@ -99,12 +113,10 @@ Extract the specfile:
 tar --strip-components=1 -C ~/rpmbuild/SPECS/ --no-anchored -xvjf ~/rpmbuild/SOURCES/ceph-<version>.tar.bz2 "ceph.spec"
 ```
 
-Build the RPM packages::
+Build the RPM packages:
 
-	rpmbuild -ba ~/rpmbuild/SPECS/ceph.spec
+```
+rpmbuild -ba ~/rpmbuild/SPECS/ceph.spec
+```
 
-For multi-processor CPUs use the `-j` option to accelerate the build.
-
-.. _Ceph: ../clone-source
-.. _Installing a Build: ../install-storage-cluster#installing-a-build
-.. _Ceph README.md: https://github.com/ceph/ceph#building-ceph
+For multi-processor CPUs use the ``-j`` option to accelerate the build.

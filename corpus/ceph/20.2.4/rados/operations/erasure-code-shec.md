@@ -7,8 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # SHEC erasure code plugin
 
-The *shec* plugin encapsulates the `multiple SHEC
-<http://tracker.ceph.com/projects/ceph/wiki/Shingled_Erasure_Code_(SHEC)>`_
+The *shec* plugin encapsulates the [multiple SHEC](http://tracker.ceph.com/projects/ceph/wiki/Shingled_Erasure_Code_(SHEC))
 library. It allows ceph to recover data more efficiently than Reed Solomon codes.
 
 # Create an SHEC profile
@@ -30,7 +29,7 @@ ceph osd erasure-code-profile set {name} \
 
 Where:
 
-`k={data-chunks}`
+``k={data-chunks}``
 
 :Description: Each object is split in **data-chunks** parts,
               each stored on a different OSD.
@@ -39,7 +38,7 @@ Where:
 :Required: No.
 :Default: 4
 
-`m={coding-chunks}`
+``m={coding-chunks}``
 
 :Description: Compute **coding-chunks** for each object and store them on
               different OSDs. The number of **coding-chunks** does not necessarily
@@ -49,7 +48,7 @@ Where:
 :Required: No.
 :Default: 3
 
-`c={durability-estimator}`
+``c={durability-estimator}``
 
 :Description: The number of parity chunks each of which includes each data chunk in its
               calculation range. The number is used as a **durability estimator**.
@@ -59,7 +58,7 @@ Where:
 :Required: No.
 :Default: 2
 
-`crush-root={root}`
+``crush-root={root}``
 
 :Description: The name of the crush bucket used for the first step of
               the CRUSH rule. For instance **step take default**.
@@ -68,7 +67,7 @@ Where:
 :Required: No.
 :Default: default
 
-`crush-failure-domain={bucket-type}`
+``crush-failure-domain={bucket-type}``
 
 :Description: Ensure that no two chunks are in a bucket with the same
               failure domain. For instance, if the failure domain is
@@ -80,17 +79,17 @@ Where:
 :Required: No.
 :Default: host
 
-`crush-device-class={device-class}`
+``crush-device-class={device-class}``
 
 :Description: Restrict placement to devices of a specific class (e.g.,
-              `ssd` or `hdd`), using the crush device class names
+              ``ssd`` or ``hdd``), using the crush device class names
               in the CRUSH map.
 
 :Type: String
 :Required: No.
 :Default:
 
-`directory={directory}`
+``directory={directory}``
 
 :Description: Set the **directory** name from which the erasure code
               plugin is loaded.
@@ -99,7 +98,7 @@ Where:
 :Required: No.
 :Default: /usr/lib/ceph/erasure-code
 
-`--force`
+``--force``
 
 :Description: Override an existing profile by the same name.
 
@@ -122,7 +121,7 @@ In order to improve space efficiency, you should increase k or decrease m:
 The third parameter of SHEC (=c) is a durability estimator, which approximates
 the number of OSDs that can be down without losing data.
 
-`durability estimator of SHEC(4,3,2) = 2`
+``durability estimator of SHEC(4,3,2) = 2``
 
 ## Recovery Efficiency
 
@@ -130,7 +129,7 @@ Describing calculation of recovery efficiency is beyond the scope of this docume
 but at least increasing m without increasing c achieves improvement of recovery efficiency.
 (However, we must pay attention to the sacrifice of space efficiency in this case.)
 
-`SHEC(4,2,2) -> SHEC(4,3,2) : achieves improvement of recovery efficiency`
+``SHEC(4,2,2) -> SHEC(4,3,2) : achieves improvement of recovery efficiency``
 
 # Erasure code profile examples
 

@@ -5,7 +5,7 @@ title: "Bucket Notifications"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/notifications.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-notifications:
+<a id="radosgw-notifications"></a>
 
 # Bucket Notifications
 
@@ -13,7 +13,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. versionchanged:: Squid
    A new "v2" format for Topic and Notification metadata can be enabled with
-   the :ref:`feature_notification_v2` zone feature.
+   the [feature_notification_v2](zone-features.md#feature-notification-v2) zone feature.
    Enabling this feature after an upgrade from an older version will trigger
    migration of the existing Topic and Notification metadata.
    In a greenfield deployment, the new format will be used.
@@ -77,7 +77,7 @@ In this case, the only latency added to the original operation is the latency
 added when the notification is committed to persistent storage.
 If the endpoint of the topic to which the notification is sent is not available for a long
 period of time, the persistent storage allocated for this topic will eventually fill up.
-When this happens the triggering operations will fail with `503 Service Unavailable`,
+When this happens the triggering operations will fail with ``503 Service Unavailable``,
 which tells the client that it may retry later.
 
 > **Note:** If the notification fails with an error, cannot be delivered, or
@@ -123,19 +123,19 @@ radosgw-admin topic dump --topic={topic-name} [--tenant={tenant}] [--max-entries
 
 ## Notification Performance Statistics
 
-- `persistent_topic_size`: queue size in bytes.
-- `persistent_topic_len`: shows how many notifications are currently waiting
+- ``persistent_topic_size``: queue size in bytes.
+- ``persistent_topic_len``: shows how many notifications are currently waiting
   in the queue
-- `pubsub_push_ok`: a running counter, for all notifications, of events successfully pushed to their endpoints
-- `pubsub_push_fail`: a running counter, for all notifications, of events that failed to be pushed to their endpoints
-- `pubsub_push_pending`: the gauge value of events pushed to an endpoint but
+- ``pubsub_push_ok``: a running counter, for all notifications, of events successfully pushed to their endpoints
+- ``pubsub_push_fail``: a running counter, for all notifications, of events that failed to be pushed to their endpoints
+- ``pubsub_push_pending``: the gauge value of events pushed to an endpoint but
   not acked or nacked yet. This does not include the notifications waiting in
   the persistent queue. Only the notifications that are in flight in both
   persistent and non-persistent cases are counted.
 
 > **Note:**
-> `pubsub_event_lost` is incremented per event on each notification, but
-> `pubsub_push_ok` and `pubsub_push_fail` are incremented per push action
+> ``pubsub_event_lost`` is incremented per event on each notification, but
+> ``pubsub_push_ok`` and ``pubsub_push_fail`` are incremented per push action
 > on each notification.
 
 ## Bucket Notification REST API
@@ -145,16 +145,15 @@ radosgw-admin topic dump --topic={topic-name} [--tenant={tenant}] [--max-entries
 > **Note:**
 > In all topic actions, the parameters are URL-encoded and sent in the
 > message body using this content type:
-> `application/x-www-form-urlencoded`.
+> ``application/x-www-form-urlencoded``.
 
-.. _Create a Topic:
+<a id="create-a-topic"></a>
 
 ### Create a Topic
 
 This creates a new topic. Provide the topic with push endpoint parameters,
 which will be used later when a notification is created. A response is
-generated. A successful response includes the topic's `ARN
-<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html>`_
+generated. A successful response includes the topic's [ARN](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
 (the "Amazon Resource Name", a unique identifier used to reference the topic).
 To update a topic, use the same command that you used to create it (but when
 updating, use the name of an existing topic and different endpoint values).
@@ -235,17 +234,17 @@ Request parameters:
 
 - HTTP endpoint
 
- - URI: `http[s]://<fqdn>[:<port]`
+ - URI: ``http[s]://<fqdn>[:<port]``
  - port: This defaults to 80 for HTTP and 443 for HTTPS.
  - verify-ssl: This indicates whether the server certificate is validated by
    the client. (This is "true" by default.)
  - cloudevents: This indicates whether the HTTP header should contain
-   attributes according to the S3 CloudEvents Spec. (This is "false" by
+   attributes according to the [S3 CloudEvents Spec](https://github.com/cloudevents/spec/blob/main/cloudevents/adapters/aws-s3.md). (This is "false" by
    default.)
 
 - AMQP0.9.1 endpoint
 
- - URI: `amqp[s]://[<user>:<password>@]<fqdn>[:<port>][/<vhost>]`
+ - URI: ``amqp[s]://[<user>:<password>@]<fqdn>[:<port>][/<vhost>]``
  - user/password: This defaults to "guest/guest".
  - user/password: This must be provided only over HTTPS. Topic creation
    requests will otherwise be rejected.
@@ -254,7 +253,7 @@ Request parameters:
  - vhost: This defaults to "/".
  - verify-ssl: This indicates whether the server certificate is validated by
    the client. (This is "true" by default.)
- - If `ca-location` is provided and a secure connection is used, the
+ - If ``ca-location`` is provided and a secure connection is used, the
    specified CA will be used to authenticate the broker. The default CA will
    not be used.
  - amqp-exchange: The exchanges must exist and must be able to route messages
@@ -267,23 +266,23 @@ Request parameters:
   - "broker": The message is considered "delivered" if it is acked by the broker (default).
   - "routable": The message is considered "delivered" if the broker can route to a consumer.
 
-> **Tip:** The topic-name (see Create a Topic) is used for the
+> **Tip:** The topic-name (see [Create a Topic](notifications.md#create-a-topic)) is used for the
 > AMQP topic ("routing key" for a topic exchange).
 
 - Kafka endpoint
 
- - URI: `kafka://[<user>:<password>@]<fqdn>[:<port]`
- - `use-ssl`: If this is set to "true", a secure connection is used to
+ - URI: ``kafka://[<user>:<password>@]<fqdn>[:<port]``
+ - ``use-ssl``: If this is set to "true", a secure connection is used to
    connect to the broker. (This is "false" by default.)
- - `ca-location`: If this is provided and a secure connection is used, the
+ - ``ca-location``: If this is provided and a secure connection is used, the
    specified CA will be used instead of the default CA to authenticate the
    broker.
  - user/password: This should be provided over HTTPS. If not, the config parameter `rgw_allow_notification_secrets_in_cleartext` must be `true` in order to create topics.
- - user/password: This should be provided together with `use-ssl`. If not, the broker credentials will be sent over insecure transport.
- - mechanism: may be provided together with user/password (default: `PLAIN`). The supported SASL mechanisms are:
- - `user-name`: User name to use when connecting to the Kafka broker. If both this parameter and URI user are provided then this parameter overrides the URI user.
+ - user/password: This should be provided together with ``use-ssl``. If not, the broker credentials will be sent over insecure transport.
+ - mechanism: may be provided together with user/password (default: ``PLAIN``). The supported SASL mechanisms are:
+ - ``user-name``: User name to use when connecting to the Kafka broker. If both this parameter and URI user are provided then this parameter overrides the URI user.
     The same security considerations are in place for this parameter as are for user/password.
- - `password`: Password to use when connecting to the Kafka broker. If both this parameter and URI password are provided then this parameter overrides the URI password.
+ - ``password``: Password to use when connecting to the Kafka broker. If both this parameter and URI password are provided then this parameter overrides the URI password.
     The same security considerations are in place for this parameter as are for user/password.
 
   - PLAIN
@@ -302,22 +301,22 @@ Request parameters:
     is the default.)
 
  - kafka-brokers: A command-separated list of host:port of kafka brokers. These brokers (may contain a broker which is defined in kafka uri) will be added to kafka uri to support sending notifcations to a kafka cluster.
- - `ssl-certificate-location`: The path to a PEM-encoded client certificate
+ - ``ssl-certificate-location``: The path to a PEM-encoded client certificate
    file to present to the Kafka broker for mutual TLS (mTLS) authentication.
    This enables certificate-based client identity and must be used together
-   with `ssl-key-location` and `use-ssl=true`. Specifying only one of
-   `ssl-certificate-location` or `ssl-key-location` will cause the
+   with ``ssl-key-location`` and ``use-ssl=true``. Specifying only one of
+   ``ssl-certificate-location`` or ``ssl-key-location`` will cause the
    connection to fail.
- - `ssl-key-location`: The path to a PEM-encoded private key file
+ - ``ssl-key-location``: The path to a PEM-encoded private key file
    corresponding to the client certificate specified in
-   `ssl-certificate-location`.
- - `ssl-key-password`: The password for the client private key, if the key
+   ``ssl-certificate-location``.
+ - ``ssl-key-password``: The password for the client private key, if the key
    file is encrypted. This is optional and only required when the private key
    is password-protected.
 
    The same security considerations in place for this parameter as
-   for `user`/`password`: it should be provided over HTTPS or
-   `rgw_allow_notification_secrets_in_cleartext` must be set to "true".
+   for ``user``/``password``: it should be provided over HTTPS or
+   ``rgw_allow_notification_secrets_in_cleartext`` must be set to "true".
 
 > **Note:**
 > - The key-value pair of a specific parameter need not reside in the same
@@ -325,7 +324,7 @@ Request parameters:
 >   must use the same index.
 > - Attribute indexing need not be sequential and need not start from any
 >   specific value.
-> - AWS Create Topic provides a detailed explanation of the endpoint
+> - [AWS Create Topic](https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html) provides a detailed explanation of the endpoint
 >   attributes format. In our case, however, different keys and values are
 >   used.
 
@@ -344,8 +343,7 @@ The response has the following format:
 </CreateTopicResponse>
 ```
 
-The topic `ARN
-<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html>`_
+The topic [ARN](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
 in the response has the following format:
 
 :
@@ -418,8 +416,7 @@ The response has the following format:
    - TimeToLive: This will limit the time (in seconds) to retain the notifications.
    - MaxRetries: This will limit the max retries before expiring notifications.
    - RetrySleepDuration: This will control the frequency of retrying the notifications.
-- TopicArn: topic `ARN
-  <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html>`_.
+- TopicArn: topic [ARN](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
 - OpaqueData: The opaque data set on the topic.
 - Policy: Any access permission set on the topic.
 
@@ -475,8 +472,7 @@ The response has the following format:
   information. In this case, the request must be made over HTTPS. The "topic
   get" request will otherwise be rejected.
 - Persistent: "true" if topic is persistent.
-- TopicArn: topic `ARN
-  <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html>`_.
+- TopicArn: topic [ARN](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
 - OpaqueData: the opaque data set on the topic.
 - Policy: Any access permission set on the topic.
 
@@ -596,35 +592,35 @@ Valid AttributeName that can be passed:
   - Policy: This will control who can access the topic other than owner of the topic.
   - verify-ssl: This indicates whether the server certificates must be validated by
     the client. This is "true" by default.
-  - `use-ssl`: If this is set to "true", a secure connection is used to
+  - ``use-ssl``: If this is set to "true", a secure connection is used to
     connect to the broker. This is "false" by default.
   - cloudevents: This indicates whether the HTTP header should contain
-    attributes according to the S3 CloudEvents Spec.
+    attributes according to the [S3 CloudEvents Spec](https://github.com/cloudevents/spec/blob/main/cloudevents/adapters/aws-s3.md).
   - amqp-exchange: The exchanges must exist and must be able to route messages
     based on topics.
   - amqp-ack-level: No end2end acknowledgement is required. Messages may persist in the
     broker before being delivered to their final destinations.
-  - `ca-location`: If this is provided and a secure connection is used, the
+  - ``ca-location``: If this is provided and a secure connection is used, the
     specified CA will be used instead of the default CA to authenticate the
     broker.
-  - mechanism: may be provided together with user/password (default: `PLAIN`).
+  - mechanism: may be provided together with user/password (default: ``PLAIN``).
   - kafka-ack-level: No end2end acknowledgement is required. Messages may persist in the
     broker before being delivered to their final destinations.
   - kafka-brokers: Set endpoint with broker(s) as a comma-separated list of host or host:port (default port 9092).
-  - `ssl-certificate-location`: Path to a PEM-encoded client certificate for mTLS
+  - ``ssl-certificate-location``: Path to a PEM-encoded client certificate for mTLS
     authentication to the Kafka broker. Must be provided together with
-    `ssl-key-location`; specifying only one will cause the connection to fail.
-  - `ssl-key-location`: Path to a PEM-encoded private key corresponding to the
-    client certificate. Must be provided together with `ssl-certificate-location`.
-  - `ssl-key-password`: Password for an encrypted private key (optional).
+    ``ssl-key-location``; specifying only one will cause the connection to fail.
+  - ``ssl-key-location``: Path to a PEM-encoded private key corresponding to the
+    client certificate. Must be provided together with ``ssl-certificate-location``.
+  - ``ssl-key-password``: Password for an encrypted private key (optional).
 
 #### Notifications
 
-Detailed under: Bucket Operations.
+Detailed under: [Bucket Operations](s3/bucketops.md).
 
 > **Note:**
 > - "Abort Multipart Upload" request does not emit a notification
-> - Both "Initiate Multipart Upload" and "POST Object" requests will emit an `s3:ObjectCreated:Post` notification
+> - Both "Initiate Multipart Upload" and "POST Object" requests will emit an ``s3:ObjectCreated:Post`` notification
 
 #### Events
 
@@ -680,8 +676,7 @@ For example:
 
 - awsRegion: The zonegroup.
 - eventTime: The timestamp, indicating when the event was triggered.
-- eventName: For the list of supported events see: `S3 Notification
-  Compatibility`_. Note that eventName values do not start with the `s3:`
+- eventName: For the list of supported events see: [S3 Notification Compatibility](s3-notification-compatibility.md). Note that eventName values do not start with the `s3:`
   prefix.
 - userIdentity.principalId: The user that triggered the change.
 - requestParameters.sourceIPAddress: not supported
@@ -702,7 +697,7 @@ For example:
 - s3.object.sequencer: The monotonically-increasing identifier of the "change
   per object" (hexadecimal format).
 - s3.object.metadata: Any metadata set on the object that is sent as
-  `x-amz-meta-` (that is, any metadata set on the object that is sent as an
+  ``x-amz-meta-`` (that is, any metadata set on the object that is sent as an
   extension to the S3 notification API).
 - s3.object.tags: Any tags set on the object. (This is an extension to the S3
   notification API.)
@@ -711,8 +706,3 @@ For example:
 - s3.opaqueData: This means that "opaque data" is set in the topic configuration
   and is added to all notifications triggered by the topic. (This is an
   extension to the S3 notification API.)
-
-.. _S3 Notification Compatibility: ../s3-notification-compatibility
-.. _AWS Create Topic: https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html
-.. _Bucket Operations: ../s3/bucketops
-.. _S3 CloudEvents Spec: https://github.com/cloudevents/spec/blob/main/cloudevents/adapters/aws-s3.md

@@ -5,7 +5,7 @@ title: "feature_toggles.inc"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/dashboard_plugins/feature_toggles.inc.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _dashboard-feature-toggles:
+<a id="dashboard-feature-toggles"></a>
 
 ### Feature Toggles
 
@@ -25,12 +25,12 @@ impact.
 The list of features that can be enabled/disabled is:
 
 - **Block (RBD)**:
-   - Image Management: `rbd`
-   - Mirroring: `mirroring`
-   - iSCSI: `iscsi`
-- **Filesystem (Cephfs)**: `cephfs`
-- **Objects (RGW)**: `rgw` (including daemon, user and bucket management).
-- **NFS**: `nfs-ganesha` exports.
+   - Image Management: ``rbd``
+   - Mirroring: ``mirroring``
+   - iSCSI: ``iscsi``
+- **Filesystem (Cephfs)**: ``cephfs``
+- **Objects (RGW)**: ``rgw`` (including daemon, user and bucket management).
+- **NFS**: ``nfs-ganesha`` exports.
 
 By default all features come enabled.
 

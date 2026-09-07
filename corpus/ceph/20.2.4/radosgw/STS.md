@@ -95,7 +95,7 @@ The user is created in a separate namespace - 'oidc' such that the user id doesn
 is - <tenant>$<user-namespace>$<sub> where user-namespace is 'oidc' for users that authenticate with oidc providers.
 
 RGW now supports Session tags that can be passed in the web token to AssumeRoleWithWebIdentity call. More information related to Session Tags can be found here
-session-tags.
+[session-tags](session-tags.md).
 
 # STS Configuration
 
@@ -109,7 +109,7 @@ The following configurable options have to be added for STS integration:
 > and STS APIs can be accessed via the same endpoint.
 
 # Examples
-1. In order to get the example to work, make sure that the user TESTER has the `roles` capability assigned:
+1. In order to get the example to work, make sure that the user TESTER has the ``roles`` capability assigned:
 
 ```console
 radosgw-admin caps add --uid="TESTER" --caps="roles=*"
@@ -287,19 +287,19 @@ F7D7B3515DD0D319DD219A43A9EA727AD6065287
 # Roles in RGW
 
 More information for role manipulation can be found here
-role.
+[role](role.md).
 
 # OpenID Connect Provider in RGW
 
 More information for OpenID Connect Provider entity manipulation
 can be found here
-oidc.
+[oidc](oidc.md).
 
 # Keycloak integration with Radosgw
 
 Steps for integrating Radosgw with Keycloak can be found here
-keycloak.
+[keycloak](keycloak.md).
 
 # STSLite
 STSLite has been built on STS, and documentation for the same can be found here
-STSLite.
+[STSLite](STS.md#stslite).

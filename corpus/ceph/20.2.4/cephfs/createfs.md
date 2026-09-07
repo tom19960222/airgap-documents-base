@@ -5,7 +5,7 @@ title: "Create a Ceph file system"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/createfs.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _create-fs:
+<a id="create-fs"></a>
 
 # Create a Ceph file system
 
@@ -23,7 +23,7 @@ There are important considerations when planning these pools:
   directly affect the latency of client file system operations.
 - We strongly suggest that the CephFS metadata pool be provisioned on dedicated
   SSD / NVMe OSDs. This ensures that high client workload does not adversely
-  impact metadata operations. See device_classes to configure pools this
+  impact metadata operations. See [device_classes](../rados/operations/crush-map.md#device-classes) to configure pools this
   way.
 - The data pool used to create the file system is the "default" data pool and
   the location for storing all inode backtrace information, which is used for hard link
@@ -32,10 +32,10 @@ There are important considerations when planning these pools:
   pools are planned for file system data, it is best to configure the default as
   a replicated pool to improve small-object write and
   read performance when updating backtraces. Separately, another erasure-coded
-  data pool can be added (see also ecpool) that can be used on an entire
-  hierarchy of directories and files (see also file-layouts).
+  data pool can be added (see also [ecpool](../rados/operations/erasure-code.md#ecpool)) that can be used on an entire
+  hierarchy of directories and files (see also [file-layouts](file-layouts.md#file-layouts)).
 
-Refer to /rados/operations/pools to learn more about managing pools.  For
+Refer to [/rados/operations/pools](../rados/operations/pools.md) to learn more about managing pools.  For
 example, to create two pools with default settings for use with a file system, you
 might run the following commands:
 
@@ -53,7 +53,7 @@ used in practice for large clusters.
 
 # Creating a file system
 
-Once the pools are created, you may enable the file system using the `fs new` command:
+Once the pools are created, you may enable the file system using the ``fs new`` command:
 
 ```bash
 $ ceph fs new <fs_name> <metadata> <data> [--force] [--allow-dangerous-metadata-overlay] [<fscid:int>] [--recover] [--yes-i-really-really-mean-it] [<set>...]
@@ -65,32 +65,32 @@ Each file system has its own set of MDS daemons assigned to ranks so ensure that
 you have sufficient standby daemons available to accommodate the new file system.
 
 > **Note:**
-> `--yes-i-really-really-mean-it` may be used for some `fs set` commands
+> ``--yes-i-really-really-mean-it`` may be used for some ``fs set`` commands
 
-The `--force` option is used to achieve any of the following:
+The ``--force`` option is used to achieve any of the following:
 
 - To set an erasure-coded pool for the default data pool. Use of an EC pool for the
-  default data pool is discouraged. Refer to Creating pools for details.
+  default data pool is discouraged. Refer to [Creating pools](createfs.md#creating-pools) for details.
 - To set non-empty pool (pool already contains some objects) for the metadata pool.
 - To create a file system with a specific file system's ID (fscid).
   The --force option is required with --fscid option.
 
-The `--allow-dangerous-metadata-overlay` option permits the reuse metadata and
+The ``--allow-dangerous-metadata-overlay`` option permits the reuse metadata and
 data pools if it is already in-use. This should only be done in emergencies and
 after careful reading of the documentation.
 
-If the `--fscid` option is provided then this creates a file system with a
+If the ``--fscid`` option is provided then this creates a file system with a
 specific fscid. This can be used when an application expects the file system's ID
 to be stable after it has been recovered, e.g., after monitor databases are
 lost and rebuilt. Consequently, file system IDs don't always keep increasing
 with newer file systems.
 
-The `--recover` option sets the state of file system's rank 0 to existing but
+The ``--recover`` option sets the state of file system's rank 0 to existing but
 failed. So when a MDS daemon eventually picks up rank 0, the daemon reads the
 existing in-RADOS metadata and doesn't overwrite it. The flag also prevents the
 standby MDS daemons to join the file system.
 
-The `set` option allows to set multiple options supported by `fs set`
+The ``set`` option allows to set multiple options supported by ``fs set``
 atomically with the creation of the file system.
 
 For example:
@@ -113,21 +113,17 @@ Once the file system is created and the MDS is active, you are ready to mount
 the file system.  If you have created more than one file system, you will
 choose which to use when mounting.
 
-  - Mount CephFS
-  - Mount CephFS as FUSE
-  - Mount CephFS on Windows
-
-.. _Mount CephFS: ../../cephfs/mount-using-kernel-driver
-.. _Mount CephFS as FUSE: ../../cephfs/mount-using-fuse
-.. _Mount CephFS on Windows: ../../cephfs/ceph-dokan
+  - [Mount CephFS](mount-using-kernel-driver.md)
+  - [Mount CephFS as FUSE](mount-using-fuse.md)
+  - [Mount CephFS on Windows](ceph-dokan.md)
 
 If you have created more than one file system, and a client does not
 specify a file system when mounting, you can control which file system
-they will see by using the `ceph fs set-default` command.
+they will see by using the ``ceph fs set-default`` command.
 
 ## Adding a Data Pool to the File System
 
-See adding-data-pool-to-file-system.
+See [adding-data-pool-to-file-system](file-layouts.md#adding-data-pool-to-file-system).
 
 # Using Erasure Coded pools with CephFS
 

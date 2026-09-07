@@ -34,12 +34,12 @@ When an MDS identifies a directory fragment to be split, it does not
 do the split immediately.  Because splitting interrupts metadata IO,
 a short delay is used to allow short bursts of client IO to complete
 before the split begins.  This delay is configured with
-`mds_bal_fragment_interval`, which defaults to 5 seconds.
+``mds_bal_fragment_interval``, which defaults to 5 seconds.
 
 When the split is done, the directory fragment is broken up into
 a power of two number of new fragments.  The number of new
-fragments is given by two to the power `mds_bal_split_bits`, i.e.
-if `mds_bal_split_bits` is 2, then four new fragments will be
+fragments is given by two to the power ``mds_bal_split_bits``, i.e.
+if ``mds_bal_split_bits`` is 2, then four new fragments will be
 created.  The default setting is 3, i.e. splits create 8 new fragments.
 
 The criteria for initiating a split or a merge are described in the
@@ -48,13 +48,13 @@ following sections.
 # Size thresholds
 
 A directory fragment is eligible for splitting when its size exceeds
-`mds_bal_split_size` (default 10000 directory entries).  Ordinarily this
-split is delayed by `mds_bal_fragment_interval`, but if the fragment size
-exceeds a factor of `mds_bal_fragment_fast_factor` the split size,
+``mds_bal_split_size`` (default 10000 directory entries).  Ordinarily this
+split is delayed by ``mds_bal_fragment_interval``, but if the fragment size
+exceeds a factor of ``mds_bal_fragment_fast_factor`` the split size,
 the split will happen immediately (holding up any client metadata
 IO on the directory).
 
-`mds_bal_fragment_size_max` is the hard limit on the size of
+``mds_bal_fragment_size_max`` is the hard limit on the size of
 directory fragments.  If it is reached, clients will receive
 ENOSPC errors if they try to create files in the fragment.  On
 a properly configured system, this limit should never be reached on
@@ -65,7 +65,7 @@ directory fragment objects in the metadata pool, which the OSDs may not
 be able to handle.
 
 A directory fragment is eligible for merging when its size is less
-than `mds_bal_merge_size`.  There is no merge equivalent of the
+than ``mds_bal_merge_size``.  There is no merge equivalent of the
 "fast splitting" explained above: fast splitting exists to avoid
 creating oversized directory fragments, there is no equivalent issue
 to avoid when merging.  The default merge size is 50 directory entries.
@@ -78,17 +78,17 @@ activity exceeds a threshold.
 
 The MDS maintains separate time-decaying load counters for read and write
 operations on directory fragments.  The decaying load counters have an
-exponential decay based on the `mds_decay_halflife` setting.
+exponential decay based on the ``mds_decay_halflife`` setting.
 
 On writes, the write counter is
-incremented, and compared with `mds_bal_split_wr`, triggering a
+incremented, and compared with ``mds_bal_split_wr``, triggering a
 split if the threshold is exceeded.  Write operations include metadata IO
 such as renames, unlinks and creations.
 
-The `mds_bal_split_rd` threshold is applied based on the read operation
+The ``mds_bal_split_rd`` threshold is applied based on the read operation
 load counter, which tracks readdir operations.
 
-The `mds_bal_split_rd` and `mds_bal_split_wr` configs represent the
+The ``mds_bal_split_rd`` and ``mds_bal_split_wr`` configs represent the
 popularity threshold. In the MDS these are measured as "read/write temperatures"
 which is closely related to the number of respective read/write operations.
 By default, the read threshold is 25000 operations and the write
@@ -96,6 +96,6 @@ threshold is 10000 operations, i.e. 2.5x as many reads as writes would be
 required to trigger a split.
 
 After fragments are split due to the activity thresholds, they are only
-merged based on the size threshold (`mds_bal_merge_size`), so
+merged based on the size threshold (``mds_bal_merge_size``), so
 a spike in activity may cause a directory to stay fragmented
 forever unless some entries are unlinked.

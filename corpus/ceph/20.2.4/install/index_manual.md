@@ -5,14 +5,14 @@ title: "Installation (Manual)"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/install/index_manual.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _install-manual:
+<a id="install-manual"></a>
 
 # Installation (Manual)
 
 # Get Software
 
 There are several methods for getting Ceph software. The easiest and most common
-method is to get packages by adding repositories for use with package
+method is to [get packages](get-packages.md) by adding repositories for use with package
 management tools such as the Advanced Package Tool (APT) or Yellowdog Updater,
 Modified (YUM). You may also retrieve pre-compiled packages from the Ceph
 repository. Finally, you can retrieve tarballs or clone the Ceph source code
@@ -21,12 +21,12 @@ repository and build Ceph yourself.
 .. toctree::
    :maxdepth: 1
 
-	Get Packages <get-packages>
-	Get Tarballs <get-tarballs>
-	Clone Source <clone-source>
-	Build Ceph <build-ceph>
-    	Ceph Mirrors <mirrors>
-	Ceph Containers <containers>
+        Get Packages <get-packages>
+        Get Tarballs <get-tarballs>
+        Clone Source <clone-source>
+        Build Ceph <build-ceph>
+        Ceph Mirrors <mirrors>
+        Ceph Containers <containers>
 
 # Install Software
 
@@ -39,8 +39,8 @@ QEMU.
 .. toctree::
    :maxdepth: 1
 
-	Install Ceph Storage Cluster <install-storage-cluster>
-	Install Virtualization for Block <install-vm-cloud>
+        Install Ceph Storage Cluster <install-storage-cluster>
+        Install Virtualization for Block <install-vm-cloud>
 
 # Deploy a Cluster Manually
 
@@ -50,8 +50,8 @@ deployment scripts with Chef, Juju, Puppet, etc.
 
 .. toctree::
 
-	Manual Deployment <manual-deployment>
-	Manual Deployment on FreeBSD <manual-freebsd-deployment>
+   Manual Deployment <manual-deployment>
+   Manual Deployment on FreeBSD <manual-freebsd-deployment>
 
 # Upgrade Software
 
@@ -62,5 +62,3 @@ sequence.
 
 .. toctree::
    :maxdepth: 2
-
-.. _get packages: ../get-packages

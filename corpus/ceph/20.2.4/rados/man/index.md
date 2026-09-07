@@ -31,7 +31,6 @@ fetched_at: 2026-08-18T01:32:45Z
    ../../man/8/rados.rst
 
 .. toctree::
+   :hidden:
 
-	:hidden:
-
-	../../man/8/ceph-post-file.rst
+   ../../man/8/ceph-post-file.rst

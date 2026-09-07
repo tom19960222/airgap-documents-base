@@ -39,7 +39,7 @@ memory "leak" that will affect aged clusters.
 * rgw: fix usage logging
 * rgw: handle deep uri resources
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.7.txt -->.
 
 # v0.56.6 "bobtail"
 
@@ -48,7 +48,7 @@ For more detailed information, see the complete changelog.
 * rgw: fix garbage collection
 * rpm: fix package dependencies
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.6.txt -->.
 
 # v0.56.5 "bobtail"
 
@@ -76,7 +76,7 @@ For more detailed information, see the complete changelog.
 * udev: fixed rules for redhat-based distros
 * build fixes for raring
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.5.txt -->.
 
 # v0.56.4 "bobtail"
 
@@ -112,7 +112,7 @@ For more detailed information, see the complete changelog.
 * mds: on-disk format revision (see upgrading note above)
 * mkcephfs, init-ceph: close potential security issues with predictable filenames
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.4.txt -->.
 
 # v0.56.3 "bobtail"
 
@@ -125,9 +125,9 @@ is resolved.  Please upgrade.
 
 * A bug was fixed in which the OSDMap epoch for PGs without any IO
   requests was not recorded.  If there are pools in the cluster that
-  are completely idle (for example, the `data` and `metadata`
+  are completely idle (for example, the ``data`` and ``metadata``
   pools normally used by CephFS), and a large number of OSDMap epochs
-  have elapsed since the `ceph-osd` daemon was last restarted, those
+  have elapsed since the ``ceph-osd`` daemon was last restarted, those
   maps will get reprocessed when the daemon restarts.  This process
   can take a while if there are a lot of maps.  A workaround is to
   'touch' any idle pools with IO prior to restarting the daemons after
@@ -156,7 +156,7 @@ rados bench 10 write -t 1 -b 4096 -p {POOLNAME}
 * librbd: fix handling for interrupted 'unprotect' operations
 * mds, ceph-fuse: allow file and directory layouts to be modified via virtual xattrs
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.3.txt -->.
 
 # v0.56.2 "bobtail"
 
@@ -179,7 +179,7 @@ This release has a wide range of bug fixes, stability improvements, and some per
   across OSDs.  Any provisioning tools that are being used by Ceph may
   be affected, although probably for the better, as distributing across
   hosts is a much more commonly sought behavior.  If you use
-  `mkcephfs` to create the cluster, the default CRUSH rule is still
+  ``mkcephfs`` to create the cluster, the default CRUSH rule is still
   inferred by the number of hosts and/or racks in the initial ceph.conf.
 
 ## Notable changes
@@ -206,7 +206,7 @@ This release has a wide range of bug fixes, stability improvements, and some per
 * msgr: fix narrow race with message queuing
 * fixed compilation on some old distros (e.g., RHEL 5.x)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.2.txt -->.
 
 # v0.56.1 "bobtail"
 
@@ -227,7 +227,7 @@ This release has two critical fixes.  Please upgrade.
 * osd: fix large io requests when journal is in (non-default) aio mode
 * log: fix possible deadlock in logging code
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.1.txt -->.
 
 # v0.56 "bobtail"
 
@@ -250,9 +250,7 @@ Bobtail is the second stable release of Ceph, named in honor of the
 
 ## Upgrading
 
-Please refer to the document Upgrading from Argonaut to Bobtail for details.
-
-.. _Upgrading from Argonaut to Bobtail: ../install/upgrading-ceph/#upgrading-from-argonaut-to-bobtail
+Please refer to the document Upgrading from Argonaut to Bobtail <!-- unresolved-rst-link: kind=named target=Upgrading from Argonaut to Bobtail --> for details.
 
 * Cephx authentication is now enabled by default (since v0.55).
   Upgrading a cluster without adjusting the Ceph configuration will
@@ -269,26 +267,26 @@ auth cluster required = none
 * Ceph daemons can be upgraded one-by-one while the cluster is online
   and in service.
 
-* The `ceph-osd` daemons must be upgraded and restarted *before* any
-  `radosgw` daemons are restarted, as they depend on some new
-  ceph-osd functionality.  (The `ceph-mon`, `ceph-osd`, and
-  `ceph-mds` daemons can be upgraded and restarted in any order.)
+* The ``ceph-osd`` daemons must be upgraded and restarted *before* any
+  ``radosgw`` daemons are restarted, as they depend on some new
+  ceph-osd functionality.  (The ``ceph-mon``, ``ceph-osd``, and
+  ``ceph-mds`` daemons can be upgraded and restarted in any order.)
 
 * Once each individual daemon has been upgraded and restarted, it
   cannot be downgraded.
 
-* The cluster of `ceph-mon` daemons will migrate to a new internal
+* The cluster of ``ceph-mon`` daemons will migrate to a new internal
   on-wire protocol once all daemons in the quorum have been upgraded.
   Upgrading only a majority of the nodes (e.g., two out of three) may
   expose the cluster to a situation where a single additional failure
   may compromise availability (because the non-upgraded daemon cannot
   participate in the new protocol).  We recommend not waiting for an
-  extended period of time between `ceph-mon` upgrades.
+  extended period of time between ``ceph-mon`` upgrades.
 
 * The ops log and usage log for radosgw are now off by default.  If
   you need these logs (e.g., for billing purposes), you must enable
   them explicitly.  For logging of all operations to objects in the
-  `.log` pool (see `radosgw-admin log ...`):
+  ``.log`` pool (see ``radosgw-admin log ...``):
 
 ```
 rgw enable ops log = true
@@ -302,10 +300,10 @@ rgw enable usage log = true
 ```
 
 * You should not create or use "format 2" RBD images until after all
-  `ceph-osd` daemons have been upgraded.  Note that "format 1" is
-  still the default.  You can use the new `ceph osd ls` and
-  `ceph tell osd.N version` commands to doublecheck your cluster.
-  `ceph osd ls` will give a list of all OSD IDs that are part of the
+  ``ceph-osd`` daemons have been upgraded.  Note that "format 1" is
+  still the default.  You can use the new ``ceph osd ls`` and
+  ``ceph tell osd.N version`` commands to doublecheck your cluster.
+  ``ceph osd ls`` will give a list of all OSD IDs that are part of the
   cluster, and you can use that to write a simple shell loop to display
   all the OSD version strings: :
 
@@ -323,13 +321,13 @@ done
   since v0.47, but the older calling convention was being silently
   ignored.
 
-* The CRUSH map root nodes now have type `root` instead of type
-  `pool`.  This avoids confusion with RADOS pools, which are not
+* The CRUSH map root nodes now have type ``root`` instead of type
+  ``pool``.  This avoids confusion with RADOS pools, which are not
   directly related.  Any scripts or tools that use the ``ceph osd
   crush ...`` commands may need to be adjusted accordingly.
 
-* The `ceph osd pool create <poolname> <pgnum>` command now requires
-  the `pgnum` argument. Previously this was optional, and would
+* The ``ceph osd pool create <poolname> <pgnum>`` command now requires
+  the ``pgnum`` argument. Previously this was optional, and would
   default to 8, which was almost never a good number.
 
 * Degraded mode (when there fewer than the desired number of replicas)
@@ -346,7 +344,7 @@ done
   this is an increase and won't break anything.  If some system has a
   higher initial value, however, this change will lower the limit.
   The value can be adjusted explicitly by adding an entry to the
-  `ceph.conf` file in the appropriate section.  For example:
+  ``ceph.conf`` file in the appropriate section.  For example:
 
 ```
 [global]

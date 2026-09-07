@@ -5,7 +5,7 @@ title: "Python Swift Examples"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/swift/python.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _python_swift:
+<a id="python-swift"></a>
 
 # Python Swift Examples
 
@@ -14,49 +14,45 @@ fetched_at: 2026-08-18T01:32:45Z
 This creates a connection so that you can interact with the server:
 
 ```python
+import swiftclient
+user = 'account_name:username'
+key = 'your_api_key'
+
+conn = swiftclient.Connection(
+        user=user,
+        key=key,
+        authurl='https://objects.dreamhost.com/auth',
+)
 ```
-
-	import swiftclient
-	user = 'account_name:username'
-	key = 'your_api_key'
-
-	conn = swiftclient.Connection(
-		user=user,
-		key=key,
-		authurl='https://objects.dreamhost.com/auth',
-	)
 
 # Create a Container
 
-This creates a new container called `my-new-container`:
+This creates a new container called ``my-new-container``:
 
 ```python
+container_name = 'my-new-container'
+conn.put_container(container_name)
 ```
-
-	container_name = 'my-new-container'
-	conn.put_container(container_name)
 
 # Create an Object
 
-This creates a file `hello.txt` from the file named `my_hello.txt`:
+This creates a file ``hello.txt`` from the file named ``my_hello.txt``:
 
 ```python
+with open('hello.txt', 'r') as hello_file:
+        conn.put_object(container_name, 'hello.txt',
+                                        contents= hello_file.read(),
+                                        content_type='text/plain')
 ```
-
-	with open('hello.txt', 'r') as hello_file:
-		conn.put_object(container_name, 'hello.txt',
-						contents= hello_file.read(),
-						content_type='text/plain')
 
 # List Owned Containers
 
 This gets a list of containers that you own, and prints out the container name:
 
 ```python
+for container in conn.get_account()[1]:
+        print(container['name'])
 ```
-
-	for container in conn.get_account()[1]:
-		print(container['name'])
 
 The output will look something like this:
 
@@ -72,38 +68,35 @@ This gets a list of objects in the container, and prints out each
 object's name, the file size, and last modified date:
 
 ```python
+for data in conn.get_container(container_name)[1]:
+        print('{0}\t{1}\t{2}'.format(data['name'], data['bytes'], data['last_modified']))
 ```
-
-	for data in conn.get_container(container_name)[1]:
-		print('{0}\t{1}\t{2}'.format(data['name'], data['bytes'], data['last_modified']))
 
 The output will look something like this:
 
 ```
-myphoto1.jpg	251262	2011-08-08T21:35:48.000Z
-myphoto2.jpg	262518	2011-08-08T21:38:01.000Z
+myphoto1.jpg 251262  2011-08-08T21:35:48.000Z
+myphoto2.jpg 262518  2011-08-08T21:38:01.000Z
 ```
 
 # Retrieve an Object
 
-This downloads the object `hello.txt` and saves it in
-`./my_hello.txt`:
+This downloads the object ``hello.txt`` and saves it in
+``./my_hello.txt``:
 
 ```python
+obj_tuple = conn.get_object(container_name, 'hello.txt')
+with open('my_hello.txt', 'w') as my_hello:
+        my_hello.write(obj_tuple[1])
 ```
-
-	obj_tuple = conn.get_object(container_name, 'hello.txt')
-	with open('my_hello.txt', 'w') as my_hello:
-		my_hello.write(obj_tuple[1])
 
 # Delete an Object
 
-This deletes the object `hello.txt`:
+This deletes the object ``hello.txt``:
 
 ```python
+conn.delete_object(container_name, 'hello.txt')
 ```
-
-	conn.delete_object(container_name, 'hello.txt')
 
 # Delete a Container
 
@@ -111,6 +104,5 @@ This deletes the object `hello.txt`:
 > The container must be empty! Otherwise the request won't work!
 
 ```python
+conn.delete_container(container_name)
 ```
-
-	conn.delete_container(container_name)

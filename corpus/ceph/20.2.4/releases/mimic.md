@@ -31,17 +31,17 @@ version.
 
 * CVE-2020-1760: Fixed XSS due to RGW GetObject header-splitting
 
-* The configuration value `osd_calc_pg_upmaps_max_stddev` used for upmap
+* The configuration value ``osd_calc_pg_upmaps_max_stddev`` used for upmap
   balancing has been removed. Instead use the mgr balancer config
-  `upmap_max_deviation` which now is an integer number of PGs of deviation
+  ``upmap_max_deviation`` which now is an integer number of PGs of deviation
   from the target PGs per OSD.  This can be set with a command like
-  `ceph config set mgr mgr/balancer/upmap_max_deviation 2`.  The default
-  `upmap_max_deviation` is 1.  There are situations where crush rules
+  ``ceph config set mgr mgr/balancer/upmap_max_deviation 2``.  The default
+  ``upmap_max_deviation`` is 1.  There are situations where crush rules
   would not allow a pool to ever have completely balanced PGs.  For example, if
   crush requires 1 replica on each of 3 racks, but there are fewer OSDs in 1 of
   the racks.  In those cases, the configuration value can be increased.
 
-* The `cephfs-data-scan scan_links` command now automatically repair inotables
+* The ``cephfs-data-scan scan_links`` command now automatically repair inotables
   and snaptable.
 
 ## Changelog
@@ -1344,8 +1344,7 @@ This is the first stable release of Mimic, the next long term release series.
   * The (read-only) Ceph manager dashboard introduced in Ceph Luminous has been
     replaced with a new implementation inspired by and derived from the
     [openATTIC](https://openattic.org) Ceph management tool, providing a
-    drop-in replacement offering a :ref:`number of additional management
-    features <mgr-dashboard>`.
+    drop-in replacement offering a [number of additional management features](../mgr/dashboard.md#mgr-dashboard).
 
 - *RADOS*:
 
@@ -1393,7 +1392,7 @@ This is the first stable release of Mimic, the next long term release series.
   in process.
 
 * You can monitor the progress of your upgrade at each stage with the
-  `ceph versions` command, which will tell you what ceph version(s) are
+  ``ceph versions`` command, which will tell you what ceph version(s) are
   running for each type of daemon.
 
 #### Instructions
@@ -1413,7 +1412,7 @@ This is the first stable release of Mimic, the next long term release series.
 ```
 
    In order to be able to proceed to Mimic, your OSD map must include
-   the `recovery_deletes` and `purged_snapdirs` flags.
+   the ``recovery_deletes`` and ``purged_snapdirs`` flags.
 
    If your OSD map does not contain both these flags, you can simply
    wait for approximately 24-48 hours, which in a standard cluster
@@ -1435,7 +1434,7 @@ This is the first stable release of Mimic, the next long term release series.
 1. Make sure your cluster is stable and healthy (no down or
    recovering OSDs).  (Optional, but recommended.)
 
-1. Set the `noout` flag for the duration of the upgrade. (Optional,
+1. Set the ``noout`` flag for the duration of the upgrade. (Optional,
    but recommended.):
 
 ```
@@ -1450,7 +1449,7 @@ This is the first stable release of Mimic, the next long term release series.
 ```
 
    Once all monitors are up, verify that the monitor upgrade is
-   complete by looking for the `mimic` feature string in the mon
+   complete by looking for the ``mimic`` feature string in the mon
    map.  For example:
 
 ```
@@ -1465,14 +1464,14 @@ on current monmap (epoch NNN)
    required: [kraken,luminous,mimic]
 ```
 
-1. Upgrade `ceph-mgr` daemons by installing the new packages and
+1. Upgrade ``ceph-mgr`` daemons by installing the new packages and
    restarting with:
 
 ```
 # systemctl restart ceph-mgr.target
 ```
 
-   Verify the `ceph-mgr` daemons are running by checking ``ceph
+   Verify the ``ceph-mgr`` daemons are running by checking ``ceph
    -s``:
 
 ```
@@ -1493,7 +1492,7 @@ on current monmap (epoch NNN)
 ```
 
    You can monitor the progress of the OSD upgrades with the new
-   `ceph versions` or `ceph osd versions` command:
+   ``ceph versions`` or ``ceph osd versions`` command:
 
 ```
 # ceph osd versions
@@ -1506,23 +1505,31 @@ on current monmap (epoch NNN)
 1. Upgrade all CephFS MDS daemons.  For each CephFS file system,
 
    1. Reduce the number of ranks to 1.  (Make note of the original
-      number of MDS daemons first if you plan to restore it later.)::
+      number of MDS daemons first if you plan to restore it later.):
 
-	# ceph status
-	# ceph fs set <fs_name> max_mds 1
+```
+# ceph status
+# ceph fs set <fs_name> max_mds 1
+```
 
    1. Wait for the cluster to deactivate any non-zero ranks by
-      periodically checking the status::
+      periodically checking the status:
 
-	# ceph status
+```
+# ceph status
+```
 
-   1. Take all standby MDS daemons offline on the appropriate hosts with::
+   1. Take all standby MDS daemons offline on the appropriate hosts with:
 
-	# systemctl stop ceph-mds@<daemon_name>
+```
+# systemctl stop ceph-mds@<daemon_name>
+```
 
-   1. Confirm that only one MDS is online and is rank 0 for your FS::
+   1. Confirm that only one MDS is online and is rank 0 for your FS:
 
-	# ceph status
+```
+# ceph status
+```
 
    1. Upgrade the last remaining MDS daemon by installing the new
       packages and restarting the daemon:
@@ -1531,13 +1538,17 @@ on current monmap (epoch NNN)
 # systemctl restart ceph-mds.target
 ```
 
-   1. Restart all standby MDS daemons that were taken offline::
+   1. Restart all standby MDS daemons that were taken offline:
 
-	# systemctl start ceph-mds.target
+```
+# systemctl start ceph-mds.target
+```
 
-   1. Restore the original value of `max_mds` for the volume::
+   1. Restore the original value of ``max_mds`` for the volume:
 
-	# ceph fs set <fs_name> max_mds <original_max_mds>
+```
+# ceph fs set <fs_name> max_mds <original_max_mds>
+```
 
 1. Upgrade all radosgw daemons by upgrading packages and restarting
    daemons on all hosts:
@@ -1553,20 +1564,20 @@ on current monmap (epoch NNN)
 # ceph osd require-osd-release mimic
 ```
 
-1. If you set `noout` at the beginning, be sure to clear it with:
+1. If you set ``noout`` at the beginning, be sure to clear it with:
 
 ```
 # ceph osd unset noout
 ```
 
-1. Verify the cluster is healthy with `ceph health`.
+1. Verify the cluster is healthy with ``ceph health``.
 
 ## Upgrading from pre-Luminous releases (like Jewel)
 
 You *must* first upgrade to Luminous (12.2.z) before attempting an
 upgrade to Mimic.  In addition, your cluster must have completed at
 least one scrub of all PGs while running Luminous, setting the
-`recovery_deletes` and `purged_snapdirs` flags in the OSD map.
+``recovery_deletes`` and ``purged_snapdirs`` flags in the OSD map.
 
 ## Upgrade compatibility notes
 
@@ -1574,25 +1585,25 @@ These changes occurred between the Luminous and Mimic releases.
 
 * *core*:
 
-  - The `pg force-recovery` command will not work for erasure-coded PGs when a
+  - The ``pg force-recovery`` command will not work for erasure-coded PGs when a
     Luminous monitor is running along with a Mimic OSD. Please use the
     recommended upgrade order of monitors before OSDs to avoid this issue.
 
-  - The sample `crush-location-hook` script has been removed. Its output is
+  - The sample ``crush-location-hook`` script has been removed. Its output is
     equivalent to the built-in default behavior, so it has been replaced with an
     example in the CRUSH documentation.
 
-  - The `-f` option of the rados tool now means `--format` instead
-    of `--force`, for consistency with the ceph tool.
+  - The ``-f`` option of the rados tool now means ``--format`` instead
+    of ``--force``, for consistency with the ceph tool.
 
-  - The format of the `config diff` output via the admin socket has changed. It
+  - The format of the ``config diff`` output via the admin socket has changed. It
     now reflects the source of each config option (e.g., default, config file,
     command line) as well as the final (active) value.
 
   - Commands variously marked as `del`, `delete`, `remove`
     etc. should now all be normalized as `rm`. Commands already
     supporting alternatives to `rm` remain backward-compatible. This
-    changeset applies to the `radosgw-admin` tool as well.
+    changeset applies to the ``radosgw-admin`` tool as well.
 
   - Monitors will now prune on-disk full maps if the number of maps grows above
     a certain number (mon_osdmap_full_prune_min, default: 10000), thus
@@ -1655,7 +1666,7 @@ These changes occurred between the Luminous and Mimic releases.
   - Bootstrap auth keys will now be generated automatically on a fresh
     deployment; these keys will also be generated, if missing, during upgrade.
 
-  - The `osd force-create-pg` command now requires a force option to proceed
+  - The ``osd force-create-pg`` command now requires a force option to proceed
     because the command is dangerous: it declares that data loss is permanent
     and instructs the cluster to proceed with an empty PG in its place, without
     making any further efforts to find the missing data.
@@ -1677,35 +1688,35 @@ These changes occurred between the Luminous and Mimic releases.
 
     See also: https://tracker.ceph.com/issues/23172
 
-  - Several `ceph mds ...` commands have been obsoleted and replaced by
-    equivalent `ceph fs ...` commands:
+  - Several ``ceph mds ...`` commands have been obsoleted and replaced by
+    equivalent ``ceph fs ...`` commands:
 
-    + `mds dump` -> `fs dump`
-    + `mds getmap` -> `fs dump`
-    + `mds stop` -> `mds deactivate`
-    + `mds set_max_mds` -> `fs set max_mds`
-    + `mds set` -> `fs set`
-    + `mds cluster_down` -> `fs set cluster_down true`
-    + `mds cluster_up` -> `fs set cluster_down false`
-    + `mds add_data_pool` -> `fs add_data_pool`
-    + `mds remove_data_pool` -> `fs rm_data_pool`
-    + `mds rm_data_pool` -> `fs rm_data_pool`
+    + ``mds dump`` -> ``fs dump``
+    + ``mds getmap`` -> ``fs dump``
+    + ``mds stop`` -> ``mds deactivate``
+    + ``mds set_max_mds`` -> ``fs set max_mds``
+    + ``mds set`` -> ``fs set``
+    + ``mds cluster_down`` -> ``fs set cluster_down true``
+    + ``mds cluster_up`` -> ``fs set cluster_down false``
+    + ``mds add_data_pool`` -> ``fs add_data_pool``
+    + ``mds remove_data_pool`` -> ``fs rm_data_pool``
+    + ``mds rm_data_pool`` -> ``fs rm_data_pool``
 
   - New CephFS file system attributes session_timeout and
-    session_autoclose are configurable via `ceph fs set`. The MDS
+    session_autoclose are configurable via ``ceph fs set``. The MDS
     config options `mds_session_timeout`, `mds_session_autoclose`, and
     `mds_max_file_size` are now obsolete.
 
   - As the multiple MDS feature is now standard, it is now enabled by
-    default. `ceph fs set allow_multimds` is now deprecated and will be
+    default. ``ceph fs set allow_multimds`` is now deprecated and will be
     removed in a future release.
 
   - As the directory fragmentation feature is now standard, it is now
-    enabled by default. `ceph fs set allow_dirfrags` is now deprecated and
+    enabled by default. ``ceph fs set allow_dirfrags`` is now deprecated and
     will be removed in a future release.
 
   - MDS daemons now activate and deactivate based on the value of
-    `max_mds`. Accordingly, `ceph mds deactivate` has been deprecated as it
+    `max_mds`. Accordingly, ``ceph mds deactivate`` has been deprecated as it
     is now redundant.
 
   - Taking a CephFS cluster down is now done by setting the down flag which
@@ -1745,8 +1756,8 @@ ceph fs set <fs_name> allow_new_snaps
     previous max_mds" step in above URL to fail. To re-enable the feature,
     either delete all old snapshots or scrub the whole filesystem:
 
-      - `ceph daemon <mds of rank 0> scrub_path / force recursive repair`
-      - `ceph daemon <mds of rank 0> scrub_path '~mdsdir' force recursive repair`
+      - ``ceph daemon <mds of rank 0> scrub_path / force recursive repair``
+      - ``ceph daemon <mds of rank 0> scrub_path '~mdsdir' force recursive repair``
 
   - Support has been added in Mimic for quotas in the Linux kernel client as of v4.17.
 
@@ -1767,7 +1778,7 @@ ceph fs set <fs_name> allow_new_snaps
     allowing for safe write buffering and coherent read caching. Documentation
     is also now available: http://docs.ceph.com/docs/mimic/cephfs/nfs/
 
-  - MDS uptime is now available in the output of the MDS admin socket `status` command.
+  - MDS uptime is now available in the output of the MDS admin socket ``status`` command.
 
   - MDS performance counters for client requests now include average latency as well as the count.
 
@@ -1777,9 +1788,9 @@ ceph fs set <fs_name> allow_new_snaps
     2GB to match the C++ API's `Image::discard` method. This restriction
     prevents overflow of the result code.
 
-  - The rbd CLI's `lock list` JSON and XML output has changed.
+  - The rbd CLI's ``lock list`` JSON and XML output has changed.
 
-  - The rbd CLI's `showmapped` JSON and XML output has changed.
+  - The rbd CLI's ``showmapped`` JSON and XML output has changed.
 
   - RBD now optionally supports simplified image clone semantics where
     non-protected snapshots can be cloned; and snapshots with linked clones
@@ -1793,12 +1804,12 @@ ceph fs set <fs_name> allow_new_snaps
 * *RGW*
 
   - The RGW Beast frontend is now declared stable and ready for production use.
-    rgw_frontends for details.
+    [rgw_frontends](../radosgw/frontends.md#rgw-frontends) for details.
 
   - Civetweb frontend has been updated to the latest 1.10 release.
 
   - The S3 API now has support for multi-factor authentication. Refer to
-    rgw_mfa for details.
+    [rgw_mfa](../radosgw/mfa.md#rgw-mfa) for details.
 
   - RGW now has a sync plugin to sync to AWS and clouds with S3-like APIs.
 
@@ -1808,10 +1819,10 @@ ceph fs set <fs_name> allow_new_snaps
     replaced with a new implementation, providing a drop-in replacement offering
     a number of additional management features. To access the new dashboard, you
     first need to define a username and password and create an SSL certificate.
-    See the mgr-dashboard for a feature overview and installation
+    See the [mgr-dashboard](../mgr/dashboard.md#mgr-dashboard) for a feature overview and installation
     instructions.
 
-  - The `ceph-rest-api` command-line tool (obsoleted by the MGR
+  - The ``ceph-rest-api`` command-line tool (obsoleted by the MGR
     `restful` module and deprecated since v12.2.5) has been dropped.
 
     There is a MGR module called `restful` which provides similar functionality
@@ -1819,18 +1830,18 @@ ceph fs set <fs_name> allow_new_snaps
     for details.
 
   - New command to track throughput and IOPS statistics, also available in
-    `ceph -s` and previously in `ceph -w`. To use this command, enable
-    the `iostat` Manager module and invoke it using `ceph iostat`. See the
-    iostat documentation for details.
+    ``ceph -s`` and previously in ``ceph -w``. To use this command, enable
+    the ``iostat`` Manager module and invoke it using ``ceph iostat``. See the
+    [iostat documentation](../mgr/iostat.md#mgr-iostat-overview) for details.
 
 * *build/packaging*
 
-  - The `rcceph` script (`systemd/ceph` in the source code tree, shipped as
-    `/usr/sbin/rcceph` in the ceph-base package for CentOS and SUSE) has been
+  - The ``rcceph`` script (``systemd/ceph`` in the source code tree, shipped as
+    ``/usr/sbin/rcceph`` in the ceph-base package for CentOS and SUSE) has been
     dropped. This script was used to perform admin operations (start, stop,
     restart, etc.) on all OSD and/or MON daemons running on a given machine. This
-    functionality is provided by the systemd target units (`ceph-osd.target`,
-    `ceph-mon.target`, etc.).
+    functionality is provided by the systemd target units (``ceph-osd.target``,
+    ``ceph-mon.target``, etc.).
 
   - The python-ceph-compat package is declared deprecated, and will be dropped
     when all supported distros have completed the move to Python 3. It has
@@ -2724,7 +2735,7 @@ ceph fs set <fs_name> allow_new_snaps
 * core,tests: qa/tasks/thrashosds: set min_in default to 4 ([issue#21997](http://tracker.ceph.com/issues/21997), [pr#18670](https://github.com/ceph/ceph/pull/18670), Sage Weil)
 * core,tests: qa/tests: run ceph-ansible task on installer.0 role/node ([pr#19605](https://github.com/ceph/ceph/pull/19605), Yuri Weinstein)
 * core,tests: qa: tolerate failure to force backfill ([issue#22614](http://tracker.ceph.com/issues/22614), [pr#19765](https://github.com/ceph/ceph/pull/19765), Sage Weil)
-* core,tests: qa/workunits/rados/test_rados_tool: fix stray `|`, race ([issue#22676](http://tracker.ceph.com/issues/22676), [pr#19946](https://github.com/ceph/ceph/pull/19946), Sage Weil)
+* core,tests: qa/workunits/rados/test_rados_tool: fix stray ``|``, race ([issue#22676](http://tracker.ceph.com/issues/22676), [pr#19946](https://github.com/ceph/ceph/pull/19946), Sage Weil)
 * core,tests: qa/workunits/rados/test.sh: ensure tee output is valid filename ([pr#21507](https://github.com/ceph/ceph/pull/21507), Sage Weil)
 * core,tests: rados: Initialization of alignment ([pr#17723](https://github.com/ceph/ceph/pull/17723), Amit Kumar)
 * core,tests: rados: Initializing members of librados/TestCase.h ([pr#16896](https://github.com/ceph/ceph/pull/16896), amitkuma)

@@ -5,17 +5,17 @@ title: "Converting an existing cluster to cephadm"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/adoption.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephadm-adoption:
+<a id="cephadm-adoption"></a>
 
 # Converting an existing cluster to cephadm
 
 It is possible to convert some existing clusters so that they can be managed
-with `cephadm`. This statement applies to some clusters that were deployed
-with `ceph-deploy`, `ceph-ansible`, or `DeepSea`.
+with ``cephadm``. This statement applies to some clusters that were deployed
+with ``ceph-deploy``, ``ceph-ansible``, or ``DeepSea``.
 
 This section of the documentation explains how to determine whether your
 clusters can be converted to a state in which they can be managed by
-`cephadm` and how to perform those conversions.
+``cephadm`` and how to perform those conversions.
 
 ## Limitations
 
@@ -23,10 +23,10 @@ clusters can be converted to a state in which they can be managed by
 
 ## Preparation
 
-1. Make sure that the `cephadm` command line tool is available on each host
-   in the existing cluster.  See get-cephadm to learn how.
+1. Make sure that the ``cephadm`` command line tool is available on each host
+   in the existing cluster.  See [get-cephadm](install.md#get-cephadm) to learn how.
 
-1. Prepare each host for use by `cephadm` by running this command on that host:
+1. Prepare each host for use by ``cephadm`` by running this command on that host:
 
 ```bash
 cephadm prepare-host
@@ -47,21 +47,21 @@ cephadm --image $IMAGE <rest of command goes here>
 
    The conversion begins.
 
-1. Confirm that the conversion is underway by running `cephadm ls` and
+1. Confirm that the conversion is underway by running ``cephadm ls`` and
    making sure that the style of the daemons is changed:
 
 ```bash
 cephadm ls
 ```
 
-   Before starting the conversion process, `cephadm ls` reports all existing
-   daemons with the style `legacy`. As the adoption process progresses,
-   adopted daemons will appear with the style `cephadm:v1`.
+   Before starting the conversion process, ``cephadm ls`` reports all existing
+   daemons with the style ``legacy``. As the adoption process progresses,
+   adopted daemons will appear with the style ``cephadm:v1``.
 
 ## Adoption process
 
 1. Make sure that the ceph configuration has been migrated to use the cluster's
-   central config database.  If `/etc/ceph/ceph.conf` is identical on all
+   central config database.  If ``/etc/ceph/ceph.conf`` is identical on all
    hosts, then the following command can be run on one host and will take
    effect for all hosts:
 
@@ -117,16 +117,16 @@ ssh-copy-id -f -i ~/ceph.pub root@<host>
 
 > **Note:**
 > It is also possible to import an existing SSH key. See
-> SSH errors in the troubleshooting
+> [SSH errors](troubleshooting.md#cephadm-ssh-errors) in the troubleshooting
 > document for instructions that describe how to import existing
 > SSH keys.
 
 > **Note:**
 > It is also possible to arrange for cephadm to use a non-root user to SSH
 > into cluster hosts. This user needs to have passwordless sudo access.
-> Use `ceph cephadm set-user <user>` and copy the SSH key to that user's
+> Use ``ceph cephadm set-user <user>`` and copy the SSH key to that user's
 > home directory on each host.
-> See cephadm-ssh-user
+> See [cephadm-ssh-user](host-management.md#cephadm-ssh-user)
 
 1. Tell cephadm which hosts to manage:
 
@@ -134,7 +134,7 @@ ssh-copy-id -f -i ~/ceph.pub root@<host>
 ceph orch host add <hostname> [ip-address]
 ```
 
-   This will run `cephadm check-host` on each host before adding it.
+   This will run ``cephadm check-host`` on each host before adding it.
    This check ensures that the host is functioning properly. The IP address
    argument is recommended. If the address is not provided, then the host name
    will be resolved via DNS.
@@ -202,7 +202,7 @@ ceph orch apply rgw <svc_id> [--realm=<realm>] [--zone=<zone>] [--port=<port>] [
 ```
 
    where *<placement>* can be a simple daemon count, or a list of
-   specific hosts (see orchestrator-cli-placement-spec). The
+   specific hosts (see [orchestrator-cli-placement-spec](services/index.md#orchestrator-cli-placement-spec)). The
    zone and realm arguments are needed only for a multisite setup.
 
    After the daemons have started and you have confirmed that they are
@@ -213,5 +213,5 @@ systemctl stop ceph-rgw.target
 rm -rf /var/lib/ceph/radosgw/ceph-*
 ```
 
-1. Check the output of the command `ceph health detail` for cephadm warnings
+1. Check the output of the command ``ceph health detail`` for cephadm warnings
    about stray cluster daemons or hosts that are not yet managed by cephadm.

@@ -23,13 +23,13 @@ The following steps install and configure the Ceph iSCSI gateway for basic opera
 
 -  The following packages must be installed from your Linux distribution's software repository:
 
-   -  `targetcli-2.1.fb47` or newer package
+   -  ``targetcli-2.1.fb47`` or newer package
 
-   -  `python-rtslib-2.1.fb68` or newer package
+   -  ``python-rtslib-2.1.fb68`` or newer package
 
-   -  `tcmu-runner-1.4.0` or newer package
+   -  ``tcmu-runner-1.4.0`` or newer package
 
-   -  `ceph-iscsi-3.2` or newer package
+   -  ``ceph-iscsi-3.2`` or newer package
 
 > **Important:**
 > If previous versions of these packages exist, then they must
@@ -39,18 +39,18 @@ Do the following steps on the Ceph iSCSI gateway node before proceeding
 to the *Installing* section:
 
 1. If the Ceph iSCSI gateway is not colocated on an OSD node, then copy
-   the Ceph configuration files, located in `/etc/ceph/`, from a
+   the Ceph configuration files, located in ``/etc/ceph/``, from a
    running Ceph node in the storage cluster to the iSCSI Gateway node.
    The Ceph configuration files must exist on the iSCSI gateway node
-   under `/etc/ceph/`.
+   under ``/etc/ceph/``.
 
-1. Install and configure the Ceph Command-line Interface
+1. Install and configure the [Ceph Command-line Interface](../start/quick-rbd.md#install-ceph)
 
 1. If needed, open TCP ports 3260 and 5000 on the firewall.
 
 > **Note:**
 > Access to port 5000 should be restricted to a trusted internal network or
-> only the individual hosts where `gwcli` is used or `ceph-mgr` daemons
+> only the individual hosts where ``gwcli`` is used or ``ceph-mgr`` daemons
 > are running.
 
 1. Create a new or use an existing RADOS Block Device (RBD).
@@ -58,9 +58,7 @@ to the *Installing* section:
 **Installing:**
 
 If you are using the upstream ceph-iscsi package follow the
-manual install instructions.
-
-.. _`manual install instructions`: ../iscsi-target-cli-manual-install
+[manual install instructions](iscsi-target-cli-manual-install.md).
 
 .. toctree::
    :hidden:
@@ -69,14 +67,14 @@ manual install instructions.
 
 For rpm based instructions execute the following commands:
 
-1. As `root`, on all iSCSI gateway nodes, install the
-   `ceph-iscsi` package:
+1. As ``root``, on all iSCSI gateway nodes, install the
+   ``ceph-iscsi`` package:
 
 ```bash
 yum install ceph-iscsi
 ```
 
-1. As `root`, on all iSCSI gateway nodes, install the `tcmu-runner`
+1. As ``root``, on all iSCSI gateway nodes, install the ``tcmu-runner``
    package:
 
 ```bash
@@ -85,7 +83,7 @@ yum install tcmu-runner
 
 **Setup:**
 
-1. gwcli requires a pool with the name `rbd`, so it can store metadata
+1. gwcli requires a pool with the name ``rbd``, so it can store metadata
    like the iSCSI configuration. To check if this pool has been created
    run:
 
@@ -94,16 +92,16 @@ ceph osd lspools
 ```
 
    If it does not exist instructions for creating pools can be found on the
-   RADOS pool operations page.
+   [RADOS pool operations page](../rados/operations/pools.md#rados-pools).
 
-1. As `root`, on a iSCSI gateway node, create a file named
-   `iscsi-gateway.cfg` in the `/etc/ceph/` directory:
+1. As ``root``, on a iSCSI gateway node, create a file named
+   ``iscsi-gateway.cfg`` in the ``/etc/ceph/`` directory:
 
 ```bash
 touch /etc/ceph/iscsi-gateway.cfg
 ```
 
-   1. Edit the `iscsi-gateway.cfg` file and add the following lines:
+   1. Edit the ``iscsi-gateway.cfg`` file and add the following lines:
 
 ```ini
 [config]
@@ -143,12 +141,12 @@ api_secure = false
 > separate IPs is recommended.
 
 > **Important:**
-> The `iscsi-gateway.cfg` file must be identical on all iSCSI gateway nodes.
+> The ``iscsi-gateway.cfg`` file must be identical on all iSCSI gateway nodes.
 
-   1. As `root`, copy the `iscsi-gateway.cfg` file to all iSCSI
+   1. As ``root``, copy the ``iscsi-gateway.cfg`` file to all iSCSI
       gateway nodes.
 
-1. As `root`, on all iSCSI gateway nodes, enable and start the API
+1. As ``root``, on all iSCSI gateway nodes, enable and start the API
    service:
 
 ```bash
@@ -169,7 +167,7 @@ tools including targetcli and rbd can be used to query the local configuration,
 but should not be used to modify it. This next section will demonstrate how
 to create a iSCSI target and export a RBD image as LUN 0.
 
-1. As `root`, on a iSCSI gateway node, start the iSCSI gateway
+1. As ``root``, on a iSCSI gateway node, start the iSCSI gateway
    command-line interface:
 
 ```bash
@@ -240,13 +238,13 @@ gwcli
 
 > **Note:**
 > CHAP usernames must be between 8 and 64 characters long.  Valid
-> characters: `0` to `9`, `a` to `z`, `A` to `Z`, `@`,
-> `_`, `-`, `.`, `:`.
+> characters: ``0`` to ``9``, ``a`` to ``z``, ``A`` to ``Z``, ``@``,
+> ``_``, ``-``, ``.``, ``:``.
 
 > **Note:**
 > CHAP passwords must be between 12 and 16 characters long.  Valid
-> characters: `0` to `9`, `a` to `z`, `A` to `Z`, `@`,
-> `_`, `-`, `/`.
+> characters: ``0`` to ``9``, ``a`` to ``z``, ``A`` to ``Z``, ``@``,
+> ``_``, ``-``, ``/``.
 
 > **Note:**
 > For mutual CHAP, initiator and target usernames and passwords
@@ -259,8 +257,6 @@ gwcli
 ```
 
 The next step is to configure the iSCSI initiators.
-
-.. _`Ceph Command-line Interface`: ../../start/quick-rbd/#install-ceph
 
 .. toctree::
    :hidden:

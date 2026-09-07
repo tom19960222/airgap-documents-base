@@ -18,4 +18,4 @@ fetched_at: 2026-08-18T01:32:45Z
     The admin/build-docs script runs Ant to build the JavaDoc files, and
     copies them to api/libcephfs-java/javadoc/.
 
-View the auto-generated [JavaDoc pages for the CephFS Java bindings](javadoc/).
+View the auto-generated [JavaDoc pages for the CephFS Java bindings](javadoc/) <!-- unresolved-source-link: target=javadoc/ -->.

@@ -20,9 +20,9 @@ fetched_at: 2026-08-18T01:32:45Z
 # Description
 
 **mount.fuse.ceph** is a helper for mounting ceph-fuse from
-`/etc/fstab`.
+``/etc/fstab``.
 
-To use mount.fuse.ceph, add an entry in `/etc/fstab` like:
+To use mount.fuse.ceph, add an entry in ``/etc/fstab`` like:
 
 ```
 DEVICE    PATH        TYPE        OPTIONS
@@ -31,8 +31,8 @@ none      /mnt/ceph   fuse.ceph   ceph.name=client.admin,_netdev,defaults  0 0
 none      /mnt/ceph   fuse.ceph   ceph.id=myuser,ceph.conf=/etc/ceph/foo.conf,_netdev,defaults  0 0
 ```
 
-ceph-fuse options are specified in the `OPTIONS` column and must begin
-with '`ceph.`' prefix. This way ceph related fs options will be passed to
+ceph-fuse options are specified in the ``OPTIONS`` column and must begin
+with '``ceph.``' prefix. This way ceph related fs options will be passed to
 ceph-fuse and others will be ignored by ceph-fuse.
 
 # Options
@@ -69,5 +69,5 @@ information.
 
 # See also
 
-ceph-fuse\(8),
-ceph\(8)
+[ceph-fuse](ceph-fuse.md#options)\(8),
+[ceph](../../install/clone-source.md)\(8)

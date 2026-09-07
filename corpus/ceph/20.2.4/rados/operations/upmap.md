@@ -5,7 +5,7 @@ title: "Using pg-upmap"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/upmap.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _upmap:
+<a id="upmap"></a>
 
 # Using pg-upmap
 
@@ -21,10 +21,10 @@ requires all clients to understand the new *pg-upmap* structure in the OSDMap.
 
 ## Enabling
 
-In order to use `pg-upmap`, the cluster cannot have any pre-Luminous clients.
+In order to use ``pg-upmap``, the cluster cannot have any pre-Luminous clients.
 By default, new clusters enable the *balancer module*, which makes use of
-`pg-upmap`. If you want to use a different balancer or you want to make your
-own custom `pg-upmap` entries, you might want to turn off the balancer in
+``pg-upmap``. If you want to use a different balancer or you want to make your
+own custom ``pg-upmap`` entries, you might want to turn off the balancer in
 order to avoid conflict:
 
 ```bash
@@ -49,13 +49,13 @@ ceph features
 
 ## Balancer Module
 
-The `balancer` module for `ceph-mgr` will automatically balance the number of
-PGs per OSD. See balancer
+The `balancer` module for ``ceph-mgr`` will automatically balance the number of
+PGs per OSD. See [balancer](balancer.md#balancer)
 
 # Offline Optimization
 
 Upmap entries are updated with an offline optimizer that is built into the
-osdmaptool.
+[osdmaptool](../../man/8/osdmaptool.md#osdmaptool).
 
 1. Grab the latest copy of your osdmap:
 
@@ -74,26 +74,26 @@ osdmaptool om --upmap out.txt [--upmap-pool <pool>] \
 
    It is highly recommended that optimization be done for each pool
    individually, or for sets of similarly utilized pools. You can specify the
-   `--upmap-pool` option multiple times. "Similarly utilized pools" means
+   ``--upmap-pool`` option multiple times. "Similarly utilized pools" means
    pools that are mapped to the same devices and that store the same kind of
    data (for example, RBD image pools are considered to be similarly utilized;
    an RGW index pool and an RGW data pool are not considered to be similarly
    utilized).
 
-   The `max-optimizations` value determines the maximum number of upmap
+   The ``max-optimizations`` value determines the maximum number of upmap
    entries to identify. The default is `10` (as is the case with the
-   `ceph-mgr` balancer module), but you should use a larger number if you are
+   ``ceph-mgr`` balancer module), but you should use a larger number if you are
    doing offline optimization.  If it cannot find any additional changes to
    make (that is, if the pool distribution is perfect), it will stop early.
 
-   The `max-deviation` value defaults to `5`. If an OSD's PG count varies
+   The ``max-deviation`` value defaults to `5`. If an OSD's PG count varies
    from the computed target number by no more than this amount it will be
    considered perfect.
 
-   The `--upmap-active` option simulates the behavior of the active balancer
+   The ``--upmap-active`` option simulates the behavior of the active balancer
    in upmap mode. It keeps cycling until the OSDs are balanced and reports how
    many rounds have occurred and how long each round takes. The elapsed time
-   for rounds indicates the CPU load that `ceph-mgr` consumes when it computes
+   for rounds indicates the CPU load that ``ceph-mgr`` consumes when it computes
    the next optimization plan.
 
 1. Apply the changes:
@@ -103,12 +103,12 @@ source out.txt
 ```
 
    In the above example, the proposed changes are written to the output file
-   `out.txt`. The commands in this procedure are normal Ceph CLI commands
+   ``out.txt``. The commands in this procedure are normal Ceph CLI commands
    that can be run in order to apply the changes to the cluster.
 
 The above steps can be repeated as many times as necessary to achieve a perfect
 distribution of PGs for each set of pools.
 
 To see some (gory) details about what the tool is doing, you can pass
-`--debug-osd 10` to `osdmaptool`. To see even more details, pass
-`--debug-crush 10` to `osdmaptool`.
+``--debug-osd 10`` to ``osdmaptool``. To see even more details, pass
+``--debug-crush 10`` to ``osdmaptool``.

@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 If you intend to use Ceph Block Devices and the Ceph Storage Cluster as a
 backend for Virtual Machines (VMs) or  Cloud Platforms the QEMU/KVM and
-`libvirt` packages are important for enabling VMs and cloud platforms.
+``libvirt`` packages are important for enabling VMs and cloud platforms.
 Examples of VMs include: QEMU/KVM, XEN, VMWare, LXC, VirtualBox, etc. Examples
 of Cloud Platforms include OpenStack, CloudStack, OpenNebula, etc.
 
@@ -33,83 +33,93 @@ of Cloud Platforms include OpenStack, CloudStack, OpenNebula, etc.
 
 # Install QEMU
 
-QEMU KVM can interact with Ceph Block Devices via `librbd`, which is an
+QEMU KVM can interact with Ceph Block Devices via ``librbd``, which is an
 important feature for using Ceph with cloud platforms. Once you install QEMU,
-see QEMU and Block Devices for usage.
+see [QEMU and Block Devices](../rbd/qemu-rbd.md) for usage.
 
 ## Debian Packages
 
 QEMU packages are incorporated into Ubuntu 12.04 Precise Pangolin and later
-versions. To  install QEMU, execute the following::
+versions. To  install QEMU, execute the following:
 
-	sudo apt-get install qemu
+```
+sudo apt-get install qemu
+```
 
 ## RPM Packages
 
 To install QEMU, execute the following:
 
-1. Update your repositories. ::
+1. Update your repositories. :
 
-	sudo yum update
+```
+sudo yum update
+```
 
-1. Install QEMU for Ceph. ::
+1. Install QEMU for Ceph. :
 
-	sudo yum install qemu-kvm qemu-kvm-tools qemu-img
+```
+sudo yum install qemu-kvm qemu-kvm-tools qemu-img
+```
 
-1. Install additional QEMU packages (optional)::
+1. Install additional QEMU packages (optional):
 
-	sudo yum install qemu-guest-agent qemu-guest-agent-win32
+```
+sudo yum install qemu-guest-agent qemu-guest-agent-win32
+```
 
 ## Building QEMU
 
-To build QEMU from source, use the following procedure::
+To build QEMU from source, use the following procedure:
 
-	cd {your-development-directory}
-	git clone git://git.qemu.org/qemu.git
-	cd qemu
-	./configure --enable-rbd
-	make; make install
+```
+cd {your-development-directory}
+git clone git://git.qemu.org/qemu.git
+cd qemu
+./configure --enable-rbd
+make; make install
+```
 
 # Install libvirt
 
-To use `libvirt` with Ceph, you must have a running Ceph Storage Cluster, and
-you must have installed and configured QEMU. See `Using libvirt with Ceph Block
-Device`_ for usage.
+To use ``libvirt`` with Ceph, you must have a running Ceph Storage Cluster, and
+you must have installed and configured QEMU. See [Using libvirt with Ceph Block Device](../rbd/libvirt.md) for usage.
 
 ## Debian Packages
 
-`libvirt` packages are incorporated into Ubuntu 12.04 Precise Pangolin and
-later versions of Ubuntu. To install `libvirt` on these distributions,
-execute the following::
+``libvirt`` packages are incorporated into Ubuntu 12.04 Precise Pangolin and
+later versions of Ubuntu. To install ``libvirt`` on these distributions,
+execute the following:
 
-	sudo apt-get update && sudo apt-get install libvirt-bin
+```
+sudo apt-get update && sudo apt-get install libvirt-bin
+```
 
 ## RPM Packages
 
-To use `libvirt` with a Ceph Storage Cluster, you must  have a running Ceph
-Storage Cluster and you must also install a version of QEMU with `rbd` format
-support.  See Install QEMU for details.
+To use ``libvirt`` with a Ceph Storage Cluster, you must  have a running Ceph
+Storage Cluster and you must also install a version of QEMU with ``rbd`` format
+support.  See [Install QEMU](install-vm-cloud.md#install-qemu) for details.
 
-`libvirt` packages are incorporated into the recent CentOS/RHEL distributions.
-To install `libvirt`, execute the following::
+``libvirt`` packages are incorporated into the recent CentOS/RHEL distributions.
+To install ``libvirt``, execute the following:
 
-	sudo yum install libvirt
+```
+sudo yum install libvirt
+```
 
 ## Building ``libvirt``
 
-To build `libvirt` from source, clone the `libvirt` repository and use
-AutoGen to generate the build. Then, execute `make` and `make install` to
-complete the installation. For example::
+To build ``libvirt`` from source, clone the ``libvirt`` repository and use
+[AutoGen](http://www.gnu.org/software/autogen/) to generate the build. Then, execute ``make`` and ``make install`` to
+complete the installation. For example:
 
-	git clone git://libvirt.org/libvirt.git
-	cd libvirt
-	./autogen.sh
-	make
-	sudo make install
+```
+git clone git://libvirt.org/libvirt.git
+cd libvirt
+./autogen.sh
+make
+sudo make install
+```
 
-See libvirt Installation for details.
-
-.. _libvirt Installation: http://www.libvirt.org/compiling.html
-.. _AutoGen: http://www.gnu.org/software/autogen/
-.. _QEMU and Block Devices: ../../rbd/qemu-rbd
-.. _Using libvirt with Ceph Block Device: ../../rbd/libvirt
+See [libvirt Installation](http://www.libvirt.org/compiling.html) for details.

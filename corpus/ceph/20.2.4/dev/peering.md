@@ -27,15 +27,15 @@ fetched_at: 2026-08-18T01:32:45Z
 
 *PG temp*
    a temporary placement group acting set that is used while backfilling the
-   primary OSD. Assume that the acting set is `[0,1,2]` and we are
-   `active+clean`. Now assume that something happens and the acting set
-   becomes `[3,1,2]`. Under these circumstances, OSD `3` is empty and can't
-   serve reads even though it is the primary. `osd.3` will respond by
-   requesting a *PG temp* of `[1,2,3]` to the monitors using a `MOSDPGTemp`
-   message, and `osd.1` will become the primary temporarily. `osd.1` will
-   select `osd.3` as a backfill peer and will continue to serve reads and
-   writes while `osd.3` is backfilled. When backfilling is complete, *PG
-   temp* is discarded. The acting set changes back to `[3,1,2]` and `osd.3`
+   primary OSD. Assume that the acting set is ``[0,1,2]`` and we are
+   ``active+clean``. Now assume that something happens and the acting set
+   becomes ``[3,1,2]``. Under these circumstances, OSD ``3`` is empty and can't
+   serve reads even though it is the primary. ``osd.3`` will respond by
+   requesting a *PG temp* of ``[1,2,3]`` to the monitors using a ``MOSDPGTemp``
+   message, and ``osd.1`` will become the primary temporarily. ``osd.1`` will
+   select ``osd.3`` as a backfill peer and will continue to serve reads and
+   writes while ``osd.3`` is backfilled. When backfilling is complete, *PG
+   temp* is discarded. The acting set changes back to ``[3,1,2]`` and ``osd.3``
    becomes the primary.
 
 *current interval* or *past interval*
@@ -78,7 +78,7 @@ fetched_at: 2026-08-18T01:32:45Z
 *missing set*
    the set of all objects that have not yet had their contents updated to match
    the log entries. The missing set is collated by each OSD. Missing sets are
-   kept track of on an `<OSD,PG>` basis.
+   kept track of on an ``<OSD,PG>`` basis.
 
 *Authoritative History*
    a complete and fully-ordered set of operations that bring an OSD's copy of a
@@ -174,27 +174,27 @@ The high level process is for the current PG primary to:
   1. for each member of the current *acting set*:
 
      a. ask it for copies of all PG log entries since *last epoch start*
-	so that I can verify that they agree with mine (or know what
-	objects I will be telling it to delete).
+        so that I can verify that they agree with mine (or know what
+        objects I will be telling it to delete).
 
-	If the cluster failed before an operation was persisted by all
-	members of the *acting set*, and the subsequent *peering* did not
-	remember that operation, and a node that did remember that
-	operation later rejoined, its logs would record a different
-	(divergent) history than the *authoritative history* that was
-	reconstructed in the *peering* after the failure.
+        If the cluster failed before an operation was persisted by all
+        members of the *acting set*, and the subsequent *peering* did not
+        remember that operation, and a node that did remember that
+        operation later rejoined, its logs would record a different
+        (divergent) history than the *authoritative history* that was
+        reconstructed in the *peering* after the failure.
 
-	Since the *divergent* events were not recorded in other logs
-	from that *acting set*, they were not acknowledged to the client,
-	and there is no harm in discarding them (so that all OSDs agree
-	on the *authoritative history*).  But, we will have to instruct
-	any OSD that stores data from a divergent update to delete the
-	affected (and now deemed to be apocryphal) objects.
+        Since the *divergent* events were not recorded in other logs
+        from that *acting set*, they were not acknowledged to the client,
+        and there is no harm in discarding them (so that all OSDs agree
+        on the *authoritative history*).  But, we will have to instruct
+        any OSD that stores data from a divergent update to delete the
+        affected (and now deemed to be apocryphal) objects.
 
      1. ask it for its *missing set* (object updates recorded
-	in its PG log, but for which it does not have the new data).
-	This is the list of objects that must be fully replicated
-	before we can accept writes.
+        in its PG log, but for which it does not have the new data).
+        This is the list of objects that must be fully replicated
+        before we can accept writes.
 
   1. at this point, the primary's PG log contains an *authoritative history* of
      the placement group, and the OSD now has sufficient
@@ -208,8 +208,8 @@ The high level process is for the current PG primary to:
   1. for each member of the current *acting set*:
 
      a. send them log updates to bring their PG logs into agreement with
-	my own (*authoritative history*) ... which may involve deciding
-	to delete divergent objects.
+        my own (*authoritative history*) ... which may involve deciding
+        to delete divergent objects.
 
      1. await acknowledgment that they have persisted the PG log entries.
 
@@ -218,27 +218,27 @@ The high level process is for the current PG primary to:
      updates.
 
      a. start accepting client write operations (because we have unanimous
-	agreement on the state of the objects into which those updates are
-	being accepted).  Note, however, that if a client tries to write to an
+        agreement on the state of the objects into which those updates are
+        being accepted).  Note, however, that if a client tries to write to an
         object it will be promoted to the front of the recovery queue, and the
         write willy be applied after it is fully replicated to the current *acting set*.
 
      1. update the *last epoch started* value in our local *PG info*, and instruct
-	other *active set* OSDs to do the same.
+        other *active set* OSDs to do the same.
 
      1. start pulling object data updates that other OSDs have, but I do not.  We may
-	need to query OSDs from additional *past intervals* prior to *last epoch started*
-	(the last time *peering* completed) and following *last epoch clean* (the last epoch that
-	recovery completed) in order to find copies of all objects.
+        need to query OSDs from additional *past intervals* prior to *last epoch started*
+        (the last time *peering* completed) and following *last epoch clean* (the last epoch that
+        recovery completed) in order to find copies of all objects.
 
      1. start pushing object data updates to other OSDs that do not yet have them.
 
-	We push these updates from the primary (rather than having the replicas
-	pull them) because this allows the primary to ensure that a replica has
-	the current contents before sending it an update write.  It also makes
-	it possible for a single read (from the primary) to be used to write
-	the data to multiple replicas.  If each replica did its own pulls,
-	the data might have to be read multiple times.
+        We push these updates from the primary (rather than having the replicas
+        pull them) because this allows the primary to ensure that a replica has
+        the current contents before sending it an update write.  It also makes
+        it possible for a single read (from the primary) to be used to write
+        the data to multiple replicas.  If each replica did its own pulls,
+        the data might have to be read multiple times.
 
   1. once all replicas store the all copies of all objects (that
      existed prior to the start of this epoch) we can update *last
@@ -265,4 +265,4 @@ $ dot -Tsvg doc/dev/peering_graph.generated.dot > doc/dev/peering_graph.generate
 
 Sample state model:
 
-.. image:: peering_graph.generated.svg
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/peering_graph.generated.svg)

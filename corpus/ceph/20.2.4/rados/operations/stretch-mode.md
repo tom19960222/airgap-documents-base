@@ -5,7 +5,7 @@ title: "Stretch Clusters"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/stretch-mode.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _stretch_mode:
+<a id="stretch-mode"></a>
 
 # Stretch Clusters
 
@@ -46,10 +46,10 @@ data-center failures without compromising data availability. When enough
 cluster components are brought back following a failure, the cluster will recover.
 If you lose a data center but are still able to form a quorum of monitors and
 still have replicas of all data available, Ceph will maintain availability. This
-assumes that the cluster has enough copies to satisfy the pools' `min_size`
+assumes that the cluster has enough copies to satisfy the pools' ``min_size``
 configuration option, or (failing that) that the cluster has CRUSH rules in
 place that will cause the cluster to re-replicate the data until the
-`min_size` configuration option has been met.
+``min_size`` configuration option has been met.
 
 # Stretch Cluster Issues
 
@@ -67,11 +67,11 @@ you might discover that your cluster does not satisfy those constraints.
 The first category of these failures that we will discuss involves inconsistent
 networks. If there is a netsplit (a failure that
 splits the network into two conceptual islands that cannot communicate with
-each other), Ceph might be unable to mark OSDs `down`
-and remove them from Placement Group (PG) acting sets. This failure to mark ODSs `down`
+each other), Ceph might be unable to mark OSDs ``down``
+and remove them from Placement Group (PG) acting sets. This failure to mark ODSs ``down``
 will occur despite the fact that the primary PG is unable to replicate data (a
 situation that, under normal non-netsplit circumstances, would result in the
-marking of affected OSDs as `down` and their removal from the PG). When this
+marking of affected OSDs as ``down`` and their removal from the PG). When this
 happens, Ceph will be unable to satisfy durability guarantees and
 consequently IO will not be permitted.
 
@@ -80,18 +80,18 @@ which the constraints are not sufficient to guarantee the replication of data
 across data centers, though it might seem that the data is correctly replicated.
 For example, in a scenario in which there are two data
 centers named Data Center A and Data Center B, and a CRUSH rule targets three
-replicas and places a replica in each data center for a pool with `min_size=2`,
+replicas and places a replica in each data center for a pool with ``min_size=2``,
 the PG might go active with two replicas in Data Center A and zero replicas in
 Data Center B. In this situation, the loss of Data Center A means
 that the data is unavailable and Ceph and clients will not be able to operate on it. This
 situation is difficult to avoid using only conventional CRUSH rules.
 
 # Individual Stretch Pools
-Setting individual `stretch pool` attributes allows for
+Setting individual ``stretch pool`` attributes allows for
 specific pools to be distributed across two or more data centers.
-This is done by executing the `ceph osd pool stretch set` command on each desired pool,
+This is done by executing the ``ceph osd pool stretch set`` command on each desired pool,
 contrasted with a cluster-wide strategy with *stretch mode*.
-See setting_values_for_a_stretch_pool
+See [setting_values_for_a_stretch_pool](pools.md#setting-values-for-a-stretch-pool)
 
 Use stretch mode when you have exactly two data centers and require a uniform
 configuration across the entire cluster. Conversely, opt for a stretch pool
@@ -104,45 +104,45 @@ Individual stretch pools do not support I/O operations during a netsplit
 scenario between two or more zones. While the cluster remains accessible for
 basic Ceph commands, I/O remains unavailable until the netsplit is
 resolved. This is different from stretch mode, where the tiebreaker monitor
-can isolate one CRUSH `datacenter` and serve I/O operations in degraded
-mode during a netsplit. See stretch_mode1
+can isolate one CRUSH ``datacenter`` and serve I/O operations in degraded
+mode during a netsplit. See [stretch_mode1](stretch-mode.md#stretch-mode1)
 
 Ceph is designed to tolerate multiple component failures. However, if more than 25% of
-the OSDs in the cluster go down, Ceph may stop marking OSDs `out`, which prevents rebalancing
-and may result in PGs becoming `inactive`. This behavior
-is controlled by the `mon_osd_min_in_ratio` option.
-The default value is `0.75`, meaning that at least 75% of the OSDs
-in the cluster must be `active` for any additional OSDs to be marked out.
+the OSDs in the cluster go down, Ceph may stop marking OSDs ``out``, which prevents rebalancing
+and may result in PGs becoming ``inactive``. This behavior
+is controlled by the ``mon_osd_min_in_ratio`` option.
+The default value is ``0.75``, meaning that at least 75% of the OSDs
+in the cluster must be ``active`` for any additional OSDs to be marked out.
 This setting prevents too many OSDs from being marked out as this might lead to
 cascading failures and an impactful thundering herd of data movement. This can
 cause substantial client impact and long recovery times when OSDs return to
-service. If Ceph stops marking OSDs `out`, some PGs may fail to
-rebalance to surviving OSDs, potentially leading to `inactive` PGs.
+service. If Ceph stops marking OSDs ``out``, some PGs may fail to
+rebalance to surviving OSDs, potentially leading to ``inactive`` PGs.
 See https://tracker.ceph.com/issues/68338 for more information.
 
-.. _stretch_mode1:
+<a id="stretch-mode1"></a>
 
 # Stretch Mode
 
 Stretch mode is designed to handle netsplit scenarios between two data centers as well
 as the loss of one data center. It handles the netsplit scenario by choosing the surviving zone
 that has the best connection to the tiebreaker Monitor. It handles the loss of one data center by
-reducing the `min_size` of all pools to `1`, allowing the cluster to continue operating
+reducing the ``min_size`` of all pools to ``1``, allowing the cluster to continue operating
 within the surviving data center. When the unavailable data center comes back, Ceph will
 converge according to configured replication policy and return to normal operation.
 
 ## Connectivity Monitor Election Strategy
-When using stretch mode, the Monitor election strategy must be set to `connectivity`.
+When using stretch mode, the Monitor election strategy must be set to ``connectivity``.
 This strategy tracks network connectivity between Monitors and is
 used to determine which data center should be favored when the cluster
 experiences netsplit.
 
-See Changing Monitor Elections
+See [Changing Monitor Elections](change-mon-elections.md)
 
 ## Stretch Peering Rule
-One critical behavior of stretch mode is its ability to prevent a PG from going `active` if the acting set
+One critical behavior of stretch mode is its ability to prevent a PG from going ``active`` if the acting set
 contains only replicas from a single data center. This safeguard is crucial for mitigating the risk of data
-loss during site failures because if a PG were allowed to go `active` with replicas only at a single site,
+loss during site failures because if a PG were allowed to go ``active`` with replicas only at a single site,
 writes could be acknowledged despite a lack of redundancy. In the event of a site failure, all data in the
 affected PG would be lost.
 
@@ -151,7 +151,7 @@ affected PG would be lost.
 To enable stretch mode, you must set the location of each monitor, correlating
 with the CRUSH topology.
 
-1. Place `mon.a` in your first data center:
+1. Place ``mon.a`` in your first data center:
 
 ```bash
 ceph mon set_location a datacenter=site1
@@ -165,9 +165,9 @@ ceph osd getcrushmap > crush.map.bin
 crushtool -d crush.map.bin -o crush.map.txt
 ```
 
-1. Edit the `crush.map.txt` file to add a new rule. Here there is only one
-   other rule (`id 1`), but you will likely need to use a different, unique rule ID. We
-   have two `datacenter` buckets named `site1` and `site2`:
+1. Edit the ``crush.map.txt`` file to add a new rule. Here there is only one
+   other rule (``id 1``), but you will likely need to use a different, unique rule ID. We
+   have two ``datacenter`` buckets named ``site1`` and ``site2``:
 
    :
 
@@ -185,13 +185,13 @@ crushtool -d crush.map.bin -o crush.map.txt
 ```
 
 > **Warning:** If a CRUSH rule is defined in stretch mode cluster and the
-> rule has multiple `take` steps, then `MAX AVAIL` for the pools
+> rule has multiple ``take`` steps, then ``MAX AVAIL`` for the pools
 > associated with the CRUSH rule will report that the available size is all
 > of the available space from the datacenter, not the available space for
 > the pools associated with the CRUSH rule.
 >
-> For example, consider a cluster with two CRUSH rules, `stretch_rule` and
-> `stretch_replicated_rule`::
+> For example, consider a cluster with two CRUSH rules, ``stretch_rule`` and
+> ``stretch_replicated_rule``::
 >
 >    rule stretch_rule {
 >         id 1
@@ -213,15 +213,15 @@ crushtool -d crush.map.bin -o crush.map.txt
 >            step emit
 >    }
 >
-> In the above example, `stretch_rule` will report an incorrect value for
-> `MAX AVAIL`. `stretch_replicated_rule` will report the correct value.
-> This is because `stretch_rule` is defined in such a way that
-> `PGMap::get_rule_avail` considers only the available capacity of a single
-> `datacenter`, and not (as would be correct) the total available capacity from
-> both `datacenters`.
+> In the above example, ``stretch_rule`` will report an incorrect value for
+> ``MAX AVAIL``. ``stretch_replicated_rule`` will report the correct value.
+> This is because ``stretch_rule`` is defined in such a way that
+> ``PGMap::get_rule_avail`` considers only the available capacity of a single
+> ``datacenter``, and not (as would be correct) the total available capacity from
+> both ``datacenters``.
 >
 > Here is a workaround. Instead of defining the stretch rule as defined in
-> the `stretch_rule` above, define it as follows::
+> the ``stretch_rule`` above, define it as follows::
 >
 >    rule stretch_rule {
 >      id 2
@@ -243,17 +243,17 @@ crushtool -c crush.map.txt -o crush2.map.bin
 ceph osd setcrushmap -i crush2.map.bin
 ```
 
-1. Run the Monitors in `connectivity` mode. See Changing Monitor Elections.
+1. Run the Monitors in ``connectivity`` mode. See [Changing Monitor Elections](change-mon-elections.md).
 
 ```bash
 ceph mon set election_strategy connectivity
 ```
 
-1. Direct the cluster to enter stretch mode. In this example, `mon.e` is the
-   tiebreaker Monitor and we are splitting across CRUSH `datacenters`. The tiebreaker
-   monitor must be assigned a CRUSH `datacenter` that is neither `site1` nor
-   `site2`. This data center **should not** be predefined in your CRUSH map. Here
-   we are placing `mon.e` in a virtual data center named `site3`:
+1. Direct the cluster to enter stretch mode. In this example, ``mon.e`` is the
+   tiebreaker Monitor and we are splitting across CRUSH ``datacenters``. The tiebreaker
+   monitor must be assigned a CRUSH ``datacenter`` that is neither ``site1`` nor
+   ``site2``. This data center **should not** be predefined in your CRUSH map. Here
+   we are placing ``mon.e`` in a virtual data center named ``site3``:
 
 ```bash
 ceph mon set_location e datacenter=site3
@@ -261,34 +261,32 @@ ceph mon enable_stretch_mode e stretch_rule datacenter
 ```
 
 When stretch mode is enabled, PGs will become active only when they peer across
-CRUSH `datacenter`s (or across whichever CRUSH bucket type was specified),
-assuming both are available. Pools will increase in size from the default `3`
-to `4`, and two replicas will be placed at each site. OSDs will be allowed to
+CRUSH ``datacenter``s (or across whichever CRUSH bucket type was specified),
+assuming both are available. Pools will increase in size from the default ``3``
+to ``4``, and two replicas will be placed at each site. OSDs will be allowed to
 connect to Monitors only if they are in the same data center as the Monitors.
 New Monitors will not be allowed to join the cluster if they do not specify a
 CRUSH location.
 
-If all OSDs and Monitors in one of the `datacenter`s become inaccessible at once,
-the cluster in the surviving `datacenter` enters  *degraded stretch mode*.
+If all OSDs and Monitors in one of the ``datacenter``s become inaccessible at once,
+the cluster in the surviving ``datacenter`` enters  *degraded stretch mode*.
 A health state warning will be
-raised, pools' `min_size` will be reduced to `1`, and the cluster will be
-allowed to go active with the components and data at the single remaining site. Pool `size`
+raised, pools' ``min_size`` will be reduced to ``1``, and the cluster will be
+allowed to go active with the components and data at the single remaining site. Pool ``size``
 does not change, so warnings will be raised that the PGs are undersized,
 but a special stretch mode flag will prevent the OSDs from
 creating extra copies in the remaining data center. This means that the data
 center will keep only two copies, just as before.
 
-When the inaccessible `datacenter` comes back, the cluster will enter *recovery
+When the inaccessible ``datacenter`` comes back, the cluster will enter *recovery
 stretch mode*. This changes the warning and allows peering, but requires OSDs
-only from the `datacenter` that was `up` throughout the duration of the
+only from the ``datacenter`` that was ``up`` throughout the duration of the
 downtime. When all PGs are in a known state, and are neither degraded nor
 undersized / incomplete, the cluster transitions back to regular stretch mode, ends the
-warning, restores pools' `min_size` to its original value of `2`, requires
+warning, restores pools' ``min_size`` to its original value of ``2``, requires
 PGs at both sites to peer, and no longer requires the site that was up throughout the
 duration of the downtime when peering. This makes failover to the other site
 possible, if needed.
-
-.. _Changing Monitor elections: ../change-mon-elections
 
 ## Exiting Stretch Mode
 To exit stretch mode, run the following command:
@@ -306,8 +304,8 @@ ceph mon disable_stretch_mode [{crush_rule}] --yes-i-really-mean-it
    :Required: No.
 
 This command moves the cluster back to normal mode; the cluster will no longer
-be in stretch mode.  All pools will be set with their prior `size` and
-`min_size` values. At this point the user is responsible for scaling down the
+be in stretch mode.  All pools will be set with their prior ``size`` and
+``min_size`` values. At this point the user is responsible for scaling down the
 cluster to the desired number of OSDs if they choose to operate with fewer
 OSDs.
 
@@ -330,17 +328,17 @@ while in stretch mode.
 To use stretch mode, you will need to create a CRUSH rule that provides two
 replicas in each data center. Ensure that there are four total replicas: two in
 each data center. If pools exist in the cluster that do not have the default
-`size` or `min_size`, Ceph will not enter stretch mode. An example of such
+``size`` or ``min_size``, Ceph will not enter stretch mode. An example of such
 a CRUSH rule is given above.
 
-Because stretch mode runs with poos' `min_size` set to `1`
+Because stretch mode runs with poos' ``min_size`` set to ``1``
 , we recommend enabling stretch mode only when using OSDs on
 SSDs. Hybrid HDD+SSD or HDD-only OSDs are not recommended
 due to the long time it takes for them to recover after connectivity between
 data centers has been restored. This reduces the potential for data loss.
 
 > **Warning:** CRUSH rules that specify a device class are not supported in stretch mode.
-> For example, the following rule specifying the `ssd` device class will not work::
+> For example, the following rule specifying the ``ssd`` device class will not work::
 >
 >    rule stretch_replicated_rule {
 >               id 2
@@ -373,10 +371,10 @@ Monitor manually.
 ## Using "--set-crush-location" and not "ceph mon set_location"
 
 If you employ your own tooling for deploying Ceph, use the
-`--set-crush-location` option when booting Monitors instead of running ``ceph
-mon set_location`. This option accepts only a single `bucket=loc`` parameter, for
-example `ceph-mon --set-crush-location 'datacenter=a'`, and that parameter's
-CRUSH bucket type must match the bucket type that was specified when running `enable_stretch_mode`.
+``--set-crush-location`` option when booting Monitors instead of running ``ceph
+mon set_location``. This option accepts only a single ``bucket=loc`` parameter, for
+example ``ceph-mon --set-crush-location 'datacenter=a'``, and that parameter's
+CRUSH bucket type must match the bucket type that was specified when running ``enable_stretch_mode``.
 
 ## Forcing recovery stretch mode
 
@@ -400,5 +398,5 @@ recovered), run the following command:
 ceph osd force_healthy_stretch_mode --yes-i-really-mean-it
 ```
 
-This command can be used to to remove the `HEALTH_WARN` state, which recovery
+This command can be used to to remove the ``HEALTH_WARN`` state, which recovery
 mode raises.

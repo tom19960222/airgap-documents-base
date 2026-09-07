@@ -108,17 +108,14 @@ Ceph can use Blkin, a library created by Marios Kogias and others,
 which enables tracking a specific request from the time it enters
 the system at higher levels till it is finally served by RADOS.
 
-In general, Blkin implements the Dapper_ tracing semantics
+In general, Blkin implements the [Dapper](http://static.googleusercontent.com/media/research.google.com/el//pubs/archive/36356.pdf) tracing semantics
 in order to show the causal relationships between the different
 processing phases that an IO request may trigger. The goal is an
 end-to-end visualisation of the request's route in the system,
 accompanied by information concerning latencies in each processing
 phase. Thanks to LTTng this can happen with a minimal overhead and
 in realtime. The LTTng traces can then be visualized with Twitter's
-Zipkin_.
-
-.. _Dapper: http://static.googleusercontent.com/media/research.google.com/el//pubs/archive/36356.pdf
-.. _Zipkin: https://zipkin.io/
+[Zipkin](https://zipkin.io/).
 
 # Configuring Ceph with Blkin
 
@@ -141,7 +138,7 @@ osdc_blkin_trace_all
 
 It's easy to test Ceph's Blkin tracing. Let's assume you don't have
 Ceph already running, and you compiled Ceph with Blkin support but
-you didn't install it. Then launch Ceph with the `vstart.sh` script
+you didn't install it. Then launch Ceph with the ``vstart.sh`` script
 in Ceph's src directory so you can see the possible tracepoints.:
 
 ```
@@ -209,7 +206,7 @@ md5sum vstart*
 rados rm test-object-1 --pool=test-blkin
 ```
 
-You could also use the example in `examples/librados/` or `rados bench`.
+You could also use the example in ``examples/librados/`` or ``rados bench``.
 
 Then stop the LTTng session and see what was collected.:
 

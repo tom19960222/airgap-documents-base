@@ -33,7 +33,7 @@ fetched_at: 2026-08-18T01:32:45Z
 file. A keyring file stores one or more Ceph authentication keys and
 possibly an associated capability specification. Each key is
 associated with an entity name, of the form
-`{client,mon,mds,osd}.name`.
+``{client,mon,mds,osd}.name``.
 
 **WARNING** Ceph provides authentication and protection against
 man-in-the-middle attacks once secret keys are in place.  However,
@@ -96,25 +96,27 @@ used in trusted environments.
 
 # Capabilities
 
-The subsystem is the name of a Ceph subsystem: `mon`, `mds`, or
-`osd`.
+The subsystem is the name of a Ceph subsystem: ``mon``, ``mds``, or
+``osd``.
 
 The capability is a string describing what the given user is allowed
 to do. This takes the form of a comma separated list of allow
 clauses with a permission specifier containing one or more of rwx for
-read, write, and execute permission. The `allow *` grants full
+read, write, and execute permission. The ``allow *`` grants full
 superuser permissions for the given subsystem.
 
-For example::
+For example:
 
-	# can read, write, and execute objects
-        osd = "allow rwx"
+```
+# can read, write, and execute objects
+osd = "allow rwx"
 
-	# can access mds server
-        mds = "allow"
+# can access mds server
+mds = "allow"
 
-	# can modify cluster state (i.e., is a server daemon)
-        mon = "allow rwx"
+# can modify cluster state (i.e., is a server daemon)
+mon = "allow rwx"
+```
 
 A librados user restricted to a single pool might look like:
 
@@ -177,9 +179,9 @@ names begin with 'prefix' in any pool.
 # Caps file format
 
 The caps file format consists of zero or more key/value pairs, one per
-line. The key and value are separated by an `=`, and the value must
-be quoted (with `'` or `"`) if it contains any whitespace. The key
-is the name of the Ceph subsystem (`osd`, `mds`, `mon`), and the
+line. The key and value are separated by an ``=``, and the value must
+be quoted (with ``'`` or ``"``) if it contains any whitespace. The key
+is the name of the Ceph subsystem (``osd``, ``mds``, ``mon``), and the
 value is the capability string (see above).
 
 # Example
@@ -217,4 +219,4 @@ information.
 
 # See also
 
-ceph\(8)
+[ceph](../../install/clone-source.md)\(8)

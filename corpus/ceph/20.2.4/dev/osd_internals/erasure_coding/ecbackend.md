@@ -66,8 +66,7 @@ include the chunk id in the object key.
 
 Core changes:
 
-- The object store `ghobject_t needs to also include a chunk id
-  <https://github.com/ceph/ceph/blob/firefly/src/common/hobject.h#L241>`_ making it more like
+- The object store [ghobject_t needs to also include a chunk id](https://github.com/ceph/ceph/blob/firefly/src/common/hobject.h#L241) making it more like
   tuple<hobject_t, gen_t, shard_t>.
 - coll_t needs to include a shard_t.
 - The OSD pg_map and similar PG mappings need to work in terms of a

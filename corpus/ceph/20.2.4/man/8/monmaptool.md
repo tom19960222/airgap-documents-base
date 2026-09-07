@@ -149,5 +149,5 @@ for more information.
 
 # See also
 
-ceph\(8),
-crushtool\(8),
+[ceph](../../install/clone-source.md)\(8),
+[crushtool](crushtool.md)\(8),

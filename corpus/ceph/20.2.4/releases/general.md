@@ -5,7 +5,7 @@ title: "Ceph Releases (general)"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/releases/general.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-releases-general:
+<a id="ceph-releases-general"></a>
 
 # Ceph Releases (general)
 
@@ -55,17 +55,15 @@ the next point release.
 
 For each stable release:
 
-* `Integration and upgrade tests
-  <https://github.com/ceph/ceph/tree/master/qa/suites/>`_ are run on a regular basis
+* [Integration and upgrade tests](https://github.com/ceph/ceph/tree/master/qa/suites/) are run on a regular basis
   and [their results](http://pulpito.ceph.com/) analyzed by Ceph
   developers.
 * [Issues](http://tracker.ceph.com/projects/ceph/issues?query_id=27)
   fixed in the development branch (master) are scheduled to be backported.
-* When an issue found in the stable release is `reported
-  <http://tracker.ceph.com/projects/ceph/issues/new>`_, it is
+* When an issue found in the stable release is [reported](http://tracker.ceph.com/projects/ceph/issues/new), it is
   triaged by Ceph developers.
 * The [stable releases and backport team](http://tracker.ceph.com/projects/ceph-releases/wiki)
-  publishes `point releases` including fixes that have been backported to the stable release.
+  publishes ``point releases`` including fixes that have been backported to the stable release.
 
 ## Lifetime of stable releases
 
@@ -75,4 +73,4 @@ For example, Mimic (13.2.z) will reach end of life (EOL) shortly after Octopus
 (15.2.0) is released. The lifetime of a release may vary because it depends on
 how quickly the stable releases are published.
 
-Detailed information on all releases, past and present, can be found at ceph-releases-index
+Detailed information on all releases, past and present, can be found at [ceph-releases-index](index.md#ceph-releases-index)

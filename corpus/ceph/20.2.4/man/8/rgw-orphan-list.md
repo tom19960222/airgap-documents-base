@@ -65,5 +65,5 @@ https://docs.ceph.com for more information.
 
 # See also
 
-radosgw-admin\(8)
-ceph-diff-sorted\(8)
+[radosgw-admin](radosgw-admin.md)\(8)
+[ceph-diff-sorted](ceph-diff-sorted.md)\(8)

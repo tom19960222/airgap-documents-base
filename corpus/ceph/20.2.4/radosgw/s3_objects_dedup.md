@@ -15,15 +15,15 @@ Add a radosgw-admin command to collect and report deduplication stats
 ----
 
 ### Admin commands:
-- `radosgw-admin dedup stats`:
+- ``radosgw-admin dedup stats``:
    Collects & displays last dedup statistics
-- `radosgw-admin dedup pause`:
+- ``radosgw-admin dedup pause``:
    Pauses active dedup session (dedup resources are not released)
-- `radosgw-admin dedup resume`:
+- ``radosgw-admin dedup resume``:
    Resumes a paused dedup session
-- `radosgw-admin dedup abort`:
+- ``radosgw-admin dedup abort``:
    Aborts active dedup session and release all resources used by it
-- `radosgw-admin dedup estimate`
+- ``radosgw-admin dedup estimate``
     Starts a new dedup estimate session (aborting first existing session if exists)
 
 ----
@@ -62,15 +62,6 @@ caching)
 ----
 
 ### Memory Usage:
- +---------------++-----------+
- | RGW Obj Count |  Memory    |
- +===============++===========+
- | | ____1M      | | ___8MB   |
- | | ____4M      | | __16MB   |
- | | ___16M      | | __32MB   |
- | | ___64M      | | __64MB   |
- | | __256M      | | _128MB   |
- | | _1024M( 1G) | | _256MB   |
- | | _4096M( 4G) | | _512MB   |
- | | 16384M(16G) | | 1024MB   |
- +---------------+------------+
+| RGW Obj Count | Memory |
+| --- | --- |
+| \| ____1M <br> \| ____4M <br> \| ___16M <br> \| ___64M <br> \| __256M <br> \| _1024M( 1G) <br> \| _4096M( 4G) <br> \| 16384M(16G) | \| ___8MB <br> \| __16MB <br> \| __32MB <br> \| __64MB <br> \| _128MB <br> \| _256MB <br> \| _512MB <br> \| 1024MB |

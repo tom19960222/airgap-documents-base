@@ -20,7 +20,7 @@ the lowest level of authority necessary.
 # Path restriction
 
 By default, clients are not restricted in the paths that they are allowed to
-mount. When clients mount a subdirectory (for example `/home/user`), the MDS
+mount. When clients mount a subdirectory (for example ``/home/user``), the MDS
 does not by default verify that subsequent operations are "locked" within that
 directory.
 
@@ -31,21 +31,20 @@ This restriction impacts *only* the filesystem hierarchy, or, in other words,
 the metadata tree that is managed by the MDS. Clients will still be able to
 access the underlying file data in RADOS directly. To segregate clients fully,
 isolate untrusted clients in their own RADOS namespace. You can place a
-client's filesystem subtree in a particular namespace using :ref:`file
-layouts<file-layouts>` and then restrict their RADOS access to that namespace
-using OSD capabilities.
+client's filesystem subtree in a particular namespace using [file layouts](file-layouts.md#file-layouts) and then restrict their RADOS access to that namespace
+using [OSD capabilities](../rados/operations/user-management.md#modify-user-capabilities).
 
 ## Syntax
 
-To grant `rw` access to the specified directory only, mention the specified
+To grant ``rw`` access to the specified directory only, mention the specified
 directory while creating key for a client. Use a command of the following form:
 
 ```bash
 ceph fs authorize <fs_name> client.<client_id> <path-in-cephfs> rw
 ```
 
-For example, to restrict a client named `foo` so that it can write only in
-the `bar` directory of file system `cephfs_a`, run the following command:
+For example, to restrict a client named ``foo`` so that it can write only in
+the ``bar`` directory of file system ``cephfs_a``, run the following command:
 
 ```bash
 ceph fs authorize cephfs_a client.foo / r /bar rw
@@ -61,7 +60,7 @@ client.foo
   caps: [osd] allow rw tag cephfs data=cephfs_a
 ```
 
-To completely restrict the client to the `bar` directory, omit the
+To completely restrict the client to the ``bar`` directory, omit the
 root directory :
 
 ```bash
@@ -72,11 +71,11 @@ If a client's read access is restricted to a path, the client will be able to
 mount the file system only by specifying a readable path in the mount command
 (see below).
 
-Supplying `all` or `*` as the file system name grants access to every file
-system. It is usually necessary to quote `*` to protect it from the
+Supplying ``all`` or ``*`` as the file system name grants access to every file
+system. It is usually necessary to quote ``*`` to protect it from the
 shell.
 
-See User Management - Add a User to a Keyring for more on user management.
+See [User Management - Add a User to a Keyring](../rados/operations/user-management.md#add-a-user-to-a-keyring) for more on user management.
 
 To restrict a client to only the specified sub-directory, mention the specified
 directory while mounting. Use a command of the following form:
@@ -85,7 +84,7 @@ directory while mounting. Use a command of the following form:
 ceph-fuse -n client.<client_id> <mount-path> -r *directory_to_be_mounted*
 ```
 
-For example, to restrict client `foo` to `mnt/bar` directory, use the
+For example, to restrict client ``foo`` to ``mnt/bar`` directory, use the
 following command:
 
 ```bash
@@ -94,7 +93,7 @@ ceph-fuse -n client.foo mnt -r /bar
 
 ## Reporting free space
 
-When a client has mounted a sub-directory, the used space (`df`) is
+When a client has mounted a sub-directory, the used space (``df``) is
 calculated from the quota on that sub-directory rather than from the overall
 amount of space used on the CephFS file system.
 
@@ -110,17 +109,17 @@ If quotas are not enabled or if no quota is set on the mounted sub-directory,
 then the overall usage of the file system will be reported irrespective of the
 value of this setting.
 
-.. _cephfs-layout-and-quota-restriction:
+<a id="cephfs-layout-and-quota-restriction"></a>
 
 # Layout and Quota restriction (the 'p' flag)
 
-To set layouts or quotas, clients require the `p` flag in addition to `rw`.
-Using the `p` flag with `rw` restricts all the attributes that are set by
-special extended attributes by using a `ceph.` prefix, and restricts
-other means of setting these fields (such as `openc` operations with layouts).
+To set layouts or quotas, clients require the ``p`` flag in addition to ``rw``.
+Using the ``p`` flag with ``rw`` restricts all the attributes that are set by
+special extended attributes by using a ``ceph.`` prefix, and restricts
+other means of setting these fields (such as ``openc`` operations with layouts).
 
-For example, in the following snippet `client.0` can modify layouts and
-quotas on the file system `cephfs_a`, but `client.1` cannot:
+For example, in the following snippet ``client.0`` can modify layouts and
+quotas on the file system ``cephfs_a``, but ``client.1`` cannot:
 
 ```
 client.0
@@ -138,13 +137,13 @@ client.1
 
 # Snapshot restriction (the 's' flag)
 
-To create or delete snapshots, clients require the `s` flag in addition to
-`rw`. Note that when capability string also contains the `p` flag, the
-`s` flag must appear after it (all flags except `rw` must be specified in
+To create or delete snapshots, clients require the ``s`` flag in addition to
+``rw``. Note that when capability string also contains the ``p`` flag, the
+``s`` flag must appear after it (all flags except ``rw`` must be specified in
 alphabetical order).
 
-For example, in the following snippet `client.0` can create or delete snapshots
-in the `bar` directory of file system `cephfs_a`:
+For example, in the following snippet ``client.0`` can create or delete snapshots
+in the ``bar`` directory of file system ``cephfs_a``:
 
 ```
 client.0
@@ -153,8 +152,6 @@ client.0
     caps: [mon] allow r
     caps: [osd] allow rw tag cephfs data=cephfs_a
 ```
-
-.. _User Management - Add a User to a Keyring: ../../rados/operations/user-management/#add-a-user-to-a-keyring
 
 # Network restriction
 
@@ -168,12 +165,12 @@ client.foo
   caps: [osd] allow rw tag cephfs data=cephfs_a network 10.0.0.0/8
 ```
 
-The optional `{network/prefix}` is a standard network-name-and-prefix length
-in CIDR notation (for example, `10.3.0.0/16`). If `{network/prefix}}` is
+The optional ``{network/prefix}`` is a standard network-name-and-prefix length
+in CIDR notation (for example, ``10.3.0.0/16``). If ``{network/prefix}}`` is
 present, the use of this capability is restricted to clients connecting from
 this network.
 
-.. _fs-authorize-multifs:
+<a id="fs-authorize-multifs"></a>
 
 # File system Information Restriction
 
@@ -195,7 +192,7 @@ name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]
 name: cephfs2, metadata pool: cephfs2_metadata, data pools: [cephfs2_data ]
 ```
 
-We authorize client `someuser` for only one file system:
+We authorize client ``someuser`` for only one file system:
 
 ```bash
 ceph fs authorize cephfs client.someuser / rw
@@ -236,7 +233,7 @@ name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]
 
 Standby MDS daemons are always displayed. Information about restricted MDS
 daemons and file systems may become available by other means, such as by
-running `ceph health detail`.
+running ``ceph health detail``.
 
 # MDS communication restriction
 
@@ -258,7 +255,7 @@ name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]
 name: cephfs2, metadata pool: cephfs2_metadata, data pools: [cephfs2_data ]
 ```
 
-Client `someuser` is authorized for only one file system:
+Client ``someuser`` is authorized for only one file system:
 
 ```bash
 ceph fs authorize cephfs client.someuser / rw
@@ -295,15 +292,15 @@ cat ceph.client.someuser.keyring
     caps osd = "allow rw tag cephfs data=cephfs"
 ```
 
-Mounting `cephfs1` on the already-created mount point  `/mnt/cephfs1`  with
-`someuser` works:
+Mounting ``cephfs1`` on the already-created mount point  ``/mnt/cephfs1``  with
+``someuser`` works:
 
 ```bash
 sudo ceph-fuse /mnt/cephfs1 -n client.someuser -k ceph.client.someuser.keyring --client-fs=cephfs
 ```
 
-> **Note:** If `/mnt/cephfs` does not exist prior to running the above command,
-> create it by running `mkdir /mnt/cephfs1`.
+> **Note:** If ``/mnt/cephfs`` does not exist prior to running the above command,
+> create it by running ``mkdir /mnt/cephfs1``.
 
 :
 
@@ -322,7 +319,7 @@ mount | grep ceph-fuse
 ceph-fuse on /mnt/cephfs1 type fuse.ceph-fuse (rw,nosuid,nodev,relatime,user_id=0,group_id=0,allow_other)
 ```
 
-Mounting `cephfs2` with `someuser` does not work:
+Mounting ``cephfs2`` with ``someuser`` does not work:
 
 ```bash
 sudo ceph-fuse /mnt/cephfs2 -n client.someuser -k ceph.client.someuser.keyring --client-fs=cephfs2
@@ -337,16 +334,16 @@ ceph-fuse[96599]: ceph mount failed with (1) Operation not permitted
 
 # Root squash
 
-The `root squash` feature is implemented as a safety measure to prevent
+The ``root squash`` feature is implemented as a safety measure to prevent
 scenarios such as an accidental forced removal of a path (for example, ``sudo
-rm -rf /path`). Enable `root_squash`` mode in MDS caps to disallow clients
-with `uid=0` or `gid=0` to perform write access operations (for example
-`rm`, `rmdir`, `rmsnap`, `mkdir`, and `mksnap`). This mode permits
+rm -rf /path``). Enable ``root_squash`` mode in MDS caps to disallow clients
+with ``uid=0`` or ``gid=0`` to perform write access operations (for example
+``rm``, ``rmdir``, ``rmsnap``, ``mkdir``, and ``mksnap``). This mode permits
 the read operations on a root client, unlike the behavior of other file
 systems.
 
-Here is an example of enabling `root_squash` in a filesystem, except within
-the `/volumes` directory tree in the filesystem:
+Here is an example of enabling ``root_squash`` in a filesystem, except within
+the ``/volumes`` directory tree in the filesystem:
 
 ```bash
 ceph fs authorize a client.test_a / rw root_squash /volumes rw
@@ -357,20 +354,19 @@ ceph auth get client.test_a
 
 ```
 [client.test_a]
+    key = AQBZcDpfEbEUKxAADk14VflBXt71rL9D966mYA==
+    caps mds = "allow rw fsname=a root_squash, allow rw fsname=a path=/volumes"
+    caps mon = "allow r fsname=a"
+    caps osd = "allow rw tag cephfs data=a"
 ```
-
-	key = AQBZcDpfEbEUKxAADk14VflBXt71rL9D966mYA==
-	caps mds = "allow rw fsname=a root_squash, allow rw fsname=a path=/volumes"
-	caps mon = "allow r fsname=a"
-	caps osd = "allow rw tag cephfs data=a"
 
 # Updating Capabilities using ``fs authorize``
 
-Beginning with the Reef release of Ceph, `fs authorize` can be used to add
+Beginning with the Reef release of Ceph, ``fs authorize`` can be used to add
 new caps to an existing client (for another CephFS or another path in the same
 file system).
 
-The following example demonstrates the behavior that results from running the command `ceph fs authorize a client.x / rw` twice.
+The following example demonstrates the behavior that results from running the command ``ceph fs authorize a client.x / rw`` twice.
 
 1. Create a new client:
 
@@ -401,7 +397,7 @@ ceph auth get client.x
       caps osd = "allow rw tag cephfs data=a"
 ```
 
-1. Previously, running `fs authorize a client.x / rw` a second time printed
+1. Previously, running ``fs authorize a client.x / rw`` a second time printed
    an error message. In the Reef release and in later releases, this command
    prints a message reporting that the capabilities did not get updated:
 
@@ -471,17 +467,17 @@ ceph auth get client.x
 
 ## Changing rw permissions in caps
 
-Capabilities can be modified by running `fs authorize` only in the case when
+Capabilities can be modified by running ``fs authorize`` only in the case when
 read/write permissions must be changed. This is because the command ``fs
-authorize` becomes ambiguous. For example, a user runs `fs authorize cephfs1
-client.x /dir1 rw` to create a client and then runs `fs authorize cephfs1
-client.x /dir2 rw` (notice that `/dir1` has been changed to `/dir2``).
-Running the second command could be interpreted to change `/dir1` to
-`/dir2` with current capabilities or could be interpreted to authorize the
-client with a new capability for the path `/dir2`. As shown previously, the
+authorize`` becomes ambiguous. For example, a user runs ``fs authorize cephfs1
+client.x /dir1 rw`` to create a client and then runs ``fs authorize cephfs1
+client.x /dir2 rw`` (notice that ``/dir1`` has been changed to ``/dir2``).
+Running the second command could be interpreted to change ``/dir1`` to
+``/dir2`` with current capabilities or could be interpreted to authorize the
+client with a new capability for the path ``/dir2``. As shown previously, the
 second interpretation is chosen and it is therefore impossible to update a part
-of the capabilities granted except `rw` permissions. The following shows how
-read/write permissions for `client.x` can be changed:
+of the capabilities granted except ``rw`` permissions. The following shows how
+read/write permissions for ``client.x`` can be changed:
 
 ```bash
 ceph fs authorize a client.x / r
@@ -505,9 +501,9 @@ ceph auth get client.x
 
 ## ``fs authorize`` never deducts any part of caps
 Capabilities that have been issued to a client can not be removed by running
-`fs authorize` again. For example, if a client capability has `root_squash`
-applied on a certain CephFS, running `fs authorize` again for the same CephFS
-but without `root_squash` will not lead to any update and the client caps will
+``fs authorize`` again. For example, if a client capability has ``root_squash``
+applied on a certain CephFS, running ``fs authorize`` again for the same CephFS
+but without ``root_squash`` will not lead to any update and the client caps will
 remain unchanged:
 
 ```bash
@@ -547,10 +543,10 @@ ceph fs authorize a client.x / rw
 no update was performed for caps of client.x. caps of client.x remains unchanged.
 ```
 
-If a client already has a capability for file-system name `a` and path
-`dir1`, running `fs authorize` again for FS name `a` but path `dir2`,
+If a client already has a capability for file-system name ``a`` and path
+``dir1``, running ``fs authorize`` again for FS name ``a`` but path ``dir2``,
 instead of modifying the capabilities client already holds, a new cap for
-`dir2` will be granted:
+``dir2`` will be granted:
 
 ```bash
 ceph fs authorize a client.x /dir1 rw

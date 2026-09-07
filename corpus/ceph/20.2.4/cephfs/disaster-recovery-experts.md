@@ -5,7 +5,7 @@ title: "Advanced: Metadata repair tools"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/disaster-recovery-experts.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _disaster-recovery-experts:
+<a id="disaster-recovery-experts"></a>
 
 # Advanced: Metadata repair tools
 
@@ -54,9 +54,9 @@ attempt to recover file metadata by running the following command:
 cephfs-journal-tool event recover_dentries summary
 ```
 
-By default, this command acts on MDS rank `0`. Pass the option `--rank=<n>`
-to the `cephfs-journal-tool` command to operate on other ranks or pass
-`--rank=all` to operate on all MDS ranks.
+By default, this command acts on MDS rank ``0``. Pass the option ``--rank=<n>``
+to the ``cephfs-journal-tool`` command to operate on other ranks or pass
+``--rank=all`` to operate on all MDS ranks.
 
 This command writes all inodes and dentries recoverable from the journal into
 the backing store, but only if these inodes and dentries are higher-versioned
@@ -64,7 +64,7 @@ than the existing contents of the backing store. Any regions of the journal
 that are missing or damaged will be skipped.
 
 In addition to writing out dentries and inodes, this command updates the
-InoTables of each `in` MDS rank, to indicate that any written inodes' numbers
+InoTables of each ``in`` MDS rank, to indicate that any written inodes' numbers
 are now in use. In simple cases, this will result in an entirely valid backing
 store state.
 
@@ -83,11 +83,11 @@ that an MDS cannot replay:
 cephfs-journal-tool [--rank=<fs_name>:{mds-rank|all}] journal reset --yes-i-really-really-mean-it
 ```
 
-Specify the filesystem and the MDS rank using the `--rank` option when the
+Specify the filesystem and the MDS rank using the ``--rank`` option when the
 file system has or had multiple active MDS daemons.
 
 > **Warning:** Resetting the journal *will* cause metadata to be lost unless the
-> journal data has been extracted by other means such as `recover_dentries`.
+> journal data has been extracted by other means such as ``recover_dentries``.
 > Resetting the journal is likely to leave orphaned objects in the data pool
 > and could result in the re-allocation of already-written inodes resulting in
 > faulty behaviour of the file system (bugs, etc..).
@@ -118,7 +118,7 @@ Snap table:
 rados -p <metadata-pool> stat mds_snaptable
 ```
 
-> **Note:** The `sessionmap` and the `inotable` objects are per MDS rank (the
+> **Note:** The ``sessionmap`` and the ``inotable`` objects are per MDS rank (the
 > object names have rank number - mds0_inotable, mds1_inotable, etc..).
 
 Even if a table object exists, it can be inconsistent with the metadata stored
@@ -146,8 +146,8 @@ cephfs-table-tool 0 reset inode
 ```
 
 The above commands act on the tables of a particular MDS rank. To operate on
-all MDS ranks that are in the `in` state, replace the MDS rank in the above
-commands with `all`, as shown in the following commands:
+all MDS ranks that are in the ``in`` state, replace the MDS rank in the above
+commands with ``all``, as shown in the following commands:
 
 Session table:
 
@@ -182,22 +182,22 @@ ceph fs reset <fs name> --yes-i-really-mean-it
 ```
 
 After this command has been run, any in-RADOS state for MDS ranks other than
-`0` will be ignored. This means that running this command can result in data
+``0`` will be ignored. This means that running this command can result in data
 loss.
 
-There is a difference between the effects of the `fs reset` command and the
-`fs remove` command. The `fs reset` command leaves rank `0` in the
-`active` state so that the next MDS daemon to claim the rank uses the
-existing in-RADOS metadata. The `fs remove` command leaves rank `0` in the
-`creating` state, which means that existing root inodes on disk will be
-overwritten. Running the `fs remove` command will orphan any existing files.
+There is a difference between the effects of the ``fs reset`` command and the
+``fs remove`` command. The ``fs reset`` command leaves rank ``0`` in the
+``active`` state so that the next MDS daemon to claim the rank uses the
+existing in-RADOS metadata. The ``fs remove`` command leaves rank ``0`` in the
+``creating`` state, which means that existing root inodes on disk will be
+overwritten. Running the ``fs remove`` command will orphan any existing files.
 
 ## Recovery from missing metadata objects
 
 Depending on which objects are missing or corrupt, you may need to run
 additional commands to regenerate default versions of the objects.
 
-If the root inode or MDS directory (`~mdsdir`) is missing or corrupt, run the following command:
+If the root inode or MDS directory (``~mdsdir``) is missing or corrupt, run the following command:
 
 Root inodes ("/" and MDS directory):
 
@@ -209,9 +209,9 @@ This is generally safe to run, because this command skips generating the root
 inode and the mdsdir inode if they exist. But if these inodes are corrupt, then
 they must be regenerated. Corruption can be identified by trying to bring the
 file system back online (at which point the MDS would transition into
-`down:damaged` with an appropriate log message [in the MDS log] pointing at
+``down:damaged`` with an appropriate log message [in the MDS log] pointing at
 potential issues when loading the root inode or the mdsdir inode).  Another
-method is to use the `ceph-dencoder` tool to decode the inodes.  This step is
+method is to use the ``ceph-dencoder`` tool to decode the inodes.  This step is
 a bit more involved.
 
 Finally, you can regenerate metadata objects for missing files and directories
@@ -236,14 +236,14 @@ cephfs-data-scan scan_inodes [<data pool>]
 cephfs-data-scan scan_links
 ```
 
-The `scan_extents` and `scan_inodes` commands may take a *very long* time
+The ``scan_extents`` and ``scan_inodes`` commands may take a *very long* time
 if the data pool contains many files or very large files.
 
-To accelerate the process of running `scan_extents` or `scan_inodes`, run
+To accelerate the process of running ``scan_extents`` or ``scan_inodes``, run
 multiple instances of the tool:
 
 Decide on a number of workers, and pass each worker a number within
-the range `0-(worker_m - 1)` (that is, 'zero to "worker_m" minus 1').
+the range ``0-(worker_m - 1)`` (that is, 'zero to "worker_m" minus 1').
 
 The example below shows how to run four workers simultaneously:
 
@@ -270,7 +270,7 @@ cephfs-data-scan scan_inodes --worker_n 3 --worker_m 4
 ```
 
 It is **important** to ensure that all workers have completed the
-`scan_extents` phase before any worker enters the `scan_inodes` phase.
+``scan_extents`` phase before any worker enters the ``scan_inodes`` phase.
 
 After completing the metadata recovery process, you may want to run a cleanup
 operation to delete ancillary data generated during recovery. Use a command of
@@ -294,11 +294,11 @@ cephfs-data-scan cleanup --worker_n 3 --worker_m 4
 ```
 
 > **Note:**
-> The data pool parameters for `scan_extents`, `scan_inodes` and
-> `cleanup` commands are optional, and usually the tool will be able to
+> The data pool parameters for ``scan_extents``, ``scan_inodes`` and
+> ``cleanup`` commands are optional, and usually the tool will be able to
 > detect the pools automatically. Still, you may override this. The
-> `scan_extents` command requires that all data pools be specified, but the
-> `scan_inodes` and `cleanup` commands require only that you specify the
+> ``scan_extents`` command requires that all data pools be specified, but the
+> ``scan_inodes`` and ``cleanup`` commands require only that you specify the
 > main data pool.
 
 ## Known Limitations And Pitfalls
@@ -316,16 +316,16 @@ limitations and pitfalls before attempting disaster recovery:
 1. It is important to perform a file system scrub after recovery before CephFS
    clients start using the file system.
 1. In general, we do not recommend that you change any MDS-related settings
-   (for example, `max_mds`) while things are broken.
+   (for example, ``max_mds``) while things are broken.
 1. Disaster recovery is currently a manual process. There is a plan to automate
    the recovery via the Disaster Recovery Super Tool. See
    https://tracker.ceph.com/issues/71804 for details.
 1. A well-known trick (used by some community users) is to use the disaster
-   recovery procedure (especially the `recover_dentries` step) when the MDS
-   is somewhat stuck in the `up_replay` state due to a long journal. Before
-   jumping onto invoking `recover_dentries` when the MDS takes a bit long to
+   recovery procedure (especially the ``recover_dentries`` step) when the MDS
+   is somewhat stuck in the ``up_replay`` state due to a long journal. Before
+   jumping onto invoking ``recover_dentries`` when the MDS takes a bit long to
    replay the journal, consider trying to speed up journal replay by following
-   the procedure detailed in cephfs_dr_stuck_during_recovery.
+   the procedure detailed in [cephfs_dr_stuck_during_recovery](troubleshooting.md#cephfs-dr-stuck-during-recovery).
 
 ## Using an alternate metadata pool for recovery
 
@@ -355,7 +355,7 @@ ceph fs fail <fs_name>
 ```
 
 > **Note:**
-> `<fs_name>` here and below refers to the original, damaged file system.
+> ``<fs_name>`` here and below refers to the original, damaged file system.
 
 1. Create a recovery file system. This recovery file system will be used to
    recover the data in the damaged pool. First, the filesystem will have a data
@@ -370,7 +370,7 @@ ceph fs new cephfs_recovery cephfs_recovery_meta <data_pool> --recover --allow-d
 
 > **Note:**
 > You may rename the recovery metadata pool and file system at a future time.
-> The `--recover` flag prevents any MDS daemon from joining the new file
+> The ``--recover`` flag prevents any MDS daemon from joining the new file
 > system.
 
 1. Create the intial metadata for the file system:
@@ -422,8 +422,8 @@ cephfs-journal-tool --rank=<fs_name>:0 event recover_dentries list --alternate-p
 ```
 
 1. After recovery, some recovered directories will have incorrect statistics.
-   Ensure that the parameters `mds_verify_scatter` and
-   `mds_debug_scatterstat` are set to false (the default) to prevent the MDS
+   Ensure that the parameters ``mds_verify_scatter`` and
+   ``mds_debug_scatterstat`` are set to false (the default) to prevent the MDS
    from checking the statistics:
 
 ```bash
@@ -436,7 +436,7 @@ ceph config rm mds mds_debug_scatterstat
 
 > **Note:**
 > Verify that the config has not been set globally or with a local
-> `ceph.conf` file.
+> ``ceph.conf`` file.
 
 1. Allow an MDS daemon to join the recovery file system:
 
@@ -444,7 +444,7 @@ ceph config rm mds mds_debug_scatterstat
 ceph fs set cephfs_recovery joinable true
 ```
 
-1. Run a forward scrub to repair recursive statistics.
+1. Run a forward [scrub](scrub.md) to repair recursive statistics.
    Ensure that you have an MDS daemon running and issue the following command:
 
 ```bash
@@ -467,5 +467,3 @@ ceph tell mds.cephfs_recovery:0 scrub start / recursive,repair,force
 > objects are missing (due to issues like lost placement groups on the
 > data pool), the recovered files will contain holes in place of the
 > missing data.
-
-.. _Symbolic link recovery: https://tracker.ceph.com/issues/46166

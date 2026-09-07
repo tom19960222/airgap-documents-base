@@ -5,7 +5,7 @@ title: "Testing - Windows"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/developer_guide/tests-windows.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _dev-testing-windows:
+<a id="dev-testing-windows"></a>
 
 # Testing - Windows
 
@@ -18,14 +18,14 @@ to ensure that these components continue to function properly on Windows.
 
 # Windows CI Job
 
-The Windows CI job performs the following steps for each GitHub pull request:
+The [Windows CI job](https://github.com/ceph/ceph-build/blob/main/ceph-windows-pull-requests/config/definitions/ceph-windows-pull-requests.yml) performs the following steps for each GitHub pull request:
 
 * spin up a Linux VM in which to build the server-side (Linux) Ceph binaries
   and cross-compile the Windows (client) binaries.
 * recreate the Linux VM and start a Ceph vstart cluster
 * boot a Windows VM and run the Ceph tests there
 
-A small PowerShell framework parallelizes the tests, aggregates the results
+[A small PowerShell framework](https://github.com/ceph/ceph-win32-tests/) parallelizes the tests, aggregates the results
 and isolates or skips certain tests that are known to be flaky.
 
 The console output can contain compilation errors as well as the name of the
@@ -33,31 +33,29 @@ tests that failed. To get the console output of the failing tests as well as
 Ceph and operating system logs, please check the build artifacts from the
 Jenkins "Status" page.
 
-.. image:: ../../images/windows_ci_status_page.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/windows_ci_status_page.png)
 
 The Windows CI artifacts can be downloaded as a zip archive or viewed inside
 the browser. Click the "artifacts" button to see the contents of the artifacts
 folder.
 
-.. image:: ../../images/windows_ci_artifacts.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/windows_ci_artifacts.png)
 
 Artifact contents:
 
-* `client/` - Ceph client-side logs (Windows)
-    * `eventlog/` - Windows system logs
-    * `logs/` - Ceph logs
-    * `-windows.conf` - Ceph configuration file
-* `cluster/` - Ceph server-side logs (Linux)
-    * `ceph_logs/`
-    * `journal`
-* `test_results/`
-    * `out/` - raw and xml test output grouped by the test executable
-    * `test_results.html` - aggregated test report (html)
-    * `test_results.txt` - aggregated test report (plaintext)
+* ``client/`` - Ceph client-side logs (Windows)
+    * ``eventlog/`` - Windows system logs
+    * ``logs/`` - Ceph logs
+    * ``-windows.conf`` - Ceph configuration file
+* ``cluster/`` - Ceph server-side logs (Linux)
+    * ``ceph_logs/``
+    * ``journal``
+* ``test_results/``
+    * ``out/`` - raw and xml test output grouped by the test executable
+    * ``test_results.html`` - aggregated test report (html)
+    * ``test_results.txt`` - aggregated test report (plaintext)
 
-We're using the subunit format and associated tools to aggregate the test
+We're using the [subunit](https://github.com/testing-cabal/subunit) format and associated tools to aggregate the test
 results, which is especially handy when running a large amount of tests in
 parallel.
 
@@ -91,8 +89,7 @@ The html report conveniently groups the test results by test suite (test binary)
 For security reasons it isn't rendered by default but it can be downloaded and
 viewed locally:
 
-.. image:: ../../images/windows_ci_html_report.png
-   :align: center
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/windows_ci_html_report.png)
 
 Timeouts and missing test results are often an indication that a process crashed.
 Note that the ceph status is printed out on the console before and after
@@ -122,10 +119,10 @@ than not, these regressions are not platform-specific and affect Linux as well.
 In case of Windows CI failures, we strongly suggest checking the test results
 as described above.
 
-Be aware that the Windows build script may use different compilation flags
-and `-D` options passed to CMake. For example, it defaults to `Release` mode
-instead of `Debug` mode. At the same time, it uses a different toolchain
-(`mingw-llvm`) and a separate set of dependencies, make sure to bump the
+Be aware that the [Windows build script](https://github.com/ceph/ceph/blob/main/win32_build.sh) may use different compilation flags
+and ``-D`` options passed to CMake. For example, it defaults to ``Release`` mode
+instead of ``Debug`` mode. At the same time, it uses a different toolchain
+(``mingw-llvm``) and a separate set of [dependencies](https://github.com/ceph/ceph/blob/main/win32_deps_build.sh), make sure to bump the
 versions if needed.
 
 2. Why is the Windows CI job mandatory?
@@ -140,9 +137,3 @@ and assures Ceph users of continued Windows support.
 As said before, another great advantage is that it runs integration tests that
 quickly catch regressions which often affect Linux builds as well. This spares
 developers from having to wait for the full Teuthology results.
-
-.. _Windows CI job: https://github.com/ceph/ceph-build/blob/main/ceph-windows-pull-requests/config/definitions/ceph-windows-pull-requests.yml
-.. _A small PowerShell framework: https://github.com/ceph/ceph-win32-tests/
-.. _Windows build script: https://github.com/ceph/ceph/blob/main/win32_build.sh
-.. _dependencies: https://github.com/ceph/ceph/blob/main/win32_deps_build.sh
-.. _subunit: https://github.com/testing-cabal/subunit

@@ -11,14 +11,14 @@ fetched_at: 2026-08-18T01:32:45Z
 
 ### Setup
 
-1. Create a github token at <https://github.com/settings/tokens>
-   and put it in `~/.github_token`.  Note that only the
-   `public_repo` under the `repo` section needs to be checked.
+1. Create a github token at <https://github.com/settings/tokens> <!-- unresolved-rst-link: kind=named target=<https://github.com/settings/tokens> -->
+   and put it in ``~/.github_token``.  Note that only the
+   ``public_repo`` under the ``repo`` section needs to be checked.
 
 1. Create a ceph repo label `wip-yourname-testing` if you don't
-   already have one at <https://github.com/ceph/ceph/labels>.
+   already have one at <https://github.com/ceph/ceph/labels> <!-- unresolved-rst-link: kind=named target=<https://github.com/ceph/ceph/labels> -->.
 
-1. Create the `ci` remote:
+1. Create the ``ci`` remote:
 
 ```
 git remote add ci git@github.com:ceph/ceph-ci

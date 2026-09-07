@@ -5,7 +5,7 @@ title: "Monitoring overview"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/monitoring/index.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _monitoring:
+<a id="monitoring"></a>
 
 # Monitoring overview
 
@@ -19,22 +19,22 @@ monitoring tools.
 # Ceph Monitoring stack
 
 Ceph deploys an integrated monitoring stack as described
-in the Monitoring Services section of
-the `cephadm` documentation.  Deployments with external fleetwide monitoring
+in the [Monitoring Services](../cephadm/services/monitoring.md#mgr-cephadm-monitoring) section of
+the ``cephadm`` documentation.  Deployments with external fleetwide monitoring
 and observability systems using these or other tools may choose to disable
 the stack that Ceph deploys by default.
 
 # Ceph metrics
 
 Many Ceph metrics are gathered from the performance counters exposed by each
-Ceph daemon. These ../dev/perf_counters are native Ceph metrics.
+Ceph daemon. These [../dev/perf_counters](../dev/perf_counters.md) are native Ceph metrics.
 
 Performance counters are rendered into standard Prometheus metrics by the
-`ceph_exporter` daemon. This daemon runs on every Ceph cluster host and exposes
+``ceph_exporter`` daemon. This daemon runs on every Ceph cluster host and exposes
 an endpoint where performance counters exposed by Ceph
 daemons running on that host are presented in the form of Prometheus metrics.
 
-In addition to the `ceph_exporter` the Ceph Manager `prometheus` module
+In addition to the ``ceph_exporter`` the Ceph Manager ``prometheus`` module
 exposes metrics relating to the Ceph cluster as a  whole.
 
 Ceph provides a Prometheus endpoint from which one can obtain the complete list
@@ -57,14 +57,14 @@ prometheus.cephtest-node-00  cephtest-node-00.cephlab.com  *:9095  running (103m
 ```
 
 With this information you can connect to
-`http://cephtest-node-00.cephlab.com:9095` to access the Prometheus server
+``http://cephtest-node-00.cephlab.com:9095`` to access the Prometheus server
 interface, which includes a list of targets, an expression browser, and metrics
 related to the Prometheus service itself.
 
 The complete list of metrics (with descriptions) is available at the URL of the below form:
 in:
 
-`http://cephtest-node-00.cephlab.com:9095/api/v1/targets/metadata`
+``http://cephtest-node-00.cephlab.com:9095/api/v1/targets/metadata``
 
 The Ceph Dashboard provides a rich set of graphs and other panels that display the
 most important cluster and service metrics.  Many of the examples in this document
@@ -73,17 +73,17 @@ Ceph Dashboard.
 
 # Ceph daemon health metrics
 
-The `ceph_exporter` provides a metric named `ceph_daemon_socket_up` that
+The ``ceph_exporter`` provides a metric named ``ceph_daemon_socket_up`` that
 indicates the health status of a Ceph daemon based on its ability to respond
-via the admin socket, where a value of `1` means healthy, and `0` means
+via the admin socket, where a value of ``1`` means healthy, and ``0`` means
 unhealthy. Although a Ceph daemon might still be "alive" when it
-reports `ceph_daemon_socket_up=0`, this status indicates a significant issue
+reports ``ceph_daemon_socket_up=0``, this status indicates a significant issue
 in its functionality. As such, this metric serves as an excellent means of
 detecting problems in any of the main Ceph daemons.
 
-The `ceph_daemon_socket_up` Prometheus metrics also have labels as described below:
-* `ceph_daemon`: Identifier of the Ceph daemon exposing an admin socket on the host.
-* `hostname`: Name of the host where the Ceph daemon is running.
+The ``ceph_daemon_socket_up`` Prometheus metrics also have labels as described below:
+* ``ceph_daemon``: Identifier of the Ceph daemon exposing an admin socket on the host.
+* ``hostname``: Name of the host where the Ceph daemon is running.
 
 Example:
 
@@ -104,9 +104,9 @@ ceph_daemon_socket_up == 0 or min_over_time(ceph_daemon_socket_up[12h]) == 0
 Below we explore a a number of metrics that indicate Ceph cluster performance.
 
 All of these metrics have the following labels:
-* `ceph_daemon`: Identifier of the Ceph daemon from which the metric was harvested
-* `instance`: The IP address of the exporter instance exposing the metric.
-* `job`: Prometheus scrape job name
+* ``ceph_daemon``: Identifier of the Ceph daemon from which the metric was harvested
+* ``instance``: The IP address of the exporter instance exposing the metric.
+* ``job``: Prometheus scrape job name
 
 Below is an example Prometheus query result showing these labels:
 
@@ -115,7 +115,7 @@ ceph_osd_op_r{ceph_daemon="osd.0", instance="192.168.122.7:9283", job="ceph"} = 
 ```
 
 *Cluster throughput:*
-Query `ceph_osd_op_r_out_bytes` and `ceph_osd_op_w_in_bytes` to obtain cluster client throughput:
+Query ``ceph_osd_op_r_out_bytes`` and ``ceph_osd_op_w_in_bytes`` to obtain cluster client throughput:
 
 Example:
 
@@ -128,7 +128,7 @@ sum(irate(ceph_osd_op_r_out_bytes[1m]))
 ```
 
 *Cluster I/O (operations):*
-Query `ceph_osd_op_r`, `ceph_osd_op_w` to obtain the rates of client operations (IOPS):
+Query ``ceph_osd_op_r``, ``ceph_osd_op_w`` to obtain the rates of client operations (IOPS):
 
 Example:
 
@@ -141,7 +141,7 @@ sum(irate(ceph_osd_op_r[1m]))
 ```
 
 *Latency:*
-Query `ceph_osd_op_latency_sum` to measure the delay before OSD transfers of data
+Query ``ceph_osd_op_latency_sum`` to measure the delay before OSD transfers of data
 begins in respose to client requests:
 
 Example:
@@ -174,7 +174,7 @@ ceph_osd_stat_bytes{ceph_daemon="osd.0", instance="cephtest-node-00.cephlab.com:
 
 # Physical storage drive performance:
 
-By combining Prometheus `node_exporter` metrics with Ceph cluster metrics we can
+By combining Prometheus ``node_exporter`` metrics with Ceph cluster metrics we can
 derive performance information for physical storage media backing Ceph OSDs.
 
 Example:
@@ -208,48 +208,48 @@ label_replace(irate(node_disk_io_time_seconds_total[5m]), "instance", "$1", "ins
 
 Ceph pool metrics have the following labels:
 
-* `instance`: The IP address of the exporter providing the metric
-* `pool_id`: Numeric identifier of the Ceph pool
-* `job`: Prometheus scrape job name
+* ``instance``: The IP address of the exporter providing the metric
+* ``pool_id``: Numeric identifier of the Ceph pool
+* ``job``: Prometheus scrape job name
 
 Pool-specific metrics include:
 
-   * `ceph_pool_metadata`: Information about the pool that can be used
+   * ``ceph_pool_metadata``: Information about the pool that can be used
      together with other metrics to provide more information in query resultss
      and graphs.  In addition to the above three common labels this metric
      provides the following:
 
-    * `compression_mode`: Compression type enabled for the pool. Values are
-      `lz4`, `snappy`, `zlib`, `zstd`, and ``none`). Example:
-      `compression_mode="none"`
+    * ``compression_mode``: Compression type enabled for the pool. Values are
+      ``lz4``, ``snappy``, ``zlib``, ``zstd``, and ``none`). Example:
+      ``compression_mode="none"``
 
-    * `description`: Brief description of the pool data protection strategy
+    * ``description``: Brief description of the pool data protection strategy
       including replica number or EC profile. Example:
-      `description="replica:3"`
+      ``description="replica:3"``
 
-    * `name`: Name of the pool. Example: `name=".mgr"`
+    * ``name``: Name of the pool. Example: ``name=".mgr"``
 
-    * `type`: Data protection strategy, replicated or EC. ``Example:
+    * ``type``: Data protection strategy, replicated or EC. ``Example:
       type="replicated"``
 
-    * `ceph_pool_bytes_used`: Total raw capacity (after replication or EC)
+    * ``ceph_pool_bytes_used``: Total raw capacity (after replication or EC)
       consumed by user data and metadata
 
-    * `ceph_pool_stored`: Total client data stored in the pool (before data
+    * ``ceph_pool_stored``: Total client data stored in the pool (before data
       protection)
 
-    * `ceph_pool_compress_under_bytes`: Data eligible to be compressed in
+    * ``ceph_pool_compress_under_bytes``: Data eligible to be compressed in
       the pool
 
-    * `ceph_pool_compress_bytes_used`:  Data compressed in the pool
+    * ``ceph_pool_compress_bytes_used``:  Data compressed in the pool
 
-    * `ceph_pool_rd`: Client read operations per pool (reads per second)
+    * ``ceph_pool_rd``: Client read operations per pool (reads per second)
 
-    * `ceph_pool_rd_bytes`: Client read operations in bytes per pool
+    * ``ceph_pool_rd_bytes``: Client read operations in bytes per pool
 
-    * `ceph_pool_wr`: Client write operations per pool (writes per second)
+    * ``ceph_pool_wr``: Client write operations per pool (writes per second)
 
-    * `ceph_pool_wr_bytes`: Client write operation in bytes per pool
+    * ``ceph_pool_wr_bytes``: Client write operation in bytes per pool
 
 **Useful queries**:
 
@@ -279,9 +279,9 @@ writes: irate(ceph_pool_wr_bytes[1m]) * on(pool_id) group_left(instance,name) ce
 
 These metrics have the following labels:
 
-* `instance`: The IP address of the exporter providing the metric
-* `instance_id`: Identifier of the RGW daemon instance
-* `job`: Orometheus scrape job name
+* ``instance``: The IP address of the exporter providing the metric
+* ``instance_id``: Identifier of the RGW daemon instance
+* ``job``: Orometheus scrape job name
 
 Example:
 
@@ -291,48 +291,48 @@ ceph_rgw_req{instance="192.168.122.7:9283", instance_id="154247", job="ceph"} = 
 
 ## Generic metrics
 
-* `ceph_rgw_metadata`: Provides generic information about an RGW daemon.
+* ``ceph_rgw_metadata``: Provides generic information about an RGW daemon.
   This can be used together with other metrics to provide contextual
   information in queries and graphs. In addtion to the three common labels,
   this metric provides the following:
 
-  * `ceph_daemon`: Name of the RGW daemon instance. Example:
-    `ceph_daemon="rgw.rgwtest.cephtest-node-00.sxizyq"`
+  * ``ceph_daemon``: Name of the RGW daemon instance. Example:
+    ``ceph_daemon="rgw.rgwtest.cephtest-node-00.sxizyq"``
 
-  * `ceph_version`: Version of the RGW daemon. Example: ``ceph_version="ceph
+  * ``ceph_version``: Version of the RGW daemon. Example: ``ceph_version="ceph
     version 17.2.6 (d7ff0d10654d2280e08f1ab989c7cdf3064446a5) quincy
     (stable)"``
 
-  * `hostname`: Name of the host where the daemon runs. Example:
-    `hostname:"cephtest-node-00.cephlab.com"`
+  * ``hostname``: Name of the host where the daemon runs. Example:
+    ``hostname:"cephtest-node-00.cephlab.com"``
 
-  * `ceph_rgw_req`: Number of requests processed by the daemon
-    (`GET`+`PUT`+`DELETE`).  Useful for detecting bottlenecks and
+  * ``ceph_rgw_req``: Number of requests processed by the daemon
+    (``GET``+``PUT``+``DELETE``).  Useful for detecting bottlenecks and
     optimizing load distribution.
 
-  * `ceph_rgw_qlen`: Operations queue length for the daemon.  Useful for
+  * ``ceph_rgw_qlen``: Operations queue length for the daemon.  Useful for
     detecting bottlenecks and optimizing load distribution.
 
-  * `ceph_rgw_failed_req`: Aborted requests.  Useful for detecting daemon
+  * ``ceph_rgw_failed_req``: Aborted requests.  Useful for detecting daemon
     errors.
 
 ## GET operation metrics
-* `ceph_rgw_op_global_get_obj_lat_count`: Number of `GET` requests
+* ``ceph_rgw_op_global_get_obj_lat_count``: Number of ``GET`` requests
 
-* `ceph_rgw_op_global_get_obj_lat_sum`: Total latency for `GET` requests
+* ``ceph_rgw_op_global_get_obj_lat_sum``: Total latency for ``GET`` requests
 
-* `ceph_rgw_op_global_get_obj_ops`: Total number of `GET` requests
+* ``ceph_rgw_op_global_get_obj_ops``: Total number of ``GET`` requests
 
-* `ceph_rgw_op_global_get_obj_bytes`: Total bytes transferred for `GET` requests
+* ``ceph_rgw_op_global_get_obj_bytes``: Total bytes transferred for ``GET`` requests
 
 ## PUT operation metrics
-* `ceph_rgw_op_global_put_obj_lat_count`: Number of get operations
+* ``ceph_rgw_op_global_put_obj_lat_count``: Number of get operations
 
-* `ceph_rgw_op_global_put_obj_lat_sum`: Total latency time for `PUT` operations
+* ``ceph_rgw_op_global_put_obj_lat_sum``: Total latency time for ``PUT`` operations
 
-* `ceph_rgw_op_global_put_obj_ops`: Total number of `PUT` operations
+* ``ceph_rgw_op_global_put_obj_ops``: Total number of ``PUT`` operations
 
-* `ceph_rgw_op_global_get_obj_bytes`: Total bytes transferred in `PUT` operations
+* ``ceph_rgw_op_global_get_obj_bytes``: Total bytes transferred in ``PUT`` operations
 
 ## Additional Useful queries
 
@@ -372,9 +372,9 @@ rate(ceph_rgw_failed_req[30s])
 
 These metrics have the following labels:
 
-* `ceph_daemon`: The name of the MDS daemon
-* `instance`: The IP address and port of the exporter exposing the metric
-* `job`: Prometheus scrape job name
+* ``ceph_daemon``: The name of the MDS daemon
+* ``instance``: The IP address and port of the exporter exposing the metric
+* ``job``: Prometheus scrape job name
 
 Example:
 
@@ -384,15 +384,15 @@ ceph_mds_request{ceph_daemon="mds.test.cephtest-node-00.hmhsoh", instance="192.1
 
 ## Important metrics
 
-* `ceph_mds_metadata`: Provides general information about the MDS daemon.  It
+* ``ceph_mds_metadata``: Provides general information about the MDS daemon.  It
   can be used together with other metrics to provide contextual
   information in queries and graphs.  The following extra labels are populated:
 
-    * `ceph_version`: MDS daemon version
-    * `fs_id`: CephFS filesystem ID
-    * `hostname`: Name of the host where the MDS daemon runs
-    * `public_addr`: Public address of the host where the MDS daemon runs
-    * `rank`: Rank of the MDS daemon
+    * ``ceph_version``: MDS daemon version
+    * ``fs_id``: CephFS filesystem ID
+    * ``hostname``: Name of the host where the MDS daemon runs
+    * ``public_addr``: Public address of the host where the MDS daemon runs
+    * ``rank``: Rank of the MDS daemon
 
 Example:
 
@@ -400,29 +400,29 @@ Example:
 ceph_mds_metadata{ceph_daemon="mds.test.cephtest-node-00.hmhsoh", ceph_version="ceph version 17.2.6 (d7ff0d10654d2280e08f1ab989c7cdf3064446a5) quincy (stable)", fs_id="-1", hostname="cephtest-node-00.cephlab.com", instance="cephtest-node-00.cephlab.com:9283", job="ceph", public_addr="192.168.122.145:6801/118896446", rank="-1"}
 ```
 
-* `ceph_mds_request`: Total number of requests for the MDS
+* ``ceph_mds_request``: Total number of requests for the MDS
 
-* `ceph_mds_reply_latency_sum`: Reply latency total
+* ``ceph_mds_reply_latency_sum``: Reply latency total
 
-* `ceph_mds_reply_latency_count`: Reply latency count
+* ``ceph_mds_reply_latency_count``: Reply latency count
 
-* `ceph_mds_server_handle_client_request`: Number of client requests
+* ``ceph_mds_server_handle_client_request``: Number of client requests
 
-* `ceph_mds_sessions_session_count`: Session count
+* ``ceph_mds_sessions_session_count``: Session count
 
-* `ceph_mds_sessions_total_load`: Total load
+* ``ceph_mds_sessions_total_load``: Total load
 
-* `ceph_mds_sessions_sessions_open`: Sessions currently open
+* ``ceph_mds_sessions_sessions_open``: Sessions currently open
 
-* `ceph_mds_sessions_sessions_stale`: Sessions currently stale
+* ``ceph_mds_sessions_sessions_stale``: Sessions currently stale
 
-* `ceph_objecter_op_r`: Number of read operations
+* ``ceph_objecter_op_r``: Number of read operations
 
-* `ceph_objecter_op_w`: Number of write operations
+* ``ceph_objecter_op_w``: Number of write operations
 
-* `ceph_mds_root_rbytes`: Total number of bytes managed by the daemon
+* ``ceph_mds_root_rbytes``: Total number of bytes managed by the daemon
 
-* `ceph_mds_root_rfiles`: Total number of files managed by the daemon
+* ``ceph_mds_root_rfiles``: Total number of files managed by the daemon
 
 ## Useful queries:
 
@@ -449,18 +449,18 @@ rate(ceph_mds_request[30s]) * on (instance) group_right (ceph_daemon) ceph_mds_m
 # Block metrics
 
 By default RBD metrics for images are not gathered, as their cardinality may
-be high.  This helps ensure the performance of the Manager's `prometheus` module.
+be high.  This helps ensure the performance of the Manager's ``prometheus`` module.
 
 To produce metrics for RBD images, configure the
-Manager option `mgr/prometheus/rbd_stats_pools`. For more information
-see prometheus-rbd-io-statistics
+Manager option ``mgr/prometheus/rbd_stats_pools``. For more information
+see [prometheus-rbd-io-statistics](../mgr/prometheus.md#prometheus-rbd-io-statistics)
 
 These metrics have the following labels:
 
-* `image`: Name of the image (volume)
-* `instance`: Node where the exporter runs
-* `job`: Name of the Prometheus scrape job
-* `pool`: RBD pool name
+* ``image``: Name of the image (volume)
+* ``instance``: Node where the exporter runs
+* ``job``: Name of the Prometheus scrape job
+* ``pool``: RBD pool name
 
 Example:
 
@@ -470,21 +470,21 @@ ceph_rbd_read_bytes{image="test2", instance="cephtest-node-00.cephlab.com:9283",
 
 ## Important  metrics
 
-* `ceph_rbd_read_bytes`: RBD bytes read
+* ``ceph_rbd_read_bytes``: RBD bytes read
 
-* `ceph_rbd_write_bytes`: RBD image bytes written
+* ``ceph_rbd_write_bytes``: RBD image bytes written
 
-* `ceph_rbd_read_latency_count`: RBD read operation latency count
+* ``ceph_rbd_read_latency_count``: RBD read operation latency count
 
-* `ceph_rbd_read_latency_sum`: RBD read operation latency total time
+* ``ceph_rbd_read_latency_sum``: RBD read operation latency total time
 
-* `ceph_rbd_read_ops`: RBD read operation count
+* ``ceph_rbd_read_ops``: RBD read operation count
 
-* `ceph_rbd_write_ops`: RBD write operation count
+* ``ceph_rbd_write_ops``: RBD write operation count
 
-* `ceph_rbd_write_latency_count`: RBD write operation latency count
+* ``ceph_rbd_write_latency_count``: RBD write operation latency count
 
-* `ceph_rbd_write_latency_sum`: RBD write operation latency total
+* ``ceph_rbd_write_latency_sum``: RBD write operation latency total
 
 ## Useful queries
 
@@ -495,4 +495,4 @@ rate(ceph_rbd_read_latency_sum[30s]) / rate(ceph_rbd_read_latency_count[30s]) * 
 
 # Hardware monitoring
 
-See hardware-monitoring
+See [hardware-monitoring](../hardware-monitoring/index.md#hardware-monitoring)

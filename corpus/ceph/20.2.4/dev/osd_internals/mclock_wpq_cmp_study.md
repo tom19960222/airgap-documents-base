@@ -17,18 +17,18 @@ each service in proportion to its weight subject to the constraint that the
 service receives at least its reservation and no more than its limit. In Ceph,
 these controls are used to allocate IOPS for each service type provided the IOPS
 capacity of each OSD is known. The mClock scheduler is based on
-the dmClock algorithm. See dmclock-qos section for more details.
+[the dmClock algorithm](https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Gulati.pdf). See [dmclock-qos](../../rados/configuration/osd-config-ref.md#dmclock-qos) section for more details.
 
 Ceph's use of mClock was primarily experimental and approached with an
 exploratory mindset. This is still true with other organizations and individuals
 who continue to either use the codebase or modify it according to their needs.
 
-DmClock exists in its own repository_. Before the Ceph *Pacific* release,
+DmClock exists in its own [repository](https://github.com/ceph/dmclock). Before the Ceph *Pacific* release,
 mClock could be enabled by setting the osd_op_queue Ceph option to
 "mclock_scheduler". Additional mClock parameters like *reservation*, *weight*
 and *limit* for each service type could be set using Ceph options.
-For example, `osd_mclock_scheduler_client_[res,wgt,lim]` is one such option.
-See dmclock-qos section for more details. Even with all the mClock
+For example, ``osd_mclock_scheduler_client_[res,wgt,lim]`` is one such option.
+See [dmclock-qos](../../rados/configuration/osd-config-ref.md#dmclock-qos) section for more details. Even with all the mClock
 options set, the full capability of mClock could not be realized due to:
 
 - Unknown OSD capacity in terms of throughput (IOPS).
@@ -38,7 +38,7 @@ options set, the full capability of mClock could not be realized due to:
   shards.
 
 To resolve the above, refinements were made to the mClock scheduler in the Ceph
-code base. See /rados/configuration/mclock-config-ref. With the
+code base. See [/rados/configuration/mclock-config-ref](../../rados/configuration/mclock-config-ref.md). With the
 refinements, the usage of mClock is a bit more user-friendly and intuitive. This
 is one step of many to refine and optimize the way mClock is used in Ceph.
 
@@ -75,7 +75,7 @@ schedulers from the test results for each service type:
 
 # Test Methodology
 
-Ceph cbt_ was used to test the recovery scenarios. A new recovery test to
+Ceph [cbt](https://github.com/ceph/cbt) was used to test the recovery scenarios. A new recovery test to
 generate background recoveries with client I/Os in parallel was created.
 See the next section for the detailed test steps. The test was executed 3 times
 with the default *Weighted Priority Queue (WPQ)* scheduler for comparison
@@ -95,19 +95,15 @@ executed 3 times, and the average of those runs are reported in this study.
 
 Before the actual recovery tests, the baseline throughput was established for
 both the SSDs and the HDDs on the test machine by following the steps mentioned
-in the /rados/configuration/mclock-config-ref document under
+in the [/rados/configuration/mclock-config-ref](../../rados/configuration/mclock-config-ref.md) document under
 the "Benchmarking Test Steps Using CBT" section. For this study, the following
 baseline throughput for each device type was determined:
 
-+--------------------------------------+-------------------------------------------+
-|  Device Type                         | Baseline Throughput(@4KiB Random Writes)  |
-+======================================+===========================================+
-| **NVMe SSD**                         | 21500 IOPS (84 MiB/s)                     |
-+--------------------------------------+-------------------------------------------+
-| **HDD (with bluestore WAL & dB)**    | 340 IOPS (1.33 MiB/s)                     |
-+--------------------------------------+-------------------------------------------+
-| **HDD (without bluestore WAL & dB)** | 315 IOPS (1.23 MiB/s)                     |
-+--------------------------------------+-------------------------------------------+
+| Device Type | Baseline Throughput(@4KiB Random Writes) |
+| --- | --- |
+| **NVMe SSD** | 21500 IOPS (84 MiB/s) |
+| **HDD (with bluestore WAL & dB)** | 340 IOPS (1.33 MiB/s) |
+| **HDD (without bluestore WAL & dB)** | 315 IOPS (1.23 MiB/s) |
 
 > **Note:** The bluestore_throttle_bytes and
 > bluestore_throttle_deferred_bytes for SSDs were determined to be
@@ -124,7 +120,7 @@ the NVMe(baseline 21500 IOPS) device, a minimum of 10750 IOPS is reserved for
 client operations. These allocations are made under the hood once
 a profile is enabled.
 
-The *weight* parameter is unitless. See dmclock-qos.
+The *weight* parameter is unitless. See [dmclock-qos](../../rados/configuration/osd-config-ref.md#dmclock-qos).
 
 ### high_client_ops(default)
 
@@ -132,15 +128,11 @@ This profile allocates more reservation and limit to external clients ops
 when compared to background recoveries and other internal clients within
 Ceph. This profile is enabled by default.
 
-+------------------------+-------------+--------+-------+
-|  Service Type          | Reservation | Weight | Limit |
-+========================+=============+========+=======+
-| client                 | 50%         | 2      | MAX   |
-+------------------------+-------------+--------+-------+
-| background recovery    | 25%         | 1      | 100%  |
-+------------------------+-------------+--------+-------+
-| background best effort | 25%         | 2      | MAX   |
-+------------------------+-------------+--------+-------+
+| Service Type | Reservation | Weight | Limit |
+| --- | --- | --- | --- |
+| client | 50% | 2 | MAX |
+| background recovery | 25% | 1 | 100% |
+| background best effort | 25% | 2 | MAX |
 
 ### balanced
 
@@ -149,15 +141,11 @@ recovery ops. The internal best effort client get a lower reservation
 but a very high limit so that they can complete quickly if there are
 no competing services.
 
-+------------------------+-------------+--------+-------+
-|  Service Type          | Reservation | Weight | Limit |
-+========================+=============+========+=======+
-| client                 | 40%         | 1      | 100%  |
-+------------------------+-------------+--------+-------+
-| background recovery    | 40%         | 1      | 150%  |
-+------------------------+-------------+--------+-------+
-| background best effort | 20%         | 2      | MAX   |
-+------------------------+-------------+--------+-------+
+| Service Type | Reservation | Weight | Limit |
+| --- | --- | --- | --- |
+| client | 40% | 1 | 100% |
+| background recovery | 40% | 1 | 150% |
+| background best effort | 20% | 2 | MAX |
 
 ### high_recovery_ops
 
@@ -166,15 +154,11 @@ compared to external clients and other internal clients within Ceph. For
 example, an admin may enable this profile temporarily to speed-up background
 recoveries during non-peak hours.
 
-+------------------------+-------------+--------+-------+
-|  Service Type          | Reservation | Weight | Limit |
-+========================+=============+========+=======+
-| client                 | 30%         | 1      | 80%   |
-+------------------------+-------------+--------+-------+
-| background recovery    | 60%         | 2      | 200%  |
-+------------------------+-------------+--------+-------+
-| background best effort | 1 (MIN)     | 2      | MAX   |
-+------------------------+-------------+--------+-------+
+| Service Type | Reservation | Weight | Limit |
+| --- | --- | --- | --- |
+| client | 30% | 1 | 80% |
+| background recovery | 60% | 2 | 200% |
+| background best effort | 1 (MIN) | 2 | MAX |
 
 ### custom
 
@@ -197,7 +181,7 @@ from the previous section:
 - osd_mclock_max_capacity_iops_ssd
 - osd_mclock_profile
 
-See /rados/configuration/mclock-config-ref for more details.
+See [/rados/configuration/mclock-config-ref](../../rados/configuration/mclock-config-ref.md) for more details.
 
 ### Test Steps(Using cbt)
 
@@ -245,7 +229,7 @@ mClock scheduler was tested and the results are discussed below.
 The chart below shows the average client throughput comparison across the
 schedulers and their respective configurations.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Client_Throughput_NVMe_SSD_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Client_Throughput_NVMe_SSD_WPQ_vs_mClock.png)
 
 WPQ(def) in the chart shows the average client throughput obtained
 using the WPQ scheduler with all other Ceph configuration settings set to
@@ -255,7 +239,7 @@ result, the average client throughput obtained is impressive at just over 18000
 IOPS when compared to the baseline value which is 21500 IOPS.
 
 However, with WPQ scheduler along with non-default options mentioned in section
-Non-Default Ceph Recovery Options, things are quite different as shown in the
+[Non-Default Ceph Recovery Options](mclock_wpq_cmp_study.md#non-default-ceph-recovery-options), things are quite different as shown in the
 chart for WPQ(BST). In this case, the average client throughput obtained drops
 dramatically to only 2544 IOPS. The non-default recovery options clearly had a
 significant impact on the client throughput. In other words, recovery operations
@@ -279,7 +263,7 @@ The chart below shows the average completion latency (*clat*) along with the
 average 95th, 99th and 99.5th percentiles across the schedulers and their
 respective configurations.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Client_Latency_Percentiles_NVMe_SSD_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Client_Latency_Percentiles_NVMe_SSD_WPQ_vs_mClock.png)
 
 The average *clat* latency obtained with WPQ(Def) was 3.535 msec. But in this
 case the number of concurrent recoveries was very much limited at an average of
@@ -303,7 +287,7 @@ With the other profiles like *balanced* and *high_recovery_ops*, the average
 client *clat* latency didn't change much and stayed between 5.7 - 5.8 msec with
 variations in the average percentile latency as observed from the chart above.
 
-.. image:: ../../images/mclock_wpq_study/Clat_Latency_Comparison_NVMe_SSD_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Clat_Latency_Comparison_NVMe_SSD_WPQ_vs_mClock.png)
 
 Perhaps a more interesting chart is the comparison chart shown above that
 tracks the average *clat* latency variations through the duration of the test.
@@ -323,14 +307,14 @@ recovery rates and times for each mClock profile and how they differ with the
 WPQ scheduler. The total number of objects to be recovered in all the cases was
 around 75000 objects as observed in the chart below.
 
-.. image:: ../../images/mclock_wpq_study/Recovery_Rate_Comparison_NVMe_SSD_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Recovery_Rate_Comparison_NVMe_SSD_WPQ_vs_mClock.png)
 
 Intuitively, the *high_client_ops* should impact recovery operations the most
 and this is indeed the case as it took an average of 966 secs for the
 recovery to complete at 80 Objects/sec. The recovery bandwidth as expected was
 the lowest at an average of ~320 MiB/s.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Obj_Rec_Throughput_NVMe_SSD_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Obj_Rec_Throughput_NVMe_SSD_WPQ_vs_mClock.png)
 
 The *balanced* profile provides a good middle ground by allocating the same
 reservation and weight to client and recovery operations. The recovery rate
@@ -354,7 +338,7 @@ on faster NVMe SSDs. The baseline throughput measured was 340 IOPS.
 The average client throughput comparison for WPQ and mClock and its profiles
 are shown in the chart below.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Client_Throughput_HDD_WALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Client_Throughput_HDD_WALdB_WPQ_vs_mClock.png)
 
 With WPQ(Def), the average client throughput obtained was ~308 IOPS since the
 the number of concurrent recoveries was very much limited. The average *clat*
@@ -363,7 +347,7 @@ latency was ~208 msec.
 However for WPQ(BST), due to concurrent recoveries client throughput is affected
 significantly with 146 IOPS and an average *clat* latency of 433 msec.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Client_Latency_Percentiles_HDD_WALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Client_Latency_Percentiles_HDD_WALdB_WPQ_vs_mClock.png)
 
 With the *high_client_ops* profile, mClock was able to meet the QoS requirement
 for client operations with an average throughput of 271 IOPS which is nearly
@@ -373,7 +357,7 @@ For *balanced* and *high_recovery_ops* profiles, the average client throughput
 came down marginally to ~248 IOPS and ~240 IOPS respectively. The average *clat*
 latency as expected increased to ~258 msec and ~265 msec respectively.
 
-.. image:: ../../images/mclock_wpq_study/Clat_Latency_Comparison_HDD_WALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Clat_Latency_Comparison_HDD_WALdB_WPQ_vs_mClock.png)
 
 The *clat* latency comparison chart above provides a more comprehensive insight
 into the differences in latency through the course of the test. As observed
@@ -388,13 +372,13 @@ The charts below compares the recovery rates and times. The total number of
 objects to be recovered in all the cases using HDDs with WAL and dB was around
 4000 objects as observed in the chart below.
 
-.. image:: ../../images/mclock_wpq_study/Recovery_Rate_Comparison_HDD_WALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Recovery_Rate_Comparison_HDD_WALdB_WPQ_vs_mClock.png)
 
 As expected, the *high_client_ops* impacts recovery operations the most as it
 took an average of  ~1409 secs for the recovery to complete at ~3 Objects/sec.
 The recovery bandwidth as expected was the lowest at ~11 MiB/s.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Obj_Rec_Throughput_HDD_WALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Obj_Rec_Throughput_HDD_WALdB_WPQ_vs_mClock.png)
 
 The *balanced* profile as expected provides a decent compromise with an an
 average bandwidth of ~16.5 MiB/s and taking an average of ~966 secs at ~4
@@ -422,19 +406,19 @@ are provided here for reference.
 The average client throughput, latency and percentiles are compared as before
 in the set of charts shown below.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Client_Throughput_HDD_NoWALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Client_Throughput_HDD_NoWALdB_WPQ_vs_mClock.png)
 
-.. image:: ../../images/mclock_wpq_study/Avg_Client_Latency_Percentiles_HDD_NoWALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Client_Latency_Percentiles_HDD_NoWALdB_WPQ_vs_mClock.png)
 
-.. image:: ../../images/mclock_wpq_study/Clat_Latency_Comparison_HDD_NoWALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Clat_Latency_Comparison_HDD_NoWALdB_WPQ_vs_mClock.png)
 
 ## Recovery Statistics Comparison
 
 The recovery rates and times are shown in the charts below.
 
-.. image:: ../../images/mclock_wpq_study/Avg_Obj_Rec_Throughput_HDD_NoWALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Avg_Obj_Rec_Throughput_HDD_NoWALdB_WPQ_vs_mClock.png)
 
-.. image:: ../../images/mclock_wpq_study/Recovery_Rate_Comparison_HDD_NoWALdB_WPQ_vs_mClock.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Recovery_Rate_Comparison_HDD_NoWALdB_WPQ_vs_mClock.png)
 
 # Key Takeaways and Conclusion
 
@@ -447,7 +431,3 @@ The study so far shows promising results with the refinements made to the mClock
 scheduler. Further refinements to mClock and profile tuning are planned. Further
 improvements will also be based on feedback from broader testing on larger
 clusters and with different workloads.
-
-.. _the dmClock algorithm: https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Gulati.pdf
-.. _repository: https://github.com/ceph/dmclock
-.. _cbt: https://github.com/ceph/cbt

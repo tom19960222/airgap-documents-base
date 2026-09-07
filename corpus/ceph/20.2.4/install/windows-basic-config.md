@@ -14,9 +14,9 @@ client components on Windows.
 
 # ceph.conf
 
-The default location for the `ceph.conf` file on Windows is
-`%ProgramData%\ceph\ceph.conf`, which usually expands to
-`C:\ProgramData\ceph\ceph.conf`.
+The default location for the ``ceph.conf`` file on Windows is
+``%ProgramData%\ceph\ceph.conf``, which usually expands to
+``C:\ProgramData\ceph\ceph.conf``.
 
 Below you may find a sample. Please fill in the monitor addresses
 accordingly.
@@ -45,7 +45,7 @@ accordingly.
 ```
 
 Don't forget to also copy your keyring file to the specified location and make
-sure that the configured directories exist (e.g. `C:\ProgramData\ceph\out`).
+sure that the configured directories exist (e.g. ``C:\ProgramData\ceph\out``).
 
-Please use slashes `/` instead of backslashes `\` as path separators
-within `ceph.conf`.
+Please use slashes ``/`` instead of backslashes ``\`` as path separators
+within ``ceph.conf``.

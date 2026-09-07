@@ -5,7 +5,7 @@ title: "Health checks"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/health-checks.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _health-checks:
+<a id="health-checks"></a>
 
 # Health checks
 
@@ -21,8 +21,8 @@ in a way that reflects their meaning.
 
 This page lists the health checks that are raised by the monitor and manager
 daemons. In addition to these, you may see health checks that originate
-from CephFS MDS daemons (see cephfs-health-messages), and health checks
-that are defined by `ceph-mgr` modules.
+from CephFS MDS daemons (see [cephfs-health-messages](../../cephfs/health-messages.md#cephfs-health-messages)), and health checks
+that are defined by ``ceph-mgr`` modules.
 
 # Definitions
 
@@ -32,12 +32,12 @@ that are defined by `ceph-mgr` modules.
 
 One or more Ceph daemons are running an old Ceph release.  A health check is
 raised if multiple versions are detected.  This condition must exist for a
-period of time greater than `mon_warn_older_version_delay` (set to one week
+period of time greater than ``mon_warn_older_version_delay`` (set to one week
 by default) in order for the health check to be raised. This allows most
 upgrades to proceed without raising a warning that is both expected and
-ephemeral. If the upgrade is paused for an extended time, `health mute` can
-be used by running `ceph health mute DAEMON_OLD_VERSION --sticky`. Be sure,
-however, to run `ceph health unmute DAEMON_OLD_VERSION` after the upgrade has
+ephemeral. If the upgrade is paused for an extended time, ``health mute`` can
+be used by running ``ceph health mute DAEMON_OLD_VERSION --sticky``. Be sure,
+however, to run ``ceph health unmute DAEMON_OLD_VERSION`` after the upgrade has
 finished so that any future, unexpected instances are not masked.
 
 ##### MON_DOWN
@@ -55,10 +55,10 @@ reduce the risk that an additional monitor failure may cause a service outage.
 
 The clocks on hosts running Ceph Monitor daemons are not well-synchronized.
 This health check is raised if the cluster detects a clock skew greater than
-`mon_clock_drift_allowed`.
+``mon_clock_drift_allowed``.
 
 This issue is best resolved by synchronizing the clocks by using a tool like
-the legacy `ntpd` or the newer `chrony`.  It is ideal to configure NTP
+the legacy ``ntpd`` or the newer ``chrony``.  It is ideal to configure NTP
 daemons to sync against multiple internal and external sources for resilience;
 the protocol will adaptively determine the best available source.  It is also
 beneficial to have the NTP daemons on Ceph Monitor hosts sync against each
@@ -66,8 +66,8 @@ other, as it is even more important that Monitors be synchronized with each
 other than it is for them to be _correct_ with respect to reference time.
 
 If it is impractical to keep the clocks closely synchronized, the
-`mon_clock_drift_allowed` threshold can be increased. However, this value
-must stay significantly below the `mon_lease` interval in order for the
+``mon_clock_drift_allowed`` threshold can be increased. However, this value
+must stay significantly below the ``mon_lease`` interval in order for the
 monitor cluster to function properly.  It is not difficult with a quality NTP
 or PTP configuration to have sub-millisecond synchronization, so there are
 very, very few occasions when it is appropriate to change this value.
@@ -97,18 +97,18 @@ manually.
 
 One or more Monitors are low on storage space. This health check is raised when
 available space on the file system used by the Monitor
-database (normally `/var/lib/ceph/<fsid>/mon.<monid>`) drops below the threshold
-`mon_data_avail_warn` (default: 30%).
+database (normally ``/var/lib/ceph/<fsid>/mon.<monid>``) drops below the threshold
+``mon_data_avail_warn`` (default: 30%).
 
 This alert might indicate that some other process or user on the system is
 filling up the file system used by the Monitor. It might also indicate that the
-Monitor database is too large (see `MON_DISK_BIG` below).  Another common
+Monitor database is too large (see ``MON_DISK_BIG`` below).  Another common
 scenario is that Ceph logging subsystem levels have been raised for
 troubleshooting purposes without subsequent return to default levels.  Ongoing
-verbose logging can easily fill up the files system containing `/var/log`. If
+verbose logging can easily fill up the files system containing ``/var/log``. If
 you trim logs that are currently open, remember to restart or instruct your
 syslog or other daemon to re-open the log file. Another common dynamic is
-that users or processes have written a large amount of data to `/tmp` or `/var/tmp`,
+that users or processes have written a large amount of data to ``/tmp`` or ``/var/tmp``,
 which may be on the same filesystem.
 
 If space cannot be freed, the monitor's data directory might need to be moved
@@ -119,25 +119,25 @@ carried out while the Monitor daemon is not running.
 
 One or more monitors are critically low on storage space. This health check is
 raised if the percentage of available space on the file system used by the
-monitor database (normally `/var/lib/ceph/mon`) drops below the percentage
-value `mon_data_avail_crit` (default: 5%). See `MON_DISK_LOW`, above.
+monitor database (normally ``/var/lib/ceph/mon``) drops below the percentage
+value ``mon_data_avail_crit`` (default: 5%). See ``MON_DISK_LOW``, above.
 
 ##### MON_DISK_BIG
 
 The database size for one or more monitors is very large. This health check is
 raised if the size of the monitor database is larger than
-`mon_data_size_warn` (default: 15 GiB).
+``mon_data_size_warn`` (default: 15 GiB).
 
 A large database is unusual, but does not necessarily indicate a problem.
 Monitor databases might grow in size when there are placement groups that have
-not reached an `active+clean` state in a long time, or when extensive cluster
+not reached an ``active+clean`` state in a long time, or when extensive cluster
 recovery, expansion, or topology changes have recently occurred.  It is recommended
 that when conducting large scale cluster changes that the cluster thus be
 left to "rest" for at least a few hours once each week.
 
 This alert may also indicate that the monitor's database is not properly
 compacting, an issue that has been observed with older versions of
-RocksDB. Forcing compaction with `ceph daemon mon.<id> compact` may suffice
+RocksDB. Forcing compaction with ``ceph daemon mon.<id> compact`` may suffice
 to shrink the database's storage usage.
 
 This alert may also indicate that the monitor has a bug that prevents it from
@@ -157,11 +157,11 @@ raised when one or more monitors detect that at least two Ceph Monitors have
 lost connectivity or reachability, based on their individual connection scores,
 which are frequently updated. This warning only appears when
 the cluster is provisioned with at least three Ceph Monitors and are using the
-`connectivity` election strategy.
+``connectivity`` election strategy.
 
 To reduce false alarms from transient network issues, detected netsplits are
 not immediately reported as health warnings. Instead, they must persist for at
-least `mon_netsplit_grace_period` seconds (default: 9 seconds) before being
+least ``mon_netsplit_grace_period`` seconds (default: 9 seconds) before being
 reported. If the network partition resolves within this grace period, no health
 warning is emitted.
 
@@ -172,7 +172,7 @@ Network partitions are reported in two ways:
 - As individual monitor netsplits (e.g., "Netsplit detected between mon.a and mon.d")
   when only specific monitors are disconnected across locations.
 
-The system prioritizes reporting at the highest topology level (`datacenter`, `rack`, etc.)
+The system prioritizes reporting at the highest topology level (``datacenter``, ``rack``, etc.)
 when possible, to better help operators identify infrastructure-level network issues.
 
 To adjust the grace period threshold, run the following command:
@@ -190,12 +190,12 @@ ceph config set mon mon_netsplit_grace_period 0
 ##### AUTH_INSECURE_GLOBAL_ID_RECLAIM
 
 One or more clients or daemons that are connected to the cluster are not
-securely reclaiming their `global_id` (a unique number that identifies each
+securely reclaiming their ``global_id`` (a unique number that identifies each
 entity in the cluster) when reconnecting to a monitor. The client is being
 permitted to connect anyway because the
-`auth_allow_insecure_global_id_reclaim` option is set to `true` (which may
+``auth_allow_insecure_global_id_reclaim`` option is set to ``true`` (which may
 be necessary until all Ceph clients have been upgraded) and because the
-`auth_expose_insecure_global_id_reclaim` option is set to `true` (which
+``auth_expose_insecure_global_id_reclaim`` option is set to ``true`` (which
 allows monitors to detect clients with "insecure reclaim" sooner by forcing
 those clients to reconnect immediately after their initial authentication).
 
@@ -207,9 +207,9 @@ ceph health detail
 ```
 
 If you collect a dump of the clients that are connected to an individual
-monitor and examine the `global_id_status` field in the output of the dump,
-you can see the `global_id` reclaim behavior of those clients. Here
-`reclaim_insecure` means that a client is unpatched and is contributing to
+monitor and examine the ``global_id_status`` field in the output of the dump,
+you can see the ``global_id`` reclaim behavior of those clients. Here
+``reclaim_insecure`` means that a client is unpatched and is contributing to
 this health check.  To effect a client dump, run the following command:
 
 ```bash
@@ -217,7 +217,7 @@ ceph tell mon.\* sessions
 ```
 
 We strongly recommend that all clients in the system be upgraded to a newer
-version of Ceph that correctly reclaims `global_id` values. After all clients
+version of Ceph that correctly reclaims ``global_id`` values. After all clients
 have been updated, run the following command to stop allowing insecure
 reconnections:
 
@@ -242,17 +242,17 @@ ceph config set mon mon_warn_on_insecure_global_id_reclaim false
 ##### AUTH_INSECURE_GLOBAL_ID_RECLAIM_ALLOWED
 
 Ceph is currently configured to allow clients that reconnect to monitors using
-an insecure process to reclaim their previous `global_id`. Such reclaiming is
-allowed because, by default, `auth_allow_insecure_global_id_reclaim` is set
-to `true`. It might be necessary to leave this setting enabled while existing
+an insecure process to reclaim their previous ``global_id``. Such reclaiming is
+allowed because, by default, ``auth_allow_insecure_global_id_reclaim`` is set
+to ``true``. It might be necessary to leave this setting enabled while existing
 Ceph clients are upgraded to newer versions of Ceph that correctly and securely
-reclaim their `global_id`.
+reclaim their ``global_id``.
 
-If the `AUTH_INSECURE_GLOBAL_ID_RECLAIM` health check has not also been
-raised and if the `auth_expose_insecure_global_id_reclaim` setting has not
+If the ``AUTH_INSECURE_GLOBAL_ID_RECLAIM`` health check has not also been
+raised and if the ``auth_expose_insecure_global_id_reclaim`` setting has not
 been disabled (it is enabled by default), then there are currently no clients
 connected that need to be upgraded. In that case, it is safe to disable
-`insecure global_id reclaim` by running the following command:
+``insecure global_id reclaim`` by running the following command:
 
 ```bash
 ceph config set mon auth_allow_insecure_global_id_reclaim false
@@ -272,19 +272,19 @@ indefinitely by running the following command:
 ceph config set mon mon_warn_on_insecure_global_id_reclaim_allowed false
 ```
 
-.. _auth-insecure-keys-creatable:
+<a id="auth-insecure-keys-creatable"></a>
 
 ##### AUTH_INSECURE_KEYS_CREATABLE
 
 This warning indicates that the Ceph Monitors are configured to allow the
 creation or rotation of keys with insecure ciphers. This is controlled by the
-Monitor configuration `mon_auth_allow_insecure_key`. By default, this
-configuration is `false` unless the cluster health warning
-`AUTH_INSECURE_KEYS_ALLOWED` is raised. In other words, when the cluster
+Monitor configuration ``mon_auth_allow_insecure_key``. By default, this
+configuration is ``false`` unless the cluster health warning
+``AUTH_INSECURE_KEYS_ALLOWED`` is raised. In other words, when the cluster
 allows insecure keys to authenticate, then it will, by default, also permit the
 creation of new insecure keys.
 
-This warning can be resolved by addressing `AUTH_INSECURE_KEYS_ALLOWED` or by
+This warning can be resolved by addressing ``AUTH_INSECURE_KEYS_ALLOWED`` or by
 manually setting this configuration to false.
 
 > **Warning:** Only do this when you are sure that it is no longer necessary to
@@ -296,12 +296,12 @@ ceph config set mon mon_auth_allow_insecure_key false
 
 > **Note:** cephadm and Rook should automate this process for you.
 
-.. _auth-insecure-service-tickets:
+<a id="auth-insecure-service-tickets"></a>
 
 ##### AUTH_INSECURE_SERVICE_TICKETS
 
 The Ceph Monitors are currently configured to generate tickets for service
-daemons (`ceph-mgr`, `ceph-osd`, and `ceph-mds`) using an insecure cipher
+daemons (``ceph-mgr``, ``ceph-osd``, and ``ceph-mds``) using an insecure cipher
 type.
 
 ```bash
@@ -328,7 +328,7 @@ The Ceph Monitors will begin issuing tickets using the more secure cipher type.
 
 > **Note:** cephadm and Rook should automate this process for you.
 
-.. _auth-insecure-service-key-type:
+<a id="auth-insecure-service-key-type"></a>
 
 ##### AUTH_INSECURE_SERVICE_KEY_TYPE
 
@@ -371,7 +371,7 @@ Do this for each daemon.
 
 > **Note:** cephadm and Rook should automate this process for you.
 
-.. _auth-insecure-rotating-service-key-type:
+<a id="auth-insecure-rotating-service-key-type"></a>
 
 ##### AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE
 
@@ -397,7 +397,7 @@ rotating service keys for mgr using insecure key type: aes
 > **Warning:** This warning can only be addressed by first resolving AUTH_INSECURE_SERVICE_TICKETS.
 
 The warning will resolve naturally as the extant rotating service keys eventually expire. This is controlled by
-the `auth_service_ticket_ttl` Monitor config:
+the ``auth_service_ticket_ttl`` Monitor config:
 
 ```bash
 ceph config get mon auth_service_ticket_ttl
@@ -410,7 +410,7 @@ ceph config get mon auth_service_ticket_ttl
 ```
 
 There are three rotating keys by default. The keys have laddered expiration;
-one key will expire every `auth_service_ticket_ttl` interval. You can wait for the keys to expire
+one key will expire every ``auth_service_ticket_ttl`` interval. You can wait for the keys to expire
 naturally or force rotation.
 
 > **Warning:** Wiping the service keys invalidates tickets for all existing clients.
@@ -438,7 +438,7 @@ The warning should resolve immediately.
 
 > **Note:** cephadm and Rook should automate this process for you.
 
-.. _auth-insecure-client-key-type:
+<a id="auth-insecure-client-key-type"></a>
 
 ##### AUTH_INSECURE_CLIENT_KEY_TYPE
 
@@ -474,7 +474,7 @@ Do this for each client.
 
 > **Note:** Rook should automate this process for you. cephadm does not generally administer client credentials.
 
-.. _auth-insecure-keys-allowed:
+<a id="auth-insecure-keys-allowed"></a>
 
 ##### AUTH_INSECURE_KEYS_ALLOWED
 
@@ -509,7 +509,7 @@ auth_allowed_ciphers aes, aes256k
 auth_preferred_cipher aes256k
 ```
 
-The `auth_allowed_ciphers` includes the insecure cipher `aes` in `aes, aes256k`. The `health detail` also shows:
+The ``auth_allowed_ciphers`` includes the insecure cipher ``aes`` in ``aes, aes256k``. The ``health detail`` also shows:
 
 ```bash
 ceph health detail
@@ -533,7 +533,7 @@ insecure cipher aes allowed for auth
 > to authenticate. Do not try to resolve AUTH_INSECURE_KEYS_ALLOWED
 > before AUTH_INSECURE_SERVICE_KEY_TYPE.
 
-To remove the insecure cipher type, update to `aes256k`:
+To remove the insecure cipher type, update to ``aes256k``:
 
 ```bash
 ceph mon set auth_allowed_ciphers aes256k
@@ -569,24 +569,24 @@ The warning should now be resolved.
 
 > **Note:** Rook should automate this process for you. cephadm will not change this as it may adversely affect existing clients.
 
-.. _auth-emergency-ciphers-set:
+<a id="auth-emergency-ciphers-set"></a>
 
 ##### AUTH_EMERGENCY_CIPHERS_SET
 
 The Ceph Monitors are configured to use an set of ciphers to replace the
-`auth_allowed_ciphers` Monitor setting. This configuration is done on
+``auth_allowed_ciphers`` Monitor setting. This configuration is done on
 an emergency basis and should be temporary.
 
-This configuration is used when the `auth_allowed_ciphers` setting prevents
+This configuration is used when the ``auth_allowed_ciphers`` setting prevents
 access to the cluster (due to administrative error). The Monitors can be
-rescued using the `mon_auth_emergency_allowed_ciphers` configuration on the
-`ceph-mon` command-line argument or via its local `ceph.conf`. The Monitors
-will prefer the `mon_auth_emergency_allowed_ciphers` configuration over the
-`mon` setting when present.
+rescued using the ``mon_auth_emergency_allowed_ciphers`` configuration on the
+``ceph-mon`` command-line argument or via its local ``ceph.conf``. The Monitors
+will prefer the ``mon_auth_emergency_allowed_ciphers`` configuration over the
+``mon`` setting when present.
 
 As the warning and configuration name implies, this configuration should only
 be used in an emergency to restore access to other cipher types. The cluster
-will raise `AUTH_EMERGENCY_CIPHERS_SET` until that configuration has been
+will raise ``AUTH_EMERGENCY_CIPHERS_SET`` until that configuration has been
 removed.
 
 ## Manager
@@ -594,7 +594,7 @@ removed.
 ##### MGR_DOWN
 
 All Ceph Manager daemons are currently down. The cluster should normally have
-at least one running manager (`ceph-mgr`) daemon. If no manager daemon is
+at least one running manager (``ceph-mgr``) daemon. If no manager daemon is
 running, the cluster's ability to monitor itself will be compromised, parts of
 the management API will become unavailable (for example, the dashboard will not
 work, and most CLI commands that report metrics or runtime state will block).
@@ -602,7 +602,7 @@ However, the cluster will still be able to perform client I/O operations and
 recover from failures.
 
 The down manager daemon(s) should be restarted as soon as possible to ensure
-that the cluster can be monitored (for example, so that `ceph -s` information
+that the cluster can be monitored (for example, so that ``ceph -s`` information
 is available and up to date, and so that metrics can be scraped by Prometheus).
 
 ##### MGR_MODULE_DEPENDENCY
@@ -629,12 +629,12 @@ This health check might indicate a bug: please open a Ceph bug report if you
 think you have encountered a bug.
 
 However, if you believe the error is transient, you may restart your manager
-daemon(s) or use `ceph mgr fail` on the active daemon in order to force
+daemon(s) or use ``ceph mgr fail`` on the active daemon in order to force
 failover to another daemon.
 
 **Module failed to initialize**
 
-If the `ceph health detail` looks something like this, it means that some
+If the ``ceph health detail`` looks something like this, it means that some
 modules took too long to initialize after a Manager failover, and are unable to process
 commands:
 
@@ -647,14 +647,14 @@ HEALTH_ERR 4 mgr modules have failed
     Module 'volumes' has failed: Module failed to initialize.
 ```
 
-You can also see these modules listed under `pending_modules`
+You can also see these modules listed under ``pending_modules``
 in the output of the following command:
 
 ```bash
 ceph tell mgr mgr_status
 ```
 
-To troubleshoot, you may run `ceph mgr fail` to reboot
+To troubleshoot, you may run ``ceph mgr fail`` to reboot
 module initialization.
 
 Note that the health error may clear on its own since modules
@@ -668,16 +668,16 @@ for further assistance.
 
 ##### OSD_DOWN
 
-One or more OSDs are marked `down`. The ceph-osd daemon(s) or their host(s)
+One or more OSDs are marked ``down``. The ceph-osd daemon(s) or their host(s)
 may have crashed or been stopped, or peer OSDs might be unable to reach the OSD
 over the public or private network.  Common causes include a stopped or crashed
 daemon, a "down" host, or a network failure.
 
 Verify that the host is healthy, the daemon is started, and the network is
 functioning. If the daemon has crashed, the daemon log file
-(`/var/log/ceph/ceph-osd.*`) may contain troubleshooting information.
+(``/var/log/ceph/ceph-osd.*``) may contain troubleshooting information.
 
-##### OSD_<crush type>_DOWN
+##### [OSD](../../dev/osd_internals/osd_overview.md#osd)<crush type>_DOWN
 
 (for example, OSD_HOST_DOWN, OSD_ROOT_DOWN)
 
@@ -736,10 +736,10 @@ ceph osd set-full-ratio <ratio>
 Additional OSDs should be deployed within appropriate CRUSH failure domains
 in order to increase capacity, and / or existing data should be deleted
 in order to free up space in the cluster.  One subtle situation is that the
-`rados bench` tool may have been used to test one or more pools' performance,
+``rados bench`` tool may have been used to test one or more pools' performance,
 and the resulting RADOS objects were not subsequently cleaned up.  You may
-check for this by invoking `rados ls` against each pool and looking for
-objects with names beginning with `bench` or other job names.  These may
+check for this by invoking ``rados ls`` against each pool and looking for
+objects with names beginning with ``bench`` or other job names.  These may
 then be manually but very, very carefully deleted in order to reclaim capacity.
 
 ##### OSD_BACKFILLFULL
@@ -776,9 +776,9 @@ One or more cluster flags of interest have been set. These flags include:
 * *noup* - OSDs are not allowed to start
 * *nodown* - OSD failure reports are being ignored, and that means that the
   monitors will not mark OSDs "down"
-* *noin* - OSDs that were previously marked `out` are not being marked
-  back `in` when they start
-* *noout* - "down" OSDs are not automatically being marked `out` after the
+* *noin* - OSDs that were previously marked ``out`` are not being marked
+  back ``in`` when they start
+* *noout* - "down" OSDs are not automatically being marked ``out`` after the
   configured interval
 * *nobackfill*, *norecover*, *norebalance* - recovery or data
   rebalancing is suspended
@@ -800,10 +800,10 @@ These flags include:
 
 * *noup*: these OSDs are not allowed to start
 * *nodown*: failure reports for these OSDs will be ignored
-* *noin*: if these OSDs were previously marked `out` automatically
-  after a failure, they will not be marked `in` when they start
+* *noin*: if these OSDs were previously marked ``out`` automatically
+  after a failure, they will not be marked ``in`` when they start
 * *noout*: if these OSDs are "down" they will not automatically be marked
-  `out` after the configured interval
+  ``out`` after the configured interval
 
 To set and clear these flags in batch, run the following commands:
 
@@ -828,16 +828,16 @@ ceph osd unset-group noup,noout class-hdd
 The CRUSH map is using very old settings and should be updated. The oldest set
 of tunables that can be used (that is, the oldest client version that can
 connect to the cluster) without raising this health check is determined by the
-`mon_crush_min_required_version` config option.  For more information, see
-crush-map-tunables.
+``mon_crush_min_required_version`` config option.  For more information, see
+[crush-map-tunables](crush-map.md#crush-map-tunables).
 
 ##### OLD_CRUSH_STRAW_CALC_VERSION
 
 The CRUSH map is using an older, non-optimal method of calculating intermediate
-weight values for `straw` buckets.
+weight values for ``straw`` buckets.
 
 The CRUSH map should be updated to use the newer method (that is:
-`straw_calc_version=1`). For more information, see crush-map-tunables.
+``straw_calc_version=1``). For more information, see [crush-map-tunables](crush-map.md#crush-map-tunables).
 
 ##### CACHE_POOL_NO_HIT_SET
 
@@ -856,10 +856,10 @@ ceph osd pool set <poolname> hit_set_fpp <target-false-positive-rate>
 
 ##### OSD_NO_SORTBITWISE
 
-No pre-Luminous v12.y.z OSDs are running, but the `sortbitwise` flag has not
+No pre-Luminous v12.y.z OSDs are running, but the ``sortbitwise`` flag has not
 been set.
 
-The `sortbitwise` flag must be set in order for OSDs running Luminous v12.y.z
+The ``sortbitwise`` flag must be set in order for OSDs running Luminous v12.y.z
 or newer to start. To safely set the flag, run the following command:
 
 ```bash
@@ -965,10 +965,10 @@ To see how much space is free for BlueFS, run the following command:
 ceph daemon osd.123 bluestore bluefs available
 ```
 
-This will output up to three values: `BDEV_DB free`, `BDEV_SLOW free`, and
-`available_from_bluestore`. `BDEV_DB` and `BDEV_SLOW` report the amount
+This will output up to three values: ``BDEV_DB free``, ``BDEV_SLOW free``, and
+``available_from_bluestore``. ``BDEV_DB`` and ``BDEV_SLOW`` report the amount
 of space that has been acquired by BlueFS and is now considered free. The value
-`available_from_bluestore` indicates the ability of BlueStore to relinquish
+``available_from_bluestore`` indicates the ability of BlueStore to relinquish
 more space to BlueFS.  It is normal for this value to differ from the amount of
 BlueStore free space, because the BlueFS allocation unit is typically larger
 than the BlueStore allocation unit.  This means that only part of the BlueStore
@@ -988,7 +988,7 @@ ceph daemon osd.123 bluestore bluefs available <alloc-unit-size>
 
 ##### BLUESTORE_FRAGMENTATION
 
-`BLUESTORE_FRAGMENTATION` indicates that the free space that underlies
+``BLUESTORE_FRAGMENTATION`` indicates that the free space that underlies
 BlueStore has become fragmented. This is normal and unavoidable, but excessive
 fragmentation causes slowdown. To inspect BlueStore fragmentation, run the
 following command:
@@ -1031,11 +1031,11 @@ statistics on a granular, per-pool basis.)
 
 If *all* OSDs are older than Nautilus, this means that the per-pool metrics are
 simply unavailable. But if there is a mixture of pre-Nautilus and post-Nautilus
-OSDs, the cluster usage statistics reported by `ceph df` will be inaccurate.
+OSDs, the cluster usage statistics reported by ``ceph df`` will be inaccurate.
 
 The old OSDs can be updated to use the new usage-tracking scheme by stopping
 each OSD, running a repair operation, and then restarting the OSD. For example,
-to update `osd.123`, run the following commands:
+to update ``osd.123``, run the following commands:
 
 ```bash
 systemctl stop ceph-osd@123
@@ -1060,7 +1060,7 @@ cluster will report an approximate value for per-pool omap usage based on the
 most recent deep scrub.
 
 The OSDs can be updated to track by pool by stopping each OSD, running a repair
-operation, and then restarting the OSD. For example, to update `osd.123`, run
+operation, and then restarting the OSD. For example, to update ``osd.123``, run
 the following commands:
 
 ```bash
@@ -1085,7 +1085,7 @@ Per-PG omap allows faster PG removal when PGs migrate.
 
 The older OSDs can be updated to track by PG by stopping each OSD, running a
 repair operation, and then restarting the OSD. For example, to update
-`osd.123`, run the following commands:
+``osd.123``, run the following commands:
 
 ```bash
 systemctl stop ceph-osd@123
@@ -1107,7 +1107,7 @@ can lead to the OSD(s) crashing in the future.
 
 The OSDs that have this inconsistency should be destroyed and reprovisioned. Be
 very careful to execute this procedure on only one OSD at a time, so as to
-minimize the risk of losing any data. To execute this procedure, where `$N`
+minimize the risk of losing any data. To execute this procedure, where ``$N``
 is the OSD that has the inconsistency, run the following commands:
 
 ```bash
@@ -1125,9 +1125,9 @@ ceph-volume lvm create --osd-id $N --data /path/to/device
 ##### BLUESTORE_NO_COMPRESSION
 
 One or more OSDs is unable to load a BlueStore compression plugin.  This issue
-might be caused by a broken installation, in which the `ceph-osd` binary does
+might be caused by a broken installation, in which the ``ceph-osd`` binary does
 not match the compression plugins. Or it might be caused by a recent upgrade in
-which the `ceph-osd` daemon was not restarted.
+which the ``ceph-osd`` daemon was not restarted.
 
 To resolve this issue, verify that all of the packages on the host that is
 running the affected OSD(s) are correctly installed and that the OSD daemon(s)
@@ -1166,17 +1166,17 @@ that can cause performance degradation and potentially data unavailability or
 loss. These may indicate a storage drive that is failing and should be
 evaluated and possibly removed and replaced.
 
-`read stalled read 0x29f40370000~100000 (buffered) since 63410177.290546s, timeout is 5.000000s`
+``read stalled read 0x29f40370000~100000 (buffered) since 63410177.290546s, timeout is 5.000000s``
 
 However, this is difficult to spot because there no discernible warning (a
-health warning or info in `ceph health detail` for example). More observations
+health warning or info in ``ceph health detail`` for example). More observations
 can be found here: https://tracker.ceph.com/issues/62500
 
-Also because there can be false positive `stalled read` instances, a mechanism
-has been added to increase accuracy. If in the last `bdev_stalled_read_warn_lifetime`
-seconds the number of `stalled read` events is found to be greater than or equal to
-`bdev_stalled_read_warn_threshold` for a given BlueStore block device, this
-warning will be reported in `ceph health detail`.  The warning state will be
+Also because there can be false positive ``stalled read`` instances, a mechanism
+has been added to increase accuracy. If in the last ``bdev_stalled_read_warn_lifetime``
+seconds the number of ``stalled read`` events is found to be greater than or equal to
+``bdev_stalled_read_warn_threshold`` for a given BlueStore block device, this
+warning will be reported in ``ceph health detail``.  The warning state will be
 removed when the condition clears.
 
 The defaults for bdev_stalled_read_warn_lifetime
@@ -1202,19 +1202,19 @@ ceph config set class:ssd bdev_stalled_read_warn_threshold 5
 
 ##### WAL_DEVICE_STALLED_READ_ALERT
 
-The warning state `WAL_DEVICE_STALLED_READ_ALERT` is raised to indicate
-`stalled read` instances on a given BlueStore OSD's `WAL_DEVICE`.  This
+The warning state ``WAL_DEVICE_STALLED_READ_ALERT`` is raised to indicate
+``stalled read`` instances on a given BlueStore OSD's ``WAL_DEVICE``.  This
 warning can be configured via the bdev_stalled_read_warn_lifetime
 and bdev_stalled_read_warn_threshold options with commands similar
-to those described in the `BLOCK_DEVICE_STALLED_READ_ALERT` warning section.
+to those described in the ``BLOCK_DEVICE_STALLED_READ_ALERT`` warning section.
 
 ##### DB_DEVICE_STALLED_READ_ALERT
 
-The warning state `DB_DEVICE_STALLED_READ_ALERT` is raised to indicate
-`stalled read` instances on a given BlueStore OSD's `DB_DEVICE`.  This
+The warning state ``DB_DEVICE_STALLED_READ_ALERT`` is raised to indicate
+``stalled read`` instances on a given BlueStore OSD's ``DB_DEVICE``.  This
 warning can be configured via the bdev_stalled_read_warn_lifetime
 and bdev_stalled_read_warn_threshold options with commands similar
-to those described in the `BLOCK_DEVICE_STALLED_READ_ALERT` warning section.
+to those described in the ``BLOCK_DEVICE_STALLED_READ_ALERT`` warning section.
 
 ##### BLUESTORE_SLOW_OP_ALERT
 
@@ -1223,17 +1223,17 @@ to performance degradation and data unavailability or loss. These indicate
 that the storage drive may be failing and should be investigated and
 potentially replaced.
 
-`log_latency_fn slow operation observed for _txc_committed_kv, latency = 12.028621219s, txc = 0x55a107c30f00`
-`log_latency_fn slow operation observed for upper_bound, latency = 6.25955s`
-`log_latency slow operation observed for submit_transaction..`
+``log_latency_fn slow operation observed for _txc_committed_kv, latency = 12.028621219s, txc = 0x55a107c30f00``
+``log_latency_fn slow operation observed for upper_bound, latency = 6.25955s``
+``log_latency slow operation observed for submit_transaction..``
 
-This may also be reflected by the `BLUESTORE_SLOW_OP_ALERT` cluster health flag.
+This may also be reflected by the ``BLUESTORE_SLOW_OP_ALERT`` cluster health flag.
 
-As there can be false positive `slow ops` instances, a mechanism has
-been added for more reliability. If in the last `bluestore_slow_ops_warn_lifetime`
-seconds the number of `slow ops` indications are found greater than or equal to
+As there can be false positive ``slow ops`` instances, a mechanism has
+been added for more reliability. If in the last ``bluestore_slow_ops_warn_lifetime``
+seconds the number of ``slow ops`` indications are found greater than or equal to
 bluestore_slow_ops_warn_threshold for a given BlueStore OSD, this
-warning will be reported in `ceph health detail`. The warning state is
+warning will be reported in ``ceph health detail``. The warning state is
 cleared when the condition clears.
 
 The defaults for bluestore_slow_ops_warn_lifetime and
@@ -1261,15 +1261,15 @@ ceph config set class:ssd bluestore_slow_ops_warn_threshold 5
 ##### DEVICE_HEALTH
 
 One or more OSD devices are expected to fail soon, where the warning threshold
-is determined by the `mgr/devicehealth/warn_threshold` config option.
+is determined by the ``mgr/devicehealth/warn_threshold`` config option.
 
-Because this alert applies only to OSDs that are currently marked `in`, the
-appropriate response to this expected failure is (1) to mark the OSD `out` so
+Because this alert applies only to OSDs that are currently marked ``in``, the
+appropriate response to this expected failure is (1) to mark the OSD ``out`` so
 that data is migrated off of the OSD, and then (2) to remove the hardware from
-the system. Note that this marking `out` is normally done automatically if
-`mgr/devicehealth/self_heal` is enabled (as determined by
-`mgr/devicehealth/mark_out_threshold`).  If an OSD device is compromised but
-the OSD(s) on that device are still `up`, recovery can be degraded.  In such
+the system. Note that this marking ``out`` is normally done automatically if
+``mgr/devicehealth/self_heal`` is enabled (as determined by
+``mgr/devicehealth/mark_out_threshold``).  If an OSD device is compromised but
+the OSD(s) on that device are still ``up``, recovery can be degraded.  In such
 cases it may be advantageous to forcibly stop the OSD daemon(s) in question so
 that recovery can proceed from surviving healthly OSDs.  This must be
 done with extreme care and attention to failure domains so that data availability
@@ -1297,34 +1297,34 @@ health of the hardware device.
 ##### DEVICE_HEALTH_IN_USE
 
 One or more devices (that is, OSDs) are expected to fail soon and have been
-marked `out` of the cluster (as controlled by
-`mgr/devicehealth/mark_out_threshold`), but they are still participating in
+marked ``out`` of the cluster (as controlled by
+``mgr/devicehealth/mark_out_threshold``), but they are still participating in
 one or more Placement Groups. This might be because the OSD(s) were marked
-`out` only recently and data is still migrating, or because data cannot be
+``out`` only recently and data is still migrating, or because data cannot be
 migrated off of the OSD(s) for some reason (for example, the cluster is nearly
 full, or the CRUSH hierarchy is structured so that there isn't another suitable
 OSD to migrate the data to).
 
 This message can be silenced by disabling self-heal behavior (that is, setting
-`mgr/devicehealth/self_heal` to `false`), by adjusting
-`mgr/devicehealth/mark_out_threshold`, or by addressing whichever condition
+``mgr/devicehealth/self_heal`` to ``false``), by adjusting
+``mgr/devicehealth/mark_out_threshold``, or by addressing whichever condition
 is preventing data from being migrated off of the ailing OSD(s).
 
-.. _rados_health_checks_device_health_toomany:
+<a id="rados-health-checks-device-health-toomany"></a>
 
 ##### DEVICE_HEALTH_TOOMANY
 
 Too many devices (that is, OSDs) are expected to fail soon, and because
-`mgr/devicehealth/self_heal` behavior is enabled, marking `out` all of the
-ailing OSDs would exceed the cluster's `mon_osd_min_in_ratio` ratio.  This
+``mgr/devicehealth/self_heal`` behavior is enabled, marking ``out`` all of the
+ailing OSDs would exceed the cluster's ``mon_osd_min_in_ratio`` ratio.  This
 ratio prevents a cascade of too many OSDs from being automatically marked
-`out`.
+``out``.
 
 You should promptly add new OSDs to the cluster to prevent data loss, or
 incrementally replace the failing OSDs.
 
 Alternatively, you can silence this health check by adjusting options including
-`mon_osd_min_in_ratio` or `mgr/devicehealth/mark_out_threshold`.  Be
+``mon_osd_min_in_ratio`` or ``mgr/devicehealth/mark_out_threshold``.  Be
 warned, however, that this will increase the likelihood of unrecoverable data
 loss.
 
@@ -1347,7 +1347,7 @@ ceph health detail
 ```
 
 In most cases, the root cause of this issue is that one or more OSDs are
-currently `down`: see `OSD_DOWN` above.
+currently ``down``: see ``OSD_DOWN`` above.
 
 To see the state of a specific problematic PG, run a command of the following form:
 
@@ -1374,7 +1374,7 @@ ceph health detail
 ```
 
 In most cases, the root cause of this issue is that one or more OSDs are
-currently "down": see `OSD_DOWN` above.
+currently "down": see ``OSD_DOWN`` above.
 
 To see the state of a specific problematic PG, run a command of the following form:
 
@@ -1387,7 +1387,7 @@ ceph tell <pgid> query
 Data redundancy might be reduced or even put at risk for some data due to a
 lack of free space in the cluster. More precisely, one or more Placement Groups
 have the *recovery_toofull* flag set, which means that the cluster is unable to
-migrate or recover data because one or more OSDs are above the `full`
+migrate or recover data because one or more OSDs are above the ``full``
 threshold.
 
 For steps to resolve this condition, see *OSD_FULL* above.
@@ -1397,7 +1397,7 @@ For steps to resolve this condition, see *OSD_FULL* above.
 Data redundancy might be reduced or even put at risk for some data due to a
 lack of free space in the cluster. More precisely, one or more Placement Groups
 have the *backfill_toofull* flag set, which means that the cluster is unable to
-migrate or recover data because one or more OSDs are above the `backfillfull`
+migrate or recover data because one or more OSDs are above the ``backfillfull``
 threshold.
 
 For steps to resolve this condition, see *OSD_BACKFILLFULL* above.
@@ -1406,23 +1406,23 @@ For steps to resolve this condition, see *OSD_BACKFILLFULL* above.
 
 Data scrubbing has discovered problems with data consistency in the cluster.
 More precisely, one or more Placement Groups either (1) have the *inconsistent*
-or `snaptrim_error` flag set, which indicates that an earlier data scrub
+or ``snaptrim_error`` flag set, which indicates that an earlier data scrub
 operation found a problem, or (2) have the *repair* flag set, which means that
 a repair for such an inconsistency is currently in progress.
 
-For more information, see ../troubleshooting/troubleshooting-pg.
+For more information, see [../troubleshooting/troubleshooting-pg](../troubleshooting/troubleshooting-pg.md).
 
 ##### OSD_SCRUB_ERRORS
 
 Recent OSD scrubs have discovered inconsistencies. This alert is generally
 paired with *PG_DAMAGED* (see above).
 
-For more information, see ../troubleshooting/troubleshooting-pg.
+For more information, see [../troubleshooting/troubleshooting-pg](../troubleshooting/troubleshooting-pg.md).
 
 ##### OSD_TOO_MANY_REPAIRS
 
 The count of read repairs has exceeded the config value threshold
-`mon_osd_warn_num_repaired` (default: `10`).  Because scrub handles errors
+``mon_osd_warn_num_repaired`` (default: ``10``).  Because scrub handles errors
 only for data at rest, and because any read error that occurs when another
 replica is available is repaired immediately so that the client can get
 the object data, there might exist failing disks that are not registering any
@@ -1430,25 +1430,24 @@ scrub errors. This repair count is maintained as a way of identifying any such
 failing disks.
 
 In order to allow clearing of the warning, a new command
-`ceph tell osd.# clear_shards_repaired [count]` has been added.
+``ceph tell osd.# clear_shards_repaired [count]`` has been added.
 By default it will set the repair count to 0. A `count` value can be passed
 to the command. Thus, the administrator has the option to re-enable the warning
-by passing the value of `mon_osd_warn_num_repaired` (or above) to the command.
+by passing the value of ``mon_osd_warn_num_repaired`` (or above) to the command.
 An alternative to using `clear_shards_repaired` is to mute the
 `OSD_TOO_MANY_REPAIRS` alert with `ceph health mute`.
 
 ##### LARGE_OMAP_OBJECTS
 
 One or more pools contain large omap objects, as determined by
-`osd_deep_scrub_large_omap_object_key_threshold` (the threshold for the
+``osd_deep_scrub_large_omap_object_key_threshold`` (the threshold for the
 number of keys to determine what is considered a large omap object) or
-`osd_deep_scrub_large_omap_object_value_sum_threshold` (the threshold for the
+``osd_deep_scrub_large_omap_object_value_sum_threshold`` (the threshold for the
 summed size in bytes of all key values to determine what is considered a large
 omap object) or both.  To find more information on object name, key count, and
 size in bytes, search the cluster log for 'Large omap object found'. This issue
 can be caused by RGW-bucket index objects that do not have automatic resharding
-enabled. For more information on resharding, see :ref:`RGW Dynamic Bucket Index
-Resharding <rgw_dynamic_bucket_index_resharding>`.
+enabled. For more information on resharding, see [RGW Dynamic Bucket Index Resharding](../../radosgw/dynamicresharding.md#rgw-dynamic-bucket-index-resharding).
 
 To adjust the thresholds mentioned above, run a command of following form:
 
@@ -1459,8 +1458,8 @@ ceph config set osd osd_deep_scrub_large_omap_object_value_sum_threshold <bytes>
 
 ##### CACHE_POOL_NEAR_FULL
 
-A cache-tier pool is nearly full, as determined by the `target_max_bytes` and
-`target_max_objects` properties of the cache pool. When the pool reaches the
+A cache-tier pool is nearly full, as determined by the ``target_max_bytes`` and
+``target_max_objects`` properties of the cache pool. When the pool reaches the
 target threshold, write requests to the pool might block while data is flushed
 and evicted from the cache. This state normally leads to very high latencies
 and poor performance.
@@ -1479,7 +1478,7 @@ performance of the base tier, or overall cluster load.
 ##### TOO_FEW_PGS
 
 The number of Placement Groups (PGs) that are in use in the cluster is below
-the configurable threshold of `mon_pg_warn_min_per_osd` PGs per OSD. This can
+the configurable threshold of ``mon_pg_warn_min_per_osd`` PGs per OSD. This can
 lead to suboptimal distribution and suboptimal balance of data across the OSDs
 in the cluster, and a reduction of overall performance.
 
@@ -1487,15 +1486,15 @@ If data pools have not yet been created, this condition is expected.
 
 To address this issue, you can increase the PG count for existing pools or
 create new pools.  For more information, see
-choosing-number-of-placement-groups.
+[choosing-number-of-placement-groups](placement-groups.md#choosing-number-of-placement-groups).
 
 ##### POOL_PG_NUM_NOT_POWER_OF_TWO
 
-One or more pools have a `pg_num` value that is not a power of two.  Although
+One or more pools have a ``pg_num`` value that is not a power of two.  Although
 this is not fatal, it does lead to a less balanced distribution of
 data because some placement groups will comprise much more data than others.
 
-This is easily corrected by setting the `pg_num` value for the affected
+This is easily corrected by setting the ``pg_num`` value for the affected
 pool(s) to a nearby power of two. Enable the PG Autoscaler or run a command of the following form:
 
 ```bash
@@ -1516,7 +1515,7 @@ One or more pools should probably have more Placement Groups (PGs), given the
 amount of data that is currently stored in the pool. This issue can lead to
 suboptimal distribution and suboptimal balance of data across the OSDs in the
 cluster, and a reduction of overall performance. This alert is raised only if
-the `pg_autoscale_mode` property on the pool is set to `warn`.
+the ``pg_autoscale_mode`` property on the pool is set to ``warn``.
 
 To disable the alert, entirely disable auto-scaling of PGs for the pool by
 running the following command:
@@ -1539,13 +1538,13 @@ recommended amount, run a command of the following form:
 ceph osd pool set <pool-name> pg_num <new-pg-num>
 ```
 
-For more information, see choosing-number-of-placement-groups and
-pg-autoscaler.
+For more information, see [choosing-number-of-placement-groups](placement-groups.md#choosing-number-of-placement-groups) and
+[pg-autoscaler](placement-groups.md#pg-autoscaler).
 
 ##### TOO_MANY_PGS
 
 The number of Placement Groups (PGs) in use in the cluster is above the
-configurable threshold of `mon_max_pg_per_osd` PGs per OSD. If this threshold
+configurable threshold of ``mon_max_pg_per_osd`` PGs per OSD. If this threshold
 is exceeded, the cluster will not allow new pools to be created, pool `pg_num`
 to be increased, or pool replication to be increased (any of which, if allowed,
 would lead to more PGs in the cluster). A large number of PGs can lead to
@@ -1555,15 +1554,15 @@ the Manager and Monitor daemons.
 
 The simplest way to mitigate the problem is to increase the number of OSDs in
 the cluster by adding more hardware. Note that, because the OSD count that is
-used for the purposes of this health check is the number of `in` OSDs,
-marking `out` OSDs `in` (if there are any `out` OSDs available) can also
+used for the purposes of this health check is the number of ``in`` OSDs,
+marking ``out`` OSDs ``in`` (if there are any ``out`` OSDs available) can also
 help. To do so, run a command of the following form:
 
 ```bash
 ceph osd in <osd id(s)>
 ```
 
-For more information, see choosing-number-of-placement-groups.
+For more information, see [choosing-number-of-placement-groups](placement-groups.md#choosing-number-of-placement-groups).
 
 ##### POOL_TOO_MANY_PGS
 
@@ -1572,7 +1571,7 @@ amount of data that is currently stored in the pool. This issue can lead to
 higher memory utilization for OSD daemons, slower peering after cluster state
 changes (for example, OSD restarts, additions, or removals), and higher load on
 the Manager and Monitor daemons. This alert is raised only if the
-`pg_autoscale_mode` property on the pool is set to `warn`.
+``pg_autoscale_mode`` property on the pool is set to ``warn``.
 
 To disable the alert, entirely disable auto-scaling of PGs for the pool by
 running the following command:
@@ -1595,62 +1594,62 @@ recommended amount, run a command of the following form:
 ceph osd pool set <pool-name> pg_num <new-pg-num>
 ```
 
-For more information, see choosing-number-of-placement-groups and
-pg-autoscaler.
+For more information, see [choosing-number-of-placement-groups](placement-groups.md#choosing-number-of-placement-groups) and
+[pg-autoscaler](placement-groups.md#pg-autoscaler).
 
 ##### POOL_TARGET_SIZE_BYTES_OVERCOMMITTED
 
-One or more pools does have a `target_size_bytes` property that is set in
+One or more pools does have a ``target_size_bytes`` property that is set in
 order to estimate the expected size of the pool, but the value or values of
 this property are greater than the total available storage (either by
 themselves or in combination with other pools).
 
-This alert is usually an indication that the `target_size_bytes` value for
+This alert is usually an indication that the ``target_size_bytes`` value for
 the pool is too large and should be reduced or set to zero. To reduce the
-`target_size_bytes` value or set it to zero, run the following command:
+``target_size_bytes`` value or set it to zero, run the following command:
 
 ```bash
 ceph osd pool set <pool-name> target_size_bytes 0
 ```
 
-The above command sets the value of `target_size_bytes` to zero. To set the
-value of `target_size_bytes` to a non-zero value, replace the `0` with that
+The above command sets the value of ``target_size_bytes`` to zero. To set the
+value of ``target_size_bytes`` to a non-zero value, replace the ``0`` with that
 non-zero value.
 
-For more information, see specifying_pool_target_size.
+For more information, see [specifying_pool_target_size](placement-groups.md#specifying-pool-target-size).
 
 ##### POOL_HAS_TARGET_SIZE_BYTES_AND_RATIO
 
-One or more pools have both `target_size_bytes` and `target_size_ratio` set
+One or more pools have both ``target_size_bytes`` and ``target_size_ratio`` set
 in order to estimate the expected size of the pool.  Only one of these
 properties should be non-zero. If both are set to a non-zero value, then
-`target_size_ratio` takes precedence and `target_size_bytes` is ignored.
+``target_size_ratio`` takes precedence and ``target_size_bytes`` is ignored.
 
-To reset `target_size_bytes` to zero, run a command of the following form:
+To reset ``target_size_bytes`` to zero, run a command of the following form:
 
 ```bash
 ceph osd pool set <pool-name> target_size_bytes 0
 ```
 
-For more information, see specifying_pool_target_size.
+For more information, see [specifying_pool_target_size](placement-groups.md#specifying-pool-target-size).
 
 ##### TOO_FEW_OSDS
 
 The number of OSDs in the cluster is below the configurable threshold of
-`osd_pool_default_size`. This means that some or all data may not be able to
+``osd_pool_default_size``. This means that some or all data may not be able to
 satisfy the data protection policy specified in CRUSH rules and pool settings.
 
 ##### SMALLER_PGP_NUM
 
-One or more pools have a `pgp_num` value less than `pg_num`. This alert is
+One or more pools have a ``pgp_num`` value less than ``pg_num``. This alert is
 normally an indication that the Placement Group (PG) count was increased
 without any increase in the placement behavior.
 
 This disparity is sometimes brought about deliberately, in order to separate
 out the `split` step when the PG count is adjusted from the data migration that
-is needed when `pgp_num` is changed.
+is needed when ``pgp_num`` is changed.
 
-This issue is normally resolved by setting `pgp_num` to match `pg_num`, so
+This issue is normally resolved by setting ``pgp_num`` to match ``pg_num``, so
 as to trigger the data migration, by running a command of the following form:
 
 ```bash
@@ -1661,7 +1660,7 @@ ceph osd pool set <pool> pgp_num <pg-num-value>
 
 One or more pools have an average number of objects per Placement Group (PG)
 that is significantly higher than the overall cluster average. The specific
-threshold is determined by the `mon_pg_warn_max_object_skew` configuration
+threshold is determined by the ``mon_pg_warn_max_object_skew`` configuration
 value.
 
 This alert is usually an indication that the pool(s) that contain most of the
@@ -1669,10 +1668,10 @@ data in the cluster have too few PGs, or that other pools that contain less
 data have too many PGs. See *TOO_MANY_PGS* above.
 
 To silence the health check, raise the threshold by adjusting the
-`mon_pg_warn_max_object_skew` config option on the managers.
+``mon_pg_warn_max_object_skew`` config option on the managers.
 
 The health check is silenced for a specific pool only if
-`pg_autoscale_mode` is set to `on`.
+``pg_autoscale_mode`` is set to ``on``.
 
 ##### POOL_APP_NOT_ENABLED
 
@@ -1693,13 +1692,13 @@ you can label the pool by running the following low-level command:
 ceph osd pool application enable foo
 ```
 
-For more information, see associate-pool-to-application.
+For more information, see [associate-pool-to-application](pools.md#associate-pool-to-application).
 
 ##### POOL_FULL
 
 One or more pools have reached (or are very close to reaching) their quota. The
 threshold to raise this health check is determined by the
-`mon_pool_quota_crit_threshold` configuration option.
+``mon_pool_quota_crit_threshold`` configuration option.
 
 Pool quotas can be adjusted up or down (or removed) by running commands of the the following
 forms:
@@ -1709,14 +1708,14 @@ ceph osd pool set-quota <pool> max_bytes <bytes>
 ceph osd pool set-quota <pool> max_objects <objects>
 ```
 
-To disable a quota, set the quota value to `0`.
+To disable a quota, set the quota value to ``0``.
 
 ##### POOL_NEAR_FULL
 
 One or more pools are approaching a configured fullness threshold.
 
 One of the several thresholds that can raise this health check is determined by
-the `mon_pool_quota_warn_threshold` configuration option.
+the ``mon_pool_quota_warn_threshold`` configuration option.
 
 Pool quotas can be adjusted up or down (or removed) by running commands of the following
 forms:
@@ -1729,8 +1728,8 @@ ceph osd pool set-quota <pool> max_objects <objects>
 To disable a quota, set the quota value to 0.
 
 Other thresholds that can raise the two health checks above are
-`mon_osd_nearfull_ratio` and `mon_osd_full_ratio`. For details and
-resolution, see storage-capacity and no-free-drive-space.
+``mon_osd_nearfull_ratio`` and ``mon_osd_full_ratio``. For details and
+resolution, see [storage-capacity](../configuration/mon-config-ref.md#storage-capacity) and [no-free-drive-space](../troubleshooting/troubleshooting-osd.md#no-free-drive-space).
 
 ##### OBJECT_MISPLACED
 
@@ -1761,7 +1760,7 @@ ceph tell <pgid> query
 
 On the other hand, if the latest copy of the object is not available, the
 cluster can be told to roll back to a previous version of the object. For more
-information, see failures-osd-unfound.
+information, see [failures-osd-unfound](../troubleshooting/troubleshooting-pg.md#failures-osd-unfound).
 
 ##### SLOW_OPS
 
@@ -1795,13 +1794,13 @@ normally scrubbed within an interval determined by
 osd_scrub_max_interval globally. This interval can be overridden on
 per-pool basis by changing the value of the variable
 scrub_max_interval. This health check is raised if a certain
-percentage (determined by `mon_warn_pg_not_scrubbed_ratio`) of the interval
+percentage (determined by ``mon_warn_pg_not_scrubbed_ratio``) of the interval
 has elapsed after the time the scrub was scheduled and no scrub has been
 performed.
 
-PGs are scrubbed only if they are flagged as `clean` (which means that
+PGs are scrubbed only if they are flagged as ``clean`` (which means that
 they are to be cleaned, and not that they have been examined and found to be
-clean). Misplaced or degraded PGs will not be flagged as `clean` (see
+clean). Misplaced or degraded PGs will not be flagged as ``clean`` (see
 *PG_AVAILABILITY* and *PG_DEGRADED* above).
 
 To manually initiate a scrub of a clean PG, run a command of the following form:
@@ -1818,9 +1817,9 @@ This health check is raised if a certain percentage (determined by
 mon_warn_pg_not_deep_scrubbed_ratio) of the interval has elapsed
 after the time the scrub was scheduled and no scrub has been performed.
 
-PGs will receive a deep scrub only if they are flagged as `clean` (which
+PGs will receive a deep scrub only if they are flagged as ``clean`` (which
 means that they are to be cleaned, and not that they have been examined and
-found to be clean). Misplaced or degraded PGs might not be flagged as `clean`
+found to be clean). Misplaced or degraded PGs might not be flagged as ``clean``
 (see *PG_AVAILABILITY* and *PG_DEGRADED* above).
 
 This document offers two methods of setting the value of
@@ -1837,12 +1836,12 @@ To manually initiate a deep scrub of a clean PG, run a command of the following 
 ceph pg deep-scrub <pgid>
 ```
 
-Under certain conditions, the warning `PGs not deep-scrubbed in time`
+Under certain conditions, the warning ``PGs not deep-scrubbed in time``
 appears. This might be because the cluster contains many large PGs, which take
 longer to deep-scrub. To remedy this situation, you must change the value of
 osd_deep_scrub_interval globally.
 
-1. Confirm that `ceph health detail` returns a ``pgs not deep-scrubbed in
+1. Confirm that ``ceph health detail`` returns a ``pgs not deep-scrubbed in
    time`` warning:
 
 ```
@@ -1852,7 +1851,7 @@ HEALTH_WARN 1161 pgs not deep-scrubbed in time
 pg 86.fff not deep-scrubbed since 2024-08-21T02:35:25.733187+0000
 ```
 
-1. Change `osd_deep_scrub_interval` globally:
+1. Change ``osd_deep_scrub_interval`` globally:
 
 ```bash
 ceph config set global osd_deep_scrub_interval 1209600
@@ -1872,12 +1871,12 @@ To manually initiate a deep scrub of a clean PG, run a command of the following 
 ceph pg deep-scrub <pgid>
 ```
 
-Under certain conditions, the warning `PGs not deep-scrubbed in time`
+Under certain conditions, the warning ``PGs not deep-scrubbed in time``
 appears. This might be because the cluster contains many large PGs, which take
 longer to deep-scrub. To remedy this situation, you must change the value of
 osd_deep_scrub_interval for OSDs and for the Manager daemon.
 
-1. Confirm that `ceph health detail` returns a ``pgs not deep-scrubbed in
+1. Confirm that ``ceph health detail`` returns a ``pgs not deep-scrubbed in
    time`` warning:
 
 ```
@@ -1887,13 +1886,13 @@ HEALTH_WARN 1161 pgs not deep-scrubbed in time
 pg 86.fff not deep-scrubbed since 2024-08-21T02:35:25.733187+0000
 ```
 
-1. Change the `osd_deep_scrub_interval` for OSDs:
+1. Change the ``osd_deep_scrub_interval`` for OSDs:
 
 ```bash
 ceph config set osd osd_deep_scrub_interval 1209600
 ```
 
-1. Change the `osd_deep_scrub_interval` for Managers:
+1. Change the ``osd_deep_scrub_interval`` for Managers:
 
 ```bash
 ceph config set mgr osd_deep_scrub_interval 1209600
@@ -1912,7 +1911,7 @@ threshold. This alert indicates either that an extremely large number of
 snapshots was recently deleted, or that OSDs are unable to trim snapshots
 quickly enough to keep up with the rate of new snapshot deletions.
 
-The warning threshold is determined by the `mon_osd_snap_trim_queue_warn_on`
+The warning threshold is determined by the ``mon_osd_snap_trim_queue_warn_on``
 option (default: 32768).
 
 This alert might be raised if OSDs are under excessive load and unable to keep
@@ -1920,8 +1919,8 @@ up with their background work, or if the OSDs' internal metadata database is
 heavily fragmented and unable to perform. The alert might also indicate some
 other performance issue with the OSDs.
 
-The exact size of the snapshot trim queue is reported by the `snaptrimq_len`
-field of `ceph pg ls -f json-detail`.
+The exact size of the snapshot trim queue is reported by the ``snaptrimq_len``
+field of ``ceph pg ls -f json-detail``.
 
 ## Stretch Mode
 
@@ -1939,7 +1938,7 @@ number of dividing buckets to 2.
 
 The two dividing buckets must have weights within a fractional difference
 when stretch mode is enabled. This is determined by the configuration option
-`mon_stretch_max_bucket_weight_delta` (default: 0.1).
+``mon_stretch_max_bucket_weight_delta`` (default: 0.1).
 
 This is not immediately fatal, however, you can expect Ceph to experience performance bottlenecks
 and imbalanced PG distribution if the aggregate CRUSH weights of the buckets differ significantly,
@@ -1948,12 +1947,12 @@ as the smaller bucket will carry a higher I/O load per OSD.
 We encourage you to fix this by making the weights of the dividing buckets more even.
 This can be done by making sure the combined weight of the OSDs on each dividing
 bucket are within the fractional difference defined by
-`mon_stretch_max_bucket_weight_delta`.
+``mon_stretch_max_bucket_weight_delta``.
 
 ##### NONEXISTENT_MON_CRUSH_LOC_STRETCH_MODE
 
 The CRUSH location specified for the monitor must belong to one of the dividing
-buckets when stretch mode is enabled. With the `tiebreaker` monitor being the
+buckets when stretch mode is enabled. With the ``tiebreaker`` monitor being the
 only exception.
 
 This warning suggests that one or more monitors have a CRUSH location that does
@@ -1976,7 +1975,7 @@ It's recommended to have multiple NVMeoF gateways in a group.
 ##### NVMEOF_GATEWAY_DOWN
 
 Some of the gateways are in the GW_UNAVAILABLE state. If a NVMeoF daemon has
-crashed, the daemon log file (found at `/var/log/ceph/`) may contain
+crashed, the daemon log file (found at ``/var/log/ceph/``) may contain
 troubleshooting information.
 
 ##### NVMEOF_GATEWAY_DELETING
@@ -2022,10 +2021,10 @@ ceph crash archive-all
 ```
 
 Archived crashes will still be visible by running the command ``ceph crash
-ls`, but not by running the command `ceph crash ls-new``.
+ls``, but not by running the command ``ceph crash ls-new``.
 
 The time period that is considered recent is determined by the option
-`mgr/crash/warn_recent_interval` (default: two weeks).
+``mgr/crash/warn_recent_interval`` (default: two weeks).
 
 To entirely disable this alert, run the following command:
 
@@ -2035,10 +2034,10 @@ ceph config set mgr/crash/warn_recent_interval 0
 
 ##### RECENT_MGR_MODULE_CRASH
 
-One or more `ceph-mgr` modules have crashed recently, and the crash(es) have
+One or more ``ceph-mgr`` modules have crashed recently, and the crash(es) have
 not yet been acknowledged and archived by the administrator.  This alert
 usually indicates a software bug in one of the software modules that are
-running inside the `ceph-mgr` daemon. The module that experienced the problem
+running inside the ``ceph-mgr`` daemon. The module that experienced the problem
 might be disabled as a result, but other modules are unaffected and continue to
 function as expected.
 
@@ -2062,11 +2061,11 @@ Similarly, to archive all recent crashes, run the following command:
 ceph crash archive-all
 ```
 
-Archived crashes will still be visible by running the command `ceph crash ls`
-but not by running the command `ceph crash ls-new`.
+Archived crashes will still be visible by running the command ``ceph crash ls``
+but not by running the command ``ceph crash ls-new``.
 
 The time period that is considered recent is determined by the option
-`mgr/crash/warn_recent_interval` (default: two weeks).
+``mgr/crash/warn_recent_interval`` (default: two weeks).
 
 To entirely disable this alert, run the following command:
 
@@ -2093,7 +2092,7 @@ ceph telemetry show
 ```
 
 Note that the telemetry report consists of several channels that may be
-independently enabled or disabled. For more information, see telemetry.
+independently enabled or disabled. For more information, see [telemetry](../../mgr/telemetry.md#telemetry).
 
 To re-enable telemetry (and silence the alert), run the following command:
 
@@ -2134,21 +2133,21 @@ form:
 ceph auth <entity-name> <daemon-type> <caps> [<daemon-type> <caps> ...]
 ```
 
-For more information about auth capabilities, see user-management.
+For more information about auth capabilities, see [user-management](user-management.md#user-management).
 
 ##### OSD_NO_DOWN_OUT_INTERVAL
 
-The `mon_osd_down_out_interval` option is set to zero, which means that the
+The ``mon_osd_down_out_interval`` option is set to zero, which means that the
 system does not automatically perform any repair or healing operations when an
 OSD fails. Instead, an administrator an external orchestrator must manually
-mark "down" OSDs as `out` (by running `ceph osd out <osd-id>`) in order to
+mark "down" OSDs as ``out`` (by running ``ceph osd out <osd-id>``) in order to
 trigger recovery.
 
 This option is normally set to five or ten minutes, which should be enough time
 for a host to power-cycle or reboot.
 
-To silence this alert, set `mon_warn_on_osd_down_out_interval_zero` to
-`false` by running the following command:
+To silence this alert, set ``mon_warn_on_osd_down_out_interval_zero`` to
+``false`` by running the following command:
 
 ```bash
 ceph config global mon mon_warn_on_osd_down_out_interval_zero false

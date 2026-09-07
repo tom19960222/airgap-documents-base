@@ -1,11 +1,11 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "``new-db``"
+title: "`new-db`"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/lvm/newdb.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-lvm-newdb:
+<a id="ceph-volume-lvm-newdb"></a>
 
 # ``new-db``
 
@@ -44,13 +44,13 @@ lvextend -l ${size} ${lv}/${db} ${ssd_dev}
 cephadm unit --fsid $cid --name osd.${osd} stop
 ```
 
-1. Run the `bluefs-bdev-expand` command:
+1. Run the ``bluefs-bdev-expand`` command:
 
 ```bash
 cephadm shell --fsid $cid --name osd.${osd} -- ceph-bluestore-tool bluefs-bdev-expand --path /var/lib/ceph/osd/ceph-${osd}
 ```
 
-1. Run the `bluefs-bdev-migrate` command:
+1. Run the ``bluefs-bdev-migrate`` command:
 
 ```bash
 cephadm shell --fsid $cid --name osd.${osd} -- ceph-bluestore-tool bluefs-bdev-migrate --path /var/lib/ceph/osd/ceph-${osd} --devs-source /var/lib/ceph/osd/ceph-${osd}/block --dev-target /var/lib/ceph/osd/ceph-${osd}/block.db

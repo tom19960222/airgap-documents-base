@@ -5,23 +5,20 @@ title: "Analyzing and Debugging A Teuthology Job"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/developer_guide/testing_integration_tests/tests-integration-testing-teuthology-debugging-tips.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _tests-integration-testing-teuthology-debugging-tips:
+<a id="tests-integration-testing-teuthology-debugging-tips"></a>
 
 # Analyzing and Debugging A Teuthology Job
 
-To learn more about how to schedule an integration test, refer to `Scheduling
-Test Run`_.
+To learn more about how to schedule an integration test, refer to [Scheduling Test Run](tests-integration-testing-teuthology-workflow.md#scheduling-test-run).
 
 ## Viewing Test Results
 
-When a teuthology run has been completed successfully, use pulpito dashboard
+When a teuthology run has been completed successfully, use [pulpito](https://pulpito.ceph.com) dashboard
 to view the results:
 
 ```
 http://pulpito.front.sepia.ceph.com/<job-name>/<job-id>/
 ```
-
-.. _pulpito: https://pulpito.ceph.com
 
 or ssh into the teuthology server to view the results of the integration test:
 
@@ -29,7 +26,7 @@ or ssh into the teuthology server to view the results of the integration test:
 ssh <username>@teuthology.front.sepia.ceph.com
 ```
 
-and access teuthology archives, as in this example:
+and access [teuthology archives](tests-integration-testing-teuthology-workflow.md#teuthology-archives), as in this example:
 
 ```bash
 nano /a/teuthology-2021-01-06_07:01:02-rados-master-distro-basic-smithi/
@@ -43,28 +40,25 @@ nano /a/teuthology-2021-01-06_07:01:02-rados-master-distro-basic-smithi/
 
 On pulpito, a job in red means either a failed job or a dead job. A job is
 combination of daemons and configurations defined in the yaml fragments in
-qa/suites . Teuthology uses these configurations and runs the tasks listed
-in qa/tasks, which are commands that set up the test environment and test
+[qa/suites](https://github.com/ceph/ceph/tree/master/qa/suites) . Teuthology uses these configurations and runs the tasks listed
+in [qa/tasks](https://github.com/ceph/ceph/tree/master/qa/tasks), which are commands that set up the test environment and test
 Ceph's components. These tasks cover a large subset of use cases and help to
-expose bugs not exposed by make check testing.
-
-.. _make check: ../tests-integration-testing-teuthology-intro/#make-check
+expose bugs not exposed by [make check](tests-integration-testing-teuthology-intro.md#make-check) testing.
 
 A job failure might be caused by one or more of the following reasons:
 
-* environment setup (`testing on varied
-  systems <https://github.com/ceph/ceph/tree/master/qa/distros/supported>`_):
+* environment setup ([testing on varied
+  systems](https://github.com/ceph/ceph/tree/master/qa/distros/supported)):
   testing compatibility with stable releases for supported versions.
 
-* permutation of config values: for instance, `qa/suites/rados/thrash
-  <https://github.com/ceph/ceph/tree/master/qa/suites/rados/thrash>`_ ensures
+* permutation of config values: for instance, [qa/suites/rados/thrash](https://github.com/ceph/ceph/tree/master/qa/suites/rados/thrash) ensures
   that we run thrashing tests against Ceph under stressful workloads so that we
   can catch corner-case bugs. The final setup config yaml file used for testing
   can be accessed at::
 
   /a/<job-name>/<job-id>/orig.config.yaml
 
-More details about config.yaml can be found at detailed test config
+More details about config.yaml can be found at [detailed test config](https://docs.ceph.com/projects/teuthology/en/latest/detailed_test_config.html)
 
 ## Triaging the cause of failure
 
@@ -91,7 +85,7 @@ nano /a/teuthology-2021-01-06_07:01:02-rados-master-distro-basic-smithi/5759282/
 Every job failure is recorded in the teuthology log as a Traceback and is
 added to the job summary.
 
-Find the `Traceback` keyword and search the call stack and the logs for
+Find the ``Traceback`` keyword and search the call stack and the logs for
 issues that caused the failure. Usually the traceback will include the command
 that failed.
 
@@ -122,18 +116,18 @@ failure, ask one of the team members for help.
 ## Debugging an issue using interactive-on-error
 
 When you encounter a job failure during testing, you should attempt to
-reproduce it. This is where `--interactive-on-error` comes in. This
-section explains how to use `interactive-on-error` and what it does.
+reproduce it. This is where ``--interactive-on-error`` comes in. This
+section explains how to use ``interactive-on-error`` and what it does.
 
 When you have verified that a job has failed, run the same job again in
-teuthology but add the interactive-on-error flag:
+teuthology but add the [interactive-on-error](https://docs.ceph.com/projects/teuthology/en/latest/detailed_test_config.html#troubleshooting) flag:
 
 ```
 ideepika@teuthology:~/teuthology$ ./virtualenv/bin/teuthology -v --lock --block $<your-config-yaml> --interactive-on-error
 ```
 
-Use either custom config.yaml or the yaml file from the failed job. If
-you use the yaml file from the failed job, copy `orig.config.yaml` to
+Use either [custom config.yaml](https://docs.ceph.com/projects/teuthology/en/latest/detailed_test_config.html#test-configuration) or the yaml file from the failed job. If
+you use the yaml file from the failed job, copy ``orig.config.yaml`` to
 your local directory:
 
 ```
@@ -141,8 +135,8 @@ ideepika@teuthology:~/teuthology$ cp /a/teuthology-2021-01-06_07:01:02-rados-mas
 ideepika@teuthology:~/teuthology$ ./virtualenv/bin/teuthology -v --lock --block test.yaml --interactive-on-error
 ```
 
-If a job fails when the `interactive-on-error` flag is used, teuthology
-will lock the machines required by `config.yaml`. Teuthology will halt
+If a job fails when the ``interactive-on-error`` flag is used, teuthology
+will lock the machines required by ``config.yaml``. Teuthology will halt
 the testing machines and hold them in the state that they were in at the
 time of the job failure. You will be put into an interactive python
 session. From there, you can ssh into the system to investigate the cause
@@ -156,13 +150,3 @@ Teuthology will then clean up the session and unlock the machines.
   * [Testing Ceph: Pains & Pleasures](https://www.youtube.com/watch?v=gj1OXrKdSrs)
   * [Teuthology Training](https://www.youtube.com/playlist?list=PLrBUGiINAakNsOwHaIM27OBGKezQbUdM-)
   * [Intro to Teuthology](https://www.youtube.com/watch?v=WiEUzoS6Nc4)
-
-.. _Scheduling Test Run: ../tests-integration-testing-teuthology-workflow/#scheduling-test-run
-.. _detailed test config: https://docs.ceph.com/projects/teuthology/en/latest/detailed_test_config.html
-.. _teuthology archives: ../tests-integration-testing-teuthology-workflow/#teuthology-archives
-.. _qa/suites: https://github.com/ceph/ceph/tree/master/qa/suites
-.. _qa/tasks: https://github.com/ceph/ceph/tree/master/qa/tasks
-.. _interactive-on-error: https://docs.ceph.com/projects/teuthology/en/latest/detailed_test_config.html#troubleshooting
-.. _custom config.yaml: https://docs.ceph.com/projects/teuthology/en/latest/detailed_test_config.html#test-configuration
-.. _testing priority: ../tests-integration-testing-teuthology-intro/#testing-priority
-.. _thrash: https://github.com/ceph/ceph/tree/master/qa/suites/rados/thrash

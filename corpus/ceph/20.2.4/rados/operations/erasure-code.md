@@ -5,7 +5,7 @@ title: "Erasure code"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/erasure-code.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ecpool:
+<a id="ecpool"></a>
 
 # Erasure code
 
@@ -29,8 +29,7 @@ Hamming at Bell Laboratories.
 
 ## Creating a sample erasure-coded pool
 
-The simplest erasure-coded pool is similar to `RAID5
-<https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_5>`_ and
+The simplest erasure-coded pool is similar to [RAID5](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_5) and
 requires at least three hosts:
 
 ```bash
@@ -166,8 +165,7 @@ no two *chunks* are stored in the same rack.
                +----------------->| OSD5 |
                                   +------+
 
-More information can be found in the `erasure-code profiles
-<../erasure-code-profile>`_ documentation.
+More information can be found in the [erasure-code profiles](erasure-code-profile.md) documentation.
 
 ## Erasure Coding with Overwrites
 
@@ -192,16 +190,16 @@ should be migrated to BlueStore.
 Erasure-coded pools do not support omap, so to use them with RBD and
 CephFS you must instruct them to store their data in an EC pool and
 their metadata in a replicated pool. For RBD, this means using the
-erasure-coded pool as the `--data-pool` during image creation:
+erasure-coded pool as the ``--data-pool`` during image creation:
 
 ```bash
 rbd create --size 1G --data-pool ec_pool replicated_pool/image_name
 ```
 
 For CephFS, an erasure-coded pool can be set as the default data pool during
-file system creation or via file-layouts.
+file system creation or via [file-layouts](../../cephfs/file-layouts.md#file-layouts).
 
-.. _rados_ops_erasure_coding_optimizations:
+<a id="rados-ops-erasure-coding-optimizations"></a>
 
 ## Erasure Coding Optimizations
 
@@ -230,7 +228,7 @@ upgraded to Tentacle or later. Optimizations can be enabled and used without
 upgrading gateways and clients.
 
 Optimizations are currently only supported with the Jerasure and ISA-L plugins
-when using the `reed_sol_van` technique (these are the old and current
+when using the ``reed_sol_van`` technique (these are the old and current
 defaults and are the most widely used plugins and technique). Attempting to
 set the flag for a pool using an unsupported combination of plugin and
 technique is blocked with an error message.
@@ -250,12 +248,12 @@ osd_pool_erasure_code_stripe_unit. The stripe unit cannot be changed
 after the pool has been created, so if enabling optimizations for an existing
 pool you will not get the full benefit of the optimizations.
 
-Without optimizations enabled, the choice of `k+m` in the erasure code profile
-affects performance. The higher the values of `k` and `m` the lower the
+Without optimizations enabled, the choice of ``k+m`` in the erasure code profile
+affects performance. The higher the values of ``k`` and ``m`` the lower the
 performance will be. With optimizations enabled there is only a very slight
-reduction in performance as `k` increases so this makes using a higher value
-of `k` more viable. Increasing `m` still impacts write performance,
-especially for small writes, so for block and file workloads a value of `m`
+reduction in performance as ``k`` increases so this makes using a higher value
+of ``k`` more viable. Increasing ``m`` still impacts write performance,
+especially for small writes, so for block and file workloads a value of ``m``
 no larger than 3 is recommended.
 
 ## Erasure Coding Optimizations
@@ -285,7 +283,7 @@ upgraded to Tentacle or later. Optimizations can be enabled and used without
 upgrading gateways and clients.
 
 Optimizations are currently only supported with the Jerasure and ISA-L plugins
-when using the `reed_sol_van` technique (these are the old and current
+when using the ``reed_sol_van`` technique (these are the old and current
 defaults and are the most widely used plugins and technique). Attempting to
 set the flag for a pool using an unsupported combination of plugin and
 technique is blocked with an error message.
@@ -305,12 +303,12 @@ osd_pool_erasure_code_stripe_unit. The stripe unit cannot be changed
 after the pool has been created, so if enabling optimizations for an existing
 pool you will not get the full benefit of the optimizations.
 
-Without optimizations enabled, the choice of `k+m` in the erasure code profile
-affects performance. The higher the values of `k` and `m` the lower the
+Without optimizations enabled, the choice of ``k+m`` in the erasure code profile
+affects performance. The higher the values of ``k`` and ``m`` the lower the
 performance will be. With optimizations enabled there is only a very slight
-reduction in performance as `k` increases so this makes using a higher value
-of `k` more viable. Increasing `m` still impacts write performance,
-especially for small writes, so for block and file workloads a value of `m`
+reduction in performance as ``k`` increases so this makes using a higher value
+of ``k`` more viable. Increasing ``m`` still impacts write performance,
+especially for small writes, so for block and file workloads a value of ``m``
 no larger than 3 is recommended.
 
 ## Erasure-coded pool overhead
@@ -318,7 +316,7 @@ no larger than 3 is recommended.
 The overhead factor (space amplification) of an erasure-coded pool
 is `(k+m) / k`.  For a 4,2 profile, the overhead is
 thus 1.5, which means that 1.5 GiB of underlying storage is used to store
-1 GiB of user data.  Contrast with default replication with `size-3`, with
+1 GiB of user data.  Contrast with default replication with ``size-3``, with
 which the overhead factor is 3.0.  Do not mistake erasure coding for a free
 lunch: there is a significant performance tradeoff, especially when using HDDs
 and when performing cluster recovery or backfill.
@@ -344,11 +342,10 @@ double the usable space compared to replication with `size=3` with relatively
 tolerable write and recovery performance impact.
 
 > **Note:** Most erasure-coded pool deployments require at least `k+m` CRUSH failure
-
-	  domains, which in most cases means `rack`s or `hosts`.  There are
-	  operational advantages to planning EC profiles and cluster topology
-	  so that there are at least `k+m+1` failure domains. In most cases
-	  a value of `k` > 8 is discouragd.
+> domains, which in most cases means `rack`s or `hosts`.  There are
+> operational advantages to planning EC profiles and cluster topology
+> so that there are at least `k+m+1` failure domains. In most cases
+> a value of `k` > 8 is discouragd.
 
 > **Note:** CephFS and RGW deployments with a significant proportion
 > of very small user files/objects may wish to plan carefully as
@@ -356,12 +353,11 @@ tolerable write and recovery performance impact.
 > ampliificaton.  Both CephFS and RGW support multiple data pools
 > with different media, performance, and data protection strategies,
 > which can enable efficient and effective deployments.  An RGW
-
-	  deployment might for example provision a modest complement of
-	  TLC SSDs used by replicated index and default bucket data pools,
-	  and a larger complement of erasure-coded QLC SSDs or HDDs to which
-	  larger and colder objects are directed via storage class, placement
-	  target, or Lua scripting.
+> deployment might for example provision a modest complement of
+> TLC SSDs used by replicated index and default bucket data pools,
+> and a larger complement of erasure-coded QLC SSDs or HDDs to which
+> larger and colder objects are directed via storage class, placement
+> target, or Lua scripting.
 
 .. list-table:: Erasure coding overhead
    :widths: 4 4 4 4 4 4 4 4 4 4 4 4
@@ -559,8 +555,7 @@ ceph osd tier set-overlay ecpool hot-storage
 The result is that every write and read to the *ecpool* actually uses
 the *hot-storage* pool and benefits from its flexibility and speed.
 
-More information can be found in the `cache tiering
-<../cache-tiering>`_ documentation. Note, however, that cache tiering
+More information can be found in the [cache tiering](cache-tiering.md) documentation. Note, however, that cache tiering
 is deprecated and may be removed completely in a future release.
 
 ## Erasure-coded pool recovery
@@ -571,14 +566,14 @@ writing new shards.
 In Octopus and later releases, erasure-coded pools can recover as long as there are at least *K* shards
 available. (With fewer than *K* shards, you have actually lost data!)
 
-Prior to Octopus, erasure-coded pools required that at least `min_size` shards be
-available, even if `min_size` was greater than `K`. This was a conservative
+Prior to Octopus, erasure-coded pools required that at least ``min_size`` shards be
+available, even if ``min_size`` was greater than ``K``. This was a conservative
 decision made out of an abundance of caution when designing the new pool
 mode. As a result, however, pools with lost OSDs but without complete data loss were
 unable to recover and go active without manual intervention to temporarily change
-the `min_size` setting.
+the ``min_size`` setting.
 
-We recommend that `min_size` be `K+1` or greater to prevent loss of writes and
+We recommend that ``min_size`` be ``K+1`` or greater to prevent loss of writes and
 loss of data.
 
 ## Glossary

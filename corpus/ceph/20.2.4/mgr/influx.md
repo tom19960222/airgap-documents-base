@@ -78,16 +78,16 @@ Following is the list of all configuration settings:
 By default, a few debugging statements as well as error statements have been set to print in the log files. Users can add more if necessary.
 To make use of the debugging option in the module:
 
-- Add this to the `ceph.conf` file.
+- Add this to the ``ceph.conf`` file.
 
 ```ini
 [mgr]
    debug_mgr = 20
 ```
 
-- Use this command `ceph influx self-test`.
+- Use this command ``ceph influx self-test``.
 - Check the log files. Users may find it easier to filter the log files using
-  `mgr[influx]`.
+  ``mgr[influx]``.
 
 ## Interesting counters
 
@@ -96,79 +96,45 @@ this module.
 
 ### Pools
 
-+---------------+-----------------------------------------------------+
-|Counter        | Description                                         |
-+===============+=====================================================+
-|stored         | Bytes stored in the pool not including copies       |
-+---------------+-----------------------------------------------------+
-|max_avail      | Max available number of bytes in the pool           |
-+---------------+-----------------------------------------------------+
-|objects        | Number of objects in the pool                       |
-+---------------+-----------------------------------------------------+
-|wr_bytes       | Number of bytes written in the pool                 |
-+---------------+-----------------------------------------------------+
-|dirty          | Number of bytes dirty in the pool                   |
-+---------------+-----------------------------------------------------+
-|rd_bytes       | Number of bytes read in the pool                    |
-+---------------+-----------------------------------------------------+
-|stored_raw     | Bytes used in pool including copies made            |
-+---------------+-----------------------------------------------------+
+| Counter | Description |
+| --- | --- |
+| stored | Bytes stored in the pool not including copies |
+| max_avail | Max available number of bytes in the pool |
+| objects | Number of objects in the pool |
+| wr_bytes | Number of bytes written in the pool |
+| dirty | Number of bytes dirty in the pool |
+| rd_bytes | Number of bytes read in the pool |
+| stored_raw | Bytes used in pool including copies made |
 
 ### OSDs
 
-+------------+------------------------------------+
-|Counter     | Description                        |
-+============+====================================+
-|op_w        | Client write operations            |
-+------------+------------------------------------+
-|op_in_bytes | Client operations total write size |
-+------------+------------------------------------+
-|op_r        | Client read operations             |
-+------------+------------------------------------+
-|op_out_bytes| Client operations total read size  |
-+------------+------------------------------------+
+| Counter | Description |
+| --- | --- |
+| op_w | Client write operations |
+| op_in_bytes | Client operations total write size |
+| op_r | Client read operations |
+| op_out_bytes | Client operations total read size |
 
-+------------------------+--------------------------------------------------------------------------+
-|Counter                 | Description                                                              |
-+========================+==========================================================================+
-|op_wip                  | Replication operations currently being processed (primary)               |
-+------------------------+--------------------------------------------------------------------------+
-|op_latency              | Latency of client operations (including queue time)                      |
-+------------------------+--------------------------------------------------------------------------+
-|op_process_latency      | Latency of client operations (excluding queue time)                      |
-+------------------------+--------------------------------------------------------------------------+
-|op_prepare_latency      | Latency of client operations (excluding queue time and wait for finished)|
-+------------------------+--------------------------------------------------------------------------+
-|op_r_latency            | Latency of read operation (including queue time)                         |
-+------------------------+--------------------------------------------------------------------------+
-|op_r_process_latency    | Latency of read operation (excluding queue time)                         |
-+------------------------+--------------------------------------------------------------------------+
-|op_w_in_bytes           | Client data written                                                      |
-+------------------------+--------------------------------------------------------------------------+
-|op_w_latency            | Latency of write operation (including queue time)                        |
-+------------------------+--------------------------------------------------------------------------+
-|op_w_process_latency    | Latency of write operation (excluding queue time)                        |
-+------------------------+--------------------------------------------------------------------------+
-|op_w_prepare_latency    | Latency of write operations (excluding queue time and wait for finished) |
-+------------------------+--------------------------------------------------------------------------+
-|op_rw                   | Client read-modify-write operations                                      |
-+------------------------+--------------------------------------------------------------------------+
-|op_rw_in_bytes          | Client read-modify-write operations write in                             |
-+------------------------+--------------------------------------------------------------------------+
-|op_rw_out_bytes         | Client read-modify-write operations read out                             |
-+------------------------+--------------------------------------------------------------------------+
-|op_rw_latency           | Latency of read-modify-write operation (including queue time)            |
-+------------------------+--------------------------------------------------------------------------+
-|op_rw_process_latency   | Latency of read-modify-write operation (excluding queue time)            |
-+------------------------+--------------------------------------------------------------------------+
-|op_rw_prepare_latency   | Latency of read-modify-write operations (excluding queue time            |
-|                        | and wait for finished)                                                   |
-+------------------------+--------------------------------------------------------------------------+
-|op_before_queue_op_lat  | Latency of IO before calling queue (before really queue into ShardedOpWq)|
-|                        | op_before_dequeue_op_lat                                                 |
-+------------------------+--------------------------------------------------------------------------+
-|op_before_dequeue_op_lat| Latency of IO before calling dequeue_op(already dequeued and get PG lock)|
-+------------------------+--------------------------------------------------------------------------+
+| Counter | Description |
+| --- | --- |
+| op_wip | Replication operations currently being processed (primary) |
+| op_latency | Latency of client operations (including queue time) |
+| op_process_latency | Latency of client operations (excluding queue time) |
+| op_prepare_latency | Latency of client operations (excluding queue time and wait for finished) |
+| op_r_latency | Latency of read operation (including queue time) |
+| op_r_process_latency | Latency of read operation (excluding queue time) |
+| op_w_in_bytes | Client data written |
+| op_w_latency | Latency of write operation (including queue time) |
+| op_w_process_latency | Latency of write operation (excluding queue time) |
+| op_w_prepare_latency | Latency of write operations (excluding queue time and wait for finished) |
+| op_rw | Client read-modify-write operations |
+| op_rw_in_bytes | Client read-modify-write operations write in |
+| op_rw_out_bytes | Client read-modify-write operations read out |
+| op_rw_latency | Latency of read-modify-write operation (including queue time) |
+| op_rw_process_latency | Latency of read-modify-write operation (excluding queue time) |
+| op_rw_prepare_latency <br> | Latency of read-modify-write operations (excluding queue time <br> and wait for finished) |
+| op_before_queue_op_lat <br> | Latency of IO before calling queue (before really queue into ShardedOpWq)<br> op_before_dequeue_op_lat |
+| op_before_dequeue_op_lat | Latency of IO before calling dequeue_op(already dequeued and get PG lock) |
 
 Latency counters are measured in microseconds unless otherwise specified in
 the description.

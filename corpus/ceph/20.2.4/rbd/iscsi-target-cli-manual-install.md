@@ -175,6 +175,4 @@ systemctl start rbd-target-api
 ```
 
 Installation is complete. Proceed to the setup section in the
-main ceph-iscsi CLI page.
-
-.. _`main ceph-iscsi CLI page`: ../iscsi-target-cli
+[main ceph-iscsi CLI page](iscsi-target-cli.md).

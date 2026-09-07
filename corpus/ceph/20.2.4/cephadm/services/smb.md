@@ -5,7 +5,7 @@ title: "SMB Service"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/services/smb.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _deploy-cephadm-smb-samba:
+<a id="deploy-cephadm-smb-samba"></a>
 
 # SMB Service
 
@@ -62,7 +62,7 @@ ceph orch apply -i smb.yaml
 
 ## Service Spec Options
 
-Fields specific to the `spec` section of the SMB Service are described below.
+Fields specific to the ``spec`` section of the SMB Service are described below.
 
 cluster_id
     A short name identifying the SMB "cluster". In this case a cluster is
@@ -74,27 +74,27 @@ features
     A list of pre-defined terms enabling specific deployment characteristics.
     An empty list is valid. Supported terms:
 
-    * `domain`: Enable domain member mode
-    * `clustered`: Enable Samba native cluster mode
+    * ``domain``: Enable domain member mode
+    * ``clustered``: Enable Samba native cluster mode
 
 config_uri
     A string containing a (standard or de-facto) URI that identifies a
     configuration source that should be loaded by the samba-container as the
     primary configuration file.
-    Supported URI schemes include `http:`, `https:`, `rados:`, and
-    `rados:mon-config-key:`.
+    Supported URI schemes include ``http:``, ``https:``, ``rados:``, and
+    ``rados:mon-config-key:``.
 
 user_sources
     A list of strings with (standard or de-facto) URI values that will
     be used to identify where credentials for authentication are located.
-    See `config_uri` for the supported list of URI schemes.
+    See ``config_uri`` for the supported list of URI schemes.
 
 join_sources
     A list of strings with (standard or de-facto) URI values that will
     be used to identify where authentication data that will be used to
     perform domain joins are located. Each join source is tried in sequence
     until one succeeds.
-    See `config_uri` for the supported list of URI schemes.
+    See ``config_uri`` for the supported list of URI schemes.
 
 custom_dns
     A list of IP addresses that will be used as the DNS servers for a Samba
@@ -105,9 +105,9 @@ custom_dns
 custom_ports
     A mapping of service names to port numbers that will override the
     default ports used for those services. The service names are:
-    `smb`, `smbmetrics`, and `ctdb`. If a service name is not
+    ``smb``, ``smbmetrics``, and ``ctdb``. If a service name is not
     present in the mapping the default port will be used.
-    For example, `{"smb": 4455, "smbmetrics": 9009}` will change the
+    For example, ``{"smb": 4455, "smbmetrics": 9009}`` will change the
     ports used by smb for client access and the metrics exporter, but
     not change the port used by the CTDB clustering daemon.
 
@@ -119,12 +119,12 @@ bind_addrs
 
     address
         Optional. A single IP address represented as a string. For example,
-        `192.168.7.50`.
+        ``192.168.7.50``.
     network
         Optional. A single IP network represented as a string. A network
         can be used to specify a range of many IP addresses. The network
         string always includes a "/" character before a prefix length.
-        For example, `192.168.7.0/24`.
+        For example, ``192.168.7.0/24``.
 
 include_ceph_users
     A list of cephx user (aka entity) names that the Samba Containers may use.
@@ -133,12 +133,12 @@ include_ceph_users
 
 cluster_meta_uri
     A string containing a URI that identifies where the cluster structure
-    metadata will be stored. Required if `clustered` feature is set. Must be
+    metadata will be stored. Required if ``clustered`` feature is set. Must be
     a RADOS pseudo-URI.
 
 cluster_lock_uri
     A string containing a URI that identifies where Samba/CTDB will store a
-    cluster lock. Required if `clustered` feature is set. Must be a RADOS
+    cluster lock. Required if ``clustered`` feature is set. Must be a RADOS
     pseudo-URI.
 
 cluster_public_addrs
@@ -150,25 +150,25 @@ cluster_public_addrs
 
     address
         Required string. An IP address with a required prefix length (example:
-        `192.168.4.51/24`). This address will be assigned to one of the
+        ``192.168.4.51/24``). This address will be assigned to one of the
         host's network devices and managed automatically.
     destination
-        Optional. String or list of strings. A `destination` defines where
+        Optional. String or list of strings. A ``destination`` defines where
         the system will assign the managed IPs. Each string value must be a
-        network address (example `192.168.4.0/24`). One or more destinations
+        network address (example ``192.168.4.0/24``). One or more destinations
         may be supplied. The typical case is to use exactly one destination and
         so the value may be supplied as a string, rather than a list with a
         single item. Each destination network will be mapped to a device on a
-        host. Run `cephadm list-networks` for an example of these mappings.
+        host. Run ``cephadm list-networks`` for an example of these mappings.
         If destination is not supplied the network is automatically determined
         using the address value supplied and taken as the destination.
 
 > **Note:**
 > If one desires clustering between smbd instances (also known as
 > High-Availability or "transparent state migration") the feature flag
-> `clustered` is needed. If this flag is not specified cephadm may deploy
+> ``clustered`` is needed. If this flag is not specified cephadm may deploy
 > multiple smb servers but they will lack the coordination needed of an actual
-> Highly-Avaiable cluster. When the `clustered` flag is specified cephadm
+> Highly-Avaiable cluster. When the ``clustered`` flag is specified cephadm
 > will deploy additional containers that manage this coordination.
 > Additionally, the cluster_meta_uri and cluster_lock_uri values must be
 > specified. The former is used by cephadm to describe the smb cluster layout
@@ -188,10 +188,8 @@ Samba Container on Ceph. It is important to create valid configurations and
 place them in locations that the container can read. The complete specification
 of these configurations is out of scope for this document. You can refer to the
 [documentation for Samba](https://wiki.samba.org/index.php/Main_Page) as
-well as the `samba server container
-<https://github.com/samba-in-kubernetes/samba-container/blob/master/docs/server.md>`_
-and the `configuation file
-<https://github.com/samba-in-kubernetes/sambacc/blob/master/docs/configuration.md>`_
+well as the [samba server container](https://github.com/samba-in-kubernetes/samba-container/blob/master/docs/server.md)
+and the [configuation file](https://github.com/samba-in-kubernetes/sambacc/blob/master/docs/configuration.md)
 it accepts.
 
 When one has composed a configuration it should be stored in a location
@@ -203,16 +201,16 @@ in ceph:
 #### RADOS
 
 A configuration file can be stored as a RADOS object in a pool
-named `.smb`. Within the pool there should be a namespace named after the
-`cluster_id` value. The URI used to identify this resource should be
-constructed like `rados://.smb/<cluster_id>/<object_name>`. Example:
-`rados://.smb/tango/config.json`.
+named ``.smb``. Within the pool there should be a namespace named after the
+``cluster_id`` value. The URI used to identify this resource should be
+constructed like ``rados://.smb/<cluster_id>/<object_name>``. Example:
+``rados://.smb/tango/config.json``.
 
 The containers are automatically deployed with cephx keys allowing access to
 resources in these pools and namespaces. As long as this scheme is used
 no additional configuration to read the object is needed.
 
-To copy a configuration file to a RADOS pool, use the `rados` command line
+To copy a configuration file to a RADOS pool, use the ``rados`` command line
 tool. For example:
 
 ```bash
@@ -224,13 +222,13 @@ rados --pool=.smb --namespace=tango put config.json /tmp/config.json
 
 A configuration file can be stored as a value in the Ceph Monitor Key/Value
 store.  The key must be named after the cluster like so:
-`smb/config/<cluster_id>/<name>`.  This results in a URI that can be used to
+``smb/config/<cluster_id>/<name>``.  This results in a URI that can be used to
 identify this configuration constructed like
-`rados:mon-config-key:smb/config/<cluster_id>/<name>`.
-Example: `rados:mon-config-key:smb/config/tango/config.json`.
+``rados:mon-config-key:smb/config/<cluster_id>/<name>``.
+Example: ``rados:mon-config-key:smb/config/tango/config.json``.
 
 The containers are automatically deployed with cephx keys allowing access to
-resources with the key-prefix `smb/config/<cluster_id>/`. As long as this
+resources with the key-prefix ``smb/config/<cluster_id>/``. As long as this
 scheme is used no additional configuration to read the value is needed.
 
 To copy a configuration file into the Key/Value store use the ``ceph config-key
@@ -257,7 +255,7 @@ A non-exhaustive list of important limitations for the SMB service follows:
 * DNS is a critical component of Active Directory. If one is configuring the
   SMB service for domain membership, either the Ceph host node must be
   configured so that it can resolve the Active Directory (AD) domain or the
-  `custom_dns` option may be used. In both cases DNS hosts for the AD domain
+  ``custom_dns`` option may be used. In both cases DNS hosts for the AD domain
   must still be reachable from whatever network segment the ceph cluster is on.
 * Services must bind to TCP port 445. Running multiple SMB services on the same
   node is not yet supported and will trigger a port-in-use conflict.

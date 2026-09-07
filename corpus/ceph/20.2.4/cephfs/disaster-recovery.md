@@ -5,7 +5,7 @@ title: "Disaster recovery"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/disaster-recovery.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs-disaster-recovery:
+<a id="cephfs-disaster-recovery"></a>
 
 # Disaster recovery
 
@@ -22,7 +22,7 @@ software bugs.
 CephFS includes some tools that may be able to recover a damaged file system,
 but to use them safely requires a solid understanding of CephFS internals.
 The documentation for these potentially dangerous operations is on a
-separate page: disaster-recovery-experts.
+separate page: [disaster-recovery-experts](disaster-recovery-experts.md#disaster-recovery-experts).
 
 ## Data pool damage (files affected by lost data PGs)
 
@@ -41,7 +41,7 @@ from a backup.
 > this case you must *remove* the damaged file and replace it in order
 > to have a fresh inode. Do not overwrite damaged files in place.
 
-If you know that objects have been lost from PGs, use the `pg_files`
+If you know that objects have been lost from PGs, use the ``pg_files``
 subcommand to scan for the files that may have been damaged as a result:
 
 :
@@ -51,7 +51,7 @@ cephfs-data-scan pg_files <path> <pg id> [<pg id>...]
 ```
 
 For example, if you have lost data from PGs 1.4 and 4.5 and you want to know
-which files under `/home/bob` have been damaged:
+which files under ``/home/bob`` have been damaged:
 
 :
 
@@ -96,7 +96,7 @@ cephfs-journal-tool --rank=<fs_name>:0 event recover_dentries summary
 cephfs-journal-tool --rank=<fs_name>:0 journal reset --yes-i-really-mean-it
 ```
 
-1. Run `first-damage.py` to list damaged dentries:
+1. Run ``first-damage.py`` to list damaged dentries:
 
 ```bash
 python3 first-damage.py --memo run.1 <pool>
@@ -108,11 +108,11 @@ python3 first-damage.py --memo run.1 <pool>
 python3 first-damage.py --memo run.2 --remove <pool>
 ```
 
-> **Note:** use `--memo` to specify a different file to save objects that
+> **Note:** use ``--memo`` to specify a different file to save objects that
 > have already been traversed. This makes it possible to separate data made
 > during different, independent runs.
 >
 > This command has the effect of removing a dentry from the snapshot or
 > head (in the current hierarchy). The inode's linkage will be lost. The
-> inode may however be recoverable in `lost+found` during a future
+> inode may however be recoverable in ``lost+found`` during a future
 > data-scan recovery.

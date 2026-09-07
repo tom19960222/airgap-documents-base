@@ -16,7 +16,7 @@ The following instructions should work on jewel and above.
 
 ### Step 1 - build Ceph
 
-Refer to /install/build-ceph.
+Refer to [/install/build-ceph](../../install/build-ceph.md).
 
 You can do step 2 separately while it is building.
 
@@ -50,11 +50,11 @@ $ ../qa/workunits/rgw/run-s3tests.sh
 ```
 
 ## Running test using vstart_runner.py
-CephFS and Ceph Manager code is be tested using vstart_runner.py.
+CephFS and Ceph Manager code is be tested using [vstart_runner.py](https://github.com/ceph/ceph/blob/master/qa/tasks/vstart_runner.py).
 
 ### Running your first test
 The Python tests in Ceph repository can be executed on your local machine
-using vstart_runner.py. To do that, you'd need teuthology installed:
+using [vstart_runner.py](https://github.com/ceph/ceph/blob/master/qa/tasks/vstart_runner.py). To do that, you'd need [teuthology](https://github.com/ceph/teuthology) installed:
 
 ```
 $ git clone https://github.com/ceph/teuthology
@@ -62,12 +62,12 @@ $ cd teuthology
 $ ./bootstrap install
 ```
 
-This will create a virtual environment named `virtualenv` in root of the
+This will create a virtual environment named ``virtualenv`` in root of the
 teuthology repository and install teuthology in it.
 
-You can also install teuthology via `pip` if you would like to install it
-in a custom virtual environment with clone teuthology repository using
-`git`:
+You can also install teuthology via ``pip`` if you would like to install it
+in a custom virtual environment with clone [teuthology](https://github.com/ceph/teuthology) repository using
+``git``:
 
 ```
 $ virtualenv --python=python3 venv
@@ -93,7 +93,7 @@ $ deactivate
 
 The above steps installs teuthology in a virtual environment. Before running
 a test locally, build Ceph successfully from the source (refer
-/install/build-ceph) and do:
+[/install/build-ceph](../../install/build-ceph.md)) and do:
 
 ```
 $ cd build
@@ -101,8 +101,8 @@ $ ../src/vstart.sh -n -d -l
 $ source ~/path/to/teuthology/venv/bin/activate
 ```
 
-To run a specific test, say test_reconnect_timeout from
-TestClientRecovery in `qa/tasks/cephfs/test_client_recovery`, you can
+To run a specific test, say [test_reconnect_timeout](https://github.com/ceph/ceph/blob/master/qa/tasks/cephfs/test_client_recovery.py#L133) from
+[TestClientRecovery](https://github.com/ceph/ceph/blob/master/qa/tasks/cephfs/test_client_recovery.py#L86) in ``qa/tasks/cephfs/test_client_recovery``, you can
 do:
 
 ```
@@ -138,8 +138,8 @@ vstart_runner.py can take the following options -
                             namespace container (Default: 192.168.0.0/16)
 
 > **Note:** If using the FUSE client, ensure that the fuse package is installed
-> and enabled on the system and that `user_allow_other` is added
-> to `/etc/fuse.conf`.
+> and enabled on the system and that ``user_allow_other`` is added
+> to ``/etc/fuse.conf``.
 
 > **Note:** If using the kernel client, the user must have the ability to run
 > commands with passwordless sudo access.
@@ -152,8 +152,8 @@ vstart_runner.py primarily does three things -
 
 * collects and runs the tests
     vstart_runner.py setups/teardowns the cluster and collects and runs the
-    test. This is implemented using methods `scan_tests()`, `load_tests()`
-    and `exec_test()`. This is where all the options that vstart_runner.py
+    test. This is implemented using methods ``scan_tests()``, ``load_tests()``
+    and ``exec_test()``. This is where all the options that vstart_runner.py
     takes are implemented along with other features like logging and copying
     the traceback to the bottom of the log.
 
@@ -161,15 +161,15 @@ vstart_runner.py primarily does three things -
     The tests are written assuming that the cluster exists on remote machines.
     vstart_runner.py provides an interface to run the same tests with the
     cluster that exists within the local machine. This is done using the class
-    `LocalRemote`. Class `LocalRemoteProcess` can manage the process that
-    executes the commands from `LocalRemote`, class `LocalDaemon` provides
-    an interface to handle Ceph daemons and class `LocalFuseMount` can
+    ``LocalRemote``. Class ``LocalRemoteProcess`` can manage the process that
+    executes the commands from ``LocalRemote``, class ``LocalDaemon`` provides
+    an interface to handle Ceph daemons and class ``LocalFuseMount`` can
     create and handle FUSE mounts.
 
 * provides an interface to operate Ceph cluster
-    `LocalCephManager` provides methods to run Ceph cluster commands with
-    and without admin socket and `LocalCephCluster` provides methods to set
-    or clear `ceph.conf`.
+    ``LocalCephManager`` provides methods to run Ceph cluster commands with
+    and without admin socket and ``LocalCephCluster`` provides methods to set
+    or clear ``ceph.conf``.
 
 > **Note:** vstart_runner.py deletes "adjust-ulimits" and "ceph-coverage" from
 > the command arguments unconditionally since they are not applicable
@@ -179,7 +179,7 @@ vstart_runner.py primarily does three things -
 > "passwd" and "chown".
 
 > **Note:** The presence of binary file named after the first argument is
-> checked in `<ceph-repo-root>/build/bin/`. If present, the first
+> checked in ``<ceph-repo-root>/build/bin/``. If present, the first
 > argument is replaced with the path to binary file.
 
 ## Running Workunits Using vstart_enviroment.sh
@@ -198,13 +198,8 @@ $ . ./build/vstart_enviroment.sh
 
 ### Running a test
 
-To run a workunit (e.g `mon/osd.sh`) do the following:
+To run a workunit (e.g ``mon/osd.sh``) do the following:
 
 ```
 $ ./qa/workunits/mon/osd.sh
 ```
-
-.. _test_reconnect_timeout: https://github.com/ceph/ceph/blob/master/qa/tasks/cephfs/test_client_recovery.py#L133
-.. _TestClientRecovery: https://github.com/ceph/ceph/blob/master/qa/tasks/cephfs/test_client_recovery.py#L86
-.. _teuthology: https://github.com/ceph/teuthology
-.. _vstart_runner.py: https://github.com/ceph/ceph/blob/master/qa/tasks/vstart_runner.py

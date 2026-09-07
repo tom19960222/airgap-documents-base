@@ -24,11 +24,11 @@ objects.
 
 It connects to local clusters via the RADOS protocol, relying on
 default search paths to find ceph.conf files, monitor addresses and
-authentication information for them, i.e. `/etc/ceph/$cluster.conf`,
-`/etc/ceph/$cluster.keyring`, and
-`/etc/ceph/$cluster.$name.keyring`, where `$cluster` is the
-human-friendly name of the cluster, and `$name` is the rados user to
-connect as, e.g. `client.ceph-immutable-object-cache`.
+authentication information for them, i.e. ``/etc/ceph/$cluster.conf``,
+``/etc/ceph/$cluster.keyring``, and
+``/etc/ceph/$cluster.$name.keyring``, where ``$cluster`` is the
+human-friendly name of the cluster, and ``$name`` is the rados user to
+connect as, e.g. ``client.ceph-immutable-object-cache``.
 
 # Options
 
@@ -69,4 +69,4 @@ more information.
 
 # See also
 
-rbd\(8)
+[rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

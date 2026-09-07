@@ -8,15 +8,13 @@ fetched_at: 2026-08-18T01:32:45Z
 # Continuous Integration Architecture
 
 In Ceph, we rely on multiple CI pipelines in our development. Most of these pipelines
-are centered around Jenkins. And their configurations are generated using Jenkins Job Builder.
+are centered around Jenkins. And their configurations are generated using [Jenkins Job Builder](https://docs.openstack.org/infra/jenkins-job-builder/).
 
-.. _Jenkins Job Builder: https://docs.openstack.org/infra/jenkins-job-builder/
-
-Let's take the `make check` performed by Jenkins as an example.
+Let's take the ``make check`` performed by Jenkins as an example.
 
 ## ceph-pull-requests
 
-`ceph-pull-requests` is a jenkins job which gets triggered by a GitHub pull
+``ceph-pull-requests`` is a jenkins job which gets triggered by a GitHub pull
 request or a trigger phrase like:
 
 ```
@@ -76,7 +74,7 @@ There are multiple parties involved in this jenkins job:
 Where
 
 Sepia Lab
-   Sepia Lab is a test lab used by the Ceph project. This lab offers
+   [Sepia Lab](https://wiki.sepia.ceph.com/doku.php) is a test lab used by the Ceph project. This lab offers
    the storage and computing resources required by our CI infra.
 
 Jenkins agents
@@ -85,7 +83,7 @@ Jenkins agents
    1. pull the git repo from GitHub and
    1. rebase the pull request against the latest master
    1. set necessary environment variables
-   1. run `run-make-check.sh`
+   1. run ``run-make-check.sh``
 
 Chacra
    is a server offering RESTful API allowing the clients to store and
@@ -98,12 +96,12 @@ Chacra
 Shaman
    is a server offering RESTful API allowing the clients to query the
    information of repos hosted by chacra nodes. Shaman is also known
-   for its Web UI. But please note, shaman does not build the
+   for its [Web UI](https://shaman.ceph.com). But please note, shaman does not build the
    packages, it just offers information on the builds.
 
-As the following shows, chacra manages multiple projects whose metadata
+As the following shows, [chacra](https://github.com/ceph/chacra) manages multiple projects whose metadata
 are stored in a database. These metadata are exposed via Shaman as a web
-service. chacractl is a utility to interact with the chacra service.
+service. [chacractl](https://github.com/ceph/chacractl) is a utility to interact with the [chacra](https://github.com/ceph/chacra) service.
 
 .. graphviz::
 
@@ -130,9 +128,6 @@ service. chacractl is a utility to interact with the chacra service.
      chacra -> other_repos;
    }
 
-.. _Sepia Lab: https://wiki.sepia.ceph.com/doku.php
-.. _Web UI: https://shaman.ceph.com
-
 ## build dependencies
 
 Just like lots of other software projects, Ceph has both build-time and
@@ -150,16 +145,16 @@ to package them as binary packages instead of using the ones shipped by the
 distro. Quite a few build-time dependencies are included as git submodules,
 but in order to avoid rebuilding these dependencies repeatedly, we pre-built
 some of them and uploaded them to our own repos. So, when performing
-`make check`, the building hosts in our CI just pull them from our internal
+``make check``, the building hosts in our CI just pull them from our internal
 repos hosting these packages instead of building them.
 
 So far, following packages are prebuilt for ubuntu focal, and then uploaded to
-chacra:
+[chacra](https://github.com/ceph/chacra):
 
 libboost
-    packages boost. The packages' names are changed from `libboost-*` to
-    `ceph-libboost-*`, and they are instead installed into `/opt/ceph`, so
-    they don't interfere with the official `libboost` packages shipped by
+    packages [boost](https://www.boost.org). The packages' names are changed from ``libboost-*`` to
+    ``ceph-libboost-*``, and they are instead installed into ``/opt/ceph``, so
+    they don't interfere with the official ``libboost`` packages shipped by
     distro. Its build scripts are hosted at https://github.com/ceph/ceph-boost.
     See https://github.com/ceph/ceph-boost/commit/2a8ae02932b2a1fd6a68072da8ca0df2b99b805c
     for an example of how to bump the version number. The commands used to
@@ -182,10 +177,10 @@ ls *.deb | chacractl binary create \
 ```
 
 libzbd
-    packages libzbd . The upstream libzbd includes debian packaging already.
+    packages [libzbd](https://github.com/westerndigitalcorporation/libzbd) . The upstream libzbd includes debian packaging already.
 
 libpmem
-    packages pmdk . Please note, `ndctl` is one of the build dependencies of
+    packages [pmdk](https://github.com/pmem/pmdk) . Please note, ``ndctl`` is one of the build dependencies of
     pmdk, for an updated debian packaging, please see
     https://github.com/ceph/ceph-ndctl .
 
@@ -194,17 +189,13 @@ libpmem
 > packaging are properly updated when updating/upgrading the packaging,
 > otherwise it would be difficult to tell which version of the package
 > is installed. We check the package version before trying to upgrade
-> it in `install-deps.sh`.
+> it in ``install-deps.sh``.
 
-.. _boost: https://www.boost.org
-.. _libzbd: https://github.com/westerndigitalcorporation/libzbd
-.. _pmdk: https://github.com/pmem/pmdk
-
-But in addition to these libraries, `ceph-mgr-dashboard`'s frontend uses lots of
+But in addition to these libraries, ``ceph-mgr-dashboard``'s frontend uses lots of
 JavaScript packages. Quite a few of them are not packaged by distros. Not to
 mention the trouble of testing different combination of versions of these
 packages. So we decided to include these JavaScript packages in our dist tarball
-using `make-dist`.
+using ``make-dist``.
 
 Also, because our downstream might not want to use the prepackaged binaries when
 redistributing the precompiled Ceph packages, we also need to include these
@@ -214,7 +205,7 @@ libraries in our dist tarball. They are
 - liburing
 - pmdk
 
-`make-dist` is a script used by our CI pipeline to create dist tarball so the
+``make-dist`` is a script used by our CI pipeline to create dist tarball so the
 tarball can be used to build the Ceph packages in a clean room environment. When
 we need to upgrade these third party libraries, we should
 
@@ -225,10 +216,10 @@ we need to upgrade these third party libraries, we should
 ## Uploading Dependencies
 
 To ensure that prebuilt packages are available by the jenkins agents, we need to
-upload them to either `apt-mirror.front.sepia.ceph.com` or chacra. To upload
+upload them to either ``apt-mirror.front.sepia.ceph.com`` or [chacra](https://github.com/ceph/chacra). To upload
 packages to the former would require the help of our lab administrator, so if we
 want to maintain the package repositories on regular basis, a better choice would be
-to manage them using chacractl. chacra represents packages repositories using
+to manage them using [chacractl](https://github.com/ceph/chacractl). [chacra](https://github.com/ceph/chacra) represents packages repositories using
 a resource hierarchy, like:
 
 ```
@@ -239,18 +230,18 @@ In which:
 
 project
     in general, it is used for denoting a set of related packages. For instance,
-    `libboost`.
+    ``libboost``.
 
 branch
     branch of project. This mirrors the concept of a Git repo.
 
 ref
     a unique id of a given version of a set packages. This id is used to reference
-    the set packages under the `<project>/<branch>`. It is a good practice to
-    version the packaging recipes, like the `debian` directory for building DEB
-    packages and the `spec` for building RPM packages, and use the SHA1 of the
-    packaging recipe for the `ref`. But you could also use a random string for
-    `ref`, like the tag name of the built source tree.
+    the set packages under the ``<project>/<branch>``. It is a good practice to
+    version the packaging recipes, like the ``debian`` directory for building DEB
+    packages and the ``spec`` for building RPM packages, and use the SHA1 of the
+    packaging recipe for the ``ref``. But you could also use a random string for
+    ``ref``, like the tag name of the built source tree.
 
 distro
     the distro name for which the packages are built. Currently, following distros are
@@ -264,7 +255,7 @@ distro
 
 distro-version
     the version of the distro. For instance, if a package is built on ubuntu focal,
-    the `distro-version` should be `20.04`.
+    the ``distro-version`` should be ``20.04``.
 
 arch
     the architecture of the packages. It could be:
@@ -280,11 +271,8 @@ ls *.deb | chacractl binary create \
   libboost/master/099c0fd56b4a54457e288a2eff8fffdc0d416f7a/ubuntu/focal/amd64/flavors/default
 ```
 
-.. _chacra: https://github.com/ceph/chacra
-.. _chacractl: https://github.com/ceph/chacractl
-
 ## Update ``install-deps.sh``
 
-We also need to update `install-deps.sh` to point the built script to the new
+We also need to update ``install-deps.sh`` to point the built script to the new
 repo. Please refer to the [script](https://github.com/ceph/ceph/blob/master/install-deps.sh),
 for more details.

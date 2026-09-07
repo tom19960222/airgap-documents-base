@@ -13,14 +13,16 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Get a List of Images
 
-To mount a block device image, first return a list of the images. ::
+To mount a block device image, first return a list of the images. :
 
-	rbd list
+```
+rbd list
+```
 
 # Map a Block Device
 
-Use `rbd` to map an image name to a kernel module. You must specify the
-image name, the pool name, and the user name. `rbd` will load RBD kernel
+Use ``rbd`` to map an image name to a kernel module. You must specify the
+image name, the pool name, and the user name. ``rbd`` will load RBD kernel
 module on your behalf if it's not already loaded. :
 
 ```
@@ -33,7 +35,7 @@ For example:
 sudo rbd device map rbd/myimage --id admin
 ```
 
-If you use cephx authentication, you must also specify a secret.  It may come
+If you use [cephx](../rados/operations/user-management.md) authentication, you must also specify a secret.  It may come
 from a keyring or a file containing the secret. :
 
 ```
@@ -43,21 +45,25 @@ sudo rbd device map rbd/myimage --id admin --keyfile /path/to/file
 
 # Show Mapped Block Devices
 
-To show block device images mapped to kernel modules with the `rbd`,
-specify `device list` arguments. ::
+To show block device images mapped to kernel modules with the ``rbd``,
+specify ``device list`` arguments. :
 
-	rbd device list
+```
+rbd device list
+```
 
 # Unmapping a Block Device
 
-To unmap a block device image with the `rbd` command, specify the
-`device unmap` arguments and the device name (i.e., by convention the
-same as the block device image name). ::
+To unmap a block device image with the ``rbd`` command, specify the
+``device unmap`` arguments and the device name (i.e., by convention the
+same as the block device image name). :
 
-	sudo rbd device unmap /dev/rbd/{poolname}/{imagename}
+```
+sudo rbd device unmap /dev/rbd/{poolname}/{imagename}
+```
 
-For example::
+For example:
 
-	sudo rbd device unmap /dev/rbd/rbd/foo
-
-.. _cephx: ../../rados/operations/user-management/
+```
+sudo rbd device unmap /dev/rbd/rbd/foo
+```

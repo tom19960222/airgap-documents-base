@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Tracing Services
 
-.. _cephadm-tracing:
+<a id="cephadm-tracing"></a>
 
 # Jaeger Tracing
 

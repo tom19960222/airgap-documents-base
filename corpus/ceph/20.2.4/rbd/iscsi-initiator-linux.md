@@ -9,9 +9,9 @@ fetched_at: 2026-08-18T01:32:45Z
 
 **Prerequisite:**
 
--  Package `iscsi-initiator-utils`
+-  Package ``iscsi-initiator-utils``
 
--  Package `device-mapper-multipath`
+-  Package ``device-mapper-multipath``
 
 **Installing:**
 
@@ -24,14 +24,14 @@ yum install device-mapper-multipath
 
 **Configuring:**
 
-1. Create the default `/etc/multipath.conf` file and enable the
-   `multipathd` service:
+1. Create the default ``/etc/multipath.conf`` file and enable the
+   ``multipathd`` service:
 
 ```bash
 mpathconf --enable --with_multipathd y
 ```
 
-1. Add the following to the `/etc/multipath.conf` file:
+1. Add the following to the ``/etc/multipath.conf`` file:
 
    :
 
@@ -53,7 +53,7 @@ devices {
 }
 ```
 
-1. Restart the `multipathd` service:
+1. Restart the ``multipathd`` service:
 
 ```bash
 systemctl reload multipathd
@@ -63,7 +63,7 @@ systemctl reload multipathd
 
 1. Enable CHAP authentication and provide the initiator CHAP username
    and password by uncommenting and setting the following options in
-   the `/etc/iscsi/iscsid.conf` file:
+   the ``/etc/iscsi/iscsid.conf`` file:
 
    :
 
@@ -104,8 +104,8 @@ iscsiadm -m node -T iqn.2003-01.org.linux-iscsi.rheln1 -l
 
 **Multipath IO Setup:**
 
-1. The multipath daemon (`multipathd`) uses the `multipath.conf` settings
-   to set up devices automatically. Running the `multipath` command shows
+1. The multipath daemon (``multipathd``) uses the ``multipath.conf`` settings
+   to set up devices automatically. Running the ``multipath`` command shows
    that the devices have been set up in a failover configuration. Notice that
    each path has been placed into its own priority group:
 

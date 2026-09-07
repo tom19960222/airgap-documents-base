@@ -5,7 +5,7 @@ title: "PG Calc"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/pgcalc/index.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _pgcalc:
+<a id="pgcalc"></a>
 
 # PG Calc
 
@@ -23,7 +23,7 @@ fetched_at: 2026-08-18T01:32:45Z
    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 
         <script src="../../../_static/js/pgcalc.js"></script>
-        	<div id="pgcalcdiv">
+                <div id="pgcalcdiv">
                 <div id="instructions">
                 <h2>Ceph PGs per Pool Calculator</h2><br/><fieldset><legend>Instructions</legend>
                 <ol>

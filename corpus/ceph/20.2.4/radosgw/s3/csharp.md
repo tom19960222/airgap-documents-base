@@ -5,7 +5,7 @@ title: "C# S3 Examples"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/s3/csharp.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _csharp:
+<a id="csharp"></a>
 
 # C# S3 Examples
 
@@ -14,24 +14,23 @@ fetched_at: 2026-08-18T01:32:45Z
 This creates a connection so that you can interact with the server.
 
 ```csharp
+using System;
+using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+
+string accessKey = "put your access key here!";
+string secretKey = "put your secret key here!";
+
+AmazonS3Config config = new AmazonS3Config();
+config.ServiceURL = "objects.dreamhost.com";
+
+AmazonS3Client s3Client = new AmazonS3Client(
+        accessKey,
+        secretKey,
+        config
+        );
 ```
-
-	using System;
-	using Amazon;
-	using Amazon.S3;
-	using Amazon.S3.Model;
-
-	string accessKey = "put your access key here!";
-	string secretKey = "put your secret key here!";
-
-	AmazonS3Config config = new AmazonS3Config();
-	config.ServiceURL = "objects.dreamhost.com";
-
-	AmazonS3Client s3Client = new AmazonS3Client(
-		accessKey,
-		secretKey,
-		config
-		);
 
 ## Listing Owned Buckets
 
@@ -39,31 +38,29 @@ This gets a list of Buckets that you own.
 This also prints out the bucket name and creation date of each bucket.
 
 ```csharp
+ListBucketsResponse response = client.ListBuckets();
+foreach (S3Bucket b in response.Buckets)
+{
+        Console.WriteLine("{0}\t{1}", b.BucketName, b.CreationDate);
+}
 ```
-
-	ListBucketsResponse response = client.ListBuckets();
-	foreach (S3Bucket b in response.Buckets)
-	{
-		Console.WriteLine("{0}\t{1}", b.BucketName, b.CreationDate);
-	}
 
 The output will look something like this:
 
 ```
-mahbuckat1	2011-04-21T18:05:39.000Z
-mahbuckat2	2011-04-21T18:05:48.000Z
-mahbuckat3	2011-04-21T18:07:18.000Z
+mahbuckat1   2011-04-21T18:05:39.000Z
+mahbuckat2   2011-04-21T18:05:48.000Z
+mahbuckat3   2011-04-21T18:07:18.000Z
 ```
 
 ## Creating a Bucket
-This creates a new bucket called `my-new-bucket`
+This creates a new bucket called ``my-new-bucket``
 
 ```csharp
+PutBucketRequest request = new PutBucketRequest();
+request.BucketName = "my-new-bucket";
+client.PutBucket(request);
 ```
-
-	PutBucketRequest request = new PutBucketRequest();
-	request.BucketName = "my-new-bucket";
-	client.PutBucket(request);
 
 ## Listing a Bucket's Content
 
@@ -72,21 +69,20 @@ This also prints out each object's name, the file size, and last
 modified date.
 
 ```csharp
+ListObjectsRequest request = new ListObjectsRequest();
+request.BucketName = "my-new-bucket";
+ListObjectsResponse response = client.ListObjects(request);
+foreach (S3Object o in response.S3Objects)
+{
+        Console.WriteLine("{0}\t{1}\t{2}", o.Key, o.Size, o.LastModified);
+}
 ```
-
-	ListObjectsRequest request = new ListObjectsRequest();
-	request.BucketName = "my-new-bucket";
-	ListObjectsResponse response = client.ListObjects(request);
-	foreach (S3Object o in response.S3Objects)
-	{
-		Console.WriteLine("{0}\t{1}\t{2}", o.Key, o.Size, o.LastModified);
-	}
 
 The output will look something like this:
 
 ```
-myphoto1.jpg	251262	2011-08-08T21:35:48.000Z
-myphoto2.jpg	262518	2011-08-08T21:38:01.000Z
+myphoto1.jpg 251262  2011-08-08T21:35:48.000Z
+myphoto2.jpg 262518  2011-08-08T21:38:01.000Z
 ```
 
 ## Deleting a Bucket
@@ -95,11 +91,10 @@ myphoto2.jpg	262518	2011-08-08T21:38:01.000Z
 > The Bucket must be empty! Otherwise it won't work!
 
 ```csharp
+DeleteBucketRequest request = new DeleteBucketRequest();
+request.BucketName = "my-new-bucket";
+client.DeleteBucket(request);
 ```
-
-	DeleteBucketRequest request = new DeleteBucketRequest();
-	request.BucketName = "my-new-bucket";
-	client.DeleteBucket(request);
 
 ## Forced Delete for Non-empty Buckets
 
@@ -108,69 +103,65 @@ myphoto2.jpg	262518	2011-08-08T21:38:01.000Z
 
 ## Creating an Object
 
-This creates a file `hello.txt` with the string `"Hello World!"`
+This creates a file ``hello.txt`` with the string ``"Hello World!"``
 
 ```csharp
+PutObjectRequest request = new PutObjectRequest();
+request.BucketName  = "my-new-bucket";
+request.Key         = "hello.txt";
+request.ContentType = "text/plain";
+request.ContentBody = "Hello World!";
+client.PutObject(request);
 ```
-
-	PutObjectRequest request = new PutObjectRequest();
-	request.BucketName  = "my-new-bucket";
-	request.Key         = "hello.txt";
-	request.ContentType = "text/plain";
-	request.ContentBody = "Hello World!";
-	client.PutObject(request);
 
 ## Change an Object's ACL
 
-This makes the object `hello.txt` to be publicly readable, and
-`secret_plans.txt` to be private.
+This makes the object ``hello.txt`` to be publicly readable, and
+``secret_plans.txt`` to be private.
 
 ```csharp
+PutACLRequest request = new PutACLRequest();
+request.BucketName = "my-new-bucket";
+request.Key        = "hello.txt";
+request.CannedACL  = S3CannedACL.PublicRead;
+client.PutACL(request);
+
+PutACLRequest request2 = new PutACLRequest();
+request2.BucketName = "my-new-bucket";
+request2.Key        = "secret_plans.txt";
+request2.CannedACL  = S3CannedACL.Private;
+client.PutACL(request2);
 ```
-
-	PutACLRequest request = new PutACLRequest();
-	request.BucketName = "my-new-bucket";
-	request.Key        = "hello.txt";
-	request.CannedACL  = S3CannedACL.PublicRead;
-	client.PutACL(request);
-
-	PutACLRequest request2 = new PutACLRequest();
-	request2.BucketName = "my-new-bucket";
-	request2.Key        = "secret_plans.txt";
-	request2.CannedACL  = S3CannedACL.Private;
-	client.PutACL(request2);
 
 ## Download an Object (to a file)
 
-This downloads the object `perl_poetry.pdf` and saves it in
-`C:\Users\larry\Documents`
+This downloads the object ``perl_poetry.pdf`` and saves it in
+``C:\Users\larry\Documents``
 
 ```csharp
+GetObjectRequest request = new GetObjectRequest();
+request.BucketName = "my-new-bucket";
+request.Key        = "perl_poetry.pdf";
+GetObjectResponse response = client.GetObject(request);
+response.WriteResponseStreamToFile("C:\\Users\\larry\\Documents\\perl_poetry.pdf");
 ```
-
-	GetObjectRequest request = new GetObjectRequest();
-	request.BucketName = "my-new-bucket";
-	request.Key        = "perl_poetry.pdf";
-	GetObjectResponse response = client.GetObject(request);
-	response.WriteResponseStreamToFile("C:\\Users\\larry\\Documents\\perl_poetry.pdf");
 
 ## Delete an Object
 
-This deletes the object `goodbye.txt`
+This deletes the object ``goodbye.txt``
 
 ```csharp
+DeleteObjectRequest request = new DeleteObjectRequest();
+request.BucketName = "my-new-bucket";
+request.Key        = "goodbye.txt";
+client.DeleteObject(request);
 ```
-
-	DeleteObjectRequest request = new DeleteObjectRequest();
-	request.BucketName = "my-new-bucket";
-	request.Key        = "goodbye.txt";
-	client.DeleteObject(request);
 
 ## Generate Object Download URLs (signed and unsigned)
 
-This generates an unsigned download URL for `hello.txt`. This works
-because we made `hello.txt` public by setting the ACL above.
-This then generates a signed download URL for `secret_plans.txt` that
+This generates an unsigned download URL for ``hello.txt``. This works
+because we made ``hello.txt`` public by setting the ACL above.
+This then generates a signed download URL for ``secret_plans.txt`` that
 will work for 1 hour. Signed download URLs will work for the time
 period even if the object is private (when the time period is up, the
 URL will stop working).
@@ -180,15 +171,14 @@ URL will stop working).
 > URLs, so the following example only shows generating signed URLs.
 
 ```csharp
+GetPreSignedUrlRequest request = new GetPreSignedUrlRequest();
+request.BucketName = "my-bucket-name";
+request.Key        = "secret_plans.txt";
+request.Expires    = DateTime.Now.AddHours(1);
+request.Protocol   = Protocol.HTTP;
+string url = client.GetPreSignedURL(request);
+Console.WriteLine(url);
 ```
-
-	GetPreSignedUrlRequest request = new GetPreSignedUrlRequest();
-	request.BucketName = "my-bucket-name";
-	request.Key        = "secret_plans.txt";
-	request.Expires    = DateTime.Now.AddHours(1);
-	request.Protocol   = Protocol.HTTP;
-	string url = client.GetPreSignedURL(request);
-	Console.WriteLine(url);
 
 The output of this will look something like:
 

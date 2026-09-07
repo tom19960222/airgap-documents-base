@@ -5,7 +5,7 @@ title: "Certificate Management"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/certmgr.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _orchestrator-cli-cert-management:
+<a id="orchestrator-cli-cert-management"></a>
 
 # Certificate Management
 
@@ -40,12 +40,12 @@ while allowing users to manage certificate policies according to their needs.
 
 # Configuration
 
-To manage certificate lifecycles, `certmgr` continuously monitors
+To manage certificate lifecycles, ``certmgr`` continuously monitors
 certificates and applies renewal policies based on the certificate type and
 configured parameters. Cephadm provides several configuration options to manage
 certificate lifecycle and renewal:
 
-- `mgr/cephadm/certificate_automated_rotation_enabled` (default: `True`):
+- ``mgr/cephadm/certificate_automated_rotation_enabled`` (default: ``True``):
   Enabled by default, this configuration option controls whether Cephadm
   automatically rotates certificates upon expiration. This helps ensure
   continuity and security without manual intervention. When disabled cephadm
@@ -53,23 +53,23 @@ certificate lifecycle and renewal:
   renewing self-signed expired ones it will issue a health error/warning when
   an issue is detected.
 
-- `mgr/cephadm/certificate_duration_days` (default: `3 * 365`, min: `90`,
-  max: `10 * 365`): Specifies the duration (in days) of self-signed
+- ``mgr/cephadm/certificate_duration_days`` (default: ``3 * 365``, min: ``90``,
+  max: ``10 * 365``): Specifies the duration (in days) of self-signed
   certificates generated and signed by the Cephadm root CA. This determines the
   validity period before renewal is required.
 
-- `mgr/cephadm/certificate_renewal_threshold_days` (default: `30`, min:
-  `10`, max: `90`): Defines the number of days before a certificate's
+- ``mgr/cephadm/certificate_renewal_threshold_days`` (default: ``30``, min:
+  ``10``, max: ``90``): Defines the number of days before a certificate's
   expiration when Cephadm should initiate renewal. This ensures timely
   replacement before expiration occurs. This applies to both self-signed and
   user-provided certificates. In the case of user-provided certificates,
   Cephadm will issue a health error or warning alerting administrators about
   the upcoming renewal period proximity.
 
-- `mgr/cephadm/certificate_check_period` (default: `1`, min: `0`, max:
-  `30`): Specifies how often (in days) the certificate should be checked for
+- ``mgr/cephadm/certificate_check_period`` (default: ``1``, min: ``0``, max:
+  ``30``): Specifies how often (in days) the certificate should be checked for
   validity.  This ensures timely detection of any issues related to certificate
-  expiration.  Setting this to `0` disables the certificate check
+  expiration.  Setting this to ``0`` disables the certificate check
   functionality.
 
 # Certificate Health Monitoring
@@ -129,7 +129,7 @@ ceph orch certmgr cert ls [--show-details]
 ```
 
 This command displays an overview of all certificates currently managed by
-cephadm. Using `--show-details` provides additional information, including issuing
+cephadm. Using ``--show-details`` provides additional information, including issuing
 authorities and certificate extensions.
 
 # Listing Entities
@@ -231,7 +231,7 @@ ceph orch certmgr cert rm <certificate_name> [--service_name <value>] [--hostnam
 
 **Note:** For certificates with host or service scope, use the `--service-name` or `--hostname` option to specify the target.
 
-`<certificate_name>` must be a valid certificate name. Use `ceph orch certmgr cert ls` to list supported certificates.
+``<certificate_name>`` must be a valid certificate name. Use ``ceph orch certmgr cert ls`` to list supported certificates.
 
 # Removing a Private Key
 
@@ -243,7 +243,7 @@ ceph orch certmgr key rm <key-name> [--service_name <value>] [--hostname <value>
 
 **Note:** For keys with host or service scope, use the `--service-name` or `--hostname` option to specify the target.
 
-`<key_name>` must be a valid key name. Use `ceph orch certmgr key ls` to list supported keys.
+``<key_name>`` must be a valid key name. Use ``ceph orch certmgr key ls`` to list supported keys.
 
 # Generating Certificates
 

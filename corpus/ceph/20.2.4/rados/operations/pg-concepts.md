@@ -5,11 +5,11 @@ title: "Placement Group Concepts"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/pg-concepts.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _rados_operations_pg_concepts:
+<a id="rados-operations-pg-concepts"></a>
 
 # Placement Group Concepts
 
-When you execute commands like `ceph -w`, `ceph osd dump`, and other
+When you execute commands like ``ceph -w``, ``ceph osd dump``, and other
 commands related to placement groups, Ceph may return values using some
 of the following terms:
 
@@ -28,7 +28,7 @@ of the following terms:
    The ordered list of OSDs responsible for a particular placement
    group for a particular epoch according to CRUSH. Normally this
    is the same as the *Acting Set*, except when the *Acting Set* has
-   been explicitly overridden via `pg_temp` in the OSD Map.
+   been explicitly overridden via ``pg_temp`` in the OSD Map.
 
 *Current Interval* or *Past Interval*
    A sequence of OSD map epochs during which the *Acting Set* and *Up
@@ -72,7 +72,7 @@ of the following terms:
 *Missing Set*
    Each OSD notes update log entries and if they imply updates to
    the contents of an object, adds that object to a list of needed
-   updates.  This list is called the *Missing Set* for that `<OSD,PG>`.
+   updates.  This list is called the *Missing Set* for that ``<OSD,PG>``.
 
 *Authoritative History*
    A complete, and fully ordered set of operations that, if

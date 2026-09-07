@@ -498,16 +498,16 @@ mirror image demote *image-spec*
 
 mirror image disable [--force] *image-spec*
   Disable RBD mirroring for an image. If the mirroring is
-  configured in `image` mode for the image's pool, then it
+  configured in ``image`` mode for the image's pool, then it
   must be disabled for each image individually.
 
 mirror image enable *image-spec* *mode*
   Enable RBD mirroring for an image. If the mirroring is
-  configured in `image` mode for the image's pool, then it
+  configured in ``image`` mode for the image's pool, then it
   must be enabled for each image individually.
 
-  The mirror image mode can either be `journal` (default) or
-  `snapshot`. The `journal` mode requires the RBD journaling
+  The mirror image mode can either be ``journal`` (default) or
+  ``snapshot``. The ``journal`` mode requires the RBD journaling
   feature.
 
 mirror image promote [--force] *image-spec*
@@ -531,14 +531,14 @@ mirror pool disable [*pool-name*]
 
 mirror pool enable *pool-name* *mode* [--remote-namespace *remote-namespace-name*]
   Enable RBD mirroring within a pool or namespace.
-  The mirroring mode can either be `pool` or `image`.
-  If configured in `pool` mode, all images in the pool or namespace
+  The mirroring mode can either be ``pool`` or ``image``.
+  If configured in ``pool`` mode, all images in the pool or namespace
   with the journaling feature enabled are mirrored.
-  If configured in `image` mode, mirroring needs to be
-  explicitly enabled (by `mirror image enable` command)
+  If configured in ``image`` mode, mirroring needs to be
+  explicitly enabled (by ``mirror image enable`` command)
   on each image.
   A namespace can be mirrored to a different namespace on the remote
-  pool using the `--remote-namespace` option.
+  pool using the ``--remote-namespace`` option.
 
 mirror pool info [*pool-name*]
   Show information about the pool or namespace mirroring configuration.
@@ -556,11 +556,11 @@ mirror pool peer add [*pool-name*] *remote-cluster-spec*
 
 mirror pool peer remove [*pool-name*] *uuid*
   Remove a mirroring peer from a pool. The peer UUID is available
-  from `mirror pool info` command.
+  from ``mirror pool info`` command.
 
 mirror pool peer set [*pool-name*] *uuid* *key* *value*
   Update mirroring peer settings.
-  The key can be either `client` or `cluster`, and the value
+  The key can be either ``client`` or ``cluster``, and the value
   is corresponding to remote client name or remote cluster name.
 
 mirror pool promote [--force] [*pool-name*]
@@ -569,14 +569,14 @@ mirror pool promote [--force] [*pool-name*]
 
 mirror pool status [--verbose] [*pool-name*]
   Show status for all mirrored images in the pool or namespace.
-  With `--verbose`, show additional output status
+  With ``--verbose``, show additional output status
   details for every mirror-enabled image in the pool or namespace.
 
 mirror snapshot schedule add [-p | --pool *pool*] [--namespace *namespace*] [--image *image*] *interval* [*start-time*]
-  Add mirror snapshot schedule. The `interval` can be specified in
+  Add mirror snapshot schedule. The ``interval`` can be specified in
   days, hours, or minutes using the d, h, m suffix respectively.
-  The `start-time` is a time string in ISO 8601 format. Not providing the
-  `--pool`, `--namespace` and `--image` options creates a global
+  The ``start-time`` is a time string in ISO 8601 format. Not providing the
+  ``--pool``, ``--namespace`` and ``--image`` options creates a global
   schedule which applies to all mirror-enabled images in the cluster.
 
 mirror snapshot schedule list [-R | --recursive] [--format *format*] [--pretty-format] [-p | --pool *pool*] [--namespace *namespace*] [--image *image*]
@@ -676,7 +676,7 @@ trash ls [*pool-name*]
 trash mv [--expires-at <expires-at>] *image-spec*
   Move an image to the trash. Images, even ones actively in-use by
   clones, can be moved to the trash and deleted at a later time. Use
-  `--expires-at` to set the expiration time of an image after which
+  ``--expires-at`` to set the expiration time of an image after which
   it's allowed to be removed.
 
 trash purge [*pool-name*]
@@ -687,7 +687,7 @@ trash restore *image-id*
 
 trash rm [--force] *image-id*
   Delete an image from trash. If the image deferment time has not expired
-  it can be removed using `--force`. An image that is actively in-use by clones
+  it can be removed using ``--force``. An image that is actively in-use by clones
   or has snapshots cannot be removed.
 
 trash purge schedule add [-p | --pool *pool*] [--namespace *namespace*] *interval* [*start-time*]
@@ -1085,5 +1085,5 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8),
-rados\(8)
+[ceph](../../install/clone-source.md)\(8),
+[rados](../../cephadm/services/smb.md#rados)\(8)

@@ -28,9 +28,9 @@ zones.
 
 #### How to Configure
 
-See Multisite Configuration for multisite configuration instructions. The
+See [Multisite Configuration](multisite.md) for multisite configuration instructions. The
 archive sync module requires the creation of a new zone. The zone tier type needs
-to be defined as `archive`:
+to be defined as ``archive``:
 
 ```bash
 radosgw-admin zone create --rgw-zonegroup={zone-group-name} \
@@ -38,5 +38,3 @@ radosgw-admin zone create --rgw-zonegroup={zone-group-name} \
                             --endpoints={http://fqdn}[,{http://fqdn}] \
                             --tier-type=archive
 ```
-
-.. _Multisite Configuration: ../multisite

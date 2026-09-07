@@ -54,20 +54,20 @@ to Ceph clients.
 
 The cache tiering agent handles the migration of data between the cache tier
 and the backing storage tier automatically. However, admins have the ability to
-configure how this migration takes place by setting the `cache-mode`. There are
+configure how this migration takes place by setting the ``cache-mode``. There are
 two main scenarios:
 
 - **writeback** mode: If the base tier and the cache tier are configured in
-  `writeback` mode, Ceph clients receive an ACK from the base tier every time
+  ``writeback`` mode, Ceph clients receive an ACK from the base tier every time
   they write data to it. Then the cache tiering agent determines whether
-  `osd_tier_default_cache_min_write_recency_for_promote` has been set. If it
+  ``osd_tier_default_cache_min_write_recency_for_promote`` has been set. If it
   has been set and the data has been written more than a specified number of
   times per interval, the data is promoted to the cache tier.
 
   When Ceph clients need access to data stored in the base tier, the cache
   tiering agent reads the data from the base tier and returns it to the client.
   While data is being read from the base tier, the cache tiering agent consults
-  the value of `osd_tier_default_cache_min_read_recency_for_promote` and
+  the value of ``osd_tier_default_cache_min_read_recency_for_promote`` and
   decides whether to promote that data from the base tier to the cache tier.
   When data has been promoted from the base tier to the cache tier, the Ceph
   client is able to perform I/O operations on it using the cache tier. This is
@@ -77,7 +77,7 @@ two main scenarios:
 - **readproxy** mode: This mode will use any objects that already
   exist in the cache tier, but if an object is not present in the
   cache the request will be proxied to the base tier.  This is useful
-  for transitioning from `writeback` mode to a disabled cache as it
+  for transitioning from ``writeback`` mode to a disabled cache as it
   allows the workload to function properly while the cache is drained,
   without adding any new objects to the cache.
 
@@ -89,7 +89,7 @@ Other cache modes are:
   storage system. (**Warning**: when objects are updated in the base tier,
   Ceph makes **no** attempt to sync these updates to the corresponding objects
   in the cache. Since this mode is considered experimental, a
-  `--yes-i-really-mean-it` option must be passed in order to enable it.)
+  ``--yes-i-really-mean-it`` option must be passed in order to enable it.)
 
 - **none** is used to completely disable caching.
 
@@ -176,15 +176,15 @@ Setting up a backing storage pool typically involves one of two scenarios:
 In the standard storage scenario, you can setup a CRUSH rule to establish
 the failure domain (e.g., osd, host, chassis, rack, row, etc.). Ceph OSD
 Daemons perform optimally when all storage drives in the rule are of the
-same size, speed (both RPMs and throughput) and type. See CRUSH Maps
+same size, speed (both RPMs and throughput) and type. See [CRUSH Maps](crush-map.md)
 for details on creating a rule. Once you have created a rule, create
 a backing storage pool.
 
 In the erasure coding scenario, the pool creation arguments will generate the
-appropriate rule automatically. See Create a Pool for details.
+appropriate rule automatically. See [Create a Pool](pools.md#create-a-pool) for details.
 
 In subsequent examples, we will refer to the backing storage pool
-as `cold-storage`.
+as ``cold-storage``.
 
 ## Setting Up a Cache Pool
 
@@ -193,13 +193,13 @@ scenario, but with this difference: the drives for the cache tier are typically
 high performance drives that reside in their own servers and have their own
 CRUSH rule.  When setting up such a rule, it should take account of the hosts
 that have the high performance drives while omitting the hosts that don't. See
-CRUSH Device Class for details.
+[CRUSH Device Class](crush-map-edits.md#crush-map-device-class) for details.
 
-In subsequent examples, we will refer to the cache pool as `hot-storage` and
-the backing pool as `cold-storage`.
+In subsequent examples, we will refer to the cache pool as ``hot-storage`` and
+the backing pool as ``cold-storage``.
 
 For cache tier configuration and default values, see
-Pools - Set Pool Values.
+[Pools - Set Pool Values](pools.md#set-pool-values).
 
 # Creating a Cache Tier
 
@@ -252,11 +252,11 @@ cache tier configuration options with the following usage:
 ceph osd pool set {cachepool} {key} {value}
 ```
 
-See Pools - Set Pool Values for details.
+See [Pools - Set Pool Values](pools.md#set-pool-values) for details.
 
 ## Target Size and Type
 
-Ceph's production cache tiers use a Bloom Filter for the `hit_set_type`:
+Ceph's production cache tiers use a [Bloom Filter](https://en.wikipedia.org/wiki/Bloom_filter) for the ``hit_set_type``:
 
 ```bash
 ceph osd pool set {cachepool} hit_set_type bloom
@@ -268,7 +268,7 @@ For example:
 ceph osd pool set hot-storage hit_set_type bloom
 ```
 
-The `hit_set_count` and `hit_set_period` define how many such HitSets to
+The ``hit_set_count`` and ``hit_set_period`` define how many such HitSets to
 store, and how much time each HitSet should cover:
 
 ```bash
@@ -277,24 +277,24 @@ ceph osd pool set {cachepool} hit_set_period 14400
 ceph osd pool set {cachepool} target_max_bytes 1000000000000
 ```
 
-> **Note:** A larger `hit_set_count` results in more RAM consumed by
-> the `ceph-osd` process.
+> **Note:** A larger ``hit_set_count`` results in more RAM consumed by
+> the ``ceph-osd`` process.
 
 Binning accesses over time allows Ceph to determine whether a Ceph client
 accessed an object at least once, or more than once over a time period
 ("age" vs "temperature").
 
-The `min_read_recency_for_promote` defines how many HitSets to check for the
+The ``min_read_recency_for_promote`` defines how many HitSets to check for the
 existence of an object when handling a read operation. The checking result is
 used to decide whether to promote the object asynchronously. Its value should be
-between 0 and `hit_set_count`. If it's set to 0, the object is always promoted.
+between 0 and ``hit_set_count``. If it's set to 0, the object is always promoted.
 If it's set to 1, the current HitSet is checked. And if this object is in the
 current HitSet, it's promoted. Otherwise not. For the other values, the exact
 number of archive HitSets are checked. The object is promoted if the object is
-found in any of the most recent `min_read_recency_for_promote` HitSets.
+found in any of the most recent ``min_read_recency_for_promote`` HitSets.
 
 A similar parameter can be set for the write operation, which is
-`min_write_recency_for_promote`:
+``min_write_recency_for_promote``:
 
 ```bash
 ceph osd pool set {cachepool} min_read_recency_for_promote 2
@@ -302,9 +302,9 @@ ceph osd pool set {cachepool} min_write_recency_for_promote 2
 ```
 
 > **Note:** The longer the period and the higher the
-> `min_read_recency_for_promote` and `min_write_recency_for_promote`
-> values, the more RAM the `ceph-osd` daemon consumes. In particular, when
-> the agent is active to flush or evict cache objects, all `hit_set_count`
+> ``min_read_recency_for_promote`` and ``min_write_recency_for_promote``
+> values, the more RAM the ``ceph-osd`` daemon consumes. In particular, when
+> the agent is active to flush or evict cache objects, all ``hit_set_count``
 > HitSets are loaded into RAM.
 
 ## Cache Sizing
@@ -350,22 +350,22 @@ ceph osd pool set hot-storage target_max_objects 1000000
 > flush/evict will not work. If you specify both limits, the cache tiering
 > agent will begin flushing or evicting when either threshold is triggered.
 
-> **Note:** All client requests will be blocked only when  `target_max_bytes` or
-> `target_max_objects` reached
+> **Note:** All client requests will be blocked only when  ``target_max_bytes`` or
+> ``target_max_objects`` reached
 
 #### Relative Sizing
 
 The cache tiering agent can flush or evict objects relative to the size of the
-cache pool(specified by `target_max_bytes` / `target_max_objects` in
-Absolute sizing).  When the cache pool consists of a certain percentage of
+cache pool(specified by ``target_max_bytes`` / ``target_max_objects`` in
+[Absolute sizing](#absolute-sizing)).  When the cache pool consists of a certain percentage of
 modified (or dirty) objects, the cache tiering agent will flush them to the
-storage pool. To set the `cache_target_dirty_ratio`, execute the following:
+storage pool. To set the ``cache_target_dirty_ratio``, execute the following:
 
 ```bash
 ceph osd pool set {cachepool} cache_target_dirty_ratio {0.0..1.0}
 ```
 
-For example, setting the value to `0.4` will begin flushing modified
+For example, setting the value to ``0.4`` will begin flushing modified
 (dirty) objects when they reach 40% of the cache pool's capacity:
 
 ```bash
@@ -373,13 +373,13 @@ ceph osd pool set hot-storage cache_target_dirty_ratio 0.4
 ```
 
 When the dirty objects reaches a certain percentage of its capacity, flush dirty
-objects with a higher speed. To set the `cache_target_dirty_high_ratio`:
+objects with a higher speed. To set the ``cache_target_dirty_high_ratio``:
 
 ```bash
 ceph osd pool set {cachepool} cache_target_dirty_high_ratio {0.0..1.0}
 ```
 
-For example, setting the value to `0.6` will begin aggressively flush dirty
+For example, setting the value to ``0.6`` will begin aggressively flush dirty
 objects when they reach 60% of the cache pool's capacity. obviously, we'd
 better set the value between dirty_ratio and full_ratio:
 
@@ -389,13 +389,13 @@ ceph osd pool set hot-storage cache_target_dirty_high_ratio 0.6
 
 When the cache pool reaches a certain percentage of its capacity, the cache
 tiering agent will evict objects to maintain free capacity. To set the
-`cache_target_full_ratio`, execute the following:
+``cache_target_full_ratio``, execute the following:
 
 ```bash
 ceph osd pool set {cachepool} cache_target_full_ratio {0.0..1.0}
 ```
 
-For example, setting the value to `0.8` will begin flushing unmodified
+For example, setting the value to ``0.8`` will begin flushing unmodified
 (clean) objects when they reach 80% of the cache pool's capacity:
 
 ```bash
@@ -441,7 +441,7 @@ cache or a read-only cache.
 Since a read-only cache does not have modified data, you can disable
 and remove it without losing any recent changes to objects in the cache.
 
-1. Change the cache-mode to `none` to disable it.:
+1. Change the cache-mode to ``none`` to disable it.:
 
 ```bash
 ceph osd tier cache-mode {cachepool} none
@@ -471,7 +471,7 @@ Since a writeback cache may have modified data, you must take steps to ensure
 that you do not lose any recent changes to objects in the cache before you
 disable and remove it.
 
-1. Change the cache mode to `proxy` so that new and modified objects will
+1. Change the cache mode to ``proxy`` so that new and modified objects will
    flush to the backing storage pool.:
 
 ```bash
@@ -561,13 +561,12 @@ pg 19.2d is active+recovery_unfound+undersized+degraded+remapped, acting [290,30
 ```
 
 Some tests in the field indicate that the unfound objects can be deleted with
-no adverse effects (see `Tracker Issue #44286, Note 3
-<https://tracker.ceph.com/issues/44286#note-3>`_). Pawel Stefanski suggests
+no adverse effects (see [Tracker Issue #44286, Note 3](https://tracker.ceph.com/issues/44286#note-3)). Pawel Stefanski suggests
 that deleting missing or unfound objects is safe as long as the objects are a
-part of `.ceph-internal::hit_set_PGID_archive`.
+part of ``.ceph-internal::hit_set_PGID_archive``.
 
-Various members of the upstream Ceph community have reported in `Tracker Issue
-#44286 <https://tracker.ceph.com/issues/44286>`_ that the following versions of
+Various members of the upstream Ceph community have reported in [Tracker Issue
+#44286](https://tracker.ceph.com/issues/44286) that the following versions of
 Ceph have been affected by this issue:
 
 * 14.2.8
@@ -578,9 +577,3 @@ Ceph have been affected by this issue:
 
 See [Tracker Issue #44286](https://tracker.ceph.com/issues/44286) for the
 history of this issue.
-
-.. _Create a Pool: ../pools#create-a-pool
-.. _Pools - Set Pool Values: ../pools#set-pool-values
-.. _Bloom Filter: https://en.wikipedia.org/wiki/Bloom_filter
-.. _CRUSH Maps: ../crush-map
-.. _Absolute Sizing: #absolute-sizing

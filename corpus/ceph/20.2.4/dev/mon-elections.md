@@ -5,7 +5,7 @@ title: "Monitor Elections"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/mon-elections.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _dev_mon_elections:
+<a id="dev-mon-elections"></a>
 
 # Monitor Elections
 
@@ -108,7 +108,7 @@ scores indicate the cluster would choose a leader other than A.
 We implement scoring within the ConnectionTracker class, which is
 driven by the Elector and provided to ElectionLogic as a resource. Elector
 is responsible for sending out MMonPing messages, and for reporting the
-results in to the ConnectionTracker as calls to report_[live|dead]_connection
+results in to the ConnectionTracker as calls to [report](../man/8/ceph.md#report)[live|dead]_connection
 with the relevant peer and the time units the call counts for. (These time units
 are seconds in the monitor, but the ConnectionTracker is agnostic and our unit
 tests count simple time steps.)

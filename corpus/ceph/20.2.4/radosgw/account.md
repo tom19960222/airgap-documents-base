@@ -10,22 +10,22 @@ fetched_at: 2026-08-18T01:32:45Z
 .. versionadded:: Squid
 
 The Ceph Object Gateway supports *user accounts* as an optional feature to
-enable the self-service management of Users,
-Groups and Roles similar to those in AWS Identity and Access Management
+enable the self-service management of [Users](admin.md#radosgw-user-management),
+Groups and [Roles](role.md#radosgw-role) similar to those in [AWS Identity and Access Management](https://aws.amazon.com/iam/)
 (IAM).
 
-.. _radosgw-account-root-user:
+<a id="radosgw-account-root-user"></a>
 
 # Account Root User
 
 Each account is managed by an *account root user*. Like normal users and roles,
 accounts and account root users must be created by an administrator using
-`radosgw-admin` or the Admin Ops API.
+``radosgw-admin`` or the [Admin Ops API](adminops.md#radosgw-admin-ops).
 
 The account root user has default permissions on all resources owned by
 the account. The root user's credentials (access and secret keys) can be
-used with the radosgw-iam to create additional IAM users
-and roles for use with the Ceph Object Gateway S3 API, as
+used with the [radosgw-iam](iam.md#radosgw-iam) to create additional IAM users
+and roles for use with the [Ceph Object Gateway S3 API](s3.md#radosgw-s3), as
 well as to manage their associated access keys and policies.
 
 Account owners are encouraged to use this account root user for management
@@ -41,12 +41,12 @@ applications.
 When a normal (non-account) user creates buckets and uploads objects, those
 resources are owned by the user. The associated S3 ACLs name that user as
 both the owner and grantee, and those buckets are only visible to the owning
-user in a `s3:ListBuckets` request.
+user in a ``s3:ListBuckets`` request.
 
 In contrast, when users or roles belong to an account, the resources they
 create are instead owned by the account itself. The associated S3 ACLs name
 the account id as the owner and grantee, and those buckets are visible to
-`s3:ListBuckets` requests sent by any user or role in that account.
+``s3:ListBuckets`` requests sent by any user or role in that account.
 
 Because the resources are owned by the account rather than its users, all
 usage statistics and quota enforcement apply to the account as a whole rather
@@ -56,16 +56,16 @@ than its individual users.
 
 Account identifiers can be used in several places that otherwise accept
 User IDs or tenant names, so Account IDs use a special format to avoid
-ambiguity: the string `RGW` followed by 17 numeric digits like
-`RGW33567154695143645`. An Account ID in that format is randomly generated
+ambiguity: the string ``RGW`` followed by 17 numeric digits like
+``RGW33567154695143645``. An Account ID in that format is randomly generated
 upon account creation if one is not specified.
 
-Account IDs are commonly found in the Amazon Resource Names (ARNs) of IAM
-policy documents. For example, `arn:aws:iam::RGW33567154695143645:user/A`
+Account IDs are commonly found in the [Amazon Resource Names](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html) (ARNs) of IAM
+policy documents. For example, ``arn:aws:iam::RGW33567154695143645:user/A``
 refers to an IAM user named A in that account. The Ceph Object Gateway also
 supports tenant names in that position.
 
-Accounts IDs can also be used in ACLs for a `Grantee` of type `CanonicalUser`.
+Accounts IDs can also be used in ACLs for a ``Grantee`` of type ``CanonicalUser``.
 User IDs are also supported here.
 
 # IAM Policy
@@ -77,21 +77,21 @@ Before an IAM user can perform API operations, some policy must be added to
 allow it. The account root user can add identity policies to its users in
 several ways.
 
-* Add policy directly to the user with the `iam:PutUserPolicy` and
-  `iam:AttachUserPolicy` actions.
+* Add policy directly to the user with the ``iam:PutUserPolicy`` and
+  ``iam:AttachUserPolicy`` actions.
 
-* Create an IAM group and add group policy with the `iam:PutGroupPolicy` and
-  `iam:AttachGroupPolicy` actions. Users added to that group with the
-  `iam:AddUserToGroup` action will inherit all of the group's policy.
+* Create an IAM group and add group policy with the ``iam:PutGroupPolicy`` and
+  ``iam:AttachGroupPolicy`` actions. Users added to that group with the
+  ``iam:AddUserToGroup`` action will inherit all of the group's policy.
 
-* Create an IAM role and add role policy with the `iam:PutRolePolicy` and
-  `iam:AttachRolePolicy` actions. Users that assume this role with the
-  `sts:AssumeRole` and `sts:AssumeRoleWithWebIdentity` actions will inherit
+* Create an IAM role and add role policy with the ``iam:PutRolePolicy`` and
+  ``iam:AttachRolePolicy`` actions. Users that assume this role with the
+  ``sts:AssumeRole`` and ``sts:AssumeRoleWithWebIdentity`` actions will inherit
   all of the role's policy.
 
 These identity policies are evaluated according to the rules in
-Evaluating policies within a single account and
-Cross-account policy evaluation logic.
+[Evaluating policies within a single account](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics) and
+[Cross-account policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic-cross-account.html).
 
 ## Principals
 
@@ -99,12 +99,12 @@ The "Principal" ARNs in policy documents refer to users differently when they
 belong to an account.
 
 Outside of an account, user principals are named by user id such as
-`arn:aws:iam:::user/uid` or `arn:aws:iam::tenantname:user/uid`, where
-`uid` corresponds to the `--uid` argument from `radosgw-admin`.
+``arn:aws:iam:::user/uid`` or ``arn:aws:iam::tenantname:user/uid``, where
+``uid`` corresponds to the ``--uid`` argument from ``radosgw-admin``.
 
 Within an account, user principals instead use the user name, such as
-`arn:aws:iam::RGW33567154695143645:user/name` where `name` corresponds
-to the `--display-name` argument from `radosgw-admin`. Account users
+``arn:aws:iam::RGW33567154695143645:user/name`` where ``name`` corresponds
+to the ``--display-name`` argument from ``radosgw-admin``. Account users
 continue to match the tenant form so that existing policy continues to work
 when users are migrated into accounts.
 
@@ -113,7 +113,7 @@ when users are migrated into accounts.
 Like users, accounts can optionally belong to a tenant for namespace isolation
 of buckets. For example, one account named "acct" can exist under a tenant "a",
 and a different account named "acct" can exist under tenant "b". Refer to
-Multitenancy for details.
+[Multitenancy](multitenancy.md#rgw-multitenancy) for details.
 
 A tenanted account can only contain users with the same tenant name.
 
@@ -169,7 +169,7 @@ radosgw-admin quota enable --quota-scope=bucket --account-id={accountid}
 
 ## Migrate an Existing User into an Account
 
-An existing user can be adopted into an account with `user modify`:
+An existing user can be adopted into an account with ``user modify``:
 
 ```
 radosgw-admin user modify --uid={userid} --account-id={accountid}
@@ -182,27 +182,27 @@ radosgw-admin user modify --uid={userid} --account-id={accountid}
 > removed from their account.
 
 > **Note:** The IAM User API imposes additional requirements on the format
-> of `UserName`, which is enforced when migrating users into an account.
+> of ``UserName``, which is enforced when migrating users into an account.
 > If migration fails with "UserName contains invalid characters", the
-> `--display-name` should be modified to match `[\w+=,.@-]+`.
+> ``--display-name`` should be modified to match ``[\w+=,.@-]+``.
 
 > **Warning:** Ownership of the user's notification topics will not be
 > transferred to the account. Notifications will continue to work, but
 > the topics will no longer be visible to SNS Topic APIs. Topics and
 > their associated bucket notifications can be migrated as described below
-> in Migrating Notification Topics.
+> in [Migrating Notification Topics](account.md#migrating-notification-topics).
 
 Because account users have no permissions by default, some identity policy must
 be added to restore the user's original permissions.
 
 Alternatively, you may want to create a new account for each existing user. In
-that case, you may want to add the `--account-root` option to make each user
+that case, you may want to add the ``--account-root`` option to make each user
 the root user of their account.
 
 ### Migrating Notification Topics
 
-Account topics are supported only when the `notification_v2` feature is enabled,
-as described in radosgw-notifications and Supported Zone Features.
+Account topics are supported only when the ``notification_v2`` feature is enabled,
+as described in [radosgw-notifications](notifications.md#radosgw-notifications) and [Supported Zone Features](zone-features.md#radosgw-zone-features).
 
 1. **Migration Impact:** When a non-account user is migrated to an account, the
    the existing notification topics remain accessible through the RADOS Gateway admin API,
@@ -228,8 +228,8 @@ as described in radosgw-notifications and Supported Zone Features.
 {"TopicConfigurations": [{ "Id": "ID1", "TopicArn": "arn:aws:sns:default:RGW00000000000000001:topic1", "Events": ["s3:ObjectCreated:*"]}]}
 ```
 
-   In this example, `RGW00000000000000001` is the account ID, `topic1` is the
-   topic name and `ID1` is the notification ID.
+   In this example, ``RGW00000000000000001`` is the account ID, ``topic1`` is the
+   topic name and ``ID1`` is the notification ID.
 
 1. **Removing Old Topics:** Once no buckets are subscribed to the old user-owned topics,
    they can be removed by an admin:
@@ -240,9 +240,9 @@ $ radosgw-admin topic rm --topic topic1
 
 ## Account Root Example
 
-The account root user's credentials unlock the radosgw-iam.
+The account root user's credentials unlock the [radosgw-iam](iam.md#radosgw-iam).
 
-This example uses awscli to create an IAM user for S3 operations.
+This example uses [awscli](https://docs.aws.amazon.com/cli/latest/) to create an IAM user for S3 operations.
 
 1. Create a profile for the account root user:
 
@@ -299,9 +299,3 @@ Default output format [None]:
 $ aws --profile rgws3 s3 mb s3://testbucket
 make_bucket: testbucket
 ```
-
-.. _AWS Identity and Access Management: https://aws.amazon.com/iam/
-.. _Amazon Resource Names: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
-.. _Evaluating policies within a single account: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics
-.. _Cross-account policy evaluation logic: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic-cross-account.html
-.. _awscli: https://docs.aws.amazon.com/cli/latest/

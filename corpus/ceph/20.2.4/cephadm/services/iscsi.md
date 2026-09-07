@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # iSCSI Service
 
-.. _cephadm-iscsi:
+<a id="cephadm-iscsi"></a>
 
 # Deploying iSCSI
 
@@ -72,16 +72,16 @@ The specification can then be applied using:
 ceph orch apply -i iscsi.yaml
 ```
 
-See orchestrator-cli-placement-spec for details of the placement specification.
+See [orchestrator-cli-placement-spec](index.md#orchestrator-cli-placement-spec) for details of the placement specification.
 
-See also: orchestrator-cli-service-spec.
+See also: [orchestrator-cli-service-spec](index.md#orchestrator-cli-service-spec).
 
 # Configuring iSCSI client
 
 The containerized iscsi service can be used from any host by
-configuring-the-iscsi-initiators, which will use TCP/IP to send SCSI
+[configuring-the-iscsi-initiators](../../rbd/iscsi-initiators.md#configuring-the-iscsi-initiators), which will use TCP/IP to send SCSI
 commands to the iSCSI target (gateway).
 
 # Further Reading
 
-* Ceph iSCSI Overview: ceph-iscsi
+* Ceph iSCSI Overview: [ceph-iscsi](../../rbd/iscsi-overview.md#ceph-iscsi)

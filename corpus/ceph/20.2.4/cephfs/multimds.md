@@ -5,7 +5,7 @@ title: "fsmap e5: 1/1/1 up {0=a=up:active}, 2 up:standby"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/multimds.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _cephfs-multimds:
+<a id="cephfs-multimds"></a>
 
 ## Configuring multiple active MDS daemons
 
@@ -39,7 +39,7 @@ rank will be created. (Note that such a configuration is not Highly Available
 (HA) because no standby is available to take over for a failed rank. The
 cluster will complain via health warnings when configured this way.)
 
-Set `max_mds` to the desired number of ranks.  In the following examples
+Set ``max_mds`` to the desired number of ranks.  In the following examples
 the "fsmap" line of "ceph status" is shown to illustrate the expected
 result of commands.
 
@@ -63,7 +63,7 @@ Even with multiple active MDS daemons, a highly available system **still
 requires standby daemons** to take over if any of the servers running
 an active daemon fail.
 
-Consequently, the practical maximum of `max_mds` for highly available systems
+Consequently, the practical maximum of ``max_mds`` for highly available systems
 is at most one less than the total number of MDS servers in your system.
 
 To remain available in the event of multiple server failures, increase the
@@ -72,7 +72,7 @@ you wish to withstand.
 
 #### Decreasing the number of ranks
 
-Reducing the number of ranks is as simple as reducing `max_mds`:
+Reducing the number of ranks is as simple as reducing ``max_mds``:
 
 :
 
@@ -85,10 +85,10 @@ ceph fs set <fs_name> max_mds 1
 # fsmap e10: 1/1/1 up {0=a=up:active}, 2 up:standby
 ```
 
-The cluster will automatically stop extra ranks incrementally until `max_mds`
+The cluster will automatically stop extra ranks incrementally until ``max_mds``
 is reached.
 
-See /cephfs/administration for more details which forms `<role>` can
+See [/cephfs/administration](administration.md) for more details which forms ``<role>`` can
 take.
 
 Note: stopped ranks will first enter the stopping state for a period of
@@ -97,14 +97,14 @@ daemons.  This phase can take from seconds to minutes.  If the MDS appears to
 be stuck in the stopping state then that should be investigated as a possible
 bug.
 
-If an MDS daemon crashes or is killed while in the `up:stopping` state, a
+If an MDS daemon crashes or is killed while in the ``up:stopping`` state, a
 standby will take over and the cluster monitors will against try to stop
 the daemon.
 
 When a daemon finishes stopping, it will respawn itself and go back to being a
 standby.
 
-.. _cephfs-pinning:
+<a id="cephfs-pinning"></a>
 
 #### Manually pinning directory trees to a particular rank
 
@@ -115,16 +115,16 @@ balancer with explicit mappings of metadata to particular ranks. This can allow
 the administrator or users to evenly spread application load or limit impact of
 users' metadata requests on the entire cluster.
 
-The mechanism provided for this purpose is called an `export pin`, an
+The mechanism provided for this purpose is called an ``export pin``, an
 extended attribute of directories. The name of this extended attribute is
-`ceph.dir.pin`.  Users can set this attribute using standard commands:
+``ceph.dir.pin``.  Users can set this attribute using standard commands:
 
 ```bash
 setfattr -n ceph.dir.pin -v 2 path/to/dir
 ```
 
 The value of the extended attribute is the rank to assign the directory subtree
-to. A default value of `-1` indicates the directory is not pinned.
+to. A default value of ``-1`` indicates the directory is not pinned.
 
 A directory's export pin is inherited from its closest parent with a set export
 pin.  In this way, setting the export pin on a directory affects all of its
@@ -140,7 +140,7 @@ setfattr -n ceph.dir.pin -v 0 a/b
 # a/b is now pinned to rank 0 and a/ and the rest of its children are still pinned to rank 1
 ```
 
-.. _cephfs-ephemeral-pinning:
+<a id="cephfs-ephemeral-pinning"></a>
 
 #### Setting subtree partitioning policies
 
@@ -171,7 +171,7 @@ Presently, there are two types of ephemeral pinning:
 (even well below the normal fragmentation thresholds) and distribute its
 fragments as ephemerally pinned subtrees. This has the effect of distributing
 immediate children across a range of MDS ranks.  The canonical example use-case
-would be the `/home` directory: we want every user's home directory to be
+would be the ``/home`` directory: we want every user's home directory to be
 spread across the entire MDS cluster. This can be set via:
 
 ```bash
@@ -180,25 +180,25 @@ setfattr -n ceph.dir.pin.distributed -v 1 /cephfs/home
 
 **Random Ephemeral Pins**: This policy indicates any descendent sub-directory
 may be ephemerally pinned. This is set through the extended attribute
-`ceph.dir.pin.random` with the value set to the percentage of directories
+``ceph.dir.pin.random`` with the value set to the percentage of directories
 that should be pinned. For example:
 
 ```bash
 setfattr -n ceph.dir.pin.random -v 0.5 /cephfs/tmp
 ```
 
-Would cause any directory loaded into cache or created under `/tmp` to be
+Would cause any directory loaded into cache or created under ``/tmp`` to be
 ephemerally pinned 50 percent of the time.
 
-It is recommended to only set this to small values, like `.001` or `0.1%`.
+It is recommended to only set this to small values, like ``.001`` or ``0.1%``.
 Having too many subtrees may degrade performance. For this reason, the config
-`mds_export_ephemeral_random_max` enforces a cap on the maximum of this
-percentage (default: `.01`). The MDS returns `EINVAL` when attempting to
+``mds_export_ephemeral_random_max`` enforces a cap on the maximum of this
+percentage (default: ``.01``). The MDS returns ``EINVAL`` when attempting to
 set a value beyond this config.
 
 Both random and distributed ephemeral pin policies are off by default in
 Octopus. The features may be enabled via the
-`mds_export_ephemeral_random` and `mds_export_ephemeral_distributed`
+``mds_export_ephemeral_random`` and ``mds_export_ephemeral_distributed``
 configuration options.
 
 Ephemeral pins may override parent export pins and vice versa. What determines
@@ -211,9 +211,9 @@ setfattr -n ceph.dir.pin -v 0 foo
 setfattr -n ceph.dir.pin.distributed -v 1 foo/bar1
 ```
 
-The `foo/bar1/baz` directory will be ephemerally pinned because the
-`foo/bar1` policy overrides the export pin on `foo`. The `foo/bar2`
-directory will obey the pin on `foo` normally.
+The ``foo/bar1/baz`` directory will be ephemerally pinned because the
+``foo/bar1`` policy overrides the export pin on ``foo``. The ``foo/bar2``
+directory will obey the pin on ``foo`` normally.
 
 For the reverse situation:
 
@@ -223,8 +223,8 @@ setfattr -n ceph.dir.pin.distributed -v 1 home
 setfattr -n ceph.dir.pin -v 2 home/patrick
 ```
 
-The `home/patrick` directory and its children will be pinned to rank 2
-because its export pin overrides the policy on `home`.
+The ``home/patrick`` directory and its children will be pinned to rank 2
+because its export pin overrides the policy on ``home``.
 
 To remove a partitioning policy, remove the respective extended attribute
 or set the value to 0.
@@ -251,7 +251,7 @@ and cache size.
 
 However, the balancer is sometimes inefficient or slow, so by default it is
 turned off. This is to avoid an administrator "turning on multimds" by
-increasing the `max_mds` setting only to find that the balancer has made a
+increasing the ``max_mds`` setting only to find that the balancer has made a
 mess of the cluster performance (reverting from this messy state of affairs is
 straightforward but can take time).
 
@@ -262,16 +262,16 @@ ceph fs set <fs_name> balance_automate true
 ```
 
 Turn on the balancer only with an appropriate configuration, such as a
-configuration that includes the `bal_rank_mask` setting (described
-below).
+configuration that includes the ``bal_rank_mask`` setting (described
+[below](multimds.md#bal-rank-mask)).
 
 Careful monitoring of the file system performance and MDS is advised.
 
 #### Dynamic subtree partitioning with Balancer on specific ranks
 
-.. _bal-rank-mask:
+<a id="bal-rank-mask"></a>
 
-The CephFS file system provides the `bal_rank_mask` option to enable the
+The CephFS file system provides the ``bal_rank_mask`` option to enable the
 balancer to dynamically rebalance subtrees within particular active MDS ranks.
 This allows administrators to employ both the dynamic subtree partitioning and
 static pining schemes in different active MDS ranks so that metadata loads are
@@ -284,20 +284,20 @@ the metadata workload to all active MDS ranks, performance of static pinned
 subvolumes inevitably may be affected or degraded. If this option is enabled,
 subtrees managed by the balancer are not affected by static pinned subtrees.
 
-This option can be configured with the `ceph fs set` command. For example:
+This option can be configured with the ``ceph fs set`` command. For example:
 
 ```bash
 ceph fs set <fs_name> bal_rank_mask <hex>
 ```
 
-Each bitfield of the `<hex>` number represents a dedicated rank. If the `<hex>` is
-set to `0x3`, the balancer runs on active `0` and `1` ranks. For example:
+Each bitfield of the ``<hex>`` number represents a dedicated rank. If the ``<hex>`` is
+set to ``0x3``, the balancer runs on active ``0`` and ``1`` ranks. For example:
 
 ```bash
 ceph fs set <fs_name> bal_rank_mask 0x3
 ```
 
-If the `bal_rank_mask` is set to `-1` or `all`, all active ranks are masked
+If the ``bal_rank_mask`` is set to ``-1`` or ``all``, all active ranks are masked
 and utilized by the balancer. As an example:
 
 ```bash
@@ -305,7 +305,7 @@ ceph fs set <fs_name> bal_rank_mask -1
 ```
 
 On the other hand, if the balancer needs to be disabled,
-the `bal_rank_mask` should be set to `0x0`. For example:
+the ``bal_rank_mask`` should be set to ``0x0``. For example:
 
 ```bash
 ceph fs set <fs_name> bal_rank_mask 0x0

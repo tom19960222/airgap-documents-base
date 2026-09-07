@@ -5,47 +5,43 @@ title: "Zone Features"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/zone-features.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-zone-features:
+<a id="radosgw-zone-features"></a>
 
 # Zone Features
 
-Some features require support from all cooperating radosgws before they can be enabled. Each zone lists its `supported_features`, and each zonegroup lists its `enabled_features`. Before a feature can be enabled in the zonegroup, it must be supported by all of its zones.
+Some features require support from all cooperating radosgws before they can be enabled. Each zone lists its ``supported_features``, and each zonegroup lists its ``enabled_features``. Before a feature can be enabled in the zonegroup, it must be supported by all of its zones.
 
 On creation of new zones and zonegroups, all known features are supported and some features (see table below) are enabled by default. After upgrading an existing zone, however, new features must be enabled manually.
 
 ## Supported Features
 
-+-----------------------------------+---------+----------+
-| Feature                           | Release | Default  |
-+===================================+=========+==========+
-| feature_resharding         | Reef    | Enabled  |
-+-----------------------------------+---------+----------+
-| feature_compress_encrypted | Reef    | Disabled |
-+-----------------------------------+---------+----------+
-| feature_notification_v2    | Squid   | Enabled  |
-+-----------------------------------+---------+----------+
+| Feature | Release | Default |
+| --- | --- | --- |
+| [feature_resharding](zone-features.md#feature-resharding) | Reef | Enabled |
+| [feature_compress_encrypted](zone-features.md#feature-compress-encrypted) | Reef | Disabled |
+| [feature_notification_v2](zone-features.md#feature-notification-v2) | Squid | Enabled |
 
-.. _feature_resharding:
+<a id="feature-resharding"></a>
 
 #### resharding
 
 This feature allows buckets to be resharded in a multisite configuration
 without interrupting the replication of their objects. When
-`rgw_dynamic_resharding` is enabled, it runs on each zone independently, and
+``rgw_dynamic_resharding`` is enabled, it runs on each zone independently, and
 zones may choose different shard counts for the same bucket. When buckets are
-resharded manually with `radosgw-admin bucket reshard`, only that zone's
+resharded manually with ``radosgw-admin bucket reshard``, only that zone's
 bucket is modified. A zone feature should only be marked as supported after all
 of its RGWs and OSDs have upgraded.
 
 > **Note:** Dynamic resharding is not supported in multisite deployments prior to
 > the Reef release.
 
-.. _feature_compress_encrypted:
+<a id="feature-compress-encrypted"></a>
 
 #### compress-encrypted
 
-This feature enables support for combining Server-Side Encryption and
-Compression on the same object. Object data gets compressed before encryption.
+This feature enables support for combining [Server-Side Encryption](encryption.md) and
+[Compression](compression.md) on the same object. Object data gets compressed before encryption.
 Prior to Reef, multisite would not replicate such objects correctly, so all zones
 must upgrade to Reef or later before enabling.
 
@@ -54,7 +50,7 @@ must upgrade to Reef or later before enabling.
 > the same data. Due to these security considerations, this feature is disabled
 > by default.
 
-.. _feature_notification_v2:
+<a id="feature-notification-v2"></a>
 
 #### notification_v2
 
@@ -76,7 +72,7 @@ radosgw-admin zone modify --rgw-zone={zone-name} --enable-feature={feature-name}
 radosgw-admin period update --commit
 ```
 
-> **Note:** The `period update` command only works if the zone belongs to a realm.
+> **Note:** The ``period update`` command only works if the zone belongs to a realm.
 > Otherwise, all radosgws will need to restart before they notice the change.
 
 #### Remove support for a zone feature
@@ -105,6 +101,3 @@ On any cluster in the realm:
 radosgw-admin zonegroup modify --rgw-zonegroup={zonegroup-name} --disable-feature={feature-name}
 radosgw-admin period update --commit
 ```
-
-.. _`Server-Side Encryption`: ../encryption
-.. _`Compression`: ../compression

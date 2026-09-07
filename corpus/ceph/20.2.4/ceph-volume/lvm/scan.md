@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 This sub-command will allow to discover Ceph volumes previously setup by the
 tool by looking into the system's logical volumes and their tags.
 
-As part of the ceph-volume-lvm-prepare process, the logical volumes are assigned
+As part of the [ceph-volume-lvm-prepare](prepare.md#ceph-volume-lvm-prepare) process, the logical volumes are assigned
 a few tags with important pieces of information.
 
 > **Note:** This sub-command is not yet implemented

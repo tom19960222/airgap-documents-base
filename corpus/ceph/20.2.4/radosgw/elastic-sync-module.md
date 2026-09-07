@@ -5,7 +5,7 @@ title: "ElasticSearch Sync Module"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/elastic-sync-module.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-elastic-sync-module:
+<a id="radosgw-elastic-sync-module"></a>
 
 # ElasticSearch Sync Module
 
@@ -14,7 +14,7 @@ fetched_at: 2026-08-18T01:32:45Z
 > **Note:**
 > As of 31 May 2020, only Elasticsearch 6 and lower are supported. ElasticSearch 7 is not supported.
 
-This sync module writes the metadata from other zones to ElasticSearch. As of
+This sync module writes the metadata from other zones to [ElasticSearch](https://github.com/elastic/elasticsearch). As of
 luminous this is a json of data fields we currently store in ElasticSearch.
 
 :
@@ -48,41 +48,41 @@ luminous this is a json of data fields we currently store in ElasticSearch.
 
 ## ElasticSearch tier type configurables
 
-* `endpoint`
+* ``endpoint``
 
 Specifies the Elasticsearch server endpoint to access
 
-* `num_shards` (integer)
+* ``num_shards`` (integer)
 
 The number of shards that Elasticsearch will be configured with on
 data sync initialization. Note that this cannot be changed after init.
 Any change here requires rebuild of the Elasticsearch index and reinit
 of the data sync process.
 
-* `num_replicas` (integer)
+* ``num_replicas`` (integer)
 
 The number of the replicas that Elasticsearch will be configured with
 on data sync initialization.
 
-* `explicit_custom_meta` (true | false)
+* ``explicit_custom_meta`` (true | false)
 
 Specifies whether all user custom metadata will be indexed, or whether
 user will need to configure (at the bucket level) what custom
 metadata entries should be indexed. This is false by default
 
-* `index_buckets_list` (comma separated list of strings)
+* ``index_buckets_list`` (comma separated list of strings)
 
 If empty, all buckets will be indexed. Otherwise, only buckets
 specified here will be indexed. It is possible to provide bucket
 prefixes (e.g., foo\*), or bucket suffixes (e.g., \*bar).
 
-* `approved_owners_list` (comma separated list of strings)
+* ``approved_owners_list`` (comma separated list of strings)
 
 If empty, buckets of all owners will be indexed (subject to other
 restrictions), otherwise, only buckets owned by specified owners will
 be indexed. Suffixes and prefixes can also be provided.
 
-* `override_index_path` (string)
+* ``override_index_path`` (string)
 
 if not empty, this string will be used as the elasticsearch index
 path. Otherwise the index path will be determined and generated on
@@ -120,7 +120,7 @@ request params:
  - max-keys: max number of entries to return
  - marker: pagination marker
 
-`expression := [(]<arg> <op> <value> [)][<and|or> ...]`
+``expression := [(]<arg> <op> <value> [)][<and|or> ...]``
 
 op is one of the following:
 <, <=, ==, >=, >
@@ -186,5 +186,3 @@ Retrieve custom metadata bucket configuration.
 ```
 GET /<bucket>?mdsearch
 ```
-
-.. _`Elasticsearch`: https://github.com/elastic/elasticsearch

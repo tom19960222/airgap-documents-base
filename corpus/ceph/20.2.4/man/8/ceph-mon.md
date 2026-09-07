@@ -23,7 +23,7 @@ part-time parliament cluster that provides extremely reliable and
 durable storage of cluster membership, configuration, and state.
 
 The *mondatapath* refers to a directory on a local file system storing
-monitor data. It is normally specified via the `mon data` option in
+monitor data. It is normally specified via the ``mon data`` option in
 the configuration file.
 
 # Options
@@ -31,7 +31,7 @@ the configuration file.
 .. option:: -f, --foreground
 
    Foreground: do not daemonize after startup (run in foreground). Do
-   not generate a pid file. Useful when run via :doc:`ceph-run <ceph-run>`\(8).
+   not generate a pid file. Useful when run via [ceph-run](ceph-run.md)\(8).
 
 .. option:: -d
 
@@ -97,6 +97,6 @@ information.
 
 # See also
 
-ceph\(8),
-ceph-mds\(8),
-ceph-osd\(8)
+[ceph](../../install/clone-source.md)\(8),
+[ceph-mds](ceph-mds.md)\(8),
+[ceph-osd](ceph-osd.md)\(8)

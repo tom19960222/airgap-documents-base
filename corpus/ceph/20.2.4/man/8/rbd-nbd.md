@@ -92,4 +92,4 @@ the Ceph documentation at https://docs.ceph.com/ for more information.
 
 # See also
 
-rbd\(8)
+[rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

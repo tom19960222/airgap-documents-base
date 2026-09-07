@@ -251,13 +251,13 @@ append *name* *infile*
   Append object name to the cluster with contents from infile.
 
 rm [--force-full] *name* ...
-  Remove object(s) with name(s). With `--force-full` will remove when cluster is marked full.
+  Remove object(s) with name(s). With ``--force-full`` will remove when cluster is marked full.
 
 listwatchers *name*
   List the watchers of object name.
 
 ls *outfile*
-  List objects in the given pool and write to outfile. Instead of `--pool` if `--pgid` will be specified, `ls` will only list the objects in the given PG.
+  List objects in the given pool and write to outfile. Instead of ``--pool`` if ``--pgid`` will be specified, ``ls`` will only list the objects in the given PG.
 
 lssnap
   List snapshots for given pool.
@@ -394,4 +394,4 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph\(8)
+[ceph](../../install/clone-source.md)\(8)

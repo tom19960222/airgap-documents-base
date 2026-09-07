@@ -15,8 +15,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Reporting a vulnerability
 
-To report a vulnerability, please send email to `security@ceph.io
-<security@ceph.io>`_.
+To report a vulnerability, please send email to [security@ceph.io](security@ceph.io).
 
 * Please do not file a public ceph tracker issue for a vulnerability.
 * We urge reporters to provide as much information as is practicable
@@ -30,6 +29,4 @@ To report a vulnerability, please send email to `security@ceph.io
 
 # Supported versions
 
-Security updates are applied only to the current Active Releases.
-
-.. _Active Releases: https://docs.ceph.com/en/latest/releases/#active-releases
+Security updates are applied only to the current [Active Releases](https://docs.ceph.com/en/latest/releases/#active-releases).

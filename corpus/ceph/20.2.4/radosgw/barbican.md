@@ -5,25 +5,25 @@ title: "OpenStack Barbican Integration"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/barbican.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _radosgw-barbican:
+<a id="radosgw-barbican"></a>
 
 # OpenStack Barbican Integration
 
-OpenStack Barbican can be used as a secure key management service for
-Server-Side Encryption.
+OpenStack [Barbican](https://wiki.openstack.org/wiki/Barbican) can be used as a secure key management service for
+[Server-Side Encryption](encryption.md).
 
-.. image:: ../images/rgw-encryption-barbican.png
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/rgw-encryption-barbican.png)
 
-1. Configure Keystone
-1. Create a Keystone user
-1. Configure the Ceph Object Gateway
-1. Create a key in Barbican
+1. [Configure Keystone](barbican.md#configure-keystone)
+1. [Create a Keystone user](barbican.md#create-a-keystone-user)
+1. [Configure the Ceph Object Gateway](barbican.md#configure-the-ceph-object-gateway)
+1. [Create a key in Barbican](barbican.md#create-a-key-in-barbican)
 
 # Configure Keystone
 
 Barbican depends on Keystone for authorization and access control of its keys.
 
-See OpenStack Keystone Integration.
+See [OpenStack Keystone Integration](keystone.md).
 
 # Create a Keystone user
 
@@ -38,12 +38,12 @@ pass = rgwcrypt-password
 tenant = rgwcrypt
 ```
 
-See OpenStack documentation for Manage projects, users, and roles.
+See OpenStack documentation for [Manage projects, users, and roles](https://docs.openstack.org/admin-guide/cli-manage-projects-users-and-roles.html#create-a-user).
 
 # Create a key in Barbican
 
-See Barbican documentation for How to Create a Secret. Requests to
-Barbican must include a valid Keystone token in the `X-Auth-Token` header.
+See Barbican documentation for [How to Create a Secret](https://developer.openstack.org/api-guide/key-manager/secrets.html#how-to-create-a-secret). Requests to
+Barbican must include a valid Keystone token in the ``X-Auth-Token`` header.
 
 > **Note:** Server-side encryption keys must be 256-bit long and base64 encoded.
 
@@ -75,15 +75,15 @@ Response:
 {"secret_ref": "http://barbican.example.com:9311/v1/secrets/d1e7ef3b-f841-4b7c-90b2-b7d90ca2d723"}
 ```
 
-In the response, `d1e7ef3b-f841-4b7c-90b2-b7d90ca2d723` is the key id that
-can be used in any SSE-KMS request.
+In the response, ``d1e7ef3b-f841-4b7c-90b2-b7d90ca2d723`` is the key id that
+can be used in any [SSE-KMS](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) request.
 
-This newly created key is not accessible by user `rgwcrypt-user`. This
-privilege must be added with an ACL. See How to Set/Replace ACL for more
+This newly created key is not accessible by user ``rgwcrypt-user``. This
+privilege must be added with an ACL. See [How to Set/Replace ACL](https://developer.openstack.org/api-guide/key-manager/acls.html#how-to-set-replace-acl) for more
 details.
 
-Example request (assuming that the Keystone id of `rgwcrypt-user` is
-`906aa90bd8a946c89cdff80d0869460f`):
+Example request (assuming that the Keystone id of ``rgwcrypt-user`` is
+``906aa90bd8a946c89cdff80d0869460f``):
 
 ```
 PUT /v1/secrets/d1e7ef3b-f841-4b7c-90b2-b7d90ca2d723/acl HTTP/1.1
@@ -131,11 +131,3 @@ When using API version 3:
 rgw keystone barbican project
 rgw keystone barbican domain
 ```
-
-.. _Barbican: https://wiki.openstack.org/wiki/Barbican
-.. _Server-Side Encryption: ../encryption
-.. _OpenStack Keystone Integration: ../keystone
-.. _Manage projects, users, and roles: https://docs.openstack.org/admin-guide/cli-manage-projects-users-and-roles.html#create-a-user
-.. _How to Create a Secret: https://developer.openstack.org/api-guide/key-manager/secrets.html#how-to-create-a-secret
-.. _SSE-KMS: http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
-.. _How to Set/Replace ACL: https://developer.openstack.org/api-guide/key-manager/acls.html#how-to-set-replace-acl

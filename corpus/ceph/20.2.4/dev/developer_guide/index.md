@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 :Author: Nathan Cutler
 :License: Creative Commons Attribution Share Alike 3.0 (CC-BY-SA-3.0)
 
-> **Note:** You may also be interested in the /dev/internals documentation.
+> **Note:** You may also be interested in the [/dev/internals](../internals.md) documentation.
 
 .. toctree::
    :maxdepth: 1

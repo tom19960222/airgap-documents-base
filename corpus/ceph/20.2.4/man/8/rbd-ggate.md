@@ -69,5 +69,5 @@ https://docs.ceph.com for more information.
 
 # See also
 
-rbd\(8)
-ceph\(8)
+[rbd](../../dev/osd_internals/manifest.md#rbd)\(8)
+[ceph](../../install/clone-source.md)\(8)

@@ -5,7 +5,7 @@ title: "OAuth2 Proxy"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/services/oauth2-proxy.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _deploy-cephadm-oauth2-proxy:
+<a id="deploy-cephadm-oauth2-proxy"></a>
 
 # OAuth2 Proxy
 
@@ -28,9 +28,9 @@ thereby securing access to all Ceph applications. The service will handle login 
 to the appropriate IDP for authentication, and manage session tokens to facilitate seamless user access.
 
 # Benefits of the oauth2-proxy service
-* `Enhanced Security`: Provides robust authentication through integration with external IDPs using the OIDC protocol.
-* `Seamless SSO`: Enables seamless single sign-on (SSO) across all Ceph applications, improving user access control.
-* `Centralized Authentication`: Centralizes authentication management, reducing complexity and improving control over access.
+* ``Enhanced Security``: Provides robust authentication through integration with external IDPs using the OIDC protocol.
+* ``Seamless SSO``: Enables seamless single sign-on (SSO) across all Ceph applications, improving user access control.
+* ``Centralized Authentication``: Centralizes authentication management, reducing complexity and improving control over access.
 
 # Security enhancements
 
@@ -87,7 +87,7 @@ ssl_certificate_key: |
    -----END PRIVATE KEY-----
 ```
 
-Fields specific to the `spec` section of the `oauth2-proxy` service are described below. More detailed
+Fields specific to the ``spec`` section of the `oauth2-proxy` service are described below. More detailed
 description of the fields can be found on [oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/)
 project documentation.
 

@@ -54,7 +54,7 @@ Set up an erasure-coded pool:
 $ ceph osd pool create ecpool erasure
 ```
 
-Set up an erasure-coded pool and the associated CRUSH rule `ecrule`:
+Set up an erasure-coded pool and the associated CRUSH rule ``ecrule``:
 
 ```
 $ ceph osd crush rule create-erasure ecrule

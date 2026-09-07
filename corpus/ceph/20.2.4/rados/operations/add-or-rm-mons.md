@@ -5,25 +5,24 @@ title: "Adding/Removing Monitors"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/add-or-rm-mons.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _adding-and-removing-monitors:
+<a id="adding-and-removing-monitors"></a>
 
 # Adding/Removing Monitors
 
 It is possible to add monitors to a running cluster as long as redundancy is
-maintained. To bootstrap a monitor, see Manual Deployment or `Monitor
-Bootstrap`_.
+maintained. To bootstrap a monitor, see [Manual Deployment](../../install/manual-deployment.md) or [Monitor Bootstrap](../../dev/mon-bootstrap.md).
 
-.. _adding-monitors:
+<a id="adding-monitors"></a>
 
 # Adding Monitors
 
 Ceph monitors serve as the single source of truth for the cluster map. It is
 possible to run a cluster with only one monitor, but for a production cluster
 it is recommended to have at least three monitors provisioned and in quorum.
-Ceph monitors use a variation of the Paxos algorithm to maintain consensus
+Ceph monitors use a variation of the [Paxos](https://en.wikipedia.org/wiki/[Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science))(computer_science)) algorithm to maintain consensus
 about maps and about other critical information across the cluster. Due to the
 nature of Paxos, Ceph is able to maintain quorum (and thus establish
-consensus) only if a majority of the monitors are `active`.
+consensus) only if a majority of the monitors are ``active``.
 
 It is best to run an odd number of monitors. This is because a cluster that is
 running an odd number of monitors is more resilient than a cluster running an
@@ -33,7 +32,7 @@ failure can be tolerated; in a four-monitor deployment, one failure can be
 tolerated; and in a five-monitor deployment, two failures can be tolerated. In
 general, a cluster running an odd number of monitors is best because it avoids
 what is called the *split brain* phenomenon. In short, Ceph is able to operate
-only if a majority of monitors are `active` and able to communicate with each
+only if a majority of monitors are ``active`` and able to communicate with each
 other, (for example: there must be a single monitor, two out of two monitors,
 two out of three monitors, three out of five monitors, or the like).
 
@@ -57,38 +56,34 @@ recommended to run monitors and managers on dedicated hosts.
 
 Some operators choose to add a new monitor host at the same time that they add
 a new monitor. For details on the minimum recommendations for monitor hardware,
-see Hardware Recommendations. Before adding a monitor host to the cluster,
+see [Hardware Recommendations](../../start/hardware-recommendations.md). Before adding a monitor host to the cluster,
 make sure that there is an up-to-date version of Linux installed.
 
 Add the newly installed monitor host to a rack in your cluster, connect the
 host to the network, and make sure that the host has network connectivity.
 
-.. _Hardware Recommendations: ../../../start/hardware-recommendations
-
 ## Installing the Required Software
 
 In manually deployed clusters, it is necessary to install Ceph packages
-manually. For details, see Installing Packages. Configure SSH so that it can
+manually. For details, see [Installing Packages](../../install/install-storage-cluster.md). Configure SSH so that it can
 be used by a user that has passwordless authentication and root permissions.
 
-.. _Installing Packages: ../../../install/install-storage-cluster
-
-.. _Adding a Monitor (Manual):
+<a id="adding-a-monitor-manual"></a>
 
 ## Adding a Monitor (Manual)
 
-The procedure in this section creates a `ceph-mon` data directory, retrieves
-both the monitor map and the monitor keyring, and adds a `ceph-mon` daemon to
+The procedure in this section creates a ``ceph-mon`` data directory, retrieves
+both the monitor map and the monitor keyring, and adds a ``ceph-mon`` daemon to
 the cluster. The procedure might result in a Ceph cluster that contains only
-two monitor daemons. To add more monitors until there are enough `ceph-mon`
+two monitor daemons. To add more monitors until there are enough ``ceph-mon``
 daemons to establish quorum, repeat the procedure.
 
-This is a good point at which to define the new monitor's `id`. Monitors have
-often been named with single letters (`a`, `b`, `c`, etc.), but you are
-free to define the `id` however you see fit. In this document, `{mon-id}`
-refers to the `id` exclusive of the `mon.` prefix: for example, if
-`mon.a` has been chosen as the `id` of a monitor, then `{mon-id}` is
-`a`.                                               ???
+This is a good point at which to define the new monitor's ``id``. Monitors have
+often been named with single letters (``a``, ``b``, ``c``, etc.), but you are
+free to define the ``id`` however you see fit. In this document, ``{mon-id}``
+refers to the ``id`` exclusive of the ``mon.`` prefix: for example, if
+``mon.a`` has been chosen as the ``id`` of a monitor, then ``{mon-id}`` is
+``a``.                                               ???
 
 1. Create a data directory on the machine that will host the new monitor:
 
@@ -97,7 +92,7 @@ ssh {new-mon-host}
 sudo mkdir /var/lib/ceph/mon/ceph-{mon-id}
 ```
 
-1. Create a temporary directory `{tmp}` that will contain the files needed
+1. Create a temporary directory ``{tmp}`` that will contain the files needed
    during this procedure. This directory should be different from the data
    directory created in the previous step. Because this is a temporary
    directory, it can be removed after the procedure is complete:
@@ -106,16 +101,16 @@ sudo mkdir /var/lib/ceph/mon/ceph-{mon-id}
 mkdir {tmp}
 ```
 
-1. Retrieve the keyring for your monitors (`{tmp}` is the path to the
-   retrieved keyring and `{key-filename}` is the name of the file that
+1. Retrieve the keyring for your monitors (``{tmp}`` is the path to the
+   retrieved keyring and ``{key-filename}`` is the name of the file that
    contains the retrieved monitor key):
 
 ```bash
 ceph auth get mon. -o {tmp}/{key-filename}
 ```
 
-1. Retrieve the monitor map (`{tmp}` is the path to the retrieved monitor map
-   and `{map-filename}` is the name of the file that contains the retrieved
+1. Retrieve the monitor map (``{tmp}`` is the path to the retrieved monitor map
+   and ``{map-filename}`` is the name of the file that contains the retrieved
    monitor map):
 
 ```bash
@@ -124,7 +119,7 @@ ceph mon getmap -o {tmp}/{map-filename}
 
 1. Prepare the monitor's data directory, which was created in the first step.
    The following command must specify the path to the monitor map (so that
-   information about a quorum of monitors and their `fsid`\s can be
+   information about a quorum of monitors and their ``fsid``\s can be
    retrieved) and specify the path to the monitor keyring:
 
 ```bash
@@ -133,14 +128,14 @@ sudo ceph-mon -i {mon-id} --mkfs --monmap {tmp}/{map-filename} --keyring {tmp}/{
 
 1. Start the new monitor. It will automatically join the cluster. To provide
    information to the daemon about which address to bind to, use either the
-   `--public-addr {ip}` option or the `--public-network {network}` option.
+   ``--public-addr {ip}`` option or the ``--public-network {network}`` option.
    For example:
 
 ```bash
 ceph-mon -i {mon-id} --public-addr {ip:port}
 ```
 
-.. _removing-monitors:
+<a id="removing-monitors"></a>
 
 # Removing Monitors
 
@@ -149,11 +144,11 @@ that Ceph monitors use Paxos to maintain consensus about the cluster
 map. Such consensus is possible only if the number of monitors is sufficient
 to establish quorum.
 
-.. _Removing a Monitor (Manual):
+<a id="removing-a-monitor-manual"></a>
 
 ## Removing a Monitor (Manual)
 
-The procedure in this section removes a `ceph-mon` daemon from the cluster.
+The procedure in this section removes a ``ceph-mon`` daemon from the cluster.
 The procedure might result in a Ceph cluster that contains a number of monitors
 insufficient to maintain quorum, so plan carefully. When replacing an old
 monitor with a new monitor, add the new monitor first, wait for quorum to be
@@ -172,16 +167,16 @@ service ceph -a stop mon.{mon-id}
 ceph mon remove {mon-id}
 ```
 
-1. Remove the monitor entry from the `ceph.conf` file:
+1. Remove the monitor entry from the ``ceph.conf`` file:
 
-.. _rados-mon-remove-from-unhealthy:
+<a id="rados-mon-remove-from-unhealthy"></a>
 
 ## Removing Monitors from an Unhealthy Cluster
 
-The procedure in this section removes a `ceph-mon` daemon from an unhealthy
+The procedure in this section removes a ``ceph-mon`` daemon from an unhealthy
 cluster (for example, a cluster whose monitors are unable to form a quorum).
 
-1. Stop all `ceph-mon` daemons on all monitor hosts:
+1. Stop all ``ceph-mon`` daemons on all monitor hosts:
 
 ```bash
 ssh {mon-host}
@@ -196,15 +191,15 @@ systemctl stop ceph-mon.target
 ssh {mon-host}
 ```
 
-1. Extract a copy of the `monmap` file by running a command of the following
+1. Extract a copy of the ``monmap`` file by running a command of the following
    form:
 
 ```bash
 ceph-mon -i {mon-id} --extract-monmap {map-path}
 ```
 
-   Here is a more concrete example. In this example, `hostname` is the
-   `{mon-id}` and `/tmp/monpap` is the `{map-path}`:
+   Here is a more concrete example. In this example, ``hostname`` is the
+   ``{mon-id}`` and ``/tmp/monpap`` is the ``{map-path}``:
 
 ```bash
 ceph-mon -i `hostname` --extract-monmap /tmp/monmap
@@ -216,8 +211,8 @@ ceph-mon -i `hostname` --extract-monmap /tmp/monmap
 monmaptool {map-path} --rm {mon-id}
 ```
 
-   For example, suppose that there are three monitors |---| `mon.a`, `mon.b`,
-   and `mon.c` |---| and that only `mon.a` will survive:
+   For example, suppose that there are three monitors |---| ``mon.a``, ``mon.b``,
+   and ``mon.c`` |---| and that only ``mon.a`` will survive:
 
 ```bash
 monmaptool /tmp/monmap --rm b
@@ -231,7 +226,7 @@ monmaptool /tmp/monmap --rm c
 ceph-mon -i {mon-id} --inject-monmap {map-path}
 ```
 
-   Continuing with the above example, inject a map into monitor `mon.a` by
+   Continuing with the above example, inject a map into monitor ``mon.a`` by
    running the following command:
 
 ```bash
@@ -240,9 +235,9 @@ ceph-mon -i a --inject-monmap /tmp/monmap
 
 1. Start only the surviving monitors.
 
-1. Verify that the monitors form a quorum by running the command `ceph -s`.
+1. Verify that the monitors form a quorum by running the command ``ceph -s``.
 
-1. The data directory of the removed monitors is in `/var/lib/ceph/mon`:
+1. The data directory of the removed monitors is in ``/var/lib/ceph/mon``:
    either archive this data directory in a safe location or delete this data
    directory. However, do not delete it unless you are confident that the
    remaining monitors are healthy and sufficiently redundant. Make sure that
@@ -250,7 +245,7 @@ ceph-mon -i a --inject-monmap /tmp/monmap
    that there is also room for an archived copy of the DB. The archived copy
    can be compressed.
 
-.. _Changing a Monitor's IP address:
+<a id="changing-a-monitor-s-ip-address"></a>
 
 # Changing a Monitor's IP Address
 
@@ -261,11 +256,11 @@ properly only if the monitors maintain quorum, and quorum can be established
 only if the monitors have discovered each other by means of their IP addresses.
 Ceph has strict requirements on the discovery of monitors.
 
-Although the `ceph.conf` file is used by Ceph clients and other Ceph daemons
+Although the ``ceph.conf`` file is used by Ceph clients and other Ceph daemons
 to discover monitors, the monitor map is used by monitors to discover each
-other. This is why it is necessary to obtain the current `monmap` at the time
-a new monitor is created: as can be seen above in Adding a Monitor (Manual),
-the `monmap` is one of the arguments required by the ``ceph-mon -i {mon-id}
+other. This is why it is necessary to obtain the current ``monmap`` at the time
+a new monitor is created: as can be seen above in [Adding a Monitor (Manual)](add-or-rm-mons.md#adding-a-monitor-manual),
+the ``monmap`` is one of the arguments required by the ``ceph-mon -i {mon-id}
 --mkfs`` command. The following sections explain the consistency requirements
 for Ceph monitors, and also explain a number of safe ways to change a monitor's
 IP address.
@@ -274,15 +269,15 @@ IP address.
 
 When a monitor discovers other monitors in the cluster, it always refers to the
 local copy of the monitor map. Using the monitor map instead of using the
-`ceph.conf` file avoids errors that could break the cluster (for example,
-typos or other slight errors in `ceph.conf` when a monitor address or port is
+``ceph.conf`` file avoids errors that could break the cluster (for example,
+typos or other slight errors in ``ceph.conf`` when a monitor address or port is
 specified). Because monitors use monitor maps for discovery and because they
 share monitor maps with Ceph clients and other Ceph daemons, the monitor map
 provides monitors with a strict guarantee that their consensus is valid.
 
 Strict consistency also applies to updates to the monmap. As with any other
 updates on the monitor, changes to the monmap always run through a distributed
-consensus algorithm called Paxos. The monitors must agree on each update to
+consensus algorithm called [Paxos](https://en.wikipedia.org/wiki/[Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science))(computer_science)). The monitors must agree on each update to
 the monmap, such as adding or removing a monitor, to ensure that each monitor
 in the quorum has the same version of the monmap. Updates to the monmap are
 incremental so that monitors have the latest agreed upon version, and a set of
@@ -290,25 +285,24 @@ previous versions, allowing a monitor that has an older version of the monmap
 to catch up with the current state of the cluster.
 
 There are additional advantages to using the monitor map rather than
-`ceph.conf` when monitors discover each other. Because `ceph.conf` is not
+``ceph.conf`` when monitors discover each other. Because ``ceph.conf`` is not
 automatically updated and distributed, its use would bring certain risks:
-monitors might use an outdated `ceph.conf` file, might fail to recognize a
+monitors might use an outdated ``ceph.conf`` file, might fail to recognize a
 specific monitor, might fall out of quorum, and might develop a situation in
-which Paxos is unable to accurately ascertain the current state of the
+which [Paxos](https://en.wikipedia.org/wiki/[Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science))(computer_science)) is unable to accurately ascertain the current state of the
 system. Because of these risks, any changes to an existing monitor's IP address
 must be made with great care.
 
-.. _operations_add_or_rm_mons_changing_mon_ip:
+<a id="operations-add-or-rm-mons-changing-mon-ip"></a>
 
 ## Changing a Monitor's IP address (Preferred Method)
 
-If a monitor's IP address is changed only in the `ceph.conf` file, there is
+If a monitor's IP address is changed only in the ``ceph.conf`` file, there is
 no guarantee that the other monitors in the cluster will receive the update.
 For this reason, the preferred method to change a monitor's IP address is as
-follows: add a new monitor with the desired IP address (as described in `Adding
-a Monitor (Manual)`_), make sure that the new monitor successfully joins the
+follows: add a new monitor with the desired IP address (as described in [Adding a Monitor (Manual)](add-or-rm-mons.md#adding-a-monitor-manual)), make sure that the new monitor successfully joins the
 quorum, remove the monitor that is using the old IP address, and update the
-`ceph.conf` file to ensure that clients and other daemons are made aware of
+``ceph.conf`` file to ensure that clients and other daemons are made aware of
 the new monitor's IP address.
 
 For example, suppose that there are three monitors in place:
@@ -325,17 +319,16 @@ For example, suppose that there are three monitors in place:
     addr = 10.0.0.3:6789
 ```
 
-To change `mon.c` so that its name is `host04` and its IP address is
-`10.0.0.4`: (1) follow the steps in Adding a Monitor (Manual) to add a new
-monitor `mon.d`, (2) make sure that `mon.d` is  running before removing
-`mon.c` or else quorum will be broken, and (3) follow the steps in `Removing
-a Monitor (Manual)`_ to remove `mon.c`. To move all three monitors to new IP
+To change ``mon.c`` so that its name is ``host04`` and its IP address is
+``10.0.0.4``: (1) follow the steps in [Adding a Monitor (Manual)](add-or-rm-mons.md#adding-a-monitor-manual) to add a new
+monitor ``mon.d``, (2) make sure that ``mon.d`` is  running before removing
+``mon.c`` or else quorum will be broken, and (3) follow the steps in [Removing a Monitor (Manual)](add-or-rm-mons.md#removing-a-monitor-manual) to remove ``mon.c``. To move all three monitors to new IP
 addresses, repeat this process.
 
 ## Changing a Monitor's IP address (Advanced Method)
 
 There are cases in which the method outlined in
-operations_add_or_rm_mons_changing_mon_ip cannot be used. For example,
+[operations_add_or_rm_mons_changing_mon_ip](add-or-rm-mons.md#operations-add-or-rm-mons-changing-mon-ip) cannot be used. For example,
 it might be necessary to move the cluster's monitors to a different network, to
 a different part of the datacenter, or to a different datacenter altogether. It
 is still possible to change the monitors' IP addresses, but a different method
@@ -348,13 +341,13 @@ routine task. As stated at the beginning of this section, existing monitors are
 not supposed to change their IP addresses.
 
 Continue with the monitor configuration in the example from
-operations_add_or_rm_mons_changing_mon_ip. Suppose that all of the
-monitors are to be moved from the `10.0.0.x` range to the `10.1.0.x` range,
+[operations_add_or_rm_mons_changing_mon_ip](add-or-rm-mons.md#operations-add-or-rm-mons-changing-mon-ip). Suppose that all of the
+monitors are to be moved from the ``10.0.0.x`` range to the ``10.1.0.x`` range,
 and that these networks are unable to communicate. Carry out the following
 procedure:
 
-1. Retrieve the monitor map (`{tmp}` is the path to the retrieved monitor
-   map, and `{filename}` is the name of the file that contains the retrieved
+1. Retrieve the monitor map (``{tmp}`` is the path to the retrieved monitor
+   map, and ``{filename}`` is the name of the file that contains the retrieved
    monitor map):
 
 ```bash
@@ -451,11 +444,11 @@ successfully.
 ## Overview
 
 The procedure in this overview section provides only the broad outlines of
-using `cephadm` to change the public network.
+using ``cephadm`` to change the public network.
 
 1. Create backups of all keyrings, configuration files, and the current monmap.
 
-1. Stop the cluster and disable `ceph.target` to prevent the daemons from
+1. Stop the cluster and disable ``ceph.target`` to prevent the daemons from
    starting.
 
 1. Move the servers and power them on.
@@ -465,8 +458,8 @@ using `cephadm` to change the public network.
 ## Example Procedure
 
 > **Note:** In this procedure, the "old network" has addresses of the form
-> `10.10.10.0/24` and the "new network" has addresses of the form
-> `192.168.160.0/24`.
+> ``10.10.10.0/24`` and the "new network" has addresses of the form
+> ``192.168.160.0/24``.
 
 1. Enter the shell of the first monitor:
 
@@ -474,7 +467,7 @@ using `cephadm` to change the public network.
 cephadm shell --name mon.reef1
 ```
 
-1. Extract the current monmap from `mon.reef1`:
+1. Extract the current monmap from ``mon.reef1``:
 
 ```bash
 ceph-mon -i reef1 --extract-monmap monmap
@@ -542,18 +535,18 @@ ceph-mon -i reef1 --inject-monmap monmap
 
 1. Repeat the steps above for all other monitors in the cluster.
 
-1. Update `/var/lib/ceph/{FSID}/mon.{MON}/config`.
+1. Update ``/var/lib/ceph/{FSID}/mon.{MON}/config``.
 
 1. Start the monitors.
 
-1. Update the ceph `public_network`:
+1. Update the ceph ``public_network``:
 
 ```bash
 ceph config set mon public_network 192.168.160.0/24
 ```
 
 1. Update the configuration files of the managers
-   (`/var/lib/ceph/{FSID}/mgr.{mgr}/config`) and start them. Orchestrator
+   (``/var/lib/ceph/{FSID}/mgr.{mgr}/config``) and start them. Orchestrator
    will now be available, but it will attempt to connect to the old network
    because the host list contains the old addresses.
 
@@ -575,10 +568,6 @@ ceph orch reconfig osd
 
 *The above procedure was developed by Eugen Block and was successfully tested
 in February 2024 on Ceph version 18.2.1 (Reef).*
-
-.. _Manual Deployment: ../../../install/manual-deployment
-.. _Monitor Bootstrap: ../../../dev/mon-bootstrap
-.. _Paxos: https://en.wikipedia.org/wiki/Paxos_(computer_science)
 
 .. |---|   unicode:: U+2014 .. EM DASH
    :trim:

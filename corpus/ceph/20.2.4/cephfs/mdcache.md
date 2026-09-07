@@ -14,7 +14,7 @@ information in a separate RADOS pool from the file data.
 
 CephFS clients can request that the MDS fetch or change inode metadata
 on its behalf, but an MDS can also grant the client **capabilities**
-(aka **caps**) for each inode (see /cephfs/capabilities).
+(aka **caps**) for each inode (see [/cephfs/capabilities](capabilities.md)).
 
 A capability grants the client the ability to cache and possibly
 manipulate some portion of the data or metadata associated with the

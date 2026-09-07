@@ -21,7 +21,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Various client metrics are displayed and updated in realtime.
 
 Ceph Metadata Servers periodically send client metrics to Ceph Manager.
-`Stats` plugin in Ceph Manager provides an interface to fetch these metrics.
+``Stats`` plugin in Ceph Manager provides an interface to fetch these metrics.
 
 # Options
 
@@ -130,5 +130,5 @@ http://ceph.com/ for more information.
 
 # See also
 
-ceph\(8),
-ceph-mds\(8)
+[ceph](../../install/clone-source.md)\(8),
+[ceph-mds](ceph-mds.md)\(8)

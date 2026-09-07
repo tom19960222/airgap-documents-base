@@ -14,14 +14,14 @@ as well.
 :note: This module is *not* intended to be a robust monitoring
        solution. The fact that it is run as part of the Ceph cluster
        itself is fundamentally limiting in that a failure of the
-       `ceph-mgr` daemon prevents alerts from being sent. This module
+       ``ceph-mgr`` daemon prevents alerts from being sent. This module
        can, however, be useful for standalone clusters that exist in
        environments where other monitoring infrastructure does not
        exist.
 
 ## Enabling
 
-Enable the `alerts` module by running the following command:
+Enable the ``alerts`` module by running the following command:
 
 ```bash
 ceph mgr module enable alerts
@@ -30,7 +30,7 @@ ceph mgr module enable alerts
 ## Configuration
 
 All of the following config options must be set when configuring SMTP.  When
-setting `mgr/alerts/smtp_destination`, specify multiple email addresses by
+setting ``mgr/alerts/smtp_destination``, specify multiple email addresses by
 separating them with commas.
 
 ```bash
@@ -53,7 +53,7 @@ ceph config set mgr mgr/alerts/smtp_user *<username>*
 ceph config set mgr mgr/alerts/smtp_password *<password>*
 ```
 
-By default, the name in the `From:` line is simply `Ceph`.  To change this
+By default, the name in the ``From:`` line is simply ``Ceph``.  To change this
 default (that is, to identify which cluster this is), run a command of the
 following form:
 

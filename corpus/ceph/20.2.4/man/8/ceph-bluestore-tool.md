@@ -287,4 +287,4 @@ documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph-osd\(8)
+[ceph-osd](ceph-osd.md)\(8)

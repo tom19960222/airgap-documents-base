@@ -22,11 +22,11 @@ the given monitor when it is ready.
 
 It creates following auth entities (or users)
 
-`client.admin`
+``client.admin``
 
     and its key for your client host.
 
-`client.bootstrap-{osd, rgw, mds}`
+``client.bootstrap-{osd, rgw, mds}``
 
     and their keys for bootstrapping corresponding services
 
@@ -62,4 +62,4 @@ information.
 
 # See also
 
-ceph\(8)
+[ceph](../../install/clone-source.md)\(8)

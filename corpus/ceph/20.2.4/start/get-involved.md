@@ -5,100 +5,25 @@ title: "Get Involved in the Ceph Community!"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/start/get-involved.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _Get Involved:
+<a id="get-involved"></a>
 
 # Get Involved in the Ceph Community!
 
 These are exciting times in the Ceph community! Get involved!
 
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-|Channel               | Description                                     | Contact Info                                  |
-+======================+=================================================+===============================================+
-| **Blog**             | Check the Ceph Blog_ periodically to keep track | https://ceph.io/en/news/blog/                 |
-|                      | of Ceph progress and important announcements.   |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Planet Ceph**      | Check the blog aggregation on Planet Ceph for   | https://old.ceph.com/category/planet/         |
-|                      | interesting stories, information and            |                                               |
-|                      | experiences from the community. **NOTE: NO      |                                               |
-|                      | longer updated as of 2023.**                    |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Wiki**             | Check the Ceph Wiki is a source for more        | http://wiki.ceph.com/                         |
-|                      | community and development related topics. You   |                                               |
-|                      | can find there information about blueprints,    |                                               |
-|                      | meetups, the Ceph Developer Summits and more.   |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **IRC**              | As you delve into Ceph, you may have questions  |                                               |
-|                      | or feedback for the Ceph development team. Ceph | - **Domain:**                                 |
-|                      | developers are often available on the `#ceph` |     `irc.oftc.net`                          |
-|                      | IRC channel particularly during daytime hours   | - **Channels:**                               |
-|                      | in the US Pacific Standard Time zone.           |     `#ceph`,                                |
-|                      | While `#ceph` is a good starting point for    |     `#ceph-devel`,                          |
-|                      | cluster operators and users, there is also      |     `#ceph-dashboard`,                      |
-|                      | `#ceph-devel`, `#ceph-dashboard` and        |     `#cephfs`                               |
-|                      | `#cephfs` dedicated for Ceph developers.      |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Slack**            | Since 2023, the Upstream Ceph community has     |                                               |
-|                      | maintained a community in Slack. Ask your Ceph- | - Ceph Slack Invite                        |
-|                      | related questions in Ceph's Slack channels.     |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **User List**        | Ask and answer user-related questions by        |                                               |
-|                      | subscribing to the email list at                | - User Subscribe                           |
-|                      | ceph-users@ceph.io. You can opt out of the email| - User Archives                            |
-|                      | list at any time by unsubscribing. A simple     |                                               |
-|                      | email is all it takes!                          |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Devel List**       | Keep in touch with developer activity by        |                                               |
-|                      | subscribing to the email list at dev@ceph.io.   | - Devel Subscribe                          |
-|                      | You can opt out of the email list at any time by| - Devel Archives                           |
-|                      | unsubscribing. A simple email is all it takes!  |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Kernel Client**    | Linux kernel-related traffic, including kernel  | - Kernel Client Subscribe                  |
-|                      | patches and discussion of implementation details| - Kernel Client Unsubscribe                |
-|                      | for the kernel client code.                     | - Kernel Client Archives                   |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Commit List**      | Subscribe to ceph-commit@ceph.com to get        |                                               |
-|                      | commit notifications via email. You can opt out | - Commit Subscribe                         |
-|                      | of the email list at any time by unsubscribing. | - Commit Unsubscribe                       |
-|                      | A simple email is all it takes!                 | - Mailing list archives                    |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **QA List**          | For Quality Assurance (QA) related activities   |                                               |
-|                      | subscribe to this list. You can opt out         | - QA Subscribe                             |
-|                      | of the email list at any time by unsubscribing. | - QA Unsubscribe                           |
-|                      | A simple email is all it takes!                 | - Mailing list archives                    |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Community List**   | For all discussions related to the Ceph User    |                                               |
-|                      | Committee and other community topics. You can   | - Community Subscribe                      |
-|                      | opt out of the email list at any time by        | - Community Unsubscribe                    |
-|                      | unsubscribing. A simple email is all it takes!  | - Mailing list archives                    |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Bug Tracker**      | You can help keep Ceph production worthy by     | https://tracker.ceph.com/projects/ceph        |
-|                      | filing and tracking bugs, and providing feature |                                               |
-|                      | requests using the Bug Tracker_.                |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Source Code**      | If you would like to participate in             |                                               |
-|                      | development, bug fixing, or if you just want    | - https://github.com/ceph/ceph                |
-|                      | the very latest code for Ceph, you can get it   | - https://download.ceph.com/tarballs/         |
-|                      | at http://github.com. See Ceph Source Code   |                                               |
-|                      | for details on cloning from github.             |                                               |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-| **Ceph Calendar**    | Learn about upcoming Ceph events.               | https://ceph.io/contribute/                   |
-+----------------------+-------------------------------------------------+-----------------------------------------------+
-
-.. _Devel Subscribe: https://lists.ceph.io/postorius/lists/dev.ceph.io/
-.. _Kernel Client Subscribe: mailto:majordomo@vger.kernel.org?body=subscribe+ceph-devel
-.. _Kernel Client Unsubscribe: mailto:majordomo@vger.kernel.org?body=unsubscribe+ceph-devel
-.. _User Subscribe: https://lists.ceph.io/postorius/lists/ceph-users.ceph.io/
-.. _Community Subscribe: mailto:ceph-community-join@lists.ceph.com
-.. _Community Unsubscribe: mailto:ceph-community-leave@lists.ceph.com
-.. _Commit Subscribe: mailto:ceph-commit-join@lists.ceph.com
-.. _Commit Unsubscribe: mailto:ceph-commit-leave@lists.ceph.com
-.. _QA Subscribe: mailto:ceph-qa-join@lists.ceph.com
-.. _QA Unsubscribe: mailto:ceph-qa-leave@lists.ceph.com
-.. _Devel Archives: https://lists.ceph.io/hyperkitty/list/dev@ceph.io/
-.. _User Archives: https://lists.ceph.io/hyperkitty/list/ceph-users@ceph.io/
-.. _Kernel Client Archives: https://www.spinics.net/lists/ceph-devel/
-.. _Mailing list archives: http://lists.ceph.com/
-.. _Blog: https://ceph.io/en/news/blog/
-.. _Tracker: http://tracker.ceph.com/
-.. _Ceph Source Code: http://github.com/ceph/ceph
-.. _Ceph Slack Invite: https://join.slack.com/t/ceph-storage/shared_invite/zt-32hkefbs5-f6qZDZLd5U8CYj7drBTHFw
+| Channel | Description | Contact Info |
+| --- | --- | --- |
+| **Blog** <br> | Check the Ceph [Blog](https://ceph.io/en/news/blog/) periodically to keep track <br> of Ceph progress and important announcements. | https://ceph.io/en/news/blog/ <br> |
+| **Planet Ceph** <br> <br> <br> | Check the blog aggregation on Planet Ceph for <br> interesting stories, information and <br> experiences from the community. **NOTE: NO <br> longer updated as of 2023.** | https://old.ceph.com/category/planet/ <br> <br> <br> |
+| **Wiki** <br> <br> <br> | Check the Ceph Wiki is a source for more <br> community and development related topics. You <br> can find there information about blueprints, <br> meetups, the Ceph Developer Summits and more. | http://wiki.ceph.com/ <br> <br> <br> |
+| **IRC** <br> <br> <br> <br> <br> <br> <br> <br> | As you delve into Ceph, you may have questions <br> or feedback for the Ceph development team. Ceph <br> developers are often available on the ``#ceph`` <br> IRC channel particularly during daytime hours <br> in the US Pacific Standard Time zone. <br> While ``#ceph`` is a good starting point for <br> cluster operators and users, there is also <br> ``#ceph-devel``, ``#ceph-dashboard`` and <br> ``#cephfs`` dedicated for Ceph developers. | <br> - **Domain:** <br> ``irc.oftc.net`` <br> - **Channels:** <br> ``#ceph``, <br> ``#ceph-devel``, <br> ``#ceph-dashboard``, <br> ``#cephfs`` <br> |
+| **Slack** <br> <br> | Since 2023, the Upstream Ceph community has <br> maintained a community in Slack. Ask your Ceph- <br> related questions in Ceph's Slack channels. | <br> - [Ceph Slack Invite](https://join.slack.com/t/ceph-storage/shared_invite/zt-32hkefbs5-f6qZDZLd5U8CYj7drBTHFw) <br> |
+| **User List** <br> <br> <br> <br> | Ask and answer user-related questions by <br> subscribing to the email list at <br> ceph-users@ceph.io. You can opt out of the email<br> list at any time by unsubscribing. A simple <br> email is all it takes! | <br> - [User Subscribe](https://lists.ceph.io/postorius/lists/ceph-users.ceph.io/) <br> - [User Archives](https://lists.ceph.io/hyperkitty/list/ceph-users@ceph.io/) <br> <br> |
+| **Devel List** <br> <br> <br> | Keep in touch with developer activity by <br> subscribing to the email list at dev@ceph.io. <br> You can opt out of the email list at any time by<br> unsubscribing. A simple email is all it takes! | <br> - [Devel Subscribe](https://lists.ceph.io/postorius/lists/dev.ceph.io/) <br> - [Devel Archives](https://lists.ceph.io/hyperkitty/list/dev@ceph.io/) <br> |
+| **Kernel Client** <br> <br> | Linux kernel-related traffic, including kernel <br> patches and discussion of implementation details<br> for the kernel client code. | - [Kernel Client Subscribe](mailto:majordomo@vger.kernel.org?body=subscribe+ceph-devel) <br> - [Kernel Client Unsubscribe](mailto:majordomo@vger.kernel.org?body=unsubscribe+ceph-devel) <br> - [Kernel Client Archives](https://www.spinics.net/lists/ceph-devel/) |
+| **Commit List** <br> <br> <br> | Subscribe to ceph-commit@ceph.com to get <br> commit notifications via email. You can opt out <br> of the email list at any time by unsubscribing. <br> A simple email is all it takes! | <br> - [Commit Subscribe](mailto:ceph-commit-join@lists.ceph.com) <br> - [Commit Unsubscribe](mailto:ceph-commit-leave@lists.ceph.com) <br> - [Mailing list archives](http://lists.ceph.com/) |
+| **QA List** <br> <br> <br> | For Quality Assurance (QA) related activities <br> subscribe to this list. You can opt out <br> of the email list at any time by unsubscribing. <br> A simple email is all it takes! | <br> - [QA Subscribe](mailto:ceph-qa-join@lists.ceph.com) <br> - [QA Unsubscribe](mailto:ceph-qa-leave@lists.ceph.com) <br> - [Mailing list archives](http://lists.ceph.com/) |
+| **Community List** <br> <br> <br> | For all discussions related to the Ceph User <br> Committee and other community topics. You can <br> opt out of the email list at any time by <br> unsubscribing. A simple email is all it takes! | <br> - [Community Subscribe](mailto:ceph-community-join@lists.ceph.com) <br> - [Community Unsubscribe](mailto:ceph-community-leave@lists.ceph.com) <br> - [Mailing list archives](http://lists.ceph.com/) |
+| **Bug Tracker** <br> <br> | You can help keep Ceph production worthy by <br> filing and tracking bugs, and providing feature <br> requests using the Bug [Tracker](http://tracker.ceph.com/). | https://tracker.ceph.com/projects/ceph <br> <br> |
+| **Source Code** <br> <br> <br> <br> | If you would like to participate in <br> development, bug fixing, or if you just want <br> the very latest code for Ceph, you can get it <br> at http://github.com. See [Ceph Source Code](http://github.com/ceph/ceph) <br> for details on cloning from github. | <br> - https://github.com/ceph/ceph <br> - https://download.ceph.com/tarballs/ <br> <br> |
+| **Ceph Calendar** | Learn about upcoming Ceph events. | https://ceph.io/contribute/ |

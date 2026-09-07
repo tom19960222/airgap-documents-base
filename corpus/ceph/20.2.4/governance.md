@@ -5,7 +5,7 @@ title: "Governance"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/governance.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _governance:
+<a id="governance"></a>
 
 # Governance
 
@@ -50,7 +50,7 @@ The Ceph open source community is guided by a few different groups.
 * Josh Durgin <jdurgin@redhat.com>
 * Neha Ojha <nojha@redhat.com>
 
-.. _csc:
+<a id="csc"></a>
 
 # Ceph Steering Committee
 
@@ -115,13 +115,13 @@ The Ceph open source community is guided by a few different groups.
  * Yaarit Hatuka <yhatuka@ibm.com>
  * Adam C. Emerson <aemerson@redhat.com>
 
-.. _ctl:
+<a id="ctl"></a>
 
 # Component Team Leads
 
 ## Responsibilities
 
- * Manage a component team in Ceph
+ * Manage a [component team](https://ceph.io/en/community/team/) in Ceph
  * Ensure PRs are reviewed and merged
  * Ensure severe bug fixes are backported
  * Run standups
@@ -140,6 +140,4 @@ and ecosystem.  It has no direct control over the technical direction
 of the Ceph open source project beyond offering feedback and input
 into the collaborative development process.
 
-For more information, see foundation.
-
-.. _component team: https://ceph.io/en/community/team/
+For more information, see [foundation](foundation.md#foundation).

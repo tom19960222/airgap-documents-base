@@ -5,7 +5,7 @@ title: "Looking up Monitors through DNS"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/configuration/mon-lookup-dns.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _mon-dns-lookup:
+<a id="mon-dns-lookup"></a>
 
 # Looking up Monitors through DNS
 
@@ -14,11 +14,11 @@ through DNS.
 
 The addition of the ability to look up monitors through DNS means that daemons
 and clients do not require a *mon host* configuration directive in their
-`ceph.conf` configuration file.
+``ceph.conf`` configuration file.
 
 With a DNS update, clients and daemons can be made aware of changes
 in the monitor topology. To be more precise and technical, clients look up the
-monitors by using `DNS SRV TCP` records.
+monitors by using ``DNS SRV TCP`` records.
 
 By default, clients and daemons look for the TCP service called *ceph-mon*,
 which is configured by the *mon_dns_srv_name* configuration directive.
@@ -27,10 +27,10 @@ which is configured by the *mon_dns_srv_name* configuration directive.
 
 > **Note:** Instead of using a DNS search domain, it is possible to manually
 > designate the search domain by passing the search domain's name followed by
-> an underscore to `mon_dns_srv_name`. The syntax for this is
-> `<service-name>_<upper-level-domain>`. For example, passing
-> `ceph-mon_example.com` will direct Ceph to look for the `SRV` record at
-> `_ceph-mon._tcp.example.com`.
+> an underscore to ``mon_dns_srv_name``. The syntax for this is
+> ``<service-name>_<upper-level-domain>``. For example, passing
+> ``ceph-mon_example.com`` will direct Ceph to look for the ``SRV`` record at
+> ``_ceph-mon._tcp.example.com``.
 
 ## Example
 When the DNS search domain is set to *example.com* a DNS zone file might contain the following elements.

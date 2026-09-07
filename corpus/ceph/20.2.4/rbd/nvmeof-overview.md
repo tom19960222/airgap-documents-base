@@ -5,7 +5,7 @@ title: "Ceph NVMe-oF Gateway"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rbd/nvmeof-overview.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-nvmeof:
+<a id="ceph-nvmeof"></a>
 
 # Ceph NVMe-oF Gateway
 

@@ -26,17 +26,17 @@ Create an OpenID Connect Provider entity in RGW
 
 #### Request Parameters
 
-`ClientIDList.member.N`
+``ClientIDList.member.N``
 
 :Description: List of Client Ids that needs access to S3 resources.
 :Type: Array of Strings
 
-`ThumbprintList.member.N`
+``ThumbprintList.member.N``
 
 :Description: List of OpenID Connect IDP's server certificates' thumbprints. A maximum of 5 thumbprints are allowed.
 :Type: Array of Strings
 
-`Url`
+``Url``
 
 :Description: URL of the IDP.
 :Type: String
@@ -56,7 +56,7 @@ Deletes an OpenID Connect Provider entity in RGW
 
 #### Request Parameters
 
-`OpenIDConnectProviderArn`
+``OpenIDConnectProviderArn``
 
 :Description: ARN of the IDP which is returned by the Create API.
 :Type: String
@@ -74,7 +74,7 @@ Gets information about an IDP.
 
 #### Request Parameters
 
-`OpenIDConnectProviderArn`
+``OpenIDConnectProviderArn``
 
 :Description: ARN of the IDP which is returned by the Create API.
 :Type: String
@@ -106,12 +106,12 @@ Add a client id to the list of existing client ids registered while creating an 
 
 #### Request Parameters
 
-`OpenIDConnectProviderArn`
+``OpenIDConnectProviderArn``
 
 :Description: ARN of the IDP which is returned by the Create API.
 :Type: String
 
-`ClientID`
+``ClientID``
 
 :Description: Client Id to add to the existing OpenIDConnectProvider.
 :Type: String
@@ -130,12 +130,12 @@ Remove a client id from the list of existing client ids registered while creatin
 
 #### Request Parameters
 
-`OpenIDConnectProviderArn`
+``OpenIDConnectProviderArn``
 
 :Description: ARN of the IDP which is returned by the Create API.
 :Type: String
 
-`ClientID`
+``ClientID``
 
 :Description: Client ID to remove from the existing OpenIDConnectProvider.
 :Type: String
@@ -155,12 +155,12 @@ This API removes the existing thumbprint list and replaces that with the input t
 
 #### Request Parameters
 
-`OpenIDConnectProviderArn`
+``OpenIDConnectProviderArn``
 
 :Description: ARN of the IDP which is returned by the Create API.
 :Type: String
 
-`ThumbprintList.member.N`
+``ThumbprintList.member.N``
 
 :Description: List of OpenID Connect IDP's server certificates' thumbprints. A maximum of 5 thumbprints are allowed.
 :Type: Array of Strings

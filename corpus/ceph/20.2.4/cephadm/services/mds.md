@@ -7,14 +7,14 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # MDS Service
 
-.. _orchestrator-cli-cephfs:
+<a id="orchestrator-cli-cephfs"></a>
 
 # Deploy CephFS
 
 One or more MDS daemons is required to use the CephFS file system.
-These are created automatically if the newer `ceph fs volume`
+These are created automatically if the newer ``ceph fs volume``
 interface is used to create a new file system. For more information,
-see fs-volumes-and-subvolumes.
+see [fs-volumes-and-subvolumes](../../cephfs/fs-volumes.md#fs-volumes-and-subvolumes).
 
 For example:
 
@@ -22,9 +22,9 @@ For example:
 ceph fs volume create <fs_name> --placement="<placement spec>"
 ```
 
-where `fs_name` is the name of the CephFS and `placement` is a
-orchestrator-cli-placement-spec. For example, to place
-MDS daemons for the new `foo` volume on hosts labeled with `mds`:
+where ``fs_name`` is the name of the CephFS and ``placement`` is a
+[orchestrator-cli-placement-spec](index.md#orchestrator-cli-placement-spec). For example, to place
+MDS daemons for the new ``foo`` volume on hosts labeled with ``mds``:
 
 ```bash
 ceph fs volume create foo --placement="label:mds"
@@ -52,9 +52,9 @@ The specification can then be applied using:
 ceph orch apply -i mds.yaml
 ```
 
-See orchestrator-cli-stateless-services for manually deploying
+See [orchestrator-cli-stateless-services](../../mgr/orchestrator.md#orchestrator-cli-stateless-services) for manually deploying
 MDS daemons on the CLI.
 
 # Further Reading
 
-* ceph-file-system
+* [ceph-file-system](../../cephfs/index.md#ceph-file-system)

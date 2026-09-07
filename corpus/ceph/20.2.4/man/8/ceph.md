@@ -82,119 +82,151 @@ Manage authentication keys. It is used for adding, removing, exporting
 or updating of authentication keys for a particular  entity such as a monitor or
 OSD. It uses some additional subcommands.
 
-Subcommand `add` adds authentication info for a particular entity from input
+Subcommand ``add`` adds authentication info for a particular entity from input
 file, or random key if no input is given and/or any caps specified in the command.
 
-Usage::
+Usage:
 
-	  ceph auth add [--key-type=<cipher>] <entity> {<caps> [<caps>...]}
+```
+ceph auth add [--key-type=<cipher>] <entity> {<caps> [<caps>...]}
+```
 
-No key information is output. If `--key-type` is omitted, the cluster's preferred cipher is used.
+No key information is output. If ``--key-type`` is omitted, the cluster's preferred cipher is used.
 
-Subcommand `caps` updates caps for **name** from caps specified in the command.
+Subcommand ``caps`` updates caps for **name** from caps specified in the command.
 
-Usage::
+Usage:
 
-	ceph auth caps <entity> <caps> [<caps>...]
+```
+ceph auth caps <entity> <caps> [<caps>...]
+```
 
-Subcommand `del` deletes all caps for `name`.
+Subcommand ``del`` deletes all caps for ``name``.
 
-Usage::
+Usage:
 
-	ceph auth del <entity>
+```
+ceph auth del <entity>
+```
 
-Subcommand `export` writes keyring for requested entity, or master keyring if
+Subcommand ``export`` writes keyring for requested entity, or master keyring if
 none given.
 
-Usage::
+Usage:
 
-	ceph auth export {<entity>}
+```
+ceph auth export {<entity>}
+```
 
-Subcommand `get` writes keyring file with requested key.
+Subcommand ``get`` writes keyring file with requested key.
 
-Usage::
+Usage:
 
-	ceph auth get <entity>
+```
+ceph auth get <entity>
+```
 
-Subcommand `get-key` displays requested key.
+Subcommand ``get-key`` displays requested key.
 
-Usage::
+Usage:
 
-	ceph auth get-key <entity>
+```
+ceph auth get-key <entity>
+```
 
-Subcommand `get-or-create` adds authentication info for a particular entity
+Subcommand ``get-or-create`` adds authentication info for a particular entity
 from input file, or random key if no input given and/or any caps specified in the
 command.
 
-Usage::
+Usage:
 
-	  ceph auth get-or-create [--key-type=<cipher>] <entity> {<caps> [<caps>...]}
+```
+ceph auth get-or-create [--key-type=<cipher>] <entity> {<caps> [<caps>...]}
+```
 
-The output is the new key in the `.ini` file format. If `--key-type` is omitted, the cluster's preferred cipher is used.
+The output is the new key in the ``.ini`` file format. If ``--key-type`` is omitted, the cluster's preferred cipher is used.
 
-Subcommand `get-or-create-key` gets or adds key for `name` from system/caps
+Subcommand ``get-or-create-key`` gets or adds key for ``name`` from system/caps
 pairs specified in the command.  If key already exists, any given caps must match
 the existing caps for that key.
 
-Usage::
+Usage:
 
-	ceph auth get-or-create-key <entity> {<caps> [<caps>...]}
+```
+ceph auth get-or-create-key <entity> {<caps> [<caps>...]}
+```
 
-The output is the new key in plain text. If `--key-type` is omitted, the cluster's preferred cipher is used.
+The output is the new key in plain text. If ``--key-type`` is omitted, the cluster's preferred cipher is used.
 
-Subcommand `import` reads keyring from input file.
+Subcommand ``import`` reads keyring from input file.
 
-Usage::
+Usage:
 
-	ceph auth import
+```
+ceph auth import
+```
 
-Subcommand `ls` lists authentication state.
+Subcommand ``ls`` lists authentication state.
 
-Usage::
+Usage:
 
-	ceph auth ls
+```
+ceph auth ls
+```
 
-Subcommand `print-key` displays requested key.
+Subcommand ``print-key`` displays requested key.
 
-Usage::
+Usage:
 
-	ceph auth print-key <entity>
+```
+ceph auth print-key <entity>
+```
 
-Subcommand `print_key` displays requested key.
+Subcommand ``print_key`` displays requested key.
 
-Usage::
+Usage:
 
-	  ceph auth print_key <entity>
+```
+ceph auth print_key <entity>
+```
 
-Subcommand `rotate` rotates the key for the given entity.
+Subcommand ``rotate`` rotates the key for the given entity.
 
-Usage::
+Usage:
 
-	ceph auth rotate [--key-type=<cipher>] <entity>
+```
+ceph auth rotate [--key-type=<cipher>] <entity>
+```
 
-The output is the new key in the `.ini` file format. If `--key-type` is omitted, the cluster's preferred cipher is used.
+The output is the new key in the ``.ini`` file format. If ``--key-type`` is omitted, the cluster's preferred cipher is used.
 
-Subcommand `dump-keys` dumps the entire key database including rotating service keys.
+Subcommand ``dump-keys`` dumps the entire key database including rotating service keys.
 
-Usage::
+Usage:
 
-	ceph --format=json auth dump-keys
+```
+ceph --format=json auth dump-keys
+```
 
-The output format must be `json` or `json-pretty`.
+The output format must be ``json`` or ``json-pretty``.
 
-Subcommand `wipe-rotating-service-keys` wipes all rotating service keys and forces the Monitors to refresh all keys. **Do not** run this command without understanding its full effects and purpose. Consult the Ceph documentation for more information.
+Subcommand ``wipe-rotating-service-keys`` wipes all rotating service keys and forces the Monitors to refresh all keys. **Do not** run this command without understanding its full effects and purpose. Consult the Ceph documentation for more information.
 
-Usage::
+Usage:
 
-	ceph auth wipe-rotating-service-keys
+```
+ceph auth wipe-rotating-service-keys
+```
 
 ## compact
 
 Causes compaction of monitor's RocksDB storage.
 
-Usage::
+Usage:
 
-	ceph compact
+```
+ceph compact
+```
 
 ## config
 
@@ -203,19 +235,23 @@ configuration options from monitor when they start, and are updated if any of
 the tracked options is changed at run time. It uses following additional
 subcommand.
 
-Subcommand `dump` to dump all options for the cluster
+Subcommand ``dump`` to dump all options for the cluster
 
-Usage::
+Usage:
 
-	ceph config dump
+```
+ceph config dump
+```
 
-Subcommand `ls` to list all option names for the cluster
+Subcommand ``ls`` to list all option names for the cluster
 
-Usage::
+Usage:
 
-	ceph config ls
+```
+ceph config ls
+```
 
-Subcommand `help` to describe the specified configuration option
+Subcommand ``help`` to describe the specified configuration option
 
 Usage:
 
@@ -223,7 +259,7 @@ Usage:
 ceph config help <option>
 ```
 
-Subcommand `get` to dump the option(s) for the specified entity.
+Subcommand ``get`` to dump the option(s) for the specified entity.
 
 Usage:
 
@@ -231,26 +267,30 @@ Usage:
 ceph config get <who> {<option>}
 ```
 
-Subcommand `show` to display the running configuration of the specified
-entity. Please note, unlike `get`, which only shows the options managed
-by monitor, `show` displays all the configurations being actively used.
+Subcommand ``show`` to display the running configuration of the specified
+entity. Please note, unlike ``get``, which only shows the options managed
+by monitor, ``show`` displays all the configurations being actively used.
 These options are pulled from several sources, for instance, the compiled-in
-default value, the monitor's configuration database, `ceph.conf` file on
+default value, the monitor's configuration database, ``ceph.conf`` file on
 the host. The options can even be overridden at runtime. So, there is chance
-that the configuration options in the output of `show` could be different
-from those in the output of `get`.
+that the configuration options in the output of ``show`` could be different
+from those in the output of ``get``.
 
-Usage::
+Usage:
 
-	ceph config show {<who>}
+```
+ceph config show {<who>}
+```
 
-Subcommand `show-with-defaults` to display the running configuration along with the compiled-in defaults of the specified entity
+Subcommand ``show-with-defaults`` to display the running configuration along with the compiled-in defaults of the specified entity
 
-Usage::
+Usage:
 
-	ceph config show {<who>}
+```
+ceph config show {<who>}
+```
 
-Subcommand `set` to set an option for one or more specified entities
+Subcommand ``set`` to set an option for one or more specified entities
 
 Usage:
 
@@ -258,7 +298,7 @@ Usage:
 ceph config set <who> <option> <value> {--force}
 ```
 
-Subcommand `rm` to clear an option for one or more entities
+Subcommand ``rm`` to clear an option for one or more entities
 
 Usage:
 
@@ -266,7 +306,7 @@ Usage:
 ceph config rm <who> <option>
 ```
 
-Subcommand `log` to show recent history of config changes. If `count` option
+Subcommand ``log`` to show recent history of config changes. If `count` option
 is omitted it defaults to 10.
 
 Usage:
@@ -275,7 +315,7 @@ Usage:
 ceph config log {<count>}
 ```
 
-Subcommand `reset` to revert configuration to the specified historical version
+Subcommand ``reset`` to revert configuration to the specified historical version
 
 Usage:
 
@@ -283,7 +323,7 @@ Usage:
 ceph config reset <version>
 ```
 
-Subcommand `assimilate-conf` to assimilate options from stdin, and return a
+Subcommand ``assimilate-conf`` to assimilate options from stdin, and return a
 new, minimal conf file
 
 Usage:
@@ -293,7 +333,7 @@ ceph config assimilate-conf -i <input-config-path> > <output-config-path>
 ceph config assimilate-conf < <input-config-path>
 ```
 
-Subcommand `generate-minimal-conf` to generate a minimal `ceph.conf` file,
+Subcommand ``generate-minimal-conf`` to generate a minimal ``ceph.conf`` file,
 which can be used for bootstrapping a daemon or a client.
 
 Usage:
@@ -309,74 +349,94 @@ offered by the monitors. This service is mainly used by Ceph tools and daemons
 for persisting various settings. Among which, ceph-mgr modules uses it for
 storing their options. It uses some additional subcommands.
 
-Subcommand `rm` deletes configuration key.
+Subcommand ``rm`` deletes configuration key.
 
-Usage::
+Usage:
 
-	ceph config-key rm <key>
+```
+ceph config-key rm <key>
+```
 
-Subcommand `exists` checks for configuration keys existence.
+Subcommand ``exists`` checks for configuration keys existence.
 
-Usage::
+Usage:
 
-	ceph config-key exists <key>
+```
+ceph config-key exists <key>
+```
 
-Subcommand `get` gets the configuration key.
+Subcommand ``get`` gets the configuration key.
 
-Usage::
+Usage:
 
-	ceph config-key get <key>
+```
+ceph config-key get <key>
+```
 
-Subcommand `ls` lists configuration keys.
+Subcommand ``ls`` lists configuration keys.
 
-Usage::
+Usage:
 
-	ceph config-key ls
+```
+ceph config-key ls
+```
 
-Subcommand `dump` dumps configuration keys and values.
+Subcommand ``dump`` dumps configuration keys and values.
 
-Usage::
+Usage:
 
-	ceph config-key dump
+```
+ceph config-key dump
+```
 
-Subcommand `set` puts configuration key and value.
+Subcommand ``set`` puts configuration key and value.
 
-Usage::
+Usage:
 
-	ceph config-key set <key> {<val>}
+```
+ceph config-key set <key> {<val>}
+```
 
-.. _man-ceph-daemon:
+<a id="man-ceph-daemon"></a>
 
 ## daemon
 
 Submit admin-socket commands.
 
-Usage::
+Usage:
 
-	ceph daemon {daemon_name|socket_path} {command} ...
+```
+ceph daemon {daemon_name|socket_path} {command} ...
+```
 
-Example::
+Example:
 
-	ceph daemon osd.0 help
+```
+ceph daemon osd.0 help
+```
 
 ## daemonperf
 
 Watch performance counters from a Ceph daemon.
 
-Usage::
+Usage:
 
-	ceph daemonperf {daemon_name|socket_path} [{interval} [{count}]]
+```
+ceph daemonperf {daemon_name|socket_path} [{interval} [{count}]]
+```
 
 df
 --
 
 Show cluster's free space status.
 
-Usage::
+Usage:
 
-	ceph df {detail}
+```
+ceph df {detail}
+```
 
-.. _ceph features:
+<a id="ceph-features"></a>
 
 ## features
 
@@ -399,7 +459,7 @@ fs
 
 Manage cephfs file systems. It uses some additional subcommands.
 
-Subcommand `add_data_pool` adds an new data pool to the FS. Ths pool can
+Subcommand ``add_data_pool`` adds an new data pool to the FS. Ths pool can
 be used for file layouts as an alternate location to store the file data.
 
 Usage:
@@ -408,10 +468,10 @@ Usage:
 ceph fs add_data_pool <fs-name> <pool name/id>
 ```
 
-Subcommand `authorize` creates a new client (if the client doesn't exists
-on the cluster) that will be authorized for the given path in `<fs_name>`.
-Pass `/` to authorize for the entire FS. `<perms>` below can be `r`,
-`rw` or `rwp`.
+Subcommand ``authorize`` creates a new client (if the client doesn't exists
+on the cluster) that will be authorized for the given path in ``<fs_name>``.
+Pass ``/`` to authorize for the entire FS. ``<perms>`` below can be ``r``,
+``rw`` or ``rwp``.
 
 Running it for an existing client can grant the client a new capability
 (capability for a different CephFS on the same cluster or for a different
@@ -424,9 +484,9 @@ Usage:
 ceph fs authorize [--key-type=<cipher>] <fs_name> client.<client_id> <path> <perms> [<path> <perms>...]
 ```
 
-The output is the new key in the `.ini` file format with caps. If `--key-type` is omitted, the cluster's preferred cipher is used.
+The output is the new key in the ``.ini`` file format with caps. If ``--key-type`` is omitted, the cluster's preferred cipher is used.
 
-Subcommand `dump` displays the FSMap at the given epoch (default: current).
+Subcommand ``dump`` displays the FSMap at the given epoch (default: current).
 This includes all file system settings, MDS daemons and the ranks they hold
 and list of standby MDS daemons.
 
@@ -436,7 +496,7 @@ Usage:
 ceph fs dump [epoch]
 ```
 
-Subcommand `feature ls` lists all CephFS features supported by current
+Subcommand ``feature ls`` lists all CephFS features supported by current
 version of Ceph.
 
 Usage:
@@ -445,8 +505,8 @@ Usage:
 ceph fs feature ls
 ```
 
-Subcommand `flag set` sets a global CephFS flag. Right now the only flag
-is `enable_multiple` which allows multiple CephFSs on a Ceph cluster.
+Subcommand ``flag set`` sets a global CephFS flag. Right now the only flag
+is ``enable_multiple`` which allows multiple CephFSs on a Ceph cluster.
 
 Usage:
 
@@ -454,9 +514,9 @@ Usage:
 ceph fs flag set <flag-name> <flag-val> --yes-i-really-mean-it
 ```
 
-Subcommand `get` displays the information about FS, including settings and
+Subcommand ``get`` displays the information about FS, including settings and
 ranks. Information printed here in subset of same information from the
-`fs dump` command.
+``fs dump`` command.
 
 Usage:
 
@@ -464,13 +524,15 @@ Usage:
 ceph fs get <fs-name>
 ```
 
-Subcommand `ls` to list file systems
+Subcommand ``ls`` to list file systems
 
-Usage::
+Usage:
 
-	ceph fs ls
+```
+ceph fs ls
+```
 
-Subcommand `lsflags` displays all the flags set on the given FS.
+Subcommand ``lsflags`` displays all the flags set on the given FS.
 
 Usage:
 
@@ -478,13 +540,15 @@ Usage:
 ceph fs lsflags <fs-name>
 ```
 
-Subcommand `new` to make a new file system using named pools <metadata> and <data>
+Subcommand ``new`` to make a new file system using named pools <metadata> and <data>
 
-Usage::
+Usage:
 
-	ceph fs new <fs_name> <metadata> <data>
+```
+ceph fs new <fs_name> <metadata> <data>
+```
 
-Subcommand `rename` assigns a new name to CephFS and also updates
+Subcommand ``rename`` assigns a new name to CephFS and also updates
 application tags on the pools of this CephFS.
 
 Usage:
@@ -493,7 +557,7 @@ Usage:
 ceph fs rename <fs-name> <new-fs-name> {--yes-i-really-mean-it}
 ```
 
-Subcommand `required_client_features` disables a client that doesn't
+Subcommand ``required_client_features`` disables a client that doesn't
 possess a certain feature from connecting. This subcommand has two
 subcommands, one to add a requirement and other to remove the requirement.
 
@@ -504,20 +568,24 @@ ceph fs required_client_features <fs name> add <feature-name>
 ceph fs required_client_features <fs name> rm <feature-name>
 ```
 
-Subcommand `reset` is used for disaster recovery only: reset to a single-MDS
+Subcommand ``reset`` is used for disaster recovery only: reset to a single-MDS
 map
 
-Usage::
+Usage:
 
-	ceph fs reset <fs_name> {--yes-i-really-mean-it}
+```
+ceph fs reset <fs_name> {--yes-i-really-mean-it}
+```
 
-Subcommand `rm` to disable the named file system
+Subcommand ``rm`` to disable the named file system
 
-Usage::
+Usage:
 
-	ceph fs rm <fs_name> {--yes-i-really-mean-it}
+```
+ceph fs rm <fs_name> {--yes-i-really-mean-it}
+```
 
-Subcommand `rm_data_pool`  removes the specified pool from FS's list of
+Subcommand ``rm_data_pool``  removes the specified pool from FS's list of
 data pools. File data on this pool will become unavailable. Default data pool
 cannot be removed.
 
@@ -527,7 +595,7 @@ Usage:
 ceph fs rm_data_pool <fs-name> <pool name/id>
 ```
 
-Subcommand `set` sets or updates a FS setting value for given FS name.
+Subcommand ``set`` sets or updates a FS setting value for given FS name.
 
 Usage:
 
@@ -535,10 +603,10 @@ Usage:
 ceph fs set <fs-name> <fs-setting> <value>
 ```
 
-Subcommand `swap` swaps the names of two Ceph file system and updates
+Subcommand ``swap`` swaps the names of two Ceph file system and updates
 application tags on the pool of the file systems accordingly. Optionally,
 FSIDs of the filesystems can also be swapped along with names by passing
-`--swap-fscids`.
+``--swap-fscids``.
 
 Usage:
 
@@ -550,186 +618,232 @@ ceph fs swap <fs1-name> <fs1-id> <fs2-name> <fs2-id> [--swap-fscids] {--yes-i-re
 
 Show cluster's FSID/UUID.
 
-Usage::
+Usage:
 
-	ceph fsid
+```
+ceph fsid
+```
 
 ## health
 
 Show cluster's health.
 
-Usage::
+Usage:
 
-	ceph health {detail}
+```
+ceph health {detail}
+```
 
 ## heap
 
 Show heap usage info (available only if compiled with tcmalloc)
 
-Usage::
+Usage:
 
-	ceph tell <name (type.id)> heap dump|start_profiler|stop_profiler|stats
+```
+ceph tell <name (type.id)> heap dump|start_profiler|stop_profiler|stats
+```
 
-Subcommand `release` to make TCMalloc to releases no-longer-used memory back to the kernel at once.
+Subcommand ``release`` to make TCMalloc to releases no-longer-used memory back to the kernel at once.
 
-Usage::
+Usage:
 
-	ceph tell <name (type.id)> heap release
+```
+ceph tell <name (type.id)> heap release
+```
 
-Subcommand `(get|set)_release_rate` get or set the TCMalloc memory release rate. TCMalloc releases
+Subcommand ``(get|set)_release_rate`` get or set the TCMalloc memory release rate. TCMalloc releases
 no-longer-used memory back to the kernel gradually. the rate controls how quickly this happens.
 Increase this setting to make TCMalloc to return unused memory more frequently. 0 means never return
-memory to system, 1 means wait for 1000 pages after releasing a page to system. It is `1.0` by default..
+memory to system, 1 means wait for 1000 pages after releasing a page to system. It is ``1.0`` by default..
 
-Usage::
+Usage:
 
-	ceph tell <name (type.id)> heap get_release_rate|set_release_rate {<val>}
+```
+ceph tell <name (type.id)> heap get_release_rate|set_release_rate {<val>}
+```
 
 ## injectargs
 
 Inject configuration arguments into monitor.
 
-Usage::
+Usage:
 
-	ceph injectargs <injected_args> [<injected_args>...]
+```
+ceph injectargs <injected_args> [<injected_args>...]
+```
 
 ## log
 
 Log supplied text to the monitor log.
 
-Usage::
+Usage:
 
-	ceph log <logtext> [<logtext>...]
+```
+ceph log <logtext> [<logtext>...]
+```
 
 ## mds
 
 Manage metadata server configuration and administration. It uses some
 additional subcommands.
 
-Subcommand `compat` manages compatible features. It uses some additional
+Subcommand ``compat`` manages compatible features. It uses some additional
 subcommands.
 
-Subcommand `rm_compat` removes compatible feature.
+Subcommand ``rm_compat`` removes compatible feature.
 
-Usage::
+Usage:
 
-	ceph mds compat rm_compat <int[0-]>
+```
+ceph mds compat rm_compat <int[0-]>
+```
 
-Subcommand `rm_incompat` removes incompatible feature.
+Subcommand ``rm_incompat`` removes incompatible feature.
 
-Usage::
+Usage:
 
-	ceph mds compat rm_incompat <int[0-]>
+```
+ceph mds compat rm_incompat <int[0-]>
+```
 
-Subcommand `show` shows mds compatibility settings.
+Subcommand ``show`` shows mds compatibility settings.
 
-Usage::
+Usage:
 
-	ceph mds compat show
+```
+ceph mds compat show
+```
 
-Subcommand `fail` forces mds to status fail.
+Subcommand ``fail`` forces mds to status fail.
 
-Usage::
+Usage:
 
-	ceph mds fail <role|gid>
+```
+ceph mds fail <role|gid>
+```
 
-Subcommand `rm` removes inactive mds.
+Subcommand ``rm`` removes inactive mds.
 
-Usage::
+Usage:
 
-	ceph mds rm <int[0-]> <name> (type.id)>
+```
+ceph mds rm <int[0-]> <name> (type.id)>
+```
 
-Subcommand `rmfailed` removes failed mds.
+Subcommand ``rmfailed`` removes failed mds.
 
-Usage::
+Usage:
 
-	ceph mds rmfailed <int[0-]>
+```
+ceph mds rmfailed <int[0-]>
+```
 
-Subcommand `set_state` sets mds state of <gid> to <numeric-state>.
+Subcommand ``set_state`` sets mds state of <gid> to <numeric-state>.
 
-Usage::
+Usage:
 
-	ceph mds set_state <int[0-]> <int[0-20]>
+```
+ceph mds set_state <int[0-]> <int[0-20]>
+```
 
-Subcommand `stat` shows MDS status.
+Subcommand ``stat`` shows MDS status.
 
-Usage::
+Usage:
 
-	ceph mds stat
+```
+ceph mds stat
+```
 
-Subcommand `repaired` mark a damaged MDS rank as no longer damaged.
+Subcommand ``repaired`` mark a damaged MDS rank as no longer damaged.
 
-Usage::
+Usage:
 
-	ceph mds repaired <role>
+```
+ceph mds repaired <role>
+```
 
 ## mon
 
 Manage monitor configuration and administration. It uses some additional
 subcommands.
 
-Subcommand `add` adds new monitor named <name> at <addr>.
+Subcommand ``add`` adds new monitor named <name> at <addr>.
 
-Usage::
+Usage:
 
-	ceph mon add <name> <IPaddr[:port]>
+```
+ceph mon add <name> <IPaddr[:port]>
+```
 
-Subcommand `dump` dumps formatted monmap (optionally from epoch)
+Subcommand ``dump`` dumps formatted monmap (optionally from epoch)
 
-Usage::
+Usage:
 
-	ceph mon dump {<int[0-]>}
+```
+ceph mon dump {<int[0-]>}
+```
 
-Subcommand `getmap` gets monmap.
+Subcommand ``getmap`` gets monmap.
 
-Usage::
+Usage:
 
-	ceph mon getmap {<int[0-]>}
+```
+ceph mon getmap {<int[0-]>}
+```
 
-Subcommand `enable_stretch_mode` enables stretch mode, changing the peering
+Subcommand ``enable_stretch_mode`` enables stretch mode, changing the peering
 rules and failure handling on all pools. For a given PG to successfully peer
-and be marked active, `min_size` replicas will now need to be active under all
+and be marked active, ``min_size`` replicas will now need to be active under all
 (currently two) CRUSH buckets of type <dividing_bucket>.
 
 <tiebreaker_mon> is the tiebreaker mon to use if a network split happens.
 
 <dividing_bucket> is the bucket type across which to stretch.
-This will typically be `datacenter` or other CRUSH hierarchy bucket type that
+This will typically be ``datacenter`` or other CRUSH hierarchy bucket type that
 denotes physically or logically distant subdivisions.
 
 <new_crush_rule> will be set as CRUSH rule for all pools.
 
-Usage::
+Usage:
 
-	ceph mon enable_stretch_mode <tiebreaker_mon> <new_crush_rule> <dividing_bucket>
+```
+ceph mon enable_stretch_mode <tiebreaker_mon> <new_crush_rule> <dividing_bucket>
+```
 
-Subcommand `remove` removes monitor named <name>.
+Subcommand ``remove`` removes monitor named <name>.
 
-Usage::
+Usage:
 
-	ceph mon remove <name>
+```
+ceph mon remove <name>
+```
 
-Subcommand `stat` summarizes monitor status.
+Subcommand ``stat`` summarizes monitor status.
 
-Usage::
+Usage:
 
-	ceph mon stat
+```
+ceph mon stat
+```
 
-Subcommand `set` sets various Monitor map settings.
+Subcommand ``set`` sets various Monitor map settings.
 
-Usage::
+Usage:
 
-	ceph mon set <name> <value>
+```
+ceph mon set <name> <value>
+```
 
-Valid names include `auth_service_cipher`, `auth_allowed_ciphers`, and
-`auth_preferred_cipher`. The meaning of these settings and the valid values
+Valid names include ``auth_service_cipher``, ``auth_allowed_ciphers``, and
+``auth_preferred_cipher``. The meaning of these settings and the valid values
 are as described in monmaptool(8).
 
 ## mgr
 
 Ceph manager daemon configuration and management.
 
-Subcommand `dump` dumps the latest MgrMap, which describes the active
+Subcommand ``dump`` dumps the latest MgrMap, which describes the active
 and standby manager daemons.
 
 Usage:
@@ -738,7 +852,7 @@ Usage:
 ceph mgr dump
 ```
 
-Subcommand `fail` will mark a manager daemon as failed, removing it
+Subcommand ``fail`` will mark a manager daemon as failed, removing it
 from the manager map.  If it is the active manager daemon a standby
 will take its place.
 
@@ -748,7 +862,7 @@ Usage:
 ceph mgr fail <name>
 ```
 
-Subcommand `module ls` will list currently enabled manager modules (plugins).
+Subcommand ``module ls`` will list currently enabled manager modules (plugins).
 
 Usage:
 
@@ -756,7 +870,7 @@ Usage:
 ceph mgr module ls
 ```
 
-Subcommand `module enable` will enable a manager module.  Available modules are included in MgrMap and visible via `mgr dump`.
+Subcommand ``module enable`` will enable a manager module.  Available modules are included in MgrMap and visible via ``mgr dump``.
 
 Usage:
 
@@ -764,7 +878,7 @@ Usage:
 ceph mgr module enable <module>
 ```
 
-Subcommand `module disable` will disable an active manager module.
+Subcommand ``module disable`` will disable an active manager module.
 
 Usage:
 
@@ -772,7 +886,7 @@ Usage:
 ceph mgr module disable <module>
 ```
 
-Subcommand `metadata` will report metadata about all manager daemons or, if the name is specified, a single manager daemon.
+Subcommand ``metadata`` will report metadata about all manager daemons or, if the name is specified, a single manager daemon.
 
 Usage:
 
@@ -780,7 +894,7 @@ Usage:
 ceph mgr metadata [name]
 ```
 
-Subcommand `versions` will report a count of running daemon versions.
+Subcommand ``versions`` will report a count of running daemon versions.
 
 Usage:
 
@@ -788,7 +902,7 @@ Usage:
 ceph mgr versions
 ```
 
-Subcommand `count-metadata` will report a count of any daemon metadata field.
+Subcommand ``count-metadata`` will report a count of any daemon metadata field.
 
 Usage:
 
@@ -796,53 +910,63 @@ Usage:
 ceph mgr count-metadata <field>
 ```
 
-.. _ceph-admin-osd:
+<a id="ceph-admin-osd"></a>
 
 ## osd
 
 Manage OSD configuration and administration. It uses some additional
 subcommands.
 
-Subcommand `blocklist` manage blocklisted clients. It uses some additional
+Subcommand ``blocklist`` manage blocklisted clients. It uses some additional
 subcommands.
 
-Subcommand `add` add <addr> to blocklist (optionally until <expire> seconds
+Subcommand ``add`` add <addr> to blocklist (optionally until <expire> seconds
 from now)
 
-Usage::
+Usage:
 
-	ceph osd blocklist add <EntityAddr> {<float[0.0-]>}
+```
+ceph osd blocklist add <EntityAddr> {<float[0.0-]>}
+```
 
-Subcommand `ls` show blocklisted clients
+Subcommand ``ls`` show blocklisted clients
 
-Usage::
+Usage:
 
-	ceph osd blocklist ls
+```
+ceph osd blocklist ls
+```
 
-Subcommand `rm` remove <addr> from blocklist
+Subcommand ``rm`` remove <addr> from blocklist
 
-Usage::
+Usage:
 
-	ceph osd blocklist rm <EntityAddr>
+```
+ceph osd blocklist rm <EntityAddr>
+```
 
-Subcommand `blocked-by` prints a histogram of which OSDs are blocking their peers
+Subcommand ``blocked-by`` prints a histogram of which OSDs are blocking their peers
 
-Usage::
+Usage:
 
-	ceph osd blocked-by
+```
+ceph osd blocked-by
+```
 
-Subcommand `create` creates new osd (with optional UUID and ID).
+Subcommand ``create`` creates new osd (with optional UUID and ID).
 
 This command is DEPRECATED as of the Luminous release, and will be removed in
 a future release.
 
-Subcommand `new` should instead be used.
+Subcommand ``new`` should instead be used.
 
-Usage::
+Usage:
 
-	ceph osd create {<uuid>} {<id>}
+```
+ceph osd create {<uuid>} {<id>}
+```
 
-Subcommand `new` can be used to create a new OSD or to recreate a previously
+Subcommand ``new`` can be used to create a new OSD or to recreate a previously
 destroyed OSD with a specific *id*. The new OSD will have the specified *uuid*,
 and the command expects a JSON file containing the base64 CephX key for auth
 entity *client.osd.<id>*, as well as optional base64 CephX key for dm-crypt
@@ -861,10 +985,9 @@ a form of the following format:
 ```
 {
     "cephx_secret": "AQBWtwhZdBO5ExAAIDyjK2Bh16ZXylmzgYYEjg==",
+    "crush_device_class": "myclass"
+}
 ```
-
-	"crush_device_class": "myclass"
-    }
 
 Or:
 
@@ -873,319 +996,405 @@ Or:
     "cephx_secret": "AQBWtwhZdBO5ExAAIDyjK2Bh16ZXylmzgYYEjg==",
     "cephx_lockbox_secret": "AQDNCglZuaeVCRAAYr76PzR1Anh7A0jswkODIQ==",
     "dmcrypt_key": "<dm-crypt key>",
+    "crush_device_class": "myclass"
+}
 ```
-
-	"crush_device_class": "myclass"
-    }
 
 Or:
 
 ```
 {
+    "crush_device_class": "myclass"
+}
 ```
-
-	"crush_device_class": "myclass"
-    }
 
 The "crush_device_class" property is optional. If specified, it will set the
 initial CRUSH device class for the new OSD.
 
-Subcommand `crush` is used for CRUSH management. It uses some additional
+Subcommand ``crush`` is used for CRUSH management. It uses some additional
 subcommands.
 
-Subcommand `add` adds or updates crushmap position and weight for <name> with
+Subcommand ``add`` adds or updates crushmap position and weight for <name> with
 <weight> and location <args>.
 
-Usage::
+Usage:
 
-	ceph osd crush add <osdname (id|osd.id)> <float[0.0-]> <args> [<args>...]
+```
+ceph osd crush add <osdname (id|osd.id)> <float[0.0-]> <args> [<args>...]
+```
 
-Subcommand `add-bucket` adds no-parent (probably root) crush bucket <name> of
+Subcommand ``add-bucket`` adds no-parent (probably root) crush bucket <name> of
 type <type>.
 
-Usage::
+Usage:
 
-	ceph osd crush add-bucket <name> <type>
+```
+ceph osd crush add-bucket <name> <type>
+```
 
-Subcommand `create-or-move` creates entry or moves existing entry for <name>
+Subcommand ``create-or-move`` creates entry or moves existing entry for <name>
 <weight> at/to location <args>.
 
-Usage::
+Usage:
 
-	ceph osd crush create-or-move <osdname (id|osd.id)> <float[0.0-]> <args>
-	[<args>...]
+```
+ceph osd crush create-or-move <osdname (id|osd.id)> <float[0.0-]> <args>
+[<args>...]
+```
 
-Subcommand `dump` dumps crush map.
+Subcommand ``dump`` dumps crush map.
 
-Usage::
+Usage:
 
-	ceph osd crush dump
+```
+ceph osd crush dump
+```
 
-Subcommand `get-tunable` get crush tunable straw_calc_version
+Subcommand ``get-tunable`` get crush tunable straw_calc_version
 
-Usage::
+Usage:
 
-	ceph osd crush get-tunable straw_calc_version
+```
+ceph osd crush get-tunable straw_calc_version
+```
 
-Subcommand `link` links existing entry for <name> under location <args>.
+Subcommand ``link`` links existing entry for <name> under location <args>.
 
-Usage::
+Usage:
 
-	ceph osd crush link <name> <args> [<args>...]
+```
+ceph osd crush link <name> <args> [<args>...]
+```
 
-Subcommand `move` moves existing entry for <name> to location <args>.
+Subcommand ``move`` moves existing entry for <name> to location <args>.
 
-Usage::
+Usage:
 
-	ceph osd crush move <name> <args> [<args>...]
+```
+ceph osd crush move <name> <args> [<args>...]
+```
 
-Subcommand `remove` removes <name> from crush map (everywhere, or just at
+Subcommand ``remove`` removes <name> from crush map (everywhere, or just at
 <ancestor>).
 
-Usage::
+Usage:
 
-	ceph osd crush remove <name> {<ancestor>}
+```
+ceph osd crush remove <name> {<ancestor>}
+```
 
-Subcommand `rename-bucket` renames bucket <srcname> to <dstname>
+Subcommand ``rename-bucket`` renames bucket <srcname> to <dstname>
 
-Usage::
+Usage:
 
-	ceph osd crush rename-bucket <srcname> <dstname>
+```
+ceph osd crush rename-bucket <srcname> <dstname>
+```
 
-Subcommand `reweight` change <name>'s weight to <weight> in crush map.
+Subcommand ``reweight`` change <name>'s weight to <weight> in crush map.
 
-Usage::
+Usage:
 
-	ceph osd crush reweight <name> <float[0.0-]>
+```
+ceph osd crush reweight <name> <float[0.0-]>
+```
 
-Subcommand `reweight-all` recalculate the weights for the tree to
+Subcommand ``reweight-all`` recalculate the weights for the tree to
 ensure they sum correctly
 
-Usage::
+Usage:
 
-	ceph osd crush reweight-all
+```
+ceph osd crush reweight-all
+```
 
-Subcommand `reweight-subtree` changes all leaf items beneath <name>
+Subcommand ``reweight-subtree`` changes all leaf items beneath <name>
 to <weight> in crush map
 
-Usage::
+Usage:
 
-	ceph osd crush reweight-subtree <name> <weight>
+```
+ceph osd crush reweight-subtree <name> <weight>
+```
 
-Subcommand `rm` removes <name> from crush map (everywhere, or just at
+Subcommand ``rm`` removes <name> from crush map (everywhere, or just at
 <ancestor>).
 
-Usage::
+Usage:
 
-	ceph osd crush rm <name> {<ancestor>}
+```
+ceph osd crush rm <name> {<ancestor>}
+```
 
-Subcommand `rule` is used for creating crush rules. It uses some additional
+Subcommand ``rule`` is used for creating crush rules. It uses some additional
 subcommands.
 
-Subcommand `create-erasure` creates crush rule <name> for erasure coded pool
+Subcommand ``create-erasure`` creates crush rule <name> for erasure coded pool
 created with <profile> (default default).
 
-Usage::
+Usage:
 
-	ceph osd crush rule create-erasure <name> {<profile>}
+```
+ceph osd crush rule create-erasure <name> {<profile>}
+```
 
-Subcommand `create-simple` creates crush rule <name> to start from <root>,
+Subcommand ``create-simple`` creates crush rule <name> to start from <root>,
 replicate across buckets of type <type>, using a choose mode of <firstn|indep>
 (default firstn; indep best for erasure pools).
 
-Usage::
+Usage:
 
-	ceph osd crush rule create-simple <name> <root> <type> {firstn|indep}
+```
+ceph osd crush rule create-simple <name> <root> <type> {firstn|indep}
+```
 
-Subcommand `dump` dumps crush rule <name> (default all).
+Subcommand ``dump`` dumps crush rule <name> (default all).
 
-Usage::
+Usage:
 
-	ceph osd crush rule dump {<name>}
+```
+ceph osd crush rule dump {<name>}
+```
 
-Subcommand `ls` lists crush rules.
+Subcommand ``ls`` lists crush rules.
 
-Usage::
+Usage:
 
-	ceph osd crush rule ls
+```
+ceph osd crush rule ls
+```
 
-Subcommand `rm` removes crush rule <name>.
+Subcommand ``rm`` removes crush rule <name>.
 
-Usage::
+Usage:
 
-	ceph osd crush rule rm <name>
+```
+ceph osd crush rule rm <name>
+```
 
-Subcommand `set` used alone, sets crush map from input file.
+Subcommand ``set`` used alone, sets crush map from input file.
 
-Usage::
+Usage:
 
-	ceph osd crush set
+```
+ceph osd crush set
+```
 
-Subcommand `set` with osdname/osd.id update crushmap position and weight
+Subcommand ``set`` with osdname/osd.id update crushmap position and weight
 for <name> to <weight> with location <args>.
 
-Usage::
+Usage:
 
-	ceph osd crush set <osdname (id|osd.id)> <float[0.0-]> <args> [<args>...]
+```
+ceph osd crush set <osdname (id|osd.id)> <float[0.0-]> <args> [<args>...]
+```
 
-Subcommand `set-tunable` set crush tunable <tunable> to <value>.  The only
+Subcommand ``set-tunable`` set crush tunable <tunable> to <value>.  The only
 tunable that can be set is straw_calc_version.
 
-Usage::
+Usage:
 
-	ceph osd crush set-tunable straw_calc_version <value>
+```
+ceph osd crush set-tunable straw_calc_version <value>
+```
 
-Subcommand `show-tunables` shows current crush tunables.
+Subcommand ``show-tunables`` shows current crush tunables.
 
-Usage::
+Usage:
 
-	ceph osd crush show-tunables
+```
+ceph osd crush show-tunables
+```
 
-Subcommand `tree` shows the crush buckets and items in a tree view.
+Subcommand ``tree`` shows the crush buckets and items in a tree view.
 
-Usage::
+Usage:
 
-	ceph osd crush tree
+```
+ceph osd crush tree
+```
 
-Subcommand `tunables` sets crush tunables values to <profile>.
+Subcommand ``tunables`` sets crush tunables values to <profile>.
 
-Usage::
+Usage:
 
-	ceph osd crush tunables legacy|argonaut|bobtail|firefly|hammer|optimal|default
+```
+ceph osd crush tunables legacy|argonaut|bobtail|firefly|hammer|optimal|default
+```
 
-Subcommand `unlink` unlinks <name> from crush map (everywhere, or just at
+Subcommand ``unlink`` unlinks <name> from crush map (everywhere, or just at
 <ancestor>).
 
-Usage::
+Usage:
 
-	ceph osd crush unlink <name> {<ancestor>}
+```
+ceph osd crush unlink <name> {<ancestor>}
+```
 
-Subcommand `df` shows OSD utilization
+Subcommand ``df`` shows OSD utilization
 
-Usage::
+Usage:
 
-	ceph osd df {plain|tree}
+```
+ceph osd df {plain|tree}
+```
 
-Subcommand `deep-scrub` initiates deep scrub on specified osd.
+Subcommand ``deep-scrub`` initiates deep scrub on specified osd.
 
-Usage::
+Usage:
 
-	ceph osd deep-scrub <who>
+```
+ceph osd deep-scrub <who>
+```
 
-Subcommand `down` sets osd(s) <id> [<id>...] down.
+Subcommand ``down`` sets osd(s) <id> [<id>...] down.
 
-Usage::
+Usage:
 
-	ceph osd down <ids> [<ids>...]
+```
+ceph osd down <ids> [<ids>...]
+```
 
-Subcommand `dump` prints summary of OSD map.
+Subcommand ``dump`` prints summary of OSD map.
 
-Usage::
+Usage:
 
-	ceph osd dump {<int[0-]>}
+```
+ceph osd dump {<int[0-]>}
+```
 
-Subcommand `erasure-code-profile` is used for managing the erasure code
+Subcommand ``erasure-code-profile`` is used for managing the erasure code
 profiles. It uses some additional subcommands.
 
-Subcommand `get` gets erasure code profile <name>.
+Subcommand ``get`` gets erasure code profile <name>.
 
-Usage::
+Usage:
 
-	ceph osd erasure-code-profile get <name>
+```
+ceph osd erasure-code-profile get <name>
+```
 
-Subcommand `ls` lists all erasure code profiles.
+Subcommand ``ls`` lists all erasure code profiles.
 
-Usage::
+Usage:
 
-	ceph osd erasure-code-profile ls
+```
+ceph osd erasure-code-profile ls
+```
 
-Subcommand `rm` removes erasure code profile <name>.
+Subcommand ``rm`` removes erasure code profile <name>.
 
-Usage::
+Usage:
 
-	ceph osd erasure-code-profile rm <name>
+```
+ceph osd erasure-code-profile rm <name>
+```
 
-Subcommand `set` creates erasure code profile <name> with [<key[=value]> ...]
+Subcommand ``set`` creates erasure code profile <name> with [<key[=value]> ...]
 pairs. Add a --force at the end to override an existing profile (IT IS RISKY).
 
-Usage::
+Usage:
 
-	ceph osd erasure-code-profile set <name> {<profile> [<profile>...]}
+```
+ceph osd erasure-code-profile set <name> {<profile> [<profile>...]}
+```
 
-Subcommand `find` find osd <id> in the CRUSH map and shows its location.
+Subcommand ``find`` find osd <id> in the CRUSH map and shows its location.
 
-Usage::
+Usage:
 
-	ceph osd find <int[0-]>
+```
+ceph osd find <int[0-]>
+```
 
-Subcommand `getcrushmap` gets CRUSH map.
+Subcommand ``getcrushmap`` gets CRUSH map.
 
-Usage::
+Usage:
 
-	ceph osd getcrushmap {<int[0-]>}
+```
+ceph osd getcrushmap {<int[0-]>}
+```
 
-Subcommand `getmap` gets OSD map.
+Subcommand ``getmap`` gets OSD map.
 
-Usage::
+Usage:
 
-	ceph osd getmap {<int[0-]>}
+```
+ceph osd getmap {<int[0-]>}
+```
 
-Subcommand `getmaxosd` shows largest OSD id.
+Subcommand ``getmaxosd`` shows largest OSD id.
 
-Usage::
+Usage:
 
-	ceph osd getmaxosd
+```
+ceph osd getmaxosd
+```
 
-Subcommand `in` sets osd(s) <id> [<id>...] in.
+Subcommand ``in`` sets osd(s) <id> [<id>...] in.
 
-Usage::
+Usage:
 
-	ceph osd in <ids> [<ids>...]
+```
+ceph osd in <ids> [<ids>...]
+```
 
-Subcommand `lost` marks osd as permanently lost. THIS DESTROYS DATA IF NO
+Subcommand ``lost`` marks osd as permanently lost. THIS DESTROYS DATA IF NO
 MORE REPLICAS EXIST, BE CAREFUL.
 
-Usage::
+Usage:
 
-	ceph osd lost <int[0-]> {--yes-i-really-mean-it}
+```
+ceph osd lost <int[0-]> {--yes-i-really-mean-it}
+```
 
-Subcommand `ls` shows all OSD ids.
+Subcommand ``ls`` shows all OSD ids.
 
-Usage::
+Usage:
 
-	ceph osd ls {<int[0-]>}
+```
+ceph osd ls {<int[0-]>}
+```
 
-Subcommand `lspools` lists pools.
+Subcommand ``lspools`` lists pools.
 
-Usage::
+Usage:
 
-	ceph osd lspools {<int>}
+```
+ceph osd lspools {<int>}
+```
 
-Subcommand `map` finds pg for <object> in <pool>.
+Subcommand ``map`` finds pg for <object> in <pool>.
 
-Usage::
+Usage:
 
-	ceph osd map <poolname> <objectname>
+```
+ceph osd map <poolname> <objectname>
+```
 
-Subcommand `metadata` fetches metadata for osd <id>.
+Subcommand ``metadata`` fetches metadata for osd <id>.
 
-Usage::
+Usage:
 
-	ceph osd metadata {int[0-]} (default all)
+```
+ceph osd metadata {int[0-]} (default all)
+```
 
-Subcommand `out` sets osd(s) <id> [<id>...] out.
+Subcommand ``out`` sets osd(s) <id> [<id>...] out.
 
-Usage::
+Usage:
 
-	ceph osd out <ids> [<ids>...]
+```
+ceph osd out <ids> [<ids>...]
+```
 
-Subcommand `ok-to-stop` checks whether the list of OSD(s) can be
+Subcommand ``ok-to-stop`` checks whether the list of OSD(s) can be
 stopped without immediately making data unavailable.  That is, all
 data should remain readable and writeable, although data redundancy
 may be reduced as some PGs may end up in a degraded (but active)
 state.  It will return a success code if it is okay to stop the
 OSD(s), or an error code and informative message if it is not or if no
-conclusion can be drawn at the current time.  When `--max <num>` is
+conclusion can be drawn at the current time.  When ``--max <num>`` is
 provided, up to <num> OSDs IDs will return (including the provided
 OSDs) that can all be stopped simultaneously.  This allows larger sets
 of stoppable OSDs to be generated easily by providing a single
@@ -1198,7 +1407,7 @@ Usage:
 ceph osd ok-to-stop <id> [<ids>...] [--max <num>]
 ```
 
-Subcommand `ok-to-upgrade` determines a safe set of OSDs found within the
+Subcommand ``ok-to-upgrade`` determines a safe set of OSDs found within the
 specified CRUSH bucket to upgrade simultaneously without impacting cluster
 data availability and with all data remaining readable and writeable. Data
 redundancy may be reduced with some PGs in degraded (but active) state. The
@@ -1213,12 +1422,12 @@ The CRUSH bucket types passed to the command can be one of 'rack', 'chassis',
 failure domains where the number of OSDs to check could be very high and to
 help manage failures if any during upgrades.
 
-The expected format of the option `<new_ceph_version_short>` is the short form
+The expected format of the option ``<new_ceph_version_short>`` is the short form
 of the Ceph version string. The version string format is similar to the value of
-`ceph_version_short` key seen in the output of the `ceph osd metadata <id>`
-command where `id` is the OSD number.
+``ceph_version_short`` key seen in the output of the ``ceph osd metadata <id>``
+command where ``id`` is the OSD number.
 
-When `--max <num>` is provided, the command returns up to `<num>` OSD IDs
+When ``--max <num>`` is provided, the command returns up to ``<num>`` OSD IDs
 from the specified CRUSH bucket that can be safely stopped for simultaneous
 upgrade. This is useful when only a subset of OSDs within the bucket needs to be
 upgraded for performance or other reasons.
@@ -1226,7 +1435,7 @@ upgraded for performance or other reasons.
 The command automatically determines a safe set of OSDs to upgrade found in the
 provided CRUSH bucket. If not all OSDs in the CRUSH bucket can be upgraded
 simultaneously, the command uses the config option
-`mgr_osd_upgrade_check_convergence_factor` to progressively reduce the set of
+``mgr_osd_upgrade_check_convergence_factor`` to progressively reduce the set of
 OSDs to check until a safe set is found. Note that the default value is on the
 higher side to help determine an optimal set of OSDs to upgrade. A higher
 convergence factor will help maximize the number of OSDs to upgrade at the cost
@@ -1234,10 +1443,10 @@ of more iterations and time to find the set. The converse is true if a lower
 convergence factor is used. A lower value should be used only if the command is
 sluggish to respond.
 
-Note that this command leverages the underlying logic of the `ok-to-stop`
-command. The key difference is that the `ok-to-upgrade` command operates
+Note that this command leverages the underlying logic of the ``ok-to-stop``
+command. The key difference is that the ``ok-to-upgrade`` command operates
 strictly on the OSDs within the CRUSH bucket and, if possible, meets the
-`--max` criteria when specified.
+``--max`` criteria when specified.
 
 Usage:
 
@@ -1245,131 +1454,167 @@ Usage:
 ceph osd ok-to-upgrade <crush_bucket_name> <new_ceph_version_short> [--max <num>]
 ```
 
-Subcommand `pause` pauses osd.
+Subcommand ``pause`` pauses osd.
 
-Usage::
+Usage:
 
-	ceph osd pause
+```
+ceph osd pause
+```
 
-Subcommand `perf` prints dump of OSD perf summary stats.
+Subcommand ``perf`` prints dump of OSD perf summary stats.
 
-Usage::
+Usage:
 
-	ceph osd perf
+```
+ceph osd perf
+```
 
-Subcommand `pg-temp` set pg_temp mapping pgid:[<id> [<id>...]] (developers
+Subcommand ``pg-temp`` set pg_temp mapping pgid:[<id> [<id>...]] (developers
 only).
 
-Usage::
+Usage:
 
-	ceph osd pg-temp <pgid> {<id> [<id>...]}
+```
+ceph osd pg-temp <pgid> {<id> [<id>...]}
+```
 
-Subcommand `force-create-pg` forces creation of pg <pgid>.
+Subcommand ``force-create-pg`` forces creation of pg <pgid>.
 
-Usage::
+Usage:
 
-	ceph osd force-create-pg <pgid>
+```
+ceph osd force-create-pg <pgid>
+```
 
-Subcommand `pool` is used for managing data pools. It uses some additional
+Subcommand ``pool`` is used for managing data pools. It uses some additional
 subcommands.
 
-Subcommand `create` creates pool.
+Subcommand ``create`` creates pool.
 
-Usage::
+Usage:
 
-	ceph osd pool create <poolname> {<int[0-]>} {<int[0-]>} {replicated|erasure}
-	{<erasure_code_profile>} {<rule>} {<int>} {--autoscale-mode=<on,off,warn>}
+```
+ceph osd pool create <poolname> {<int[0-]>} {<int[0-]>} {replicated|erasure}
+{<erasure_code_profile>} {<rule>} {<int>} {--autoscale-mode=<on,off,warn>}
+```
 
-Subcommand `delete` deletes pool.
+Subcommand ``delete`` deletes pool.
 
-Usage::
+Usage:
 
-	ceph osd pool delete <poolname> {<poolname>} {--yes-i-really-really-mean-it}
+```
+ceph osd pool delete <poolname> {<poolname>} {--yes-i-really-really-mean-it}
+```
 
-Subcommand `get` gets pool parameter <var>.
+Subcommand ``get`` gets pool parameter <var>.
 
-Usage::
+Usage:
 
-	ceph osd pool get <poolname> size|min_size|pg_num|pgp_num|crush_rule|write_fadvise_dontneed
+```
+ceph osd pool get <poolname> size|min_size|pg_num|pgp_num|crush_rule|write_fadvise_dontneed
+```
 
-Only for tiered pools::
+Only for tiered pools:
 
-	ceph osd pool get <poolname> hit_set_type|hit_set_period|hit_set_count|hit_set_fpp|
-	target_max_objects|target_max_bytes|cache_target_dirty_ratio|cache_target_dirty_high_ratio|
-	cache_target_full_ratio|cache_min_flush_age|cache_min_evict_age|
-	min_read_recency_for_promote|hit_set_grade_decay_rate|hit_set_search_last_n
+```
+ceph osd pool get <poolname> hit_set_type|hit_set_period|hit_set_count|hit_set_fpp|
+target_max_objects|target_max_bytes|cache_target_dirty_ratio|cache_target_dirty_high_ratio|
+cache_target_full_ratio|cache_min_flush_age|cache_min_evict_age|
+min_read_recency_for_promote|hit_set_grade_decay_rate|hit_set_search_last_n
+```
 
-Only for erasure coded pools::
+Only for erasure coded pools:
 
-	ceph osd pool get <poolname> erasure_code_profile
+```
+ceph osd pool get <poolname> erasure_code_profile
+```
 
-Use `all` to get all pool parameters that apply to the pool's type::
+Use ``all`` to get all pool parameters that apply to the pool's type:
 
-	ceph osd pool get <poolname> all
+```
+ceph osd pool get <poolname> all
+```
 
-Subcommand `get-quota` obtains object or byte limits for pool.
+Subcommand ``get-quota`` obtains object or byte limits for pool.
 
-Usage::
+Usage:
 
-	ceph osd pool get-quota <poolname>
+```
+ceph osd pool get-quota <poolname>
+```
 
-Subcommand `ls` list pools
+Subcommand ``ls`` list pools
 
-Usage::
+Usage:
 
-	ceph osd pool ls {detail}
+```
+ceph osd pool ls {detail}
+```
 
-Subcommand `mksnap` makes snapshot <snap> in <pool>.
+Subcommand ``mksnap`` makes snapshot <snap> in <pool>.
 
-Usage::
+Usage:
 
-	ceph osd pool mksnap <poolname> <snap>
+```
+ceph osd pool mksnap <poolname> <snap>
+```
 
-Subcommand `rename` renames <srcpool> to <destpool>.
+Subcommand ``rename`` renames <srcpool> to <destpool>.
 
-Usage::
+Usage:
 
-	ceph osd pool rename <poolname> <poolname>
+```
+ceph osd pool rename <poolname> <poolname>
+```
 
-Subcommand `rmsnap` removes snapshot <snap> from <pool>.
+Subcommand ``rmsnap`` removes snapshot <snap> from <pool>.
 
-Usage::
+Usage:
 
-	ceph osd pool rmsnap <poolname> <snap>
+```
+ceph osd pool rmsnap <poolname> <snap>
+```
 
-Subcommand `set` sets pool parameter <var> to <val>.
+Subcommand ``set`` sets pool parameter <var> to <val>.
 
-Usage::
+Usage:
 
-	ceph osd pool set <poolname> size|min_size|pg_num|
-	pgp_num|crush_rule|hashpspool|nodelete|nopgchange|nosizechange|
-	hit_set_type|hit_set_period|hit_set_count|hit_set_fpp|debug_fake_ec_pool|
-	target_max_bytes|target_max_objects|cache_target_dirty_ratio|
-	cache_target_dirty_high_ratio|
-	cache_target_full_ratio|cache_min_flush_age|cache_min_evict_age|
-	min_read_recency_for_promote|write_fadvise_dontneed|hit_set_grade_decay_rate|
-	hit_set_search_last_n
-	<val> {--yes-i-really-mean-it}
+```
+ceph osd pool set <poolname> size|min_size|pg_num|
+pgp_num|crush_rule|hashpspool|nodelete|nopgchange|nosizechange|
+hit_set_type|hit_set_period|hit_set_count|hit_set_fpp|debug_fake_ec_pool|
+target_max_bytes|target_max_objects|cache_target_dirty_ratio|
+cache_target_dirty_high_ratio|
+cache_target_full_ratio|cache_min_flush_age|cache_min_evict_age|
+min_read_recency_for_promote|write_fadvise_dontneed|hit_set_grade_decay_rate|
+hit_set_search_last_n
+<val> {--yes-i-really-mean-it}
+```
 
-Subcommand `set-quota` sets object or byte limit on pool.
+Subcommand ``set-quota`` sets object or byte limit on pool.
 
-Usage::
+Usage:
 
-	ceph osd pool set-quota <poolname> max_objects|max_bytes <val>
+```
+ceph osd pool set-quota <poolname> max_objects|max_bytes <val>
+```
 
-Subcommand `stats` obtain stats from all pools, or from specified pool.
+Subcommand ``stats`` obtain stats from all pools, or from specified pool.
 
-Usage::
+Usage:
 
-	ceph osd pool stats {<name>}
+```
+ceph osd pool stats {<name>}
+```
 
-Subcommand `application` is used for adding an annotation to the given
+Subcommand ``application`` is used for adding an annotation to the given
 pool. By default, the possible applications are object, block, and file
 storage (corresponding app-names are "rgw", "rbd", and "cephfs"). However,
 there might be other applications as well. Based on the application, there
 may or may not be some processing conducted.
 
-Subcommand `disable` disables the given application on the given pool.
+Subcommand ``disable`` disables the given application on the given pool.
 
 Usage:
 
@@ -1377,7 +1622,7 @@ Usage:
 ceph osd pool application disable <pool-name> <app> {--yes-i-really-mean-it}
 ```
 
-Subcommand `enable` adds an annotation to the given pool for the mentioned
+Subcommand ``enable`` adds an annotation to the given pool for the mentioned
 application.
 
 Usage:
@@ -1386,7 +1631,7 @@ Usage:
 ceph osd pool application enable <pool-name> <app> {--yes-i-really-mean-it}
 ```
 
-Subcommand `get` displays the value for the given key that is associated
+Subcommand ``get`` displays the value for the given key that is associated
 with the given application of the given pool. Not passing the optional
 arguments would display all key-value pairs for all applications for all
 pools.
@@ -1397,7 +1642,7 @@ Usage:
 ceph osd pool application get {<pool-name>} {<app>} {<key>}
 ```
 
-Subcommand `rm` removes the key-value pair for the given key in the given
+Subcommand ``rm`` removes the key-value pair for the given key in the given
 application of the given pool.
 
 Usage:
@@ -1406,7 +1651,7 @@ Usage:
 ceph osd pool application rm <pool-name> <app> <key>
 ```
 
-Subcommand `set` associates or updates, if it already exists, a key-value
+Subcommand ``set`` associates or updates, if it already exists, a key-value
 pair with the given application for the given pool.
 
 Usage:
@@ -1415,57 +1660,71 @@ Usage:
 ceph osd pool application set <pool-name> <app> <key> <value>
 ```
 
-Subcommand `primary-affinity` adjust osd primary-affinity from 0.0 <=<weight>
+Subcommand ``primary-affinity`` adjust osd primary-affinity from 0.0 <=<weight>
 <= 1.0
 
-Usage::
+Usage:
 
-	ceph osd primary-affinity <osdname (id|osd.id)> <float[0.0-1.0]>
+```
+ceph osd primary-affinity <osdname (id|osd.id)> <float[0.0-1.0]>
+```
 
-Subcommand `primary-temp` sets primary_temp mapping pgid:<id>|-1 (developers
+Subcommand ``primary-temp`` sets primary_temp mapping pgid:<id>|-1 (developers
 only).
 
-Usage::
+Usage:
 
-	ceph osd primary-temp <pgid> <id>
+```
+ceph osd primary-temp <pgid> <id>
+```
 
-Subcommand `repair` initiates repair on a specified osd.
+Subcommand ``repair`` initiates repair on a specified osd.
 
-Usage::
+Usage:
 
-	ceph osd repair <who>
+```
+ceph osd repair <who>
+```
 
-Subcommand `reweight` reweights osd to 0.0 < <weight> < 1.0.
+Subcommand ``reweight`` reweights osd to 0.0 < <weight> < 1.0.
 
-Usage::
+Usage:
 
-	osd reweight <int[0-]> <float[0.0-1.0]>
+```
+osd reweight <int[0-]> <float[0.0-1.0]>
+```
 
-Subcommand `reweight-by-pg` reweight OSDs by PG distribution
+Subcommand ``reweight-by-pg`` reweight OSDs by PG distribution
 [overload-percentage-for-consideration, default 120].
 
-Usage::
+Usage:
 
-	ceph osd reweight-by-pg {<int[100-]>} {<poolname> [<poolname...]}
-	{--no-increasing}
+```
+ceph osd reweight-by-pg {<int[100-]>} {<poolname> [<poolname...]}
+{--no-increasing}
+```
 
-Subcommand `reweight-by-utilization` reweights OSDs by utilization.  It only reweights
+Subcommand ``reweight-by-utilization`` reweights OSDs by utilization.  It only reweights
 outlier OSDs whose utilization exceeds the average, eg. the default 120%
 limits reweight to those OSDs that are more than 20% over the average.
 [overload-threshold, default 120 [max_weight_change, default 0.05 [max_osds_to_adjust, default 4]]]
 
-Usage::
+Usage:
 
-	ceph osd reweight-by-utilization {<int[100-]> {<float[0.0-]> {<int[0-]>}}}
-	{--no-increasing}
+```
+ceph osd reweight-by-utilization {<int[100-]> {<float[0.0-]> {<int[0-]>}}}
+{--no-increasing}
+```
 
-Subcommand `rm` removes osd(s) <id> [<id>...] from the OSD map.
+Subcommand ``rm`` removes osd(s) <id> [<id>...] from the OSD map.
 
-Usage::
+Usage:
 
-	ceph osd rm <ids> [<ids>...]
+```
+ceph osd rm <ids> [<ids>...]
+```
 
-Subcommand `destroy` marks OSD *id* as *destroyed*, removing its CephX
+Subcommand ``destroy`` marks OSD *id* as *destroyed*, removing its CephX
 entity's keys and all of its dm-crypt and daemon-private config key
 entries.
 
@@ -1482,8 +1741,8 @@ Usage:
 ceph osd destroy <id> {--yes-i-really-mean-it}
 ```
 
-Subcommand `purge` performs a combination of `osd destroy`,
-`osd rm` and `osd crush remove`.
+Subcommand ``purge`` performs a combination of ``osd destroy``,
+``osd rm`` and ``osd crush remove``.
 
 Usage:
 
@@ -1491,7 +1750,7 @@ Usage:
 ceph osd purge <id> {--yes-i-really-mean-it}
 ```
 
-Subcommand `safe-to-destroy` checks whether it is safe to remove or
+Subcommand ``safe-to-destroy`` checks whether it is safe to remove or
 destroy an OSD without reducing overall data redundancy or durability.
 It will return a success code if it is definitely safe, or an error
 code and informative message if it is not or if no conclusion can be
@@ -1503,40 +1762,48 @@ Usage:
 ceph osd safe-to-destroy <id> [<ids>...]
 ```
 
-Subcommand `scrub` initiates scrub on specified osd.
+Subcommand ``scrub`` initiates scrub on specified osd.
 
-Usage::
+Usage:
 
-	ceph osd scrub <who>
+```
+ceph osd scrub <who>
+```
 
-Subcommand `set` sets cluster-wide <flag> by updating OSD map.
-The `full` flag is not honored anymore since the Mimic release, and
-`ceph osd set full` is not supported in the Octopus release.
+Subcommand ``set`` sets cluster-wide <flag> by updating OSD map.
+The ``full`` flag is not honored anymore since the Mimic release, and
+``ceph osd set full`` is not supported in the Octopus release.
 
-Usage::
+Usage:
 
-	ceph osd set pause|noup|nodown|noout|noin|nobackfill|
-	norebalance|norecover|noscrub|nodeep-scrub|notieragent
+```
+ceph osd set pause|noup|nodown|noout|noin|nobackfill|
+norebalance|norecover|noscrub|nodeep-scrub|notieragent
+```
 
-Subcommand `setcrushmap` sets crush map from input file.
+Subcommand ``setcrushmap`` sets crush map from input file.
 
-Usage::
+Usage:
 
-	ceph osd setcrushmap
+```
+ceph osd setcrushmap
+```
 
-Subcommand `setmaxosd` sets new maximum osd value.
+Subcommand ``setmaxosd`` sets new maximum osd value.
 
-Usage::
+Usage:
 
-	ceph osd setmaxosd <int[0-]>
+```
+ceph osd setmaxosd <int[0-]>
+```
 
-Subcommand `set-require-min-compat-client` enforces the cluster to be backward
+Subcommand ``set-require-min-compat-client`` enforces the cluster to be backward
 compatible with the specified client version. This subcommand prevents you from
 making any changes (e.g., crush tunables, or using new features) that
 would violate the current setting. Please note, This subcommand will fail if
 any connected daemon or client is not compatible with the features offered by
 the given <version>. To see the features and releases of all clients connected
-to cluster, please see ceph features.
+to cluster, please see [ceph features](ceph.md#ceph-features).
 
 Usage:
 
@@ -1544,73 +1811,93 @@ Usage:
 ceph osd set-require-min-compat-client <version>
 ```
 
-Subcommand `stat` prints summary of OSD map.
+Subcommand ``stat`` prints summary of OSD map.
 
-Usage::
+Usage:
 
-	ceph osd stat
+```
+ceph osd stat
+```
 
-Subcommand `tier` is used for managing tiers. It uses some additional
+Subcommand ``tier`` is used for managing tiers. It uses some additional
 subcommands.
 
-Subcommand `add` adds the tier <tierpool> (the second one) to base pool <pool>
+Subcommand ``add`` adds the tier <tierpool> (the second one) to base pool <pool>
 (the first one).
 
-Usage::
+Usage:
 
-	ceph osd tier add <poolname> <poolname> {--force-nonempty}
+```
+ceph osd tier add <poolname> <poolname> {--force-nonempty}
+```
 
-Subcommand `add-cache` adds a cache <tierpool> (the second one) of size <size>
+Subcommand ``add-cache`` adds a cache <tierpool> (the second one) of size <size>
 to existing pool <pool> (the first one).
 
-Usage::
+Usage:
 
-	ceph osd tier add-cache <poolname> <poolname> <int[0-]>
+```
+ceph osd tier add-cache <poolname> <poolname> <int[0-]>
+```
 
-Subcommand `cache-mode` specifies the caching mode for cache tier <pool>.
+Subcommand ``cache-mode`` specifies the caching mode for cache tier <pool>.
 
-Usage::
+Usage:
 
-	ceph osd tier cache-mode <poolname> writeback|proxy|readproxy|readonly|none
+```
+ceph osd tier cache-mode <poolname> writeback|proxy|readproxy|readonly|none
+```
 
-Subcommand `remove` removes the tier <tierpool> (the second one) from base pool
+Subcommand ``remove`` removes the tier <tierpool> (the second one) from base pool
 <pool> (the first one).
 
-Usage::
+Usage:
 
-	ceph osd tier remove <poolname> <poolname>
+```
+ceph osd tier remove <poolname> <poolname>
+```
 
-Subcommand `remove-overlay` removes the overlay pool for base pool <pool>.
+Subcommand ``remove-overlay`` removes the overlay pool for base pool <pool>.
 
-Usage::
+Usage:
 
-	ceph osd tier remove-overlay <poolname>
+```
+ceph osd tier remove-overlay <poolname>
+```
 
-Subcommand `set-overlay` set the overlay pool for base pool <pool> to be
+Subcommand ``set-overlay`` set the overlay pool for base pool <pool> to be
 <overlaypool>.
 
-Usage::
+Usage:
 
-	ceph osd tier set-overlay <poolname> <poolname>
+```
+ceph osd tier set-overlay <poolname> <poolname>
+```
 
-Subcommand `tree` prints OSD tree.
+Subcommand ``tree`` prints OSD tree.
 
-Usage::
+Usage:
 
-	ceph osd tree {<int[0-]>}
+```
+ceph osd tree {<int[0-]>}
+```
 
-Subcommand `unpause` unpauses osd.
+Subcommand ``unpause`` unpauses osd.
 
-Usage::
+Usage:
 
-	ceph osd unpause
+```
+ceph osd unpause
+```
 
-Subcommand `unset` unsets cluster-wide <flag> by updating OSD map.
+Subcommand ``unset`` unsets cluster-wide <flag> by updating OSD map.
 
-Usage::
+Usage:
 
-	ceph osd unset pause|noup|nodown|noout|noin|nobackfill|
-	norebalance|norecover|noscrub|nodeep-scrub|notieragent
+```
+ceph osd unset pause|noup|nodown|noout|noin|nobackfill|
+norebalance|norecover|noscrub|nodeep-scrub|notieragent
+```
 
 pg
 --
@@ -1618,181 +1905,229 @@ pg
 It is used for managing the placement groups in OSDs. It uses some
 additional subcommands.
 
-Subcommand `debug` shows debug info about pgs.
+Subcommand ``debug`` shows debug info about pgs.
 
-Usage::
+Usage:
 
-	ceph pg debug unfound_objects_exist|degraded_pgs_exist
+```
+ceph pg debug unfound_objects_exist|degraded_pgs_exist
+```
 
-Subcommand `deep-scrub` starts deep-scrub on <pgid>.
+Subcommand ``deep-scrub`` starts deep-scrub on <pgid>.
 
-Usage::
+Usage:
 
-	ceph pg deep-scrub <pgid>
+```
+ceph pg deep-scrub <pgid>
+```
 
-Subcommand `dump` shows human-readable versions of pg map (only 'all' valid
+Subcommand ``dump`` shows human-readable versions of pg map (only 'all' valid
 with plain).
 
-Usage::
+Usage:
 
-	ceph pg dump {all|summary|sum|delta|pools|osds|pgs|pgs_brief} [{all|summary|sum|delta|pools|osds|pgs|pgs_brief...]}
+```
+ceph pg dump {all|summary|sum|delta|pools|osds|pgs|pgs_brief} [{all|summary|sum|delta|pools|osds|pgs|pgs_brief...]}
+```
 
-Subcommand `dump_json` shows human-readable version of pg map in json only.
+Subcommand ``dump_json`` shows human-readable version of pg map in json only.
 
-Usage::
+Usage:
 
-	ceph pg dump_json {all|summary|sum|delta|pools|osds|pgs|pgs_brief} [{all|summary|sum|delta|pools|osds|pgs|pgs_brief...]}
+```
+ceph pg dump_json {all|summary|sum|delta|pools|osds|pgs|pgs_brief} [{all|summary|sum|delta|pools|osds|pgs|pgs_brief...]}
+```
 
-Subcommand `dump_pools_json` shows pg pools info in json only.
+Subcommand ``dump_pools_json`` shows pg pools info in json only.
 
-Usage::
+Usage:
 
-	ceph pg dump_pools_json
+```
+ceph pg dump_pools_json
+```
 
-Subcommand `dump_stuck` shows information about stuck pgs.
+Subcommand ``dump_stuck`` shows information about stuck pgs.
 
-Usage::
+Usage:
 
-	ceph pg dump_stuck {inactive|unclean|stale|undersized|degraded [inactive|unclean|stale|undersized|degraded...]}
-	{<int>}
+```
+ceph pg dump_stuck {inactive|unclean|stale|undersized|degraded [inactive|unclean|stale|undersized|degraded...]}
+{<int>}
+```
 
-Subcommand `getmap` gets binary pg map to -o/stdout.
+Subcommand ``getmap`` gets binary pg map to -o/stdout.
 
-Usage::
+Usage:
 
-	ceph pg getmap
+```
+ceph pg getmap
+```
 
-Subcommand `ls` lists pg with specific pool, osd, state
+Subcommand ``ls`` lists pg with specific pool, osd, state
 
-Usage::
+Usage:
 
-	ceph pg ls {<int>} {<pg-state> [<pg-state>...]}
+```
+ceph pg ls {<int>} {<pg-state> [<pg-state>...]}
+```
 
-Subcommand `ls-by-osd` lists pg on osd [osd]
+Subcommand ``ls-by-osd`` lists pg on osd [osd]
 
-Usage::
+Usage:
 
-	ceph pg ls-by-osd <osdname (id|osd.id)> {<int>}
-	{<pg-state> [<pg-state>...]}
+```
+ceph pg ls-by-osd <osdname (id|osd.id)> {<int>}
+{<pg-state> [<pg-state>...]}
+```
 
-Subcommand `ls-by-pool` lists pg with pool = [poolname]
+Subcommand ``ls-by-pool`` lists pg with pool = [poolname]
 
-Usage::
+Usage:
 
-	ceph pg ls-by-pool <poolstr> {<int>} {<pg-state> [<pg-state>...]}
+```
+ceph pg ls-by-pool <poolstr> {<int>} {<pg-state> [<pg-state>...]}
+```
 
-Subcommand `ls-by-primary` lists pg with primary = [osd]
+Subcommand ``ls-by-primary`` lists pg with primary = [osd]
 
-Usage::
+Usage:
 
-	ceph pg ls-by-primary <osdname (id|osd.id)> {<int>}
-	{<pg-state> [<pg-state>...]}
+```
+ceph pg ls-by-primary <osdname (id|osd.id)> {<int>}
+{<pg-state> [<pg-state>...]}
+```
 
-Subcommand `map` shows mapping of pg to osds.
+Subcommand ``map`` shows mapping of pg to osds.
 
-Usage::
+Usage:
 
-	ceph pg map <pgid>
+```
+ceph pg map <pgid>
+```
 
-Subcommand `repair` starts repair on <pgid>.
+Subcommand ``repair`` starts repair on <pgid>.
 
-Usage::
+Usage:
 
-	ceph pg repair <pgid>
+```
+ceph pg repair <pgid>
+```
 
-Subcommand `scrub` starts scrub on <pgid>.
+Subcommand ``scrub`` starts scrub on <pgid>.
 
-Usage::
+Usage:
 
-	ceph pg scrub <pgid>
+```
+ceph pg scrub <pgid>
+```
 
-Subcommand `stat` shows placement group status.
+Subcommand ``stat`` shows placement group status.
 
-Usage::
+Usage:
 
-	ceph pg stat
+```
+ceph pg stat
+```
 
 A second format for PG-directed commands is the following:
 
-Using the `tell` command with a PG identifier. This sends a command to the OSD
+Using the ``tell`` command with a PG identifier. This sends a command to the OSD
 that is currently acting as the primary for the specified PG.
 
-Subcommand `scrub` starts a scrub of <pgid>, similar
-to `ceph pg scrub <pgid>`.
+Subcommand ``scrub`` starts a scrub of <pgid>, similar
+to ``ceph pg scrub <pgid>``.
 
-Usage::
+Usage:
 
-	ceph tell <pgid> scrub
+```
+ceph tell <pgid> scrub
+```
 
-Subcommand `deep-scrub` starts a deep-scrub of <pgid>, similar
-to `ceph pg deep-scrub <pgid>`.
+Subcommand ``deep-scrub`` starts a deep-scrub of <pgid>, similar
+to ``ceph pg deep-scrub <pgid>``.
 
-Usage::
+Usage:
 
-	ceph tell <pgid> deep-scrub
+```
+ceph tell <pgid> deep-scrub
+```
 
-Subcommand `scrub-abort` aborts any ongoing scrub of <pgid>, and removes
+Subcommand ``scrub-abort`` aborts any ongoing scrub of <pgid>, and removes
 any previous scrub or deep scrub operator request for the PG.
 
-Usage::
+Usage:
 
-	ceph tell <pgid> scrub-abort
+```
+ceph tell <pgid> scrub-abort
+```
 
 ## quorum
 
 Cause a specific MON to enter or exit quorum.
 
-Usage::
+Usage:
 
-	ceph tell mon.<id> quorum enter|exit
+```
+ceph tell mon.<id> quorum enter|exit
+```
 
 ## quorum_status
 
 Reports status of monitor quorum.
 
-Usage::
+Usage:
 
-	ceph quorum_status
+```
+ceph quorum_status
+```
 
 ## report
 
 Reports full status of cluster, optional title tag strings.
 
-Usage::
+Usage:
 
-	ceph report {<tags> [<tags>...]}
+```
+ceph report {<tags> [<tags>...]}
+```
 
 ## status
 
 Shows cluster status.
 
-Usage::
+Usage:
 
-	ceph status
+```
+ceph status
+```
 
 ## tell
 
 Sends a command to a specific daemon.
 
-Usage::
+Usage:
 
-	ceph tell <name (type.id)> <command> [options...]
+```
+ceph tell <name (type.id)> <command> [options...]
+```
 
 List all available commands.
 
 Usage:
 
 ```
-	ceph tell <name (type.id)> help
+ceph tell <name (type.id)> help
 ```
 
 ## version
 
 Show mon daemon version
 
-Usage::
+Usage:
 
-	ceph version
+```
+ceph version
+```
 
 # Options
 
@@ -1829,69 +2164,69 @@ Usage::
 
 .. option:: --name CLIENT_NAME, -n CLIENT_NAME
 
-	Client name for authentication.
+   Client name for authentication.
 
 .. option:: --cluster CLUSTER
 
-	Name of the Ceph cluster.
+   Name of the Ceph cluster.
 
 .. option:: --admin-daemon ADMIN_SOCKET, daemon DAEMON_NAME
 
-	Submit admin-socket commands via admin sockets in /var/run/ceph.
+   Submit admin-socket commands via admin sockets in /var/run/ceph.
 
 .. option:: --admin-socket ADMIN_SOCKET_NOPE
 
-	You probably mean --admin-daemon
+   You probably mean --admin-daemon
 
 .. option:: -s, --status
 
-	Show cluster status.
+   Show cluster status.
 
 .. option:: -w, --watch
 
-	Watch live cluster changes on the default 'cluster' channel
+   Watch live cluster changes on the default 'cluster' channel
 
 .. option:: -W, --watch-channel
 
-	Watch live cluster changes on any channel (cluster, audit, cephadm, or * for all)
+   Watch live cluster changes on any channel (cluster, audit, cephadm, or * for all)
 
 .. option:: --watch-debug
 
-	Watch debug events.
+   Watch debug events.
 
 .. option:: --watch-info
 
-	Watch info events.
+   Watch info events.
 
 .. option:: --watch-sec
 
-	Watch security events.
+   Watch security events.
 
 .. option:: --watch-warn
 
-	Watch warning events.
+   Watch warning events.
 
 .. option:: --watch-error
 
-	Watch error events.
+   Watch error events.
 
 .. option:: --version, -v
 
-	Display version.
+   Display version.
 
 .. option:: --verbose
 
-	Make verbose.
+   Make verbose.
 
 .. option:: --concise
 
-	Make less verbose.
+   Make less verbose.
 
 .. option:: -f {json,json-pretty,xml,xml-pretty,plain,yaml}, --format
 
-	Format of output.
+       Format of output.
 
-    Note: yaml is only valid for orch commands.
+   Note: yaml is only valid for orch commands.
 
 .. option:: --daemon-output-file OUTPUT_FILE
 
@@ -1911,18 +2246,18 @@ Usage::
 
 .. option:: --connect-timeout CLUSTER_TIMEOUT
 
-	Set a timeout for connecting to the cluster.
+   Set a timeout for connecting to the cluster.
 
 .. option:: --no-increasing
 
-	 `--no-increasing` is off by default. So increasing the osd weight is allowed
-         using the `reweight-by-utilization` or `test-reweight-by-utilization` commands.
-         If this option is used with these commands, it will help not to increase osd weight
-         even the osd is under utilized.
+   ``--no-increasing`` is off by default. So increasing the osd weight is allowed
+   using the ``reweight-by-utilization`` or ``test-reweight-by-utilization`` commands.
+   If this option is used with these commands, it will help not to increase osd weight
+   even the osd is under utilized.
 
 .. option:: --block
 
-	 block until completion (scrub and deep-scrub only)
+   block until completion (scrub and deep-scrub only)
 
 # Availability
 
@@ -1931,6 +2266,6 @@ the Ceph documentation at https://docs.ceph.com for more information.
 
 # See also
 
-ceph-mon\(8),
-ceph-osd\(8),
-ceph-mds\(8)
+[ceph-mon](ceph-mon.md)\(8),
+[ceph-osd](ceph-osd.md)\(8),
+[ceph-mds](ceph-mds.md)\(8)

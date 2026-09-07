@@ -16,7 +16,7 @@ a 'cap message' to MDS, telling MDS what it wants. MDS will issue capabilities
 to client when it is possible. Once client has 'file read/write' capabilities,
 it can directly access RADOS to read/write file data. File data are stored as
 RADOS objects in the form of <inode number>.<object index>. See 'Data Striping'
-section of Architecture for more information. If the file is only opened by
+section of [Architecture](../architecture.md) for more information. If the file is only opened by
 one client, MDS also issues 'file cache/buffer' capabilities to the only client.
 The 'file cache' capability means that file read can be satisfied by client
 cache. The 'file buffer' capability means that file write can be buffered in
@@ -49,5 +49,3 @@ client cache.
    +---------------------+            +--------------------+
    |         MDSs        | -=-------> |         OSDs       |
    +---------------------+            +--------------------+
-
-.. _Architecture: ../../architecture

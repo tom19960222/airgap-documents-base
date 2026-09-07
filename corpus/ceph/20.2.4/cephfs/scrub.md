@@ -5,7 +5,7 @@ title: "Ceph File System Scrub"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/scrub.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _mds-scrub:
+<a id="mds-scrub"></a>
 
 # Ceph File System Scrub
 
@@ -34,8 +34,8 @@ To start a scrub operation for a directory tree use the following command:
 ceph tell mds.<fsname>:0 scrub start <path> [scrubopts] [tag]
 ```
 
-where `scrubopts` is a comma delimited list of `recursive`, `force`, or
-`repair` and `tag` is an optional custom string tag (the default is a generated
+where ``scrubopts`` is a comma delimited list of ``recursive``, ``force``, or
+``repair`` and ``tag`` is an optional custom string tag (the default is a generated
 UUID). An example command is:
 
 ```
@@ -48,12 +48,12 @@ ceph tell mds.cephfs:0 scrub start / recursive
 ```
 
 Recursive scrub is asynchronous (as hinted by `mode` in the output above).
-Asynchronous scrubs must be polled using `scrub status` to determine the
+Asynchronous scrubs must be polled using ``scrub status`` to determine the
 status.
 
 The scrub tag is used to differentiate scrubs and also to mark each inode's
 first data object in the default data pool (where the backtrace information is
-stored) with a `scrub_tag` extended attribute with the value of the tag. You
+stored) with a ``scrub_tag`` extended attribute with the value of the tag. You
 can verify an inode was scrubbed by looking at the extended attribute using the
 RADOS utilities.
 
@@ -111,8 +111,8 @@ ceph tell mds.cephfs:0 scrub pause
 }
 ```
 
-  The `scrub status` after pausing reflects the paused state. At this point,
-  initiating new scrub operations (via `scrub start`) would just queue the
+  The ``scrub status`` after pausing reflects the paused state. At this point,
+  initiating new scrub operations (via ``scrub start``) would just queue the
   inode for scrub:
 
 ```
@@ -167,18 +167,18 @@ ceph tell mds.<fsname>:0 scrub start /path recursive, repair, force
 If scrub is able to repair the damage, the corresponding entry is automatically
 removed from the damage table.
 
-Note: A scrub invoked with the `repair` option can identify an damaged hard link but not repair it.
+Note: A scrub invoked with the ``repair`` option can identify an damaged hard link but not repair it.
 
 # Evaluate strays using recursive scrub
 
-- In order to evaluate strays i.e. purge stray directories in `~mdsdir` use the following command:
+- In order to evaluate strays i.e. purge stray directories in ``~mdsdir`` use the following command:
 
 ```
 ceph tell mds.<fsname>:0 scrub start ~mdsdir recursive
 ```
 
-- `~mdsdir` is not enqueued by default when scrubbing at the CephFS root. In order to perform stray evaluation
-  at root, run scrub with flags `scrub_mdsdir` and `recursive`:
+- ``~mdsdir`` is not enqueued by default when scrubbing at the CephFS root. In order to perform stray evaluation
+  at root, run scrub with flags ``scrub_mdsdir`` and ``recursive``:
 
 ```
 ceph tell mds.<fsname>:0 scrub start / recursive,scrub_mdsdir

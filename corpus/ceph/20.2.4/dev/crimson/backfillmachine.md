@@ -16,14 +16,14 @@ In Crimson, backfill is implemented with [Boost State Chart](https://www.boost.o
 
 A sample of the recent state model:
 
-> **Note:** `Cancelled` and `Crushed` states are not included in the
+> **Note:** ``Cancelled`` and ``Crushed`` states are not included in the
 > following graph in order to make it easier to follow:
 >
-> * **Any** state is able to transit into `Crushed`.
+> * **Any** state is able to transit into ``Crushed``.
 >
-> * **Any** state (except from `Initial` and `Waiting`) can transit into `Cancelled`
+> * **Any** state (except from ``Initial`` and ``Waiting``) can transit into ``Cancelled``
 
-.. image:: crimson_backfillmachine.svg
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/crimson/crimson_backfillmachine.svg)
 
-In similarly to /dev/peering a copy of the latest BackfillMachine
+In similarly to [/dev/peering](../peering.md) a copy of the latest BackfillMachine
 state model can be genereated using the [gen_state_diagram.py](https://github.com/ceph/ceph/blob/master/doc/scripts/gen_state_diagram.py)

@@ -49,7 +49,7 @@ An example of the session tags that are passed in by the IDP in the web token is
 ```
 
 Steps to configure Keycloak to pass tags in the web token are described here:
-radosgw_keycloak.
+[radosgw_keycloak](keycloak.md#radosgw-keycloak).
 
 The trust policy must have 'sts:TagSession' permission if the web token passed
 in by the federated user contains session tags, otherwise the
@@ -58,17 +58,16 @@ sts:TagSession is as follows:
 
 ```python
 {
+        "Version":"2012-10-17",
+        "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
+            "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
+            "Condition":{"StringEquals":{"localhost:8080/auth/realms/quickstart:sub":"test"}}
+        }]
+    }
 ```
-
-	    "Version":"2012-10-17",
-	    "Statement":[
-	    {
-	        "Effect":"Allow",
-	        "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
-	        "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
-	        "Condition":{"StringEquals":{"localhost:8080/auth/realms/quickstart:sub":"test"}}
-	    }]
-	}
 
 # Tag Keys
 
@@ -83,17 +82,16 @@ An example of a role trust policy that uses aws:RequestTag is as follows:
 
 ```python
 {
+        "Version":"2012-10-17",
+        "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
+            "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
+            "Condition":{"StringEquals":{"aws:RequestTag/Department":"Engineering"}}
+        }]
+    }
 ```
-
-	    "Version":"2012-10-17",
-	    "Statement":[
-	    {
-	        "Effect":"Allow",
-	        "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
-	        "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
-	        "Condition":{"StringEquals":{"aws:RequestTag/Department":"Engineering"}}
-	    }]
-	}
 
 2. aws:PrincipalTag: This key is used to compare the key-value pair attached to the principal with the key-value pair
 in the policy. In case of AssumeRoleWithWebIdentity, the session tags that are passed by the idp in the web token appear
@@ -104,39 +102,37 @@ An example of a role permission policy that uses aws:PrincipalTag is as follows:
 
 ```python
 {
+        "Version":"2012-10-17",
+        "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":["s3:*"],
+        "Resource":["arn:aws:s3::t1tenant:my-test-bucket","arn:aws:s3::t1tenant:my-test-bucket/*"],
+            "Condition":{"StringEquals":{"aws:PrincipalTag/Department":"Engineering"}}
+        }]
+    }
 ```
-
-	    "Version":"2012-10-17",
-	    "Statement":[
-	    {
-	        "Effect":"Allow",
-	        "Action":["s3:*"],
-            "Resource":["arn:aws:s3::t1tenant:my-test-bucket","arn:aws:s3::t1tenant:my-test-bucket/*"],
-	        "Condition":{"StringEquals":{"aws:PrincipalTag/Department":"Engineering"}}
-	    }]
-	}
 
 3. iam:ResourceTag: This key is used to compare the key-value pair attached to the resource with the key-value pair
 in the policy. In case of AssumeRoleWithWebIdentity, tags attached to the role can be used to compare with that in
 the trust policy to allow a user to assume a role.
 RGW now supports REST APIs for tagging, listing tags and untagging actions on a role. More information related to
-role tagging can be found here role.
+role tagging can be found here [role](role.md).
 
 An example of a role's trust policy that uses aws:ResourceTag is as follows:
 
 ```python
 {
+        "Version":"2012-10-17",
+        "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
+            "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
+            "Condition":{"StringEquals":{"iam:ResourceTag/Department":"Engineering"}}
+        }]
+    }
 ```
-
-	    "Version":"2012-10-17",
-	    "Statement":[
-	    {
-	        "Effect":"Allow",
-	        "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
-	        "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
-	        "Condition":{"StringEquals":{"iam:ResourceTag/Department":"Engineering"}}
-	    }]
-	}
 
 For the above to work, you need to attach 'Department=Engineering' tag to the role.
 
@@ -149,17 +145,16 @@ An example of a role's trust policy that uses aws:TagKeys is as follows:
 
 ```python
 {
+        "Version":"2012-10-17",
+        "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
+            "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
+            "Condition":{"ForAllValues:StringEquals":{"aws:TagKeys":["Department"]}}
+        }]
+    }
 ```
-
-	    "Version":"2012-10-17",
-	    "Statement":[
-	    {
-	        "Effect":"Allow",
-	        "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
-	        "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
-	        "Condition":{"ForAllValues:StringEquals":{"aws:TagKeys":["Department"]}}
-	    }]
-	}
 
 'ForAllValues:StringEquals' tests whether every tag key in the request is a subset of the tag keys in the policy. So the above
 condition restricts the tag keys passed in the request.
@@ -197,17 +192,16 @@ aws:RequestTag is the incoming tag in the JWT (access token) and iam:ResourceTag
 
 ```python
 {
+        "Version":"2012-10-17",
+        "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
+            "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
+            "Condition":{"StringEquals":{"aws:RequestTag/Department":"${iam:ResourceTag/Department}"}}
+        }]
+    }
 ```
-
-	    "Version":"2012-10-17",
-	    "Statement":[
-	    {
-	        "Effect":"Allow",
-	        "Action":["sts:AssumeRoleWithWebIdentity","sts:TagSession"],
-	        "Principal":{"Federated":["arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"]},
-	        "Condition":{"StringEquals":{"aws:RequestTag/Department":"${iam:ResourceTag/Department}"}}
-	    }]
-	}
 
 2. To evaluate a role's permission policy by matching principal tags with s3 resource tags.
 aws:PrincipalTag is the tag passed in along with the temporary credentials and s3:ResourceTag is the tag attached to
@@ -248,66 +242,12 @@ a bucket using REST APIs available for the same.
 
 The following table shows which s3 resource tag type (bucket/object) are supported for authorizing a particular operation.
 
-+-----------------------------------+-------------------+
-| Operation                         | Tag type          |
-+===================================+===================+
-| **GetObject**                     | Object tags       |
-| **GetObjectTags**                 |                   |
-| **DeleteObjectTags**              |                   |
-| **DeleteObject**                  |                   |
-| **PutACLs**                       |                   |
-| **InitMultipart**                 |                   |
-| **AbortMultipart**                |                   |
-| **ListMultipart**                 |                   |
-| **GetAttrs**                      |                   |
-| **PutObjectRetention**            |                   |
-| **GetObjectRetention**            |                   |
-| **PutObjectLegalHold**            |                   |
-| **GetObjectLegalHold**            |                   |
-+-----------------------------------+-------------------+
-| **PutObjectTags**                 | Bucket tags       |
-| **GetBucketTags**                 |                   |
-| **PutBucketTags**                 |                   |
-| **DeleteBucketTags**              |                   |
-| **GetBucketReplication**          |                   |
-| **DeleteBucketReplication**       |                   |
-| **GetBucketVersioning**           |                   |
-| **SetBucketVersioning**           |                   |
-| **GetBucketWebsite**              |                   |
-| **SetBucketWebsite**              |                   |
-| **DeleteBucketWebsite**           |                   |
-| **StatBucket**                    |                   |
-| **ListBucket**                    |                   |
-| **GetBucketLogging**              |                   |
-| **GetBucketLocation**             |                   |
-| **DeleteBucket**                  |                   |
-| **GetLC**                         |                   |
-| **PutLC**                         |                   |
-| **DeleteLC**                      |                   |
-| **GetCORS**                       |                   |
-| **PutCORS**                       |                   |
-| **GetRequestPayment**             |                   |
-| **SetRequestPayment**             |                   |
-| **PutBucketPolicy**               |                   |
-| **GetBucketPolicy**               |                   |
-| **DeleteBucketPolicy**            |                   |
-| **PutBucketObjectLock**           |                   |
-| **GetBucketObjectLock**           |                   |
-| **GetBucketPolicyStatus**         |                   |
-| **PutBucketPublicAccessBlock**    |                   |
-| **GetBucketPublicAccessBlock**    |                   |
-| **DeleteBucketPublicAccessBlock** |                   |
-+-----------------------------------+-------------------+
-| **GetACLs**                       | Bucket tags for   |
-| **PutACLs**                       | bucket ACLs       |
-|                                   | Object tags for   |
-|                                   | object ACLs       |
-+-----------------------------------+-------------------+
-| **PutObject**                     | Object tags of    |
-| **CopyObject**                    | source object     |
-|                                   | Bucket tags of    |
-|                                   | destination bucket|
-+-----------------------------------+-------------------+
+| Operation | Tag type |
+| --- | --- |
+| **GetObject** <br> **GetObjectTags** <br> **DeleteObjectTags** <br> **DeleteObject** <br> **PutACLs** <br> **InitMultipart** <br> **AbortMultipart** <br> **ListMultipart** <br> **GetAttrs** <br> **PutObjectRetention** <br> **GetObjectRetention** <br> **PutObjectLegalHold** <br> **GetObjectLegalHold** | Object tags <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> |
+| **PutObjectTags** <br> **GetBucketTags** <br> **PutBucketTags** <br> **DeleteBucketTags** <br> **GetBucketReplication** <br> **DeleteBucketReplication** <br> **GetBucketVersioning** <br> **SetBucketVersioning** <br> **GetBucketWebsite** <br> **SetBucketWebsite** <br> **DeleteBucketWebsite** <br> **StatBucket** <br> **ListBucket** <br> **GetBucketLogging** <br> **GetBucketLocation** <br> **DeleteBucket** <br> **GetLC** <br> **PutLC** <br> **DeleteLC** <br> **GetCORS** <br> **PutCORS** <br> **GetRequestPayment** <br> **SetRequestPayment** <br> **PutBucketPolicy** <br> **GetBucketPolicy** <br> **DeleteBucketPolicy** <br> **PutBucketObjectLock** <br> **GetBucketObjectLock** <br> **GetBucketPolicyStatus** <br> **PutBucketPublicAccessBlock** <br> **GetBucketPublicAccessBlock** <br> **DeleteBucketPublicAccessBlock** | Bucket tags <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> |
+| **GetACLs** <br> **PutACLs** <br> <br> | Bucket tags for <br> bucket ACLs <br> Object tags for <br> object ACLs |
+| **PutObject** <br> **CopyObject** <br> <br> | Object tags of <br> source object <br> Bucket tags of <br> destination bucket |
 
 # Sample code demonstrating usage of session tags
 

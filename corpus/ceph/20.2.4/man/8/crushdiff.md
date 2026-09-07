@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-.. _crushdiff:
+<a id="crushdiff"></a>
 
 # crushdiff -- ceph crush map test tool
 
@@ -22,7 +22,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 **crushdiff** is a utility that lets you test the effect of a crushmap
 change: number of pgs, objects, bytes moved. This is a wrapper around
-osdmaptool\(8), relying on its **--test-map-pgs-dump**
+[osdmaptool](osdmaptool.md#osdmaptool)\(8), relying on its **--test-map-pgs-dump**
 option to get the list of changed pgs. Additionally it uses pg stats
 to calculate the numbers of objects and bytes moved.
 
@@ -97,9 +97,9 @@ When running with **--verbose** option the output will also contain
 detailed information about the affected pgs, like below:
 
 ```
-4.3	[0, 2, 1] -> [1, 4, 2]
-4.b	[0, 1, 3] -> [2, 1, 3]
-4.c	[4, 0, 1] -> [4, 1, 2]
+4.3     [0, 2, 1] -> [1, 4, 2]
+4.b     [0, 1, 3] -> [2, 1, 3]
+4.c     [4, 0, 1] -> [4, 1, 2]
 ```
 
 i.e. a pg number, and its old and the new osd active sets.
@@ -118,6 +118,6 @@ information.
 
 # See also
 
-ceph\(8),
-crushtool\(8),
-osdmaptool\(8),
+[ceph](../../install/clone-source.md)\(8),
+[crushtool](crushtool.md)\(8),
+[osdmaptool](osdmaptool.md#osdmaptool)\(8),

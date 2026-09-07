@@ -10,8 +10,8 @@ fetched_at: 2026-08-18T01:32:45Z
 When a structure is sent over the network or written to disk, it is
 encoded into a string of bytes. Usually (but not always -- multiple
 serialization facilities coexist in Ceph) serializable structures
-have `encode` and `decode` methods that write and read from
-`bufferlist` objects representing byte strings.
+have ``encode`` and ``decode`` methods that write and read from
+``bufferlist`` objects representing byte strings.
 
 ## Terminology
 It is best to think not in the domain of daemons and clients but
@@ -22,15 +22,15 @@ Encoders and decoders can be referred collectively as dencoders.
 
 Dencoders (both encoders and docoders) live within daemons and clients.
 For instance, when an RBD client issues an IO operation, it prepares
-an instance of the `MOSDOp` structure and encodes it into a bufferlist
+an instance of the ``MOSDOp`` structure and encodes it into a bufferlist
 that is put on the wire.
-An OSD reads these bytes and decodes them back into an `MOSDOp` instance.
+An OSD reads these bytes and decodes them back into an ``MOSDOp`` instance.
 Here encoder was used by the client while decoder by the OSD. However,
 these roles can swing -- just imagine handling of the response: OSD encodes
-the `MOSDOpReply` while RBD clients decode.
+the ``MOSDOpReply`` while RBD clients decode.
 
 Encoder and decoder operate accordingly to a format which is defined
-by a programmer by implementing the `encode` and `decode` methods.
+by a programmer by implementing the ``encode`` and ``decode`` methods.
 
 ## Principles for format change
 It is not unusual for the format of serialization to change. This
@@ -49,26 +49,26 @@ There are two primary concerns:
    should be made.
 2. **Huge variability of client versions.** It has always been the case that
    kernel upgrades (and thus kernel clients) are decoupled from Ceph upgrades.
-   Containerization brings variability even to `librbd` -- now user space
+   Containerization brings variability even to ``librbd`` -- now user space
    libraries live in the container itself:
 
 There are a few rules limiting the degree of interoperability between
 dencoders:
 
-* `n-2` for dencoding between daemons,
-* `n-3` hard requirement for client scenarios,
-* `n-3..` soft requirement for client scenarios. Ideally every client should
+* ``n-2`` for dencoding between daemons,
+* ``n-3`` hard requirement for client scenarios,
+* ``n-3..`` soft requirement for client scenarios. Ideally every client should
   be able to talk to any version of daemons.
 
 As the underlying reasons are the same, the rules that dencoders
 follow are nearly the same as the rules for deprecations of our features
-bits. See the `Notes on deprecation` in `src/include/ceph_features.h`.
+bits. See the ``Notes on deprecation`` in ``src/include/ceph_features.h``.
 
 ## Frameworks
 Currently multiple genres of dencoding helpers co-exist.
 
 * encoding.h (the most proliferated one),
-* denc.h (performance optimized, seen mostly in `BlueStore`),
+* denc.h (performance optimized, seen mostly in ``BlueStore``),
 * the `Message` hierarchy.
 
 Although details vary, the interoperability rules stay the same.
@@ -102,23 +102,23 @@ class AcmeClass
 };
 ```
 
-The `ENCODE_START` macro writes a header that specifies a *version* and
+The ``ENCODE_START`` macro writes a header that specifies a *version* and
 a *compat_version* (both initially 1).  The message version is incremented
 whenever a change is made to the encoding.  The compat_version is incremented
 only if the change will break existing decoders -- decoders are tolerant
 of trailing bytes, so changes that add fields at the end of the structure
 do not require incrementing compat_version.
 
-The `DECODE_START` macro takes an argument specifying the most recent
+The ``DECODE_START`` macro takes an argument specifying the most recent
 message version that the code can handle.  This is compared with the
 compat_version encoded in the message, and if the message is too new then
 an exception will be thrown.  Because changes to compat_version are rare,
 this isn't usually something to worry about when adding fields.
 
 In practice, changes to encoding usually involve simply adding the desired fields
-at the end of the `encode` and `decode` functions, and incrementing
-the versions in `ENCODE_START` and `DECODE_START`.  For example, here's how
-to add a third field to `AcmeClass`:
+at the end of the ``encode`` and ``decode`` functions, and incrementing
+the versions in ``ENCODE_START`` and ``DECODE_START``.  For example, here's how
+to add a third field to ``AcmeClass``:
 
 ```cpp
 class AcmeClass
@@ -151,17 +151,17 @@ class AcmeClass
 
 Note that the compat_version did not change because the encoded message
 will still be decodable by versions of the code that only understand
-version 1 -- they will just ignore the trailing bytes where we encode `member3`.
+version 1 -- they will just ignore the trailing bytes where we encode ``member3``.
 
-In the `decode` function, decoding the new field is conditional: this is
+In the ``decode`` function, decoding the new field is conditional: this is
 because we might still be passed older-versioned messages that do not
-have the field.  The `struct_v` variable is a local set by the `DECODE_START`
+have the field.  The ``struct_v`` variable is a local set by the ``DECODE_START``
 macro.
 
 # Into the weeeds
 
 The append-extendability of our dencoders is a result of the forward
-compatibility that the `ENCODE_START` and `DECODE_FINISH` macros bring.
+compatibility that the ``ENCODE_START`` and ``DECODE_FINISH`` macros bring.
 
 They are implementing extensibility facilities. An encoder, when filling
 the bufferlist, prepends three fields: version of the current format,
@@ -188,34 +188,34 @@ all encoded fields.
   do {
 ```
 
-The `struct_len` field allows the decoder to eat all the bytes that were
-left undecoded in the user-provided `decode` implementation.
+The ``struct_len`` field allows the decoder to eat all the bytes that were
+left undecoded in the user-provided ``decode`` implementation.
 Analogically, decoders tracks how much input has been decoded in the
-user-provided `decode` methods.
+user-provided ``decode`` methods.
 
 ```cpp
-#define DECODE_START(bl)		                        \
-  unsigned struct_end = 0;					\
-  __u32 struct_len;						\
-  decode(struct_len, bl);					\
+#define DECODE_START(bl)                                        \
+  unsigned struct_end = 0;                                      \
+  __u32 struct_len;                                             \
+  decode(struct_len, bl);                                       \
   ...                                                           \
-  struct_end = bl.get_off() + struct_len;			\
-  }								\
+  struct_end = bl.get_off() + struct_len;                       \
+  }                                                             \
   do {
 ```
 
 Decoder uses this information to discard the extra bytes it does not
 understand. Advancing bufferlist is critical as dencoders tend to be nested;
-just leaving it intact would work only for the very last `deocde` call
+just leaving it intact would work only for the very last ``deocde`` call
 in a nested structure.
 
 ```cpp
-#define DECODE_FINISH(bl)					\
-  } while (false);						\
-  if (struct_end) {						\
+#define DECODE_FINISH(bl)                                       \
+  } while (false);                                              \
+  if (struct_end) {                                             \
     ...                                                         \
-    if (bl.get_off() < struct_end)				\
-      bl += struct_end - bl.get_off();				\
+    if (bl.get_off() < struct_end)                              \
+      bl += struct_end - bl.get_off();                          \
   }
 ```
 

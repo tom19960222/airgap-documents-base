@@ -16,7 +16,7 @@ independent of all metadata structures).
 
 # Deletion process
 
-When a client requests deletion of a directory (say `rm -rf`):
+When a client requests deletion of a directory (say ``rm -rf``):
 
 - MDS queues the files and subdirectories (purge items) from pq (purge queue)
   journal in the purge queue.
@@ -30,7 +30,7 @@ When a client requests deletion of a directory (say `rm -rf`):
 > purge queue can process then the data pool usage might increase
 > substantially over time. In extreme scenarios, the purge queue
 > backlog can become so huge that it can slacken the capacity reclaim
-> and the linux `du` command for CephFS might report inconsistent
+> and the linux ``du`` command for CephFS might report inconsistent
 > data compared to the CephFS Data pool.
 
 There are a few tunable configs that MDS uses internally to throttle purge
@@ -45,19 +45,19 @@ queue processing:
 .. confval:: mds_max_purge_ops_per_pg
 
 Generally, the defaults are adequate for most clusters. However, in
-case of pretty huge clusters, if the need arises like `pq_item_in_journal`
+case of pretty huge clusters, if the need arises like ``pq_item_in_journal``
 (counter of things pending deletion) reaching gigantic figure then the configs
 can be tuned to 4-5 times of the default value as a starting point and
 further increments are subject to more requirements.
 
-Start from the most trivial config `filer_max_purge_ops`, which should help
+Start from the most trivial config ``filer_max_purge_ops``, which should help
 reclaim the space more quickly:
 
 ```
 $ ceph config set mds filer_max_purge_ops 40
 ```
 
-Incrementing `filer_max_purge_ops` should just work for most
+Incrementing ``filer_max_purge_ops`` should just work for most
 clusters but if it doesn't then move ahead with tuning other configs:
 
 ```
@@ -112,7 +112,7 @@ Let us understand what each of these means:
    * - pq_item_in_journal
      - Purge items (files) left in journal
 
-> **Note:** `pq_executing` and `pq_executing_ops` might look similar but
-> there is a small nuance. `pq_executing` tracks number of files
-> in the purge queue while `pq_executing_ops` is the count of RADOS
+> **Note:** ``pq_executing`` and ``pq_executing_ops`` might look similar but
+> there is a small nuance. ``pq_executing`` tracks number of files
+> in the purge queue while ``pq_executing_ops`` is the count of RADOS
 > objects from all the files in purge queue.

@@ -11,7 +11,7 @@ UADK is a framework that makes it possible for applications to access hardware
 accelerators in a unified, secure, and efficient way. UADK is comprised of
 UACCE, libwd, and many other algorithm libraries.
 
-See Compressor UADK Support.
+See [Compressor UADK Support](https://github.com/ceph/ceph/pull/58336).
 
 # UADK in the Software Stack
 
@@ -32,7 +32,7 @@ on the character devices, or the use of UADK can be achieved via frameworks
 that have been enabled by others including UADK support (for example, OpenSSL*
 libcrypto*, DPDK, and the Linux* Kernel Crypto Framework).
 
-See OpenSSL UADK Engine.
+See [OpenSSL UADK Engine](https://github.com/Linaro/uadk_engine).
 
 # UADK Environment Setup
 UADK consists of UACCE, vendor drivers, and an algorithm layer. UADK requires
@@ -101,14 +101,14 @@ CONFIG_CRYPTO_DEV_HISI_ZIP=y
 Make sure all these above kernel configurations are selected.
 
 1. UADK enablement
-If the architecture is `aarch64`, it will automatically download the UADK
+If the architecture is ``aarch64``, it will automatically download the UADK
 source code to build the static library. When building on other CPU
-architectures, the user may enable UADK by adding `-DWITH_UADK=true` to the
+architectures, the user may enable UADK by adding ``-DWITH_UADK=true`` to the
 compilation command line options. Note that UADK may not be compatible with all
 architectures.
 
 1. Manually Building UADK
-As implied in the above paragraph, if the architecture is `aarch64`, the UADK
+As implied in the above paragraph, if the architecture is ``aarch64``, the UADK
 is enabled automatically and there is no need to build it manually. However,
 below we provide the procedure for manually building UADK so that developers
 can study how it is built.
@@ -123,13 +123,13 @@ make
 make install
 ```
 
-> **Note:** Without `--prefix`, UADK will be installed under
-> `/usr/local/lib` by default. If you get the error:
-> `cannot find -lnuma`, install the `libnuma-dev` package.
+> **Note:** Without ``--prefix``, UADK will be installed under
+> ``/usr/local/lib`` by default. If you get the error:
+> ``cannot find -lnuma``, install the ``libnuma-dev`` package.
 
 1. Configure
 
-   Edit the Ceph configuration file (usually `ceph.conf`) to enable UADK
+   Edit the Ceph configuration file (usually ``ceph.conf``) to enable UADK
    support for *zlib* compression:
 
 ```
@@ -137,7 +137,4 @@ uadk_compressor_enabled=true
 ```
 
    The default value in `global.yaml.in` for `uadk_compressor_enabled` is
-   `false`.
-
-.. _Compressor UADK Support: https://github.com/ceph/ceph/pull/58336
-.. _OpenSSL UADK Engine: https://github.com/Linaro/uadk_engine
+   ``false``.

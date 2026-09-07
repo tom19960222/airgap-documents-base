@@ -10,15 +10,10 @@ fetched_at: 2026-08-18T01:32:45Z
 Ceph delivers **object, block, and file storage in one unified system**.
 
 > **Warning:**
-> :ref:`If this is your first time using Ceph, read the "Basic Workflow"
-> page in the Ceph Developer Guide to learn how to contribute to the
-> Ceph project. (Click anywhere in this paragraph to read the "Basic
-> Workflow" page of the Ceph Developer Guide.) <basic workflow dev guide>`.
+> [If this is your first time using Ceph, read the "Basic Workflow" page in the Ceph Developer Guide to learn how to contribute to the Ceph project. (Click anywhere in this paragraph to read the "Basic Workflow" page of the Ceph Developer Guide.)](dev/developer_guide/basic-workflow.md#basic-workflow-dev-guide).
 
 > **Note:**
-> :ref:`If you want to make a commit to the documentation but you don't
-> know how to get started, read the "Documenting Ceph" page. (Click anywhere
-> in this paragraph to read the "Documenting Ceph" page.) <documenting_ceph>`.
+> [If you want to make a commit to the documentation but you don't know how to get started, read the "Documenting Ceph" page. (Click anywhere in this paragraph to read the "Documenting Ceph" page.)](start/documenting-ceph.md#documenting-ceph).
 
 .. container:: columns-3
 
@@ -77,26 +72,20 @@ Ceph delivers **object, block, and file storage in one unified system**.
 
    .. container:: column
 
-      See `Ceph Object Store`_ for additional details.
+      See [Ceph Object Store](radosgw/index.md) for additional details.
 
    .. container:: column
 
-      See `Ceph Block Device`_ for additional details.
+      See [Ceph Block Device](rbd/index.md) for additional details.
 
    .. container:: column
 
-      See `Ceph File System`_ for additional details.
+      See [Ceph File System](cephfs/index.md) for additional details.
 
 Ceph is highly reliable, easy to manage, and free. The power of Ceph
 can transform your company's IT infrastructure and your ability to manage vast
-amounts of data. To try Ceph, see our Getting Started guides. To learn more
-about Ceph, see our Architecture section.
-
-.. _Ceph Object Store: radosgw
-.. _Ceph Block Device: rbd
-.. _Ceph File System: cephfs
-.. _Getting Started: start
-.. _Architecture: architecture
+amounts of data. To try Ceph, see our [Getting Started](start/index.md) guides. To learn more
+about Ceph, see our [Architecture](architecture.md) section.
 
 .. toctree::
    :maxdepth: 3

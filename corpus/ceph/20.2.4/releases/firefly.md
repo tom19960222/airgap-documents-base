@@ -17,8 +17,7 @@ its planned end of life in January 2016 it may also be the last.
 
 We recommend that all Firefly users upgrade.
 
-For more detailed information, see :download:`the complete changelog
-<../changelog/v0.80.11.txt>`.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.11.txt -->.
 
 ## Notable Changes
 
@@ -114,7 +113,7 @@ This is a bugfix release for Firefly.
 
 We recommend that all Firefly users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.10.txt -->.
 
 ## Notable Changes
 
@@ -195,7 +194,7 @@ locks to ceph-fuse and libcephfs.
 
 We recommend that all Firefly users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.9.txt -->.
 
 ## Adjusting CRUSH maps
 
@@ -287,7 +286,7 @@ fix, and some packaging updates.
 We recommend that all users for v0.80.x firefly upgrade when it is
 convenient to do so.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.8.txt -->.
 
 ## Notable Changes
 
@@ -365,7 +364,7 @@ with clusters running mixed versions.
 
 We recommend that all v0.80.x Firefly users upgrade to this release.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.7.txt -->.
 
 ## Notable Changes
 
@@ -387,7 +386,7 @@ non-default cluster names when using sysvinit or systemd, and improved
 
 We recommend that all v0.80.x Firefly users upgrade to this release.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.6.txt -->.
 
 ## Notable Changes
 
@@ -487,7 +486,7 @@ are using upstart, systemd, or radosgw.
 * rgw: improve delimited bucket listing (Yehuda Sadeh)
 * rpm: do not restart daemons on upgrade (#8849, Alfredo Deza)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.5.txt -->.
 
 # v0.80.4 Firefly
 
@@ -508,7 +507,7 @@ especially if they are using RBD.
 * osd: disable XFS extsize hint by default (#8830, Samuel Just)
 * rgw: fix extra data pool default name (Yehuda Sadeh)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.4.txt -->.
 
 # v0.80.3 Firefly
 
@@ -522,7 +521,7 @@ We recommend that all v0.80.x Firefly users upgrade.
 
 * radosgw: fix regression in manifest decoding (#8804, Sage Weil)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.3.txt -->.
 
 # v0.80.2 Firefly
 
@@ -585,7 +584,7 @@ v0.80.3.
 * rpm: split ceph into ceph and ceph-common RPMs (Sandon Van Ness, Dan Mick)
 * sysvinit: continue startin daemons after failure doing mount (#8554, Sage Weil)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.2.txt -->.
 
 # v0.80.1 Firefly
 
@@ -606,7 +605,7 @@ being a problem that prevents scrub from completing in some cases.
 * osd: prevent divide by zero in tiering agent (David Zafman)
 * osd: prevent busy loop when tiering agent can do no work (David Zafman)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.1.txt -->.
 
 # v0.80 Firefly
 
@@ -645,7 +644,7 @@ copy-on-read and multisite mirroring.
 
 * If your existing cluster is running a version older than v0.67
   Dumpling, please first upgrade to the latest Dumpling release before
-  upgrading to v0.80 Firefly.  Please refer to the dumpling-upgrade
+  upgrading to v0.80 Firefly.  Please refer to the [dumpling-upgrade](dumpling.md#dumpling-upgrade)
   documentation.
 
 * We recommend adding the following to the [mon] section of your
@@ -958,7 +957,7 @@ mon warn on legacy crush tunables = false
 * mon: add erasure profiles and improve erasure pool creation (Loic Dachary)
 * mon: add 'mon getmap EPOCH' (Joao Eduardo Luis)
 * mon: allow adjustment of cephfs max file size via 'ceph mds set max_file_size' (Sage Weil)
-* mon: allow debug quorum_{enter,exit} commands via admin socket
+* mon: allow debug [quorum](../man/8/ceph.md#quorum){enter,exit} commands via admin socket
 * mon: 'ceph osd pg-temp ...' and primary-temp commands (Ilya Dryomov)
 * mon: change mds allow_new_snaps syntax to be more consistent (Sage Weil)
 * mon: clean up initial crush rule creation (Loic Dachary)
@@ -1712,7 +1711,7 @@ v0.74.
 * misc cleanups from coverity (Xing Lin)
 * misc portability fixes (Noah Watkins, Christophe Courtaut, Alan Somers, huanjun)
 * mon: 'osd dump' dumps pool snaps as array, not object (Dan Mick)
-* mon: allow debug quorum_{enter,exit} commands via admin socket
+* mon: allow debug [quorum](../man/8/ceph.md#quorum){enter,exit} commands via admin socket
 * mon: prevent extreme changes in pool pg_num (Greg Farnum)
 * mon: take 'osd pool set ...' value as an int, not string (Joao Eduardo Luis)
 * mon: trim MDSMaps (Joao Eduardo Luis)

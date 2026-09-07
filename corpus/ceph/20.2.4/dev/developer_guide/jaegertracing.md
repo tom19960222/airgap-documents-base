@@ -11,8 +11,7 @@ Jaeger + Opentracing provides ready to use tracing services for distributed
 systems and is becoming the widely used standard because of their simplicity and
 standardization.
 
-We use a modified `jaeger-cpp-client
-<https://github.com/ceph/jaeger-client-cpp>`_ the backend provided to the
+We use a modified [jaeger-cpp-client](https://github.com/ceph/jaeger-client-cpp) the backend provided to the
 Opentracing API, which is responsible for the collection of spans, these spans
 are made with the use of smart pointers that carry the timestamp, TraceID and other
 meta info like a specific tag/log associated with the span to uniquely identify
@@ -26,8 +25,7 @@ refer to the [Ceph Tracing documentation](../../jaegertracing/index.md#basic-arc
 
 Enabling jaegertracing with Ceph needs deployment Jaeger daemons + compiling
 Ceph with Jaeger, orchestrated to be used in vstart cluster for developers, this
-uses a jaeger `all-in-one docker
-<https://www.jaegertracing.io/docs/1.22/getting-started/#all-in-one>`_ which
+uses a jaeger [all-in-one docker](https://www.jaegertracing.io/docs/1.22/getting-started/#all-in-one) which
 isn't recommended for production, but for testing purposes. Let's look at all the
 steps needed:
 
@@ -60,8 +58,7 @@ $ ./do_cmake.sh -DWITH_JAEGER=ON && ninja vstart
 $ MON=1 MGR=0 OSD=1 ../src/vstart.sh --with-jaeger
 ```
 
-  if the deployment is unsuccessful, you can deploy `all-in-one
-  <https://www.jaegertracing.io/docs/1.20/getting- started/#all-in-one>`_
+  if the deployment is unsuccessful, you can deploy [all-in-one](https://www.jaegertracing.io/docs/1.20/getting- started/#all-in-one)
   service manually and start vstart cluster without jaeger as well.
 
   4. Test the traces using rados-bench write:

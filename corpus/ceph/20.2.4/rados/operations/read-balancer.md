@@ -5,17 +5,17 @@ title: "Operating the Read (Primary) Balancer"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/read-balancer.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _read_balancer:
+<a id="read-balancer"></a>
 
 # Operating the Read (Primary) Balancer
 
 You might be wondering: How can I improve performance in my Ceph cluster?
-One important data point you can check is the `read_balance_score` on each
+One important data point you can check is the ``read_balance_score`` on each
 of your replicated pools.
 
-This metric, available via `ceph osd pool ls detail` (see rados_pools
+This metric, available via ``ceph osd pool ls detail`` (see [rados_pools](pools.md#rados-pools)
 for more details) indicates read performance, or how balanced the primaries are
-for each replicated pool. In most cases, if a `read_balance_score` is above 1
+for each replicated pool. In most cases, if a ``read_balance_score`` is above 1
 (for instance, 1.5), this means that your pool has unbalanced primaries and that
 you may want to try improving your read performance with the read balancer.
 
@@ -24,18 +24,18 @@ you may want to try improving your read performance with the read balancer.
 ## Enabling
 
 To enable automatic read balancing, you must turn on the *balancer module*
-(enabled by default in new clusters) and set the mode to `read` or `upmap-read`:
+(enabled by default in new clusters) and set the mode to ``read`` or ``upmap-read``:
 
 ```bash
 ceph balancer on
 ceph balancer mode <read|upmap-read>
 ```
 
-Both `read` and `upmap-read` mode make use of `pg-upmap-primary`. In order
-to use `pg-upmap-primary`, the cluster cannot have any pre-Reef clients.
+Both ``read`` and ``upmap-read`` mode make use of ``pg-upmap-primary``. In order
+to use ``pg-upmap-primary``, the cluster cannot have any pre-Reef clients.
 
 If you want to use a different balancer or if you want to make your
-own custom `pg-upmap-primary` entries, you might want to turn off the balancer in
+own custom ``pg-upmap-primary`` entries, you might want to turn off the balancer in
 order to avoid conflict:
 
 ```bash
@@ -60,14 +60,14 @@ ceph features
 
 ## Balancer Module
 
-The `balancer` module for `ceph-mgr` will automatically balance the number of
-primary PGs per OSD if set to `read` or `upmap-read` mode. See balancer
+The `balancer` module for ``ceph-mgr`` will automatically balance the number of
+primary PGs per OSD if set to ``read`` or ``upmap-read`` mode. See [balancer](balancer.md#balancer)
 for more information.
 
 # Offline Optimization
 
 Primaries are updated with an offline optimizer that is built into the
-osdmaptool.
+[osdmaptool](../../man/8/osdmaptool.md#osdmaptool).
 
 1. Grab the latest copy of your osdmap:
 
@@ -82,7 +82,7 @@ osdmaptool om --read out.txt --read-pool <pool name> [--vstart]
 ```
 
    It is highly recommended that you run the capacity balancer before running the
-   balancer to ensure optimal results. See upmap for details on how to balance
+   balancer to ensure optimal results. See [upmap](upmap.md#upmap) for details on how to balance
    capacity in a cluster.
 
 1. Apply the changes:
@@ -92,38 +92,38 @@ source out.txt
 ```
 
    In the above example, the proposed changes are written to the output file
-   `out.txt`. The commands in this procedure are normal Ceph CLI commands
+   ``out.txt``. The commands in this procedure are normal Ceph CLI commands
    that can be run in order to apply the changes to the cluster.
 
-   If you are working in a vstart cluster, you may pass the `--vstart` parameter
+   If you are working in a vstart cluster, you may pass the ``--vstart`` parameter
    as shown above so the CLI commands are formatted with the `./bin/` prefix.
 
-   Note that any time the number of pgs changes (for instance, if the pg autoscaler [pg-autoscaler]
+   Note that any time the number of pgs changes (for instance, if the pg autoscaler [[pg-autoscaler](placement-groups.md#pg-autoscaler)]
    kicks in), you should consider rechecking the scores and rerunning the balancer if needed.
 
 To see some details about what the tool is doing, you can pass
-`--debug-osd 10` to `osdmaptool`. To see even more details, pass
-`--debug-osd 20` to `osdmaptool`.
+``--debug-osd 10`` to ``osdmaptool``. To see even more details, pass
+``--debug-osd 20`` to ``osdmaptool``.
 
 # Troubleshooting
 
 ## Removing pg-upmap-primary mappings
 
-For scenarios where you need to manually remove `pg-upmap-primary` mappings, Ceph provides the following
+For scenarios where you need to manually remove ``pg-upmap-primary`` mappings, Ceph provides the following
 developer-level commands. These commands should be used with caution, as they directly modify
 primary PG mappings and can impact read performance (this excludes any data movement).
 
 > **Note:**
 > Users affected by [#66867](https://tracker.ceph.com/issues/66867) or [#61948](https://tracker.ceph.com/issues/61948)
-> may find these commands useful when dealing with unexpected `pg-upmap-primary` behavior.
+> may find these commands useful when dealing with unexpected ``pg-upmap-primary`` behavior.
 
-To remove a specific `pg-upmap-primary` mapping, use:
+To remove a specific ``pg-upmap-primary`` mapping, use:
 
 ```bash
 ceph osd rm-pg-upmap-primary <pgid>
 ```
 
-If you need to clear **all** `pg-upmap-primary` mappings in your cluster, you may use:
+If you need to clear **all** ``pg-upmap-primary`` mappings in your cluster, you may use:
 
 ```bash
 ceph osd rm-pg-upmap-primary-all
@@ -132,12 +132,12 @@ ceph osd rm-pg-upmap-primary-all
 ## Unable to Use Kernel Client
 
 If you are unable to use the kernel client to map RBD images or mount a filesystem while
-`pg-upmap-primary` mappings are in your cluster, this is because `pg-upmap-primary`
+``pg-upmap-primary`` mappings are in your cluster, this is because ``pg-upmap-primary``
 is not yet supported by the kernel client (as of 2025-09-08).
 
 Follow these steps to confirm this scenario:
 
-1. Confirm that your cluster contains `pg-upmap-primary` mappings:
+1. Confirm that your cluster contains ``pg-upmap-primary`` mappings:
 
 ```bash
 ceph osd dump | grep "pg_upmap_primary"
@@ -153,17 +153,17 @@ $ dmesg | tail
 ```
 
 Those details confirm that the cluster is using features that the kernel client doesn't support.
-Until the kernel client supports `pg-upmap-primary`, you must remove the mappings to successfully
+Until the kernel client supports ``pg-upmap-primary``, you must remove the mappings to successfully
 perform mounts. You may do so with the following commands:
 
-1. If using the balancer module, change the mode back to one that does not use `pg-upmap-primary`.
+1. If using the balancer module, change the mode back to one that does not use ``pg-upmap-primary``.
    This prevents additional mappings from being made:
 
 ```bash
 ceph balancer mode upmap
 ```
 
-2. Remove all `pg-upmap-primary` mappings:
+2. Remove all ``pg-upmap-primary`` mappings:
 
 ```bash
 ceph osd rm-pg-upmap-primary-all

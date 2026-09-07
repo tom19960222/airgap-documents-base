@@ -5,7 +5,7 @@ title: "systemd"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/lvm/systemd.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-lvm-systemd:
+<a id="ceph-volume-lvm-systemd"></a>
 
 # systemd
 Upon startup, it will identify the logical volume using LVM tags,
@@ -19,7 +19,7 @@ the OSD destination conventions, that is:
 /var/lib/ceph/osd/<cluster name>-<osd id>
 ```
 
-For our example OSD with an id of `0`, that means the identified device will
+For our example OSD with an id of ``0``, that means the identified device will
 be mounted at:
 
 ```
@@ -35,5 +35,5 @@ systemctl start ceph-osd@0
 
 The systemd portion of this process is handled by the ``ceph-volume lvm
 trigger`` sub-command, which is only in charge of parsing metadata coming from
-systemd and startup, and then dispatching to `ceph-volume lvm activate` which
+systemd and startup, and then dispatching to ``ceph-volume lvm activate`` which
 would proceed with activation.

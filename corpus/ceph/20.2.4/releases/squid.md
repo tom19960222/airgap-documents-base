@@ -402,15 +402,15 @@ This is the first backport release in the Squid series.
 
 > **Attention:**
 > iSCSI users are advised that the upstream developers of Ceph encountered a
-> bug during an upgrade from Ceph 19.1.1 to Ceph 19.2.0. Read `Tracker Issue
-> 68215 <https://tracker.ceph.com/issues/68215>`_ before attempting an upgrade
+> bug during an upgrade from Ceph 19.1.1 to Ceph 19.2.0. Read [Tracker Issue
+> 68215](https://tracker.ceph.com/issues/68215) before attempting an upgrade
 > to 19.2.0.
 >
 > Some users have encountered a Ceph Manager balancer module issue when
 > upgrading to Ceph 19.2.0. If you encounter this issue, disable the balancer
-> by running the command `ceph balancer off` and the cluster will operate as
-> expected. A fix has been implemented in 19.2.1, please read `Tracker Issue
-> 68657 <https://tracker.ceph.com/issues/68657>`_ before attempting an
+> by running the command ``ceph balancer off`` and the cluster will operate as
+> expected. A fix has been implemented in 19.2.1, please read [Tracker Issue
+> 68657](https://tracker.ceph.com/issues/68657) before attempting an
 > upgrade.
 
 ## Highlights
@@ -455,15 +455,15 @@ Crimson/Seastore
   usage on the daemon, allows for faster streaming writes to a file local to
   the daemon, and reduces time holding any locks required to execute the
   command. For analysis, it is necessary to manually retrieve the file from the host
-  running the daemon. Currently, only `--format=json|json-pretty`
+  running the daemon. Currently, only ``--format=json|json-pretty``
   are supported.
-* `cls_cxx_gather` is marked as deprecated.
+* ``cls_cxx_gather`` is marked as deprecated.
 * Tracing: The blkin tracing feature (see
   https://docs.ceph.com/en/reef/dev/blkin/) is now deprecated in favor of
   Opentracing
   (https://docs.ceph.com/en/reef/dev/developer_guide/jaegertracing/) and will
   be removed in a later release.
-* PG dump: The default output of `ceph pg dump --format json` has changed.
+* PG dump: The default output of ``ceph pg dump --format json`` has changed.
   The default JSON format produces a rather massive output in large clusters
   and isn't scalable, so we have removed the 'network_ping_times' section from
   the output. Details in the tracker: https://tracker.ceph.com/issues/57460
@@ -484,8 +484,8 @@ Crimson/Seastore
   an MDS was in the FSMap, subject to a pruning threshold.
 * CephFS: For clusters with multiple CephFS file systems, all the snap-schedule
   commands now expect the '--fs' argument.
-* CephFS: The period specifier `m` now implies minutes and the period
-  specifier `M` now implies months. This has been made consistent with the
+* CephFS: The period specifier ``m`` now implies minutes and the period
+  specifier ``M`` now implies months. This has been made consistent with the
   rest of the system.
 * CephFS: Running the command "ceph fs authorize" for an existing entity now
   upgrades the entity's capabilities instead of printing an error. It can now
@@ -520,13 +520,13 @@ Crimson/Seastore
   disabled by using: `ceph config set mgr mgr/volumes/snapshot_clone_no_wait
   false`
   for snap_schedule Manager module.
-* CephFS: Commands `ceph mds fail` and `ceph fs fail` now require a
+* CephFS: Commands ``ceph mds fail`` and ``ceph fs fail`` now require a
   confirmation flag when some MDSs exhibit health warning MDS_TRIM or
   MDS_CACHE_OVERSIZED. This is to prevent accidental MDS failover causing
   further delays in recovery.
-* CephFS: fixes to the implementation of the `root_squash` mechanism enabled
-  via cephx `mds` caps on a client credential require a new client feature
-  bit, `client_mds_auth_caps`. Clients using credentials with `root_squash`
+* CephFS: fixes to the implementation of the ``root_squash`` mechanism enabled
+  via cephx ``mds`` caps on a client credential require a new client feature
+  bit, ``client_mds_auth_caps``. Clients using credentials with ``root_squash``
   without this feature will trigger the MDS to raise a HEALTH_ERR on the
   cluster, MDS_CLIENTS_BROKEN_ROOTSQUASH. See the documentation on this warning
   and the new feature bit for more information.
@@ -589,19 +589,19 @@ Crimson/Seastore
 * Monitoring: RGW S3 Analytics: A new Grafana dashboard is now available,
   enabling you to visualize per bucket and user analytics data, including total
   GETs, PUTs, Deletes, Copies, and list metrics.
-* The `mon_cluster_log_file_level` and `mon_cluster_log_to_syslog_level`
+* The ``mon_cluster_log_file_level`` and ``mon_cluster_log_to_syslog_level``
   options have been removed. Henceforth, users should use the new generic
-  option `mon_cluster_log_level` to control the cluster log level verbosity
+  option ``mon_cluster_log_level`` to control the cluster log level verbosity
   for the cluster log file as well as for all external entities.
 
 ## RADOS
 
-* RADOS: `A POOL_APP_NOT_ENABLED` health warning will now be reported if the
+* RADOS: ``A POOL_APP_NOT_ENABLED`` health warning will now be reported if the
   application is not enabled for the pool irrespective of whether the pool is
   in use or not. Always tag a pool with an application using ``ceph osd pool
   application enable`` command to avoid reporting of POOL_APP_NOT_ENABLED
   health warning for that pool. The user might temporarily mute this warning
-  using `ceph health mute POOL_APP_NOT_ENABLED`.
+  using ``ceph health mute POOL_APP_NOT_ENABLED``.
 * RADOS: `get_pool_is_selfmanaged_snaps_mode` C++ API has been deprecated due
   to being prone to false negative results.  Its safer replacement is
   `pool_is_in_selfmanaged_snaps_mode`.
@@ -620,8 +620,8 @@ Crimson/Seastore
   optimization.  See https://docs.ceph.com/en/latest/rados/operations/balancer/
   for more information.
 * RADOS: Read balancing may now be managed automatically via the balancer
-  manager module. Users may choose between two new modes: `upmap-read`, which
-  offers upmap and read optimization simultaneously, or `read`, which may be
+  manager module. Users may choose between two new modes: ``upmap-read``, which
+  offers upmap and read optimization simultaneously, or ``read``, which may be
   used to only optimize reads. For more detailed information see
   https://docs.ceph.com/en/latest/rados/operations/read-balancer/#online-optimization.
 * RADOS: BlueStore has been optimized for better performance in snapshot-intensive workloads.
@@ -640,14 +640,14 @@ Crimson/Seastore
 ## RBD
 
 * RBD: When diffing against the beginning of time (`fromsnapname == NULL`) in
-  fast-diff mode (`whole_object == true` with `fast-diff` image feature enabled
+  fast-diff mode (`whole_object == true` with ``fast-diff`` image feature enabled
   and valid), diff-iterate is now guaranteed to execute locally if exclusive
   lock is available.  This brings a dramatic performance improvement for QEMU
   live disk synchronization and backup use cases.
-* RBD: The `try-netlink` mapping option for rbd-nbd has become the default
+* RBD: The ``try-netlink`` mapping option for rbd-nbd has become the default
   and is now deprecated. If the NBD netlink interface is not supported by the
   kernel, then the mapping is retried using the legacy ioctl interface.
-* RBD: The option `--image-id` has been added to `rbd children` CLI command,
+* RBD: The option ``--image-id`` has been added to `rbd children` CLI command,
   so it can be run for images in the trash.
 * RBD: `Image::access_timestamp` and `Image::modify_timestamp` Python APIs now
   return timestamps in UTC.
@@ -679,7 +679,7 @@ Crimson/Seastore
   correctly in multi-site. Previously, the replicas of such objects were
   corrupted on decryption.  A new tool, ``radosgw-admin bucket resync encrypted
   multipart``, can be used to identify these original multipart uploads. The
-  `LastModified` timestamp of any identified object is incremented by 1ns to
+  ``LastModified`` timestamp of any identified object is incremented by 1ns to
   cause peer zones to replicate it again.  For multi-site deployments that make
   any use of Server-Side Encryption, we recommended running this command
   against every bucket in every zone after all zones have upgraded.
@@ -689,7 +689,7 @@ Crimson/Seastore
   This new representation supports multisite replication via metadata sync and
   can scale to many topics. This is on by default for new deployments, but is
   not enabled by default on upgrade. Once all radosgws have upgraded (on all
-  zones in a multisite configuration), the `notification_v2` zone feature can
+  zones in a multisite configuration), the ``notification_v2`` zone feature can
   be enabled to migrate to the new format. See
   https://docs.ceph.com/en/squid/radosgw/zone-features for details. The "v1"
   format is now considered deprecated and may be removed after 2 major releases.
@@ -703,7 +703,7 @@ Crimson/Seastore
   present in a single bucket index shard, they can cause high bucket listing
   latencies and lifecycle processing failures. To check whether a versioned
   bucket has unnecessary olh entries, users can now run ``radosgw-admin
-  bucket check olh`. If the `--fix`` flag is used, the extra entries will
+  bucket check olh``. If the ``--fix`` flag is used, the extra entries will
   be safely removed. A distinct issue from the one described thus far, it is
   also possible that some versioned buckets are maintaining extra unlinked
   objects that are not listable from the S3/ Swift APIs. These extra objects
@@ -716,13 +716,13 @@ Crimson/Seastore
   the nature of the failure mode that produced them, where a client of a bucket
   that was a victim of this bug may find the object associated with the key to
   be in an inconsistent state. To check whether a versioned bucket has unlinked
-  entries, users can now run `radosgw-admin bucket check unlinked`. If the
-  `--fix` flag is used, the unlinked objects will be safely removed. Finally,
+  entries, users can now run ``radosgw-admin bucket check unlinked``. If the
+  ``--fix`` flag is used, the unlinked objects will be safely removed. Finally,
   a third issue made it possible for versioned bucket index stats to be
   accounted inaccurately. The tooling for recalculating versioned bucket stats
   also had a bug, and was not previously capable of fixing these inaccuracies.
   This release resolves those issues and users can now expect that the existing
-  `radosgw-admin bucket check` command will produce correct results. We
+  ``radosgw-admin bucket check`` command will produce correct results. We
   recommend that users with versioned buckets, especially those that existed
   on prior releases, use these new tools to check whether their buckets are
   affected and to clean them up accordingly.
@@ -731,12 +731,12 @@ Crimson/Seastore
   more. Existing users can be adopted into new accounts. This process is
   optional but irreversible. See https://docs.ceph.com/en/squid/radosgw/account
   and https://docs.ceph.com/en/squid/radosgw/iam for details.
-* RGW: On startup, radosgw and radosgw-admin now validate the `rgw_realm`
+* RGW: On startup, radosgw and radosgw-admin now validate the ``rgw_realm``
   config option. Previously, they would ignore invalid or missing realms and go
   on to load a zone/zonegroup in a different realm. If startup fails with a
-  "failed to load realm" error, fix or remove the `rgw_realm` option.
-* RGW: The radosgw-admin commands `realm create` and `realm pull` no longer
-  set the default realm without `--default`.
+  "failed to load realm" error, fix or remove the ``rgw_realm`` option.
+* RGW: The radosgw-admin commands ``realm create`` and ``realm pull`` no longer
+  set the default realm without ``--default``.
 * RGW: Fixed an S3 Object Lock bug with PutObjectRetention requests that
   specify a RetainUntilDate after the year 2106. This date was truncated to 32
   bits when stored, so a much earlier date was used for object lock
@@ -745,7 +745,7 @@ Crimson/Seastore
   PutObjectRetention requests, but cannot repair the dates of existing object
   locks. Such objects can be identified with a HeadObject request based on the
   x-amz-object-lock-retain-until-date response header.
-* S3 `Get/HeadObject` now supports the query parameter `partNumber` to read
+* S3 ``Get/HeadObject`` now supports the query parameter ``partNumber`` to read
   a specific part of a completed multipart upload.
 * RGW: The SNS CreateTopic API now enforces the same topic naming requirements
   as AWS: Topic names must be made up of only uppercase and lowercase ASCII
@@ -759,7 +759,7 @@ Crimson/Seastore
   issuing user becomes the new owner.  For backward compatibility, all users
   still have permission to publish bucket notifications to topics owned by
   other users. A new configuration parameter,
-  `rgw_topic_require_publish_policy`, can be enabled to deny `sns:Publish`
+  ``rgw_topic_require_publish_policy``, can be enabled to deny ``sns:Publish``
   permissions unless explicitly granted by topic policy.
 * RGW: Fix issue with persistent notifications where the changes to topic param
   that were modified while persistent notifications were in the queue will be
@@ -767,14 +767,14 @@ Crimson/Seastore
   (password/ssl) causing failure while delivering the notifications to broker,
   can now modify the incorrect topic attribute and on retry attempt to delivery
   the notifications, new configs will be used.
-* RGW: in bucket notifications, the `principalId` inside `ownerIdentity`
+* RGW: in bucket notifications, the ``principalId`` inside ``ownerIdentity``
   now contains the complete user ID, prefixed with the tenant ID.
 
 ## Telemetry
 
-* The `basic` channel in telemetry now captures pool flags that allows us to
+* The ``basic`` channel in telemetry now captures pool flags that allows us to
   better understand feature adoption, such as Crimson.
-  To opt in to telemetry, run `ceph telemetry on`.
+  To opt in to telemetry, run ``ceph telemetry on``.
 
 ## Upgrading from Quincy or Reef
 
@@ -783,7 +783,7 @@ Before starting, make sure your cluster is stable and healthy (no down or recove
 upgrade using the noautoscale flag.
 
 > **Note:**
-> You can monitor the progress of your upgrade at each stage with the `ceph versions` command, which will tell you what ceph version(s) are running for each type of daemon.
+> You can monitor the progress of your upgrade at each stage with the ``ceph versions`` command, which will tell you what ceph version(s) are running for each type of daemon.
 
 ## Upgrading cephadm clusters
 

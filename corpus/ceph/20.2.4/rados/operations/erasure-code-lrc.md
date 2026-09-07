@@ -69,7 +69,7 @@ ceph osd erasure-code-profile set {name} \
 
 Where:
 
-`k={data chunks}`
+``k={data chunks}``
 
 :Description: Each object is split in **data-chunks** parts,
               each stored on a different OSD.
@@ -78,7 +78,7 @@ Where:
 :Required: Yes.
 :Example: 4
 
-`m={coding-chunks}`
+``m={coding-chunks}``
 
 :Description: Compute **coding chunks** for each object and store them
               on different OSDs. The number of coding chunks is also
@@ -88,7 +88,7 @@ Where:
 :Required: Yes.
 :Example: 2
 
-`l={locality}`
+``l={locality}``
 
 :Description: Group the coding and data chunks into sets of size
               **locality**. For instance, for **k=4** and **m=2**,
@@ -100,7 +100,7 @@ Where:
 :Required: Yes.
 :Example: 3
 
-`crush-root={root}`
+``crush-root={root}``
 
 :Description: The name of the crush bucket used for the first step of
               the CRUSH rule. For instance **step take default**.
@@ -109,7 +109,7 @@ Where:
 :Required: No.
 :Default: default
 
-`crush-locality={bucket-type}`
+``crush-locality={bucket-type}``
 
 :Description: The type of the CRUSH bucket in which each set of chunks
               defined by **l** will be stored. For instance, if it is
@@ -121,7 +121,7 @@ Where:
 :Type: String
 :Required: No.
 
-`crush-failure-domain={bucket-type}`
+``crush-failure-domain={bucket-type}``
 
 :Description: Ensure that no two chunks are in a bucket with the same
               failure domain. For instance, if the failure domain is
@@ -133,17 +133,17 @@ Where:
 :Required: No.
 :Default: host
 
-`crush-device-class={device-class}`
+``crush-device-class={device-class}``
 
 :Description: Restrict placement to devices of a specific class (e.g.,
-              `ssd` or `hdd`), using the crush device class names
+              ``ssd`` or ``hdd``), using the crush device class names
               in the CRUSH map.
 
 :Type: String
 :Required: No.
 :Default:
 
-`directory={directory}`
+``directory={directory}``
 
 :Description: Set the **directory** name from which the erasure code
               plugin is loaded.
@@ -152,7 +152,7 @@ Where:
 :Required: No.
 :Default: /usr/lib/ceph/erasure-code
 
-`--force`
+``--force``
 
 :Description: Override an existing profile by the same name.
 

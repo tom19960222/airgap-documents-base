@@ -5,7 +5,7 @@ title: "msgr2 protocol (msgr2.0 and msgr2.1)"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/msgr2.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _msgr2-protocol:
+<a id="msgr2-protocol"></a>
 
 # msgr2 protocol (msgr2.0 and msgr2.1)
 
@@ -123,7 +123,7 @@ length and segment alignment fields are zeroed.
 
 ### Currently supported flags
 
-  1. FRAME_EARLY_DATA_COMPRESSED (see msgr-post-compression)
+  1. FRAME_EARLY_DATA_COMPRESSED (see [msgr-post-compression](msgr2.md#msgr-post-compression))
 
 The reserved bytes are zeroed.
 
@@ -453,15 +453,13 @@ Differences from msgr2.0-secure:
    with late_status (the built-in bit error detection isn't really
    needed in secure mode).
 
-4. In accordance with NIST Recommendation for GCM, deterministic
+4. In accordance with [NIST Recommendation for GCM](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf), deterministic
    nonce construction with a 4-byte fixed field followed by an 8-byte
    counter field is used.  An 8-byte counter field should never repeat
    but the nonce reuse protection put in place for msgr2.0-secure mode
    is still there.
 
    The initial values are the same as in msgr2.0-secure mode.
-
-   .. _`NIST Recommendation for GCM`: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf
 
 As in msgr2.0-secure mode, each segment is zero padded out to
 16 bytes.  If the first segment is fully inlined, its padding goes
@@ -620,7 +618,7 @@ Once the handshake is completed, both peers have setup their compression handler
 Combining compression with encryption introduces security implications.
 Compression will not be possible when using secure mode, unless configured specifically by an admin.
 
-.. _msgr-post-compression:
+<a id="msgr-post-compression"></a>
 
 ## Post-compression frame format
 Depending on the negotiated connection mode from TAG_COMPRESSION_DONE, the connection is able to accept/send compressed frames or process all frames as decompressed.

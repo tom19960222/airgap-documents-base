@@ -5,7 +5,7 @@ title: "Ceph Storage Cluster"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/index.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _rados-index:
+<a id="rados-index"></a>
 
 # Ceph Storage Cluster
 
@@ -34,7 +34,7 @@ and write data to the Ceph Storage Cluster.
 
       Ceph Storage Clusters have a few required settings, but most configuration
       settings have default values. A typical deployment uses a deployment tool
-      to define a cluster and bootstrap a monitor. See :ref:`cephadm` for details.
+      to define a cluster and bootstrap a monitor. See [cephadm](../cephadm/index.md#cephadm) for details.
 
       .. toctree::
          :maxdepth: 2
@@ -71,16 +71,11 @@ and write data to the Ceph Storage Cluster.
 
           <h3>APIs</h3>
 
-      Most Ceph deployments use `Ceph Block Devices`_, `Ceph Object Storage`_ and/or the
-      `Ceph File System`_. You  may also develop applications that talk directly to
+      Most Ceph deployments use [Ceph Block Devices](../rbd/index.md), [Ceph Object Storage](../radosgw/index.md) and/or the
+      [Ceph File System](../cephfs/index.md). You  may also develop applications that talk directly to
       the Ceph Storage Cluster.
 
       .. toctree::
          :maxdepth: 2
 
          APIs <api/index>
-
-.. _Ceph Block Devices: ../rbd/
-.. _Ceph File System: ../cephfs/
-.. _Ceph Object Storage: ../radosgw/
-.. _Deployment: ../cephadm/

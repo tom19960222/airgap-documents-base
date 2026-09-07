@@ -1,23 +1,23 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "``prepare``"
+title: "`prepare`"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/lvm/prepare.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _ceph-volume-lvm-prepare:
+<a id="ceph-volume-lvm-prepare"></a>
 
 # ``prepare``
-Before you run `ceph-volume lvm prepare`, we recommend that you provision a
-logical volume. Then you can run `prepare` on that logical volume.
+Before you run ``ceph-volume lvm prepare``, we recommend that you provision a
+logical volume. Then you can run ``prepare`` on that logical volume.
 
-`prepare` adds metadata to logical volumes but does not alter them in any
+``prepare`` adds metadata to logical volumes but does not alter them in any
 other way.
 
 > **Note:** This is part of a two-step process to deploy an OSD. If you prefer
-> to deploy an OSD by using only one command, see ceph-volume-lvm-create.
+> to deploy an OSD by using only one command, see [ceph-volume-lvm-create](create.md#ceph-volume-lvm-create).
 
-`prepare` uses LVM tags to assign several pieces of metadata to a
+``prepare`` uses LVM tags to assign several pieces of metadata to a
 logical volume. Volumes tagged in this way are easier to identify and easier to
 use with Ceph. LVM tags identify logical volumes by the role that they
 play in the Ceph cluster (for example: BlueStore data or BlueStore WAL+DB).
@@ -25,9 +25,9 @@ play in the Ceph cluster (for example: BlueStore data or BlueStore WAL+DB).
 BlueStore is the default backend. Ceph permits changing
 the backend, which can be done by using the following flags and arguments:
 
-* --bluestore
+* [--bluestore](prepare.md#ceph-volume-lvm-prepare-bluestore)
 
-.. _ceph-volume-lvm-prepare_bluestore:
+<a id="ceph-volume-lvm-prepare-bluestore"></a>
 
 ## ``bluestore``
 Bluestore is the default backend for new OSDs.  Bluestore
@@ -38,7 +38,7 @@ supports the following configurations:
 * a block device and a block.db device
 * a single block device
 
-The `bluestore` subcommand accepts physical block devices, partitions on physical
+The ``bluestore`` subcommand accepts physical block devices, partitions on physical
 block devices, or logical volumes as arguments for the various device
 parameters. If a physical block device is provided, a logical volume will be
 created. If the provided volume group's name begins with `ceph`, it will be
@@ -47,7 +47,7 @@ already exists. This allows for a simpler approach to using LVM but at the
 cost of flexibility: no option or configuration can be used to change how the
 logical volume is created.
 
-The `block` is specified with the `--data` flag, and in its simplest use
+The ``block`` is specified with the ``--data`` flag, and in its simplest use
 case it looks like:
 
 ```bash
@@ -60,32 +60,32 @@ A raw device can be specified in the same way:
 ceph-volume lvm prepare --bluestore --data /path/to/device
 ```
 
-For enabling encryption, the `--dmcrypt` flag is required:
+For enabling [encryption](encryption.md#ceph-volume-lvm-encryption), the ``--dmcrypt`` flag is required:
 
 ```bash
 ceph-volume lvm prepare --bluestore --dmcrypt --data vg/lv
 ```
 
-Starting with Ceph Squid, you can opt for TPM2 token enrollment for the created LUKS2 devices with the `--with-tpm` flag:
+Starting with Ceph Squid, you can opt for TPM2 token enrollment for the created LUKS2 devices with the ``--with-tpm`` flag:
 
 ```bash
 ceph-volume lvm prepare --bluestore --dmcrypt --with-tpm --data vg/lv
 ```
 
-If a `block.db` device or a `block.wal` device is needed, it can be
-specified with `--block.db` or `--block.wal`. These can be physical
-devices, partitions, or logical volumes. `block.db` and `block.wal` are
+If a ``block.db`` device or a ``block.wal`` device is needed, it can be
+specified with ``--block.db`` or ``--block.wal``. These can be physical
+devices, partitions, or logical volumes. ``block.db`` and ``block.wal`` are
 optional for bluestore.
 
-For both `block.db` and `block.wal`, partitions can be used as-is, and
+For both ``block.db`` and ``block.wal``, partitions can be used as-is, and
 therefore are not made into logical volumes.
 
-While creating the OSD directory, the process uses a `tmpfs` mount to hold
-the files needed for the OSD. These files are created by `ceph-osd --mkfs`
+While creating the OSD directory, the process uses a ``tmpfs`` mount to hold
+the files needed for the OSD. These files are created by ``ceph-osd --mkfs``
 and are ephemeral.
 
-A symlink is created for the `block` device, and is optional for `block.db`
-and `block.wal`. For a cluster with a default name and an OSD ID of 0, the
+A symlink is created for the ``block`` device, and is optional for ``block.db``
+and ``block.wal``. For a cluster with a default name and an OSD ID of 0, the
 directory looks like this:
 
 ```bash
@@ -106,23 +106,23 @@ lrwxrwxrwx. 1 ceph ceph 93 Oct 20 13:05 block.wal -> /dev/ceph/osd-wal-0
 -rw-------. 1 ceph ceph  2 Oct 20 13:05 whoami
 ```
 
-In the above case, a device was used for `block`, so `ceph-volume` created
+In the above case, a device was used for ``block``, so ``ceph-volume`` created
 a volume group and a logical volume using the following conventions:
 
-* volume group name: `ceph-{cluster fsid}` (or if the volume group already
-  exists: `ceph-{random uuid}`)
+* volume group name: ``ceph-{cluster fsid}`` (or if the volume group already
+  exists: ``ceph-{random uuid}``)
 
-* logical volume name: `osd-block-{osd_fsid}`
+* logical volume name: ``osd-block-{osd_fsid}``
 
-.. _ceph-volume-lvm-prepare_filestore:
+<a id="ceph-volume-lvm-prepare-filestore"></a>
 
 ## ``filestore``
 > **Warning:** Filestore has been deprecated in the Reef release and is no longer supported.
 
-`Filestore<filestore>` is the OSD backend that prepares logical volumes for a
+``Filestore<filestore>`` is the OSD backend that prepares logical volumes for a
 `filestore`-backed object-store OSD.
 
-`Filestore<filestore>` uses a logical volume to store OSD data and it uses
+``Filestore<filestore>`` uses a logical volume to store OSD data and it uses
 physical devices, partitions, or logical volumes to store the journal.  If a
 physical device is used to create a filestore backend, a logical volume will be
 created on that physical device. If the provided volume group's name begins
@@ -143,7 +143,7 @@ Use this command to deploy filestore with an external journal:
 ceph-volume lvm prepare --filestore --data <data block device> --journal <journal block device>
 ```
 
-Use this command to enable encryption, and note that the `--dmcrypt` flag is required:
+Use this command to enable [encryption](encryption.md#ceph-volume-lvm-encryption), and note that the ``--dmcrypt`` flag is required:
 
 ```bash
 ceph-volume lvm prepare --filestore --dmcrypt --data <data block device> --journal <journal block device>
@@ -156,16 +156,16 @@ The data block device and the journal can each take one of three forms:
 * a logical volume
 
 If you use a logical volume to deploy filestore, the value that you pass in the
-command *must* be of the format `volume_group/logical_volume_name`. Since logical
+command *must* be of the format ``volume_group/logical_volume_name``. Since logical
 volume names are not enforced for uniqueness, using this format is an important
 safeguard against accidentally choosing the wrong volume (and clobbering its data).
 
 If you use a partition to deploy filestore, the partition *must* contain a
-`PARTUUID` that can be discovered by `blkid`. This ensures that the
+``PARTUUID`` that can be discovered by ``blkid``. This ensures that the
 partition can be identified correctly regardless of the device's name (or path).
 
 For example, to use a logical volume for OSD data and a partition
-(`/dev/sdc1`) for the journal, run a command of this form:
+(``/dev/sdc1``) for the journal, run a command of this form:
 
 ```bash
 ceph-volume lvm prepare --filestore --data volume_group/logical_volume_name --journal /dev/sdc1
@@ -180,7 +180,7 @@ ceph-volume lvm prepare --filestore --data /dev/sdc --journal volume_group/journ
 A generated UUID is used when asking the cluster for a new OSD. These two
 pieces of information (the OSD ID and the OSD UUID) are necessary for
 identifying a given OSD and will later be used throughout the
-activation process.
+[activation](activate.md#ceph-volume-lvm-activate) process.
 
 The OSD data directory is created using the following convention:
 
@@ -202,7 +202,7 @@ To fetch the monmap by using the bootstrap key from the OSD, use this command:
 /var/lib/ceph/osd/<cluster name>-<osd id>/activate.monmap
 ```
 
-To populate the OSD directory (which has already been mounted), use this `ceph-osd` command:
+To populate the OSD directory (which has already been mounted), use this ``ceph-osd`` command:
 
 ```bash
 ceph-osd --cluster ceph --mkfs --mkkey -i <osd id> --monmap \
@@ -215,16 +215,16 @@ ceph-osd --cluster ceph --mkfs --mkkey -i <osd id> --monmap \
 
 All of the information from the previous steps is used in the above command.
 
-.. _ceph-volume-lvm-partitions:
+<a id="ceph-volume-lvm-partitions"></a>
 
 ## Partitioning
-`ceph-volume lvm` does not currently create partitions from a whole device.
+``ceph-volume lvm`` does not currently create partitions from a whole device.
 If using device partitions the only requirement is that they contain the
-`PARTUUID` and that it is discoverable by `blkid`. Both `fdisk` and
-`parted` will create that automatically for a new partition.
+``PARTUUID`` and that it is discoverable by ``blkid``. Both ``fdisk`` and
+``parted`` will create that automatically for a new partition.
 
-For example, using a new, unformatted drive (`/dev/sdd` in this case) we can
-use `parted` to create a new partition. First we list the device
+For example, using a new, unformatted drive (``/dev/sdd`` in this case) we can
+use ``parted`` to create a new partition. First we list the device
 information:
 
 ```bash
@@ -240,8 +240,8 @@ Sector size (logical/physical): 512B/512B
 Disk Flags:
 ```
 
-This device is not even labeled yet, so we can use `parted` to create
-a `gpt` label before we create a partition, and verify again with ``parted
+This device is not even labeled yet, so we can use ``parted`` to create
+a ``gpt`` label before we create a partition, and verify again with ``parted
 print``:
 
 ```bash
@@ -259,8 +259,8 @@ Partition Table: gpt
 Disk Flags:
 ```
 
-Now lets create a single partition, and verify later if `blkid` can find
-a `PARTUUID` that is needed by `ceph-volume`:
+Now lets create a single partition, and verify later if ``blkid`` can find
+a ``PARTUUID`` that is needed by ``ceph-volume``:
 
 ```bash
 parted --script /dev/sdd mkpart primary 1 100%
@@ -273,7 +273,7 @@ blkid /dev/sdd1
 /dev/sdd1: PARTLABEL="primary" PARTUUID="16399d72-1e1f-467d-96ee-6fe371a7d0d4"
 ```
 
-.. _ceph-volume-lvm-existing-osds:
+<a id="ceph-volume-lvm-existing-osds"></a>
 
 ## Existing OSDs
 For existing clusters that want to use this new system and have OSDs that are
@@ -292,7 +292,7 @@ already running there are a few things to take into account:
   be removed (like fstab mount points)
 
 The one time process for an existing OSD, with an ID of 0 and using
-a `"ceph"` cluster name would look like (the following command will **destroy
+a ``"ceph"`` cluster name would look like (the following command will **destroy
 any data** in the OSD):
 
 ```bash
@@ -302,64 +302,64 @@ ceph-volume lvm prepare --filestore --osd-id 0 --osd-fsid E3D291C1-E7BF-4984-979
 The command line tool will not contact the monitor to generate an OSD ID and
 will format the LVM device in addition to storing the metadata on it so that it
 can be started later (for detailed metadata description see
-ceph-volume-lvm-tags).
+[ceph-volume-lvm-tags](../../dev/ceph-volume/lvm.md#ceph-volume-lvm-tags)).
 
 ## Crush device class
 
-To set the crush device class for the OSD, use the `--crush-device-class` flag.
+To set the crush device class for the OSD, use the ``--crush-device-class`` flag.
 
 ```bash
 ceph-volume lvm prepare --bluestore --data vg/lv --crush-device-class foo
 ```
 
-.. _ceph-volume-lvm-multipath:
+<a id="ceph-volume-lvm-multipath"></a>
 
 ## ``multipath`` support
-`multipath` devices are supported if `lvm` is configured properly.
+``multipath`` devices are supported if ``lvm`` is configured properly.
 
 **Leave it to LVM**
 
 Most Linux distributions should ship their LVM2 package with
-`multipath_component_detection = 1` in the default configuration. With this
-setting `LVM` ignores any device that is a multipath component and
-`ceph-volume` will accordingly not touch these devices.
+``multipath_component_detection = 1`` in the default configuration. With this
+setting ``LVM`` ignores any device that is a multipath component and
+``ceph-volume`` will accordingly not touch these devices.
 
 **Using filters**
 
-Should this setting be unavailable, a correct `filter` expression must be
-provided in `lvm.conf`. `ceph-volume` must not be able to use both the
+Should this setting be unavailable, a correct ``filter`` expression must be
+provided in ``lvm.conf``. ``ceph-volume`` must not be able to use both the
 multipath device and its multipath components.
 
 ## Storing metadata
 The following tags will get applied as part of the preparation process
 regardless of the type of volume (journal or data) or OSD objectstore:
 
-* `cluster_fsid`
-* `encrypted`
-* `osd_fsid`
-* `osd_id`
-* `crush_device_class`
+* ``cluster_fsid``
+* ``encrypted``
+* ``osd_fsid``
+* ``osd_id``
+* ``crush_device_class``
 
 For bluestore these tags will be added:
 
-* `block_device`
-* `block_uuid`
-* `db_device`
-* `db_uuid`
-* `wal_device`
-* `wal_uuid`
+* ``block_device``
+* ``block_uuid``
+* ``db_device``
+* ``db_uuid``
+* ``wal_device``
+* ``wal_uuid``
 
-> **Note:** For the complete lvm tag conventions see ceph-volume-lvm-tag-api
+> **Note:** For the complete lvm tag conventions see [ceph-volume-lvm-tag-api](../../dev/ceph-volume/lvm.md#ceph-volume-lvm-tag-api)
 
 ## Summary
-To recap the `prepare` process for bluestore:
+To recap the ``prepare`` process for bluestore:
 
 1. Accepts raw physical devices, partitions on physical devices or logical volumes as arguments.
 1. Creates logical volumes on any raw physical devices.
 1. Generate a UUID for the OSD
 1. Ask the monitor get an OSD ID reusing the generated UUID
 1. OSD data directory is created on a tmpfs mount.
-1. `block`, `block.wal`, and `block.db` are symlinked if defined.
+1. ``block``, ``block.wal``, and ``block.db`` are symlinked if defined.
 1. monmap is fetched for activation
-1. Data directory is populated by `ceph-osd`
+1. Data directory is populated by ``ceph-osd``
 1. Logical Volumes are assigned all the Ceph metadata using lvm tags

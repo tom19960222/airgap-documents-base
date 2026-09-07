@@ -16,7 +16,7 @@ Object Gateway stores that data in the Ceph Storage Cluster in encrypted form.
 
 > **Note:** Requests for server-side encryption must be sent over a secure HTTPS
 > connection to avoid sending secrets in plaintext. If a proxy is used
-> for SSL termination, `rgw trust forwarded https` must be enabled
+> for SSL termination, ``rgw trust forwarded https`` must be enabled
 > before forwarded requests will be trusted as secure.
 
 > **Note:** Server-side encryption keys must be 256-bit long and base64 encoded.
@@ -27,7 +27,7 @@ In this mode, the client passes an encryption key along with each request to
 read or write encrypted data. It is the client's responsibility to manage those
 keys and remember which key was used to encrypt each object.
 
-This is implemented in S3 according to the Amazon SSE-C specification.
+This is implemented in S3 according to the [Amazon SSE-C](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) specification.
 
 As all key management is handled by the client, no special Ceph configuration
 is needed to support this encryption mode.
@@ -39,13 +39,13 @@ These keys are then
 retrieved on demand by the Ceph Object Gateway to serve requests to encrypt
 or decrypt data.
 
-This is implemented in S3 according to the Amazon SSE-KMS specification.
+This is implemented in S3 according to the [Amazon SSE-KMS](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) specification.
 
 In principle, any key management service could be used here.  Currently
-integration with Barbican, Vault, and KMIP are implemented.
+integration with [Barbican](https://wiki.openstack.org/wiki/Barbican), [Vault](https://www.vaultproject.io/docs/), and [KMIP](http://www.oasis-open.org/committees/kmip/) are implemented.
 
-See radosgw-barbican, radosgw-vault,
-and radosgw-kmip.
+See [radosgw-barbican](barbican.md#radosgw-barbican), [radosgw-vault](vault.md#radosgw-vault),
+and [radosgw-kmip](kmip.md#radosgw-kmip).
 
 # SSE-S3
 
@@ -54,23 +54,23 @@ in Vault, but they are automatically created and deleted by Ceph and
 retrieved as required to serve requests to encrypt
 or decrypt data.
 
-This is implemented in S3 according to the Amazon SSE-S3 specification.
+This is implemented in S3 according to the [Amazon SSE-S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html) specification.
 
 In principle, any key management service could be used here.  Currently
-only integration with Vault, is implemented.
+only integration with [Vault](https://www.vaultproject.io/docs/), is implemented.
 
-See radosgw-vault.
+See [radosgw-vault](vault.md#radosgw-vault).
 
 # Bucket Encryption APIs
 
 Bucket Encryption APIs to support server-side encryption with Amazon
 S3-managed keys (SSE-S3) or AWS KMS customer master keys (SSE-KMS).
 
-See PutBucketEncryption, GetBucketEncryption, DeleteBucketEncryption
+See [PutBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html), [GetBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html), [DeleteBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html)
 
 # Automatic Encryption (for testing only)
 
-A `rgw crypt default encryption key` can be set in ceph.conf to force the
+A ``rgw crypt default encryption key`` can be set in ceph.conf to force the
 encryption of all objects that do not otherwise specify an encryption mode.
 
 The configuration expects a base64-encoded 256 bit key. For example:
@@ -82,13 +82,3 @@ rgw crypt default encryption key = 4YSmvJtBv0aZ7geVgAsdpRnLBEwWSWlMIGnRS8a9TSA=
 > **Important:** This mode is for diagnostic purposes only! The ceph configuration
 > file is not a secure method for storing encryption keys. Keys that are
 > accidentally exposed in this way should be considered compromised.
-
-.. _Amazon SSE-C: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
-.. _Amazon SSE-KMS: http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
-.. _Amazon SSE-S3: https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html
-.. _Barbican: https://wiki.openstack.org/wiki/Barbican
-.. _Vault: https://www.vaultproject.io/docs/
-.. _KMIP: http://www.oasis-open.org/committees/kmip/
-.. _PutBucketEncryption: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html
-.. _GetBucketEncryption: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html
-.. _DeleteBucketEncryption: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html

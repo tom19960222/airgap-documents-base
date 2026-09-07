@@ -5,7 +5,7 @@ title: "Installing Ceph"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/install/index.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _install-overview:
+<a id="install-overview"></a>
 
 # Installing Ceph
 
@@ -13,7 +13,7 @@ There are multiple ways to install Ceph.
 
 #### Recommended methods
 
-Cephadm is a tool that can be used to
+[Cephadm](../cephadm/install.md#cephadm-deploying-new-cluster) is a tool that can be used to
 install and manage a Ceph cluster.
 
 * cephadm supports only Octopus and newer releases.
@@ -62,7 +62,7 @@ tool that can be used to quickly deploy clusters. It is deprecated.
 
 [OpenNebula HCI clusters](https://docs.opennebula.io/stable/provision_clusters/hci_clusters/overview.html) deploys Ceph on various cloud platforms.
 
-Ceph can also be installed manually.
+Ceph can also be [installed manually](index_manual.md#install-manual).
 
 .. toctree::
    :hidden:
@@ -72,6 +72,4 @@ Ceph can also be installed manually.
 #### Windows
 
 For Windows installations, consult this document:
-Windows installation guide.
-
-.. _Windows installation guide: ./windows-install
+[Windows installation guide](windows-install.md).

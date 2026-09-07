@@ -23,7 +23,7 @@ How can the configuration be set? Well, there are several sources:
 etc.
 ```
 
- - arguments injected at runtime using `injectargs` or `config set`
+ - arguments injected at runtime using ``injectargs`` or ``config set``
 
 # The Configuration File
 
@@ -32,14 +32,14 @@ Most configuration settings originate in the Ceph configuration file.
 How do we find the configuration file? Well, in order, we check:
 
  - the default locations
- - the environment variable `CEPH_CONF`
- - the command line argument `-c`
+ - the environment variable ``CEPH_CONF``
+ - the command line argument ``-c``
 
 Each stanza of the configuration file describes the key-value pairs that will be in
 effect for a particular subset of the daemons. The "global" stanza applies to
 everything. The "mon", "osd", and "mds" stanzas specify settings to take effect
 for all monitors, all OSDs, and all mds servers, respectively.  A stanza of the
-form `mon.$name`, `osd.$name`, or `mds.$name` gives settings for the monitor, OSD, or
+form ``mon.$name``, ``osd.$name``, or ``mds.$name`` gives settings for the monitor, OSD, or
 MDS of that name, respectively. Configuration values that appear later in the
 file win over earlier ones.
 
@@ -48,28 +48,28 @@ A sample configuration file can be found in src/sample.ceph.conf.
 # Metavariables
 
 The configuration system allows any configuration value to be
-substituted into another value using the `$varname` syntax, similar
+substituted into another value using the ``$varname`` syntax, similar
 to how bash shell expansion works.
 
 A few additional special metavariables are also defined:
 
  - $host: expands to the current hostname
  - $type: expands to one of "mds", "osd", "mon", or "client"
- - $id: expands to the daemon identifier. For `osd.0`, this would be `0`; for `mds.a`, it would be `a`; for `client.admin`, it would be `admin`.
+ - $id: expands to the daemon identifier. For ``osd.0``, this would be ``0``; for ``mds.a``, it would be ``a``; for ``client.admin``, it would be ``admin``.
  - $num: same as $id
  - $name: expands to $type.$id
 
 # Reading configuration values
 
 There are two ways for Ceph code to get configuration values. One way is to
-read it directly from a variable named `g_conf`, or equivalently,
-`g_ceph_ctx->_conf`. The other is to register an observer that will be called
+read it directly from a variable named ``g_conf``, or equivalently,
+``g_ceph_ctx->_conf``. The other is to register an observer that will be called
 every time the relevant configuration values change. This observer will be
 called soon after the initial configuration is read, and every time after that
 when one of the relevant values changes. Each observer tracks a set of keys
 and is invoked only when one of the relevant keys changes.
 
-The interface to implement is found in `common/config_obs.h`.
+The interface to implement is found in ``common/config_obs.h``.
 
 The observer method should be preferred in new code because
 
@@ -81,35 +81,35 @@ The observer method should be preferred in new code because
    while another thread is reading them can lead to subtle and
    impossible-to-diagnose bugs.
 
-For these reasons, reading directly from `g_conf` should be considered deprecated
-and not done in new code.  Do not ever alter `g_conf`.
+For these reasons, reading directly from ``g_conf`` should be considered deprecated
+and not done in new code.  Do not ever alter ``g_conf``.
 
 # Changing configuration values
 
-Configuration values can be changed by calling `g_conf()->set_val`. After changing
-the configuration, you should call `g_conf()->apply_changes` to re-run all the
+Configuration values can be changed by calling ``g_conf()->set_val``. After changing
+the configuration, you should call ``g_conf()->apply_changes`` to re-run all the
 affected configuration observers. For convenience, you can call
-`g_conf()->set_val_or_die` to make a configuration change which you think should
+``g_conf()->set_val_or_die`` to make a configuration change which you think should
 never fail.
 
-`injectargs`, `parse_argv`, and `parse_env` are three other functions which modify
+``injectargs``, ``parse_argv``, and ``parse_env`` are three other functions which modify
 the configuration. Just like with set_val, you should call apply_changes after
 calling these functions to make sure your changes get applied.
 
-.. _dev config defining options:
+<a id="dev-config-defining-options"></a>
 
 # Defining config options
 
-Config options are defined in `common/options/*.yaml.in`. The options are categorized
+Config options are defined in ``common/options/*.yaml.in``. The options are categorized
 by their consumers. If an option is only used by ceph-osd, it should go to
-`osd.yaml.in`. All the `.yaml.in` files are translated into `.cc` and `.h` files
-at build time by `y2c.py`.
+``osd.yaml.in``. All the ``.yaml.in`` files are translated into ``.cc`` and ``.h`` files
+at build time by ``y2c.py``.
 
 > **Note:**
 > Ceph-mgr modules use the same configuration system as other Ceph components,
 > but their configuration options are defined within each module's Python
 > implementation. For details on defining mgr module configuration options,
-> see mgr module dev configuration options.
+> see [mgr module dev configuration options](../mgr/modules.md#mgr-module-dev-configuration-options).
 
 Each option is represented using a YAML mapping (dictionary). A typical option looks like
 
@@ -134,7 +134,7 @@ In which, following keys are allowed:
 
 ## level
 
-The `level` property of an option is an indicator for the probability the
+The ``level`` property of an option is an indicator for the probability the
 option is adjusted by an operator or a developer:
 
 .. describe:: basic
@@ -194,8 +194,8 @@ as a daemon (in this case, the regular default only applies to non-daemons). Lik
 default: crc32c
 ```
 
-Some literal postfixes are allowed when options with type of `float`, `size`
-and `secs`, like:
+Some literal postfixes are allowed when options with type of ``float``, ``size``
+and ``secs``, like:
 
 ```yaml
 - name: mon_scrub_interval
@@ -223,10 +223,10 @@ services:
 ```
 
 For example, the rocksdb options affect both the osd and mon. If an option is put
-into a service specific `.yaml.in` file, the corresponding service is added to
-its `services` property automatically. For instance, `osd_scrub_begin_hour`
-option is located in `osd.yaml.in`, even its `services` is not specified
-explicitly in this file, this property still contains `osd`.
+into a service specific ``.yaml.in`` file, the corresponding service is added to
+its ``services`` property automatically. For instance, ``osd_scrub_begin_hour``
+option is located in ``osd.yaml.in``, even its ``services`` is not specified
+explicitly in this file, this property still contains ``osd``.
 
 ## Tags
 
@@ -284,12 +284,12 @@ enum_values:
 
 # Documentation of Configuration Values
 
-Ceph configuration options are documented on-demand using the `:confval:`
+Ceph configuration options are documented on-demand using the ``:confval:``
 directive rather than in a centralized location.
 
 ## Documenting Configuration Options
 
-To document a configuration option, use the `:confval:` directive:
+To document a configuration option, use the ``:confval:`` directive:
 
 ```rst
 The check interval can be customized by the ``check_interval`` option:
@@ -298,13 +298,13 @@ The check interval can be customized by the ``check_interval`` option:
 ```
 
 > **Note:**
-> Ceph-mgr module options must include the `mgr/<module>/`
-> namespace prefix. In the example above, `check_interval` belongs to the
-> `inbox` module, so it's documented as `mgr/inbox/check_interval`.
+> Ceph-mgr module options must include the ``mgr/<module>/``
+> namespace prefix. In the example above, ``check_interval`` belongs to the
+> ``inbox`` module, so it's documented as ``mgr/inbox/check_interval``.
 
 ## Referencing Configuration Options
 
-Once documented, reference options using the `:confval:` role:
+Once documented, reference options using the ``:confval:`` role:
 
 ```rst
 With the :confval:`mgr/inbox/check_interval` setting, you can customize the
@@ -321,8 +321,8 @@ You can set the initial monitor members with :confval:`mon_initial_members`:
 
 ## Naming Conventions
 
-* **Mgr module options**: Use `mgr/<module>/<option_name>` format
-* **Regular options**: Use the option name directly (e.g., `mon_initial_members`)
+* **Mgr module options**: Use ``mgr/<module>/<option_name>`` format
+* **Regular options**: Use the option name directly (e.g., ``mon_initial_members``)
 
 This approach ensures consistent cross-referencing throughout the documentation
 while maintaining proper namespacing for different configuration contexts.

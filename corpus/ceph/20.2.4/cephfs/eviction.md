@@ -27,17 +27,17 @@ libcephfs.
 There are three situations in which a client may be evicted automatically.
 
 1. On an active MDS daemon, if a client has not communicated with the MDS for over
-   `session_autoclose` (a file system variable) seconds (300 seconds by
+   ``session_autoclose`` (a file system variable) seconds (300 seconds by
    default), then it will be evicted automatically.
 
 1. On an active MDS daemon, if a client has not responded to cap revoke messages
-   for over `mds_cap_revoke_eviction_timeout` (configuration option) seconds.
+   for over ``mds_cap_revoke_eviction_timeout`` (configuration option) seconds.
    This is disabled by default.
 
 1. During MDS startup (including on failover), the MDS passes through a
-   state called `reconnect`.  During this state, it waits for all the
+   state called ``reconnect``.  During this state, it waits for all the
    clients to connect to the new MDS daemon.  If any clients fail to do
-   so within the time window (`mds_reconnect_timeout`, 45 seconds by default)
+   so within the time window (``mds_reconnect_timeout``, 45 seconds by default)
    then they will be evicted.
 
 A warning message is sent to the cluster log if either of these situations
@@ -121,7 +121,7 @@ a fully healthy client back after an eviction is to unmount the client
 and do a fresh mount.
 
 If you are trying to reconnect clients in this way, you may also
-find it useful to set `client_reconnect_stale` to true in the
+find it useful to set ``client_reconnect_stale`` to true in the
 FUSE client, to prompt the client to try to reconnect.
 
 # Advanced: Configuring blocklisting
@@ -133,10 +133,10 @@ issue, then you may want to ask the MDS to be less strict.
 It is possible to respond to slow clients by simply dropping their
 MDS sessions, but permit them to re-open sessions and permit them
 to continue talking to OSDs.  To enable this mode, set
-`mds_session_blocklist_on_timeout` to false on your MDS nodes.
+``mds_session_blocklist_on_timeout`` to false on your MDS nodes.
 
 For the equivalent behaviour on manual evictions, set
-`mds_session_blocklist_on_evict` to false.
+``mds_session_blocklist_on_evict`` to false.
 
 Note that if blocklisting is disabled, then evicting a client will
 only have an effect on the MDS you send the command to.  On a system
@@ -145,7 +145,7 @@ eviction command to each active daemon.  When blocklisting is enabled
 (the default), sending an eviction command to just a single
 MDS is sufficient, because the blocklist propagates it to the others.
 
-.. _background_blocklisting_and_osd_epoch_barrier:
+<a id="background-blocklisting-and-osd-epoch-barrier"></a>
 
 # Background: Blocklisting and OSD epoch barrier
 

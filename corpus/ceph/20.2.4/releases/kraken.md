@@ -20,7 +20,7 @@ components.
 
 We recommend that all v11.2.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v11.2.1.txt -->.
 
 ## Notable Changes
 
@@ -306,7 +306,7 @@ next stable release, Luminous, is completed in the Spring of 2017.
     enabled to test the new feature.  Enabling this option on a cluster
     will permanently bar that cluster from being upgraded to future
     versions.
-  * We now default to the AsyncMessenger (`ms type = async`) instead
+  * We now default to the AsyncMessenger (``ms type = async``) instead
     of the legacy SimpleMessenger.  The most noticeable difference is
     that we now use a fixed sized thread pool for network connections
     (instead of two threads per socket with SimpleMessenger).
@@ -315,7 +315,7 @@ next stable release, Luminous, is completed in the Spring of 2017.
     had to expire.  This prevents IO from blocking for an extended
     period for failures where the host remains up but the ceph-osd
     process is no longer running.
-  * There is a new `ceph-mgr` daemon.  It is currently collocated with
+  * There is a new ``ceph-mgr`` daemon.  It is currently collocated with
     the monitors by default, and is not yet used for much, but the basic
     infrastructure is now in place.
   * The size of encoded OSDMaps has been reduced.
@@ -381,7 +381,7 @@ next stable release, Luminous, is completed in the Spring of 2017.
 * All clusters must first be upgraded to Jewel 10.2.z before upgrading
   to Kraken 11.2.z (or, eventually, Luminous 12.2.z).
 
-* The `sortbitwise` flag must be set on the Jewel cluster before upgrading
+* The ``sortbitwise`` flag must be set on the Jewel cluster before upgrading
   to Kraken.  The latest Jewel (10.2.8+) releases issue a health warning if
   the flag is not set, so this is probably already set.  If it is not, Kraken
   OSDs will refuse to start and will print and error message in their log.
@@ -505,7 +505,7 @@ osd scrub during recovery = true
   safeguard against pools being removed by accident.
 
 * If you have manually specified the monitor user rocksdb via the
-  `mon keyvaluedb = rocksdb` option, you will need to manually add a
+  ``mon keyvaluedb = rocksdb`` option, you will need to manually add a
   file to the mon data directory to preserve this option:
 
 ```
@@ -527,8 +527,8 @@ echo rocksdb > /var/lib/ceph/mon/ceph-`hostname`/kv_backend
   change it to a negative value (e.g., -1) to preserve the current
   behavior.
 
-* The `osd crush location` config option is no longer supported.  Please
-  update your ceph.conf to use the `crush location` option instead.
+* The ``osd crush location`` config option is no longer supported.  Please
+  update your ceph.conf to use the ``crush location`` option instead.
 
 * The static libraries are no longer included by the debian
   development packages (lib*-dev) as it is not required per debian
@@ -553,8 +553,8 @@ echo rocksdb > /var/lib/ceph/mon/ceph-`hostname`/kv_backend
   which means that a librados user might get fewer keys than they asked for.
   This is necessary to prevent careless users from requesting an unreasonable
   amount of data from the cluster in a single operation.  The new limits are
-  configured with `osd_max_omap_entries_per_request`, defaulting to 131,072, and
-  `osd_max_omap_bytes_per_request`, defaulting to 4MB.
+  configured with ``osd_max_omap_entries_per_request``, defaulting to 131,072, and
+  ``osd_max_omap_bytes_per_request``, defaulting to 4MB.
 
 * Calculation of recovery priorities has been updated.
   This could lead to unintuitive recovery prioritization

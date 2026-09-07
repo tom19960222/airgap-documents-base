@@ -9,8 +9,8 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. versionadded:: Kraken
 
-The multisite functionality of RGW introduced in Jewel allowed the ability to
-create multiple zones and mirror data and metadata between them. `Sync Modules`
+The [multisite](bucket_logging.md#multisite) functionality of RGW introduced in Jewel allowed the ability to
+create multiple zones and mirror data and metadata between them. ``Sync Modules``
 are built atop of the multisite framework that allows for forwarding data and
 metadata to a different external tier. A sync module allows for a set of actions
 to be performed whenever a change in data occurs (metadata ops like bucket or
@@ -22,11 +22,11 @@ tape drives, indexing metadata in ElasticSearch etc.
 
 A sync module configuration is local to a zone. The sync module determines
 whether the zone exports data or can only consume data that was modified in
-another zone. As of luminous the supported sync plugins are elasticsearch,
-`rgw`, which is the default sync plugin that synchronizes data between the
-zones and `log` which is a trivial sync plugin that logs the metadata
+another zone. As of luminous the supported sync plugins are [elasticsearch](elastic-sync-module.md),
+``rgw``, which is the default sync plugin that synchronizes data between the
+zones and ``log`` which is a trivial sync plugin that logs the metadata
 operation that happens in the remote zones. The following docs are written with
-the example of a zone using elasticsearch sync module, the process would be similar
+the example of a zone using [elasticsearch sync module](elastic-sync-module.md), the process would be similar
 for configuring any sync plugin
 
 .. toctree::
@@ -36,21 +36,21 @@ for configuring any sync plugin
    Cloud Sync Module <cloud-sync-module>
    Archive Sync Module <archive-sync-module>
 
-.. note `rgw` is the default sync plugin and there is no need to explicitly
+.. note ``rgw`` is the default sync plugin and there is no need to explicitly
    configure this.
 
 ## Requirements and Assumptions
 
-Let us assume a simple multisite configuration as described in the multisite
-docs, of 2 zones `us-east` and `us-west`, let's add a third zone
-`us-east-es` which is a zone that only processes metadata from the other
-sites. This zone can be in the same or a different ceph cluster as `us-east`.
+Let us assume a simple multisite configuration as described in the [multisite](bucket_logging.md#multisite)
+docs, of 2 zones ``us-east`` and ``us-west``, let's add a third zone
+``us-east-es`` which is a zone that only processes metadata from the other
+sites. This zone can be in the same or a different ceph cluster as ``us-east``.
 This zone would only consume metadata from other zones and RGWs in this zone
 will not serve any end user requests directly.
 
 ## Configuring Sync Modules
 
-Create the third zone similar to the multisite docs, for example
+Create the third zone similar to the [multisite](bucket_logging.md#multisite) docs, for example
 
 ```bash
 radosgw-admin zone create --rgw-zonegroup=us --rgw-zone=us-east-es \
@@ -63,14 +63,14 @@ A sync module can be configured for this zone via the following
 radosgw-admin zone modify --rgw-zone={zone-name} --tier-type={tier-type} --tier-config={set of key=value pairs}
 ```
 
-For example in the `elasticsearch` sync module
+For example in the ``elasticsearch`` sync module
 
 ```bash
 radosgw-admin zone modify --rgw-zone={zone-name} --tier-type=elasticsearch \
                             --tier-config=endpoint=http://localhost:9200,num_shards=10,num_replicas=1
 ```
 
-For the various supported tier-config options refer to the elasticsearch sync module docs
+For the various supported tier-config options refer to the [elasticsearch sync module](elastic-sync-module.md) docs
 
 Finally update the period
 
@@ -84,8 +84,3 @@ Now start the radosgw in the zone
 systemctl start ceph-radosgw@rgw.`hostname -s`
 systemctl enable ceph-radosgw@rgw.`hostname -s`
 ```
-
-.. _`elasticsearch sync module`: ../elastic-sync-module
-.. _`elasticsearch`: ../elastic-sync-module
-.. _`cloud sync module`: ../cloud-sync-module
-.. _`archive sync module`: ../archive-sync-module

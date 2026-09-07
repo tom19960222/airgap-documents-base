@@ -5,30 +5,29 @@ title: "File layouts"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/file-layouts.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _file-layouts:
+<a id="file-layouts"></a>
 
 # File layouts
 
 The layout of a file controls how its contents are mapped to Ceph RADOS objects.  You can
 read and write a file's layout using *virtual extended attributes* or xattrs.
 
-Clients must use the `p` flag when writing a file's layout. See :ref:`Layout
-and Quota restriction (the 'p' flag) <cephfs-layout-and-quota-restriction>`.
+Clients must use the ``p`` flag when writing a file's layout. See [Layout and Quota restriction (the 'p' flag)](client-auth.md#cephfs-layout-and-quota-restriction).
 
 The name of the layout xattrs depends on whether a file is a regular file or a directory.  Regular
-files' layout xattrs are called `ceph.file.layout`, whereas directories' layout xattrs are called
-`ceph.dir.layout`.  Where subsequent examples refer to `ceph.file.layout`, substitute `dir` as appropriate
+files' layout xattrs are called ``ceph.file.layout``, whereas directories' layout xattrs are called
+``ceph.dir.layout``.  Where subsequent examples refer to ``ceph.file.layout``, substitute ``dir`` as appropriate
 when dealing with directories.
 
 > **Tip:**
 > Your linux distribution may not ship with commands for manipulating xattrs by default,
-> the required package is usually called `attr`.
+> the required package is usually called ``attr``.
 
 ## Layout fields
 
 pool
     This is a string and contains either an ID or a name. Strings may contain
-    only characters in the set `[a-zA-Z0-9\_-.]`. This determines the RADOS
+    only characters in the set ``[a-zA-Z0-9\_-.]``. This determines the RADOS
     pool that stores a file's data objects.
 
 pool_id
@@ -40,7 +39,7 @@ pool_name
     when the pool was created.
 
 pool_namespace
-    This is a string containing only characters in the set `[a-zA-Z0-9\_-.]`.
+    This is a string containing only characters in the set ``[a-zA-Z0-9\_-.]``.
     This determines which RADOS namespace within the data pool that the objects
     will be written to.
     Empty by default (i.e. default namespace).
@@ -63,7 +62,7 @@ object_size
 > **Tip:**
 > RADOS enforces a configurable limit on object sizes: if you increase CephFS
 > object sizes beyond that limit then writes may not succeed.  The OSD
-> setting is `osd_max_object_size`, which is 128MB by default.
+> setting is ``osd_max_object_size``, which is 128MB by default.
 > Very large RADOS objects may prevent smooth operation of the cluster,
 > so increasing the object size limit past the default is not recommended.
 
@@ -122,14 +121,14 @@ ceph.dir.layout="stripe_unit=4194304 stripe_count=2 object_size=4194304 pool=cep
 Getting the layout in json format. If there's no specific layout set for the
 particular inode, the system traverses the directory path backwards and finds
 the closest ancestor directory with a layout and returns it in json format.
-A file layout also can be retrieved in json format using `ceph.file.layout.json` vxattr.
+A file layout also can be retrieved in json format using ``ceph.file.layout.json`` vxattr.
 
-A virtual field named `inheritance` is added to the json output to show the status of layout.
-The `inheritance` field can have the following values:
+A virtual field named ``inheritance`` is added to the json output to show the status of layout.
+The ``inheritance`` field can have the following values:
 
-`@default` implies the system default layout
-`@set` implies that a specific layout has been set for that particular inode
-`@inherited` implies that the returned layout has been inherited from an ancestor
+``@default`` implies the system default layout
+``@set`` implies that a specific layout has been set for that particular inode
+``@inherited`` implies that the returned layout has been inherited from an ancestor
 
 ```bash
 $ getfattr -n ceph.dir.layout.json --only-values /mnt/mycephs/accounts
@@ -138,7 +137,7 @@ $ getfattr -n ceph.dir.layout.json --only-values /mnt/mycephs/accounts
 
 ## Writing layouts with ``setfattr``
 
-Layout fields are modified using `setfattr`:
+Layout fields are modified using ``setfattr``:
 
 ```bash
 $ ceph osd lspools
@@ -156,7 +155,7 @@ $ setfattr -n ceph.file.layout.pool_name -v cephfs_data file2  # Setting pool by
 ```
 
 > **Note:**
-> When the layout fields of a file are modified using `setfattr`, this file must be empty, otherwise an error will occur.
+> When the layout fields of a file are modified using ``setfattr``, this file must be empty, otherwise an error will occur.
 
 ```bash
 # touch an empty file
@@ -171,9 +170,9 @@ setfattr: file1: Directory not empty
 ```
 
 File and Directory layouts can also be set using the json format.
-The `inheritance` field is ignored when setting the layout.
-Also, if both, `pool_name` and `pool_id` fields are specified, then the
-`pool_name` is given preference for better disambiguation.
+The ``inheritance`` field is ignored when setting the layout.
+Also, if both, ``pool_name`` and ``pool_id`` fields are specified, then the
+``pool_name`` is given preference for better disambiguation.
 
 ```bash
 $ setfattr -n ceph.file.layout.json -v '{"stripe_unit": 4194304, "stripe_count": 1, "object_size": 4194304, "pool_name": "cephfs.a.data", "pool_id": 3, "pool_namespace": "", "inheritance": "@default"}' file1
@@ -188,7 +187,7 @@ inheriting the layout of its ancestor, you can do so:
 setfattr -x ceph.dir.layout mydir
 ```
 
-Similarly, if you have set the `pool_namespace` attribute and wish
+Similarly, if you have set the ``pool_namespace`` attribute and wish
 to modify the layout to use the default namespace instead:
 
 ```bash
@@ -251,7 +250,7 @@ $ getfattr -n ceph.file.layout dir/childdir/grandchild
 ceph.file.layout="stripe_unit=4194304 stripe_count=4 object_size=4194304 pool=cephfs_data"
 ```
 
-.. _adding-data-pool-to-file-system:
+<a id="adding-data-pool-to-file-system"></a>
 
 ## Adding a data pool to the File System
 
@@ -274,4 +273,4 @@ $ setfattr -n ceph.dir.layout.pool -v cephfs_data_ssd /mnt/cephfs/myssddir
 
 All new files created within that directory will now inherit its layout and place their data in your newly added pool.
 
-You may notice that object counts in your primary data pool (the one passed to `fs new`) continue to increase, even if files are being created in the pool you added.  This is normal: the file data is stored in the pool specified by the layout, but a small amount of metadata is kept in the primary data pool for all files.
+You may notice that object counts in your primary data pool (the one passed to ``fs new``) continue to increase, even if files are being created in the pool you added.  This is normal: the file data is stored in the pool specified by the layout, but a small amount of metadata is kept in the primary data pool for all files.

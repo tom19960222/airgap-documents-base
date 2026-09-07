@@ -18,7 +18,7 @@ It can also be used to debug Teuthology tests runs.
 
 Basic usage with examples can be found [here.](https://geeksforgeeks.org/gdb-command-in-linux-with-examples)
 GDB can be attached to a running process. For instance, after deploying a
-development cluster, the process number (PID) of a `ceph-osd` daemon can be found in:
+development cluster, the process number (PID) of a ``ceph-osd`` daemon can be found in:
 
 ```
 $ cd build
@@ -32,7 +32,7 @@ $ gdb ./bin/ceph-osd -p <pid>
 ```
 
 > **Note:**
-> It is recommended to compile without any optimizations (`-O0` gcc flag)
+> It is recommended to compile without any optimizations (``-O0`` gcc flag)
 > in order to avoid elimintaion of intermediate values.
 
 Stopping for breakpoints while debugging may cause timeouts, so the following
@@ -46,7 +46,7 @@ osd_op_thread_suicide_timeout = 1500
 
 ### Debugging Teuthology Tests
 
-`src/script/ceph-debug-docker.sh` can be used to analyze Teuthology failures:
+``src/script/ceph-debug-docker.sh`` can be used to analyze Teuthology failures:
 
 ```
 $ ./ceph-debug-docker.sh <branch-name>

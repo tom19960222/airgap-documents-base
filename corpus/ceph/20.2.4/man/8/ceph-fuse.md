@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-.. _man-ceph-fuse:
+<a id="man-ceph-fuse"></a>
 
 # ceph-fuse -- FUSE-based client for ceph
 
@@ -22,7 +22,7 @@ fetched_at: 2026-08-18T01:32:45Z
 **ceph-fuse** is a FUSE ("Filesystem in USErspace") client for Ceph
 distributed file system. It will mount a ceph file system specified via the -m
 option or described by ceph.conf (see below) at the specific mount point. See
-Mount CephFS using FUSE for detailed information.
+[Mount CephFS using FUSE](../../cephfs/mount-using-fuse.md) for detailed information.
 
 The file system can be unmounted with:
 
@@ -30,7 +30,7 @@ The file system can be unmounted with:
 fusermount -u mountpoint
 ```
 
-or by sending `SIGINT` to the `ceph-fuse` process.
+or by sending ``SIGINT`` to the ``ceph-fuse`` process.
 
 # Options
 
@@ -93,6 +93,4 @@ the Ceph documentation at https://docs.ceph.com for more information.
 # See also
 
 fusermount(8),
-ceph\(8)
-
-.. _Mount CephFS using FUSE: ../../../cephfs/mount-using-fuse/
+[ceph](../../install/clone-source.md)\(8)

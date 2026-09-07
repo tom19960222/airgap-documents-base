@@ -36,13 +36,13 @@ Its recommended to call the mount helper via mount(8) as per:
 mount -t ceph name@.fs_name=/ /mnt/mycephfs -o mon_addr=1.2.3.4
 ```
 
-Note that the dot `.` still needs to be a part of the device string in this case.
+Note that the dot ``.`` still needs to be a part of the device string in this case.
 
 The first argument is the device part of the mount command. It includes the
 RADOS user for authentication, the file system name and a path within CephFS
 that will be mounted at the mount point.
 
-Monitor addresses can be passed using `mon_addr` mount option. Multiple monitor
+Monitor addresses can be passed using ``mon_addr`` mount option. Multiple monitor
 addresses can be passed by separating addresses with a slash (`/`). Only one
 monitor is needed to mount successfully; the client will learn about all monitors
 from any responsive monitor. However, it is a good idea to specify more than one
@@ -53,7 +53,7 @@ is assumed.
 If monitor addresses are not specified, then **mount.ceph** will attempt to determine
 monitor addresses using local configuration files and/or DNS SRV records. In similar
 way, if authentication is enabled on Ceph cluster (which is done using CephX) and
-options `secret` and `secretfile` are not specified in the command, the mount
+options ``secret`` and ``secretfile`` are not specified in the command, the mount
 helper will spawn a child process that will use the standard Ceph library routines
 to find a keyring and fetch the secret from it (including the monitor address and
 FSID if those not specified).
@@ -81,15 +81,15 @@ ms_mode=
     Set the connection mode that the client uses for transport. The available
     modes are:
 
-    - `legacy`: use messenger v1 protocol to talk to the cluster
+    - ``legacy``: use messenger v1 protocol to talk to the cluster
 
-    - `crc`: use messenger v2, without on-the-wire encryption
+    - ``crc``: use messenger v2, without on-the-wire encryption
 
-    - `secure`: use messenger v2, with on-the-wire encryption
+    - ``secure``: use messenger v2, with on-the-wire encryption
 
-    - `prefer-crc`: crc mode, if denied agree to secure mode
+    - ``prefer-crc``: crc mode, if denied agree to secure mode
 
-    - `prefer-secure`: secure mode, if denied agree to crc mode
+    - ``prefer-secure``: secure mode, if denied agree to crc mode
 
 mon_addr
     Monitor address of the cluster in the form of ip_address[:port]
@@ -106,13 +106,13 @@ secretfile
 
 recover_session=
     Set auto reconnect mode in the case where the client is blocklisted. The
-    available modes are `no` and `clean`. The default is `no`.
+    available modes are ``no`` and ``clean``. The default is ``no``.
 
-    - `no`: never attempt to reconnect when client detects that it has been
+    - ``no``: never attempt to reconnect when client detects that it has been
       blocklisted. Blocklisted clients will not attempt to reconnect and
       their operations will fail too.
 
-    - `clean`: client reconnects to the Ceph cluster automatically when it
+    - ``clean``: client reconnects to the Ceph cluster automatically when it
       detects that it has been blocklisted. During reconnect, client drops
       dirty data/metadata, invalidates page caches and writable file handles.
       After reconnect, file locks become stale because the MDS loses track of
@@ -229,16 +229,16 @@ crush_location=rack:myrack1|rack:myrack2|datacenter:mydc
 ```
 
 read_from_replica=
-    - `no`: Disable replica reads, always pick the primary OSD (since 5.8, default).
+    - ``no``: Disable replica reads, always pick the primary OSD (since 5.8, default).
 
-    - `balance`: When a replicated pool receives a read request, pick a random
+    - ``balance``: When a replicated pool receives a read request, pick a random
       OSD from the PG's acting set to serve it (since 5.8).
 
       This mode is safe for general use only since Octopus (i.e. after "ceph osd
       require-osd-release octopus"). Otherwise it should be limited to read-only
       workloads such as snapshots.
 
-    - `localize`: When a replicated pool receives a read request, pick the most
+    - ``localize``: When a replicated pool receives a read request, pick the most
       local OSD to serve it (since 5.8). The locality metric is calculated against
       the location of the client given with crush_location; a match with the
       lowest-valued bucket type wins.  For example, an OSD in a matching rack
@@ -314,10 +314,10 @@ for more information.
 
 # Feature Availability
 
-The `recover_session=` option was added to mainline Linux kernels in v5.4.
-`wsync` and `nowsync` were added in v5.7.
+The ``recover_session=`` option was added to mainline Linux kernels in v5.4.
+``wsync`` and ``nowsync`` were added in v5.7.
 
 # See also
 
-ceph-fuse\(8),
-ceph\(8)
+[ceph-fuse](ceph-fuse.md#options)\(8),
+[ceph](../../install/clone-source.md)\(8)

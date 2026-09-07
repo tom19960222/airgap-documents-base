@@ -5,7 +5,7 @@ title: "Device Management"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/devices.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-.. _devices:
+<a id="devices"></a>
 
 # Device Management
 
@@ -53,18 +53,18 @@ device light on|off <devid> [ident|fault] [--force]
 > works will depend upon such factors as your kernel revision, your SES
 > firmware, or the setup of your HBA.
 
-The `<devid>` parameter is the device identification. To retrieve this
+The ``<devid>`` parameter is the device identification. To retrieve this
 information, run the following command:
 
 ```bash
 ceph device ls
 ```
 
-The `[ident|fault]` parameter determines which kind of light will blink.  By
+The ``[ident|fault]`` parameter determines which kind of light will blink.  By
 default, the `identification` light is used.
 
 > **Note:** This command works only if the Cephadm or the Rook
-> orchestrator module is enabled.  To see
+> [orchestrator](../../mgr/orchestrator.md#orchestrator-cli-module) module is enabled.  To see
 > which orchestrator module is enabled, run the following command:
 >
 > .. prompt:: bash $
@@ -82,16 +82,16 @@ ceph config-key set mgr/cephadm/<host>/blink_device_light_cmd "lsmcli local-disk
 
 The following arguments can be used to customize the Jinja2 template:
 
-* `on`
+* ``on``
     A boolean value.
-* `ident_fault`
+* ``ident_fault``
     A string that contains `ident` or `fault`.
-* `dev`
+* ``dev``
     A string that contains the device ID: for example, `SanDisk_X400_M.2_2280_512GB_162924424784`.
-* `path`
+* ``path``
     A string that contains the device path: for example, `/dev/sda`.
 
-.. _enabling-monitoring:
+<a id="enabling-monitoring"></a>
 
 ## Enabling monitoring
 
@@ -101,7 +101,7 @@ range of internal metrics about the device's usage and health (for example: the
 number of hours powered on, the number of power cycles, the number of
 unrecoverable read errors). Other device types such as SAS and NVMe present a
 similar set of metrics (via slightly different standards).  All of these
-metrics can be collected by Ceph via the `smartctl` tool.
+metrics can be collected by Ceph via the ``smartctl`` tool.
 
 You can enable or disable health monitoring by running one of the following
 commands:
@@ -154,7 +154,7 @@ Ceph can predict drive life expectancy and device failures by analyzing the
 health metrics that it collects. The prediction modes are as follows:
 
 * *none*: disable device failure prediction.
-* *local*: use a pre-trained prediction model from the `ceph-mgr` daemon.
+* *local*: use a pre-trained prediction model from the ``ceph-mgr`` daemon.
 
 To configure the prediction mode, run a command of the following form:
 
@@ -199,7 +199,7 @@ unspecified.
 
 ## Health alerts
 
-The `mgr/devicehealth/warn_threshold` configuration option controls the
+The ``mgr/devicehealth/warn_threshold`` configuration option controls the
 health check for an expected device failure. If the device is expected to fail
 within the specified time interval, an alert is raised.
 
@@ -212,18 +212,18 @@ ceph device check-health
 
 ## Automatic Migration
 
-The `mgr/devicehealth/self_heal` option (enabled by default) automatically
+The ``mgr/devicehealth/self_heal`` option (enabled by default) automatically
 migrates data away from devices that are expected to fail soon. If this option
-is enabled, the module marks such devices `out` so that automatic migration
+is enabled, the module marks such devices ``out`` so that automatic migration
 will occur.
 
-> **Note:** The `mon_osd_min_up_ratio` configuration option can help prevent
+> **Note:** The ``mon_osd_min_up_ratio`` configuration option can help prevent
 > this process from cascading to total failure. If the "self heal" module
-> marks `out` so many OSDs that the ratio value of `mon_osd_min_up_ratio`
-> is exceeded, then the cluster raises the `DEVICE_HEALTH_TOOMANY` health
+> marks ``out`` so many OSDs that the ratio value of ``mon_osd_min_up_ratio``
+> is exceeded, then the cluster raises the ``DEVICE_HEALTH_TOOMANY`` health
 > check. For instructions on what to do in this situation, see
-> DEVICE_HEALTH_TOOMANY.
+> [DEVICE_HEALTH_TOOMANY](health-checks.md#rados-health-checks-device-health-toomany).
 
-The `mgr/devicehealth/mark_out_threshold` configuration option specifies the
+The ``mgr/devicehealth/mark_out_threshold`` configuration option specifies the
 time interval for automatic migration. If a device is expected to fail within
-the specified time interval, it will be automatically marked `out`.
+the specified time interval, it will be automatically marked ``out``.

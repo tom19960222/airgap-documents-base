@@ -12,48 +12,41 @@ When a cluster is up and running, it is possible to add or remove OSDs.
 # Adding OSDs
 
 OSDs can be added to a cluster in order to expand the cluster's capacity and
-resilience. Typically, an OSD is a Ceph `ceph-osd` daemon running on one
+resilience. Typically, an OSD is a Ceph ``ceph-osd`` daemon running on one
 storage drive within a host machine. But if your host machine has multiple
-storage drives, you may map one `ceph-osd` daemon for each drive on the
+storage drives, you may map one ``ceph-osd`` daemon for each drive on the
 machine.
 
 It's a good idea to check the capacity of your cluster so that you know when it
-approaches its capacity limits. If your cluster has reached its `near full`
+approaches its capacity limits. If your cluster has reached its ``near full``
 ratio, then you should add OSDs to expand your cluster's capacity.
 
-> **Warning:** Do not let your cluster reach its `full ratio` before adding an
+> **Warning:** Do not let your cluster reach its ``full ratio`` before adding an
 > OSD. OSD failures that occur after the cluster reaches its ``near full
-> ratio` might cause the cluster to exceed its `full ratio``.
+> ratio`` might cause the cluster to exceed its ``full ratio``.
 
 ## Deploying your Hardware
 
-If you are also adding a new host when adding a new OSD, see `Hardware
-Recommendations`_ for details on minimum recommendations for OSD hardware. To
+If you are also adding a new host when adding a new OSD, see [Hardware Recommendations](../../start/hardware-recommendations.md) for details on minimum recommendations for OSD hardware. To
 add an OSD host to your cluster, begin by making sure that an appropriate
 version of Linux has been installed on the host machine and that all initial
 preparations for your storage drives have been carried out. For details, see
-Filesystem Recommendations.
+Filesystem Recommendations <!-- unresolved-rst-link: kind=named target=Filesystem Recommendations -->.
 
 Next, add your OSD host to a rack in your cluster, connect the host to the
 network, and ensure that the host has network connectivity. For details, see
-Network Configuration Reference.
-
-.. _Hardware Recommendations: ../../../start/hardware-recommendations
-.. _Filesystem Recommendations: ../../configuration/filesystem-recommendations
-.. _Network Configuration Reference: ../../configuration/network-config-ref
+[Network Configuration Reference](../configuration/network-config-ref.md).
 
 ## Installing the Required Software
 
 If your cluster has been manually deployed, you will need to install Ceph
-software packages manually. For details, see Installing Ceph (Manual).
+software packages manually. For details, see [Installing Ceph (Manual)](../../install/index.md).
 Configure SSH for the appropriate user to have both passwordless authentication
 and root permissions.
 
-.. _Installing Ceph (Manual): ../../../install
-
 ## Adding an OSD (Manual)
 
-The following procedure sets up a `ceph-osd` daemon, configures this OSD to
+The following procedure sets up a ``ceph-osd`` daemon, configures this OSD to
 use one drive, and configures the cluster to distribute data to the OSD. If
 your host machine has multiple drives, you may add an OSD for each drive on the
 host by repeating this procedure.
@@ -86,10 +79,10 @@ ceph osd create [{uuid} [{id}]]
    If the optional parameter {id} is specified it will be used as the OSD ID.
    However, if the ID number is already in use, the command will fail.
 
-> **Warning:** Explicitly specifying the `{id}` parameter is not
+> **Warning:** Explicitly specifying the ``{id}`` parameter is not
 > recommended. IDs are allocated as an array, and any skipping of entries
 > consumes extra memory. This memory consumption can become significant if
-> there are large gaps or if clusters are large. By leaving the `{id}`
+> there are large gaps or if clusters are large. By leaving the ``{id}``
 > parameter unspecified, we ensure that Ceph uses the smallest ID number
 > available and that these problems are avoided.
 
@@ -117,7 +110,7 @@ ssh {new-osd-host}
 ceph-osd -i {osd-num} --mkfs --mkkey
 ```
 
-   Make sure that the directory is empty before running `ceph-osd`.
+   Make sure that the directory is empty before running ``ceph-osd``.
 
 1. Register the OSD authentication key by running a command of the following
    form:
@@ -126,15 +119,15 @@ ceph-osd -i {osd-num} --mkfs --mkkey
 ceph auth add osd.{osd-num} osd 'allow *' mon 'allow rwx' -i /var/lib/ceph/osd/ceph-{osd-num}/keyring
 ```
 
-   This presentation of the command has `ceph-{osd-num}` in the listed path
-   because many clusters have the name `ceph`. However, if your cluster name
-   is not `ceph`, then the string `ceph` in `ceph-{osd-num}` needs to be
+   This presentation of the command has ``ceph-{osd-num}`` in the listed path
+   because many clusters have the name ``ceph``. However, if your cluster name
+   is not ``ceph``, then the string ``ceph`` in ``ceph-{osd-num}`` needs to be
    replaced with your cluster name. For example, if your cluster name is
-   `cluster1`, then the path in the command should be
-   `/var/lib/ceph/osd/cluster1-{osd-num}/keyring`.
+   ``cluster1``, then the path in the command should be
+   ``/var/lib/ceph/osd/cluster1-{osd-num}/keyring``.
 
 1. Add the OSD to the CRUSH map by running the following command. This allows
-   the OSD to begin receiving data. The `ceph osd crush add` command can add
+   the OSD to begin receiving data. The ``ceph osd crush add`` command can add
    OSDs to the CRUSH hierarchy wherever you want. If you specify one or more
    buckets, the command places the OSD in the most specific of those buckets,
    and it moves that bucket underneath any other buckets that you have
@@ -151,21 +144,20 @@ ceph osd crush add {id-or-name} {weight}  [{bucket-type}={bucket-name} ...]
    the CRUSH map, add the OSD to the device list, add the host as a bucket (if
    it is not already in the CRUSH map), add the device as an item in the host,
    assign the device a weight, recompile the CRUSH map, and set the CRUSH map.
-   For details, see Add/Move an OSD. This is rarely necessary with recent
+   For details, see [Add/Move an OSD](crush-map.md#addosd). This is rarely necessary with recent
    releases (this sentence was written the month that Reef was released).
 
-.. _rados-replacing-an-osd:
+<a id="rados-replacing-an-osd"></a>
 
 ## Replacing an OSD
 
 > **Note:** If the procedure in this section does not work for you, try the
-> instructions in the `cephadm` documentation:
-> cephadm-replacing-an-osd.
+> instructions in the ``cephadm`` documentation:
+> [cephadm-replacing-an-osd](../../cephadm/services/osd.md#cephadm-replacing-an-osd).
 
 Sometimes OSDs need to be replaced: for example, when a disk fails, or when an
 administrator wants to reprovision OSDs with a new back end (perhaps when
-switching from Filestore to BlueStore). Replacing an OSD differs from `Removing
-the OSD`_ in that the replaced OSD's ID and CRUSH map entry must be kept intact
+switching from Filestore to BlueStore). Replacing an OSD differs from [Removing the OSD](add-or-rm-osds.md#removing-the-osd) in that the replaced OSD's ID and CRUSH map entry must be kept intact
 after the OSD is destroyed for replacement.
 
 1. Make sure that it is safe to destroy the OSD:
@@ -211,8 +203,8 @@ ceph-volume lvm create --osd-id {id} --data /dev/sdX
 ## Starting the OSD
 
 After an OSD is added to Ceph, the OSD is in the cluster. However, until it is
-started, the OSD is considered `down` and `in`. The OSD is not running and
-will be unable to receive data. To start an OSD, either run `service ceph`
+started, the OSD is considered ``down`` and ``in``. The OSD is not running and
+will be unable to receive data. To start an OSD, either run ``service ceph``
 from your admin host or run a command of the following form to start the OSD
 from its host machine:
 
@@ -220,13 +212,13 @@ from its host machine:
 sudo systemctl start ceph-osd@{osd-num}
 ```
 
-After the OSD is started, it is considered `up` and `in`.
+After the OSD is started, it is considered ``up`` and ``in``.
 
 ## Observing the Data Migration
 
 After the new OSD has been added to the CRUSH map, Ceph begins rebalancing the
 cluster by migrating placement groups (PGs) to the new OSD. To observe this
-process by using the ceph tool, run the following command:
+process by using the [ceph](monitoring.md) tool, run the following command:
 
 ```bash
 ceph -w
@@ -238,32 +230,29 @@ Or:
 watch ceph status
 ```
 
-The PG states will first change from `active+clean` to ``active, some
-degraded objects` and then return to `active+clean`` when migration
+The PG states will first change from ``active+clean`` to ``active, some
+degraded objects`` and then return to ``active+clean`` when migration
 completes. When you are finished observing, press Ctrl-C to exit.
-
-.. _Add/Move an OSD: ../crush-map#addosd
-.. _ceph: ../monitoring
 
 # Removing OSDs (Manual)
 
 It is possible to remove an OSD manually while the cluster is running: you
 might want to do this in order to reduce the size of the cluster or when
-replacing hardware. Typically, an OSD is a Ceph `ceph-osd` daemon running on
+replacing hardware. Typically, an OSD is a Ceph ``ceph-osd`` daemon running on
 one storage drive within a host machine. Alternatively, if your host machine
-has multiple storage drives, you might need to remove multiple `ceph-osd`
+has multiple storage drives, you might need to remove multiple ``ceph-osd``
 daemons: one daemon for each drive on the machine.
 
 > **Warning:** Before you begin the process of removing an OSD, make sure that
-> your cluster is not near its `full ratio`. Otherwise the act of removing
-> OSDs might cause the cluster to reach or exceed its `full ratio`.
+> your cluster is not near its ``full ratio``. Otherwise the act of removing
+> OSDs might cause the cluster to reach or exceed its ``full ratio``.
 
 ## Taking the OSD ``out`` of the Cluster
 
-OSDs are typically `up` and `in` before they are removed from the cluster.
-Before the OSD can be removed from the cluster, the OSD must be taken `out`
+OSDs are typically ``up`` and ``in`` before they are removed from the cluster.
+Before the OSD can be removed from the cluster, the OSD must be taken ``out``
 of the cluster so that Ceph can begin rebalancing and copying its data to other
-OSDs. To take an OSD `out` of the cluster, run a command of the following
+OSDs. To take an OSD ``out`` of the cluster, run a command of the following
 form:
 
 ```bash
@@ -272,23 +261,23 @@ ceph osd out {osd-num}
 
 ## Observing the Data Migration
 
-After the OSD has been taken `out` of the cluster, Ceph begins rebalancing
+After the OSD has been taken ``out`` of the cluster, Ceph begins rebalancing
 the cluster by migrating placement groups out of the OSD that was removed. To
-observe this process by using the ceph tool, run the following command:
+observe this process by using the [ceph](monitoring.md) tool, run the following command:
 
 ```bash
 ceph -w
 ```
 
-The PG states will change from `active+clean` to ``active, some degraded
-objects` and will then return to `active+clean`` when migration completes.
+The PG states will change from ``active+clean`` to ``active, some degraded
+objects`` and will then return to ``active+clean`` when migration completes.
 When you are finished observing, press Ctrl-C to exit.
 
-> **Note:** Under certain conditions, the action of taking `out` an OSD
+> **Note:** Under certain conditions, the action of taking ``out`` an OSD
 > might lead CRUSH to encounter a corner case in which some PGs remain stuck
-> in the `active+remapped` state. This problem sometimes occurs in small
+> in the ``active+remapped`` state. This problem sometimes occurs in small
 > clusters with few hosts (for example, in a small testing cluster). To
-> address this problem, mark the OSD `in` by running a command of the
+> address this problem, mark the OSD ``in`` by running a command of the
 > following form:
 >
 > .. prompt:: bash $
@@ -296,7 +285,7 @@ When you are finished observing, press Ctrl-C to exit.
 >    ceph osd in {osd-num}
 >
 > After the OSD has come back to its initial state, do not mark the OSD
-> `out` again. Instead, set the OSD's weight to `0` by running a command
+> ``out`` again. Instead, set the OSD's weight to ``0`` by running a command
 > of the following form:
 >
 > .. prompt:: bash $
@@ -305,17 +294,17 @@ When you are finished observing, press Ctrl-C to exit.
 >
 > After the OSD has been reweighted, observe the data migration and confirm
 > that it has completed successfully. The difference between marking an OSD
-> `out` and reweighting the OSD to `0` has to do with the bucket that
-> contains the OSD. When an OSD is marked `out`, the weight of the bucket is
-> not changed. But when an OSD is reweighted to `0`, the weight of the
+> ``out`` and reweighting the OSD to ``0`` has to do with the bucket that
+> contains the OSD. When an OSD is marked ``out``, the weight of the bucket is
+> not changed. But when an OSD is reweighted to ``0``, the weight of the
 > bucket is updated (namely, the weight of the OSD is subtracted from the
 > overall weight of the bucket). When operating small clusters, it can
 > sometimes be preferable to use the above reweight command.
 
 ## Stopping the OSD
 
-After you take an OSD `out` of the cluster, the OSD might still be running.
-In such a case, the OSD is `up` and `out`. Before it is removed from the
+After you take an OSD ``out`` of the cluster, the OSD might still be running.
+In such a case, the OSD is ``up`` and ``out``. Before it is removed from the
 cluster, the OSD must be stopped by running commands of the following form:
 
 ```bash
@@ -323,27 +312,26 @@ ssh {osd-host}
 sudo systemctl stop ceph-osd@{osd-num}
 ```
 
-After the OSD has been stopped, it is `down`.
+After the OSD has been stopped, it is ``down``.
 
 ## Removing the OSD
 
 The following procedure removes an OSD from the cluster map, removes the OSD's
 authentication key, removes the OSD from the OSD map, and removes the OSD from
-the `ceph.conf` file. If your host has multiple drives, it might be necessary
+the ``ceph.conf`` file. If your host has multiple drives, it might be necessary
 to remove an OSD from each drive by repeating this procedure.
 
 1. Begin by having the cluster forget the OSD. This step removes the OSD from
    the CRUSH map, removes the OSD's authentication key, and removes the OSD
-   from the OSD map. (The purge subcommand was
-   introduced in Luminous. For older releases, see :ref:`the procedure linked
-   here <ceph_osd_purge_procedure_pre_luminous>`.):
+   from the OSD map. (The [purge subcommand](../../man/8/ceph.md#ceph-admin-osd) was
+   introduced in Luminous. For older releases, see [the procedure linked here](add-or-rm-osds.md#ceph-osd-purge-procedure-pre-luminous).):
 
 ```bash
 ceph osd purge {id} --yes-i-really-mean-it
 ```
 
 1. Navigate to the host where the master copy of the cluster's
-   `ceph.conf` file is kept:
+   ``ceph.conf`` file is kept:
 
 ```bash
 ssh {admin-host}
@@ -351,7 +339,7 @@ cd /etc/ceph
 vim ceph.conf
 ```
 
-1. Remove the OSD entry from your `ceph.conf` file (if such an entry
+1. Remove the OSD entry from your ``ceph.conf`` file (if such an entry
    exists):
 
 ```
@@ -359,17 +347,17 @@ vim ceph.conf
     host = {hostname}
 ```
 
-1. Copy the updated `ceph.conf` file from the location on the host where the
-   master copy of the cluster's `ceph.conf` is kept to the `/etc/ceph`
+1. Copy the updated ``ceph.conf`` file from the location on the host where the
+   master copy of the cluster's ``ceph.conf`` is kept to the ``/etc/ceph``
    directory of the other hosts in your cluster.
 
-.. _ceph_osd_purge_procedure_pre_luminous:
+<a id="ceph-osd-purge-procedure-pre-luminous"></a>
 
 If your Ceph cluster is older than Luminous, you will be unable to use the
-`ceph osd purge` command. Instead, carry out the following procedure:
+``ceph osd purge`` command. Instead, carry out the following procedure:
 
 1. Remove the OSD from the CRUSH map so that it no longer receives data (for
-   more details, see Remove an OSD):
+   more details, see [Remove an OSD](crush-map.md#removeosd)):
 
 ```bash
 ceph osd crush remove {name}
@@ -398,5 +386,3 @@ ceph osd rm {osd-num}
 ```bash
 ceph osd rm 1
 ```
-
-.. _Remove an OSD: ../crush-map#removeosd

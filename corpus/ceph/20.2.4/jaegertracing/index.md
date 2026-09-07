@@ -71,7 +71,7 @@ jaegertracing/all-in-one:latest --processor.jaeger-compact.server-host-port=6799
 > to port the configured 6799. Use the option "--processor.jaeger-compact.server-host-port=6799" for manual Jaeger
 > deployments.
 
-.. _jaegertracing-enable:
+<a id="jaegertracing-enable"></a>
 
 ## HOW TO ENABLE TRACING IN CEPH
 
@@ -114,10 +114,8 @@ The names of multipart traces have the following format: `multipart_upload
 
 rgw service in Jaeger Frontend:
 
-.. image:: ./rgw_jaeger.png
-   :width: 400
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/jaegertracing/rgw_jaeger.png)
 
 osd service in Jaeger Frontend:
 
-.. image:: ./osd_jaeger.png
-   :width: 400
+![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/jaegertracing/osd_jaeger.png)

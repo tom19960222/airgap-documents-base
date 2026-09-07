@@ -56,7 +56,7 @@ will no longer be a problem.)
 * rgw: do not return error on empty owner when setting ACL
 * sysvinit, upstart: prevent starting daemons using both init systems
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.72.2.txt -->.
 
 # v0.72.1 Emperor
 

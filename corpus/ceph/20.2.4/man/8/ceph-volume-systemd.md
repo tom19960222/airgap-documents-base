@@ -24,26 +24,26 @@ It translates the input into a system call to ceph-volume for activation
 purposes only.
 
 # Examples
-Its input is the `systemd instance name` (represented by `%i` in a systemd
+Its input is the ``systemd instance name`` (represented by ``%i`` in a systemd
 unit), and it should be in the following format:
 
 ```
 <ceph-volume subcommand>-<extra metadata>
 ```
 
-In the case of `lvm` a call could look like:
+In the case of ``lvm`` a call could look like:
 
 ```
 /usr/bin/ceph-volume-systemd lvm-0-8715BEB4-15C5-49DE-BA6F-401086EC7B41
 ```
 
-Which in turn will call `ceph-volume` in the following way:
+Which in turn will call ``ceph-volume`` in the following way:
 
 ```
 ceph-volume lvm trigger  0-8715BEB4-15C5-49DE-BA6F-401086EC7B41
 ```
 
-Any other subcommand will need to have implemented a `trigger` command that
+Any other subcommand will need to have implemented a ``trigger`` command that
 can consume the extra metadata in this format.
 
 # Availability
@@ -54,4 +54,4 @@ http://docs.ceph.com/ for more information.
 
 # See also
 
-ceph-osd\(8),
+[ceph-osd](ceph-osd.md)\(8),

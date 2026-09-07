@@ -37,11 +37,11 @@ fetched_at: 2026-08-18T01:32:45Z
 **Multipath IO Setup:**
 
 Configuring the MPIO load balancing policy, setting the timeout and
-retry options are using PowerShell with the `mpclaim` command. The
+retry options are using PowerShell with the ``mpclaim`` command. The
 rest is done in the iSCSI Initiator tool.
 
 > **Note:**
-> It is recommended to increase the `PDORemovePeriod` option to 120
+> It is recommended to increase the ``PDORemovePeriod`` option to 120
 > seconds from PowerShell. This value might need to be adjusted based
 > on the application. When all paths are down, and 120 seconds
 > expires, the operating system will start failing IO requests.
@@ -72,7 +72,7 @@ MSDSM-wide Load Balance Policy: Fail Over Only
    “MPIO...” button.
 
 1. On the "Device Details" window the paths to each target portal is
-   displayed. If using the `ceph-ansible` setup method, the
+   displayed. If using the ``ceph-ansible`` setup method, the
    iSCSI gateway will use ALUA to tell the iSCSI initiator which path
    and iSCSI gateway should be used as the primary path. The Load
    Balancing Policy “Fail Over Only” must be selected
@@ -84,7 +84,7 @@ mpclaim -s -d $MPIO_DISK_ID
 ```
 
 > **Note:**
-> For the `ceph-ansible` setup method, there will be one
+> For the ``ceph-ansible`` setup method, there will be one
 > Active/Optimized path which is the path to the iSCSI gateway node
 > that owns the LUN, and there will be an Active/Unoptimized path for
 > each other iSCSI gateway node.

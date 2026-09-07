@@ -16,7 +16,7 @@ This Hammer point release fixes several bugs and adds two new features.
 
 We recommend that all hammer v0.94.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.10.txt -->.
 
 ## New Features
 
@@ -114,7 +114,7 @@ from generating packages for Ubuntu Precise and CentOS 6.x.
 
 We recommend all users of v0.94.7 or older upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.9.txt -->.
 
 ## Notable Changes
 
@@ -126,7 +126,7 @@ This Hammer point release fixes several bugs.
 
 We recommend that all hammer v0.94.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.8.txt -->.
 
 ## Notable Changes
 
@@ -194,7 +194,7 @@ for handling OSDs with higher-than-average utilizations.
 
 We recommend that all hammer v0.94.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.7.txt -->.
 
 ## Notable Changes
 
@@ -253,7 +253,7 @@ inodes.
 
 We recommend that all hammer v0.94.x users upgrade.
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.6.txt -->.
 
 ## Notable Changes
 * build/ops: Ceph daemon failed to start, because the service name was already used. ([issue#13474](http://tracker.ceph.com/issues/13474), [pr#6832](http://github.com/ceph/ceph/pull/6832), Chuanhong Wang)
@@ -375,7 +375,7 @@ All v0.94.4 Hammer users are strongly encouraged to upgrade.
 * osd: osd/ReplicatedPG: remove stray debug line ([issue#13455](http://tracker.ceph.com/issues/13455), [pr#6362](http://github.com/ceph/ceph/pull/6362), Sage Weil)
 * tests: qemu workunit refers to apt-mirror.front.sepia.ceph.com ([issue#13420](http://tracker.ceph.com/issues/13420), [pr#6330](http://github.com/ceph/ceph/pull/6330), Yuan Zhou)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.5.txt -->.
 
 # v0.94.4 Hammer
 
@@ -479,7 +479,7 @@ All v0.94.x Hammer users are strongly encouraged to upgrade.
 * tests: TEST_crush_rule_create_erasure consistently fails on i386 builder ([issue#12419](http://tracker.ceph.com/issues/12419), [pr#6201](http://github.com/ceph/ceph/pull/6201), Loic Dachary)
 * tools: ceph-disk zap should ensure block device ([issue#11272](http://tracker.ceph.com/issues/11272), [pr#5755](http://github.com/ceph/ceph/pull/5755), Loic Dachary)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.4.txt -->.
 
 # v0.94.3 Hammer
 
@@ -492,8 +492,8 @@ All v0.94.x Hammer users are strongly encouraged to upgrade.
 
 ## Upgrading
 
-* The `pg ls-by-{pool,primary,osd}` commands and `pg ls` now take
-  the argument `recovering` instead of `recovery` in order to
+* The ``pg ls-by-{pool,primary,osd}`` commands and ``pg ls`` now take
+  the argument ``recovering`` instead of ``recovery`` in order to
   include the recovering pgs in the listed pgs.
 
 ## Notable Changes
@@ -563,7 +563,7 @@ All v0.94.x Hammer users are strongly encouraged to upgrade.
 * fs: client: reference counting 'struct Fh' ([issue#12088](http://tracker.ceph.com/issues/12088), [pr#5222](http://github.com/ceph/ceph/pull/5222), Yan, Zheng)
 * build/ops: ceph.spec: update OpenSUSE BuildRequires  ([issue#11611](http://tracker.ceph.com/issues/11611), [pr#4667](http://github.com/ceph/ceph/pull/4667), Loic Dachary)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.3.txt -->.
 
 # v0.94.2 Hammer
 
@@ -632,7 +632,7 @@ $ radosgw-admin bucket check --check-head-obj-locator \
 * tests: TestFlatIndex.cc races with TestLFNIndex.cc (#11217, Xinze Chi)
 * tests: ceph-helpers kill_daemons fails when kill fails (#11398, Loic Dachary)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.2.txt -->.
 
 # v0.94.1 Hammer
 
@@ -654,7 +654,7 @@ We recommend that all v0.94 users upgrade.
 * crush: fix has_v4_buckets (#11364 Sage Weil)
 * osd: fix negative degraded objects during backfilling (#7737 Guang Yang)
 
-For more detailed information, see the complete changelog.
+For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.1.txt -->.
 
 # v0.94 Hammer
 
@@ -671,7 +671,7 @@ Highlights since Giant include:
   instance of the S3/Swift gateway using the embedded Civetweb server.
   This is vastly simpler than the previous Apache-based deployment.
   There are a few rough edges (e.g., around SSL support) but we
-  encourage users to try the new method.
+  encourage users to try the new method <!-- unresolved-rst-link: kind=named target=the new method -->.
 * *RGW object versioning*: RGW now supports the S3 object versioning
   API, which preserves old version of objects instead of overwriting
   them.
@@ -709,8 +709,6 @@ Highlights since Giant include:
   pertinent details on OSD disk utilizations.  The 'ceph pg ls ...'
   command makes it much simpler to query PG states while diagnosing
   cluster issues.
-
-.. _the new method: ../start/quick-ceph-deploy/#add-an-rgw-instance
 
 Other highlights since Firefly include:
 
@@ -924,22 +922,22 @@ enable experimental unrecoverable data corrupting features = keyvaluestore
 * The 'rados getxattr ...' command used to add a gratuitous newline to the attr
   value; it now does not.
 
-* The `*_kb perf` counters on the monitor have been removed.  These are
-  replaced with a new set of `*_bytes` counters (e.g., `cluster_osd_kb` is
-  replaced by `cluster_osd_bytes`).
+* The ``*_kb perf`` counters on the monitor have been removed.  These are
+  replaced with a new set of ``*_bytes`` counters (e.g., ``cluster_osd_kb`` is
+  replaced by ``cluster_osd_bytes``).
 
-* The `rd_kb` and `wr_kb` fields in the JSON dumps for pool stats (accessed
-  via the `ceph df detail -f json-pretty` and related commands) have been
-  replaced with corresponding `*_bytes` fields.  Similarly, the
-  `total_space`, `total_used`, and `total_avail` fields are replaced with
-  `total_bytes`, `total_used_bytes`,  and `total_avail_bytes` fields.
+* The ``rd_kb`` and ``wr_kb`` fields in the JSON dumps for pool stats (accessed
+  via the ``ceph df detail -f json-pretty`` and related commands) have been
+  replaced with corresponding ``*_bytes`` fields.  Similarly, the
+  ``total_space``, ``total_used``, and ``total_avail`` fields are replaced with
+  ``total_bytes``, ``total_used_bytes``,  and ``total_avail_bytes`` fields.
 
-* The `rados df --format=json` output `read_bytes` and `write_bytes`
+* The ``rados df --format=json`` output ``read_bytes`` and ``write_bytes``
   fields were incorrectly reporting ops; this is now fixed.
 
-* The `rados df --format=json` output previously included `read_kb` and
-  `write_kb` fields; these have been removed.  Please use `read_bytes` and
-  `write_bytes` instead (and divide by 1024 if appropriate).
+* The ``rados df --format=json`` output previously included ``read_kb`` and
+  ``write_kb`` fields; these have been removed.  Please use ``read_bytes`` and
+  ``write_bytes`` instead (and divide by 1024 if appropriate).
 
 * The experimental keyvaluestore-dev OSD backend had an on-disk format
   change that prevents existing OSD data from being upgraded.  This
@@ -1598,7 +1596,7 @@ Major features since Giant include:
 ## Upgrading
 
 * If you are upgrading from v0.92, you must stop all OSD daemons and flush their
-  journals (`ceph-osd -i NNN --flush-journal`) before upgrading.  There was
+  journals (``ceph-osd -i NNN --flush-journal``) before upgrading.  There was
   a transaction encoding bug in v0.92 that broke compatibility.  Upgrading from
   v0.91 or anything earlier is safe.
 

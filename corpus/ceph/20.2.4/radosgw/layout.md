@@ -17,7 +17,7 @@ Swift offers something called a *container*, which we use interchangeably with
 the S3 term *bucket*, so we say that RGW's buckets implement Swift containers.
 
 This document does not consider how RGW _operates_ on these structures,
-e.g. the use of `encode()` and `decode()` methods for serialization.
+e.g. the use of ``encode()`` and ``decode()`` methods for serialization.
 
 ## Conceptual View
 
@@ -70,7 +70,7 @@ Some variables have been used in above commands, they are:
 Each metadata entry is kept on a single RADOS object. See below for implementation details.
 
 Note that the metadata is not indexed. When listing a metadata section we do a
-RADOS `pgls` operation on the containing pool.
+RADOS ``pgls`` operation on the containing pool.
 
 ### Bucket Index
 
@@ -103,16 +103,16 @@ The user ID in RGW is a string, typically the actual user name from the user
 credentials and not a hashed or mapped identifier.
 
 When accessing a user's data, the user record is loaded from an object
-named `<user_id>` in pool `default.rgw.meta` with namespace `users.uid`.
+named ``<user_id>`` in pool ``default.rgw.meta`` with namespace ``users.uid``.
 
-Bucket names are represented in the pool `default.rgw.meta` with namespace
-`root`. The bucket record is
+Bucket names are represented in the pool ``default.rgw.meta`` with namespace
+``root``. The bucket record is
 loaded in order to obtain the so-called marker, which serves as a bucket ID.
 
-S3/Swift objects are located in a pool named like `default.rgw.buckets.data`.
-RADOS object names are `<marker>_<key>`,
-for example `default.7593.4_image.png`, where the marker is `default.7593.4`
-and the key is `image.png`. Since these concatenated names are not parsed,
+S3/Swift objects are located in a pool named like ``default.rgw.buckets.data``.
+RADOS object names are ``<marker>_<key>``,
+for example ``default.7593.4_image.png``, where the marker is ``default.7593.4``
+and the key is ``image.png``. Since these concatenated names are not parsed,
 only passed down to RADOS, the choice of the separator is not important and
 causes no ambiguity. For the same reason, slashes are permitted in object
 names (keys).
@@ -123,14 +123,14 @@ thus providing the necessary scaling. The layout and naming of these pools
 is controlled by a 'policy' setting.[3]
 
 An RGW object may comprise multiple RADOS objects, the first of which
-is the `HEAD` that contains metadata including manifest, ACLs, content type,
+is the ``HEAD`` that contains metadata including manifest, ACLs, content type,
 ETag, and user-defined metadata. The metadata is stored in xattrs.
-The `HEAD` object may also inline up to rgw_max_chunk_size of object data, for efficiency
+The ``HEAD`` object may also inline up to rgw_max_chunk_size of object data, for efficiency
 and atomicity.  This enables a convenenient tiering strategy:  index pools
 are necessarily replicated (cannot be EC) and should be placed on fast SSD
 OSDs.  With a mix of small/hot RGW objects and larger, warm/cold RGW
 objects like video files, the larger objects will automatically be placed
-in the `buckets.data` pool, which may be EC and/or slower storage like
+in the ``buckets.data`` pool, which may be EC and/or slower storage like
 HDDs or QLC SSDs.
 
 The manifest describes how each RGW object is laid out across RADOS
@@ -139,19 +139,19 @@ objects.
 ## Bucket and Object Listing
 
 Buckets that belong to a given user are listed in an omap of a RADOS object named
-`<user_id>.buckets` (for example, `foo.buckets`) in pool `default.rgw.meta`
-with namespace `users.uid`.
+``<user_id>.buckets`` (for example, ``foo.buckets``) in pool ``default.rgw.meta``
+with namespace ``users.uid``.
 These objects are accessed when listing buckets, when updating bucket
 contents, and updating and retrieving bucket statistics (e.g. for quota).
 
-See the user-visible, encoded class `cls_user_bucket_entry` and its
-nested class `cls_user_bucket` for the values of these omap entries.
+See the user-visible, encoded class ``cls_user_bucket_entry`` and its
+nested class ``cls_user_bucket`` for the values of these omap entries.
 
-These listings are kept consistent with buckets in the pool named `.rgw`.
+These listings are kept consistent with buckets in the pool named ``.rgw``.
 
 Objects that belong to a given bucket are listed in a bucket index,
 as discussed in sub-section 'Bucket Index' above. The default naming
-for index objects is `.dir.<marker>` in pool `default.rgw.buckets.index`.
+for index objects is ``.dir.<marker>`` in pool ``default.rgw.buckets.index``.
 
 ## Footnotes
 
@@ -167,24 +167,24 @@ to encounter such buckets in old installations.
 [3] Pool names changed with the Infernalis release.
 If you are looking at an older setup, some details may be different. In
 particular there was a different pool for each of the namespaces that are
-now combined inside the `default.root.meta` pool.
+now combined inside the ``default.root.meta`` pool.
 
 ## Appendix: Compendium
 
 Known pools:
 
-`.rgw.root`
+``.rgw.root``
   Region, zone, and global information records, one per object.
 
-`<zone>.rgw.control`
+``<zone>.rgw.control``
   notify.<N>
 
-`<zone>.rgw.meta`
+``<zone>.rgw.meta``
   Multiple namespaces with different kinds of metadata:
 
-  namespace: `root`
+  namespace: ``root``
     <bucket>
-    `.bucket.meta.<bucket>:<marker>`   # see put_bucket_instance_info()
+    ``.bucket.meta.<bucket>:<marker>``   # see put_bucket_instance_info()
 
     The tenant is used to disambiguate buckets, but not bucket instances.
     Example:
@@ -198,7 +198,7 @@ prodtx/test%25star
 testcont
 ```
 
-  namespace: `users.uid`
+  namespace: ``users.uid``
     Contains *both* per-user information (RGWUserInfo) in "<user>" objects
     and per-user lists of buckets in omaps of "<user>.buckets" objects.
     The "<user>" may contain the tenant if non-empty, for example:
@@ -210,27 +210,27 @@ prodtx$prodt.buckets
 test2
 ```
 
-  namespace: `users.email`
+  namespace: ``users.email``
     Unimportant
 
-  namespace: `users.keys`
-    example: `47UA98JSTJZ9YAN3OS3O`
+  namespace: ``users.keys``
+    example: ``47UA98JSTJZ9YAN3OS3O``
 
-    This allows `radosgw` to look up users by their access keys during authentication.
+    This allows ``radosgw`` to look up users by their access keys during authentication.
 
-  namespace: `users.swift`
+  namespace: ``users.swift``
     test:tester
 
-`<zone>.rgw.buckets.index`
-  Objects are named `.dir.<marker>`: each contains a bucket index.
+``<zone>.rgw.buckets.index``
+  Objects are named ``.dir.<marker>``: each contains a bucket index.
   If the index is sharded, each shard appends the shard index after
   the marker.
 
-`<zone>.rgw.buckets.data`
-  example: `default.7593.4__shadow_.488urDFerTYXavx4yAd-Op8mxehnvTI_1`
+``<zone>.rgw.buckets.data``
+  example: ``default.7593.4__shadow_.488urDFerTYXavx4yAd-Op8mxehnvTI_1``
   <marker>_<key>
 
-An example of a marker would be `default.16004.1` or `default.7593.4`.
-The current format is `<zone>.<instance_id>.<bucket_id>`. But once
+An example of a marker would be ``default.16004.1`` or ``default.7593.4``.
+The current format is ``<zone>.<instance_id>.<bucket_id>``. But once
 generated, a marker is not parsed again, so its format may change
 freely in the future.

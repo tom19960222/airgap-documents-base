@@ -8,8 +8,7 @@ fetched_at: 2026-08-18T01:32:45Z
 # ISA erasure code plugin
 
 The *isa* plugin is the default for Ceph erasure coded pools.
-The *isa* plugin encapsulates the `ISA
-<https://01.org/intel%C2%AE-storage-acceleration-library-open-source-version/>`_
+The *isa* plugin encapsulates the [ISA](https://01.org/intel%C2%AE-storage-acceleration-library-open-source-version/)
 library.
 
 # Create an isa profile
@@ -31,7 +30,7 @@ ceph osd erasure-code-profile set {name} \
 
 Where:
 
-`k={data chunks}`
+``k={data chunks}``
 
 :Description: Each object is split in **data-chunks** parts,
               each stored on a different OSD.
@@ -40,7 +39,7 @@ Where:
 :Required: No.
 :Default: 7
 
-`m={coding-chunks}`
+``m={coding-chunks}``
 
 :Description: Compute **coding chunks** for each object and store them
               on different OSDs. The number of coding chunks is also
@@ -50,20 +49,17 @@ Where:
 :Required: No.
 :Default: 3
 
-`technique={reed_sol_van|cauchy}`
+``technique={reed_sol_van|cauchy}``
 
-:Description: The ISA plugin comes in two `Reed Solomon
-              <https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction>`_
-              forms. If *reed_sol_van* is set, it is `Vandermonde
-              <https://en.wikipedia.org/wiki/Vandermonde_matrix>`_, if
-              *cauchy* is set, it is `Cauchy
-              <https://en.wikipedia.org/wiki/Cauchy_matrix>`_.
+:Description: The ISA plugin comes in two [Reed Solomon](https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction)
+              forms. If *reed_sol_van* is set, it is [Vandermonde](https://en.wikipedia.org/wiki/Vandermonde_matrix), if
+              *cauchy* is set, it is [Cauchy](https://en.wikipedia.org/wiki/Cauchy_matrix).
 
 :Type: String
 :Required: No.
 :Default: reed_sol_van
 
-`crush-root={root}`
+``crush-root={root}``
 
 :Description: The name of the crush bucket used for the first step of
               the CRUSH rule. For instance **step take default**.
@@ -72,7 +68,7 @@ Where:
 :Required: No.
 :Default: default
 
-`crush-failure-domain={bucket-type}`
+``crush-failure-domain={bucket-type}``
 
 :Description: Ensure that no two chunks are in a bucket with the same
               failure domain. For instance, if the failure domain is
@@ -84,17 +80,17 @@ Where:
 :Required: No.
 :Default: host
 
-`crush-device-class={device-class}`
+``crush-device-class={device-class}``
 
 :Description: Restrict placement to devices of a specific class (e.g.,
-              `ssd` or `hdd`), using the crush device class names
+              ``ssd`` or ``hdd``), using the crush device class names
               in the CRUSH map.
 
 :Type: String
 :Required: No.
 :Default:
 
-`directory={directory}`
+``directory={directory}``
 
 :Description: Set the **directory** name from which the erasure code
               plugin is loaded.
@@ -103,7 +99,7 @@ Where:
 :Required: No.
 :Default: /usr/lib/ceph/erasure-code
 
-`--force`
+``--force``
 
 :Description: Override an existing profile by the same name.
 

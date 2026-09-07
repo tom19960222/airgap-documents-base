@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Metrics
 
-The Ceph Object Gateway uses Perf Counters to track metrics. The counters can be labeled (Labeled Perf Counters). When counters are labeled, they are stored in the Ceph Object Gateway specific caches.
+The Ceph Object Gateway uses [Perf Counters](../dev/perf_counters.md#perf-counters) to track metrics. The counters can be labeled ([Labeled Perf Counters](../dev/perf_counters.md#labeled-perf-counters)). When counters are labeled, they are stored in the Ceph Object Gateway specific caches.
 
 These metrics can be sent to the time series database Prometheus to visualize a cluster wide view of usage data (ex: number of S3 put operations on a specific bucket) over time.
 
@@ -79,15 +79,15 @@ The following metrics related to S3 or Swift operations are tracked per Ceph Obj
      - Gauge
      - Total latency of list bucket operations
 
-There are three different sections in the output of the `counter dump` and `counter schema` commands that show the op metrics and their information.
-The sections are `rgw_op`, `rgw_op_per_user`, and `rgw_op_per_bucket`.
+There are three different sections in the output of the ``counter dump`` and ``counter schema`` commands that show the op metrics and their information.
+The sections are ``rgw_op``, ``rgw_op_per_user``, and ``rgw_op_per_bucket``.
 
-The counters in the `rgw_op` section reflect the totals of each op metric for a given Ceph Object Gateway.
-The counters in the `rgw_op_per_user` and `rgw_op_per_bucket` sections are labeled counters of op metrics for a user or bucket respectively.
+The counters in the ``rgw_op`` section reflect the totals of each op metric for a given Ceph Object Gateway.
+The counters in the ``rgw_op_per_user`` and ``rgw_op_per_bucket`` sections are labeled counters of op metrics for a user or bucket respectively.
 
-Information about op metrics can be seen in the `rgw_op` sections of the output of the `counter schema` command.
+Information about op metrics can be seen in the ``rgw_op`` sections of the output of the ``counter schema`` command.
 
-To view op metrics in the Ceph Object Gateway go to the `rgw_op` sections of the output of the `counter dump` command:
+To view op metrics in the Ceph Object Gateway go to the ``rgw_op`` sections of the output of the ``counter dump`` command:
 
 ```
 "rgw_op": [
@@ -159,9 +159,9 @@ Op metrics can also be tracked per-user or per-bucket. These metrics are exporte
 ]
 ```
 
-rgw-multitenancy allows the use of buckets and users with the same name,
+[rgw-multitenancy](multitenancy.md#rgw-multitenancy) allows the use of buckets and users with the same name,
 if they are created under different tenants.  If a user or bucket lies under a
-tenant, a label for the tenant in the form `Tenant = {tenantid}` is added to
+tenant, a label for the tenant in the form ``Tenant = {tenantid}`` is added to
 the metric.
 
 In a large system with many users and buckets, it may not be tractable to export all metrics to Prometheus. For that reason, the collection of these labeled metrics is disabled by default.
@@ -170,21 +170,21 @@ Once enabled, the working set of tracked users and buckets is constrained to lim
 
 ### User & Bucket Counter Caches
 
-To track op metrics by user the Ceph Object Gateway the config value `rgw_user_counters_cache` must be set to `true`.
+To track op metrics by user the Ceph Object Gateway the config value ``rgw_user_counters_cache`` must be set to ``true``.
 
-To track op metrics by bucket the Ceph Object Gateway the config value `rgw_bucket_counters_cache` must be set to `true`.
+To track op metrics by bucket the Ceph Object Gateway the config value ``rgw_bucket_counters_cache`` must be set to ``true``.
 
-These config values are set in Ceph via the command `ceph config set client.rgw rgw_{user,bucket}_counters_cache true`
+These config values are set in Ceph via the command ``ceph config set client.rgw rgw_{user,bucket}_counters_cache true``
 
 Since the op metrics are labeled perf counters, they live in memory. If the Ceph Object Gateway is restarted or crashes, all counters in the Ceph Object Gateway, whether in a cache or not, are lost.
 
 ### User & Bucket Counter Cache Size & Eviction
 
-Both `rgw_user_counters_cache_size` and `rgw_bucket_counters_cache_size` can be used to set number of entries in each cache.
+Both ``rgw_user_counters_cache_size`` and ``rgw_bucket_counters_cache_size`` can be used to set number of entries in each cache.
 
 Counters are evicted from a cache once the number of counters in the cache are greater than the cache size config variable. The counters that are evicted are the least recently used (LRU).
 
-For example if the number of buckets exceeded `rgw_bucket_counters_cache_size` by 1 and the counters with label `bucket1` were the last to be updated, the counters for `bucket1` would be evicted from the cache. If S3 operations tracked by the op metrics were done on `bucket1` after eviction, all of the metrics in the cache for `bucket1` would start at 0.
+For example if the number of buckets exceeded ``rgw_bucket_counters_cache_size`` by 1 and the counters with label ``bucket1`` were the last to be updated, the counters for ``bucket1`` would be evicted from the cache. If S3 operations tracked by the op metrics were done on ``bucket1`` after eviction, all of the metrics in the cache for ``bucket1`` would start at 0.
 
 Cache sizing can depend on a number of factors. These factors include:
 
@@ -199,12 +199,12 @@ To help calculate the Ceph Object Gateway's memory usage of a cache, it should b
 
 To get metrics from a Ceph Object Gateway into the time series database Prometheus, the ceph-exporter daemon must be running and configured to scrape the Radogw's admin socket.
 
-The ceph-exporter daemon scrapes the Ceph Object Gateway's admin socket at a regular interval, defined by the config variable `exporter_stats_period`.
+The ceph-exporter daemon scrapes the Ceph Object Gateway's admin socket at a regular interval, defined by the config variable ``exporter_stats_period``.
 
 Prometheus has a configurable interval in which it scrapes the exporter (see: https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
 
 # Config Reference
-The following rgw op metrics related settings can be set via `ceph config set client.rgw CONFIG_VARIABLE VALUE`.
+The following rgw op metrics related settings can be set via ``ceph config set client.rgw CONFIG_VARIABLE VALUE``.
 
 .. confval:: rgw_user_counters_cache
 
@@ -214,6 +214,6 @@ The following rgw op metrics related settings can be set via `ceph config set cl
 
 .. confval:: rgw_bucket_counters_cache_size
 
-The following are notable ceph-exporter related settings can be set via `ceph config set global CONFIG_VARIABLE VALUE`.
+The following are notable ceph-exporter related settings can be set via ``ceph config set global CONFIG_VARIABLE VALUE``.
 
 .. confval:: exporter_stats_period
