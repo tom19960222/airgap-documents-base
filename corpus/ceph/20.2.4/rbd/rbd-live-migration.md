@@ -73,7 +73,7 @@ The live-migration process is comprised of three steps:
    remove the source image if not configured in the import-only mode. Aborting
    the migration will remove the cross-links, and will remove the target image.
 
-# Prepare Migration
+## Prepare Migration
 
 The default live-migration process for images within the same Ceph cluster is
 initiated by running the `rbd migration prepare` command, providing the source
@@ -115,7 +115,7 @@ $ rbd trash ls --all
 5e2cba2f62e migration_source
 ```
 
-# Prepare Import-Only Migration
+## Prepare Import-Only Migration
 
 The import-only live-migration process is initiated by running the same
 `rbd migration prepare` command, but adding the `--import-only` optional
@@ -159,7 +159,7 @@ The following formats are currently supported: ``native``, ``qcow``, and
 ``raw``. The following streams are currently supported: ``file``, ``http``,
 ``s3``, and ``nbd``.
 
-#### Formats
+### Formats
 
 The ``native`` format can be used to describe a native RBD image within a
 Ceph cluster as the source image. Its ``source-spec`` JSON is encoded
@@ -242,7 +242,7 @@ thick-provisioned ``raw`` snapshot exports.
 Additional formats such as RBD export-format v2 and RBD export-diff
 snapshots will be added in a future release.
 
-#### Streams
+### Streams
 
 The ``file`` stream can be used to import from a locally accessible POSIX file
 source. Its ``source-spec`` JSON is encoded as follows:
@@ -365,7 +365,7 @@ JSON is encoded as follows:
 ``nbd-uri`` parameter should follow the [NBD URI specification](https://github.com/NetworkBlockDevice/nbd/blob/master/doc/uri.md). The
 default NBD port is ``10809``.
 
-# Execute Migration
+## Execute Migration
 
 After preparing the live-migration, the image blocks from the source image
 must be copied to the target image. This is accomplished by running the
@@ -389,7 +389,7 @@ Migration:
             state: executing (32% complete)
 ```
 
-# Commit Migration
+## Commit Migration
 
 Once the live-migration has completed deep-copying all data blocks from the
 source image to the target, the migration can be committed:
@@ -416,7 +416,7 @@ and target images, and will remove the source image:
 $ rbd trash list --all
 ```
 
-# Abort Migration
+## Abort Migration
 
 If you wish to revert the prepare or execute step, run the `rbd migration abort`
 command to revert the migration process:

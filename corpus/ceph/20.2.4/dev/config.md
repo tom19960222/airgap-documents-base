@@ -25,7 +25,7 @@ etc.
 
  - arguments injected at runtime using ``injectargs`` or ``config set``
 
-# The Configuration File
+## The Configuration File
 
 Most configuration settings originate in the Ceph configuration file.
 
@@ -45,7 +45,7 @@ file win over earlier ones.
 
 A sample configuration file can be found in src/sample.ceph.conf.
 
-# Metavariables
+## Metavariables
 
 The configuration system allows any configuration value to be
 substituted into another value using the ``$varname`` syntax, similar
@@ -59,7 +59,7 @@ A few additional special metavariables are also defined:
  - $num: same as $id
  - $name: expands to $type.$id
 
-# Reading configuration values
+## Reading configuration values
 
 There are two ways for Ceph code to get configuration values. One way is to
 read it directly from a variable named ``g_conf``, or equivalently,
@@ -84,7 +84,7 @@ The observer method should be preferred in new code because
 For these reasons, reading directly from ``g_conf`` should be considered deprecated
 and not done in new code.  Do not ever alter ``g_conf``.
 
-# Changing configuration values
+## Changing configuration values
 
 Configuration values can be changed by calling ``g_conf()->set_val``. After changing
 the configuration, you should call ``g_conf()->apply_changes`` to re-run all the
@@ -98,7 +98,7 @@ calling these functions to make sure your changes get applied.
 
 <a id="dev-config-defining-options"></a>
 
-# Defining config options
+## Defining config options
 
 Config options are defined in ``common/options/*.yaml.in``. The options are categorized
 by their consumers. If an option is only used by ceph-osd, it should go to
@@ -132,7 +132,7 @@ Each option is represented using a YAML mapping (dictionary). A typical option l
 
 In which, following keys are allowed:
 
-## level
+### level
 
 The ``level`` property of an option is an indicator for the probability the
 option is adjusted by an operator or a developer:
@@ -153,7 +153,7 @@ option is adjusted by an operator or a developer:
    or to describe constants that no user should adjust but we prefer not to compile
    into the code.
 
-## ``desc``, ``long_desc`` and ``fmt_desc``
+### ``desc``, ``long_desc`` and ``fmt_desc``
 
 .. describe:: desc
 
@@ -184,7 +184,7 @@ option is adjusted by an operator or a developer:
       fmt_desc: The interval for "deep" scrubbing (fully reading all data). The
         ``osd_scrub_load_threshold`` does not affect this setting.
 
-## Default values
+### Default values
 
 There is a default value for every config option. In some cases, there may
 also be a *daemon default* that only applies to code that declares itself
@@ -209,7 +209,7 @@ and ``secs``, like:
 For better readability, it is encouraged to use these literal postfixes when
 adding or updating the default value for an option.
 
-## Service
+### Service
 
 Service is a component name, like "common", "osd", "rgw", "mds", etc. It may
 be a list of components, like:
@@ -228,7 +228,7 @@ its ``services`` property automatically. For instance, ``osd_scrub_begin_hour``
 option is located in ``osd.yaml.in``, even its ``services`` is not specified
 explicitly in this file, this property still contains ``osd``.
 
-## Tags
+### Tags
 
 Tags identify options across services that relate in some way. For example:
 
@@ -244,7 +244,7 @@ tags:
 - network
 ```
 
-## Enums
+### Enums
 
 For options with a defined set of allowed values:
 
@@ -258,7 +258,7 @@ enum_values:
 - xxhash64
 ```
 
-## Flags
+### Flags
 
 .. describe:: runtime
 
@@ -282,12 +282,12 @@ enum_values:
 
    option only affects daemon creation
 
-# Documentation of Configuration Values
+## Documentation of Configuration Values
 
 Ceph configuration options are documented on-demand using the ``:confval:``
 directive rather than in a centralized location.
 
-## Documenting Configuration Options
+### Documenting Configuration Options
 
 To document a configuration option, use the ``:confval:`` directive:
 
@@ -302,7 +302,7 @@ The check interval can be customized by the ``check_interval`` option:
 > namespace prefix. In the example above, ``check_interval`` belongs to the
 > ``inbox`` module, so it's documented as ``mgr/inbox/check_interval``.
 
-## Referencing Configuration Options
+### Referencing Configuration Options
 
 Once documented, reference options using the ``:confval:`` role:
 
@@ -319,7 +319,7 @@ You can set the initial monitor members with :confval:`mon_initial_members`:
 .. confval:: mon_initial_members
 ```
 
-## Naming Conventions
+### Naming Conventions
 
 * **Mgr module options**: Use ``mgr/<module>/<option_name>`` format
 * **Regular options**: Use the option name directly (e.g., ``mon_initial_members``)

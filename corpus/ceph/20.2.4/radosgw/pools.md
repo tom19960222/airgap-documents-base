@@ -15,18 +15,18 @@ single zone named ``default`` is created automatically with pool names
 starting with ``default.rgw.``, but a [Multisite Configuration](bucket_logging.md#multisite)
 will have multiple zones.
 
-# Tuning
+## Tuning
 
 When ``radosgw`` first tries to operate on a zone pool that does not exist, it
 will create that pool with the default values from ``osd pool default pg num``
 and ``osd pool default pgp num``. These defaults are sufficient for some pools,
 but others (especially those listed in ``placement_pools`` for the bucket index
-and data) will require additional tuning. See [rados_pools](../rados/operations/pools.md#rados-pools) for details on
+and data) will require additional tuning. See [rados_pools](../rados/operations/pools.md#rados_pools) for details on
 pool creation.
 
 <a id="radosgw-pool-namespaces"></a>
 
-# Pool Namespaces
+## Pool Namespaces
 
 .. versionadded:: Luminous
 

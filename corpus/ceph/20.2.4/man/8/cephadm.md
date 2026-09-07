@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: cephadm
 
-# Synopsis
+## Synopsis
 
 | **cephadm**** [-h] [--image IMAGE] [--docker] [--data-dir DATA_DIR]
 |               [--log-dir LOG_DIR] [--logrotate-dir LOGROTATE_DIR]
@@ -108,7 +108,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 | **cephadm** **update-osd-service** [-h] [--fsid FSID] --osd-ids OSD_IDS --service-name SERVICE_NAME
 
-# Description
+## Description
 
 cephadm is a command line tool to manage the local host for the cephadm orchestrator.
 
@@ -117,7 +117,7 @@ It provides commands to investigate and modify the state of the current host.
 cephadm is not required on all hosts, but useful when investigating a particular
 daemon.
 
-# Options
+## Options
 
 .. option:: --image IMAGE
 
@@ -160,9 +160,9 @@ daemon.
 
    do not run podman/docker with `--init` (default: False)
 
-# Commands
+## Commands
 
-## add-repo
+### add-repo
 
 configure local package repository to also include the ceph repository.
 
@@ -175,7 +175,7 @@ Arguments:
 * [--gpg-url GPG_URL]       specify alternative GPG key location
 * [--repo-url REPO_URL]     specify alternative repo location
 
-## adopt
+### adopt
 
 Adopt a daemon deployed with a different deployment tool.
 
@@ -200,7 +200,7 @@ Only the first values found are used:
 4. The config file for a ``mon`` daemon (``/var/lib/ceph/<fsid>/mon.<mon-id>/config``) if it exists
 5. Finally: fallback to the default file ``/etc/ceph/ceph.conf``
 
-## bootstrap
+### bootstrap
 
 Bootstrap a cluster on the local host. It deploys a MON and a MGR and then also automatically
 deploys the monitoring stack on this host (see --skip-monitoring-stack) and calls
@@ -248,7 +248,7 @@ Arguments:
 * [--registry-password REGISTRY_PASSWORD] password of account to login to on custom registry
 * [--registry-json REGISTRY_JSON] JSON file containing registry login info (see registry-login command documentation)
 
-## ceph-volume
+### ceph-volume
 
 Run ceph-volume inside a container:
 
@@ -266,7 +266,7 @@ Arguments:
 * [--config CONFIG, -c CONFIG]     ceph conf file
 * [--keyring KEYRING, -k KEYRING]  ceph.keyring to pass through to the container
 
-## check-host
+### check-host
 
 check host configuration to be suitable for a Ceph cluster.
 
@@ -274,7 +274,7 @@ Arguments:
 
 * [--expect-hostname EXPECT_HOSTNAME] Check that hostname matches an expected value
 
-## deploy
+### deploy
 
 deploy a daemon on the local host. Used by the orchestrator CLI:
 
@@ -296,7 +296,7 @@ Arguments:
 * [--reconfig]                Reconfigure a previously deployed daemon
 * [--allow-ptrace]            Allow SYS_PTRACE on daemon container
 
-## enter
+### enter
 
 Run an interactive shell inside a running daemon container:
 
@@ -312,7 +312,7 @@ Arguments:
 * [--fsid FSID]           cluster FSID
 * [--name NAME, -n NAME]  daemon name (type.id)
 
-## install
+### install
 
 install ceph package(s)
 
@@ -320,7 +320,7 @@ Positional arguments:
 
 * [packages]    packages
 
-## inspect-image
+### inspect-image
 
 Inspect local Ceph container image. From Reef onward, requires specifying
 the image to inspect with ``--image``:
@@ -329,7 +329,7 @@ the image to inspect with ``--image``:
 cephadm --image IMAGE_NAME inspect-image
 ```
 
-## list-networks
+### list-networks
 
 list IP networks
 
@@ -364,7 +364,7 @@ Arguments:
 * [--no-detail]             Do not include daemon status
 * [--legacy-dir LEGACY_DIR] Base directory for legacy daemon data
 
-## logs
+### logs
 
 print journald logs for a daemon container:
 
@@ -394,7 +394,7 @@ Arguments:
 * [--fsid FSID]           cluster FSID
 * [--name NAME, -n NAME]  daemon name (type.id)
 
-## prepare-host
+### prepare-host
 
 prepare a host for cephadm use
 
@@ -402,7 +402,7 @@ Arguments:
 
 * [--expect-hostname EXPECT_HOSTNAME] Set hostname
 
-## pull
+### pull
 
 Pull the ceph image:
 
@@ -410,7 +410,7 @@ Pull the ceph image:
 cephadm pull
 ```
 
-## registry-login
+### registry-login
 
 Give cephadm login information for an authenticated registry (url, username and password).
 Cephadm will attempt to log the calling host into that registry:
@@ -444,7 +444,7 @@ Arguments:
 * [--registry-json REGISTRY_JSON] JSON file containing login info for custom registry
 * [--fsid FSID]                   cluster FSID
 
-## rm-daemon
+### rm-daemon
 
 Remove a specific daemon instance
 
@@ -455,7 +455,7 @@ Arguments:
 * [--force]               proceed, even though this may destroy valuable data
 * [--force-delete-data]   delete valuable daemon data instead of making a backup
 
-## rm-cluster
+### rm-cluster
 
 remove all daemons for a cluster
 
@@ -464,11 +464,11 @@ Arguments:
 * [--fsid FSID]  cluster FSID
 * [--force]      proceed, even though this may destroy valuable data
 
-## rm-repo
+### rm-repo
 
 remove package repository configuration
 
-## run
+### run
 
 run a ceph daemon, in a container, in the foreground
 
@@ -477,7 +477,7 @@ Arguments:
 * [--name NAME, -n NAME]  daemon name (type.id)
 * [--fsid FSID]           cluster FSID
 
-## shell
+### shell
 
 Run an interactive shell:
 
@@ -504,7 +504,7 @@ Arguments:
 * [--mount MOUNT, -m MOUNT]       mount a file or directory under /mnt in the container
 * [--env ENV, -e ENV]             set environment variable
 
-## unit
+### unit
 
 Operate on the daemon's systemd unit.
 
@@ -517,11 +517,11 @@ Arguments:
 * [--fsid FSID]           cluster FSID
 * [--name NAME, -n NAME]  daemon name (type.id)
 
-## list-images
+### list-images
 
 List the default container images for all services in ini format. The output can be modified with custom images and passed to --config flag during bootstrap.
 
-## update-osd-service
+### update-osd-service
 
 Update the OSD service for specific OSDs
 
@@ -531,11 +531,11 @@ Arguments:
 * --osd-ids OSD_IDS             Comma-separated OSD IDs
 * --service-name SERVICE_NAME   OSD service name
 
-# Availability
+## Availability
 
 cephadm is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the documentation at http://docs.ceph.com/ for more information.
 
-# See also
+## See also
 
 [ceph-volume](cephadm.md#ceph-volume)\(8),

@@ -22,7 +22,7 @@ The client eviction process applies to clients of all kinds, this includes
 FUSE mounts, kernel mounts, nfs-ganesha gateways, and any process using
 libcephfs.
 
-# Automatic client eviction
+## Automatic client eviction
 
 There are three situations in which a client may be evicted automatically.
 
@@ -43,7 +43,7 @@ There are three situations in which a client may be evicted automatically.
 A warning message is sent to the cluster log if either of these situations
 arises.
 
-# Manual client eviction
+## Manual client eviction
 
 Sometimes, the administrator may want to evict a client manually.  This
 could happen if a client has died and the administrator does not
@@ -92,7 +92,7 @@ ceph tell mds.0 client evict id=4305
 ceph tell mds.0 client evict client_metadata.=4305
 ```
 
-# Advanced: Un-blocklisting a client
+## Advanced: Un-blocklisting a client
 
 Ordinarily, a blocklisted client may not reconnect to the servers: it
 must be unmounted and then mounted anew.
@@ -124,7 +124,7 @@ If you are trying to reconnect clients in this way, you may also
 find it useful to set ``client_reconnect_stale`` to true in the
 FUSE client, to prompt the client to try to reconnect.
 
-# Advanced: Configuring blocklisting
+## Advanced: Configuring blocklisting
 
 If you are experiencing frequent client evictions, due to slow
 client hosts or an unreliable network, and you cannot fix the underlying
@@ -145,9 +145,9 @@ eviction command to each active daemon.  When blocklisting is enabled
 (the default), sending an eviction command to just a single
 MDS is sufficient, because the blocklist propagates it to the others.
 
-<a id="background-blocklisting-and-osd-epoch-barrier"></a>
+<a id="background_blocklisting_and_osd_epoch_barrier"></a>
 
-# Background: Blocklisting and OSD epoch barrier
+## Background: Blocklisting and OSD epoch barrier
 
 After a client is blocklisted, it is necessary to make sure that
 other clients and MDS daemons have the latest OSDMap (including

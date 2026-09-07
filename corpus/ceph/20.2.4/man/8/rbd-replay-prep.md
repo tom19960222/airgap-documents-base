@@ -11,15 +11,15 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd-replay-prep
 
-# Synopsis
+## Synopsis
 
 | **rbd-replay-prep** [ --window *seconds* ] [ --anonymize ] *trace_dir* *replay_file*
 
-# Description
+## Description
 
 **rbd-replay-prep** processes raw rados block device (RBD) traces to prepare them for **rbd-replay**.
 
-# Options
+## Options
 
 .. option:: --window seconds
 
@@ -33,7 +33,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
    Print all processed events to console
 
-# Examples
+## Examples
 
 To prepare workload1-trace for replay:
 
@@ -41,12 +41,12 @@ To prepare workload1-trace for replay:
 rbd-replay-prep workload1-trace/ust/uid/1000/64-bit workload1
 ```
 
-# Availability
+## Availability
 
 **rbd-replay-prep** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [rbd-replay](rbd-replay.md)\(8),
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

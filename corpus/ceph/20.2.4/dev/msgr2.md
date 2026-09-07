@@ -918,7 +918,7 @@ Once a session is established, we can exchange messages.
   isn't strictly necessary or useful as we could just disconnect the
   TCP connection.
 
-##### Example of protocol interaction (WIP)
+### Example of protocol interaction (WIP)
 
 .. ditaa::
 

@@ -199,7 +199,7 @@ rbd create --size 1G --data-pool ec_pool replicated_pool/image_name
 For CephFS, an erasure-coded pool can be set as the default data pool during
 file system creation or via [file-layouts](../../cephfs/file-layouts.md#file-layouts).
 
-<a id="rados-ops-erasure-coding-optimizations"></a>
+<a id="rados_ops_erasure_coding_optimizations"></a>
 
 ## Erasure Coding Optimizations
 

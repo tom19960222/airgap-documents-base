@@ -17,7 +17,7 @@ consistent, but you can add, remove or replace a monitor in a cluster. See
 
 .. index:: Ceph Monitor; Paxos
 
-# Background
+## Background
 
 Ceph Monitors maintain a "master copy" of the Cluster Map.
 
@@ -64,7 +64,7 @@ snapshots and iterators (using RocksDB) to perform store-wide synchronization.
 
 .. index:: Ceph Monitor; cluster map
 
-## Cluster Maps
+### Cluster Maps
 
 The cluster map is a composite of maps, including the monitor map, the OSD map,
 the placement group map and the metadata server map. The cluster map tracks a
@@ -89,7 +89,7 @@ and [Monitoring OSDs and PGs](../operations/monitoring-osd-pg.md) for additional
 
 .. index:: high availability; quorum
 
-## Monitor Quorum
+### Monitor Quorum
 
 Our Configuring ceph section provides a trivial [Ceph configuration file](ceph-conf.md#monitors) that
 provides for one monitor in the test cluster. A cluster will run fine with a
@@ -108,7 +108,7 @@ etc.).
 
 .. index:: Ceph Monitor; consistency
 
-## Consistency
+### Consistency
 
 When you add monitor settings to your Ceph configuration file, you need to be
 aware of some of the architectural aspects of Ceph Monitors. **Ceph imposes
@@ -144,7 +144,7 @@ recognize a Ceph Monitor, fall out of a quorum, or develop a situation where
 
 .. index:: Ceph Monitor; bootstrapping monitors
 
-## Bootstrapping Monitors
+### Bootstrapping Monitors
 
 In most configuration and deployment cases, tools that deploy Ceph help
 bootstrap the Ceph Monitors by generating a monitor map for you (e.g.,
@@ -172,7 +172,7 @@ For additional details on bootstrapping, see [Bootstrapping a Monitor](../../dev
 
 .. index:: Ceph Monitor; configuring monitors
 
-# Configuring Monitors
+## Configuring Monitors
 
 To apply configuration settings to the entire cluster, enter the configuration
 settings under ``[global]``. To apply configuration settings to all monitors in
@@ -192,7 +192,7 @@ configuration settings to specific monitors, specify the monitor instance
 [mon.c]
 ```
 
-## Minimum Configuration
+### Minimum Configuration
 
 The bare minimum monitor settings for a Ceph monitor via the Ceph configuration
 file include a hostname and a network address for each monitor. You can configure
@@ -216,12 +216,12 @@ See the [Network Configuration Reference](network-config-ref.md) for details.
 
 Once you deploy a Ceph cluster, you **SHOULD NOT** change the IP addresses of
 monitors. However, if you decide to change the monitor's IP address, you
-must follow a specific procedure. See [Changing a Monitor's IP address](../operations/add-or-rm-mons.md#changing-a-monitor-s-ip-address) for
+must follow a specific procedure. See [Changing a Monitor's IP address](../operations/add-or-rm-mons.md#changing-a-monitors-ip-address) for
 details.
 
 Monitors can also be found by clients by using DNS SRV records. See [Monitor lookup through DNS](mon-lookup-dns.md) for details.
 
-## Cluster ID
+### Cluster ID
 
 Each Ceph Storage Cluster has a unique identifier (``fsid``). If specified, it
 usually appears under the ``[global]`` section of the configuration file.
@@ -233,7 +233,7 @@ possible to run daemons for multiple clusters on the same hardware.
 
 .. index:: Ceph Monitor; initial members
 
-## Initial Members
+### Initial Members
 
 We recommend running a production Ceph Storage Cluster with at least three Ceph
 Monitors to ensure high availability. When you run multiple monitors, you may
@@ -250,7 +250,7 @@ online.
 
 .. index:: Ceph Monitor; data path
 
-## Data
+### Data
 
 Ceph provides a default path where Ceph Monitors store data. For optimal
 performance in a production Ceph Storage Cluster, we recommend running Ceph
@@ -307,7 +307,7 @@ by setting it in the ``[mon]`` section of the configuration file.
 
 <a id="storage-capacity"></a>
 
-## Storage Capacity
+### Storage Capacity
 
 When a Ceph Storage Cluster gets close to its maximum capacity
 (see``mon_osd_full ratio``), Ceph prevents you from writing to or reading from OSDs
@@ -429,7 +429,7 @@ config store.
 
 .. index:: heartbeat
 
-## Heartbeat
+### Heartbeat
 
 Ceph monitors know about the cluster by requiring reports from each OSD, and by
 receiving reports from OSDs about the status of their neighboring OSDs. Ceph
@@ -438,7 +438,7 @@ may modify them as needed. See [Monitor/OSD Interaction](mon-osd-interaction.md)
 
 .. index:: Ceph Monitor; leader, Ceph Monitor; provider, Ceph Monitor; requester, Ceph Monitor; synchronization
 
-## Monitor Store Synchronization
+### Monitor Store Synchronization
 
 When you run a production cluster with multiple monitors (recommended), each
 monitor checks to see if a neighboring monitor has a more recent version of the
@@ -552,7 +552,7 @@ Trimming requires that the placement groups are ``active+clean``.
 
 <a id="mon-config-ref-clock"></a>
 
-## Clock
+### Clock
 
 Ceph daemons pass critical messages to each other, which must be processed
 before daemons reach a timeout threshold. If the clocks in Ceph monitors
@@ -589,7 +589,7 @@ acceptable values.
 
 .. confval:: mon_timecheck_skew_interval
 
-## Client
+### Client
 
 .. confval:: mon_client_hunt_interval
 
@@ -601,7 +601,7 @@ acceptable values.
 
 <a id="pool-settings"></a>
 
-# Pool settings
+## Pool settings
 
 Since version v0.94 there is support for pool flags which allow or disallow changes to be made to pools.
 Monitors can also disallow removal of pools if appropriately configured. The inconvenience of this guardrail
@@ -621,7 +621,7 @@ is far outweighed by the number of accidental pool (and thus data) deletions it 
 
 For more information about the pool flags see [Pool values](../operations/pools.md#setpoolvalues).
 
-# Miscellaneous
+## Miscellaneous
 
 .. confval:: mon_max_osd
 
@@ -675,7 +675,7 @@ For more information about the pool flags see [Pool values](../operations/pools.
 
 .. confval:: pool_availability_update_interval
 
-# NVMe-oF Monitor Client
+## NVMe-oF Monitor Client
 
 .. confval:: nvmeof_mon_client_disconnect_panic
 

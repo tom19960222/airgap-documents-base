@@ -13,12 +13,12 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: crushdiff
 
-# Synopsis
+## Synopsis
 
 | **crushdiff** [ --osdmap *osdmap* ] [ --pg-dump *pg-dump* ]
   [ --compiled ] [ --verbose ] *command* *crushmap*
 
-# Description
+## Description
 
 **crushdiff** is a utility that lets you test the effect of a crushmap
 change: number of pgs, objects, bytes moved. This is a wrapper around
@@ -31,7 +31,7 @@ stats, which requires access to the cluster. Though one can use the
 **--osdmap** and **--pg-dump** options to test against previously
 obtained data.
 
-# Options
+## Options
 
 .. option:: --compiled
 
@@ -54,7 +54,7 @@ obtained data.
 
    Produce diagnostic output.
 
-# Commands
+## Commands
 
 compare *crushmap*
   Compare the crushmap from *crushmap* file with the crushmap from
@@ -67,7 +67,7 @@ export *crushmap*
 import *crushmap*
   Import crushmap from *crushmap* file to the cluster osdmap.
 
-# Example
+## Example
 
 Get the current crushmap:
 
@@ -110,13 +110,13 @@ If the result is satisfactory install the updated map:
 crushdiff import cm.txt
 ```
 
-# Availability
+## Availability
 
 **crushdiff** is part of Ceph, a massively scalable, open-source, distributed storage system.  Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [crushtool](crushtool.md)\(8),

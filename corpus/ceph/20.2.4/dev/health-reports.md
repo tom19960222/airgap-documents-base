@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Health Reports
 
-# How to Get Reports
+## How to Get Reports
 
 In general, there are two channels to retrieve the health reports:
 
@@ -19,9 +19,9 @@ mgr module
 The following diagrams outline the involved parties and how the interact when the clients
 query for the reports:
 
-# Where are the Reports Generated
+## Where are the Reports Generated
 
-## Aggregator of Aggregators
+### Aggregator of Aggregators
 
 Health reports are aggregated from multiple Paxos services:
 
@@ -49,7 +49,7 @@ the latest ``FSMap`` and the health metrics reported by MDS daemons.
 But it's noteworthy that ``MgrStatMonitor`` does *not* prepare the reports by itself,
 it just stores whatever the health reports received from mgr!
 
-## ceph-mgr -- A Delegate Aggregator
+### ceph-mgr -- A Delegate Aggregator
 
 In Ceph, mgr is created to share the burden of monitor, which is used to establish
 the consensus of information which is critical to keep the cluster function.

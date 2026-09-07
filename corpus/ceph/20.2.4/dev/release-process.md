@@ -7,9 +7,9 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Ceph Release Process
 
-# Prerequisites
+## Prerequisites
 
-## Signing Machine
+### Signing Machine
 The signing machine is a virtual machine in the [Sepia lab](https://wiki.sepia.ceph.com/doku.php?id=start). SSH access to the signing
 machine is limited to the usual Infrastructure Admins along with a few other
 component leads (e.g., nfs-ganesha, ceph-iscsi).
@@ -18,14 +18,14 @@ The ``ubuntu`` user on the machine has some [build scripts](https://github.com/c
 
 The GPG signing key permanently lives on a [Nitrokey Pro](https://shop.nitrokey.com/shop/product/nkpr2-nitrokey-pro-2-3) and is passed through to the VM via RHV. This helps to ensure that the key cannot be exported or leave the datacenter in any way.
 
-## New Major Releases
+### New Major Releases
 For each new major (alphabetical) release, you must create one ``ceph-release`` RPM for each RPM repo (e.g., one for el8 and one for el9). [chacra](https://github.com/ceph/chacra) is a python service we use to store DEB and RPM repos. The chacra repos are configured to include this ceph-release RPM, but it must be built separately. You must make sure that chacra is properly configured to include this RPM for each particular release.
 
 1. Update chacra so it is aware of the new Ceph release.  See [this PR](https://github.com/ceph/chacra/pull/219) for an example.
 2. Redeploy chacra (e.g., ``ansible-playbook chacra.ceph.com.yml``)
 3. Run https://jenkins.ceph.com/view/all/job/ceph-release-rpm/
 
-# Summarized build process
+## Summarized build process
 
 1. QE finishes testing and finds a stopping point.  That commit is pushed to the ``$release-release`` branch in ceph.git (e.g., ``squid-release``).  This allows work to continue in the working ``$release`` branch without having to freeze it during the release process.
 2. The Ceph Council approves and notifies the "Build Lead".
@@ -39,7 +39,7 @@ For each new major (alphabetical) release, you must create one ``ceph-release`` 
 10. Prerelease packages and containers are promoted to official releases on
     download.ceph.com and quay.io.
 
-## Hotfix Release Process Deviation
+### Hotfix Release Process Deviation
 
 A hotfix release has a couple differences.
 
@@ -53,7 +53,7 @@ A hotfix release has a couple differences.
 5. Notify the "Build Lead" to start the build.
 6. The "Build Lead" should set ``RELEASE_TYPE=HOTFIX`` instead of ``STABLE``.
 
-## Security Release Process Deviation
+### Security Release Process Deviation
 
 A security/CVE release is similar to a hotfix release with two differences:
 
@@ -80,13 +80,13 @@ git push origin v19.2.3
 # Now create a Pull Request of squid-release targeting squid to merge the version commit and security fixes back into the squid branch
 ```
 
-# 1. Preparing the release branch
+## 1. Preparing the release branch
 
 Once QE has determined a stopping point in the working (e.g., ``squid``) branch, that commit should be pushed to the corresponding ``squid-release`` branch.
 
 Notify the "Build Lead" that the release branch is ready.
 
-# 2. Starting the build
+## 2. Starting the build
 
 We'll use a stable/regular 19.2.2 release of Squid as an example throughout this document.
 
@@ -115,7 +115,7 @@ NOTE: if for some reason the build has to be restarted (for example if one distr
 
 5. Click ``Build``.
 
-# 3. Release Notes
+## 3. Release Notes
 
 Packages take hours to build. Use those hours to create the Release Notes and Announcements:
 
@@ -127,7 +127,7 @@ See [the Ceph Tracker wiki page that explains how to write the release notes](ht
 
 <a id="signing-and-publishing-the-build"></a>
 
-# 4. Signing and Publishing the Build
+## 4. Signing and Publishing the Build
 
 1. Obtain the sha1 of the version commit from the [build job](https://jenkins.ceph.com/view/all/job/ceph) or the ``sha1`` file created by the [ceph-setup](https://jenkins.ceph.com/job/ceph-setup/) job.
 
@@ -238,7 +238,7 @@ mv the directories and the tarballs from the prerelease home
 (/data/download.ceph.com/www/prerelease/ceph) to the release directory
 (/data/download.ceph.com/www).
 
-# 5. Build Containers
+## 5. Build Containers
 
 Unlike CI builds, which have access to packages in the correct form for
 the container, release builds do not, because the build does not
@@ -273,9 +273,9 @@ The ``--promote`` step should be performed only as the final step in releasing
 containers, after the container images have been tested and have been confirmed
 to be good.
 
-# 6. Announce the Release
+## 6. Announce the Release
 
-## Version Commit PR
+### Version Commit PR
 
 The [ceph-tag Jenkins job](https://jenkins.ceph.com/job/ceph-tag) creates a Pull Request in ceph.git that targets the release branch.
 
@@ -283,6 +283,6 @@ If this was a regular release (not a hotfix release or a security release), the 
 
 Request a review and then merge the Pull Request.
 
-## Announcing
+### Announcing
 
 Publish the Release Notes on ceph.io before announcing the release by email, because the e-mail announcement references the ceph.io blog post.

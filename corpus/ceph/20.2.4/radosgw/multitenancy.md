@@ -24,7 +24,7 @@ the pre-existing users are under the legacy tenant, they continue
 to create and access buckets as before. The layout of objects in RADOS
 is extended in a compatible way, ensuring a smooth upgrade to Jewel.
 
-# Administering Users With Explicit Tenants
+## Administering Users With Explicit Tenants
 
 Tenants as such do not have any operations on them. They appear and
 disappear as needed, when users are administered. In order to create,
@@ -32,7 +32,7 @@ modify, and remove users with explicit tenants, either an additional
 option --tenant is supplied, or a syntax '<tenant>$<user>' is used
 in the parameters of the radosgw-admin command.
 
-## Examples
+### Examples
 
 Create a user testx$tester to be accessed with S3:
 
@@ -50,7 +50,7 @@ Create a user testx$tester to be accessed with Swift:
 > **Note:** The subuser with explicit tenant has to be quoted in the shell.
 > Tenant names may contain only alphanumeric characters and underscores.
 
-# Accessing Buckets with Explicit Tenants
+## Accessing Buckets with Explicit Tenants
 
 When a client application accesses buckets, it always operates with
 credentials of a particular user. As mentioned above, every user belongs
@@ -124,11 +124,11 @@ involved when dealing with signed URLs and public read ACLs.
   object via the public URL
   ``http://<host>:<port>/7188e165c0ae4424ac68ae2e89a05c50:foo/bar``.
 
-## Swift with built-in authenticator
+### Swift with built-in authenticator
 
 TBD -- not in test_multen.py yet
 
-## Swift with Keystone
+### Swift with Keystone
 
 In the default configuration, although native Swift has inherent
 multi-tenancy, radosgw does not enable multi-tenancy for the Swift
@@ -167,7 +167,7 @@ be of use to users who had previously used implicit tenants
 with older versions of ceph, where implicit tenants
 only applied to the swift protocol.
 
-## Notes and known issues
+### Notes and known issues
 
 Just to be clear, it is not possible to create buckets in other
 tenants at present. The owner of newly created bucket is extracted

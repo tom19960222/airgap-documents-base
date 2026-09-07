@@ -59,7 +59,7 @@ name, ``client.libvirt`` for the user name, and ``new-libvirt-image`` for  the
 image name. You may use any value you like, but ensure you replace those values
 when executing commands in the subsequent procedures.
 
-# Configuring Ceph
+## Configuring Ceph
 
 To configure Ceph for use with ``libvirt``, perform the following steps:
 
@@ -119,11 +119,13 @@ rbd -p libvirt-pool ls
    recommend ensuring that QEMU is working properly.
 
 > **Tip:** Optionally, if you wish to enable debug logs and the admin socket for
-> this client, you can add the following section to ``/etc/ceph/ceph.conf``::
+> this client, you can add the following section to ``/etc/ceph/ceph.conf``:
 >
->      [client.libvirt]
->      log file = /var/log/ceph/qemu-guest-$pid.log
->      admin socket = /var/run/ceph/$cluster-$type.$id.$pid.$cctid.asok
+> ```
+> [client.libvirt]
+> log file = /var/log/ceph/qemu-guest-$pid.log
+> admin socket = /var/run/ceph/$cluster-$type.$id.$pid.$cctid.asok
+> ```
 >
 > The ``client.libvirt`` section name should match the cephx user you created
 > above.
@@ -133,7 +135,7 @@ rbd -p libvirt-pool ls
 > log/ceph`` or ``/var/run/ceph``). Additionally, make sure that the libvirt
 > and qemu users have appropriate access to the specified directory.
 
-# Preparing the VM Manager
+## Preparing the VM Manager
 
 You may use ``libvirt`` without a VM manager, but you may find it simpler to
 create your first domain with ``virt-manager``.
@@ -152,7 +154,7 @@ sudo apt-get install virt-manager
 sudo virt-manager
 ```
 
-# Creating a VM
+## Creating a VM
 
 To create a VM with ``virt-manager``, perform the following steps:
 
@@ -188,7 +190,7 @@ sudo virsh list
 
 1. Stop the VM before configuring it for use with Ceph.
 
-# Configuring the VM
+## Configuring the VM
 
 When configuring the VM for use with Ceph, it is important  to use ``virsh``
 where appropriate. Additionally, ``virsh`` commands often require root
@@ -302,7 +304,7 @@ you need to regenerate the secret, you will have to execute
 ``sudo virsh secret-set-value`` again.
 ```
 
-# Summary
+## Summary
 
 Once you have configured the VM for use with Ceph, you can start the VM.
 To verify that the VM and Ceph are communicating, you may perform the

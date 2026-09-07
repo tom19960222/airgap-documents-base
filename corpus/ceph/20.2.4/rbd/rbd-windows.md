@@ -18,7 +18,7 @@ Please check the [installation guide](../install/windows-install.md) to get star
 > **Note:**
 > Please see the [OS recommendations](../start/os-recommendations.md) regarding client package support.
 
-# Windows service
+## Windows service
 On MS Windows, ``rbd-wnbd`` daemons are managed by a centralized service. This allows
 decoupling the daemons from the Windows session from which they originate. At
 the same time, the service is responsible of recreating persistent mappings,
@@ -51,9 +51,9 @@ New-Service -Name "ceph-rbd" `
 Note that the Ceph MSI installer takes care of creating the ``ceph-rbd``
 Windows service.
 
-# Usage
+## Usage
 
-## Integration
+### Integration
 
 RBD images can be exposed to the OS and host Windows partitions or they can be
 attached to Hyper-V VMs in the same way as iSCSI disks.
@@ -61,7 +61,7 @@ attached to Hyper-V VMs in the same way as iSCSI disks.
 Starting with Openstack Wallaby, the Nova Hyper-V driver can attach RBD Cinder
 volumes to Hyper-V VMs.
 
-## Mapping images
+### Mapping images
 
 The workflow and CLI is similar to the Linux counterpart, with a few
 notable differences:
@@ -85,7 +85,7 @@ be mapped before starting services that may depend on it, such as VMMS.
 The mapped images can either be consumed by the host directly or exposed to
 Hyper-V VMs.
 
-## Hyper-V VM disks
+### Hyper-V VM disks
 
 The following sample imports an RBD image and boots a Hyper-V VM using it:
 
@@ -123,7 +123,7 @@ Add-VMHardDiskDrive -VMName BootFromRBD -DiskNumber $diskNumber
 Start-VM -VMName BootFromRBD
 ```
 
-## Windows partitions
+### Windows partitions
 
 The following sample creates an empty RBD image, attaches it to the host and
 initializes a partition:
@@ -150,7 +150,7 @@ Get-Disk -Number $diskNumber | `
 (Get-Partition -DiskNumber $diskNumber).DriveLetter
 ```
 
-## SAN policy
+### SAN policy
 
 The Windows SAN policy determines which disks will be automatically mounted.
 The default policy (``offlineShared``) specifies that:
@@ -180,7 +180,7 @@ Windows documentation:
 * [san command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/san)
 * [StorageSetting command](https://learn.microsoft.com/en-us/powershell/module/storage/set-storagesetting?view=windowsserver2022-ps)
 
-## Limitations
+### Limitations
 
 #### CSV support
 
@@ -224,6 +224,6 @@ will become online but it may now correspond to a different RBD image. This can
 be an issue if the disk that was mounted on the host was actually meant for a
 VM.
 
-# Troubleshooting
+## Troubleshooting
 
 Please consult the [Windows troubleshooting](../install/windows-troubleshooting.md) page.

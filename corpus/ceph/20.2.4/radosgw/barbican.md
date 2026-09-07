@@ -19,13 +19,13 @@ OpenStack [Barbican](https://wiki.openstack.org/wiki/Barbican) can be used as a 
 1. [Configure the Ceph Object Gateway](barbican.md#configure-the-ceph-object-gateway)
 1. [Create a key in Barbican](barbican.md#create-a-key-in-barbican)
 
-# Configure Keystone
+## Configure Keystone
 
 Barbican depends on Keystone for authorization and access control of its keys.
 
 See [OpenStack Keystone Integration](keystone.md).
 
-# Create a Keystone user
+## Create a Keystone user
 
 Create a new user that will be used by the Ceph Object Gateway to retrieve
 keys.
@@ -40,7 +40,7 @@ tenant = rgwcrypt
 
 See OpenStack documentation for [Manage projects, users, and roles](https://docs.openstack.org/admin-guide/cli-manage-projects-users-and-roles.html#create-a-user).
 
-# Create a key in Barbican
+## Create a key in Barbican
 
 See Barbican documentation for [How to Create a Secret](https://developer.openstack.org/api-guide/key-manager/secrets.html#how-to-create-a-secret). Requests to
 Barbican must include a valid Keystone token in the ``X-Auth-Token`` header.
@@ -107,7 +107,7 @@ Response:
 {"acl_ref": "http://barbican.example.com:9311/v1/secrets/d1e7ef3b-f841-4b7c-90b2-b7d90ca2d723/acl"}
 ```
 
-# Configure the Ceph Object Gateway
+## Configure the Ceph Object Gateway
 
 Edit the Ceph configuration file to enable Barbican as a KMS and add information
 about the Barbican server and Keystone user:

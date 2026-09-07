@@ -13,7 +13,7 @@ UACCE, libwd, and many other algorithm libraries.
 
 See [Compressor UADK Support](https://github.com/ceph/ceph/pull/58336).
 
-# UADK in the Software Stack
+## UADK in the Software Stack
 
 UADK is a general-purpose user space accelerator framework that uses Shared
 Virtual Addressing (SVA) to provide a unified programming interface for
@@ -34,7 +34,7 @@ libcrypto*, DPDK, and the Linux* Kernel Crypto Framework).
 
 See [OpenSSL UADK Engine](https://github.com/Linaro/uadk_engine).
 
-# UADK Environment Setup
+## UADK Environment Setup
 UADK consists of UACCE, vendor drivers, and an algorithm layer. UADK requires
 the hardware accelerator to support SVA, and the operating system to support
 IOMMU and SVA. Hardware accelerators are registered as different character
@@ -76,7 +76,7 @@ Kernel    +--+-----+   +------+
          +----------------------+
 ```
 
-# Configuration
+## Configuration
 
 1. Kernel Requirement
 

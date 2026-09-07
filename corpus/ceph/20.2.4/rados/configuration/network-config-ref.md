@@ -69,7 +69,7 @@ one network interface or VLAN. See [Hardware Recommendations - Networks](../../s
    |   cCCC                      Cluster Network                                    |
    \--------------------------------------------------------------------------------/
 
-# IP Tables
+## IP Tables
 
 By default, daemons [bind](network-config-ref.md#bind) to ports within the ``6800:7568`` range. You may
 configure this range at your discretion. Before configuring your IP tables,
@@ -96,7 +96,7 @@ harden the ports on your Ceph Nodes.
 > container services, applying rule changes, then starting container
 > services and exiting maintenance mode.
 
-## Monitor IP Tables
+### Monitor IP Tables
 
 Ceph Monitors listen on ports ``3300`` and ``6789`` by
 default. Additionally, Ceph Monitors always operate on the public
@@ -109,7 +109,7 @@ network and ``{netmask}`` with the netmask for the public network. :
 sudo iptables -A INPUT -i {iface} -p tcp -s {ip-address}/{netmask} --dport 6789 -j ACCEPT
 ```
 
-## MDS and Manager IP Tables
+### MDS and Manager IP Tables
 
 A Ceph Metadata Server or Ceph Manager listens on the first
 available port on the public network beginning at port 6800. Note that this
@@ -127,7 +127,7 @@ For example:
 sudo iptables -A INPUT -i {iface} -m multiport -p tcp -s {ip-address}/{netmask} --dports 6800:7568 -j ACCEPT
 ```
 
-## OSD IP Tables
+### OSD IP Tables
 
 By default, Ceph OSD Daemons [bind](network-config-ref.md#bind) to the first available ports on a Ceph Node
 beginning at port 6800.  Note that this behavior is not deterministic, so if you
@@ -171,7 +171,7 @@ sudo iptables -A INPUT -i {iface}  -m multiport -p tcp -s {ip-address}/{netmask}
 > **Tip:** If you run Ceph Metadata Servers on the same Ceph Node as the
 > Ceph OSD Daemons, you can consolidate the public network configuration step.
 
-# Ceph Networks
+## Ceph Networks
 
 To configure Ceph networks, you must add a network configuration to the
 ``[global]`` section of the configuration file. Our 5-minute Quick Start
@@ -197,7 +197,7 @@ When you have configured your networks, you may restart your cluster or restart
 each daemon. Ceph daemons bind dynamically, so you do not have to restart the
 entire cluster at once if you change your network configuration.
 
-## Public Network
+### Public Network
 
 To configure a public network, add the following option to the ``[global]``
 section of your Ceph configuration file.
@@ -210,7 +210,7 @@ section of your Ceph configuration file.
 
 <a id="cluster-network"></a>
 
-## Cluster Network
+### Cluster Network
 
 If you declare a cluster network, OSDs will route heartbeat, object replication
 and recovery traffic over the cluster network. This may improve performance
@@ -226,7 +226,7 @@ following option to the ``[global]`` section of your Ceph configuration file.
 We prefer that the cluster network is **NOT** reachable from the public network
 or the Internet for added security.
 
-# Ceph Daemons
+## Ceph Daemons
 
 Monitor daemons are each configured to bind to a specific IP address.  These
 addresses are normally configured by your deployment tool.  Other components
@@ -267,13 +267,13 @@ configuration option.  For example,
    network and cluster network must be able to route traffic to each other,
    which we don't recommend for security reasons.
 
-# Network Config Settings
+## Network Config Settings
 
 Network configuration settings are not required. Ceph assumes a public network
 with all hosts operating on it unless you specifically configure a cluster
 network.
 
-## Public Network
+### Public Network
 
 The public network configuration allows you specifically define IP addresses
 and subnets for the public network. You may specifically assign static IP
@@ -286,7 +286,7 @@ setting for a specific daemon.
 
 .. confval:: public_addr
 
-## Cluster Network
+### Cluster Network
 
 The cluster network configuration allows you to declare a cluster network, and
 specifically define IP addresses and subnets for the cluster network. You may
@@ -299,7 +299,7 @@ settings using the ``cluster_addr`` setting for specific OSD daemons.
 
 .. confval:: cluster_addr
 
-## Bind
+### Bind
 
 Bind settings set the default port ranges Ceph OSD and MDS daemons use. The
 default range is ``6800:7568``. Ensure that your [IP Tables](network-config-ref.md#ip-tables) configuration
@@ -318,7 +318,7 @@ addresses.
 
 .. confval:: public_bind_addr
 
-## TCP
+### TCP
 
 Ceph disables TCP buffering by default.
 
@@ -326,7 +326,7 @@ Ceph disables TCP buffering by default.
 
 .. confval:: ms_tcp_rcvbuf
 
-## General Settings
+### General Settings
 
 .. confval:: ms_type
 

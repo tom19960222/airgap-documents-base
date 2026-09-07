@@ -23,7 +23,7 @@ root of the problem.
 Ceph is self-repairing. However, when problems persist, monitoring OSDs and
 placement groups will help you identify the problem.
 
-# Monitoring OSDs
+## Monitoring OSDs
 
 An OSD is either *in* service (``in``) or *out* of service (``out``). An OSD is
 either running and reachable (``up``), or it is not running and not
@@ -113,7 +113,7 @@ sudo systemctl start ceph-osd@1
 
 For problems associated with OSDs that have stopped or won't restart, see [OSD Not Running](../troubleshooting/troubleshooting-osd.md#osd-not-running).
 
-# PG Sets
+## PG Sets
 
 When CRUSH assigns a PG to OSDs, it takes note of how many replicas of the PG
 are required by the pool and then assigns each replica to a different OSD.
@@ -128,7 +128,7 @@ of OSDs that currently have a full and working version of a PG shard and that
 are therefore responsible for handling requests. By contrast, the **Up Set** is
 the set of OSDs that contain a shard of a specific PG. Data is moved or copied
 to the **Up Set**, or planned to be moved or copied, to the **Up Set**. See
-[Placement Group Concepts](pg-concepts.md#rados-operations-pg-concepts).
+[Placement Group Concepts](pg-concepts.md#rados_operations_pg_concepts).
 
 Sometimes an OSD in the Acting Set is ``down`` or otherwise unable to
 service requests for objects in the PG. When this kind of situation
@@ -171,7 +171,7 @@ osdmap eNNN pg {raw-pg-num} ({pg-num}) -> up [0,1,2] acting [0,1,2]
 > that the cluster is rebalancing itself or that there is a problem with
 > the cluster.
 
-# Peering
+## Peering
 
 Before you can write data to a PG, it must be in an ``active`` state and it
 will preferably be in a ``clean`` state. For Ceph to determine the current
@@ -200,7 +200,7 @@ the following diagram, we assume a pool with three replicas of the PG:
 
 The OSDs also report their status to the monitor. For details, see [Configuring Monitor/OSD Interaction](../configuration/mon-osd-interaction.md). To troubleshoot peering issues, see [Peering Failure](../troubleshooting/troubleshooting-pg.md#failures-osd-peering).
 
-# Monitoring PG States
+## Monitoring PG States
 
 If you run the commands ``ceph health``, ``ceph -s``, or ``ceph -w``,
 you might notice that the cluster does not always show ``HEALTH OK``. After
@@ -282,7 +282,7 @@ Ceph will output the query in JSON format.
 
 The following subsections describe the most common PG states in detail.
 
-## Creating
+### Creating
 
 PGs are created when you create a pool: the command that creates a pool
 specifies the total number of PGs for that pool, and when the pool is created
@@ -298,7 +298,7 @@ PG.
    | Creating  |------>|  Peering  |------>|  Active   |
    \-----------/       \-----------/       \-----------/
 
-## Peering
+### Peering
 
 When a PG peers, the OSDs that store the replicas of its data converge on an
 agreed state of the data and metadata within that PG. When peering is complete,
@@ -317,19 +317,19 @@ process does **NOT** mean that each replica has the latest contents.
    fully ordered set of operations that, if performed, would bring an OSD’s
    copy of the PG up to date.
 
-## Active
+### Active
 
 After Ceph has completed the peering process, a PG should become ``active``.
 The ``active`` state means that the data in the PG is generally available for
 read and write operations in the primary and replica OSDs.
 
-## Clean
+### Clean
 
 When a PG is in the ``clean`` state, all OSDs holding its data and metadata
 have successfully peered and there are no stray replicas. Ceph has replicated
 all objects in the PG the correct number of times.
 
-## Degraded
+### Degraded
 
 When a client writes an object to the primary OSD, the primary OSD is
 responsible for writing the replicas to the replica OSDs. After the primary OSD
@@ -354,7 +354,7 @@ objects that Ceph expects to find in the PG but that Ceph cannot find. Although
 you cannot read or write to unfound objects, you can still access all of the other
 objects in the ``degraded`` PG.
 
-## Recovering
+### Recovering
 
 Ceph was designed for fault-tolerance, because hardware and other server
 problems are expected or even routine. When an OSD goes ``down``, its contents
@@ -382,7 +382,7 @@ requests an OSD can entertain simultaneously, in order to prevent the OSD from
 failing to serve.  The ``osd_recovery_max_chunk`` setting limits the size of
 the recovered data chunks, in order to prevent network congestion.
 
-## Back Filling
+### Back Filling
 
 When a new OSD joins the cluster, CRUSH will reassign PGs from OSDs that are
 already in the cluster to the newly added OSD. It can put excessive load on the
@@ -418,7 +418,7 @@ seconds). OSDs can also set ``osd_backfill_scan_min`` and
 ``osd_backfill_scan_max`` in order to manage scan intervals (default: 64 and
 512, respectively).
 
-## Remapped
+### Remapped
 
 When the Acting Set that services a PG changes, the data migrates from the old
 Acting Set to the new Acting Set. Because it might take time for the new
@@ -427,7 +427,7 @@ to continue servicing requests until the PG data migration is complete. After
 data migration has completed, the mapping uses the primary OSD of the new
 Acting Set.
 
-## Stale
+### Stale
 
 Although Ceph uses heartbeats in order to ensure that hosts and daemons are
 running, the ``ceph-osd`` daemons might enter a ``stuck`` state where they are
@@ -444,7 +444,7 @@ peering process completes. After your cluster has been running for a while,
 however, seeing PGs in the ``stale`` state indicates that the primary OSD for
 those PGs is ``down`` or not reporting PG statistics to the monitor.
 
-# Identifying Troubled PGs
+## Identifying Troubled PGs
 
 As previously noted, a PG is not necessarily having problems just because its
 state is not ``active+clean``. When PGs are stuck, this might indicate that
@@ -468,7 +468,7 @@ ceph pg dump_stuck [unclean|inactive|stale|undersized|degraded]
 For more detail, see [Placement Group Subsystem](control.md#placement-group-subsystem). To troubleshoot stuck PGs,
 see [Troubleshooting PG Errors](../troubleshooting/troubleshooting-pg.md#troubleshooting-pg-errors).
 
-# Finding an Object Location
+## Finding an Object Location
 
 To store object data in the Ceph Object Store, a Ceph client must:
 

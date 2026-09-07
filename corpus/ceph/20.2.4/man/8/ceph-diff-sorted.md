@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-diff-sorted
 
-# Synopsis
+## Synopsis
 
 | **ceph-diff-sorted** *file1* *file2*
 
-# Description
+## Description
 
 ceph-diff-sorted is a simplified *diff* utility optimized
 for comparing two files with lines that are lexically sorted.
@@ -37,7 +37,7 @@ as:
 
         $ LANG=C sort some-file.txt >some-file-sorted.txt
 
-# Examples
+## Examples
 
 Compare two files:
 
@@ -45,7 +45,7 @@ Compare two files:
 $ ceph-diff-sorted fileA.txt fileB.txt
 ```
 
-# Exit Status
+## Exit Status
 
 When complete, the exit status will be set to one of the following:
 
@@ -60,12 +60,12 @@ When complete, the exit status will be set to one of the following:
 4
   bad file content (e.g., unsorted order or empty lines)
 
-# Availability
+## Availability
 
 ceph-diff-sorted is part of Ceph, a massively scalable,
 open-source, distributed storage system.  Please refer to the Ceph
 documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [rgw-orphan-list](rgw-orphan-list.md)\(8)

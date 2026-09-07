@@ -5,7 +5,7 @@ title: "Placement Group Concepts"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/pg-concepts.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="rados-operations-pg-concepts"></a>
+<a id="rados_operations_pg_concepts"></a>
 
 # Placement Group Concepts
 

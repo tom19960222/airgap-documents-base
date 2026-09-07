@@ -14,7 +14,7 @@ states and include a state diagram to visualize the transitions.
 
 ## State Descriptions
 
-#### Common states
+### Common states
 
 :
 
@@ -47,7 +47,7 @@ replaying the live journal and will more quickly takeover. A downside to having
 standby replay MDSs is that they are not available to takeover for any other
 MDS that fails, only the MDS they follow.
 
-#### Less common or transitory states
+### Less common or transitory states
 
 :
 
@@ -146,7 +146,7 @@ client requests which were replied to but not yet durable (not journaled).
 Clients resend these requests during ``up:reconnect`` and the requests are
 replayed once again. The MDS enters ``up:active`` after completing replay.
 
-#### Failed states
+### Failed states
 
 :
 
@@ -226,7 +226,7 @@ The rank has been stopped by reducing ``max_mds`` (see also [cephfs-multimds](mu
 
 This state diagram shows the possible state transitions for the MDS/rank. The legend is as follows:
 
-#### Color
+### Color
 
 - Green: MDS is active.
 - Orange: MDS is in transient state trying to become active.
@@ -234,12 +234,12 @@ This state diagram shows the possible state transitions for the MDS/rank. The le
 - Purple: MDS and rank is stopping.
 - Black: MDS is indicating a state that causes the rank to be marked damaged.
 
-#### Shape
+### Shape
 
 - Circle: an MDS holds this state.
 - Hexagon: no MDS holds this state (it is applied to the rank).
 
-#### Lines
+### Lines
 
 - A double-lined shape indicates the rank is "in".
 

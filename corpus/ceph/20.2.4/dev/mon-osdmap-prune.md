@@ -67,7 +67,7 @@ won't be pruning because the algorithm would only operate on versions
 [1..9700), and this interval contains less versions than the minimum
 required by ``mon_osdmap_full_prune_min``.
 
-# ALGORITHM
+## ALGORITHM
 
 Say we have 50,000 osdmap epochs in the store, and we're using the
 defaults for all configurable options.
@@ -230,7 +230,7 @@ The same conditions from ``OSDMonitor::get_trim_to()`` that force the monitor
 to keep a lot of osdmaps, thus requiring us to prune, may eventually change
 and allow the monitor to remove some of its oldest maps.
 
-## MAP TRIMMING
+### MAP TRIMMING
 
 If the monitor trims maps, we must then adjust the osdmap manifest to
 reflect our pruning status, or remove the manifest entirely if it no longer
@@ -305,7 +305,7 @@ whole algorithm, from pruning to trimming. Additionally, the next section
 details several additional checks to guarantee the sanity of our configuration
 options. Enjoy.
 
-## CONFIGURATION OPTIONS SANITY CHECKS
+### CONFIGURATION OPTIONS SANITY CHECKS
 
 We perform additional checks before pruning to ensure all configuration
 options involved are sane:
@@ -330,7 +330,7 @@ options involved are sane:
    ``txsize`` with a value at least equal than ``interval``, and (depending on
    the value of the latter) ideally higher.
 
-## REQUIREMENTS, CONDITIONS & INVARIANTS
+### REQUIREMENTS, CONDITIONS & INVARIANTS
 
 #### REQUIREMENTS
 

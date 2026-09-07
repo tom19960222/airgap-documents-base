@@ -15,7 +15,7 @@ related to information in a particular user's account, all requests in this API
 must be authenticated unless the container or object's access control is
 deliberately made publicly accessible (i.e., allows anonymous requests).
 
-# Create/Update an Object
+## Create/Update an Object
 
 To create a new object, make a ``PUT`` request with the API version, account,
 container name and the name of the new object. You must have write permission
@@ -27,7 +27,7 @@ another object of the same name if it is under a different pseudo-hierarchical
 directory. You may include access control headers and metadata headers in the
 request.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -37,7 +37,7 @@ PUT /{api version}/{account}/{container}/{object} HTTP/1.1
      X-Auth-Token: {auth-token}
 ```
 
-#### Request Headers
+### Request Headers
 
 ``ETag``
 
@@ -58,7 +58,7 @@ PUT /{api version}/{account}/{container}/{object} HTTP/1.1
 :Valid Values: ``chunked``
 :Required: No
 
-# Copy an Object
+## Copy an Object
 
 Copying an object allows you to make a server-side copy of an object, so that
 you don't have to download it and upload it under another container/name.
@@ -76,7 +76,7 @@ object from the source object of the same name if it is under a different
 pseudo-hierarchical directory. You may include access control headers and metadata
 headers in the request.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -96,7 +96,7 @@ COPY /{api version}/{account}/{source-container}/{source-object} HTTP/1.1
 Destination: {dest-container}/{dest-object}
 ```
 
-#### Request Headers
+### Request Headers
 
 ``X-Copy-From``
 
@@ -134,14 +134,14 @@ Destination: {dest-container}/{dest-object}
 :Type: ETag.
 :Required: No
 
-# Delete an Object
+## Delete an Object
 
 To delete an object, make a ``DELETE`` request with the API version, account,
 container and object name. You must have write permissions on the container to delete
 an object within it. Once you have successfully deleted the object, you will be able to
 reuse the object name.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -151,13 +151,13 @@ Host: {fqdn}
 X-Auth-Token: {auth-token}
 ```
 
-# Get an Object
+## Get an Object
 
 To retrieve an object, make a ``GET`` request with the API version, account,
 container and object name. You must have read permissions on the container to
 retrieve an object within it.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -167,7 +167,7 @@ Host: {fqdn}
 X-Auth-Token: {auth-token}
 ```
 
-#### Request Headers
+### Request Headers
 
 ``range``
 
@@ -199,13 +199,13 @@ X-Auth-Token: {auth-token}
 :Type: ETag.
 :Required: No
 
-#### Response Headers
+### Response Headers
 
 ``Content-Range``
 
 :Description: The range of the subset of object contents. Returned only if the range header field was specified in the request
 
-# Get Object Metadata
+## Get Object Metadata
 
 To retrieve an object's metadata, make a ``HEAD`` request with the API version,
 account, container and object name. You must have read permissions on the
@@ -213,7 +213,7 @@ container to retrieve metadata from an object within the container. This request
 returns the same header information as the request for the object itself, but
 it does not return the object's data.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -223,13 +223,13 @@ Host: {fqdn}
 X-Auth-Token: {auth-token}
 ```
 
-# Add/Update Object Metadata
+## Add/Update Object Metadata
 
 To add metadata to an object, make a ``POST`` request with the API version,
 account, container and object name. You must have write permissions on the
 parent container to add or update metadata.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -239,7 +239,7 @@ Host: {fqdn}
 X-Auth-Token: {auth-token}
 ```
 
-#### Request Headers
+### Request Headers
 
 ``X-Object-Meta-{key}``
 

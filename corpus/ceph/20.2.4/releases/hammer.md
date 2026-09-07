@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Hammer is the 8th stable release of Ceph.  It is named after the
 hammer octopus (Octopus australis).
 
-# v0.94.10 Hammer
+## v0.94.10 Hammer
 
 This Hammer point release fixes several bugs and adds two new features.
 
@@ -18,7 +18,7 @@ We recommend that all hammer v0.94.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.10.txt -->.
 
-## New Features
+### New Features
 
 ceph-objectstore-tool and ceph-monstore-tool now enable user to
 rebuild the monitor database from OSDs. (This feature is especially useful when
@@ -37,7 +37,7 @@ the user to manually remove the old bucket index objects. (Note that bucket
 resharding currently requires that all IO (especially writes) to the specific
 bucket is quiesced.)
 
-## Other Notable Changes
+### Other Notable Changes
 
 * build/ops: ceph-create-keys loops forever ([issue#17753](http://tracker.ceph.com/issues/17753), [pr#12805](http://github.com/ceph/ceph/pull/12805), Alfredo Deza)
 * build/ops: improve ceph.in error message ([issue#11101](http://tracker.ceph.com/issues/11101), [pr#10905](http://github.com/ceph/ceph/pull/10905), Kefu Chai)
@@ -107,7 +107,7 @@ bucket is quiesced.)
 * tools: ceph-objectstore-tool: add a way to split filestore directories offline ([issue#17220](http://tracker.ceph.com/issues/17220), [pr#11253](http://github.com/ceph/ceph/pull/11253), Josh Durgin)
 * tools: crushtool --compile generates output despite missing item ([issue#17306](http://tracker.ceph.com/issues/17306), [pr#11931](http://github.com/ceph/ceph/pull/11931), Kefu Chai)
 
-# v0.94.9 Hammer
+## v0.94.9 Hammer
 
 This Hammer point release fixes a build issue present in 0.94.8 that prevented us
 from generating packages for Ubuntu Precise and CentOS 6.x.
@@ -116,11 +116,11 @@ We recommend all users of v0.94.7 or older upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.9.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * build/ops: revert: boost uuid makes valgrind complain ([pr#10913](http://github.com/ceph/ceph/pull/10913), Sage Weil)
 
-# v0.94.8 Hammer
+## v0.94.8 Hammer
 
 This Hammer point release fixes several bugs.
 
@@ -128,7 +128,7 @@ We recommend that all hammer v0.94.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.8.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * build/ops: rocksdb do not link against tcmalloc if it's disabled ([issue#14799](http://tracker.ceph.com/issues/14799), [pr#10750](http://github.com/ceph/ceph/pull/10750), Sage Weil, Kefu Chai)
 * build/ops: Add -D_LARGEFILE64_SOURCE to Linux build. ([issue#16611](http://tracker.ceph.com/issues/16611), [pr#10182](http://github.com/ceph/ceph/pull/10182), Ira Cooper)
@@ -186,7 +186,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tests: be more generous with test timeout ([issue#15403](http://tracker.ceph.com/issues/15403), [pr#8470](http://github.com/ceph/ceph/pull/8470), Loic Dachary)
 * tests: qa/workunits/rbd: respect RBD_CREATE_ARGS environment variable ([issue#16289](http://tracker.ceph.com/issues/16289), [pr#9722](http://github.com/ceph/ceph/pull/9722), Mykola Golub)
 
-# v0.94.7 Hammer
+## v0.94.7 Hammer
 
 This Hammer point release fixes several minor bugs.  It also includes
 a backport of an improved 'ceph osd reweight-by-utilization' command
@@ -196,7 +196,7 @@ We recommend that all hammer v0.94.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.7.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * auth: keyring permisions for mon deamon ([issue#14950](http://tracker.ceph.com/issues/14950), [pr#8049](http://github.com/ceph/ceph/pull/8049), Owen Synge)
 * auth: PK11_DestroyContext() is called twice if PK11_DigestFinal() fails ([issue#14958](http://tracker.ceph.com/issues/14958), [pr#7922](http://github.com/ceph/ceph/pull/7922), Brad Hubbard, Dunrong Huang)
@@ -244,7 +244,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tools, test: Add ceph-objectstore-tool to operate on the meta collection ([issue#14977](http://tracker.ceph.com/issues/14977), [pr#7911](http://github.com/ceph/ceph/pull/7911), David Zafman)
 * unittest_crypto: benchmark 100,000 CryptoKey::encrypt() calls ([issue#14863](http://tracker.ceph.com/issues/14863), [pr#7801](http://github.com/ceph/ceph/pull/7801), Sage Weil)
 
-# v0.94.6 Hammer
+## v0.94.6 Hammer
 
 This Hammer point release fixes a range of bugs, most notably a fix
 for unbounded growth of the monitor's leveldb store, and a workaround
@@ -255,7 +255,7 @@ We recommend that all hammer v0.94.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.6.txt -->.
 
-## Notable Changes
+### Notable Changes
 * build/ops: Ceph daemon failed to start, because the service name was already used. ([issue#13474](http://tracker.ceph.com/issues/13474), [pr#6832](http://github.com/ceph/ceph/pull/6832), Chuanhong Wang)
 * build/ops: LTTng-UST tracing should be dynamically enabled ([issue#13274](http://tracker.ceph.com/issues/13274), [pr#6415](http://github.com/ceph/ceph/pull/6415), Jason Dillaman)
 * build/ops: ceph upstart script rbdmap.conf incorrectly processes parameters ([issue#13214](http://tracker.ceph.com/issues/13214), [pr#6159](http://github.com/ceph/ceph/pull/6159), Sage Weil)
@@ -363,21 +363,21 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tools: race condition in rados bench ([issue#12947](http://tracker.ceph.com/issues/12947), [pr#6791](http://github.com/ceph/ceph/pull/6791), Piotr Dałek)
 * tools: tool for artificially inflate the leveldb of the mon store for testing purposes  ([issue#10093](http://tracker.ceph.com/issues/10093), [issue#11815](http://tracker.ceph.com/issues/11815), [issue#14217](http://tracker.ceph.com/issues/14217), [pr#7412](http://github.com/ceph/ceph/pull/7412), Cilang Zhao, Bo Cai, Kefu Chai, huangjun, Joao Eduardo Luis)
 
-# v0.94.5 Hammer
+## v0.94.5 Hammer
 
 This Hammer point release fixes a critical regression in librbd that can cause
 QEMU/KVM to crash when caching is enabled on images that have been cloned.
 
 All v0.94.4 Hammer users are strongly encouraged to upgrade.
 
-## Notable Changes
+### Notable Changes
 * librbd: potential assertion failure during cache read ([issue#13559](http://tracker.ceph.com/issues/13559), [pr#6348](http://github.com/ceph/ceph/pull/6348), Jason Dillaman)
 * osd: osd/ReplicatedPG: remove stray debug line ([issue#13455](http://tracker.ceph.com/issues/13455), [pr#6362](http://github.com/ceph/ceph/pull/6362), Sage Weil)
 * tests: qemu workunit refers to apt-mirror.front.sepia.ceph.com ([issue#13420](http://tracker.ceph.com/issues/13420), [pr#6330](http://github.com/ceph/ceph/pull/6330), Yuan Zhou)
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.5.txt -->.
 
-# v0.94.4 Hammer
+## v0.94.4 Hammer
 
 This Hammer point release fixes several important bugs in Hammer, as well as
 fixing interoperability issues that are required before an upgrade to
@@ -387,7 +387,7 @@ later before upgrading to Infernalis (or future releases).
 
 All v0.94.x Hammer users are strongly encouraged to upgrade.
 
-## Notable Changes
+### Notable Changes
 * build/ops: ceph.spec.in: 50-rbd.rules conditional is wrong ([issue#12166](http://tracker.ceph.com/issues/12166), [pr#5207](http://github.com/ceph/ceph/pull/5207), Nathan Cutler)
 * build/ops: ceph.spec.in: ceph-common needs python-argparse on older distros, but doesn't require it ([issue#12034](http://tracker.ceph.com/issues/12034), [pr#5216](http://github.com/ceph/ceph/pull/5216), Nathan Cutler)
 * build/ops: ceph.spec.in: radosgw requires apache for SUSE only -- makes no sense ([issue#12358](http://tracker.ceph.com/issues/12358), [pr#5411](http://github.com/ceph/ceph/pull/5411), Nathan Cutler)
@@ -481,7 +481,7 @@ All v0.94.x Hammer users are strongly encouraged to upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.4.txt -->.
 
-# v0.94.3 Hammer
+## v0.94.3 Hammer
 
 This Hammer point release fixes a critical (though rare) data
 corruption bug that could be triggered when logs are rotated via
@@ -490,13 +490,13 @@ monitor, RGW, RGW, and CephFS.
 
 All v0.94.x Hammer users are strongly encouraged to upgrade.
 
-## Upgrading
+### Upgrading
 
 * The ``pg ls-by-{pool,primary,osd}`` commands and ``pg ls`` now take
   the argument ``recovering`` instead of ``recovery`` in order to
   include the recovering pgs in the listed pgs.
 
-## Notable Changes
+### Notable Changes
 * librbd: aio calls may block ([issue#11770](http://tracker.ceph.com/issues/11770), [pr#4875](http://github.com/ceph/ceph/pull/4875), Jason Dillaman)
 * osd: make the all osd/filestore thread pool suicide timeouts separately configurable ([issue#11701](http://tracker.ceph.com/issues/11701), [pr#5159](http://github.com/ceph/ceph/pull/5159), Samuel Just)
 * mon: ceph fails to compile with boost 1.58 ([issue#11982](http://tracker.ceph.com/issues/11982), [pr#5122](http://github.com/ceph/ceph/pull/5122), Kefu Chai)
@@ -565,7 +565,7 @@ All v0.94.x Hammer users are strongly encouraged to upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.3.txt -->.
 
-# v0.94.2 Hammer
+## v0.94.2 Hammer
 
 This Hammer point release fixes a few critical bugs in RGW that can
 prevent objects starting with underscore from behaving properly and
@@ -575,7 +575,7 @@ Civetweb standalone mode.
 All v0.94.x Hammer users are strongly encouraged to upgrade, and to
 make note of the repair procedure below if RGW is in use.
 
-## Upgrading from previous Hammer release
+### Upgrading from previous Hammer release
 
 Bug #11442 introduced a change that made rgw objects that start with underscore
 incompatible with previous versions. The fix to that bug reverts to the
@@ -588,7 +588,7 @@ $ radosgw-admin bucket check --check-head-obj-locator \
                              --bucket=<bucket> [--fix]
 ```
 
-## Notable changes
+### Notable changes
 
 * build: compilation error: No high-precision counter available  (armhf, powerpc..) (#11432, James Page)
 * ceph-dencoder links to libtcmalloc, and shouldn't (#10691, Boris Ranto)
@@ -634,7 +634,7 @@ $ radosgw-admin bucket check --check-head-obj-locator \
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.2.txt -->.
 
-# v0.94.1 Hammer
+## v0.94.1 Hammer
 
 This bug fix release fixes a few critical issues with CRUSH.  The most
 important addresses a bug in feature bit enforcement that may prevent
@@ -648,7 +648,7 @@ There is also a fix in the new straw2 buckets when OSD weights are 0.
 
 We recommend that all v0.94 users upgrade.
 
-## Notable changes
+### Notable changes
 
 * crush: fix divide-by-0 in straw2 (#11357 Sage Weil)
 * crush: fix has_v4_buckets (#11364 Sage Weil)
@@ -656,7 +656,7 @@ We recommend that all v0.94 users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.94.1.txt -->.
 
-# v0.94 Hammer
+## v0.94 Hammer
 
 This major release is expected to form the basis of the next long-term
 stable series.  It is intended to supersede v0.80.x Firefly.
@@ -745,7 +745,7 @@ Hammer features major new features and improvements from Intel, Fujitsu,
 UnitedStack, Yahoo, UbuntuKylin, CohortFS, Mellanox, CERN, Deutsche
 Telekom, Mirantis, and SanDisk.
 
-## Dedication
+### Dedication
 
 This release is dedicated in memoriam to Sandon Van Ness, aka
 Houkouonchi, who unexpectedly passed away a few weeks ago.  Sandon was
@@ -755,7 +755,7 @@ have made an important impact on our ability to reliably test Ceph
 with a relatively small group of people.  He was a valued member of
 the team and we will miss him.  H is also for Houkouonchi.
 
-## Upgrading
+### Upgrading
 
 * If your existing cluster is running a version older than v0.80.x
   Firefly, please first upgrade to the latest Firefly release before
@@ -793,7 +793,7 @@ the team and we will miss him.  H is also for Houkouonchi.
   until we find a way to avoid violating distro security policies when linking
   libust.
 
-## Upgrading from v0.87.x Giant
+### Upgrading from v0.87.x Giant
 
 * librbd and librados include lttng tracepoints on distros with
   liblttng 2.4 or later (only Ubuntu Trusty for the ceph.com
@@ -899,7 +899,7 @@ enable experimental unrecoverable data corrupting features = keyvaluestore
   interface, ceph-fuse needs be mounted as root on at least some systems. See
   issues #9997, #10277, and #10542 for details.
 
-## Upgrading from v0.80x Firefly (additional notes)
+### Upgrading from v0.80x Firefly (additional notes)
 
 * The client-side caching for librbd is now enabled by default (rbd
   cache = true).  A safety option (rbd cache writethrough until flush
@@ -973,7 +973,7 @@ sudo find /mnt/cephfs -type f -links +1 -exec touch \{\} \;
   can transition to 1) 'writeback' if there are dirty objects, or 2) any if
   there are no dirty objects.
 
-## Notable changes since v0.93
+### Notable changes since v0.93
 
 * build: a few cmake fixes (Matt Benjamin)
 * build: fix build on RHEL/CentOS 5.9 (Rohan Mars)
@@ -1014,7 +1014,7 @@ sudo find /mnt/cephfs -type f -links +1 -exec touch \{\} \;
 * rgw: use new watch/notify API (Yehuda Sadeh, Sage Weil)
 * osd: reverted degraded writes feature due to 11155
 
-## Notable changes since v0.87.x Giant
+### Notable changes since v0.87.x Giant
 
 * add experimental features option (Sage Weil)
 * arch: fix NEON feaeture detection (#10185 Loic Dachary)
@@ -1561,7 +1561,7 @@ sudo find /mnt/cephfs -type f -links +1 -exec touch \{\} \;
 * vstart.sh: set up environment for s3-tests (Luis Pabon)
 * vstart.sh: work with cmake (Yehuda Sadeh)
 
-# v0.93
+## v0.93
 
 This is the first release candidate for Hammer, and includes all of
 the features that will be present in the final release.  We welcome
@@ -1593,7 +1593,7 @@ Major features since Giant include:
 * rgw: large bucket index sharding (Guang Yang, Yehuda Sadeh)
 * RDMA "xio" messenger support (Matt Benjamin, Vu Pham)
 
-## Upgrading
+### Upgrading
 
 * If you are upgrading from v0.92, you must stop all OSD daemons and flush their
   journals (``ceph-osd -i NNN --flush-journal``) before upgrading.  There was
@@ -1602,7 +1602,7 @@ Major features since Giant include:
 
 * No special restrictions when upgrading from firefly or giant.
 
-## Notable Changes
+### Notable Changes
 
 * build: CMake support (Ali Maredia, Casey Bodley, Adam Emerson, Marcus Watts, Matt Benjamin)
 * ceph-disk: do not re-use partition if encryption is required (Loic Dachary)
@@ -1773,14 +1773,14 @@ Major features since Giant include:
 * tests: unit tests for shared_cache (Dong Yuan)
 * vstart.sh: work with cmake (Yehuda Sadeh)
 
-# v0.92
+## v0.92
 
 This is the second-to-last chunk of new stuff before Hammer.  Big items
 include additional checksums on OSD objects, proxied reads in the
 cache tier, image locking in RBD, optimized OSD Transaction and
 replication messages, and a big pile of RGW and MDS bug fixes.
 
-## Upgrading
+### Upgrading
 
 * The experimental 'keyvaluestore-dev' OSD backend has been renamed
   'keyvaluestore' (for simplicity) and marked as experimental.  To
@@ -1812,7 +1812,7 @@ enable experimental unrecoverable data corrupting features = keyvaluestore
   the async queue of notify operations.  This should be called by any watch/notify
   user prior to rados_shutdown().
 
-## Notable Changes
+### Notable Changes
 
 * add experimental features option (Sage Weil)
 * build: fix 'make check' races (#10384 Loic Dachary)
@@ -1889,7 +1889,7 @@ enable experimental unrecoverable data corrupting features = keyvaluestore
 * test: fix bufferlist tests (Jianpeng Ma)
 * tests: improve docker-based tests (Loic Dachary)
 
-# v0.91
+## v0.91
 
 We are quickly approaching the Hammer feature freeze but have a few
 more dev releases to go before we get there.  The headline items are
@@ -1902,7 +1902,7 @@ per-PG state.
 
 We expect two more releases before the Hammer feature freeze (v0.93).
 
-## Upgrading
+### Upgrading
 
 * The 'category' field for objects has been removed.  This was originally added
   to track PG stat summations over different categories of objects for use by
@@ -1938,7 +1938,7 @@ We expect two more releases before the Hammer feature freeze (v0.93).
   (which appears in state names) as part of the XML token (it is not
   legal).
 
-## Notable Changes
+### Notable Changes
 
 * asyncmsgr: misc fixes (Haomai Wang)
 * buffer: add 'shareable' construct (Matt Benjamin)
@@ -2007,7 +2007,7 @@ We expect two more releases before the Hammer feature freeze (v0.93).
 * rgw: use \r\n for http headers (#9254 Yehuda Sadeh)
 * rpm: misc fixes (Key Dreyer)
 
-# v0.90
+## v0.90
 
 This is the last development release before Christmas.  There are some
 API cleanups for librados and librbd, and lots of bug fixes across the
@@ -2018,7 +2018,7 @@ are several improvements to ceph-disk.
 The next two development releases will be getting a slew of new
 functionality for hammer.  Stay tuned!
 
-## Upgrading
+### Upgrading
 
 * Previously, the formatted output of 'ceph pg stat -f ...' was a full
   pg dump that included all metadata about all PGs in the system.  It
@@ -2031,7 +2031,7 @@ functionality for hammer.  Stay tuned!
   to interpret the quoted string and will most likely need to be fixed to take
   the unquoted number.
 
-## Notable Changes
+### Notable Changes
 
 * arch: fix NEON feaeture detection (#10185 Loic Dachary)
 * build: adjust build deps for yasm, virtualenv (Jianpeng Ma)
@@ -2093,7 +2093,7 @@ functionality for hammer.  Stay tuned!
 * systemd: better systemd unit files (Owen Synge)
 * tests: ability to run unit tests under docker (Loic Dachary)
 
-# v0.89
+## v0.89
 
 This is the second development release since Giant.  The big items
 include the first batch of scrub patches from Greg for CephFS, a rework
@@ -2102,7 +2102,7 @@ a pile of bug fixes for RGW.  There are also several smaller issues
 fixed up in the performance area with buffer alignment and memory
 copies, osd cache tiering agent, and various CephFS fixes.
 
-## Upgrading
+### Upgrading
 
 * New ability to list all objects from all namespaces can fail or
   return incomplete results when not all OSDs have been upgraded.
@@ -2110,7 +2110,7 @@ copies, osd cache tiering agent, and various CephFS fixes.
   cache-flush-evict-all and rados cache-try-flush-evict-all can also
   fail or return incomplete results.
 
-## Notable Changes
+### Notable Changes
 
 * buffer: add list::get_contiguous (Sage Weil)
 * buffer: avoid rebuild if buffer already contiguous (Jianpeng Ma)
@@ -2177,7 +2177,7 @@ copies, osd cache tiering agent, and various CephFS fixes.
 * rgw: set ETag on object copy (#9479 Yehuda Sadeh)
 * rgw: update bucket index on attr changes, for multi-site sync (#5595 Yehuda Sadeh)
 
-# v0.88
+## v0.88
 
 This is the first development release after Giant.  The two main
 features merged this round are the new AsyncMessenger (an alternative
@@ -2187,7 +2187,7 @@ Zheng.  There is also a big pile of smaller items that re merged while
 we were stabilizing Giant, including a range of smaller performance
 and bug fixes and some new tracepoints for LTTNG.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-disk: Scientific Linux support (Dan van der Ster)
 * ceph-disk: respect --statedir for keyring (Loic Dachary)

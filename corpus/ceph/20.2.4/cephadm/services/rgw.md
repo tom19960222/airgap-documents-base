@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 <a id="cephadm-deploy-rgw"></a>
 
-# Deploy RGWs
+## Deploy RGWs
 
 Cephadm deploys the Object Gateway (RGW) as a collection of daemons that manage a
 single-cluster deployment or a particular *realm* and *zone* in a
@@ -30,7 +30,7 @@ To deploy a set of ``radosgw`` daemons, with an arbitrary service name
 ceph orch apply rgw *<name>* [--realm=*<realm-name>*] [--zone=*<zone-name>*] --placement="*<num-daemons>* [*<host1>* ...]"
 ```
 
-## Trivial setup
+### Trivial setup
 
 For example, to deploy two daemons (the default) for a single-cluster RGW deployment
 with the arbitrary service id ``foo``:
@@ -39,9 +39,9 @@ with the arbitrary service id ``foo``:
 ceph orch apply rgw foo
 ```
 
-<a id="cephadm-rgw-designated-gateways"></a>
+<a id="cephadm-rgw-designated_gateways"></a>
 
-## Designated gateways
+### Designated gateways
 
 A common scenario is to have a labeled set of hosts that will act
 as gateways, with multiple instances of radosgw running on consecutive
@@ -53,11 +53,11 @@ ceph orch host label add gwhost2 rgw
 ceph orch apply rgw foo '--placement=label:rgw count-per-host:2' --port=8000
 ```
 
-See also: [cephadm_co_location](index.md#cephadm-co-location).
+See also: [cephadm_co_location](index.md#cephadm_co_location).
 
 <a id="cephadm-rgw-networks"></a>
 
-## Specifying Networks
+### Specifying Networks
 
 The RGW service can have the network they bind to configured with a YAML service specification.
 
@@ -75,7 +75,7 @@ spec:
   rgw_frontend_port: 8080
 ```
 
-## Passing Frontend Extra Arguments
+### Passing Frontend Extra Arguments
 
 The RGW service specification can be used to pass extra arguments to the frontend by using
 the ``rgw_frontend_extra_args`` arguments list.
@@ -102,7 +102,7 @@ spec:
 > ``rgw_frontend_extra_args`` into a single space-separated arguments list
 > which is used to set the value of the ``rgw_frontends`` configuration parameter.
 
-## Multisite zones
+### Multisite zones
 
 To deploy RGWs serving the multisite ``myorg`` realm and the ``us-east-1`` zone on
 ``myhost1`` and ``myhost2``:
@@ -136,7 +136,7 @@ specification.  See [multisite](../../radosgw/bucket_logging.md#multisite) for m
 
 See also [multisite](../../radosgw/bucket_logging.md#multisite).
 
-## Setting up HTTPS
+### Setting up HTTPS
 
 In order to enable HTTPS for RGW services, apply a spec file following this scheme:
 
@@ -171,7 +171,7 @@ ceph orch apply -i myrgw.yaml
 Note the value of ``rgw_frontend_ssl_certificate`` is a literal string as
 indicated by a ``|`` character preserving newline characters.
 
-## Setting up HTTPS with Wildcard SANs
+### Setting up HTTPS with Wildcard SANs
 
 To enable HTTPS for RGW services, apply a spec file following this scheme:
 
@@ -200,7 +200,7 @@ The ``wildcard_enabled`` flag ensures that a wildcard SAN entry is included in t
 allowing access to buckets in virtual host mode. By default, this flag is disabled.
 example: wildcard SAN - (*.s3.cephlab.com)
 
-## Disabling multisite sync traffic
+### Disabling multisite sync traffic
 
 There is an RGW config option called ``rgw_run_sync_thread`` that tells the
 RGW daemon to not transmit multisite replication data. This is useful if you want
@@ -225,7 +225,7 @@ spec:
 > The daemon can still receive replication data unless it has been removed
 > from the zonegroup and zone replication endpoints.
 
-## Draining client connections on shutdown
+### Draining client connections on shutdown
 
 When an RGW daemon is stopped by for any reason, including during the cephadm upgrade process,
 RGW offers a setting to delay shutdown as the RGW daemon attempts to complete ongoing
@@ -258,7 +258,7 @@ new client requests during this time.
 > in the service until they are redeployed using either the ``ceph orch redeploy <service-name>``
 > or ``ceph orch daemon redeploy <daemon-name>`` commands
 
-## Service specification
+### Service specification
 
 .. py:currentmodule:: ceph.deployment.service_spec
 
@@ -267,7 +267,7 @@ new client requests during this time.
 
 <a id="orchestrator-haproxy-service-spec"></a>
 
-# High availability service for RGW
+## High availability service for RGW
 
 The *ingress* service allows you to create a high availability endpoint
 for RGW with a minimum set of configuration options.  The orchestrator will
@@ -295,11 +295,11 @@ elected as master, and the virtual IP will be moved to that node.
 The active haproxy acts like a load balancer, distributing all RGW requests
 between all the RGW daemons available.
 
-## Prerequisites
+### Prerequisites
 
 * An existing RGW service.
 
-## Deploying
+### Deploying
 
 Use the command:
 
@@ -307,7 +307,7 @@ Use the command:
 ceph orch apply -i <ingress_spec_file>
 ```
 
-## Service specification
+### Service specification
 
 Service specs are YAML blocks with the following properties:
 
@@ -410,7 +410,7 @@ where the properties of this service specification are:
 
 <a id="ingress-virtual-ip"></a>
 
-## Selecting network interfaces for the virtual IP
+### Selecting network interfaces for the virtual IP
 
 You cannot simply provide the name of the network interface on which
 to configure the virtual IP because interface names may vary
@@ -444,12 +444,12 @@ on an interface that has no existing IP address.  In this situation, we suggest
 configuring a "dummy" IP address is an unroutable network on the correct interface
 and reference that dummy network in the networks list (see above).
 
-## Useful hints for ingress
+### Useful hints for ingress
 
 * It is advised to have at least three ``radosgw`` daemons for availability and load balancing.
 * We recommend at least three hosts for the ``ingress`` service.
 
-# Further Reading
+## Further Reading
 
 * [object-gateway](../../radosgw/index.md#object-gateway)
 * [mgr-rgw-module](../../mgr/rgw.md#mgr-rgw-module)

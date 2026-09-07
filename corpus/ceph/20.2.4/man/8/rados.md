@@ -11,16 +11,16 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rados
 
-# Synopsis
+## Synopsis
 
 | **rados** [ *options* ] [ *command* ]
 
-# Description
+## Description
 
 **rados** is a utility for interacting with a Ceph object storage
 cluster (RADOS), part of the Ceph distributed storage system.
 
-# Global Options
+## Global Options
 
 .. option:: --object-locator object_locator
 
@@ -104,7 +104,7 @@ cluster (RADOS), part of the Ceph distributed storage system.
 
    Use with cp to specify the namespace of the new object.
 
-# Bench options
+## Bench options
 
 .. option:: -t N, --concurrent-ios=N
 
@@ -130,7 +130,7 @@ cluster (RADOS), part of the Ceph distributed storage system.
 
    Write contents to the extended attributes.
 
-# Load gen options
+## Load gen options
 
 .. option:: --num-objects
 
@@ -176,19 +176,19 @@ cluster (RADOS), part of the Ceph distributed storage system.
 
    At what boundary to align random op offsets.
 
-# Cache pools options
+## Cache pools options
 
 .. option:: --with-clones
 
    Include clones when doing flush or evict.
 
-# OMAP options
+## OMAP options
 
 .. option:: --omap-key-file file
 
    Read the omap key from a file.
 
-# Generic options
+## Generic options
 
 .. option:: -c FILE, --conf FILE
 
@@ -218,7 +218,7 @@ cluster (RADOS), part of the Ceph distributed storage system.
 
    Show version and quit.
 
-# Global commands
+## Global commands
 
 lspools
   List object pools
@@ -236,7 +236,7 @@ list-inconsistent-obj *pgid*
 list-inconsistent-snapset *pgid*
   List inconsistent snapsets in given PG.
 
-# Pool specific commands
+## Pool specific commands
 
 get *name* *outfile*
   Read object name from the cluster and write it to outfile.
@@ -337,7 +337,7 @@ export *filename*
 import [--dry-run] [--no-overwrite] < filename | - >
   Load pool contents from a file or standard input
 
-# Examples
+## Examples
 
 To view cluster utilization:
 
@@ -387,11 +387,11 @@ To list inconsistent objects in PG 0.6:
 rados list-inconsistent-obj 0.6 --format=json-pretty
 ```
 
-# Availability
+## Availability
 
 **rados** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

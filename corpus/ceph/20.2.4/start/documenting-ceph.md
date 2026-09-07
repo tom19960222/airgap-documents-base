@@ -5,7 +5,7 @@ title: "Documenting Ceph"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/start/documenting-ceph.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="documenting-ceph"></a>
+<a id="documenting_ceph"></a>
 
 # Documenting Ceph
 
@@ -20,7 +20,7 @@ it in the repo) and include your correction.
 
 Another way to suggest a documentation correction is to make a pull request.
 The instructions for making a pull request against the Ceph documentation are
-in the section [making_contributions](documenting-ceph.md#making-contributions).
+in the section [making_contributions](documenting-ceph.md#making_contributions).
 
 If this is your first time making an improvement to the documentation or
 if you have noticed a small mistake (such as a spelling error or a typo),
@@ -28,12 +28,12 @@ it will be easier to send an email than to make a pull request. You will
 be credited for the improvement unless you instruct Ceph Upstream
 Documentation not to credit you.
 
-# Location of the Documentation in the Repository
+## Location of the Documentation in the Repository
 
 The Ceph documentation source is in the ``ceph/doc`` directory of the Ceph
 repository. Python Sphinx renders the source into HTML and manpages.
 
-# Viewing Old Ceph Documentation
+## Viewing Old Ceph Documentation
 The https://docs.ceph.com link displays the documentation for the latest
 release by default (for example, if "Reef" is the most recent release, then by
 default https://docs.ceph.com displays the documentation for Reef), but you can
@@ -43,9 +43,9 @@ replacing the release name in the url (for example, ``reef`` in
 branch name you prefer (for example, ``quincy``, to create a URL that reads
 [https://docs.ceph.com/en/pacific/](https://docs.ceph.com/en/quincy/)).
 
-<a id="making-contributions"></a>
+<a id="making_contributions"></a>
 
-# Making Contributions
+## Making Contributions
 
 Making a documentation contribution involves the same basic procedure as making
 a code contribution, with one exception: you must build documentation source
@@ -61,7 +61,7 @@ the documentation source) includes the following steps:
 1. [Make a Pull Request](documenting-ceph.md#make-a-pull-request)
 1. [Notify Us](documenting-ceph.md#notify-us)
 
-## Get the Source
+### Get the Source
 
 The source of the Ceph documentation is a collection of ReStructured Text files
 that are in the Ceph repository in the ``ceph/doc`` directory. For details
@@ -139,7 +139,7 @@ The Ceph documentation is organized by component:
 - **Images:** Images including JPEG and PNG files are stored in the
   ``doc/images`` directory.
 
-## Select a Branch
+### Select a Branch
 
 When you make small changes to the documentation, such as fixing typographical
 errors or clarifying explanations, use the ``main`` branch (default). You
@@ -189,7 +189,7 @@ If it doesn't exist, create your branch:
 git checkout -b wip-doc-{your-branch-name}
 ```
 
-## Make a Change
+### Make a Change
 
 Modifying a document involves opening a reStructuredText file, changing
 its contents, and saving the changes. See [Documentation Style Guide](documenting-ceph.md#documentation-style-guide) for
@@ -221,7 +221,7 @@ git rm doc/rados/example.rst
 
 You must also remove any reference to a deleted document from other documents.
 
-## Build the Source
+### Build the Source
 
 To build the documentation, navigate to the ``ceph`` repository directory:
 
@@ -418,7 +418,7 @@ sudo yum install ditaa-0.9-13.r74.fc21.noarch.rpm
 After you have installed these packages, build the documentation by following
 the steps in [Build the Source](documenting-ceph.md#build-the-source).
 
-## Commit the Change
+### Commit the Change
 
 Ceph documentation commits are simple, but follow a strict convention:
 
@@ -500,7 +500,7 @@ gitk
 
 Finally, select **File->Start git gui** to activate the graphical user interface.
 
-## Push the Change
+### Push the Change
 
 Once you have one or more commits, you must push them from the local copy of the
 repository to ``github``. A graphical tool like ``git-gui`` provides a user
@@ -516,11 +516,11 @@ Otherwise:
 git push
 ```
 
-## Make a Pull Request
+### Make a Pull Request
 
 As noted earlier, you can make documentation contributions using the [Fork and Pull](https://help.github.com/articles/using-pull-requests) approach.
 
-## Squash Extraneous Commits
+### Squash Extraneous Commits
 Each pull request ought to be associated with only a single commit. If you have
 made more than one commit to the feature branch that you are working in, you
 will need to "squash" the multiple commits. "Squashing" is the colloquial term
@@ -792,13 +792,13 @@ To github.com:zdover23/ceph.git
  + b34986e2922...02e3a5cb763 wip-doc-2023-03-28-glossary-cephx -> wip-doc-2023-03-28-glossary-cephx (forced update)
 ```
 
-## Notify Us
+### Notify Us
 
 If some time has passed and the pull request that you raised has not been
 reviewed, contact the component lead and ask what's taking so long. See
 [ctl](../governance.md#ctl) for a list of component leads.
 
-# Documentation Style Guide
+## Documentation Style Guide
 
 One objective of the Ceph documentation project is to ensure the readability of
 the documentation in both native reStructuredText format and its rendered
@@ -813,7 +813,7 @@ less doc/architecture.rst
 
 Review the following style guides to maintain this consistency.
 
-## Headings
+### Headings
 
 1. **Document Titles:** Document titles use the ``=`` character overline and
    underline with a leading and trailing space on the title text line.
@@ -828,7 +828,7 @@ Review the following style guides to maintain this consistency.
    with no leading or trailing spaces for text.  Two carriage returns should
    precede a subsection title (unless an inline reference precedes it).
 
-## Text Body
+### Text Body
 
 As a general rule, we prefer text to wrap at column 80 so that it is legible in
 a command line interface without leading or trailing white space. Where
@@ -868,7 +868,7 @@ possible, we prefer to maintain this convention with text, lists, literal text
    tag will cause autonumbering to restart at 1 if it is used as an example
    within a numbered list. See [Showing code examples](http://sphinx-doc.org/markup/code.html) for details.
 
-## Paragraph Level Markup
+### Paragraph Level Markup
 
 The Ceph project uses [paragraph level markup](http://sphinx-doc.org/markup/para.html) to highlight points.
 
@@ -896,7 +896,7 @@ The Ceph project uses [paragraph level markup](http://sphinx-doc.org/markup/para
    outside the main flow of the document. See the [topic directive](http://docutils.sourceforge.net/docs/ref/rst/directives.html#topic) for
    additional details.
 
-## Table of Contents (TOC) and Hyperlinks
+### Table of Contents (TOC) and Hyperlinks
 
 The documents in the Ceph documentation suite follow certain conventions that
 are explained in this section.
@@ -919,7 +919,7 @@ the ``.rst`` source files will work even if the source files are moved within
 the ``ceph/doc`` directory. See [Cross referencing arbitrary locations](http://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-ref) for
 details.
 
-<a id="start-external-hyperlink-example"></a>
+<a id="start_external_hyperlink_example"></a>
 
 #### External Hyperlink Example
 
@@ -969,11 +969,11 @@ preferred formulations:
 
 1. See [docs.ceph.com](docs.ceph.com).
 
-## Quirks of ReStructured Text
+### Quirks of ReStructured Text
 
 #### External Links
 
-<a id="external-link-with-inline-text"></a>
+<a id="external_link_with_inline_text"></a>
 
 Use the formula immediately below to render links that direct the reader to
 addresses external to the Ceph documentation:
@@ -993,13 +993,13 @@ addresses external to the Ceph documentation:
 > space between the inline text and the angle bracket that precedes the
 > external address. This is precisely the opposite of the convention for
 > inline text that links to a location inside the Ceph documentation. See
-> [here](documenting-ceph.md#internal-link-with-inline-text) for an exemplar of this
+> [here](documenting-ceph.md#internal_link_with_inline_text) for an exemplar of this
 > convention.
 >
 > If this seems inconsistent and confusing to you, then you're right. It is
 > inconsistent and confusing.
 
-See also "[External Hyperlink Example](documenting-ceph.md#start-external-hyperlink-example)".
+See also "[External Hyperlink Example](documenting-ceph.md#start_external_hyperlink_example)".
 
 #### Internal Links
 
@@ -1025,7 +1025,7 @@ Link to target:
 :ref:`target`
 ```
 
-<a id="internal-link-with-inline-text"></a>
+<a id="internal_link_with_inline_text"></a>
 
 Link to target with inline text:
 
@@ -1035,7 +1035,7 @@ Link to target with inline text:
 
 > **Note:**
 > There is no space between "inline text" and the angle bracket that
-> immediately follows it. This is precisely the opposite of [the convention for inline text that links to a location outside of the Ceph documentation](documenting-ceph.md#external-link-with-inline-text). If this seems inconsistent
+> immediately follows it. This is precisely the opposite of [the convention for inline text that links to a location outside of the Ceph documentation](documenting-ceph.md#external_link_with_inline_text). If this seems inconsistent
 > and confusing to you, then you're right. It is inconsistent and confusing.
 
 #### Escaping Bold Characters within Words

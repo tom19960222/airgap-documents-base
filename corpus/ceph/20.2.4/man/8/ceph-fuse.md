@@ -13,11 +13,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-fuse
 
-# Synopsis
+## Synopsis
 
 | **ceph-fuse** [-n *client.username*] [ -m *monaddr*:*port* ] *mountpoint* [ *fuse options* ]
 
-# Description
+## Description
 
 **ceph-fuse** is a FUSE ("Filesystem in USErspace") client for Ceph
 distributed file system. It will mount a ceph file system specified via the -m
@@ -32,7 +32,7 @@ fusermount -u mountpoint
 
 or by sending ``SIGINT`` to the ``ceph-fuse`` process.
 
-# Options
+## Options
 
 Any options not recognized by ceph-fuse will be passed on to libfuse.
 
@@ -85,12 +85,12 @@ Any options not recognized by ceph-fuse will be passed on to libfuse.
    Pass the name of Ceph FS to be mounted. Not passing this option mounts the
    default Ceph FS on the Ceph cluster.
 
-# Availability
+## Availability
 
 **ceph-fuse** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 fusermount(8),
 [ceph](../../install/clone-source.md)\(8)

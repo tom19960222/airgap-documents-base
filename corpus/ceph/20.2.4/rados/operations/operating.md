@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. index:: systemd; operating a cluster
 
-# Running Ceph with systemd
+## Running Ceph with systemd
 
 In all distributions that support systemd (CentOS 7, Fedora, Debian
 Jessie 8 and later, and SUSE), systemd files (and NOT legacy SysVinit scripts)
@@ -27,7 +27,7 @@ To list all of the Ceph systemd units on a node, run the following command:
 sudo systemctl status ceph\*.service ceph\*.target
 ```
 
-## Starting all daemons
+### Starting all daemons
 
 To start all of the daemons on a Ceph node (regardless of their type), run the
 following command:
@@ -36,7 +36,7 @@ following command:
 sudo systemctl start ceph.target
 ```
 
-## Stopping all daemons
+### Stopping all daemons
 
 To stop all of the daemons on a Ceph node (regardless of their type), run the
 following command:
@@ -45,7 +45,7 @@ following command:
 sudo systemctl stop ceph\*.service ceph\*.target
 ```
 
-## Starting all daemons by type
+### Starting all daemons by type
 
 To start all of the daemons of a particular type on a Ceph node, run one of the
 following commands:
@@ -56,7 +56,7 @@ sudo systemctl start ceph-mon.target
 sudo systemctl start ceph-mds.target
 ```
 
-## Stopping all daemons by type
+### Stopping all daemons by type
 
 To stop all of the daemons of a particular type on a Ceph node, run one of the
 following commands:
@@ -67,7 +67,7 @@ sudo systemctl stop ceph-mon\*.service ceph-mon.target
 sudo systemctl stop ceph-mds\*.service ceph-mds.target
 ```
 
-## Starting a daemon
+### Starting a daemon
 
 To start a specific daemon instance on a Ceph node, run one of the
 following commands:
@@ -86,7 +86,7 @@ sudo systemctl start ceph-mon@ceph-server
 sudo systemctl start ceph-mds@ceph-server
 ```
 
-## Stopping a daemon
+### Stopping a daemon
 
 To stop a specific daemon instance on a Ceph node, run one of the
 following commands:
@@ -107,7 +107,7 @@ sudo systemctl stop ceph-mds@ceph-server
 
 .. index:: sysvinit; operating a cluster
 
-# Running Ceph with SysVinit
+## Running Ceph with SysVinit
 
 Each time you start, restart, or stop Ceph daemons, you must specify at least one option and one command.
 Likewise, each time you start, restart, or stop your entire cluster, you must specify at least one option and one command.

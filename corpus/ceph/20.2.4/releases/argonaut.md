@@ -10,13 +10,13 @@ fetched_at: 2026-08-18T01:32:45Z
 Argonaut is the first stable release of Ceph.  It is named after a
 genus of octopuses, sometimes also referred to as paper nautiluses.
 
-# v0.48.3 "argonaut"
+## v0.48.3 "argonaut"
 
 This release contains a critical fix that can prevent data loss or
 corruption after a power loss or kernel panic event.  Please upgrade
 immediately.
 
-## Upgrading
+### Upgrading
 
 * If you are using the undocumented ``ceph-disk-prepare`` and
   ``ceph-disk-activate`` tools, they have several new features and
@@ -24,7 +24,7 @@ immediately.
   behavior carefully before upgrading.
 * The .deb packages now require xfsprogs.
 
-## Notable changes
+### Notable changes
 
 * filestore: fix op_seq write order (fixes journal replay after power loss)
 * osd: fix occasional indefinitely hung "slow" request
@@ -58,9 +58,9 @@ immediately.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.48.3argonaut.txt -->.
 
-# v0.48.2 "argonaut"
+## v0.48.2 "argonaut"
 
-## Upgrading
+### Upgrading
 
 * The default search path for keyring files now includes /etc/ceph/ceph.$name.keyring.  If such files are present on your cluster, be aware that by default they may now be used.
 
@@ -68,7 +68,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 
 * The ceph-disk-prepare and ceph-disk-active scripts have been updated significantly.  These have not been previously documented or recommended.  Any existing users should review the changes before upgrading.
 
-## Notable changes
+### Notable changes
 
 * mkcephfs: fix keyring generation for mds, osd when default paths are used
 * radosgw: fix bug causing occasional corruption of per-bucket stats
@@ -93,9 +93,9 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.48.2argonaut.txt -->.
 
-# v0.48.1 "argonaut"
+## v0.48.1 "argonaut"
 
-## Upgrading
+### Upgrading
 
 * The radosgw usage trim function was effectively broken in v0.48.  Earlier it would remove more usage data than what was requested.  This is fixed in v0.48.1, but the fix is incompatible.  The v0.48 radosgw-admin tool cannot be used to initiate the trimming; please use the v0.48.1 version.
 
@@ -103,7 +103,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 
 * There are no other compatibility changes between v0.48.1 and v0.48.
 
-## Notable changes
+### Notable changes
 
 * mkcephfs: use default 'keyring', 'osd data', 'osd journal' paths when not specified in conf
 * msgr: various fixes to socket error handling
@@ -131,9 +131,9 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.48.1argonaut.txt -->.
 
-# v0.48 "argonaut"
+## v0.48 "argonaut"
 
-## Upgrading
+### Upgrading
 
 * This release includes a disk format upgrade.  Each ceph-osd daemon, upon startup, will migrate its locally stored data to the new format.  This process can take a while (for large object counts, even hours), especially on non-btrfs file systems.
 
@@ -153,7 +153,7 @@ This will prevent the cluster from marking down OSDs as "out" and re-replicating
 
 * It is not possible to downgrade from v0.48 to a previous version.
 
-## Notable changes
+### Notable changes
 
 * osd: stability improvements
 * osd: capability model simplification

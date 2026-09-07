@@ -10,14 +10,14 @@ fetched_at: 2026-08-18T01:32:45Z
 To retrieve data about our Swift-compatible service, you may execute ``GET``
 requests using the ``X-Storage-Url`` value retrieved during authentication.
 
-# List Containers
+## List Containers
 
 A ``GET`` request that specifies the API version and the account will return
 a list of containers for a particular user account. Since the request returns
 a particular user's containers, the request requires an authentication token.
 The request cannot be made anonymously.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -27,7 +27,7 @@ Host: {fqdn}
 X-Auth-Token: {auth-token}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``limit``
 
@@ -48,7 +48,7 @@ X-Auth-Token: {auth-token}
 :Type: String
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 The response contains a list of containers, or returns with an HTTP
 204 response code

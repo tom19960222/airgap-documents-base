@@ -5,7 +5,7 @@ title: "Pool, PG and CRUSH Config Reference"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/configuration/pool-pg-config-ref.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="rados-config-pool-pg-crush-ref"></a>
+<a id="rados_config_pool_pg_crush_ref"></a>
 
 # Pool, PG and CRUSH Config Reference
 

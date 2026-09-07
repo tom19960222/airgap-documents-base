@@ -13,12 +13,12 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: cephfs-shell
 
-# Synopsis
+## Synopsis
 
 | **cephfs-shell** [options] [command]
 | **cephfs-shell** [options] -- [command, command,...]
 
-# Description
+## Description
 
 CephFS Shell provides shell-like commands that directly interact with the
 Ceph File System.
@@ -34,7 +34,7 @@ return value.
 Behaviour of CephFS Shell can be tweaked using ``cephfs-shell.conf``. Refer to
 [CephFS Shell Configuration File](cephfs-shell.md#cephfs-shell-configuration-file) for details.
 
-# Options
+## Options
 
 .. option:: -b, --batch FILE
 
@@ -62,7 +62,7 @@ Behaviour of CephFS Shell can be tweaked using ``cephfs-shell.conf``. Refer to
 [build]$ source vstart_environment.sh && source venv/bin/activate && python3 ../src/tools/cephfs/shell/cephfs-shell
 ```
 
-# Commands
+## Commands
 
 > **Note:**
 > Apart from Ceph File System, CephFS Shell commands can also interact
@@ -75,12 +75,12 @@ Behaviour of CephFS Shell can be tweaked using ``cephfs-shell.conf``. Refer to
 >
 > For example,
 >
-> .. code:: bash
->
->     CephFS:~/>>> !ls # Lists the local file system directory contents.
->     CephFS:~/>>> ls  # Lists the Ceph File System directory contents.
+> ```bash
+> CephFS:~/>>> !ls # Lists the local file system directory contents.
+> CephFS:~/>>> ls  # Lists the Ceph File System directory contents.
+> ```
 
-## mkdir
+### mkdir
 
 Create the directory(ies), if they do not already exist.
 
@@ -94,7 +94,7 @@ Options :
   -m MODE    Sets the access mode for the new directory.
   -p, --parent         Create parent directories as necessary. When this option is specified, no error is reported if a directory already exists.
 
-## put
+### put
 
 Copy a file/directory to Ceph File System from Local File System.
 
@@ -112,7 +112,7 @@ Usage :
 Options :
    -f, --force        Overwrites the destination if it already exists.
 
-## get
+### get
 
 Copy a file from Ceph File System to Local File System.
 
@@ -149,7 +149,7 @@ Options:
   -a, -all          ignore entries starting with .
   -S                Sort by file_size
 
-## cat
+### cat
 
 Concatenate files and print on the standard output
 
@@ -189,7 +189,7 @@ Usage :
 * directory - path/directory name. If no directory is mentioned it is changed to the root directory.
     * If '.' moves to the parent directory of the current directory.
 
-## cwd
+### cwd
 
 Get current working directory.
 
@@ -197,11 +197,11 @@ Usage :
 
     cwd
 
-## quit/Ctrl + D
+### quit/Ctrl + D
 
 Close the shell.
 
-## chmod
+### chmod
 
 Change the permissions of file/directory.
 
@@ -218,7 +218,7 @@ Usage :
 
     mv <source_path> <destination_path>
 
-## rmdir
+### rmdir
 
 Delete a directory(ies).
 
@@ -235,7 +235,7 @@ Usage :
 
     rm <file_name/pattern>...
 
-## write
+### write
 
 Create and Write a file.
 
@@ -245,7 +245,7 @@ Usage :
         <Enter Data>
         Ctrl+D Exit.
 
-## lls
+### lls
 
 Lists all files and directories in the specified directory.Current local directory files and directories are listed if no     path is mentioned
 
@@ -253,7 +253,7 @@ Usage:
 
     lls <path>.....
 
-## lcd
+### lcd
 
 Moves into the given local directory.
 
@@ -261,7 +261,7 @@ Usage :
 
     lcd <path>
 
-## lpwd
+### lpwd
 
 Prints the absolute path of the current local directory.
 
@@ -269,7 +269,7 @@ Usage :
 
     lpwd
 
-## umask
+### umask
 
 Set and get the file mode creation mask
 
@@ -277,7 +277,7 @@ Usage :
 
     umask [mode]
 
-## alias
+### alias
 
 Define or display aliases
 
@@ -288,7 +288,7 @@ Usage:
 * name - name of the alias being looked up, added, or replaced
 * value - what the alias will be resolved to (if adding or replacing) this can contain spaces and does not need to be quoted
 
-## run_pyscript
+### run_pyscript
 
 Runs a python script file inside the console
 
@@ -313,7 +313,7 @@ Usage :
         py <command>: Executes a Python command.
         py: Enters interactive Python mode.
 
-## shortcuts
+### shortcuts
 
 Lists shortcuts (aliases) available
 
@@ -321,7 +321,7 @@ Usage :
 
     shortcuts
 
-## history
+### history
 
 View, run, edit, and save previously entered commands.
 
@@ -337,7 +337,7 @@ Options:
    -o FILE        output commands to a script file
    -t TRANSCRIPT  output commands and results to a transcript file
 
-## unalias
+### unalias
 
 Unsets aliases
 
@@ -350,7 +350,7 @@ Usage :
 Options:
    -a     remove all alias definitions
 
-## set
+### set
 
 Sets a settable parameter or shows current settings of parameters.
 
@@ -365,7 +365,7 @@ Options :
   -a     display read-only settings as well
   -l     describe function of parameter
 
-## edit
+### edit
 
 Edit a file in a text editor.
 
@@ -375,7 +375,7 @@ Usage:
 
 * file_path - path to a file to open in editor
 
-## run_script
+### run_script
 
 Runs commands in script file that is encoded as either ASCII or UTF-8 text.
 Each command in the script should be separated by a newline.
@@ -389,7 +389,7 @@ Usage:
 > **Note:** This command is available as ``load`` for cmd2 versions 0.9.13
 > or less.
 
-## shell
+### shell
 
 Execute a command as if at the OS prompt.
 
@@ -397,7 +397,7 @@ Usage:
 
     shell <command> [arguments]
 
-## locate
+### locate
 
 Find an item in File System
 
@@ -409,7 +409,7 @@ Options :
   -c       Count number of items found
   -i       Ignore case
 
-## stat
+### stat
 
 Display file status.
 
@@ -420,7 +420,7 @@ Usage :
 Options :
   -h     Shows the help message
 
-## snap
+### snap
 
 Create or Delete Snapshot
 
@@ -432,7 +432,7 @@ Usage:
 
 * dir_name - directory under which snapshot should be created or deleted
 
-## setxattr
+### setxattr
 
 Set extended attribute for a file
 
@@ -449,7 +449,7 @@ Usage :
 Options:
   -h, --help   Shows the help message
 
-## getxattr
+### getxattr
 
 Get extended attribute value for the name associated with the path
 
@@ -464,7 +464,7 @@ Usage :
 Options:
   -h, --help   Shows the help message
 
-## listxattr
+### listxattr
 
 List extended attribute names associated with the path
 
@@ -507,7 +507,7 @@ Options:
 
   -r     Recursive Disk usage of all directories
 
-## quota
+### quota
 
 Quota management for a Directory
 
@@ -526,7 +526,7 @@ Options :
 
   --max_files MAX_FILES    Set total number of files under this directory tree
 
-# CephFS Shell Configuration File
+## CephFS Shell Configuration File
 By default, CephFS Shell looks for ``cephfs-shell.conf`` in the path provided
 by the environment variable ``CEPHFS_SHELL_CONF`` and then in user's home
 directory (``~/.cephfs-shell.conf``).
@@ -555,7 +555,7 @@ feedback_to_output = False
 locals_in_py = True
 ```
 
-# Exit Code
+## Exit Code
 
 Following exit codes are returned by cephfs shell
 
@@ -584,6 +584,6 @@ Following exit codes are returned by cephfs shell
 | Connection reset | 21 |
 | Interrupted function call | 22 |
 
-# Files
+## Files
 
 ``~/.cephfs-shell.conf``

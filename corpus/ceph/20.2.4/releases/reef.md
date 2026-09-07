@@ -9,11 +9,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 Reef is the 18th stable release of Ceph. It is named after the reef squid (Sepioteuthis).
 
-# v18.2.6 Reef
+## v18.2.6 Reef
 
 This is the sixth backport (hotfix) release in the Reef series. We recommend that all users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-volume: A bug related to cryptsetup version handling has been fixed.
   Related tracker: https://tracker.ceph.com/issues/66393
@@ -21,16 +21,16 @@ This is the sixth backport (hotfix) release in the Reef series. We recommend tha
 * RADOS: A bug related to IPv6 support is now fixed.
   Related tracker: https://tracker.ceph.com/issues/67517
 
-## Changelog
+### Changelog
 
 * ceph-volume: fix regex usage in `set_dmcrypt_no_workqueue` ([pr#62791](https://github.com/ceph/ceph/pull/62791), Matt1360)
 * common/pick_address: Add IPv6 support to is_addr_in_subnet ([pr#62814](https://github.com/ceph/ceph/pull/62814), rzarzynski)
 
-# v18.2.5 Reef
+## v18.2.5 Reef
 
 This is the fifth backport release in the Reef series. We recommend that all users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * RBD: The ``try-netlink`` mapping option for rbd-nbd has become the default
   and is now deprecated. If the NBD netlink interface is not supported by the
@@ -43,7 +43,7 @@ This is the fifth backport release in the Reef series. We recommend that all use
    - https://tracker.ceph.com/issues/67179
    - https://tracker.ceph.com/issues/66867
 
-## Changelog
+### Changelog
 
 * (reintroduce) test/librados: fix LibRadosIoECPP.CrcZeroWrite ([pr#61395](https://github.com/ceph/ceph/pull/61395), Samuel Just, Nitzan Mordechai)
 * .github: sync the list of paths for rbd label, expand tests label to qa/\* ([pr#57727](https://github.com/ceph/ceph/pull/57727), Ilya Dryomov)
@@ -763,7 +763,7 @@ This is the fifth backport release in the Reef series. We recommend that all use
 * win32_deps_build.sh: pin zlib tag ([pr#61630](https://github.com/ceph/ceph/pull/61630), Lucian Petrut)
 * workunit/dencoder: dencoder test forward incompat fix ([pr#61750](https://github.com/ceph/ceph/pull/61750), NitzanMordhai, Nitzan Mordechai)
 
-# v18.2.4 Reef
+## v18.2.4 Reef
 
 This is the fourth backport release in the Reef series. We recommend that all users update to this release.
 
@@ -777,11 +777,11 @@ may encounter crashes during `pthread_create`. For workarounds, refer to the rel
 upgrading your OS to avoid this unsupported combination.
 Related tracker: https://tracker.ceph.com/issues/66989
 
-## Release Date
+### Release Date
 
 July 24, 2024
 
-## Notable Changes
+### Notable Changes
 
 * RADOS: This release fixes a bug (https://tracker.ceph.com/issues/61948) where pre-reef clients were allowed
   to connect to the `pg-upmap-primary` (https://docs.ceph.com/en/reef/rados/operations/read-balancer/)
@@ -805,7 +805,7 @@ July 24, 2024
 * RBD: The option ``--image-id`` has been added to `rbd children` CLI command,
   so it can be run for images in the trash.
 
-## Changelog
+### Changelog
 
 * (reef) node-proxy: improve http error handling in fetch_oob_details ([pr#55538](https://github.com/ceph/ceph/pull/55538), Guillaume Abrioux)
 * [rgw][lc][rgw_lifecycle_work_time] adjust timing if the configured end time is less than the start time ([pr#54866](https://github.com/ceph/ceph/pull/54866), Oguzhan Ozmen)
@@ -1198,34 +1198,34 @@ July 24, 2024
 * use raw_cluster_cmd instead of run_ceph_cmd ([pr#55836](https://github.com/ceph/ceph/pull/55836), Venky Shankar)
 * win32_deps_build.sh: change Boost URL ([pr#55084](https://github.com/ceph/ceph/pull/55084), Lucian Petrut)
 
-# v18.2.2 Reef
+## v18.2.2 Reef
 
 This is a hotfix release that resolves several flaws including Prometheus crashes and an encoder fix.
 
-## Release Date
+### Release Date
 
 March 11, 2024
 
-## Notable Changes
+### Notable Changes
 
 * mgr/Prometheus: refine the orchestrator availability check to prevent against crashes in the prometheus module during startup. Introduce additional checks to handle daemon_ids generated within the Rook environment, thus preventing potential issues during RGW metrics metadata generation.
 
-## Changelog
+### Changelog
 
 * mgr/prometheus: fix orch check to prevent Prometheus crash ([pr#55491](https://github.com/ceph/ceph/pull/55491), Redouane Kachach)
 * debian/\*.postinst: add adduser as a dependency and specify --home when adduser ([pr#55709](https://github.com/ceph/ceph/pull/55709), Kefu Chai)
 * src/osd/OSDMap.cc: Fix encoder to produce same bytestream ([pr#55712](https://github.com/ceph/ceph/pull/55712), Kamoltat)
 
-# v18.2.1 Reef
+## v18.2.1 Reef
 
 This is the first backport release in the Reef series, and the first with Debian packages,
 for Debian Bookworm. We recommend that all users update to this release.
 
-## Release Date
+### Release Date
 
 December 18, 2023
 
-## Notable Changes
+### Notable Changes
 
 * RGW: S3 multipart uploads using Server-Side Encryption now replicate correctly in
   a multi-site deployment. Previously, the replicas of such objects were corrupted on
@@ -1296,7 +1296,7 @@ December 18, 2023
 * Dashboard: Fixed several issues in Ceph dashboard on Rook-backed clusters,
   and improved the user experience on the Rook environment.
 
-## Changelog
+### Changelog
 
 * .github: Clarify checklist details ([pr#54130](https://github.com/ceph/ceph/pull/54130), Anthony D'Atri)
 * [CVE-2023-43040] rgw: Fix bucket validation against POST policies ([pr#53756](https://github.com/ceph/ceph/pull/53756), Joshua Baergen)
@@ -1709,7 +1709,7 @@ December 18, 2023
 * valgrind: UninitCondition under __run_exit_handlers suppression ([pr#53681](https://github.com/ceph/ceph/pull/53681), Mark Kogan)
 * xfstests_dev: install extra packages from powertools repo for xfsprogs ([pr#52843](https://github.com/ceph/ceph/pull/52843), Xiubo Li)
 
-# v18.2.0 Reef
+## v18.2.0 Reef
 
 This is the first stable release of Ceph Reef.
 
@@ -1721,11 +1721,11 @@ This is the first stable release of Ceph Reef.
 >
 > *last updated 2023 Aug 04*
 
-## Release Date
+### Release Date
 
 August 7, 2023
 
-## Major Changes from Quincy
+### Major Changes from Quincy
 
 #### Highlights
 
@@ -2016,7 +2016,7 @@ See the relevant sections below for more details on these changes.
   ``ceph config set mgr mgr/telemetry/leaderboard_description ‘Cluster
   description’`` (entering your own cluster description).
 
-## Upgrading from Pacific or Quincy
+### Upgrading from Pacific or Quincy
 
 Before starting, make sure your cluster is stable and healthy (no down or recovering OSDs). (This is optional, but recommended.) You can disable the autoscaler for all pools during the upgrade using the noautoscale flag.
 
@@ -2068,19 +2068,23 @@ Note that canceling the upgrade simply stops the process; there is no ability to
 >
 > 2. If your cluster is running Pacific (16.2.x) or later, systemd unit file names have changed to include the cluster fsid. To find the correct systemd unit file name for your cluster, run following command:
 >
->    ::
+>    :
 >
->      systemctl -l | grep <daemon type>
+> ```
+> systemctl -l | grep <daemon type>
+> ```
 >
 >    Example:
 >
->    .. prompt:: bash $
+> ```bash
+> systemctl -l | grep mon | grep active
+> ```
 >
->      systemctl -l | grep mon | grep active
+>    :
 >
->    ::
->
->      ceph-6ce0347c-314a-11ee-9b52-000af7995d6c@mon.f28-h21-000-r630.service                                           loaded active running   Ceph mon.f28-h21-000-r630 for 6ce0347c-314a-11ee-9b52-000af7995d6c
+> ```
+> ceph-6ce0347c-314a-11ee-9b52-000af7995d6c@mon.f28-h21-000-r630.service                                           loaded active running   Ceph mon.f28-h21-000-r630 for 6ce0347c-314a-11ee-9b52-000af7995d6c
+> ```
 
 1. Set the `noout` flag for the duration of the upgrade. (Optional, but recommended.)
 

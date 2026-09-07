@@ -102,7 +102,7 @@ ceph config get client
 
 .. confval:: fuse_disable_pagecache
 
-###### Developer Options
+### Developer Options
 
 > **Important:** These options are internal. They are listed here only to complete the list of options.
 

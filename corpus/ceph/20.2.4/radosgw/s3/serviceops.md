@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ``GET /`` returns a list of buckets created by the user making the request. ``GET /`` only
 returns buckets created by an authenticated user. You cannot make an anonymous request.
 
-#### Syntax
+### Syntax
 :
 
 ```
@@ -21,7 +21,7 @@ Host: cname.domain.com
 Authorization: AWS {access-key}:{hash-of-header-and-secret}
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -36,9 +36,9 @@ Authorization: AWS {access-key}:{hash-of-header-and-secret}
 
 ## Get Usage Stats
 
-Gets usage stats per user, similar to the admin command [rgw_user_usage_stats](../admin.md#rgw-user-usage-stats).
+Gets usage stats per user, similar to the admin command [rgw_user_usage_stats](../admin.md#rgw_user_usage_stats).
 
-#### Syntax
+### Syntax
 :
 
 ```
@@ -48,7 +48,7 @@ Host: cname.domain.com
 Authorization: AWS {access-key}:{hash-of-header-and-secret}
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |

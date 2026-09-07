@@ -43,7 +43,7 @@ We will set up a cluster with ``node1`` as  the monitor node, and ``node2`` and
                                 | cCCC           |
                                 \----------------/
 
-# Disklayout on FreeBSD
+## Disklayout on FreeBSD
 
 Current implementation works on ZFS pools
 
@@ -74,7 +74,7 @@ zpool add osd.1 log gpt/osd.1-cache
 
 * Note: *UFS2 does not allow large xattribs*
 
-## Configuration
+### Configuration
 
 As per FreeBSD default parts of extra software go into ``/usr/local/``. Which
 means that for ``/etc/ceph.conf`` the default location is
@@ -90,7 +90,7 @@ Note that ``/usr/local/etc/ceph/ceph.conf`` will be found by most tools,
 linking it to ``/etc/ceph/ceph.conf`` will help with any scripts that are found
 in extra tools, scripts, and/or discussionlists.
 
-# Monitor Bootstrapping
+## Monitor Bootstrapping
 
 Bootstrapping a monitor (a Ceph Storage Cluster, in theory) requires
 a number of things:
@@ -372,9 +372,9 @@ inactive. It should look something like this::
 should disappear. See the next section for details.
 ```
 
-<a id="freebsd-adding-osds"></a>
+<a id="freebsd_adding_osds"></a>
 
-# Adding OSDs
+## Adding OSDs
 
 Once you have your initial monitor(s) running, you should add OSDs. Your cluster
 cannot reach an ``active + clean`` state until you have enough OSDs to handle the
@@ -383,7 +383,7 @@ least two OSDs). After bootstrapping your monitor, your cluster has a default
 CRUSH map; however, the CRUSH map doesn't have any Ceph OSD Daemons mapped to
 a Ceph Node.
 
-## Long Form
+### Long Form
 
 Without the benefit of any helper utilities, create an OSD and add it to the
 cluster and CRUSH map with the following procedure. To create the first two
@@ -507,7 +507,7 @@ sudo touch /var/lib/ceph/osd/ceph-1/bsdrc
 
    Once you start your OSD, it is ``up`` and ``in``.
 
-# Adding MDS
+## Adding MDS
 
 In the below instructions, ``{id}`` is an arbitrary name, such as the hostname of the machine.
 
@@ -558,7 +558,7 @@ Then make sure you do not have a keyring set in ceph.conf in the global section;
 
 1. Now you are ready to [create a Ceph file system](../cephfs/createfs.md).
 
-# Summary
+## Summary
 
 Once you have your monitor and two OSDs up and running, you can watch the
 placement groups peer by executing the following:

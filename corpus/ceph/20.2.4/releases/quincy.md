@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Quincy is the 17th stable release of Ceph. It is named after Squidward
 Quincy Tentacles from Spongebob Squarepants.
 
-# v17.2.8 Quincy
+## v17.2.8 Quincy
 
 This is the eighth, and expected to be last, backport release in the Quincy series. We recommend
 that all users update to this release.
@@ -35,7 +35,7 @@ The repository for el8 builds is hosted by CERN on [Linux@CERN](https://linuxsof
 The public part of the GPG key used to sign the
 packages is available at [RPM-GPG-KEY-Ceph-Community](https://linuxsoft.cern.ch/repos/RPM-GPG-KEY-Ceph-Community) .
 
-## Notable Changes
+### Notable Changes
 
 * RADOS: `get_pool_is_selfmanaged_snaps_mode` C++ API has been deprecated
   due to being prone to false negative results.  Its safer replacement is
@@ -53,7 +53,7 @@ packages is available at [RPM-GPG-KEY-Ceph-Community](https://linuxsoft.cern.ch/
 * RBD: `RBD_IMAGE_OPTION_FLATTEN` option has been exposed in Python bindings via
   `flatten` optional parameter to the `deep_copy` and `migration_prepare` methods.
 
-## Changelog
+### Changelog
 
 * .github: sync the list of paths for rbd label, expand tests label to qa/\* ([pr#57726](https://github.com/ceph/ceph/pull/57726), Ilya Dryomov)
 * [quincy] qa/multisite: stabilize multisite testing ([pr#60479](https://github.com/ceph/ceph/pull/60479), Shilpa Jagannath, Casey Bodley)
@@ -767,12 +767,12 @@ packages is available at [RPM-GPG-KEY-Ceph-Community](https://linuxsoft.cern.ch/
 * tools/rbd: make 'children' command support --image-id ([pr#55618](https://github.com/ceph/ceph/pull/55618), Mykola Golub)
 * win32_deps_build.sh: change Boost URL ([pr#55085](https://github.com/ceph/ceph/pull/55085), Lucian Petrut)
 
-# v17.2.7 Quincy
+## v17.2.7 Quincy
 
 This is the seventh backport release in the Quincy series. We recommend
 that all users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * `ceph mgr dump` command now displays the name of the Manager module that
   registered a RADOS client in the `name` field added to elements of the
@@ -833,7 +833,7 @@ that all users update to this release.
   and some important charts are now displayed inside cards. This new dashboard can
   be disabled and the older layout brought back by setting ``ceph dashboard feature disable dashboard``.
 
-## Changelog
+### Changelog
 
 * .github: Clarify checklist details ([pr#54131](https://github.com/ceph/ceph/pull/54131), Anthony D'Atri)
 * .github: Give folks 30 seconds to fill out the checklist ([pr#51944](https://github.com/ceph/ceph/pull/51944), David Galloway)
@@ -1357,12 +1357,12 @@ that all users update to this release.
 * Wip nitzan fixing few rados/test.sh ([pr#49938](https://github.com/ceph/ceph/pull/49938), Nitzan Mordechai)
 * Wip nitzan pglog ec getattr error ([pr#49936](https://github.com/ceph/ceph/pull/49936), Nitzan Mordechai)
 
-# v17.2.6 Quincy
+## v17.2.6 Quincy
 
 This is the sixth backport release in the Quincy series. We recommend
 that all users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * `ceph mgr dump` command now outputs `last_failure_osd_epoch` and
   `active_clients` fields at the top level.  Previously, these fields were
@@ -1372,7 +1372,7 @@ that all users update to this release.
   compression metrics. See a sample report with `ceph telemetry preview`.
   Opt-in with `ceph telemetry on`.
 
-## Changelog
+### Changelog
 
 * msg/async: don't abort when public addrs mismatch bind addrs ([pr#50575](https://github.com/ceph/ceph/pull/50575), Radoslaw Zarzynski)
 * rgw: rgw_parse_url_bucket() rejects empty bucket names after 'tenant:' ([pr#50625](https://github.com/ceph/ceph/pull/50625), Casey Bodley)
@@ -1883,14 +1883,14 @@ that all users update to this release.
 * v17.2.5 ([pr#48519](https://github.com/ceph/ceph/pull/48519), Ceph Release Team, Laura Flores, Guillaume Abrioux, Juan Miguel Olmo Martínez)
 * Wip doc 2022 11 21 backport 48975 to quincy ([pr#48976](https://github.com/ceph/ceph/pull/48976), Zac Dover)
 
-# v17.2.5 Quincy
+## v17.2.5 Quincy
 
 This is a hotfix release that addresses missing commits in the 17.2.4 release.
 We recommend that all users update to this release.
 
 Related tracker: https://tracker.ceph.com/issues/57858
 
-## Notable Changes
+### Notable Changes
 
 * A ceph-volume regression introduced in bea9f4b that makes the
   activate process take a very long time to complete has been
@@ -1908,19 +1908,19 @@ Related tracker: https://tracker.ceph.com/issues/57858
 
   Related tracker: https://tracker.ceph.com/issues/57700
 
-## Changelog
+### Changelog
 
 * ceph-volume: fix regression in activate ([pr#48201](https://github.com/ceph/ceph/pull/48201), Guillaume Abrioux)
 * mgr/rook: fix error when trying to get the list of nfs services ([pr#48199](https://github.com/ceph/ceph/pull/48199), Juan Miguel Olmo)
 * mgr/telemetry: handle daemons with complex ids ([pr#48283](https://github.com/ceph/ceph/pull/48283), Laura Flores)
 * Revert PR 47901 ([pr#48104](https://github.com/ceph/ceph/pull/48104), Laura Flores)
 
-# v17.2.4 Quincy
+## v17.2.4 Quincy
 
 This is the fourth backport release in the Quincy series. We recommend
 that all users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * Cephfs: The ``AT_NO_ATTR_SYNC`` macro is deprecated, please use the standard
   ``AT_STATX_DONT_SYNC`` macro. The ``AT_NO_ATTR_SYNC`` macro will be removed in
@@ -1949,7 +1949,7 @@ that all users update to this release.
   without the object-unique suffix. The conversion is fixed in this release.
   Relevant tracker: https://tracker.ceph.com/issues/56147
 
-## Changelog
+### Changelog
 
 * .readthedocs.yml: Always build latest doc/releases pages ([pr#47442](https://github.com/ceph/ceph/pull/47442), David Galloway)
 * Add mapping for ernno:13 and adding path in error msg in opendir()/cephfs.pyx ([pr#46647](https://github.com/ceph/ceph/pull/46647), Sarthak0702)
@@ -2211,11 +2211,11 @@ that all users update to this release.
 * tools: ceph-objectstore-tool is able to trim pg log dups' entries ([pr#46706](https://github.com/ceph/ceph/pull/46706), Radosław Zarzyński)
 * win32_deps_build.sh: master -> main for wnbd ([pr#46763](https://github.com/ceph/ceph/pull/46763), Ilya Dryomov)
 
-# v17.2.3 Quincy
+## v17.2.3 Quincy
 
 This is a hotfix release that addresses a libcephsqlite crash in the mgr.
 
-## Notable Changes
+### Notable Changes
 * A libcephsqlite bug that caused the mgr to crash repeatedly and die is now
   fixed. The bug was exposed due to 17.2.2 being built with gcc 8.5.0-14, which contains
   a new patch to check for invalid regex. 17.2.1 was built using gcc 8.5.0-13, which
@@ -2225,15 +2225,15 @@ This is a hotfix release that addresses a libcephsqlite crash in the mgr.
 
   Relevant BZ: https://bugzilla.redhat.com/show_bug.cgi?id=2110797
 
-## Changelog
+### Changelog
 
 * libcephsqlite: ceph-mgr crashes when compiled with gcc12 ([pr#47270](https://github.com/ceph/ceph/pull/47270), Ganesh Maharaj Mahalingam)
 
-# v17.2.2 Quincy
+## v17.2.2 Quincy
 
 This is a hotfix release that resolves two security flaws.
 
-## Notable Changes
+### Notable Changes
 * Users who were running OpenStack Manila to export native CephFS, who
   upgraded their Ceph cluster from Nautilus (or earlier) to a later
   major version, were vulnerable to an attack by malicious users. The
@@ -2255,17 +2255,17 @@ This is a hotfix release that resolves two security flaws.
   for s3website requests that don't refer to a bucket resulting in an RGW
   segfault.
 
-## Changelog
+### Changelog
 * mgr/volumes: Fix subvolume discover during upgrade ([CVE-2022-0670](../security/CVE-2022-0670.md#cve-2022-0670), Kotresh HR)
 * mgr/volumes: V2 Fix for test_subvolume_retain_snapshot_invalid_recreate ([CVE-2022-0670](../security/CVE-2022-0670.md#cve-2022-0670), Kotresh HR)
 * qa: validate subvolume discover on upgrade (Kotresh HR)
 * rgw: s3website check for bucket before retargeting (Seena Fallah)
 
-# v17.2.1 Quincy
+## v17.2.1 Quincy
 
 This is the first bugfix release of Ceph Quincy.
 
-## Notable Changes
+### Notable Changes
 * The "BlueStore zero block detection" feature (first introduced to Quincy in
   https://github.com/ceph/ceph/pull/43337) has been turned off by default with a
   new global option called `bluestore_zero_block_detection`. This feature,
@@ -2289,7 +2289,7 @@ This is the first bugfix release of Ceph Quincy.
 * Fixes a bug with cluster logs not being populated after log rotation.
   Relevant tracker: https://tracker.ceph.com/issues/55383
 
-## Changelog
+### Changelog
 * .github/CODEOWNERS: tag core devs on core PRs ([pr#46519](https://github.com/ceph/ceph/pull/46519), Neha Ojha)
 * .github: continue on error and reorder milestone step ([pr#46447](https://github.com/ceph/ceph/pull/46447), Ernesto Puerta)
 * [quincy] mgr/alerts: Add Message-Id and Date header to sent emails ([pr#46311](https://github.com/ceph/ceph/pull/46311), Lorenz Bausch)
@@ -2381,11 +2381,11 @@ This is the first bugfix release of Ceph Quincy.
 * test: No direct use of nose ([pr#46254](https://github.com/ceph/ceph/pull/46254), Steve Kowalik)
 * Wip doc pr 46109 backport to quincy ([pr#46116](https://github.com/ceph/ceph/pull/46116), Ville Ojamo)
 
-# v17.2.0 Quincy
+## v17.2.0 Quincy
 
 This is the first stable release of Ceph Quincy.
 
-## Major Changes from Pacific
+### Major Changes from Pacific
 
 #### General
 
@@ -2451,7 +2451,7 @@ This is the first stable release of Ceph Quincy.
   to continue to log cluster log messages to file,
   run `ceph config set mon mon_cluster_log_to_file true` after every log rotation.
 
-## Cephadm
+### Cephadm
 
 * SNMP Support
 * Colocation of Daemons (mgr, mds, rgw)
@@ -2598,7 +2598,7 @@ This is the first stable release of Ceph Quincy.
 * CephFS: Failure to replay the journal by a standby-replay daemon now
   causes the rank to be marked "damaged".
 
-## Upgrading from Octopus or Pacific
+### Upgrading from Octopus or Pacific
 
 Quincy does not support LevelDB. Please migrate your OSDs and monitors
 to RocksDB before upgrading to Quincy.
@@ -2853,7 +2853,7 @@ ceph telemetry on
 
    For more information about the telemetry module, see [the documentation](../mgr/telemetry.md#telemetry).
 
-## Upgrading from pre-Octopus releases (like Nautilus)
+### Upgrading from pre-Octopus releases (like Nautilus)
 
 You *must* first upgrade to Octopus (15.2.z) or Pacific (16.2.z) before
 upgrading to Quincy.

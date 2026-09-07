@@ -1,13 +1,13 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "debug.inc"
+title: "Debug"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/dashboard_plugins/debug.inc.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
 <a id="dashboard-debug"></a>
 
-### Debug
+# Debug
 
 This plugin allows to customize the behaviour of the dashboard according to the
 debug mode. It can be enabled, disabled or checked with the following command:

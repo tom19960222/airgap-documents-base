@@ -140,21 +140,21 @@ updates on any changes in the cluster and allows quick access to other sections 
 
 <a id="dashboard-landing-page-details"></a>
 
-##### Details
+#### Details
 Provides an overview of the cluster configuration, displaying various critical aspects of the cluster.
 
 ![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/details-card.png)
 
 <a id="dashboard-landing-page-status"></a>
 
-##### Status
+#### Status
 Provides a visual indication of cluster health, and displays cluster alerts grouped by severity.
 
 ![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/status-card-open.png)
 
 <a id="dashboard-landing-page-capacity"></a>
 
-##### Capacity
+#### Capacity
 * **Used**: Displays the used capacity out of the total physical capacity provided by storage nodes (OSDs)
 * **Warning**: Displays the `nearfull` threshold of the OSDs
 * **Danger**: Displays the `full` threshold of the OSDs
@@ -163,7 +163,7 @@ Provides a visual indication of cluster health, and displays cluster alerts grou
 
 <a id="dashboard-landing-page-inventory"></a>
 
-##### Inventory
+#### Inventory
 An inventory for all assets within the cluster.
 Provides direct access to subpages of the dashboard from each item of this card.
 
@@ -171,7 +171,7 @@ Provides direct access to subpages of the dashboard from each item of this card.
 
 <a id="dashboard-landing-page-performance"></a>
 
-##### Cluster Utilization
+#### Cluster Utilization
 * **Used Capacity**: Total capacity used of the cluster. The maximum value of the chart is the maximum capacity of the cluster.
 * **IOPS (Input/Output Operations Per Second)**: Number of read and write operations.
 * **Latency**: Amount of time that it takes to process a read or a write request.
@@ -277,10 +277,10 @@ wanted or required. See [dashboard-proxy-configuration](dashboard.md#dashboard-p
 > fail mgr`` or by disabling and re-enabling the dashboard module (which also
 > triggers the manager to respawn itself):
 >
-> .. prompt:: bash #
->
->    ceph mgr module disable dashboard
->    ceph mgr module enable dashboard
+> ```bash
+> ceph mgr module disable dashboard
+> ceph mgr module enable dashboard
+> ```
 
 <a id="dashboard-host-name-and-port"></a>
 
@@ -351,9 +351,9 @@ ceph dashboard set-account-lockout-attempts <value:int>
 > However, by disabling this feature, the account is more vulnerable to brute-force or
 > dictionary based attacks. This can be disabled by:
 >
-> .. prompt:: bash #
->
->    ceph dashboard set-account-lockout-attempts 0
+> ```bash
+> ceph dashboard set-account-lockout-attempts 0
+> ```
 
 ### Enable a Locked User
 
@@ -486,14 +486,14 @@ separate application that provides machine metrics.
 > <https://prometheus.io/docs/operating/security/>` for more detailed
 > information.
 
-##### Installation and Configuration using cephadm
+#### Installation and Configuration using cephadm
 
 Grafana and Prometheus can be installed using [cephadm](../cephadm/index.md#cephadm). They will
 automatically be configured by ``cephadm``. Please see
 [mgr-cephadm-monitoring](../cephadm/services/monitoring.md#mgr-cephadm-monitoring) documentation for more details on how to use
 ``cephadm`` for installing and configuring Prometheus and Grafana.
 
-##### Manual Installation and Configuration
+#### Manual Installation and Configuration
 
 The following process describes how to configure Grafana and Prometheus
 manually. After you have installed Prometheus, Grafana, and the Node exporter
@@ -594,14 +594,14 @@ default is ``false``.
   allow_embedding = true
 ```
 
-##### Enabling RBD-Image monitoring
+#### Enabling RBD-Image monitoring
 
 Monitoring of RBD images is disabled by default, as it can significantly impact
 performance. For more information please see [prometheus-rbd-io-statistics](prometheus.md#prometheus-rbd-io-statistics).
 When disabled, the overview and details dashboards will be empty in Grafana and
 metrics will not be visible in Prometheus.
 
-##### Configuring Dashboard
+#### Configuring Dashboard
 
 After you have set up Grafana and Prometheus, you will need to configure the
 connection information that the Ceph Dashboard will use to access Grafana.
@@ -639,11 +639,11 @@ You can also access Grafana directly to monitor your cluster.
 > Ceph Dashboard configuration information can also be unset. For example, to
 > clear the Grafana API URL we configured above:
 >
-> .. prompt:: bash #
->
->    ceph dashboard reset-grafana-api-url
+> ```bash
+> ceph dashboard reset-grafana-api-url
+> ```
 
-##### Alternative URL for Browsers
+#### Alternative URL for Browsers
 
 The Ceph Dashboard backend requires the Grafana URL to be able to verify the
 existence of Grafana Dashboards before the frontend even loads them. Due to the
@@ -1681,7 +1681,7 @@ notification on the frontend. Run through the following scenarios to debug.
 
 ### Ceph Dashboard Logs
 
-##### Dashboard Debug Flag
+#### Dashboard Debug Flag
 
 With this flag enabled, error traceback is included in backend responses.
 
@@ -1695,7 +1695,7 @@ To enable it via the CLI, run the following command:
 ceph dashboard debug enable
 ```
 
-##### Setting Logging Level of Dashboard Module
+#### Setting Logging Level of Dashboard Module
 
 Setting the logging level to debug makes the log more verbose and helpful for
 debugging.
@@ -1740,7 +1740,7 @@ ceph config reset 11
 
 <a id="centralized-logging"></a>
 
-##### Enable Centralized Logging in Dashboard
+#### Enable Centralized Logging in Dashboard
 
 To learn more about centralized logging, see [cephadm-monitoring-centralized-logs](../cephadm/services/monitoring.md#cephadm-monitoring-centralized-logs)
 
@@ -1770,7 +1770,7 @@ ceph config set global mon_cluster_log_to_file true
 7. You can query the logs with LogQL for advanced search and perform some
    calculations as well - https://grafana.com/docs/loki/latest/logql/.
 
-##### Reporting issues from Dashboard
+#### Reporting issues from Dashboard
 
 Ceph-Dashboard provides two ways to create an issue in the Ceph Issue Tracker,
 either using the Ceph command line interface or by using the Ceph Dashboard

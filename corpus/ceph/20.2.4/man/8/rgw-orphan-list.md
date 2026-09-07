@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rgw-orphan-list
 
-# Synopsis
+## Synopsis
 
 | **rgw-orphan-list**
 
-# Description
+## Description
 
 rgw-orphan-list is an *EXPERIMENTAL* RADOS gateway user
 administration utility. It produces a listing of rados objects that
@@ -37,7 +37,7 @@ radoslist ...` and produces a list of those entries that appear in the
 former but not the latter. Those entries are presumed to be the
 orphans.
 
-# Warnings
+## Warnings
 
 This utility is currently considered *EXPERIMENTAL*.
 
@@ -45,11 +45,11 @@ This utility will produce false orphan entries for unindexed buckets
 since such buckets have no bucket indices that can provide the
 starting point for tracing.
 
-# Options
+## Options
 
 At present there are no options.
 
-# Examples
+## Examples
 
 Launch the tool:
 
@@ -57,13 +57,13 @@ Launch the tool:
 $ rgw-orphan-list
 ```
 
-# Availability
+## Availability
 
 radosgw-admin is part of Ceph, a massively scalable, open-source,
 distributed storage system.  Please refer to the Ceph documentation at
 https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [radosgw-admin](radosgw-admin.md)\(8)
 [ceph-diff-sorted](ceph-diff-sorted.md)\(8)

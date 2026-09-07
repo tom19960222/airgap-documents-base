@@ -41,7 +41,7 @@ We will set up a cluster with ``mon-node1`` as  the monitor node, and ``osd-node
                                 | cCCC           |
                                 \----------------/
 
-# Monitor Bootstrapping
+## Monitor Bootstrapping
 
 Bootstrapping a monitor (a Ceph Storage Cluster, in theory) requires
 a number of things:
@@ -342,13 +342,13 @@ data:
 
 > **Warning:** If you have enabled legacy cipher types then the Monitors may raise health warnings. You may mute (see [rados-monitoring-muting-health-checks](../rados/operations/monitoring.md#rados-monitoring-muting-health-checks)) the warnings. See the warning descriptions in [health-checks](../rados/operations/health-checks.md#health-checks) for more information on the different warnings.
 
-# Manager daemon configuration
+## Manager daemon configuration
 
 On each node where you run a ceph-mon daemon, you should also set up a ceph-mgr daemon.
 
 See [mgr-administrator-guide](../mgr/administrator.md#mgr-administrator-guide)
 
-# Adding OSDs
+## Adding OSDs
 
 Once you have your initial monitor(s) running, you should add OSDs. Your cluster
 cannot reach an ``active + clean`` state until you have enough OSDs to handle the
@@ -357,7 +357,7 @@ least two OSDs). After bootstrapping your monitor, your cluster has a default
 CRUSH map; however, the CRUSH map doesn't have any Ceph OSD Daemons mapped to
 a Ceph Node.
 
-## Short Form
+### Short Form
 
 Ceph provides the ``ceph-volume`` utility, which can prepare a logical volume, disk, or partition
 for use with Ceph. The ``ceph-volume`` utility creates the OSD ID by
@@ -411,7 +411,7 @@ For example::
      sudo ceph-volume lvm activate 0 a7f64266-0894-4f1e-a635-d0aeaca0e993
 ```
 
-## Long Form
+### Long Form
 
 Without the benefit of any helper utilities, create an OSD and add it to the
 cluster and CRUSH map with the following procedure. To create the first two
@@ -507,11 +507,11 @@ systemctl enable ceph-osd@12
 systemctl start ceph-osd@12
 ```
 
-# Adding MDS
+## Adding MDS
 
 Please see the section on manual deployment in [manual-mds](../cephfs/add-remove-mds.md#manual-mds).
 
-# Manually Installing RADOSGW
+## Manually Installing RADOSGW
 
 For a more involved discussion of the procedure presented here, see [this
 thread on the ceph-users mailing list](https://lists.ceph.io/hyperkitty/list/ceph-users@ceph.io/message/LB3YRIKAPOHXYCW7MKLVUJPYWYRQVARU/).
@@ -555,7 +555,7 @@ $EDITOR /var/lib/ceph/radosgw/ceph-$(hostname -s)/keyring
 systemctl start ceph-radosgw@$(hostname -s).service
 ```
 
-# Summary
+## Summary
 
 Once you have your monitor and two OSDs up and running, you can watch the
 placement groups peer by executing the following:

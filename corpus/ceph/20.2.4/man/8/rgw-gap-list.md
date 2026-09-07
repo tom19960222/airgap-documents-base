@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rgw-gap-list
 
-# Synopsis
+## Synopsis
 
 | **rgw-gap-list**
 
-# Description
+## Description
 
 rgw-gap-list is an *EXPERIMENTAL* RADOS gateway user
 administration utility. It produces a listing of bucket index entries
@@ -37,11 +37,11 @@ gaps.
 Note: Depending on the size of the pool(s) involved, this tool may be
 quite slow to produce its results.
 
-# Warnings
+## Warnings
 
 This utility is considered *EXPERIMENTAL*.
 
-# Options
+## Options
 
 .. option:: -p pool
 
@@ -60,7 +60,7 @@ This utility is considered *EXPERIMENTAL*.
 
    Use two (multiple) threads to speed up the run.
 
-# Examples
+## Examples
 
 Launch the tool:
 
@@ -68,13 +68,13 @@ Launch the tool:
 $ rgw-gap-list -p default.rgw.buckets.data -t /home/super_admin/temp_files
 ```
 
-# Availability
+## Availability
 
 rgw-gap-list is part of Ceph, a massively scalable, open-source,
 distributed storage system.  Please refer to the Ceph documentation at
 https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [radosgw-admin](radosgw-admin.md)\(8)
 [rgw-orphan-list](rgw-orphan-list.md)\(8)

@@ -7,11 +7,11 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Pacific
 
-# v16.2.15 Pacific
+## v16.2.15 Pacific
 
 This is the fifteenth, and expected to be last, backport release in the Pacific series.
 
-## Notable Changes
+### Notable Changes
 
 * `ceph config dump --format <json|xml>` output will display the localized
   option names instead of their normalized version. For example,
@@ -34,7 +34,7 @@ This is the fifteenth, and expected to be last, backport release in the Pacific 
   lock is available.  This brings a dramatic performance improvement for QEMU
   live disk synchronization and backup use cases.
 
-## Changelog
+### Changelog
 
 * [CVE-2023-43040] rgw: Fix bucket validation against POST policies ([pr#53758](https://github.com/ceph/ceph/pull/53758), Joshua Baergen)
 * admin/doc-requirements: bump Sphinx to 5.0.2 ([pr#55258](https://github.com/ceph/ceph/pull/55258), Nizamudeen A)
@@ -238,11 +238,11 @@ This is the fifteenth, and expected to be last, backport release in the Pacific 
 * vstart_runner: use FileNotFoundError when os.stat() fails ([pr#52978](https://github.com/ceph/ceph/pull/52978), Rishabh Dave)
 * win32_deps_build.sh: change Boost URL ([pr#55086](https://github.com/ceph/ceph/pull/55086), Lucian Petrut)
 
-# v16.2.14 Pacific
+## v16.2.14 Pacific
 
 This is the fourteenth backport release in the Pacific series.
 
-## Notable Changes
+### Notable Changes
 
 * CephFS: After recovering a Ceph File System post following the disaster
   recovery procedure, the recovered files under `lost+found` directory can now
@@ -253,7 +253,7 @@ This is the fourteenth backport release in the Pacific series.
   `active_clients` array. Previously, only the address of a module's RADOS
   client was shown in the `active_clients` array.
 
-## Changelog
+### Changelog
 
 * backport PR #39607 ([pr#51344](https://github.com/ceph/ceph/pull/51344), Rishabh Dave)
 * blk/kernel: Fix error code mapping in KernelDevice::read ([pr#49263](https://github.com/ceph/ceph/pull/49263), Joshua Baergen)
@@ -440,11 +440,11 @@ This is the fourteenth backport release in the Pacific series.
 * Wip nitzan fixing few rados/test.sh ([pr#49943](https://github.com/ceph/ceph/pull/49943), Nitzan Mordechai)
 * qa: add subvolume option flavors ([pr#51509](https://github.com/ceph/ceph/pull/51509), Milind Changire, Venky Shankar)
 
-# v16.2.13 Pacific
+## v16.2.13 Pacific
 
 This is the thirteenth backport release in the Pacific series.
 
-## Notable Changes
+### Notable Changes
 
 * CephFS: Rename the `mds_max_retries_on_remount_failure` option to
   `client_max_retries_on_remount_failure` and move it from mds.yaml.in to
@@ -455,7 +455,7 @@ This is the thirteenth backport release in the Pacific series.
   `active_clients` fields at the top level.  Previously, these fields were
   output under `always_on_modules` field.
 
-## Changelog
+### Changelog
 
 * backport PR #39607 ([pr#51344](https://github.com/ceph/ceph/pull/51344), Rishabh Dave)
 * ceph-crash: drop privleges to run as "ceph" user, rather than root (CVE-2022-3650) ([pr#48804](https://github.com/ceph/ceph/pull/48804), Tim Serong, Guillaume Abrioux)
@@ -681,13 +681,13 @@ This is the thirteenth backport release in the Pacific series.
 * tools/cephfs: include lost+found in scan_links ([pr#50784](https://github.com/ceph/ceph/pull/50784), Patrick Donnelly)
 * Wip nitzan pglog ec getattr error ([pr#49937](https://github.com/ceph/ceph/pull/49937), Nitzan Mordechai)
 
-# v16.2.12 Pacific
+## v16.2.12 Pacific
 
 This is a hotfix release that resolves several performance flaws in ceph-volume, particularly during osd activation (https://tracker.ceph.com/issues/57627)
 
-## Notable Changes
+### Notable Changes
 
-## Changelog
+### Changelog
 
 * ceph-volume: add test case to reproduce bug in get_physical_fast_allocs ([pr#50878](https://github.com/ceph/ceph/pull/50878), Cory Snyder)
 * ceph-volume: do not raise RuntimeError in util.lsblk ([pr#50145](https://github.com/ceph/ceph/pull/50145), Guillaume Abrioux)
@@ -698,11 +698,11 @@ This is a hotfix release that resolves several performance flaws in ceph-volume,
 * ceph-volume: legacy_encrypted() shouldn't call lsblk() when device is 'tmpfs' ([pr#50162](https://github.com/ceph/ceph/pull/50162), Guillaume Abrioux)
 * ceph-volume: update the OS before deploying Ceph (pacific) ([pr#50996](https://github.com/ceph/ceph/pull/50996), Guillaume Abrioux)
 
-# v16.2.11 Pacific
+## v16.2.11 Pacific
 
 This is the eleventh backport release in the Pacific series.
 
-## Notable Changes
+### Notable Changes
 
 * Cephfs: The 'AT_NO_ATTR_SYNC' macro is deprecated, please use the standard
   'AT_STATX_DONT_SYNC' macro. The 'AT_NO_ATTR_SYNC' macro will be removed in
@@ -722,7 +722,7 @@ This is the eleventh backport release in the Pacific series.
   map and unmap images in namespaces using the `image-spec` syntax since then
   but the corresponding option available in most other commands was missing.
 
-## Changelog
+### Changelog
 
 * .github/CODEOWNERS: tag core devs on core PRs ([pr#46520](https://github.com/ceph/ceph/pull/46520), Neha Ojha)
 * .github: continue on error and reorder milestone step ([pr#46448](https://github.com/ceph/ceph/pull/46448), Ernesto Puerta)
@@ -1307,11 +1307,11 @@ This is the eleventh backport release in the Pacific series.
 * v16.2.9 ([pr#46336](https://github.com/ceph/ceph/pull/46336), Cory Snyder)
 * win32_deps_build.sh: master -> main for wnbd ([pr#46762](https://github.com/ceph/ceph/pull/46762), Ilya Dryomov)
 
-# v16.2.10 Pacific
+## v16.2.10 Pacific
 
 This is a hotfix release that resolves two security flaws.
 
-## Notable Changes
+### Notable Changes
 
 * Users who were running OpenStack Manila to export native CephFS and who
   upgraded their Ceph cluster from Nautilus (or earlier) to a later
@@ -1334,25 +1334,25 @@ This is a hotfix release that resolves two security flaws.
   s3website requests that don't refer to a bucket resulting in an RGW
   segfault.
 
-## Changelog
+### Changelog
 * mgr/volumes: Fix subvolume discover during upgrade ([CVE-2022-0670](../security/CVE-2022-0670.md#cve-2022-0670), Kotresh HR)
 * mgr/volumes: V2 Fix for test_subvolume_retain_snapshot_invalid_recreate ([CVE-2022-0670](../security/CVE-2022-0670.md#cve-2022-0670), Kotresh HR)
 * qa: validate subvolume discover on upgrade (Kotresh HR)
 * rgw: s3website check for bucket before retargeting (Seena Fallah)
 
-# v16.2.9 Pacific
+## v16.2.9 Pacific
 
 This is a hotfix release in the Pacific series to address a bug in 16.2.8 that could cause MGRs to deadlock. See https://tracker.ceph.com/issues/55687.
 
-## Changelog
+### Changelog
 
 * mgr/ActivePyModules.cc: fix cases where GIL is held while attempting to lock mutex ([pr#46302](https://github.com/ceph/ceph/pull/46302), Cory Snyder)
 
-# v16.2.8 Pacific
+## v16.2.8 Pacific
 
 This is the eighth backport release in the Pacific series.
 
-## Notable Changes
+### Notable Changes
 
 * MON/MGR: Pools can now be created with `--bulk` flag. Any pools created with `bulk`
   will use a profile of the `pg_autoscaler` that provides more performance from the start.
@@ -1373,9 +1373,9 @@ This is the eighth backport release in the Pacific series.
 
 * CephFS: Upgrading Ceph Metadata Servers when using multiple active MDSs requires
   ensuring no pending stray entries which are directories are present for active
-  ranks except rank 0. See [upgrading_from_octopus_or_nautilus](pacific.md#upgrading-from-octopus-or-nautilus).
+  ranks except rank 0. See [upgrading_from_octopus_or_nautilus](pacific.md#upgrading_from_octopus_or_nautilus).
 
-## Changelog
+### Changelog
 
 * [Revert] bluestore: set upper and lower bounds on rocksdb omap iterators ([pr#46092](https://github.com/ceph/ceph/pull/46092), Neha Ojha)
 * admin/doc-requirements: bump sphinx to 4.4.0 ([pr#45876](https://github.com/ceph/ceph/pull/45876), Kefu Chai)
@@ -1682,11 +1682,11 @@ This is the eighth backport release in the Pacific series.
 * tools/rbd: expand where option rbd_default_map_options can be set ([pr#45181](https://github.com/ceph/ceph/pull/45181), Christopher Hoffman, Ilya Dryomov)
 * Wip doc pr 46109 backport to pacific ([pr#46117](https://github.com/ceph/ceph/pull/46117), Ville Ojamo)
 
-# v16.2.7 Pacific
+## v16.2.7 Pacific
 
 This is the seventh backport release in the Pacific series.
 
-## Notable Changes
+### Notable Changes
 
 * Critical bug in OMAP format upgrade is fixed. This could cause data corruption
   (improperly formatted OMAP keys) after pre-Pacific cluster upgrade if
@@ -1741,7 +1741,7 @@ Clusters managed by and upgraded using cephadm take care of this step automatica
   to reduce the impact of the progress module on the MGR, especially in large
   clusters.
 
-## Changelog
+### Changelog
 
 * rpm, debian: move smartmontools and nvme-cli to ceph-base ([pr#44164](https://github.com/ceph/ceph/pull/44164), Yaarit Hatuka)
 * qa: miscellaneous perf suite fixes ([pr#44154](https://github.com/ceph/ceph/pull/44154), Neha Ojha)
@@ -1864,7 +1864,7 @@ Clusters managed by and upgraded using cephadm take care of this step automatica
 * snap-schedule: count retained snapshots per retention policy ([pr#43434](https://github.com/ceph/ceph/pull/43434), Jan Fajerski)
 * test: shutdown the mounter after test finishes ([pr#43475](https://github.com/ceph/ceph/pull/43475), Xiubo Li)
 
-# v16.2.6 Pacific
+## v16.2.6 Pacific
 
 > **Danger:** DATE: 01 NOV 2021.
 > DO NOT UPGRADE TO CEPH PACIFIC FROM AN OLDER VERSION.
@@ -1890,7 +1890,7 @@ Clusters managed by and upgraded using cephadm take care of this step automatica
 
 This is the sixth backport release in the Pacific series.
 
-## Notable Changes
+### Notable Changes
 
 * MGR: The pg_autoscaler has a new default 'scale-down' profile which provides more
   performance from the start for new pools (for newly created clusters).
@@ -1934,7 +1934,7 @@ This is the sixth backport release in the Pacific series.
 
  * This is the first release built for Debian Bullseye.
 
-## Changelog
+### Changelog
 
 * bind on loopback address if no other addresses are available ([pr#42477](https://github.com/ceph/ceph/pull/42477), Kefu Chai)
 * ceph-monstore-tool: use a large enough paxos/{first,last}_committed ([issue#38219](http://tracker.ceph.com/issues/38219), [pr#42411](https://github.com/ceph/ceph/pull/42411), Kefu Chai)
@@ -2098,12 +2098,12 @@ This is the sixth backport release in the Pacific series.
 * Warning Cleanup and Clang Compile Fix ([pr#40692](https://github.com/ceph/ceph/pull/40692), Adam C. Emerson)
 * workunits/rgw: semicolon terminates perl statements ([pr#43168](https://github.com/ceph/ceph/pull/43168), Matt Benjamin)
 
-# v16.2.5 Pacific
+## v16.2.5 Pacific
 
 This is the fifth backport release in the Pacific series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * `ceph-mgr-modules-core` debian package does not recommend `ceph-mgr-rook`
   anymore. As the latter depends on `python3-numpy` which cannot be imported in
@@ -2139,7 +2139,7 @@ users update to this release.
   interoperability under msgr v2 has been fixed.  In particular, mixing armv7l
   (armhf) and x86_64 or aarch64 servers in the same cluster now works.
 
-## Changelog
+### Changelog
 
 * .github/labeler: add api-change label ([pr#41818](https://github.com/ceph/ceph/pull/41818), Ernesto Puerta)
 * Improve mon location handling for stretch clusters ([pr#40484](https://github.com/ceph/ceph/pull/40484), Greg Farnum)
@@ -2297,11 +2297,11 @@ users update to this release.
 * test/librbd: use really invalid domain ([pr#42010](https://github.com/ceph/ceph/pull/42010), Mykola Golub)
 * win32\*.sh: disable libcephsqlite when targeting Windows ([pr#40557](https://github.com/ceph/ceph/pull/40557), Lucian Petrut)
 
-# v16.2.4 Pacific
+## v16.2.4 Pacific
 
 This is a hotfix release addressing a number of security issues and regressions. We recommend all users update to this release.
 
-## Changelog
+### Changelog
 
 * mgr/dashboard: fix base-href: revert it to previous approach ([issue#50684](https://tracker.ceph.com/issues/50684), Avan Thakkar)
 * mgr/dashboard: fix cookie injection issue ([CVE-2021-3509](../security/CVE-2021-3509.md#cve-2021-3509), Ernesto Puerta)
@@ -2310,29 +2310,29 @@ This is a hotfix release addressing a number of security issues and regressions.
 * rgw: sanitize \r in s3 CORSConfiguration's ExposeHeader ([CVE-2021-3524](../security/CVE-2021-3524.md#cve-2021-3524), Sergey Bobrov, Casey Bodley)
 * systemd: remove ProtectClock=true for ceph-osd@.service ([issue#50347](https://tracker.ceph.com/issues/50347), Wong Hoi Sing Edison)
 
-# v16.2.3 Pacific
+## v16.2.3 Pacific
 
 This is the third backport release in the Pacific series.  We recommend all users
 update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * This release fixes a cephadm upgrade bug that caused some systems to get stuck in a loop
   restarting the first mgr daemon.
 
-# v16.2.2 Pacific
+## v16.2.2 Pacific
 
 This is the second backport release in the Pacific series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * Cephadm now supports an *ingress* service type that provides load
   balancing and HA (via haproxy and keepalived on a virtual IP) for
   RGW service (see [orchestrator-haproxy-service-spec](../cephadm/services/rgw.md#orchestrator-haproxy-service-spec)).  (The experimental
   *rgw-ha* service has been removed.)
 
-## Changelog
+### Changelog
 
 * ceph-fuse: src/include/buffer.h: 1187: FAILED ceph_assert(_num <= 1024) ([pr#40628](https://github.com/ceph/ceph/pull/40628), Yanhu Cao)
 * ceph-volume: fix "device" output ([pr#41054](https://github.com/ceph/ceph/pull/41054), Sébastien Han)
@@ -2394,14 +2394,14 @@ users update to this release.
 * tools/cephfs_mirror/PeerReplayer.cc: add missing include ([pr#40678](https://github.com/ceph/ceph/pull/40678), Duncan Bellamy)
 * vstart.sh: disable "auth_allow_insecure_global_id_reclaim" ([pr#40957](https://github.com/ceph/ceph/pull/40957), Kefu Chai)
 
-# v16.2.1 Pacific
+## v16.2.1 Pacific
 
 This is the first bugfix release in the Pacific stable series.  It addresses a
 security vulnerability in the Ceph authentication framework.
 
 We recommend all Pacific users upgrade.
 
-## Security fixes
+### Security fixes
 
 * This release includes a security fix that ensures the global_id
   value (a numeric value that should be unique for every authenticated
@@ -2421,11 +2421,11 @@ ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM_ALLOWED 1h
 
   For more information, see [CVE-2021-20288](../security/CVE-2021-20288.md#cve-2021-20288).
 
-# v16.2.0 Pacific
+## v16.2.0 Pacific
 
 This is the first stable release of Ceph Pacific.
 
-## Major Changes from Octopus
+### Major Changes from Octopus
 
 #### General
 
@@ -2606,9 +2606,9 @@ The [mgr-dashboard](../mgr/dashboard.md#mgr-dashboard) brings improvements in th
   through a new ``ceph-dokan`` utility which operates via the Dokan userspace
   API, similar to FUSE. For more information, see [ceph-dokan](../cephfs/ceph-dokan.md#ceph-dokan).
 
-<a id="upgrading-from-octopus-or-nautilus"></a>
+<a id="upgrading_from_octopus_or_nautilus"></a>
 
-## Upgrading from Octopus or Nautilus
+### Upgrading from Octopus or Nautilus
 
 Before starting, make sure your cluster is stable and healthy (no down or
 recovering OSDs).  (This is optional, but recommended.)
@@ -2624,9 +2624,11 @@ recovering OSDs).  (This is optional, but recommended.)
 > no pending stray entries which are directories for active ranks except rank 0 as
 > starting an upgrade (which sets `max_mds` to 1) could crash the Ceph
 > Metadata Server. The following command should return zero (0) stray entries
-> for all stray directories::
+> for all stray directories:
 >
->   # for idx in {0..9}; do ceph tell mds.<rank> dump tree ~mdsdir/stray$idx| jq '.[] | select (.nlink == 0 and .dir_layout.dir_hash > 0) | .stray_prior_path' | wc -l; done
+> ```
+> # for idx in {0..9}; do ceph tell mds.<rank> dump tree ~mdsdir/stray$idx| jq '.[] | select (.nlink == 0 and .dir_layout.dir_hash > 0) | .stray_prior_path' | wc -l; done
+> ```
 >
 > Ensure that all active ranks except rank 0 are checked for absence of stray
 > entries which are directories (using the above command). Details are captured
@@ -2927,12 +2929,12 @@ ceph telemetry on
 
    For more information about the telemetry module, see [the documentation](../mgr/telemetry.md#telemetry).
 
-## Upgrade from pre-Nautilus releases (like Mimic or Luminous)
+### Upgrade from pre-Nautilus releases (like Mimic or Luminous)
 
 You must first upgrade to Nautilus (14.2.z) or Octopus (15.2.z) before
 upgrading to Pacific.
 
-## Notable Changes
+### Notable Changes
 
 * A new library is available, libcephsqlite. It provides a SQLite Virtual File
   System (VFS) on top of RADOS. The database and journals are striped over

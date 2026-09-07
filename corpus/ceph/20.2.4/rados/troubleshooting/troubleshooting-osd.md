@@ -22,7 +22,7 @@ Next, check your networks to make sure that they are running properly. Networks
 can have a significant impact on OSD operation and performance. Look for
 dropped packets on the host side and CRC errors on the switch side.
 
-# Obtaining Data About OSDs
+## Obtaining Data About OSDs
 
 When troubleshooting OSDs, it is useful to collect different kinds of
 information about the OSDs. Some information comes from the practice of
@@ -30,7 +30,7 @@ information about the OSDs. Some information comes from the practice of
 Additional information concerns the topology of your cluster, and is discussed
 in the following sections.
 
-## Ceph Logs
+### Ceph Logs
 
 Ceph log files are stored under ``/var/log/ceph``. Unless the path has been
 changed (or you are in a containerized environment that stores logs in a
@@ -44,7 +44,7 @@ ls /var/log/ceph
 If there is not enough log detail, change the logging level. To ensure that
 Ceph performs adequately under high logging volume, see [Logging and Debugging](log-and-debug.md).
 
-## Admin Socket
+### Admin Socket
 
 Use the admin socket tool to retrieve runtime information. First, list the
 sockets of Ceph's daemons by running the following command:
@@ -75,7 +75,7 @@ The admin socket makes many tasks possible, including:
 - Dumping operations in flight
 - Dumping perfcounters
 
-## Display Free Space
+### Display Free Space
 
 Filesystem issues may arise. To display your filesystems' free space, run the
 following command:
@@ -86,7 +86,7 @@ df -h
 
 To see this command's supported syntax and options, run ``df --help``.
 
-## I/O Statistics
+### I/O Statistics
 
 The [iostat](https://en.wikipedia.org/wiki/Iostat) tool can be used to identify I/O-related issues. Run the
 following command:
@@ -95,7 +95,7 @@ following command:
 iostat -x
 ```
 
-## Diagnostic Messages
+### Diagnostic Messages
 
 To retrieve diagnostic messages from the kernel, run the ``dmesg`` command and
 specify the output with ``less``, ``more``, ``grep``, or ``tail``. For
@@ -105,7 +105,7 @@ example:
 dmesg | grep scsi
 ```
 
-# Stopping without Rebalancing
+## Stopping without Rebalancing
 
 It might be occasionally necessary to perform maintenance on a subset of your
 cluster or to resolve a problem that affects a failure domain (for example, a
@@ -175,12 +175,12 @@ commands.
 
 <a id="osd-not-running"></a>
 
-# OSD Not Running
+## OSD Not Running
 
 Under normal conditions, restarting a ``ceph-osd`` daemon will allow it to
 rejoin the cluster and recover.
 
-## An OSD Won't Start
+### An OSD Won't Start
 
 If the cluster has started but an OSD isn't starting, check the following:
 
@@ -253,7 +253,7 @@ kernel.pid_max = 4194303
   being run, ``ceph.conf`` (with secrets XXX'd out), your monitor status
   output, and excerpts from your log file(s).
 
-## An OSD Failed
+### An OSD Failed
 
 When an OSD fails, this means that a ``ceph-osd`` process is unresponsive or
 has died and that the corresponding OSD has been marked ``down``. Surviving
@@ -315,7 +315,7 @@ clear fix or existing bug, then [report the problem to the ceph-devel email list
 
 <a id="no-free-drive-space"></a>
 
-## No Free Drive Space
+### No Free Drive Space
 
 If an OSD is full, Ceph prevents data loss by ensuring that no new data is
 written to the OSD. In an properly running cluster, health checks are raised
@@ -415,7 +415,7 @@ the full OSD.
 
 See [Monitor Config Reference](../configuration/mon-config-ref.md) for more information.
 
-# OSDs are Slow/Unresponsive
+## OSDs are Slow/Unresponsive
 
 OSDs are sometimes slow or unresponsive. When troubleshooting this common
 problem, it is advised to eliminate other possibilities before investigating
@@ -428,7 +428,7 @@ whether OSDs are throttling recovery traffic.
 > consuming system resources. Newer releases provide better recovery handling
 > by preventing this phenomenon.
 
-## Networking Issues
+### Networking Issues
 
 As a distributed storage system, Ceph relies upon networks for OSD peering and
 replication, recovery from faults, and periodic heartbeats. Networking issues
@@ -449,7 +449,7 @@ To check network statistics, run the following command:
 netstat -s
 ```
 
-## Drive Configuration
+### Drive Configuration
 
 An SAS or SATA storage drive should house only one OSD, but a NVMe drive can
 easily house two or more. However, it is possible for read and write throughput
@@ -472,7 +472,7 @@ attractive option for accelerating response time -- particularly when using the
 > support FileStore. Any information that mentions FileStore is pertinent only
 > to the Quincy release of Ceph and to releases prior to Quincy.
 
-## Bad Sectors / Fragmented Disk
+### Bad Sectors / Fragmented Disk
 
 Check your drives for bad blocks, fragmentation, and other errors that can
 cause significantly degraded performance. Tools that are useful in checking for
@@ -482,7 +482,7 @@ drive errors include ``dmesg``, ``syslog`` logs, and ``smartctl`` (found in the
 > **Note:** ``smartmontools`` 7.0 and late provides NVMe stat passthrough and
 > JSON output.
 
-## Co-resident Monitors/OSDs
+### Co-resident Monitors/OSDs
 
 Although monitors are relatively lightweight processes, performance issues can
 result when monitors are run on the same host machine as an OSD. Monitors issue
@@ -494,7 +494,7 @@ OSDs running on the same host might make so many commits as to undermine each
 other's performance.  This problem sometimes results in what is called "the
 bursty writes".
 
-## Co-resident Processes
+### Co-resident Processes
 
 Significant OSD latency can result from processes that write data to Ceph (for
 example, cloud-based solutions and virtual machines) while operating on the
@@ -509,7 +509,7 @@ Running co-resident processes on the same hardware is sometimes called
 "convergence". When using Ceph, engage in convergence only with expertise and
 after consideration.
 
-## Logging Levels
+### Logging Levels
 
 Performance issues can result from high logging levels. Operators sometimes
 raise logging levels in order to track an issue and then forget to lower them
@@ -518,25 +518,25 @@ write needlessly verbose logs onto the disk. Anyone who does want to use high lo
 levels is advised to consider mounting a drive to the default path for logging
 (for example, ``/var/log/ceph/$cluster-$name.log``).
 
-## Recovery Throttling
+### Recovery Throttling
 
 Depending upon your configuration, Ceph may reduce recovery rates to maintain
 client or OSD performance, or it may increase recovery rates to the point that
 recovery impacts client or OSD performance. Check to see if the client or OSD
 is recovering.
 
-## Kernel Version
+### Kernel Version
 
 Check the kernel version that you are running. Older kernels may lack updates
 that improve Ceph performance.
 
-## Kernel Issues with SyncFS
+### Kernel Issues with SyncFS
 
 If you have kernel issues with SyncFS, try running one OSD per host to see if
 performance improves. Old kernels might not have a recent enough version of
 ``glibc`` to support ``syncfs(2)``.
 
-## Filesystem Issues
+### Filesystem Issues
 
 In post-Luminous releases, we recommend deploying clusters with the BlueStore
 back end.  When running a pre-Luminous release, or if you have a specific
@@ -551,7 +551,7 @@ RGW.
 
 For more information, see Filesystem Recommendations <!-- unresolved-rst-link: kind=named target=Filesystem Recommendations -->.
 
-## Insufficient RAM
+### Insufficient RAM
 
 We recommend a *minimum* of 4GB of RAM per OSD daemon and we suggest rounding
 up from 6GB to 8GB. During normal operations, you may notice that ``ceph-osd``
@@ -562,7 +562,7 @@ spikes. If there is insufficient RAM available during recovery, OSD performance
 will slow considerably and the daemons may even crash or be killed by the Linux
 ``OOM Killer``.
 
-## Blocked Requests or Slow Requests
+### Blocked Requests or Slow Requests
 
 When a ``ceph-osd`` daemon is slow to respond to a request, the cluster log
 receives messages reporting ops that are taking too long. The warning threshold
@@ -600,7 +600,7 @@ Possible solutions:
 - Override OSD shard configuration (on HDD based cluster with mClock scheduler)
     - See [mclock-tblshoot-hdd-shard-config](troubleshooting-osd.md#mclock-tblshoot-hdd-shard-config) for resolution
 
-## Debugging Slow Requests
+### Debugging Slow Requests
 
 If you run ``ceph daemon osd.<id> dump_historic_ops`` or ``ceph daemon osd.<id>
 dump_ops_in_flight``, you will see a set of operations and a list of events
@@ -653,7 +653,7 @@ threads).
 
 <a id="mclock-tblshoot-hdd-shard-config"></a>
 
-## Slow Requests or Slow Recovery With mClock Scheduler
+### Slow Requests or Slow Recovery With mClock Scheduler
 
 > **Note:** This troubleshooting is applicable only for HDD based clusters running
 > mClock scheduler and with the following OSD shard configuration:
@@ -687,9 +687,9 @@ The above configuration won't take effect immediately and would require a
 restart of the OSDs in the environment. For this process to be least disruptive,
 the OSDs may be restarted in a carefully staggered manner.
 
-<a id="rados-tshooting-flapping-osd"></a>
+<a id="rados_tshooting_flapping_osd"></a>
 
-# Flapping OSDs
+## Flapping OSDs
 
 "Flapping" is the term for the phenomenon of an OSD being repeatedly marked
 ``up`` and then ``down`` in rapid succession.  This section explains how to

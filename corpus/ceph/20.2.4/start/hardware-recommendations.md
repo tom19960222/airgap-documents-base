@@ -28,7 +28,7 @@ another, but below are some general guidelines.
 
 > **Tip:** check out the [ceph blog](https://ceph.io/en/news/blog/) too.
 
-# CPU
+## CPU
 
 CephFS Metadata Servers (MDS) are CPU-intensive. They are single-threaded
 and perform best with CPUs with a high clock rate (GHz). MDS servers do not
@@ -58,7 +58,7 @@ not your Monitor and Manager nodes) in order to avoid resource contention.
 If your cluster deployes the Ceph Object Gateway, RGW daemons may co-reside
 with your Mon and Manager services if the nodes have sufficient resources.
 
-# RAM
+## RAM
 
 Generally, more RAM is better.  Monitor / Manager nodes for a modest cluster
 might do fine with 64GB; for a larger cluster with hundreds of OSDs 128GB
@@ -85,7 +85,7 @@ osd_memory_target_autotune can help avoid OOMing under heavy load or when
 non-OSD daemons migrate onto a node. An effective osd_memory_target of
 at least 6 GiB can help mitigate slow requests on HDD OSDs.
 
-## Monitors and Managers (ceph-mon and ceph-mgr)
+### Monitors and Managers (ceph-mon and ceph-mgr)
 
 Monitor and Manager memory usage scales with the size of the
 cluster.  Note that at boot-time and during topology changes and recovery these
@@ -98,13 +98,13 @@ tuning the following settings:
 * mon_osd_cache_size
 * rocksdb_cache_size
 
-## Metadata Servers (ceph-mds)
+### Metadata Servers (ceph-mds)
 
 CephFS metadata daemon memory utilization depends on the configured size of
 its cache. We recommend 1 GiB as a minimum for most systems.  See
 mds_cache_memory_limit.
 
-# Memory
+## Memory
 
 BlueStore uses its own memory to cache data rather than relying on the
 operating system's page cache. When using the BlueStore OSD back end you can adjust the amount of memory
@@ -153,7 +153,7 @@ to the workload and number of PGs that it serves. BlueStore OSDs do not use
 the page cache, so the autotuner is recommended to ensure that RAM is used
 fully but prudently.
 
-# Data Storage
+## Data Storage
 
 Plan your data storage configuration carefully: there are significant cost and
 performance tradeoffs to consider. Routine
@@ -184,7 +184,7 @@ information on how to effectively use a mix of fast drives and slow drives in
 your Ceph cluster, see the [block and block.db](../rados/configuration/bluestore-config-ref.md#bluestore-mixed-device-config)
 section of the BlueStore Configuration Reference.
 
-## Hard Disk Drives
+### Hard Disk Drives
 
 Consider carefully the ostensible cost-per-gigabyte advantage
 of larger HDDs, and the concomitant limitations of IOPS per TB.
@@ -238,7 +238,7 @@ overhead and especially data center space are key inputs into TCO: large
 deployments often achieve lower TCO with SSDs than HDDs, especially when
 forgoing the cost and management cost of fussy tri-mode RAID HBAs for HDDs.
 
-## Solid State Drives
+### Solid State Drives
 
 Ceph performance is much improved when using solid-state drives (SSDs). This
 reduces random access time and reduces latency while increasing throughput.
@@ -315,7 +315,7 @@ have to manually create a pool for CephFS metadata, but you should create a CRUS
 hierarchy for your CephFS metadata pool that includes only SSD storage media.
 See [CRUSH Device Class](../rados/operations/crush-map-edits.md#crush-map-device-class) for details.
 
-## Controllers
+### Controllers
 
 Disk controllers (HBAs) can have a significant impact on write throughput.
 Carefully consider your selection of HBAs to ensure that they do not create a
@@ -339,7 +339,7 @@ purchases an annual maintenance contract or extended warranty.
 > **Tip:** The [Ceph blog](https://ceph.io/en/news/blog/) is often an excellent source of information on Ceph
 > performance issues. See [Ceph Write Throughput 1](https://ceph.io/en/news/blog/2013/ceph-performance-part-1-disk-controller-write-throughput/) and [Ceph Write Throughput 2](https://ceph.io/en/news/blog/2013/ceph-performance-part-2-write-throughput-without-ssd-journals/) for additional details.
 
-## Benchmarking
+### Benchmarking
 
 BlueStore opens storage devices with ``O_DIRECT`` and issues ``fsync()``
 frequently to ensure that data is safely persisted to media. You can evaluate a
@@ -350,7 +350,7 @@ performance is measured as follows:
 # fio --name=/dev/sdX --ioengine=libaio --direct=1 --fsync=1 --readwrite=randwrite --blocksize=4k --runtime=300
 ```
 
-## Write Caches
+### Write Caches
 
 Enterprise storage drives include power loss protection features which
 ensure data durability when power is lost while operating, and
@@ -430,34 +430,34 @@ until the next reboot as some drives require this to be repeated at every boot):
 > **Tip:** This udev rule (tested on CentOS 8) will set all SATA/SAS device cache_types to "write
 > through":
 >
-> .. code-block:: console
->
->   # cat /etc/udev/rules.d/99-ceph-write-through.rules
->   ACTION=="add", SUBSYSTEM=="scsi_disk", ATTR{cache_type}:="write through"
+> ```console
+> # cat /etc/udev/rules.d/99-ceph-write-through.rules
+> ACTION=="add", SUBSYSTEM=="scsi_disk", ATTR{cache_type}:="write through"
+> ```
 
 > **Tip:** This udev rule (tested on CentOS 7) will set all SATA/SAS device cache_types to "write
 > through":
 >
-> .. code-block:: console
->
->   # cat /etc/udev/rules.d/99-ceph-write-through-el7.rules
->   ACTION=="add", SUBSYSTEM=="scsi_disk", RUN+="/bin/sh -c 'echo write through > /sys/class/scsi_disk/$kernel/cache_type'"
+> ```console
+> # cat /etc/udev/rules.d/99-ceph-write-through-el7.rules
+> ACTION=="add", SUBSYSTEM=="scsi_disk", RUN+="/bin/sh -c 'echo write through > /sys/class/scsi_disk/$kernel/cache_type'"
+> ```
 
 > **Tip:** The ``sdparm`` utility can be used to view/change the volatile write
 > cache on several devices at once:
 >
-> .. code-block:: console
->
->   # sdparm --get WCE /dev/sd*
->       /dev/sda: ATA       TOSHIBA MG07ACA1  0101
->   WCE           0  [cha: y]
->       /dev/sdb: ATA       TOSHIBA MG07ACA1  0101
->   WCE           0  [cha: y]
->   # sdparm --clear WCE /dev/sd*
->       /dev/sda: ATA       TOSHIBA MG07ACA1  0101
->       /dev/sdb: ATA       TOSHIBA MG07ACA1  0101
+> ```console
+> # sdparm --get WCE /dev/sd*
+>     /dev/sda: ATA       TOSHIBA MG07ACA1  0101
+> WCE           0  [cha: y]
+>     /dev/sdb: ATA       TOSHIBA MG07ACA1  0101
+> WCE           0  [cha: y]
+> # sdparm --clear WCE /dev/sd*
+>     /dev/sda: ATA       TOSHIBA MG07ACA1  0101
+>     /dev/sdb: ATA       TOSHIBA MG07ACA1  0101
+> ```
 
-## Additional Considerations
+### Additional Considerations
 
 Ceph operators typically provision  multiple OSDs per host, but you should
 ensure that the aggregate throughput of your OSD drives doesn't exceed the
@@ -477,7 +477,7 @@ is up to date. See [OS Recommendations](os-recommendations.md) for notes on ``gl
 ``syncfs(2)`` to ensure that your hardware performs as expected when running
 multiple OSDs per host.
 
-# Networks
+## Networks
 
 Provision at least 10 Gb/s networking in your datacenter, both among Ceph
 hosts and between clients and your Ceph cluster. Clusters with substantial
@@ -489,7 +489,7 @@ bonding across separate network switches is strongly recommended both for
 increased throughput and for tolerance of network failures and maintenance.
 Take care that your bonding hash policy distributes traffic across links.
 
-## Speed
+### Speed
 
 It takes three hours to replicate 1 TiB of data across a 1 Gb/s network and it
 takes thirty hours to replicate 10 TiB across a 1 Gb/s network. But it takes only
@@ -502,7 +502,7 @@ in parallel.  Thus, and perhaps somewhat counterintuitively, an individual
 packet on a 25 Gb/s network has slightly lower latency compared to a 40 Gb/s
 network.
 
-## Cost
+### Cost
 
 The larger the Ceph cluster, the more common OSD failures will be.
 The faster a placement group (PG) can recover from a degraded state to
@@ -523,7 +523,7 @@ increasingly 25/50/100 Gb/s networking as of 2022 is common for production clust
 Top-of-rack (TOR) switches also need fast and redundant uplinks to
 core / spine network switches or routers, often at least 40 Gb/s.
 
-## Baseboard Management Controller (BMC)
+### Baseboard Management Controller (BMC)
 
 Your server chassis likely has a Baseboard Management Controller (BMC).
 Well-known examples are iDRAC (Dell), CIMC (Cisco UCS), and iLO (HPE).
@@ -539,7 +539,7 @@ Additionally, BMCs as of 2025 rarely offer network connections faster than 1 Gb/
 so dedicated and inexpensive 1 Gb/s switches for BMC administrative traffic
 may reduce costs by wasting fewer expensive ports on faster host switches.
 
-# Failure Domains
+## Failure Domains
 
 A failure domain can be thought of as any component loss that prevents access to
 one or more OSDs or other Ceph daemons. These could be a stopped daemon on a host;
@@ -549,7 +549,7 @@ deployment, you must balance the risk of reducing costs by placing too many
 responsibilities into too few failure domains against the added costs of
 isolating every potential failure domain.
 
-# Minimum Hardware Recommendations
+## Minimum Hardware Recommendations
 
 Ceph can run on inexpensive commodity hardware. Small production clusters
 and development clusters can run successfully with modest hardware.  As

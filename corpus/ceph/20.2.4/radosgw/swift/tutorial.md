@@ -13,9 +13,9 @@ client and the RADOS Gateway server. Then, you may follow a natural
 container and object lifecycle, including adding and retrieving object
 metadata. See example code for the following languages:
 
-- [Java](java.md#java-swift)
-- [Python](python.md#python-swift)
-- [Ruby](ruby.md#ruby-swift)
+- [Java](java.md#java_swift)
+- [Python](python.md#python_swift)
+- [Ruby](ruby.md#ruby_swift)
 
 .. ditaa::
 

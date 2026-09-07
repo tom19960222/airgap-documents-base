@@ -40,7 +40,7 @@ introduced in this chapter are based on a so called ``vstart`` environment.
 > One exception to this rule are the [build-free](https://github.com/rhcs-dashboard/ceph-dev#quick-install-rpm-based) capabilities of
 > [ceph-dev](https://github.com/rhcs-dashboard/ceph-dev). See below for more information.
 
-#### vstart
+### vstart
 
 "vstart" is actually a shell script in the ``src/`` directory of the Ceph
 repository (``src/vstart.sh``). It is used to start a single node Ceph
@@ -49,10 +49,10 @@ optional Ceph internal services are started automatically when it is used to
 start a Ceph cluster. vstart is the basis for the three most commonly used
 development environments in Ceph Dashboard.
 
-You can read more about vstart in [Deploying a development cluster](../dev_cluster_deployment.md#dev-deploying-a-development-cluster). Additional information for developers
+You can read more about vstart in [Deploying a development cluster](../dev_cluster_deployment.md#dev_deploying_a_development_cluster). Additional information for developers
 can also be found in the [Developer Guide](https://docs.ceph.com/docs/master/dev/quick_guide/).
 
-#### Host-based vs Docker-based Development Environments
+### Host-based vs Docker-based Development Environments
 
 This document introduces you to three different development environments, all
 based on vstart. Those are:
@@ -90,7 +90,7 @@ based on vstart. Those are:
 > RPM system packages. You will still be able to work with a local GitHub
 > repository like you are used to.
 
-###### Development environment on your host system
+#### Development environment on your host system
 
 - No need to learn or have experience with Docker, jump in right away.
 
@@ -107,7 +107,7 @@ based on vstart. Those are:
   host operating system (for instance due to a change of the GCC version used
   to compile Ceph).
 
-###### Development environments based on Docker
+#### Development environments based on Docker
 
 - Some overhead in learning Docker if you are not used to it yet.
 
@@ -125,7 +125,7 @@ based on vstart. Those are:
 
 - Works independently of the operating system you use on your host.
 
-#### vstart on your host system
+### vstart on your host system
 
 The vstart script is usually called from your `build/` directory like so:
 
@@ -165,7 +165,7 @@ $ ./bin/ceph mgr services
 By default, this environment uses a randomly chosen port for Ceph Dashboard
 and you need to use this command to find out which one it has become.
 
-#### Docker
+### Docker
 
 Docker development environments usually ship with a lot of useful scripts.
 ``ceph-dev-docker`` for instance contains a file called `start-ceph.sh`,
@@ -189,7 +189,7 @@ server.
 The build process is based on [Node.js](https://nodejs.org/) and requires the
 [Node Package Manager](https://www.npmjs.com/) ``npm`` to be installed.
 
-#### Prerequisites
+### Prerequisites
 
  * Node 20.13.1 or higher
  * NPM 10.5.2 or higher
@@ -210,12 +210,12 @@ Angular CLI:
   installed globally, then you need to execute ``ng`` commands with an
   additional ``npm run`` before it.
 
-#### Package installation
+### Package installation
 
 Run ``npm ci`` in directory ``src/pybind/mgr/dashboard/frontend`` to
 install the required packages locally.
 
-#### Adding or updating packages
+### Adding or updating packages
 
 Run the following commands to add/update a package:
 
@@ -224,7 +224,7 @@ npm install <PACKAGE_NAME>
 npm ci
 ```
 
-#### Setting up a Development Server
+### Setting up a Development Server
 
 Create the ``proxy.conf.json`` file based on ``proxy.conf.json.sample``.
 
@@ -232,19 +232,19 @@ Run ``npm start`` for a dev server.
 Navigate to ``http://localhost:4200/``. The app will automatically
 reload if you change any of the source files.
 
-#### Code Scaffolding
+### Code Scaffolding
 
 Run ``ng generate component component-name`` to generate a new
 component. You can also use
 ``ng generate directive|pipe|service|class|guard|interface|enum|module``.
 
-#### Build the Project
+### Build the Project
 
 Run ``npm run build`` to build the project. The build artifacts will be
 stored in the ``dist/`` directory. Use the ``--prod`` flag for a
 production build (``npm run build -- --prod``). Navigate to ``https://localhost:8443``.
 
-#### Build the Code Documentation
+### Build the Code Documentation
 
 Run ``npm run doc-build`` to generate code docs in the ``documentation/``
 directory. To make them accessible locally for a web browser, run
@@ -252,7 +252,7 @@ directory. To make them accessible locally for a web browser, run
 With ``npm run compodoc -- <opts>`` you may
 [fully configure it](https://compodoc.app/guides/usage.html).
 
-#### Code linting and formatting
+### Code linting and formatting
 
 We use the following tools to lint and format the code in all our TS, SCSS and
 HTML files:
@@ -269,7 +269,7 @@ We added 2 npm scripts to help run these tools:
 - ``npm run lint``, will check frontend files against all linters
 - ``npm run fix``, will try to fix all the detected linting errors
 
-#### Ceph Dashboard and Bootstrap
+### Ceph Dashboard and Bootstrap
 
 Currently we are using Bootstrap on the Ceph Dashboard as a CSS framework. This means that most of our SCSS and HTML
 code can make use of all the utilities and other advantages Bootstrap is offering. In the past we often have used our
@@ -296,7 +296,7 @@ Bootstrap is a framework which tries to have usability and user experience in mi
 exponentially. The biggest benefit of all is that there is less code for us to maintain which makes it easier to read
 for beginners and even more easy for people how are already familiar with the code.
 
-#### Writing Unit Tests
+### Writing Unit Tests
 
 To write unit tests most efficient we have a small collection of tools,
 we use within test suites.
@@ -323,7 +323,7 @@ controls, expect if a control is valid or has an error or just do both with
 one method. Additional you can expect a template element or multiple elements
 to be visible in the rendered template.
 
-#### Running Unit Tests
+### Running Unit Tests
 
 Run ``npm run test`` to execute the unit tests via [Jest](https://facebook.github.io/jest/).
 
@@ -334,11 +334,11 @@ There are a few ways how you can try to resolve this:
   again in order to reinstall them
 - Clear the cache of jest by running ``npx jest --clearCache``
 
-#### Running End-to-End (E2E) Tests
+### Running End-to-End (E2E) Tests
 
 We use [Cypress](https://www.cypress.io/) to run our frontend E2E tests.
 
-###### E2E Prerequisites
+#### E2E Prerequisites
 
 You need to previously build the frontend.
 
@@ -348,7 +348,7 @@ you might need to run ``npm ci`` with the ``--unsafe-perm`` flag.
 You might need to install additional packages to be able to run Cypress.
 Please run ``npx cypress verify`` to verify it.
 
-###### run-frontend-e2e-tests.sh
+#### run-frontend-e2e-tests.sh
 
 Our ``run-frontend-e2e-tests.sh`` script is the go to solution when you wish to
 do a full scale e2e run.
@@ -391,7 +391,7 @@ Note:
   When using docker, as your device, you might need to run the script with sudo
   permissions.
 
-###### run-cephadm-e2e-tests.sh
+#### run-cephadm-e2e-tests.sh
 
 ``run-cephadm-e2e-tests.sh`` runs a subset of E2E tests to verify that the Dashboard and cephadm as
 Orchestrator backend behave correctly.
@@ -449,7 +449,7 @@ Shutdown the cluster by running:
   $ kcli delete plan -y ceph
   $ # In development mode, also kill the npm build watch process (e.g., pkill -f "ng build")
 
-###### Other running options
+#### Other running options
 
 During active development, it is not recommended to run the previous script,
 as it is not prepared for constant file changes.
@@ -477,7 +477,7 @@ If you are serving it in a different URL you will need to configure it by
 exporting the environment variable CYPRESS_BASE_URL with the new value.
 E.g.: ``CYPRESS_BASE_URL=https://localhost:41076/ npx cypress open``
 
-###### CYPRESS_CACHE_FOLDER
+#### CYPRESS_CACHE_FOLDER
 
 When installing cypress via npm, a binary of the cypress app will also be
 downloaded and stored in a cache folder.
@@ -494,9 +494,9 @@ it will go back to the default directory. It is recommended that you export the
 CYPRESS_CACHE_FOLDER environment variable with a fixed directory, so you always
 use the same directory no matter which command you use.
 
-#### Writing End-to-End Tests
+### Writing End-to-End Tests
 
-###### The PagerHelper class
+#### The PagerHelper class
 
 The ``PageHelper`` class is supposed to be used for general purpose code that
 can be used on various pages or suites.
@@ -515,7 +515,7 @@ example for such a case is the ``restrictTo()`` decorator. It ensures that a
 method implemented in a subclass of PageHelper is called on the correct page.
 It will also show a developer-friendly warning if this is not the case.
 
-###### Subclasses of PageHelper
+#### Subclasses of PageHelper
 
 ##### Helper Methods
 
@@ -545,7 +545,7 @@ it('should create a pool', () => {
 });
 ```
 
-###### Code Style
+#### Code Style
 
 Please refer to the official [Cypress Core Concepts](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html#Cypress-Can-Be-Simple-Sometimes)
 for a better insight on how to write and structure tests.
@@ -618,7 +618,7 @@ grammatical sense with ``it()`` as the prefix whereas the second message does
 not. ``it()`` should describe what the individual test is doing and what it
 expects to happen.
 
-#### Visual Regression Testing
+### Visual Regression Testing
 
 For visual regression testing, we use [Applitools Eyes](https://applitools.com/products-eyes/)
 an AI powered automated  visual regression testing tool.
@@ -626,14 +626,14 @@ Applitools integrates with our existing Cypress E2E tests.
 The tests currently are located at: ``ceph/src/pybind/mgr/dashboard/frontend/cypress/integration/visualTests`` and
 follow the naming convention: ``<component-name>.vrt-spec.ts``.
 
-###### Running Visual Regression Tests Locally
+#### Running Visual Regression Tests Locally
 
 To run the tests locally, you'll need an Applitools API key, if you don't have one, you can sign up
 for a free account. After obtaining the API key, export it as an environment variable: ``APPLITOOLS_API_KEY``.
 
 Now you can run the tests like normal cypress E2E tests, using either ``npx cypress open`` or in headless mode by running ``npx cypress run``.
 
-###### Capturing Screenshots
+#### Capturing Screenshots
 
 Baseline screenshots are the screenshots against which checkpoint screenshots
 (or the screenshots from your feature branch) will be tested.
@@ -644,27 +644,27 @@ and then switch to your feature branch and run the tests again to capture checkp
 Now to see your screenshots, login to applitools.com and on the landing page you'll be greeted with
 applitools eyes test runner, where you can see all your screenshots. And if there's any visual regression or difference (diff) between your baseline and checkpoint screenshots, they'll be highlighted with a mask over the diff.
 
-###### Writing More Visual Regression Tests
+#### Writing More Visual Regression Tests
 
 Please refer to [Applitools's official cypress sdk documentation](https://www.npmjs.com/package/@applitools/eyes-cypress#usage) to write more tests.
 
-###### Visual Regression Tests In Jenkins
+#### Visual Regression Tests In Jenkins
 
 Currently, all visual regression tests are being run under [ceph dashboard tests](https://jenkins.ceph.com/job/ceph-dashboard-pull-requests) GitHub check in the Jenkins job.
 
-###### Accepting or Rejecting Differences
+#### Accepting or Rejecting Differences
 
 Currently, only the ceph dashboard team has read and write access to the applitools test runner. If any differences are reported by the tests, and you want to accept them and update the baseline screenshots, or if the differences are due to a genuine regression you can fail them. To perform the above actions, please follow [this](https://applitools.com/docs/topics/test-manager/pages/page-test-results/tm-accepting-and-rejecting-steps.html) guide.
 
-###### Debugging Regressions
+#### Debugging Regressions
 
 If you're running the tests locally and regressions are reported, you can take advantage of [Applitools's Root Cause Analysis feature](https://applitools.com/docs/topics/test-manager/viewers/root-cause-analysis.html) to find the cause of the regression.
 
-#### Differences between Frontend Unit Tests and End-to-End (E2E) Tests / FAQ
+### Differences between Frontend Unit Tests and End-to-End (E2E) Tests / FAQ
 
 General introduction about testing and E2E/unit tests
 
-###### What are E2E/unit tests designed for?
+#### What are E2E/unit tests designed for?
 
 E2E test:
 
@@ -688,7 +688,7 @@ a function call and an expected static output.
 More complex examples include the state of a component (attributes of the component class),
 that define how the output changes according to the given input.
 
-###### Which E2E/unit tests are considered to be valid?
+#### Which E2E/unit tests are considered to be valid?
 
 This is not easy to answer, but new tests that are written in the same way as already existing
 dashboard tests should generally be considered valid.
@@ -699,7 +699,7 @@ E2E tests should focus on testing the functionality of the whole application.
 Approximately a third of the overall E2E tests should verify the correctness
 of user visible elements.
 
-###### How should an E2E/unit test look like?
+#### How should an E2E/unit test look like?
 
 Unit tests should focus on the described purpose
 and shouldn't try to test other things in the same `it` block.
@@ -708,7 +708,7 @@ E2E tests should contain a description that either verifies
 the correctness of a user visible element or a complete process
 like for example the creation/validation/deletion of a pool.
 
-###### What should an E2E/unit test cover?
+#### What should an E2E/unit test cover?
 
 E2E tests should mostly, but not exclusively, cover interaction with the backend.
 This way the interaction with the backend is utilized to write integration tests.
@@ -716,7 +716,7 @@ This way the interaction with the backend is utilized to write integration tests
 A unit test should mostly cover critical or complex functionality
 of a component (Angular Components, Services, Pipes, Directives, etc).
 
-###### What should an E2E/unit test NOT cover?
+#### What should an E2E/unit test NOT cover?
 
 Avoid duplicate testing: do not write E2E tests for what's already
 been covered as frontend-unit tests and vice versa.
@@ -725,20 +725,20 @@ It may not be possible to completely avoid an overlap.
 Unit tests should not be used to extensively click through components and E2E tests
 shouldn't be used to extensively test a single component of Angular.
 
-###### Best practices/guideline
+#### Best practices/guideline
 
 As a general guideline we try to follow the 70/20/10 approach - 70% unit tests,
 20% integration tests and 10% end-to-end tests.
 For further information please refer to [this document](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html)
 and the included "Testing Pyramid".
 
-#### Further Help
+### Further Help
 
 To get more help on the Angular CLI use ``ng help`` or go check out the
 [Angular CLI
 README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-#### Example of a Generator
+### Example of a Generator
 
 :
 
@@ -757,7 +757,7 @@ or, alternatively:
 src/app> ng generate component core/auth/login -m=core/auth
 ```
 
-#### Frontend Typescript Code Style Guide Recommendations
+### Frontend Typescript Code Style Guide Recommendations
 
 Group the imports based on its source and separate them with a blank
 line.
@@ -776,13 +776,13 @@ import { Credentials } from '../../../shared/models/credentials.model';
 import { HostService } from './services/host.service';
 ```
 
-#### Frontend components
+### Frontend components
 
 There are several components that can be reused on different pages.
 This components are declared on the components module:
 `src/pybind/mgr/dashboard/frontend/src/app/shared/components`.
 
-#### Helper
+### Helper
 
 This component should be used to provide additional information to the user.
 
@@ -794,7 +794,7 @@ Example:
 </cd-helper>
 ```
 
-#### Terminology and wording
+### Terminology and wording
 
 Instead of using the Ceph component names, the approach
 suggested is to use the logical/generic names (Block over RBD, Filesystem over
@@ -811,7 +811,7 @@ or removed to/from a set of items (e.g.: 'Add permission' to a user vs. 'Create
 In order to enforce the use of this wording, a service ``ActionLabelsI18n`` has
 been created, which provides translated labels for use in UI elements.
 
-#### Frontend branding
+### Frontend branding
 
 Every vendor can customize the 'Ceph dashboard' to his needs. No matter if
 logo, HTML-Template or TypeScript, every file inside the frontend folder can be
@@ -858,7 +858,7 @@ Just reassign the variable you want to change, for example ``$color-primary: tea
 To overwrite or extend the default CSS, you can add your own styles in
 ``./frontend/src/styles/vendor/_style-overrides.scss``.
 
-#### UI Style Guide
+### UI Style Guide
 
 The style guide is created to document Ceph Dashboard standards and maintain
 consistency across the project. Its an effort to make it easier for
@@ -875,7 +875,7 @@ existing SCSS declarations as much as possible.
 Always check for existing code similar to what you want to write.
 You should always try to keep the same look-and-feel as the existing code.
 
-###### Colors
+#### Colors
 
 All the colors used in Ceph Dashboard UI are listed in
 `frontend/src/styles/defaults/_bootstrap-defaults.scss`. If using new color
@@ -890,7 +890,7 @@ form.
 The secondary color is `$secondary` and is the background color for Ceph
 Dashboard.
 
-###### Buttons
+#### Buttons
 
 Buttons are used for performing actions such as: “Submit”, “Edit, “Create" and
 “Update”.
@@ -919,13 +919,13 @@ same as the form's main button color.
 actions. All drop down buttons have icons corresponding to the action they
 perform.
 
-###### Links
+#### Links
 
 Use text hyperlinks as navigation to guide users to a new page in the application
 or to anchor users to a section within a page. The color of the hyperlinks
 should be `$primary`.
 
-###### Forms
+#### Forms
 
 Mark invalid form fields with red outline and show a meaningful error message.
 Use red as font color for message and be as specific as possible.
@@ -933,14 +933,14 @@ Use red as font color for message and be as specific as possible.
 Mark valid forms with a green outline and a green tick at the end of the form.
 Sections should not have a bigger header than the parent.
 
-###### Modals
+#### Modals
 
 Blur any interface elements in the background to bring the modal content into
 focus. The heading of the modal should reflect the action it can perform and
 should be clearly mentioned at the top of the modal. Use `cd-back-button`
 component in the footer for closing the modal.
 
-###### Icons
+#### Icons
 
 We use [Fork Awesome](https://forkaweso.me/Fork-Awesome/) classes for icons.
 We have a list of used icons in `src/app/shared/enum/icons.enum.ts`, these
@@ -949,17 +949,17 @@ icons are next to text, they should be center-aligned horizontally. If icons
 are stacked, they should also be center-aligned vertically. Use small icons
 with buttons. For notifications use large icons.
 
-###### Navigation
+#### Navigation
 
 For local navigation use tabs. For overall navigation use expandable vertical
 navigation to collapse and expand items as needed.
 
-###### Alerts and notifications
+#### Alerts and notifications
 
 Default notification should have `text-info` color. Success notification should
 have `text-success` color. Failure notification should have `text-danger` color.
 
-#### Error Handling
+### Error Handling
 
 For handling front-end errors, there is a generic Error Component which can be
 found in ``./src/pybind/mgr/dashboard/frontend/src/app/core/error``. For
@@ -973,7 +973,7 @@ For example - ``throw new DashboardNotFoundError()``.
 
 ## Internationalization (i18n)
 
-#### How to extract messages from source code?
+### How to extract messages from source code?
 
 To extract the I18N messages from the templates and the TypeScript files just
 run the following command in ``src/pybind/mgr/dashboard/frontend``:
@@ -995,7 +995,7 @@ When the command ran successfully, it should have created or updated the file
 The file isn't tracked by git, you can just use it to start with the
 translation offline or add/update the resource files on transifex.
 
-#### Supported languages
+### Supported languages
 
 All our supported languages should be registered in both exports in
 ``supported-languages.enum.ts`` and have a corresponding test in
@@ -1003,7 +1003,7 @@ All our supported languages should be registered in both exports in
 
 The ``SupportedLanguages`` enum will provide the list for the default language selection.
 
-#### Translating process
+### Translating process
 
 To facilitate the translation process of the dashboard we are using a web tool
 called [transifex](https://www.transifex.com/).
@@ -1014,7 +1014,7 @@ project and you can start translating immediately.
 
 All translations will then be reviewed and later pushed upstream.
 
-#### Updating translated messages
+### Updating translated messages
 
 1. Download the [transifex CLI tool](https://github.com/transifex/cli)
 
@@ -1034,7 +1034,7 @@ All translations will then be reviewed and later pushed upstream.
 
   This will pull all translations of the resource.
 
-#### Add a new release resource to transifex
+### Add a new release resource to transifex
 
 In order to organize the translations, we create a
 [transifex resource](https://www.transifex.com/ceph/ceph-dashboard/content/)
@@ -1069,7 +1069,7 @@ $ tx push -s
 Note:
   Only the <Release-name> is capitalized.
 
-#### Suggestions
+### Suggestions
 
 Strings need to start and end in the same line as the element:
 
@@ -1140,7 +1140,7 @@ Keep elements that affect the sentence:
 Many parts of the Ceph Dashboard are modeled on [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/)  level A accessibility conformance guidelines.
 By implementing accessibility best practices, you are improving the usability of the Ceph Dashboard for blind and visually impaired users.
 
-#### Summary
+### Summary
 
 A few things you should check before introducing a new code change include:
 
@@ -1152,7 +1152,7 @@ A few things you should check before introducing a new code change include:
 
 <a id="accessibility-checkers"></a>
 
-#### Accessibility checkers
+### Accessibility checkers
 
 During development, you can test the accessibility compliance of your features using one of the tools below:
 
@@ -1164,19 +1164,19 @@ Testing with two or more of these tools can greatly improve the detection of acc
 
 <a id="color-contrast-checkers"></a>
 
-#### Color contrast checkers
+### Color contrast checkers
 
 When adding new colors, making sure they are accessible is also important. Here are some tools which can help with color contrast testing:
 
 - [Accessible web color-contrast checker](https://accessibleweb.com/color-contrast-checker/)
 - [Colorsafe generator](https://colorsafe.co/)
 
-#### Accessibility linters
+### Accessibility linters
 
 If you use VSCode, you may install the [axe accessibility linter](https://marketplace.visualstudio.com/items?itemName=deque-systems.vscode-axe-linter),
 which can help you catch and fix potential issues during development.
 
-#### Accessibility testing
+### Accessibility testing
 
 Our e2e testing suite, which is based on Cypress, supports the addition of accessibility tests using [axe-core](https://github.com/dequelabs/axe-core)
 and [cypress-axe](https://github.com/component-driven/cypress-axe). A custom Cypress command, `cy.checkAccessibility`, can also be used directly.
@@ -1206,7 +1206,7 @@ describe('Navigation accessibility', { retries: 0 }, () => {
 });
 ```
 
-#### Additional guidelines
+### Additional guidelines
 
 If you're unsure about which UI pattern to follow in order to implement an accessibility fix, [patternfly](https://www.patternfly.org/v4/accessibility/accessibility-fundamentals) guidelines can be used.
 
@@ -1220,14 +1220,14 @@ by issuing ``pip install -r requirements.txt`` in directory
 If you're using the [ceph-dev-docker development environment](https://github.com/ricardoasmarques/ceph-dev-docker/), simply run
 ``./install_deps.sh`` from the toplevel directory to install them.
 
-#### Unit Testing
+### Unit Testing
 
 In dashboard we have two different kinds of backend tests:
 
 1. Unit tests based on ``tox``
 2. API tests based on Teuthology.
 
-#### Unit tests based on tox
+### Unit tests based on tox
 
 We included a ``tox`` configuration file that will run the unit tests under
 Python 3, as well as linting tools to guarantee the uniformity of code.
@@ -1279,7 +1279,7 @@ $ coverage html
 This command will create a directory ``htmlcov`` with an HTML representation of
 the code coverage of the backend.
 
-#### API tests based on Teuthology
+### API tests based on Teuthology
 
 How to run existing API tests:
   To run the API tests against a real Ceph cluster, we leverage the Teuthology
@@ -1344,7 +1344,7 @@ How to write your own tests:
   Teuthology/the sepia lab will take care of it and report the result back to
   you.
 
-#### How to add a new controller?
+### How to add a new controller?
 
 A controller is a Python class that extends from the ``BaseController`` class
 and is decorated with either the ``@Controller``, ``@ApiController`` or
@@ -1518,7 +1518,7 @@ For a full set of examples on how to use the ``@Endpoint``
 decorator please check the unit test file: ``tests/test_controllers.py``.
 There you will find many examples of how to customize endpoint methods.
 
-#### Implementing Proxy Controller
+### Implementing Proxy Controller
 
 Sometimes you might need to relay some requests from the Dashboard frontend
 directly to an external service.
@@ -1547,7 +1547,7 @@ class FooServiceProxy(BaseController):
     """
 ```
 
-#### How does the RESTController work?
+### How does the RESTController work?
 
 We also provide a simple mechanism to create REST based controllers using the
 ``RESTController`` class. Any class which inherits from ``RESTController`` will,
@@ -1609,7 +1609,7 @@ endpoint:
 * ``status=200``: set the HTTP status response code
 * ``version``: version
 
-#### How to use a custom API endpoint in a RESTController?
+### How to use a custom API endpoint in a RESTController?
 
 If you don't have any access restriction you can use ``@Endpoint``. If you
 have set a permission scope to restrict access to your endpoints,
@@ -1647,7 +1647,7 @@ endpoint:
   query parameters.
 * ``version``: version
 
-#### How to restrict access to a controller?
+### How to restrict access to a controller?
 
 All controllers require authentication by default.
 If you require that the controller can be accessed without authentication,
@@ -1665,7 +1665,7 @@ class Ping(RESTController):
     return {"msg": "Hello"}
 ```
 
-#### How to create a dedicated UI endpoint which uses the 'public' API?
+### How to create a dedicated UI endpoint which uses the 'public' API?
 
 Sometimes we want to combine multiple calls into one single call
 to save bandwidth or for other performance reasons.
@@ -1694,7 +1694,7 @@ class PingUi(Ping):
     return self._list() + [4, 5, 6]
 ```
 
-#### How to access the manager module instance from a controller?
+### How to access the manager module instance from a controller?
 
 We provide the manager module instance as a global variable that can be
 imported in any module.
@@ -1716,7 +1716,7 @@ class Servers(RESTController):
     return {'servers': mgr.list_servers()}
 ```
 
-#### How to write a unit test for a controller?
+### How to write a unit test for a controller?
 
 We provide a test helper class called ``ControllerTestCase`` to easily create
 unit tests for your controller.
@@ -1746,7 +1746,7 @@ load the controllers that we want to test. In the above example we are only
 loading the ``Ping`` controller. We can also provide ``cp_config`` in order to
 update the controller's cherrypy config (e.g. enable authentication as shown in the example).
 
-#### How to update or create new dashboards in grafana?
+### How to update or create new dashboards in grafana?
 
 We are using ``jsonnet`` and ``grafonnet-lib`` to write code for the grafana dashboards.
 All the dashboards are written inside ``grafana_dashboards.jsonnet`` file in the
@@ -1803,7 +1803,7 @@ and then use these functions inside the dashboard definition like -
 
 The valid grafonnet-lib attributes can be found here - ``https://grafana.github.io/grafonnet-lib/api-docs/``.
 
-#### How to listen for manager notifications in a controller?
+### How to listen for manager notifications in a controller?
 
 The manager notifies the modules of several types of cluster events, such
 as cluster logging event, etc...
@@ -1865,7 +1865,7 @@ can be used:
 * ``health``: health status regular update
 * ``pg_summary``: regular update of PG status information
 
-#### How to write a unit test when a controller accesses a Ceph module?
+### How to write a unit test when a controller accesses a Ceph module?
 
 Consider the following example that implements a controller that retrieves the
 list of RBD images of the ``rbd`` pool:
@@ -1902,7 +1902,7 @@ class RbdImagesTest(ControllerTestCase):
         self.assertJsonBody([{'name': 'img1'}, {'name': 'img2'}])
 ```
 
-#### How to add a new configuration setting?
+### How to add a new configuration setting?
 
 If you need to store some configuration setting for a new feature, we already
 provide an easy mechanism for you to specify/use the new config setting.
@@ -1949,7 +1949,7 @@ The settings management implementation will make sure that if you change a
 setting value from the Python code you will see that change when accessing
 that setting from the CLI and vice-versa.
 
-#### How to run a controller read-write operation asynchronously?
+### How to run a controller read-write operation asynchronously?
 
 Some controllers might need to execute operations that alter the state of the
 Ceph cluster. These operations might take some time to execute and to maintain
@@ -2017,7 +2017,7 @@ If the second call to ``TaskManager.run`` executes while the first task is
 still executing then it will return the same task object:
 ``assert task1 == task2``.
 
-#### How to get the list of executing and finished asynchronous tasks?
+### How to get the list of executing and finished asynchronous tasks?
 
 The list of executing and finished tasks is included in the ``Summary``
 controller, which is already polled every 5 seconds by the dashboard frontend.
@@ -2065,7 +2065,7 @@ Each finished task is represented by the following dictionary:
 }
 ```
 
-#### How to use asynchronous APIs with asynchronous tasks?
+### How to use asynchronous APIs with asynchronous tasks?
 
 The ``TaskManager.run`` method as described in a previous section, is well
 suited for calling blocking functions, as it runs the function inside a newly
@@ -2173,7 +2173,7 @@ The default executor, used when no executor object is passed to
 ``TaskManager.run``, is the ``ThreadedExecutor``. You can check its
 implementation in the ``tools.py`` file.
 
-#### How to update the execution progress of an asynchronous task?
+### How to update the execution progress of an asynchronous task?
 
 The asynchronous tasks infrastructure provides support for updating the
 execution progress of an executing task.
@@ -2226,7 +2226,7 @@ class DummyTask(BaseController):
         return task.wait(5)  # wait for five seconds
 ```
 
-#### How to deal with asynchronous tasks in the front-end?
+### How to deal with asynchronous tasks in the front-end?
 
 All executing and most recently finished asynchronous tasks are displayed on
 "Background-Tasks" and if finished on "Recent-Notifications" in the menu bar.
@@ -2310,7 +2310,7 @@ export class RBDFormComponent {
 }
 ```
 
-#### REST API documentation
+### REST API documentation
 Ceph-Dashboard provides two types of documentation for the **Ceph RESTful API**:
 
 * **Static documentation**: available at [mgr ceph api](../../mgr/ceph_api/index.md#mgr-ceph-api). This comes from a versioned specification located at ``src/pybind/mgr/dashboard/openapi.yaml``.
@@ -2416,7 +2416,7 @@ example below:
 def method(): pass
 ```
 
-#### Error Handling in Python
+### Error Handling in Python
 
 Good error handling is a key requirement in creating a good user experience
 and providing a good API.
@@ -2498,7 +2498,7 @@ will end up as internal server errors in the API.
 In general, do not ``return`` error responses in the REST API. They will be
 returned by the  error handler. Instead, raise the appropriate exception.
 
-#### Plug-ins
+### Plug-ins
 
 New functionality can be provided by means of a plug-in architecture. Among the
 benefits this approach brings in, loosely coupled development is one of the most

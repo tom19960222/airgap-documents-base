@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 <a id="cephadm-tracing"></a>
 
-# Jaeger Tracing
+## Jaeger Tracing
 
 Ceph uses Jaeger as the tracing backend. in order to use tracing, we need to deploy those services.
 
@@ -17,7 +17,7 @@ Further details on tracing in ceph:
 
 [Ceph Tracing documentation](https://docs.ceph.com/en/latest/jaegertracing/#jaeger-distributed-tracing/)
 
-# Deployment
+## Deployment
 
 Jaeger services consist of 3 services:
 

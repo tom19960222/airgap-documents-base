@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-mon
 
-# Synopsis
+## Synopsis
 
 | **ceph-mon** -i *monid* [ --mon-data *mondatapath* ]
 
-# Description
+## Description
 
 **ceph-mon** is the cluster monitor daemon for the Ceph distributed
 file system. One or more instances of **ceph-mon** form a Paxos
@@ -26,7 +26,7 @@ The *mondatapath* refers to a directory on a local file system storing
 monitor data. It is normally specified via the ``mon data`` option in
 the configuration file.
 
-# Options
+## Options
 
 .. option:: -f, --foreground
 
@@ -89,13 +89,13 @@ the configuration file.
    or the default, to run the daemon.  This will entail providing all
    necessary options to the daemon as arguments.
 
-# Availability
+## Availability
 
 **ceph-mon** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer
 to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [ceph-mds](ceph-mds.md)\(8),

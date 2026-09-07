@@ -15,7 +15,7 @@ To clone the entire git repository, [install](clone-source.md#install-git) and c
 
 <a id="install-git"></a>
 
-# Install Git
+## Install Git
 
 To install ``git`` on Debian/Ubuntu, run the following command:
 
@@ -33,7 +33,7 @@ You must have a ``github`` account. If you do not have a ``github``
 account, go to [github.com](https://github.com) and register.  Follow the directions for setting
 up git at [Set Up Git](https://help.github.com/linux-set-up-git).
 
-# Add SSH Keys (Optional)
+## Add SSH Keys (Optional)
 
 To commit code to Ceph or to clone the respository by using SSH
 (``git@github.com:ceph/ceph.git``), you must generate SSH keys for github.
@@ -64,7 +64,7 @@ Go to your ``github`` account, click "Account Settings" (represented by the
 Click "Add SSH key" in the "SSH Keys" list, enter a name for the key, paste the
 key you generated, and press the "Add key" button.
 
-# Clone the Source
+## Clone the Source
 
 To clone the Ceph source code repository, run the following command:
 
@@ -86,7 +86,7 @@ git status
 
 <a id="update-submodules"></a>
 
-## Updating Submodules
+### Updating Submodules
 
 If your submodules are out of date, run the following commands:
 
@@ -100,7 +100,7 @@ If you still have problems with a submodule directory, use ``rm -rf [directory
 name]`` to remove the directory. Then run ``git submodule update --init
 --recursive --progress`` again.
 
-# Choose a Branch
+## Choose a Branch
 
 Once you clone the source code and submodules, your Ceph repository
 will be on the ``main`` branch by default, which is the unstable

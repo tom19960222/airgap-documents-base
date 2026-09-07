@@ -23,7 +23,7 @@ stores these as metadata attributes on the destination objects.
 
 ## Cloud Sync Tier Type Configuration
 
-#### Trivial Configuration
+### Trivial Configuration
 
 :
 
@@ -42,7 +42,7 @@ stores these as metadata attributes on the destination objects.
 }
 ```
 
-#### Non Trivial Configuration
+### Non Trivial Configuration
 
 :
 
@@ -170,7 +170,7 @@ stores these as metadata attributes on the destination objects.
   * ``connection_id``: ID of the connection that will be used for this profile
   * ``acls_id``: ID of ACLs profile that will be used for this profile
 
-#### S3 Specific Configurables
+### S3 Specific Configurables
 
 Currently cloud sync will only work with backends that are compatible with AWS S3. There are
 a few configurables that can be used to tweak its behavior when accessing these cloud services:
@@ -192,7 +192,7 @@ a few configurables that can be used to tweak its behavior when accessing these 
 
   Minimum parts size to use when syncing objects using multipart upload.
 
-#### How to Configure
+### How to Configure
 
 See [multisite](bucket_logging.md#multisite) for how to multisite config instructions. The cloud sync module requires a creation of a new zone. The zone
 tier type needs to be defined as ``cloud``:

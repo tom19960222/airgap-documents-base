@@ -19,7 +19,7 @@ resulting in less load on the Keystone/ LDAP server.
 Temporary and limited privileged credentials can be obtained for a local user
 also using the STS Lite API.
 
-# STS Lite REST APIs
+## STS Lite REST APIs
 
 The following STS Lite REST API is part of STS Lite in Ceph Object Gateway:
 
@@ -54,7 +54,7 @@ The following is the policy that needs to be attached to a user 'TESTER1':
 user_policy = "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Deny\",\"Action\":\"s3:*\",\"Resource\":[\"*\"],\"Condition\":{\"BoolIfExists\":{\"sts:authentication\":\"false\"}}},{\"Effect\":\"Allow\",\"Action\":\"sts:GetSessionToken\",\"Resource\":\"*\",\"Condition\":{\"BoolIfExists\":{\"sts:authentication\":\"false\"}}}]}"
 ```
 
-# STS Lite Configuration
+## STS Lite Configuration
 
 The following configurable options are available for STS Lite integration:
 
@@ -115,7 +115,7 @@ A suitable value for rgw_sts_key can be genreated with
 ``ceph-authtool --gen-print-key``.
 The encoded key will also include a key type and timestamp.
 
-# Example showing how to Use STS Lite with Keystone
+## Example showing how to Use STS Lite with Keystone
 
 The following are the steps needed to use STS Lite with Keystone. Boto 3.x has
 been used to write an example code to show the integration of STS Lite with
@@ -181,7 +181,7 @@ for bucket in response["Buckets"]:
 
 Similar steps can be performed for using GetSessionToken with LDAP.
 
-# Limitations and Workarounds
+## Limitations and Workarounds
 
 1. Keystone currently supports only S3 requests, hence in order to successfully
 authenticate an STS request, the following workaround needs to be added to boto

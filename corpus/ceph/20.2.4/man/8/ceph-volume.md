@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-volume
 
-# Synopsis
+## Synopsis
 
 **ceph-volume** [-h] [--cluster CLUSTER] [--log-level LOG_LEVEL]
 [--log-path LOG_PATH]
@@ -23,7 +23,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 **ceph-volume** **simple** [ *trigger* | *scan* | *activate* ]
 
-# Description
+## Description
 
 ceph-volume is a single purpose command line tool to deploy logical
 volumes as OSDs, trying to maintain a similar API to ``ceph-disk`` when
@@ -34,9 +34,9 @@ that come installed for Ceph. These rules allow automatic detection of
 previously setup devices that are in turn fed into ``ceph-disk`` to activate
 them.
 
-# Commands
+## Commands
 
-## inventory
+### inventory
 
 .. program:: ceph-volume inventory
 
@@ -65,7 +65,7 @@ Optional arguments:
    report format, valid values are ``plain`` (default),
    ``json`` and ``json-pretty``
 
-## lvm
+### lvm
 
 .. program:: ceph-volume lvm
 
@@ -75,7 +75,7 @@ activated.
 
 Subcommands:
 
-### batch
+#### batch
 
 .. program:: ceph-volume lvm batch
 
@@ -147,7 +147,7 @@ Required positional arguments:
    Full path to a raw device, like ``/dev/sda``. Multiple
    ``<DEVICE>`` paths can be passed in.
 
-### activate
+#### activate
 
 .. program:: ceph-volume lvm activate
 
@@ -191,7 +191,7 @@ Multiple OSDs can be activated at once by using the (idempotent) ``--all`` flag:
 ceph-volume lvm activate --all
 ```
 
-### prepare
+#### prepare
 
 .. program:: ceph-volume lvm prepare
 
@@ -251,7 +251,7 @@ Required arguments:
 For encrypting an OSD, the ``--dmcrypt`` flag must be added when preparing
 (also supported in the ``create`` sub-command).
 
-### create
+#### create
 
 Wraps the two-step process to provision a new osd (calling ``prepare`` first
 and then ``activate``) into a single one. The reason to prefer ``prepare`` and
@@ -262,7 +262,7 @@ The single-call process unifies exactly what ``prepare`` and ``activate`` do,
 with the convenience of doing it all at once. Flags and general usage are
 equivalent to those of the ``prepare`` and ``activate`` subcommand.
 
-### trigger
+#### trigger
 
 This subcommand is not meant to be used directly, and it is used by systemd so
 that it proxies input to ``ceph-volume lvm activate`` by parsing the
@@ -289,7 +289,7 @@ Positional arguments:
 
    Data from a systemd unit containing ID and UUID of the OSD.
 
-### list
+#### list
 
 List devices or logical volumes associated with Ceph. An association is
 determined if a device has information relating to an OSD. This is
@@ -324,7 +324,7 @@ Positional arguments:
    Either in the form of ``vg/lv`` for logical volumes,
    ``/path/to/sda1`` or ``/path/to/sda`` for regular devices.
 
-### zap
+#### zap
 
 Zaps the given logical volume or partition. If given a path to a logical
 volume it must be in the format of vg/lv. Any file systems present
@@ -365,7 +365,7 @@ Positional arguments:
    Either in the form of ``vg/lv`` for logical volumes,
    ``/path/to/sda1`` or ``/path/to/sda`` for regular devices.
 
-### new-wal
+#### new-wal
 
 .. program:: ceph-volume lvm new-wal
 
@@ -394,7 +394,7 @@ Required arguments:
 
    logical volume name to attach as WAL
 
-### new-db
+#### new-db
 
 .. program:: ceph-volume lvm new-db
 
@@ -423,7 +423,7 @@ Required arguments:
 
    logical volume name to attach as DB
 
-### migrate
+#### migrate
 
 .. program:: ceph-volume lvm migrate
 
@@ -464,14 +464,14 @@ Required arguments:
 
    logical volume to move data to
 
-## simple
+### simple
 
 Scan legacy OSD directories or data devices that may have been created by
 ceph-disk, or manually.
 
 Subcommands:
 
-### activate
+#### activate
 
 .. program:: ceph-volume simple activate
 
@@ -497,11 +497,13 @@ Optional Arguments:
    bluestore objectstore (default)
 
 > **Note:**
-> It requires a matching JSON file with the following format::
+> It requires a matching JSON file with the following format:
 >
->  /etc/ceph/osd/<osd id>-<osd fsid>.json
+> ```
+> /etc/ceph/osd/<osd id>-<osd fsid>.json
+> ```
 
-### scan
+#### scan
 
 .. program:: ceph-volume simple scan
 
@@ -550,7 +552,7 @@ Optional Positional arguments:
 
    Actual data partition or a path to the running OSD
 
-### trigger
+#### trigger
 
 This subcommand is not meant to be used directly, and it is used by systemd so
 that it proxies input to ``ceph-volume simple activate`` by parsing the
@@ -577,11 +579,11 @@ Positional arguments:
 
    Data from a systemd unit containing ID and UUID of the OSD.
 
-# Availability
+## Availability
 
 ceph-volume is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the documentation at http://docs.ceph.com/ for more information.
 
-# See also
+## See also
 
 [ceph-osd](ceph-osd.md)\(8),

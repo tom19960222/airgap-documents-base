@@ -18,7 +18,7 @@ configurations:
 - ``snapdirname`` which is a mount option for kernel clients
 - ``client_snapdir`` which is a mount option for ceph-fuse.
 
-# Snapshot Creation
+## Snapshot Creation
 
 The CephFS snapshot feature is enabled by default on new file systems. To
 enable the CephFS snapshot feature on existing file systems, use the command
@@ -41,7 +41,7 @@ $ cd .snap
 $ mkdir my_snapshot
 ```
 
-# Using Snapshots to Recover Data
+## Using Snapshots to Recover Data
 
 Snapshots can also be used to recover deleted files:
 
@@ -77,7 +77,7 @@ $ cd snap2
 $ cp file1 /mnt/cephfs/
 ```
 
-# Snapshot Deletion
+## Snapshot Deletion
 
 Snapshots are deleted by running ``rmdir`` on the ``.snap`` directory that they
 are rooted in. (Attempts to delete a directory that roots the snapshots will

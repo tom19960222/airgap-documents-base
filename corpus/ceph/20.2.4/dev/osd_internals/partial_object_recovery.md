@@ -41,7 +41,7 @@ in clean_offsets exceeds the boundary.
 
     finally, clean_offsets becomes {[5~10], [30~10]}
 
-# Procedures for Partial Object Recovery
+## Procedures for Partial Object Recovery
 
 Firstly, OpContext and pg_log_entry_t should contain ObjectCleanRegion.
 In do_osd_ops(), finish_copyfrom(), finish_promote(), corresponding content

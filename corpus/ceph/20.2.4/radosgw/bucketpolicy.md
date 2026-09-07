@@ -12,7 +12,7 @@ fetched_at: 2026-08-18T01:32:45Z
 The Ceph Object Gateway supports a subset of the Amazon S3 policy
 language applied to buckets.
 
-# Creation and Removal
+## Creation and Removal
 
 Bucket policies are managed through standard S3 operations rather than
 radosgw-admin.
@@ -37,7 +37,7 @@ $ s3cmd setpolicy examplepol s3://happybucket
 $ s3cmd delpolicy s3://happybucket
 ```
 
-# Limitations
+## Limitations
 
 Currently, we support only the following actions:
 
@@ -130,7 +130,7 @@ We support certain s3 condition keys for bucket and object requests.
 *Support for the following bucket-related operations was added in the Mimic
 release of Ceph.*
 
-#### Bucket Related Operations
+### Bucket Related Operations
 
 | Permission | Condition Keys | Comments |
 | --- | --- | --- |
@@ -140,9 +140,9 @@ release of Ceph.*
 | s3:ListBucketVersions | s3:max-keys |  |
 | s3:PutBucketAcl <br> | s3:x-amz-acl <br> s3:x-amz-grant-<perm> | <br> |
 
-<a id="tag-policy"></a>
+<a id="tag_policy"></a>
 
-#### Object Related Operations
+### Object Related Operations
 
 | Permission <br> | Condition Keys <br> | Comments <br> |
 | --- | --- | --- |
@@ -164,7 +164,7 @@ release of Ceph.*
 More may be supported soon as we integrate with the recently rewritten
 Authentication/Authorization subsystem.
 
-# Swift
+## Swift
 
 There is no way to set bucket policies under Swift, but bucket
 policies that have been set govern Swift as well as S3 operations.

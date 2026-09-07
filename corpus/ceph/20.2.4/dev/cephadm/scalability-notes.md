@@ -1,19 +1,19 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "scalability-notes"
+title: "Notes and Thoughts on Cephadm's scalability"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/cephadm/scalability-notes.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-###### Notes and Thoughts on Cephadm's scalability
+# Notes and Thoughts on Cephadm's scalability
 
-### About this document
+## About this document
 
 This document does NOT define a specific proposal or some future work.
 Instead it merely lists a few thoughts that MIGHT be relevant for future
 cephadm enhancements.
 
-### Intro
+## Intro
 
 Current situation:
 
@@ -36,7 +36,7 @@ considerably, but the question remains:
 Is the cephadm-exporter sufficient to solve all future scalability
 issues?
 
-### Considerations of cephadm-exporter's REST API
+## Considerations of cephadm-exporter's REST API
 
 The cephadm-exporter uses HTTP to serve an endpoint to the hosts
 metadata. We MIGHT encounter some issues with this approach, which need
@@ -53,7 +53,7 @@ to be mitigated at some point.
    distributed (one way or the other) for us to make use of a better
    http server library.
 
-### MON's config-key store
+## MON's config-key store
 
 After the ``mgr/cephadm`` queried metadata from each host, cephadm stores
 the data within the mon's k-v store.
@@ -72,7 +72,7 @@ Some questions arise:
    RADOS pool. How can we apply this idea to those different types of
    data.
 
-### Increase the worker pool size
+## Increase the worker pool size
 
 ``mgr/cephadm`` is currently able to scrape 10 nodes at the same time.
 
@@ -81,7 +81,7 @@ We'd just reduce the overall execution time.
 
 At best we can reach O(hosts) + O(daemons).
 
-### Backwards compatibility
+## Backwards compatibility
 
 Any changes need to be backwards compatible or completely isolated from
 any existing functionality. There are running cephadm clusters out there

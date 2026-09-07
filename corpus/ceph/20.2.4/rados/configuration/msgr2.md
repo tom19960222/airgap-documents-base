@@ -27,7 +27,7 @@ By default, monitors now bind to the new IANA-assigned port ``3300``
 (ce4h or 0xce4) for the new v2 protocol, while also binding to the
 old default port ``6789`` for the legacy v1 protocol.
 
-<a id="address-formats"></a>
+<a id="address_formats"></a>
 
 ## Address formats
 
@@ -204,7 +204,7 @@ ceph mon set-addrs a [v2:1.2.3.4:1112,v1:1.2.3.4:1111]
 Once the monitors bind to v2, each daemon will start advertising a v2
 address when it is next restarted.
 
-<a id="msgr2-ceph-conf"></a>
+<a id="msgr2_ceph_conf"></a>
 
 ## Updating ceph.conf and mon_host
 

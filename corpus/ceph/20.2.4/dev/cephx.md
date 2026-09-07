@@ -24,7 +24,7 @@ enforced by the service daemons.
 ## Other references
 
 - A write-up from 2012 on cephx as it existed at that time by Peter
-  Reiher: [cephx_2012_peter](cephx_protocol.md#cephx-2012-peter)
+  Reiher: [cephx_2012_peter](cephx_protocol.md#cephx_2012_peter)
 
 ## Terms
 

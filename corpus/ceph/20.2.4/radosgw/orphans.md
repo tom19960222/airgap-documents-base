@@ -61,19 +61,19 @@ All intermediate results are stored on the local file system rather
 than the Ceph cluster. So running the 'rgw-orphan-list' tool should
 have no appreciable impact on the amount of cluster storage consumed.
 
-#### WARNING: Experimental Status
+### WARNING: Experimental Status
 
 The 'rgw-orphan-list' tool is new and therefore currently considered
 experimental. The list of orphans produced should be "sanity checked"
 before being used for a large delete operation.
 
-#### WARNING: Specifying a Data Pool
+### WARNING: Specifying a Data Pool
 
 If a pool other than an RGW data pool is specified, the results of the
 tool will be erroneous. All RADOS objects found on such a pool will
 falsely be designated as orphans.
 
-#### WARNING: Unindexed Buckets
+### WARNING: Unindexed Buckets
 
 RGW allows for unindexed buckets, that is buckets that do not maintain
 an index of their contents. This is not a typical configuration, but
@@ -96,7 +96,7 @@ of the RGW objects. If a bucket is specified then the subcommand will
 only produce a list of RADOS objects that correspond back the RGW
 objects in the specified bucket.
 
-#### Note: Shared Bucket Markers
+### Note: Shared Bucket Markers
 
 Some administrators will be aware of the coding schemes used to name
 the RADOS objects that correspond to RGW objects, which include a

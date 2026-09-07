@@ -13,7 +13,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. versionchanged:: Squid
    A new "v2" format for Topic and Notification metadata can be enabled with
-   the [feature_notification_v2](zone-features.md#feature-notification-v2) zone feature.
+   the [feature_notification_v2](zone-features.md#feature_notification_v2) zone feature.
    Enabling this feature after an upgrade from an older version will trigger
    migration of the existing Topic and Notification metadata.
    In a greenfield deployment, the new format will be used.
@@ -55,7 +55,7 @@ Notifications can be sent synchronously or asynchronously. This section
 describes the latency and reliability that you should expect for synchronous
 and asynchronous notifications.
 
-#### Synchronous Notifications
+### Synchronous Notifications
 
 Notifications can be sent synchronously, as part of the operation that
 triggered them. In this mode, the operation is acknowledged (acked) only after
@@ -67,7 +67,7 @@ acknowledgement) is added to the latency of the operation itself.
 > **Note:** The original triggering operation is considered successful even if
 > the notification fails with an error, cannot be delivered, or times out.
 
-#### Asynchronous Notifications
+### Asynchronous Notifications
 
 Notifications can be sent asynchronously. They are committed into persistent
 storage and then asynchronously sent to the topic's configured endpoint.
@@ -140,7 +140,7 @@ radosgw-admin topic dump --topic={topic-name} [--tenant={tenant}] [--max-entries
 
 ## Bucket Notification REST API
 
-#### Topics
+### Topics
 
 > **Note:**
 > In all topic actions, the parameters are URL-encoded and sent in the
@@ -149,7 +149,7 @@ radosgw-admin topic dump --topic={topic-name} [--tenant={tenant}] [--max-entries
 
 <a id="create-a-topic"></a>
 
-### Create a Topic
+#### Create a Topic
 
 This creates a new topic. Provide the topic with push endpoint parameters,
 which will be used later when a notification is created. A response is
@@ -352,7 +352,7 @@ in the response has the following format:
 arn:aws:sns:<zone-group>:<tenant>:<topic>
 ```
 
-### Get Topic Attributes
+#### Get Topic Attributes
 
 This returns information about a specific topic. This includes push-endpoint
 information, if provided.
@@ -420,7 +420,7 @@ The response has the following format:
 - OpaqueData: The opaque data set on the topic.
 - Policy: Any access permission set on the topic.
 
-### Get Topic Information
+#### Get Topic Information
 
 This returns information about a specific topic. This includes push-endpoint
 information, if provided.  Note that this API is now deprecated in favor of the
@@ -476,7 +476,7 @@ The response has the following format:
 - OpaqueData: the opaque data set on the topic.
 - Policy: Any access permission set on the topic.
 
-### Delete Topic
+#### Delete Topic
 
 :
 
@@ -507,7 +507,7 @@ The response has the following format:
 </DeleteTopicResponse>
 ```
 
-### List Topics
+#### List Topics
 
 List all topics associated with a tenant.
 
@@ -550,7 +550,7 @@ The response has the following format:
   topic, the request must be made over HTTPS. The "topic list" request will
   otherwise be rejected.
 
-### Set Topic Attributes
+#### Set Topic Attributes
 
 :
 
@@ -614,7 +614,7 @@ Valid AttributeName that can be passed:
     client certificate. Must be provided together with ``ssl-certificate-location``.
   - ``ssl-key-password``: Password for an encrypted private key (optional).
 
-#### Notifications
+### Notifications
 
 Detailed under: [Bucket Operations](s3/bucketops.md).
 
@@ -622,7 +622,7 @@ Detailed under: [Bucket Operations](s3/bucketops.md).
 > - "Abort Multipart Upload" request does not emit a notification
 > - Both "Initiate Multipart Upload" and "POST Object" requests will emit an ``s3:ObjectCreated:Post`` notification
 
-#### Events
+### Events
 
 Events are in JSON format (regardless of the actual endpoint), and are S3-compatible.
 For example:

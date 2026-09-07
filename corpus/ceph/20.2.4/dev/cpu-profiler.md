@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 The easiest way to profile Ceph's CPU consumption is to use the [oprofile](http://oprofile.sourceforge.net/about/)
 system-wide profiler.
 
-# Installation
+## Installation
 
 If you are using a Debian/Ubuntu distribution, you can install ``oprofile`` by
 executing the following:
@@ -19,7 +19,7 @@ executing the following:
 sudo apt-get install oprofile oprofile-gui
 ```
 
-# Compiling Ceph for Profiling
+## Compiling Ceph for Profiling
 
 To compile Ceph for profiling, first clean everything. :
 
@@ -37,7 +37,7 @@ cmake --build .
 
 In this command, ``CMAKE_CXX_FLAGS`` is specified. This provides callgraph output.
 
-# Ceph Configuration
+## Ceph Configuration
 
 Ensure that you disable ``lockdep``. Consider setting logging to
 levels appropriate for a production cluster. See [Ceph Logging and Debugging](../rados/troubleshooting/log-and-debug.md)

@@ -56,7 +56,7 @@ For details on configuring the Ceph Storage Cluster to use authentication, see
 [Cephx Config Reference](../configuration/auth-config-ref.md). For details on the architecture of Cephx, see
 [Architecture - High Availability Authentication](../../architecture.md#high-availability-authentication).
 
-# Background
+## Background
 
 No matter what type of Ceph client is used (for example: Block Device, Object
 Storage, Filesystem, native API), Ceph stores all data as RADOS objects within
@@ -67,7 +67,7 @@ Ceph['s] user management.
 
 <a id="rados-ops-user"></a>
 
-## User
+### User
 
 A user is either an individual or a system actor (for example, an application).
 Creating users allows you to control who (or what) can access your Ceph Storage
@@ -98,7 +98,7 @@ best practice wherever possible.
 > the user space associated with the Ceph File System is not the same as the
 > user space associated with a Ceph Storage Cluster user.
 
-## Authorization (Capabilities)
+### Authorization (Capabilities)
 
 Ceph uses the term "capabilities" (caps) to describe the permissions granted to
 an authenticated user to exercise the functionality of the monitors, OSDs, and
@@ -354,11 +354,11 @@ The following entries describe valid capability profiles:
 > repair this, run a command of the following form from within the
 > ``/var/lib/ceph/mon/<monitor_name>`` directory:
 >
->    .. prompt:: bash #
->
->       ceph -n mon. --keyring keyring auth caps client.admin mds 'allow *' osd 'allow *' mon 'allow *'
+> ```bash
+> ceph -n mon. --keyring keyring auth caps client.admin mds 'allow *' osd 'allow *' mon 'allow *'
+> ```
 
-## Pool
+### Pool
 
 A pool is a logical partition where users store data.
 In Ceph deployments, it is common to create a pool as a logical partition for
@@ -366,13 +366,13 @@ similar types of data. For example, when deploying Ceph as a back end for
 OpenStack, a typical deployment would have pools for volumes, images, backups
 and virtual machines, and such users as ``client.glance`` and ``client.cinder``.
 
-## Application Tags
+### Application Tags
 
 Access may be restricted to specific pools as defined by their application
 metadata. The ``*`` wildcard may be used for the ``key`` argument, the
 ``value`` argument, or both. The ``all`` tag is a synonym for ``*``.
 
-## Namespace
+### Namespace
 
 Objects within a pool can be associated to a namespace: that is, to a logical group of
 objects within the pool. A user's access to a pool can be associated with a
@@ -408,7 +408,7 @@ capability. Limited globbing of namespaces (that is, use of wildcards (``*``)) i
 of the specified namespace is ``*``, then access is granted to any namespace
 starting with the provided argument.
 
-# Managing Users
+## Managing Users
 
 User management functionality provides Ceph Storage Cluster administrators with
 the ability to create, update, and delete users directly in the Ceph Storage
@@ -417,7 +417,7 @@ Cluster.
 When you create or delete users in the Ceph Storage Cluster, you might need to
 distribute keys to clients so that they can be added to keyrings. For details, see [Keyring Management](user-management.md#keyring-management).
 
-## Listing Users
+### Listing Users
 
 To list the users in your cluster, run the following command:
 
@@ -460,7 +460,7 @@ Note too that each entry has a ``key: <value>`` entry, and also has one or more
 
 To save the output of ``ceph auth ls`` to a file, use the ``-o {filename}`` option.
 
-## Getting a User
+### Getting a User
 
 To retrieve a specific user, key, and capabilities, run the following command:
 
@@ -482,9 +482,9 @@ ceph auth export {TYPE.ID}
 
 The ``auth export`` command is identical to ``auth get``.
 
-<a id="rados-ops-adding-a-user"></a>
+<a id="rados_ops_adding_a_user"></a>
 
-## Adding a User
+### Adding a User
 
 Adding a user creates a user name (that is, ``TYPE.ID``), a secret key, and
 any capabilities specified in the command that creates the user.
@@ -537,7 +537,7 @@ ceph auth get-or-create-key client.ringo mon 'allow r' osd 'allow rw pool=liverp
 
 <a id="modify-user-capabilities"></a>
 
-## Modifying User Capabilities
+### Modifying User Capabilities
 
 The ``ceph auth caps`` command allows you to specify a user and change that
 user's capabilities. Setting new capabilities will overwrite current capabilities.
@@ -559,7 +559,7 @@ ceph auth caps client.brian-manager mon 'allow *' osd 'allow *'
 
 For additional details on capabilities, see [Authorization (Capabilities)](user-management.md#authorization-capabilities).
 
-## Deleting a User
+### Deleting a User
 
 To delete a user, use ``ceph auth del``:
 
@@ -570,7 +570,7 @@ ceph auth del {TYPE}.{ID}
 Here ``{TYPE}`` is either ``client``, ``osd``, ``mon``, or ``mds``,
 and ``{ID}`` is the user name or the ID of the daemon.
 
-## Printing a User's Key
+### Printing a User's Key
 
 To print a user's authentication key to standard output, run the following command:
 
@@ -588,7 +588,7 @@ you can print the user's key by running the following command:
 mount -t ceph serverhost:/ mountpoint -o name=client.user,secret=`ceph auth print-key client.user`
 ```
 
-## Importing a User
+### Importing a User
 
 To import one or more users, use ``ceph auth import`` and
 specify a keyring as follows:
@@ -607,7 +607,7 @@ sudo ceph auth import -i /etc/ceph/ceph.keyring
 > capabilities and will update existing users, their keys, and their
 > capabilities.
 
-# Keyring Management
+## Keyring Management
 
 When you access Ceph via a Ceph client, the Ceph client will look for a local
 keyring. Ceph presets the ``keyring`` setting with four keyring
@@ -638,7 +638,7 @@ The [User Management](user-management.md) section details how to list, get, add,
 users directly in the Ceph Storage Cluster. In addition, Ceph provides the
 ``ceph-authtool`` utility to allow you to manage keyrings from a Ceph client.
 
-## Creating a Keyring
+### Creating a Keyring
 
 When you use the procedures in the [Managing Users](user-management.md#managing-users) section to create users,
 you must provide user keys to the Ceph client(s). This is required so that the Ceph client(s)
@@ -674,9 +674,9 @@ appropriate when the keyring contains administrator keys. However, if you
 intend to use the keyring for a particular user or group of users, be sure to use ``chown`` or ``chmod`` to establish appropriate keyring
 ownership and access.
 
-## Adding a User to a Keyring
+### Adding a User to a Keyring
 
-When you [Add a user](user-management.md#rados-ops-adding-a-user) to the Ceph Storage
+When you [Add a user](user-management.md#rados_ops_adding_a_user) to the Ceph Storage
 Cluster, you can use the [Getting a User](user-management.md#getting-a-user) procedure to retrieve a user, key,
 and capabilities and then save the user to a keyring.
 
@@ -698,7 +698,7 @@ For example:
 sudo ceph-authtool /etc/ceph/ceph.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
 ```
 
-## Creating a User
+### Creating a User
 
 Ceph provides the [Adding a User](user-management.md#adding-a-user) function to create a user directly in the Ceph
 Storage Cluster. However, you can also create a user, keys, and capabilities
@@ -727,7 +727,7 @@ To add the new user ``client.ringo`` to the Ceph Storage Cluster, run the follow
 sudo ceph auth add client.ringo -i /etc/ceph/ceph.keyring
 ```
 
-## Modifying a User
+### Modifying a User
 
 To modify the capabilities of a user record in a keyring, specify the keyring
 and the user, followed by the capabilities. For example:
@@ -750,7 +750,7 @@ You may also [Modify user capabilities](user-management.md#modify-user-capabilit
 results to a keyring file, and then import the keyring into your main
 ``ceph.keyring`` file.
 
-## Key rotation
+### Key rotation
 
 To rotate the secret for an entity, run a command of the following form:
 
@@ -761,7 +761,7 @@ ceph auth rotate <entity>
 This avoids the need to delete and recreate the entity when its key is
 compromised, lost, or scheduled for rotation.
 
-# Command Line Usage
+## Command Line Usage
 
 Ceph supports the following usage for user name and secret:
 
@@ -806,7 +806,7 @@ ceph -n client.foo --keyring /path/to/keyring health
 sudo rbd map --id foo --keyring /path/to/keyring mypool/myimage
 ```
 
-# Limitations
+## Limitations
 
 The ``cephx`` protocol authenticates Ceph clients and servers to each other. It
 is not intended to handle authentication of human users or application programs

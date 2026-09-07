@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 > **Important:** To use kernel module operations, you must have a running Ceph cluster.
 
-# Get a List of Images
+## Get a List of Images
 
 To mount a block device image, first return a list of the images. :
 
@@ -19,7 +19,7 @@ To mount a block device image, first return a list of the images. :
 rbd list
 ```
 
-# Map a Block Device
+## Map a Block Device
 
 Use ``rbd`` to map an image name to a kernel module. You must specify the
 image name, the pool name, and the user name. ``rbd`` will load RBD kernel
@@ -43,7 +43,7 @@ sudo rbd device map rbd/myimage --id admin --keyring /path/to/keyring
 sudo rbd device map rbd/myimage --id admin --keyfile /path/to/file
 ```
 
-# Show Mapped Block Devices
+## Show Mapped Block Devices
 
 To show block device images mapped to kernel modules with the ``rbd``,
 specify ``device list`` arguments. :
@@ -52,7 +52,7 @@ specify ``device list`` arguments. :
 rbd device list
 ```
 
-# Unmapping a Block Device
+## Unmapping a Block Device
 
 To unmap a block device image with the ``rbd`` command, specify the
 ``device unmap`` arguments and the device name (i.e., by convention the

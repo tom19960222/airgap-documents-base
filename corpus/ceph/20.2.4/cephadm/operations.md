@@ -7,9 +7,9 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Cephadm Operations
 
-<a id="watching-cephadm-logs"></a>
+<a id="watching_cephadm_logs"></a>
 
-# Watching cephadm log messages
+## Watching cephadm log messages
 
 The cephadm orchestrator module writes logs to the ``cephadm`` cluster log
 channel. You can monitor Ceph's activity in real time by reading the logs as
@@ -42,9 +42,9 @@ monitor hosts as well as to the monitor daemons' stderr.
 
 <a id="cephadm-logs"></a>
 
-# Ceph daemon control
+## Ceph daemon control
 
-## Starting and stopping daemons
+### Starting and stopping daemons
 
 You can stop, start, or restart a daemon with:
 
@@ -68,7 +68,7 @@ ceph orch restart <serviceid>
 > parallel OSD restarts may lead to temporary data unavailability or in rare
 > cases even data loss.
 
-## Redeploying or reconfiguring a daemon
+### Redeploying or reconfiguring a daemon
 
 The container for a daemon can be stopped, recreated, and restarted with
 the ``redeploy`` command:
@@ -89,7 +89,7 @@ file but will not trigger a restart of the daemon.
 ceph orch daemon reconfig <name>
 ```
 
-## Rotating a daemon's authenticate key
+### Rotating a daemon's authenticate key
 
 All Ceph and gateway daemons in the cluster have a secret key that is used to connect
 to and authenticate with the cluster.  This key can be rotated (i.e., replaced with a
@@ -102,9 +102,9 @@ ceph orch daemon rotate-key <name>
 For MDS, OSD, and MGR daemons, this does not require a daemon restart.  For other
 daemons, however (e.g., RGW), the daemon may be restarted to switch to the new key.
 
-# Ceph daemon logs
+## Ceph daemon logs
 
-## Logging to journald
+### Logging to journald
 
 Ceph daemons traditionally write logs to ``/var/log/ceph``. Ceph daemons log to
 journald by default and Ceph logs are captured by the container runtime
@@ -124,7 +124,7 @@ journalctl -u ceph-5c5a50ae-272a-455d-99e9-32c6a013e694@mon.foo
 
 This works well for normal operations when logging levels are low.
 
-## Logging to files
+### Logging to files
 
 You can also configure Ceph daemons to log to files instead of to
 journald if you prefer logs to appear in files (as they did in earlier,
@@ -165,7 +165,7 @@ By default, cephadm sets up log rotation on each host to rotate these
 files.  You can configure the logging retention schedule by modifying
 ``/etc/logrotate.d/ceph.<cluster-fsid>``.
 
-# Per-node cephadm logs
+## Per-node cephadm logs
 
 The cephadm executable, either run directly by a user or by the cephadm
 orchestration module, may also generate logs. It does so independently of
@@ -175,7 +175,7 @@ logs to the file ``/var/log/ceph/cephadm.log``.
 This logging destination is configurable and you may choose to log to the
 file, to the syslog/journal, or to both.
 
-## Setting a cephadm log destination during bootstrap
+### Setting a cephadm log destination during bootstrap
 
 The ``cephadm`` command may be executed with the option ``--log-dest=file``
 or with ``--log-dest=syslog`` or both. These options control where cephadm
@@ -206,7 +206,7 @@ EOF
 cephadm bootstrap --config /tmp/bootstrap.conf # ... other bootstrap arguments ...
 ```
 
-## Setting a cephadm log destination on an existing cluster
+### Setting a cephadm log destination on an existing cluster
 
 An existing Ceph cluster can be configured to use a specific cephadm log
 destination by setting the ``mgr/cephadm/cephadm_log_destination``
@@ -230,7 +230,7 @@ ceph config set mgr mgr/cephadm/cephadm_log_destination file
 > the default log file When running cephadm commands directly use the
 > ``--log-dest`` options described in the bootstrap section above.
 
-# Data location
+## Data location
 
 Cephadm stores daemon data and logs in different locations than did
 older, pre-cephadm (pre Octopus) versions of ceph:
@@ -249,14 +249,14 @@ older, pre-cephadm (pre Octopus) versions of ceph:
   data directories for stateful daemons (e.g., monitor, prometheus)
   that have been removed by cephadm.
 
-## Disk usage
+### Disk usage
 
 Because a few Ceph daemons (notably, the monitors and prometheus) store a
 large amount of data in ``/var/lib/ceph`` , we recommend moving this
 directory to its own disk, partition, or logical volume so that it does not
 fill up the root file system.
 
-# Health checks
+## Health checks
 The cephadm module provides additional health checks to supplement the
 default health checks provided by the Cluster. These additional health
 checks fall into two categories:
@@ -266,7 +266,7 @@ checks fall into two categories:
 - **cluster configuration**: These health checks are *optional*, and
   focus on the configuration of the hosts in the cluster.
 
-## CEPHADM Operations
+### CEPHADM Operations
 
 #### CEPHADM_PAUSED
 
@@ -372,7 +372,7 @@ You can disable this health warning by running the following command:
 ceph config set mgr mgr/cephadm/warn_on_failed_host_check false
 ```
 
-## Cluster Configuration Checks
+### Cluster Configuration Checks
 Cephadm periodically scans each host in the cluster in order
 to understand the state of the OS, disks, network interfacess etc. This information can
 then be analyzed for consistency across the hosts in the cluster to
@@ -492,9 +492,9 @@ The OS kernel version (maj.min) is checked for consistency across hosts.
 The kernel version of the majority of the hosts is used as the basis for
 identifying anomalies.
 
-<a id="client-keyrings-and-configs"></a>
+<a id="client_keyrings_and_configs"></a>
 
-# Client keyrings and configs
+## Client keyrings and configs
 Cephadm can distribute copies of the ``ceph.conf`` file and client keyring
 files to hosts. Starting from versions 16.2.10 (Pacific) and 17.2.1 (Quincy),
 in addition to the default location ``/etc/ceph/`` cephadm also stores config
@@ -524,7 +524,7 @@ When a client keyring is placed under management, cephadm will:
   - remove the keyring file from old hosts if the keyring placement spec is
     updated (as needed)
 
-## Listing Client Keyrings
+### Listing Client Keyrings
 
 To see the list of client keyrings are currently under management, run the following command:
 
@@ -532,7 +532,7 @@ To see the list of client keyrings are currently under management, run the follo
 ceph orch client-keyring ls
 ```
 
-## Putting a Keyring Under Management
+### Putting a Keyring Under Management
 
 To put a keyring under management, run a command of the following form:
 
@@ -568,7 +568,7 @@ This feature can be suppressed by passing ``--no-ceph-conf`` when setting the ke
 ceph orch client-keyring set client.foo label:foo 0:0 --no-ceph-conf
 ```
 
-## Disabling Management of a Keyring File
+### Disabling Management of a Keyring File
 
 To disable management of a keyring file, run a command of the following form:
 
@@ -580,11 +580,11 @@ ceph orch client-keyring rm <entity>
 > This deletes any keyring files for this entity that were previously written
 > to cluster nodes.
 
-<a id="etc-ceph-conf-distribution"></a>
+<a id="etc_ceph_conf_distribution"></a>
 
-# /etc/ceph/ceph.conf
+## /etc/ceph/ceph.conf
 
-## Distributing ceph.conf to hosts that have no keyrings
+### Distributing ceph.conf to hosts that have no keyrings
 
 It might be useful to distribute ``ceph.conf`` files to hosts without an
 associated client keyring file.  By default, cephadm deploys only a
@@ -596,7 +596,7 @@ following command:
 ceph config set mgr mgr/cephadm/manage_etc_ceph_ceph_conf true
 ```
 
-## Using Placement Specs to specify which hosts get keyrings
+### Using Placement Specs to specify which hosts get keyrings
 
 By default, the configs are written to all hosts (i.e., those listed by ``ceph
 orch host ls``).  To specify which hosts get a ``ceph.conf``, run a command of
@@ -609,7 +609,7 @@ ceph config set mgr mgr/cephadm/manage_etc_ceph_ceph_conf_hosts <placement spec>
 For example, to distribute configs to hosts with the ``bare_config`` label, run
 the following command:
 
-## Distributing ceph.conf to hosts tagged with bare_config
+### Distributing ceph.conf to hosts tagged with bare_config
 
 For example, to distribute configs to hosts with the ``bare_config`` label, run the following command:
 
@@ -619,7 +619,7 @@ ceph config set mgr mgr/cephadm/manage_etc_ceph_ceph_conf_hosts label:bare_confi
 
 (See [orchestrator-cli-placement-spec](services/index.md#orchestrator-cli-placement-spec) for more information about placement specs.)
 
-# Limiting Password-less sudo Access
+## Limiting Password-less sudo Access
 
 By default, the cephadm install guide recommends enabling password-less
 ``sudo`` for the cephadm user. This option is the most flexible and
@@ -660,7 +660,7 @@ and adding or replacing a user configuration line such as the following:
 ceph ALL=(ALL) NOPASSWD:/usr/bin/chmod,/usr/bin/chown,/usr/bin/ls,/usr/bin/mkdir,/usr/bin/mv,/usr/bin/rm,/usr/sbin/sysctl,/usr/bin/touch,/usr/bin/true,/usr/bin/which,/usr/bin/cephadm,/usr/bin/python3
 ```
 
-# Purging a cluster
+## Purging a cluster
 
 > **Danger:** THIS OPERATION WILL DESTROY ALL DATA STORED IN THIS CLUSTER
 
@@ -684,7 +684,7 @@ Purge ceph daemons from all hosts in the cluster
 cephadm rm-cluster --force --zap-osds --fsid <fsid>
 ```
 
-# Replacing a device
+## Replacing a device
 
 The ``ceph orch device replace`` command automates the process of replacing the underlying device of an OSD.
 Previously, this process required manual intervention at various stages.

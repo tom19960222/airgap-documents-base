@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Dumpling is the 4th stable release of Ceph.  It is named after the
 dumpling squid (Euprymna tasmanica).
 
-# v0.67.12 "Dumpling" (draft)
+## v0.67.12 "Dumpling" (draft)
 
 This stable update for Dumpling fixes a few longstanding issues with
 backfill in the OSD that can lead to stalled IOs.  There is also a fix
@@ -22,7 +22,7 @@ do not expect to upgrade to Firefly soon should upgrade.  Everyone
 else should upgrade to Firefly already.  This is likely to be the last stable
 release for the 0.67.x Dumpling series.
 
-## Notable Changes
+### Notable Changes
 
 * buffer: fix buffer rebuild alignment corner case (#6614 #6003 Loic Dachary, Samuel Just)
 * ceph-disk: reprobe partitions after zap (#9665 #9721 Loic Dachary)
@@ -52,7 +52,7 @@ release for the 0.67.x Dumpling series.
 * osd: several backfill fixes and refactors (Samuel Just, David Zafman)
 * rgw: send http status reason explicitly in fastcgi (Yehuda Sadeh)
 
-# v0.67.11 "Dumpling"
+## v0.67.11 "Dumpling"
 
 This stable update for Dumpling fixes several important bugs that
 affect a small set of users.
@@ -61,7 +61,7 @@ We recommend that all Dumpling users upgrade at their convenience.  If
 none of these issues are affecting your deployment there is no
 urgency.
 
-## Notable Changes
+### Notable Changes
 
 * common: fix sending dup cluster log items (#9080 Sage Weil)
 * doc: several doc updates (Alfredo Deza)
@@ -74,7 +74,7 @@ urgency.
 * osd: allow scrub and snap trim thread pool IO priority to be adjusted (Sage Weil)
 * osd: fix mount/remount sync race (#9144 Sage Weil)
 
-# v0.67.10 "Dumpling"
+## v0.67.10 "Dumpling"
 
 This stable update release for Dumpling includes primarily fixes for
 RGW, including several issues with bucket listings and a potential
@@ -84,7 +84,7 @@ performance impact on production clusters.
 
 We recommend that all Dumpling users upgrade at their convenience.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-disk: partprobe befoere settle, fixing dm-crypt (#6966, Eric Eastman)
 * librbd: add invalidate cache interface (Josh Durgin)
@@ -116,7 +116,7 @@ We recommend that all Dumpling users upgrade at their convenience.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.10.txt -->.
 
-# v0.67.9 "Dumpling"
+## v0.67.9 "Dumpling"
 
 This Dumpling point release fixes several minor bugs. The most
 prevalent in the field is one that occasionally prevents OSDs from
@@ -124,7 +124,7 @@ starting on recently created clusters.
 
 We recommend that all Dumpling users upgrade at their convenience.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-fuse, libcephfs: client admin socket command to kick and inspect MDS sessions (#8021, Zheng Yan)
 * monclient: fix failure detection during mon handshake (#8278, Sage Weil)
@@ -142,7 +142,7 @@ We recommend that all Dumpling users upgrade at their convenience.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.9.txt -->.
 
-# v0.67.8 "Dumpling"
+## v0.67.8 "Dumpling"
 
 This Dumpling point release fixes several non-critical issues since
 v0.67.7.  The most notable bug fixes are an auth fix in librbd
@@ -152,7 +152,7 @@ OSD crashes or hangs.
 
 We recommend that all users upgrade at their convenience.
 
-## Upgrading
+### Upgrading
 
 * The 'rbd ls' function now returns success and returns an empty when a pool
   does not store any rbd images.  Previously it would return an ENOENT error.
@@ -162,7 +162,7 @@ We recommend that all users upgrade at their convenience.
   disabled by adding 'mon warn on osd down out interval zero = false'
   to ceph.conf.
 
-## Notable Changes
+### Notable Changes
 
 * all: improve keepalive detection of failed monitor connections (#7888, Sage Weil)
 * ceph-fuse, libcephfs: pin inodes during readahead, fixing rare crash (#7867, Sage Weil)
@@ -198,19 +198,19 @@ We recommend that all users upgrade at their convenience.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.8.txt -->.
 
-# v0.67.7 "Dumpling"
+## v0.67.7 "Dumpling"
 
 This Dumpling point release fixes a few critical issues in v0.67.6.
 
 All v0.67.6 users are urgently encouraged to upgrade.  We also
 recommend that all v0.67.5 (or older) users upgrade.
 
-## Upgrading
+### Upgrading
 
 * Once you have upgraded a radosgw instance or OSD to v0.67.7, you should not
   downgrade to a previous version.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-disk: additional unit tests
 * librbd: revert caching behavior change in v0.67.6
@@ -219,7 +219,7 @@ recommend that all v0.67.5 (or older) users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.7.txt -->.
 
-# v0.67.6 "Dumpling"
+## v0.67.6 "Dumpling"
 
 .. note: This release contains a librbd bug that is fixed in v0.67.7.  Please upgrade to v0.67.7 and do not use v0.67.6.
 
@@ -233,7 +233,7 @@ the cluster becomes full and then non-full.
 
 We recommend that all 0.67.x Dumpling users skip this release and upgrade to v0.67.7.
 
-## Upgrading
+### Upgrading
 
 * The OSD has long contained a feature that allows large xattrs to
   spill over into the leveldb backing store in situations where not
@@ -253,7 +253,7 @@ We recommend that all 0.67.x Dumpling users skip this release and upgrade to v0.
   omap = true' it may not be able to read all xattrs for an object and
   can cause undefined behavior.
 
-## Notable changes
+### Notable changes
 
 * ceph-disk: misc bug fixes, particularly on RHEL (Loic Dachary, Alfredo Deza, various)
 * ceph-fuse, libcephfs: fix crash from read over certain sparseness patterns (Sage Weil)
@@ -285,7 +285,7 @@ We recommend that all 0.67.x Dumpling users skip this release and upgrade to v0.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.6.txt -->.
 
-# v0.67.5 "Dumpling"
+## v0.67.5 "Dumpling"
 
 This release includes a few critical bug fixes for the radosgw,
 including a fix for hanging operations on large objects.  There are also
@@ -295,7 +295,7 @@ recent performance information about active OSDs) has been backported.
 
 We recommend that all 0.67.x Dumpling users upgrade.
 
-## Notable changes
+### Notable changes
 
 * ceph-fuse: fix crash in caching code
 * mds: fix looping in populate_mydir()
@@ -318,13 +318,13 @@ We recommend that all 0.67.x Dumpling users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.5.txt -->.
 
-# v0.67.4 "Dumpling"
+## v0.67.4 "Dumpling"
 
 This point release fixes an important performance issue with radosgw,
 keystone authentication token caching, and CORS.  All users
 (especially those of rgw) are encouraged to upgrade.
 
-## Notable changes
+### Notable changes
 
 * crush: fix invalidation of cached names
 * crushtool: do not crash on non-unique bucket ids
@@ -348,14 +348,14 @@ keystone authentication token caching, and CORS.  All users
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.4.txt -->.
 
-# v0.67.3 "Dumpling"
+## v0.67.3 "Dumpling"
 
 This point release fixes a few important performance regressions with
 the OSD (both with CPU and disk utilization), as well as several other
 important but less common problems.  We recommend that all production users
 upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-disk: partprobe after creation journal partition
 * ceph-disk: specify fs type when mounting
@@ -380,7 +380,7 @@ upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.3.txt -->.
 
-# v0.67.2 "Dumpling"
+## v0.67.2 "Dumpling"
 
 This is an important point release for Dumpling.  Most notably, it
 fixes a problem when upgrading directly from v0.56.x Bobtail to
@@ -389,7 +389,7 @@ way).  It also fixes a problem with the CLI parsing of the CEPH_ARGS
 environment variable, high CPU utilization by the ceph-osd daemons,
 and cleans up the radosgw shutdown sequence.
 
-## Notable Changes
+### Notable Changes
 
 * objecter: resend linger requests when cluster goes from full to non-full
 * ceph: parse CEPH_ARGS environment variable
@@ -401,12 +401,12 @@ and cleans up the radosgw shutdown sequence.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.2.txt -->.
 
-# v0.67.1 "Dumpling"
+## v0.67.1 "Dumpling"
 
 This is a minor point release for Dumpling that fixes problems with
 OpenStack and librbd hangs when caching is disabled.
 
-## Notable changes
+### Notable changes
 
 * librados, librbd: fix constructor for python bindings with certain
   usages (in particular, that used by OpenStack)
@@ -418,7 +418,7 @@ OpenStack and librbd hangs when caching is disabled.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.67.1.txt -->.
 
-# v0.67 "Dumpling"
+## v0.67 "Dumpling"
 
 This is the fourth major release of Ceph, code-named "Dumpling."  The
 headline features for this release include:
@@ -439,7 +439,7 @@ headline features for this release include:
 
 <a id="dumpling-upgrade"></a>
 
-## Upgrade Sequencing
+### Upgrade Sequencing
 
 It is possible to do a rolling upgrade from Cuttlefish to Dumpling.
 
@@ -455,7 +455,7 @@ It is possible to do a rolling upgrade from Cuttlefish to Dumpling.
    This can happen one daemon or host at a time.
 1. Upgrade radosgw (upgrade radosgw package, restart radosgw daemons).
 
-## Upgrading from v0.66
+### Upgrading from v0.66
 
 * There is monitor internal protocol change, which means that v0.67
   ceph-mon daemons cannot talk to v0.66 or older daemons.  We
@@ -522,7 +522,7 @@ ceph daemon osd.0 config set debug_ms 1
   overridable via max_open_files).  If this field has been customized
   in ceph.conf it should likely be adjusted upwards.
 
-## Upgrading from v0.61 "Cuttlefish"
+### Upgrading from v0.61 "Cuttlefish"
 
 In addition to the above notes about upgrading from v0.66:
 
@@ -575,7 +575,7 @@ id (integer) or name (osd.<id>)::
   have adjusted these settings, please update your ``ceph.conf``
   accordingly.
 
-## Notable changes since v0.66
+### Notable changes since v0.66
 
 * mon: sync improvements (performance and robustness)
 * mon: many bug fixes (paxos and services)
@@ -606,7 +606,7 @@ id (integer) or name (osd.<id>)::
 * hypertable: fixes for hypertable CephBroker bindings
 * use SSE4.2 crc32c instruction if present
 
-## Notable changes since v0.61 "Cuttlefish"
+### Notable changes since v0.61 "Cuttlefish"
 
 * add 'config get' admin socket command
 * ceph-conf: --show-config-value now reflects daemon defaults
@@ -718,15 +718,15 @@ id (integer) or name (osd.<id>)::
 * sysvinit: handle symlinks in /var/lib/ceph/osd/*
 * use SSE4.2 crc32c instruction if present
 
-# v0.66
+## v0.66
 
-## Upgrading
+### Upgrading
 
 * There is now a configurable maximum rados object size, defaulting to 100 GB.  If you
   are using librados and storing objects larger than that, you will need to adjust
   'osd max object size', and should consider using smaller objects instead.
 
-## Notable changes
+### Notable changes
 
 * osd: pg log (re)writes are now vastly more efficient (faster peering) (Sam Just)
 * osd: fixed problem with front-side heartbeats and mixed clusters (David Zafman)
@@ -748,9 +748,9 @@ id (integer) or name (osd.<id>)::
 * ceph-disk: avoid mounting over an existing osd in /var/lib/ceph/osd/*
 * sysvinit: handle symlinks in /var/lib/ceph/osd/*
 
-# v0.65
+## v0.65
 
-## Upgrading
+### Upgrading
 
 * Huge revamp of the 'ceph' command-line interface implementation.
   The ``ceph-common`` client library needs to be upgrade before
@@ -791,7 +791,7 @@ id (integer) or name (osd.<id>)::
   object size', defaulting to 100 GB.  Note that this has no effect on
   RBD, CephFS, or radosgw, which all stripe over objects.
 
-## Notable changes
+### Notable changes
 
 * mon, ceph: huge revamp of CLI and internal admin API. (Dan Mick)
 * mon: new capability syntax
@@ -815,9 +815,9 @@ id (integer) or name (osd.<id>)::
 * many many fixes from static code analysis (Danny Al-Gaaf)
 * daemons: create /var/run/ceph as needed
 
-# v0.64
+## v0.64
 
-## Upgrading
+### Upgrading
 
 * New pools now have the HASHPSPOOL flag set by default to provide
   better distribution over OSDs.  Support for this feature was
@@ -828,7 +828,7 @@ id (integer) or name (osd.<id>)::
   pool in the cluster with the flag enabled will make the OSD require
   support from all clients.
 
-## Notable changes
+### Notable changes
 
 * osd: monitor both front and back interfaces
 * osd: verify both front and back network are working before rejoining cluster
@@ -850,9 +850,9 @@ id (integer) or name (osd.<id>)::
 * debian: rgw: stop daemon on uninstall
 * debian: fix upstart behavior with upgrades
 
-# v0.63
+## v0.63
 
-## Upgrading
+### Upgrading
 
 * The 'osd min down {reporters|reports}' config options have been
   renamed to 'mon osd min down {reporters|reports}', and the
@@ -861,7 +861,7 @@ id (integer) or name (osd.<id>)::
   have adjusted these settings, please update your ``ceph.conf``
   accordingly.
 
-## Notable Changes
+### Notable Changes
 
 * librbd: parallelize delete, rollback, flatten, copy, resize
 * librbd: ability to read from local replicas
@@ -882,9 +882,9 @@ id (integer) or name (osd.<id>)::
 * debian wheezy: fix udev rules
 * many many small fixes from coverity scan
 
-# v0.62
+## v0.62
 
-## Notable Changes
+### Notable Changes
 
 * mon: fix validation of mds ids from CLI commands
 * osd: fix for an op ordering bug

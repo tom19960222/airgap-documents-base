@@ -5,7 +5,7 @@ title: "Mount CephFS using FUSE"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/mount-using-fuse.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="cephfs-mount-using-fuse"></a>
+<a id="cephfs_mount_using_fuse"></a>
 
 # Mount CephFS using FUSE
 
@@ -14,7 +14,7 @@ fetched_at: 2026-08-18T01:32:45Z
 are less performant than kernel driver mounts, but they are easier to manage
 and easier to upgrade.
 
-# Prerequisites
+## Prerequisites
 
 Ensure that you have all the prerequisites required by both kernel and FUSE
 mounts, as listed on the [Mount CephFS: Prerequisites](mount-prerequisites.md#mount-cephfs-prerequisites) page.
@@ -26,14 +26,14 @@ mounts, as listed on the [Mount CephFS: Prerequisites](mount-prerequisites.md#mo
 > system calls periodically in response to cache pressure in the MDS or due to
 > metadata cache revocations.
 
-# Synopsis
+## Synopsis
 This is the general form of the command for mounting CephFS via FUSE:
 
 ```bash
 ceph-fuse {mount point} {options}
 ```
 
-# Mounting CephFS
+## Mounting CephFS
 To FUSE-mount the Ceph file system, use the ``ceph-fuse`` command:
 
 ```
@@ -79,7 +79,7 @@ ceph-fuse --id foo --client_fs mycephfs2 /mnt/mycephfs2
 You may also add a ``client_fs`` setting to your ``ceph.conf``. Alternatively, the option
 ``--client_mds_namespace`` is supported for backward compatibility.
 
-# Unmounting CephFS
+## Unmounting CephFS
 
 Use ``umount`` to unmount CephFS like any other FS:
 
@@ -90,7 +90,7 @@ umount /mnt/mycephfs
 > **Tip:** Ensure that no shell or other processes have open files under the file system
 > before executing this command.  This includes a shell's current working directory.
 
-# Persistent Mounts
+## Persistent Mounts
 
 To mount CephFS as a file system in user space, add the following to ``/etc/fstab``:
 
@@ -128,4 +128,4 @@ systemctl enable ceph-fuse@-mnt-mycephfs.service
 
 See [User Management](../rados/operations/user-management.md#user-management) for details on CephX user management and [ceph-fuse](../man/8/ceph-fuse.md#options)
 manual for more options it can take. For troubleshooting, see
-[ceph_fuse_debugging](troubleshooting.md#ceph-fuse-debugging).
+[ceph_fuse_debugging](troubleshooting.md#ceph_fuse_debugging).

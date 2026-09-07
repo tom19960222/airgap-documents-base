@@ -9,13 +9,13 @@ fetched_at: 2026-08-18T01:32:45Z
 
 Squid is the 19th stable release of Ceph.
 
-# v19.2.2 Squid
+## v19.2.2 Squid
 This is the second hotfix release in the Squid series.
 We recommend that all users update to this release.
 
 .. warning: Upgrade to Squid v19.2.2. Do not upgrade to Squid v19.2.1.
 
-## Notable Changes
+### Notable Changes
 
 * This hotfix release resolves an RGW data loss bug when CopyObject is used to copy an object onto itself.
   S3 clients typically do this when they want to change the metadata of an existing object.
@@ -24,16 +24,16 @@ We recommend that all users update to this release.
   RGW deployments on Squid are encouraged to upgrade as soon as possible to minimize the damage.
   The experimental rgw-gap-list tool can help to identify damaged objects.
 
-## Changelog
+### Changelog
 
 * squid: rgw: keep the tails when copying object to itself ([pr#62711](https://github.com/ceph/ceph/pull/62711), cbodley)
 
-# v19.2.1 Squid
+## v19.2.1 Squid
 This is the first backport release in the Squid series.
 
 .. warning: Do not upgrade to Squid v19.2.1. Upgrade instead to Squid v19.2.2.
 
-## Notable Changes
+### Notable Changes
 
 * CephFS: The command `fs subvolume create` now allows tagging subvolumes by supplying the option
   `--earmark` with a unique identifier needed for NFS or SMB services. The earmark
@@ -72,7 +72,7 @@ This is the first backport release in the Squid series.
   the accumulation of requests in the array can lead to Out Of Memory (OOM) issues,
   resulting in the Manager crashing.
 
-## Changelog
+### Changelog
 
 * doc/rgw/notification: add missing admin commands ([pr#60609](https://github.com/ceph/ceph/pull/60609), Yuval Lifshitz)
 * squid: [RGW] Fix the handling of HEAD requests that do not comply with RFC standards ([pr#59123](https://github.com/ceph/ceph/pull/59123), liubingrun)
@@ -398,7 +398,7 @@ This is the first backport release in the Squid series.
 * squid: container/build.sh: fix up org vs. repo naming ([pr#61584](https://github.com/ceph/ceph/pull/61584), Dan Mick)
 * squid: container/build.sh: don't require repo creds on NO_PUSH ([pr#61585](https://github.com/ceph/ceph/pull/61585), Dan Mick)
 
-# v19.2.0 Squid
+## v19.2.0 Squid
 
 > **Attention:**
 > iSCSI users are advised that the upstream developers of Ceph encountered a
@@ -413,7 +413,7 @@ This is the first backport release in the Squid series.
 > 68657](https://tracker.ceph.com/issues/68657) before attempting an
 > upgrade.
 
-## Highlights
+### Highlights
 
 RADOS
 
@@ -447,7 +447,7 @@ Crimson/Seastore
 * Crimson's first tech preview release! Supporting RBD workloads on Replicated pools. For more
   information please visit: https://ceph.io/en/news/crimson
 
-## Ceph
+### Ceph
 
 * ceph: a new `--daemon-output-file` switch is available for `ceph tell`
   commands to dump output to a file local to the daemon. For commands which
@@ -468,7 +468,7 @@ Crimson/Seastore
   and isn't scalable, so we have removed the 'network_ping_times' section from
   the output. Details in the tracker: https://tracker.ceph.com/issues/57460
 
-## CephFS
+### CephFS
 
 * CephFS: it is now possible to pause write I/O and metadata mutations on a
   tree in the file system using a new suite of subvolume quiesce commands.
@@ -555,12 +555,12 @@ Crimson/Seastore
   can be used to toggle it on or off. It can be enabled or disabled via
   `ceph fs set <fs_name> balance_automate <bool>`.
 
-## CephX
+### CephX
 
 * cephx: key rotation is now possible using `ceph auth rotate`. Previously,
   this was only possible by deleting and then recreating the key.
 
-## Dashboard
+### Dashboard
 
 * Dashboard: Rearranged Navigation Layout: The navigation layout has been reorganized for improved usability and easier access to key features.
 * Dashboard: CephFS Improvments
@@ -573,7 +573,7 @@ Crimson/Seastore
   * ACL Management
   * Several UI/UX Improvements to the bucket form
 
-## MGR
+### MGR
 
 * MGR/REST: The REST manager module will trim requests based on the
   'max_requests' option.  Without this feature, and in the absence of manual
@@ -581,7 +581,7 @@ Crimson/Seastore
   to Out Of Memory (OOM) issues, resulting in the Manager crashing.
 * MGR: An OpTracker to help debug mgr module issues is now available.
 
-## Monitoring
+### Monitoring
 
 * Monitoring: Grafana dashboards are now loaded into the container at runtime
   rather than building a grafana image with the grafana dashboards. Official
@@ -594,7 +594,7 @@ Crimson/Seastore
   option ``mon_cluster_log_level`` to control the cluster log level verbosity
   for the cluster log file as well as for all external entities.
 
-## RADOS
+### RADOS
 
 * RADOS: ``A POOL_APP_NOT_ENABLED`` health warning will now be reported if the
   application is not enabled for the pool irrespective of whether the pool is
@@ -631,13 +631,13 @@ Crimson/Seastore
   configurations.
 * RADOS: Scrub scheduling behavior has been improved.
 
-## Crimson/Seastore
+### Crimson/Seastore
 
 * Crimson's first tech preview release!
   Supporting RBD workloads on Replicated pools.
   For more information please visit: https://ceph.io/en/news/crimson
 
-## RBD
+### RBD
 
 * RBD: When diffing against the beginning of time (`fromsnapname == NULL`) in
   fast-diff mode (`whole_object == true` with ``fast-diff`` image feature enabled
@@ -670,7 +670,7 @@ Crimson/Seastore
   daemon is spawned per host and most OS resources are shared between image
   mappings.  Additionally, `ceph-rbd` service starts much faster.
 
-## RGW
+### RGW
 
 * RGW: GetObject and HeadObject requests now return a x-rgw-replicated-at
   header for replicated objects. This timestamp can be compared against the
@@ -770,13 +770,13 @@ Crimson/Seastore
 * RGW: in bucket notifications, the ``principalId`` inside ``ownerIdentity``
   now contains the complete user ID, prefixed with the tenant ID.
 
-## Telemetry
+### Telemetry
 
 * The ``basic`` channel in telemetry now captures pool flags that allows us to
   better understand feature adoption, such as Crimson.
   To opt in to telemetry, run ``ceph telemetry on``.
 
-## Upgrading from Quincy or Reef
+### Upgrading from Quincy or Reef
 
 Before starting, make sure your cluster is stable and healthy (no down or recovering OSDs).
 (This is optional, but recommended.) You can disable the autoscaler for all pools during the
@@ -785,7 +785,7 @@ upgrade using the noautoscale flag.
 > **Note:**
 > You can monitor the progress of your upgrade at each stage with the ``ceph versions`` command, which will tell you what ceph version(s) are running for each type of daemon.
 
-## Upgrading cephadm clusters
+### Upgrading cephadm clusters
 
 If your cluster is deployed with cephadm (first introduced in Octopus), then the upgrade process is entirely automated. To initiate the upgrade,
 
@@ -822,7 +822,7 @@ ceph orch upgrade stop
 
 Note that canceling the upgrade simply stops the process; there is no ability to downgrade back to Quincy or Reef.
 
-## Upgrading non-cephadm clusters
+### Upgrading non-cephadm clusters
 
 > **Note:**
 > 1. If your cluster is running Quincy (17.2.x) or later, you might choose to first convert it to use cephadm so that the upgrade to Squid is automated (see above).
@@ -830,19 +830,23 @@ Note that canceling the upgrade simply stops the process; there is no ability to
 >
 > 2. If your cluster is running Quincy (17.2.x) or later, systemd unit file names have changed to include the cluster fsid. To find the correct systemd unit file name for your cluster, run following command:
 >
->    ::
+>    :
 >
->      systemctl -l | grep <daemon type>
+> ```
+> systemctl -l | grep <daemon type>
+> ```
 >
 >    Example:
 >
->    .. prompt:: bash $
+> ```bash
+> systemctl -l | grep mon | grep active
+> ```
 >
->      systemctl -l | grep mon | grep active
+>    :
 >
->    ::
->
->      ceph-6ce0347c-314a-11ee-9b52-000af7995d6c@mon.f28-h21-000-r630.service                                           loaded active running   Ceph mon.f28-h21-000-r630 for 6ce0347c-314a-11ee-9b52-000af7995d6c
+> ```
+> ceph-6ce0347c-314a-11ee-9b52-000af7995d6c@mon.f28-h21-000-r630.service                                           loaded active running   Ceph mon.f28-h21-000-r630 for 6ce0347c-314a-11ee-9b52-000af7995d6c
+> ```
 
 1. Set the `noout` flag for the duration of the upgrade. (Optional, but recommended.)
 
@@ -970,7 +974,7 @@ ceph osd unset noout
    cluster management and future upgrades. For more information on converting an existing cluster to cephadm,
    see https://docs.ceph.com/en/squid/cephadm/adoption/.
 
-## Post-upgrade
+### Post-upgrade
 
 1. Verify the cluster is healthy with `ceph health`. If your cluster is running Filestore, and you are upgrading directly from Quincy to Squid, a deprecation warning is expected. This warning can be temporarily muted using the following command
 
@@ -992,6 +996,6 @@ ceph telemetry on
 
    The public dashboard that aggregates Ceph telemetry can be found at https://telemetry-public.ceph.com/.
 
-## Upgrading from pre-Quincy releases (like Pacific)
+### Upgrading from pre-Quincy releases (like Pacific)
 
 You **must** first upgrade to Quincy (17.2.z) or Reef (18.2.z) before upgrading to Squid.

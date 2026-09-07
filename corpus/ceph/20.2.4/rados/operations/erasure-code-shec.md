@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 The *shec* plugin encapsulates the [multiple SHEC](http://tracker.ceph.com/projects/ceph/wiki/Shingled_Erasure_Code_(SHEC))
 library. It allows ceph to recover data more efficiently than Reed Solomon codes.
 
-# Create an SHEC profile
+## Create an SHEC profile
 
 To create a new *shec* erasure code profile:
 
@@ -105,9 +105,9 @@ Where:
 :Type: String
 :Required: No.
 
-# Brief description of SHEC's layouts
+## Brief description of SHEC's layouts
 
-## Space Efficiency
+### Space Efficiency
 
 Space efficiency is a ratio of data chunks to all ones in a object and
 represented as k/(k+m).
@@ -116,14 +116,14 @@ In order to improve space efficiency, you should increase k or decrease m:
         space efficiency of SHEC(4,3,2) = \frac{4}{4+3} = 0.57
         SHEC(5,3,2) or SHEC(4,2,2) improves SHEC(4,3,2)'s space efficiency
 
-## Durability
+### Durability
 
 The third parameter of SHEC (=c) is a durability estimator, which approximates
 the number of OSDs that can be down without losing data.
 
 ``durability estimator of SHEC(4,3,2) = 2``
 
-## Recovery Efficiency
+### Recovery Efficiency
 
 Describing calculation of recovery efficiency is beyond the scope of this document,
 but at least increasing m without increasing c achieves improvement of recovery efficiency.
@@ -131,7 +131,7 @@ but at least increasing m without increasing c achieves improvement of recovery 
 
 ``SHEC(4,2,2) -> SHEC(4,3,2) : achieves improvement of recovery efficiency``
 
-# Erasure code profile examples
+## Erasure code profile examples
 
 ```bash
 ceph osd erasure-code-profile set SHECprofile \

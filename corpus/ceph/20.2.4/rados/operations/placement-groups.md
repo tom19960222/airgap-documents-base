@@ -25,7 +25,7 @@ objects.
 
 <a id="pg-autoscaler"></a>
 
-# Autoscaling placement groups
+## Autoscaling placement groups
 
 Placement groups (PGs) are an internal implementation detail of how Ceph
 distributes data. Autoscaling provides a way to manage PGs, and especially to
@@ -85,7 +85,7 @@ To get the current value of the flag, run the following command:
 ceph osd pool get noautoscale
 ```
 
-## Viewing PG scaling recommendations
+### Viewing PG scaling recommendations
 
 To view each pool, its relative utilization, and any recommended changes to the
 PG count, run the following command:
@@ -198,14 +198,14 @@ ceph osd pool get threshold
 > effect, and the ``.mgr`` pool can be constrained to ``ssd`` devices by
 > running the following commands:
 >
-> .. prompt:: bash #
->
->    ceph osd pool set .mgr crush_rule replicated-ssd
+> ```bash
+> ceph osd pool set .mgr crush_rule replicated-ssd
+> ```
 >
 > This intervention will result in a small amount of backfill, but
 > typically this is not disruptive and completes quickly.
 
-## Automated scaling
+### Automated scaling
 
 In the simplest approach to automated scaling, the cluster is allowed to
 automatically scale each pool's ``pg_num`` in accordance with usage. Ceph considers the
@@ -246,7 +246,7 @@ process. We recommend constraining each pool so that it belongs to only one
 root (that is, one device OSD class) to silence the warning and ensure successful
 scaling.
 
-<a id="managing-bulk-flagged-pools"></a>
+<a id="managing_bulk_flagged_pools"></a>
 
 #### Managing pools that are flagged with ``bulk``
 
@@ -276,9 +276,9 @@ To get the ``bulk`` flag of an existing pool, run the following command:
 ceph osd pool get <pool-name> bulk
 ```
 
-<a id="specifying-pool-target-size"></a>
+<a id="specifying_pool_target_size"></a>
 
-## Specifying expected pool size
+### Specifying expected pool size
 
 When a cluster or pool is first created, it consumes only a small fraction of
 the total cluster capacity and appears to the system as if it should need only
@@ -331,7 +331,7 @@ Note that in most cases it is advised to not set both a bias value other than 1.
 and a target ratio on the same pool.  Use a higher bias value for metadata /
 omap-rich pools and a target ratio for RADOS data-heavy pools.
 
-## Specifying bounds on a pool's PGs
+### Specifying bounds on a pool's PGs
 
 It is possible to specify both the minimum number and the maximum number of PGs
 for a pool.
@@ -366,7 +366,7 @@ creation time: ``--pg-num-min <num>`` and ``--pg-num-max <num>``.
 
 <a id="preselection"></a>
 
-# Preselecting pg_num
+## Preselecting pg_num
 
 When creating a pool with the following command, you have the option to
 preselect the value of the ``pg_num`` parameter:
@@ -401,7 +401,7 @@ The autoscaler attempts to satisfy the following conditions:
 - There should by default be 50-100 PGs per pool, taking into account the replication
   overhead or erasure-coding fan-out of each PG's replicas across OSDs.
 
-# Use of Placement Groups
+## Use of Placement Groups
 
 A placement group aggregates objects within a pool. The tracking of RADOS
 object placement and object metadata on a per-object basis is computationally
@@ -467,7 +467,7 @@ assigned OSDs. The result of the CRUSH function changes, which means that some
 objects from the already-existing PGs are copied to the new PGs and removed
 from the old ones.
 
-# Factors Relevant To Specifying pg_num
+## Factors Relevant To Specifying pg_num
 
 Performance and and even data distribution across
 OSDs weigh in favor of a higher number of PGs. Conserving CPU resources and
@@ -480,7 +480,7 @@ and does not itself influence ``pg_num`` calculations.
 
 <a id="data-durability"></a>
 
-## Data durability
+### Data durability
 
 When an OSD fails, the risk of data loss is increased until replication of the
 data it hosted is restored to the configured level. To illustrate this point,
@@ -577,7 +577,7 @@ much matter whether there are 512 or 4096 PGs.
 
 <a id="object-distribution"></a>
 
-## Object distribution within a pool
+### Object distribution within a pool
 
 Under ideal conditions, objects are evenly distributed across PGs. Because
 CRUSH computes the PG for each object but does not know how much data is stored
@@ -606,7 +606,7 @@ other OSDs will still contain only 400 MB.
 
 <a id="resource-usage"></a>
 
-## Memory, CPU and network usage
+### Memory, CPU and network usage
 
 Every PG in the cluster imposes memory, network, and CPU demands upon OSDs and
 Monitors. These needs must be met at all times and are increased during recovery.
@@ -617,7 +617,7 @@ For this reason, limiting the number of PGs saves significant resources.
 
 <a id="choosing-number-of-placement-groups"></a>
 
-# Choosing the Number of PGs
+## Choosing the Number of PGs
 
 .. note: It is rarely necessary to do the math in this section by hand.
    Instead, use the ``ceph osd pool autoscale-status`` command in combination
@@ -667,7 +667,7 @@ more time for peering.
 
 <a id="setting-the-number-of-placement-groups"></a>
 
-# Setting the Number of PGs
+## Setting the Number of PGs
 
 [Placement Group Link](pgcalc/index.md#pgcalc)
 
@@ -706,9 +706,9 @@ when the ``pg_autoscaler`` is not used, ``pgp_num`` is automatically stepped to
 match ``pg_num``. This process manifests as periods of remapping of PGs and of
 backfill, which is expected behavior.
 
-<a id="rados-ops-pgs-get-pg-num"></a>
+<a id="rados_ops_pgs_get_pg_num"></a>
 
-# Get the Number of PGs
+## Get the Number of PGs
 
 To get the number of PGs in a pool, run a command of the following form:
 
@@ -716,7 +716,7 @@ To get the number of PGs in a pool, run a command of the following form:
 ceph osd pool get {pool-name} pg_num
 ```
 
-# Get a Cluster's PG Statistics
+## Get a Cluster's PG Statistics
 
 To see the details of the PGs in your cluster, run a command of the following
 form:
@@ -727,7 +727,7 @@ ceph pg dump [--format {format}]
 
 Valid formats are ``plain`` (default) and ``json``.
 
-# Get Statistics for Stuck PGs
+## Get Statistics for Stuck PGs
 
 To see the statistics for all PGs that are stuck in a specified state, run a
 command of the following form:
@@ -751,7 +751,7 @@ Valid formats are ``plain`` (default) and ``json``. The threshold defines the
 minimum number of seconds the PG is stuck before it is included in the returned
 statistics (default: 300).
 
-# Get a PG Map
+## Get a PG Map
 
 To get the PG map for a particular PG, run a command of the following form:
 
@@ -772,7 +772,7 @@ the following:
 osdmap e13 pg 1.6c (1.6c) -> up [1,0] acting [1,0]
 ```
 
-# Get a PG's Statistics
+## Get a PG's Statistics
 
 To see statistics for a particular PG, run a command of the following form:
 
@@ -780,7 +780,7 @@ To see statistics for a particular PG, run a command of the following form:
 ceph pg {pg-id} query
 ```
 
-# Scrub a PG
+## Scrub a PG
 
 To force an immediate scrub of a PG, run a command of the following form:
 
@@ -827,7 +827,7 @@ To scrub all PGs from a specific pool, run a command of the following form:
 ceph osd pool scrub {pool-name}
 ```
 
-# Prioritize backfill/recovery of PG(s)
+## Prioritize backfill/recovery of PG(s)
 
 You might encounter a situation in which multiple PGs require recovery or
 backfill, but the data in some PGs is more important than the data in others
@@ -912,7 +912,7 @@ respectively.
 > the recovery/backfill priority ``30`` has a higher priority than a pool with
 > the recovery/backfill priority ``15``.
 
-# Reverting Lost RADOS Objects
+## Reverting Lost RADOS Objects
 
 If the cluster has lost one or more RADOS objects and you have decided to
 abandon the search for the lost data, you must mark the unfound objects

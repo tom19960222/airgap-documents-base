@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rgw-restore-bucket-index
 
-# Synopsis
+## Synopsis
 
 | **rgw-restore-bucket-index**
 
-# Description
+## Description
 
 rgw-restore-bucket-index is an *EXPERIMENTAL* RADOS gateway
 user administration utility. It scans the data pool for objects that
@@ -27,7 +27,7 @@ bucket index. It's intended as a **last resort** after a
 The utility works with regular (i.e., un-versioned) buckets, versioned
 buckets, and buckets were versioning has been suspended.
 
-# Warnings
+## Warnings
 
 This utility is currently considered *EXPERIMENTAL*.
 
@@ -45,7 +45,7 @@ with a new version, then that delete marker will not be restored. This
 should have minimal impact on results in that the it recovers the
 latest version and previous versions are all accessible.
 
-# Command-Line Arguments
+## Command-Line Arguments
 
 .. option:: -b <bucket>
 
@@ -94,7 +94,7 @@ latest version and previous versions are all accessible.
    whether to proceed. When provided, the utility will simply
    proceed. Please use caution when using this option.
 
-# Examples
+## Examples
 
 Attempt to restore the index for a bucket named *summer-2023-photos*:
 
@@ -102,12 +102,12 @@ Attempt to restore the index for a bucket named *summer-2023-photos*:
 $ rgw-restore-bucket-index -b summer-2023-photos
 ```
 
-# Availability
+## Availability
 
 rgw-restore-bucket-index is part of Ceph, a massively
 scalable, open-source, distributed storage system.  Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [radosgw-admin](radosgw-admin.md)\(8)

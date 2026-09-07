@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Creates a new bucket. To create a bucket, you must have a user ID and a valid AWS Access Key ID to authenticate requests. You may not
 create buckets as an anonymous user.
 
-#### Constraints
+### Constraints
 In general, bucket names should follow domain name constraints.
 
 - Bucket names must be unique.
@@ -23,7 +23,7 @@ In general, bucket names should follow domain name constraints.
 
 > **Note:** The above constraints are relaxed if the option 'rgw_relaxed_s3_bucket_names' is set to true except that the bucket names must still be unique, cannot be formatted as IP address and can contain letters, numbers, periods, dashes and underscores for up to 255 characters long.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -35,21 +35,21 @@ x-amz-acl: public-read-write
 Authorization: AWS {access-key}:{hash-of-header-and-secret}
 ```
 
-#### Parameters
+### Parameters
 
 | Name | Description | Valid Values |  | Required |
 | --- | --- | --- | --- | --- |
 | ``x-amz-acl`` | Canned ACLs. | ``private``, ``public-read``, ``public-read-write``, ``authenticated-read`` |  | No |
 | ``x-amz-bucket-object-lock-enabled`` |  | Enable object lock on bucket. | ``true``, ``false`` | No |
 
-#### Request Entities
+### Request Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
 | ``CreateBucketConfiguration`` | Container | A container for the bucket configuration. |
-| ``LocationConstraint`` | String | A zonegroup api name, with optional [s3_bucket_placement](../placement.md#s3-bucket-placement) |
+| ``LocationConstraint`` | String | A zonegroup api name, with optional [s3_bucket_placement](../placement.md#s3_bucket_placement) |
 
-#### HTTP Response
+### HTTP Response
 
 If the bucket name is unique, within constraints and unused, the operation will succeed.
 If a bucket with the same name already exists and the user is the bucket owner, the operation will succeed.
@@ -63,7 +63,7 @@ If the bucket name is already in use, the operation will fail.
 
 Deletes a bucket. You can reuse bucket names following a successful bucket removal.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -74,7 +74,7 @@ Host: cname.domain.com
 Authorization: AWS {access-key}:{hash-of-header-and-secret}
 ```
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
@@ -83,7 +83,7 @@ Authorization: AWS {access-key}:{hash-of-header-and-secret}
 ## GET Bucket
 Returns a list of bucket objects.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -92,7 +92,7 @@ GET /{bucket}?max-keys=25 HTTP/1.1
 Host: cname.domain.com
 ```
 
-#### Parameters
+### Parameters
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -102,13 +102,13 @@ Host: cname.domain.com
 | ``max-keys`` | Integer | The maximum number of keys to return. Default is 1000. |
 | ``allow-unordered`` | Boolean | Non-standard extension. Allows results to be returned unordered. Cannot be used with delimiter. |
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
 | ``200`` | OK | Buckets retrieved |
 
-#### Bucket Response Entities
+### Bucket Response Entities
 ``GET /{bucket}`` returns a container for buckets with the following fields.
 
 | Name | Type | Description |
@@ -122,7 +122,7 @@ Host: cname.domain.com
 | ``IsTruncated`` | Boolean | If ``true``, only a subset of the bucket's contents were returned. |
 | ``CommonPrefixes`` | Container | If multiple objects contain the same prefix, they will appear in this list. |
 
-#### Object Response Entities
+### Object Response Entities
 The ``ListBucketResult`` contains objects, where each object is within a ``Contents`` container.
 
 | Name | Type | Description |
@@ -140,7 +140,7 @@ Retrieves the bucket's region. The user needs to be the bucket owner
 to call this. A bucket can be constrained to a region by providing
 ``LocationConstraint`` during a PUT request.
 
-#### Syntax
+### Syntax
 Add the ``location`` subresource to bucket resource as shown below
 
 :
@@ -152,7 +152,7 @@ Host: cname.domain.com
 Authorization: AWS {access-key}:{hash-of-header-and-secret}
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -162,7 +162,7 @@ Authorization: AWS {access-key}:{hash-of-header-and-secret}
 Retrieves the bucket access control list. The user needs to be the bucket
 owner or to have been granted ``READ_ACP`` permission on the bucket.
 
-#### Syntax
+### Syntax
 Add the ``acl`` subresource to the bucket request as shown below.
 
 :
@@ -174,7 +174,7 @@ Host: cname.domain.com
 Authorization: AWS {access-key}:{hash-of-header-and-secret}
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -191,7 +191,7 @@ Authorization: AWS {access-key}:{hash-of-header-and-secret}
 Sets an access control to an existing bucket. The user needs to be the bucket
 owner or to have been granted ``WRITE_ACP`` permission on the bucket.
 
-#### Syntax
+### Syntax
 Add the ``acl`` subresource to the bucket request as shown below.
 
 :
@@ -200,7 +200,7 @@ Add the ``acl`` subresource to the bucket request as shown below.
 PUT /{bucket}?acl HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -218,7 +218,7 @@ PUT /{bucket}?acl HTTP/1.1
 ``GET /?uploads`` returns a list of the current in-progress multipart uploads--i.e., the application initiates a multipart upload, but
 the service hasn't completed all the uploads yet.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -226,7 +226,7 @@ the service hasn't completed all the uploads yet.
 GET /{bucket}?uploads HTTP/1.1
 ```
 
-#### Parameters
+### Parameters
 
 You may specify parameters for ``GET /{bucket}?uploads``, but none of them are required.
 
@@ -239,7 +239,7 @@ You may specify parameters for ``GET /{bucket}?uploads``, but none of them are r
 | ``max-uploads`` | Integer | The maximum number of multipart uploads. The range from 1-1000. The default is 1000. |
 | ``upload-id-marker`` <br> | String <br> | Ignored if ``key-marker`` is not specified. Specifies the ``ID`` of first <br> upload to list in lexicographical order at or following the ``ID``. |
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -276,7 +276,7 @@ You can set the versioning state with one of the following values:
 
 If the versioning state has never been set on a bucket, it has no versioning state; a GET versioning request does not return a versioning state value.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -284,7 +284,7 @@ If the versioning state has never been set on a bucket, it has no versioning sta
 PUT  /{bucket}?versioning  HTTP/1.1
 ```
 
-#### REQUEST ENTITIES
+### REQUEST ENTITIES
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -296,7 +296,7 @@ PUT  /{bucket}?versioning  HTTP/1.1
 Places an Object Lock configuration on the specified bucket. The rule specified in the Object Lock configuration will be
 applied by default to every new object placed in the specified bucket.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -304,7 +304,7 @@ applied by default to every new object placed in the specified bucket.
 PUT /{bucket}?object-lock HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 | Name | Type | Description | Required |
 | --- | --- | --- | --- |
@@ -316,7 +316,7 @@ PUT /{bucket}?object-lock HTTP/1.1
 | ``Days`` | Integer | The number of days specified for the default retention period. | No |
 | ``Years`` | Integer | The number of years specified for the default retention period. | No |
 
-#### HTTP Response
+### HTTP Response
 
 If the bucket object lock is not enabled when creating the bucket, the operation will fail.
 
@@ -330,7 +330,7 @@ If the bucket object lock is not enabled when creating the bucket, the operation
 Gets the Object Lock configuration for a bucket. The rule specified in the Object Lock configuration will be applied by
 default to every new object placed in the specified bucket.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -338,7 +338,7 @@ default to every new object placed in the specified bucket.
 GET /{bucket}?object-lock HTTP/1.1
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description | Required |
 | --- | --- | --- | --- |
@@ -354,7 +354,7 @@ GET /{bucket}?object-lock HTTP/1.1
 
 Create a publisher for a specific bucket into a topic.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -362,7 +362,7 @@ Create a publisher for a specific bucket into a topic.
 PUT /{bucket}?notification HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 Parameters are XML encoded in the body of the request, in the following format:
 
@@ -413,7 +413,7 @@ Parameters are XML encoded in the body of the request, in the following format:
 | ``S3Metadata.FilterRule`` <br> <br> | Container <br> <br> | Holding ``Name`` and ``Value`` entities. ``Name`` would be the name of the metadata <br> attribute (e.g. ``x-amz-meta-xxx``). The ``Value`` would be the expected value for <br> this attribute. | Yes <br> <br> |
 | ``S3Tags.FilterRule`` <br> | Container <br> | Holding ``Name`` and ``Value`` entities. ``Name`` would be the tag key, <br> and ``Value`` would be the tag value. | Yes <br> |
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
@@ -431,7 +431,7 @@ Delete a specific, or all, notifications from a bucket.
 > - When the bucket is deleted, any notification defined on it is also deleted
 > - Deleting an unknown notification (e.g. double delete) is not considered an error
 
-#### Syntax
+### Syntax
 
 :
 
@@ -439,13 +439,13 @@ Delete a specific, or all, notifications from a bucket.
 DELETE /{bucket}?notification[=<notification-id>] HTTP/1.1
 ```
 
-#### Parameters
+### Parameters
 
 | Name | Type | Description |
 | --- | --- | --- |
 | ``notification-id`` | String | Name of the notification. If not provided, all notifications on the bucket are deleted |
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
@@ -455,7 +455,7 @@ DELETE /{bucket}?notification[=<notification-id>] HTTP/1.1
 
 Get a specific notification, or list all notifications configured on a bucket.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -463,13 +463,13 @@ Get a specific notification, or list all notifications configured on a bucket.
 GET /{bucket}?notification[=<notification-id>] HTTP/1.1
 ```
 
-#### Parameters
+### Parameters
 
 | Name | Type | Description |
 | --- | --- | --- |
 | ``notification-id`` | String | Name of the notification. If not provided, all notifications on the bucket are listed |
 
-#### Response Entities
+### Response Entities
 
 The response is XML encoded in the body of the request, in the following format:
 
@@ -514,7 +514,7 @@ The response is XML encoded in the body of the request, in the following format:
 | ``Event`` | String | Handled event. Multiple ``Event`` entities may exist | Yes |
 | ``Filter`` | Container | Holding the filters configured for this notification | No |
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
@@ -525,7 +525,7 @@ The response is XML encoded in the body of the request, in the following format:
 
 Enable logging for a bucket.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -533,7 +533,7 @@ Enable logging for a bucket.
 PUT /{bucket}?logging HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 Parameters are XML encoded in the body of the request, in the following format:
 
@@ -590,7 +590,7 @@ Parameters are XML encoded in the body of the request, in the following format:
 | ``LoggingType`` <br> <br> <br> <br> <br> | String <br> <br> <br> <br> <br> | The type of logging. Valid values are: <br> ``Standard`` (default) all bucket operations are logged after being performed. \| <br> The log record will contain all fields. <br> ``Journal`` only operations that modify and object are logged. <br> Will record the minimum subset of fields in the log record that is needed <br> for journaling. | No <br> <br> <br> <br> |
 | ``ObjectRollTime`` <br> | Integer <br> | The time in seconds after which a new log object is created, and the previous log <br> object added to the log bucket. Default is 3600 seconds (1 hour). | No <br> |
 
-#### Response Entities
+### Response Entities
 
 The response is XML encoded in the body of the request, only if a configuration change triggers flushing of the current logging object.
 In this case it will return the name of the flushed logging object in following format:
@@ -603,7 +603,7 @@ In this case it will return the name of the flushed logging object in following 
 </PostBucketLoggingOutput>
 ```
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
@@ -615,7 +615,7 @@ In this case it will return the name of the flushed logging object in following 
 
 Disable bucket logging from a bucket.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -623,7 +623,7 @@ Disable bucket logging from a bucket.
 PUT /{bucket}?logging HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 Parameters are XML encoded in the body of the request, in the following format:
 
@@ -634,7 +634,7 @@ Parameters are XML encoded in the body of the request, in the following format:
 </BucketLoggingStatus>
 ```
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
@@ -644,7 +644,7 @@ Parameters are XML encoded in the body of the request, in the following format:
 
 Get logging configured on a bucket.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -652,7 +652,7 @@ Get logging configured on a bucket.
 GET /{bucket}?logging HTTP/1.1
 ```
 
-#### Response Entities
+### Response Entities
 
 The response header contains ``Last-Modified`` date/time of the logging configuration.
 Logging configuration is XML encoded in the body of the response, in the following format:
@@ -697,7 +697,7 @@ Logging configuration is XML encoded in the body of the response, in the followi
 </BucketLoggingStatus>
 ```
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |
@@ -708,7 +708,7 @@ Logging configuration is XML encoded in the body of the response, in the followi
 Flushes logging object for a given source bucket (if not flushed, the logging objects are written lazily to the log bucket).
 Returns the name of the object that was flushed. Flushing will happen even if the logging object is empty.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -716,7 +716,7 @@ Returns the name of the object that was flushed. Flushing will happen even if th
 POST /{bucket}?logging HTTP/1.1
 ```
 
-#### Response Entities
+### Response Entities
 
 The response is XML encoded in the body of the request, in the following format:
 
@@ -728,7 +728,7 @@ The response is XML encoded in the body of the request, in the following format:
 </PostBucketLoggingOutput>
 ```
 
-#### HTTP Response
+### HTTP Response
 
 | HTTP Status | Status Code | Description |
 | --- | --- | --- |

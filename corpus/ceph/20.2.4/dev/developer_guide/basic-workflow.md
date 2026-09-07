@@ -84,11 +84,11 @@ The procedure for making changes to the Ceph repository is as follows:
 
    1. [Synchronize local main with upstream main](basic-workflow.md#synchronizing).
 
-   1. [Create a bugfix branch](basic-workflow.md#bugfix-branch) in your local working copy.
+   1. [Create a bugfix branch](basic-workflow.md#bugfix_branch) in your local working copy.
 
-   1. [Make alterations to the local working copy of the repository in your local filesystem](basic-workflow.md#fixing-bug-locally).
+   1. [Make alterations to the local working copy of the repository in your local filesystem](basic-workflow.md#fixing_bug_locally).
 
-   1. [Push the changes in your local working copy to your fork](basic-workflow.md#push-changes).
+   1. [Push the changes in your local working copy to your fork](basic-workflow.md#push_changes).
 
 1. Create a Pull Request to push the change upstream.
 
@@ -197,7 +197,7 @@ Follow this procedure often to keep your local ``main`` in sync with upstream
 If the command ``git status`` returns a line that reads "Untracked files", see
 [the procedure on updating submodules](../../install/clone-source.md#update-submodules).
 
-<a id="bugfix-branch"></a>
+<a id="bugfix_branch"></a>
 
 ### Creating a Bugfix branch
 
@@ -220,7 +220,7 @@ in order to fix the bug will be committed to this branch.
 The third command (``git push -u origin fix_1``) pushes the bugfix branch from
 your local working repository to your fork of the upstream repository.
 
-<a id="fixing-bug-locally"></a>
+<a id="fixing_bug_locally"></a>
 
 ### Fixing the bug in the local working copy
 
@@ -262,7 +262,7 @@ believe that it works.
 git commit -as
 ```
 
-<a id="push-changes"></a>
+<a id="push_changes"></a>
 
 1. Push the changes to your fork:
 
@@ -282,21 +282,25 @@ git push origin fix_1
 > It is possible that ``origin`` is not the name of your fork. Discover the
 > name of your fork by running ``git remote -v``, as shown here:
 >
-> .. code-block:: bash
+> ```bash
+> $ git remote -v
+> ceph   https://github.com/ceph/ceph.git (fetch)
+> ceph   https://github.com/ceph/ceph.git (push)
+> origin git@github.com:username/ceph.git (fetch)
+> origin git@github.com:username/ceph.git (push)
+> ```
 >
->    $ git remote -v
->    ceph   https://github.com/ceph/ceph.git (fetch)
->    ceph   https://github.com/ceph/ceph.git (push)
->    origin git@github.com:username/ceph.git (fetch)
->    origin git@github.com:username/ceph.git (push)
+> The line:
 >
-> The line::
+> ```
+> origin git@github.com:username/ceph.git (fetch)
+> ```
 >
->    origin git@github.com:username/ceph.git (fetch)
+> and the line:
 >
-> and the line::
->
->    origin git@github.com:username/ceph.git (push)
+> ```
+> origin git@github.com:username/ceph.git (push)
+> ```
 >
 > provide the information that ``origin`` is the name of your fork of the
 > Ceph repository.

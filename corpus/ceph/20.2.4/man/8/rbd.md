@@ -11,12 +11,12 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd
 
-# Synopsis
+## Synopsis
 
 | **rbd** [ -c *ceph.conf* ] [ -m *monaddr* ] [--cluster *cluster-name*]
   [ -p | --pool *pool* ] [ *command* ... ]
 
-# Description
+## Description
 
 **rbd** is a utility for manipulating rados block device (RBD) images,
 used by the Linux rbd driver and the rbd storage driver for QEMU/KVM.
@@ -24,7 +24,7 @@ RBD images are simple block devices that are striped over objects and
 stored in a RADOS object store. The size of the objects the image is
 striped over must be a power of two.
 
-# Options
+## Options
 
 .. option:: -c ceph.conf, --conf ceph.conf
 
@@ -52,7 +52,7 @@ striped over must be a power of two.
    Do not output progress information (goes to standard error by
    default for some commands).
 
-# Parameters
+## Parameters
 
 .. option:: --image-format format-id
 
@@ -173,7 +173,7 @@ striped over must be a power of two.
 
    Specifies the limit for the number of snapshots permitted.
 
-# Commands
+## Commands
 
 .. TODO rst "option" directive seems to require --foo style options, parsing breaks on subcommands.. the args show up as bold too
 
@@ -705,7 +705,7 @@ trash purge schedule status [-p | --pool *pool*] [--format *format*] [--pretty-f
 watch *image-spec*
   Watch events on image.
 
-# Image, snap, group and journal specs
+## Image, snap, group and journal specs
 
 | *image-spec*      is [*pool-name*/[*namespace-name*/]]\ *image-name*
 | *snap-spec*       is [*pool-name*/[*namespace-name*/]]\ *image-name*\ @\ *snap-name*
@@ -721,7 +721,7 @@ The *journal-name* is *image-id*.
 You may specify each name individually, using --pool, --namespace, --image, and
 --snap options, but this is discouraged in favor of the above spec syntax.
 
-# Striping
+## Striping
 
 RBD images are striped over many objects, which are then stored by the
 Ceph distributed object store (RADOS).  As a result, read and write
@@ -750,7 +750,7 @@ The striping is controlled by three parameters:
 By default, [*stripe-unit*] is the same as the object size and [*stripe-count*] is 1.  Specifying a different
 [*stripe-unit*] and/or [*stripe-count*] is often referred to as using "fancy" striping and requires format 2.
 
-# Kernel rbd (krbd) options
+## Kernel rbd (krbd) options
 
 Most of these options are useful mainly for debugging and benchmarking.  The
 default values are set in the kernel and may therefore depend on the version of
@@ -939,7 +939,7 @@ crush_location=rack:myrack1|rack:myrack2|datacenter:mydc
 
 * noudev - Don't wait for udev device manager.
 
-# Examples
+## Examples
 
 To create a new rbd image that is 100 GB:
 
@@ -1078,12 +1078,12 @@ To create a mirror snapshot schedule for an image:
 rbd mirror snapshot schedule add --pool mypool --image myimage 12h 14:00:00-05:00
 ```
 
-# Availability
+## Availability
 
 **rbd** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [rados](../../cephadm/services/smb.md#rados)\(8)

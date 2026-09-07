@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Create a Ceph file system
 
-# Creating pools
+## Creating pools
 
 A Ceph file system requires at least two RADOS pools, one for data and one for metadata.
 There are important considerations when planning these pools:
@@ -23,7 +23,7 @@ There are important considerations when planning these pools:
   directly affect the latency of client file system operations.
 - We strongly suggest that the CephFS metadata pool be provisioned on dedicated
   SSD / NVMe OSDs. This ensures that high client workload does not adversely
-  impact metadata operations. See [device_classes](../rados/operations/crush-map.md#device-classes) to configure pools this
+  impact metadata operations. See [device_classes](../rados/operations/crush-map.md#device_classes) to configure pools this
   way.
 - The data pool used to create the file system is the "default" data pool and
   the location for storing all inode backtrace information, which is used for hard link
@@ -51,7 +51,7 @@ used in practice for large clusters.
 > **Note:** The names of the file systems, metadata pools, and data pools can
 > only have characters in the set [a-zA-Z0-9\_-.].
 
-# Creating a file system
+## Creating a file system
 
 Once the pools are created, you may enable the file system using the ``fs new`` command:
 
@@ -121,11 +121,11 @@ If you have created more than one file system, and a client does not
 specify a file system when mounting, you can control which file system
 they will see by using the ``ceph fs set-default`` command.
 
-## Adding a Data Pool to the File System
+### Adding a Data Pool to the File System
 
 See [adding-data-pool-to-file-system](file-layouts.md#adding-data-pool-to-file-system).
 
-# Using Erasure Coded pools with CephFS
+## Using Erasure Coded pools with CephFS
 
 You may use Erasure Coded pools as CephFS data pools as long as they have overwrites enabled, which is done as follows:
 

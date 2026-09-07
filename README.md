@@ -24,7 +24,7 @@ cd builder
 ```
 
 Ceph 20.2.4 的全量產出可用 validator 重跑 metadata、RST table 與 offline link
-分類檢查：
+檢查：
 
 ```bash
 builder/.venv/bin/python builder/validate_ceph_corpus.py
@@ -33,9 +33,6 @@ builder/.venv/bin/python builder/validate_ceph_corpus.py
 這個完整模式需要建置端的固定 commit raw checkout；只有 corpus 時可明確使用
 `--allow-missing-raw` 做 content-only 檢查。
 
-validator 會把官方文件中的 credential-shaped teaching examples 做唯讀 inventory；
-不遮罩 PEM delimiter/body、CephX token 或其他原文，並用 opaque fingerprint 確認
-raw source 與 corpus payload 一致。這些 upstream 範例是 informational，不是 failure。
 無法解析的 RST reference 或 source-relative link 會保留明確 classification marker，
 報告數量但不假裝全部 offline link 都已解析；真正殘留的 RST syntax、錯誤的 local
 target 或 source/commit metadata mismatch 仍會 fail。

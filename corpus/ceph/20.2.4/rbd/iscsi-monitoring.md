@@ -1,11 +1,11 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "iscsi-monitoring"
+title: "Monitoring Ceph iSCSI gateways"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rbd/iscsi-monitoring.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-## Monitoring Ceph iSCSI gateways
+# Monitoring Ceph iSCSI gateways
 
 Ceph provides a tool for iSCSI gateway environments
 to monitor performance of exported RADOS Block Device (RBD) images.

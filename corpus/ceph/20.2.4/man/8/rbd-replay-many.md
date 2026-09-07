@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd-replay-many
 
-# Synopsis
+## Synopsis
 
 | **rbd-replay-many** [ *options* ] --original-image *name* *host1* [ *host2* [ ... ] ] -- *rbd_replay_args*
 
-# Description
+## Description
 
 **rbd-replay-many** is a utility for replaying a rados block device (RBD) workload on several clients.
 Although all clients use the same workload, they replay against separate images.
@@ -24,7 +24,7 @@ This matches normal use of librbd, where each original client is a VM with its o
 Configuration and replay files are not automatically copied to clients.
 Replay images must already exist.
 
-# Options
+## Options
 
 .. option:: --original-image name
 
@@ -45,7 +45,7 @@ Replay images must already exist.
 
    Delay between starting each client.  Defaults to 0.
 
-# Examples
+## Examples
 
 Typical usage:
 
@@ -60,12 +60,12 @@ ssh host-0 'rbd-replay' --map-image 'image=image-0' -c ceph.conf replay.bin
 ssh host-1 'rbd-replay' --map-image 'image=image-1' -c ceph.conf replay.bin
 ```
 
-# Availability
+## Availability
 
 **rbd-replay-many** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [rbd-replay](rbd-replay.md)\(8),
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

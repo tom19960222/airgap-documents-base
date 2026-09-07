@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Manifest
 
-# Introduction
+## Introduction
 
 As described in ``../deduplication.rst``, adding transparent redirect
 machinery to RADOS would enable a more capable tiering solution
@@ -25,9 +25,9 @@ This document exists to detail:
 2. Rados operations for manipulating manifests.
 3. Status and Plans
 
-# Intended Usage Model
+## Intended Usage Model
 
-## RBD
+### RBD
 
 For RBD, the primary goal is for either an OSD-internal agent or a
 cluster-external agent to be able to transparently shift portions
@@ -74,7 +74,7 @@ initial read would need a ``LIST_SNAPS`` to determine which clones exist
 and the ``PROMOTE`` or ``SET_CHUNK``/``EVICT`` operations would need to include
 the ``cloneid``.
 
-## RadosGW
+### RadosGW
 
 For reads, RADOS Gateway (RGW) could operate as RBD does above relying on the
 manifest machinery in the OSD to hide the distinction between the object
@@ -86,7 +86,7 @@ In that case, it could immediately write out the target objects to the
 CAS pool and then atomically write an object with the corresponding
 chunks set.
 
-# Status and Future Work
+## Status and Future Work
 
 At the moment, initial versions of a manifest data structure along
 with IO path support and rados control operations exist.  This section
@@ -108,7 +108,7 @@ At a high level, our future work plan is:
   cache/tiering implementation, but to do that we need to ensure that we
   can address the same use cases.
 
-## Cleanups
+### Cleanups
 
 The existing implementation has some things that need to be cleaned up:
 
@@ -165,7 +165,7 @@ case CEPH_OSD_OP_SET_CHUNK:
     change to ``SET_CHUNK`` to always retain the existing object region, we
     need an ``EVICT_CHUNK`` operation to then remove the extent.
 
-## Testing
+### Testing
 
 We rely really heavily on randomized failure testing.  As such, we need
 to extend that testing to include dedup/manifest support as well.  Here's
@@ -187,7 +187,7 @@ a short list of the touchpoints:
   Add a test that runs a rgw workload concurrently with blind
   promote/evict operations.
 
-## Snapshots
+### Snapshots
 
 Fundamentally we need to be able to manipulate the manifest
 status of clones because we want to be able to dynamically promote,
@@ -288,7 +288,7 @@ This seems complicated, but it gets us two valuable properties:
 All clone operations will need to consider adjacent ``chunk_maps``
 when adding or removing references.
 
-# Data Structures
+## Data Structures
 
 Each RADOS object contains an ``object_manifest_t`` embedded within the
 ``object_info_t`` (see ``osd_types.h``):
@@ -337,7 +337,7 @@ struct chunk_info_t {
 ``FLAG_DIRTY`` at this time can happen if an extent with a fingerprint
 is written.  This should be changed to drop the fingerprint instead.
 
-# Request Handling
+## Request Handling
 
 Similarly to cache/tiering, the initial touchpoint is
 ``maybe_handle_manifest_detail``.
@@ -352,7 +352,7 @@ For reads on ``TYPE_CHUNKED``, if ``can_proxy_chunked_read`` (basically, all
 of the ops are reads of extents in the ``object_manifest_t chunk_map``),
 we proxy requests to those objects.
 
-# RADOS Interface
+## RADOS Interface
 
 To set up deduplication one must provision two pools. One will act as the
 base pool and the other will act as the chunk pool. The base pool need to be
@@ -522,7 +522,7 @@ rados -p base_pool tier-flush <obj-name>
 
   Does not evict the extents.
 
-# ceph-dedup-tool
+## ceph-dedup-tool
 
 ``ceph-dedup-tool`` has two features: finding an optimal chunk offset for dedup chunking
 and fixing the reference count (see ``./refcount.rst``).

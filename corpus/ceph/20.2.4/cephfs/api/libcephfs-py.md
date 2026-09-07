@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 The `cephfs` python module provides access to CephFS service.
 
-# API calls
+## API calls
 
 .. automodule:: cephfs
    :members: DirEntry, DirResult, LibCephFS

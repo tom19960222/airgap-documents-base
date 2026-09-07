@@ -25,9 +25,9 @@ examining, modifying, and extracting data from journals.
 
 .. parsed-literal::
 
-   cephfs-journal-tool [[options](cephfs-journal-tool.md#cephfs-journal-tool-options)] journal <inspect|import|export|reset>
-   cephfs-journal-tool [[options](cephfs-journal-tool.md#cephfs-journal-tool-options)] header <get|set> <trimmed_pos|expire_pos|write_pos|pool_id> <value>
-   cephfs-journal-tool [[options](cephfs-journal-tool.md#cephfs-journal-tool-options)] event <get|splice|recover_dentries> [filter] <list|json|summary|binary>
+   cephfs-journal-tool [[options](cephfs-journal-tool.md#cephfs_journal_tool_options)] journal <inspect|import|export|reset>
+   cephfs-journal-tool [[options](cephfs-journal-tool.md#cephfs_journal_tool_options)] header <get|set> <trimmed_pos|expire_pos|write_pos|pool_id> <value>
+   cephfs-journal-tool [[options](cephfs-journal-tool.md#cephfs_journal_tool_options)] event <get|splice|recover_dentries> [filter] <list|json|summary|binary>
 
 The tool operates in three modes: ``journal``, ``header`` and ``event``,
 meaning the whole journal, the header, and the events within the journal
@@ -51,7 +51,7 @@ This should be your starting point to assess the state of a journal.
 * ``reset`` truncates a journal, discarding any information within it. Using ``--force`` does a
   hard reset without trying to recover from on-disk.
 
-#### Example: journal inspect
+### Example: journal inspect
 
 :
 
@@ -64,7 +64,7 @@ Corrupt regions:
   0x400000-ffffffffffffffff
 ```
 
-#### Example: Journal import/export
+### Example: Journal import/export
 
 :
 
@@ -96,7 +96,7 @@ done.
 * ``set`` modifies an attribute of the header.  Allowed attributes are
   ``trimmed_pos``, ``expire_pos``,  ``write_pos`` and ``pool_id``.
 
-#### Example: header get/set
+### Example: header get/set
 
 :
 
@@ -161,7 +161,7 @@ Output modes:
 * ``list``: write a human readable terse listing of the type of each event, and
   which file paths the event affects.
 
-#### Example: event mode
+### Example: event mode
 
 :
 
@@ -241,9 +241,9 @@ Errors: 0
 Wrote output to binary files in directory 'bin_events'
 ```
 
-<a id="cephfs-journal-tool-options"></a>
+<a id="cephfs_journal_tool_options"></a>
 
-#### Options
+### Options
 
 * ``--rank=<filesystem>:{mds-rank|all}`` Used to specify the filesystem, the MDS rank or all ranks.
 * ``--journal=<mdlog|purge_queue>`` The journal type. The default value is ``mdlog``, which is the

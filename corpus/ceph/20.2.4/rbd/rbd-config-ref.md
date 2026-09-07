@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 See [Block Device](index.md) for additional details.
 
-# Generic IO Settings
+## Generic IO Settings
 
 .. confval:: rbd_compression_hint
 
@@ -17,7 +17,7 @@ See [Block Device](index.md) for additional details.
 
 .. confval:: rbd_default_order
 
-# Cache Settings
+## Cache Settings
 
 .. sidebar:: Kernel Caching
 
@@ -76,7 +76,7 @@ include:
 
 .. confval:: rbd_cache_max_dirty_age
 
-# Read-ahead Settings
+## Read-ahead Settings
 
 librbd supports read-ahead/prefetching to optimize small, sequential reads.
 This should normally be handled by the guest OS in the case of a VM,
@@ -89,7 +89,7 @@ disabled if caching is disabled or if the policy is write-around.
 
 .. confval:: rbd_readahead_disable_after_bytes
 
-# Image Features
+## Image Features
 
 RBD supports advanced features which can be specified via the command line when
 creating images or the default features can be configured via
@@ -211,11 +211,11 @@ creating images or the default features can be configured via
 :Added in: v15.2.0 (Octopus)
 :KRBD support: no
 
-# Clone Settings
+## Clone Settings
 
 .. confval:: rbd_default_clone_format
 
-# QoS Settings
+## QoS Settings
 
 librbd supports limiting per-image IO in several ways. These all apply
 to a given image within a given process - the same image used in

@@ -12,7 +12,7 @@ the mons.  Generally speaking, you can put whatever you want there.
 Current in-tree users should be captured here with their key layout
 schema.
 
-# OSD dm-crypt keys
+## OSD dm-crypt keys
 
 Key:
 
@@ -35,7 +35,7 @@ dm-crypt/osd/$OSD_UUID prefix is allowed by a client.osd-lockbox.$OSD_UUID
 cephx key, such that only the appropriate host can retrieve the LUKS key (which
 in turn decrypts the actual raw key, also stored on the device itself).
 
-# ceph-mgr modules
+## ceph-mgr modules
 
 The convention for keys is:
 
@@ -57,7 +57,7 @@ mgr/dashboard/foo/server_addr = 1.2.3.4
 mgr/dashboard/bar/server_addr = 1.2.3.5
 ```
 
-# Configuration
+## Configuration
 
 Configuration options for clients and daemons are also stored in config-key.
 

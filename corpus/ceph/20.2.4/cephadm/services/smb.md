@@ -16,7 +16,7 @@ fetched_at: 2026-08-18T01:32:45Z
 > has been determined to be unsuitable for your needs we recommend using that
 > module over directly using the smb service spec.
 
-# Deploying Samba Containers
+## Deploying Samba Containers
 
 Cephadm deploys [Samba](http://www.samba.org) servers using container images
 built by the [samba-container project](http://github.com/samba-in-kubernetes/samba-container).
@@ -31,7 +31,7 @@ ceph orch apply smb <cluster_id> <config_uri> [--features ...] [--placement ...]
 There are a number of additional parameters that the command accepts. See
 the Service Specification for a description of these options.
 
-# Service Specification
+## Service Specification
 
 An SMB Service can be applied using a specification. An example in YAML follows:
 
@@ -60,7 +60,7 @@ The specification can then be applied by running the following command:
 ceph orch apply -i smb.yaml
 ```
 
-## Service Spec Options
+### Service Spec Options
 
 Fields specific to the ``spec`` section of the SMB Service are described below.
 
@@ -175,7 +175,7 @@ cluster_public_addrs
 > to the samba containers. The latter is used by Samba's CTDB component to
 > manage an internal cluster lock.
 
-## Configuring an SMB Service
+### Configuring an SMB Service
 
 > **Warning:**
 > A Manager module for SMB is under active development. Once that module
@@ -248,7 +248,7 @@ exercise for the reader.
 > **Note:** All URI schemes are supported by parameters that accept URIs. Each
 > scheme has different performance and security characteristics.
 
-# Limitations
+## Limitations
 
 A non-exhaustive list of important limitations for the SMB service follows:
 

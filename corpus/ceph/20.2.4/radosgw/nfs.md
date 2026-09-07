@@ -20,7 +20,7 @@ provide file-based access when embedded in the NFS-Ganesha NFS server.
 The simplest and preferred way of managing nfs-ganesha clusters and rgw exports
 is using ``ceph nfs ...`` commands. See [/mgr/nfs](../mgr/nfs.md) for more details.
 
-# librgw
+## librgw
 
 The ``librgw`` library provides a loadable interface to
 Ceph Object Gateway services, and instantiates a full Ceph Object Gateway
@@ -33,7 +33,7 @@ of NFS-Ganesha, for which it has been primarily designed.
 
 A set of Python bindings is also provided.
 
-# Namespace Conventions
+## Namespace Conventions
 
 The implementation conforms to Amazon Web Services (AWS) hierarchical
 namespace conventions which map UNIX-style path names onto S3 buckets
@@ -62,7 +62,7 @@ an attribute-setting operation such as chown or chmod) always have a
 leaf object representation used to store materialized attributes such
 as Unix ownership and permissions.
 
-# Supported Operations
+## Supported Operations
 
 The RGW NFS interface supports most operations on files and
 directories, with the following restrictions:
@@ -84,7 +84,7 @@ directories, with the following restrictions:
   + When mounting via NFS, sequential application I/O can generally be constrained to be written sequentially to the NFS server via a synchronous mount option (e.g. -osync in Linux).
   + NFS clients which cannot mount synchronously (e.g., MS Windows) will not be able to upload files.
 
-# Security
+## Security
 
 The RGW NFS interface provides a hybrid security model with the
 following characteristics:
@@ -103,7 +103,7 @@ following characteristics:
 
     * additional RGW authentication types such as Keystone are not currently supported
 
-# Manually configuring an NFS-Ganesha Instance
+## Manually configuring an NFS-Ganesha Instance
 
 Each NFS RGW instance is an NFS-Ganesha server instance *embedding*
 a full Ceph RGW instance.
@@ -113,7 +113,7 @@ Gateway-specific configuration in a local ceph.conf, as well as
 NFS-Ganesha-specific configuration in the NFS-Ganesha config file,
 ganesha.conf.
 
-## ceph.conf
+### ceph.conf
 
 Required ceph.conf configuration for RGW NFS includes:
 
@@ -131,7 +131,7 @@ In particular, front-end selection is handled specially by the librgw.so runtime
 ``rgw nfs frontends`` config option.  Its syntax is identical to the ordinary ``rgw frontends`` option.
 Default options for non-default frontends are specified via ``rgw frontend defaults`` as normal.
 
-## ganesha.conf
+### ganesha.conf
 
 A strictly minimal ganesha.conf for use with RGW NFS includes one
 EXPORT block with embedded FSAL block of type RGW:
@@ -285,7 +285,7 @@ Example:
 }
 ```
 
-# Running Multiple NFS Gateways
+## Running Multiple NFS Gateways
 
 Each NFS-Ganesha instance acts as a full gateway endpoint, with the
 limitation that currently an NFS-Ganesha instance cannot be configured
@@ -300,7 +300,7 @@ API and through the NFS-Ganesha instance as exported. You can
 co-locate the NFS-Ganesha instance with a Ceph Object Gateway instance
 on the same host.
 
-# RGW vs RGW NFS
+## RGW vs RGW NFS
 
 Exporting an NFS namespace and other RGW namespaces (e.g., S3 or Swift
 via the Civetweb HTTP front-end) from the same program instance is
@@ -319,7 +319,7 @@ if a Swift container name contains underscores, it is not a valid S3
 bucket name and will be rejected unless ``rgw_relaxed_s3_bucket_names``
 is set to true.
 
-# Configuring NFSv4 clients
+## Configuring NFSv4 clients
 
 To access the namespace, mount the configured NFS-Ganesha export(s)
 into desired locations in the local POSIX namespace. As noted, this
@@ -349,7 +349,7 @@ In /etc/fstab::
 Specify the NFS-Ganesha host name and the path to the mount point on
 the client.
 
-# Configuring NFSv3 Clients
+## Configuring NFSv3 Clients
 
 Linux clients can be configured to mount with NFSv3 by supplying
 ``nfsvers=3`` and ``noacl`` as mount options. To use UDP as the
@@ -363,7 +363,7 @@ preferred transport:
 Configure the NFS Ganesha EXPORT block Protocols setting with version
 3 and the Transports setting with UDP if the mount will use version 3 with UDP.
 
-## NFSv3 Semantics
+### NFSv3 Semantics
 
 Since NFSv3 does not communicate client OPEN and CLOSE operations to
 file servers, RGW NFS cannot use these operations to mark the
@@ -374,6 +374,6 @@ seen for a period of time, by default, 10 seconds. To change this
 timeout, set an alternate value for ``rgw_nfs_write_completion_interval_s``
 in the RGW section(s) of the Ceph configuration file.
 
-# References
+## References
 
 .. [#] http://docs.aws.amazon.com/AmazonS3/latest/dev/ListingKeysHierarchy.html

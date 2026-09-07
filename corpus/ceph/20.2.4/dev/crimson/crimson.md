@@ -21,7 +21,7 @@ See [ceph.io/en/news/crimson](https://ceph.io/en/news/crimson/)
 
 .. highlight:: console
 
-# Building Crimson
+## Building Crimson
 
 Crimson is not enabled by default. Enable it at build time by running:
 
@@ -33,7 +33,7 @@ $ ./do_cmake.sh -DWITH_CRIMSON=ON
 Please note, [ASan](https://github.com/google/sanitizers/wiki/AddressSanitizer) is enabled by default if Crimson is built from a source
 cloned using ``git``.
 
-# Deploying Crimson with cephadm
+## Deploying Crimson with cephadm
 
 > **Note:**
 > Cephadm SeaStore support is in [early stages](https://tracker.ceph.com/issues/71946).
@@ -62,11 +62,11 @@ cephadm --image quay.ceph.io/ceph-ci/ceph:<sha1>-crimson-release --allow-mismatc
 
 You'll likely need to include the ``--allow-mismatched-release`` flag to use a non-release branch.
 
-# Crimson CPU allocation
+## Crimson CPU allocation
 
 > **Note:**
 > 1. Allocation options **cannot** be changed after deployment.
-> 1. [vstart.sh](crimson.md#vstart-sh) sets these options using the ``--crimson-smp`` flag.
+> 1. [vstart.sh](crimson.md#vstartsh) sets these options using the ``--crimson-smp`` flag.
 
 The ``crimson_seastar_num_threads`` parameter defines the number of threads used to serve Seastar reactors.
 Each thread is expected to run on a dedicated CPU core.
@@ -89,7 +89,7 @@ This enables CPU pinning, which *may* improve performance.
 However, using this option requires manually setting the CPU set for each OSD,
 and is generally less recommended due to its complexity.
 
-# Running Crimson
+## Running Crimson
 
 > **Note:**
 > Crimson is in a tech preview stage and is **not suitable for production use**.
@@ -99,7 +99,7 @@ After starting your cluster, prior to deploying OSDs, you'll need to configure t
 direct the default pools to be created as Crimson pools.  You can proceed by running the following after you have a running cluster:
 
 > **Note:**
-> [vstart.sh](crimson.md#vstart-sh) enables crimson automatically when `--crimson` is used.
+> [vstart.sh](crimson.md#vstartsh) enables crimson automatically when `--crimson` is used.
 
 ```bash
 ceph config set global 'enable_experimental_unrecoverable_data_corrupting_features' crimson
@@ -116,11 +116,11 @@ The last causes pools to be created by default with the ``crimson`` flag.
 Crimson pools are restricted to operations supported by Crimson.
 ``Crimson-osd`` won't instantiate PGs from non-Crimson pools.
 
-# Object Store Backends
+## Object Store Backends
 
 ``crimson-osd`` supports two categories of object store backends: **native** and **non-native**.
 
-## Native Backends
+### Native Backends
 
 Native backends perform I/O operations using the **Seastar reactor**. These are tightly integrated with the Seastar framework and follow its design principles:
 
@@ -133,7 +133,7 @@ Native backends perform I/O operations using the **Seastar reactor**. These are 
    CyanStore is inspired by ``memstore`` from the classic OSD, offering a lightweight, in-memory object store model.
    CyanStore **does not store data** and should be used only for measuring OSD overhead, without the cost of actually storing data.
 
-## Non-Native Backends
+### Non-Native Backends
 
 Non-native backends operate through a **thread pool proxy**, which interfaces with object stores running in **alien threads**—worker threads not managed by Seastar.
 These backends allow Crimson to interact with legacy or external object store implementations:
@@ -153,7 +153,7 @@ These backends allow Crimson to interact with legacy or external object store im
 
    An in-memory object store backend, primarily used for testing and development purposes.
 
-# vstart.sh
+## vstart.sh
 
 The following options can be used with ``vstart.sh``.
 
@@ -234,7 +234,7 @@ Stop this ``vstart`` cluster by running:
 $ ../src/stop.sh --crimson
 ```
 
-## daemonize
+### daemonize
 
 Unlike ``ceph-osd``, ``crimson-osd`` does not daemonize itself even if the
 ``daemonize`` option is enabled. In order to read this option, ``crimson-osd``
@@ -249,7 +249,7 @@ daemonize processes, there is no need to daemonize ourselves.
 Those using sysvinit can use ``start-stop-daemon`` to daemonize ``crimson-osd``.
 If this is does not work out, a helper utility may be devised.
 
-## logging
+### logging
 
 ``Crimson-osd`` currently uses the logging utility offered by Seastar. See
 ``src/common/dout.h`` for the mapping between Ceph logging levels to
@@ -270,17 +270,17 @@ does not send log messages directly to a specified ``log_file``. It writes
 the logging messages to stdout and/or syslog. This behavior can be
 changed using ``--log-to-stdout`` and ``--log-to-syslog`` command line
 options. By default, ``log-to-stdout`` is enabled, and ``--log-to-syslog`` is disabled.
-# Metrics and Tracing
+## Metrics and Tracing
 
 Crimson offers three ways to report stats and metrics.
 
-## PG stats reported to mgr
+### PG stats reported to mgr
 
 Crimson collects the per-pg, per-pool, and per-osd stats in a `MPGStats`
 message which is sent to the Ceph Managers. Manager modules can query
 them using the `MgrModule.get()` method.
 
-## Asock command
+### Asock command
 
 An admin socket command is offered for dumping metrics:
 
@@ -292,15 +292,15 @@ $ ceph tell osd.0 dump_metrics reactor_utilization
 Here `reactor_utilization` is an optional string allowing us to filter
 the dumped metrics by prefix.
 
-## Prometheus text protocol
+### Prometheus text protocol
 
 The listening port and address can be configured using the command line options of
 `--prometheus_port`
 see [Prometheus](https://github.com/scylladb/seastar/blob/master/doc/prometheus.md) for more details.
 
-# Profiling Crimson
+## Profiling Crimson
 
-## Fio
+### Fio
 
 ``crimson-store-nbd`` exposes configurable ``FuturizedStore`` internals as an
 NBD server for use with ``fio``.
@@ -383,7 +383,7 @@ offset=0
 ./fio nbd.fio
 ```
 
-## CBT
+### CBT
 We can use [cbt](https://github.com/ceph/cbt) for performance tests:
 
 ```
@@ -418,9 +418,9 @@ We then compare the results. Along with every test case, a set of rules is defin
 performance regressions when comparing the sets of test results. If a possible regression is found, the rule and
 corresponding test results are highlighted.
 
-# Hacking Crimson
+## Hacking Crimson
 
-## Seastar Documents
+### Seastar Documents
 
 See [Seastar Tutorial](https://github.com/scylladb/seastar/blob/master/doc/tutorial.md) .
 Or build a browsable version and start an HTTP server:
@@ -434,13 +434,13 @@ $ python3 -m http.server -d build/debug/doc/html
 
 You might want to install ``pandoc`` and other dependencies beforehand.
 
-# Debugging Crimson
+## Debugging Crimson
 
-## Debugging with GDB
+### Debugging with GDB
 
 The [tips](https://github.com/scylladb/scylla/blob/master/docs/dev/debugging.md#tips-and-tricks) for debugging Scylla also apply to Crimson.
 
-## Human-readable backtraces with addr2line
+### Human-readable backtraces with addr2line
 
 When a Seastar application crashes, it leaves us with a backtrace of addresses, like:
 
@@ -524,7 +524,7 @@ $ ./src/script/ceph-debug-docker.sh  --flavor crimson master:27e237c137c330ebb82
 # paste the backtrace here
 ```
 
-# Code Walkthroughs
+## Code Walkthroughs
 
 * [Ceph Code Walkthroughs: Crimson](https://www.youtube.com/watch?v=rtkrHk6grsg)
 

@@ -26,7 +26,7 @@ scrub thereafter).
 > CephFS forward scrubs are started and manipulated on rank 0. All scrub
 > commands must be directed at rank 0.
 
-# Initiate File System Scrub
+## Initiate File System Scrub
 
 To start a scrub operation for a directory tree use the following command:
 
@@ -60,7 +60,7 @@ RADOS utilities.
 Scrubs work for multiple active MDS (multiple ranks). The scrub is managed by
 rank 0 and distributed across MDS as appropriate.
 
-# Monitor (ongoing) File System Scrubs
+## Monitor (ongoing) File System Scrubs
 
 Status of ongoing scrubs can be monitored and polled using in `scrub status`
 command. This commands lists out ongoing scrubs (identified by the tag) along
@@ -98,7 +98,7 @@ task status:
 A scrub is complete when it no longer shows up in this list (although that may
 change in future releases). Any damage will be reported via cluster health warnings.
 
-# Control (ongoing) File System Scrubs
+## Control (ongoing) File System Scrubs
 
 - Pause: Pausing ongoing scrub operations results in no new or pending inodes being
   scrubbed after in-flight RADOS ops (for the inodes that are currently being scrubbed)
@@ -148,7 +148,7 @@ ceph tell mds.cephfs:0 scrub abort
 }
 ```
 
-# Damages
+## Damages
 
 The types of damage that can be reported and repaired by File System Scrub are:
 
@@ -169,7 +169,7 @@ removed from the damage table.
 
 Note: A scrub invoked with the ``repair`` option can identify an damaged hard link but not repair it.
 
-# Evaluate strays using recursive scrub
+## Evaluate strays using recursive scrub
 
 - In order to evaluate strays i.e. purge stray directories in ``~mdsdir`` use the following command:
 
@@ -184,7 +184,7 @@ ceph tell mds.<fsname>:0 scrub start ~mdsdir recursive
 ceph tell mds.<fsname>:0 scrub start / recursive,scrub_mdsdir
 ```
 
-# Dump stray folder content
+## Dump stray folder content
 
 - In order to dump stray folder content on a specific MDS, use the following command:
 

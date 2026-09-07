@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # ceph-objectstore-tool -- modify or examine the state of an OSD
 
-# Synopsis
+## Synopsis
 
 | **ceph-objectstore-tool** --data-path *path to osd* [--op *list* ]
 
@@ -28,7 +28,7 @@ Possible object operations:
 * clear-data-digest
 * remove-clone-metadata
 
-# Description
+## Description
 
 **ceph-objectstore-tool** is a tool for modifying the state of an OSD. It facilitates manipulating an object's content, removing an object, listing the omap, manipulating the omap header, manipulating the omap key, listing object attributes, and manipulating object attribute keys.
 
@@ -68,16 +68,16 @@ Possible -op commands::
 * dump-export
 * trim-pg-log
 
-# Installation
+## Installation
 
 The `ceph-osd` package provides **ceph-objectstore-tool**.
 
-# Examples
+## Examples
 
-## Modifying Objects
+### Modifying Objects
 These commands modify state of an OSD. The OSD must not be running when ceph-objectstore-tool is used.
 
-## Listing Objects and Placement Groups
+### Listing Objects and Placement Groups
 
 Make sure that the target OSD is down:
 
@@ -103,7 +103,7 @@ Identify the placement group (PG) that an object belongs to:
 ceph-objectstore-tool --data-path $PATH_TO_OSD --op list $OBJECT_ID
 ```
 
-## Fixing Lost Objects
+### Fixing Lost Objects
 
 Make sure the OSD is down:
 
@@ -135,7 +135,7 @@ Fix legacy lost objects:
 ceph-objectstore-tool --data-path $PATH_TO_OSD --op fix-lost
 ```
 
-## Manipulating an object's content
+### Manipulating an object's content
 
 1. Make sure that the target OSD is down:
 
@@ -175,7 +175,7 @@ For example:
 [root@osd ~]# ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-0 --pgid 0.1c '{"oid":"zone_info.default","key":"","snapid":-2,"hash":235010478,"max":0,"pool":11,"namespace":""}' set-bytes < zone_info.default.working-copy
 ```
 
-## Removing an Object
+### Removing an Object
 
 Use **ceph-objectstore-tool** to remove objects. When an object is removed, its contents and references are removed from the placement group (PG).
 
@@ -189,7 +189,7 @@ Remove an object (example)::
 
 [root@osd ~]# ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-0 --pgid 0.1c '{"oid":"zone_info.default","key":"","snapid":-2,"hash":235010478,"max":0,"pool":11,"namespace":""}' remove
 
-## Listing the Object Map
+### Listing the Object Map
 
 Use the ceph-objectstore-tool to list the contents of the object map (OMAP). The output is a list of keys.
 
@@ -221,15 +221,15 @@ ceph-objectstore-tool --data-path $PATH_TO_OSD --pgid $PG_ID $OBJECT list-omap
 [root@osd ~]# ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-0 --pgid 0.1c '{"oid":"zone_info.default","key":"","snapid":-2,"hash":235010478,"max":0,"pool":11,"namespace":""}' list-omap
 ```
 
-## Manipulating the Object Map Header
+### Manipulating the Object Map Header
 The **ceph-objectstore-tool** utility will output the object map (OMAP) header with the values associated with the object's keys.
 
-### Prerequisites
+#### Prerequisites
 
     * Having root access to the Ceph OSD node.
     * Stopping the ceph-osd daemon.
 
-### Procedure
+#### Procedure
 
   Verify that the target OSD is down:
 
@@ -273,18 +273,18 @@ ceph-objectstore-tool --data-path $PATH_TO_OSD --pgid $PG_ID $OBJECT get-omaphdr
 [root@osd ~]# ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-0 --pgid 0.1c '{"oid":"zone_info.default","key":"","snapid":-2,"hash":235010478,"max":0,"pool":11,"namespace":""}'  set-omaphdr < zone_info.default.omaphdr.txt
 ```
 
-## Manipulating the Object Map Key
+### Manipulating the Object Map Key
 
 Use the **ceph-objectstore-tool** utility to change the object map (OMAP) key.
 Provide the data path, the placement group identifier (PG ID), the object, and
 the key in the OMAP.
 
-### Prerequisites
+#### Prerequisites
 
     * Having root access to the Ceph OSD node.
     * Stopping the ceph-osd daemon.
 
-### Commands
+#### Commands
 
 Run the commands in this section as ``root`` on an OSD node.
 
@@ -330,17 +330,17 @@ ceph-objectstore-tool --data-path $PATH_TO_OSD --pgid $PG_ID $OBJECT rm-omap $KE
 ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-0 --pgid 0.1c '{"oid":"zone_info.default","key":"","snapid":-2,"hash":235010478,"max":0,"pool":11,"namespace":""}' rm-omap ""
 ```
 
-## Listing an Object's Attributes
+### Listing an Object's Attributes
 
 Use the **ceph-objectstore-tool** utility to list an object's attributes. The output provides you with the object's keys and values.
 Note
 
-### Prerequisites
+#### Prerequisites
 
     * Having root access to the Ceph OSD node.
     * Stopping the ceph-osd daemon.
 
-### Procedure
+#### Procedure
 
    Verify that the target OSD is down:
 
@@ -370,7 +370,7 @@ ceph-objectstore-tool --data-path $PATH_TO_OSD --pgid $PG_ID $OBJECT list-attrs
 [root@osd ~]# ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-0 --pgid 0.1c '{"oid":"zone_info.default","key":"","snapid":-2,"hash":235010478,"max":0,"pool":11,"namespace":""}' list-attrs
 ```
 
-## MANIPULATING THE OBJECT ATTRIBUTE KEY
+### MANIPULATING THE OBJECT ATTRIBUTE KEY
 
 Use the ceph-objectstore-tool utility to change an object's attributes. To manipulate the object's attributes you need the data and journal paths, the placement group identifier (PG ID), the object, and the key in the object's attribute.
 Note
@@ -438,7 +438,7 @@ ceph-objectstore-tool --data-path $PATH_TO_OSD --pgid $PG_ID $OBJECT rm-attrs $K
 [root@osd ~]# ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-0 --pgid 0.1c '{"oid":"zone_info.default","key":"","snapid":-2,"hash":235010478,"max":0,"pool":11,"namespace":""}' rm-attrs "oid"
 ```
 
-# Options
+## Options
 
 .. option:: --help
 
@@ -528,9 +528,9 @@ ceph-objectstore-tool --data-path $PATH_TO_OSD --pgid $PG_ID $OBJECT rm-attrs $K
 
    Specify corrupting object removal 'snapmap' or 'nosnapmap' - TESTING USE ONLY
 
-# Error Codes
+## Error Codes
 "Mount failed with '(11) Resource temporarily unavailable" - This might mean that you have attempted to run **ceph-objectstore-tool** on a running OSD.
 
-# Availability
+## Availability
 
 **ceph-objectstore-tool** is part of Ceph, a massively scalable, open-source, distributed storage system. **ceph-objectstore-tool** is provided by the package `ceph-osd`. Refer to the Ceph documentation at http://ceph.com/docs for more information.

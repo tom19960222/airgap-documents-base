@@ -16,7 +16,7 @@ commands; see [mgr-nfs](../../mgr/nfs.md#mgr-nfs).  This document covers how to 
 cephadm services directly, which should only be necessary for unusual NFS
 configurations.
 
-# Deploying NFS ganesha
+## Deploying NFS ganesha
 
 Cephadm deploys NFS Ganesha daemon (or set of daemons).  The configuration for
 NFS is stored in the ``.nfs`` pool and exports are managed via the
@@ -38,7 +38,7 @@ ceph orch apply nfs foo
 See [orchestrator-cli-placement-spec](index.md#orchestrator-cli-placement-spec) for the details of the placement
 specification.
 
-# Service Specification
+## Service Specification
 
 Alternatively, an NFS service can be applied using a YAML specification.
 
@@ -68,7 +68,7 @@ ceph orch apply -i nfs.yaml
 
 <a id="cephadm-ha-nfs"></a>
 
-# High-availability NFS
+## High-availability NFS
 
 Deploying an *ingress* service for an existing *nfs* service will provide:
 
@@ -119,7 +119,7 @@ ceph config-key get mgr/cephadm/ingress.nfs.myfoo/monitor_password
     a *port* property that is not 2049 to avoid conflicting with the
     ingress service, which could be placed on the same host(s).
 
-## NFS with virtual IP but no haproxy
+### NFS with virtual IP but no haproxy
 
 Cephadm also supports deploying nfs with keepalived but not haproxy. This
 offers a virtual ip supported by keepalived that the nfs daemon can directly bind
@@ -166,7 +166,7 @@ spec:
 Note that in these setups, one should make sure to include ``count: 1`` in the
 nfs placement, as it's only possible for one nfs daemon to bind to the virtual IP.
 
-## NFS with HAProxy Protocol Support
+### NFS with HAProxy Protocol Support
 
 Cephadm supports deploying NFS in High-Availability mode with additional
 HAProxy protocol support. This works just like High-availability NFS but also
@@ -209,7 +209,7 @@ spec:
   enable_haproxy_protocol: true
 ```
 
-# Further Reading
+## Further Reading
 
 * CephFS: [cephfs-nfs](../../cephfs/nfs.md#cephfs-nfs)
 * MGR: [mgr-nfs](../../mgr/nfs.md#mgr-nfs)

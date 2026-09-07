@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # QoS Study with mClock and WPQ Schedulers
 
-# Introduction
+## Introduction
 
 The mClock scheduler provides three controls for each service using it. In Ceph,
 the services using mClock are for example client I/O, background recovery,
@@ -42,7 +42,7 @@ code base. See [/rados/configuration/mclock-config-ref](../../rados/configuratio
 refinements, the usage of mClock is a bit more user-friendly and intuitive. This
 is one step of many to refine and optimize the way mClock is used in Ceph.
 
-# Overview
+## Overview
 
 A comparison study was performed as part of efforts to refine the mClock
 scheduler. The study involved running tests with client ops and background
@@ -60,7 +60,7 @@ schedulers from the test results for each service type:
   - Average recovery throughput,
   - Number of misplaced objects recovered per second
 
-# Test Environment
+## Test Environment
 
 1. **Software Configuration**: CentOS 8.1.1911 Linux Kernel 4.18.0-193.6.3.el8_2.x86_64
 2. **CPU**: 2 x Intel® Xeon® CPU E5-2650 v3 @ 2.30GHz
@@ -73,7 +73,7 @@ schedulers from the test results for each service type:
   - Intel® NVMe SSD DC P3700 Series (SSDPE2MD800G4) [4 x 800GB]
   - Seagate Constellation 7200 RPM 64MB Cache SATA 6.0Gb/s HDD (ST91000640NS) [4 x 1TB]
 
-# Test Methodology
+## Test Methodology
 
 Ceph [cbt](https://github.com/ceph/cbt) was used to test the recovery scenarios. A new recovery test to
 generate background recoveries with client I/Os in parallel was created.
@@ -91,7 +91,7 @@ executed 3 times, and the average of those runs are reported in this study.
 > dB configured. The charts discussed further below help bring out the
 > comparison across the schedulers and their configurations.
 
-# Establish Baseline Client Throughput (IOPS)
+## Establish Baseline Client Throughput (IOPS)
 
 Before the actual recovery tests, the baseline throughput was established for
 both the SSDs and the HDDs on the test machine by following the steps mentioned
@@ -110,7 +110,7 @@ baseline throughput for each device type was determined:
 > 256 KiB. For HDDs, it was 40MiB. The above throughput was obtained
 > by running 4 KiB random writes at a queue depth of 64 for 300 secs.
 
-# MClock Profile Allocations
+## MClock Profile Allocations
 
 The low-level mClock shares per profile are shown in the tables below. For
 parameters like *reservation* and *limit*, the shares are represented as a
@@ -171,7 +171,7 @@ for experimental and exploratory purposes or if the built-in profiles do not
 meet the requirements. In such cases, adequate testing must be performed prior
 to enabling this profile.
 
-# Recovery Test Steps
+## Recovery Test Steps
 
 Before bringing up the Ceph cluster, the following mClock configuration
 parameters were set appropriately based on the obtained baseline throughput
@@ -220,11 +220,11 @@ The above options set a high limit on the number of concurrent local and
 remote backfill operations per OSD. Under these conditions the capability of the
 mClock scheduler was tested and the results are discussed below.
 
-# Test Results
+## Test Results
 
 ### Test Results With NVMe SSDs
 
-## Client Throughput Comparison
+#### Client Throughput Comparison
 
 The chart below shows the average client throughput comparison across the
 schedulers and their respective configurations.
@@ -257,7 +257,7 @@ Similar throughput with the *balanced* (11017 IOPS) and *high_recovery_ops*
 demonstrates that mClock is able to provide the desired QoS for the client
 with multiple concurrent backfill/recovery operations in progress.
 
-## Client Latency Comparison
+#### Client Latency Comparison
 
 The chart below shows the average completion latency (*clat*) along with the
 average 95th, 99th and 99.5th percentiles across the schedulers and their
@@ -299,7 +299,7 @@ The *high_client_ops* profile shows the lowest latency followed by *balanced*
 and *high_recovery_ops* profiles. The WPQ(BST) had the highest average latency
 through the course of the test.
 
-## Recovery Statistics Comparison
+#### Recovery Statistics Comparison
 
 Another important aspect to consider is how the recovery bandwidth and recovery
 time are affected by mClock profile settings. The chart below outlines the
@@ -333,7 +333,7 @@ objects/sec and completed the fastest in approximately 488 secs.
 The recovery tests were performed on HDDs with bluestore WAL and dB configured
 on faster NVMe SSDs. The baseline throughput measured was 340 IOPS.
 
-## Client Throughput & latency Comparison
+#### Client Throughput & latency Comparison
 
 The average client throughput comparison for WPQ and mClock and its profiles
 are shown in the chart below.
@@ -366,7 +366,7 @@ the HDD case as well followed by the *balanced* and *high_recovery_ops* profile.
 It's fairly easy to discern this between the profiles during the first 200 secs
 of the test.
 
-## Recovery Statistics Comparison
+#### Recovery Statistics Comparison
 
 The charts below compares the recovery rates and times. The total number of
 objects to be recovered in all the cases using HDDs with WAL and dB was around
@@ -401,7 +401,7 @@ under a very restrictive environment where the OSD capacity is at the lower end.
 The sections and charts below are very similar to the ones presented above and
 are provided here for reference.
 
-## Client Throughput & latency Comparison
+#### Client Throughput & latency Comparison
 
 The average client throughput, latency and percentiles are compared as before
 in the set of charts shown below.
@@ -412,7 +412,7 @@ in the set of charts shown below.
 
 ![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Clat_Latency_Comparison_HDD_NoWALdB_WPQ_vs_mClock.png)
 
-## Recovery Statistics Comparison
+#### Recovery Statistics Comparison
 
 The recovery rates and times are shown in the charts below.
 
@@ -420,7 +420,7 @@ The recovery rates and times are shown in the charts below.
 
 ![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/images/mclock_wpq_study/Recovery_Rate_Comparison_HDD_NoWALdB_WPQ_vs_mClock.png)
 
-# Key Takeaways and Conclusion
+## Key Takeaways and Conclusion
 
 - mClock is able to provide the desired QoS using profiles to allocate proper
   *reservation*, *weight* and *limit* to the service types.

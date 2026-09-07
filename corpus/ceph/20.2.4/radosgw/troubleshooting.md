@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Troubleshooting
 
-# The Gateway Won't Start
+## The Gateway Won't Start
 
 If you cannot start the gateway (i.e., there is no existing ``pid``),
 check to see if there is an existing ``.asok`` file from another
@@ -31,7 +31,7 @@ or :
 /etc/init.d radosgw start --verbose
 ```
 
-# HTTP Request Errors
+## HTTP Request Errors
 
 Examining the access and error logs for the web server itself is
 probably the first step in identifying what is going on.  If there is
@@ -40,7 +40,7 @@ a 500 error, that usually indicates a problem communicating with the
 configured, and that the web server is looking for it in the proper
 location.
 
-# Crashed ``radosgw`` process
+## Crashed ``radosgw`` process
 
 If the ``radosgw`` process dies, you will normally see a 500 error
 from the web server (apache, nginx, etc.).  In that situation, simply
@@ -49,7 +49,7 @@ restarting radosgw will restore service.
 To diagnose the cause of the crash, check the log in ``/var/log/ceph``
 and/or the core file (if one was generated).
 
-# Blocked ``radosgw`` Requests
+## Blocked ``radosgw`` Requests
 
 If some (or all) radosgw requests appear to be blocked, you can get
 some insight into the internal state of the ``radosgw`` daemon via
@@ -138,9 +138,9 @@ ceph daemon osd.1 ops
 The ``flag_point`` field indicates that the OSD is currently waiting
 for replicas to respond, in this case ``osd.0``.
 
-# Java S3 API Troubleshooting
+## Java S3 API Troubleshooting
 
-## Peer Not Authenticated
+### Peer Not Authenticated
 
 You may receive an error that looks like this:
 
@@ -174,7 +174,7 @@ clientConfig.setProtocol(Protocol.HTTP);
 AmazonS3 conn = new AmazonS3Client(credentials, clientConfig);
 ```
 
-## 405 MethodNotAllowed
+### 405 MethodNotAllowed
 
 If you receive an 405 error, check to see if you have the S3 subdomain set up correctly.
 You will need to have a wild card setting in your DNS record for subdomain functionality
@@ -186,12 +186,12 @@ Also, check to ensure that the default site is disabled. :
 [java] Exception in thread "main" Status Code: 405, AWS Service: Amazon S3, AWS Request ID: null, AWS Error Code: MethodNotAllowed, AWS Error Message: null, S3 Extended Request ID: null
 ```
 
-# Numerous objects in default.rgw.meta pool
+## Numerous objects in default.rgw.meta pool
 
 Clusters created prior to *jewel* have a metadata archival feature enabled by default, using the ``default.rgw.meta`` pool.
 This archive keeps all old versions of user and bucket metadata, resulting in large numbers of objects in the ``default.rgw.meta`` pool.
 
-## Disabling the Metadata Heap
+### Disabling the Metadata Heap
 
 Users who want to disable this feature going forward should set the ``metadata_heap`` field to an empty string ``""``:
 
@@ -204,7 +204,7 @@ $ radosgw-admin period update --commit
 
 This will stop new metadata from being written to the ``default.rgw.meta`` pool, but does not remove any existing objects or pool.
 
-## Cleaning the Metadata Heap Pool
+### Cleaning the Metadata Heap Pool
 
 Clusters created prior to *jewel* normally use ``default.rgw.meta`` only for the metadata archival feature.
 

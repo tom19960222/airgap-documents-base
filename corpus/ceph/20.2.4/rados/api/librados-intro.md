@@ -36,14 +36,14 @@ Refer to [../../architecture](../../architecture.md) for additional details of t
 Storage Cluster. To use the API, you need a running Ceph Storage Cluster.
 See [Installation (Quick)](../../start/index.md) for details.
 
-# Step 1: Getting librados
+## Step 1: Getting librados
 
 Your client application must bind with ``librados`` to connect to the Ceph
 Storage Cluster. You must install ``librados`` and any required packages to
 write applications that use ``librados``. The ``librados`` API is written in
 C++, with additional bindings for C, Python, Java and PHP.
 
-## Getting librados for C/C++
+### Getting librados for C/C++
 
 To install ``librados`` development support files for C/C++ on Debian/Ubuntu
 distributions, execute the following:
@@ -66,7 +66,7 @@ headers for C/C++ under ``/usr/include/rados``:
 ls /usr/include/rados
 ```
 
-## Getting librados for Python
+### Getting librados for Python
 
 The ``rados`` module provides ``librados`` support to Python
 applications. You may install ``python3-rados`` for Debian, Ubuntu, SLE or
@@ -96,7 +96,7 @@ sudo zypper install python3-rados
 You can find the module under ``/usr/share/pyshared`` on Debian systems,
 or under ``/usr/lib/python*/site-packages`` on CentOS/RHEL systems.
 
-## Getting librados for Java
+### Getting librados for Java
 
 To install ``librados`` for Java, you need to execute the following procedure:
 
@@ -144,7 +144,7 @@ To build the documentation, execute the following:
 ant docs
 ```
 
-## Getting librados for PHP
+### Getting librados for PHP
 
 To install the ``librados`` extension for PHP, you need to execute the following procedure:
 
@@ -182,7 +182,7 @@ sudo make install
 extension=rados.so
 ```
 
-# Step 2: Configuring a Cluster Handle
+## Step 2: Configuring a Cluster Handle
 
 A Ceph Client, via ``librados``, interacts directly with OSDs to store
 and retrieve data. To interact with OSDs, the client app must invoke
@@ -287,7 +287,7 @@ the object-oriented bindings for C++, Java and Python. The object-oriented
 bindings use objects to represent cluster handles, IO Contexts, iterators,
 exceptions, etc.
 
-## C Example
+### C Example
 
 For C, creating a simple cluster handle using the ``admin`` user, configuring
 it and connecting to the cluster might look something like this:
@@ -354,7 +354,7 @@ Compile your client and link to ``librados`` using ``-lrados``. For example:
 gcc ceph-client.c -lrados -o ceph-client
 ```
 
-## C++ Example
+### C++ Example
 
 The Ceph project provides a C++ example in the ``ceph/examples/librados``
 directory. For C++, a simple cluster handle using the ``admin`` user requires
@@ -432,7 +432,7 @@ g++ -g -c ceph-client.cc -o ceph-client.o
 g++ -g ceph-client.o -lrados -o ceph-client
 ```
 
-## Python Example
+### Python Example
 
 Python uses the ``admin`` id and the ``ceph`` cluster name by default, and
 will read the standard ``ceph.conf`` file if the conffile parameter is
@@ -465,7 +465,7 @@ Execute the example to verify that it connects to your cluster:
 python ceph-client.py
 ```
 
-## Java Example
+### Java Example
 
 Java requires you to specify the user ID (``admin``) or user name
 (``client.admin``), and uses the ``ceph`` cluster name by default . The Java
@@ -507,7 +507,7 @@ javac CephClient.java
 java CephClient
 ```
 
-## PHP Example
+### PHP Example
 
 With the RADOS extension enabled in PHP you can start creating a new cluster handle very easily:
 
@@ -529,7 +529,7 @@ Save this as rados.php and run the code:
 php rados.php
 ```
 
-# Step 3: Creating an I/O Context
+## Step 3: Creating an I/O Context
 
 Once your app has a cluster handle and a connection to a Ceph Storage Cluster,
 you may create an I/O Context and begin reading and writing data. An I/O Context
@@ -590,7 +590,7 @@ the read operations, the examples illustrate how to use asynchronous mode.
 > **Important:** Use caution when deleting pools with this API. If you delete
 > a pool, the pool and ALL DATA in the pool will be lost.
 
-## C Example
+### C Example
 
 ```c
 #include <stdio.h>
@@ -706,7 +706,7 @@ int main (int argc, const char **argv)
 }
 ```
 
-## C++ Example
+### C++ Example
 
 ```c++
 #include <iostream>
@@ -836,7 +836,7 @@ int main(int argc, const char **argv)
 }
 ```
 
-## Python Example
+### Python Example
 
 ```python
 print("\n\nI/O Context and Object Operations")
@@ -877,7 +877,7 @@ print("Removing object 'bm'")
 ioctx.remove_object("bm")
 ```
 
-## Java-Example
+### Java-Example
 
 ```java
 import com.ceph.rados.Rados;
@@ -926,7 +926,7 @@ public class CephClient {
 }
 ```
 
-## PHP Example
+### PHP Example
 
 ```php
 <?php
@@ -937,34 +937,34 @@ rados_remove("oidOne");
 rados_ioctx_destroy($io);
 ```
 
-# Step 4: Closing Sessions
+## Step 4: Closing Sessions
 
 Once your app finishes with the I/O Context and cluster handle, the app should
 close the connection and shutdown the handle. For asynchronous I/O, the app
 should also ensure that pending asynchronous operations have completed.
 
-## C Example
+### C Example
 
 ```c
 rados_ioctx_destroy(io);
 rados_shutdown(cluster);
 ```
 
-## C++ Example
+### C++ Example
 
 ```c++
 io_ctx.close();
 cluster.shutdown();
 ```
 
-## Java Example
+### Java Example
 
 ```java
 cluster.ioCtxDestroy(io);
 cluster.shutDown();
 ```
 
-## Python Example
+### Python Example
 
 ```python
 print("\nClosing the connection.")
@@ -974,7 +974,7 @@ print("Shutting down the handle.")
 cluster.shutdown()
 ```
 
-## PHP Example
+### PHP Example
 
 ```php
 rados_shutdown($r);

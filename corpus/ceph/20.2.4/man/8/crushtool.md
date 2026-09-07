@@ -11,12 +11,12 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: crushtool
 
-# Synopsis
+## Synopsis
 
 | **crushtool** ( -d *map* | -c *map.txt* | --build --num_osds *numosds*
   *layer1* *...* | --test ) [ -o *outfile* ]
 
-# Description
+## Description
 
 **crushtool** is a utility that lets you create, compile, decompile
 and test CRUSH map files.
@@ -63,7 +63,7 @@ silence all output from the CRUSH subsystem:
 CEPH_ARGS="--debug-crush 0" crushtool ...
 ```
 
-# Running tests with --test
+## Running tests with --test
 
 The test mode will use the input crush map ( as specified with **-i
 map** ) and perform a dry run of CRUSH mapping or random placement
@@ -207,7 +207,7 @@ could be fixed by increasing the **choose-total-tries** as follows:
           --show-bad-mappings \
           --set-choose-total-tries 500
 
-# Building a map with --build
+## Building a map with --build
 
 The build mode will generate hierarchical maps. The first argument
 specifies the number of devices (leaves) in the CRUSH hierarchy. Each
@@ -230,7 +230,7 @@ most of the time.
 The third component is the maximum size of the bucket. A size of zero
 means a bucket of infinite capacity.
 
-# Example
+## Example
 
 Suppose we have two rows with two racks each and 20 nodes per rack. Suppose
 each node contains 4 storage devices for Ceph OSD Daemons. This configuration
@@ -276,29 +276,29 @@ emacs map.txt
 crushtool -c map.txt -o crushmap
 ```
 
-# Reclassify
+## Reclassify
 
 The *reclassify* function allows users to transition from older maps that
 maintain parallel hierarchies for OSDs of different types to a modern CRUSH
 map that makes use of the *device class* feature.  For more information,
 see https://docs.ceph.com/en/latest/rados/operations/crush-map-edits/#migrating-from-a-legacy-ssd-rule-to-device-classes.
 
-# Example output from --test
+## Example output from --test
 
 See https://github.com/ceph/ceph/blob/master/src/test/cli/crushtool/set-choose.t
 for sample ``crushtool --test`` commands and output produced thereby.
 
-# Availability
+## Availability
 
 **crushtool** is part of Ceph, a massively scalable, open-source, distributed storage system. Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [osdmaptool](osdmaptool.md#osdmaptool)\(8),
 
-# Authors
+## Authors
 
 John Wilkins, Sage Weil, Loic Dachary

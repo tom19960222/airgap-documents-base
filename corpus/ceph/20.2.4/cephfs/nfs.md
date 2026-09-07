@@ -15,7 +15,7 @@ clusters and CephFS exports is using ``ceph nfs ...`` commands. See
 [/mgr/nfs](../mgr/nfs.md) for more details. As the deployment is done using cephadm or
 rook.
 
-# Requirements
+## Requirements
 
 -  Ceph file system
 -  ``libcephfs2``, ``nfs-ganesha`` and ``nfs-ganesha-ceph`` packages on NFS
@@ -26,7 +26,7 @@ rook.
 > It is recommended to use 3.5 or later stable version of NFS-Ganesha
 > packages with pacific (16.2.x) or later stable version of Ceph packages.
 
-# Configuring NFS-Ganesha to export CephFS
+## Configuring NFS-Ganesha to export CephFS
 
 NFS-Ganesha provides a File System Abstraction Layer (FSAL) to plug in
 different storage backends. [FSAL_CEPH](https://github.com/nfs-ganesha/nfs-ganesha/tree/next/src/FSAL/FSAL_CEPH) is the plugin FSAL for CephFS. For
@@ -37,7 +37,7 @@ Setting up NFS-Ganesha with CephFS, involves setting up NFS-Ganesha's and
 Ceph's configuration file and CephX access credentials for the Ceph clients
 created by NFS-Ganesha to access CephFS.
 
-## NFS-Ganesha configuration
+### NFS-Ganesha configuration
 
 Here's a [sample ganesha.conf](https://github.com/nfs-ganesha/nfs-ganesha/blob/next/src/config_samples/ceph.conf) configured with [FSAL_CEPH](https://github.com/nfs-ganesha/nfs-ganesha/tree/next/src/FSAL/FSAL_CEPH). It is suitable
 for a standalone NFS-Ganesha server, or an active/passive configuration of
@@ -63,11 +63,11 @@ in the sample conf. There are options to do the following:
 > circumstances, the application metadata must be set for the CephFS metadata
 > and data pools. Do this by running the following command:
 >
-> .. prompt:: bash $
->
->    ceph osd pool application set <cephfs_metadata_pool> cephfs <cephfs_data_pool> cephfs
+> ```bash
+> ceph osd pool application set <cephfs_metadata_pool> cephfs <cephfs_data_pool> cephfs
+> ```
 
-## Configuration for libcephfs clients
+### Configuration for libcephfs clients
 
 ``ceph.conf`` for libcephfs clients includes a ``[client]`` section with
 ``mon_host`` option set to let the clients connect to the Ceph cluster's
@@ -79,7 +79,7 @@ For example:
         mon host = [v2:192.168.1.7:3300,v1:192.168.1.7:6789], [v2:192.168.1.8:3300,v1:192.168.1.8:6789], [v2:192.168.1.9:3300,v1:192.168.1.9:6789]
 ```
 
-# Mount using NFSv4 clients
+## Mount using NFSv4 clients
 
 It is preferred to mount the NFS-Ganesha exports using NFSv4.1+ protocols
 to get the benefit of sessions.

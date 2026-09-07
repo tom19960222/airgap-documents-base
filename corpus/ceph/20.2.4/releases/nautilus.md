@@ -10,12 +10,12 @@ fetched_at: 2026-08-18T01:32:45Z
 Nautilus is the 14th stable release of Ceph.  It is named after the
 nautilus, a family of cephalopods characterized by a whorled shell.
 
-# v14.2.22 Nautilus
+## v14.2.22 Nautilus
 
 This is the 22nd and likely the last backport release in the Nautilus series.
 Ultimately, we recommend all users upgrade to newer Ceph releases.
 
-## Notable Changes
+### Notable Changes
 
 * This release sets ``bluefs_buffered_io`` to true by default to improve performance
   for metadata heavy workloads. Enabling this option has been reported to
@@ -48,7 +48,7 @@ Ultimately, we recommend all users upgrade to newer Ceph releases.
   interoperability under msgr v2 has been fixed.  In particular, mixing armv7l
   (armhf) and x86_64 or aarch64 servers in the same cluster now works.
 
-## Changelog
+### Changelog
 
 * PendingReleaseNotes: note about 14.2.18 mgr fixes ([pr#40121](https://github.com/ceph/ceph/pull/40121), Josh Durgin)
 * bind on loopback address if no other addresses are available ([pr#41137](https://github.com/ceph/ceph/pull/41137), Kefu Chai, Matthew Oliver)
@@ -182,25 +182,25 @@ Ultimately, we recommend all users upgrade to newer Ceph releases.
 * tests: ceph_test_rados_api_watch_notify: Allow for reconnect ([pr#40697](https://github.com/ceph/ceph/pull/40697), Brad Hubbard)
 * vstart.sh: disable "auth_allow_insecure_global_id_reclaim" ([pr#40959](https://github.com/ceph/ceph/pull/40959), Kefu Chai)
 
-# v14.2.21 Nautilus
+## v14.2.21 Nautilus
 
 This is a hotfix release addressing a number of security issues and regressions. We recommend all users update to this release.
 
-## Changelog
+### Changelog
 
 * mgr/dashboard: fix base-href: revert it to previous approach ([issue#50684](https://tracker.ceph.com/issues/50684), Avan Thakkar)
 * mgr/dashboard: fix cookie injection issue ([CVE-2021-3509](../security/CVE-2021-3509.md#cve-2021-3509), Ernesto Puerta)
 * rgw: RGWSwiftWebsiteHandler::is_web_dir checks empty subdir_name ([CVE-2021-3531](../security/CVE-2021-3531.md#cve-2021-3531), Felix Huettner)
 * rgw: sanitize \r in s3 CORSConfiguration's ExposeHeader ([CVE-2021-3524](../security/CVE-2021-3524.md#cve-2021-3524), Sergey Bobrov, Casey Bodley)
 
-# v14.2.20 Nautilus
+## v14.2.20 Nautilus
 
 This is the 20th bugfix release in the Nautilus stable series.  It addresses a
 security vulnerability in the Ceph authentication framework.
 
 We recommend all Nautilus users upgrade.
 
-## Security fixes
+### Security fixes
 
 * This release includes a security fix that ensures the global_id
   value (a numeric value that should be unique for every authenticated
@@ -224,44 +224,44 @@ ceph config set mon mon_warn_on_insecure_global_id_reclaim_allowed false
 
   For more information, see [CVE-2021-20288](../security/CVE-2021-20288.md#cve-2021-20288).
 
-# v14.2.19 Nautilus
+## v14.2.19 Nautilus
 
 This is the 19th update to the Ceph Nautilus release series. This is a hotfix
 release to prevent daemons from binding to loopback network interfaces. All
 nautilus users are advised to upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * This release fixes a regression introduced in v14.2.17 whereby in certain environments, OSDs will bind to 127.0.0.1.  See [issue#49938](https://tracker.ceph.com/issues/49938).
 
-## Changelog
+### Changelog
 
 * common/ipaddr: also skip just `lo` ([pr#40423](https://github.com/ceph/ceph/pull/40423), Dan van der Ster)
 
-# v14.2.18 Nautilus
+## v14.2.18 Nautilus
 
 This is the 18th backport release in the Nautilus series. It fixes a regression
 introduced in 14.2.17 in which the manager module tries to use a couple python
 modules that do not exist in some environments. We recommend users to
 update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * This release fixes issues loading the dashboard and volumes manager
   modules in some environments.
 
-## Changelog
+### Changelog
 * nautilus: .github: add workflow for adding labels and milestone ([pr#39926](https://github.com/ceph/ceph/pull/39926), Kefu Chai, Ernesto Puerta)
 * nautilus: mgr/dashboard: Python2 Cookie module import fails on Python3 ([pr#40116](https://github.com/ceph/ceph/pull/40116), Volker Theile)
 * nautilus: mgr/volumes: don't require typing ([pr#40095](https://github.com/ceph/ceph/pull/40095), Josh Durgin)
 * nautilus: qa/suites/krbd: address recent issues caused by newer kernels ([pr#40064](https://github.com/ceph/ceph/pull/40064), Ilya Dryomov)
 
-# v14.2.17 Nautilus
+## v14.2.17 Nautilus
 
 This is the 17th backport release in the Nautilus series. We recommend
 users to update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * $pid expansion in config paths like ``admin_socket`` will now properly expand
   to the daemon pid for commands like ``ceph-mds`` or ``ceph-osd``. Previously
@@ -270,7 +270,7 @@ users to update to this release.
 * RADOS: Memory allocations are tracked in finer detail in BlueStore and displayed as a part of the ``dump_mempools`` command.
 * cephfs: clients which acquire capabilities too quickly are throttled to prevent instability.  See new config option ``mds_session_cap_acquisition_throttle`` to control this behavior.
 
-## Changelog
+### Changelog
 
 * nautilus mgr/dashboard: fix 'ceph dashboard iscsi-gateway-add' ([pr#39175](https://github.com/ceph/ceph/pull/39175), Alfonso Martínez)
 * nautilus: Do not add sensitive information in Ceph log files ([pr#38614](https://github.com/ceph/ceph/pull/38614), Neha Ojha)
@@ -425,29 +425,29 @@ users to update to this release.
 * nautilus: tools/rados: flush formatter periodically during json output of "rados ls" ([pr#37834](https://github.com/ceph/ceph/pull/37834), J. Eric Ivancich)
 * nautilus: vstart.sh: fix fs set max_mds bug ([pr#37836](https://github.com/ceph/ceph/pull/37836), Jinmyeong Lee)
 
-# v14.2.16 Nautilus
+## v14.2.16 Nautilus
 
 This is the 16th backport release in the Nautilus series. This release fixes a
 security flaw in CephFS. We recommend users to update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * CVE-2020-27781 : OpenStack Manila use of ceph_volume_client.py library allowed
   tenant access to any Ceph credential's secret. (Kotresh Hiremath Ravishankar,
   Ramana Raja)
 
-## Changelog
+### Changelog
 
 * pybind/ceph_volume_client: disallow authorize on existing auth ids (Kotresh
   Hiremath Ravishankar, Ramana Raja)
 
-# v14.2.15 Nautilus
+## v14.2.15 Nautilus
 
 This is the 15th backport release in the Nautilus series. This release fixes a
 ceph-volume regression introduced in v14.2.13 and includes few other fixes. We
 recommend users to update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-volume: Fixes lvm batch --auto, which breaks backward compatibility
   when using non rotational devices only (SSD and/or NVMe).
@@ -456,24 +456,24 @@ recommend users to update to this release.
 * MGR: progress module can now be turned on/off, using the commands:
   ``ceph progress on`` and ``ceph progress off``.
 
-## Changelog
+### Changelog
 
 * ceph-volume: fix filestore/dmcrypt activate ([pr#38198](https://github.com/ceph/ceph/pull/38198), Guillaume Abrioux)
 * ceph-volume: fix lvm batch auto with full SSDs ([pr#38046](https://github.com/ceph/ceph/pull/38046), Dimitri Savineau, Guillaume Abrioux)
 * os/bluestore: fix "end reached" check in collection_list_legacy ([pr#38100](https://github.com/ceph/ceph/pull/38100), Mykola Golub)
 * mgr/progress: introduce turn off/on feature ([pr#38173](https://github.com/ceph/ceph/pull/38173), kamoltat)
 
-# v14.2.14 Nautilus
+## v14.2.14 Nautilus
 
 This is the 14th backport release in the Nautilus series. This release fixes
 a security flaw affecting Messenger v2, among other fixes across components.
 We recommend users to update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * CVE 2020-25660: CEPHX_V2 replay attack protection lost, for Messenger v2 (Ilya Dryomov)
 
-## Changelog
+### Changelog
 
 * mgr/dashboard: Strange iSCSI discovery auth behavior ([pr#37333](https://github.com/ceph/ceph/pull/37333), Volker Theile)
 * mgr/dashboard: redirect to original URL after successful login ([pr#36834](https://github.com/ceph/ceph/pull/36834), Avan Thakkar)
@@ -497,13 +497,13 @@ We recommend users to update to this release.
 * rgw: rgw_file: avoid long-ish delay on shutdown ([pr#37552](https://github.com/ceph/ceph/pull/37552), Matt Benjamin)
 * rgw: use yum rather than dnf for teuthology testing of rgw-orphan-list ([pr#37805](https://github.com/ceph/ceph/pull/37805), J. Eric Ivancich)
 
-# v14.2.13 Nautilus
+## v14.2.13 Nautilus
 
 This is the 13th backport release in the Nautilus series. This release fixes a
 regression introduced in v14.2.12, and a few ceph-volume & RGW fixes. We
 recommend users to update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * Fixed a regression that caused breakage in clusters that referred to ceph-mon
   hosts using dns names instead of ip addresses in the ``mon_host`` param in
@@ -511,7 +511,7 @@ recommend users to update to this release.
 
 * ceph-volume: the ``lvm batch`` subcommand received a major rewrite
 
-## Changelog
+### Changelog
 
 * ceph-volume: major batch refactor ([pr#37522](https://github.com/ceph/ceph/pull/37522), Jan Fajerski)
 * mgr/dashboard: Proper format iSCSI target portals ([pr#37060](https://github.com/ceph/ceph/pull/37060), Volker Theile)
@@ -520,13 +520,13 @@ recommend users to update to this release.
 * rgw: allow rgw-orphan-list to note when rados objects are in namespace ([pr#37799](https://github.com/ceph/ceph/pull/37799), J. Eric Ivancich)
 * rgw: fix setting of namespace in ordered and unordered bucket listing ([pr#37798](https://github.com/ceph/ceph/pull/37798), J. Eric Ivancich)
 
-# v14.2.12 Nautilus
+## v14.2.12 Nautilus
 
 This is the 12th backport release in the Nautilus series. This release
 brings a number of bugfixes across all major components of Ceph. We recommend
 that all Nautilus users upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * The ``ceph df`` command now lists the number of pgs in each pool.
 
@@ -547,7 +547,7 @@ that all Nautilus users upgrade to this release.
 
 * Fix an issue with osdmaps not being trimmed in a healthy cluster ([issue#47296](https://tracker.ceph.com/issues/47296), [pr#36982](https://github.com/ceph/ceph/pull/36982))
 
-## Changelog
+### Changelog
 * bluestore/bluefs: make accounting resiliant to unlock() ([pr#36909](https://github.com/ceph/ceph/pull/36909), Adam Kupczyk)
 * bluestore: Rescue procedure for extremely large bluefs log ([pr#36930](https://github.com/ceph/ceph/pull/36930), Adam Kupczyk)
 * bluestore: dump onode that has too many spanning blobs ([pr#36756](https://github.com/ceph/ceph/pull/36756), Igor Fedotov)
@@ -668,13 +668,13 @@ that all Nautilus users upgrade to this release.
 * tools/osdmaptool.cc: add ability to clean_temps ([pr#37477](https://github.com/ceph/ceph/pull/37477), Neha Ojha)
 * tools/rados: Set locator key when exporting or importing a pool ([pr#37475](https://github.com/ceph/ceph/pull/37475), Iain Buclaw)
 
-# v14.2.11 Nautilus
+## v14.2.11 Nautilus
 
 This is the eleventh backport release in the Nautilus series. This release
 brings a number of bugfixes across all major components of Ceph. We recommend
 that all Nautilus users upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * RGW: The ``radosgw-admin`` sub-commands dealing with orphans --
   ``radosgw-admin orphans find``, ``radosgw-admin orphans finish``,
@@ -691,7 +691,7 @@ that all Nautilus users upgrade to this release.
 * Fixed a ceph-osd crash in _committed_osd_maps when there is a failure to encode
   the first incremental map. [issue#46443](https://tracker.ceph.com/issues/46443)
 
-## Changelog
+### Changelog
 
 * bluestore: core: os/bluestore: fix large (>2GB) writes when bluefs_buffered_io = true ([pr#35404](https://github.com/ceph/ceph/pull/35404), Igor Fedotov)
 * bluestore: os/bluestore: implement Hybrid allocator ([pr#35500](https://github.com/ceph/ceph/pull/35500), Adam Kupczyk, Kefu Chai, Igor Fedotov, xie xingguo)
@@ -765,14 +765,14 @@ that all Nautilus users upgrade to this release.
 * rgw: stop realm reloader before store shutdown ([pr#36192](https://github.com/ceph/ceph/pull/36192), Casey Bodley)
 * tools: Add statfs operation to ceph-objecstore-tool ([pr#35713](https://github.com/ceph/ceph/pull/35713), David Zafman)
 
-# v14.2.10 Nautilus
+## v14.2.10 Nautilus
 
 This is the tenth release in the Nautilus series. In addition to fixing
 a security-related bug in RGW, this release brings a number of bugfixes
 across all major components of Ceph. We recommend that all Nautilus users
 upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * CVE-2020-10753: rgw: sanitize newlines in s3 CORSConfiguration's ExposeHeader
   (William Bowling, Adam Mohammed, Casey Bodley)
@@ -819,7 +819,7 @@ ceph config set global mon_warn_on_pool_no_redundancy false
   cases -- reducing the number of entries requested from each bucket
   index shard.
 
-## Changelog
+### Changelog
 
 * build/ops: address SElinux denials observed in rgw/multisite test run ([pr#34539](https://github.com/ceph/ceph/pull/34539), Kefu Chai, Kaleb S. Keithley)
 * build/ops: ceph.spec.in: build on el8 ([pr#35599](https://github.com/ceph/ceph/pull/35599), Kefu Chai, Brad Hubbard, Alfonso Martínez, Nathan Cutler, Sage Weil, luo.runbing)
@@ -1011,24 +1011,24 @@ ceph config set global mon_warn_on_pool_no_redundancy false
 * tools/cli: ceph_argparse: increment matchcnt on kwargs ([pr#33160](https://github.com/ceph/ceph/pull/33160), Matthew Oliver, Shyukri Shyukriev)
 * tools/rados: Unmask '-o' to restore original behaviour ([pr#33641](https://github.com/ceph/ceph/pull/33641), Brad Hubbard)
 
-# v14.2.9 Nautilus
+## v14.2.9 Nautilus
 
 This is the ninth bugfix release of Nautilus. This release fixes a
 couple of security issues in RGW & Messenger V2. We recommend all users
 to upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 - CVE-2020-1759: Fixed nonce reuse in msgr V2 secure mode
 - CVE-2020-1760: Fixed XSS due to RGW GetObject header-splitting
 
-# v14.2.8 Nautilus
+## v14.2.8 Nautilus
 
 This is the eighth update to the Ceph Nautilus release series. This release
 fixes issues across a range of subsystems. We recommend that all users upgrade
 to this release.
 
-## Notable Changes
+### Notable Changes
 
 * The default value of ``bluestore_min_alloc_size_ssd`` has been changed to 4K to improve performance across all workloads.
 
@@ -1089,7 +1089,7 @@ ceph osd pool set <pool-name> pg_num <new-pg-num>
 ceph config set global mon_warn_on_pool_pg_num_not_power_of_two false
 ```
 
-## Changelog
+### Changelog
 
 * bluestore: common/options: bluestore 4k min_alloc_size for SSD ([pr#32998](https://github.com/ceph/ceph/pull/32998), Mark Nelson, Sage Weil)
 * bluestore: os/bluestore: Add config observer for osd memory specific options ([pr#31852](https://github.com/ceph/ceph/pull/31852), Sridhar Seshasayee)
@@ -1307,37 +1307,37 @@ ceph config set global mon_warn_on_pool_pg_num_not_power_of_two false
 * rgw: when resharding store progress json ([pr#31683](https://github.com/ceph/ceph/pull/31683), Mark Kogan, Mark Nelson)
 * selinux: Allow ceph to read udev db ([pr#32259](https://github.com/ceph/ceph/pull/32259), Boris Ranto)
 
-# v14.2.7 Nautilus
+## v14.2.7 Nautilus
 
 This is the seventh update to the Ceph Nautilus release series. This is
 a hotfix release primarily fixing a couple of security issues. We
 recommend that all users upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * CVE-2020-1699: Fixed a path traversal flaw in Ceph dashboard that
   could allow for potential information disclosure (Ernesto Puerta)
 * CVE-2020-1700: Fixed a flaw in RGW beast frontend that could lead to
   denial of service from an unauthenticated client (Or Friedmann)
 
-# v14.2.6 Nautilus
+## v14.2.6 Nautilus
 
 This is the sixth update to the Ceph Nautilus release series. This is a hotfix
 release primarily fixing a regression introduced in v14.2.5, all nautilus users
 are advised to upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * This release fixes a ``ceph-mgr`` bug that caused mgr becoming unresponsive on
   larger clusters [issue#43364](https://tracker.ceph.com/issues/43364) ([pr#32466](https://github.com/ceph/ceph/pull/32466), David Zafman, Neha Ojha)
 
-# v14.2.5 Nautilus
+## v14.2.5 Nautilus
 
 This is the fifth release of the Ceph Nautilus release series. Among the many
 notable changes, this release fixes a critical BlueStore bug that was introduced
 in 14.2.3. All Nautilus users are advised to upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 Critical fix:
 
@@ -1462,7 +1462,7 @@ RGW:
 
 * RGW now supports List Objects V2
 
-## Changelog
+### Changelog
 
 * bluestore/KernelDevice: fix RW_IO_MAX constant ([pr#31397](https://github.com/ceph/ceph/pull/31397), Sage Weil)
 * bluestore: Don't forget sub kv_submitted_waiters ([pr#30048](https://github.com/ceph/ceph/pull/30048), Jianpeng Ma)
@@ -1717,30 +1717,30 @@ RGW:
 * tools: ceph-backport.sh: add deprecation warning ([pr#30748](https://github.com/ceph/ceph/pull/30748), Nathan Cutler)
 * tools: ceph-objectstore-tool can't remove head with bad snapset ([pr#30080](https://github.com/ceph/ceph/pull/30080), David Zafman)
 
-# v14.2.4 Nautilus
+## v14.2.4 Nautilus
 
 This is the fourth release in the Ceph Nautilus stable release series. Its sole
 purpose is to fix a regression that found its way into the previous release.
 
-## Notable Changes
+### Notable Changes
 
 * The ceph-volume in Nautilus v14.2.3 was found to contain a serious
   regression, described in ``https://tracker.ceph.com/issues/41660``, which
   prevented deployment tools like ceph-ansible, DeepSea, Rook, etc. from
   deploying/removing OSDs.
 
-## Changelog
+### Changelog
 
 * ceph-volume: fix stderr failure to decode/encode when redirected ([pr#30300](https://github.com/ceph/ceph/pull/30300), Alfredo Deza)
 
-# v14.2.3 Nautilus
+## v14.2.3 Nautilus
 
 This is the third bug fix release of Ceph Nautilus release series. We recommend
 all Nautilus users upgrade to this release. For upgrading from older releases of
 ceph, general guidelines for upgrade to nautilus must be followed
 [nautilus-old-upgrade](nautilus.md#nautilus-old-upgrade).
 
-## Notable Changes
+### Notable Changes
 
 * `CVE-2019-10222` - Fixed a denial of service vulnerability where an
   unauthenticated client of Ceph Object Gateway could trigger a crash from an
@@ -1761,7 +1761,7 @@ ceph, general guidelines for upgrade to nautilus must be followed
 
 * The Ceph Dashboard now supports silencing Prometheus alert notifications.
 
-## Changelog
+### Changelog
 
 * bluestore: 50-100% iops lost due to bluefs_preextend_wal_files = false ([issue#38559](http://tracker.ceph.com/issues/38559), [pr#28573](https://github.com/ceph/ceph/pull/28573), Vitaliy Filippov)
 * bluestore: add slow op detection for collection_listing ([pr#29227](https://github.com/ceph/ceph/pull/29227), Igor Fedotov)
@@ -1919,14 +1919,14 @@ ceph, general guidelines for upgrade to nautilus must be followed
 * rocksdb: Updated to v6.1.2 ([pr#29440](https://github.com/ceph/ceph/pull/29440), Mark Nelson)
 * tools: ceph-kvstore-tool: print db stats ([pr#28810](https://github.com/ceph/ceph/pull/28810), Igor Fedotov)
 
-# v14.2.2 Nautilus
+## v14.2.2 Nautilus
 
 This is the second bug fix release of Ceph Nautilus release series. We recommend
 all Nautilus users upgrade to this release. For upgrading from older releases of
 ceph, general guidelines for upgrade to nautilus must be followed
 [nautilus-old-upgrade](nautilus.md#nautilus-old-upgrade).
 
-## Notable Changes
+### Notable Changes
 
 * The no{up,down,in,out} related commands have been revamped.
   There are now 2 ways to set the no{up,down,in,out} flags:
@@ -1979,7 +1979,7 @@ ceph features
   only supported for `straw2` buckets to be used, including the
   `crush-compat` mode for the [balancer](../rados/operations/balancer.md#balancer).
 
-## Changelog
+### Changelog
 
 * bluestore: backport more bluestore alerts ([pr#27645](https://github.com/ceph/ceph/pull/27645), Sage Weil, Igor Fedotov)
 * bluestore: call fault_range prior to looking for blob to reuse ([pr#27525](https://github.com/ceph/ceph/pull/27525), Igor Fedotov)
@@ -2191,26 +2191,26 @@ ceph features
 * tests: workunits/rbd: use https protocol for devstack git operations ([issue#39656](http://tracker.ceph.com/issues/39656), [issue#39729](http://tracker.ceph.com/issues/39729), [pr#28128](https://github.com/ceph/ceph/pull/28128), Jason Dillaman)
 * tests: workunits/rbd: wait for rbd-nbd unmap to complete ([issue#39675](http://tracker.ceph.com/issues/39675), [issue#39598](http://tracker.ceph.com/issues/39598), [pr#28273](https://github.com/ceph/ceph/pull/28273), Jason Dillaman)
 
-# v14.2.1 Nautilus
+## v14.2.1 Nautilus
 
 This is the first bug fix release of Ceph Nautilus release series. We recommend
 all nautilus users upgrade to this release. For upgrading from older releases of
 ceph, general guidelines for upgrade to nautilus must be followed
 [nautilus-old-upgrade](nautilus.md#nautilus-old-upgrade).
 
-## Notable Changes
+### Notable Changes
 
 * Ceph now packages python bindings for python3.6 instead of
   python3.4, because EPEL7 recently switched from python3.4 to
   python3.6 as the native python3. see the [announcement](https://lists.fedoraproject.org/archives/list/epel-announce@lists.fedoraproject.org/message/EGUMKAIMPK2UD5VSHXM53BH2MBDGDWMO/)
   for more details on the background of this change.
 
-## Known Issues
+### Known Issues
 
 * Nautilus-based librbd clients cannot open images stored on pre-Luminous
   clusters
 
-## Changelog
+### Changelog
 * bluestore: ceph-bluestore-tool: bluefs-bdev-expand cmd might assert if no WAL is configured ([issue#39253](http://tracker.ceph.com/issues/39253), [pr#27523](https://github.com/ceph/ceph/pull/27523), Igor Fedotov)
 * bluestore: os/bluestore: fix bitmap allocator issues ([pr#27139](https://github.com/ceph/ceph/pull/27139), Igor Fedotov)
 * build/ops,rgw: rgw: build async scheduler only when beast is built ([pr#27191](https://github.com/ceph/ceph/pull/27191), Abhishek Lekshmanan)
@@ -2323,11 +2323,11 @@ ceph, general guidelines for upgrade to nautilus must be followed
 * rook-ceph-system namespace hardcoded in the rook orchestrator ([issue#38799](http://tracker.ceph.com/issues/38799), [issue#39250](http://tracker.ceph.com/issues/39250), [pr#27496](https://github.com/ceph/ceph/pull/27496), Sebastian Wagner)
 * rpm,cmake: use specified python3 version if any ([pr#27382](https://github.com/ceph/ceph/pull/27382), Kefu Chai)
 
-# v14.2.0 Nautilus
+## v14.2.0 Nautilus
 
 This is the first stable release of Ceph Nautilus.
 
-## Major Changes from Mimic
+### Major Changes from Mimic
 
 - *Dashboard*:
 
@@ -2450,7 +2450,7 @@ This is the first stable release of Ceph Nautilus.
 
 <a id="nautilus-old-upgrade"></a>
 
-## Upgrading from Mimic or Luminous
+### Upgrading from Mimic or Luminous
 
 #### Notes
 
@@ -2773,7 +2773,7 @@ mv /etc/ceph/ceph.conf.new /etc/ceph/ceph.conf
    includes the new ``v2:`` and ``v1:`` prefixes for IP addresses that
    is only understood by Nautilus.
 
-   For more information, see [msgr2_ceph_conf](../rados/configuration/msgr2.md#msgr2-ceph-conf).
+   For more information, see [msgr2_ceph_conf](../rados/configuration/msgr2.md#msgr2_ceph_conf).
 
 1. Consider enabling the [telemetry module](../mgr/telemetry.md#telemetry) to send
    anonymized usage statistics and crash information to the Ceph
@@ -2794,14 +2794,14 @@ ceph telemetry on
 
    For more information about the telemetry module, see [the documentation](../mgr/telemetry.md#telemetry).
 
-## Upgrading from pre-Luminous releases (like Jewel)
+### Upgrading from pre-Luminous releases (like Jewel)
 
 You *must* first upgrade to Luminous (12.2.z) before attempting an
 upgrade to Nautilus.  In addition, your cluster must have completed at
 least one scrub of all PGs while running Luminous, setting the
 ``recovery_deletes`` and ``purged_snapdirs`` flags in the OSD map.
 
-## Upgrade compatibility notes
+### Upgrade compatibility notes
 
 These changes occurred between the Mimic and Nautilus releases.
 
@@ -3117,7 +3117,7 @@ ceph auth caps client.bad osd 'allow rwx pool foo'
 * The ``cache drop`` admin socket command has been removed. The ``ceph
   tell mds.X cache drop`` remains.
 
-## Detailed Changelog
+### Detailed Changelog
 * add monitoring subdir and Grafana cluster dashboard ([pr#21850](https://github.com/ceph/ceph/pull/21850), Jan Fajerski)
 * auth,common: include cleanups ([pr#23774](https://github.com/ceph/ceph/pull/23774), Kefu Chai)
 * bluestore: bluestore/NVMEDevice.cc: fix ceph_assert() when enable SPDK with 64KB kernel page size ([issue#36624](http://tracker.ceph.com/issues/36624), [pr#24817](https://github.com/ceph/ceph/pull/24817), tone.zhang)

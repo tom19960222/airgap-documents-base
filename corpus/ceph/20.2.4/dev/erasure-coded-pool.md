@@ -16,7 +16,7 @@ partial write is not supported).
 
 ## Use cases
 
-#### Cold storage
+### Cold storage
 
 An erasure-coded pool is created to store a large number of 1GB
 objects (imaging, genomics, etc.) and 10% of them are read per
@@ -34,7 +34,7 @@ cold storage with high latency and slow access time. The replicated
 pool CRUSH rule targets faster hardware to provide better response
 times.
 
-#### Cheap multidatacenter storage
+### Cheap multidatacenter storage
 
 Ten datacenters are connected with dedicated network links. Each
 datacenter contains the same amount of storage with no power-supply

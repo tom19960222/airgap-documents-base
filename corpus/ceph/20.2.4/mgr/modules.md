@@ -123,7 +123,7 @@ using the ``@CLICommand`` decorator to decorate the methods needed to handle a
 command. The second method uses a ``COMMANDS`` attribute defined for the
 module class.
 
-#### The CLICommand approach
+### The CLICommand approach
 
 ```python
 @CLICommand('antigravity send to blackhole',
@@ -179,7 +179,7 @@ In addition to ``@CLICommand``, you could also use ``@CLIReadCommand`` or
 ``@CLIWriteCommand`` if your command only requires read permissions or
 write permissions respectively.
 
-#### The COMMANDS Approach
+### The COMMANDS Approach
 
 This method uses the ``COMMANDS`` class attribute of your module to define
 a list of dicts like this:
@@ -215,7 +215,7 @@ when they are sent:
 .. py:currentmodule:: mgr_module
 .. automethod:: MgrModule.handle_command
 
-#### Responses and Formatting
+### Responses and Formatting
 
 Functions that handle manager commands are expected to return a three element
 tuple with the type signature ``Tuple[int, str, str]``. The first element is a

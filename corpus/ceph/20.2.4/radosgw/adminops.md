@@ -15,13 +15,13 @@ mechanism. Some operations require that the user holds special administrative ca
 The response entity type (XML or JSON) may be specified as the 'format' option in the
 request and defaults to JSON if not specified.
 
-# Info
+## Info
 
 Get RGW cluster/endpoint information.
 
 :caps: info=read
 
-#### Syntax
+### Syntax
 
 :
 
@@ -30,11 +30,11 @@ GET /{admin}/info?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 None.
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains an ``info`` section.
 
@@ -51,11 +51,11 @@ If successful, the response contains an ``info`` section.
 :Type: String
 :Parent: ``info``
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-# Get Usage
+## Get Usage
 
 Request bandwidth usage information.
 
@@ -65,7 +65,7 @@ in ceph.conf to take effect, radosgw process restart is needed.
 
 :caps: usage=read
 
-#### Syntax
+### Syntax
 
 :
 
@@ -74,7 +74,7 @@ GET /{admin}/usage?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -111,7 +111,7 @@ Host: {fqdn}
 :Example: True [True]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the requested information.
 
@@ -195,11 +195,11 @@ If successful, the response contains the requested information.
 :Description: A container for stats summary aggregated total.
 :Type: Container
 
-#### Special Error Responses
+### Special Error Responses
 
 TBD.
 
-# Trim Usage
+## Trim Usage
 
 Remove usage information. With no dates specified, removes all usage
 information.
@@ -210,7 +210,7 @@ in ceph.conf to take effect, radosgw process restart is needed.
 
 :caps: usage=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -219,7 +219,7 @@ DELETE /{admin}/usage?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -249,11 +249,11 @@ Host: {fqdn}
 :Example: True [False]
 :Required: No
 
-#### Special Error Responses
+### Special Error Responses
 
 TBD.
 
-# Get User Info
+## Get User Info
 
 Get user information. Cap ``users`` or ``user-info-without-keys`` must be set to ``read`` to run this operation.
 If cap ``user-info-without-keys`` is set to ``read`` or ``*``, S3 keys and Swift keys will not be
@@ -264,7 +264,7 @@ If both are provided but correspond to different users, the info for the user sp
 
 :caps: users=read or user-info-without-keys=read
 
-#### Syntax
+### Syntax
 
 :
 
@@ -273,7 +273,7 @@ GET /{admin}/user?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -289,7 +289,7 @@ Host: {fqdn}
 :Example: ``ABCD0EF12GHIJ2K34LMN``
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the user information.
 
@@ -346,18 +346,18 @@ If successful, the response contains the user information.
 :Type: Container
 :Parent: ``user``
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-# Create Account
+## Create Account
 .. versionadded:: Squid
 
 Create a new account.
 
 :caps: accounts=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -366,7 +366,7 @@ POST /{admin}/account?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``id``
 
@@ -433,7 +433,7 @@ An account ID must be 20 characters long, and in the format of the string "RGW" 
 :Example: 500 [1000]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the following account information.
 
@@ -568,21 +568,21 @@ If successful, the response contains the following account information.
 :Type: Integer
 :Parent: ``bucket_quota``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``AccountAlreadyExists``
 
 :Description: Attempt to create existing account. This can happen if the account ID or the email is already in use.
 :Code: 409 Conflict
 
-# Modify Account
+## Modify Account
 .. versionadded:: Squid
 
 Modify an account. Either ``id``, ``name``, or ``email`` must be provided.
 
 :caps: accounts=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -591,7 +591,7 @@ PUT /{admin}/account?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``id``
 
@@ -649,7 +649,7 @@ Host: {fqdn}
 :Example: 500 [1000]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the following account information.
 
@@ -784,18 +784,18 @@ If successful, the response contains the following account information.
 :Type: Integer
 :Parent: ``bucket_quota``
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-# Get Account Info
+## Get Account Info
 .. versionadded:: Squid
 
 Get account info. Either an ``id`` or a ``name`` must be provided.
 
 :caps: accounts=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -804,7 +804,7 @@ GET /{admin}/account?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``id``
 
@@ -820,7 +820,7 @@ Host: {fqdn}
 :Example: ``account_name``
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the following account information.
 
@@ -955,18 +955,18 @@ If successful, the response contains the following account information.
 :Type: Integer
 :Parent: ``bucket_quota``
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-# Remove Account
+## Remove Account
 .. versionadded:: Squid
 
 Remove an existing account. Either ``id``, ``name``, or ``email`` must be provided.
 
 :caps: accounts=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -975,7 +975,7 @@ DELETE /{admin}/account?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``id``
 
@@ -1005,15 +1005,15 @@ Host: {fqdn}
 :Example: ``foo@bar.com``
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 None
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-# Create User
+## Create User
 
 Create a new user. By default, a S3 key pair will be created automatically
 and returned in the response. If only one of ``access-key`` or ``secret-key``
@@ -1029,7 +1029,7 @@ request param.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1038,7 +1038,7 @@ PUT /{admin}/user?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -1144,7 +1144,7 @@ A tenant name may also specified as a part of ``uid``, by following the syntax
 :Example: RGW00000000000000001
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the user information.
 
@@ -1207,7 +1207,7 @@ If successful, the response contains the user information.
 :Type: Container
 :Parent: ``user``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``UserExists``
 
@@ -1249,13 +1249,13 @@ If successful, the response contains the user information.
 :Description: Attempt to grant invalid admin capability.
 :Code: 400 Bad Request
 
-# Modify User
+## Modify User
 
 Modify a user.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1264,7 +1264,7 @@ POST /{admin}/user?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -1349,7 +1349,7 @@ Host: {fqdn}
 :Example: STANDARD-1A
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the user information.
 
@@ -1406,7 +1406,7 @@ If successful, the response contains the user information.
 :Type: Container
 :Parent: ``user``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``InvalidAccessKey``
 
@@ -1438,13 +1438,13 @@ If successful, the response contains the user information.
 :Description: Attempt to grant invalid admin capability.
 :Code: 400 Bad Request
 
-# Remove User
+## Remove User
 
 Remove an existing user.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1453,7 +1453,7 @@ DELETE /{admin}/user?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -1470,15 +1470,15 @@ Host: {fqdn}
 :Example: True
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 None
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-# Create Subuser
+## Create Subuser
 
 Create a new subuser (primarily useful for clients using the Swift API).
 Note that in general for a subuser to be useful, it must be granted
@@ -1488,7 +1488,7 @@ be automatically generated.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1497,7 +1497,7 @@ PUT /{admin}/user?subuser&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -1542,7 +1542,7 @@ Host: {fqdn}
 :Example: True [False]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the subuser information.
 
@@ -1563,7 +1563,7 @@ If successful, the response contains the subuser information.
 :Type: String
 :Parent: ``subusers``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``SubuserExists``
 
@@ -1585,13 +1585,13 @@ If successful, the response contains the subuser information.
 :Description: Invalid subuser access specified.
 :Code: 400 Bad Request
 
-# Modify Subuser
+## Modify Subuser
 
 Modify an existing subuser
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1600,7 +1600,7 @@ POST /{admin}/user?subuser&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -1646,7 +1646,7 @@ Host: {fqdn}
 :Example: ``read``
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the subuser information.
 
@@ -1667,7 +1667,7 @@ If successful, the response contains the subuser information.
 :Type: String
 :Parent: ``subusers``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``InvalidKeyType``
 
@@ -1684,13 +1684,13 @@ If successful, the response contains the subuser information.
 :Description: Invalid subuser access specified.
 :Code: 400 Bad Request
 
-# Remove Subuser
+## Remove Subuser
 
 Remove an existing subuser
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1699,7 +1699,7 @@ DELETE /{admin}/user?subuser&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -1722,14 +1722,14 @@ Host: {fqdn}
 :Example: True [True]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 None.
 
-#### Special Error Responses
+### Special Error Responses
 None.
 
-# Create Key
+## Create Key
 
 Create a new key. If a ``subuser`` is specified then by default created keys
 will be swift type. If only one of ``access-key`` or ``secret-key`` is provided the
@@ -1744,7 +1744,7 @@ each user or subuser.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1753,7 +1753,7 @@ PUT /{admin}/user?key&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -1804,7 +1804,7 @@ Host: {fqdn}
 :Example: True [True]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 ``keys``
 
@@ -1829,7 +1829,7 @@ Host: {fqdn}
 :Type: String
 :Parent: ``keys``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``InvalidAccessKey``
 
@@ -1856,13 +1856,13 @@ Host: {fqdn}
 :Description: Provided access key exists and belongs to another user.
 :Code: 409 Conflict
 
-# Remove Key
+## Remove Key
 
 Remove an existing key.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1871,7 +1871,7 @@ DELETE /{admin}/user?key&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``access-key``
 
@@ -1902,15 +1902,15 @@ Host: {fqdn}
 :Example: ``swift``
 :Required: No
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-#### Response Entities
+### Response Entities
 
 None.
 
-# Get Bucket Info
+## Get Bucket Info
 
 Get information about a subset of the existing buckets. If ``uid`` is specified
 without ``bucket`` then all buckets belonging to the user will be returned. If
@@ -1923,7 +1923,7 @@ response body will change and contain the keys ``buckets``, ``count`` and
 
 :caps: buckets=read
 
-#### Syntax
+### Syntax
 
 :
 
@@ -1932,7 +1932,7 @@ GET /{admin}/bucket?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -1969,7 +1969,7 @@ Host: {fqdn}
 :Example: my-bucket
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful the request returns a buckets container containing
 the desired bucket information.
@@ -2048,21 +2048,21 @@ the desired bucket information.
               the marker (bucket name) to use to continue pagination.
 :Type: String
 
-#### Special Error Responses
+### Special Error Responses
 
 ``IndexRepairFailed``
 
 :Description: Bucket index repair failed.
 :Code: 409 Conflict
 
-# Check Bucket Index
+## Check Bucket Index
 
 Check the index of an existing bucket. NOTE: to check multipart object
 accounting with ``check-objects``, ``fix`` must be set to True.
 
 :caps: buckets=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2071,7 +2071,7 @@ GET /{admin}/bucket?index&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -2094,27 +2094,27 @@ Host: {fqdn}
 :Example: False [False]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 ``index``
 
 :Description: Status of bucket index.
 :Type: String
 
-#### Special Error Responses
+### Special Error Responses
 
 ``IndexRepairFailed``
 
 :Description: Bucket index repair failed.
 :Code: 409 Conflict
 
-# Remove Bucket
+## Remove Bucket
 
 Delete an existing bucket.
 
 :caps: buckets=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2123,7 +2123,7 @@ DELETE /{admin}/bucket?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -2153,11 +2153,11 @@ Host: {fqdn}
 :Example: True [False]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 None.
 
-#### Special Error Responses
+### Special Error Responses
 
 ``BucketNotEmpty``
 
@@ -2169,14 +2169,14 @@ None.
 :Description: Unable to remove objects.
 :Code: 409 Conflict
 
-# Unlink Bucket
+## Unlink Bucket
 
 Unlink a bucket from a specified user. Primarily useful for changing
 bucket ownership.
 
 :caps: buckets=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2185,7 +2185,7 @@ POST /{admin}/bucket?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -2201,25 +2201,25 @@ Host: {fqdn}
 :Example: ``foo_user``
 :Required: Yes
 
-#### Response Entities
+### Response Entities
 
 None.
 
-#### Special Error Responses
+### Special Error Responses
 
 ``BucketUnlinkFailed``
 
 :Description: Unable to unlink bucket from specified user.
 :Code: 409 Conflict
 
-# Link Bucket
+## Link Bucket
 
 Link a bucket to a specified user, unlinking the bucket from
 any previous user.
 
 :caps: buckets=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2228,7 +2228,7 @@ PUT /{admin}/bucket?format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -2251,7 +2251,7 @@ Host: {fqdn}
 :Example: ``foo_user``
 :Required: Yes
 
-#### Response Entities
+### Response Entities
 
 ``bucket``
 
@@ -2300,7 +2300,7 @@ Host: {fqdn}
 :Type: String
 :Parent: ``bucket``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``BucketUnlinkFailed``
 
@@ -2312,13 +2312,13 @@ Host: {fqdn}
 :Description: Unable to link bucket to specified user.
 :Code: 409 Conflict
 
-# Remove Object
+## Remove Object
 
 Remove an existing object. NOTE: Does not require owner to be non-suspended.
 
 :caps: buckets=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2327,7 +2327,7 @@ DELETE /{admin}/bucket?object&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -2343,11 +2343,11 @@ Host: {fqdn}
 :Example: ``foo.txt``
 :Required: Yes
 
-#### Response Entities
+### Response Entities
 
 None.
 
-#### Special Error Responses
+### Special Error Responses
 
 ``NoSuchObject``
 
@@ -2359,13 +2359,13 @@ None.
 :Description: Unable to remove objects.
 :Code: 409 Conflict
 
-# Get Bucket or Object Policy
+## Get Bucket or Object Policy
 
 Read the policy of an object or bucket.
 
 :caps: buckets=read
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2374,7 +2374,7 @@ GET /{admin}/bucket?policy&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -2390,7 +2390,7 @@ Host: {fqdn}
 :Example: ``foo.txt``
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If successful, returns the object or bucket policy
 
@@ -2399,7 +2399,7 @@ If successful, returns the object or bucket policy
 :Description: Access control policy.
 :Type: Container
 
-#### Special Error Responses
+### Special Error Responses
 
 ``IncompleteBody``
 
@@ -2407,13 +2407,13 @@ If successful, returns the object or bucket policy
               and object were not specified for an object policy request.
 :Code: 400 Bad Request
 
-# Add A User Capability
+## Add A User Capability
 
 Add an administrative capability to a specified user.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2422,7 +2422,7 @@ PUT /{admin}/user?caps&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -2438,7 +2438,7 @@ Host: {fqdn}
 :Example: ``usage=read,write;user=write``
 :Required: Yes
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the user's capabilities.
 
@@ -2460,14 +2460,14 @@ If successful, the response contains the user's capabilities.
 :Type: Container
 :Parent: ``user``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``InvalidCapability``
 
 :Description: Attempt to grant invalid admin capability.
 :Code: 400 Bad Request
 
-#### Example Request
+### Example Request
 
 :
 
@@ -2478,13 +2478,13 @@ Content-Type: text/plain
 Authorization: {your-authorization-token}
 ```
 
-# Remove A User Capability
+## Remove A User Capability
 
 Remove an administrative capability from a specified user.
 
 :caps: users=write
 
-#### Syntax
+### Syntax
 
 :
 
@@ -2493,7 +2493,7 @@ DELETE /{admin}/user?caps&format=json HTTP/1.1
 Host: {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``uid``
 
@@ -2509,7 +2509,7 @@ Host: {fqdn}
 :Example: ``usage=read, write``
 :Required: Yes
 
-#### Response Entities
+### Response Entities
 
 If successful, the response contains the user's capabilities.
 
@@ -2531,7 +2531,7 @@ If successful, the response contains the user's capabilities.
 :Type: Container
 :Parent: ``user``
 
-#### Special Error Responses
+### Special Error Responses
 
 ``InvalidCapability``
 
@@ -2543,7 +2543,7 @@ If successful, the response contains the user's capabilities.
 :Description: User does not possess specified capability.
 :Code: 404 Not Found
 
-# Quotas
+## Quotas
 
 The Admin Operations API enables you to set quotas on users and on buckets owned
 by users, and on accounts and on buckets owned by accounts. See [Quota Management](admin.md#quota-management)
@@ -2576,7 +2576,7 @@ Valid parameters for quotas include:
 - **Enable/Disable Quota:** The ``enabled`` option specifies whether the
   quota should be enabled. The value should be either 'True' or 'False'.
 
-#### Get User Quota
+### Get User Quota
 
 To get a quota, the user must have ``users`` capability set with ``read``
 permission. :
@@ -2585,7 +2585,7 @@ permission. :
 GET /admin/user?quota&uid=<uid>&quota-type=user
 ```
 
-#### Set User Quota
+### Set User Quota
 
 To set a quota, the user must have ``users`` capability set with ``write``
 permission. :
@@ -2597,7 +2597,7 @@ PUT /admin/user?quota&uid=<uid>&quota-type=user
 The content must include a JSON representation of the quota settings
 as encoded in the corresponding read operation.
 
-#### Get Bucket Quota
+### Get Bucket Quota
 
 To get a quota, the user must have ``users`` capability set with ``read``
 permission. :
@@ -2606,7 +2606,7 @@ permission. :
 GET /admin/user?quota&uid=<uid>&quota-type=bucket
 ```
 
-#### Set Bucket Quota
+### Set Bucket Quota
 
 To set a quota, the user must have ``users`` capability set with ``write``
 permission. :
@@ -2618,7 +2618,7 @@ PUT /admin/user?quota&uid=<uid>&quota-type=bucket
 The content must include a JSON representation of the quota settings
 as encoded in the corresponding read operation.
 
-#### Set Quota for an Individual Bucket
+### Set Quota for an Individual Bucket
 
 To set a quota, the user must have ``buckets`` capability set with ``write``
 permission. :
@@ -2630,7 +2630,7 @@ PUT /admin/bucket?quota&uid=<uid>&bucket=<bucket-name>
 The content must include a JSON representation of the quota settings
 as mentioned in Set Bucket Quota section above.
 
-#### Set Account Quota
+### Set Account Quota
 
 To set a quota, the user must have ``accounts`` capability set with ``write``
 permission. :
@@ -2639,7 +2639,7 @@ permission. :
 PUT /admin/account?quota&id=<account_id>&quota-type=account
 ```
 
-#### Set Bucket Quota under an Account
+### Set Bucket Quota under an Account
 
 To set a quota, the user must have ``accounts`` capability set with ``write``
 permission. :
@@ -2648,7 +2648,7 @@ permission. :
 PUT /admin/account?quota&id=<account_id>&quota-type=bucket
 ```
 
-# Rate Limit
+## Rate Limit
 
 The Admin Operations API enables you to set and get ratelimit configurations on users and on bucket and global rate limit configurations. See [Rate Limit Management](admin.md#rate-limit-management) for additional details.
 Rate Limit includes the maximum number of operations and/or bytes per minute, separated by read and/or write, to a bucket and/or by a user and the maximum storage size in megabytes.
@@ -2686,7 +2686,7 @@ Valid parameters for quotas include:
 - **Enable/Disable Rate Limit:** The ``enabled`` option specifies whether the
   rate limit should be enabled.  The value should be either 'True' or 'False'.
 
-#### Get User Rate Limit
+### Get User Rate Limit
 
 To get a rate limit, the user must have ``ratelimit`` capability set with ``read``
 permission. :
@@ -2695,7 +2695,7 @@ permission. :
 GET /{admin}/ratelimit?ratelimit-scope=user&uid=<uid>
 ```
 
-#### Set User Rate Limit
+### Set User Rate Limit
 
 To set a rate limit, the user must have ``ratelimit`` capability set with ``write``
 permission. :
@@ -2704,7 +2704,7 @@ permission. :
 POST /{admin}/ratelimit?ratelimit-scope=user&uid=<uid><[&max-read-bytes=<bytes>][&max-write-bytes=<bytes>][&max-read-ops=<ops>][&max-write-ops=<ops>][enabled=<True|False>]>
 ```
 
-#### Get Bucket Rate Limit
+### Get Bucket Rate Limit
 
 To get a rate limit, the user must have ``users`` capability set with ``read``
 permission. :
@@ -2713,7 +2713,7 @@ permission. :
 GET /{admin}/ratelimit?bucket=<bucket>&ratelimit-scope=bucket
 ```
 
-#### Set Rate Limit for an Individual Bucket
+### Set Rate Limit for an Individual Bucket
 
 To set a rate limit, the user must have ``ratelimit`` capability set with ``write``
 permission. :
@@ -2722,7 +2722,7 @@ permission. :
 POST /{admin}/ratelimit?bucket=<bucket-name>&ratelimit-scope=bucket<[&max-read-bytes=<bytes>][&max-write-bytes=<bytes>][&max-read-ops=<ops>][&max-write-ops=<ops>]>
 ```
 
-#### Get Global Rate Limit
+### Get Global Rate Limit
 
 To get a global rate limit, the user must have ``ratelimit`` capability set with ``read``
 permission. :
@@ -2731,7 +2731,7 @@ permission. :
 GET /{admin}/ratelimit?global=<True|False>
 ```
 
-#### Set Global User Rate Limit
+### Set Global User Rate Limit
 
 To set a rate limit, the user must have ``ratelimit`` capability set with ``write``
 permission. :
@@ -2740,7 +2740,7 @@ permission. :
 POST /{admin}/ratelimit?ratelimit-scope=user&global=<True|False><[&max-read-bytes=<bytes>][&max-write-bytes=<bytes>][&max-read-ops=<ops>][&max-write-ops=<ops>][enabled=<True|False>]>
 ```
 
-#### Set Global Rate Limit Bucket
+### Set Global Rate Limit Bucket
 
 To set a rate limit, the user must have ``ratelimit`` capability set with ``write``
 permission. :
@@ -2749,7 +2749,7 @@ permission. :
 POST /{admin}/ratelimit?ratelimit-scope=bucket&global=<True|False><[&max-read-bytes=<bytes>][&max-write-bytes=<bytes>][&max-read-ops=<ops>][&max-write-ops=<ops>]>
 ```
 
-#### Set Global Anonymous User Rate Limit
+### Set Global Anonymous User Rate Limit
 
 To set a rate limit, the user must have ``ratelimit`` capability set with ``write``
 permission. :
@@ -2758,7 +2758,7 @@ permission. :
 POST /{admin}/ratelimit?ratelimit-scope=anon&global=<True|False><[&max-read-bytes=<bytes>][&max-write-bytes=<bytes>][&max-read-ops=<ops>][&max-write-ops=<ops>][enabled=<True|False>]>
 ```
 
-# Standard Error Responses
+## Standard Error Responses
 
 ``AccessDenied``
 
@@ -2785,7 +2785,7 @@ POST /{admin}/ratelimit?ratelimit-scope=anon&global=<True|False><[&max-read-byte
 :Description: No such access key.
 :Code: 404 Not Found
 
-# Binding libraries
+## Binding libraries
 
 ``Golang``
 

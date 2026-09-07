@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Host Management
 
-# Listing Hosts
+## Listing Hosts
 
 Run a command of this form to list hosts associated with the cluster:
 
@@ -46,7 +46,7 @@ ceph-master  192.168.122.73  _admin          QEMU (Standard PC (Q35 + ICH9, 2009
 
 <a id="cephadm-adding-hosts"></a>
 
-# Adding Hosts
+## Adding Hosts
 
 Hosts must have these [cephadm-host-requirements](install.md#cephadm-host-requirements) installed.
 Hosts without all the necessary requirements will fail to be added to the cluster.
@@ -94,7 +94,7 @@ ceph orch host add host4 10.10.0.104 --labels _admin
 
 <a id="cephadm-removing-hosts"></a>
 
-# Removing Hosts
+## Removing Hosts
 
 A host can safely be removed from the cluster after all daemons are removed
 from it.
@@ -150,7 +150,7 @@ cluster by running the following command:
 ceph orch host rm <host>
 ```
 
-## Offline host removal
+### Offline host removal
 
 If a host is offline and can not be recovered, it can be removed from the
 cluster by running a command of the following form:
@@ -165,7 +165,7 @@ ceph orch host rm <host> --offline --force
 
 <a id="orchestrator-host-labels"></a>
 
-# Host labels
+## Host labels
 
 The orchestrator supports assigning labels to hosts. Labels
 are free form and have no particular meaning by itself and each host
@@ -193,7 +193,7 @@ ceph orch host label rm my_hostname my_label
 
 <a id="cephadm-special-host-labels"></a>
 
-## Special host labels
+### Special host labels
 
 The following host labels have a special meaning to cephadm.  All start with ``_``.
 
@@ -225,7 +225,7 @@ The following host labels have a special meaning to cephadm.  All start with ``_
   addition to the default location ``/etc/ceph/`` cephadm also stores config and keyring
   files in the ``/var/lib/ceph/<fsid>/config`` directory.
 
-# Maintenance Mode
+## Maintenance Mode
 
 Putting a host into "maintenance mode" stops all Ceph daemons on the host. Run
 a command of the following form to put a host into maintenance mode or to take
@@ -258,7 +258,7 @@ ceph orch host maintenance exit <hostname> [--force] [--offline]
 
 See also [cephadm-fqdn](host-management.md#cephadm-fqdn)
 
-# Rescanning Host Devices
+## Rescanning Host Devices
 
 Some servers and external enclosures may not register device removal or insertion with the
 kernel. In these scenarios, you'll need to perform a device rescan on the appropriate host.
@@ -281,7 +281,7 @@ ceph orch host rescan rh9-ceph1 --with-summary
 Ok. 2 adapters detected: 2 rescanned, 0 skipped, 0 failed (0.32s)
 ```
 
-# Creating many hosts at once
+## Creating many hosts at once
 
 Many hosts can be added at once using
 ``ceph orch apply -i`` by submitting a multi-document YAML file:
@@ -310,7 +310,7 @@ to create a cluster spec file to deploy a whole cluster in one command.  see
 ``cephadm bootstrap --apply-spec`` also to do this during bootstrap. Cluster
 SSH Keys must be copied to hosts prior to adding them.
 
-# Setting the initial CRUSH location of host
+## Setting the initial CRUSH location of host
 
 Hosts can contain a ``location`` identifier which will instruct cephadm to
 create a new CRUSH host bucket located in the specified hierarchy.
@@ -333,9 +333,9 @@ location:
 > Removing a host will not remove an associated CRUSH bucket unless the
 > ``--rm-crush-entry`` flag is provided to the ``orch host rm`` command.
 
-See also [crush_map_default_types](../rados/operations/crush-map.md#crush-map-default-types).
+See also [crush_map_default_types](../rados/operations/crush-map.md#crush_map_default_types).
 
-# Removing a host from the CRUSH map
+## Removing a host from the CRUSH map
 
 The ``ceph orch host rm`` command has support for removing the associated host bucket
 from the CRUSH map. This is done by providing the ``--rm-crush-entry`` flag.
@@ -356,7 +356,7 @@ cephadm control.
 > have been removed, then you may direct cephadm remove the CRUSH bucket
 > along with the host using the ``--rm-crush-entry`` flag.
 
-# OS Tuning Profiles
+## OS Tuning Profiles
 
 Cephadm can be used to manage operating system tuning profiles that apply
 ``sysctl`` settings to sets of hosts.
@@ -404,7 +404,7 @@ run on the host.
 > passed. Moreover, if the ``--no-overwrite`` option is passed, existing
 > profiles with the same name are not overwritten.
 
-## Viewing Profiles
+### Viewing Profiles
 
 Run the following command to view all the profiles that cephadm currently manages:
 
@@ -417,7 +417,7 @@ ceph orch tuned-profile ls
 > ``tuned-profile ls`` command. The ``tuned-profile ls --format yaml`` command
 > presents the profiles in a format that is easy to copy and re-apply.
 
-## Removing Profiles
+### Removing Profiles
 
 To remove a previously applied profile, run this command:
 
@@ -427,7 +427,7 @@ ceph orch tuned-profile rm <profile-name>
 
 When a profile is removed, cephadm cleans up the file previously written to ``/etc/sysctl.d``.
 
-## Modifying Profiles
+### Modifying Profiles
 
 Profiles can be modified by re-applying a YAML spec with the same name as the
 profile that you want to modify, but settings within existing profiles can be
@@ -451,12 +451,12 @@ ceph orch tuned-profile rm-setting <profile-name> <setting-name>
 > same name as an existing profile is applied, it overwrites the old profile
 > unless the ``--no-overwrite`` flag is passed.
 
-# SSH Configuration
+## SSH Configuration
 
 Cephadm uses SSH to connect to remote hosts.  SSH uses a key to authenticate
 with those hosts in a secure way.
 
-## Default behavior
+### Default behavior
 
 Cephadm stores an SSH key in the monitor that is used to
 connect to remote hosts.  When the cluster is bootstrapped, this SSH
@@ -496,7 +496,7 @@ ceph mgr fail
 
 <a id="cephadm-ssh-user"></a>
 
-## Configuring a different SSH user
+### Configuring a different SSH user
 
 Cephadm must be able to log into all the Ceph cluster nodes as an user
 that has enough privileges to download container images, start containers
@@ -512,7 +512,7 @@ ceph cephadm set-user <user>
 Prior to running this the cluster SSH key needs to be added to this users
 authorized_keys file and non-root users must have passwordless sudo access.
 
-## Customizing the SSH configuration
+### Customizing the SSH configuration
 
 Cephadm generates an appropriate ``ssh_config`` file that is
 used for connecting to remote hosts.  This configuration looks
@@ -554,7 +554,7 @@ ceph config set mgr mgr/cephadm/ssh_config_file <path>
    (``/var/lib/ceph/<cluster-fsid>/mgr.<id>`` on the host, visible at
    ``/var/lib/ceph/mgr/ceph-<id>`` from inside the container).
 
-## Setting up CA signed keys for the cluster
+### Setting up CA signed keys for the cluster
 
 Cephadm also supports using CA signed keys for SSH authentication
 across cluster nodes. In this setup, instead of needing a private
@@ -571,7 +571,7 @@ ceph config-key set mgr/cephadm/ssh_identity_cert -i <signed-cert-file>
 
 <a id="cephadm-fqdn"></a>
 
-# Fully qualified domain names vs bare host names
+## Fully qualified domain names vs bare host names
 
 > **Note:**
 > cephadm demands that the name of the host given via ``ceph orch host add``

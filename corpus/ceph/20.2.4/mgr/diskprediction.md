@@ -15,7 +15,7 @@ failure predictions and returns them back to Ceph. It requires no external
 server for data analysis and the outputting of results. Its internal
 predictor's accuracy is around 70%.
 
-# Enabling
+## Enabling
 
 Run the following command to enable the ``diskprediction_local`` module in the
 Ceph environment:
@@ -46,7 +46,7 @@ Run the following command to retrieve the life expectancy of a given device:
 ceph device predict-life-expectancy <device id>
 ```
 
-# Configuration
+## Configuration
 
 The module performs the prediction on a daily basis by default. Adjust this
 interval by running a command of the following form:
@@ -55,7 +55,7 @@ interval by running a command of the following form:
 ceph config set mgr mgr/diskprediction_local/predict_interval <interval-in-seconds>
 ```
 
-# Debugging
+## Debugging
 
 To debug the DiskPrediction module mapping to Ceph logging level,
 use the following command.

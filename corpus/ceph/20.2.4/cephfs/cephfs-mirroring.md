@@ -18,7 +18,7 @@ the source snapshot.
 
 The primary (local) and secondary (remote) Ceph clusters version should be Pacific or later.
 
-<a id="cephfs-mirroring-creating-users"></a>
+<a id="cephfs_mirroring_creating_users"></a>
 
 ## Creating Users
 
@@ -56,7 +56,7 @@ $ cephfs-mirror --id mirror --cluster site-a -f
 ```
 
 > **Note:** The user specified here is ``mirror``, the creation of which is
-> described in the [Creating Users](cephfs-mirroring.md#cephfs-mirroring-creating-users)
+> described in the [Creating Users](cephfs-mirroring.md#cephfs_mirroring_creating_users)
 > section.
 
 Multiple ``cephfs-mirror`` daemons may be deployed for concurrent
@@ -142,7 +142,7 @@ ceph fs snapshot mirror disable <fs_name>
 After mirroring is enabled, add a peer to which directory snapshots are to be
 mirrored. Peers are specified by the ``<client>@<cluster>`` format, which is
 referred to elsewhere in this document as the ``remote_cluster_spec``. Peers
-are assigned a unique-id (UUID) when added. See the [Creating Users](cephfs-mirroring.md#cephfs-mirroring-creating-users) section for instructions that describe
+are assigned a unique-id (UUID) when added. See the [Creating Users](cephfs-mirroring.md#cephfs_mirroring_creating_users) section for instructions that describe
 how to create Ceph users for mirroring.
 
 To add a peer, run a command of the following form:
@@ -159,7 +159,7 @@ ceph fs snapshot mirror peer_add <fs_name> <remote_cluster_spec> [<remote_fs_nam
 For this command to succeed, the remote cluster's Ceph configuration and user
 keyring must be available in the primary cluster. For example, if a user named
 ``client_mirror`` is created on the remote cluster which has ``rwps``
-permissions for the remote file system named ``remote_fs`` (see [Creating Users](cephfs-mirroring.md#cephfs-mirroring-creating-users)) and the remote cluster is named
+permissions for the remote file system named ``remote_fs`` (see [Creating Users](cephfs-mirroring.md#cephfs_mirroring_creating_users)) and the remote cluster is named
 ``remote_ceph`` (that is, the remote cluster configuration file is named
 ``remote_ceph.conf`` on the primary cluster), run the following command to add
 the remote filesystem as a peer to the primary filesystem ``primary_fs``:
@@ -171,7 +171,7 @@ ceph fs snapshot mirror peer_add primary_fs client.mirror_remote@remote_ceph rem
 To avoid having to maintain the remote cluster configuration file and remote
 ceph user keyring in the primary cluster, users can bootstrap a peer (which
 stores the relevant remote cluster details in the monitor config store on the
-primary cluster). See the [Bootstrap Peers](cephfs-mirroring.md#cephfs-mirroring-bootstrap-peers) section.
+primary cluster). See the [Bootstrap Peers](cephfs-mirroring.md#cephfs_mirroring_bootstrap_peers) section.
 
 The ``peer_add`` command supports passing the remote cluster monitor address
 and the user key. However, bootstrapping a peer is the recommended way to add a
@@ -235,11 +235,11 @@ $ ceph fs snapshot mirror add cephfs /d0/d1/d2/d3
 Error EINVAL: /d0/d1/d2/d3 is a subtree of tracked path /d0/d1/d2
 ```
 
-The [Mirroring Status](cephfs-mirroring.md#cephfs-mirroring-mirroring-status) section contains
+The [Mirroring Status](cephfs-mirroring.md#cephfs_mirroring_mirroring_status) section contains
 information about the commands for checking the directory mapping (to mirror
 daemons) and for checking the directory distribution.
 
-<a id="cephfs-mirroring-bootstrap-peers"></a>
+<a id="cephfs_mirroring_bootstrap_peers"></a>
 
 ## Bootstrap Peers
 
@@ -274,7 +274,7 @@ e.g.:
 $ ceph fs snapshot mirror peer_bootstrap import cephfs eyJmc2lkIjogIjBkZjE3MjE3LWRmY2QtNDAzMC05MDc5LTM2Nzk4NTVkNDJlZiIsICJmaWxlc3lzdGVtIjogImJhY2t1cF9mcyIsICJ1c2VyIjogImNsaWVudC5taXJyb3JfcGVlcl9ib290c3RyYXAiLCAic2l0ZV9uYW1lIjogInNpdGUtcmVtb3RlIiwgImtleSI6ICJBUUFhcDBCZ0xtRmpOeEFBVnNyZXozai9YYUV0T2UrbUJEZlJDZz09IiwgIm1vbl9ob3N0IjogIlt2MjoxOTIuMTY4LjAuNTo0MDkxOCx2MToxOTIuMTY4LjAuNTo0MDkxOV0ifQ==
 ```
 
-<a id="cephfs-mirroring-mirroring-status"></a>
+<a id="cephfs_mirroring_mirroring_status"></a>
 
 ## Snapshot Mirroring
 

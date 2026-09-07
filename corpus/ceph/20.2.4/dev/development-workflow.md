@@ -39,7 +39,7 @@ were not written prior to checking all integration tests, they can be
 committed to the stable branch and the result sent for publication
 without going through another run of integration tests.
 
-# Release Cycle
+## Release Cycle
 
 :
 
@@ -65,7 +65,7 @@ new stable release (hammer, infernalis, jewel ...) is published at the same
 frequency.  Every other release (firefly, hammer, jewel...) is a [Long Term
 Stable (LTS)](../../releases).  See [Understanding the release cycle](../releases/index.md#understanding-the-release-cycle) for more information.
 
-# Merging bug fixes or features
+## Merging bug fixes or features
 
 The development branch is ``master`` and the workflow followed by all
 developers can be summarized as follows:
@@ -87,7 +87,7 @@ with the pull request, (s)he passes it to the ``tester``. The
 the pull request. If nothing happens within a month the ``reviewer`` is
 invited to ping the ``tester``.
 
-# Resolving bug reports and implementing features
+## Resolving bug reports and implementing features
 
 All bug reports and feature requests are in the [issue tracker](http://tracker.ceph.com) and the workflow can be summarized as
 follows:
@@ -115,7 +115,7 @@ commits from the master branch to the target stable branch. See [the backporter
 manual](https://github.com/ceph/ceph/blob/main/SubmittingPatches-backports.rst) for
 more information.
 
-# Running and interpreting teuthology integration tests
+## Running and interpreting teuthology integration tests
 
 The [/dev/sepia](sepia.md) runs [teuthology](https://github.com/ceph/teuthology/) integration tests [on a regular basis](http://tracker.ceph.com/projects/ceph-releases/wiki/HOWTO_monitor_the_automated_tests_AKA_nightlies#Automated-tests-AKA-nightlies) and the
 results are posted on [pulpito](http://pulpito.ceph.com/) and the
@@ -141,7 +141,7 @@ and many others such as
 * [power-cyle](https://github.com/ceph/ceph/tree/master/qa/suites/powercycle) suite
 * ...
 
-# Preparing a new release
+## Preparing a new release
 
 A release is prepared in a dedicated branch, different from the
 ``master`` branch.
@@ -160,7 +160,7 @@ following differences:
 * The ``Backport`` issues matching a teuthology test failure and set
   with priority ``Urgent`` must be fixed before the release
 
-# Cutting a new stable release
+## Cutting a new stable release
 
 A new stable release can be cut when:
 
@@ -209,7 +209,7 @@ The person responsible for each role is:
 * Yuri Weinstein is the ``quality engineer``
 * Alfredo Deza is the ``publisher``
 
-# Cutting a new development release
+## Cutting a new development release
 
 The publication workflow of a development release is the same as
 preparing a new release and cutting it, with the following
@@ -221,7 +221,7 @@ differences:
   the ``release master`` directly informs the ``publisher`` that the
   release is ready to be published.
 
-# Publishing point releases and backporting
+## Publishing point releases and backporting
 
 The publication workflow of the point releases is the same as
 preparing a new release and cutting it, with the following

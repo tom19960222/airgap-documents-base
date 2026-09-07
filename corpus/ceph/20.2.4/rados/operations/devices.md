@@ -67,9 +67,9 @@ default, the `identification` light is used.
 > [orchestrator](../../mgr/orchestrator.md#orchestrator-cli-module) module is enabled.  To see
 > which orchestrator module is enabled, run the following command:
 >
-> .. prompt:: bash $
->
->    ceph orch status
+> ```bash
+> ceph orch status
+> ```
 
 The command that makes the drive's LEDs blink is `lsmcli`. To customize this
 command, configure it via a Jinja2 template by running commands of the
@@ -222,7 +222,7 @@ will occur.
 > marks ``out`` so many OSDs that the ratio value of ``mon_osd_min_up_ratio``
 > is exceeded, then the cluster raises the ``DEVICE_HEALTH_TOOMANY`` health
 > check. For instructions on what to do in this situation, see
-> [DEVICE_HEALTH_TOOMANY](health-checks.md#rados-health-checks-device-health-toomany).
+> [DEVICE_HEALTH_TOOMANY](health-checks.md#rados_health_checks_device_health_toomany).
 
 The ``mgr/devicehealth/mark_out_threshold`` configuration option specifies the
 time interval for automatic migration. If a device is expected to fail within

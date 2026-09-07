@@ -12,7 +12,7 @@ is physical or virtual. This means that management workflows should provide
 a simple and consistent way to support this operational requirement. This document defines
 the maintenance strategy that could be implemented in cephadm and mgr/cephadm.
 
-# High Level Design
+## High Level Design
 Placing a host into maintenance, adopts the following workflow;
 
 1. confirm that the removal of the host does not impact data availability (the following
@@ -28,7 +28,7 @@ Placing a host into maintenance, adopts the following workflow;
 
 Exiting Maintenance, is basically the reverse of the above sequence
 
-# Admin Interaction
+## Admin Interaction
 The ceph orch command will be extended to support maintenance.
 
 ```
@@ -39,7 +39,7 @@ ceph orch host maintenance exit <host>
 > **Note:** In addition, the host's status should be updated to reflect whether it
 > is in maintenance or not.
 
-##### The 'check' Option
+### The 'check' Option
 The orch host ok-to-stop command focuses on ceph daemons (mon, osd, mds), which
 provides the first check. However, a ceph cluster also uses other types of daemons
 for monitoring, management and non-native protocol support which means the
@@ -72,7 +72,7 @@ like this.
    * **service availability** : user is provided a list of affected services and
      asked to confirm
 
-# Components Impacted
+## Components Impacted
 Implementing this capability will require changes to the following;
 
 * cephadm
@@ -88,7 +88,7 @@ Implementing this capability will require changes to the following;
 
   * add CLI commands to OrchestratorCli which expose the enter/exit and check interaction
 
-# Ideas for Future Work
+## Ideas for Future Work
 1. When a host is placed into maintenance, the time of the event could be persisted. This
    would allow the orchestrator layer to establish a maintenance window for the task and
    alert if the maintenance window has been exceeded.

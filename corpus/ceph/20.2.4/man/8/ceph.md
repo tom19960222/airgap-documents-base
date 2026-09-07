@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph
 
-# Synopsis
+## Synopsis
 
 | **ceph** **auth** [ *add* \| *caps* \| *del* \| *export* \| *get* \| *get-key* \| *get-or-create* \| *get-or-create-key* \| *import* \| *list* \| *print-key* \| *print_key* ] ...
 
@@ -67,16 +67,16 @@ fetched_at: 2026-08-18T01:32:45Z
 
 | **ceph** **version**
 
-# Description
+## Description
 
 ceph is a control utility which is used for manual deployment and maintenance
 of a Ceph cluster. It provides a diverse set of commands that allows deployment of
 monitors, OSDs, placement groups, MDS and overall maintenance, administration
 of the cluster.
 
-# Commands
+## Commands
 
-## auth
+### auth
 
 Manage authentication keys. It is used for adding, removing, exporting
 or updating of authentication keys for a particular  entity such as a monitor or
@@ -218,7 +218,7 @@ Usage:
 ceph auth wipe-rotating-service-keys
 ```
 
-## compact
+### compact
 
 Causes compaction of monitor's RocksDB storage.
 
@@ -228,7 +228,7 @@ Usage:
 ceph compact
 ```
 
-## config
+### config
 
 Configure the cluster. By default, Ceph daemons and clients retrieve their
 configuration options from monitor when they start, and are updated if any of
@@ -342,7 +342,7 @@ Usage:
 ceph config generate-minimal-conf > <minimal-config-path>
 ```
 
-## config-key
+### config-key
 
 Manage configuration key. Config-key is a general purpose key/value service
 offered by the monitors. This service is mainly used by Ceph tools and daemons
@@ -399,7 +399,7 @@ ceph config-key set <key> {<val>}
 
 <a id="man-ceph-daemon"></a>
 
-## daemon
+### daemon
 
 Submit admin-socket commands.
 
@@ -415,7 +415,7 @@ Example:
 ceph daemon osd.0 help
 ```
 
-## daemonperf
+### daemonperf
 
 Watch performance counters from a Ceph daemon.
 
@@ -438,7 +438,7 @@ ceph df {detail}
 
 <a id="ceph-features"></a>
 
-## features
+### features
 
 Show the releases and features of all connected daemons and clients connected
 to the cluster, along with the numbers of them in each bucket grouped by the
@@ -614,7 +614,7 @@ Usage:
 ceph fs swap <fs1-name> <fs1-id> <fs2-name> <fs2-id> [--swap-fscids] {--yes-i-really-meant-it}
 ```
 
-## fsid
+### fsid
 
 Show cluster's FSID/UUID.
 
@@ -624,7 +624,7 @@ Usage:
 ceph fsid
 ```
 
-## health
+### health
 
 Show cluster's health.
 
@@ -634,7 +634,7 @@ Usage:
 ceph health {detail}
 ```
 
-## heap
+### heap
 
 Show heap usage info (available only if compiled with tcmalloc)
 
@@ -663,7 +663,7 @@ Usage:
 ceph tell <name (type.id)> heap get_release_rate|set_release_rate {<val>}
 ```
 
-## injectargs
+### injectargs
 
 Inject configuration arguments into monitor.
 
@@ -673,7 +673,7 @@ Usage:
 ceph injectargs <injected_args> [<injected_args>...]
 ```
 
-## log
+### log
 
 Log supplied text to the monitor log.
 
@@ -683,7 +683,7 @@ Usage:
 ceph log <logtext> [<logtext>...]
 ```
 
-## mds
+### mds
 
 Manage metadata server configuration and administration. It uses some
 additional subcommands.
@@ -763,7 +763,7 @@ Usage:
 ceph mds repaired <role>
 ```
 
-## mon
+### mon
 
 Manage monitor configuration and administration. It uses some additional
 subcommands.
@@ -839,7 +839,7 @@ Valid names include ``auth_service_cipher``, ``auth_allowed_ciphers``, and
 ``auth_preferred_cipher``. The meaning of these settings and the valid values
 are as described in monmaptool(8).
 
-## mgr
+### mgr
 
 Ceph manager daemon configuration and management.
 
@@ -912,7 +912,7 @@ ceph mgr count-metadata <field>
 
 <a id="ceph-admin-osd"></a>
 
-## osd
+### osd
 
 Manage OSD configuration and administration. It uses some additional
 subcommands.
@@ -2061,7 +2061,7 @@ Usage:
 ceph tell <pgid> scrub-abort
 ```
 
-## quorum
+### quorum
 
 Cause a specific MON to enter or exit quorum.
 
@@ -2071,7 +2071,7 @@ Usage:
 ceph tell mon.<id> quorum enter|exit
 ```
 
-## quorum_status
+### quorum_status
 
 Reports status of monitor quorum.
 
@@ -2081,7 +2081,7 @@ Usage:
 ceph quorum_status
 ```
 
-## report
+### report
 
 Reports full status of cluster, optional title tag strings.
 
@@ -2091,7 +2091,7 @@ Usage:
 ceph report {<tags> [<tags>...]}
 ```
 
-## status
+### status
 
 Shows cluster status.
 
@@ -2101,7 +2101,7 @@ Usage:
 ceph status
 ```
 
-## tell
+### tell
 
 Sends a command to a specific daemon.
 
@@ -2119,7 +2119,7 @@ Usage:
 ceph tell <name (type.id)> help
 ```
 
-## version
+### version
 
 Show mon daemon version
 
@@ -2129,7 +2129,7 @@ Usage:
 ceph version
 ```
 
-# Options
+## Options
 
 .. option:: -i infile, --in-file=infile
 
@@ -2259,12 +2259,12 @@ ceph version
 
    block until completion (scrub and deep-scrub only)
 
-# Availability
+## Availability
 
 ceph is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph-mon](ceph-mon.md)\(8),
 [ceph-osd](ceph-osd.md)\(8),

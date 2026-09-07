@@ -17,13 +17,13 @@ On creation of new zones and zonegroups, all known features are supported and so
 
 | Feature | Release | Default |
 | --- | --- | --- |
-| [feature_resharding](zone-features.md#feature-resharding) | Reef | Enabled |
-| [feature_compress_encrypted](zone-features.md#feature-compress-encrypted) | Reef | Disabled |
-| [feature_notification_v2](zone-features.md#feature-notification-v2) | Squid | Enabled |
+| [feature_resharding](zone-features.md#feature_resharding) | Reef | Enabled |
+| [feature_compress_encrypted](zone-features.md#feature_compress_encrypted) | Reef | Disabled |
+| [feature_notification_v2](zone-features.md#feature_notification_v2) | Squid | Enabled |
 
-<a id="feature-resharding"></a>
+<a id="feature_resharding"></a>
 
-#### resharding
+### resharding
 
 This feature allows buckets to be resharded in a multisite configuration
 without interrupting the replication of their objects. When
@@ -36,9 +36,9 @@ of its RGWs and OSDs have upgraded.
 > **Note:** Dynamic resharding is not supported in multisite deployments prior to
 > the Reef release.
 
-<a id="feature-compress-encrypted"></a>
+<a id="feature_compress_encrypted"></a>
 
-#### compress-encrypted
+### compress-encrypted
 
 This feature enables support for combining [Server-Side Encryption](encryption.md) and
 [Compression](compression.md) on the same object. Object data gets compressed before encryption.
@@ -50,9 +50,9 @@ must upgrade to Reef or later before enabling.
 > the same data. Due to these security considerations, this feature is disabled
 > by default.
 
-<a id="feature-notification-v2"></a>
+<a id="feature_notification_v2"></a>
 
-#### notification_v2
+### notification_v2
 
 This feature opts in to a new "v2" metadata format for bucket notifications and
 topics. Unlike "v1", this format is supported by multisite replication and can
@@ -63,7 +63,7 @@ will convert existing v1 topics and bucket notifications into their v2 format.
 
 ## Commands
 
-#### Add support for a zone feature
+### Add support for a zone feature
 
 On the cluster that contains the given zone:
 
@@ -75,7 +75,7 @@ radosgw-admin period update --commit
 > **Note:** The ``period update`` command only works if the zone belongs to a realm.
 > Otherwise, all radosgws will need to restart before they notice the change.
 
-#### Remove support for a zone feature
+### Remove support for a zone feature
 
 On the cluster that contains the given zone:
 
@@ -84,7 +84,7 @@ radosgw-admin zone modify --rgw-zone={zone-name} --disable-feature={feature-name
 radosgw-admin period update --commit
 ```
 
-#### Enable a zonegroup feature
+### Enable a zonegroup feature
 
 On any cluster in the realm:
 
@@ -93,7 +93,7 @@ radosgw-admin zonegroup modify --rgw-zonegroup={zonegroup-name} --enable-feature
 radosgw-admin period update --commit
 ```
 
-#### Disable a zonegroup feature
+### Disable a zonegroup feature
 
 On any cluster in the realm:
 

@@ -7,12 +7,12 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # OS Recommendations
 
-# Ceph Dependencies
+## Ceph Dependencies
 
 As a general rule, we recommend deploying Ceph on newer releases of Linux.
 We also recommend deploying on releases with long-term support.
 
-## Linux Kernel
+### Linux Kernel
 
 - **Ceph Kernel Client**
 
@@ -40,7 +40,7 @@ We also recommend deploying on releases with long-term support.
   full-time maintainer. As of July 2025 there are no plans to remove this
   client but the future is uncertain.
 
-# Platforms
+## Platforms
 
 The chart below shows the platforms for which Ceph provides packages, and
 the platforms on which Ceph has been tested.
@@ -63,7 +63,7 @@ non-Linux systems but these are not supported by the core Ceph effort.
 - **C**: Ceph provides packages only. No tests have been done on these releases.
 - **D**: Client packages are available from an external site but are not maintained or tested by the core Ceph team.
 
-## Container Hosts
+### Container Hosts
 
 This table shows the operating systems that support Ceph's official container images.
 

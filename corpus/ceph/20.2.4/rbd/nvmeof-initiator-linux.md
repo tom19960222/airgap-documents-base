@@ -7,14 +7,14 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # NVMe/TCP Initiator for Linux
 
-# Prerequisites
+## Prerequisites
 
 - Kernel 5.0 or later
 - RHEL 9.2 or later
 - Ubuntu 24.04 or later
 - SLES 15 SP3 or later
 
-# Installation
+## Installation
 
 1. Install the nvme-cli:
 
@@ -44,7 +44,7 @@ nvme connect-all --traddr GATEWAY_IP --transport tcp -l 1800 -s 8009
 
    - '-s 8009' is the port address of the Discovery controller. The connect-all command will connect to the DC first, and then will use the information it retrns to connect to the GWs.
 
-# Next steps
+## Next steps
 
 Verify that the initiator is set up correctly:
 

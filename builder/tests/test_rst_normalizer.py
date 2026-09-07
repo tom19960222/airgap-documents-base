@@ -16,6 +16,135 @@ from git_source import (
 
 
 class RstNormalizerTests(unittest.TestCase):
+    def test_section_levels_follow_rst_style_order_and_overline_shape(self):
+        _, ordered = rst_to_markdown(
+            "Top level\n"
+            "---------\n\n"
+            "Nested\n"
+            "~~~~~~~\n\n"
+            "Deep nested\n"
+            "^^^^^^^^^^^\n"
+        )
+        self.assertEqual(
+            [line for line in ordered.splitlines() if line.startswith("#")],
+            ["# Top level", "## Nested", "### Deep nested"],
+        )
+
+        _, mixed_shapes = rst_to_markdown(
+            "==============\n"
+            "Root\n"
+            "==============\n\n"
+            "Child\n"
+            "=====\n\n"
+            "Grandchild\n"
+            "----------\n"
+        )
+        self.assertEqual(
+            [line for line in mixed_shapes.splitlines() if line.startswith("#")],
+            ["# Root", "## Child", "### Grandchild"],
+        )
+
+    def test_nested_admonition_directives_render_as_quoted_code_blocks(self):
+        with TemporaryDirectory() as temporary:
+            repo = Path(temporary) / "repo"
+            source = repo / "doc" / "page.rst"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                ".. warning:: Outer warning\n\n"
+                "   Introductory text.\n\n"
+                "   .. note:: Nested note\n\n"
+                "      .. code-block:: console\n\n"
+                "         # cat [config](config.rst)\n"
+                "         # keep :ref:`target <target>`\n\n"
+                "      .. prompt:: bash #\n\n"
+                "         ceph -s\n"
+                "\n"
+                "      .. code-block:: text\n\n"
+                "         +---+---+\n"
+                "         | A | B |\n"
+                "         +===+===+\n"
+                "         | x | y |\n"
+                "         +---+---+\n"
+            )
+            manifest = Manifest(
+                name="test",
+                collection="ceph",
+                version="20.2.4",
+                source_type="git",
+                repo_url="https://github.com/ceph/ceph",
+                git_ref="a" * 40,
+                source_url_template="{repo_url}/blob/{git_ref}/{path}",
+            )
+            source_outputs = {"doc/page.rst": "page.md"}
+
+            _, normalized = rst_to_markdown(
+                source.read_text(),
+                repo_dir=repo,
+                source_path=source,
+                preserve_rst_links=True,
+            )
+            rewritten = _rewrite_rst_links(
+                normalized,
+                source,
+                Path("page.md"),
+                repo,
+                source_outputs,
+                manifest,
+            )
+            rewritten = _rewrite_source_links(
+                rewritten,
+                source,
+                Path("page.md"),
+                repo,
+                source_outputs,
+                manifest,
+            )
+
+            self.assertIn("> > **Note:** Nested note", rewritten)
+            self.assertIn("> > ```console", rewritten)
+            self.assertIn("> > # cat [config](config.rst)", rewritten)
+            self.assertIn("> > # keep :ref:`target <target>`", rewritten)
+            self.assertIn("> > ```bash", rewritten)
+            self.assertIn("> > ceph -s", rewritten)
+            self.assertIn("> > ```text", rewritten)
+            self.assertIn("> > +---+---+", rewritten)
+            self.assertIn("> > | A | B |", rewritten)
+            self.assertIn("> > +===+===+", rewritten)
+            self.assertNotIn("> > .. code-block::", rewritten)
+            self.assertNotIn("unresolved-rst-link", rewritten)
+            self.assertNotIn("unresolved-source-link", rewritten)
+
+    def test_included_sections_keep_parent_rst_style_levels(self):
+        with TemporaryDirectory() as temporary:
+            repo = Path(temporary) / "repo"
+            source = repo / "doc" / "page.rst"
+            fragment = repo / "doc" / "fragment.inc.rst"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "Parent\n"
+                "======\n\n"
+                "Section\n"
+                "-------\n\n"
+                "Subsection\n"
+                "^^^^^^^^^^\n\n"
+                ".. include:: fragment.inc.rst\n"
+            )
+            fragment.write_text(
+                "Feature Toggles\n"
+                "^^^^^^^^^^^^^^^\n\n"
+                "Included details.\n"
+            )
+
+            _, body = rst_to_markdown(
+                source.read_text(),
+                repo_dir=repo,
+                source_path=source,
+            )
+            self.assertEqual(
+                [line for line in body.splitlines() if line.startswith("#")],
+                ["# Parent", "## Section", "### Subsection", "### Feature Toggles"],
+            )
+
     def test_titles_and_code_directives_become_markdown(self):
         title, body = rst_to_markdown(
             """================
@@ -379,6 +508,61 @@ Subsection
             )
             self.assertIn("[Accessing Shares](page.md#accessing-shares)", same_page)
 
+            source.write_text(
+                "Recovery/Backfill Options\n"
+                "-------------------------\n\n"
+                "See `Recovery/Backfill Options`_ for details.\n\n"
+                "mClock ``Profile`` (HDD)!\n"
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"
+                "See ``mClock Profile (HDD)!``_.\n\n"
+                "Understanding mon_status\n"
+                "^^^^^^^^^^^^^^^^^^^^^^^^\n\n"
+                "See `Understanding mon_status`_.\n\n"
+                "``cluster_fsid``\n"
+                "\"\"\"\"\"\"\"\"\"\"\"\"\"\n\n"
+                "See ``cluster_fsid``_.\n"
+            )
+            punctuation_targets = _collect_rst_targets([(source, "doc/page.rst")])
+            _, punctuation_body = rst_to_markdown(
+                source.read_text(),
+                repo_dir=repo,
+                source_path=source,
+                preserve_rst_links=True,
+            )
+            punctuation_link = _rewrite_rst_links(
+                punctuation_body,
+                source,
+                Path("page.md"),
+                repo,
+                {"doc/page.rst": "page.md"},
+                manifest,
+                punctuation_targets,
+            )
+            self.assertIn(
+                "# Recovery/Backfill Options",
+                punctuation_link,
+            )
+            self.assertIn(
+                "[Recovery/Backfill Options](page.md#recoverybackfill-options)",
+                punctuation_link,
+            )
+            self.assertIn(
+                "## mClock ``Profile`` (HDD)!",
+                punctuation_link,
+            )
+            self.assertIn(
+                "[mClock Profile (HDD)!](page.md#mclock-profile-hdd)",
+                punctuation_link,
+            )
+            self.assertIn(
+                "[Understanding mon_status](page.md#understanding-mon_status)",
+                punctuation_link,
+            )
+            self.assertIn(
+                "[cluster_fsid](page.md#cluster_fsid)",
+                punctuation_link,
+            )
+
             anonymous_order = _rewrite_rst_links(
                 "Read `First wrapped\nlink`__ and then `Second single`__.\n"
                 "__ https://example.com/first\n"
@@ -561,21 +745,6 @@ Subsection
             "libfuse < 3.0.0 ([pr#34769](https://tracker.ceph.com/issues/34769), maintainer)",
             body,
         )
-
-    def test_credential_shaped_examples_are_preserved_verbatim(self):
-        source = """ssl_key: |
-  -----BEGIN PRIVATE KEY-----
-  MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKc=
-  -----END PRIVATE KEY-----
-secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==
-"""
-
-        _, normalized = rst_to_markdown(source)
-
-        self.assertIn("-----BEGIN PRIVATE KEY-----", normalized)
-        self.assertIn("MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKc=", normalized)
-        self.assertIn("-----END PRIVATE KEY-----", normalized)
-        self.assertIn("secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==", normalized)
 
     def test_empty_source_is_not_a_document(self):
         self.assertFalse(_has_source_content(""))

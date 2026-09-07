@@ -15,7 +15,7 @@ Ceph clusters. This section describes how to perform this configuration.
 > ``rados`` commands, as well as other commands including ``mount.ceph``
 > and ``rbd``.
 
-# Config File Setup
+## Config File Setup
 Client hosts  usually require smaller configuration files (here
 sometimes called "config files") than do back-end cluster hosts.
 To generate a minimal config file, log into a host that has been
@@ -30,7 +30,7 @@ This command generates a minimal config file that tells the client how
 to reach the Ceph Monitors. This file should usually
 be copied to ``/etc/ceph/ceph.conf`` on each client host.
 
-# Keyring Setup
+## Keyring Setup
 Most Ceph clusters run with authentication enabled. This means that
 the client needs keys in order to communicate with Ceph daemons.
 To generate a keyring file with credentials for ``client.fs``,
@@ -44,9 +44,9 @@ The resulting output is directed into a keyring file, typically
 ``/etc/ceph/ceph.keyring``.
 
 To gain a broader understanding of client keyring distribution and administration,
-you should read [client_keyrings_and_configs](operations.md#client-keyrings-and-configs).
+you should read [client_keyrings_and_configs](operations.md#client_keyrings_and_configs).
 
 To see an example that explains how to distribute ``ceph.conf`` configuration
 files to hosts that are tagged with the ``bare_config`` label, you should read
 the subsection named "Distributing ceph.conf to hosts tagged with bare_config"
-under the heading [etc_ceph_conf_distribution](operations.md#etc-ceph-conf-distribution).
+under the heading [etc_ceph_conf_distribution](operations.md#etc_ceph_conf_distribution).

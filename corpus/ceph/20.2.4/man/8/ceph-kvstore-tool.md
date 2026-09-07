@@ -11,16 +11,16 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-kvstore-tool
 
-# Synopsis
+## Synopsis
 
 | **ceph-kvstore-tool** <rocksdb|bluestore-kv> <store path> *command* [args...]
 
-# Description
+## Description
 
 ceph-kvstore-tool is a kvstore manipulation tool. It allows users to manipulate
 RocksDB's data (like OSD's omap) offline.
 
-# Commands
+## Commands
 
 ceph-kvstore-tool utility uses many commands for debugging purpose
 which are as follows:
@@ -89,11 +89,11 @@ stats
 histogram
     Presents key-value sizes distribution statistics from the underlying KV database.
 
-# Availability
+## Availability
 
 **ceph-kvstore-tool** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

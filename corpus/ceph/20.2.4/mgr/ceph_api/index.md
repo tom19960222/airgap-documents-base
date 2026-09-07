@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Ceph RESTful API
 
-# Introduction
+## Introduction
 The **Ceph RESTful API** (henceforth **Ceph API**) is provided by the
 [mgr-dashboard](../dashboard.md#mgr-dashboard) module. The Ceph API
 service is available at the same URL as the regular Ceph Dashboard, under the
@@ -36,7 +36,7 @@ The Ceph API leverages the following standards:
 > Some endpoints are still under active development, and should be carefully
 > used since new Ceph releases could bring backward incompatible changes.
 
-# Authentication and Authorization
+## Authentication and Authorization
 
 Requests to the Ceph API pass through two access control checkpoints:
 
@@ -71,7 +71,7 @@ Authentication and authorization can be further configured from the
 Ceph CLI, the Ceph-Dashboard UI and the Ceph API itself (please refer to
 [dashboard-user-role-management](../dashboard.md#dashboard-user-role-management)).
 
-# Versioning
+## Versioning
 
 One of the main goals of the Ceph API is to keep a stable interface. For this
 purpose, Ceph API is built upon the following principles:
@@ -91,7 +91,7 @@ curl -X GET "https://example.com:8443/api/osd" \
 -H  "Authorization: Bearer <token>"
 ```
 
-# Specification
+## Specification
 
 .. openapi:: ../../../src/pybind/mgr/dashboard/openapi.yaml
    :group:

@@ -11,7 +11,7 @@ You can get Ceph software by retrieving Ceph source code and building it yoursel
 To build Ceph, you need to set up a development environment, compile Ceph,
 and then either install in user space or build packages and install the packages.
 
-# Build Prerequisites
+## Build Prerequisites
 
 > **Tip:** Check this section to see if there are specific prerequisites for your
 > Linux/Unix distribution.
@@ -36,7 +36,7 @@ and tools:
 
 <a id="build-ceph"></a>
 
-# Build Ceph
+## Build Ceph
 
 Ceph is built using cmake. To build Ceph, navigate to your cloned Ceph
 repository and execute the following:
@@ -51,7 +51,7 @@ ninja
 See [Installing a Build](install-storage-cluster.md#installing-a-build) to install a build in user space and [Ceph README.md](https://github.com/ceph/ceph#building-ceph)
 doc for more details on build.
 
-# Build Ceph Packages
+## Build Ceph Packages
 
 To build packages, you must clone the [Ceph](clone-source.md) repository. You can create
 installation packages from the latest code using ``dpkg-buildpackage`` for
@@ -61,7 +61,7 @@ Debian/Ubuntu or ``rpmbuild`` for the RPM Package Manager.
 > cores * 2. For example, use ``-j4`` for a dual-core processor to accelerate
 > the build.
 
-## Advanced Package Tool (APT)
+### Advanced Package Tool (APT)
 
 To create ``.deb`` packages for Debian/Ubuntu, ensure that you have cloned the
 [Ceph](clone-source.md) repository, installed the [Build Prerequisites](build-ceph.md#build-prerequisites) and installed
@@ -79,7 +79,7 @@ sudo dpkg-buildpackage
 
 For multi-processor CPUs use the ``-j`` option to accelerate the build.
 
-## RPM Package Manager
+### RPM Package Manager
 
 To create ``.rpm`` packages, ensure that you have cloned the [Ceph](clone-source.md) repository,
 installed the [Build Prerequisites](build-ceph.md#build-prerequisites) and installed ``rpm-build`` and

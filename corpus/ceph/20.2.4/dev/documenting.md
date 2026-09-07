@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Documenting Ceph
 
-# User documentation
+## User documentation
 
 The documentation on docs.ceph.com is generated from the reStructuredText
 sources in ``/doc/`` in the Ceph git repository.
@@ -28,7 +28,7 @@ script.
 For more information about the Ceph documentation, see
 [/start/documenting-ceph](../start/documenting-ceph.md).
 
-# Code Documentation
+## Code Documentation
 
 C and C++ can be documented with [Doxygen](http://www.doxygen.nl/), using the subset of Doxygen
 markup supported by [Breathe](https://github.com/michaeljones/breathe).
@@ -62,9 +62,9 @@ To generate the doxygen documentation in HTML format use:
 
 HTML output will be under: ``build-doc/doxygen/html``
 
-# Drawing diagrams
+## Drawing diagrams
 
-## Graphviz
+### Graphviz
 
 You can use [Graphviz](http://graphviz.org/), as explained in the [Graphviz extension documentation](https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html).
 
@@ -88,7 +88,7 @@ Emden R. Gansner, Eleftherios Koutsofios, and Stephen North for examples of
 digraphs. This is especially useful if this is your first time encountering
 GraphViz.
 
-## Ditaa
+### Ditaa
 
 You can use [Ditaa](http://ditaa.sourceforge.net/):
 
@@ -98,7 +98,7 @@ You can use [Ditaa](http://ditaa.sourceforge.net/):
    | hello, world |-->| hi! |
    +--------------+   \-----/
 
-## Blockdiag
+### Blockdiag
 
 If a use arises, we can integrate [Blockdiag](http://blockdiag.com/en/). It is a Graphviz-style
 declarative language for drawing things, and includes:
@@ -109,7 +109,7 @@ declarative language for drawing things, and includes:
 - [activity diagrams](http://blockdiag.com/en/actdiag/index.html): subsystems and activities in them
 - [network diagrams](http://blockdiag.com/en/nwdiag/): hosts, LANs, IP addresses etc (with [Cisco icons](https://pypi.org/project/blockdiagcontrib-cisco/) if wanted)
 
-## Inkscape
+### Inkscape
 
 You can use Inkscape to generate scalable vector graphics.
 https://inkscape.org/en/ for restructuredText documents.

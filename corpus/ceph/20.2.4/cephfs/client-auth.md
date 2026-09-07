@@ -17,7 +17,7 @@ the lowest level of authority necessary.
 > BlueStore. Erasure-coded pools cannot be used as metadata pools.
 > Overwrites must be enabled on erasure-coded data pools.
 
-# Path restriction
+## Path restriction
 
 By default, clients are not restricted in the paths that they are allowed to
 mount. When clients mount a subdirectory (for example ``/home/user``), the MDS
@@ -34,7 +34,7 @@ isolate untrusted clients in their own RADOS namespace. You can place a
 client's filesystem subtree in a particular namespace using [file layouts](file-layouts.md#file-layouts) and then restrict their RADOS access to that namespace
 using [OSD capabilities](../rados/operations/user-management.md#modify-user-capabilities).
 
-## Syntax
+### Syntax
 
 To grant ``rw`` access to the specified directory only, mention the specified
 directory while creating key for a client. Use a command of the following form:
@@ -91,7 +91,7 @@ following command:
 ceph-fuse -n client.foo mnt -r /bar
 ```
 
-## Reporting free space
+### Reporting free space
 
 When a client has mounted a sub-directory, the used space (``df``) is
 calculated from the quota on that sub-directory rather than from the overall
@@ -111,7 +111,7 @@ value of this setting.
 
 <a id="cephfs-layout-and-quota-restriction"></a>
 
-# Layout and Quota restriction (the 'p' flag)
+## Layout and Quota restriction (the 'p' flag)
 
 To set layouts or quotas, clients require the ``p`` flag in addition to ``rw``.
 Using the ``p`` flag with ``rw`` restricts all the attributes that are set by
@@ -135,7 +135,7 @@ client.1
     caps: [osd] allow rw tag cephfs data=cephfs_a
 ```
 
-# Snapshot restriction (the 's' flag)
+## Snapshot restriction (the 's' flag)
 
 To create or delete snapshots, clients require the ``s`` flag in addition to
 ``rw``. Note that when capability string also contains the ``p`` flag, the
@@ -153,7 +153,7 @@ client.0
     caps: [osd] allow rw tag cephfs data=cephfs_a
 ```
 
-# Network restriction
+## Network restriction
 
 :
 
@@ -172,7 +172,7 @@ this network.
 
 <a id="fs-authorize-multifs"></a>
 
-# File system Information Restriction
+## File system Information Restriction
 
 The monitor cluster can present a limited view of the available file systems.
 In this case, the monitor cluster informs clients only about file systems
@@ -235,7 +235,7 @@ Standby MDS daemons are always displayed. Information about restricted MDS
 daemons and file systems may become available by other means, such as by
 running ``ceph health detail``.
 
-# MDS communication restriction
+## MDS communication restriction
 
 By default, user applications may communicate with any MDS, regardless of
 whether they are allowed to modify data on an associated file system (see `Path
@@ -332,7 +332,7 @@ ceph-fuse[96599]: starting ceph client
 ceph-fuse[96599]: ceph mount failed with (1) Operation not permitted
 ```
 
-# Root squash
+## Root squash
 
 The ``root squash`` feature is implemented as a safety measure to prevent
 scenarios such as an accidental forced removal of a path (for example, ``sudo
@@ -360,7 +360,7 @@ ceph auth get client.test_a
     caps osd = "allow rw tag cephfs data=a"
 ```
 
-# Updating Capabilities using ``fs authorize``
+## Updating Capabilities using ``fs authorize``
 
 Beginning with the Reef release of Ceph, ``fs authorize`` can be used to add
 new caps to an existing client (for another CephFS or another path in the same
@@ -411,7 +411,7 @@ ceph auth get client.x
 no update for caps of client.x
 ```
 
-## Adding New Caps Using ``fs authorize``
+### Adding New Caps Using ``fs authorize``
 
 Add capabilities for another path in same CephFS:
 
@@ -465,7 +465,7 @@ ceph auth get client.x
         caps osd = "allow rw tag cephfs data=a, allow rw tag cephfs data=b"
 ```
 
-## Changing rw permissions in caps
+### Changing rw permissions in caps
 
 Capabilities can be modified by running ``fs authorize`` only in the case when
 read/write permissions must be changed. This is because the command ``fs
@@ -499,7 +499,7 @@ ceph auth get client.x
         caps osd = "allow r tag cephfs data=a"
 ```
 
-## ``fs authorize`` never deducts any part of caps
+### ``fs authorize`` never deducts any part of caps
 Capabilities that have been issued to a client can not be removed by running
 ``fs authorize`` again. For example, if a client capability has ``root_squash``
 applied on a certain CephFS, running ``fs authorize`` again for the same CephFS

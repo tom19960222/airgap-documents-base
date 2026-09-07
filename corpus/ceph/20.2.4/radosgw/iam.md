@@ -17,18 +17,18 @@ the RESTful management of account users, roles, and associated policies.
 This REST API is served by the same HTTP endpoint as the
 [radosgw s3](s3.md#radosgw-s3).
 
-# Authorization
+## Authorization
 
 By default, only [Account Root Users](account.md#radosgw-account-root-user) are
 authorized to use the IAM API, and can only see the resources under their own
 account. The account root user can use policies to delegate these permissions
 to other users or roles in the account.
 
-# Feature Support
+## Feature Support
 
 The following tables describe the currently supported IAM actions.
 
-## Users
+### Users
 
 | Action | Remarks |
 | --- | --- |
@@ -49,7 +49,7 @@ The following tables describe the currently supported IAM actions.
 | **DetachUserPolicy** |  |
 | **ListAttachedUserPolicies** |  |
 
-## Groups
+### Groups
 
 | Action | Remarks |
 | --- | --- |
@@ -69,7 +69,7 @@ The following tables describe the currently supported IAM actions.
 | **DetachGroupPolicy** |  |
 | **ListAttachedGroupPolicies** |  |
 
-## Roles
+### Roles
 
 | Action | Remarks |
 | --- | --- |
@@ -90,7 +90,7 @@ The following tables describe the currently supported IAM actions.
 | **DetachRolePolicy** |  |
 | **ListAttachedRolePolicies** |  |
 
-## OpenIDConnectProvider
+### OpenIDConnectProvider
 
 | Action | Remarks |
 | --- | --- |
@@ -99,7 +99,7 @@ The following tables describe the currently supported IAM actions.
 | **DeleteOpenIDConnectProvider** |  |
 | **ListOpenIDConnectProviders** |  |
 
-## Managed Policies
+### Managed Policies
 
 The following managed policies are available for use with ``AttachGroupPolicy``,
 ``AttachRolePolicy`` and ``AttachUserPolicy``:

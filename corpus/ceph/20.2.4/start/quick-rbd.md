@@ -25,7 +25,7 @@ You may use a virtual machine for your ``ceph-client`` node, but do not
 execute the following procedures on the same physical node as your Ceph
 Storage Cluster nodes (unless you use a VM). See [FAQ](http://wiki.ceph.com/How_Can_I_Give_Ceph_a_Try) for details.
 
-# Create a Block Device Pool
+## Create a Block Device Pool
 
 1. On the admin node, use the ``ceph`` tool to [create a pool](../rados/operations/pools.md#create-a-pool)
    (we recommend the name 'rbd').
@@ -36,7 +36,7 @@ Storage Cluster nodes (unless you use a VM). See [FAQ](http://wiki.ceph.com/How_
 rbd pool init <pool-name>
 ```
 
-# Configure a Block Device
+## Configure a Block Device
 
 1. On the ``ceph-client`` node, create a block device image. :
 

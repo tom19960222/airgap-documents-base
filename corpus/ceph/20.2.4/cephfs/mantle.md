@@ -57,7 +57,7 @@ while true; do
 done
 ```
 
-#### Mantle with `vstart.sh`
+### Mantle with `vstart.sh`
 
 1. Start Ceph and tune the logging so we can see migrations happen:
 
@@ -126,7 +126,7 @@ done
 for i in 0 1 2 3; do docker rm -f client$i; done
 ```
 
-#### Output
+### Output
 
 Looking at the log for the first MDS (could be a, b, or c), we see that
 everyone has no load:
@@ -179,7 +179,7 @@ fails (for whatever reason), we fall back to the original metadata load
 balancer. The balancer is stored in the RADOS metadata pool and a string in the
 MDSMap tells the MDSs which balancer to use.
 
-#### Exposing Metrics to Lua
+### Exposing Metrics to Lua
 
 Metrics are exposed directly to the Lua code as global variables instead of
 using a well-defined function signature. There is a global "mds" table, where
@@ -204,7 +204,7 @@ The metrics exposed to the Lua policy are the same ones that are already stored
 in mds_load_t: auth.meta_load(), all.meta_load(), req_rate, queue_length,
 cpu_load_avg.
 
-#### Compile/Execute the Balancer
+### Compile/Execute the Balancer
 
 Here we use `lua_pcall` instead of `lua_call` because we want to handle errors
 in the MDBalancer. We do not want the error propagating up the call chain. The
@@ -215,7 +215,7 @@ we will fall back to the original balancer.
 The performance improvement of using `lua_call` over `lua_pcall` would not be
 leveraged here because the balancer is invoked every 10 seconds by default.
 
-#### Returning Policy Decision to C++
+### Returning Policy Decision to C++
 
 We force the Lua policy engine to return a table of values, corresponding to
 the amount of load to send to each MDS. These loads are inserted directly into
@@ -228,7 +228,7 @@ jargon: a dummy value is pushed onto the stack and the next iterator replaces
 the top of the stack with a (k, v) pair. After reading each value, pop that
 value but keep the key for the next call to `lua_next`.
 
-#### Reading from RADOS
+### Reading from RADOS
 
 All MDSs will read balancing code from RADOS when the balancer version changes
 in the MDS Map. The balancer pulls the Lua code from RADOS synchronously. We do
@@ -248,7 +248,7 @@ and fill in the Lua code in the background. We cannot do this because the MDS
 does not support daemon-local fallbacks and the balancer assumes that all MDSs
 come to the same decision at the same time (e.g., importers, exporters, etc.).
 
-#### Debugging
+### Debugging
 
 Logging in a Lua policy will appear in the MDS log. The syntax is the same as
 the cls logging interface:
@@ -267,7 +267,7 @@ Warning and Info messages are centralized using the clog/Beacon. Successful
 messages are only sent on version changes by the first MDS to avoid spamming
 the `ceph -w` utility. These messages are used for the integration tests.
 
-#### Testing
+### Testing
 
 Testing is done with the ceph-qa-suite (tasks.cephfs.test_mantle). We do not
 test invalid balancer logging and loading the actual Lua VM.

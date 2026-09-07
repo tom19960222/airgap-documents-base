@@ -11,8 +11,8 @@ fetched_at: 2026-08-18T01:32:45Z
 > default storage back end. Since the Luminous release of Ceph, BlueStore has
 > been Ceph's default storage back end. However, Filestore OSDs are still
 > supported up to Quincy. Filestore OSDs are not supported in Reef. See
-> [OSD Back Ends](storage-devices.md#rados-config-storage-devices-osd-backends). See
-> [BlueStore Migration](../operations/bluestore-migration.md#rados-operations-bluestore-migration) for
+> [OSD Back Ends](storage-devices.md#rados_config_storage_devices_osd_backends). See
+> [BlueStore Migration](../operations/bluestore-migration.md#rados_operations_bluestore_migration) for
 > instructions explaining how to replace an existing Filestore back end with a
 > BlueStore back end.
 
@@ -25,7 +25,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. index:: filestore; extended attributes
 
-# Extended Attributes
+## Extended Attributes
 
 Extended Attributes (XATTRs) are important for Filestore OSDs. However, Certain
 disadvantages can occur when the underlying file system is used for the storage
@@ -115,7 +115,7 @@ threshold is reached.
 
 .. index:: filestore; synchronization
 
-# Synchronization Intervals
+## Synchronization Intervals
 
 Filestore must periodically quiesce writes and synchronize the file system.
 Each synchronization creates a consistent commit point. When the commit point
@@ -142,7 +142,7 @@ efficiency but also potentially increasing tail latency.
 
 .. index:: filestore; flusher
 
-# Flusher
+## Flusher
 
 The Filestore flusher forces data from large writes to be written out using
 ``sync_file_range`` prior to the synchronization.
@@ -185,7 +185,7 @@ Ideally, this action reduces the cost of the eventual synchronization. In practi
 
 .. index:: filestore; queue
 
-# Queue
+## Queue
 
 The following settings define limits on the size of the Filestore queue:
 
@@ -205,7 +205,7 @@ The following settings define limits on the size of the Filestore queue:
 
 .. index:: filestore; timeouts
 
-# Timeouts
+## Timeouts
 
 ``filestore_op_threads``
 
@@ -230,7 +230,7 @@ The following settings define limits on the size of the Filestore queue:
 
 .. index:: filestore; btrfs
 
-# B-Tree Filesystem
+## B-Tree Filesystem
 
 ``filestore_btrfs_snap``
 
@@ -248,7 +248,7 @@ The following settings define limits on the size of the Filestore queue:
 
 .. index:: filestore; journal
 
-# Journal
+## Journal
 
 ``filestore_journal_parallel``
 
@@ -271,7 +271,7 @@ The following settings define limits on the size of the Filestore queue:
 :Required: No
 :Default: ``false``
 
-# Misc
+## Misc
 
 ``filestore_merge_threshold``
 

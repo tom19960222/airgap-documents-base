@@ -11,16 +11,16 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-clsinfo
 
-# Synopsis
+## Synopsis
 
 | **ceph-clsinfo** [ *options* ] ... *filename*
 
-# Description
+## Description
 
 **ceph-clsinfo** can show name, version, and architecture information
 about a specific class object.
 
-# Options
+## Options
 
 .. option:: -n, --name
 
@@ -34,12 +34,12 @@ about a specific class object.
 
    Shows the class architecture
 
-# Availability
+## Availability
 
 **ceph-clsinfo** is part of Ceph, a massively scalable, open-source, distributed storage system. Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

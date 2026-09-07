@@ -16,7 +16,7 @@ Ceph admins can explore the rich observability stack deployed by Ceph, and
 can leverage Prometheus, Alertmanager, Grafana, and scripting to create customized
 monitoring tools.
 
-# Ceph Monitoring stack
+## Ceph Monitoring stack
 
 Ceph deploys an integrated monitoring stack as described
 in the [Monitoring Services](../cephadm/services/monitoring.md#mgr-cephadm-monitoring) section of
@@ -24,7 +24,7 @@ the ``cephadm`` documentation.  Deployments with external fleetwide monitoring
 and observability systems using these or other tools may choose to disable
 the stack that Ceph deploys by default.
 
-# Ceph metrics
+## Ceph metrics
 
 Many Ceph metrics are gathered from the performance counters exposed by each
 Ceph daemon. These [../dev/perf_counters](../dev/perf_counters.md) are native Ceph metrics.
@@ -71,7 +71,7 @@ most important cluster and service metrics.  Many of the examples in this docume
 are taken from Dashboard graphics or extrapolated from metrics exposed by the
 Ceph Dashboard.
 
-# Ceph daemon health metrics
+## Ceph daemon health metrics
 
 The ``ceph_exporter`` provides a metric named ``ceph_daemon_socket_up`` that
 indicates the health status of a Ceph daemon based on its ability to respond
@@ -99,7 +99,7 @@ To identify any Ceph daemons that were not responsive at any point in the last
 ceph_daemon_socket_up == 0 or min_over_time(ceph_daemon_socket_up[12h]) == 0
 ```
 
-# Performance metrics
+## Performance metrics
 
 Below we explore a a number of metrics that indicate Ceph cluster performance.
 
@@ -150,7 +150,7 @@ Example:
 sum(irate(ceph_osd_op_latency_sum[1m]))
 ```
 
-# OSD performance
+## OSD performance
 
 The cluster performance metrics described above are gathered from OSD metrics.
 By specifying an appropriate label value or regular expression we can retrieve
@@ -172,7 +172,7 @@ irate(ceph_osd_op_w_in_bytes{ceph_daemon=~"osd.0"}[1m])
 ceph_osd_stat_bytes{ceph_daemon="osd.0", instance="cephtest-node-00.cephlab.com:9283", job="ceph"} = 536451481
 ```
 
-# Physical storage drive performance:
+## Physical storage drive performance:
 
 By combining Prometheus ``node_exporter`` metrics with Ceph cluster metrics we can
 derive performance information for physical storage media backing Ceph OSDs.
@@ -204,7 +204,7 @@ label_replace(irate(node_disk_written_bytes_total[1m]), "instance", "$1", "insta
 label_replace(irate(node_disk_io_time_seconds_total[5m]), "instance", "$1", "instance", "([^:.]*).*") and on (instance, device) label_replace(label_replace(ceph_disk_occupation_human{ceph_daemon=~"osd.0"}, "device", "$1", "device", "/dev/(.*)"), "instance", "$1", "instance", "([^:.]*).*")
 ```
 
-# Pool metrics
+## Pool metrics
 
 Ceph pool metrics have the following labels:
 
@@ -275,7 +275,7 @@ reads: irate(ceph_pool_rd_bytes[1m]) * on(pool_id) group_left(instance,name) cep
 writes: irate(ceph_pool_wr_bytes[1m]) * on(pool_id) group_left(instance,name) ceph_pool_metadata{name=~"testrbdpool"}
 ```
 
-# RGW metrics
+## RGW metrics
 
 These metrics have the following labels:
 
@@ -289,7 +289,7 @@ Example:
 ceph_rgw_req{instance="192.168.122.7:9283", instance_id="154247", job="ceph"} = 12345
 ```
 
-## Generic metrics
+### Generic metrics
 
 * ``ceph_rgw_metadata``: Provides generic information about an RGW daemon.
   This can be used together with other metrics to provide contextual
@@ -316,7 +316,7 @@ ceph_rgw_req{instance="192.168.122.7:9283", instance_id="154247", job="ceph"} = 
   * ``ceph_rgw_failed_req``: Aborted requests.  Useful for detecting daemon
     errors.
 
-## GET operation metrics
+### GET operation metrics
 * ``ceph_rgw_op_global_get_obj_lat_count``: Number of ``GET`` requests
 
 * ``ceph_rgw_op_global_get_obj_lat_sum``: Total latency for ``GET`` requests
@@ -325,7 +325,7 @@ ceph_rgw_req{instance="192.168.122.7:9283", instance_id="154247", job="ceph"} = 
 
 * ``ceph_rgw_op_global_get_obj_bytes``: Total bytes transferred for ``GET`` requests
 
-## PUT operation metrics
+### PUT operation metrics
 * ``ceph_rgw_op_global_put_obj_lat_count``: Number of get operations
 
 * ``ceph_rgw_op_global_put_obj_lat_sum``: Total latency time for ``PUT`` operations
@@ -334,7 +334,7 @@ ceph_rgw_req{instance="192.168.122.7:9283", instance_id="154247", job="ceph"} = 
 
 * ``ceph_rgw_op_global_get_obj_bytes``: Total bytes transferred in ``PUT`` operations
 
-## Additional Useful queries
+### Additional Useful queries
 
 ```bash
 # Average GET latency
@@ -368,7 +368,7 @@ sum by (instance_id) (rate(ceph_rgw_op_global_get_obj_bytes[30s]) + rate(ceph_rg
 rate(ceph_rgw_failed_req[30s])
 ```
 
-# CephFS Metrics
+## CephFS Metrics
 
 These metrics have the following labels:
 
@@ -382,7 +382,7 @@ Example:
 ceph_mds_request{ceph_daemon="mds.test.cephtest-node-00.hmhsoh", instance="192.168.122.7:9283", job="ceph"} = 1452
 ```
 
-## Important metrics
+### Important metrics
 
 * ``ceph_mds_metadata``: Provides general information about the MDS daemon.  It
   can be used together with other metrics to provide contextual
@@ -424,7 +424,7 @@ ceph_mds_metadata{ceph_daemon="mds.test.cephtest-node-00.hmhsoh", ceph_version="
 
 * ``ceph_mds_root_rfiles``: Total number of files managed by the daemon
 
-## Useful queries:
+### Useful queries:
 
 ```bash
 # Total MDS read workload:
@@ -446,7 +446,7 @@ rate(ceph_mds_reply_latency_sum[30s]) / rate(ceph_mds_reply_latency_count[30s])
 rate(ceph_mds_request[30s]) * on (instance) group_right (ceph_daemon) ceph_mds_metadata
 ```
 
-# Block metrics
+## Block metrics
 
 By default RBD metrics for images are not gathered, as their cardinality may
 be high.  This helps ensure the performance of the Manager's ``prometheus`` module.
@@ -468,7 +468,7 @@ Example:
 ceph_rbd_read_bytes{image="test2", instance="cephtest-node-00.cephlab.com:9283", job="ceph", pool="testrbdpool"}
 ```
 
-## Important  metrics
+### Important  metrics
 
 * ``ceph_rbd_read_bytes``: RBD bytes read
 
@@ -486,13 +486,13 @@ ceph_rbd_read_bytes{image="test2", instance="cephtest-node-00.cephlab.com:9283",
 
 * ``ceph_rbd_write_latency_sum``: RBD write operation latency total
 
-## Useful queries
+### Useful queries
 
 ```bash
 # Average read latency
 rate(ceph_rbd_read_latency_sum[30s]) / rate(ceph_rbd_read_latency_count[30s]) * on (instance) group_left (ceph_daemon) ceph_rgw_metadata
 ```
 
-# Hardware monitoring
+## Hardware monitoring
 
 See [hardware-monitoring](../hardware-monitoring/index.md#hardware-monitoring)

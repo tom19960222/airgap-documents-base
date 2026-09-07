@@ -26,7 +26,7 @@ zones.
 
 ## Archive Sync Tier Type Configuration
 
-#### How to Configure
+### How to Configure
 
 See [Multisite Configuration](multisite.md) for multisite configuration instructions. The
 archive sync module requires the creation of a new zone. The zone tier type needs

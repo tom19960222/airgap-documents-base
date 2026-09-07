@@ -60,7 +60,7 @@ Initially, only the subset of the low-level interface functions of
 
 ### Design of common components
 
-##### Network protocol
+#### Network protocol
 
 Since the connection through the UNIX socket is to another process that runs on
 the same machine and the data we need to pass is quite simple, we'll avoid all
@@ -101,7 +101,7 @@ daemon is listening, wait for requests coming from the application, serialize
 all function arguments and send them to the daemon. Once the daemon responds it
 will deserialize the answer and return the result to the application.
 
-##### Local caching
+#### Local caching
 
 While the main purpose of this library is to avoid independent caches on each
 process, some preliminary testing has shown a big performance drop for
@@ -121,7 +121,7 @@ designed and implemented in a future version.
 The daemon will be a regular process that will centralize libcephfs requests
 coming from other processes on the same machine.
 
-##### Process maintenance
+#### Process maintenance
 
 Since the process will work as a standalone daemon, a simple systemd unit file
 will be provided to manage it as a regular system service. Most probably this

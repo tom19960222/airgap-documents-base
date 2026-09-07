@@ -19,7 +19,7 @@ monitors to form a quorum.
 If your cluster is having monitor-related problems, we recommend that you
 consult the following troubleshooting information.
 
-# Initial Troubleshooting
+## Initial Troubleshooting
 
 The first steps in the process of troubleshooting Ceph Monitors involve making
 sure that the Monitors are running and that they are able to communicate with
@@ -74,15 +74,15 @@ the simplest causes of Monitor malfunction.
     (here ``ID`` is the Monitor's identifier).
 
     Run the ``ceph tell mon.ID mon_status`` command for each Monitor in the
-    cluster. For more on this command's output, see [Understanding mon_status](troubleshooting-mon.md#rados-troubleshoting-troubleshooting-mon-understanding-mon-status).
+    cluster. For more on this command's output, see [Understanding mon_status](troubleshooting-mon.md#rados_troubleshoting_troubleshooting_mon_understanding_mon_status).
 
     There is also an alternative method for contacting each individual Monitor:
     SSH into each Monitor node and query the daemon's admin socket. See
-    [Using the Monitor's Admin Socket](troubleshooting-mon.md#rados-troubleshoting-troubleshooting-mon-using-admin-socket).
+    [Using the Monitor's Admin Socket](troubleshooting-mon.md#rados_troubleshoting_troubleshooting_mon_using_admin_socket).
 
-<a id="rados-troubleshoting-troubleshooting-mon-using-admin-socket"></a>
+<a id="rados_troubleshoting_troubleshooting_mon_using_admin_socket"></a>
 
-# Using the monitor's admin socket
+## Using the monitor's admin socket
 
 A monitor's admin socket allows you to interact directly with a specific daemon
 by using a Unix socket file. This socket file is found in the monitor's ``run``
@@ -126,9 +126,9 @@ Running ``ceph help`` shows all supported commands that are available through
 the admin socket. See especially ``config get``, ``config show``, ``mon stat``,
 and ``quorum_status``.
 
-<a id="rados-troubleshoting-troubleshooting-mon-understanding-mon-status"></a>
+<a id="rados_troubleshoting_troubleshooting_mon_understanding_mon_status"></a>
 
-# Understanding mon_status
+## Understanding mon_status
 
 The status of a Monitor (as reported by the ``ceph tell mon.X mon_status``
 command) can be obtained via the admin socket. The ``ceph tell mon.X
@@ -199,9 +199,9 @@ and ``c``), that quorum is formed by only two monitors, and that ``c`` is a
   b" and ``127.0.0.1:6795`` for "Monitor c"), ``mon.a`` has the highest rank:
   namely, rank ``0``.
 
-# Most Common Monitor Issues
+## Most Common Monitor Issues
 
-## The Cluster Has Quorum but at Least One Monitor is Down
+### The Cluster Has Quorum but at Least One Monitor is Down
 
 When the cluster has quorum but at least one monitor is down, ``ceph health
 detail`` returns a message similar to the following:
@@ -225,8 +225,8 @@ mon.a (rank 0) addr 127.0.0.1:6789/0 is down (out of quorum)
   investigation is necessary.
 
   First, check the problematic monitor's ``mon_status`` via the admin
-  socket as explained in [Using the monitor's admin socket](troubleshooting-mon.md#using-the-monitor-s-admin-socket) and
-  [Understanding mon_status](troubleshooting-mon.md#understanding-mon-status).
+  socket as explained in [Using the monitor's admin socket](troubleshooting-mon.md#using-the-monitors-admin-socket) and
+  [Understanding mon_status](troubleshooting-mon.md#understanding-mon_status).
 
   If the Monitor is out of the quorum, then its state will be one of the
   following: ``probing``, ``electing`` or ``synchronizing``. If the state of
@@ -263,7 +263,7 @@ mon.a (rank 0) addr 127.0.0.1:6789/0 is down (out of quorum)
   Monitors at a wrong address. ``mon_status`` outputs the ``monmap`` that is
   known to the monitor: determine whether the other Monitors' locations as
   specified in the ``monmap`` match the locations of the Monitors in the
-  network. If they do not, see [Recovering a Monitor's Broken monmap](troubleshooting-mon.md#rados-troubleshooting-troubleshooting-mon-recovering-broken-monmap). If
+  network. If they do not, see [Recovering a Monitor's Broken monmap](troubleshooting-mon.md#rados_troubleshooting_troubleshooting_mon_recovering_broken_monmap). If
   the locations of the Monitors as specified in the ``monmap`` match the
   locations of the Monitors in the network, then the persistent ``probing``
   state could  be related to severe clock skews among the monitor nodes.  See
@@ -277,7 +277,7 @@ mon.a (rank 0) addr 127.0.0.1:6789/0 is down (out of quorum)
   If ``ceph health detail`` shows that a Monitor's state is ``electing``, the
   monitor is in the middle of an election. Elections typically complete
   quickly, but sometimes the monitors can get stuck in what is known as an
-  *election storm*. See [Monitor Elections](../../dev/mon-elections.md#dev-mon-elections) for more
+  *election storm*. See [Monitor Elections](../../dev/mon-elections.md#dev_mon_elections) for more
   on monitor elections.
 
   The presence of election storm might indicate clock skew among the monitor
@@ -330,12 +330,12 @@ mon.a (rank 0) addr 127.0.0.1:6789/0 is down (out of quorum)
   substantiate it. See [Preparing your logs](troubleshooting-mon.md#preparing-your-logs) for information about the
   proper preparation of logs.
 
-<a id="rados-troubleshooting-troubleshooting-mon-recovering-broken-monmap"></a>
+<a id="rados_troubleshooting_troubleshooting_mon_recovering_broken_monmap"></a>
 
-## Recovering a Monitor's Broken "monmap"
+### Recovering a Monitor's Broken "monmap"
 
 A monmap can be retrieved by using a command of the form ``ceph tell mon.c
-mon_status``, as described in [Understanding mon_status](troubleshooting-mon.md#rados-troubleshoting-troubleshooting-mon-understanding-mon-status).
+mon_status``, as described in [Understanding mon_status](troubleshooting-mon.md#rados_troubleshoting_troubleshooting_mon_understanding_mon_status).
 
 Here is an example of a ``monmap``:
 
@@ -411,7 +411,7 @@ ceph-mon -i ID --inject-monmap /tmp/monmap
 > problems. Injecting a ``monmap`` overwrites the latest existing
 > ``monmap`` stored on the monitor.  Be careful!
 
-## Clock Skews
+### Clock Skews
 
 The Paxos consensus algorithm requires close time synchroniziation, which means
 that clock skew among the monitors in the quorum can have a serious effect on
@@ -486,7 +486,7 @@ mon.c addr 10.10.0.1:6789/0 clock skew 0.08235s > max 0.05s (latency 0.0045s)
   or instead hosted on your network. Hosting your own NTP servers tends to
   mitigate clock skew problems.
 
-## Client Can't Connect or Mount
+### Client Can't Connect or Mount
 
 If a client can't connect to the cluster or mount, check your iptables. Some
 operating-system install utilities add a ``REJECT`` rule to ``iptables``.
@@ -509,9 +509,9 @@ example:
 iptables -A INPUT -m multiport -p tcp -s {ip-address}/{netmask} --dports 6789,6800:7568 -j ACCEPT
 ```
 
-# Monitor Store Failures
+## Monitor Store Failures
 
-## Symptoms of store corruption
+### Symptoms of store corruption
 
 Ceph Monitors maintain the Cluster Map in a key-value store. If
 key-value store corruption causes a Monitor to fail, then the Monitor log might
@@ -527,7 +527,7 @@ or:
 Corruption: 1 missing files; e.g.: /var/lib/ceph/mon/mon.foo/store.db/1234567.ldb
 ```
 
-## Recovery using healthy monitor(s)
+### Recovery using healthy monitor(s)
 
 If the cluster contains surviving Monitors, the corrupted Monitor can be
 [replaced](../operations/add-or-rm-mons.md#adding-and-removing-monitors) with a new Monitor. After the
@@ -536,7 +536,7 @@ Monitor is fully synchronized, it will be able to serve clients.
 
 <a id="mon-store-recovery-using-osds"></a>
 
-## Recovery using OSDs
+### Recovery using OSDs
 
 Even if all monitors fail at the same time, it is possible to recover the
 Monitor store by using information that is stored in OSDs. You are encouraged
@@ -624,9 +624,9 @@ The above recovery tool is unable to recover the following information:
 
 - **MDS Maps**: The MDS maps are lost.
 
-# Everything Failed! Now What?
+## Everything Failed! Now What?
 
-## Reaching out for help
+### Reaching out for help
 
 You can find help on IRC in #ceph and #ceph-devel on OFTC (server
 irc.oftc.net), or at ``dev@ceph.io`` and ``ceph-users@lists.ceph.com``. Make
@@ -639,7 +639,7 @@ https://ceph-storage.slack.com/
 See https://ceph.io/en/community/connect/ for current (as of December 2023)
 information on getting in contact with the upstream Ceph community.
 
-## Preparing your logs
+### Preparing your logs
 
 The default location for Monitor logs is ``/var/log/ceph/ceph-mon.FOO.log*``.
 It is possible that the location of the Monitor logs has been changed from the
@@ -676,7 +676,7 @@ members of the upstream Ceph community will ask you to make additional changes
 to these or to other debug levels. In any case, it is better for us to receive
 at least some useful information than to receive an empty log.
 
-## Do I need to restart a monitor to adjust debug levels?
+### Do I need to restart a monitor to adjust debug levels?
 
 No. It is not necessary to restart a Monitor when adjusting its debug levels.
 
@@ -724,7 +724,7 @@ or:
 ceph daemon mon.FOO config get 'OPTION_NAME'
 ```
 
-## I Reproduced the problem with appropriate debug levels. Now what?
+### I Reproduced the problem with appropriate debug levels. Now what?
 
 Send the upstream Ceph community only the portions of your logs that are
 relevant to your Monitor problems. Because it might not be easy for you to

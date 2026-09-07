@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-create-keys
 
-# Synopsis
+## Synopsis
 
 | **ceph-create-keys** [-h] [-v] [-t seconds] [--cluster *name*] --id *id*
 
-# Description
+## Description
 
 ceph-create-keys is a utility to generate bootstrap keyrings using
 the given monitor when it is ready.
@@ -36,7 +36,7 @@ To list all users in the cluster:
 ceph auth ls
 ```
 
-# Options
+## Options
 
 .. option:: --cluster
 
@@ -54,12 +54,12 @@ ceph auth ls
 
    be more verbose.
 
-# Availability
+## Availability
 
 **ceph-create-keys** is part of Ceph, a massively scalable, open-source, distributed storage system.  Please refer
 to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

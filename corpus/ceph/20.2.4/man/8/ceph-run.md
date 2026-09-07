@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-run
 
-# Synopsis
+## Synopsis
 
 | **ceph-run** *command* ...
 
-# Description
+## Description
 
 **ceph-run** is a simple wrapper that will restart a daemon if it exits
 with a signal indicating it crashed and possibly core dumped (that is,
@@ -24,16 +24,16 @@ signals 3, 4, 5, 6, 8, or 11).
 The command should run the daemon in the foreground. For Ceph daemons,
 that means the ``-f`` option.
 
-# Options
+## Options
 
 None
 
-# Availability
+## Availability
 
 **ceph-run** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [ceph-mon](ceph-mon.md)\(8),

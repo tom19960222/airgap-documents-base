@@ -78,7 +78,7 @@ while running VMs using a local disk, or vice versa.
 
 .. index:: pools; OpenStack
 
-# Create a Pool
+## Create a Pool
 
 By default, Ceph block devices live within the ``rbd`` pool. You may use any
 suitable pool by specifying it explicitly. We recommend creating a pool for
@@ -105,7 +105,7 @@ rbd pool init backups
 rbd pool init vms
 ```
 
-# Configure OpenStack Ceph Clients
+## Configure OpenStack Ceph Clients
 
 The nodes running ``glance-api``, ``cinder-volume``, ``nova-compute`` and
 ``cinder-backup`` act as Ceph clients. Each requires the ``ceph.conf`` file:
@@ -114,7 +114,7 @@ The nodes running ``glance-api``, ``cinder-volume``, ``nova-compute`` and
 ssh {your-openstack-server} sudo tee /etc/ceph/ceph.conf </etc/ceph/ceph.conf
 ```
 
-## Install Ceph client packages
+### Install Ceph client packages
 
 On the ``glance-api`` node, you will need the Python bindings for ``librbd``:
 
@@ -131,7 +131,7 @@ sudo apt-get install ceph-common
 sudo yum install ceph-common
 ```
 
-## Setup Ceph Client Authentication
+### Setup Ceph Client Authentication
 
 If you have [cephx authentication](../rados/configuration/auth-config-ref.md#enabling-disabling-cephx) enabled, create a new user for Nova/Cinder
 and Glance. Execute the following:
@@ -198,9 +198,9 @@ Save the uuid of the secret for configuring ``nova-compute`` later.
 > However from a platform consistency perspective, it's better to keep the
 > same UUID.
 
-# Configure OpenStack to use Ceph
+## Configure OpenStack to use Ceph
 
-## Configuring Glance
+### Configuring Glance
 
 Glance can use multiple back ends to store images. To use Ceph block devices by
 default, configure Glance like the following.
@@ -226,7 +226,7 @@ For more information about the configuration options available in Glance please 
 Note that this exposes the back end location via Glance's API, so the endpoint
 with this option enabled should not be publicly accessible.
 
-### Any OpenStack version except Mitaka
+##### Any OpenStack version except Mitaka
 
 If you want to enable copy-on-write cloning of images, also add under the ``[DEFAULT]`` section:
 
@@ -253,7 +253,7 @@ We recommend to use the following properties for your images:
 - ``hw_qemu_guest_agent=yes``: enable the QEMU guest agent
 - ``os_require_quiesce=yes``: send fs-freeze/thaw calls through the QEMU guest agent
 
-## Configuring Cinder
+### Configuring Cinder
 
 OpenStack requires a driver to interact with Ceph block devices. You must also
 specify the pool name for the block device. On your OpenStack node, edit
@@ -289,7 +289,7 @@ rbd_secret_uuid = 457eb676-33da-42ec-9a8c-9293d545c337
 Note that if you are configuring multiple cinder back ends,
 ``glance_api_version = 2`` must be in the ``[DEFAULT]`` section.
 
-## Configuring Cinder Backup
+### Configuring Cinder Backup
 
 OpenStack Cinder Backup requires a specific daemon so don't forget to install it.
 On your Cinder Backup node, edit ``/etc/cinder/cinder.conf`` and add:
@@ -305,7 +305,7 @@ backup_ceph_stripe_count = 0
 restore_discard_excess_bytes = true
 ```
 
-## Configuring Nova to attach Ceph RBD block device
+### Configuring Nova to attach Ceph RBD block device
 
 In order to attach Cinder devices (either normal block or by issuing a boot
 from volume), you must tell Nova (and libvirt) which user and UUID to refer to
@@ -321,7 +321,7 @@ rbd_secret_uuid = 457eb676-33da-42ec-9a8c-9293d545c337
 
 These two flags are also used by the Nova ephemeral back end.
 
-## Configuring Nova
+### Configuring Nova
 
 In order to boot virtual machines directly from Ceph volumes, you must
 configure the ephemeral backend for Nova.
@@ -361,7 +361,7 @@ The provided example works for RedHat based systems.
 
 > **Tip:** If your virtual machine is already running you can simply restart it to enable the admin socket
 
-# Restart OpenStack
+## Restart OpenStack
 
 To activate the Ceph block device driver and load the block device pool name
 into the configuration, you must restart the related OpenStack services.
@@ -386,7 +386,7 @@ sudo service openstack-cinder-backup restart
 Once OpenStack is up and running, you should be able to create a volume
 and boot from it.
 
-# Booting from a Block Device
+## Booting from a Block Device
 
 You can create a volume from an image using the Cinder command line tool:
 

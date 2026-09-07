@@ -13,7 +13,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 The `rgw` python module provides file-like access to rgw.
 
-# API Reference
+## API Reference
 
 .. automodule:: rgw
    :members: LibRGWFS, FileHandle

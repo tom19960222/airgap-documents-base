@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-monstore-tool
 
-# Synopsis
+## Synopsis
 
 | **ceph-monstore-tool** <store path> <cmd> [args|options]
 
-# Description
+## Description
 
 ceph-monstore-tool is used to manipulate MonitorDBStore's data
 (monmap, osdmap, etc.) offline. It is similar to `ceph-kvstore-tool`.
@@ -28,7 +28,7 @@ Note:
     Command-specific options must be passed after a `--`
     for example, `get monmap -- --version 10 --out /tmp/foo`
 
-# Commands
+## Commands
 
 ceph-monstore-tool uses many commands for debugging purposes:
 
@@ -77,12 +77,12 @@ rewrite-crush [-- options]
 rebuild
     Rebuild store.
 
-# Availability
+## Availability
 
 **ceph-monstore-tool** is part of Ceph, a massively scalable, open-source,
 distributed storage system. See the Ceph documentation at
 https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

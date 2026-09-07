@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 If you built Ceph from source and compiled Ceph for use with [oprofile](http://oprofile.sourceforge.net/about/)
 you can profile Ceph's CPU usage. See [Installing Oprofile](../../dev/cpu-profiler.md) for details.
 
-# Initializing oprofile
+## Initializing oprofile
 
 ``oprofile`` must be initalized the first time it is used. Locate the
 ``vmlinux`` image that corresponds to the kernel you are running:
@@ -21,7 +21,7 @@ sudo opcontrol --init
 sudo opcontrol --setup --vmlinux={path-to-image} --separate=library --callgraph=6
 ```
 
-# Starting oprofile
+## Starting oprofile
 
 Run the following command to start ``oprofile``:
 
@@ -29,7 +29,7 @@ Run the following command to start ``oprofile``:
 opcontrol --start
 ```
 
-# Stopping oprofile
+## Stopping oprofile
 
 Run the following command to stop ``oprofile``:
 
@@ -37,7 +37,7 @@ Run the following command to stop ``oprofile``:
 opcontrol --stop
 ```
 
-# Retrieving oprofile Results
+## Retrieving oprofile Results
 
 Run the following command to retrieve the top ``cmon`` results:
 
@@ -56,7 +56,7 @@ opreport -cal ./cmon | less
 > running it again. The act of resetting ``oprofile`` removes data from the
 > session directory.
 
-# Resetting oprofile
+## Resetting oprofile
 
 Run the following command to reset ``oprofile``:
 

@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ## Put Object
 Adds an object to a bucket. You must have write permissions on the bucket to perform this operation.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -18,7 +18,7 @@ Adds an object to a bucket. You must have write permissions on the bucket to per
 PUT /{bucket}/{object} HTTP/1.1
 ```
 
-#### Request Headers
+### Request Headers
 
 | Name | Description | Valid Values | Required |
 | --- | --- | --- | --- |
@@ -30,7 +30,7 @@ PUT /{bucket}/{object} HTTP/1.1
 ## Copy Object
 To copy an object, use ``PUT`` and specify a destination bucket and the object name.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -39,7 +39,7 @@ PUT /{dest-bucket}/{dest-object} HTTP/1.1
 x-amz-copy-source: {source-bucket}/{source-object}
 ```
 
-#### Request Headers
+### Request Headers
 
 | Name | Description | Valid Values | Required |
 | --- | --- | --- | --- |
@@ -50,7 +50,7 @@ x-amz-copy-source: {source-bucket}/{source-object}
 | **x-amz-copy-if-match** | Copies only if object ETag matches ETag. | Entity Tag | No |
 | **x-amz-copy-if-none-match** | Copies only if object ETag doesn't match. | Entity Tag | No |
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -62,7 +62,7 @@ x-amz-copy-source: {source-bucket}/{source-object}
 
 Removes an object. Requires WRITE permission set on the containing bucket.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -70,7 +70,7 @@ Removes an object. Requires WRITE permission set on the containing bucket.
 DELETE /{bucket}/{object} HTTP/1.1
 ```
 
-#### Request Headers
+### Request Headers
 
 | Name | Description | Valid Values | Required |
 | --- | --- | --- | --- |
@@ -79,7 +79,7 @@ DELETE /{bucket}/{object} HTTP/1.1
 ## Get Object
 Retrieves an object from a bucket within RADOS.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -87,7 +87,7 @@ Retrieves an object from a bucket within RADOS.
 GET /{bucket}/{object} HTTP/1.1
 ```
 
-#### Request Headers
+### Request Headers
 
 | Name | Description | Valid Values | Required |
 | --- | --- | --- | --- |
@@ -97,7 +97,7 @@ GET /{bucket}/{object} HTTP/1.1
 | **if-match** | Gets only if object ETag matches ETag. | Entity Tag | No |
 | **if-none-match** | Gets only if object ETag doesn't match. | Entity Tag | No |
 
-#### Response Headers
+### Response Headers
 
 | Name | Description |
 | --- | --- |
@@ -109,7 +109,7 @@ Returns information about object. This request will return the same
 header information as with the Get Object request, but will include
 the metadata only, not the object data payload.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -117,7 +117,7 @@ the metadata only, not the object data payload.
 HEAD /{bucket}/{object} HTTP/1.1
 ```
 
-#### Request Headers
+### Request Headers
 
 | Name | Description | Valid Values | Required |
 | --- | --- | --- | --- |
@@ -129,7 +129,7 @@ HEAD /{bucket}/{object} HTTP/1.1
 
 ## Get Object ACL
 
-#### Syntax
+### Syntax
 
 :
 
@@ -137,7 +137,7 @@ HEAD /{bucket}/{object} HTTP/1.1
 GET /{bucket}/{object}?acl HTTP/1.1
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -152,7 +152,7 @@ GET /{bucket}/{object}?acl HTTP/1.1
 
 ## Set Object ACL
 
-#### Syntax
+### Syntax
 
 :
 
@@ -160,7 +160,7 @@ GET /{bucket}/{object}?acl HTTP/1.1
 PUT /{bucket}/{object}?acl
 ```
 
-#### Request Entities
+### Request Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -177,7 +177,7 @@ PUT /{bucket}/{object}?acl
 
 Initiate a multi-part upload process.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -185,7 +185,7 @@ Initiate a multi-part upload process.
 POST /{bucket}/{object}?uploads
 ```
 
-#### Request Headers
+### Request Headers
 
 | Name | Description | Valid Values | Required |
 | --- | --- | --- | --- |
@@ -194,7 +194,7 @@ POST /{bucket}/{object}?uploads
 | **x-amz-meta-<...>** | User metadata. Stored with the object. | A string up to 8kb. No defaults. | No |
 | **x-amz-acl** | A canned ACL. | ``private``, ``public-read``, ``public-read-write``, ``authenticated-read`` | No |
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -205,7 +205,7 @@ POST /{bucket}/{object}?uploads
 
 ## Multipart Upload Part
 
-#### Syntax
+### Syntax
 
 :
 
@@ -213,7 +213,7 @@ POST /{bucket}/{object}?uploads
 PUT /{bucket}/{object}?partNumber=&uploadId= HTTP/1.1
 ```
 
-#### HTTP Response
+### HTTP Response
 
 The following HTTP response may be returned:
 
@@ -223,7 +223,7 @@ The following HTTP response may be returned:
 
 ## List Multipart Upload Parts
 
-#### Syntax
+### Syntax
 
 :
 
@@ -231,7 +231,7 @@ The following HTTP response may be returned:
 GET /{bucket}/{object}?uploadId=123 HTTP/1.1
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -257,7 +257,7 @@ GET /{bucket}/{object}?uploadId=123 HTTP/1.1
 ## Complete Multipart Upload
 Assembles uploaded parts and creates a new object, thereby completing a multipart upload.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -265,7 +265,7 @@ Assembles uploaded parts and creates a new object, thereby completing a multipar
 POST /{bucket}/{object}?uploadId= HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 | Name | Type | Description | Required |
 | --- | --- | --- | --- |
@@ -274,7 +274,7 @@ POST /{bucket}/{object}?uploadId= HTTP/1.1
 | ``PartNumber`` | Integer | The identifier of the part. | Yes |
 | ``ETag`` | String | The part's entity tag. | Yes |
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -286,7 +286,7 @@ POST /{bucket}/{object}?uploadId= HTTP/1.1
 
 ## Abort Multipart Upload
 
-#### Syntax
+### Syntax
 
 :
 
@@ -302,7 +302,7 @@ operation is Appendable Object, and the type of the objects uploaded with the Pu
 **Synced object will become normal in multisite, but you can still append to the original object.**
 **Compression and encryption features are disabled for Appendable objects.**
 
-#### Syntax
+### Syntax
 
 :
 
@@ -310,7 +310,7 @@ operation is Appendable Object, and the type of the objects uploaded with the Pu
 PUT /{bucket}/{object}?append&position= HTTP/1.1
 ```
 
-#### Request Headers
+### Request Headers
 
 | Name | Description | Valid Values | Required |
 | --- | --- | --- | --- |
@@ -319,13 +319,13 @@ PUT /{bucket}/{object}?append&position= HTTP/1.1
 | **x-amz-meta-<...>** | User metadata. Stored with the object. | A string up to 8kb. No defaults. | No |
 | **x-amz-acl** | A canned ACL. | ``private``, ``public-read``, ``public-read-write``, ``authenticated-read`` | No |
 
-#### Response Headers
+### Response Headers
 
 | Name | Description |
 | --- | --- |
 | **x-rgw-next-append-position** | Next position to append object |
 
-#### HTTP Response
+### HTTP Response
 
 The following HTTP response may be returned:
 
@@ -338,7 +338,7 @@ The following HTTP response may be returned:
 ## Put Object Retention
 Places an Object Retention configuration on an object.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -346,7 +346,7 @@ Places an Object Retention configuration on an object.
 PUT /{bucket}/{object}?retention&versionId= HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 | Name | Type | Description | Required |
 | --- | --- | --- | --- |
@@ -357,7 +357,7 @@ PUT /{bucket}/{object}?retention&versionId= HTTP/1.1
 ## Get Object Retention
 Gets an Object Retention configuration on an object.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -365,7 +365,7 @@ Gets an Object Retention configuration on an object.
 GET /{bucket}/{object}?retention&versionId= HTTP/1.1
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description | Required |
 | --- | --- | --- | --- |
@@ -376,7 +376,7 @@ GET /{bucket}/{object}?retention&versionId= HTTP/1.1
 ## Put Object Legal Hold
 Applies a Legal Hold configuration to the specified object.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -384,7 +384,7 @@ Applies a Legal Hold configuration to the specified object.
 PUT /{bucket}/{object}?legal-hold&versionId= HTTP/1.1
 ```
 
-#### Request Entities
+### Request Entities
 
 | Name | Type | Description | Required |
 | --- | --- | --- | --- |
@@ -394,7 +394,7 @@ PUT /{bucket}/{object}?legal-hold&versionId= HTTP/1.1
 ## Get Object Legal Hold
 Gets an object's current Legal Hold status.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -402,7 +402,7 @@ Gets an object's current Legal Hold status.
 GET /{bucket}/{object}?legal-hold&versionId= HTTP/1.1
 ```
 
-#### Response Entities
+### Response Entities
 
 | Name | Type | Description | Required |
 | --- | --- | --- | --- |

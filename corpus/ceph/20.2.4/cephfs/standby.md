@@ -1,13 +1,13 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "standby"
+title: "Terminology"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/standby.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
 <a id="mds-standby"></a>
 
-## Terminology
+# Terminology
 
 A Ceph cluster may have zero or more CephFS *file systems*.  Each CephFS has
 a human readable name (set at creation time with ``fs new``) and an integer
@@ -37,7 +37,7 @@ which is unique to this current daemon's process.  In other words, when a
 ``ceph-mds`` daemon is restarted, it runs as a new process and is assigned a
 *new* ``GID`` that is different from that of the previous process.
 
-## Referring to MDS daemons
+# Referring to MDS daemons
 
 Most administrative commands that refer to a ``ceph-mds`` daemon (MDS)
 accept a flexible argument format that may specify a ``rank``, a ``GID``
@@ -63,7 +63,7 @@ ceph mds fail 3:0      # FSCID and rank
 ceph mds fail myfs:0   # File System name and rank
 ```
 
-## Managing failover
+# Managing failover
 
 If an MDS daemon stops communicating with the cluster's monitors, the monitors
 will wait ``mds_beacon_grace`` seconds (default 15) before marking the daemon as
@@ -88,7 +88,7 @@ Setting ``count`` to 0 will disable the health check.
 
 <a id="mds-standby-replay"></a>
 
-## Configuring standby-replay
+# Configuring standby-replay
 
 Each CephFS file system may be configured to add ``standby-replay`` daemons.
 These standby daemons follow the active MDS's metadata journal in order to
@@ -114,7 +114,7 @@ is used then *every* active MDS should have a ``standby-replay`` daemon.
 
 <a id="mds-join-fs"></a>
 
-## Configuring MDS file system affinity
+# Configuring MDS file system affinity
 
 You might elect to dedicate an MDS to a particular file system. Or, perhaps you
 have MDSs that run on better hardware that should be preferred over a last-resort

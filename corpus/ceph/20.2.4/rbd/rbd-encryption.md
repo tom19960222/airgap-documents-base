@@ -22,7 +22,7 @@ RBD encryption feature.
 > an RBD image, and the feature set and limitation set for that use may be
 > different than described here.
 
-# Encryption Format
+## Encryption Format
 
 By default, RBD images are not encrypted. To encrypt an RBD image, it needs to
 be formatted to one of the supported encryption formats. The format operation
@@ -55,7 +55,7 @@ details.
 > Images with the [journal feature](rbd-mirroring.md#enable-image-journaling-feature) enabled cannot be formatted and encrypted
 > by RBD clients.
 
-# Encryption Load
+## Encryption Load
 
 Formatting an image is a necessary pre-requisite for enabling encryption.
 However, formatted images will still be treated as raw unencrypted images by
@@ -109,9 +109,9 @@ be stored in-memory by the RBD client until the image is closed.
 > Encryption load can be automatically applied when mounting RBD images as
 > block devices via [rbd-nbd](../man/8/rbd-nbd.md).
 
-# Supported Formats
+## Supported Formats
 
-#### LUKS
+### LUKS
 
 Both LUKS1 and LUKS2 are supported. The data layout is fully compliant with the
 LUKS specification. Thus, images formatted by RBD can be loaded using external
@@ -176,7 +176,7 @@ encryption operations of actual image IO, assuming AES-NI is enabled,
 a relative small microseconds latency should be added, as well as a small
 increase in CPU utilization.
 
-# Examples
+## Examples
 
 Create a LUKS2-formatted image with the effective size of 50GiB:
 

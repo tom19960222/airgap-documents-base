@@ -14,7 +14,7 @@ fetched_at: 2026-08-18T01:32:45Z
            external to Ceph that uses a Ceph Cluster to store and
            replicate data.
 
-   [BlueStore](rados/configuration/storage-devices.md#rados-config-storage-devices-bluestore)
+   [BlueStore](rados/configuration/storage-devices.md#rados_config_storage_devices_bluestore)
            OSD BlueStore is a storage back end used by OSD daemons, and
            was designed specifically for use with Ceph. BlueStore was
            introduced in the Ceph Kraken release. The Luminous release of
@@ -69,7 +69,7 @@ fetched_at: 2026-08-18T01:32:45Z
            as QEMU or Xen, and (3) a hypervisor abstraction layer such as
            ``libvirt``.
 
-   [Ceph Client](architecture.md#architecture-ceph-clients)
+   [Ceph Client](architecture.md#architecture_ceph_clients)
            Any of the Ceph components that can access a Ceph Storage
            Cluster. This includes the Ceph Object Gateway, the Ceph Block
            Device, the Ceph File System, and their corresponding
@@ -154,7 +154,7 @@ fetched_at: 2026-08-18T01:32:45Z
            A Ceph Object Store consists of a Ceph Storage Cluster
            and a Ceph Object Gateway (RGW).
 
-   [Ceph OSD](rados/configuration/storage-devices.md#rados-configuration-storage-devices-ceph-osd)
+   [Ceph OSD](rados/configuration/storage-devices.md#rados_configuration_storage-devices_ceph_osd)
            Ceph **O**\bject **S**\torage **D**\aemon. The Ceph OSD
            software, which interacts with logical disks (OSD).
            Around 2013, there was an attempt by "research and industry"
@@ -206,7 +206,7 @@ fetched_at: 2026-08-18T01:32:45Z
            The Ceph authentication protocol. CephX authenticates users and
            daemons. CephX operates like Kerberos, but it has no single
            point of failure and allows authentication to a class of
-           services. See the [High-availability Authentication section](architecture.md#arch-high-availability-authentication) of the
+           services. See the [High-availability Authentication section](architecture.md#arch_high_availability_authentication) of the
            Architecture document and the [CephX Configuration Reference](rados/configuration/auth-config-ref.md#rados-cephx-config-ref).
 
    Client
@@ -221,7 +221,7 @@ fetched_at: 2026-08-18T01:32:45Z
    Cluster Map
            The set of maps consisting of the monitor map, OSD map, PG map,
            MDS map, and CRUSH map, which together report the state of the
-           Ceph cluster. See [the "Cluster Map" section of the Architecture document](architecture.md#architecture-cluster-map) for details.
+           Ceph cluster. See [the "Cluster Map" section of the Architecture document](architecture.md#architecture_cluster_map) for details.
 
    Crimson
            A next-generation OSD architecture whose aim is the
@@ -231,7 +231,7 @@ fetched_at: 2026-08-18T01:32:45Z
            path. Crimson improves upon the performance of classic Ceph
            OSDs by eliminating reliance on thread pools. See [Crimson:
            Next-generation Ceph OSD for Multi-core Scalability](https://ceph.io/en/news/blog/2023/crimson-multi-core-scalability/).
-           See the [Crimson developer documentation](dev/crimson/index.md#crimson-dev-doc).
+           See the [Crimson developer documentation](dev/crimson/index.md#crimson_dev_doc).
 
    CRUSH
            **C**\ontrolled **R**\eplication **U**\nder **S**\calable
@@ -269,7 +269,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
    Flapping OSD
            An OSD that is repeatedly marked ``up`` and then ``down`` in
-           rapid succession. See [rados_tshooting_flapping_osd](rados/troubleshooting/troubleshooting-osd.md#rados-tshooting-flapping-osd).
+           rapid succession. See [rados_tshooting_flapping_osd](rados/troubleshooting/troubleshooting-osd.md#rados_tshooting_flapping_osd).
 
    FQDN
            **F**\ully **Q**\ualified **D**\omain **N**\ame. A domain name
@@ -309,15 +309,15 @@ fetched_at: 2026-08-18T01:32:45Z
            maintain a distributed metadata cache that is required by
            CephFS.
 
-           See [Deploying Metadata Servers](cephfs/add-remove-mds.md#cephfs-add-remote-mds).
+           See [Deploying Metadata Servers](cephfs/add-remove-mds.md#cephfs_add_remote_mds).
 
-           See the [ceph-mds man page](man/8/ceph-mds.md#ceph-mds-man).
+           See the [ceph-mds man page](man/8/ceph-mds.md#ceph_mds_man).
 
    MGR
            The Ceph manager software, which collects all the state from
            the whole cluster in one place.
 
-   [MON](architecture.md#arch-monitor)
+   [MON](architecture.md#arch_monitor)
            The Ceph monitor software.
 
    Monitor Store
@@ -411,18 +411,18 @@ fetched_at: 2026-08-18T01:32:45Z
            the DRAM cache to the SSD's permanent memory. Consumer-grade
            SSDs are rarely equipped with PLP.
 
-   [Pool](rados/operations/pools.md#rados-pools)
+   [Pool](rados/operations/pools.md#rados_pools)
 
            A pool is a logical partition used to store objects.
 
    Pools
            See pool.
 
-   [Primary Affinity](rados/operations/crush-map.md#rados-ops-primary-affinity)
+   [Primary Affinity](rados/operations/crush-map.md#rados_ops_primary_affinity)
            The characteristic of an OSD that governs the likelihood that
            a given OSD will be selected as the primary OSD (or "lead
            OSD") in an acting set. Primary affinity was introduced in
-           Firefly (v. 0.80). See [Primary Affinity](rados/operations/crush-map.md#rados-ops-primary-affinity).
+           Firefly (v. 0.80). See [Primary Affinity](rados/operations/crush-map.md#rados_ops_primary_affinity).
 
    [Prometheus](mgr/prometheus.md#mgr-prometheus)
            An open-source monitoring and alerting toolkit. Ceph offers a
@@ -432,8 +432,8 @@ fetched_at: 2026-08-18T01:32:45Z
 
    Quorum
            Quorum is the state that exists when a majority of the
-           [Monitors](architecture.md#arch-monitor) in the cluster are ``up``. A
-           minimum of three [Monitors](architecture.md#arch-monitor) must exist in
+           [Monitors](architecture.md#arch_monitor) in the cluster are ``up``. A
+           minimum of three [Monitors](architecture.md#arch_monitor) must exist in
            the cluster in order for Quorum to be possible.
 
    RADOS
@@ -522,7 +522,7 @@ fetched_at: 2026-08-18T01:32:45Z
            its metadata is correct. Deep scrubbing is performed weekly and
            reads the data and uses checksums to ensure data integrity.
 
-           See [Scrubbing](rados/configuration/osd-config-ref.md#rados-config-scrubbing) in the RADOS OSD
+           See [Scrubbing](rados/configuration/osd-config-ref.md#rados_config_scrubbing) in the RADOS OSD
            Configuration Reference Guide and page 141 of *Mastering Ceph,
            second edition* (Fisk, Nick. 2019).
 

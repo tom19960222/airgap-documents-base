@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: monmaptool
 
-# Synopsis
+## Synopsis
 
 | **monmaptool** <action> [options] *mapfilename*
 
-# Description
+## Description
 
 **monmaptool** is a utility to create, view, and modify a monitor
 cluster map for the Ceph distributed storage system. The monitor map
@@ -32,7 +32,7 @@ The default Ceph monitor port for messenger protocol v1 is 6789, and
 
 Multiple actions can be performed per invocation.
 
-# Options
+## Options
 
 .. option:: --print
 
@@ -119,7 +119,7 @@ Multiple actions can be performed per invocation.
 
    set the preferred cipher key type for new credentials or for key rotations. The default is "aes256k".
 
-# Example
+## Example
 
 To create a new map with three monitors (for a fresh Ceph cluster):
 
@@ -141,13 +141,13 @@ monmaptool --rm nodeA monmap
 monmaptool --add nodeA 192.168.0.9 monmap
 ```
 
-# Availability
+## Availability
 
 **monmaptool** is part of Ceph, a massively scalable, open-source, distributed
 storage system. Please refer to the Ceph documentation at https://docs.ceph.com
 for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [crushtool](crushtool.md)\(8),

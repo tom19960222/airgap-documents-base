@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. contents::
 
-# Placement Targets
+## Placement Targets
 
 .. versionadded:: Jewel
 
@@ -25,9 +25,9 @@ placement information includes the ``index_pool`` name for the bucket index,
 the ``data_extra_pool`` name for metadata about incomplete multipart uploads,
 and a ``data_pool`` name for each storage class.
 
-<a id="storage-classes"></a>
+<a id="storage_classes"></a>
 
-# Storage Classes
+## Storage Classes
 
 .. versionadded:: Nautilus
 
@@ -39,7 +39,7 @@ placement target lists its available storage classes with an initial class
 named ``STANDARD``. The zone configuration is responsible for providing a
 ``data_pool`` pool name for each of the zonegroup's storage classes.
 
-# Zonegroup/Zone Configuration
+## Zonegroup/Zone Configuration
 
 Placement configuration is performed with ``radosgw-admin`` commands on
 the zonegroups and zones.
@@ -107,7 +107,7 @@ $ radosgw-admin zone get
 > the zone/zonegroup changes will take effect once the changes are
 > committed with ``radosgw-admin period update --commit``.
 
-## Adding a Placement Target
+### Adding a Placement Target
 
 To create a new placement target named ``temporary``, add it to
 the zonegroup:
@@ -145,9 +145,9 @@ $ radosgw-admin zone placement add \
 > when writing to the default storage class.  Inlining is *never* performed when writing to a non-default
 > storage class.
 
-<a id="adding-a-storage-class"></a>
+<a id="adding_a_storage_class"></a>
 
-## Adding a Storage Class
+### Adding a Storage Class
 
 To add a new storage class named ``STANDARD_IA`` to the ``default-placement`` target,
 start by adding it to the zonegroup:
@@ -174,9 +174,9 @@ $ radosgw-admin zone placement add \
       --compression lz4
 ```
 
-# Customizing Placement
+## Customizing Placement
 
-## Default Placement
+### Default Placement
 
 By default, new buckets will use the zonegroup's ``default_placement`` target.
 This zonegroup setting can be changed with:
@@ -189,7 +189,7 @@ $ radosgw-admin zonegroup placement default \
       --placement-id new-placement
 ```
 
-## User Placement
+### User Placement
 
 A Ceph Object Gateway user can override the zonegroup's default placement
 target by setting a non-empty ``default_placement`` field in the user info.
@@ -226,9 +226,9 @@ $ radosgw-admin user modify \
       --tags <tag1,tag2>
 ```
 
-<a id="s3-bucket-placement"></a>
+<a id="s3_bucket_placement"></a>
 
-## S3 Bucket Placement
+### S3 Bucket Placement
 
 When creating a bucket with the S3 protocol, a placement target can be
 provided as part of the LocationConstraint to override the default placement
@@ -250,7 +250,7 @@ A custom placement target can be added to the ``api_name`` following a colon:
 <LocationConstraint>default:new-placement</LocationConstraint>
 ```
 
-## Swift Bucket Placement
+### Swift Bucket Placement
 
 When creating a bucket with the Swift protocol, a placement target can be
 provided in the HTTP header ``X-Storage-Policy``:
@@ -261,7 +261,7 @@ provided in the HTTP header ``X-Storage-Policy``:
 X-Storage-Policy: new-placement
 ```
 
-# Using Storage Classes
+## Using Storage Classes
 
 All placement targets have a ``STANDARD`` storage class which is applied to
 new objects by default. The user can override this default with its

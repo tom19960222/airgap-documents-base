@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-post-file
 
-# Synopsis
+## Synopsis
 
 | **ceph-post-file** [-d *description] [-u *user*] *file or dir* ...
 
-# Description
+## Description
 
 **ceph-post-file** will upload files or directories to ceph.com for
 later analysis by Ceph developers.
@@ -26,7 +26,7 @@ referenced in a bug report (http://tracker.ceph.com/).  Once the
 upload completes, the directory is marked non-readable and
 non-writeable to prevent access or modification by other users.
 
-# Warning
+## Warning
 
 Basic measures are taken to make posted data be visible only to
 developers with access to ceph.com infrastructure. However, users
@@ -34,7 +34,7 @@ should think twice and/or take appropriate precautions before
 posting potentially sensitive data (for example, logs or data
 directories that contain Ceph secrets).
 
-# Options
+## Options
 
 .. option:: -d *description*, --description *description*
 
@@ -45,7 +45,7 @@ directories that contain Ceph secrets).
 
    Set the user metadata for the upload.  This defaults to `whoami`@`hostname -f`.
 
-# Examples
+## Examples
 
 To upload a single log:
 
@@ -59,12 +59,12 @@ To upload several directories:
 ceph-post-file -d 'mon data directories' /var/log/ceph/mon/*
 ```
 
-# Availability
+## Availability
 
 **ceph-post-file** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [ceph-debugpack](ceph-debugpack.md)\(8),

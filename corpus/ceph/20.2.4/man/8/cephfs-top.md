@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: cephfs-top
 
-# Synopsis
+## Synopsis
 
 | **cephfs-top** [flags]
 
-# Description
+## Description
 
 **cephfs-top** provides top(1) like functionality for Ceph Filesystem.
 Various client metrics are displayed and updated in realtime.
@@ -23,7 +23,7 @@ Various client metrics are displayed and updated in realtime.
 Ceph Metadata Servers periodically send client metrics to Ceph Manager.
 ``Stats`` plugin in Ceph Manager provides an interface to fetch these metrics.
 
-# Options
+## Options
 
 .. option:: --cluster
 
@@ -53,7 +53,7 @@ Ceph Metadata Servers periodically send client metrics to Ceph Manager.
 
    Dump the metrics of the given filesystem to stdout
 
-# Descriptions of fields
+## Descriptions of fields
 
 .. describe:: chit
 
@@ -123,12 +123,12 @@ Ceph Metadata Servers periodically send client metrics to Ceph Manager.
 
    standard deviation (variance) for metadata latency
 
-# Availability
+## Availability
 
 **cephfs-top** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to the Ceph documentation at
 http://ceph.com/ for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [ceph-mds](ceph-mds.md)\(8)

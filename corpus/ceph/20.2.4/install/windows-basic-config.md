@@ -12,7 +12,7 @@ fetched_at: 2026-08-18T01:32:45Z
 This page describes the minimum Ceph configuration required for using the
 client components on Windows.
 
-# ceph.conf
+## ceph.conf
 
 The default location for the ``ceph.conf`` file on Windows is
 ``%ProgramData%\ceph\ceph.conf``, which usually expands to

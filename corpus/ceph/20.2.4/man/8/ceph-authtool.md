@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-authtool
 
-# Synopsis
+## Synopsis
 
 | **ceph-authtool** *keyringfile*
   [ -l | --list ]
@@ -27,7 +27,7 @@ fetched_at: 2026-08-18T01:32:45Z
   [ --caps *capfile* ]
   [ --mode *mode* ]
 
-# Description
+## Description
 
 **ceph-authtool** is a utility to create, view, and modify a Ceph keyring
 file. A keyring file stores one or more Ceph authentication keys and
@@ -41,7 +41,7 @@ data over the wire is not encrypted, which may include the messages
 used to configure said keys. The system is primarily intended to be
 used in trusted environments.
 
-# Options
+## Options
 
 .. option:: -l, --list
 
@@ -94,7 +94,7 @@ used in trusted environments.
    Set the key-type for generated keys. Can be one of "aes", "aes256k", or
    "preferred" (Ceph operator chosen default).  Defaults to "preferred".
 
-# Capabilities
+## Capabilities
 
 The subsystem is the name of a Ceph subsystem: ``mon``, ``mds``, or
 ``osd``.
@@ -144,7 +144,7 @@ osd = "allow rw pool data"
 mon = "allow r"
 ```
 
-# OSD Capabilities
+## OSD Capabilities
 
 In general, an osd capability follows the grammar:
 
@@ -176,7 +176,7 @@ prefix, allow w pool foo, allow x pool bar", then it has rw access to
 pool foo, rx access to pool bar, and r access to objects whose
 names begin with 'prefix' in any pool.
 
-# Caps file format
+## Caps file format
 
 The caps file format consists of zero or more key/value pairs, one per
 line. The key and value are separated by an ``=``, and the value must
@@ -184,7 +184,7 @@ be quoted (with ``'`` or ``"``) if it contains any whitespace. The key
 is the name of the Ceph subsystem (``osd``, ``mds``, ``mon``), and the
 value is the capability string (see above).
 
-# Example
+## Example
 
 To create a new keyring containing a key for client.foo with a 0644 file mode:
 
@@ -211,12 +211,12 @@ When mounting a Ceph file system, you can grab the appropriately encoded secret 
 mount -t ceph serverhost:/ mountpoint -o name=foo,secret=`ceph-authtool -p -n client.foo keyring`
 ```
 
-# Availability
+## Availability
 
 **ceph-authtool** is part of Ceph, a massively scalable, open-source, distributed storage system. Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

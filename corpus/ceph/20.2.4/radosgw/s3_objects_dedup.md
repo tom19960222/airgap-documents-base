@@ -14,7 +14,7 @@ Add a radosgw-admin command to collect and report deduplication stats
 
 ----
 
-### Admin commands:
+## Admin commands:
 - ``radosgw-admin dedup stats``:
    Collects & displays last dedup statistics
 - ``radosgw-admin dedup pause``:
@@ -28,7 +28,7 @@ Add a radosgw-admin command to collect and report deduplication stats
 
 ----
 
-### Skipped Objects:
+## Skipped Objects:
 Dedup Estimates skips the following objects:
 
 - Objects smaller than 4MB (unless they are multipart)
@@ -43,7 +43,7 @@ information during the estimate process)
 
 ----
 
-### Estimate Processing:
+## Estimate Processing:
 The Dedup Estimate process collects all the needed information directly from
 the bucket-indices reading one full bucket-index object with 1000's of
 entries at a time.
@@ -61,7 +61,7 @@ caching)
 
 ----
 
-### Memory Usage:
+## Memory Usage:
 | RGW Obj Count | Memory |
 | --- | --- |
 | \| ____1M <br> \| ____4M <br> \| ___16M <br> \| ___64M <br> \| __256M <br> \| _1024M( 1G) <br> \| _4096M( 4G) <br> \| 16384M(16G) | \| ___8MB <br> \| __16MB <br> \| __32MB <br> \| __64MB <br> \| _128MB <br> \| _256MB <br> \| _512MB <br> \| 1024MB |

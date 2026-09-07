@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # SeaStore
 
-# Goals and Basics
+## Goals and Basics
 
 * Target NVMe devices.  Not primarily concerned with pmem or HDD.
 * make use of SPDK for user-space driven IO
@@ -18,7 +18,7 @@ fetched_at: 2026-08-18T01:32:45Z
 * Allow zero- (or minimal) data copying on read and write paths when
   combined with a seastar-based messenger using DPDK
 
-## Motivation and background
+### Motivation and background
 
 All flash devices are internally structured in terms of segments that
 can be written efficiently but must be erased in their entirety.  The
@@ -53,7 +53,7 @@ the device.
 The key is to mix a small bit of cleaning work with every write
 transaction to avoid spikes and variance in write latency.
 
-## Data layout basics
+### Data layout basics
 
 One or more cores/shards will be reading and writing to the device at
 once.  Each shard will have its own independent data it is operating
@@ -61,12 +61,12 @@ on and stream to its own open segments.  Devices that support streams
 can be hinted accordingly so that data from different shards is not
 mixed on the underlying media.
 
-## Persistent Memory
+### Persistent Memory
 
 As the initial sequential design above matures, we'll introduce
 persistent memory support for metadata and caching structures.
 
-# Design
+## Design
 
 The design is based heavily on both f2fs and btrfs.  Each reactor
 manages its own root.  Prior to reusing a segment, we rewrite any live
@@ -92,7 +92,7 @@ Each onode contains xattrs directly as well as the top of the omap and
 extent trees (optimization: we ought to be able to fit small enough
 objects into the onode).
 
-## Segment Layout
+### Segment Layout
 
 The backing storage is abstracted into a set of segments.  Each
 segment can be in one of 3 states: empty, open, closed.  The byte
@@ -128,7 +128,7 @@ blocks.
 The backing physical layer is exposed via a segment based interface.
 See src/crimson/os/seastore/segment_manager.h
 
-## Journal and Atomicity
+### Journal and Atomicity
 
 One open segment is designated to be the journal.  A transaction is
 represented by an atomically written record.  A record will contain
@@ -143,7 +143,7 @@ loading blocks into the cache as needed.
 
 See src/crimson/os/seastore/journal.h
 
-## Block Cache
+### Block Cache
 
 Every block is in one of two states:
 
@@ -170,7 +170,7 @@ type can therefore implement CachedExtent::apply_delta as appropriate.
 See src/os/crimson/seastore/cached_extent.h.
 See src/os/crimson/seastore/cache.h.
 
-## GC
+### GC
 
 Prior to reusing a segment, we must relocate all live blocks.  Because
 we only write sequentially to empty segments, for every byte we write
@@ -201,7 +201,7 @@ of live/used space ratios).
 
 TODO: there is not yet a GC implementation
 
-# Logical Layout
+## Logical Layout
 
 Using the above block and delta semantics, we build two root level trees:
 - onode tree: maps hobject_t to onode_t
@@ -220,7 +220,7 @@ Because the cache/transaction machinery lives below the level of the
 lba tree, we can represent atomic mutations of the lba tree and other
 structures by simply including both in a transaction.
 
-## LBAManager/BtreeLBAManager
+### LBAManager/BtreeLBAManager
 
 Implementations of the LBAManager interface are responsible for managing
 the logical->physical mapping -- see crimson/os/seastore/lba_manager.h.
@@ -240,7 +240,7 @@ is_initial_pending references in memory are block_relative (because
 they will be written to the original block location) and
 record_relative otherwise (value will be written to delta).
 
-## TransactionManager
+### TransactionManager
 
 The TransactionManager is responsible for presenting a unified
 interface on top of the Journal, SegmentManager, Cache, and
@@ -249,14 +249,14 @@ addresses with segment cleaning handled in the background.
 
 See crimson/os/seastore/transaction_manager.h
 
-# Next Steps
+## Next Steps
 
-## Journal
+### Journal
 
 - Support for scanning a segment to find physically addressed blocks
 - Add support for trimming the journal and releasing segments.
 
-## Cache
+### Cache
 
 - Support for rewriting dirty blocks
 
@@ -265,28 +265,28 @@ See crimson/os/seastore/transaction_manager.h
   - Need to add support for adding dirty block writout to
     try_construct_record
 
-## LBAManager
+### LBAManager
 
 - Add support for pinning
 - Add segment -> laddr for use in GC
 - Support for locating remaining used blocks in segments
 
-## GC
+### GC
 
 - Initial implementation
 - Support in BtreeLBAManager for tracking used blocks in segments
 - Heuristic for identifying segments to clean
 
-## Other
+### Other
 
 - Add support for periodically generating a journal checkpoint.
 - Onode tree
 - Extent tree
 - Remaining ObjectStore integration
 
-# ObjectStore considerations
+## ObjectStore considerations
 
-## Splits, merges, and sharding
+### Splits, merges, and sharding
 
 One of the current ObjectStore requirements is to be able to split a
 collection (PG) in O(1) time.  Starting in mimic, we also need to be

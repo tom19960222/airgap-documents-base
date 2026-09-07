@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Control Commands
 
-# Monitor Commands
+## Monitor Commands
 
 To issue monitor commands, use the ``ceph`` utility:
 
@@ -23,7 +23,7 @@ In most cases, monitor commands have the following form:
 ceph {subsystem} {command}
 ```
 
-# System Commands
+## System Commands
 
 To display the current cluster status, run the following commands:
 
@@ -57,7 +57,7 @@ ceph tell mon.[id] mon_status
 Here the value of ``[id]`` can be found by consulting the output of ``ceph
 -s``.
 
-# Authentication Subsystem
+## Authentication Subsystem
 
 To add an OSD keyring for a specific OSD, run the following command:
 
@@ -71,7 +71,7 @@ To list the cluster's keys and their capabilities, run the following command:
 ceph auth ls
 ```
 
-# Placement Group Subsystem
+## Placement Group Subsystem
 
 To display the statistics for all placement groups (PGs), run the following
 command:
@@ -128,7 +128,7 @@ ceph pg {pgid} mark_unfound_lost revert|delete
 
 <a id="osd-subsystem"></a>
 
-# OSD Subsystem
+## OSD Subsystem
 
 To query OSD subsystem status, run the following command:
 
@@ -455,7 +455,7 @@ To retrieve the cache statistics of a specific OSD, run the following command:
 ceph tell osd.N cache status
 ```
 
-# MDS Subsystem
+## MDS Subsystem
 
 To change the configuration parameters of a running metadata server, run the
 following command:
@@ -485,7 +485,7 @@ ceph mds fail 0
 
 .. todo:: ``ceph mds`` subcommands missing docs: set, dump, getmap, stop, setmap
 
-# Mon Subsystem
+## Mon Subsystem
 
 To display monitor statistics, run the following command:
 

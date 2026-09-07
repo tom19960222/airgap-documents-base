@@ -43,7 +43,7 @@ file. For example:
 
 .. index:: OSD; config settings
 
-# General Settings
+## General Settings
 
 The following settings provide a Ceph OSD Daemon's ID, and determine paths to
 data and journals. Ceph deployment scripts typically generate the UUID
@@ -74,7 +74,7 @@ to BlueStore.
 
 .. index:: OSD; file system
 
-# File System Settings
+## File System Settings
 Ceph builds and mounts file systems which are used for Ceph OSDs.
 
 ``osd_mkfs_options {fs-type}``
@@ -107,7 +107,7 @@ For example:
 
 .. index:: OSD; journal settings
 
-# Journal Settings
+## Journal Settings
 
 This section applies only to the older Filestore OSD back end.  Since Luminous
 BlueStore has been default and preferred.
@@ -141,22 +141,22 @@ osd_journal_size = 10240
 
 See [Journal Config Reference](journal-ref.md) for additional details.
 
-# Monitor OSD Interaction
+## Monitor OSD Interaction
 
 Ceph OSD Daemons check each other's heartbeats and report to monitors
 periodically. Ceph can use default values in many cases. However, if your
 network has latency issues, you may need to adopt longer intervals. See
 [Configuring Monitor/OSD Interaction](mon-osd-interaction.md) for a detailed discussion of heartbeats.
 
-# Data Placement
+## Data Placement
 
 See [Pool & PG Config Reference](pool-pg-config-ref.md) for details.
 
 .. index:: OSD; scrubbing
 
-<a id="rados-config-scrubbing"></a>
+<a id="rados_config_scrubbing"></a>
 
-# Scrubbing
+## Scrubbing
 
 One way that Ceph ensures data integrity is by "scrubbing" placement groups.
 Ceph scrubbing is analogous to ``fsck`` on the object storage layer. Ceph
@@ -213,7 +213,7 @@ increase or decrease the frequency and depth of scrubbing operations.
 
 .. index:: OSD; operations settings
 
-# Operations
+## Operations
 
 .. confval:: osd_op_num_shards
 
@@ -268,12 +268,12 @@ increase or decrease the frequency and depth of scrubbing operations.
 
 <a id="dmclock-qos"></a>
 
-## QoS Based on mClock
+### QoS Based on mClock
 
 Ceph's use of mClock is now more refined and can be used by following the
 steps as described in [mClock Config Reference](mclock-config-ref.md).
 
-### Core Concepts
+#### Core Concepts
 
 Ceph's QoS support is implemented using a queueing scheduler
 based on [the dmClock algorithm](https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Gulati.pdf). This algorithm allocates the I/O
@@ -323,7 +323,7 @@ CURRENT IMPLEMENTATION NOTE: the current implementation enforces the limit
 values. Therefore, if a service crosses the enforced limit, the op remains
 in the operation queue until the limit is restored.
 
-### Subtleties of mClock
+#### Subtleties of mClock
 
 The reservation and limit values have a unit of requests per
 second. The weight, however, does not technically have a unit and the
@@ -346,7 +346,7 @@ one expects to be serviced each second.
 
 <a id="dmclock-qos-caveats"></a>
 
-### Caveats
+#### Caveats
 
 There are some factors that can reduce the impact of the mClock op
 queues within Ceph. First, requests to an OSD are sharded by their
@@ -417,7 +417,7 @@ mClock and dmClock experiments on the ``ceph-devel`` mailing list.
 
 .. index:: OSD; backfilling
 
-# Backfilling
+## Backfilling
 
 When you add or remove Ceph OSD Daemons to a cluster, CRUSH will
 rebalance the cluster by moving placement groups to or from Ceph OSDs
@@ -440,7 +440,7 @@ priority than requests to read or write data.
 
 .. index:: OSD; osdmap
 
-# OSD Map
+## OSD Map
 
 OSD maps reflect the OSD daemons operating in the cluster. Over time, the
 number of map epochs increases. Ceph provides some settings to ensure that
@@ -454,7 +454,7 @@ Ceph performs well as the OSD map grows larger.
 
 .. index:: OSD; recovery
 
-# Recovery
+## Recovery
 
 When the cluster starts or when a Ceph OSD Daemon crashes and restarts, the OSD
 begins peering with other Ceph OSD Daemons before writes can occur.  See
@@ -509,7 +509,7 @@ perform well in a degraded state.
 
 .. confval:: osd_recovery_priority
 
-# Tiering
+## Tiering
 
 .. confval:: osd_agent_max_ops
 
@@ -518,7 +518,7 @@ perform well in a degraded state.
 See [cache target dirty high ratio](../operations/pools.md#cache-target-dirty-high-ratio) for when the tiering agent flushes dirty
 objects within the high speed mode.
 
-# Miscellaneous
+## Miscellaneous
 
 .. confval:: osd_default_notify_timeout
 

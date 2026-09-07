@@ -37,7 +37,7 @@ QEMU, see  [QEMU Open Source Processor Emulator](http://wiki.qemu.org/Main_Page)
 > **Important:** To use Ceph Block Devices with QEMU, you must have access to a
 > running Ceph cluster.
 
-# Usage
+## Usage
 
 The QEMU command line expects you to specify the Ceph pool and image name. You
 may also specify a snapshot.
@@ -66,7 +66,7 @@ qemu-img {command} [options] rbd:glance-pool/maipo:id=glance:conf=/etc/ceph/ceph
 > **Tip:** Configuration values containing ``:``, ``@``, or ``=`` can be escaped with a
 > leading ``\`` character.
 
-# Creating Images with QEMU
+## Creating Images with QEMU
 
 You can create a block device image from QEMU. You must specify ``rbd``,  the
 pool name, and the name of the image you wish to create. You must also specify
@@ -89,7 +89,7 @@ qemu-img create -f raw rbd:data/foo 10G
 > unsafe for virtual machine live migration when caching (see below)
 > is enabled.
 
-# Resizing Images with QEMU
+## Resizing Images with QEMU
 
 You can resize a block device image from QEMU. You must specify ``rbd``,
 the pool name, and the name of the image you wish to resize. You must also
@@ -105,7 +105,7 @@ For example:
 qemu-img resize rbd:data/foo 10G
 ```
 
-# Retrieving Image Info with QEMU
+## Retrieving Image Info with QEMU
 
 You can retrieve block device image information from QEMU. You must
 specify ``rbd``, the pool name, and the name of the image. :
@@ -120,7 +120,7 @@ For example:
 qemu-img info rbd:data/foo
 ```
 
-# Running QEMU with RBD
+## Running QEMU with RBD
 
 QEMU can pass a block device from the host on to a guest, but since
 QEMU 0.15, there's no need to map an image as a block device on
@@ -163,7 +163,7 @@ qemu -m 1024 -drive format=raw,file=rbd:data/squeeze:rbd_cache=true,cache=writeb
 
 .. index:: Ceph Block Device; discard trim and libvirt
 
-# Enabling Discard/TRIM
+## Enabling Discard/TRIM
 
 Since Ceph version 0.46 and QEMU version 1.1, Ceph Block Devices support the
 discard operation. This means that a guest can send TRIM requests to let a Ceph
@@ -199,7 +199,7 @@ devices with ``qemu id=`` to different ``discard_granularity`` values.
 
 .. index:: Ceph Block Device; cache options
 
-# QEMU Cache Options
+## QEMU Cache Options
 
 QEMU's cache options correspond to the following Ceph [RBD Cache](rbd-config-ref.md) settings.
 

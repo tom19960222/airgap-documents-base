@@ -239,7 +239,7 @@ Other frequently used/useful options are ``-d`` (or ``--distro``),
 run), and ``--subset`` (used to reduce the number of tests that are triggered). Run
 ``teuthology-suite --help`` to read descriptions of these and other options.
 
-<a id="teuthology-testing-qa-changes"></a>
+<a id="teuthology_testing_qa_changes"></a>
 
 ### Testing QA changes (without re-building binaries)
 
@@ -301,7 +301,7 @@ for ``--filter``. Each YAML file in that directory can trigger tests; using the
 name of the file without its filename extension as an argument to the
 ``--filter`` triggers those tests.
 
-For example, in the command above in the [Testing QA Changes](tests-integration-testing-teuthology-workflow.md#teuthology-testing-qa-changes) section, ``cephfs-shell`` is specified.
+For example, in the command above in the [Testing QA Changes](tests-integration-testing-teuthology-workflow.md#teuthology_testing_qa_changes) section, ``cephfs-shell`` is specified.
 This works because there is a file named ``cephfs-shell.yaml`` in
 ``qa/suites/fs/basic_functional/tasks/``.
 

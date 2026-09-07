@@ -19,9 +19,9 @@ recovery using fewer surviving OSDs. For instance if *lrc* is configured with
 every four OSDs. When a single OSD is lost, it can be recovered with
 only four OSDs instead of eight.
 
-# Erasure code profile examples
+## Erasure code profile examples
 
-## Reduce recovery bandwidth between hosts
+### Reduce recovery bandwidth between hosts
 
 Although it is probably not an interesting use case when all hosts are
 connected to the same switch, reduced bandwidth usage can actually be
@@ -35,7 +35,7 @@ ceph osd erasure-code-profile set LRCprofile \
 ceph osd pool create lrcpool erasure LRCprofile
 ```
 
-## Reduce recovery bandwidth between racks
+### Reduce recovery bandwidth between racks
 
 In Firefly the bandwidth reduction will only be observed if the primary
 OSD is in the same rack as the lost chunk.:
@@ -49,7 +49,7 @@ ceph osd erasure-code-profile set LRCprofile \
 ceph osd pool create lrcpool erasure LRCprofile
 ```
 
-# Create an lrc profile
+## Create an lrc profile
 
 To create a new lrc erasure code profile:
 
@@ -159,7 +159,7 @@ Where:
 :Type: String
 :Required: No.
 
-# Low level plugin configuration
+## Low level plugin configuration
 
 The sum of **k** and **m** must be a multiple of the **l** parameter.
 The low level configuration parameters however do not enforce this
@@ -188,9 +188,9 @@ loss of chunk *7* can be recovered with the last four chunks. And the
 loss of chunk *2* chunk can be recovered with the first four
 chunks.
 
-# Erasure code profile examples using low level configuration
+## Erasure code profile examples using low level configuration
 
-## Minimal testing
+### Minimal testing
 
 It is strictly equivalent to using a *K=2* *M=1* erasure code profile. The *DD*
 implies *K=2*, the *c* implies *M=1* and the *isa* plugin is used
@@ -204,7 +204,7 @@ ceph osd erasure-code-profile set LRCprofile \
 ceph osd pool create lrcpool erasure LRCprofile
 ```
 
-## Reduce recovery bandwidth between hosts
+### Reduce recovery bandwidth between hosts
 
 Although it is probably not an interesting use case when all hosts are
 connected to the same switch, reduced bandwidth usage can actually be
@@ -225,7 +225,7 @@ $ ceph osd erasure-code-profile set LRCprofile \
 $ ceph osd pool create lrcpool erasure LRCprofile
 ```
 
-## Reduce recovery bandwidth between racks
+### Reduce recovery bandwidth between racks
 
 In Firefly the reduced bandwidth will only be observed if the primary OSD is in
 the same rack as the lost chunk. **WARNING: PROMPTS ARE SELECTABLE**
@@ -249,7 +249,7 @@ $ ceph osd erasure-code-profile set LRCprofile \
 $ ceph osd pool create lrcpool erasure LRCprofile
 ```
 
-## Testing with different Erasure Code backends
+### Testing with different Erasure Code backends
 
 LRC now uses ISA as the default EC backend. It is possible to
 specify the EC backend/algorithm on a per layer basis using the low
@@ -283,7 +283,7 @@ $ ceph osd erasure-code-profile set LRCprofile \
 $ ceph osd pool create lrcpool erasure LRCprofile
 ```
 
-# Erasure coding and decoding algorithm
+## Erasure coding and decoding algorithm
 
 The steps found in the layers description:
 
@@ -367,7 +367,7 @@ step 2      cDDD____
 step 3      ____cDDD
 ```
 
-# Controlling CRUSH placement
+## Controlling CRUSH placement
 
 The default CRUSH rule provides OSDs that are on different hosts. For instance:
 

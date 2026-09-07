@@ -93,7 +93,7 @@ Other cache modes are:
 
 - **none** is used to completely disable caching.
 
-# A word of caution
+## A word of caution
 
 Cache tiering will *degrade* performance for most workloads.  Users should use
 extreme caution before using this feature.
@@ -128,7 +128,7 @@ extreme caution before using this feature.
   that other users have not yet encountered and will put your deployment at a
   higher level of risk.
 
-## Known Good Workloads
+### Known Good Workloads
 
 * *RGW time-skewed*: If the RGW workload is such that almost all read
   operations are directed at recently written objects, a simple cache
@@ -136,7 +136,7 @@ extreme caution before using this feature.
   the cache to the base tier after a configurable period can work
   well.
 
-## Known Bad Workloads
+### Known Bad Workloads
 
 The following configurations are *known to work poorly* with cache
 tiering.
@@ -158,12 +158,12 @@ tiering.
   understanding of their workload and will need to tune the cache
   tiering parameters carefully.
 
-# Setting Up Pools
+## Setting Up Pools
 
 To set up cache tiering, you must have two pools. One will act as the
 backing storage and the other will act as the cache.
 
-## Setting Up a Backing Storage Pool
+### Setting Up a Backing Storage Pool
 
 Setting up a backing storage pool typically involves one of two scenarios:
 
@@ -186,7 +186,7 @@ appropriate rule automatically. See [Create a Pool](pools.md#create-a-pool) for 
 In subsequent examples, we will refer to the backing storage pool
 as ``cold-storage``.
 
-## Setting Up a Cache Pool
+### Setting Up a Cache Pool
 
 Setting up a cache pool follows the same procedure as the standard storage
 scenario, but with this difference: the drives for the cache tier are typically
@@ -201,7 +201,7 @@ the backing pool as ``cold-storage``.
 For cache tier configuration and default values, see
 [Pools - Set Pool Values](pools.md#set-pool-values).
 
-# Creating a Cache Tier
+## Creating a Cache Tier
 
 Setting up a cache tier involves associating a backing storage pool with
 a cache pool:
@@ -243,7 +243,7 @@ For example:
 ceph osd tier set-overlay cold-storage hot-storage
 ```
 
-# Configuring a Cache Tier
+## Configuring a Cache Tier
 
 Cache tiers have several configuration options. You may set
 cache tier configuration options with the following usage:
@@ -254,7 +254,7 @@ ceph osd pool set {cachepool} {key} {value}
 
 See [Pools - Set Pool Values](pools.md#set-pool-values) for details.
 
-## Target Size and Type
+### Target Size and Type
 
 Ceph's production cache tiers use a [Bloom Filter](https://en.wikipedia.org/wiki/Bloom_filter) for the ``hit_set_type``:
 
@@ -307,7 +307,7 @@ ceph osd pool set {cachepool} min_write_recency_for_promote 2
 > the agent is active to flush or evict cache objects, all ``hit_set_count``
 > HitSets are loaded into RAM.
 
-## Cache Sizing
+### Cache Sizing
 
 The cache tiering agent performs two main functions:
 
@@ -402,7 +402,7 @@ For example, setting the value to ``0.8`` will begin flushing unmodified
 ceph osd pool set hot-storage cache_target_full_ratio 0.8
 ```
 
-## Cache Age
+### Cache Age
 
 You can specify the minimum age of an object before the cache tiering agent
 flushes a recently modified (or dirty) object to the backing storage pool:
@@ -431,12 +431,12 @@ For example, to evict objects after 30 minutes, execute the following:
 ceph osd pool set hot-storage cache_min_evict_age 1800
 ```
 
-# Removing a Cache Tier
+## Removing a Cache Tier
 
 Removing a cache tier differs depending on whether it is a writeback
 cache or a read-only cache.
 
-## Removing a Read-Only Cache
+### Removing a Read-Only Cache
 
 Since a read-only cache does not have modified data, you can disable
 and remove it without losing any recent changes to objects in the cache.
@@ -465,7 +465,7 @@ ceph osd tier remove {storagepool} {cachepool}
 ceph osd tier remove cold-storage hot-storage
 ```
 
-## Removing a Writeback Cache
+### Removing a Writeback Cache
 
 Since a writeback cache may have modified data, you must take steps to ensure
 that you do not lose any recent changes to objects in the cache before you
@@ -521,7 +521,7 @@ ceph osd tier remove {storagepool} {cachepool}
 ceph osd tier remove cold-storage hot-storage
 ```
 
-# Troubleshooting Unfound Objects
+## Troubleshooting Unfound Objects
 Under certain circumstances, restarting OSDs may result in unfound objects.
 
 Here is an example of unfound objects appearing during an upgrade from Ceph

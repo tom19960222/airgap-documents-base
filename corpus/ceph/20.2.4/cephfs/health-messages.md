@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # CephFS health messages
 
-# Cluster health checks
+## Cluster health checks
 
 The Ceph monitor daemons will generate health messages in response
 to certain states of the file system map structure (and the enclosed MDS maps).
@@ -45,7 +45,7 @@ count towards any file system (i.e. they may overlap). This warning can
 configured by setting ``ceph fs set <fs> standby_count_wanted <count>``.  Use
 zero for ``count`` to disable.
 
-# Daemon-reported health checks
+## Daemon-reported health checks
 
 MDS daemons can identify a variety of unwanted conditions, and
 indicate these to the operator in the output of ``ceph status``.
@@ -75,7 +75,7 @@ slow requests.
 This page lists the health checks raised by MDS daemons. For the checks from
 other daemons, please see [health-checks](../rados/operations/health-checks.md#health-checks).
 
-## ``MDS_TRIM``
+### ``MDS_TRIM``
 
   Message
     "Behind on trimming..."
@@ -89,7 +89,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     message may appear.  The threshold for this message to appear is controlled by
     the config option ``mds_log_warn_factor``, the default is 2.0.
 
-## ``MDS_HEALTH_CLIENT_LATE_RELEASE``, ``MDS_HEALTH_CLIENT_LATE_RELEASE_MANY``
+### ``MDS_HEALTH_CLIENT_LATE_RELEASE``, ``MDS_HEALTH_CLIENT_LATE_RELEASE_MANY``
 
   Message
     "Client *name* failing to respond to capability release"
@@ -101,7 +101,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     so at all.  This message appears if a client has taken longer than
     ``session_timeout`` (default 60s) to comply.
 
-## ``MDS_CLIENT_RECALL``, ``MDS_HEALTH_CLIENT_RECALL_MANY``
+### ``MDS_CLIENT_RECALL``, ``MDS_HEALTH_CLIENT_RECALL_MANY``
 
   Message
     "Client *name* failing to respond to cache pressure"
@@ -117,7 +117,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     ``mds_recall_max_decay_rate``) within the last
     ``mds_recall_warning_decay_rate`` second.
 
-## ``MDS_CLIENT_OLDEST_TID``, ``MDS_CLIENT_OLDEST_TID_MANY``
+### ``MDS_CLIENT_OLDEST_TID``, ``MDS_CLIENT_OLDEST_TID_MANY``
 
   Message
     "Client *name* failing to advance its oldest client/flush tid"
@@ -133,7 +133,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     used by the MDS to trim completed client requests (or flush) is included
     as part of `session ls` (or `client ls`) command as a debug aid.
 
-## ``MDS_DAMAGE``
+### ``MDS_DAMAGE``
 
   Message
     "Metadata damage detected"
@@ -145,7 +145,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     the ``damage ls`` admin socket command to get more detail on the damage.
     This message appears as soon as any damage is encountered.
 
-## ``MDS_HEALTH_READ_ONLY``
+### ``MDS_HEALTH_READ_ONLY``
 
   Message
     "MDS in read-only mode"
@@ -156,7 +156,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     writing to the metadata pool, or if forced to by an administrator using
     the *force_readonly* admin socket command.
 
-## ``MDS_SLOW_REQUEST``
+### ``MDS_SLOW_REQUEST``
 
   Message
     "*N* slow requests are blocked"
@@ -169,7 +169,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     This message appears if any client requests have taken longer than
     ``mds_op_complaint_time`` (default 30s).
 
-## ``MDS_CACHE_OVERSIZED``
+### ``MDS_CACHE_OVERSIZED``
 
   Message
     "Too many inodes in cache"
@@ -181,7 +181,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     ``mds_cache_memory_limit`` (default 4GB). Modify ``mds_health_cache_threshold``
     to set the warning ratio.
 
-## ``FS_WITH_FAILED_MDS``
+### ``FS_WITH_FAILED_MDS``
 
   Message
     "Some MDS ranks do not have standby replacements"
@@ -191,7 +191,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     is transient and is not considered critical. However, if there are no standby
     MDSs available to replace an active MDS rank, this health warning is generated.
 
-## ``MDS_INSUFFICIENT_STANDBY``
+### ``MDS_INSUFFICIENT_STANDBY``
 
   Message
     "Insufficient number of available standby(-replay) MDS daemons than configured"
@@ -202,7 +202,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     when the configured value mismatches the number of standby(-replay) MDS daemons
     available.
 
-## ``FS_DEGRADED``
+### ``FS_DEGRADED``
 
   Message
     "Some MDS ranks have been marked failed or damaged"
@@ -212,7 +212,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     an unrecoverable error. The file system may be partially or fully
     unavailable when one (or more) ranks are offline.
 
-## ``MDS_UP_LESS_THAN_MAX``
+### ``MDS_UP_LESS_THAN_MAX``
 
   Message
     "Number of active ranks are less than configured number of maximum MDSs"
@@ -222,7 +222,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     configuration variable. This health warning is generated when the number
     of MDS ranks falls below this configured value.
 
-## ``MDS_ALL_DOWN``
+### ``MDS_ALL_DOWN``
 
   Message
     "None of the MDS ranks are available (file system offline)"
@@ -231,7 +231,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     All MDS ranks are unavailable resulting in the file system to be completely
     offline.
 
-## ``MDS_CLIENTS_LAGGY``
+### ``MDS_CLIENTS_LAGGY``
   Message
     "Client *ID* is laggy; not evicted because some OSD(s) is/are laggy"
 
@@ -242,7 +242,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     set to true (default true), client eviction will not take place and thus
     this health warning will be generated.
 
-## ``MDS_CLIENTS_BROKEN_ROOTSQUASH``
+### ``MDS_CLIENTS_BROKEN_ROOTSQUASH``
   Message
     "X client(s) with broken root_squash implementation (MDS_CLIENTS_BROKEN_ROOTSQUASH)"
 
@@ -258,7 +258,7 @@ other daemons, please see [health-checks](../rados/operations/health-checks.md#h
     To evict and permanently block broken clients from connecting to the
     cluster, set the ``required_client_feature`` bit ``client_mds_auth_caps``.
 
-## ``MDS_ESTIMATED_REPLAY_TIME``
+### ``MDS_ESTIMATED_REPLAY_TIME``
   Message
     "HEALTH_WARN Replay: x% complete. Estimated time remaining *x* seconds
 

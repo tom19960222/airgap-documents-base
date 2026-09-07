@@ -13,7 +13,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 The `rbd` python module provides file-like access to RBD images.
 
-# Example: Creating and writing to an image
+## Example: Creating and writing to an image
 
 To use `rbd`, you must first connect to RADOS and open an IO
 context:
@@ -93,7 +93,7 @@ with rados.Rados(conffile='my_ceph.conf') as cluster:
             image.write(data, 0)
 ```
 
-# API Reference
+## API Reference
 
 .. automodule:: rbd
    :members: RBD, Image, SnapIterator

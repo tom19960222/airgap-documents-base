@@ -13,7 +13,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: osdmaptool
 
-# Synopsis
+## Synopsis
 
 | **osdmaptool** *mapfilename* [--print] [--createsimple *numosd*
   [--pgbits *bitsperosd* ] ] [--clobber]
@@ -24,7 +24,7 @@ fetched_at: 2026-08-18T01:32:45Z
   [--save] [--upmap-active]
 | **osdmaptool** *mapfilename* [--upmap-cleanup] [--upmap *file*]
 
-# Description
+## Description
 
 **osdmaptool** is a utility that lets you create, view, and manipulate
 OSD cluster maps from the Ceph distributed storage system. Notably, it
@@ -32,7 +32,7 @@ lets you extract the embedded CRUSH map or import a new CRUSH map.
 It can also simulate the upmap balancer mode so you can get a sense of
 what is needed to balance your PGs.
 
-# Options
+## Options
 
 .. option:: --print
 
@@ -195,7 +195,7 @@ what is needed to balance your PGs.
 
    prefix upmap and read output with './bin/'
 
-# Example
+## Example
 
 To create a simple map with 16 devices:
 
@@ -362,13 +362,13 @@ read_balance_score of 'cephfs.a.meta': 1.13
 num changes: 5
 ```
 
-# Availability
+## Availability
 
 **osdmaptool** is part of Ceph, a massively scalable, open-source, distributed storage system.  Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [crushtool](crushtool.md)\(8),

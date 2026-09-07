@@ -5,14 +5,14 @@ title: "Deploying a development cluster"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/dev_cluster_deployment.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="dev-deploying-a-development-cluster"></a>
+<a id="dev_deploying_a_development_cluster"></a>
 
 # Deploying a development cluster
 
 In order to develop on ceph, a Ceph utility,
 *vstart.sh*, allows you to deploy fake local cluster for development purpose.
 
-# Usage
+## Usage
 
 It allows to deploy a fake local cluster on your machine for development purpose. It starts rgw, mon, osd and/or mds, or all of them if not specified.
 
@@ -28,7 +28,7 @@ In order to stop the cluster, you can type:
 ./stop.sh
 ```
 
-# Options
+## Options
 
 .. option:: -b, --bluestore
 
@@ -134,7 +134,7 @@ In order to stop the cluster, you can type:
 
    Disable cephx.
 
-# Environment variables
+## Environment variables
 
 {OSD,MDS,MON,RGW}
 
@@ -151,7 +151,7 @@ OSD=3 MON=3 RGW=1 vstart.sh
 In order to bring up multiple ceph clusters on the same machine, *mstart.sh* a
 small wrapper around the above *vstart* can help.
 
-# Usage
+## Usage
 
 To start multiple clusters, you would run mstart for each cluster you would want
 to deploy, and it will start monitors, rgws for each cluster on different ports

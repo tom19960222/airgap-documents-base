@@ -25,9 +25,9 @@ play in the Ceph cluster (for example: BlueStore data or BlueStore WAL+DB).
 BlueStore is the default backend. Ceph permits changing
 the backend, which can be done by using the following flags and arguments:
 
-* [--bluestore](prepare.md#ceph-volume-lvm-prepare-bluestore)
+* [--bluestore](prepare.md#ceph-volume-lvm-prepare_bluestore)
 
-<a id="ceph-volume-lvm-prepare-bluestore"></a>
+<a id="ceph-volume-lvm-prepare_bluestore"></a>
 
 ## ``bluestore``
 Bluestore is the default backend for new OSDs.  Bluestore
@@ -114,7 +114,7 @@ a volume group and a logical volume using the following conventions:
 
 * logical volume name: ``osd-block-{osd_fsid}``
 
-<a id="ceph-volume-lvm-prepare-filestore"></a>
+<a id="ceph-volume-lvm-prepare_filestore"></a>
 
 ## ``filestore``
 > **Warning:** Filestore has been deprecated in the Reef release and is no longer supported.

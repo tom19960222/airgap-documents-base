@@ -13,7 +13,7 @@ Infernalis is the 9th stable release of Ceph.  It is named after the
 vampire squid (Vampyroteuthis infernalis, the "vampire squid from
 hell").
 
-# v9.2.1 Infernalis
+## v9.2.1 Infernalis
 
 This Infernalis point release fixes several packagins and init script
 issues, enables the librbd objectmap feature by default, a few librbd
@@ -23,7 +23,7 @@ We recommend that all infernalis v9.2.0 users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v9.2.1.txt -->.
 
-## Upgrading
+### Upgrading
 
 * Some symbols wrongly exposed by the C++ interface for librados in
   v9.1.0 and v9.2.0 were removed.  If you compiled your own
@@ -31,7 +31,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
   likely referencing these removed symbols. So you will need to
   recompile it.
 
-## Notable Changes
+### Notable Changes
 * build/ops: Ceph daemon failed to start, because the service name was already used. ([issue#13474](http://tracker.ceph.com/issues/13474), [pr#6833](http://github.com/ceph/ceph/pull/6833), Chuanhong Wang)
 * build/ops: ceph upstart script rbdmap.conf incorrectly processes parameters ([issue#13214](http://tracker.ceph.com/issues/13214), [pr#6396](http://github.com/ceph/ceph/pull/6396), Sage Weil)
 * build/ops: libunwind package missing on CentOS 7 ([issue#13997](http://tracker.ceph.com/issues/13997), [pr#6845](http://github.com/ceph/ceph/pull/6845), Loic Dachary)
@@ -81,13 +81,13 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tests: testprofile must be removed before it is re-created ([issue#13664](http://tracker.ceph.com/issues/13664), [pr#6449](http://github.com/ceph/ceph/pull/6449), Loic Dachary)
 * tests: verify it is possible to reuse an OSD id ([issue#13988](http://tracker.ceph.com/issues/13988), [pr#6882](http://github.com/ceph/ceph/pull/6882), Loic Dachary)
 
-# v9.2.0 Infernalis
+## v9.2.0 Infernalis
 
 This major release will be the foundation for the next stable series.
 There have been some major changes since v0.94.x Hammer, and the
 upgrade process is non-trivial.  Please read these release notes carefully.
 
-## Major Changes from Hammer
+### Major Changes from Hammer
 
 - *General*:
 
@@ -143,7 +143,7 @@ upgrade process is non-trivial.  Please read these release notes carefully.
     inodes has been dramatically improved.
   * The ceph-fuse client behaves better on 32-bit hosts.
 
-## Distro compatibility
+### Distro compatibility
 
 We have decided to drop support for many older distributions so that we can
 move to a newer compiler toolchain (e.g., C++11).  Although it is still possible
@@ -160,7 +160,7 @@ We now build packages for:
   supported.
 * Fedora 22 or later.
 
-## Upgrading from Firefly
+### Upgrading from Firefly
 
 Upgrading directly from Firefly v0.80.z is not recommended.  It is
 possible to do a direct upgrade, but not without downtime.  We
@@ -186,7 +186,7 @@ ceph osd down `seq 0 1000`
 1. Start all ceph-osd daemons
 1. Upgrade and restart remaining daemons (ceph-mds, radosgw)
 
-## Upgrading from Hammer
+### Upgrading from Hammer
 
 * All cluster nodes must first upgrade to Hammer v0.94.4 or a later v0.94.z release; only
   then is it possible to upgrade to Infernalis 9.2.z.
@@ -291,7 +291,7 @@ systemctl start ceph.target   # debian, centos, fedora, rhel
 * The commands of "pg ls-by-{pool,primary,osd}" and "pg ls" now take "recovering"
   instead of "recovery", to include the recovering pgs in the listed pgs.
 
-## Notable Changes since Hammer
+### Notable Changes since Hammer
 
 * aarch64: add optimized version of crc32c (Yazen Ghannam, Steve Capper)
 * auth: cache/reuse crypto lib key objects, optimize msg signature check (Sage Weil)
@@ -766,13 +766,13 @@ systemctl start ceph.target   # debian, centos, fedora, rhel
 * tests: many many ec test improvements (Loic Dachary)
 * upstart: throttle restarts (#11798 Sage Weil, Greg Farnum)
 
-# v9.1.0 Infernalis release candidate
+## v9.1.0 Infernalis release candidate
 
 This is the first Infernalis release candidate.  There have been some
 major changes since Hammer, and the upgrade process is non-trivial.
 Please read carefully.
 
-## Getting the release candidate
+### Getting the release candidate
 
 The v9.1.0 packages are pushed to the development release repositories:
 
@@ -793,13 +793,13 @@ Or install with ceph-deploy via:
 ceph-deploy install --testing HOST
 ```
 
-## Known issues
+### Known issues
 
 * librbd and librados ABI compatibility is broken.  Be careful
   installing this RC on client machines (e.g., those running qemu).
   It will be fixed in the final v9.2.0 release.
 
-## Major Changes from Hammer
+### Major Changes from Hammer
 
 - *General*:
 
@@ -855,7 +855,7 @@ ceph-deploy install --testing HOST
     inodes has been dramatically improved.
   * The ceph-fuse client behaves better on 32-bit hosts.
 
-## Distro compatibility
+### Distro compatibility
 
 We have decided to drop support for many older distributions so that we can
 move to a newer compiler toolchain (e.g., C++11).  Although it is still possible
@@ -872,7 +872,7 @@ In particular,
   supported.
 * Fedora 22 or later.
 
-## Upgrading from Firefly
+### Upgrading from Firefly
 
 Upgrading directly from Firefly v0.80.z is not possible.  All clusters
 must first upgrade to Hammer v0.94.4 or a later v0.94.z release; only
@@ -885,7 +885,7 @@ from gitbuilder with(also refer the hammer release notes for more details):
 ceph-deploy install --release hammer HOST
 ```
 
-## Upgrading from Hammer
+### Upgrading from Hammer
 
 * All cluster nodes must first upgrade to Hammer v0.94.4 or a later v0.94.z release; only
   then is it possible to do online upgrade to Infernalis 9.2.z.
@@ -962,7 +962,7 @@ systemctl start ceph.target   # debian, centos, fedora, rhel
   changed.  You will need to remove any OSDs using that backend before you
   upgrade any test clusters that use it.
 
-## Upgrade notes
+### Upgrade notes
 
 * When a pool quota is reached, librados operations now block indefinitely,
   the same way they do when the cluster fills up.  (Previously they would return
@@ -970,7 +970,7 @@ systemctl start ceph.target   # debian, centos, fedora, rhel
   librados application can handle ENOSPC or EDQUOT errors gracefully, you can
   get error returns instead by using the new librados OPERATION_FULL_TRY flag.
 
-## Notable changes
+### Notable changes
 
 NOTE: These notes are somewhat abbreviated while we find a less
 time-consuming process for generating them.
@@ -1043,7 +1043,7 @@ time-consuming process for generating them.
 * systemd: many fixes (Sage Weil, Owen Synge, Boris Ranto, Dan van der Ster)
 * systemd: run daemons as user ceph
 
-# v9.0.3
+## v9.0.3
 
 This is the second to last batch of development work for the
 Infernalis cycle.  The most intrusive change is an internal (non
@@ -1051,7 +1051,7 @@ user-visible) change to the OSD's ObjectStore interface.  Many fixes and
 improvements elsewhere across RGW, RBD, and another big pile of CephFS
 scrub/repair improvements.
 
-## Upgrading
+### Upgrading
 
 * The return code for librbd's rbd_aio_read and Image::aio_read API methods no
   longer returns the number of bytes read upon success.  Instead, it returns 0
@@ -1068,7 +1068,7 @@ scrub/repair improvements.
 * The commands of 'pg ls-by-{pool,primary,osd}' and 'pg ls' now take 'recovering'
   instead of 'recovery' to include the recovering pgs in the listed pgs.
 
-## Notable Changes
+### Notable Changes
 
   * autotools: fix out of tree build (Krxysztof Kosinski)
   * autotools: improve make check output (Loic Dachary)
@@ -1172,14 +1172,14 @@ scrub/repair improvements.
   * test: misc fs test improvements (John Spray, Loic Dachary)
   * test: python tests, linter cleanup (Alfredo Deza)
 
-# v9.0.2
+## v9.0.2
 
 This development release features more of the OSD work queue
 unification, randomized osd scrub times, a huge pile of librbd fixes,
 more MDS repair and snapshot fixes, and a significant amount of work
 on the tests and build infrastructure.
 
-## Notable Changes
+### Notable Changes
 
 * buffer: some cleanup (Michal Jarzabek)
 * build: cmake: fix nss linking (Danny Al-Gaaf)
@@ -1292,7 +1292,7 @@ on the tests and build infrastructure.
 * tests: many many ec test improvements (Loic Dachary)
 * upstart: throttle restarts (#11798 Sage Weil, Greg Farnum)
 
-# v9.0.1
+## v9.0.1
 
 This development release is delayed a bit due to tooling changes in the build
 environment.  As a result the next one (v9.0.2) will have a bit more work than
@@ -1302,7 +1302,7 @@ Highlights here include lots of RGW Swift fixes, RBD feature work
 surrounding the new object map feature, more CephFS snapshot fixes,
 and a few important CRUSH fixes.
 
-## Notable Changes
+### Notable Changes
 
 * auth: cache/reuse crypto lib key objects, optimize msg signature check (Sage Weil)
 * build: allow tcmalloc-minimal (Thorsten Behrens)
@@ -1398,7 +1398,7 @@ and a few important CRUSH fixes.
 * rpm: add suse firewall files (Tim Serong)
 * rpm: misc systemd and suse fixes (Owen Synge, Nathan Cutler)
 
-# v9.0.0
+## v9.0.0
 
 This is the first development release for the Infernalis cycle, and
 the first Ceph release to sport a version number from the new
@@ -1418,7 +1418,7 @@ A few highlights include:
 * OSD performance improvements
 * many doc updates and misc bug fixes
 
-## Notable Changes
+### Notable Changes
 
 * aarch64: add optimized version of crc32c (Yazen Ghannam, Steve Capper)
 * auth: reinit NSS after fork() (#11128 Yan, Zheng)

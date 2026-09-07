@@ -106,7 +106,7 @@ instances or all radosgw-admin options can be put into the ``[global]`` or the
 
 .. confval:: rgw_max_chunk_size
 
-# Lifecycle Settings
+## Lifecycle Settings
 
 Bucket Lifecycle (LC) configuration can be used to manage your objects so that
 they are stored effectively throughout their lifetimes. In past releases,
@@ -138,7 +138,7 @@ daemon for each zone.
 
 .. confval:: rgw_enable_lc_threads
 
-# Garbage Collection Settings
+## Garbage Collection Settings
 
 The Ceph Object Gateway allocates storage for new objects immediately.
 
@@ -200,7 +200,7 @@ thread running:
 
 .. confval:: rgw_enable_gc_threads
 
-# Multisite Settings
+## Multisite Settings
 
 .. versionadded:: Jewel
 
@@ -237,11 +237,11 @@ file under each ``[client.radosgw.{instance-name}]`` instance.
 > rgw_md_log_max_shards should not be changed after sync has
 > started.
 
-# S3 Settings
+## S3 Settings
 
 .. confval:: rgw_s3_auth_use_ldap
 
-# Swift Settings
+## Swift Settings
 
 .. confval:: rgw_enforce_swift_acls
 
@@ -263,7 +263,7 @@ file under each ``[client.radosgw.{instance-name}]`` instance.
 
 .. confval:: rgw_trust_forwarded_https
 
-# Logging Settings
+## Logging Settings
 
 .. confval:: rgw_log_nonexistent_bucket
 
@@ -291,7 +291,7 @@ file under each ``[client.radosgw.{instance-name}]`` instance.
 
 .. confval:: rgw_log_http_headers
 
-# Keystone Settings
+## Keystone Settings
 
 .. confval:: rgw_keystone_url
 
@@ -323,11 +323,11 @@ file under each ``[client.radosgw.{instance-name}]`` instance.
 
 .. confval:: rgw_keystone_expired_token_cache_expiration
 
-# Server-side encryption Settings
+## Server-side encryption Settings
 
 .. confval:: rgw_crypt_s3_kms_backend
 
-# Barbican Settings
+## Barbican Settings
 
 .. confval:: rgw_barbican_url
 
@@ -341,7 +341,7 @@ file under each ``[client.radosgw.{instance-name}]`` instance.
 
 .. confval:: rgw_keystone_barbican_domain
 
-# HashiCorp Vault Settings
+## HashiCorp Vault Settings
 
 .. confval:: rgw_crypt_vault_auth
 
@@ -355,7 +355,7 @@ file under each ``[client.radosgw.{instance-name}]`` instance.
 
 .. confval:: rgw_crypt_vault_namespace
 
-# SSE-S3 Settings
+## SSE-S3 Settings
 
 .. confval:: rgw_crypt_sse_s3_backend
 
@@ -381,7 +381,7 @@ file under each ``[client.radosgw.{instance-name}]`` instance.
 
 .. confval:: rgw_crypt_sse_s3_vault_ssl_clientkey
 
-## QoS settings
+### QoS settings
 
 .. versionadded:: Nautilus
 
@@ -426,7 +426,7 @@ implementation of the *dmclock_client* op queue divides RGW ops into admin, auth
 
 .. confval:: rgw_dmclock_metadata_lim
 
-# D4N Settings
+## D4N Settings
 
 D4N is a caching architecture that utilizes Redis to speed up S3 object storage
 operations by establishing shared databases among Ceph Object Gateway (RGW) daemons.
@@ -453,7 +453,7 @@ below.
 
 .. confval:: rgw_d4n_l1_datacache_address
 
-# Topic persistency settings
+## Topic persistency settings
 
 Topic persistency will repeatedly push notifications until they succeed.
 For more information, see [Bucket Notifications](notifications.md).
@@ -474,7 +474,7 @@ retention is indefinite, and notifications are retried as frequently as possible
 
 .. confval:: rgw_topic_persistency_sleep_duration
 
-# Cloud Restore settings
+## Cloud Restore settings
 
 Cloud Restore feature currently enables the restoration of objects transitioned to S3-compatible cloud services into Ceph Object Gateway (RGW). The restore requests are asynchronously processed by Restore worker thread in the background.
 

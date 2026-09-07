@@ -49,7 +49,7 @@ An example of the session tags that are passed in by the IDP in the web token is
 ```
 
 Steps to configure Keycloak to pass tags in the web token are described here:
-[radosgw_keycloak](keycloak.md#radosgw-keycloak).
+[radosgw_keycloak](keycloak.md#radosgw_keycloak).
 
 The trust policy must have 'sts:TagSession' permission if the web token passed
 in by the federated user contains session tags, otherwise the
@@ -69,7 +69,7 @@ sts:TagSession is as follows:
     }
 ```
 
-# Tag Keys
+## Tag Keys
 
 The following are the tag keys that can be used in the role's trust policy or the role's permission policy:
 
@@ -185,7 +185,7 @@ An example of a role's permission policy that uses s3:ResourceTag is as follows:
 For the above to work, you need to attach 'Department=Engineering' tag to the bucket (and on the object too) on which you want this policy
 to be applied.
 
-# More examples of policies using tags
+## More examples of policies using tags
 
 1. To assume a role by matching the tags in the incoming request with the tag attached to the role.
 aws:RequestTag is the incoming tag in the JWT (access token) and iam:ResourceTag is the tag attached to the role being assumed:
@@ -225,7 +225,7 @@ the s3 resource (object/ bucket):
 }
 ```
 
-# Properties of Session Tags
+## Properties of Session Tags
 
 1. Session Tags can be multi-valued. (Multi-valued session tags are not supported in AWS)
 2. A maximum of 50 session tags are allowed to be passed in by the IDP.
@@ -233,7 +233,7 @@ the s3 resource (object/ bucket):
 4. The maximum size of a value allowed is 256 characters.
 5. The tag or the value can not start with "aws:".
 
-# s3 Resource Tags
+## s3 Resource Tags
 
 As stated above 's3:ResourceTag' key can be used for authorizing an s3 operation in RGW (this is not allowed in AWS).
 
@@ -249,7 +249,7 @@ The following table shows which s3 resource tag type (bucket/object) are support
 | **GetACLs** <br> **PutACLs** <br> <br> | Bucket tags for <br> bucket ACLs <br> Object tags for <br> object ACLs |
 | **PutObject** <br> **CopyObject** <br> <br> | Object tags of <br> source object <br> Bucket tags of <br> destination bucket |
 
-# Sample code demonstrating usage of session tags
+## Sample code demonstrating usage of session tags
 
 The following is a sample code for tagging a role, a bucket, an object in it and using tag keys in a role's
 trust policy and its permission policy, assuming that a tag 'Department=Engineering' is passed in the

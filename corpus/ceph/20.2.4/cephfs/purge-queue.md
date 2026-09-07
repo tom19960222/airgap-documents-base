@@ -14,7 +14,7 @@ which contain nominal information from the inodes such as size and the layout
 (i.e. all other un-needed metadata information is discarded making it
 independent of all metadata structures).
 
-# Deletion process
+## Deletion process
 
 When a client requests deletion of a directory (say ``rm -rf``):
 
@@ -76,7 +76,7 @@ $ ceph config set mds mds_max_purge_ops_per_pg 2
 > a conscious decision while tuning the configs based on the cluster
 > size and workload.
 
-# Examining purge queue perf counters
+## Examining purge queue perf counters
 
 When analysing MDS perf dumps, the purge queue statistics look like:
 

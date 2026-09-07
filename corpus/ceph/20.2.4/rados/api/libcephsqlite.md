@@ -23,7 +23,7 @@ accessed by a single SQLite client database connection at a given time.  The
 database may be manipulated safely by multiple clients only in a serial fashion
 controlled by RADOS locks managed by the Ceph SQLite VFS.
 
-### Usage
+## Usage
 
 Normal unmodified applications (including the sqlite command-line toolset
 binary) may load the *ceph* VFS using the [SQLite Extension Loading API](https://sqlite.org/c3ref/load_extension.html).
@@ -82,7 +82,7 @@ sqlite3 -cmd '.load libcephsqlite.so' -cmd '.open file:///foo:bar/baz.db?vfs=cep
 The default operation would look at the standard Ceph configuration file path
 using the ``client.admin`` user.
 
-### User
+## User
 
 The *ceph* VFS requires a user credential with read access to the monitors, the
 ability to blocklist dead clients of the database, and access to the OSDs
@@ -102,7 +102,7 @@ ceph auth get-or-create client.X mon 'profile simple-rados-client-with-blocklist
 
 To learn why blocklisting is necessary, see [libcephsqlite-corrupt](libcephsqlite.md#libcephsqlite-corrupt).
 
-### Page Size
+## Page Size
 
 SQLite allows configuring the page size prior to creating a new database. It is
 advisable to increase this config to 65536 (64K) when using RADOS backed
@@ -116,7 +116,7 @@ PRAGMA page_size = 65536
 You may also try other values according to your application needs but note that
 64K is the max imposed by SQLite.
 
-### Cache
+## Cache
 
 The ceph VFS does not do any caching of reads or buffering of writes. Instead,
 and more appropriately, the SQLite page cache is used. You may find it is too small
@@ -128,7 +128,7 @@ PRAGMA cache_size = 4096
 
 Which will cache 4096 pages or 256MB (with 64K ``page_cache``).
 
-### Journal Persistence
+## Journal Persistence
 
 By default, SQLite deletes the journal for every transaction. This can be
 expensive as the *ceph* VFS must delete every object backing the journal for each
@@ -143,7 +143,7 @@ PRAGMA journal_mode = PERSIST
 The cost of this may be increased unused space according to the high-water size
 of the rollback journal (based on transaction type and size).
 
-### Exclusive Lock Mode
+## Exclusive Lock Mode
 
 SQLite operates in a ``NORMAL`` locking mode where each transaction requires
 locking the backing database file. This can add unnecessary overhead to
@@ -163,7 +163,7 @@ synchronization events: once to write to the journal, another to write to the
 database file, and a final write to invalidate the journal header (in
 ``PERSIST`` journaling mode).
 
-### WAL Journal
+## WAL Journal
 
 The [WAL Journal Mode](https://sqlite.org/wal.html) is only available when SQLite is operating in exclusive
 lock mode. This is because it requires shared memory communication with other
@@ -174,7 +174,7 @@ transaction latency. Testing has shown it can provide more than 50% speedup
 over persisted rollback journals in exclusive locking mode. You can expect
 around 150-250 transactions per second depending on size.
 
-### Performance Notes
+## Performance Notes
 
 The filing backend for the database on RADOS is asynchronous as much as
 possible.  Still, performance can be anywhere from 3x-10x slower than a local
@@ -196,7 +196,7 @@ Be aware that read-heavy queries could take significant amounts of time as
 reads are necessarily synchronous (due to the VFS API). No readahead is yet
 performed by the VFS.
 
-### Recommended Use-Cases
+## Recommended Use-Cases
 
 The original purpose of this module was to support saving relational or large
 data in RADOS which needs to span multiple objects. Many current applications
@@ -205,12 +205,12 @@ cannot scale without striping data across multiple objects. Unfortunately, it
 is non-trivial to design a store spanning multiple objects which is consistent
 and also simple to use. SQLite can be used to bridge that gap.
 
-### Parallel Access
+## Parallel Access
 
 The VFS does not yet support concurrent readers. All database access is protected
 by a single exclusive lock.
 
-### Export or Extract Database out of RADOS
+## Export or Extract Database out of RADOS
 
 The database is striped on RADOS and can be extracted using the RADOS cli toolset.
 
@@ -233,7 +233,7 @@ result in fetching a corrupt journal.
 Instead of manually extracting the files, it would be more advisable to use the
 [SQLite Backup](https://www.sqlite.org/backup.html) mechanism instead.
 
-### Temporary Tables
+## Temporary Tables
 
 Temporary tables backed by the ceph VFS are not supported. The main reason for
 this is that the VFS lacks context about where it should put the database, i.e.
@@ -250,7 +250,7 @@ PRAGMA temp_store=memory
 
 <a id="libcephsqlite-breaking-locks"></a>
 
-### Breaking Locks
+## Breaking Locks
 
 Access to the database file is protected by an exclusive lock on the first
 object stripe of the database. If the application fails without unlocking the
@@ -292,7 +292,7 @@ $ rados --pool=foo --namespace bar lock break baz.db.0000000000000000 striper.lo
 
 <a id="libcephsqlite-corrupt"></a>
 
-### How to Corrupt Your Database
+## How to Corrupt Your Database
 
 There is the usual reading on [How to Corrupt Your SQLite Database](https://www.sqlite.org/howtocorrupt.html) that you
 should review before using this tool. To add to that, the most likely way you
@@ -353,7 +353,7 @@ This is the address you would pass to the ceph blocklist command:
 ceph osd blocklist add 172.21.10.4:0/3082314560
 ```
 
-### Performance Statistics
+## Performance Statistics
 
 The *ceph* VFS provides a SQLite function, ``ceph_perf``, for querying the
 performance statistics of the VFS. The data is from "performance counters" as
@@ -408,7 +408,7 @@ SELECT json_extract(ceph_perf(), '$.libcephsqlite_vfs.opf_sync');
 the asynchronous writes as well as an asynchronous update to the size of the
 striped file.
 
-### Debugging
+## Debugging
 
 Debugging libcephsqlite can be turned on via:
 

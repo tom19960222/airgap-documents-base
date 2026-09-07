@@ -38,7 +38,7 @@ Ceph and was once the primary use-case for RADOS.  Now it is joined by two
 other storage interfaces to form a modern unified storage system: RBD (Ceph
 Block Devices) and RGW (Ceph Object Storage Gateway).
 
-### Getting Started with CephFS
+## Getting Started with CephFS
 
 For most deployments of Ceph, setting up your first CephFS file system is as simple as:
 
@@ -58,7 +58,7 @@ for interactive access or scripting via the [cephfs-shell](../man/8/cephfs-shell
 
    <!---
 
-### Administration
+## Administration
 
 .. raw:: html
 
@@ -91,7 +91,7 @@ for interactive access or scripting via the [cephfs-shell](../man/8/cephfs-shell
 
    <!---
 
-### Mounting CephFS
+## Mounting CephFS
 
 .. raw:: html
 
@@ -117,7 +117,7 @@ for interactive access or scripting via the [cephfs-shell](../man/8/cephfs-shell
 
    <!---
 
-### CephFS Concepts
+## CephFS Concepts
 
 .. raw:: html
 
@@ -144,7 +144,7 @@ for interactive access or scripting via the [cephfs-shell](../man/8/cephfs-shell
 
    <!---
 
-### Troubleshooting and Disaster Recovery
+## Troubleshooting and Disaster Recovery
 
 .. raw:: html
 
@@ -166,7 +166,7 @@ for interactive access or scripting via the [cephfs-shell](../man/8/cephfs-shell
 
    <!---
 
-### Developer Guides
+## Developer Guides
 
 .. raw:: html
 
@@ -186,7 +186,7 @@ for interactive access or scripting via the [cephfs-shell](../man/8/cephfs-shell
 
    <!---
 
-### Additional Details
+## Additional Details
 
 .. raw:: html
 

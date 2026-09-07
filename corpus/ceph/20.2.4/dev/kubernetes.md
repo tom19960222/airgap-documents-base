@@ -18,7 +18,7 @@ This guide is aimed at Ceph developers getting started with running
 in a Kubernetes environment. It assumes that you may be hacking on Rook,
 Ceph or both, so everything is built from source.
 
-# TL;DR for hacking on MGR modules
+## TL;DR for hacking on MGR modules
 
 Make your changes to the Python code base and then from Ceph's
 ``build`` directory, run:
@@ -30,7 +30,7 @@ Make your changes to the Python code base and then from Ceph's
 where ``'192.168.122.1:5000'`` is a local docker registry and
 Rook's ``CephCluster`` CR uses ``image: 192.168.122.1:5000/ceph/ceph:latest``.
 
-# 1. Build a kubernetes cluster
+## 1. Build a kubernetes cluster
 
 Before installing Ceph/Rook, make sure you've got a working kubernetes
 cluster with some nodes added (i.e. ``kubectl get nodes`` shows you something).
@@ -48,7 +48,7 @@ might also be an option.
 Or [Host your own](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) with
 ``kubeadm``.
 
-## Some Tips
+### Some Tips
 
 Here are some tips for a smoother ride with
 
@@ -70,7 +70,7 @@ Here are some tips for a smoother ride with
 ``minikube start --driver=docker --insecure-registry='192.168.122.1:5000'``
 ```
 
-## Hosted elsewhere
+### Hosted elsewhere
 
 If you do not have any servers to hand, you might try a pure
 container provider such as Google Compute Engine. Your mileage may
@@ -79,7 +79,7 @@ to your kubernetes cluster.
 
 Make sure you check how much it's costing you before you spin up a big cluster!
 
-# 2. Run a docker registry
+## 2. Run a docker registry
 
 Run this somewhere accessible from both your workstation and your
 kubernetes cluster (i.e. so that ``docker push/pull`` just works everywhere).
@@ -98,7 +98,7 @@ systemctl start docker-distribution
 
 You may need to mark the registry as **insecure**.
 
-# 3. Build Rook
+## 3. Build Rook
 
 > **Note:**
 > Building Rook is **not required** to make changes to Ceph.
@@ -140,7 +140,7 @@ images you care about are the ones with tags ending "ceph-amd64" (used
 for the Rook operator and Ceph daemons) and "ceph-toolbox-amd64" (used
 for the "toolbox" container where the CLI is run).
 
-# 4. Build Ceph
+## 4. Build Ceph
 
 > **Note:**
 > Building Ceph is **not required** to make changes to MGR modules
@@ -163,7 +163,7 @@ Once you have built Ceph, you can inject the resulting binaries into
 the Rook container image using the ``kubejacker.sh`` script (run from
 your build directory but from *outside* your build container).
 
-# 5. Run Kubejacker
+## 5. Run Kubejacker
 
 ``kubejacker`` needs access to your docker registry. Execute the script
 to build a docker image containing your latest Ceph binaries:
@@ -180,7 +180,7 @@ in Ceph, you can re-run this to update your image and restart your
 kubernetes containers. If you change something in Rook, then re-run the Rook
 build, and the Ceph build too.
 
-# 5. Run a Rook cluster
+## 5. Run a Rook cluster
 
 Please refer to [Rook's documentation](https://rook.io/docs/rook/master/ceph-quickstart.html)
 for setting up a Rook operator, a Ceph cluster and the toolbox.
@@ -218,7 +218,7 @@ If your mon services start but the rest don't, it could be that they're
 unable to form a quorum due to a Kubernetes networking issue: check that
 containers in your Kubernetes cluster can ping containers on other nodes.
 
-# Cheat sheet
+## Cheat sheet
 
 Open a shell in your toolbox container:
 

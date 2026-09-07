@@ -12,7 +12,7 @@ fetched_at: 2026-08-18T01:32:45Z
 `librados` provides low-level access to the RADOS service. For an
 overview of RADOS, see [../../architecture](../../architecture.md).
 
-# Example: connecting and writing an object
+## Example: connecting and writing an object
 
 To use `Librados`, you instantiate a :crados_t variable (a cluster handle) and
 call :crados_create() with a pointer to it:
@@ -89,7 +89,7 @@ rados_ioctx_destroy(io);
 rados_shutdown(cluster);
 ```
 
-# Asynchronous IO
+## Asynchronous IO
 
 When doing lots of IO, you often don't need to wait for one operation
 to complete before starting the next one. `Librados` provides
@@ -200,7 +200,7 @@ int output_append_latency(rados_ioctx_t io, const char *data, size_t len, size_t
 
 Note that all the :crados_completion_t must be freed with :crados_aio_release to avoid leaking memory.
 
-# API calls
+## API calls
 
 .. autodoxygenfile:: rados_types.h
 

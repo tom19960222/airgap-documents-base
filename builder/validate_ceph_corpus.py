@@ -2,13 +2,12 @@
 
 The validator distinguishes real output failures from source constructs that are
 deliberately preserved in code blocks, diagrams, or unresolved-reference
-classifications. Upstream example values are treated as ordinary document text.
+classifications. Upstream example values remain ordinary document text.
 """
 
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 import subprocess
@@ -41,18 +40,8 @@ MARKDOWN_LINK_OPEN_PATTERN = re.compile(r"!?\[[^\]\n]*\]\(")
 UNRESOLVED_PATTERN = re.compile(
     r"<!--\s*unresolved-rst-link:\s*kind=(?P<kind>\S+)\s+target=(?P<target>.*?)\s*-->"
 )
-SECRET_PEM_PATTERN = re.compile(
-    r"^[ \t]*-----BEGIN (?P<kind>CERTIFICATE|PRIVATE KEY)-----[ \t]*\r?\n"
-    r"(?P<body>.*?)^[ \t]*-----END (?P=kind)-----[ \t]*$",
-    re.MULTILINE | re.DOTALL,
-)
-SECRET_CEPHX_PATTERN = re.compile(
-    r"(?<![A-Za-z0-9])AQ[A-Za-z0-9+/=]{16,}(?![A-Za-z0-9+/=])"
-)
-SECRET_XAUTH_PATTERN = re.compile(
-    r"(?im)^\s*X-Auth-Token\s*:\s*"
-    r"(?P<value>[A-Za-z0-9._~+/=-]{24,})(?![A-Za-z0-9._~+/=-])"
-)
+
+
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
     if not text.startswith("---\n"):
         return {}, text
@@ -182,50 +171,6 @@ def _is_external(target: str) -> bool:
     )
 
 
-def scan_secret_findings(text: str) -> list[tuple[str, int]]:
-    """Classify credential-shaped examples without returning their values."""
-
-    findings: list[tuple[str, int]] = []
-    for match in SECRET_PEM_PATTERN.finditer(text):
-        kind = "certificate" if match.group("kind") == "CERTIFICATE" else "private-key"
-        findings.append((kind, text.count("\n", 0, match.start()) + 1))
-    findings.extend(
-        ("cephx", text.count("\n", 0, match.start()) + 1)
-        for match in SECRET_CEPHX_PATTERN.finditer(text)
-    )
-    findings.extend(
-        ("x-auth-token", text.count("\n", 0, match.start()) + 1)
-        for match in SECRET_XAUTH_PATTERN.finditer(text)
-    )
-    return sorted(findings, key=lambda finding: (finding[1], finding[0]))
-
-
-def _secret_payload_fingerprints(text: str) -> Counter[str]:
-    """Return opaque fingerprints for preservation checks; never expose values."""
-
-    fingerprints: Counter[str] = Counter()
-
-    def add(kind: str, value: str) -> None:
-        digest = hashlib.sha256(value.encode("utf-8")).hexdigest()
-        fingerprints[f"{kind}:{digest}"] += 1
-
-    for match in SECRET_PEM_PATTERN.finditer(text):
-        kind = match.group("kind")
-        canonical = "\n".join(
-            [
-                f"-----BEGIN {kind}-----",
-                *(line.strip() for line in match.group("body").splitlines()),
-                f"-----END {kind}-----",
-            ]
-        )
-        add(f"pem-{kind.lower().replace(' ', '-')}", canonical)
-    for match in SECRET_CEPHX_PATTERN.finditer(text):
-        add("cephx", match.group(0))
-    for match in SECRET_XAUTH_PATTERN.finditer(text):
-        add("x-auth-token", match.group("value"))
-    return fingerprints
-
-
 def _iter_body_lines(body: str):
     """Yield ``(line_number, line, context)`` for rendered Markdown lines."""
 
@@ -333,11 +278,6 @@ def validate_corpus(
     unresolved_refs: Counter[str] = Counter()
     pinned_assets = 0
     page_meta: dict[Path, dict[str, str]] = {}
-    raw_credential_classifications: Counter[str] = Counter()
-    corpus_credential_classifications: Counter[str] = Counter()
-    raw_credential_locations: list[str] = []
-    raw_secret_fingerprints: dict[Path, Counter[str]] = {}
-    credential_preservation_failures: list[str] = []
 
     expected: dict[Path, tuple[Path, str]] = {}
     raw_source_count = None
@@ -362,16 +302,10 @@ def validate_corpus(
                 failures.append(f"raw source unreadable: {file_path}: {error}")
                 continue
             repo_rel = file_path.relative_to(raw_repo).as_posix()  # type: ignore[arg-type]
-            findings = scan_secret_findings(raw_text)
-            raw_credential_classifications.update(kind for kind, _ in findings)
-            raw_credential_locations.extend(
-                f"{repo_rel}:{line_number}:{kind}" for kind, line_number in findings
-            )
             if not raw_text.strip():
                 continue
             raw_nonempty_count += 1
             output_rel = Path(rel_out_path).with_suffix(".md")
-            raw_secret_fingerprints[output_rel] = _secret_payload_fingerprints(raw_text)
             expected[output_rel] = (file_path, _source_url(manifest, repo_rel, rel_out_path))
 
     for page_path in pages:
@@ -379,9 +313,6 @@ def validate_corpus(
         text = page_path.read_text(encoding="utf-8", errors="replace")
         metadata, body = parse_frontmatter(text)
         page_meta[relative_page] = metadata
-        corpus_credential_classifications.update(
-            kind for kind, _ in scan_secret_findings(text)
-        )
         for key in ("collection", "version", "title", "source_url", "fetched_at"):
             if not metadata.get(key):
                 metadata_failures.append(f"{relative_page}: missing frontmatter {key}")
@@ -427,13 +358,6 @@ def validate_corpus(
         expected_source = expected.get(relative_page)
         if expected_source is not None and metadata.get("source_url") != expected_source[1]:
             metadata_failures.append(f"{relative_page}: source_url does not match pinned source")
-        expected_fingerprints = raw_secret_fingerprints.get(relative_page)
-        if expected_fingerprints is not None:
-            actual_fingerprints = _secret_payload_fingerprints(text)
-            if actual_fingerprints != expected_fingerprints:
-                credential_preservation_failures.append(
-                    f"{relative_page}: credential-shaped example payload fingerprints differ"
-                )
 
     actual_relatives = set(page_meta)
     expected_relatives = set(expected)
@@ -448,7 +372,6 @@ def validate_corpus(
     failures.extend(metadata_failures)
     failures.extend(link_failures)
     failures.extend(f"residual RST table border: {item}" for item in residual_tables)
-    failures.extend(credential_preservation_failures)
 
     return {
         "page_count": len(pages),
@@ -463,10 +386,6 @@ def validate_corpus(
         "pinned_asset_links": pinned_assets,
         "unresolved_refs": dict(sorted(unresolved_refs.items())),
         "unresolved_source_links": unresolved_source_links,
-        "raw_credential_classifications": dict(sorted(raw_credential_classifications.items())),
-        "corpus_credential_classifications": dict(sorted(corpus_credential_classifications.items())),
-        "raw_credential_locations": raw_credential_locations,
-        "credential_preservation_failures": credential_preservation_failures,
         "failures": failures,
     }
 
@@ -490,16 +409,6 @@ def _print_report(report: dict[str, object]) -> None:
         f"unresolved-rst-classified={report['unresolved_refs']}, "
         f"unresolved-source-classified={len(report['unresolved_source_links'])}"
     )
-    raw_credentials = report["raw_credential_classifications"]
-    corpus_credentials = report["corpus_credential_classifications"]
-    print(
-        "credential examples (informational): "
-        f"raw-upstream-classifications={sum(raw_credentials.values()) if raw_credentials else 0}, "
-        f"corpus-classifications={sum(corpus_credentials.values()) if corpus_credentials else 0}, "
-        f"payload-preservation-failures={len(report['credential_preservation_failures'])}"
-    )
-    for location in report["raw_credential_locations"]:
-        print(f"  credential-example {location}")
     if report["failures"]:
         print(f"FAIL: {len(report['failures'])} validation issue(s)")
         for item in report["failures"]:

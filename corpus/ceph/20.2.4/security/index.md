@@ -13,7 +13,7 @@ fetched_at: 2026-08-18T01:32:45Z
    Past Vulnerabilities / CVEs <cves>
    Vulnerability Management Process <process>
 
-# Reporting a vulnerability
+## Reporting a vulnerability
 
 To report a vulnerability, please send email to [security@ceph.io](security@ceph.io).
 
@@ -27,6 +27,6 @@ To report a vulnerability, please send email to [security@ceph.io](security@ceph
   disclosure date in mind, please share the same along with the
   report.
 
-# Supported versions
+## Supported versions
 
 Security updates are applied only to the current [Active Releases](https://docs.ceph.com/en/latest/releases/#active-releases).

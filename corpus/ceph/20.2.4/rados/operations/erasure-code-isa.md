@@ -11,7 +11,7 @@ The *isa* plugin is the default for Ceph erasure coded pools.
 The *isa* plugin encapsulates the [ISA](https://01.org/intel%C2%AE-storage-acceleration-library-open-source-version/)
 library.
 
-# Create an isa profile
+## Create an isa profile
 
 To create a new *isa* erasure code profile:
 

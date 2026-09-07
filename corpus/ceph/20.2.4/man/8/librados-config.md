@@ -11,16 +11,16 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: librados-config
 
-# Synopsis
+## Synopsis
 
 | **librados-config** [ --version ] [ --vernum ]
 
-# Description
+## Description
 
 **librados-config** is a utility that displays information about the
   installed ``librados``.
 
-# Options
+## Options
 
 .. option:: --version
 
@@ -30,13 +30,13 @@ fetched_at: 2026-08-18T01:32:45Z
 
    Display the ``librados`` version code
 
-# Availability
+## Availability
 
 **librados-config** is part of Ceph, a massively scalable, open-source, distributed storage system.
 Please refer to the Ceph documentation at https://docs.ceph.com for
 more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [rados](../../cephadm/services/smb.md#rados)\(8)

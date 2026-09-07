@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 There are several ways to develop with cephadm.  Which you use depends
 on what you're trying to accomplish.
 
-# vstart --cephadm
+## vstart --cephadm
 
 - Start a cluster with vstart, with cephadm configured
 - Manage any additional daemons with cephadm
@@ -41,7 +41,7 @@ MON=1 MGR=1 OSD=0 MDS=0 ../src/vstart.sh -d -n -x --cephadm
 - The default image is ``quay.io/ceph-ci/ceph:main``, but you can change
   this by passing ``-o container_image=...`` or ``ceph config set global container_image ...``.
 
-# cstart and cpatch
+## cstart and cpatch
 
 The ``cstart.sh`` script will launch a cluster using cephadm and put the
 conf and keyring in your build dir, so that the ``bin/ceph ...`` CLI works
@@ -105,7 +105,7 @@ sudo ../src/ckill.sh   # or,
 sudo ../src/cephadm/cephadm rm-cluster --force --fsid `cat fsid`
 ```
 
-# cephadm bootstrap --shared_ceph_folder
+## cephadm bootstrap --shared_ceph_folder
 
 Cephadm can also be used directly without compiled ceph binaries.
 
@@ -126,7 +126,7 @@ sudo ./cephadm bootstrap --mon-ip 127.0.0.1 \
 Source code changes made in the ``pybind/mgr/`` directory then
 require a daemon restart to take effect.
 
-# Kcli: a virtualization management tool to make easy orchestrators development
+## Kcli: a virtualization management tool to make easy orchestrators development
 [Kcli](https://github.com/karmab/kcli) is meant to interact with existing
 virtualization providers (libvirt, KubeVirt, oVirt, OpenStack, VMware vSphere,
 GCP and AWS) and to easily deploy and customize VMs from cloud images.
@@ -134,7 +134,7 @@ GCP and AWS) and to easily deploy and customize VMs from cloud images.
 It allows you to setup an environment with several vms with your preferred
 configuration (memory, cpus, disks) and OS flavor.
 
-## main advantages:
+### main advantages:
   - Fast. Typically you can have a completely new Ceph cluster ready to debug
     and develop orchestrator features in less than 5 minutes.
   - "Close to production" lab. The resulting lab is close to "real" clusters
@@ -146,7 +146,7 @@ configuration (memory, cpus, disks) and OS flavor.
     for example any mgr module. It is an environment that allow you to test your
     changes interactively.
 
-## Installation:
+### Installation:
 Complete documentation in [kcli installation](https://kcli.readthedocs.io/en/latest/#installation)
 but we suggest to use the container image approach.
 
@@ -169,10 +169,10 @@ So things to do:
 > container tag will improve overall stability.
 > what we want is overall stability.
 
-## Test your kcli installation:
+### Test your kcli installation:
 See the kcli [basic usage workflow](https://kcli.readthedocs.io/en/latest/#basic-workflow)
 
-## Create a Ceph lab cluster
+### Create a Ceph lab cluster
 In order to make this task simple, we are going to use a "plan".
 
 A "plan" is a file where you can define a set of vms with different settings.
@@ -211,7 +211,7 @@ After a few minutes, let's check the cluster:
 [ceph: root@ceph-node-00 /]# ceph orch host ls
 ```
 
-## Create a Ceph cluster to make easy developing in mgr modules (Orchestrators and Dashboard)
+### Create a Ceph cluster to make easy developing in mgr modules (Orchestrators and Dashboard)
 The cephadm kcli plan (and cephadm) are prepared to do that.
 
 The idea behind this method is to replace several python mgr folders in each of
@@ -226,7 +226,7 @@ same cephadm plan but with a new parameter pointing to your Ceph source code fol
 # kcli create plan -u https://github.com/karmab/kcli-plans/blob/master/ceph/ceph_cluster.yml -P ceph_dev_folder=/home/mycodefolder/ceph
 ```
 
-## Ceph Dashboard development
+### Ceph Dashboard development
 Ceph dashboard module is not going to be loaded if previously you have not
 generated the frontend bundle.
 
@@ -252,7 +252,7 @@ When completed, you'll see:
 
 Then you can reload your Dashboard browser tab.
 
-# Cephadm box container (Podman inside Podman) development environment
+## Cephadm box container (Podman inside Podman) development environment
 
 As kcli has a long startup time, we created an alternative which is faster using
 Podman inside Podman. This approach has its downsides too as we have to
@@ -270,12 +270,12 @@ seed box, requires the Ceph image.
 > behaviour. Please take a look at the road map and the known issues section
 > to see what the development progress.
 
-## Requirements
+### Requirements
 
 * [podman-compose](https://github.com/containers/podman-compose)
 * lvm
 
-## Setup
+### Setup
 
 In order to setup Cephadm's box run:
 
@@ -378,7 +378,7 @@ sudo ./box.py -v --engine docker cluster start --expanded
 > **Warning:** Using Docker as the box engine is dangerous as there were some instances
 > where the Xorg session was killed.
 
-## Known issues
+### Known issues
 
 * If you get permission issues with Cephadm because it cannot infer the keyring
   and configuration, please run cephadm like this example:
@@ -396,14 +396,14 @@ cephadm shell --config /etc/ceph/ceph.conf --keyring /etc/ceph/ceph.kerying
   container, you can debug by running the same podman-compose .. up command displayed
   with the flag -v.
 
-## Road map
+### Road map
 
 * Create osds with ``ceph-volume raw``.
 * Enable ceph-volume to mark loopback devices as a valid block device in
   the inventory.
 * Make the box ready to run dashboard CI tests (including cluster expansion).
 
-# Note regarding network calls from CLI handlers
+## Note regarding network calls from CLI handlers
 
 Executing any cephadm CLI commands like ``ceph orch ls`` will block the
 mon command handler thread within the MGR, thus preventing any concurrent
@@ -418,7 +418,7 @@ This means we should do very few synchronous calls to remote hosts.
 As a guideline, cephadm should do at most ``O(1)`` network calls in CLI handlers.
 Everything else should be done asynchronously in other threads, like ``serve()``.
 
-# Note regarding different variables used in the code
+## Note regarding different variables used in the code
 
 * a ``service_type`` is something like mon, mgr, alertmanager etc defined
   in ``ServiceSpec``
@@ -433,7 +433,7 @@ Everything else should be done asynchronously in other threads, like ``serve()``
 
 <a id="compiling-cephadm"></a>
 
-# Compiling cephadm
+## Compiling cephadm
 
 Recent versions of cephadm are based on [Python Zip Application](https://peps.python.org/pep-0441/) support, and
 are "compiled" from Python source code files in the ceph tree. To create your

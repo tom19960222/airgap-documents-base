@@ -7,17 +7,17 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-<a id="ceph-mds-man"></a>
+<a id="ceph_mds_man"></a>
 
 # ceph-mds -- ceph metadata server daemon
 
 .. program:: ceph-mds
 
-# Synopsis
+## Synopsis
 
 | **ceph-mds** -i <*ID*> [flags]
 
-# Description
+## Description
 
 **ceph-mds** is the metadata server daemon for the Ceph distributed file
 system. One or more instances of ceph-mds collectively manage the file
@@ -31,7 +31,7 @@ it a logical rank, or put it in a standby pool to take over for
 another daemon that crashes. Some of the specified options can cause
 other behaviors.
 
-# Options
+## Options
 
 .. option:: -f, --foreground
 
@@ -73,12 +73,12 @@ other behaviors.
    Set the MDS name of the format TYPE.ID. The TYPE is obviously 'mds'.
    The ID should not start with a numeric digit.
 
-# Availability
+## Availability
 
 **ceph-mds** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to the Ceph documentation at
 https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [ceph-mon](ceph-mon.md)\(8),

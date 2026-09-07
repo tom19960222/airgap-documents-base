@@ -29,7 +29,7 @@ name objects with pseudo-hierarchical names
 (e.g., photos/buildings/empire-state.jpg), but container names cannot
 contain a forward slash (``/``) character.
 
-# Create a Container
+## Create a Container
 
 To create a new container, make a ``PUT`` request with the API version, account,
 and the name of the new container. The container name must be unique, must not
@@ -39,7 +39,7 @@ operation is idempotent; that is, if you make a request to create a container
 that already exists, it will return with a HTTP 202 return code, but will not
 create another container.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -52,7 +52,7 @@ X-Container-Write: {comma-separated-uids}
 X-Container-Meta-{key}: {value}
 ```
 
-#### Headers
+### Headers
 
 ``X-Container-Read``
 
@@ -72,7 +72,7 @@ X-Container-Meta-{key}: {value}
 :Type: String
 :Required: No
 
-#### HTTP Response
+### HTTP Response
 
 If a container with the same name already exists, and the user is the
 container owner then the operation will succeed. Otherwise the operation
@@ -83,14 +83,14 @@ will fail.
 :Description: The container already exists under a different user's ownership.
 :Status Code: ``BucketAlreadyExists``
 
-# List a Container's Objects
+## List a Container's Objects
 
 To list the objects within a container, make a ``GET`` request with the
 API version, account, and the name of the container.  You can specify query
 parameters to filter the full list, or leave out the parameters to return a list
 of the first 10,000 object names stored in the container.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -100,7 +100,7 @@ GET /{api version}/{container} HTTP/1.1
      X-Auth-Token: {auth-token}
 ```
 
-#### Parameters
+### Parameters
 
 ``format``
 
@@ -147,7 +147,7 @@ GET /{api version}/{container} HTTP/1.1
 :Required: No
 :Non-Standard Extension: Yes
 
-#### Response Entities
+### Response Entities
 
 ``container``
 
@@ -179,7 +179,7 @@ GET /{api version}/{container} HTTP/1.1
 :Description: The type of content within the object.
 :Type: String
 
-# Update a Container's ACLs
+## Update a Container's ACLs
 
 When a user creates a container, the user has read and write access to the
 container by default. To allow other users to read a container's contents or
@@ -198,7 +198,7 @@ enables anonymous users to either read from or write to the container.
 > endpoint to the URL suffix ``/v1/AUTH_%(tenant_id)s``
 > (instead of just ``/v1``).
 
-#### Syntax
+### Syntax
 
 :
 
@@ -210,7 +210,7 @@ Host: {fqdn}
      X-Container-Write: {uid1}, {uid2}, {uid3}
 ```
 
-#### Request Headers
+### Request Headers
 
 ``X-Container-Read``
 
@@ -224,13 +224,13 @@ Host: {fqdn}
 :Type: Comma-separated string values of user IDs.
 :Required: No
 
-# Add/Update Container Metadata
+## Add/Update Container Metadata
 
 To add metadata to a container, make a ``POST`` request with the API version,
 account, and container name. You must have write permissions on the
 container to add or update metadata.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -242,7 +242,7 @@ Host: {fqdn}
      X-Container-Meta-Taste: salty
 ```
 
-#### Request Headers
+### Request Headers
 
 ``X-Container-Meta-{key}``
 
@@ -250,7 +250,7 @@ Host: {fqdn}
 :Type: String
 :Required: No
 
-# Enable Object Versioning for a Container
+## Enable Object Versioning for a Container
 
 To enable object versioning a container, make a ``POST`` request with
 the API version, account, and container name. You must have write
@@ -260,7 +260,7 @@ permissions on the container to add or update metadata.
 > default; you must set ``rgw swift versioning enabled =
 > true`` in ``ceph.conf`` to enable this feature.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -271,7 +271,7 @@ Host: {fqdn}
      X-Versions-Location: {archive-container}
 ```
 
-#### Request Headers
+### Request Headers
 
 ``X-Versions-Location``
 
@@ -296,14 +296,14 @@ Host: {fqdn}
            versioning on the current container is disabled, but the
            archive container continues to exist.)
 
-# Delete a Container
+## Delete a Container
 
 To delete a container, make a ``DELETE`` request with the API version, account,
 and the name of the container. The container must be empty. If you'd like to check
 if the container is empty, execute a ``HEAD`` request against the container. Once
 you have successfully removed the container, you will be able to reuse the container name.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -313,7 +313,7 @@ Host: {fqdn}
 X-Auth-Token: {auth-token}
 ```
 
-#### HTTP Response
+### HTTP Response
 
 ``204``
 

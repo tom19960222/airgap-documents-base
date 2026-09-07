@@ -57,7 +57,7 @@ and sent back to the client. RGW supports the following response:
 {:message-type,event}``. For aggregation queries, the last chunk should be
 identified as the end of input.
 
-#### Basic Functionalities
+### Basic Functionalities
 
 **S3select** has a definite set of functionalities compliant with AWS.
 
@@ -67,7 +67,7 @@ operators, which enables the user great flexibility.
 
 review the below [s3-select-feature-table](s3select.md#s3-select-feature-table).
 
-#### Error Handling
+### Error Handling
 
 Upon an error being detected, RGW returns 400-Bad-Request and a specific error message sends back to the client.
 Currently, there are 2 main types of error.
@@ -147,7 +147,7 @@ functionalities:
 
 <a id="null-handle"></a>
 
-#### NULL
+### NULL
 NULL is a legit value in ceph-s3select systems similar to other DB systems, i.e. systems needs to handle the case where a value is NULL.
 
 The definition of NULL in our context, is missing/unknown, in that sense **NULL can not produce a value on ANY arithmetic operations** ( a + NULL will produce NULL value).
@@ -167,7 +167,7 @@ Below is a truth table contains the NULL use-case.
 
 ## S3-select Function Interfaces
 
-#### Timestamp Functions
+### Timestamp Functions
 The timestamp functionalities as described in [AWS-specs](https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-glacier-select-sql-reference-date.html)
 is fully implemented.
 
@@ -201,7 +201,7 @@ is fully implemented.
  ``to_string(timestamp, format_pattern)`` : returns a string representation of
  the input timestamp in the given input string format.
 
-#### to_string parameters
+### to_string parameters
 
 | Format | Example | Description |
 | --- | --- | --- |
@@ -236,7 +236,7 @@ is fully implemented.
 | xx or xxxx | 700 | Offset in hours and minutes |
 | xxx or xxxxx | +07:00 | Offset in hours and minutes |
 
-#### Aggregation Functions
+### Aggregation Functions
 
 ``count()`` : return integer according to number of rows matching condition(if such exist).
 
@@ -248,7 +248,7 @@ is fully implemented.
 
 ``min(expression)`` : return the minimal result for all expressions matching condition(if such exist).
 
-#### String Functions
+### String Functions
 
 ``substring(string,from,to)`` : substring( string ``from`` start [ ``for`` length ] )
 return a string extract from input string according to from,to inputs.
@@ -262,13 +262,13 @@ trims leading/trailing(or both) characters from target string, the default is bl
 
 ``upper\lower`` : converts characters into lowercase/uppercase.
 
-#### SQL Limit Operator
+### SQL Limit Operator
 
 The SQL LIMIT operator is used to limit the number of rows processed by the query.
 Upon reaching the limit set by the user, the RGW stops fetching additional chunks.
 TODO : add examples, for aggregation and non-aggregation queries.
 
-#### Alias
+### Alias
 **Alias** programming-construct is an essential part of s3-select language, it enables much better programming especially with objects containing many columns or in the case of complex queries.
 
 Upon parsing the statement containing alias construct, it replaces alias with reference to correct projection column, on query execution time the reference is evaluated as any other expression.
@@ -279,7 +279,7 @@ Alias also maintains a result cache, meaning that successive uses of a given ali
 
 With each new row the cache is invalidated as the results may then differ.
 
-#### Testing
+### Testing
 
 ``s3select`` contains several testing frameworks which provide a large coverage for its functionalities.
 
@@ -299,7 +299,7 @@ the following queries will produce identical results.
 
 (3) Constant dataset, the conventional way of testing. A query is processing a constant dataset, its result is validated against constant results.
 
-#### Additional Syntax Support
+### Additional Syntax Support
 
 S3select syntax supports table-alias ``select s._1 from s3object s where s._2 = ‘4’;``
 
@@ -329,7 +329,7 @@ aws --endpoint-url http://localhost:8000 s3api select-object-content
  --expression "select count(0) from s3object where int(_1)<10;" output.csv
 ```
 
-#### Input Serialization
+### Input Serialization
 
 **FileHeaderInfo** -> (string)
 Describes the first line of input. Valid values are:
@@ -348,7 +348,7 @@ A single character is used to separate individual records in the input. Instead 
 **FieldDelimiter** -> (string)
 A single character is used to separate individual fields in a record. You can specify an arbitrary delimiter.
 
-#### Output Serialization
+### Output Serialization
 
 **AWS CLI example**
 
@@ -373,7 +373,7 @@ A single character is used to separate individual fields in a record. You can sp
     **FieldDelimiter** -> (string)
     The value used to separate individual fields in a record. You can specify an arbitrary delimiter.
 
-#### Scan Range Option
+### Scan Range Option
 
     The scan range option to AWS-CLI enables the client to scan and process only a selected part of the object.
     This option reduces input/output operations and bandwidth by skipping parts of the object that are not of interest.
@@ -540,7 +540,7 @@ def run_s3select(bucket,key,query,column_delim=",",row_delim="\n",quot_char='"',
 
 ## S3 SELECT Responses
 
-#### Error Response
+### Error Response
 
 :
 
@@ -554,7 +554,7 @@ def run_s3select(bucket,key,query,column_delim=",",row_delim="\n",quot_char='"',
 </Error>
 ```
 
-#### Report Response
+### Report Response
 :
 
 ```
@@ -585,7 +585,7 @@ HTTP/1.1 200
 </Payload>
 ```
 
-#### Response Description
+### Response Description
 
 For CEPH S3 Select, responses can be messages of the following types:
 

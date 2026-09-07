@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # PoseidonStore
 
-# Key concepts and goals
+## Key concepts and goals
 
 * As one of the pluggable backend stores for Crimson, PoseidonStore targets only
   high-end NVMe SSDs (not concerned with ZNS devices).
@@ -22,7 +22,7 @@ fetched_at: 2026-08-18T01:32:45Z
     driven mode for CPU efficiency (or polled mode for low latency).
 * Sharded data/processing model
 
-## Background
+### Background
 
 Both in-place and out-of-place update strategies have their pros and cons.
 
@@ -65,7 +65,7 @@ Both in-place and out-of-place update strategies have their pros and cons.
       in the general case
     - Flash unfriendly (Give more burdens on SSDs due to device-level GC)
 
-## Motivation and Key idea
+### Motivation and Key idea
 
 In modern distributed storage systems, a server node can be equipped with multiple
 NVMe storage devices. In fact, ten or more NVMe SSDs could be attached on a server.
@@ -102,7 +102,7 @@ high-end NVMe SSD has enough powers to handle more works. Also, SSD lifespan is 
 (there is enough program-erase cycle limit [#f1]_). On the other hand, for large I/O workloads, the host can afford process host-GC.
 Also, the host can garbage collect invalid objects more effectively when their size is large
 
-## Observation
+### Observation
 
 Two data types in Ceph
 
@@ -124,7 +124,7 @@ Two data types in Ceph
       and store it though a single write operation even though it requires background
       flush to update the data partition
 
-# Design
+## Design
 .. ditaa::
 
    +-WAL partition-|----------------------Data partition-------------------------------+
@@ -157,7 +157,7 @@ Two data types in Ceph
   - Super block contains management info for a data partition
   - Onode radix tree info contains the root of onode radix tree
 
-## I/O procedure
+### I/O procedure
 * Write
 
   For incoming writes, data is handled differently depending on the request size;
@@ -217,7 +217,7 @@ Two data types in Ceph
     We can mitigate the overhead of frequent flush via batching processing, but it leads to
     delaying completion.
 
-## Crash consistency
+### Crash consistency
 
 * Large case
 
@@ -238,7 +238,7 @@ Two data types in Ceph
      - WAL --> | TxBegin A | Log Entry| TxEnd A |
      - All data has been written
 
-## Comparison
+### Comparison
 
 * Best case (pre-allocation)
 
@@ -257,7 +257,7 @@ Two data types in Ceph
 * Either best of the worst case does not produce severe I/O amplification (it produce I/Os, but I/O rate is constant)
   unlike LSM-tree DB (the proposed design is similar to LSM-tree which has only level-0)
 
-# Detailed Design
+## Detailed Design
 
 * Onode lookup
 
@@ -425,14 +425,14 @@ struct onode {
       | Data Extent   |  | Data Extent +-----------+       +------------+------------+
       +---------------+  +-------------+
 
-## WAL
+### WAL
 Each SP has a WAL.
 The data written to the WAL are metadata updates, free space update and small data.
 Note that only data smaller than the predefined threshold needs to be written to the WAL.
 The larger data is written to the unallocated free space and its onode's extent_tree is updated accordingly
 (also on-disk extent tree). We statically allocate WAL partition aside from data partition pre-configured.
 
-## Partition and Reactor thread
+### Partition and Reactor thread
 In early stage development, PoseidonStore will employ static allocation of partition. The number of sharded partitions
 is fixed and the size of each partition also should be configured before running cluster.
 But, the number of partitions can grow as below. We leave this as a future work.
@@ -444,7 +444,7 @@ Also, each reactor thread has a static set of SPs.
    | SP 1 | SP N | -->     <-- | global partition |
    +------+------+-------------+------------------+
 
-## Cache
+### Cache
 There are mainly two cache data structures; onode cache and block cache.
 It looks like below.
 
@@ -460,7 +460,7 @@ After writing a transaction to the WAL, the dirty blocks are flushed to their re
 respective partitions.
 PoseidonStore can configure cache size for each type. Simple LRU cache eviction strategy can be used for both.
 
-## Sharded partitions (with cross-SP transaction)
+### Sharded partitions (with cross-SP transaction)
 The entire disk space is divided into a number of chunks called sharded partitions (SP).
 The prefixes of the parent collection ID (original collection ID before collection splitting. That is, hobject.hash)
 is used to map any collections to SPs.
@@ -477,7 +477,7 @@ Source and target probably are blocked.
 For the load unbalanced situation,
 Poseidonstore can create partitions to make full use of entire space efficiently and provide load balaning.
 
-## CoW/Clone
+### CoW/Clone
 As for CoW/Clone, a clone has its own onode like other normal objects.
 
 Although each clone has its own onode, data blocks should be shared between the original object and clones
@@ -515,7 +515,7 @@ The shared_blobs are managed by shared_blob_list in the superblock.
    | refcount      | refcount      |
    +---------------+---------------+
 
-# Plans
+## Plans
 
 All PRs should contain unit tests to verify its minimal functionality.
 

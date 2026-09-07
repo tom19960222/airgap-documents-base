@@ -50,7 +50,7 @@ You will need to associate ceph with client information in KMIP,
 and configure ceph to use that client information.
 You will also need to create 1 or more keys in KMIP.
 
-# Setting KMIP Access for Ceph
+## Setting KMIP Access for Ceph
 
 Setting up Ceph in KMIP is very dependent on the mechanism(s) supported
 by your implementation of KMIP.  Two implementations are described
@@ -62,7 +62,7 @@ here,
 2. [PyKMIP](https://pykmip.readthedocs.io/en/latest/).  This is a small python project, suitable for experimental
    and testing use only.
 
-## Using IBM SKLM
+### Using IBM SKLM
 
 IBM SKLM__ supports client authentication using certificates.
 Certificates may either be self-signed certificates created,
@@ -78,7 +78,7 @@ Find untrusted clients under ``Advanced Configuration``,
 ``Modify SSL/KMIP Certificates for Clients``, then toggle the flag
 ``allow the server to trust this certificate and communicate...``.
 
-## Using PyKMIP
+### Using PyKMIP
 
 [PyKMIP](https://pykmip.readthedocs.io/en/latest/) has no special registration process, it simply
 trusts the certificate.  However, the certificate has to
@@ -88,7 +88,7 @@ an extension for "extended key usage".  However, that
 can be defeated by specifying ``enable_tls_client_auth=False``
 in the server configuration.
 
-# Creating Keys in KMIP
+## Creating Keys in KMIP
 
 Some KMIP implementations come with a web interface or other
 administrative tools to create and manage keys.  Refer to your
@@ -170,7 +170,7 @@ until a blank line or end of file (^D) is given it, or
 an error occurs.  Of course you can turn this into a regular
 python script if you prefer.
 
-# Configure the Ceph Object Gateway
+## Configure the Ceph Object Gateway
 
 Edit the Ceph configuration file to enable Vault as a KMS backend for
 server-side encryption:
@@ -193,7 +193,7 @@ If you don't want ceph to see all your kmip
 keys, you can use this to limit ceph to just the
 designated subset of your kmip key namespace.
 
-# Upload object
+## Upload object
 
 When uploading an object to the Gateway, provide the SSE key ID in the request.
 As an example, for the kv engine, using the AWS command-line client:

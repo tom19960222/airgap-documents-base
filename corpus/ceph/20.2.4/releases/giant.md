@@ -10,13 +10,13 @@ fetched_at: 2026-08-18T01:32:45Z
 Giant is the 7th stable release of Ceph.  It is named after the giant
 squid (Architeuthis dux).
 
-# v0.87.2 Giant
+## v0.87.2 Giant
 
 This is the second (and possibly final) point release for Giant.
 
 We recommend all v0.87.x Giant users upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-objectstore-tool: only output unsupported features when incompatible (#11176 David Zafman)
 * common: do not implicitly unlock rwlock on destruction (Federico Simoncelli)
@@ -68,20 +68,20 @@ We recommend all v0.87.x Giant users upgrade to this release.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.87.2.txt -->.
 
-# v0.87.1 Giant
+## v0.87.1 Giant
 
 This is the first (and possibly final) point release for Giant.  Our focus
 on stability fixes will be directed towards Hammer and Firefly.
 
 We recommend that all v0.87 Giant users upgrade to this release.
 
-## Upgrading
+### Upgrading
 
 * Due to a change in the Linux kernel version 3.18 and the limits of the FUSE
   interface, ceph-fuse needs be mounted as root on at least some systems. See
   issues #9997, #10277, and #10542 for details.
 
-## Notable Changes
+### Notable Changes
 
 * build: disable stack-execute bit on assembler objects (#10114 Dan Mick)
 * build: support boost 1.57.0 (#10688 Ken Dreyer)
@@ -152,7 +152,7 @@ We recommend that all v0.87 Giant users upgrade to this release.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.87.1.txt -->.
 
-# v0.87 Giant
+## v0.87 Giant
 
 This release will form the basis for the stable release Giant,
 v0.87.x.  Highlights for Giant include:
@@ -187,7 +187,7 @@ v0.87.x.  Highlights for Giant include:
   and repair purposes.  This is most heavily used by our QA
   infrastructure to exercise recovery code.
 
-## Upgrade Sequencing
+### Upgrade Sequencing
 
 * If your existing cluster is running a version older than v0.80.x
   Firefly, please first upgrade to the latest Firefly release before
@@ -208,7 +208,7 @@ v0.87.x.  Highlights for Giant include:
   Note that the relative ordering of OSDs and monitors should not matter, but
   we primarily tested upgrading monitors first.
 
-## Upgrading from v0.80x Firefly
+### Upgrading from v0.80x Firefly
 
 * The client-side caching for librbd is now enabled by default (rbd
   cache = true).  A safety option (rbd cache writethrough until flush
@@ -282,7 +282,7 @@ sudo find /mnt/cephfs -type f -links +1 -exec touch \{\} \;
   can transition to 1) 'writeback' if there are dirty objects, or 2) any if
   there are no dirty objects.
 
-## Notable Changes since v0.86
+### Notable Changes since v0.86
 
 * ceph-disk: use new udev rules for centos7/rhel7 (#9747 Loic Dachary)
 * libcephfs-java: fix fstat mode (Noah Watkins)
@@ -301,7 +301,7 @@ sudo find /mnt/cephfs -type f -links +1 -exec touch \{\} \;
 * osd: fix memory leak during snap trimming (#9113 Samuel Just)
 * osd: misc peering and recovery fixes (#9614 #9696 #9731 #9718 #9821 #9875 Samuel Just, Guang Yang)
 
-## Notable Changes since v0.80.x Firefly
+### Notable Changes since v0.80.x Firefly
 
 * bash completion improvements (Wido den Hollander)
 * brag: fixes, improvements (Loic Dachary)
@@ -686,7 +686,7 @@ sudo find /mnt/cephfs -type f -links +1 -exec touch \{\} \;
 * upstart: increase max open files limit (Sage Weil)
 * vstart.sh: fix/improve rgw support (Luis Pabon, Abhishek Lekshmanan)
 
-# v0.86
+## v0.86
 
 This is a release candidate for Giant, which will hopefully be out
 in another week or two.  We did a feature freeze about a month ago
@@ -716,7 +716,7 @@ quite reliable.
 
 Please try this out on your non-production clusters for a preview
 
-## Notable Changes
+### Notable Changes
 
 * buffer: improve rebuild_page_aligned (Ma Jianpeng)
 * build: fix CentOS 5 (Gerben Meijer)
@@ -832,7 +832,7 @@ Please try this out on your non-production clusters for a preview
 * unit test improvements (Loic Dachary)
 * vstart.sh: fix/improve rgw support (Luis Pabon, Abhishek Lekshmanan)
 
-# v0.85
+## v0.85
 
 This is the second-to-last development release before Giant that
 contains new functionality.  The big items to land during this cycle
@@ -860,7 +860,7 @@ We have frozen the tree for the looming Giant release, and the next
 development release will be a release candidate with a final batch of
 new functionality.
 
-## Upgrading
+### Upgrading
 
 * The client-side caching for librbd is now enabled by default (rbd
   cache = true).  A safety option (rbd cache writethrough until flush
@@ -883,7 +883,7 @@ new functionality.
 * The 'rados getxattr ...' command used to add a gratuitous newline to the attr
   value; it now does not.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-disk: do not inadvertantly create directories (Owne Synge)
 * ceph-disk: fix dmcrypt support (Sage Weil)
@@ -952,7 +952,7 @@ new functionality.
 * rgw: misc civetweb frontend fixes (Yehuda Sadeh)
 * sysvinit: add support for non-default cluster names (Alfredo Deza)
 
-# v0.84
+## v0.84
 
 The next Ceph development release is here!  This release contains
 several meaty items, including some MDS improvements for journaling,
@@ -964,7 +964,7 @@ standalone civetweb frontend).  And there are a zillion OSD bug
 fixes. Things are looking pretty good for the Giant release that is
 coming up in the next month.
 
-## Upgrading
+### Upgrading
 
 * The ``*_kb perf`` counters on the monitor have been removed.  These are
   replaced with a new set of ``*_bytes`` counters (e.g., ``cluster_osd_kb`` is
@@ -983,7 +983,7 @@ coming up in the next month.
   ``write_kb`` fields; these have been removed.  Please use ``read_bytes`` and
   ``write_bytes`` instead (and divide by 1024 if appropriate).
 
-## Notable Changes
+### Notable Changes
 
 * ceph-conf: flush log on exit (Sage Weil)
 * ceph-dencoder: refactor build a bit to limit dependencies (Sage Weil, Dan Mick)
@@ -1054,7 +1054,7 @@ coming up in the next month.
 * rgw: powerdns backend for global namespaces (Wido den Hollander)
 * systemd: initial systemd config files (Federico Simoncelli)
 
-# v0.83
+## v0.83
 
 Another Ceph development release!  This has been a longer cycle, so
 there has been quite a bit of bug fixing and stabilization in this
@@ -1063,7 +1063,7 @@ round.  There is also a bunch of packaging fixes for RPM distros
 librados-striper library from Sebastien Ponce that provides a generic
 striping API for applications to code to.
 
-## Upgrading
+### Upgrading
 
 * The experimental keyvaluestore-dev OSD backend had an on-disk format
   change that prevents existing OSD data from being upgraded.  This
@@ -1085,7 +1085,7 @@ striping API for applications to code to.
 
     leveldb_log               = ""
 
-## Notable Changes
+### Notable Changes
 
 * ceph-disk: fix dmcrypt support (Stephen Taylor)
 * cephtool: fix help (Yilong Zhao)
@@ -1142,14 +1142,14 @@ striping API for applications to code to.
 * sysvinit: less sensitive to failures (Sage Weil)
 * upstart: increase max open files limit (Sage Weil)
 
-# v0.82
+## v0.82
 
 This is the second post-firefly development release.  It includes a range
 of bug fixes and some usability improvements.  There are some MDS debugging
 and diagnostic tools, an improved 'ceph df', and some OSD backend refactoring
 and cleanup.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-brag: add tox tests (Alfredo Deza)
 * common: perfcounters now use atomics and go faster (Sage Weil)
@@ -1187,14 +1187,14 @@ and cleanup.
 * rest-api: fix help (Ailing Zhang)
 * rgw: check entity permission for put_metadata (#8428, Yehuda Sadeh)
 
-# v0.81
+## v0.81
 
 This is the first development release since Firefly.  It includes a
 lot of work that we delayed merging while stabilizing things.  Lots of
 new functionality, as well as several fixes that are baking a bit before
 getting backported.
 
-## Upgrading
+### Upgrading
 
 * CephFS support for the legacy anchor table has finally been removed.
   Users with file systems created before firefly should ensure that inodes
@@ -1210,7 +1210,7 @@ sudo find /mnt/cephfs -type f -links +1 -exec touch \{\} \;
   can transition to 1) 'writeback' if there are dirty objects, or 2) any if
   there are no dirty objects.
 
-## Notable Changes
+### Notable Changes
 
 * bash completion improvements (Wido den Hollander)
 * brag: fixes, improvements (Loic Dachary)

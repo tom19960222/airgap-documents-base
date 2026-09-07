@@ -30,7 +30,7 @@ sometimes change between releases. For this reason, it is best to review the
 version of this documentation that applies to your Ceph release.  When updating
 to a new Ceph release, also review the release notes for important changes.
 
-# Option Names
+## Option Names
 
 Each Ceph configuration option has a unique name that consists of words
 formed with lowercase characters and connected with underscore characters
@@ -48,7 +48,7 @@ For the sake of clarity and
 convenience, we suggest that you consistently use underscores, as we do
 throughout this documentation.
 
-# Config Sources
+## Config Sources
 
 Each Ceph daemon and client pulls configuration option values from one or more
 of the sources listed below. Option values found via sources later in the list
@@ -71,7 +71,7 @@ daemon or process will commence.
 
 <a id="bootstrap-options"></a>
 
-## Bootstrap Options
+### Bootstrap Options
 
 Bootstrap options enable each Ceph daemon
 to contact the Monitors, to authenticate, and to retrieve central
@@ -98,7 +98,7 @@ option that identifies the addresses of the cluster's Monitors. When
 [DNS is used to identify monitors](mon-lookup-dns.md#mon-dns-lookup), a local Ceph
 configuration file can be avoided entirely.
 
-## Skipping Monitor Config
+### Skipping Monitor Config
 
 The option ``--no-mon-config`` can be passed to any command in order to skip
 the step that retrieves configuration information from the cluster's Monitors.
@@ -108,7 +108,7 @@ but the Monitor quorum is down.
 
 <a id="ceph-conf-file"></a>
 
-# Configuration Sections
+## Configuration Sections
 
 Each configuration option associated with a single process or daemon
 has a single value. The value for a configuration option may be
@@ -194,7 +194,7 @@ which they appear.
 
 <a id="ceph-metavariables"></a>
 
-# Metavariables
+## Metavariables
 
 Metavariables dramatically simplify Ceph storage cluster configuration. When a
 metavariable is set within a configuration value, Ceph expands the metavariable at
@@ -245,7 +245,7 @@ Ceph supports the following metavariables:
 
    :example: ``/var/run/ceph/$cluster-$name-$pid.asok``
 
-# Ceph Configuration File
+## Ceph Configuration File
 
 On startup, Ceph processes search for a configuration file in the
 following locations:
@@ -273,7 +273,7 @@ text after a pound sign (#) or a semi-colon semicolon (;). For example:
 
 <a id="ceph-conf-settings"></a>
 
-## Config File Section Names
+### Config File Section Names
 
 The configuration file is divided into sections. Each section must begin with a
 valid configuration section name (see [ceph-conf-file](ceph-conf.md#ceph-conf-file), above) within
@@ -293,7 +293,7 @@ debug_ms = 10
 debug_ms = 10
 ```
 
-## Config File Option Values
+### Config File Option Values
 
 The value of a configuration option is a string. If the string is too long to
 fit on a single line, you may place a backslash (``\``) at the end of the line
@@ -386,7 +386,7 @@ Each configuration option specifies one of the following types for its value:
 
    A single address, optionally prefixed with ``v1``, ``v2`` or ``any`` for the
    messenger protocol. If no prefix is specified, the ``v2`` protocol is used.
-   For more details, see [address_formats](msgr2.md#address-formats).
+   For more details, see [address_formats](msgr2.md#address_formats).
 
    :example: ``v1:1.2.3.4:567``, ``v2:1.2.3.4:567``, ``1.2.3.4:567``, ``2409:8a1e:8fb6:aa20:1260:4bff:fe92:18f5::567``, ``[::1]:6789``
 
@@ -428,7 +428,7 @@ Each configuration option specifies one of the following types for its value:
 
 <a id="ceph-conf-database"></a>
 
-# Monitor configuration database
+## Monitor configuration database
 
 The Monitors manage a database of configuration options that can be
 consumed by the entire cluster. This allows for streamlined central
@@ -443,7 +443,7 @@ and to fetch additional configuration information. In most cases this applies on
 ``mon_host`` option. This issue can be avoided by using [DNS SRV records](mon-lookup-dns.md#mon-dns-lookup) if your DNS infrastructure is very robust and
 under your control.
 
-## Sections and Masks
+### Sections and Masks
 
 Configuration options stored by the Monitors can be stored in a global section,
 in a daemon-type section, or in a specific daemon section. In this sense they are
@@ -477,7 +477,7 @@ in separate fields or columns to make them more readable.
 
 <a id="configuring-ceph-api"></a>
 
-## Configuration Commands
+### Configuration Commands
 
 The following CLI commands are used to configure the cluster:
 
@@ -534,7 +534,7 @@ command shows only compiled-in default values. In order to determine whether a
 configuration option is present in the Monitor configuration database, run
 ``ceph config dump``.
 
-# Help
+## Help
 
 To get help for a particular option, run the following command:
 
@@ -612,7 +612,7 @@ ceph daemon <name> config help [option]
 > or manual changes may have been executed, and the circumstances should be
 > examined and an upgrade to harmonize versions should be considered.
 
-# Runtime Changes
+## Runtime Changes
 
 In most cases, runtime changes to the configuration of a daemon take effect
 without requiring that the daemon be restarted. This might be used for
@@ -635,7 +635,7 @@ ceph config set osd.1701 debug_ms 20
 
 > **Note:** Log subsystem levels range from 0 to 20.
 
-## Override Values
+### Override Values
 
 Runtime option values can be set temporarily by using the ``ceph tell``
 or ``ceph daemon`` CLI commands.  This process is known as *injection*.
@@ -684,7 +684,7 @@ ceph daemon osd.4 config set debug_osd 20
 > **Note:** In the output of the ``ceph config show`` command, these temporary
 > values are shown to have a source of ``override``.
 
-# Viewing Runtime Settings
+## Viewing Runtime Settings
 
 You can see the current settings specified for a running daemon with the ``ceph
 config show`` command. For example, to see the (non-default) settings for the
@@ -731,7 +731,7 @@ To see the value of a single option, run a command of the following form:
 ceph daemon osd.1701 config get debug_osd
 ```
 
-# Changes Introduced in Octopus
+## Changes Introduced in Octopus
 
 The Octopus release changed the way that the configuration file is parsed.
 These changes are as follows:

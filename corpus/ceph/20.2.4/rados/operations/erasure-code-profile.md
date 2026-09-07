@@ -41,7 +41,7 @@ same time.
    erasure-code-shec
    erasure-code-clay
 
-# osd erasure-code-profile set
+## osd erasure-code-profile set
 
 To create a new erasure code profile:
 
@@ -85,7 +85,7 @@ Where:
               ``osd_pool_erasure_code_stripe_unit`` when a pool is
               created.  The stripe_width of a pool using this profile
               will be the number of data chunks multiplied by this
-              stripe_unit. See [rados_ops_erasure_coding_optimizations](erasure-code.md#rados-ops-erasure-coding-optimizations)
+              stripe_unit. See [rados_ops_erasure_coding_optimizations](erasure-code.md#rados_ops_erasure_coding_optimizations)
               for more information.
 
 :Type: String
@@ -109,7 +109,7 @@ Where:
 :Type: String
 :Required: No.
 
-# osd erasure-code-profile rm
+## osd erasure-code-profile rm
 
 To remove an erasure code profile:
 
@@ -121,7 +121,7 @@ If the profile is referenced by a pool, the deletion will fail.
 
 > **Warning:** Removing an erasure code profile using ``osd erasure-code-profile rm`` does not automatically delete the associated CRUSH rule associated with the erasure code profile. It is recommended to manually remove the associated CRUSH rule using ``ceph osd crush rule remove {rule-name}`` to avoid unexpected behavior.
 
-# osd erasure-code-profile get
+## osd erasure-code-profile get
 
 To display an erasure code profile:
 
@@ -129,7 +129,7 @@ To display an erasure code profile:
 ceph osd erasure-code-profile get {name}
 ```
 
-# osd erasure-code-profile ls
+## osd erasure-code-profile ls
 
 To list the names of all erasure code profiles:
 

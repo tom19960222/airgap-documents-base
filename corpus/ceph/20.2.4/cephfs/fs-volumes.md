@@ -309,7 +309,7 @@ ceph fs subvolumegroup snapshot ls <vol_name> <group_name>
 
 ## FS Subvolumes
 
-#### Creating a subvolume
+### Creating a subvolume
 
 Use a command of the following form to create a subvolume:
 
@@ -337,7 +337,7 @@ The earmarking mechanism ensures that subvolumes are correctly tagged and manage
 helping to avoid conflicts and ensuring that each subvolume is associated
 with the intended service or use case.
 
-#### Valid Earmarks
+### Valid Earmarks
 
 - **For NFS:**
    - The valid earmark format is the top-level scope: ``'nfs'``.
@@ -377,7 +377,7 @@ file. The case of the file name used when the file was created is preserved.
 > **Note:** Setting ``--casesensitive=0`` option implicitly enables
 > unicode normalization on the subvolume.
 
-#### Removing a subvolume
+### Removing a subvolume
 
 Use a command of the following form to remove a subvolume:
 
@@ -403,7 +403,7 @@ involve the retained snapshots.
 > **Note:** Retained snapshots can be used as clone sources for recreating the
 > subvolume or for cloning to a newer subvolume.
 
-#### Resizing a subvolume
+### Resizing a subvolume
 
 Use a command of the following form to resize a subvolume:
 
@@ -418,7 +418,7 @@ below the current "used size" of the subvolume.
 The subvolume can be resized to an unlimited (but sparse) logical size by
 passing ``inf`` or ``infinite`` as ``<new_size>``.
 
-#### Authorizing CephX auth IDs
+### Authorizing CephX auth IDs
 
 Use a command of the following form to authorize CephX auth IDs. This provides
 the read/read-write access to file system subvolumes:
@@ -429,7 +429,7 @@ ceph fs subvolume authorize <vol_name> <sub_name> <auth_id> [--group_name=<group
 
 The ``<access_level>`` option takes either ``r`` or ``rw`` as a value.
 
-#### De-authorizing CephX auth IDs
+### De-authorizing CephX auth IDs
 
 Use a command of the following form to deauthorize CephX auth IDs. This removes
 the read/read-write access to file system subvolumes:
@@ -438,7 +438,7 @@ the read/read-write access to file system subvolumes:
 ceph fs subvolume deauthorize <vol_name> <sub_name> <auth_id> [--group_name=<group_name>]
 ```
 
-#### Listing CephX auth IDs
+### Listing CephX auth IDs
 
 Use a command of the following form to list CephX auth IDs authorized to access
 the file system subvolume:
@@ -447,7 +447,7 @@ the file system subvolume:
 ceph fs subvolume authorized_list <vol_name> <sub_name> [--group_name=<group_name>]
 ```
 
-#### Evicting File System Clients (Auth ID)
+### Evicting File System Clients (Auth ID)
 
 Use a command of the following form to evict file system clients based on the
 auth ID and the subvolume mounted:
@@ -456,7 +456,7 @@ auth ID and the subvolume mounted:
 ceph fs subvolume evict <vol_name> <sub_name> <auth_id> [--group_name=<group_name>]
 ```
 
-#### Fetching the Absolute Path of a Subvolume
+### Fetching the Absolute Path of a Subvolume
 
 Use a command of the following form to fetch the absolute path of a subvolume:
 
@@ -464,7 +464,7 @@ Use a command of the following form to fetch the absolute path of a subvolume:
 ceph fs subvolume getpath <vol_name> <subvol_name> [--group_name <subvol_group_name>]
 ```
 
-#### Fetching a Subvolume's Information
+### Fetching a Subvolume's Information
 
 Use a command of the following form to fetch a subvolume's information:
 
@@ -526,7 +526,7 @@ contains one of the following values.
 * ``complete``: subvolume is ready for all operations
 * ``snapshot-retained``: subvolume is removed but its snapshots are retained
 
-#### Listing Subvolumes
+### Listing Subvolumes
 
 Use a command of the following form to list subvolumes:
 
@@ -537,7 +537,7 @@ ceph fs subvolume ls <vol_name> [--group_name <subvol_group_name>]
 > **Note:** Subvolumes that have been removed but have snapshots retained, are
 > also listed.
 
-#### Checking for the Presence of a Subvolume
+### Checking for the Presence of a Subvolume
 
 Use a command of the following form to check for the presence of a given
 subvolume:
@@ -551,7 +551,7 @@ These are the possible results of the ``exist`` command:
 * ``subvolume exists``: if any subvolume of given ``group_name`` is present
 * ``no subvolume exists``: if no subvolume of given ``group_name`` is present
 
-#### Setting Custom Metadata On a Subvolume
+### Setting Custom Metadata On a Subvolume
 
 Use a command of the following form to set custom metadata on the subvolume as
 a key-value pair:
@@ -570,7 +570,7 @@ ceph fs subvolume metadata set <vol_name> <subvol_name> <key_name> <value> [--gr
 > subvolume, and is therefore also not preserved when cloning the subvolume
 > snapshot.
 
-#### Getting The Custom Metadata Set of a Subvolume
+### Getting The Custom Metadata Set of a Subvolume
 
 Use a command of the following form to get the custom metadata set on the
 subvolume using the metadata key:
@@ -579,7 +579,7 @@ subvolume using the metadata key:
 ceph fs subvolume metadata get <vol_name> <subvol_name> <key_name> [--group_name <subvol_group_name>]
 ```
 
-#### Listing The Custom Metadata Set of a Subvolume
+### Listing The Custom Metadata Set of a Subvolume
 
 Use a command of the following form to list custom metadata (key-value pairs)
 set on the subvolume:
@@ -588,7 +588,7 @@ set on the subvolume:
 ceph fs subvolume metadata ls <vol_name> <subvol_name> [--group_name <subvol_group_name>]
 ```
 
-#### Removing a Custom Metadata Set from a Subvolume
+### Removing a Custom Metadata Set from a Subvolume
 
 Use a command of the following form to remove custom metadata set on the
 subvolume using the metadata key:
@@ -600,7 +600,7 @@ ceph fs subvolume metadata rm <vol_name> <subvol_name> <key_name> [--group_name 
 Using the ``--force`` flag allows the command to succeed when it would
 otherwise fail (if the metadata key did not exist).
 
-#### Getting earmark of a subvolume
+### Getting earmark of a subvolume
 
 Use a command of the following form to get the earmark of a subvolume:
 
@@ -608,7 +608,7 @@ Use a command of the following form to get the earmark of a subvolume:
 ceph fs subvolume earmark get <vol_name> <subvol_name> [--group_name <subvol_group_name>]
 ```
 
-#### Setting earmark of a subvolume
+### Setting earmark of a subvolume
 
 Use a command of the following form to set the earmark of a subvolume:
 
@@ -616,7 +616,7 @@ Use a command of the following form to set the earmark of a subvolume:
 ceph fs subvolume earmark set <vol_name> <subvol_name> [--group_name <subvol_group_name>] <earmark>
 ```
 
-#### Removing earmark of a subvolume
+### Removing earmark of a subvolume
 
 Use a command of the following form to remove the earmark of a subvolume:
 
@@ -624,7 +624,7 @@ Use a command of the following form to remove the earmark of a subvolume:
 ceph fs subvolume earmark rm <vol_name> <subvol_name> [--group_name <subvol_group_name>]
 ```
 
-#### Creating a Snapshot of a Subvolume
+### Creating a Snapshot of a Subvolume
 
 Use a command of the following form to create a snapshot of a subvolume:
 
@@ -632,7 +632,7 @@ Use a command of the following form to create a snapshot of a subvolume:
 ceph fs subvolume snapshot create <vol_name> <subvol_name> <snap_name> [--group_name <subvol_group_name>]
 ```
 
-#### Removing a Snapshot of a Subvolume
+### Removing a Snapshot of a Subvolume
 
 Use a command of the following form to remove a snapshot of a subvolume:
 
@@ -653,7 +653,7 @@ a subvolume:
 ceph fs subvolume snapshot getpath <volname> <subvol_name> <snap_name> [<group_name>]
 ```
 
-#### Listing the Snapshots of a Subvolume
+### Listing the Snapshots of a Subvolume
 
 Use a command of the following from to list the snapshots of a subvolume:
 
@@ -661,7 +661,7 @@ Use a command of the following from to list the snapshots of a subvolume:
 ceph fs subvolume snapshot ls <vol_name> <subvol_name> [--group_name <subvol_group_name>]
 ```
 
-#### Fetching a Snapshot's Information
+### Fetching a Snapshot's Information
 
 Use a command of the following form to fetch a snapshot's information:
 
@@ -726,7 +726,7 @@ ceph fs subvolume snapshot info cephfs subvol snap
 }
 ```
 
-#### Setting Custom Key-Value Pair Metadata on a Snapshot
+### Setting Custom Key-Value Pair Metadata on a Snapshot
 
 Use a command of the following form to set custom key-value metadata on the
 snapshot:
@@ -746,7 +746,7 @@ ceph fs subvolume snapshot metadata set <vol_name> <subvol_name> <snap_name> <ke
 > subvolume, and is therefore not preserved when cloning the subvolume
 > snapshot.
 
-#### Getting Custom Metadata That Has Been Set on a Snapshot
+### Getting Custom Metadata That Has Been Set on a Snapshot
 
 Use a command of the following form to get custom metadata that has been set on
 the snapshot using the metadata key:
@@ -755,7 +755,7 @@ the snapshot using the metadata key:
 ceph fs subvolume snapshot metadata get <vol_name> <subvol_name> <snap_name> <key_name> [--group_name <subvol_group_name>]
 ```
 
-#### Listing Custom Metadata that has been Set on a Snapshot
+### Listing Custom Metadata that has been Set on a Snapshot
 
 Use a command of the following from to list custom metadata (key-value pairs)
 set on the snapshot:
@@ -764,7 +764,7 @@ set on the snapshot:
 ceph fs subvolume snapshot metadata ls <vol_name> <subvol_name> <snap_name> [--group_name <subvol_group_name>]
 ```
 
-#### Removing Custom Metadata from a Snapshot
+### Removing Custom Metadata from a Snapshot
 
 Use a command of the following form to remove custom metadata set on the
 snapshot using the metadata key:
@@ -1003,7 +1003,7 @@ ceph fs clone status cephfs clone1
 > **Note:** Delete the canceled cloned by supplying the ``--force`` option to the
 > ``fs subvolume rm`` command.
 
-#### Configurables
+### Configurables
 
 Configure the maximum number of concurrent clone operations. The default is 4:
 
@@ -1098,7 +1098,7 @@ pinned to one of the available ranks on the file system.
 The subvolumegroup and subvolume interefaces have a porcelain layer API to
 manipulate the ``ceph.dir.charmap`` configurations (see also [charmap](charmap.md#charmap)).
 
-#### Configuring the charmap
+### Configuring the charmap
 
 To configure the charmap, for a subvolumegroup:
 
@@ -1126,7 +1126,7 @@ outputs:
 {"casesensitive":true,"normalization":"nfd","encoding":"utf8"}
 ```
 
-#### Reading the charmap
+### Reading the charmap
 
 To read the configuration, for a subvolumegroup:
 
@@ -1178,7 +1178,7 @@ outputs:
 {"casesensitive":false,"normalization":"nfd","encoding":"utf8"}
 ```
 
-#### Removing the charmap
+### Removing the charmap
 
 To remove the configuration, for a subvolumegroup:
 
@@ -1241,7 +1241,7 @@ The `volumes` plugin merely maps the subvolume names to their corresponding path
 and then issues the corresponding ``quiesce db`` command to the MDS. You can learn more about the low-level service
 in the developer guides.
 
-#### Operations
+### Operations
 
 The quiesce can be requested for a set of one or more subvolumes (i.e. paths in a filesystem).
 This set is referred to as `quiesce set`. Every quiesce set is identified by a unique `set id`.
@@ -1318,7 +1318,7 @@ The output contains the set we just created successfully, however it's already `
 This is expected, since we have not specified the timeout for this quiesce,
 and we can see in the output that it was initialized to 0 by default, along with the expiration.
 
-#### Timeouts
+### Timeouts
 
 The two timeout parameters, `timeout` and `expiration`, are the main guards against
 accidentally causing a DOS condition for our application. Any command to an active set
@@ -1431,7 +1431,7 @@ again be `QUIESCED` and the expiration timer will restart.
 >   value of the `expiration` property when the **set** becomes `QUIESCED`
 > * The `timeout` doesn't apply to **members** that are `QUIESCED`
 
-#### Awaiting
+### Awaiting
 
 Note that the commands above are all non-blocking. If we want to wait for the quiesce set
 to reach the `QUIESCED` state, we should await it at some point. ``--await`` can be given
@@ -1511,7 +1511,7 @@ ceph fs quiesce fs1 sub1 --timeout=10 --await-for=2  0.41s user 0.04s system 17%
 
 (there is a ~0.5 sec overhead that the ceph client adds, at least in a local debug setup)
 
-#### Quiesce-Await and Expiration
+### Quiesce-Await and Expiration
 
 Quiesce await has a side effect: it resets the internal expiration timer. This allows for a watchdog
 approach to a long running multistep process under the IO pause by repeatedly ``--await``\ ing an already
@@ -1552,7 +1552,7 @@ This limits the impact on the applications in the bad case scenarios.
 We could have set the `expiration` timeout to 30 at the beginning `(2)`, but that would mean that
 a single stuck snapshot would keep the applications pending for all this time.
 
-#### If Version
+### If Version
 
 Sometimes, it's not enough to just observe the successful quiesce or release. The reason could be
 a concurrent change of the set by another client. Consider this example:

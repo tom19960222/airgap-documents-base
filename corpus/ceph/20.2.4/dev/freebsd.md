@@ -55,4 +55,4 @@ https://docs.ceph.com/en/latest/install/manual-freebsd-deployment/
 
 ## OSD creation
 
-OSDs can be manually created only, see [freebsd_adding_osds](../install/manual-freebsd-deployment.md#freebsd-adding-osds)
+OSDs can be manually created only, see [freebsd_adding_osds](../install/manual-freebsd-deployment.md#freebsd_adding_osds)

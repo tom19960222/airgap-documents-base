@@ -42,7 +42,7 @@ the ``rbd`` command and several higher-level interfaces, including [QEMU](qemu-r
    | (stop i/o) |         | (read only) |
    +------------+         +-------------+
 
-# Cephx Notes
+## Cephx Notes
 
 When [cephx](../rados/configuration/auth-config-ref.md) authentication is enabled (it is by default), you must specify a
 user name or ID and a path to the keyring containing the corresponding key. See
@@ -63,12 +63,12 @@ rbd --name client.admin --keyring /etc/ceph/ceph.keyring [commands]
 > **Tip:** Add the user and secret to the ``CEPH_ARGS`` environment variable to
 > avoid re-entry of these parameters.
 
-# Snapshot Basics
+## Snapshot Basics
 
 The following procedures demonstrate how to create, list, and remove
 snapshots using the ``rbd`` command.
 
-## Create Snapshot
+### Create Snapshot
 
 To create a snapshot, use the ``rbd snap create`` command and specify the pool
 name, the image name, and the snap name:
@@ -83,7 +83,7 @@ For example:
 rbd snap create rbd/foo@snapname
 ```
 
-## List Snapshots
+### List Snapshots
 
 To list the snapshots of an image, use the ``rbd snap ls`` command and specify
 the pool name and the image name:
@@ -98,7 +98,7 @@ For example:
 rbd snap ls rbd/foo
 ```
 
-## Roll back Snapshot
+### Roll back Snapshot
 
 To roll back to a snapshot,  use the ``rbd snap rollback`` command and specify
 the pool name, the image name, and the snap name:
@@ -119,7 +119,7 @@ rbd snap rollback rbd/foo@snapname
 > from a snapshot **than to roll back** an image to a snapshot. Cloning from a
 > snapshot is the preferred method of returning to a pre-existing state.
 
-## Delete a Snapshot
+### Delete a Snapshot
 
 To delete a snapshot, use the ``rbd snap rm`` command and specify the pool
 name, the image name, and the snap name:
@@ -138,7 +138,7 @@ rbd snap rm rbd/foo@snapname
 > not immediately free up the capacity of the underlying OSDs. This process is
 > known as "snaptrim", and is referred to as such in ``ceph status`` output.
 
-## Purge Snapshots
+### Purge Snapshots
 
 To delete all snapshots, use the ``rbd snap purge`` command and specify the
 pool name and the image name:
@@ -155,7 +155,7 @@ rbd snap purge rbd/foo
 
 .. index:: Ceph Block Device; snapshot layering
 
-# Layering
+## Layering
 
 Ceph supports the ability to create many copy-on-write (COW) clones of a block
 device snapshot. Snapshot layering enables Ceph block device clients to create
@@ -194,7 +194,7 @@ process.
 > images created without specifying ``--image-format 1``). The Linux kernel
 > client supports cloned images beginning with the 3.10 release.
 
-## Getting Started with Layering
+### Getting Started with Layering
 
 Ceph block device layering is a simple process. You must have an image. You
 must create a snapshot of the image. You must protect the snapshot. After you
@@ -246,7 +246,7 @@ you may clone snapshots from one pool to images in another pool.
 1. **Image Migration/Recovery:** One way to use block device layering is to
    migrate or recover data from one pool into another pool.
 
-## Protecting a Snapshot
+### Protecting a Snapshot
 
 Clones access the parent snapshots. All clones would break if a user
 inadvertently deleted the parent snapshot. To prevent data loss, you must
@@ -264,7 +264,7 @@ rbd snap protect rbd/foo@snapname
 
 > **Note:** You cannot delete a protected snapshot.
 
-## Cloning a Snapshot
+### Cloning a Snapshot
 
 To clone a snapshot, specify the parent pool, the parent image, and the parent
 snapshot; and also the child pool together with the image name. You must
@@ -284,7 +284,7 @@ rbd clone rbd/foo@snapname rbd/bar
 > For example, you may maintain read-only images and snapshots as templates in
 > one pool, and writeable clones in another pool.
 
-## Unprotecting a Snapshot
+### Unprotecting a Snapshot
 
 Before you can delete a snapshot, you must first unprotect it. Additionally,
 you may *NOT* delete snapshots that have references from clones. You must
@@ -301,7 +301,7 @@ For example:
 rbd snap unprotect rbd/foo@snapname
 ```
 
-## Listing Children of a Snapshot
+### Listing Children of a Snapshot
 
 To list the children of a snapshot, use the ``rbd children`` command and
 specify the pool name, the image name, and the snap name:
@@ -316,7 +316,7 @@ For example:
 rbd children rbd/foo@snapname
 ```
 
-## Flattening a Cloned Image
+### Flattening a Cloned Image
 
 Cloned images retain a reference to the parent snapshot. When you remove the
 reference to the parent snapshot from the clone, you effectively "flatten" the

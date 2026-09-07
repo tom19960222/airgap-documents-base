@@ -10,14 +10,14 @@ fetched_at: 2026-08-18T01:32:45Z
 Bobtail is the second stable release of Ceph.  It is named after the
 bobtail squid (order Sepiolida), a group of cephalopods closely related to cuttlefish.
 
-# v0.56.7 "bobtail"
+## v0.56.7 "bobtail"
 
 This bobtail update fixes a range of radosgw bugs (including an easily
 triggered crash from multi-delete), a possible data corruption issue
 with power failure on XFS, and several OSD problems, including a
 memory "leak" that will affect aged clusters.
 
-## Notable changes
+### Notable changes
 
 * ceph-fuse: create finisher flags after fork()
 * debian: fix prerm/postinst hooks; do not restart daemons on upgrade
@@ -41,24 +41,24 @@ memory "leak" that will affect aged clusters.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.7.txt -->.
 
-# v0.56.6 "bobtail"
+## v0.56.6 "bobtail"
 
-## Notable changes
+### Notable changes
 
 * rgw: fix garbage collection
 * rpm: fix package dependencies
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.6.txt -->.
 
-# v0.56.5 "bobtail"
+## v0.56.5 "bobtail"
 
-## Upgrading
+### Upgrading
 
 * ceph-disk[-prepare,-activate] behavior has changed in various ways.
   There should not be any compatibility issues, but chef users should
   be aware.
 
-## Notable changes
+### Notable changes
 
 * mon: fix recording of quorum feature set (important for argonaut -> bobtail -> cuttlefish mon upgrades)
 * osd: minor peering bug fixes
@@ -78,9 +78,9 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.5.txt -->.
 
-# v0.56.4 "bobtail"
+## v0.56.4 "bobtail"
 
-## Upgrading
+### Upgrading
 
 * There is a fix in the syntax for the output of 'ceph osd tree --format=json'.
 
@@ -88,7 +88,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
   upgrades to v0.56.4 are safe, but you cannot move from v0.56.4 to v0.57 if you are using
   the MDS for CephFS; you must upgrade directly to v0.58 (or later) instead.
 
-## Notable changes
+### Notable changes
 
 * mon: fix bug in bringup with IPv6
 * reduce default memory utilization by internal logging (all daemons)
@@ -114,14 +114,14 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.4.txt -->.
 
-# v0.56.3 "bobtail"
+## v0.56.3 "bobtail"
 
 This release has several bug fixes surrounding OSD stability.  Most
 significantly, an issue with OSDs being unresponsive shortly after
 startup (and occasionally crashing due to an internal heartbeat check)
 is resolved.  Please upgrade.
 
-## Upgrading
+### Upgrading
 
 * A bug was fixed in which the OSDMap epoch for PGs without any IO
   requests was not recorded.  If there are pools in the cluster that
@@ -141,7 +141,7 @@ rados bench 10 write -t 1 -b 4096 -p {POOLNAME}
   without generating significant cluster load, and also cleans up any
   temporary objects it creates.
 
-## Notable changes
+### Notable changes
 
 * osd: flush peering work queue prior to start
 * osd: persist osdmap epoch for idle PGs
@@ -158,11 +158,11 @@ rados bench 10 write -t 1 -b 4096 -p {POOLNAME}
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.3.txt -->.
 
-# v0.56.2 "bobtail"
+## v0.56.2 "bobtail"
 
 This release has a wide range of bug fixes, stability improvements, and some performance improvements.  Please upgrade.
 
-## Upgrading
+### Upgrading
 
 * The meaning of the 'osd scrub min interval' and 'osd scrub max
   interval' has changed slightly.  The min interval used to be
@@ -182,7 +182,7 @@ This release has a wide range of bug fixes, stability improvements, and some per
   ``mkcephfs`` to create the cluster, the default CRUSH rule is still
   inferred by the number of hosts and/or racks in the initial ceph.conf.
 
-## Notable changes
+### Notable changes
 
 * osd: snapshot trimming fixes
 * osd: scrub snapshot metadata
@@ -208,18 +208,18 @@ This release has a wide range of bug fixes, stability improvements, and some per
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.2.txt -->.
 
-# v0.56.1 "bobtail"
+## v0.56.1 "bobtail"
 
 This release has two critical fixes.  Please upgrade.
 
-## Upgrading
+### Upgrading
 
 * There is a protocol compatibility problem between v0.56 and any
   other version that is now fixed.  If your radosgw or RBD clients are
   running v0.56, they will need to be upgraded too.  If they are
   running a version prior to v0.56, they can be left as is.
 
-## Notable changes
+### Notable changes
 * osd: fix commit sequence for XFS, ext4 (or any other non-btrfs) to prevent data loss on power cycle or kernel panic
 * osd: fix compatibility for CALL operation
 * osd: process old osdmaps prior to joining cluster (fixes slow startup)
@@ -229,12 +229,12 @@ This release has two critical fixes.  Please upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.56.1.txt -->.
 
-# v0.56 "bobtail"
+## v0.56 "bobtail"
 
 Bobtail is the second stable release of Ceph, named in honor of the
 `Bobtail Squid`: https://en.wikipedia.org/wiki/Bobtail_squid.
 
-## Key features since v0.48 "argonaut"
+### Key features since v0.48 "argonaut"
 
 * Object Storage Daemon (OSD): improved threading, small-io performance, and performance during recovery
 * Object Storage Daemon (OSD): regular "deep" scrubbing of all stored data to detect latent disk errors
@@ -248,7 +248,7 @@ Bobtail is the second stable release of Ceph, named in honor of the
 * RPM packages for Fedora, RHEL/CentOS, OpenSUSE, and SLES
 * mkcephfs: support for automatically formatting and mounting XFS and ext4 (in addition to btrfs)
 
-## Upgrading
+### Upgrading
 
 Please refer to the document Upgrading from Argonaut to Bobtail <!-- unresolved-rst-link: kind=named target=Upgrading from Argonaut to Bobtail --> for details.
 
@@ -313,7 +313,7 @@ for i in $(ceph osd ls); do
 done
 ```
 
-## Compatibility changes
+### Compatibility changes
 
 * The 'ceph osd create [<uuid>]' command now rejects an argument that
   is not a UUID.  (Previously it would take an optional integer
@@ -391,7 +391,7 @@ done
   * ceph osd rm
   * ceph pg <pgid> revert
 
-## Notable changes
+### Notable changes
 
 * auth: enable cephx by default
 * auth: expanded authentication settings for greater flexibility
@@ -502,9 +502,9 @@ done
 * upstart: job files for all daemon types (not enabled by default)
 * wireshark: ceph protocol dissector patch updated
 
-# v0.54
+## v0.54
 
-## Upgrading
+### Upgrading
 
 * The osd capabilities associated with a rados user have changed
   syntax since 0.48 argonaut. The new format is mostly backwards

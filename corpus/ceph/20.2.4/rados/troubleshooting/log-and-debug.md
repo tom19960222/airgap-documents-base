@@ -37,7 +37,7 @@ messages is a slow process and a potential waste of your cluster's resources.
 
 For details on available settings, see [Subsystem, Log and Debug Settings](log-and-debug.md#subsystem-log-and-debug-settings).
 
-# Runtime
+## Runtime
 
 To see configuration settings at runtime, log in to a host that has a
 running daemon and run a command of the following form:
@@ -81,7 +81,7 @@ sudo ceph daemon osd.0 config set debug_osd 0/5
 
 For details on available settings, see [Subsystem, Log and Debug Settings](log-and-debug.md#subsystem-log-and-debug-settings).
 
-# Boot Time
+## Boot Time
 
 To activate Ceph's debugging output (that is, the ``dout()`` logging function)
 at boot time, you must add settings to your Ceph configuration file (or
@@ -114,7 +114,7 @@ configuration file:
 
 For details, see [Subsystem, Log and Debug Settings](log-and-debug.md#subsystem-log-and-debug-settings).
 
-# Accelerating Log Rotation
+## Accelerating Log Rotation
 
 If a host's log filesystem is nearly full, you can accelerate log rotation by
 modifying the Ceph log rotation file at ``/etc/logrotate.d/ceph``. To increase
@@ -159,7 +159,7 @@ crontab -e
 In this example, the ``etc/logrotate.d/ceph`` file will be checked and possibly
 rotated every 30 minutes.
 
-# Valgrind
+## Valgrind
 
 When you are debugging your cluster's performance, you might find it necessary
 to track down memory and threading issues. The Valgrind tool suite can be used
@@ -168,11 +168,11 @@ the entire cluster. Because Valgrind is computationally expensive, it should be
 used only when developing or debugging Ceph, and it will slow down your system
 if used at other times. Valgrind messages are logged to ``stderr``.
 
-# Subsystem, Log and Debug Settings
+## Subsystem, Log and Debug Settings
 
 Debug logging output is typically enabled via subsystems.
 
-## Ceph Subsystems
+### Ceph Subsystems
 
 For each subsystem, there is a logging level for its output logs (a so-called
 "log level") and a logging level for its in-memory logs (a so-called "memory
@@ -299,7 +299,7 @@ values to their defaults or to a level suitable for normal operations.
 | ``memstore`` | 1 | 5 |
 | ``trace`` | 1 | 5 |
 
-## Logging and Debugging Settings
+### Logging and Debugging Settings
 
 It is not necessary to specify logging and debugging settings in the Ceph
 configuration file, but you may override default settings when needed. Ceph
@@ -327,7 +327,7 @@ supports the following settings:
 
 .. confval:: clog_to_syslog
 
-## Monitors
+### Monitors
 
 .. confval:: mon_cluster_log_level
 
@@ -355,24 +355,24 @@ supports the following settings:
 
 .. confval:: mon_health_to_clog_interval
 
-## OSD
+### OSD
 
 .. confval:: osd_debug_drop_ping_probability
 
 .. confval:: osd_debug_drop_ping_duration
 
-## Filestore
+### Filestore
 
 .. confval:: filestore_debug_omap_check
 
-## MDS
+### MDS
 
 - mds_debug_scatterstat
 - mds_debug_frag
 - mds_debug_auth_pins
 - mds_debug_subtrees
 
-## RADOS Gateway
+### RADOS Gateway
 
 - rgw_log_nonexistent_bucket
 - rgw_log_object_name

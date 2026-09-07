@@ -12,7 +12,7 @@ fetched_at: 2026-08-18T01:32:45Z
 The Ceph Object Gateway supports server-side compression of uploaded objects.
 using any of the existing compression plugins.
 
-> **Note:** The Reef release added a [feature_compress_encrypted](zone-features.md#feature-compress-encrypted) zonegroup
+> **Note:** The Reef release added a [feature_compress_encrypted](zone-features.md#feature_compress_encrypted) zonegroup
 > feature to enable compression with [Server-Side Encryption](encryption.md).
 
 Supported compression plugins include the following:
@@ -22,7 +22,7 @@ Supported compression plugins include the following:
 * zlib
 * zstd
 
-# Configuration
+## Configuration
 
 Compression can be enabled on a storage class in the Zone's placement target
 by providing the ``--compression=<type>`` option to the command
@@ -71,7 +71,7 @@ $ radosgw-admin zone placement modify \
 > **Note:** A ``default`` zone is created for you if you have not done any
 > previous [Multisite Configuration](multisite.md).
 
-# Statistics
+## Statistics
 
 Run the ``radosgw-admin bucket stats`` command to see compression statistics
 for a given bucket:

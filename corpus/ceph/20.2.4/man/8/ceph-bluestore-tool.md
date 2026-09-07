@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-bluestore-tool
 
-# Synopsis
+## Synopsis
 
 | **ceph-bluestore-tool** *command*
   [ --dev *device* ... ]
@@ -40,12 +40,12 @@ fetched_at: 2026-08-18T01:32:45Z
 | **ceph-bluestore-tool** zap-device --dev *dev path*
 | **ceph-bluestore-tool** revert-wal-to-plain --path *osd path*
 
-# Description
+## Description
 
 **ceph-bluestore-tool** is a utility to perform low-level administrative
 operations on a BlueStore instance.
 
-# Commands
+## Commands
 
 help
 
@@ -171,7 +171,7 @@ show-sharding --path *osd path*
    Changes WAL files from envelope mode to the legacy plain mode.
    Useful for downgrades, or if you might want to disable this new feature (bluefs_wal_envelope_mode).
 
-# Options
+## Options
 
 .. option:: --dev *device*
 
@@ -222,12 +222,12 @@ show-sharding --path *osd path*
    <iterator_refresh_bytes>/<iterator_refresh_keys>/<batch_commit_bytes>/<batch_commit_keys>
    Default: 10000000/10000/1000000/1000
 
-# Additional ceph.conf options
+## Additional ceph.conf options
 
 Any configuration option that is accepted by OSD can be also passed to **ceph-bluestore-tool**.
 Useful to provide necessary configuration options when access to monitor/ceph.conf is impossible and -i option cannot be used.
 
-# Device labels
+## Device labels
 
 Every BlueStore block device has a block label at the beginning of the device.
 Main device might optionaly have additional labels at different locations
@@ -249,7 +249,7 @@ Corrupted labels are fixed as part of repair:
 ceph-bluestore-tool repair --dev *device*
 ```
 
-# OSD directory priming
+## OSD directory priming
 
 You can generate the content for an OSD data directory that can start up a
 BlueStore OSD with the *prime-osd-dir* command:
@@ -258,7 +258,7 @@ BlueStore OSD with the *prime-osd-dir* command:
 ceph-bluestore-tool prime-osd-dir --dev *main device* --path /var/lib/ceph/osd/ceph-*id*
 ```
 
-# BlueFS log rescue
+## BlueFS log rescue
 
 Some versions of BlueStore were susceptible to BlueFS log growing extremely large -
 beyond the point of making booting OSD impossible. This state is indicated by
@@ -279,12 +279,12 @@ ceph-bluestore-tool fsck --path *osd path* \
 
 If above fsck is successful fix procedure can be applied.
 
-# Availability
+## Availability
 
 **ceph-bluestore-tool** is part of Ceph, a massively scalable,
 open-source, distributed storage system. Please refer to the Ceph
 documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph-osd](ceph-osd.md)\(8)

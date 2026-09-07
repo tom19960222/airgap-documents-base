@@ -10,12 +10,12 @@ fetched_at: 2026-08-18T01:32:45Z
 Luminous is the 12th stable release of Ceph.  It is named after the
 luminous squid (watasenia scintillans, aka firefly squid).
 
-# v12.2.13 Luminous
+## v12.2.13 Luminous
 
 This is the 13th bug fix release of the Luminous v12.2.x long term stable
 release series. We recommend that all users upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * Ceph now packages python bindings for python3.6 instead of
   python3.4, because EPEL7 recently switched from python3.4 to
@@ -93,7 +93,7 @@ ceph telemetry show
   crush requires 1 replica on each of 3 racks, but there are fewer OSDs in 1 of
   the racks.  In those cases, the configuration value can be increased.
 
-## Changelog
+### Changelog
 
 * bluestore: >2GB bluefs writes ([pr#28965](https://github.com/ceph/ceph/pull/28965), kungf, Kefu Chai, Sage Weil)
 * bluestore: Inspect allocations ([pr#29539](https://github.com/ceph/ceph/pull/29539), Neha Ojha, Adam Kupczyk)
@@ -322,19 +322,19 @@ ceph telemetry show
 * tools: platform.linux_distribution() is deprecated; stop using it ([issue#39277](http://tracker.ceph.com/issues/39277), [issue#18163](http://tracker.ceph.com/issues/18163), [pr#27557](https://github.com/ceph/ceph/pull/27557), Nathan Cutler)
 * tools: rados tools list objects in a pg ([issue#36732](http://tracker.ceph.com/issues/36732), [pr#30608](https://github.com/ceph/ceph/pull/30608), Li Wang, Vikhyat Umrao)
 
-# v12.2.12 Luminous
+## v12.2.12 Luminous
 
 This is the twelfth bug fix release of the Luminous v12.2.x long term stable
 release series. We recommend that all users upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * In 12.2.11 and earlier releases, keyring caps were not checked for validity,
   so the caps string could be anything. As of 12.2.12, caps strings are
   validated and providing a keyring with an invalid caps string to, e.g.,
   `ceph auth add` will result in an error.
 
-## Changelog
+### Changelog
 
 * auth: ceph auth add does not sanity-check caps ([issue#22525](https://tracker.ceph.com/issues/22525), [pr#24906](https://github.com/ceph/ceph/pull/24906), Jing Li, Nathan Cutler, Sage Weil)
 * build/ops: Allow multi instances of "make tests" on the same machine ([issue#36737](https://tracker.ceph.com/issues/36737), [pr#26186](https://github.com/ceph/ceph/pull/26186), Kefu Chai)
@@ -428,13 +428,13 @@ release series. We recommend that all users upgrade to this release.
 * rgw: sync module: avoid printing attrs of objects in log ([issue#37646](https://tracker.ceph.com/issues/37646), [pr#27030](https://github.com/ceph/ceph/pull/27030), Abhishek Lekshmanan)
 * tools: ceph-objectstore-tool: Dump hashinfo ([issue#37597](https://tracker.ceph.com/issues/37597), [pr#25722](https://github.com/ceph/ceph/pull/25722), David Zafman)
 
-# v12.2.11 Luminous
+## v12.2.11 Luminous
 
 This is the eleventh bug fix release of the Luminous v12.2.x long term stable
 release series. We recommend that all users upgrade to this release. Please note
 the following precautions while upgrading.
 
-## Notable Changes
+### Notable Changes
 
 * This release fixes the pg log hard limit bug that was introduced in
   12.2.9, https://tracker.ceph.com/issues/36686.  A flag called
@@ -465,7 +465,7 @@ the following precautions while upgrading.
 
 * CVE-2018-16889: rgw: sanitize customer encryption keys from log output in v4 auth (`issue#37847 <http://tracker.ceph.com/issues/37847>`)
 
-## Changelog
+### Changelog
 
 * build/ops: cmake: link unittest_compression against gtest ([pr#24921](https://github.com/ceph/ceph/pull/24921), Willem Jan Withagen)
 * build/ops: run-make-check.sh ccache tweaks ([issue#24826](http://tracker.ceph.com/issues/24826), [issue#24817](http://tracker.ceph.com/issues/24817), [issue#24777](http://tracker.ceph.com/issues/24777), [pr#23902](https://github.com/ceph/ceph/pull/23902), Nathan Cutler, Erwan Velu)
@@ -589,7 +589,7 @@ the following precautions while upgrading.
 * rgw: SSE encryption does not detect ssl termination in proxy ([issue#36644](http://tracker.ceph.com/issues/36644), [issue#27221](http://tracker.ceph.com/issues/27221), [pr#24944](https://github.com/ceph/ceph/pull/24944), Jonathan Brielmaier, Casey Bodley)
 * rpm: Use hardened LDFLAGS ([issue#36316](http://tracker.ceph.com/issues/36316), [issue#36391](http://tracker.ceph.com/issues/36391), [pr#25173](https://github.com/ceph/ceph/pull/25173), Boris Ranto)
 
-# v12.2.10 Luminous
+## v12.2.10 Luminous
 
 This is the tenth bug fix release of the Luminous v12.2.x long term stable
 release series. The previous release, v12.2.9, introduced the PG hard-limit
@@ -599,13 +599,13 @@ upgraded to v12.2.9, you should **not** upgrade to v12.2.10, but rather **wait**
 for a release in which http://tracker.ceph.com/issues/36686 is addressed. All
 other users are encouraged to upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 OSD
 
 * This release reverts the PG hard-limit patches added in v12.2.9.
 
-## Changelog
+### Changelog
 
 * ceph-volume: add some choose_disk capabilities ([issue#36446](http://tracker.ceph.com/issues/36446), [pr#24783](https://github.com/ceph/ceph/pull/24783), Erwan Velu)
 * ceph-volume: remove version reporting from help menu ([issue#36386](http://tracker.ceph.com/issues/36386), [pr#24754](https://github.com/ceph/ceph/pull/24754), Alfredo Deza)
@@ -642,7 +642,7 @@ OSD
 * segv in BlueStore::OldExtent::create ([issue#36526](http://tracker.ceph.com/issues/36526), [issue#36591](http://tracker.ceph.com/issues/36591), [pr#24746](https://github.com/ceph/ceph/pull/24746), Sage Weil)
 * test/common: unittest_mclock_priority_queue builds with "make" command ([pr#24808](https://github.com/ceph/ceph/pull/24808), J. Eric Ivancich)
 
-# v12.2.9 Luminous
+## v12.2.9 Luminous
 
 This is the ninth bug fix release of the Luminous v12.2.x long term stable
 release series. Although this release contains several bugfixes across all the
@@ -651,7 +651,7 @@ problems during upgrade when not all PGs were active+clean. Therefore, users
 should not install this release. Instead, they should skip it and upgrade to
 12.2.10 directly.
 
-## Notable Changes
+### Notable Changes
 
 OSD
 
@@ -674,7 +674,7 @@ OSD
 
   For more details, see `BlueStore docs <http://docs.ceph.com/docs/master/rados/configuration/bluestore-config-ref/#cache-size>_`
 
-## Changelog
+### Changelog
 
 * build/ops: add e2fsprogs runtime dependency ([pr#24663](https://github.com/ceph/ceph/pull/24663), Guillaume Abrioux, Alfredo Deza)
 * build/ops: deb: fix ceph-mgr .pyc files left behind ([issue#26883](http://tracker.ceph.com/issues/26883), [pr#23832](https://github.com/ceph/ceph/pull/23832), Dan Mick)
@@ -814,13 +814,13 @@ OSD
 * tests: remove knfs qa suite from future releases ([issue#36075](http://tracker.ceph.com/issues/36075), [pr#24268](https://github.com/ceph/ceph/pull/24268), Yuri Weinstein)
 * tools: ceph-objectstore-tool: Allow target level as first positional parameter ([issue#35846](http://tracker.ceph.com/issues/35846), [pr#24115](https://github.com/ceph/ceph/pull/24115), David Zafman)
 
-# v12.2.8 Luminous
+## v12.2.8 Luminous
 
 This is the eighth bug fix release of the Luminous v12.2.x long term stable
 release series. This release contains several bugfixes across all the components
 and we recommend all users upgrade.
 
-## Upgrade Notes from previous luminous releases
+### Upgrade Notes from previous luminous releases
 
 When upgrading from v12.2.5 or v12.2.6 please note that upgrade caveats from
 12.2.5 will apply to any _newer_ luminous version including 12.2.8. Please read
@@ -839,7 +839,7 @@ inconsistencies. Once the entire cluster has been upgraded and then fully deep
 scrubbed, and all such inconsistencies are resolved, it will be safe to disable
 the `osd distrust data digest = true` workaround option.
 
-## Notable Changes
+### Notable Changes
 
 - *OSD*
 
@@ -857,7 +857,7 @@ the `osd distrust data digest = true` workaround option.
     separated list of order to try for s3 authentication when external
     engines are involved.
 
-## Changelog
+### Changelog
 * bluestore: set correctly shard for existed Collection ([issue#24761](http://tracker.ceph.com/issues/24761), [pr#22860](https://github.com/ceph/ceph/pull/22860), Jianpeng Ma)
 * build/ops: Boost system library is no longer required to compile and link example librados program ([issue#25054](http://tracker.ceph.com/issues/25054), [pr#23202](https://github.com/ceph/ceph/pull/23202), Nathan Cutler)
 * build/ops: Bring back diff -y for non-FreeBSD ([issue#24396](http://tracker.ceph.com/issues/24396), [issue#21664](http://tracker.ceph.com/issues/21664), [pr#22848](https://github.com/ceph/ceph/pull/22848), Sage Weil, David Zafman)
@@ -945,7 +945,7 @@ the `osd distrust data digest = true` workaround option.
 * spdk: fix ceph-osd crash when activate SPDK ([issue#24371](http://tracker.ceph.com/issues/24371), [pr#22686](https://github.com/ceph/ceph/pull/22686), tone-zhang)
 * tools/ceph-objectstore-tool: split filestore directories offline to target hash level ([issue#21366](http://tracker.ceph.com/issues/21366), [pr#23418](https://github.com/ceph/ceph/pull/23418), Zhi Zhang)
 
-# v12.2.7 Luminous
+## v12.2.7 Luminous
 
 This is the seventh bugfix release of Luminous v12.2.x long term
 stable release series. This release contains several fixes for
@@ -958,7 +958,7 @@ all users upgrade.
 
 <a id="luminous-12-2-5-upgrades"></a>
 
-## Upgrading from v12.2.6
+### Upgrading from v12.2.6
 
 v12.2.6 included an incomplete backport of an optimization for
 BlueStore OSDs that avoids maintaining both the per-object checksum
@@ -1003,7 +1003,7 @@ improvement in v12.2.8 to clean up any remaining objects.
 
 Additionally, see the notes below, which apply to both v12.2.5 and v12.2.6.
 
-## Upgrading from v12.2.5 or v12.2.6
+### Upgrading from v12.2.5 or v12.2.6
 
 If you used v12.2.5 or v12.2.6 in combination with erasure coded
 pools, there is a small risk of corruption under certain workloads.
@@ -1053,12 +1053,12 @@ operations) for the duration of the upgrade::
 1. Remove ``rgw_enable_gc_threads = false`` from ceph.conf
 1. Restart all radosgw daemons
 
-## Upgrading from other versions
+### Upgrading from other versions
 
 If your cluster did not run v12.2.5 or v12.2.6 then none of the above
 issues apply to you and you should upgrade normally.
 
-## Notable Changes
+### Notable Changes
 
 * mon/AuthMonitor: improve error message ([issue#21765](http://tracker.ceph.com/issues/21765), [pr#22963](https://github.com/ceph/ceph/pull/22963), Douglas Fuller)
 * osd/PG: do not blindly roll forward to log.head ([issue#24597](http://tracker.ceph.com/issues/24597), [pr#22976](https://github.com/ceph/ceph/pull/22976), Sage Weil)
@@ -1066,7 +1066,7 @@ issues apply to you and you should upgrade normally.
 * osd: work around data digest problems in 12.2.6 (version 2) ([issue#24922](http://tracker.ceph.com/issues/24922), [pr#23055](https://github.com/ceph/ceph/pull/23055), Sage Weil)
 * rgw: objects in cache never refresh after rgw_cache_expiry_interval ([issue#24346](http://tracker.ceph.com/issues/24346), [pr#22369](https://github.com/ceph/ceph/pull/22369), Casey Bodley, Matt Benjamin)
 
-# v12.2.6 Luminous
+## v12.2.6 Luminous
 
 :note: This is a broken release with serious known regressions.  Do not install it.
 
@@ -1074,7 +1074,7 @@ This is the sixth bugfix release of Luminous v12.2.x long term stable release
 series. This release contains a range of bug fixes across all components of
 Ceph and a few security fixes.
 
-## Notable Changes
+### Notable Changes
 
 - *Auth*:
 
@@ -1091,7 +1091,7 @@ Ceph and a few security fixes.
   the 'ceph config-key dump' command will show them as something like
   ``<<< binary blob of length N >>>``.
 
-## Other Notable Changes
+### Other Notable Changes
 * build/ops: build-integration-branch script ([issue#24003](http://tracker.ceph.com/issues/24003), [pr#21919](https://github.com/ceph/ceph/pull/21919), Nathan Cutler, Kefu Chai, Sage Weil)
 * cephfs-journal-tool: wait prezero ops before destroying journal ([issue#20549](http://tracker.ceph.com/issues/20549), [pr#21874](https://github.com/ceph/ceph/pull/21874), "Yan, Zheng")
 * cephfs: MDSMonitor: cleanup and protect fsmap access ([issue#23762](http://tracker.ceph.com/issues/23762), [pr#21732](https://github.com/ceph/ceph/pull/21732), Patrick Donnelly)
@@ -1229,14 +1229,14 @@ Ceph and a few security fixes.
 * tools: ceph-disk: write log to /var/log/ceph not to /var/run/ceph ([issue#24041](http://tracker.ceph.com/issues/24041), [pr#21870](https://github.com/ceph/ceph/pull/21870), Kefu Chai)
 * tools: ceph-fuse: getgroups failure causes exception ([issue#23446](http://tracker.ceph.com/issues/23446), [pr#21687](https://github.com/ceph/ceph/pull/21687), Jeff Layton)
 
-# v12.2.5 Luminous
+## v12.2.5 Luminous
 
 This is the fifth bugfix release of Luminous v12.2.x long term stable
 release series. This release contains a range of bug fixes across all
 components of Ceph. We recommend all the users of 12.2.x series to
 update.
 
-## Notable Changes
+### Notable Changes
 
 * MGR
 
@@ -1262,7 +1262,7 @@ update.
 
   See also: https://tracker.ceph.com/issues/23172
 
-## Other Notable Changes
+### Other Notable Changes
 
 * add --add-bucket and --move options to crushtool ([issue#23472](http://tracker.ceph.com/issues/23472), [issue#23471](http://tracker.ceph.com/issues/23471), [pr#21079](https://github.com/ceph/ceph/pull/21079), Kefu Chai)
 * BlueStore.cc: _balance_bluefs_freespace: assert(0 == "allocate failed, wtf") ([issue#23063](http://tracker.ceph.com/issues/23063), [pr#21394](https://github.com/ceph/ceph/pull/21394), Igor Fedotov, xie xingguo, Sage Weil, Zac Medico)
@@ -1413,13 +1413,13 @@ update.
 * tests: unittest_pglog timeout ([issue#23522](http://tracker.ceph.com/issues/23522), [issue#23504](http://tracker.ceph.com/issues/23504), [pr#21134](https://github.com/ceph/ceph/pull/21134), Nathan Cutler)
 * Update mgr/restful documentation ([issue#23230](http://tracker.ceph.com/issues/23230), [pr#20725](https://github.com/ceph/ceph/pull/20725), Boris Ranto)
 
-# v12.2.4 Luminous
+## v12.2.4 Luminous
 
 This is the fourth bugfix release of Luminous v12.2.x long term stable release
 series. This was primarily intended to fix a few build, ceph-volume/ceph-disk
 and RGW issues. We recommend all the users of 12.2.x series to update.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-volume: adds support to zap encrypted devices ([issue#22878](http://tracker.ceph.com/issues/22878), [pr#20545](https://github.com/ceph/ceph/pull/20545), Andrew Schoen)
 * ceph-volume: log the current running command for easier debugging ([issue#23004](http://tracker.ceph.com/issues/23004), [pr#20597](https://github.com/ceph/ceph/pull/20597), Andrew Schoen)
@@ -1436,13 +1436,13 @@ and RGW issues. We recommend all the users of 12.2.x series to update.
 * tools: ceph-disk: v12.2.2 unable to create bluestore osd using ceph-disk ([issue#22354](http://tracker.ceph.com/issues/22354), [pr#20563](https://github.com/ceph/ceph/pull/20563), Kefu Chai)
 * tools: ceph-objectstore-tool: "$OBJ get-omaphdr" and "$OBJ list-omap" scan all pgs instead of using specific pg ([issue#21327](http://tracker.ceph.com/issues/21327), [pr#20283](https://github.com/ceph/ceph/pull/20283), David Zafman)
 
-# v12.2.3 Luminous
+## v12.2.3 Luminous
 
 This is the third bugfix release of Luminous v12.2.x long term stable release
 series. It contains a range of bug fixes and a few features across Bluestore,
 CephFS, RBD & RGW. We recommend all the users of 12.2.x series update.
 
-## Notable Changes
+### Notable Changes
 
 - *CephFS*:
 
@@ -1451,7 +1451,7 @@ CephFS, RBD & RGW. We recommend all the users of 12.2.x series update.
     client_die_on_failed_dentry_invalidate (default: true) may be turned off to
     allow the client to proceed (dangerous!).
 
-## Other Notable Changes
+### Other Notable Changes
 * bluestore: do not crash on over-large objects ([issue#22161](http://tracker.ceph.com/issues/22161), [pr#19630](https://github.com/ceph/ceph/pull/19630), Sage Weil)
 * bluestore: OSD crash on boot with assert caused by Bluefs on flush write ([issue#21932](http://tracker.ceph.com/issues/21932), [pr#19047](https://github.com/ceph/ceph/pull/19047), Jianpeng Ma)
 * build/ops: ceph-base symbols not stripped in debs ([issue#22640](http://tracker.ceph.com/issues/22640), [pr#19969](https://github.com/ceph/ceph/pull/19969), Sage Weil)
@@ -1667,7 +1667,7 @@ CephFS, RBD & RGW. We recommend all the users of 12.2.x series update.
 * tools: ceph-objectstore-tool set-size should clear data-digest ([issue#22112](http://tracker.ceph.com/issues/22112), [pr#20069](https://github.com/ceph/ceph/pull/20069), David Zafman)
 * tools/crushtool: skip device id if no name exists ([issue#22117](http://tracker.ceph.com/issues/22117), [pr#19039](https://github.com/ceph/ceph/pull/19039), Jan Fajerski)
 
-# v12.2.2 Luminous
+## v12.2.2 Luminous
 
 This is the second bugfix release of Luminous v12.2.x long term stable release
 series. It contains a range of bug fixes and a few features across Bluestore,
@@ -1675,7 +1675,7 @@ CephFS, RBD & RGW. We recommend all the users of 12.2.x series update.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v12.2.2.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * Standby ceph-mgr daemons now redirect requests to the active messenger, easing
   configuration for tools & users accessing the web dashboard, restful API, or
@@ -1689,7 +1689,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
   as it can cause inconsistencies in replication of bucket indexes to remote
   sites.
 
-## Other Notable Changes
+### Other Notable Changes
 
 * build/ops: bump sphinx to 1.6 ([issue#21717](http://tracker.ceph.com/issues/21717), [pr#18167](https://github.com/ceph/ceph/pull/18167), Kefu Chai, Alfredo Deza)
 * build/ops: macros expanding in spec file comment ([issue#22250](http://tracker.ceph.com/issues/22250), [pr#19173](https://github.com/ceph/ceph/pull/19173), Ken Dreyer)
@@ -1796,7 +1796,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tools: ceph_volume_client: add get, put, and delete object interfaces ([issue#21601](http://tracker.ceph.com/issues/21601), [pr#18037](https://github.com/ceph/ceph/pull/18037), Ramana Raja)
 * tools: cli/crushtools/build.t sometimes fails in jenkins' make check run ([issue#21758](http://tracker.ceph.com/issues/21758), [pr#18398](https://github.com/ceph/ceph/pull/18398), Kefu Chai, Sage Weil)
 
-# v12.2.1 Luminous
+## v12.2.1 Luminous
 
 This is the first bugfix release of Luminous v12.2.x long term stable
 release series. It contains a range of bug fixes and a few features
@@ -1805,7 +1805,7 @@ update.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v12.2.1.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * Dynamic resharding is now enabled by default for RGW, RGW will now
   automatically reshard there bucket index once the index grows beyond
@@ -1838,7 +1838,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * A stall in BlueStore IO submission that was affecting many users has
   been resolved.
 
-## Other Notable Changes
+### Other Notable Changes
 
 * bluestore: asyn cdeferred_try_submit deadlock ([issue#21207](http://tracker.ceph.com/issues/21207), [pr#17494](https://github.com/ceph/ceph/pull/17494), Sage Weil)
 * bluestore: fix deferred write deadlock, aio short return handling ([issue#21171](http://tracker.ceph.com/issues/21171), [pr#17601](https://github.com/ceph/ceph/pull/17601), Sage Weil)
@@ -1895,14 +1895,14 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * rgw: usage of --inconsistent-index should require user confirmation and print a warning ([issue#20777](http://tracker.ceph.com/issues/20777), [pr#17488](https://github.com/ceph/ceph/pull/17488), Orit Wasserman)
 * tools: [cli] rename of non-existent image results in seg fault ([issue#21248](http://tracker.ceph.com/issues/21248), [pr#17556](https://github.com/ceph/ceph/pull/17556), Jason Dillaman)
 
-# v12.2.0 Luminous
+## v12.2.0 Luminous
 
 This is the first release of Luminous v12.2.x long term stable release
 series.  There have been major changes since Kraken (v11.2.z) and
 Jewel (v10.2.z), and the upgrade process is non-trivial. Please read
 these release notes carefully.
 
-## Major Changes from Kraken
+### Major Changes from Kraken
 
 - *General*:
 
@@ -2216,7 +2216,7 @@ these release notes carefully.
       cancel-force-backfill`` restore default recovery/backfill
       priority of previously forced pgs.
 
-## Major Changes from Jewel
+### Major Changes from Jewel
 
 - *RADOS*:
 
@@ -2273,7 +2273,7 @@ these release notes carefully.
   * The false-positive "failing to respond to cache pressure" warnings have
     been fixed.
 
-## Upgrade from Jewel or Kraken
+### Upgrade from Jewel or Kraken
 <a id="upgrading"></a>
 
 1. Ensure that the ``sortbitwise`` flag is enabled:
@@ -2405,12 +2405,12 @@ on current monmap (epoch NNN)
 
 1. Verify the cluster is healthy with ``ceph health``.
 
-## Upgrading from pre-Jewel releases (like Hammer)
+### Upgrading from pre-Jewel releases (like Hammer)
 
 You *must* first upgrade to Jewel (10.2.z) before attempting an
 upgrade to Luminous.
 
-## Upgrade compatibility notes, Jewel to Kraken
+### Upgrade compatibility notes, Jewel to Kraken
 
 These changes occurred between the Jewel and Kraken releases and will affect
 upgrades from Jewel to Luminous.
@@ -2541,7 +2541,7 @@ echo rocksdb > /var/lib/ceph/mon/ceph-`hostname`/kv_backend
   than new ones. Once upgraded, cluster will operate on
   consistent values.
 
-## Upgrade compatibility notes, Kraken to Luminous
+### Upgrade compatibility notes, Kraken to Luminous
 
 * The configuration option ``osd pool erasure code stripe width`` has
   been replaced by ``osd pool erasure code stripe unit``, and given
@@ -2715,7 +2715,7 @@ enable experimental unrecoverable data corrupting features = btrfs
     by "ceph tell mds.<id> ..."
   * The ``apply`` mode of cephfs-journal-tool has been removed
 
-## Other Notable Changes
+### Other Notable Changes
 * async: Fixed compilation error when enable -DWITH_DPDK ([pr#12660](https://github.com/ceph/ceph/pull/12660), Pan Liu)
 * async: fixed coredump when enable dpdk ([pr#12854](https://github.com/ceph/ceph/pull/12854), Pan Liu)
 * async: fixed the error "Cause: Cannot create lock on '/var/run/.rte_c… ([pr#12860](https://github.com/ceph/ceph/pull/12860), Pan Liu)

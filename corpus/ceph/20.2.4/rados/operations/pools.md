@@ -5,7 +5,7 @@ title: "Pools"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/pools.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="rados-pools"></a>
+<a id="rados_pools"></a>
 
 # Pools
 Pools are logical partitions that are used to store RADOS objects.
@@ -44,12 +44,12 @@ Pools provide:
 - **Snapshots**: The command ``ceph osd pool mksnap`` creates a snapshot of a
   pool.
 
-# Pool Names
+## Pool Names
 
 Pool names beginning with ``.`` are reserved for use by Ceph's internal
 operations. Do not create or manipulate pools with these names.
 
-# List Pools
+## List Pools
 
 There are multiple ways to list the pools in your cluster.
 
@@ -102,7 +102,7 @@ To retrieve even more information, you can execute this command with the ``--for
 
 <a id="createpool"></a>
 
-# Creating a Pool
+## Creating a Pool
 
 Before creating a pool, consult [Pool, PG and CRUSH Config Reference](../configuration/pool-pg-config-ref.md). The
 Ceph central configuration database contains a default setting
@@ -225,7 +225,7 @@ following:
 
 <a id="associate-pool-to-application"></a>
 
-# Associating a Pool with an Application
+## Associating a Pool with an Application
 
 Each pool must be associated with an application before it can be used. Pools
 that are intended for use with CephFS and pools that are created automatically
@@ -243,7 +243,7 @@ ceph osd pool application enable {pool-name} {application-name}
 > **Note:** CephFS uses the application name ``cephfs``, RBD uses the
 > application name ``rbd``, and RGW uses the application name ``rgw``.
 
-# Setting Pool Quotas
+## Setting Pool Quotas
 
 To set quotas for the maximum number of bytes or the maximum number of
 RADOS objects per pool, run a command of the following form:
@@ -261,7 +261,7 @@ ceph osd pool set-quota data max_objects 10000
 To remove a quota, set its value to ``0``.  Note that you may set a quota only
 for bytes or only for RADOS objects, or you can set both.
 
-# Deleting a Pool
+## Deleting a Pool
 
 To delete a pool, run a command of the following form:
 
@@ -301,9 +301,9 @@ ceph auth ls | grep -C 5 {pool-name}
 ceph auth del {user}
 ```
 
-<a id="rados-renaming-a-pool"></a>
+<a id="rados_renaming_a_pool"></a>
 
-# Renaming a Pool
+## Renaming a Pool
 
 To rename a pool, run a command of the following form:
 
@@ -316,7 +316,7 @@ you must update the user's capabilities ("caps") to refer to the new pool name.
 See [Modifying User Capabilities](user-management.md#modify-user-capabilities) for
 instructions on updating a user's capabilities.
 
-# Showing Pool Statistics
+## Showing Pool Statistics
 
 To show a pool's utilization statistics, run the following command:
 
@@ -331,7 +331,7 @@ of the following form:
 ceph osd pool stats [{pool-name}]
 ```
 
-# Making a Snapshot of a Pool
+## Making a Snapshot of a Pool
 
 To make a snapshot of a pool, run a command of the following form:
 
@@ -339,7 +339,7 @@ To make a snapshot of a pool, run a command of the following form:
 ceph osd pool mksnap {pool-name} {snap-name}
 ```
 
-# Removing a Snapshot of a Pool
+## Removing a Snapshot of a Pool
 
 To remove a snapshot of a pool, run a command of the following form:
 
@@ -349,7 +349,7 @@ ceph osd pool rmsnap {pool-name} {snap-name}
 
 <a id="setpoolvalues"></a>
 
-# Setting Pool Values
+## Setting Pool Values
 
 To assign values to a pool's configuration attributes, run a command of the following
 form:
@@ -360,7 +360,7 @@ ceph osd pool set {pool-name} {key} {value}
 
 You may set values for the following keys:
 
-<a id="compression-algorithm"></a>
+<a id="compression_algorithm"></a>
 
 .. describe:: compression_algorithm
 
@@ -396,7 +396,7 @@ You may set values for the following keys:
    :Description: Sets the number of replicas for objects in the pool. For further details, see [Setting the Number of RADOS Object Replicas](pools.md#setting-the-number-of-rados-object-replicas). This may be set only for ``replicated`` pools. EC pools will _report_ a ``size`` equal to K+M but this value may not be directly _set_.
    :Type: Integer
 
-<a id="min-size"></a>
+<a id="min_size"></a>
 
 .. describe:: min_size
 
@@ -404,7 +404,7 @@ You may set values for the following keys:
    :Type: Integer
    :Version: ``0.54`` and above
 
-<a id="pg-num"></a>
+<a id="pg_num"></a>
 
 .. describe:: pg_num
 
@@ -412,7 +412,7 @@ You may set values for the following keys:
    :Type: Integer
    :Valid Range: ``0`` to ``mon_max_pool_pg_num``. If set to ``0``, the value of ``osd_pool_default_pg_num`` will be used.
 
-<a id="pgp-num"></a>
+<a id="pgp_num"></a>
 
 .. describe:: pgp_num
 
@@ -420,14 +420,14 @@ You may set values for the following keys:
    :Type: Integer
    :Valid Range: Between ``1`` and the current value of ``pg_num``.
 
-<a id="crush-rule"></a>
+<a id="crush_rule"></a>
 
 .. describe:: crush_rule
 
    :Description: Sets the CRUSH rule that Ceph uses to map the pool's RADOS objects to appropriate OSDs.
    :Type: String
 
-<a id="allow-ec-overwrites"></a>
+<a id="allow_ec_overwrites"></a>
 
 .. describe:: allow_ec_overwrites
 
@@ -438,7 +438,7 @@ You may set values for the following keys:
 
 .. describe:: allow_ec_optimizations
 
-   :Description: Enables performance and capacity optimizations for an erasure-coded pool. These optimizations were designed for CephFS and RBD workloads; RGW workloads with signficant numbers of small objects or with small random access reads of objects will also benefit. RGW workloads with large sequential read and writes will see little benefit. For more details, see [rados_ops_erasure_coding_optimizations](erasure-code.md#rados-ops-erasure-coding-optimizations):
+   :Description: Enables performance and capacity optimizations for an erasure-coded pool. These optimizations were designed for CephFS and RBD workloads; RGW workloads with signficant numbers of small objects or with small random access reads of objects will also benefit. RGW workloads with large sequential read and writes will see little benefit. For more details, see [rados_ops_erasure_coding_optimizations](erasure-code.md#rados_ops_erasure_coding_optimizations):
    :Type: Boolean
 
    .. versionadded:: 20.2.0
@@ -484,7 +484,7 @@ You may set values for the following keys:
    :Type: Boolean
    :Valid Range: ``true``/``1`` sets flag, ``false``/``0`` unsets flag
 
-<a id="write-fadvise-dontneed"></a>
+<a id="write_fadvise_dontneed"></a>
 
 .. describe:: write_fadvise_dontneed
 
@@ -508,7 +508,7 @@ You may set values for the following keys:
    :Type: Integer
    :Valid Range: ``1`` sets flag, ``0`` unsets flag
 
-<a id="target-max-bytes"></a>
+<a id="target_max_bytes"></a>
 
 .. describe:: target_max_bytes
 
@@ -518,7 +518,7 @@ You may set values for the following keys:
    :Type: Integer
    :Example: ``1000000000000``  #1-TB
 
-<a id="target-max-objects"></a>
+<a id="target_max_objects"></a>
 
 .. describe:: target_max_objects
 
@@ -528,7 +528,7 @@ You may set values for the following keys:
    :Type: Integer
    :Example: ``1000000`` #1M objects
 
-<a id="fast-read"></a>
+<a id="fast_read"></a>
 
 .. describe:: fast_read
 
@@ -544,7 +544,7 @@ You may set values for the following keys:
    :Type: Boolean
    :Defaults: ``0``
 
-<a id="scrub-min-interval"></a>
+<a id="scrub_min_interval"></a>
 
 .. describe:: scrub_min_interval
 
@@ -553,7 +553,7 @@ You may set values for the following keys:
    :Type: Double
    :Default: ``0``
 
-<a id="scrub-max-interval"></a>
+<a id="scrub_max_interval"></a>
 
 .. describe:: scrub_max_interval
 
@@ -562,7 +562,7 @@ You may set values for the following keys:
    :Type: Double
    :Default: ``0``
 
-<a id="deep-scrub-interval"></a>
+<a id="deep_scrub_interval"></a>
 
 .. describe:: deep_scrub_interval
 
@@ -571,7 +571,7 @@ You may set values for the following keys:
    :Type: Double
    :Default: ``0``
 
-<a id="recovery-priority"></a>
+<a id="recovery_priority"></a>
 
 .. describe:: recovery_priority
 
@@ -580,7 +580,7 @@ You may set values for the following keys:
    :Type: Integer
    :Default: ``0``
 
-<a id="recovery-op-priority"></a>
+<a id="recovery_op_priority"></a>
 
 .. describe:: recovery_op_priority
 
@@ -589,7 +589,7 @@ You may set values for the following keys:
    :Type: Integer
    :Default: ``0``
 
-# Getting Pool Values
+## Getting Pool Values
 
 To get the value for a given pool's key, run a command of the following form:
 
@@ -607,83 +607,83 @@ You may get values of the following keys:
 
 ``min_size``
 
-:Description: See [min_size](pools.md#min-size).
+:Description: See [min_size](pools.md#min_size).
 
 :Type: Integer
 :Version: ``0.54`` and above
 
 ``pg_num``
 
-:Description: See [pg_num](pools.md#pg-num).
+:Description: See [pg_num](pools.md#pg_num).
 
 :Type: Integer
 
 ``pgp_num``
 
-:Description: See [pgp_num](pools.md#pgp-num).
+:Description: See [pgp_num](pools.md#pgp_num).
 
 :Type: Integer
 :Valid Range: Equal to or less than ``pg_num``.
 
 ``crush_rule``
 
-:Description: See [crush_rule](pools.md#crush-rule).
+:Description: See [crush_rule](pools.md#crush_rule).
 
 ``target_max_bytes``
 
-:Description: See [target_max_bytes](pools.md#target-max-bytes).
+:Description: See [target_max_bytes](pools.md#target_max_bytes).
 
 :Type: Integer
 
 ``target_max_objects``
 
-:Description: See [target_max_objects](pools.md#target-max-objects).
+:Description: See [target_max_objects](pools.md#target_max_objects).
 
 :Type: Integer
 
 ``fast_read``
 
-:Description: See [fast_read](pools.md#fast-read).
+:Description: See [fast_read](pools.md#fast_read).
 
 :Type: Boolean
 
 ``scrub_min_interval``
 
-:Description: See [scrub_min_interval](pools.md#scrub-min-interval).
+:Description: See [scrub_min_interval](pools.md#scrub_min_interval).
 
 :Type: Double
 
 ``scrub_max_interval``
 
-:Description: See [scrub_max_interval](pools.md#scrub-max-interval).
+:Description: See [scrub_max_interval](pools.md#scrub_max_interval).
 
 :Type: Double
 
 ``deep_scrub_interval``
 
-:Description: See [deep_scrub_interval](pools.md#deep-scrub-interval).
+:Description: See [deep_scrub_interval](pools.md#deep_scrub_interval).
 
 :Type: Double
 
 ``allow_ec_overwrites``
 
-:Description: See [allow_ec_overwrites](pools.md#allow-ec-overwrites).
+:Description: See [allow_ec_overwrites](pools.md#allow_ec_overwrites).
 
 :Type: Boolean
 
 ``recovery_priority``
 
-:Description: See [recovery_priority](pools.md#recovery-priority).
+:Description: See [recovery_priority](pools.md#recovery_priority).
 
 :Type: Integer
 
 ``recovery_op_priority``
 
-:Description: See [recovery_op_priority](pools.md#recovery-op-priority).
+:Description: See [recovery_op_priority](pools.md#recovery_op_priority).
 
 :Type: Integer
 
-# Setting the Number of RADOS Object Replicas
+## Setting the Number of RADOS Object Replicas
 
 To set the number of data replicas to maintain for a given replicated pool, run a command of the
 following form:
@@ -717,7 +717,7 @@ fewer than ``min_size`` (in this case, two) replicas.  Note that setting ``size`
 to ``2`` or ``min_size`` to ``1`` in production risks data loss and should only
 be done in certain emergency situations, and then only temporarily.
 
-# Getting the Number of Object Replicas
+## Getting the Number of Object Replicas
 
 To get the number of object replicas, run the following command:
 
@@ -728,10 +728,10 @@ ceph osd dump | grep 'replicated size'
 Ceph will list pools and highlight the ``replicated size`` attribute.  By
 default, Ceph maintains three replicas or copies, for a size of ``3``).
 
-# Managing pools that are flagged with ``--bulk``
-See [managing_bulk_flagged_pools](placement-groups.md#managing-bulk-flagged-pools).
+## Managing pools that are flagged with ``--bulk``
+See [managing_bulk_flagged_pools](placement-groups.md#managing_bulk_flagged_pools).
 
-# Setting values for a stretch pool
+## Setting values for a stretch pool
 To set values for a stretch pool, run a command of the following form:
 
 ```bash
@@ -805,9 +805,9 @@ Here are the break downs of the arguments:
    :Type: Flag
    :Required: No.
 
-<a id="setting-values-for-a-stretch-pool"></a>
+<a id="setting_values_for_a_stretch_pool"></a>
 
-# Unsetting values for a stretch pool
+## Unsetting values for a stretch pool
 To move the pool back to non-stretch, run a command of the following form:
 
 ```bash
@@ -846,7 +846,7 @@ Here are the breakdowns of the arguments:
    :Type: Integer
    :Required: Yes.
 
-# Showing values of a stretch pool
+## Showing values of a stretch pool
 To show values for a stretch pool, run a command of the following form:
 
 ```bash

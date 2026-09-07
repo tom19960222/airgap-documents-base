@@ -14,7 +14,7 @@ Ceph Object Gateway implements a subset of STS APIs that provide temporary crede
 These temporary credentials can be used to make subsequent S3 calls which will be authenticated by the STS engine in Ceph Object Gateway.
 Permissions of the temporary credentials can be further restricted via an IAM policy passed as a parameter to the STS APIs.
 
-# STS REST APIs
+## STS REST APIs
 
 The following STS REST APIs have been implemented in Ceph Object Gateway:
 
@@ -97,7 +97,7 @@ is - <tenant>$<user-namespace>$<sub> where user-namespace is 'oidc' for users th
 RGW now supports Session tags that can be passed in the web token to AssumeRoleWithWebIdentity call. More information related to Session Tags can be found here
 [session-tags](session-tags.md).
 
-# STS Configuration
+## STS Configuration
 
 The following configurable options have to be added for STS integration:
 
@@ -108,7 +108,7 @@ The following configurable options have to be added for STS integration:
 > **Note:** The STS and S3 APIs co-exist in the same namespace, and both S3
 > and STS APIs can be accessed via the same endpoint.
 
-# Examples
+## Examples
 1. In order to get the example to work, make sure that the user TESTER has the ``roles`` capability assigned:
 
 ```console
@@ -236,7 +236,7 @@ s3bucket = s3client.create_bucket(Bucket=bucket_name)
 resp = s3client.list_buckets()
 ```
 
-# How to obtain thumbprint of an OpenID Connect Provider IDP
+## How to obtain thumbprint of an OpenID Connect Provider IDP
 1. Take the OpenID connect provider's URL and add /.well-known/openid-configuration
 to it to get the URL to get the IDP's configuration document. For example, if the URL
 of the IDP is http://localhost:8000/auth/realms/quickstart, then the URL to get the
@@ -284,22 +284,22 @@ while creating the OpenID Connect Provider entity in IAM:
 F7D7B3515DD0D319DD219A43A9EA727AD6065287
 ```
 
-# Roles in RGW
+## Roles in RGW
 
 More information for role manipulation can be found here
 [role](role.md).
 
-# OpenID Connect Provider in RGW
+## OpenID Connect Provider in RGW
 
 More information for OpenID Connect Provider entity manipulation
 can be found here
 [oidc](oidc.md).
 
-# Keycloak integration with Radosgw
+## Keycloak integration with Radosgw
 
 Steps for integrating Radosgw with Keycloak can be found here
 [keycloak](keycloak.md).
 
-# STSLite
+## STSLite
 STSLite has been built on STS, and documentation for the same can be found here
 [STSLite](STS.md#stslite).

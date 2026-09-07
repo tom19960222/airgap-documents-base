@@ -1,13 +1,13 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "List Devices"
+title: "OSD Service"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephadm/services/osd.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-### OSD Service
+# OSD Service
 
-# List Devices
+## List Devices
 
 ``ceph-volume`` scans each host in the cluster periodically in order
 to determine the devices that are present and responsive. It is also
@@ -73,12 +73,14 @@ nigeltufnel       /dev/sdd       hdd   SEAGATE_ST20000NM002D_ZVTBJNGC17010C34427
 > lsmcli ldl``. If your hardware is supported you should see something like
 > this:
 >
-> ::
+> :
 >
->   Path     | SCSI VPD 0x83    | Link Type | Serial Number      | Health Status
->   ----------------------------------------------------------------------------
->   /dev/sda | 50000396082ba631 | SAS       | 15P0A0R0FRD6       | Good
->   /dev/sdb | 50000396082bbbf9 | SAS       | 15P0A0YFFRD6       | Good
+> ```
+> Path     | SCSI VPD 0x83    | Link Type | Serial Number      | Health Status
+> ----------------------------------------------------------------------------
+> /dev/sda | 50000396082ba631 | SAS       | 15P0A0R0FRD6       | Good
+> /dev/sdb | 50000396082bbbf9 | SAS       | 15P0A0YFFRD6       | Good
+> ```
 
 After enabling ``libstoragemgmt`` support, the output will look something
 like this:
@@ -102,7 +104,7 @@ information about interacting with these LEDs, refer to [devices](../../mgr/orch
 > local drives only. There is no official support for NVMe devices (PCIe), SAN LUNs,
 > or exotic/complex metadevices.
 
-# Retrieve Exact Size of Block Devices
+## Retrieve Exact Size of Block Devices
 
 Run a command of the following form to discover the exact size of a block
 device. The value returned here is used by the orchestrator when filtering based
@@ -114,7 +116,7 @@ cephadm shell ceph-volume inventory </dev/sda> --format json | jq .sys_api.human
 
 The exact size in GB is the size reported in TB, multiplied by 1024.
 
-## Example
+### Example
 The following provides a specific example of this command based upon the
 general form of the command above:
 
@@ -136,9 +138,9 @@ for discussion of this matter.
 
 <a id="cephadm-deploy-osds"></a>
 
-# Deploy OSDs
+## Deploy OSDs
 
-## Listing Storage Devices
+### Listing Storage Devices
 
 In order to deploy an OSD, there must be an available storage device or devices on
 which the OSD will be deployed.
@@ -161,7 +163,7 @@ conditions are met:
 
 Ceph will not provision an OSD on a device that is not *available*.
 
-## Creating New OSDs
+### Creating New OSDs
 
 There are multiple ways to create new OSDs:
 
@@ -226,7 +228,7 @@ ceph orch osd set-spec-affinity <service_name> <osd_id(s)>
 ceph orch osd set-spec-affinity osd.default_drive_group 0 1
 ```
 
-## Dry Run
+### Dry Run
 
 The ``--dry-run`` flag causes the orchestrator to present a preview of what
 will happen without actually creating the OSDs.
@@ -248,7 +250,7 @@ all-available-devices node3 /dev/vdd  -   -
 
 <a id="cephadm-osd-declarative"></a>
 
-## Declarative State
+### Declarative State
 
 The effect of ``ceph orch apply`` is persistent. This means that drives that
 are added to the system after the ``ceph orch apply`` command completes will be
@@ -288,7 +290,7 @@ ceph orch apply osd --all-available-devices --unmanaged=true
 
 <a id="cephadm-osd-removal"></a>
 
-# Remove an OSD
+## Remove an OSD
 
 Removing an OSD from a cluster involves two steps:
 
@@ -330,7 +332,7 @@ OSD's drives, leaving it a blank slate for redeployment or other reuse.
 > specs see [drivegroups](osd.md#drivegroups). For more info on the declarative nature of
 > ``cephadm`` in reference to deploying OSDs, see [cephadm-osd-declarative](osd.md#cephadm-osd-declarative)
 
-## Monitoring OSD State During OSD Removal
+### Monitoring OSD State During OSD Removal
 
 You can query the state of OSD operations during the process of removing OSDs
 by running the following command:
@@ -354,7 +356,7 @@ When no PGs are left on the OSD, it will be decommissioned and removed from the 
 > After removing an OSD, if you wipe the LVM physical volume in the device used by the removed OSD, a new OSD will be created.
 > For more information on this, read about the ``unmanaged`` parameter in [cephadm-osd-declarative](osd.md#cephadm-osd-declarative).
 
-## Stopping OSD Removal
+### Stopping OSD Removal
 
 It is possible to stop queued OSD removals by using the following command:
 
@@ -378,7 +380,7 @@ This resets the state of the OSD and takes it off the removal queue.
 
 <a id="cephadm-replacing-an-osd"></a>
 
-## Replacing an OSD
+### Replacing an OSD
 
 ```bash
 ceph orch osd rm <osd_id(s)> --replace [--force]
@@ -438,7 +440,7 @@ NAME                  HOST  DATA     DB WAL
 When this output reflects your intent, omit the ``--dry-run`` flag to
 execute the deployment.
 
-## Erasing Devices (Zapping Devices)
+### Erasing Devices (Zapping Devices)
 
 Erase (zap) a device so that it can be reused. ``zap`` calls ``ceph-volume
 zap`` on the remote host.
@@ -460,9 +462,9 @@ ceph orch device zap my_hostname /dev/sdx
 > device the ``cephadm`` orchestrator automatically creates a new OSD on the
 > device.  To disable this behavior, see [cephadm-osd-declarative](osd.md#cephadm-osd-declarative).
 
-<a id="osd-autotune"></a>
+<a id="osd_autotune"></a>
 
-# Automatically tuning OSD memory
+## Automatically tuning OSD memory
 
 OSD daemons will adjust their memory consumption based on the
 osd_memory_target config option.  If Ceph is deployed
@@ -508,7 +510,7 @@ ceph config set osd.123 osd_memory_target 16G
 
 <a id="drivegroups"></a>
 
-# Advanced OSD Service Specifications
+## Advanced OSD Service Specifications
 
 [orchestrator-cli-service-spec](index.md#orchestrator-cli-service-spec)\s of type ``osd`` provide a way to use the
 properties of drives to describe a Ceph cluster's layout. Service specifications
@@ -570,7 +572,7 @@ ceph orch apply -i /path/to/osd_spec.yml
    This specification is applied to all the matching hosts to deploy OSDs.
 
    Strategies more complex than the one specified by the ``all`` filter are
-   possible. See [osd_filters](osd.md#osd-filters) for details.
+   possible. See [osd_filters](osd.md#osd_filters) for details.
 
    A ``--dry-run`` flag can be passed to the ``apply osd`` command to display a
    synopsis of the proposed layout.
@@ -581,9 +583,9 @@ Example
 ceph orch apply -i /path/to/osd_spec.yml --dry-run
 ```
 
-<a id="osd-filters"></a>
+<a id="osd_filters"></a>
 
-## Filters
+### Filters
 
 > **Note:**
 > Filters are applied using an `AND` operation by default. This means that a drive
@@ -598,7 +600,7 @@ inventory. Retrieve these attributes with this command:
 ceph-volume inventory </path/to/drive>
 ```
 
-### Vendor or Model
+#### Vendor or Model
 
 Specific drives can be targeted by vendor brand, manufacturer) or model (SKU):
 
@@ -612,7 +614,7 @@ or
 vendor: drive_vendor_name
 ```
 
-### Size
+#### Size
 
 Specific drive capacities can be targeted with `size`:
 
@@ -662,7 +664,7 @@ size: '666G:'
 The supported units of size are Megabyte(M), Gigabyte(G) and Terabyte(T).
 The ``B`` (_byte_) suffix for units is also acceptable: ``MB``, ``GB``, ``TB``.
 
-### Rotational
+#### Rotational
 
 This gates based on the 'rotational' attribute of each drive, as indicated by
 the kernel.  This attribute is usually as expected for bare HDDs and SSDs
@@ -696,7 +698,7 @@ rotational: 0 | 1
 
 `0` to match all drives that are non-rotational (SATA, SATA, NVMe SSDs, SAN LUNs, etc)
 
-### All
+#### All
 
 This matches all drives that are available, i.e. they are free of partitions,
 GPT labels, etc.
@@ -707,7 +709,7 @@ GPT labels, etc.
 all: true
 ```
 
-### Limiter
+#### Limiter
 
 If filters are specified but you wish to limit the number of drives that they
 match, use the ``limit`` attribute.  This is useful when one uses some
@@ -729,7 +731,7 @@ data_devices:
 
 > **Note:** ``limit`` is usually appropriate in only certain specific scenarios.
 
-## Additional Options
+### Additional Options
 
 There are multiple optional settings that specify the way OSDs are deployed.
 Add these options to an OSD spec for them to take effect.
@@ -774,9 +776,9 @@ See a full list in the DriveGroupSpecs
    :members:
    :exclude-members: from_json
 
-# Examples
+## Examples
 
-## The simple case
+### The simple case
 
 When all cluster nodes have identical drives and we wish to use
 them all as OSDs with offloaded WAL+DB:
@@ -844,7 +846,7 @@ spec:
 
 > **Note:** All of the above OSD specs are equally valid. Which you use depends on taste and on how much you expect your node layout to change.
 
-## Multiple OSD specs for a single host
+### Multiple OSD specs for a single host
 
 Here we specify two distinct strategies for deploying OSDs across multiple
 types of media, usually for use by separate pools:
@@ -903,7 +905,7 @@ The remaining ten SAS/SATA SSDs will be
 used as OSD data devices, with ``VendorC`` NVMEs SSDs assigned as
 dedicated DB/WAL devices, each serving two SAS/SATA OSDs.  We call these _hybrid OSDs.
 
-## Multiple hosts with the same disk layout
+### Multiple hosts with the same disk layout
 
 When a cluster comprises hosts with different drive layouts, or a complex
 constellation of multiple media types, it is recommended to apply
@@ -975,7 +977,7 @@ See [orchestrator-cli-placement-spec](index.md#orchestrator-cli-placement-spec)
 > Assuming each host has a unique disk layout, each OSD
 > spec must have a unique ``service_id``.
 
-## Dedicated WAL + DB
+### Dedicated WAL + DB
 
 All previous cases colocated the WALs with the DBs.
 It is however possible to deploy the WAL on a separate device if desired.
@@ -1092,7 +1094,7 @@ spec:
 
 <a id="cephadm-osd-activate"></a>
 
-# Activate existing OSDs
+## Activate existing OSDs
 
 If a host's operating system has been reinstalled, existing OSDs
 must be activated again. ``cephadm`` provides a wrapper for
@@ -1193,7 +1195,7 @@ post pertinent to its development can be seen here:*
 > parallel OSD restarts may lead to temporary data unavailability or in rare
 > cases even data loss.
 
-# Further Reading
+## Further Reading
 
 * [ceph-volume](../../ceph-volume/index.md#ceph-volume)
 * [rados-index](../../rados/index.md#rados-index)

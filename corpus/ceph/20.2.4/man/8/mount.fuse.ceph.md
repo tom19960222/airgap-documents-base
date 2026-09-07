@@ -11,13 +11,13 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: mount.fuse.ceph
 
-# Synopsis
+## Synopsis
 
 | **mount.fuse.ceph** [-h] [-o OPTIONS [*OPTIONS* ...]]
                       device [*device* ...]
                       mountpoint [*mount point* ...]
 
-# Description
+## Description
 
 **mount.fuse.ceph** is a helper for mounting ceph-fuse from
 ``/etc/fstab``.
@@ -35,7 +35,7 @@ ceph-fuse options are specified in the ``OPTIONS`` column and must begin
 with '``ceph.``' prefix. This way ceph related fs options will be passed to
 ceph-fuse and others will be ignored by ceph-fuse.
 
-# Options
+## Options
 
 .. option:: ceph.id=<username>
 
@@ -51,7 +51,7 @@ ceph-fuse and others will be ignored by ceph-fuse.
 
 Any valid ceph-fuse options can be passed this way.
 
-# Additional Info
+## Additional Info
 
 The old format /etc/fstab entries are also supported:
 
@@ -61,13 +61,13 @@ id=admin                            /mnt/ceph   fuse.ceph   defaults   0 0
 id=myuser,conf=/etc/ceph/foo.conf   /mnt/ceph   fuse.ceph   defaults   0 0
 ```
 
-# Availability
+## Availability
 
 **mount.fuse.ceph** is part of Ceph, a massively scalable, open-source, distributed storage system. Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph-fuse](ceph-fuse.md#options)\(8),
 [ceph](../../install/clone-source.md)\(8)

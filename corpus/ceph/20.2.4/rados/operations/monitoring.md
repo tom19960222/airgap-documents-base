@@ -11,9 +11,9 @@ After you have a running cluster, you can use the ``ceph`` tool to monitor your
 cluster. Monitoring a cluster typically involves checking OSD status, monitor
 status, placement group status, and metadata server status.
 
-# Using the command line
+## Using the command line
 
-## Interactive mode
+### Interactive mode
 
 To run the ``ceph`` tool in interactive mode, type ``ceph`` at the command line
 with no arguments. For example:
@@ -29,7 +29,7 @@ quorum_status
 mon stat
 ```
 
-## Non-default paths
+### Non-default paths
 
 If you specified non-default locations for your configuration or keyring when
 you install the cluster, you may specify their locations to the ``ceph`` tool
@@ -39,7 +39,7 @@ by running the following command:
 ceph -c /path/to/conf -k /path/to/keyring health
 ```
 
-# Checking a Cluster's Status
+## Checking a Cluster's Status
 
 After you start your cluster, and before you start reading and/or writing data,
 you should check your cluster's status.
@@ -87,7 +87,7 @@ data:
   pgs:     16 active+clean
 ```
 
-## How Ceph Calculates Data Usage
+### How Ceph Calculates Data Usage
 
 The ``usage`` value reflects the *actual* amount of raw storage used. The ``xxx
 GB / xxx GB`` value means the amount available (the lesser number) of the
@@ -97,7 +97,7 @@ the amount of data actually stored typically exceeds the notional amount
 stored, because Ceph creates replicas of the data and may also use storage
 capacity for cloning and snapshotting.
 
-# Watching a Cluster
+## Watching a Cluster
 
 Each daemon in the Ceph cluster maintains a log of events, and the Ceph cluster
 itself maintains a *cluster log* that records high-level events about the
@@ -142,7 +142,7 @@ Instead of printing log lines as they are added, you might want to print only
 the most recent lines. Run ``ceph log last [n]`` to see the most recent ``n``
 lines from the cluster log.
 
-# Monitoring Health Checks
+## Monitoring Health Checks
 
 Ceph continuously runs various *health checks*. When
 a health check fails, this failure is reflected in the output of ``ceph status`` and
@@ -181,7 +181,7 @@ to a healthy state:
 2017-07-25 10:11:13.535577 mon.a mon.0 172.21.9.34:6789/0 111 : cluster [INF] Cluster is now healthy
 ```
 
-## Network Performance Checks
+### Network Performance Checks
 
 Ceph OSDs send heartbeat ping messages to each other in order to monitor daemon
 availability and network performance. If a single delayed response is detected,
@@ -305,7 +305,7 @@ ceph daemon /var/run/ceph/ceph-mgr.x.asok dump_osd_network 0
 
 <a id="rados-monitoring-muting-health-checks"></a>
 
-## Muting Health Checks
+### Muting Health Checks
 
 Health checks can be muted so that they have no effect on the overall
 reported status of the cluster. For example, if the cluster has raised a
@@ -385,7 +385,7 @@ Most health mutes disappear if the unhealthy condition that triggered the health
 For example, suppose that there is one OSD down and the health check is muted. In that case, if
 one or more additional OSDs go down, then the health mute disappears. This behavior occurs in any health check with a threshold value.
 
-# Checking a Cluster's Usage Stats
+## Checking a Cluster's Usage Stats
 
 To check a cluster's data usage and data distribution among pools, use the
 ``df`` command. This option is similar to Linux's ``df`` command. Run the
@@ -477,7 +477,7 @@ depending on the number of replicas, clones, and snapshots.
 > devices, the utilization of those devices, and the configured
 > ``mon_osd_full_ratio`` setting.
 
-# Checking OSD Status
+## Checking OSD Status
 
 To check if OSDs are ``up`` and ``in``, run the
 following command:
@@ -514,7 +514,7 @@ To print out a CRUSH tree that displays a host, its OSDs, whether the OSDs are
 
 See [Monitoring OSDs and Placement Groups](monitoring-osd-pg.md).
 
-# Checking Monitor Status
+## Checking Monitor Status
 
 If your cluster has multiple monitors, then you need to perform certain
 "monitor status" checks.  After starting the cluster and before reading or
@@ -585,7 +585,7 @@ three monitors might return the following:
 }
 ```
 
-# Checking MDS Status
+## Checking MDS Status
 
 Metadata servers provide metadata services for CephFS. Metadata servers have
 two sets of states: ``up | down`` and ``active | inactive``. To check if your
@@ -601,14 +601,14 @@ To display details of the metadata servers, run the following command:
 ceph fs dump
 ```
 
-# Checking Placement Group States
+## Checking Placement Group States
 
 Placement groups (PGs) map objects to OSDs. PGs are monitored in order to
 ensure that they are ``active`` and ``clean``.  See [Monitoring OSDs and Placement Groups](monitoring-osd-pg.md).
 
 <a id="rados-monitoring-using-admin-socket"></a>
 
-# Using the Admin Socket
+## Using the Admin Socket
 
 The Ceph admin socket allows you to query a daemon via a socket interface.  By
 default, Ceph sockets reside under ``/var/run/ceph``. To access a daemon via
@@ -651,7 +651,7 @@ ceph daemon {daemon-name} help
 Admin-socket commands enable you to view and set your configuration at runtime.
 For more on viewing your configuration, see [Viewing a Configuration at Runtime](../configuration/ceph-conf.md#viewing-a-configuration-at-runtime).
 
-# Messenger Status
+## Messenger Status
 
 Ceph daemons and librados clients support an admin socket command
 ``messenger dump`` that surfaces a snapshot of runtime information
@@ -664,7 +664,7 @@ tcp(7) TCP_INFO).
 > interfere with normal operation. Use the ``dumpcontents`` argument
 > to limit data structures dumped.
 
-## Examples
+### Examples
 
 When a command is issued without specifying a messenger to dump, the
 list of available messengers is returned:
@@ -732,7 +732,7 @@ ceph tell osd.0 messenger dump client --tcp-info \
 3       86      2       mon.0   230     278     0
 ```
 
-# Tracking Data Availability Score of a Cluster
+## Tracking Data Availability Score of a Cluster
 
 Ceph internally tracks the data availability of each pool in a cluster.
 To check the data availability score of each pool in a cluster,

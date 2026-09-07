@@ -35,7 +35,7 @@ can be performed either via the Ceph command-line interface (CLI) or via the
 dashboard (GUI).
 
 To use ``cephadm`` to get started with Ceph, follow the instructions in
-[cephadm_deploying_new_cluster](install.md#cephadm-deploying-new-cluster).
+[cephadm_deploying_new_cluster](install.md#cephadm_deploying_new_cluster).
 
 ``cephadm`` was introduced in Ceph release v15.2.0 (Octopus) and does not
 support older versions of Ceph.

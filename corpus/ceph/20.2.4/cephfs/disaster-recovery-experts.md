@@ -325,7 +325,7 @@ limitations and pitfalls before attempting disaster recovery:
    is somewhat stuck in the ``up_replay`` state due to a long journal. Before
    jumping onto invoking ``recover_dentries`` when the MDS takes a bit long to
    replay the journal, consider trying to speed up journal replay by following
-   the procedure detailed in [cephfs_dr_stuck_during_recovery](troubleshooting.md#cephfs-dr-stuck-during-recovery).
+   the procedure detailed in [cephfs_dr_stuck_during_recovery](troubleshooting.md#cephfs_dr_stuck_during_recovery).
 
 ## Using an alternate metadata pool for recovery
 

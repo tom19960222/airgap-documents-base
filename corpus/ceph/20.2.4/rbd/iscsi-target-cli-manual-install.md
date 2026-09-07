@@ -22,7 +22,7 @@ To complete the installation of ceph-iscsi, there are 4 steps:
    -  targetcli-fb
    -  ceph-iscsi
 
-# 1. Install Common Packages
+## 1. Install Common Packages
 
 The following packages will be used by ceph-iscsi and target tools.
 They must be installed from your Linux distribution's software repository
@@ -45,7 +45,7 @@ on each machine that will be a iSCSI gateway:
 -  python flask
 -  pyOpenSSL
 
-# 2. Install Git
+## 2. Install Git
 
 In order to install all the packages needed to run iSCSI with Ceph, you need to download them directly from their repository by using Git.
 On CentOS/RHEL execute:
@@ -62,7 +62,7 @@ sudo apt install git
 
 To know more about Git and how it works, please, visit https://git-scm.com
 
-# 3. Ensure a compatible kernel is used
+## 3. Ensure a compatible kernel is used
 
 Ensure you use a supported kernel that contains the required Ceph iSCSI patches:
 
@@ -81,11 +81,11 @@ CONFIG_TCM_USER2=m
 CONFIG_ISCSI_TARGET=m
 ```
 
-# 4. Install ceph-iscsi
+## 4. Install ceph-iscsi
 
 Finally, the remaining tools can be fetched directly from their Git repositories and their associated services started
 
-## tcmu-runner
+### tcmu-runner
 
    Installation:
 
@@ -116,7 +116,7 @@ systemctl enable tcmu-runner
 systemctl start tcmu-runner
 ```
 
-## rtslib-fb
+### rtslib-fb
 
    Installation:
 
@@ -126,7 +126,7 @@ cd rtslib-fb
 python setup.py install
 ```
 
-## configshell-fb
+### configshell-fb
 
    Installation:
 
@@ -136,7 +136,7 @@ cd configshell-fb
 python setup.py install
 ```
 
-## targetcli-fb
+### targetcli-fb
 
    Installation:
 
@@ -152,7 +152,7 @@ mkdir /var/target
 > on the system. If targets have been setup and are being managed by
 > targetcli the target service must be disabled.
 
-## ceph-iscsi
+### ceph-iscsi
 
    Installation:
 

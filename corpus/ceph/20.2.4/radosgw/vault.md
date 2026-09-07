@@ -50,7 +50,7 @@ address of your Vault server to use this utility:
 export VAULT_ADDR='https://vault-server-fqdn:8200'
 ```
 
-# Vault Secrets Engines
+## Vault Secrets Engines
 
 Vault provides several secrets engines, which can store, generate, and encrypt
 data. Currently, the Object Gateway supports:
@@ -58,7 +58,7 @@ data. Currently, the Object Gateway supports:
 - [KV secrets engine](https://www.vaultproject.io/docs/secrets/kv/) version 2
 - [Transit engine](https://www.vaultproject.io/docs/secrets/transit)
 
-## KV Secrets Engine
+### KV Secrets Engine
 
 The KV secrets engine is used to store arbitrary key/value secrets in Vault. To
 enable the KV engine version 2 in Vault, use the following command:
@@ -74,7 +74,7 @@ following setting:
 rgw crypt vault secret engine = kv
 ```
 
-## Transit Secrets Engine
+### Transit Secrets Engine
 
 The transit engine handles cryptographic functions on data in-transit. To enable
 it in Vault, use the following command:
@@ -90,7 +90,7 @@ following setting:
 rgw crypt vault secret engine = transit
 ```
 
-# Vault Authentication
+## Vault Authentication
 
 Vault supports several authentication mechanisms. Currently, the Object
 Gateway can be configured to authenticate to Vault using the
@@ -114,7 +114,7 @@ as it would when storing a token in the filesystem.  In this mode, it
 is necessary to properly secure the network path RGW uses to reach the
 Vault agent, such as having the Vault agent listen only to localhost.
 
-## Token Policies for the Object Gateway
+### Token Policies for the Object Gateway
 
 All Vault tokens have powers as specified by the polices attached
 to that token.  Multiple policies may be associated with one
@@ -182,7 +182,7 @@ When granting Vault permissions to SSE-KMS bucket owners, you should
 not give them permission to muck around with SSE-S3 keys;
 only Ceph itself should be doing that.
 
-## Token Authentication
+### Token Authentication
 
 .. note: Never use root tokens with Ceph in production environments.
 
@@ -200,7 +200,7 @@ Adjust these settings to match your configuration.
 For security reasons, the token file must be readable by the Object Gateway
 only.
 
-## Vault Agent
+### Vault Agent
 
 The Vault agent is a client daemon that provides authentication to Vault and
 manages token renewal and caching. It typically runs on the same host as the
@@ -280,7 +280,7 @@ Once the Vault agent is running, you should find it listening
 to port 8100 on localhost, and you should be able to interact
 with it using the ``vault`` command.
 
-# Vault Namespaces
+## Vault Namespaces
 
 In the Enterprise version, Vault supports the concept of [namespaces](https://www.vaultproject.io/docs/enterprise/namespaces/index.html), which
 allows centralized management for teams within an organization while ensuring
@@ -293,12 +293,12 @@ namespace using the following configuration setting:
 rgw crypt vault namespace = tenant1
 ```
 
-# Create a Key in Vault
+## Create a Key in Vault
 
 > **Note:** Keys for server-side encryption must be 256-bit long and base-64
 > encoded.
 
-## Using the KV Engine
+### Using the KV Engine
 
 A key for server-side encryption can be created in the KV version 2 engine using
 the command line utility, as in the following example:
@@ -323,7 +323,7 @@ Note that in the KV secrets engine, secrets are stored as key-value pairs, and
 the Object Gateway expects the key name to be ``key``, i.e. the secret must be in the
 form ``key=<secret key>``.
 
-## Using the Transit Engine
+### Using the Transit Engine
 
 Keys created for use with the transit engine should no longer be marked
 exportable.  They can be created with:
@@ -351,7 +351,7 @@ name                      mybucketkey
 type                      aes256-gcm96
 ```
 
-# Configure the Ceph Object Gateway
+## Configure the Ceph Object Gateway
 
 Edit the Ceph configuration file to enable Vault as a KMS backend for
 server-side encryption:
@@ -425,7 +425,7 @@ certificate generated for RGW to access the Vault server. It is highly recommend
 set this option to the value ``true``, setting ``false`` is very dangerous and needs to be avoided since this
 runs in very secured environments.
 
-## Transit Engine Compatibility Support
+### Transit Engine Compatibility Support
 The transit engine has compatibility support for previous
 versions of Ceph, which used the transit engine as a simple key store.
 
@@ -462,7 +462,7 @@ This mode is automatically selected if the Vault prefix
 ends in ``export/encryption-key``, which was the previously
 documented setting.
 
-# Upload Object
+## Upload Object
 
 When uploading an object to the Object Gateway, provide the SSE key ID in the request.
 As an example, for the KV engine, using the AWS command-line client:

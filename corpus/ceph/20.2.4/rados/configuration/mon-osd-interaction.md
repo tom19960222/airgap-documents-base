@@ -26,7 +26,7 @@ monitoring the Ceph Storage Cluster.
 
 .. index:: heartbeat interval
 
-# OSDs Check Heartbeats
+## OSDs Check Heartbeats
 
 Each Ceph OSD Daemon checks the heartbeat of other Ceph OSD Daemons at random
 intervals less than every 6 seconds.  If a neighboring Ceph OSD Daemon doesn't
@@ -71,7 +71,7 @@ or by setting the value at runtime.
 
 .. index:: OSD down report
 
-# OSDs Report Down OSDs
+## OSDs Report Down OSDs
 
 By default, two Ceph OSD Daemons from different hosts must report to the Ceph
 Monitors that another Ceph OSD Daemon is ``down`` before the Ceph Monitors
@@ -110,7 +110,7 @@ your Ceph configuration file, or by setting the value at runtime.
 
 .. index:: peering failure
 
-# OSDs Report Peering Failure
+## OSDs Report Peering Failure
 
 If a Ceph OSD Daemon cannot peer with any of the Ceph OSD Daemons defined in its
 Ceph configuration file (or the cluster map), it will ping a Ceph Monitor for
@@ -146,7 +146,7 @@ setting the value at runtime.
 
 .. index:: OSD status
 
-# OSDs Report Their Status
+## OSDs Report Their Status
 
 If an Ceph OSD Daemon doesn't report to a Ceph Monitor, the Ceph Monitor will
 consider the Ceph OSD Daemon ``down`` after the  ``mon osd report timeout``
@@ -198,14 +198,14 @@ file, or by setting the value at runtime.
                              |    | OSD 1
                              |<---+ Down
 
-# Configuration Settings
+## Configuration Settings
 
 When modifying heartbeat settings, you should include them in the ``[global]``
 section of your configuration file.
 
 .. index:: monitor heartbeat
 
-## Monitor Settings
+### Monitor Settings
 
 .. confval:: mon_osd_min_up_ratio
 
@@ -239,7 +239,7 @@ section of your configuration file.
 
 .. index:: OSD heartbeat
 
-## OSD Settings
+### OSD Settings
 
 .. confval:: osd_heartbeat_interval
 

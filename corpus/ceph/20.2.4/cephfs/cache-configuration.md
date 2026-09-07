@@ -243,7 +243,7 @@ does not sufficiently reduce the rate of the "recall caps" counter's growth,
 decrease ``mds_recall_max_caps`` incrementally until the "clients failing to
 respond to cache pressure" messages no longer appear in the logs.
 
-#### Example Scenario
+### Example Scenario
 
 Here is an example. A client is having 20k caps cached. At some moment the
 server decides the client is inactive (because the session's ``cache_liveness``

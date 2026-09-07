@@ -32,12 +32,12 @@ There are 2 new APIs for this feature:
   Using this API gives the ability to read ahead objects when client is asking a specific range from the object.
   On subsequent accesses to the cached object, Nginx will satisfy requests for already-cached ranges from the cache. Uncached ranges will be read from RGW (and cached).
 
-#### Auth API
+### Auth API
 
 This API validates a specific authenticated access being made to the cache, using RGW's knowledge of the client credentials and stored access policy.
 Returns success if the encapsulated request would be granted.
 
-#### Cache API
+### Cache API
 
 This API is meant to allow changing signed ``Range`` headers using a privileged cache user.
 

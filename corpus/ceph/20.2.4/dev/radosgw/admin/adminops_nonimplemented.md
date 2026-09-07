@@ -13,11 +13,11 @@ mechanism. Some operations require that the user holds special administrative ca
 The response entity type (XML or JSON) may be specified as the 'format' option in the
 request and defaults to JSON if not specified.
 
-# Get Object
+## Get Object
 
 Get an existing object. NOTE: Does not require owner to be non-suspended.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -26,7 +26,7 @@ GET /{admin}/bucket?object&format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -42,7 +42,7 @@ Host {fqdn}
 :Example: ``foo.txt``
 :Required: Yes
 
-#### Response Entities
+### Response Entities
 
 If successful, returns the desired object.
 
@@ -51,19 +51,19 @@ If successful, returns the desired object.
 :Description: The desired object.
 :Type: Object
 
-#### Special Error Responses
+### Special Error Responses
 
 ``NoSuchObject``
 
 :Description: Specified object does not exist.
 :Code: 404 Not Found
 
-# Head Object
+## Head Object
 
 Verify the existence of an object. If the object exists,
 metadata headers for the object will be returned.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -72,7 +72,7 @@ HEAD /{admin}/bucket?object HTTP/1.1
 Host {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``bucket``
 
@@ -88,22 +88,22 @@ Host {fqdn}
 :Example: ``foo.txt``
 :Required: Yes
 
-#### Response Entities
+### Response Entities
 
 None.
 
-#### Special Error Responses
+### Special Error Responses
 
 ``NoSuchObject``
 
 :Description: Specified object does not exist.
 :Code: 404 Not Found
 
-# Get Zone Info
+## Get Zone Info
 
 Get cluster information.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -112,7 +112,7 @@ GET /{admin}/zone&format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Response Entities
+### Response Entities
 
 If successful, returns cluster pool configuration.
 
@@ -175,11 +175,11 @@ If successful, returns cluster pool configuration.
 :Type: String
 :Parent: ``cluster``
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-#### Example Response
+### Example Response
 
 :
 
@@ -201,11 +201,11 @@ Content-Type: application/json
 }
 ```
 
-# Add Placement Pool
+## Add Placement Pool
 
 Make a pool available for data placement.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -214,7 +214,7 @@ PUT /{admin}/pool?format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``pool``
 
@@ -230,19 +230,19 @@ Host {fqdn}
 :Example: False [False]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 TBD.
 
-#### Special Error Responses
+### Special Error Responses
 
 TBD.
 
-# Remove Placement Pool
+## Remove Placement Pool
 
 Make a pool unavailable for data placement.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -251,7 +251,7 @@ DELETE /{admin}/pool?format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``pool``
 
@@ -267,19 +267,19 @@ Host {fqdn}
 :Example: False [False]
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 TBD.
 
-#### Special Error Responses
+### Special Error Responses
 
 TBD.
 
-# List Available Data Placement Pools
+## List Available Data Placement Pools
 
 List current pools available for data placement.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -288,7 +288,7 @@ GET /{admin}/pool?format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Response Entities
+### Response Entities
 
 If successful, returns a list of pools available for data placement.
 
@@ -297,11 +297,11 @@ If successful, returns a list of pools available for data placement.
 :Description: Contains currently available pools for data placement.
 :Type: Container
 
-# List Expired Garbage Collection Items
+## List Expired Garbage Collection Items
 
 List objects scheduled for garbage collection.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -310,11 +310,11 @@ GET /{admin}/garbage?format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 None.
 
-#### Response Entities
+### Response Entities
 
 If expired garbage collection items exist, a list of such objects
 will be returned.
@@ -342,15 +342,15 @@ will be returned.
 :Type: String
 :Parent: ``object``
 
-#### Special Error Responses
+### Special Error Responses
 
 TBD.
 
-# Manually Processes Garbage Collection Items
+## Manually Processes Garbage Collection Items
 
 List objects scheduled for garbage collection.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -359,11 +359,11 @@ DELETE /{admin}/garbage?format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 None.
 
-#### Response Entities
+### Response Entities
 
 If expired garbage collection items exist, a list of removed objects
 will be returned.
@@ -391,15 +391,15 @@ will be returned.
 :Type: String
 :Parent: ``object``
 
-#### Special Error Responses
+### Special Error Responses
 
 TBD.
 
-# Show Log Objects
+## Show Log Objects
 
 Show log objects
 
-#### Syntax
+### Syntax
 
 :
 
@@ -408,7 +408,7 @@ GET /{admin}/log?format=json HTTP/1.1
 Host {fqdn}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``object``
 
@@ -417,7 +417,7 @@ Host {fqdn}
 :Example: ``2012-10-11-09-4165.2-foo_bucket``
 :Required: No
 
-#### Response Entities
+### Response Entities
 
 If no object is specified, returns the full list of log objects.
 
@@ -436,11 +436,11 @@ If no object is specified, returns the full list of log objects.
 :Description: The contents of the log object.
 :Type: Container
 
-#### Special Error Responses
+### Special Error Responses
 
 None.
 
-# Standard Error Responses
+## Standard Error Responses
 
 ``AccessDenied``
 

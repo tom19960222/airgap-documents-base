@@ -7,18 +7,18 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 :orphan:
 
-<a id="ceph-osd-daemon"></a>
+<a id="ceph_osd-daemon"></a>
 
 # ceph-osd -- ceph object storage daemon
 
 .. program:: ceph-osd
 
-# Synopsis
+## Synopsis
 
 | **ceph-osd** -i *osdnum* [ --osd-data *datapath* ] [ --osd-journal
   *journal* ] [ --mkfs ] [ --mkjournal ] [--flush-journal] [--check-allows-journal] [--check-wants-journal] [--check-needs-journal] [ --mkkey ] [ --osdspec-affinity ]
 
-# Description
+## Description
 
 **ceph-osd** is the **o**\bject **s**\torage **d**\aemon for the Ceph
 distributed file system. It manages data on local storage with redundancy and
@@ -31,7 +31,7 @@ improves performance only when it resides on a different disk than the disk
 specified by ``datapath`` . The storage medium on which the journal is stored
 should be a low-latency medium (ideally, an SSD device).
 
-# Options
+## Options
 
 .. option:: -f, --foreground
 
@@ -127,12 +127,12 @@ should be a low-latency medium (ideally, an SSD device).
    Set an affinity to a certain OSDSpec.
    This option can only be used in conjunction with --mkfs.
 
-# Availability
+## Availability
 
 **ceph-osd** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [ceph-mds](ceph-mds.md)\(8),

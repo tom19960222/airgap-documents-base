@@ -13,7 +13,7 @@ These metrics can be sent to the time series database Prometheus to visualize a 
 
 .. contents::
 
-# Op Metrics
+## Op Metrics
 
 The following metrics related to S3 or Swift operations are tracked per Ceph Object Gateway.
 
@@ -120,7 +120,7 @@ To view op metrics in the Ceph Object Gateway go to the ``rgw_op`` sections of t
 ]
 ```
 
-## Op Metrics Labels
+### Op Metrics Labels
 
 Op metrics can also be tracked per-user or per-bucket. These metrics are exported to Prometheus with labels like Bucket = {name} or User = {userid}:
 
@@ -168,7 +168,7 @@ In a large system with many users and buckets, it may not be tractable to export
 
 Once enabled, the working set of tracked users and buckets is constrained to limit memory and database usage. As a result, the collection of these labeled metrics will not always be reliable.
 
-### User & Bucket Counter Caches
+#### User & Bucket Counter Caches
 
 To track op metrics by user the Ceph Object Gateway the config value ``rgw_user_counters_cache`` must be set to ``true``.
 
@@ -178,7 +178,7 @@ These config values are set in Ceph via the command ``ceph config set client.rgw
 
 Since the op metrics are labeled perf counters, they live in memory. If the Ceph Object Gateway is restarted or crashes, all counters in the Ceph Object Gateway, whether in a cache or not, are lost.
 
-### User & Bucket Counter Cache Size & Eviction
+#### User & Bucket Counter Cache Size & Eviction
 
 Both ``rgw_user_counters_cache_size`` and ``rgw_bucket_counters_cache_size`` can be used to set number of entries in each cache.
 
@@ -195,7 +195,7 @@ Cache sizing can depend on a number of factors. These factors include:
 
 To help calculate the Ceph Object Gateway's memory usage of a cache, it should be noted that each cache entry, encompassing all of the op metrics, is 1360 bytes. This is an estimate and subject to change if metrics are added or removed from the op metrics list.
 
-# Sending Metrics to Prometheus
+## Sending Metrics to Prometheus
 
 To get metrics from a Ceph Object Gateway into the time series database Prometheus, the ceph-exporter daemon must be running and configured to scrape the Radogw's admin socket.
 
@@ -203,7 +203,7 @@ The ceph-exporter daemon scrapes the Ceph Object Gateway's admin socket at a reg
 
 Prometheus has a configurable interval in which it scrapes the exporter (see: https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
 
-# Config Reference
+## Config Reference
 The following rgw op metrics related settings can be set via ``ceph config set client.rgw CONFIG_VARIABLE VALUE``.
 
 .. confval:: rgw_user_counters_cache

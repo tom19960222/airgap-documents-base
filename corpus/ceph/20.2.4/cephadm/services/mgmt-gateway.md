@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Management Gateway
 
-# Deploying mgmt-gateway
+## Deploying mgmt-gateway
 
 In Ceph releases beginning with Squid, the ``mgmt-gateway`` service introduces a new design for Ceph applications
 based on a modular, service-based architecture. This service, managed by cephadm and built on top of nginx
@@ -29,25 +29,25 @@ Once applied cephadm will reconfigure specific running daemons (such as monitori
 new created service. External access to those services will not be possible anymore. Access will be
 consolidated behind the new service endpoint: ``https://<node-ip>:<port>``.
 
-# Benefits of the mgmt-gateway service
+## Benefits of the mgmt-gateway service
 * ``Unified Access``: Consolidated access through nginx improves security and provide a single entry point to services.
 * ``Improved user experience``: User no longer need to know where each application is running (ip/host).
 * ``High Availability for dashboard``: nginx HA mechanisms are used to provide high availability for the Ceph dashboard.
 * ``High Availability for monitoring``: nginx HA mechanisms are used to provide high availability for monitoring.
 
-# Security enhancements
+## Security enhancements
 
 Once the ``mgmt-gateway`` service is deployed user cannot access monitoring services without authentication through the
 Ceph dashboard.
 
-# High availability enhancements
+## High availability enhancements
 nginx HA mechanisms are used to provide high availability for all the Ceph management applications including the Ceph dashboard
 and monitoring stack. In case of the Ceph dashboard user no longer need to know where the active manager is running.
 ``mgmt-gateway`` handles manager failover transparently and redirects the user to the active manager. In case of the
 monitoring ``mgmt-gateway`` takes care of handling HA when several instances of Prometheus, Alertmanager or Grafana are
 available. The reverse proxy will automatically detect healthy instances and use them to process user requests.
 
-# High Availability for mgmt-gateway service
+## High Availability for mgmt-gateway service
 
 In addition to providing high availability for the underlying backend services, the ``mgmt-gateway``
 service itself can be configured for high availability, ensuring that the system remains resilient
@@ -102,13 +102,13 @@ the ``mgmt-gateway`` daemons are replicated to the corresponding keepalived inst
 > **Note:**
 > The ``virtual_ip`` parameter must be identical in both the ingress and ``mgmt-gateway`` specifications.
 
-# Accessing services with mgmt-gateway
+## Accessing services with mgmt-gateway
 
 Once the ``mgmt-gateway`` service is deployed direct access to the monitoring services will not be allowed anymore.
 Applications including: Prometheus, Grafana and Alertmanager are now accessible through links
 from ``Administration > Services``.
 
-# Service Specification
+## Service Specification
 
 A ``mgmt-gateway`` service can be applied using a specification. An example in YAML follows:
 
@@ -168,12 +168,12 @@ The specification can then be applied by running the following command:
 ceph orch apply -i mgmt-gateway.yaml
 ```
 
-# Limitations
+## Limitations
 
 * Services must bind to the appropriate ports based on the applications being proxied. Ensure that there
   are no port conflicts that might disrupt service availability.
 
-#### Default images
+### Default images
 
 The ``mgmt-gateway`` service internally makes use of nginx reverse proxy. The following container image is used by default:
 

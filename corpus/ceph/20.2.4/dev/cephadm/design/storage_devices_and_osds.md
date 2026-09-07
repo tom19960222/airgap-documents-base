@@ -14,7 +14,7 @@ The basic use cases we have in this area are:
 - [3. Remove OSDs](storage_devices_and_osds.md#3-remove-osds)
 - [4. Replace OSDs](storage_devices_and_osds.md#4-replace-osds)
 
-# 1. Retrieve device information. Inventory
+## 1. Retrieve device information. Inventory
 We must be able to review what is the current state and condition of the cluster storage devices. We need the identification and features detail (including ident/fault led on/off capable) and if the device is used or not as an OSD/DB/WAL device.
 
 The information required for each device will be at least:
@@ -37,7 +37,7 @@ When we talk about efficiency we need to be sure that all the points are covered
 1. The information is constantly updated in each host. A device failure or the addition of a new device must be detected in the smallest possible timeframe
 1. Scalability. To work with thousands of devices in hundreds of hosts shouldn't be a problem.
 
-## A. Current workflow:
+### A. Current workflow:
 **CLI**:
     Operations:
 
@@ -58,7 +58,7 @@ ceph orch device ls json ( to get all the fields for each device )
         * Does not scale (depends of the orchestrator)
         * Rigid user experience
 
-## B. Proposed workflow:
+### B. Proposed workflow:
 
 **CLI**:
 The current API is good enough, we only need to be sure that we have:
@@ -84,9 +84,9 @@ The inventory should also provide a way to do directly operations over physical 
     * Create OSD: Create an OSD using this disk device if it is available.
     * Remove OSD: Delete the OSD using this disk device.
 
-# 2. Add OSDs
+## 2. Add OSDs
 
-## A. Current workflow
+### A. Current workflow
 
 **CLI**:
 We can specify specific devices or use a “drive group” specification to create OSD’s in different hosts. By default, the definition of the OSDs to create is “declarative“ unless you use the unmanaged parameter.
@@ -102,7 +102,7 @@ There is a button to create the OSDs, that presents a page dialog box to select 
 It Is very difficult to make a selection ( or to understand how to make the selection). This is even worse if your cluster has the same kind of devices, resulting in the weird thing that is not possible to create an OSD using only one storage device (because you cannot select it)
 The problem here is the UI has been designed to work with “drive groups” and not to work for the user. The “drive group” is an abstract concept that must be used only in the background. Users must not be aware of this concept.
 
-## B. Proposed workflow
+### B. Proposed workflow
 
 **CLI and GUI**
 
@@ -177,7 +177,7 @@ Information about the progress of OSD creation in all the hosts should be provid
 
 ![](https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/cephadm/design/mockups/OSD_Creation_host_mode.svg)
 
-## Key points to consider:
+### Key points to consider:
 
 **1. Context is everything**:
 The current OSD creation flow doesn’t provide any indications of available devices or hosts. This leaves the user clicking on the add button and seeing nothing, if there are no devices available - at which point the user assumes there are no available devices. Both host-mode and device-mode UI flows illustrate a couple of usability features that should be implemented as a bare minimum.
@@ -230,9 +230,9 @@ From the development point of view , this will also simplify things, so it seems
 
 .. Note: The current dashboard implementation of the functionality to create OSDs is trying to deal with “drive groups” , This is the reason that it will be so uncomfortable for the final user. The “drive group”concept should be completely hidden to the dashboard user.
 
-# 3. Remove OSDs
+## 3. Remove OSDs
 
-## A. Current workflow
+### A. Current workflow
 
 **CLI**:
     * We can launch the command to delete a OSD (one by one)
@@ -263,7 +263,7 @@ No way to know what is the progress of the delete operation.
 
 We tend to show all the primitives for osd management in the UI - question is, does that make the environment more complex? Should the UI focus on the key workflows of osd management to cover 90% of the work quickly and easily, and leave the 10% to the CLI?
 
-## B. Proposed workflow
+### B. Proposed workflow
 
 **CLI**:
 
@@ -292,13 +292,13 @@ We want to remove the OSD in the most safe way. This means wait until we know th
 
 We want to execute the removal in the future. Besides that,  it is probable that we only will want to execute the removal if the system utilization is below certain limit
 
-# 4. Replace OSDs
+## 4. Replace OSDs
 
-## A. Current workflow
+### A. Current workflow
 
 Is the same workflow used for removing OSDs, but we just need to use the "replace" parameter in order to preserve the OSD id for future use when we are deleting.
 In the GUI the replace parameter appears as a checkbox.
 
-## B. Proposed workflow
+### B. Proposed workflow
 
 Follow the directives we have in the proposed workflow for OSD removal

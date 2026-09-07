@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-syn
 
-# Synopsis
+## Synopsis
 
 | **ceph-syn** [ -m *monaddr*:*port* ] --syn *command* *...*
 
-# Description
+## Description
 
 **ceph-syn** is a simple synthetic workload generator for the Ceph
 distributed file system. It uses the userspace client library to
@@ -25,7 +25,7 @@ file system need not be mounted via ceph-fuse(8) or the kernel client.
 One or more ``--syn`` command arguments specify the particular
 workload, as documented below.
 
-# Options
+## Options
 
 .. option:: -d
 
@@ -51,7 +51,7 @@ workload, as documented below.
    Run the given workload. May be specified as many times as
    needed. Workloads will normally run sequentially.
 
-# Workloads
+## Workloads
 
 Each workload should be preceded by ``--syn`` on the command
 line. This is not a complete list.
@@ -83,12 +83,12 @@ makedirs *numsubdirs* *numfiles* *depth*
 walk
   Recursively walk the file system (like find).
 
-# Availability
+## Availability
 
 **ceph-syn** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),
 [ceph-fuse](ceph-fuse.md#options)\(8)

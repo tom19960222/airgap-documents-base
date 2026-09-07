@@ -57,7 +57,7 @@ diagram shows the Nomad/Ceph technology stack.
 > ``ceph-csi`` uses the RBD kernel modules by default, which may not support
 > all Ceph [CRUSH tunables](../rados/operations/crush-map.md#tunables) or [RBD image features](rbd-config-ref.md#image-features).
 
-# Create a Pool
+## Create a Pool
 
 By default, Ceph block devices use the ``rbd`` pool. Ensure that your Ceph
 cluster is running, then create a pool for Nomad persistent storage:
@@ -77,9 +77,9 @@ to initialize the pool:
 rbd pool init nomad
 ```
 
-# Configure ceph-csi
+## Configure ceph-csi
 
-## Ceph Client Authentication Setup
+### Ceph Client Authentication Setup
 
 Create a new user for Nomad and `ceph-csi`. Execute the following command and
 record the generated key:
@@ -90,7 +90,7 @@ $ ceph auth get-or-create client.nomad mon 'profile rbd' osd 'profile rbd pool=n
         key = AQAlh9Rgg2vrDxAARy25T7KHabs6iskSHpAEAQ==
 ```
 
-## Configure Nomad
+### Configure Nomad
 
 #### Configuring Nomad to Allow Containers to Use Privileged Mode
 
@@ -131,7 +131,7 @@ Restart Nomad:
 sudo systemctl restart nomad
 ```
 
-# Create ceph-csi controller and plugin nodes
+## Create ceph-csi controller and plugin nodes
 
 The [ceph-csi](https://github.com/ceph/ceph-csi/) plugin requires two components:
 
@@ -142,7 +142,7 @@ The [ceph-csi](https://github.com/ceph/ceph-csi/) plugin requires two components
 > We'll set the ceph-csi's version in those files. See [ceph-csi release](https://github.com/ceph/ceph-csi#ceph-csi-container-images-and-release-compatibility)
 > for information about ceph-csi's compatibility with other versions.
 
-## Configure controller plugin
+### Configure controller plugin
 
 The controller plugin requires the Ceph monitor addresses of the Ceph
 cluster. Collect both (1) the Ceph cluster unique `fsid` and (2) the monitor
@@ -232,7 +232,7 @@ EOF
 }
 ```
 
-## Configure plugin node
+### Configure plugin node
 
 Generate a ``ceph-csi-plugin-nodes.nomad`` file similar to the example below.
 Substitute the `fsid` for "clusterID" and the monitor addresses for
@@ -310,7 +310,7 @@ EOF
 }
 ```
 
-## Start plugin controller and node
+### Start plugin controller and node
 
 To start the plugin controller and the Nomad node, run the following commands:
 
@@ -339,9 +339,9 @@ ID        Node ID   Task Group  Version  Desired  Status   Created    Modified
 fee74115  a61ef171  controller  6        run      running  3h26m ago  3h25m ago
 ```
 
-# Using Ceph Block Devices
+## Using Ceph Block Devices
 
-## Create rbd image
+### Create rbd image
 
 ``ceph-csi`` requires the cephx credentials for communicating with the Ceph
 cluster. Generate a ``ceph-volume.hcl`` file similar to the example below,
@@ -379,7 +379,7 @@ After the ``ceph-volume.hcl`` file has been generated, create the volume:
 nomad volume create ceph-volume.hcl
 ```
 
-## Use rbd image with a container
+### Use rbd image with a container
 
 As an exercise in using an rbd image with a container, modify the Hashicorp
 [nomad stateful](https://learn.hashicorp.com/tutorials/nomad/stateful-workloads-csi-volumes?in=nomad/stateful-workloads#create-the-job-file) example.

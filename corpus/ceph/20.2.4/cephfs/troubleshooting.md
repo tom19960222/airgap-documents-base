@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Troubleshooting
 
-# Slow/stuck operations
+## Slow/stuck operations
 
 Sometimes CephFS operations hang. The first step in troubleshooting them is to
 locate the problem causing the operations to hang. Problems present in three
@@ -17,7 +17,7 @@ places:
 1. in the MDS
 1. in the network that connects the client to the MDS
 
-First, use the procedure in [slow_requests](troubleshooting.md#slow-requests) to determine if the client has
+First, use the procedure in [slow_requests](troubleshooting.md#slow_requests) to determine if the client has
 stuck operations or the MDS has stuck operations.
 
 Dump the MDS cache. The contents of the MDS cache will be used to diagnose the
@@ -37,9 +37,9 @@ If high logging levels have been set on the MDS, ``dump.txt`` can be expected
 to hold the information needed to diagnose and solve the issue causing the
 CephFS operations to hang.
 
-<a id="slow-requests"></a>
+<a id="slow_requests"></a>
 
-## Slow requests (MDS)
+### Slow requests (MDS)
 List current operations via the admin socket by running the following command
 from the MDS host:
 
@@ -65,11 +65,11 @@ If there are no slow requests reported on the MDS, and there is no indication
 that clients are misbehaving, then either there is a problem with the client
 or the client's requests are not reaching the MDS.
 
-<a id="cephfs-dr-stuck-during-recovery"></a>
+<a id="cephfs_dr_stuck_during_recovery"></a>
 
-# Stuck during recovery
+## Stuck during recovery
 
-## Stuck in up:replay
+### Stuck in up:replay
 
 If your MDS is stuck in the ``up:replay`` state, then the journal is probably
 very long. The presence of ``MDS_HEALTH_TRIM`` cluster warnings can indicate
@@ -125,9 +125,9 @@ estimated time to the completion of journal replay:
 mds.a(mds.0): replay: 50.0446% complete - elapsed time: 582s, estimated time remaining: 581s
 ```
 
-<a id="cephfs-troubleshooting-avoiding-recovery-roadblocks"></a>
+<a id="cephfs_troubleshooting_avoiding_recovery_roadblocks"></a>
 
-## Avoiding recovery roadblocks
+### Avoiding recovery roadblocks
 
 Do the following when restoring your file system:
 
@@ -231,7 +231,7 @@ ceph config set mgr mgr/volumes/pause_cloning true
 ceph config set mgr mgr/volumes/pause_cloning false
 ```
 
-# Expediting MDS journal trim
+## Expediting MDS journal trim
 
 ``MDS_HEALTH_TRIM`` warnings indicate that the MDS journal has grown too large.
 When the MDS journal has grown too large, use the ``mds_tick_interval`` tunable
@@ -241,7 +241,7 @@ MDS journal by ensuring that it is trimmed more frequently.
 
 Make sure that there is no significant file-system load present when modifying
 ``mds_tick_interval``. See
-[cephfs_troubleshooting_avoiding_recovery_roadblocks](troubleshooting.md#cephfs-troubleshooting-avoiding-recovery-roadblocks) for ways to reduce
+[cephfs_troubleshooting_avoiding_recovery_roadblocks](troubleshooting.md#cephfs_troubleshooting_avoiding_recovery_roadblocks) for ways to reduce
 load on the CephFS.
 
 This setting affects only MDSes in the ``up:active`` state. The MDS does not
@@ -253,15 +253,15 @@ Run the following command to modify the ``mds_tick_interval`` tunable:
 ceph config set mds mds_tick_interval 2
 ```
 
-# RADOS Health
+## RADOS Health
 
 If part of the CephFS metadata or data pools is unavailable and CephFS is not
 responding, it could indicate that RADOS itself is unhealthy.
 
 Resolve problems with RADOS before attempting to locate any problems in CephFS.
-See the [RADOS troubleshooting documentation](../rados/troubleshooting/index.md#rados-troubleshooting).
+See the [RADOS troubleshooting documentation](../rados/troubleshooting/index.md#rados_troubleshooting).
 
-# The MDS
+## The MDS
 
 Run the ``ceph health`` command. Any operation that is hung in the MDS is
 indicated by the ``slow requests are blocked`` message.
@@ -280,14 +280,14 @@ The following list details potential causes of hung operations:
 
 1. There is an older (misbehaving) client.
 
-1. There are underlying RADOS issues. See [The RADOS troubleshooting documentation](../rados/troubleshooting/index.md#rados-troubleshooting).
+1. There are underlying RADOS issues. See [The RADOS troubleshooting documentation](../rados/troubleshooting/index.md#rados_troubleshooting).
 
 Otherwise, you have probably discovered a new bug and should report it to
 the developers!
 
-<a id="ceph-fuse-debugging"></a>
+<a id="ceph_fuse_debugging"></a>
 
-# ceph-fuse debugging
+## ceph-fuse debugging
 
 ceph-fuse is an alternative to the CephFS kernel driver that mounts CephFS file
 systems in user space. ceph-fuse supports ``dump_ops_in_flight``. Use the following command to dump in-flight ceph-fuse operations for examination:
@@ -299,9 +299,9 @@ systems in user space. ceph-fuse supports ``dump_ops_in_flight``. Use the follow
 
   the command goes here - 10 Aug 2025
 
-See the [Mount CephFS using FUSE](mount-using-fuse.md#cephfs-mount-using-fuse) documentation.
+See the [Mount CephFS using FUSE](mount-using-fuse.md#cephfs_mount_using_fuse) documentation.
 
-## Debug output
+### Debug output
 
 To get more debugging information from ceph-fuse, list current operations in
 the foreground while logging to the console (``-d``), enabling client debug
@@ -319,9 +319,9 @@ If you suspect a potential monitor issue, enable monitor debugging as well
 ceph daemon -d mds.<name> dump_ops_in_flight --debug-client=20 --debug-ms=1 --debug-monc=20
 ```
 
-<a id="kernel-mount-debugging"></a>
+<a id="kernel_mount_debugging"></a>
 
-# Kernel mount debugging
+## Kernel mount debugging
 
 The first step in diagnosing and repairing an issue with the kernel client is
 determining whether the problem is in the kernel client or in the MDS. If the
@@ -334,7 +334,7 @@ dmesg
 
 Find the relevant kernel state.
 
-## Slow requests
+### Slow requests
 
 Unfortunately, the kernel client does not provide an admin socket. However,
 the the kernel on the client has [debugfs](https://docs.kernel.org/filesystems/debugfs.html) enabled, interfaces
@@ -363,7 +363,7 @@ requests are the ``mdsc`` (current requests to the MDS) and the ``osdc``
 If the data pool is in a ``NEARFULL`` condition, then the kernel CephFS client
 will switch to doing writes synchronously. Synchronous writes are quite slow.
 
-# Disconnected+Remounted FS
+## Disconnected+Remounted FS
 
 Because CephFS has a "consistent cache", the MDS will forcibly evict (and
 blocklist) clients from the cluster when the network connection has been
@@ -384,16 +384,16 @@ the following::
 [Fri Aug 15 02:38:28 2025] ceph: mds0 reconnect start
 [Fri Aug 15 02:38:28 2025] ceph: mds0 reconnect denied
 
-# Mounting
+## Mounting
 
-## Mount 5 Error
+### Mount 5 Error
 
 A ``mount 5`` error indicates a lagging MDS server or a crashed MDS server.
 
 Ensure that at least one MDS is up and running, and the cluster is ``active +
 healthy``.
 
-## Mount 12 Error
+### Mount 12 Error
 
 A mount 12 error with a message reading ``cannot allocate memory`` indicates a
 version mismatch between the Ceph Client version and the Ceph
@@ -414,7 +414,7 @@ If this fails to resolve the problem, uninstall, autoclean, and autoremove the
 ``ceph-common`` package and then reinstall it to ensure that you have the
 latest version of it.
 
-# Dynamic Debugging
+## Dynamic Debugging
 
 Dynamic debugging for CephFS kernel driver allows to enable or disable debug
 logging. The kernel driver logs are written to the kernel ring buffer and can
@@ -440,7 +440,7 @@ To disable debug logging, run a command of the following form:
 echo 'module ceph -p' > /sys/kernel/debug/dynamic_debug/control
 ```
 
-# In-memory Log Dump
+## In-memory Log Dump
 
 In-memory logs can be dumped by setting
 ``mds_extraordinary_events_dump_interval`` when
@@ -494,7 +494,7 @@ Disable in-memory log dumping by running the following command:
 ceph config set mds mds_extraordinary_events_dump_interval 0
 ```
 
-# Filesystems Become Inaccessible After an Upgrade
+## Filesystems Become Inaccessible After an Upgrade
 
 > **Note:**
 > You can avoid ``operation not permitted`` errors by running this procedure
@@ -555,12 +555,12 @@ its associated key. A less drastic but half-fix is to change the osd cap for
 your user to just ``caps osd = "allow rw"``  and delete ``tag cephfs
 data=....``
 
-# Disabling the Volumes Plugin
+## Disabling the Volumes Plugin
 In certain scenarios, the Volumes plugin may need to be disabled to prevent
 compromise for rest of the Ceph cluster. For details see:
 [disabling-volumes-plugin](fs-volumes.md#disabling-volumes-plugin)
 
-# Reporting Issues
+## Reporting Issues
 
 If you have identified a specific issue, please report it with as much
 information as possible. Especially important information:

@@ -34,7 +34,7 @@ the best performance.
 Sometimes, enabling logging can hide race conditions and other bugs by changing
 the timing of events. Keep this in mind when debugging.
 
-# Performance counters
+## Performance counters
 
 Ceph daemons use performance counters to track key statistics like number of
 inodes pinned. Performance counters are essentially sets of integers and floats

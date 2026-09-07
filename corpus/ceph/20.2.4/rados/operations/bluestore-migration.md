@@ -5,7 +5,7 @@ title: "BlueStore Migration"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rados/operations/bluestore-migration.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="rados-operations-bluestore-migration"></a>
+<a id="rados_operations_bluestore_migration"></a>
 
 # BlueStore Migration
 > **Warning:** Filestore has been deprecated in the Reef release and is no longer supported.
@@ -23,7 +23,7 @@ converted in place. Instead, the conversion process must use either (1) the
 cluster's normal replication and healing support, or (2) tools and strategies
 that copy OSD content from an old (Filestore) device to a new (BlueStore) one.
 
-# Deploying new OSDs with BlueStore
+## Deploying new OSDs with BlueStore
 
 Use BlueStore when deploying new OSDs (for example, when the cluster is
 expanded). Because this is the default behavior, no specific change is
@@ -32,9 +32,9 @@ needed.
 Similarly, use BlueStore for any OSDs that have been reprovisioned after
 a failed drive was replaced.
 
-# Converting existing OSDs
+## Converting existing OSDs
 
-## "Mark-``out``" replacement
+### "Mark-``out``" replacement
 
 The simplest approach is to verify that the cluster is healthy and
 then follow these steps for each Filestore OSD in succession: mark the OSD
@@ -80,7 +80,7 @@ while ! ceph osd safe-to-destroy $ID ; do sleep 60 ; done
 systemctl kill ceph-osd@$ID
 ```
 
-<a id="osd-id-retrieval"></a>
+<a id="osd_id_retrieval"></a>
 
 1. Note which device the OSD is using:
 
@@ -112,7 +112,7 @@ ceph osd destroy $ID --yes-i-really-mean-it
 1. Provision a BlueStore OSD in place by using the same OSD ID. This requires
    you to identify which device to wipe, and to make certain that you target
    the correct and intended device, using the information that was retrieved in
-   the ["Note which device the OSD is using"](bluestore-migration.md#osd-id-retrieval) step.  BE
+   the ["Note which device the OSD is using"](bluestore-migration.md#osd_id_retrieval) step.  BE
    CAREFUL!  Note that you may need to modify these commands when dealing with
    hybrid OSDs:
 
@@ -144,7 +144,7 @@ Disadvantages:
   maintain the specified number of replicas), and again back to the
   reprovisioned BlueStore OSD.
 
-## "Whole host" replacement
+### "Whole host" replacement
 
 If you have a spare host in the cluster, or sufficient free space to evacuate
 an entire host for use as a spare, then the conversion can be done on a
@@ -155,7 +155,7 @@ There are two ways to do this: either by using a new, empty host that is not
 yet part of the cluster, or by offloading data from an existing host that is
 already part of the cluster.
 
-### Using a new, empty host
+#### Using a new, empty host
 
 Ideally the host will have roughly the same capacity as each of the other hosts
 you will be converting.  Add the host to the CRUSH hierarchy, but do not attach
@@ -168,7 +168,7 @@ ceph osd crush add-bucket $NEWHOST host
 
 Make sure that Ceph packages are installed on the new host.
 
-### Using an existing host
+#### Using an existing host
 
 If you would like to use an existing host that is already part of the cluster,
 and if there is sufficient free space on that host so that all of its data can
@@ -205,15 +205,15 @@ ID CLASS WEIGHT  TYPE NAME     STATUS REWEIGHT PRI-AFF
 ...
 ```
 
-If everything looks good, jump directly to the ["Wait for the data migration to complete"](bluestore-migration.md#bluestore-data-migration-step) step below and proceed
+If everything looks good, jump directly to the ["Wait for the data migration to complete"](bluestore-migration.md#bluestore_data_migration_step) step below and proceed
 from there to clean up the old OSDs.
 
-### Migration process
+#### Migration process
 
-If you're using a new host, start at [the first step](bluestore-migration.md#bluestore-migration-process-first-step). If you're using an existing host,
-jump to [this step](bluestore-migration.md#bluestore-data-migration-step).
+If you're using a new host, start at [the first step](bluestore-migration.md#bluestore_migration_process_first_step). If you're using an existing host,
+jump to [this step](bluestore-migration.md#bluestore_data_migration_step).
 
-<a id="bluestore-migration-process-first-step"></a>
+<a id="bluestore_migration_process_first_step"></a>
 
 1. Provision new BlueStore OSDs for all devices:
 
@@ -266,7 +266,7 @@ ceph osd crush swap-bucket $NEWHOST $OLDHOST
    are similarly sized, however, this will be a relatively small amount of
    data.
 
-<a id="bluestore-data-migration-step"></a>
+<a id="bluestore_data_migration_step"></a>
 
 1. Wait for the data migration to complete:
 
@@ -317,7 +317,7 @@ Disadvantages:
   is likely to impact overall cluster performance.
 * All migrated data still makes one full hop over the network.
 
-## Per-OSD device copy
+### Per-OSD device copy
 A single logical OSD can be converted by using the ``copy`` function
 included in ``ceph-objectstore-tool``. This requires that the host have one or more free
 devices to provision a new, empty BlueStore OSD. For

@@ -18,7 +18,7 @@ details.
 > **Important:** To use Ceph Block Device commands, you must have access to
 > a running Ceph cluster.
 
-# Create a Block Device Pool
+## Create a Block Device Pool
 
 1. Use the ``ceph`` tool to [create a pool](../rados/operations/pools.md#create-a-pool).
 
@@ -31,7 +31,7 @@ rbd pool init <pool-name>
 > **Note:** The ``rbd`` tool assumes a default pool name of 'rbd' if no pool
 > name is specified in the command.
 
-# Create a Block Device User
+## Create a Block Device User
 
 Unless otherwise specified, the ``rbd`` command uses the Ceph user ID ``admin``
 to access the Ceph cluster. The ``admin`` Ceph user ID allows full
@@ -63,7 +63,7 @@ specified Ceph user ID, which can be written to
 > **Note:** Specify the Ceph user ID by providing the ``--id {id} argument when
 > using the ``rbd`` command. This argument is optional.
 
-# Creating a Block Device Image
+## Creating a Block Device Image
 
 Before you can add a block device to a node, you must create an image for it in
 the Ceph Storage Cluster. To create a block device image, run a command of this form:
@@ -91,7 +91,7 @@ rbd create --size 1024 foo
 > **Note:** You must create a pool before you can specify it as a source. See
 > [Storage Pools](../rados/operations/pools.md) for details.
 
-# Listing Block Device Images
+## Listing Block Device Images
 
 To list block devices in the ``rbd`` pool, run the following command:
 
@@ -135,7 +135,7 @@ For example:
 rbd trash ls swimmingpool
 ```
 
-# Retrieving Image Information
+## Retrieving Image Information
 
 To retrieve information from a particular image, run the following command, but
 replace ``{image-name}`` with the name of the image:
@@ -169,7 +169,7 @@ rbd info swimmingpool/bar
 > possible name for an RBD image, and such a name might (at the least) be
 > confusing.
 
-# Resizing a Block Device Image
+## Resizing a Block Device Image
 
 Ceph Block Device images are thin provisioned. They don't actually use
 any physical storage until you begin saving data to them. However, they do have
@@ -177,19 +177,19 @@ a maximum capacity that you set with the ``--size`` option. If you want to
 increase (or decrease) the maximum size of a Ceph Block Device image, run one
 of the following commands:
 
-## Increasing the Size of a Block Device Image
+### Increasing the Size of a Block Device Image
 
 ```bash
 rbd resize --size 2048 foo
 ```
 
-## Decreasing the Size of a Block Device Image
+### Decreasing the Size of a Block Device Image
 
 ```bash
 rbd resize --size 2048 foo --allow-shrink
 ```
 
-# Removing a Block Device Image
+## Removing a Block Device Image
 
 To remove a block device, run the following command, but replace
 ``{image-name}`` with the name of the image you want to remove:
@@ -204,7 +204,7 @@ For example:
 rbd rm foo
 ```
 
-## Removing a Block Device from a Pool
+### Removing a Block Device from a Pool
 
 To remove a block device from a pool, run the following command but replace
 ``{image-name}`` with the name of the image to be removed, and replace
@@ -221,7 +221,7 @@ For example:
 rbd rm swimmingpool/bar
 ```
 
-## "Defer Deleting" a Block Device from a Pool
+### "Defer Deleting" a Block Device from a Pool
 
 To defer delete a block device from a pool (which entails moving it to the
 "trash" and deleting it later), run the following command but replace
@@ -238,7 +238,7 @@ For example:
 rbd trash mv swimmingpool/bar
 ```
 
-## Removing a Deferred Block Device from a Pool
+### Removing a Deferred Block Device from a Pool
 
 To remove a deferred block device from a pool, run the following command but
 replace ``{image-id}`` with the ID of the image to be removed, and replace
@@ -264,7 +264,7 @@ rbd trash rm swimmingpool/2bf4474b0dc51
 >   ``now``). If the deferment time has not yet arrived, you cannot remove the
 >   image unless you use ``--force``.
 
-# Restoring a Block Device Image
+## Restoring a Block Device Image
 
 To restore a deferred delete block device in the rbd pool, run the
 following command but replace ``{image-id}`` with the ID of the image:
@@ -279,7 +279,7 @@ For example:
 rbd trash restore 2bf4474b0dc51
 ```
 
-## Restoring a Block Device Image in a Specific Pool
+### Restoring a Block Device Image in a Specific Pool
 
 To restore a deferred delete block device in a particular pool, run the
 following command but replace ``{image-id}`` with the ID of the image and
@@ -295,7 +295,7 @@ For example:
 rbd trash restore swimmingpool/2bf4474b0dc51
 ```
 
-## Renaming an Image While Restoring It
+### Renaming an Image While Restoring It
 
 You can also use ``--image`` to rename the image while restoring it.
 

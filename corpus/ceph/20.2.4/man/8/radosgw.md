@@ -11,18 +11,18 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: radosgw
 
-# Synopsis
+## Synopsis
 
 | **radosgw**
 
-# Description
+## Description
 
 radosgw is an HTTP REST gateway for the RADOS object store, a part
 of the Ceph distributed storage system. It is implemented as a FastCGI
 module using libfcgi, and can be used in conjunction with any FastCGI
 capable web server.
 
-# Options
+## Options
 
 .. option:: -c ceph.conf, --conf=ceph.conf
 
@@ -61,7 +61,7 @@ capable web server.
 
    The zone where radosgw runs
 
-# Configuration
+## Configuration
 
 Earlier RADOS Gateway had to be configured with ``Apache`` and ``mod_fastcgi``.
 Now, ``mod_proxy_fcgi`` module is used instead of ``mod_fastcgi``.
@@ -197,7 +197,7 @@ sudo apachectl start
 sudo /etc/init.d/ceph-radosgw start
 ```
 
-# Usage Logging
+## Usage Logging
 
 radosgw maintains an asynchronous usage log. It accumulates
 statistics about user operations and flushes it periodically. The
@@ -227,13 +227,13 @@ configures the number of seconds between log flushes, and the flush
 threshold specify how many entries can be kept before resorting to
 synchronous flush.
 
-# Availability
+## Availability
 
 radosgw is part of Ceph, a massively scalable, open-source, distributed
 storage system. Please refer to the Ceph documentation at https://docs.ceph.com for
 more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)
 [radosgw-admin](radosgw-admin.md)\(8)

@@ -16,7 +16,7 @@ Groups and [Roles](role.md#radosgw-role) similar to those in [AWS Identity and A
 
 <a id="radosgw-account-root-user"></a>
 
-# Account Root User
+## Account Root User
 
 Each account is managed by an *account root user*. Like normal users and roles,
 accounts and account root users must be created by an administrator using
@@ -36,7 +36,7 @@ applications.
 > access resources within the account, it is possible to add policy that
 > denies their access explicitly. Use Deny statements with caution.
 
-# Resource Ownership
+## Resource Ownership
 
 When a normal (non-account) user creates buckets and uploads objects, those
 resources are owned by the user. The associated S3 ACLs name that user as
@@ -52,7 +52,7 @@ Because the resources are owned by the account rather than its users, all
 usage statistics and quota enforcement apply to the account as a whole rather
 than its individual users.
 
-# Account IDs
+## Account IDs
 
 Account identifiers can be used in several places that otherwise accept
 User IDs or tenant names, so Account IDs use a special format to avoid
@@ -68,7 +68,7 @@ supports tenant names in that position.
 Accounts IDs can also be used in ACLs for a ``Grantee`` of type ``CanonicalUser``.
 User IDs are also supported here.
 
-# IAM Policy
+## IAM Policy
 
 While non-account users are allowed to create buckets and upload objects by
 default, account users start with no permissions at all.
@@ -93,7 +93,7 @@ These identity policies are evaluated according to the rules in
 [Evaluating policies within a single account](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics) and
 [Cross-account policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic-cross-account.html).
 
-## Principals
+### Principals
 
 The "Principal" ARNs in policy documents refer to users differently when they
 belong to an account.
@@ -108,7 +108,7 @@ to the ``--display-name`` argument from ``radosgw-admin``. Account users
 continue to match the tenant form so that existing policy continues to work
 when users are migrated into accounts.
 
-# Tenant Isolation
+## Tenant Isolation
 
 Like users, accounts can optionally belong to a tenant for namespace isolation
 of buckets. For example, one account named "acct" can exist under a tenant "a",
@@ -119,9 +119,9 @@ A tenanted account can only contain users with the same tenant name.
 
 Regardless of tenant, account IDs and email addresses must be globally unique.
 
-# Account Management
+## Account Management
 
-## Create an Account
+### Create an Account
 
 To create an account:
 
@@ -129,7 +129,7 @@ To create an account:
 radosgw-admin account create [--account-name={name}] [--account-id={id}] [--email={email}]
 ```
 
-## Create an Account Root User
+### Create an Account Root User
 
 To create an account root user:
 
@@ -137,7 +137,7 @@ To create an account root user:
 radosgw-admin user create --uid={userid} --display-name={name} --account-id={accountid} --account-root --gen-secret --gen-access-key
 ```
 
-## Delete an Account
+### Delete an Account
 
 To delete an account:
 
@@ -145,7 +145,7 @@ To delete an account:
 radosgw-admin account rm --account-id={accountid}
 ```
 
-## Account Stats/Quota
+### Account Stats/Quota
 
 To view account stats:
 
@@ -167,7 +167,7 @@ radosgw-admin quota set --quota-scope=bucket --account-id={accountid} --max-obje
 radosgw-admin quota enable --quota-scope=bucket --account-id={accountid}
 ```
 
-## Migrate an Existing User into an Account
+### Migrate an Existing User into an Account
 
 An existing user can be adopted into an account with ``user modify``:
 
@@ -199,7 +199,7 @@ Alternatively, you may want to create a new account for each existing user. In
 that case, you may want to add the ``--account-root`` option to make each user
 the root user of their account.
 
-### Migrating Notification Topics
+#### Migrating Notification Topics
 
 Account topics are supported only when the ``notification_v2`` feature is enabled,
 as described in [radosgw-notifications](notifications.md#radosgw-notifications) and [Supported Zone Features](zone-features.md#radosgw-zone-features).
@@ -238,7 +238,7 @@ as described in [radosgw-notifications](notifications.md#radosgw-notifications) 
 $ radosgw-admin topic rm --topic topic1
 ```
 
-## Account Root Example
+### Account Root Example
 
 The account root user's credentials unlock the [radosgw-iam](iam.md#radosgw-iam).
 

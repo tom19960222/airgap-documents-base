@@ -5,7 +5,7 @@ title: "Metrics"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/metrics.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="cephfs-metrics"></a>
+<a id="cephfs_metrics"></a>
 
 # Metrics
 

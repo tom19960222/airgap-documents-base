@@ -11,12 +11,12 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rgw-policy-check
 
-# Synopsis
+## Synopsis
 
 | **rgw-policy-check**
    -t *tenant* [ *filename* ... ]
 
-# Description
+## Description
 
 This program reads one or more files containing bucket policy
 and determines if it is syntactically correct.
@@ -33,7 +33,7 @@ the program will emit a error message indicating the
 problem.  The program will terminate with non-zero exit
 status if one or more policies could not be read or parsed.
 
-# Options
+## Options
 
 .. option: -t *tenant*
 
@@ -41,12 +41,12 @@ status if one or more policies could not be read or parsed.
    policy parsing logic and is used to construct the internal
    state representation of the policy.
 
-# Availability
+## Availability
 
 **rgw-policy-check** is part of Ceph, a massively scalable, open-source,
 distributed storage system.  Please refer to the Ceph documentation at
 http://ceph.com/docs for more information.
 
-# See also
+## See also
 
 [radosgw](../../dev/deduplication.md#radosgw)\(8)

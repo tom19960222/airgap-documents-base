@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 > **Note:** This document is intended to provide a focal point for discussing the overall design
 > principles for mgr/dashboard
 
-# Introduction
+## Introduction
 
 Most distributed storage architectures are inherently complex and can present a management challenge
 to Operations teams who are typically stretched across multiple product and platform disciplines. In
@@ -24,7 +24,7 @@ This document is intended to highlight Ceph Dashboard design goals which may hel
 * improve time-to-value
 * increase observability
 
-# Understanding the Persona of the Target User
+## Understanding the Persona of the Target User
 
 Ceph has historically been administered from the CLI. The CLI has always and will always offer the
 richest, most flexible way to install and manage a Ceph cluster. Administrators who require and
@@ -38,9 +38,9 @@ Understanding the target user persona is therefore a fundamental first step in d
 design a UI that meets the requirements of a 'seasoned' Ceph Administrator or Developer, and a
 relatively new SysAdmin is unlikely to satisfy either user group.
 
-# Design Principles
+## Design Principles
 
-##### Key Principles
+### Key Principles
 
 1. **Clarity and consistency**. The UI should ensure the data shown is unambiguous and consistent across
    different views
@@ -59,7 +59,7 @@ relatively new SysAdmin is unlikely to satisfy either user group.
 1. **Jargon Busting**. Jargon is an unavoidable component of most systems. However, a good system will
    include inline help to support new and infrequent users of the UI.
 
-##### Common Pitfalls
+### Common Pitfalls
 
 * Don't re-implement CLI commands in the UI. The sysadmin will likely use the CLI primitives in scripts
   to automate tasks, so by simply adding a CLI feature we miss the workflow and add complexity, which
@@ -67,7 +67,7 @@ relatively new SysAdmin is unlikely to satisfy either user group.
 * Don't think like a developer...try and adopt the mindset of an Administrator, who only works with the
   Ceph cluster part-time - this is the reality for today's Operations teams.
 
-# Focus On User Experience
+## Focus On User Experience
 Ultimately, the goal must be to move away from pushing complexity onto the GUI user through multi-step
 workflows like iSCSI configuration or setting specific cluster flags in defined sequences. Simplicity
 should be the goal for the UI...let's leave the complexity to the CLI.

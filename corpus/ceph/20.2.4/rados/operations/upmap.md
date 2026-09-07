@@ -17,9 +17,9 @@ in most cases, uniformly distribute PGs across OSDs.
 However, there is an important caveat when it comes to this new feature: it
 requires all clients to understand the new *pg-upmap* structure in the OSDMap.
 
-# Online Optimization
+## Online Optimization
 
-## Enabling
+### Enabling
 
 In order to use ``pg-upmap``, the cluster cannot have any pre-Luminous clients.
 By default, new clusters enable the *balancer module*, which makes use of
@@ -47,12 +47,12 @@ command:
 ceph features
 ```
 
-## Balancer Module
+### Balancer Module
 
 The `balancer` module for ``ceph-mgr`` will automatically balance the number of
 PGs per OSD. See [balancer](balancer.md#balancer)
 
-# Offline Optimization
+## Offline Optimization
 
 Upmap entries are updated with an offline optimizer that is built into the
 [osdmaptool](../../man/8/osdmaptool.md#osdmaptool).

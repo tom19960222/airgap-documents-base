@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: cephfs-mirror
 
-# Synopsis
+## Synopsis
 
 | **cephfs-mirror**
 
-# Description
+## Description
 
 cephfs-mirror is a daemon for asynchronous mirroring of Ceph
 Filesystem snapshots among Ceph clusters.
@@ -24,7 +24,7 @@ It connects to remote clusters via libcephfs, relying on default search
 paths to find ceph.conf files, i.e. ``/etc/ceph/$cluster.conf`` where
 ``$cluster`` is the human-friendly name of the cluster.
 
-# Options
+## Options
 
 .. option:: --mon-host monaddress[:port]
 
@@ -68,12 +68,12 @@ paths to find ceph.conf files, i.e. ``/etc/ceph/$cluster.conf`` where
 
    Run in foreground, log to usual location
 
-# Availability
+## Availability
 
 cephfs-mirror is part of Ceph, a massively scalable, open-source, distributed
 storage system. Please refer to the Ceph documentation at https://docs.ceph.com for
 more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

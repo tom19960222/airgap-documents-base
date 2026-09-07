@@ -1,17 +1,17 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "mempool_accounting"
+title: "What is a mempool?"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/mempool_accounting.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-## What is a mempool?
+# What is a mempool?
 A memory pool (mempool) is a method for tracking memory consumption. Memory pools represent the memory consumption
 of C++ classes and containers, and they are used to assess memory leaks and other insights around memory usage with
 low overhead. Each memory pool tracks the number of bytes and items it contains. Mempools are statically declared,
 and they serve the purpose of identifying memory-related checks in BlueStore.
 
-## Some common mempools that we can track
+# Some common mempools that we can track
 
 - ``bloom_filter``: tracks objects already in the cache pool in order to determine which objects in the pool are
   being accessed
@@ -42,7 +42,7 @@ and they serve the purpose of identifying memory-related checks in BlueStore.
 - ``bluefs_file_reader``: accounts for bluefs file reader buffer
 - ``bluefs_file_writer``: accounts for bluefs file writer buffer
 
-#### Check mempools usage
+## Check mempools usage
 
 Command to see BlueStore memory allocation in these mempools:
 

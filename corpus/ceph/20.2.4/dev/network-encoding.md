@@ -13,9 +13,9 @@ objects/messages but focuses on the base types.
 The types are not self documenting in any way.  They can not be decoded unless
 you know what they are.
 
-# Conventions
+## Conventions
 
-## Integers
+### Integers
 
 The integer types used will be named ``{signed}{size}{endian}``.  For example
 ``u16le`` is an unsigned 16 bit integer encoded in little endian byte order
@@ -23,7 +23,7 @@ while ``s64be`` is a signed 64 bit integer in big endian.  Additionally ``u8``
 and ``s8`` will represent signed and unsigned bytes respectively.  Signed
 integers use two's complement encoding.
 
-## Complex Types
+### Complex Types
 
 This document will use a c-like syntax for describing structures.  The
 structure represents the data that will go over the wire.  There will be no
@@ -40,7 +40,7 @@ struct foo {
 When encoding the values ``0x05`` and ``0x12345678`` respectively will appear on
 the wire as ``05 78 56 34 12``.
 
-## Variable Arrays
+### Variable Arrays
 
 Unlike c, length arrays can be used anywhere in structures and will be inline in
 the protocol.  Furthermore the length may be described using an earlier item in
@@ -59,7 +59,7 @@ struct blob {
 This structure is encoded as a 32 bit size, followed by ``size`` data bytes,
 then a 32 bit checksum.
 
-## Primitive Aliases
+### Primitive Aliases
 
 These types are just aliases for primitive types.
 
@@ -74,12 +74,12 @@ typedef u64le ceph_tid_t;
 typedef u64le version_t;
 ```
 
-# Structures
+## Structures
 
 These are the way structures are encoded.  Note that these structures don't
 actually exist in the source but are the way that different types are encoded.
 
-## Optional
+### Optional
 
 Optionals are represented as a presence byte, followed by the item if it exists.
 
@@ -95,7 +95,7 @@ struct ceph_optional<T> {
 Optionals are used to encode ``boost::optional`` and, since introducing
 C++17 to Ceph, ``std::optional``.
 
-## Pair
+### Pair
 
 Pairs are simply the first item followed by the second.
 
@@ -110,7 +110,7 @@ struct ceph_pair<A,B> {
 
 Pairs are used to encode ``std::pair``.
 
-## Triple
+### Triple
 
 Triples are simply the tree elements one after another.
 
@@ -126,7 +126,7 @@ struct ceph_triple<A,B,C> {
 
 Triples are used to encode ``ceph::triple``.
 
-## List
+### List
 
 Lists are represented as an element count followed by that many elements.
 
@@ -145,7 +145,7 @@ struct ceph_list<T> {
 Lists are used to encode ``std::list``, ``std::vector``, ``std::deque``,
 ``std::set`` and ``std::unordered_set``.
 
-## Blob
+### Blob
 
 A Blob is simply a list of bytes.
 
@@ -169,7 +169,7 @@ Blobs are used to encode ``std::string``, ``const char *`` and ``bufferlist``.
 > **Note:**
 > The content of a Blob is arbitrary binary data.
 
-## Map
+### Map
 
 Maps are a list of pairs.
 
@@ -191,12 +191,12 @@ struct ceph_map<K,V> {
 Maps are used to encode ``std::map``, ``std::multimap``,
 ``std::unordered_map`` and ``std::unordered_multimap``.
 
-# Complex Types
+## Complex Types
 
 These aren't hard to find in the source but the common ones are listed here for
 convenience.
 
-## utime_t
+### utime_t
 
 :
 
@@ -208,7 +208,7 @@ struct utime_t {
 }
 ```
 
-## ceph_entity_name
+### ceph_entity_name
 
 :
 

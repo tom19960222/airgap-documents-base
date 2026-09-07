@@ -71,7 +71,7 @@ click on [New issue](http://tracker.ceph.com/projects/ceph/issues/new).
 
 Ceph developers and users discuss the project on [Ceph-related mailing lists](https://ceph.io/en/community/connect/).
 
-#### Ceph Development Mailing List
+### Ceph Development Mailing List
 The ``dev@ceph.io`` list is for discussion about the development of Ceph,
 its interoperability with other technology, and the operations of the
 project itself.
@@ -79,7 +79,7 @@ project itself.
 The email discussion list for Ceph development is open to all. Subscribe by
 completing the [sign-up form on dev.ceph.io](https://lists.ceph.io/postorius/lists/dev.ceph.io).
 
-#### Ceph Client Patch Review Mailing List
+### Ceph Client Patch Review Mailing List
 The ``ceph-devel@vger.kernel.org`` list is for discussion and patch review
 for the Linux kernel Ceph client component. Note that this list used to
 be an all-encompassing list for developers. When searching the archives,
@@ -107,7 +107,7 @@ have many people in it at any one time, they might not always be at their
 keyboard; so if no-one responds, just wait around and someone will hopefully
 answer soon enough.
 
-#### Registration
+### Registration
 
 If you intend to use the IRC service on a continued basis, you are advised to
 register an account. Registering gives you a unique IRC identity and allows you
@@ -119,7 +119,7 @@ registration instructions
 <https://www.oftc.net/Services/#register-your-account>`` to learn how to
 register your IRC account.
 
-#### Channels
+### Channels
 
 To connect to the OFTC IRC network, download an IRC client and configure it to
 connect to ``irc.oftc.net``. Then join one or more of the channels. Discussions
@@ -139,10 +139,10 @@ Here are the real-time discussion channels for the Ceph community:
 ## Submitting patches
 
 The canonical instructions for submitting patches are contained in the
-file [CONTRIBUTING.rst](essentials.md#contributing-rst) in the top-level directory of the source-code
+file [CONTRIBUTING.rst](essentials.md#contributingrst) in the top-level directory of the source-code
 tree. There may be some overlap between this guide and that file.
 
-<a id="contributing-rst"></a>
+<a id="contributingrst"></a>
   https://github.com/ceph/ceph/blob/main/CONTRIBUTING.rst
 
 All newcomers are encouraged to read that file carefully.
@@ -164,7 +164,7 @@ artifacts unknowingly when switching from one branch to another. If you see
 build errors when you attempt a local build, follow the procedure below to
 clean your source tree.
 
-#### Cleaning the Source Tree
+### Cleaning the Source Tree
 
 ```bash
 ninja clean
@@ -178,7 +178,7 @@ ninja clean
 git clean -fdx; git submodule foreach git clean -fdx
 ```
 
-#### Building Ceph with ccache
+### Building Ceph with ccache
 
 ``ccache`` is available as a package in most distros. To build ceph with
 ccache, run the following command.
@@ -187,7 +187,7 @@ ccache, run the following command.
 cmake -DWITH_CCACHE=ON ..
 ```
 
-#### Using ccache to Speed Up Build Times
+### Using ccache to Speed Up Build Times
 
 ``ccache`` can be used for speeding up all builds of the system. For more
 details, refer to the [run modes](https://ccache.samba.org/manual.html#_run_modes) section of the ccache manual. The default

@@ -24,7 +24,7 @@ keys.
 > endpoint to the URL suffix ``/v1/AUTH_%(tenant_id)s``
 > (instead of just ``/v1``).
 
-# POST Temp-URL Keys
+## POST Temp-URL Keys
 
 A ``POST`` request to the Swift account with the required key will set
 the secret temp URL key for the account, against which temporary URL
@@ -40,7 +40,7 @@ can be rotated without invalidating the temporary URLs.
 > not supported in radosgw; temporary URL keys can only be set
 > and used at the account level.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -50,7 +50,7 @@ Host: {fqdn}
 X-Auth-Token: {auth-token}
 ```
 
-#### Request Headers
+### Request Headers
 
 ``X-Account-Meta-Temp-URL-Key``
 
@@ -64,7 +64,7 @@ X-Auth-Token: {auth-token}
 :Type: String
 :Required: No
 
-# GET Temp-URL Objects
+## GET Temp-URL Objects
 
 Temporary URL uses a cryptographic HMAC-SHA1 signature, which includes
 the following elements:

@@ -5,11 +5,11 @@ title: "Monitor Elections"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/mon-elections.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="dev-mon-elections"></a>
+<a id="dev_mon_elections"></a>
 
 # Monitor Elections
 
-# The Original Algorithm
+## The Original Algorithm
 Historically, monitor leader elections have been very simple: the lowest-ranked
 monitor wins!
 
@@ -35,13 +35,13 @@ This resolves under normal circumstances because all monitors agree on the
 priority voting order, and epochs are only bumped when a monitor isn't
 participating or sees a possible conflict with the known proposers.
 
-# The Problems
+## The Problems
 The original algorithm didn't work at all under a variety of netsplit
 conditions. This didn't manifest often in practice but has become
 important as the community and commercial vendors move Ceph into
 spaces requiring the use of "stretch clusters".
 
-# The New Algorithms
+## The New Algorithms
 We still default to the original ("classic") election algorithm, but
 support letting users change to new ones via the CLI. These
 algorithms are implemented as different functions and switch statements
@@ -52,7 +52,7 @@ to a list of disallowed leaders.
 The second, "connectivity", incorporates connection score ratings
 and elects the monitor with the best score.
 
-# Algorithm: disallow
+## Algorithm: disallow
 If a monitor is in the disallowed list, it always defers to another
 monitor, no matter the rank. Otherwise, it is the same as the classic
 algorithm is.
@@ -65,7 +65,7 @@ This algorithm really just exists as a demo and stepping-stone to
 the more advanced connectivity mode, but it may have utility in asymmetric
 networks and clusters.
 
-# Algorithm: connectivity
+## Algorithm: connectivity
 This algorithm takes as input scores for each connection
 (both ways, discussed in the next section) and attempts to elect the monitor
 with the highest total score. We keep the same basic message-passing flow as the
@@ -104,7 +104,7 @@ highest-scoring monitor A may be netsplit from C, this is not desirable. So in
 the connectivity election algorithm, B only "forwards" Propose messages when B's
 scores indicate the cluster would choose a leader other than A.
 
-# Connection Scoring
+## Connection Scoring
 We implement scoring within the ConnectionTracker class, which is
 driven by the Elector and provided to ElectionLogic as a resource. Elector
 is responsible for sending out MMonPing messages, and for reporting the

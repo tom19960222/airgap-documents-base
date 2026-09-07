@@ -55,7 +55,7 @@ The below options have been added to the tier configuration to facilitate object
 
 The storage class to which object data is to be restored. Default value is ``STANDARD``.
 
-#### Read-through Specific Configurables
+### Read-through Specific Configurables
 
 * ``allow_read_through`` (``true`` | ``false``)
 
@@ -80,7 +80,7 @@ radosgw-admin zonegroup placement modify --rgw-zonegroup default \
                                            read_through_restore_days=10
 ```
 
-#### S3 Glacier Specific Configurables
+### S3 Glacier Specific Configurables
 
 To restore objects archived in an S3 Glacier or Tape cloud storage class, the
 data must first be restored to the cloud service before being read and
@@ -163,7 +163,7 @@ radosgw-admin zonegroup placement modify --rgw-zonegroup default \
 
 ## Examples of Restore Objects
 
-#### Using the S3 RestoreObject CLI
+### Using the S3 RestoreObject CLI
 
 Th [S3 restore-object](https://docs.aws.amazon.com/cli/latest/reference/s3api/restore-object.html)
 CLI supports these options:
@@ -201,7 +201,7 @@ aws s3api restore-object --bucket bucket1 --key doc2.rtf --restore-request {} ..
 
 This will restore the object ``doc2.rtf`` permanently and it will be treated as regular object.
 
-#### Using the S3 GetObject CLI
+### Using the S3 GetObject CLI
 
 Ensure that the ``allow_read_through`` tier-config option is enabled.
 
@@ -239,7 +239,7 @@ radosgw-admin object stat --bucket bucket1 --object doc1.rtf
 
 ## Restored Object Properties
 
-#### Storage
+### Storage
 Objects are restored to the storage class configured via ``restore_storage_class``
 in the tier-config. However, as
 per <https://docs.aws.amazon.com/cli/latest/reference/s3api/restore-object.html> <!-- unresolved-rst-link: kind=named target=<https://docs.aws.amazon.com/cli/latest/reference/s3api/restore-object.html> -->
@@ -247,10 +247,10 @@ the storage class of restored objects should remain unchanged. Therefore, for
 temporary copies, the ``x-amz-storage-class`` will continue to reflect the
 original cloud-tier storage class.
 
-#### mtime
+### mtime
 The ``mtime`` of the transitioned and restored objects should remain unchanged.
 
-#### Lifecycle
+### Lifecycle
 ``Temporary`` copies are not subject to transition to the cloud. However, as is the
 case with cloud-transitioned objects, they can be deleted via regular LC (Life Cycle)
 expiration rules or an external S3 ``delete`` request.
@@ -258,13 +258,13 @@ expiration rules or an external S3 ``delete`` request.
 ``Permanent`` copies are treated as regular objects and are subject to applicable LC
 policies.
 
-#### Replication
+### Replication
 ``Temporary`` copies are not replicated and will be retained only by the zone
 on which the restore request is initiated.
 
 ``Permanent`` copies are replicated like other regular objects.
 
-#### Versioned Objects
+### Versioned Objects
 For versioned objects, if an object has been cloud-transitioned, it is in a
 non-current state. After a restore, the same non-current object will be
 updated with the downloaded data, and its ``HEAD`` object will be modified accordingly.

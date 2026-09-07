@@ -28,21 +28,7 @@ from common import REPO_ROOT, Manifest, load_manifest
 FRONTMATTER_PATTERN = re.compile(r"^---\r?\n(.*?)\r?\n---\r?\n?", re.DOTALL)
 HEADING1_PATTERN = re.compile(r"^#\s+(.+)$", re.MULTILINE)
 
-RST_SECTION_LEVELS = {
-    "=": 1,
-    "-": 2,
-    "^": 3,
-    "~": 4,
-    '"': 5,
-    "'": 6,
-    "*": 3,
-    "`": 3,
-    "+": 4,
-    "_": 5,
-    ".": 6,
-    "|": 6,
-    "#": 6,
-}
+RST_SECTION_CHARS = set("=-^~\"'*`+_.|#")
 RST_DIRECTIVE_PATTERN = re.compile(
     r"^(?P<indent>[ ]*)\.\.\s+(?P<name>[A-Za-z0-9_.-]+)::(?:[ \t]*(?P<argument>.*))?$"
 )
@@ -97,12 +83,52 @@ def _is_section_underline(line: str) -> bool:
     return (
         len(stripped) >= 3
         and len(set(stripped)) == 1
-        and stripped[0] in RST_SECTION_LEVELS
+        and stripped[0] in RST_SECTION_CHARS
     )
 
 
-def _section_level(line: str) -> int:
-    return RST_SECTION_LEVELS[line.strip()[0]]
+def _rst_section_at(lines: list[str], index: int) -> tuple[str, str, bool, int] | None:
+    """Return a top-level RST section's title, adornment, and shape."""
+
+    line = lines[index]
+    if RST_TARGET_PATTERN.match(line):
+        return None
+    if (
+        _indent_width(line) == 0
+        and _is_section_underline(line)
+        and index + 2 < len(lines)
+        and lines[index + 1].strip()
+        and lines[index + 2].strip() == line.strip()
+    ):
+        return lines[index + 1].strip(), line.strip(), True, index + 3
+    if (
+        line.strip()
+        and _indent_width(line) == 0
+        and index + 1 < len(lines)
+        and _is_section_underline(lines[index + 1])
+    ):
+        return line.strip(), lines[index + 1].strip(), False, index + 2
+    return None
+
+
+def _section_levels(lines: list[str]) -> dict[tuple[str, bool], int]:
+    """Assign levels by first-seen RST adornment style and shape."""
+
+    levels: dict[tuple[str, bool], int] = {}
+    index = 0
+    while index < len(lines):
+        section = _rst_section_at(lines, index)
+        if section is None:
+            index += 1
+            continue
+        _, adornment, overline, end = section
+        levels.setdefault((adornment[0], overline), len(levels) + 1)
+        index = end
+    return levels
+
+
+def _section_level(adornment: str, overline: bool, levels: dict[tuple[str, bool], int]) -> int:
+    return levels[(adornment.strip()[0], overline)]
 
 
 def _deindent(lines: list[str], minimum: int | None = None) -> list[str]:
@@ -219,6 +245,12 @@ def _join_multiline_rst_roles(lines: list[str]) -> list[str]:
     if pending is not None:
         output.extend(pending)
     return output
+
+
+def _is_fenced_markdown_line(line: str) -> bool:
+    """Recognize fences with any depth of Markdown blockquote prefix."""
+
+    return re.match(r"^(?:>\s*)*```", line) is not None
 
 
 def _directive_option(body: list[str], name: str) -> str:
@@ -493,6 +525,7 @@ def rst_to_markdown(
     source_path: Path | None = None,
     preserve_rst_links: bool = False,
     _include_depth: int = 0,
+    _section_levels_context: dict[tuple[str, bool], int] | None = None,
 ) -> tuple[str, str]:
     """Convert Ceph's RST to conservative Markdown while retaining unknown RST.
 
@@ -503,6 +536,16 @@ def rst_to_markdown(
     """
 
     lines = text.replace("\r\n", "\n").replace("\r", "\n").expandtabs(8).split("\n")
+    local_section_levels = _section_levels(lines)
+    if _section_levels_context is None:
+        section_levels = local_section_levels
+    else:
+        section_levels = dict(_section_levels_context)
+        next_level = max(section_levels.values(), default=0) + 1
+        for style in local_section_levels:
+            if style not in section_levels:
+                section_levels[style] = next_level
+                next_level += 1
     output: list[str] = []
     i = 0
     while i < len(lines):
@@ -540,6 +583,7 @@ def rst_to_markdown(
                         source_path=include_path,
                         preserve_rst_links=preserve_rst_links,
                         _include_depth=_include_depth + 1,
+                        _section_levels_context=section_levels,
                     )
                     output.extend([f"Included file `{include_rel}`:", ""])
                     output.extend(include_body.rstrip("\n").splitlines())
@@ -563,10 +607,28 @@ def rst_to_markdown(
                 label = name.capitalize()
                 first = _inline_rst_to_markdown(argument, preserve_rst_links=preserve_rst_links) if argument else ""
                 output.append(f"> **{label}:**" + (f" {first}" if first else ""))
-                admonition_content = _normalize_embedded_tables(content, allow_indented=True)
-                admonition_content = _join_multiline_rst_roles(admonition_content)
-                for content_line in admonition_content:
-                    output.append(">" if not content_line else f"> {_inline_rst_to_markdown(content_line, preserve_rst_links=preserve_rst_links)}")
+                admonition_content = _join_multiline_rst_roles(content)
+                _, rendered_content = rst_to_markdown(
+                    "\n".join(admonition_content),
+                    repo_dir=repo_dir,
+                    source_path=source_path,
+                    preserve_rst_links=preserve_rst_links,
+                    _include_depth=_include_depth,
+                    _section_levels_context=section_levels,
+                )
+                rendered_in_fence = False
+                for content_line in rendered_content.rstrip("\n").splitlines():
+                    if _is_fenced_markdown_line(content_line):
+                        rendered_in_fence = not rendered_in_fence
+                        rendered_line = content_line
+                    elif rendered_in_fence:
+                        rendered_line = content_line
+                    else:
+                        rendered_line = _inline_rst_to_markdown(
+                            content_line,
+                            preserve_rst_links=preserve_rst_links,
+                        )
+                    output.append(">" if not rendered_line else f"> {rendered_line}")
                 output.append("")
             else:
                 output.append(f".. {name}::{(' ' + argument) if argument else ''}".rstrip())
@@ -590,27 +652,12 @@ def rst_to_markdown(
             i += 1
             continue
 
-        if (
-            _indent_width(line) == 0
-            and _is_section_underline(line)
-            and i + 2 < len(lines)
-            and lines[i + 1].strip()
-            and lines[i + 2].strip() == line.strip()
-        ):
-            # RST's overline/title/underline form, used by document roots.
-            output.append(f"{'#' * _section_level(line)} {lines[i + 1].strip()}")
-            i += 3
-            continue
-
-        if (
-            line.strip()
-            and _indent_width(line) == 0
-            and i + 1 < len(lines)
-            and _is_section_underline(lines[i + 1])
-        ):
-            # RST's title/underline form for ordinary sections.
-            output.append(f"{'#' * _section_level(lines[i + 1])} {line.strip()}")
-            i += 2
+        section = _rst_section_at(lines, i)
+        if section is not None:
+            title, adornment, overline, end = section
+            level = _section_level(adornment, overline, section_levels)
+            output.append(f"{'#' * level} {title}")
+            i = end
             continue
 
         if (
@@ -1484,7 +1531,7 @@ def _rewrite_source_links(
     normal: list[str] = []
     in_fence = False
     for line in body.splitlines(keepends=True):
-        if line.startswith("```"):
+        if _is_fenced_markdown_line(line):
             if normal:
                 output.append(rewrite_segment("".join(normal)))
                 normal = []
@@ -1500,11 +1547,18 @@ def _rewrite_source_links(
 
 
 def _reference_key(label: str) -> str:
-    return " ".join(label.strip().strip("`").split()).lower()
+    plain = re.sub(r"``([^`\n]+)``", r"\1", label)
+    plain = re.sub(r"`([^`\n]+)`", r"\1", plain)
+    return " ".join(plain.strip().split()).lower()
 
 
 def _reference_anchor(label: str) -> str:
-    anchor = re.sub(r"[^a-z0-9]+", "-", label.strip("`").lower()).strip("-")
+    plain = re.sub(r"``([^`\n]+)``", r"\1", label)
+    plain = re.sub(r"`([^`\n]+)`", r"\1", plain)
+    anchor = plain.lower().strip()
+    anchor = re.sub(r"[^\w\s-]", "", anchor)
+    anchor = re.sub(r"\s", "-", anchor)
+    anchor = anchor.strip("-")
     return anchor or "section"
 
 
@@ -1669,7 +1723,7 @@ def _rewrite_rst_links(
     anonymous_targets: list[str] = []
     in_fence = False
     for line in body.splitlines():
-        if line.startswith("```"):
+        if _is_fenced_markdown_line(line):
             in_fence = not in_fence
             continue
         if in_fence:
@@ -1850,7 +1904,7 @@ def _rewrite_rst_links(
     normal: list[str] = []
     in_fence = False
     for line in body.splitlines(keepends=True):
-        if line.startswith("```"):
+        if _is_fenced_markdown_line(line):
             if normal:
                 output.append(rewrite_segment("".join(normal)))
                 normal = []

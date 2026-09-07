@@ -60,7 +60,7 @@ with Ceph.
 
 .. index:: pools; CloudStack
 
-# Create a Pool
+## Create a Pool
 
 By default, Ceph block devices use the ``rbd`` pool. Create a pool for
 CloudStack NFS Primary Storage. Ensure your Ceph cluster is running, then create
@@ -81,7 +81,7 @@ to initialize the pool:
 rbd pool init cloudstack
 ```
 
-# Create a Ceph User
+## Create a Ceph User
 
 To access the Ceph cluster we require a Ceph user which has the correct
 credentials to access the ``cloudstack`` pool we just created. Although we could
@@ -97,7 +97,7 @@ Primary Storage.
 
 See [User Management](../rados/operations/user-management.md) for additional details.
 
-# Add Primary Storage
+## Add Primary Storage
 
 To add a Ceph block device as Primary Storage, the steps include:
 
@@ -135,7 +135,7 @@ To add a Ceph block device as Primary Storage, the steps include:
 
 1. Click **OK**.
 
-# Create a Disk Offering
+## Create a Disk Offering
 
 To create a new disk offering, refer to [Create a New Disk Offering](http://docs.cloudstack.apache.org/en/latest/adminguide/service_offerings.html#creating-a-new-disk-offering).
 Create a disk offering so that it matches the ``rbd`` tag.
@@ -144,6 +144,6 @@ pool when searching for a suitable storage pool. If the disk offering doesn't
 match the ``rbd`` tag, the ``StoragePoolAllocator`` may select the pool you
 created (e.g., ``cloudstack``).
 
-# Limitations
+## Limitations
 
 - Until v4.17.1.0, CloudStack will only bind to one monitor at a time. You can however use multiple DNS A or AAAA records in a round-robin fashion to spread connections over multiple monitors.

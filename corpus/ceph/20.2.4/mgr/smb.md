@@ -41,9 +41,9 @@ specific resource types.
 
 <a id="mgr-smb-imperative"></a>
 
-# Management Commands - Imperative Style
+## Management Commands - Imperative Style
 
-## Cluster Commands
+### Cluster Commands
 
 #### Create Cluster
 
@@ -136,7 +136,7 @@ ceph smb cluster ls [--format=<format>]
 Print a listing of cluster ids. The output defaults to JSON, select YAML
 encoding with the ``--format=yaml`` option.
 
-## Share Commands
+### Share Commands
 
 #### Create Share
 
@@ -186,7 +186,7 @@ encoding with the ``--format=yaml`` option.
 
 <a id="mgr-smb-declarative"></a>
 
-# Management Commands - Declarative Style
+## Management Commands - Declarative Style
 
 In addition to the basic imperative management commands the ``smb`` manager
 module supports configuration using declarative resource specifications.
@@ -287,7 +287,7 @@ all share resources associated with the cluster "bob".
 > ``apply`` command accepts, making it possible to "round-trip" values
 > between show and apply.
 
-## Composing Resource Specifications
+### Composing Resource Specifications
 
 A resource specification is made up of one or more Ceph SMB resource
 descriptions written in either JSON or YAML formats. More than one resource
@@ -395,7 +395,7 @@ below.
 > For brevity, all following examples will use YAML only. Assume that the
 > equivalent JSON forms are valid.
 
-## Cluster Resource
+### Cluster Resource
 
 A cluster resource supports the following fields:
 
@@ -612,7 +612,7 @@ cluster_id: rhumba
 intent: removed
 ```
 
-## Share Resource
+### Share Resource
 
 A share resource supports the following fields:
 
@@ -723,7 +723,7 @@ share_id: sp2
 intent: removed
 ```
 
-## Join-Auth Resource
+### Join-Auth Resource
 
 A join auth resource supports the following fields:
 
@@ -756,7 +756,7 @@ auth:
   password: Passw0rd
 ```
 
-## Users-and-Groups Resource
+### Users-and-Groups Resource
 
 A users & groups resource supports the following fields:
 
@@ -801,7 +801,7 @@ values:
     groups: []
 ```
 
-## TLS Credential Resource
+### TLS Credential Resource
 
 TLS credential resources store copies of TLS files such as Certificates, Keys,
 or CA Certificates.
@@ -845,7 +845,7 @@ value: |
   -----END CERTIFICATE-----
 ```
 
-## A Declarative Configuration Example
+### A Declarative Configuration Example
 
 Using the resource descriptions above we can put together an example
 that creates a cluster and shares from scratch based on a resource
@@ -937,7 +937,7 @@ By issuing the command:
 ceph smb apply -i removed.yaml
 ```
 
-# SMB Cluster Management
+## SMB Cluster Management
 
 The ``smb`` module will automatically deploy logical clusters on hosts using
 cephadm orchestration. This orchestration is automatically triggered when a
@@ -960,7 +960,7 @@ that may have different authentication modes and/or identity mapping schemes.
 > Future versions of the ``smb`` module may programatically attempt to prevent
 > such conditions.
 
-# Accessing Shares
+## Accessing Shares
 
 Once a cluster and it's component Samba containers have been deployed and the
 shares have been configured clients may connect to the servers. Microsoft

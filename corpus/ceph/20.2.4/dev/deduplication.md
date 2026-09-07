@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Deduplication
 
-# Introduction
+## Introduction
 
 Applying data deduplication on an existing software stack is not easy
 due to additional metadata management and original data processing
@@ -29,7 +29,7 @@ First is managing scalability of fingerprint index; Second is
 it is complex to ensure compatibility between newly applied
 deduplication metadata and existing metadata.
 
-# Key Idea
+## Key Idea
 1. Content hashing (Double hashing): Each client can find an object data
 for an object ID using CRUSH. With CRUSH, a client knows object's location
 in Base tier.
@@ -48,7 +48,7 @@ original storage features can be reused.
 
 More details in https://ieeexplore.ieee.org/document/8416369
 
-# Design
+## Design
 
 .. ditaa::
 
@@ -90,12 +90,12 @@ location depending on the required performance.
 
 Regarding how to use, please see ``osd_internals/manifest.rst``
 
-# Usage Patterns
+## Usage Patterns
 
 Each Ceph interface layer presents unique opportunities and costs for
 deduplication and tiering in general.
 
-## RadosGW
+### RadosGW
 
 S3 big data workloads seem like a good opportunity for deduplication.  These
 objects tend to be write once, read mostly objects which don't see partial
@@ -107,7 +107,7 @@ locating the remaining pieces.  As such, radosgw could use the
 refcounting machinery (``osd_internals/refcount.rst``) directly without
 needing direct support from rados for manifests.
 
-## RBD/Cephfs
+### RBD/Cephfs
 
 RBD and CephFS both use deterministic naming schemes to partition
 block devices/file data over rados objects.  As such, the redirection
@@ -124,12 +124,12 @@ One important wrinkle, however, is that both rbd and cephfs workloads
 often feature usage of snapshots.  This means that the rados manifest
 support needs robust support for snapshots.
 
-# RADOS Machinery
+## RADOS Machinery
 
 For more information on rados redirect/chunk/dedup support, see ``osd_internals/manifest.rst``.
 For more information on rados refcount support, see ``osd_internals/refcount.rst``.
 
-# Status and Future Work
+## Status and Future Work
 
 At the moment, there exists some preliminary support for manifest
 objects within the OSD as well as a dedup tool.
@@ -143,19 +143,19 @@ Aside from radosgw, completing work on manifest object support in the
 OSD particularly as it relates to snapshots would be the next step for
 rbd and cephfs workloads.
 
-# How to use deduplication
+## How to use deduplication
 
  * This feature is highly experimental and is subject to change or removal.
 
 Ceph provides deduplication using RADOS machinery.
 Below we explain how to perform deduplication.
 
-## Prerequisite
+### Prerequisite
 
 If the Ceph cluster is started from Ceph mainline, users need to check
 ``ceph-test`` package which is including ceph-dedup-tool is installed.
 
-## Deatiled Instructions
+### Deatiled Instructions
 
 Users can use ceph-dedup-tool with ``estimate``, ``sample-dedup``,
 ``chunk-scrub``, and ``chunk-repair`` operations. To provide better
@@ -163,7 +163,7 @@ convenience for users, we have enabled necessary operations through
 ceph-dedup-tool, and we recommend using the following operations freely
 by using any types of scripts.
 
-### 1. Estimate space saving ratio of a target pool using ``ceph-dedup-tool``.
+#### 1. Estimate space saving ratio of a target pool using ``ceph-dedup-tool``.
 
 ```bash
 ceph-dedup-tool --op estimate
@@ -212,13 +212,13 @@ means that the divided chunk size on average when performing CDC---this may diff
 because CDC genarates different chunk-boundary depending on the content. ``chunk_size_stddev``
 represents the standard deviation of the chunk size.
 
-### 2. Create chunk pool.
+#### 2. Create chunk pool.
 
 ```bash
 ceph osd pool create [CHUNK_POOL]
 ```
 
-### 3. Run dedup command (there are two ways).
+#### 3. Run dedup command (there are two ways).
 
 - **sample-dedup**
 
@@ -295,12 +295,12 @@ Deduplicated objects will appear in the chunk pool. If the object is mutated ove
 The user needs to specify ``snap`` if the target object is snapshotted. After deduplication is done, the target
 object size in ``BASE_POOL`` is zero (evicted) and chunks objects are genereated---these appear in ``CHUNK_POOL``.
 
-### 4. Read/write I/Os
+#### 4. Read/write I/Os
 
 After step 3, the users don't need to consider anything about I/Os. Deduplicated objects are
 completely compatible with existing RADOS operations.
 
-### 5. Run scrub to fix reference count
+#### 5. Run scrub to fix reference count
 
 Reference mismatches can on rare occasions occur to false positives when handling reference counts for
 deduplicated RADOS objects. These mismatches will be fixed by periodically scrubbing the pool:
@@ -360,7 +360,7 @@ join
  Damaged object : 1
 ```
 
-### 6. Repair a mismatched chunk reference
+#### 6. Repair a mismatched chunk reference
 
 If any reference mismatches occur after the ``chunk-scrub``, it is
 recommended to perform the ``chunk-repair`` operation to fix reference

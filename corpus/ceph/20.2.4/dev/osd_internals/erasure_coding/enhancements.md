@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Erasure coding enhancements
 
-# Objectives
+## Objectives
 
 Our objective is to improve the performance of erasure coding, in particular
 for small random accesses to make it more viable to use erasure coding pools
@@ -26,7 +26,7 @@ object storage.
 The following sections give a brief description of the improvements we are
 looking to make. Please see the later design sections for more details
 
-## Current Read Implementation
+### Current Read Implementation
 
 For reference this is how erasure code reads currently work
 
@@ -62,7 +62,7 @@ For reference this is how erasure code reads currently work
 Note: All the diagrams illustrate a K=4 + M=2 configuration, however the
 concepts and techniques can be used for all K+M configurations.
 
-## Partial Reads
+### Partial Reads
 
 If only a small amount of data is being read it is not necessary to read the
 whole stripe, for small I/Os ideally only a single OSD needs to be involved in
@@ -100,7 +100,7 @@ reading the data. See also larger chunk size below.
 Pull Request https://github.com/ceph/ceph/pull/55196 is implementing most of
 this optimization, however it still issues full chunk reads.
 
-## Current Overwrite Implementation
+### Current Overwrite Implementation
 
 For reference here is how erasure code overwrites currently work
 
@@ -133,7 +133,7 @@ For reference here is how erasure code overwrites currently work
    Primary                        OSD 2     OSD 3     OSD 4     OSD P     OSD Q
      OSD
 
-## Partial Overwrites
+### Partial Overwrites
 
 Ideally we aim to be able to perform updates to erasure coded stripes by only
 updating a subset of the shards (those with modified data or coding
@@ -175,7 +175,7 @@ implementation of this optimization retains a metadata write to every
 OSD. With more effort it is possible to reduce the number of metadata updates
 as well, see design below for more details.
 
-## Parity-delta-write
+### Parity-delta-write
 
 A common technique used by block storage controllers implementing RAID5 and
 RAID6 is to implement what is sometimes called a parity delta write. When a
@@ -219,7 +219,7 @@ specific to M=1 and M=2, it can be applied with any number of coding parities.
     Primary                        OSD 2     OSD 3     OSD 4     OSD P     OSD Q
       OSD
 
-## Direct Read I/O
+### Direct Read I/O
 
 We want clients to submit small I/Os directly to the OSD that stores the data
 rather than directing all I/O requests to the Primary OSD and have it issue
@@ -282,7 +282,7 @@ reduces network bandwidth and improves I/O latency
     Primary    OSD 2     OSD 3     OSD 4     OSD P     OSD Q
       OSD
 
-## Distributed processing of writes
+### Distributed processing of writes
 
 The existing erasure code implementation processes write I/Os on the primary
 OSD, issuing both reads and writes to other OSDs to fetch and update data for
@@ -323,7 +323,7 @@ the processing across OSDs to reduce network bandwidth.
     Primary                        OSD 2     OSD 3     OSD 4     OSD P     OSD Q
       OSD
 
-## Direct Write I/O
+### Direct Write I/O
 
 .. ditaa::
 
@@ -361,7 +361,7 @@ This diagram is overly simplistic, only showing the data flows - direct writes
 are much harder to implement and will need control messages to the Primary to
 ensure writes to the same stripe are ordered correctly
 
-## Larger chunk size
+### Larger chunk size
 
 The default chunk size is 4K, this is too small and means that small reads
 have to be split up and processed by many OSDs. It is more efficient if small
@@ -378,7 +378,7 @@ Code currently rounds up I/O sizes to multiples of the chunk size, which isn't
 an issue with a small chunk size. With a larger chunk size and partial
 reads/writes we should round up to the page size rather than the chunk size.
 
-# Design
+## Design
 
 We will describe the changes we aim to make in three sections, the first
 section looks at the existing test tools for erasure coding and discusses the
@@ -393,7 +393,7 @@ to implement many of the I/O path changes without reducing the number of
 metadata updates, there are bigger performance benefits if the number of
 metadata updates can be reduced as well.
 
-## Test tools
+### Test tools
 
 A survey of the existing test tools shows that there is insufficient coverage
 of erasure coding to be able to just make changes to the code and expect the
@@ -492,9 +492,9 @@ which can be tested with unit tests. There are already some unit tests and
 performance benchmark tools for erasure coding, we will look to extend these
 to get further coverage of code that can be run stand alone.
 
-## I/O path changes
+### I/O path changes
 
-### Avoid unnecessary reads and writes
+#### Avoid unnecessary reads and writes
 
 The current code reads too much data for read and overwrite I/Os. For
 overwrites it will also rewrite unmodified data. This occurs because reads and
@@ -511,7 +511,7 @@ metadata update for every transaction. When changes to the metadata handling
 are completed (see below) then it will be possible to make further
 optimizations to reduce the number of metadata updates for additional savings.
 
-### Parity-delta-write
+#### Parity-delta-write
 
 The current code implements overwrites by performing a full-stripe read,
 merging the overwritten data, calculating new coding parities and performing a
@@ -547,7 +547,7 @@ commonly used erasure codings. Erasure code plugins will provide a new flag
 indicating whether they support the new interfaces needed to perform delta
 updates.
 
-### Direct reads
+#### Direct reads
 
 Read I/Os are currently directed to the primary OSD which then issues reads to
 other shards. To reduce I/O latency and network bandwidth it would be better
@@ -575,7 +575,7 @@ reduced guarantees of a direct read, and for scenarios where the direct read
 would be to an OSD that is absent or backfilling, reads directed to the
 primary OSD will still be supported.
 
-### Direct writes
+#### Direct writes
 
 Write I/Os are currently directed to the primary OSD which then updates the
 other shards. To reduce latency and network bandwidth it would be better if
@@ -609,7 +609,7 @@ point of control. The Primary OSD will issue a reply when the OSD can start
 the direct write and will be informed with another message when the I/O has
 completed. See section below on metadata updates for more details.
 
-### Stripe cache
+#### Stripe cache
 
 Erasure code pools maintain a stripe cache which stores shard data while
 updates are in progress. This is required to allow writes and reads to the
@@ -633,7 +633,7 @@ benefits of a good stripe cache become more significant because the stripe
 size will be 100’s KiB to small number of MiB’s and hence it becomes much more
 likely that a sequential workload will issue many I/Os to the same stripe.
 
-### Automatically choose chunk size
+#### Automatically choose chunk size
 
 The default chunk size of 4K is good for small objects because the data and
 coding parities are rounded up to whole chunks and because if an object has
@@ -660,7 +660,7 @@ The thought is to support a new chunk size of auto/variable to enable this
 feature, it will only be applicable for newly created pools, there will be no
 way to migrate an existing pool.
 
-### Deep scrub support
+#### Deep scrub support
 
 EC Pools with overwrite do not check CRCs because it is too costly to update
 the CRC for the object on every overwrite, instead the code relies on
@@ -710,7 +710,7 @@ together that a set of corruptions cancel each other out, but this level of
 check is better than no check and will be very successful at detecting a
 dropped write which will be the most common type of corruption.
 
-## Metadata changes
+### Metadata changes
 
 What metadata do we need to consider?
 
@@ -736,7 +736,7 @@ What metadata do we need to consider?
    transaction. Currently all OSDs retain a cached and a persistent copy of
    this metadata.
 
-### How many copies of metadata are required?
+#### How many copies of metadata are required?
 
 The current implementation keeps K+M replicated copies of metadata, one copy
 on each shard. The minimum number of copies that need to be kept to support up
@@ -748,7 +748,7 @@ and asynchronous code paths. Specifically this means that any OSD not
 performing backfill can become the primary and can access metadata such as
 object_info_t locally.
 
-### M+1 arbitrarily distributed copies
+#### M+1 arbitrarily distributed copies
 
 A partial write to one data shard will always involve updates to the data
 shard and all M coding parity shards, therefore for optimal performance it
@@ -765,7 +765,7 @@ messages to other OSDs to read it. This would add significant extra complexity
 to the PG code and cause divergence between Erasure coded pools and Replicated
 pools. For these reasons we discount this design option.
 
-### M+1 copies on known shards
+#### M+1 copies on known shards
 
 The next best performance can be achieved by always applying metadata updates
 to the same M+1 shards, for example choosing the 1st data shard and all M
@@ -779,7 +779,7 @@ that once any incomplete updates in the log have been resolved that the
 primary will have an up to date local copy of all the metadata, this means
 that much more of the PG code can be kept unchanged.
 
-### Partial Writes and the PG log
+#### Partial Writes and the PG log
 
 Peering currently assumes that every shard has a copy of the log, however
 because of inflight updates and small term absences it is possible that some
@@ -815,7 +815,7 @@ that were trimmed in absentia. Hopefully this means that only sending log
 trimming updates to shards that are creating new log entries will work without
 code changes.
 
-### Backfill
+#### Backfill
 
 Backfill is used to correct inconsistencies between OSDs that occur when an
 OSD is absent for a longer period of time and the PG log entries have been
@@ -887,7 +887,7 @@ PGBackend::run_recovery_op - recovers a single object. For an EC pool this
 involves reconstructing the data for the shards that need backfilling (read
 other shards and use decode to recover). This code shouldn't need any changes.
 
-### Version number and last modification time for clients
+#### Version number and last modification time for clients
 
 Clients can read the object version number and set expectations about what the
 minimum version number is when making updates. Clients can also read the last
@@ -915,7 +915,7 @@ The direct read I/O optimization will still return a (potentially stale)
 object version number. This may still be of use to clients to help understand
 the ordering of I/Os to a chunk.
 
-### Direct Write with Metadata updates
+#### Direct Write with Metadata updates
 
 Here's the full picture of what a direct write performing a parity-delta-write
 looks like with all the control messages:
@@ -1054,7 +1054,7 @@ in the same order.
     MOSDEcSubOpSequence)
 28. Control message reply to client (MOSDOpReply)
 
-## Upgrade and backwards compatibility
+### Upgrade and backwards compatibility
 
 A few of the optimizations can be made just by changing code on the primary
 OSD with no backwards compatibility concerns regarding clients or the other
@@ -1094,7 +1094,7 @@ code. These will require that the pool has the new flag set and that a new
 client is used. Old clients can use pools with the new flag set, just without
 the direct I/O optimization.
 
-## Not under consideration
+### Not under consideration
 
 There is a list of enhancements discussed in
 doc/dev/osd_internals/erasure_coding/proposals.rst, the following are not
@@ -1128,7 +1128,7 @@ complete.
 Pull request https://github.com/ceph/ceph/pull/57237 is making this
 optimization
 
-# Stories
+## Stories
 
 This is our high level breakdown of the work. Our intention is to deliver this
 work as a series of PRs. The stories are roughly in the order we plan to
@@ -1139,7 +1139,7 @@ stories will start breaking backwards compatibility, here we plan to add a new
 flag to the pool to enable these new features. Initially this will be an
 experimental flag while the later stories are developed.
 
-## Test tools - enhanced I/O generator for testing erasure coding
+### Test tools - enhanced I/O generator for testing erasure coding
 
 * Extend rados bench to be able to generate more interesting patterns of I/O
   for erasure coding, in particular reading and writing at different offsets
@@ -1149,20 +1149,20 @@ experimental flag while the later stories are developed.
   and remembering which seed is used for each block that is written so that
   data can later be validated
 
-## Test tools - offline consistency checking tool
+### Test tools - offline consistency checking tool
 
 * Test tools for performing offline consistency checks combining use of
   objectstore_tool with ceph-erasure-code-tool
 * Enhance some of the teuthology standalone erasure code checks to use this
   tool
 
-## Test tools - online consistency checking tool
+### Test tools - online consistency checking tool
 
 * New CLI to be able to perform online consistency checking for an object or a
   range of objects that reads all the data and coding parity shards and
   re-encodes the data to validate the coding parities
 
-## Switch for JErasure to ISA-L
+### Switch for JErasure to ISA-L
 
 The JErasure library has not been updated since 2014, the ISA-L library is
 maintained and exploits newer instructions sets (e.g. AVX512, AVX2) which
@@ -1174,7 +1174,7 @@ provides faster encoding/decoding
 * Documentation updates
 * Present results at performance weekly
 
-## Sub Stripe Reads
+### Sub Stripe Reads
 
 Ceph currently reads an integer number of stripes and discards unneeded
 data. In particular for small random reads it will be more efficient to just
@@ -1184,7 +1184,7 @@ read the required data
   already complete
 * Further changes to issue sub-chunk reads rather than full-chunk reads
 
-## Simple Optimizations to Overwrite
+### Simple Optimizations to Overwrite
 
 Ceph overwrites currently read an integer number of stripes, merge the new
 data and write an integer number of stripes. This story makes simple
@@ -1197,7 +1197,7 @@ each shard.
 * Perform sub-chunk reads for sub-chunk updates
 * Perform sub-chunk writes for sub-chunk updates
 
-## Eliminate unnecessary chunk writes but keep metadata transactions
+### Eliminate unnecessary chunk writes but keep metadata transactions
 
 This story avoids re-writing data that has not been modified. A transaction is
 still applied to every OSD to update object metadata, the PG log and PG stats.
@@ -1205,7 +1205,7 @@ still applied to every OSD to update object metadata, the PG log and PG stats.
 * Continue to create transactions for all chunks but without the new write data
 * Add sub-chunk writes to transactions where data is being modified
 
-## Avoid zero padding objects to a full stripe
+### Avoid zero padding objects to a full stripe
 
 Objects are rounded up to an integer number of stripes by adding zero
 padding. These buffers of zeros are then sent in messages to other OSDs and
@@ -1219,7 +1219,7 @@ the need for this padding
 * Modifications to encode/decode functions to avoid having to pass in buffers
   of zeros when objects are padded
 
-## Erasure coding plugin changes to support distributed partial writes
+### Erasure coding plugin changes to support distributed partial writes
 
 This is preparatory work for future stories, it adds new APIs to the erasure
 code plugins.
@@ -1231,7 +1231,7 @@ code plugins.
 * Add a new interface which reports which erasure codes support this feature
   (ISA-L and JErasure will support it, others will not)
 
-## Erasure coding interface to allow RADOS clients to direct I/Os to OSD storing the data
+### Erasure coding interface to allow RADOS clients to direct I/Os to OSD storing the data
 
 This is preparatory work for future stories, its adds a new API for clients
 
@@ -1246,7 +1246,7 @@ perform this translation.
 We will only support ISA-L and JErasure plugins where there is a trivial
 striping of data chunks to OSDs.
 
-## Changes to object_info_t
+### Changes to object_info_t
 
 This is preparatory work for future stories.
 
@@ -1254,7 +1254,7 @@ This adds the vector of version numbers to object_info_t which will be used
 for partial updates. For replicated pools and for erasure coded objects that
 are not overwritten we will avoid storing extra data in object_info_t.
 
-## Changes to PGLog and Peering to support updating a subset of OSDs
+### Changes to PGLog and Peering to support updating a subset of OSDs
 
 This is preparatory work for future stories.
 
@@ -1262,7 +1262,7 @@ This is preparatory work for future stories.
 * Modify peering to use this extra data to work out OSDs that are missing
   updates
 
-## Change to selection of (acting) primary
+### Change to selection of (acting) primary
 
 This is preparatory work for future stories.
 
@@ -1270,7 +1270,7 @@ Constrain the choice of primary to be the first data OSD or one of the erasure
 coding parities. If none of these OSDs are available and up to date then the
 pool must be offline.
 
-## Implement parity-delta-write with all computation on the primary
+### Implement parity-delta-write with all computation on the primary
 
 * Calculate whether its more efficient for an update to perform a full stripe
   overwrite or a parity-delta-write
@@ -1280,7 +1280,7 @@ pool must be offline.
   choice of 'parity-delta', 'full-stripe', 'mixture for testing' or
   'automatic' and update teuthology test cases to predominately use a mixture.
 
-## Upgrades and backwards compatibility
+### Upgrades and backwards compatibility
 
 * Add a new feature flag for erasure coded pools
 * All OSDs must be running new code to enable the flag on the pool
@@ -1289,7 +1289,7 @@ pool must be offline.
 * Its not possible to turn the feature flag off (other than by deleting the
   pool)
 
-## Changes to Backfill to use the vector in object_info_t
+### Changes to Backfill to use the vector in object_info_t
 
 This is preparatory work for future stories.
 
@@ -1302,13 +1302,13 @@ This is preparatory work for future stories.
   required by the backfill targets and select the appropriate entry when
   comparing version numbers in PrimaryLogPG::recover_backfill
 
-## Test tools - offline metadata validation tool
+### Test tools - offline metadata validation tool
 
 * Test tools for performing offline consistency checking of metadata, in
   particular checking the vector of version numbers in object_info_t matches
   the versions on each OSD, but also for validating PG log entries
 
-## Eliminate transactions on OSDs not updating data chunks
+### Eliminate transactions on OSDs not updating data chunks
 
 Peering, log recovery and backfill can now all cope with partial updates using
 the vector of version numbers in object_info_t.
@@ -1320,7 +1320,7 @@ the vector of version numbers in object_info_t.
 * Modify the generation of the PG log entry to record which OSDs are being
   updated
 
-## Direct reads to OSDs (single chunk only)
+### Direct reads to OSDs (single chunk only)
 
 * Modify OSDClient to route single chunk read I/Os to the OSD storing the data
 * Modify OSD to accept reads from non-primary OSD (expand existing changes for
@@ -1340,7 +1340,7 @@ applicable to rbd, rgw and cephfs.
 We will not make changes to other code that has its own version of RADOS
 client code such as krbd, although this could be done in the future.
 
-## Direct reads to OSDs (multiple chunks)
+### Direct reads to OSDs (multiple chunks)
 
 * Add a new OSDC flag NONATOMIC which allows OSDC to split a read into
   multiple requests
@@ -1355,7 +1355,7 @@ We are only changing a very limited set of clients, focusing on those that
 issue smaller reads and are latency sensitive. Future work could look at
 extending the set of clients (including krbd).
 
-## Implement distributed parity-delta-write
+### Implement distributed parity-delta-write
 
 * Implement new message MOSDEcSubOpDelta and MOSDEcSubOpDeltaReply
 * Change primary to calculate delta and send MOSDEcSubOpDelta message to
@@ -1366,7 +1366,7 @@ extending the set of clients (including krbd).
 Note: This change will increase latency because the coding parity reads start
 after the old data read. Future work will fix this.
 
-## Test tools - EC error injection thrasher
+### Test tools - EC error injection thrasher
 
 * Implement a new type of thrasher that specifically injects faults to stress
   erasure coded pools
@@ -1381,7 +1381,7 @@ after the old data read. Future work will fix this.
 * Inject delays using osd tell type interface to slow down an OSD transaction
   or message to expose the less common completion orders for parallel work
 
-## Implement prefetch message MOSDEcSubOpPrefetch and modify extent cache
+### Implement prefetch message MOSDEcSubOpPrefetch and modify extent cache
 
 * Implement new message MOSDEcSubOpPrefetch
 * Change primary to issue this message to the coding parity OSDs before
@@ -1394,19 +1394,19 @@ after the old data read. Future work will fix this.
   MOSDEcSubOpDelta message is received, and to discard this on error paths
   (e.g. new OSDMap)
 
-## Implement sequencing message MOSDEcSubOpSequence
+### Implement sequencing message MOSDEcSubOpSequence
 
 * Implement new message MODSEcSubOpSequence and MOSDEcSubOpSequenceReply
 * Modify primary code to create these messages and route them locally to
   itself in preparation for direct writes
 
-## Direct writes to OSD (single chunk only)
+### Direct writes to OSD (single chunk only)
 
 * Modify OSDC to route single chunk write I/Os to the OSD storing the data
 * Changes to issue MOSDEcSubOpSequence and MOSDEcSubOpSequenceReply between
   data OSD and primary OSD
 
-## Direct writes to OSD (multiple chunks)
+### Direct writes to OSD (multiple chunks)
 
 * Modifications to OSDC to split multiple chunk writes into separate requests
   if NONATOMIC flag is set
@@ -1419,7 +1419,7 @@ We are only changing a very limited set of clients, focusing on those that
 issue smaller writes and are latency sensitive. Future work could look at
 extending the set of clients.
 
-## Deep scrub / CRC
+### Deep scrub / CRC
 
 * Disable CRC generation in the EC code for overwrites, delete hinfo Xattr
   when first overwrite occurs
@@ -1431,7 +1431,7 @@ extending the set of clients.
 * Return the longitudinal check in the scrub reply message, have the primary
   encode the set of longitudinal replies to check for inconsistencies
 
-## Variable chunk size erasure coding
+### Variable chunk size erasure coding
 
 * Implement new pool option for automatic/variable chunk size
 * When object size is small use a small chunk size (4K) when the pool is using
@@ -1444,7 +1444,7 @@ extending the set of clients.
 * Use the object size hint to avoid creating small objects and then almost
   immediately converting them to a larger chunk size
 
-## CLAY Erasure Codes
+### CLAY Erasure Codes
 
 In theory CLAY erasure codes should be good for K+M erasure codes with larger
 values of M, in particular when these erasure codes are used with multiple

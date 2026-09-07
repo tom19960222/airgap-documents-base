@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Tracing Ceph With LTTng
 
-# Configuring Ceph with LTTng
+## Configuring Ceph with LTTng
 
 if you compile code, please use -DWITH_LTTNG option (default: ON):
 
@@ -38,7 +38,7 @@ rgw_op_tracing
 rgw_rados_tracing
 ```
 
-# Testing Trace
+## Testing Trace
 
 Start LTTng daemon:
 
@@ -117,7 +117,7 @@ phase. Thanks to LTTng this can happen with a minimal overhead and
 in realtime. The LTTng traces can then be visualized with Twitter's
 [Zipkin](https://zipkin.io/).
 
-# Configuring Ceph with Blkin
+## Configuring Ceph with Blkin
 
 Use -DWITH_BLKIN option (which requires -DWITH_LTTNG):
 
@@ -134,7 +134,7 @@ osd_blkin_trace_all
 osdc_blkin_trace_all
 ```
 
-# Testing Blkin
+## Testing Blkin
 
 It's easy to test Ceph's Blkin tracing. Let's assume you don't have
 Ceph already running, and you compiled Ceph with Blkin support but
@@ -223,7 +223,7 @@ You'll see something like::
 [15:33:08.884616431] (+0.000002296) ubuntu zipkin:keyval_string: { cpu_id = 10 }, { trace_name = "", service_name = "Messenger", port_no = 6805, ip = "0.0.0.0", trace_id = 7381732770245808782, span_id = 7387710183742669839, parent_span_id = 1205040135881905799, key = "entity type", val = "client" }
 ```
 
-# Install  Zipkin
+## Install  Zipkin
 One of the points of using Blkin is so that you can look at the traces
 using Zipkin. Users should run Zipkin as a tracepoints collector and
 also a web service. The executable jar runs a collector on port 9410 and
@@ -243,7 +243,7 @@ Or, launch docker image:
 docker run -d -p 9411:9411 openzipkin/Zipkin
 ```
 
-# Show Ceph's Blkin Traces in Zipkin-web
+## Show Ceph's Blkin Traces in Zipkin-web
 Download babeltrace-zipkin project. This project takes the traces
 generated with blkin and sends them to a Zipkin collector using scribe:
 

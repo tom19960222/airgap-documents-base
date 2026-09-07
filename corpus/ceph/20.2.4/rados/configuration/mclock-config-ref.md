@@ -21,9 +21,9 @@ fetched_at: 2026-08-18T01:32:45Z
 > be applied cluster-wide and takes effect after each OSD is
 > restarted:
 >
-> .. prompt:: bash #
->
->   ceph config set osd osd_op_queue wpq
+> ```bash
+> ceph config set osd osd_op_queue wpq
+> ```
 
 QoS support in Ceph is implemented using a queuing scheduler based on [the dmClock algorithm](https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Gulati.pdf). See [dmclock-qos](osd-config-ref.md#dmclock-qos) section for more details.
 
@@ -49,7 +49,7 @@ operations in the OSD.
 
 .. index:: mclock; mclock clients
 
-# mClock Client Types
+## mClock Client Types
 
 The mclock scheduler handles requests from different types of Ceph services.
 Each service can be considered as a type of client from mclock's perspective.
@@ -68,7 +68,7 @@ describe the mclock profiles in greater detail.
 
 .. index:: mclock; profile definition
 
-# mClock Profiles - Definition and Purpose
+## mClock Profiles - Definition and Purpose
 
 A mclock profile is *“a configuration setting that when applied on a running
 Ceph cluster enables the throttling of the operations(IOPS) belonging to
@@ -86,11 +86,11 @@ described in the [dmclock-qos](osd-config-ref.md#dmclock-qos) section.
 
 .. index:: mclock; profile types
 
-# mClock Profile Types
+## mClock Profile Types
 
 mclock profiles can be broadly classified into *built-in* and *custom* profiles,
 
-## Built-in Profiles
+### Built-in Profiles
 Users can choose between the following built-in profile types:
 
 > **Note:** The values mentioned in the tables below represent the proportion
@@ -100,7 +100,7 @@ Users can choose between the following built-in profile types:
 * high_client_ops
 * high_recovery_ops
 
-### balanced (*default*)
+#### balanced (*default*)
 The *balanced* profile is the default mClock profile. This profile allocates
 equal reservation/priority to client operations and background recovery
 operations. Background best-effort ops are given lower reservation and therefore
@@ -119,7 +119,7 @@ built-in profiles may be enabled by following the steps mentioned in next sectio
 | background recovery | 50% | 1 | MAX |
 | background best-effort | 5% | 2 | 90% |
 
-### high_client_ops
+#### high_client_ops
 This profile optimizes client performance over background activities by
 allocating more reservation and limit to client operations as compared to
 background operations in the OSD. This profile, for example, may be enabled
@@ -133,7 +133,7 @@ the resource control parameters set by the profile:
 | background recovery | 40% | 1 | MAX |
 | background best-effort | 5% | 4 | 70% |
 
-### high_recovery_ops
+#### high_recovery_ops
 This profile optimizes background recovery performance as compared to external
 clients and other background operations within the OSD. This profile, for
 example, may be enabled by an administrator temporarily to speed-up background
@@ -150,7 +150,7 @@ parameters set by the profile:
 > of mclock include "backfill", "scrub", "snap trim", and "pg deletion"
 > operations.
 
-## Custom Profile
+### Custom Profile
 This profile gives users complete control over all the mclock configuration
 parameters. This profile should be used with caution and is meant for advanced
 users, who understand mclock and Ceph related configuration options.
@@ -159,7 +159,7 @@ users, who understand mclock and Ceph related configuration options.
 
 <a id="mclock-hdd-cfg"></a>
 
-# OSD Shard Configuration For HDD Based Clusters With mClock
+## OSD Shard Configuration For HDD Based Clusters With mClock
 Each OSD is configured with one or more shards to perform tasks. Each shard
 comprises a unique queue to handle various types of OSD specific operations
 like client I/O, recovery, scrub and so on. The scheduling of these operations
@@ -207,11 +207,11 @@ change to the default HDD OSD shard configuration is made:
 
 .. index:: mclock; built-in profiles
 
-# mClock Built-in Profiles -  Locked Config Options
+## mClock Built-in Profiles -  Locked Config Options
 The below sections describe the config options that are locked to certain values
 in order to ensure mClock scheduler is able to provide predictable QoS.
 
-## mClock Config Options
+### mClock Config Options
 > **Important:** These defaults cannot be changed using any of the config
 > subsytem commands like *config set* or via the *config daemon* or *config
 > tell* interfaces. Although the above command(s) report success, the mclock
@@ -233,7 +233,7 @@ config parameters cannot be modified when using any of the built-in profiles:
 - osd_mclock_scheduler_background_best_effort_wgt
 - osd_mclock_scheduler_background_best_effort_lim
 
-## Recovery/Backfill Options
+### Recovery/Backfill Options
 > **Warning:** The recommendation is to not change these options as the built-in
 > profiles are optimized based on them. Changing these defaults can result in
 > unexpected performance outcomes.
@@ -260,9 +260,9 @@ operations:
 The above mClock defaults, can be modified only if necessary by enabling
 osd_mclock_override_recovery_settings (default: false). The
 steps for this is discussed in the
-[Steps to Modify mClock Max Backfills/Recovery Limits](mclock-config-ref.md#steps-to-modify-mclock-max-backfills-recovery-limits) section.
+[Steps to Modify mClock Max Backfills/Recovery Limits](mclock-config-ref.md#steps-to-modify-mclock-max-backfillsrecovery-limits) section.
 
-## Sleep Options
+### Sleep Options
 If any mClock profile (including "custom") is active, the following Ceph config
 sleep options are disabled (set to 0),
 
@@ -291,7 +291,7 @@ all its clients.
 
 .. index:: mclock; enable built-in profile
 
-# Steps to Enable mClock Profile
+## Steps to Enable mClock Profile
 
 As already mentioned, the default mclock profile is set to *balanced*.
 The other values for the built-in profiles include *high_client_ops* and
@@ -318,13 +318,13 @@ ceph config set osd.0 osd_mclock_profile high_recovery_ops
 And that's it! You are ready to run workloads on the cluster and check if the
 QoS requirements are being met.
 
-# Switching Between Built-in and Custom Profiles
+## Switching Between Built-in and Custom Profiles
 
 There may be situations requiring switching from a built-in profile to the
 *custom* profile and vice-versa. The following sections outline the steps to
 accomplish this.
 
-## Steps to Switch From a Built-in to the Custom Profile
+### Steps to Switch From a Built-in to the Custom Profile
 
 The following command can be used to switch to the *custom* profile:
 
@@ -358,7 +358,7 @@ ceph config set osd.0 osd_mclock_scheduler_client_res 0.5
 > osd_op_num_shards_hdd and osd_op_num_shards_ssd for
 > more details.
 
-## Steps to Switch From the Custom Profile to a Built-in Profile
+### Steps to Switch From the Custom Profile to a Built-in Profile
 
 Switching from the *custom* profile to a built-in profile requires an
 intermediate step of removing the custom settings from the central config
@@ -410,7 +410,7 @@ ceph config rm osd osd_mclock_scheduler_client_res
 ceph config show osd.0
 ```
 
-## Switch Temporarily Between mClock Profiles
+### Switch Temporarily Between mClock Profiles
 
 To switch between mClock profiles on a temporary basis, the following commands
 may be used to override the settings:
@@ -456,7 +456,7 @@ ceph daemon osd.0 config set osd_mclock_profile high_recovery_ops
 The individual QoS-related config options for the *custom* profile can also be
 modified ephemerally using the above commands.
 
-# Steps to Modify mClock Max Backfills/Recovery Limits
+## Steps to Modify mClock Max Backfills/Recovery Limits
 
 This section describes the steps to modify the default max backfills or recovery
 limits if the need arises.
@@ -468,7 +468,7 @@ limits if the need arises.
 > with the default settings or for performing experiments on a test cluster.
 
 > **Important:** The max backfill/recovery options that can be modified are listed
-> in section [Recovery/Backfill Options](mclock-config-ref.md#recovery-backfill-options). The modification of the mClock
+> in section [Recovery/Backfill Options](mclock-config-ref.md#recoverybackfill-options). The modification of the mClock
 > default backfills/recovery limit is gated by the
 > osd_mclock_override_recovery_settings option, which is set to
 > *false* by default. Attempting to modify any default recovery/backfill
@@ -518,7 +518,7 @@ ceph config show osd.0 | grep osd_max_backfills
 ceph config set osd osd_mclock_override_recovery_settings false
 ```
 
-# OSD Capacity Determination (Automated)
+## OSD Capacity Determination (Automated)
 
 The OSD capacity in terms of total IOPS is determined automatically during OSD
 initialization. This is achieved by running the OSD bench tool and overriding
@@ -544,7 +544,7 @@ node whose underlying device type is SSD:
 ceph config show osd.0 osd_mclock_max_capacity_iops_ssd
 ```
 
-## Mitigation of Unrealistic OSD Capacity From Automated Test
+### Mitigation of Unrealistic OSD Capacity From Automated Test
 In certain conditions, the OSD bench tool may show unrealistic/inflated result
 depending on the drive configuration and other environment related conditions.
 To mitigate the performance impact due to this unrealistic capacity, a couple
@@ -556,7 +556,7 @@ used:
 
 The following automated step is performed:
 
-### Fallback to using default OSD capacity (automated)
+#### Fallback to using default OSD capacity (automated)
 If OSD bench reports a measurement that exceeds the above threshold values
 depending on the underlying device type, the fallback mechanism reverts to the
 default value of osd_mclock_max_capacity_iops_hdd or
@@ -576,7 +576,7 @@ osd_mclock_max_capacity_iops_[hdd|ssd].
 If the default capacity doesn't accurately represent the OSD's capacity, the
 following additional step is recommended to address this:
 
-### Run custom drive benchmark if defaults are not accurate (manual)
+#### Run custom drive benchmark if defaults are not accurate (manual)
 If the default OSD capacity is not accurate, the recommendation is to run a
 custom benchmark using your preferred tool (e.g. Fio) on the drive and then
 override the ``osd_mclock_max_capacity_iops_[hdd, ssd]`` option as described
@@ -584,7 +584,7 @@ in the Specifying Max OSD Capacity <!-- unresolved-rst-link: kind=named target=S
 
 This step is highly recommended until an alternate mechansim is worked upon.
 
-# Steps to Manually Benchmark an OSD (Optional)
+## Steps to Manually Benchmark an OSD (Optional)
 
 > **Note:** These steps are only necessary if you want to override the OSD
 > capacity already determined automatically during OSD initialization.
@@ -616,7 +616,7 @@ maximize the impact of the mclock scheduler.
   bluestore_throttle_deferred_bytes. But these parameters may also be
   determined during the benchmarking phase as described below.
 
-## OSD Bench Command Syntax
+### OSD Bench Command Syntax
 
 The [osd-subsystem](../operations/control.md#osd-subsystem) section describes the OSD bench command. The syntax
 used for benchmarking is shown below :
@@ -632,7 +632,7 @@ where,
 * ``OBJ_SIZE``: Bytes per object
 * ``NUM_OBJS``: Number of objects to write
 
-## Benchmarking Test Steps Using OSD Bench
+### Benchmarking Test Steps Using OSD Bench
 
 The steps below use the default shards and detail the steps used to determine
 the correct bluestore throttle values (optional).
@@ -677,7 +677,7 @@ overall throughput was roughly equal to the baseline throughput. Note that in
 general for HDDs, the bluestore throttle values are expected to be higher when
 compared to SSDs.
 
-## Set or Override Max IOPS Capacity of an OSD
+### Set or Override Max IOPS Capacity of an OSD
 
 The steps in this section may be performed to set or override the max IOPS
 capacity of an OSD. The ``osd_mclock_max_capacity_iops_[hdd, ssd]`` option for
@@ -698,7 +698,7 @@ Alternatively, you may specify the max capacity for OSDs within the Ceph
 configuration file under the respective [osd.N] section. See
 [ceph-conf-settings](ceph-conf.md#ceph-conf-settings) for more details.
 
-## Global Override of Max IOPS Capacity for multiple OSDs
+### Global Override of Max IOPS Capacity for multiple OSDs
 
 The max IOPS capacity of multiple OSDs may be overridden by a global config
 specification. This section shows the steps to globally override the
@@ -774,7 +774,7 @@ osd_mclock_max_capacity_iops_hdd                 111.000000                     
 
 .. index:: mclock; config settings
 
-# mClock Config Options
+## mClock Config Options
 
 .. confval:: osd_mclock_profile
 

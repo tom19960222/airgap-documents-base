@@ -5,7 +5,7 @@ title: "RGW Dynamic Bucket Index Resharding"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/dynamicresharding.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="rgw-dynamic-bucket-index-resharding"></a>
+<a id="rgw_dynamic_bucket_index_resharding"></a>
 
 # RGW Dynamic Bucket Index Resharding
 
@@ -45,14 +45,14 @@ number of objects increases in the near future. The goal of the delay
 is to avoid thrashing where resharding keeps getting re-invoked on
 buckets that fluctuate in numbers of objects.
 
-# Multisite
+## Multisite
 
 With Ceph releases prior to Reef, the Ceph Object Gateway (RGW) does not support
 dynamic resharding in a
 multisite deployment. For information on dynamic resharding, see
-[Resharding](zone-features.md#feature-resharding) in the RGW multisite documentation.
+[Resharding](zone-features.md#feature_resharding) in the RGW multisite documentation.
 
-# Configuration
+## Configuration
 
 .. confval:: rgw_dynamic_resharding
 
@@ -74,27 +74,27 @@ multisite deployment. For information on dynamic resharding, see
 
 .. confval:: rgw_reshard_progress_judge_ratio
 
-# Admin Commands
+## Admin Commands
 
-## Add a Bucket to the Resharding Queue
+### Add a Bucket to the Resharding Queue
 
 ```bash
 radosgw-admin reshard add --bucket <bucket_name> --num-shards <new number of shards>
 ```
 
-## List Resharding Queue
+### List Resharding Queue
 
 ```bash
 radosgw-admin reshard list
 ```
 
-## Process Tasks on the Resharding Queue
+### Process Tasks on the Resharding Queue
 
 ```bash
 radosgw-admin reshard process
 ```
 
-## Bucket Resharding Status
+### Bucket Resharding Status
 
 ```bash
 radosgw-admin reshard status --bucket <bucket_name>
@@ -156,7 +156,7 @@ For example, the output at each dynamic resharding stage is shown below:
 ]
 ```
 
-## Cancel Pending Bucket Resharding
+### Cancel Pending Bucket Resharding
 
 > **Note:**
 > Bucket resharding tasks cannot be canceled once they transition to
@@ -166,7 +166,7 @@ For example, the output at each dynamic resharding stage is shown below:
 radosgw-admin reshard cancel --bucket <bucket_name>
 ```
 
-## Manual Immediate Bucket Resharding
+### Manual Immediate Bucket Resharding
 
 ```bash
 radosgw-admin bucket reshard --bucket <bucket_name> --num-shards <new number of shards>
@@ -183,7 +183,7 @@ since the former is prime. A variety of web sites have lists of prime
 numbers; search for "list of prime numbers" with your favorite
 search engine to locate some web sites.
 
-## Setting a Bucket's Minimum Number of Shards
+### Setting a Bucket's Minimum Number of Shards
 
 ```bash
 radosgw-admin bucket set-min-shards --bucket <bucket_name> --num-shards <min number of shards>
@@ -196,14 +196,14 @@ in the future. This command allows administrators to set a per-bucket
 minimum. This does not, however, prevent administrators from manually
 resharding to a lower number of shards.
 
-# Troubleshooting
+## Troubleshooting
 
 Clusters prior to Luminous 12.2.11 and Mimic 13.2.5 left behind stale bucket
 instance entries, which were not automatically cleaned up. This issue also affected
 lifecycle policies, which were no longer applied to resharded buckets. Both of
 these issues can be remediated by running ``radosgw-admin`` commands.
 
-## Stale Instance Management
+### Stale Instance Management
 
 List the stale instances in a cluster that may be cleaned up:
 
@@ -219,7 +219,7 @@ radosgw-admin reshard stale-instances delete
 
 > **Note:** Cleanup of stale instances should not be done in a multisite deployment.
 
-## Lifecycle Fixes
+### Lifecycle Fixes
 
 For clusters with resharded instances, it is highly likely that the old
 lifecycle processes would have flagged and deleted lifecycle processing as the
@@ -237,7 +237,7 @@ radosgw-admin lc reshard fix --bucket {bucketname}
 If the ``--bucket`` argument is not provided, this
 command will try to fix lifecycle policies for all the buckets in the cluster.
 
-## Object Expirer Fixes
+### Object Expirer Fixes
 
 Objects subject to Swift object expiration on older clusters may have
 been dropped from the log pool and never deleted after the bucket was

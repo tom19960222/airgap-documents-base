@@ -18,13 +18,13 @@ is the client of choice for most use-cases.
 > backward-compatible with the old syntax. This means that the old syntax can
 > still be used for mounting with newer mount helpers and with the kernel.
 
-# Prerequisites
+## Prerequisites
 
-## Complete General Prerequisites
+### Complete General Prerequisites
 Go through the prerequisites required by both kernel and FUSE mounts,
 as described on the [Mount CephFS: Prerequisites](mount-prerequisites.md#mount-cephfs-prerequisites) page.
 
-## Is mount helper present?
+### Is mount helper present?
 The ``mount.ceph`` helper is installed by Ceph packages. The helper passes the
 monitor address(es) and CephX user keyrings, saving the Ceph admin the effort
 of passing these details explicitly while mounting CephFS. If the helper is not
@@ -37,7 +37,7 @@ command:
 stat /sbin/mount.ceph
 ```
 
-## Which Kernel Version?
+### Which Kernel Version?
 
 Because the kernel client is distributed as part of the Linux kernel (and not
 as part of the packaged Ceph releases), you will need to consider which kernel
@@ -57,14 +57,14 @@ This advice does not apply if you are using a Linux distribution that includes
 CephFS support. In that case, the distributor is responsible for backporting
 fixes to their stable kernel. Check with your vendor.
 
-# Synopsis
+## Synopsis
 This is the general form of the command for mounting CephFS via the kernel driver:
 
 ```bash
 mount -t ceph {device-string}={path-to-mounted} {mount-point} -o {key-value-args} {other-args}
 ```
 
-# Mounting CephFS
+## Mounting CephFS
 CephX authentication is enabled by default in Ceph clusters. Use the ``mount``
 command to use the kernel driver to mount CephFS:
 
@@ -125,7 +125,7 @@ To mount a subtree of the CephFS root, append the path to the device string:
 mount -t ceph cephuser@.cephfs=/subvolume/dir1/dir2 /mnt/mycephfs -o secretfile=/etc/ceph/cephuser.secret
 ```
 
-# Backward Compatibility
+## Backward Compatibility
 The old syntax is supported for backward compatibility.
 
 To mount CephFS with the kernel driver, run the following commands:
@@ -154,7 +154,7 @@ mount -t ceph :/ /mnt/mycephfs -o name=admin,mds_namespace=cephfs2
 > **Note:** The option ``mds_namespace`` is deprecated. Use ``fs=`` instead when
 > using the old syntax for mounting.
 
-# Unmounting CephFS
+## Unmounting CephFS
 To unmount the Ceph file system, use the ``umount`` command, as in this
 example:
 
@@ -165,7 +165,7 @@ umount /mnt/mycephfs
 > **Tip:** Ensure that you are not within the file system directories before
 > executing this command.
 
-# Persistent Mounts
+## Persistent Mounts
 
 To mount CephFS in your file systems table as a kernel driver, add the
 following to ``/etc/fstab``:
@@ -186,4 +186,4 @@ configured keyrings.
 
 See [User Management](../rados/operations/user-management.md) for details on CephX user management and the mount.ceph <!-- unresolved-rst-link: kind=named target=mount.ceph -->
 manual for a list of the options it recognizes. For troubleshooting, see
-[kernel_mount_debugging](troubleshooting.md#kernel-mount-debugging).
+[kernel_mount_debugging](troubleshooting.md#kernel_mount_debugging).

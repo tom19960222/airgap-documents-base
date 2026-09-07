@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Installing and Configuring NVMe-oF Targets
 
-# Prerequisites
+## Prerequisites
 
 -  A working Ceph Tentacle or later storage cluster, deployed with ``cephadm``
 
@@ -15,7 +15,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 -  Separate network subnets for NVME-oF front-end traffic and Ceph back-end traffic
 
-# Explanation
+## Explanation
 
 The Ceph NVMe-oF gateway is both an NVMe-oF target and a Ceph client. Think of
 it as a "translator" between Ceph's RBD interface and the NVME-oF protocol. The
@@ -25,7 +25,7 @@ with other daemons, ensure that sufficient CPU and memory are available.
 The steps below explain how to install and configure the Ceph NVMe/TCP gateway
 for basic operation.
 
-# Installation
+## Installation
 
 Complete the following steps to install the Ceph NVME-oF gateway:
 
@@ -47,7 +47,7 @@ rbd pool init NVME-OF_POOL_NAME
 ceph orch apply nvmeof NVME-OF_POOL_NAME --placement="host01, host02"
 ```
 
-# Configuration
+## Configuration
 
 Download the ``nvmeof-cli`` container before first use.
 To download it use the following command:

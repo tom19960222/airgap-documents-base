@@ -23,28 +23,28 @@ cost.
 
 For more information, see [https://ceph.com/foundation](https://ceph.com/foundation).
 
-# Members
+## Members
 
-## Diamond
+### Diamond
 
 * [45Drives](https://45drives.com/)
 * [Bloomberg](https://bloomberg.com)
 * [IBM](https://ibm.com)
 
-## Platinum
+### Platinum
 
 * [Clyso](https://www.clyso.com/en/)
 * [Samsung Electronics](https://samsung.com/)
 
-## Premier
+### Premier
 
 * [OVH](https://www.ovh.com/)
 
-## Gold
+### Gold
 
 * [42on](https://www.42on.com/)
 
-## Silver
+### Silver
 
 * [Canonical](https://www.canonical.com/)
 * [CloudFerro](https://cloudferro.com/)
@@ -53,7 +53,7 @@ For more information, see [https://ceph.com/foundation](https://ceph.com/foundat
 * [Intel](http://www.intel.com/)
 * [OSNexus](https://osnexus.com/)
 
-## Associate
+### Associate
 
 * [Boston University](http://www.bu.com/)
 * [Center for Research in Open Source Systems (CROSS)](http://cross.ucsc.edu/)
@@ -67,7 +67,7 @@ For more information, see [https://ceph.com/foundation](https://ceph.com/foundat
 * [SWITCH](https://switch.ch/)
 * [University of Michigan](http://www.osris.org/)
 
-# Governing Board
+## Governing Board
 
 The Governing Board consists of all Premier members, a representative
 for the General members, a representative for the Associate members,
@@ -89,7 +89,7 @@ engineering activities are managed through traditional open source
 processes and are overseen by the [csc](governance.md#csc). For more
 information see [governance](governance.md#governance).
 
-## Members
+### Members
 
 * Brett Kelly (45Drives)
 * Carlos Maltzahn (UCSC) - Associate member representative
@@ -104,7 +104,7 @@ information see [governance](governance.md#governance).
 * Sungmin Lee (Samsung Electronics)
 * Vincent Hsu (IBM)
 
-# Joining
+## Joining
 
 For information about joining the Ceph Foundation, please contact
 membership@linuxfoundation.org.

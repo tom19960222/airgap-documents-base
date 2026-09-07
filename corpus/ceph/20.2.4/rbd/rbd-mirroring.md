@@ -60,7 +60,7 @@ for either one- or two-way replication:
 > all monitor and OSD hosts). Additionally, the network must have sufficient
 > bandwidth between the two data centers to handle mirroring workload.
 
-# Pool Configuration
+## Pool Configuration
 
 The following procedures demonstrate how to perform the basic administrative
 tasks to configure mirroring using the ``rbd`` command. Mirroring is
@@ -70,7 +70,7 @@ These pool configuration steps should be performed on both peer clusters. These
 procedures assume that both clusters, named "site-a" and "site-b", are accessible
 from a single host for clarity.
 
-The pool must have the same name on both peer clusters. See [Renaming a Pool](../rados/operations/pools.md#rados-renaming-a-pool) for instructions on renaming pools.
+The pool must have the same name on both peer clusters. See [Renaming a Pool](../rados/operations/pools.md#rados_renaming_a_pool) for instructions on renaming pools.
 
 See the [rbd](../man/8/rbd.md) manpage for additional details of how to connect to different
 Ceph clusters.
@@ -84,7 +84,7 @@ Ceph clusters.
 > can be named arbitrarily, and containerizing the daemon is one strategy
 > for maintaining them outside of ``/etc/ceph`` to avoid confusion.
 
-## Enable Mirroring
+### Enable Mirroring
 
 To enable mirroring on a pool with ``rbd``, issue the ``mirror pool enable``
 subcommand with the pool name, the mirroring mode, and an optional friendly
@@ -123,7 +123,7 @@ The site name can be changed later using the same ``mirror pool enable``
 subcommand but note that the local site name and the corresponding site name
 used by the remote cluster generally must match.
 
-## Disable Mirroring
+### Disable Mirroring
 
 To disable mirroring on a pool with ``rbd``, specify the ``mirror pool disable``
 command and the pool name:
@@ -143,7 +143,7 @@ $ rbd --cluster site-a mirror pool disable image-pool
 $ rbd --cluster site-b mirror pool disable image-pool
 ```
 
-## Bootstrap Peers
+### Bootstrap Peers
 
 In order for the ``rbd-mirror`` daemon to discover its peer cluster, the peer
 must be registered and a user account must be created.
@@ -188,7 +188,7 @@ EOF
 $ rbd --cluster site-b mirror pool peer bootstrap import --site-name site-b image-pool token
 ```
 
-## Add Cluster Peer Manually
+### Add Cluster Peer Manually
 
 Cluster peers can be specified manually if desired or if the above bootstrap
 commands are not available with the currently installed Ceph release.
@@ -242,7 +242,7 @@ Peers:
   587b08db-3d33-4f32-8af8-421e77abb081 site-b client.rbd-mirror-peer 192.168.1.1,192.168.1.2 AQAeuZdbMMoBChAAcj++/XUxNOLFaWdtTREEsw==
 ```
 
-## Remove Cluster Peer
+### Remove Cluster Peer
 
 To remove a mirroring peer Ceph cluster with ``rbd``, specify the
 ``mirror pool peer remove`` command, the pool name, and the peer UUID
@@ -259,7 +259,7 @@ $ rbd --cluster site-a mirror pool peer remove image-pool 55672766-c02b-4729-856
 $ rbd --cluster site-b mirror pool peer remove image-pool 60c0e299-b38f-4234-91f6-eed0a367be08
 ```
 
-## Data Pools
+### Data Pools
 
 When creating images in the destination cluster, ``rbd-mirror`` selects a data
 pool as follows:
@@ -270,7 +270,7 @@ pool as follows:
    same name exists on the destination cluster, that pool will be used.
 1. If neither of the above is true, no data pool will be set.
 
-# Namespace Configuration
+## Namespace Configuration
 
 Mirroring can be enabled on non-default namespaces of a pool independent of
 the default namespace. The pool must be configured for mirroring in advance.
@@ -278,7 +278,7 @@ A given namespace can be mirrored to a namespace with the same or a different
 name in the remote pool, including to the default namespace (referred to as
 ``''`` or ``""``).
 
-## Enable Mirroring
+### Enable Mirroring
 
 To enable mirroring on a namespace with ``rbd``, issue the ``mirror pool enable``
 subcommand with the namespace spec and the mirroring mode, and an optional
@@ -330,7 +330,7 @@ $ rbd --cluster site-b mirror pool enable image-pool image --remote-namespace na
 $ rbd --cluster site-b mirror pool enable image-pool/namespace-d pool --remote-namespace ""
 ```
 
-## Disable Mirroring
+### Disable Mirroring
 
 To disable mirroring on a namespace with ``rbd``, specify the ``mirror pool disable``
 command and the namespace spec:
@@ -349,7 +349,7 @@ $ rbd --cluster site-a mirror pool disable image-pool/namespace-a
 $ rbd --cluster site-b mirror pool disable image-pool/namespace-b
 ```
 
-# Image Configuration
+## Image Configuration
 
 Unlike pool configuration, image configuration only needs to be performed
 against a single mirroring peer Ceph cluster.
@@ -363,7 +363,7 @@ an image (either implicitly if the pool mirror mode was ``pool`` and the image
 has the journaling image feature enabled, or [explicitly enabled](#enable-image-mirroring) by the
 ``rbd`` command if the pool mirror mode was ``image``).
 
-## Enable Image Mirroring
+### Enable Image Mirroring
 
 If mirroring is configured in ``image`` mode for the image's pool, then it
 is necessary to explicitly enable mirroring for each image within the pool.
@@ -393,7 +393,7 @@ $ rbd --cluster site-a mirror image enable image-pool/image-1 snapshot
 $ rbd --cluster site-a mirror image enable image-pool/image-2 journal
 ```
 
-## Enable Image Journaling Feature
+### Enable Image Journaling Feature
 
 RBD journal-based mirroring uses the RBD image journaling feature to ensure that
 the replicated image always remains crash-consistent. When using the ``image``
@@ -434,7 +434,7 @@ $ rbd --cluster site-a feature enable image-pool/image-1 journaling
 > to the destination cluster:  monitor cluster performance closely during
 > migrations and test carefully before running multiple migrations in parallel.
 
-## Create Image Mirror-Snapshots
+### Create Image Mirror-Snapshots
 
 When using snapshot-based mirroring, mirror-snapshots will need to be created
 whenever it is desired to mirror the changed contents of the RBD image. To
@@ -514,7 +514,7 @@ SCHEDULE TIME       IMAGE
 2020-02-26 18:00:00 image-pool/image1
 ```
 
-## Disable Image Mirroring
+### Disable Image Mirroring
 
 To disable mirroring for a specific image with ``rbd``, specify the
 ``mirror image disable`` command along with the pool and image name:
@@ -529,7 +529,7 @@ For example:
 $ rbd --cluster site-a mirror image disable image-pool/image-1
 ```
 
-## Image Promotion and Demotion
+### Image Promotion and Demotion
 
 In a failover scenario where the primary designation needs to be moved to the
 image in the peer Ceph cluster, access to the primary image should be stopped
@@ -602,7 +602,7 @@ $ rbd --cluster site-a mirror pool promote image-pool
 > result in a split-brain scenario between the two peers and the image will no
 > longer be in-sync until a [force resync command](#force-image-resync) is issued.
 
-## Force Image Resync
+### Force Image Resync
 
 If a split-brain event is detected by the ``rbd-mirror`` daemon, it will not
 attempt to mirror the affected image until corrected. To resume mirroring for an
@@ -628,7 +628,7 @@ $ rbd mirror image resync image-pool/image-1
 > only up to the most recent mirror-snapshot. Create a new mirror-snapshot on
 > the primary image to sync the latest updates.
 
-# Mirror Status
+## Mirror Status
 
 The peer cluster replication status is stored for every primary mirrored image.
 This status can be retrieved using the ``mirror image status`` and
@@ -663,7 +663,7 @@ $ rbd mirror pool status image-pool
 > **Note:** Adding ``--verbose`` option to the ``mirror pool status`` command will
 > additionally output status details for every mirroring image in the pool.
 
-# rbd-mirror Daemon
+## rbd-mirror Daemon
 
 The two ``rbd-mirror`` daemons are responsible for watching image journals on
 the remote, peer cluster and replaying the journal events against the local

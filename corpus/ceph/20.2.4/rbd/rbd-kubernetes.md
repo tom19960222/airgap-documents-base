@@ -42,7 +42,7 @@ diagram depicts the Kubernetes/Ceph technology stack.
 > ``ceph-csi`` uses the RBD kernel modules by default which may not support all
 > Ceph [CRUSH tunables](../rados/operations/crush-map.md#tunables) or [RBD image features](rbd-config-ref.md#image-features).
 
-# Create a Pool
+## Create a Pool
 
 By default, Ceph block devices use the ``rbd`` pool. Create a pool for
 Kubernetes volume storage. Ensure your Ceph cluster is running, then create
@@ -63,9 +63,9 @@ to initialize the pool:
 $ rbd pool init kubernetes
 ```
 
-# Configure ceph-csi
+## Configure ceph-csi
 
-## Setup Ceph Client Authentication
+### Setup Ceph Client Authentication
 
 Create a new user for Kubernetes and `ceph-csi`. Execute the following and
 record the generated key:
@@ -76,7 +76,7 @@ $ ceph auth get-or-create client.kubernetes mon 'profile rbd' osd 'profile rbd p
     key = AQD9o0Fd6hQRChAAt7fMaSZXduT3NWEqylNpmg==
 ```
 
-## Generate `ceph-csi` `ConfigMap`
+### Generate `ceph-csi` `ConfigMap`
 
 The `ceph-csi` requires a `ConfigMap` object stored in Kubernetes to define the
 the Ceph monitor addresses for the Ceph cluster. Collect both the Ceph cluster
@@ -177,7 +177,7 @@ Once generated, store the new `ConfigMap` object in Kubernetes:
 $ kubectl apply -f ceph-config-map.yaml
 ```
 
-## Generate `ceph-csi` cephx `Secret`
+### Generate `ceph-csi` cephx `Secret`
 
 `ceph-csi` requires the cephx credentials for communicating with the Ceph
 cluster. Generate a `csi-rbd-secret.yaml` file similar to the example below,
@@ -203,7 +203,7 @@ Once generated, store the new `Secret` object in Kubernetes:
 $ kubectl apply -f csi-rbd-secret.yaml
 ```
 
-## Configure `ceph-csi` Plugins
+### Configure `ceph-csi` Plugins
 
 Create the required `ServiceAccount` and RBAC `ClusterRole`/`ClusterRoleBinding`
 Kubernetes objects. These objects do not necessarily need to be customized for
@@ -233,9 +233,9 @@ $ kubectl apply -f csi-rbdplugin.yaml
 > The YAMLs should be updated to use a release version container for
 > production workloads.
 
-# Using Ceph Block Devices
+## Using Ceph Block Devices
 
-## Create a `StorageClass`
+### Create a `StorageClass`
 
 The Kubernetes `StorageClass` defines a class of storage. Multiple `StorageClass`
 objects can be created to map to different quality-of-service levels (i.e. NVMe
@@ -274,7 +274,7 @@ $ kubectl apply -f csi-rbd-sc.yaml
 Note that in Kubernetes v1.14 and v1.15 volume expansion feature was in alpha
 status and required enabling `ExpandCSIVolumes` feature gate.
 
-## Create a `PersistentVolumeClaim`
+### Create a `PersistentVolumeClaim`
 
 A `PersistentVolumeClaim` is a request for abstract storage resources by a user.
 The `PersistentVolumeClaim` would then be associated to a `Pod` resource to

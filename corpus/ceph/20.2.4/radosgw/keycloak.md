@@ -5,7 +5,7 @@ title: "Integrating Keycloak with RadosGW"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/keycloak.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="radosgw-keycloak"></a>
+<a id="radosgw_keycloak"></a>
 
 # Integrating Keycloak with RadosGW
 
@@ -15,12 +15,12 @@ returned by the authentication process, a mobile app or web app can call
 AssumeRoleWithWebIdentity, receive a set of temporary S3 credentials, and use
 those credentials to make S3 calls.
 
-# Setting up Keycloak
+## Setting up Keycloak
 
 Documentation for installing and operating Keycloak can be found here:
 https://www.keycloak.org/guides.
 
-# Configuring Keycloak to talk to RGW
+## Configuring Keycloak to talk to RGW
 
 To configure Keycloak to talk to RGW, add the following configurables:
 
@@ -30,7 +30,7 @@ rgw sts key = {sts key for encrypting/ decrypting the session token}
 rgw s3 auth use sts = true
 ```
 
-# Fetching a web token with Keycloak
+## Fetching a web token with Keycloak
 
 Several examples of apps authenticating with Keycloak can be found here:
 https://github.com/keycloak/keycloak-quickstarts/blob/latest/docs/getting-started.md.
@@ -95,7 +95,7 @@ secret, username, and password as follows:
 ``KC_ACCESS_TOKEN`` can be used to invoke ``AssumeRoleWithWebIdentity``: see
 [STS](STS.md).
 
-# Adding tags to a user in Keycloak
+## Adding tags to a user in Keycloak
 
 To create a user in Keycloak and add tags to it as its attributes, follow these
 steps:

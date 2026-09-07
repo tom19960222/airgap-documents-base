@@ -24,7 +24,7 @@ than the bandwidth of a solid-state storage located at an edge node.
 | D3N improves the performance of big-data jobs running in analysis clusters by speeding up recurring reads from the data lake.
 | The Rados Gateways act as cache servers for the back-end object store (OSDs), storing data locally for reuse.
 
-# Architecture
+## Architecture
 
 D3N improves the performance of big-data jobs by speeding up repeatedly accessed dataset reads from the data lake.
 Cache servers are located in the datacenter on the access side of potential network and storage bottlenecks.
@@ -41,13 +41,13 @@ by a request to the data lake (Rados)
 
 See [MOC D3N (Datacenter-scale Data Delivery Network)](https://massopen.cloud/research-and-development/cloud-research/d3n/) and [Red Hat Research D3N Cache for Data Centers](https://research.redhat.com/blog/research_project/d3n-multilayer-cache/).
 
-# Implementation
+## Implementation
 
 - The D3N cache supports both the `S3` and `Swift` object storage interfaces.
 - D3N currently caches only tail objects, because they are immutable (by default it is parts of objects that are larger than 4MB).
   (the NGINX [RGW Data cache and CDN](rgw-cache.md) supports caching of all object sizes)
 
-## Requirements
+### Requirements
 
 - An SSD (/dev/nvme,/dev/pmem,/dev/shm) or similar block storage device, formatted
   (filesystems other than XFS were not tested) and mounted.
@@ -55,15 +55,15 @@ See [MOC D3N (Datacenter-scale Data Delivery Network)](https://massopen.cloud/re
   (depending on device performance, multiple RGWs may share a single device but each requires
   a discrete directory on the device filesystem)
 
-## Limitations
+### Limitations
 
 - D3N will not cache objects compressed by [Rados Gateway Compression](compression.md) (OSD level compression is supported).
 - D3N will not cache objects encrypted by [Rados Gateway Encryption](encryption.md).
 - D3N will be disabled if the ``rgw_max_chunk_size`` config variable value differs from the ``rgw_obj_stripe_size`` config variable value.
 
-# D3N Environment Setup
+## D3N Environment Setup
 
-## Running
+### Running
 
 To enable D3N on an existing RGWs the following configuration entries are required
 in each Rados Gateways ceph.conf client section, for example for ``[client.rgw.8000]``:
@@ -101,11 +101,11 @@ to each Gateway without a balancer in order to avoid cached data duplication.
 
     NOTE: each time the Rados Gateway is restarted the content of the cache directory is purged.
 
-## Logs
+### Logs
 - D3N related log lines in `radosgw.*.log` contain the string ``d3n`` (case insensitive).
 - low level D3N logs can be enabled by the ``debug_rgw_datacache`` subsystem (up to ``debug_rgw_datacache=30``)
 
-# CONFIG REFERENCE
+## CONFIG REFERENCE
 The following D3N related settings can be added to the Ceph configuration file
 (i.e., usually `ceph.conf`) under the ``[client.rgw.{instance-name}]`` section.
 

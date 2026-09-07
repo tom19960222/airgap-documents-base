@@ -19,7 +19,7 @@ redistribute data dynamically.
 
 <a id="arch-ceph-storage-cluster"></a>
 
-# The Ceph Storage Cluster
+## The Ceph Storage Cluster
 
 Ceph provides an infinitely scalable Ceph Storage Cluster based upon
 RADOS (Reliable Autonomic Distributed Object Store), a reliable,
@@ -36,7 +36,7 @@ A Ceph Storage Cluster consists of multiple types of daemons:
 - Ceph Manager
 - Ceph Metadata Server
 
-<a id="arch-monitor"></a>
+<a id="arch_monitor"></a>
 
 Ceph Monitors maintain the master copy of the cluster map, which they provide
 to Ceph clients. The existence of multiple monitors in the Ceph cluster ensures
@@ -58,7 +58,7 @@ Ceph's high-level features include a native interface to the Ceph Storage
 Cluster via ``librados`` and a number of service interfaces built on top of
 ``librados``.
 
-## Storing Data
+### Storing Data
 
 The Ceph Storage Cluster receives data from Ceph Client\s--whether it
 comes through a Ceph Block Device, Ceph Object Storage, the
@@ -99,9 +99,9 @@ created date, and the last modified date.
 
 .. index:: architecture; high availability, scalability
 
-<a id="arch-scalability-and-high-availability"></a>
+<a id="arch_scalability_and_high_availability"></a>
 
-## Scalability and High Availability
+### Scalability and High Availability
 
 In traditional architectures, clients talk to a centralized component. This
 centralized component might be a gateway, a broker, an API, or a facade. A
@@ -132,7 +132,7 @@ For an in-depth, academic discussion of CRUSH, see [CRUSH - Controlled, Scalable
 
 .. index:: architecture; cluster map
 
-<a id="architecture-cluster-map"></a>
+<a id="architecture_cluster_map"></a>
 
 #### Cluster Map
 
@@ -203,7 +203,7 @@ See the [monitor-config-reference](rados/configuration/mon-config-ref.md#monitor
 
 .. index:: architecture; high availability authentication
 
-<a id="arch-high-availability-authentication"></a>
+<a id="arch_high_availability_authentication"></a>
 
 #### High Availability Authentication
 
@@ -225,7 +225,7 @@ The CephX protocol makes it possible for each party to prove to the other
 that it has a copy of the key without revealing it while preventing an
 adversary to learn the key or replay messages to masquerade key ownership.
 
-As stated in [Scalability and High Availability](architecture.md#arch-scalability-and-high-availability), Ceph does not have any centralized
+As stated in [Scalability and High Availability](architecture.md#arch_scalability_and_high_availability), Ceph does not have any centralized
 interface between clients and the Ceph object store. By avoiding such a
 centralized interface, Ceph avoids the bottlenecks that attend such centralized
 interfaces. However, this means that clients must interact directly with OSDs.
@@ -388,7 +388,7 @@ details for CephX.
 See [user-management](rados/operations/user-management.md#user-management) for more on user management and service
 authorizations (CephX Capabilities).
 
-See [A Detailed Description of the CephX Authentication Protocol](dev/cephx_protocol.md#cephx-2012-peter) for more on the distinction between authorization and
+See [A Detailed Description of the CephX Authentication Protocol](dev/cephx_protocol.md#cephx_2012_peter) for more on the distinction between authorization and
 authentication and for a step-by-step explanation of the setup of CephX
 tickets and session keys.
 
@@ -447,7 +447,7 @@ the greater cluster provides several benefits:
    mismatches in object size and finds metadata mismatches, and is usually
    performed daily. Ceph OSD Daemons perform deeper scrubbing by comparing the
    data in objects, bit-for-bit, against their checksums. Deep scrubbing finds
-   bad sectors on drives that are not detectable with light scrubs. See [Data Scrubbing](rados/configuration/osd-config-ref.md#rados-config-scrubbing) for details on configuring scrubbing.
+   bad sectors on drives that are not detectable with light scrubs. See [Data Scrubbing](rados/configuration/osd-config-ref.md#rados_config_scrubbing) for details on configuring scrubbing.
 
 1. **Replication:** Data replication involves collaboration between Ceph
    Clients and Ceph OSD Daemons. Ceph OSD Daemons use the CRUSH algorithm to
@@ -492,7 +492,7 @@ the greater cluster provides several benefits:
 By performing this data replication, Ceph OSD Daemons relieve Ceph
 clients and their network interfaces of the burden of replicating data.
 
-## Dynamic Cluster Management
+### Dynamic Cluster Management
 
 In the [Scalability and High Availability](architecture.md#scalability-and-high-availability) section, we explained how Ceph uses
 CRUSH, cluster topology, and intelligent daemons to scale and maintain high
@@ -723,11 +723,11 @@ scrubbing by comparing data in objects bit-for-bit.  Deep scrubbing (by default
 performed weekly) finds bad blocks on a drive that weren't apparent in a light
 scrub.
 
-See [Data Scrubbing](rados/configuration/osd-config-ref.md#rados-config-scrubbing) for details on configuring scrubbing.
+See [Data Scrubbing](rados/configuration/osd-config-ref.md#rados_config_scrubbing) for details on configuring scrubbing.
 
 .. index:: erasure coding
 
-## Erasure Coding
+### Erasure Coding
 
 An erasure coded pool stores each object as ``K+M`` chunks. It is divided into
 ``K`` data chunks and ``M`` coding chunks. The pool is configured to have a size
@@ -1116,7 +1116,7 @@ the erasure coding library during scrubbing and stored on the new primary
 
 See [Erasure Code Notes](https://github.com/ceph/ceph/blob/40059e12af88267d0da67d8fd8d9cd81244d8f93/doc/dev/osd_internals/erasure_coding/developer_notes.rst) for additional details.
 
-## Cache Tiering
+### Cache Tiering
 
 > **Note:** Cache tiering is deprecated in Reef.
 
@@ -1162,7 +1162,7 @@ tricky and their use is now discouraged.
 
 .. index:: Extensibility, Ceph Classes
 
-## Extending Ceph
+### Extending Ceph
 
 You can extend Ceph by creating shared object classes called 'Ceph Classes'.
 Ceph loads ``.so`` classes stored in the ``osd class dir`` directory dynamically
@@ -1189,7 +1189,7 @@ operations on the outbound data and return the data to the client.
 See ``src/objclass/objclass.h``, ``src/fooclass.cc`` and ``src/barclass`` for
 exemplary implementations.
 
-## Summary
+### Summary
 
 Ceph Storage Clusters are dynamic--like a living organism. Although many storage
 appliances do not fully utilize the CPU and RAM of a typical commodity server,
@@ -1202,7 +1202,7 @@ foregoing concepts to understand how Ceph utilizes computing resources.
 
 .. index:: Ceph Protocol, librados
 
-# Ceph Protocol
+## Ceph Protocol
 
 Ceph Clients use the native protocol for interacting with the Ceph Storage
 Cluster. Ceph packages this functionality into the ``librados`` library so that
@@ -1219,7 +1219,7 @@ basic architecture.
    |      OSDs     | |    Monitors   |
    +---------------+ +---------------+
 
-## Native Protocol and ``librados``
+### Native Protocol and ``librados``
 
 Modern applications need a simple object storage interface with asynchronous
 communication capability. The Ceph Storage Cluster provides a simple object
@@ -1239,7 +1239,7 @@ provides direct, parallel access to objects throughout the cluster.
 
 .. index:: architecture; watch/notify
 
-## Object Watch/Notify
+### Object Watch/Notify
 
 A client can register a persistent interest with an object and keep a session to
 the primary OSD open. The client can send a notification message and a payload to
@@ -1294,7 +1294,7 @@ synchronization/communication channel.
 
 .. index:: architecture; Striping
 
-## Data Striping
+### Data Striping
 
 Storage devices have throughput limitations, which impact performance and
 scalability. So storage systems often support [striping](https://en.wikipedia.org/wiki/Data_striping)--storing sequential
@@ -1473,9 +1473,9 @@ files on a storage drive.
 
 .. index:: architecture; Ceph Clients
 
-<a id="architecture-ceph-clients"></a>
+<a id="architecture_ceph_clients"></a>
 
-# Ceph Clients
+## Ceph Clients
 
 Ceph Clients include a number of service interfaces. These include:
 
@@ -1518,7 +1518,7 @@ architecture.
 
 .. index:: architecture; Ceph Object Storage
 
-## Ceph Object Storage
+### Ceph Object Storage
 
 The Ceph Object Storage daemon, ``radosgw``, is a FastCGI service that provides
 a [RESTful](https://en.wikipedia.org/wiki/RESTful) HTTP API to store objects and metadata. It layers on top of the Ceph
@@ -1542,7 +1542,7 @@ See [object-gateway](radosgw/index.md#object-gateway) for details.
 
 .. index:: Ceph Block Device; block device; RBD; Rados Block Device
 
-## Ceph Block Device
+### Ceph Block Device
 
 A Ceph Block Device stripes a block device image over multiple objects in the
 Ceph Storage Cluster, where each object gets mapped to a placement group and
@@ -1570,7 +1570,7 @@ Device kernel object(s). This is done with the  command-line tool ``rbd``.
 
 <a id="arch-cephfs"></a>
 
-## Ceph File System
+### Ceph File System
 
 The Ceph File System (CephFS) provides a POSIX-compliant filesystem as a
 service that is layered on top of the object-based Ceph Storage Cluster.

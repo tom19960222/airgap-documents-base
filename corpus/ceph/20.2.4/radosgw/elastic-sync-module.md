@@ -106,9 +106,9 @@ authenticate the end user requests. For this purpose RGW introduces a new query
 in the bucket APIs that can service elasticsearch requests. All these requests
 must be sent to the metadata master zone.
 
-#### Syntax
+### Syntax
 
-### Get an elasticsearch query
+#### Get an elasticsearch query
 
 :
 
@@ -137,7 +137,7 @@ are named 'foo'.
 The output will be a list of keys in XML that is similar to the S3
 list buckets response.
 
-### Configure custom metadata fields
+#### Configure custom metadata fields
 
 Define which custom metadata entries should be indexed (under the
 specified bucket), and what are the types of these keys. If explicit
@@ -167,7 +167,7 @@ POST /mybooks?mdsearch
 x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta-title;string
 ```
 
-### Delete custom metadata configuration
+#### Delete custom metadata configuration
 
 Delete custom metadata bucket configuration.
 
@@ -177,7 +177,7 @@ Delete custom metadata bucket configuration.
 DELETE /<bucket>?mdsearch
 ```
 
-### Get custom metadata configuration
+#### Get custom metadata configuration
 
 Retrieve custom metadata bucket configuration.
 

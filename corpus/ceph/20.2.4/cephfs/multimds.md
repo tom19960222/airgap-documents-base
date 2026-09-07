@@ -1,13 +1,13 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "fsmap e5: 1/1/1 up {0=a=up:active}, 2 up:standby"
+title: "Configuring multiple active MDS daemons"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/multimds.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
 <a id="cephfs-multimds"></a>
 
-## Configuring multiple active MDS daemons
+# Configuring multiple active MDS daemons
 
 *Also known as: multi-mds, active-active MDS*
 
@@ -16,7 +16,7 @@ by default.  To scale metadata performance for large scale systems, you
 may enable multiple active MDS daemons, which will share the metadata
 workload with one another.
 
-#### When should I use multiple active MDS daemons?
+## When should I use multiple active MDS daemons?
 
 You should configure multiple active MDS daemons when your metadata performance
 is bottlenecked on the single MDS that runs by default.
@@ -29,7 +29,7 @@ metadata operations in parallel.
 Workloads that typically benefit from a larger number of active MDS daemons
 are those with many clients, perhaps working on many separate directories.
 
-#### Increasing the MDS active cluster size
+## Increasing the MDS active cluster size
 
 Each CephFS file system has a *max_mds* setting, which controls how many ranks
 will be created.  The actual number of ranks in the file system will only be
@@ -57,7 +57,7 @@ ceph fs set <fs_name> max_mds 2
 The newly created rank (1) will pass through the 'creating' state
 and then enter this 'active state'.
 
-#### Standby daemons
+## Standby daemons
 
 Even with multiple active MDS daemons, a highly available system **still
 requires standby daemons** to take over if any of the servers running
@@ -70,7 +70,7 @@ To remain available in the event of multiple server failures, increase the
 number of standby daemons in the system to match the number of server failures
 you wish to withstand.
 
-#### Decreasing the number of ranks
+## Decreasing the number of ranks
 
 Reducing the number of ranks is as simple as reducing ``max_mds``:
 
@@ -106,7 +106,7 @@ standby.
 
 <a id="cephfs-pinning"></a>
 
-#### Manually pinning directory trees to a particular rank
+## Manually pinning directory trees to a particular rank
 
 In multiple active metadata server configurations, a balancer runs which works
 to spread metadata load evenly across the cluster. This usually works well
@@ -142,7 +142,7 @@ setfattr -n ceph.dir.pin -v 0 a/b
 
 <a id="cephfs-ephemeral-pinning"></a>
 
-#### Setting subtree partitioning policies
+## Setting subtree partitioning policies
 
 It is also possible to setup **automatic** static partitioning of subtrees via
 a set of **policies**. In CephFS, this automatic static partitioning is
@@ -242,7 +242,7 @@ value to `-1`.
 setfattr -n ceph.dir.pin -v -1 home
 ```
 
-#### Dynamic Subtree Partitioning
+## Dynamic Subtree Partitioning
 
 CephFS has long had a dynamic metadata balancer (sometimes called the "default
 balancer") which can split or merge subtrees while placing them on "colder" MDS
@@ -267,7 +267,7 @@ configuration that includes the ``bal_rank_mask`` setting (described
 
 Careful monitoring of the file system performance and MDS is advised.
 
-#### Dynamic subtree partitioning with Balancer on specific ranks
+## Dynamic subtree partitioning with Balancer on specific ranks
 
 <a id="bal-rank-mask"></a>
 

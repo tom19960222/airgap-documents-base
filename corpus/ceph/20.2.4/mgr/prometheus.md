@@ -19,7 +19,7 @@ when scraped.  The HTTP path and query parameters are ignored. All extant
 counters for all reporting entities are returned in the Prometheus exposition
 format.  (See the Prometheus [documentation](https://prometheus.io/docs/instrumenting/exposition_formats/#text-format-details).)
 
-# Enabling Prometheus output
+## Enabling Prometheus output
 
 Enable the ``prometheus`` module by running the below command :
 
@@ -27,7 +27,7 @@ Enable the ``prometheus`` module by running the below command :
 ceph mgr module enable prometheus
 ```
 
-## Configuration
+### Configuration
 
 > **Note:**
 > The ``prometheus`` Manager module must be restarted to apply configuration changes.
@@ -146,7 +146,7 @@ ceph config set mgr mgr/prometheus/standby_behaviour default
 
 <a id="prometheus-rbd-io-statistics"></a>
 
-## Ceph Health Checks
+### Ceph Health Checks
 
 The Manager ``prometheus`` module tracks and maintains a history of Ceph health checks,
 exposing them to the Prometheus server as discrete metrics. This allows Alertmanager
@@ -195,7 +195,7 @@ PG_DEGRADED               2021/09/17 00:11:59   2021/09/17 00:11:59       1   Ye
 3 health check(s) listed
 ```
 
-## RBD IO statistics
+### RBD IO statistics
 
 The ``prometheus`` module can optionally collect RBD per-image IO statistics by enabling
 dynamic OSD performance counters. Statistics are gathered for all images
@@ -229,7 +229,7 @@ To set the sync interval to 10 minutes run the following command:
 ceph config set mgr mgr/prometheus/rbd_stats_pools_refresh_interval 600
 ```
 
-## Ceph daemon performance counters metrics
+### Ceph daemon performance counters metrics
 
 With the introduction of the ``ceph-exporter`` daemon, the ``prometheus`` module will no longer export Ceph daemon
 perf counters as Prometheus metrics by default. However, one may re-enable exporting these metrics by setting
@@ -239,7 +239,7 @@ the module option ``exclude_perf_counters`` to ``false``:
 ceph config set mgr mgr/prometheus/exclude_perf_counters false
 ```
 
-# Statistic names and labels
+## Statistic names and labels
 
 These Prometheus stats names are the Ceph native names with
 illegal characters ``.``, ``-`` and ``::`` translated to ``_``,
@@ -262,7 +262,7 @@ are represented by paired ``<name>_sum`` and ``<name>_count`` metrics.
 This is similar to how histograms are represented in [Prometheus](https://prometheus.io/docs/concepts/metric_types/#histogram)
 and they are  treated [similarly](https://prometheus.io/docs/practices/histograms/).
 
-## Pool and OSD metadata series
+### Pool and OSD metadata series
 
 Series are exported to facilitate displaying and querying on
 certain metadata fields.
@@ -283,7 +283,7 @@ OSDs have a ``ceph_osd_metadata`` metric of the following form:
 ceph_osd_metadata{cluster_addr="172.21.9.34:6802/19096",device_class="ssd",ceph_daemon="osd.0",public_addr="172.21.9.34:6801/19096",weight="1.0"} 1.0
 ```
 
-## Correlating drive statistics with node_exporter
+### Correlating drive statistics with node_exporter
 
 Ceph cluster Prometheus metrics are used in conjunction
 with generic host metrics from the Prometheus ``node_exporter``.
@@ -331,7 +331,7 @@ The following sections outline two approaches to remedy this.
 > into the value of a single ``ceph_daemon`` label in cases where multiple OSDs
 > share a device.
 
-# Use label_replace
+## Use label_replace
 
 The ``label_replace`` function (cp.
 [label_replace documentation](https://prometheus.io/docs/prometheus/latest/querying/functions/#label_replace))
@@ -351,9 +351,9 @@ label_replace(
 ) and on (device, exported_instance) ceph_disk_occupation_human{ceph_daemon="osd.0"}
 ```
 
-# Configuring Prometheus server
+## Configuring Prometheus server
 
-## honor_labels
+### honor_labels
 
 To enable Ceph to output properly-labeled data relating to any host,
 use the ``honor_labels`` setting when adding the Manager endpoints
@@ -370,7 +370,7 @@ If this is undesirable, a custom ``instance`` label can be set in the
 Prometheus target configuration. You might wish to set it to the hostname
 of your first Manager, or something arbitrary like ``ceph_cluster``.
 
-## node_exporter hostname labels
+### node_exporter hostname labels
 
 Set your ``instance`` labels to match what appears in Ceph's OSD metadata
 in the ``instance`` field.  This is generally the short hostname of the node.
@@ -379,7 +379,7 @@ This is only necessary if you want to correlate Ceph stats with host stats,
 but you may find it useful to do so to facilitate correlation of
 historical data in the future.
 
-## Example configuration
+### Example configuration
 
 This example shows a deployment with a Manager and ``node_exporter`` placed
 on a server named ``senta04``. Note that this requires one
@@ -437,7 +437,7 @@ scrape_configs:
 ]
 ```
 
-# Notes
+## Notes
 
 Counters and gauges are exported. Histograms and long-running
 averages are currently not exported.  It is possible that Ceph's 2-D histograms

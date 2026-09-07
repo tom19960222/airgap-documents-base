@@ -5,7 +5,7 @@ title: "Deploying Metadata Servers"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/cephfs/add-remove-mds.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="cephfs-add-remote-mds"></a>
+<a id="cephfs_add_remote_mds"></a>
 
 > **Warning:** The material on this page is to be used only for manually setting
 > up a Ceph cluster. If you intend to use an automated tool such as
@@ -26,7 +26,7 @@ may be run by the deployment technology if executed on bare-metal.
 
 See [MDS Config Reference](mds-config-ref.md) for details on configuring metadata servers.
 
-# Provisioning Hardware for an MDS
+## Provisioning Hardware for an MDS
 
 The present version of the MDS is single-threaded and CPU-bound for most
 activities, including responding to client requests. An MDS under the most
@@ -73,7 +73,7 @@ means limiting its cache size.
 
 <a id="manual-mds"></a>
 
-# Adding an MDS
+## Adding an MDS
 
 In the below instructions, ``{id}`` is an arbitrary name, such as the hostname of the machine.
 
@@ -124,7 +124,7 @@ $ ceph config set mds.${id} mds_join_fs ${fs}
 
 1. Now you are ready to [create-fs](createfs.md#create-fs).
 
-# Removing an MDS
+## Removing an MDS
 
 If you have a metadata server in your cluster that you'd like to remove, you may use
 the following method.

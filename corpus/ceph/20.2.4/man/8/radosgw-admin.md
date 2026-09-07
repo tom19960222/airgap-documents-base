@@ -13,16 +13,16 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: radosgw-admin
 
-# Synopsis
+## Synopsis
 
 | **radosgw-admin** *command* [ *options* *...* ]
 
-# Description
+## Description
 
 radosgw-admin is a Ceph Object Gateway user administration utility. It
 is used to create and modify users.
 
-# Commands
+## Commands
 
 radosgw-admin utility provides commands for administration purposes
 as follows:
@@ -493,7 +493,7 @@ topic stats
 topic dump
   Dump (in JSON format) all pending bucket notifications of a persistent topic
 
-# Options
+## Options
 
 .. option:: -c ceph.conf, --conf=ceph.conf
 
@@ -880,7 +880,7 @@ topic dump
    operations such as finding orphans or checking the bucket index.
    The default is 32.
 
-# Quota Options
+## Quota Options
 
 .. option:: --max-objects
 
@@ -894,7 +894,7 @@ topic dump
 
    The scope of quota (bucket, user).
 
-# Orphans Search Options
+## Orphans Search Options
 
 .. option:: --num-shards
 
@@ -909,13 +909,13 @@ topic dump
 
    Set the job id (for orphans find)
 
-# Orphans list-jobs options
+## Orphans list-jobs options
 
 .. option:: --extra-info
 
    Provide extra info in the job list.
 
-# Role Options
+## Role Options
 
 .. option:: --role-name
 
@@ -942,7 +942,7 @@ topic dump
 
    The path prefix for filtering the roles.
 
-# Bucket Notifications/PubSub Options
+## Bucket Notifications/PubSub Options
 .. option:: --topic
 
    The bucket notifications/pubsub topic name.
@@ -955,7 +955,7 @@ topic dump
 
    The event id in a pubsub subscription.
 
-# Examples
+## Examples
 
 Generate a new user:
 
@@ -1053,13 +1053,13 @@ Trim usage information for user until March 1st, 2012:
 $ radosgw-admin usage trim --uid=johnny --end-date=2012-04-01
 ```
 
-# Availability
+## Availability
 
 radosgw-admin is part of Ceph, a massively scalable, open-source,
 distributed storage system.  Please refer to the Ceph documentation at
 https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)
 [radosgw](../../dev/deduplication.md#radosgw)\(8)

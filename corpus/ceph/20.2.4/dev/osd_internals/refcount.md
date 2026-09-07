@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Refcount
 
-# Introduction
+## Introduction
 
 Deduplication, as described in ../deduplication.rst, needs a way to
 maintain a target pool of deduplicated chunks with atomic ref
@@ -16,7 +16,7 @@ refcount responsible for using the object class machinery to
 maintain refcounts on deduped chunks and ultimately remove them
 as the refcount hits 0.
 
-# Class Interface
+## Class Interface
 
 See cls/refcount/cls_refcount_client*
 

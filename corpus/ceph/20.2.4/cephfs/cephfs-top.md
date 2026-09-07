@@ -13,7 +13,7 @@ CephFS provides `top(1)` like utility to display various Ceph Filesystem metrics
 in realtime. `cephfs-top` is a curses based python script which makes use of `stats`
 plugin in Ceph Manager to fetch (and display) metrics.
 
-# Manager Plugin
+## Manager Plugin
 
 Ceph Filesystem clients periodically forward various metrics to Ceph Metadata Servers (MDS)
 which in turn get forwarded to Ceph Manager by MDS rank zero. Each active MDS forward its
@@ -64,7 +64,7 @@ To fetch metrics only for a subset of active MDSs (e.g., MDS rank 1 and 2):
 $ ceph fs perf stats --mds_rank=1,2
 ```
 
-# `cephfs-top`
+## `cephfs-top`
 
 `cephfs-top` utility relies on `stats` plugin to fetch performance metrics and display in
 `top(1)` like format. `cephfs-top` is available as part of `cephfs-top` package.
@@ -76,7 +76,7 @@ $ ceph auth get-or-create client.fstop mon 'allow r' mds 'allow r' osd 'allow r'
 $ cephfs-top
 ```
 
-## Description of Fields
+### Description of Fields
 
 1. chit     : Cap hit
              Percentage of file capability hits over total number of caps
@@ -131,7 +131,7 @@ $ cephfs-top
 17. mlatsd  : Standard deviation (variance) for metadata latency
              Dispersion of the metric for the metadata latency relative to its mean
 
-## Command-Line Options
+### Command-Line Options
 
 To use a non-default user (other than `client.fstop`) use:
 
@@ -165,7 +165,7 @@ To dump the metrics of the given filesystem to stdout without creating a curses 
 $ cephfs-top --dumpfs <fs_name>
 ```
 
-## Interactive Commands
+### Interactive Commands
 
 1. m : Filesystem selection
       Displays a menu of filesystems for selection.

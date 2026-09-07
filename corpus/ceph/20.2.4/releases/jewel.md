@@ -10,13 +10,13 @@ fetched_at: 2026-08-18T01:32:45Z
 Jewel is the 10th stable release of Ceph. It is named after the jewel
 squid (Histioteuthis reversa).
 
-# v10.2.11 Jewel
+## v10.2.11 Jewel
 
 This point releases brings a number of important bugfixes and has a few
 important security fixes. This is expected to be the last Jewel release. We
 recommend all Jewel 10.2.x users to upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * CVE 2018-1128: auth: cephx authorizer subject to replay attack ([issue#24836](http://tracker.ceph.com/issues/24836), Sage Weil)
 
@@ -45,7 +45,7 @@ recommend all Jewel 10.2.x users to upgrade.
   validated and providing a keyring with an invalid caps string to, e.g.,
   "ceph auth add" will result in an error.
 
-## Changelog
+### Changelog
 
 * admin: bump sphinx to 1.6 ([issue#21717](http://tracker.ceph.com/issues/21717), [pr#18166](https://github.com/ceph/ceph/pull/18166), Kefu Chai, Alfredo Deza)
 * auth: ceph auth add does not sanity-check caps ([issue#22525](http://tracker.ceph.com/issues/22525), [pr#21367](https://github.com/ceph/ceph/pull/21367), Jing Li, Nathan Cutler, Kefu Chai, Sage Weil)
@@ -220,14 +220,14 @@ recommend all Jewel 10.2.x users to upgrade.
 * tools: ceph-objectstore-tool set-size should clear data-digest ([issue#22112](http://tracker.ceph.com/issues/22112), [pr#20070](https://github.com/ceph/ceph/pull/20070), David Zafman)
 * Ubuntu amd64 client can not discover the ubuntu arm64 ceph cluster ([issue#19705](http://tracker.ceph.com/issues/19705), [pr#18294](https://github.com/ceph/ceph/pull/18294), Kefu Chai)
 
-# v10.2.10 Jewel
+## v10.2.10 Jewel
 
 This point release brings a number of important bugfixes in all major
 components of Ceph, we recommend all Jewel 10.2.x users to upgrade.
 
 For a detailed list of changes refer to the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.10txt -->
 
-## Notable Changes
+### Notable Changes
 * build/ops: Add fix subcommand to ceph-disk, fix SELinux denials, and speed up upgrade from non-SELinux enabled ceph to an SELinux enabled one ([issue#20077](http://tracker.ceph.com/issues/20077), [issue#20184](http://tracker.ceph.com/issues/20184), [issue#19545](http://tracker.ceph.com/issues/19545), [pr#14346](https://github.com/ceph/ceph/pull/14346), Boris Ranto)
 * build/ops: deb: Fix logrotate packaging ([issue#19938](http://tracker.ceph.com/issues/19938), [pr#15428](https://github.com/ceph/ceph/pull/15428), Nathan Cutler)
 * build/ops: extended, customizable systemd ceph-disk timeout ([issue#18740](http://tracker.ceph.com/issues/18740), [pr#15051](https://github.com/ceph/ceph/pull/15051), Alexey Sheplyakov)
@@ -339,7 +339,7 @@ For a detailed list of changes refer to the complete changelog <!-- unresolved-r
 * tools: ceph-disk: Use stdin for 'config-key put' command ([issue#21059](http://tracker.ceph.com/issues/21059), [pr#17084](https://github.com/ceph/ceph/pull/17084), Brad Hubbard, Loic Dachary, Sage Weil)
 * tools: libradosstriper processes arbitrary printf placeholders in user input ([issue#20240](http://tracker.ceph.com/issues/20240), [pr#17574](https://github.com/ceph/ceph/pull/17574), Stan K)
 
-# v10.2.9 Jewel
+## v10.2.9 Jewel
 
 This point release fixes a regression introduced in v10.2.8.
 
@@ -347,11 +347,11 @@ We recommend that all Jewel users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.9.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * cephfs: Damaged MDS with 10.2.8 ([issue#20599](http://tracker.ceph.com/issues/20599), [pr#16282](https://github.com/ceph/ceph/pull/16282), Nathan Cutler)
 
-# v10.2.8 Jewel
+## v10.2.8 Jewel
 
 This point release brought a number of important bugfixes in all major
 components of Ceph. However, it also introduced a regression that could cause
@@ -361,7 +361,7 @@ recommend upgrading directly to v10.2.9.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.8.txt -->.
 
-## OSD Removal Caveat
+### OSD Removal Caveat
 
 There was a bug introduced in Jewel (#19119) that broke the mapping behavior
 when an "out" OSD that still existed in the CRUSH map was removed with 'osd rm'.
@@ -380,7 +380,7 @@ before:
 ceph osd rm osd.123
 ```
 
-## Snap Trimmer Improvements
+### Snap Trimmer Improvements
 
 This release greatly improves control and throttling of the snap trimmer. It
 introduces the "osd max trimming pgs" option (defaulting to 2), which limits
@@ -389,7 +389,7 @@ the safe use of the "osd snap trim sleep" option, which defaults to 0 but
 otherwise adds the given number of seconds in delay between every dispatch
 of trim operations to the underlying system.
 
-## Other Notable Changes
+### Other Notable Changes
 
 * build/ops: "osd marked itself down" will not recognised if host runs mon + osd on shutdown/reboot ([issue#18516](http://tracker.ceph.com/issues/18516), [pr#13492](https://github.com/ceph/ceph/pull/13492), Boris Ranto)
 * build/ops: ceph-base package missing dependency for psmisc ([issue#19129](http://tracker.ceph.com/issues/19129), [pr#13786](https://github.com/ceph/ceph/pull/13786), Nathan Cutler)
@@ -525,7 +525,7 @@ of trim operations to the underlying system.
 * tools: ceph-disk: enable directory backed OSD at boot time ([issue#19628](http://tracker.ceph.com/issues/19628), [pr#14602](https://github.com/ceph/ceph/pull/14602), Loic Dachary)
 * tools: rados: RadosImport::import should return an error if Rados::connect fails ([issue#19319](http://tracker.ceph.com/issues/19319), [pr#14113](https://github.com/ceph/ceph/pull/14113), Brad Hubbard)
 
-# v10.2.7 Jewel
+## v10.2.7 Jewel
 
 This point release fixes several important bugs in RBD mirroring, librbd &  RGW.
 
@@ -533,7 +533,7 @@ We recommend that all v10.2.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.7.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * librbd: possible race in ExclusiveLock handle_peer_notification ([issue#19368](http://tracker.ceph.com/issues/19368), [pr#14233](https://github.com/ceph/ceph/pull/14233), Mykola Golub)
 * osd: Increase priority for inactive PGs backfill ([issue#18350](http://tracker.ceph.com/issues/18350), [pr#13232](https://github.com/ceph/ceph/pull/13232), Bartłomiej Święcki)
@@ -562,7 +562,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * rgw: rgw_file: various fixes ([pr#14206](https://github.com/ceph/ceph/pull/14206), Matt Benjamin)
 * rgw: rgw_file: expand argv ([pr#14230](https://github.com/ceph/ceph/pull/14230), Matt Benjamin)
 
-# v10.2.6 Jewel
+## v10.2.6 Jewel
 
 This point release fixes several important bugs in RBD mirroring, RGW multi-site, CephFS, and RADOS.
 
@@ -570,7 +570,7 @@ We recommend that all v10.2.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.6.txt -->.
 
-## OSDs No Longer Send ENXIO by Default
+### OSDs No Longer Send ENXIO by Default
 
 In previous versions, if a client sent an op to the wrong OSD, the OSD
 would reply with ENXIO.  The rationale here is that the client or OSD is
@@ -580,7 +580,7 @@ is enabled (it's off by default).  This means that a VM using librbd that
 previously would have gotten an EIO and gone read-only will now see a
 blocked/hung IO instead.
 
-## Other Notable Changes
+### Other Notable Changes
 
 * build/ops: add hostname sanity check to run-{c}make-check.sh ([issue#18134](http://tracker.ceph.com/issues/18134), [pr#12302](http://github.com/ceph/ceph/pull/12302), Nathan Cutler)
 * build/ops: add ldap lib to rgw lib deps based on build config ([issue#17313](http://tracker.ceph.com/issues/17313), [pr#13183](http://github.com/ceph/ceph/pull/13183), Nathan Cutler)
@@ -772,24 +772,24 @@ blocked/hung IO instead.
 * tools: snapshotted RBD extent objects can't be manually evicted from a cache tier ([issue#17896](http://tracker.ceph.com/issues/17896), [pr#11968](http://github.com/ceph/ceph/pull/11968), Mingxin Liu)
 * tools: systemd/ceph-disk: reduce ceph-disk flock contention ([issue#18049](http://tracker.ceph.com/issues/18049), [issue#13160](http://tracker.ceph.com/issues/13160), [pr#12210](http://github.com/ceph/ceph/pull/12210), David Disseldorp)
 
-# v10.2.5 Jewel
+## v10.2.5 Jewel
 
 This point release fixes an important [regression introduced in v10.2.4](http://tracker.ceph.com/issues/18185).
 
 We recommend that all v10.2.x users upgrade.
 
-## Notable Changes
+### Notable Changes
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.5.txt -->.
 
 * msg/simple/Pipe: avoid returning 0 on poll timeout ([issue#18185](http://tracker.ceph.com/issues/18185), [pr#12376](https://github.com/ceph/ceph/pull/12376), Sage Weil)
 
-# v10.2.4 Jewel
+## v10.2.4 Jewel
 
 This point release fixes several important bugs in RBD mirroring, RGW multi-site, CephFS, and RADOS.
 
 We recommend that all v10.2.x users upgrade. Also note the following when upgrading from hammer
 
-## Upgrading from hammer
+### Upgrading from hammer
 
 When the last hammer OSD in a cluster containing jewel MONs is
 upgraded to jewel, as of 10.2.4 the jewel MONs will issue this
@@ -801,7 +801,7 @@ This is a signal for the admin to do "ceph osd set require_jewel_osds" - by
 doing this, the upgrade path is complete and no more pre-Jewel OSDs may be added
 to the cluster.
 
-## Notable Changes
+### Notable Changes
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.4.txt -->.
 
 * build/ops: aarch64: Compiler-based detection of crc32 extended CPU type is broken ([issue#17516](http://tracker.ceph.com/issues/17516), [pr#11492](http://github.com/ceph/ceph/pull/11492), Alexander Graf)
@@ -918,7 +918,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tools: ceph-objectstore-tool: add a way to split filestore directories offline ([issue#17220](http://tracker.ceph.com/issues/17220), [pr#11252](http://github.com/ceph/ceph/pull/11252), Josh Durgin)
 * tools: ceph-post-file: use new ssh key ([issue#14267](http://tracker.ceph.com/issues/14267), [pr#11746](http://github.com/ceph/ceph/pull/11746), David Galloway)
 
-# v10.2.3 Jewel
+## v10.2.3 Jewel
 
 This point release fixes several important bugs in RBD mirroring, RGW multi-site, CephFS, and RADOS.
 
@@ -926,7 +926,7 @@ We recommend that all v10.2.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.3.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * build/ops: 60-ceph-partuuid-workaround-rules still needed by debian jessie (udev 215-17) ([issue#16351](http://tracker.ceph.com/issues/16351), [pr#10653](http://github.com/ceph/ceph/pull/10653), runsisi, Loic Dachary)
 * build/ops: ceph Resource Agent does not work with systemd ([issue#14828](http://tracker.ceph.com/issues/14828), [pr#9917](http://github.com/ceph/ceph/pull/9917), Nathan Cutler)
@@ -1068,7 +1068,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tools: rados: Add cleanup message with time to rados bench output ([issue#15704](http://tracker.ceph.com/issues/15704), [pr#9740](http://github.com/ceph/ceph/pull/9740), Vikhyat Umrao)
 * tools: src/script/subman fails with KeyError: 'nband' ([issue#16961](http://tracker.ceph.com/issues/16961), [pr#10625](http://github.com/ceph/ceph/pull/10625), Loic Dachary, Ali Maredia)
 
-# v10.2.2 Jewel
+## v10.2.2 Jewel
 
 This point release fixes several important bugs in RBD mirroring, RGW multi-site, CephFS, and RADOS.
 
@@ -1076,7 +1076,7 @@ We recommend that all v10.2.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.2.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * ceph: cli: exception when pool name has non-ascii characters ([issue#15913](http://tracker.ceph.com/issues/15913), [pr#9320](http://github.com/ceph/ceph/pull/9320), Ricardo Dias)
 * ceph-disk: workaround gperftool hang ([issue#13522](http://tracker.ceph.com/issues/13522), [issue#16103](http://tracker.ceph.com/issues/16103), [pr#9427](http://github.com/ceph/ceph/pull/9427), Loic Dachary)
@@ -1139,7 +1139,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * test: failure in journal.sh workunit test ([issue#16011](http://tracker.ceph.com/issues/16011), [pr#9377](http://github.com/ceph/ceph/pull/9377), Mykola Golub)
 * tests: rm -fr /tmp/*virtualenv* ([issue#16087](http://tracker.ceph.com/issues/16087), [pr#9403](http://github.com/ceph/ceph/pull/9403), Loic Dachary)
 
-# v10.2.1 Jewel
+## v10.2.1 Jewel
 
 This is the first bugfix release for Jewel.  It contains several annoying
 packaging and init system fixes and a range of important bugfixes across
@@ -1149,7 +1149,7 @@ We recommend that all v10.2.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v10.2.1.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * cephfs: CephFSVolumeClient should isolate volumes by RADOS namespace ([issue#15400](http://tracker.ceph.com/issues/15400), [pr#8787](http://github.com/ceph/ceph/pull/8787), Xiaoxi Chen)
 * cephfs: handle standby-replay nodes properly in upgrades ([issue#15591](http://tracker.ceph.com/issues/15591), [pr#8971](http://github.com/ceph/ceph/pull/8971), John Spray)
@@ -1201,14 +1201,14 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * systemd: fix typo in preset file ([pr#8843](http://github.com/ceph/ceph/pull/8843), Nathan Cutler)
 * tests: make check fails on ext4 ([issue#15837](http://tracker.ceph.com/issues/15837), [pr#9063](http://github.com/ceph/ceph/pull/9063), Loic Dachary, Sage Weil)
 
-# v10.2.0 Jewel
+## v10.2.0 Jewel
 
 This major release of Ceph is the foundation for the next
 long-term stable release series.  There have been many major changes since
 the Infernalis (9.2.x) and Hammer (0.94.x) releases, and the upgrade
 process is non-trivial. Please read these release notes carefully.
 
-## Major Changes from Infernalis
+### Major Changes from Infernalis
 
 - *CephFS*:
 
@@ -1262,7 +1262,7 @@ process is non-trivial. Please read these release notes carefully.
     ext4 as the underlying filesystem for Ceph OSD daemons due to
     problems supporting our long object name handling.
 
-## Major Changes from Hammer
+### Major Changes from Hammer
 
 - *General*:
 
@@ -1318,7 +1318,7 @@ process is non-trivial. Please read these release notes carefully.
     inodes has been dramatically improved.
   * The ceph-fuse client behaves better on 32-bit hosts.
 
-## Distro compatibility
+### Distro compatibility
 
 Starting with Infernalis, we have dropped support for many older
 distributions so that we can move to a newer compiler toolchain (e.g.,
@@ -1342,7 +1342,7 @@ We now build packages for the following distributions and architectures:
 
   * Ubuntu Xenial 16.04.
 
-## Upgrading from Infernalis or Hammer
+### Upgrading from Infernalis or Hammer
 
 * We now recommend against using ``ext4`` as the underlying file
   system for Ceph OSDs, especially when RGW or other users of long
@@ -1428,7 +1428,7 @@ ceph osd set sortbitwise
 rbd validate names = false
 ```
 
-## Upgrading from Hammer
+### Upgrading from Hammer
 
 * All cluster nodes must first upgrade to Hammer v0.94.4 or a later
   v0.94.z release; only then is it possible to upgrade to Jewel
@@ -1535,7 +1535,7 @@ systemctl start ceph.target   # debian, centos, fedora, rhel
 * The commands of "pg ls-by-{pool,primary,osd}" and "pg ls" now take "recovering"
   instead of "recovery", to include the recovering pgs in the listed pgs.
 
-## Upgrading from Firefly
+### Upgrading from Firefly
 
 Upgrading directly from Firefly v0.80.z is not recommended.  It is
 possible to do a direct upgrade, but not without downtime, as all OSDs
@@ -1574,7 +1574,7 @@ ceph osd unset noout
 
   1. Upgrade and restart any remaining daemons (ceph-mds, radosgw)
 
-## Notable Changes since Infernalis
+### Notable Changes since Infernalis
 
 * aarch64: add optimized version of crc32c (Yazen Ghannam, Steve Capper)
 * Adding documentation on how to use new dynamic throttle scheme ([pr#8069](http://github.com/ceph/ceph/pull/8069), Somnath Roy)

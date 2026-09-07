@@ -11,15 +11,15 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd-fuse
 
-# Synopsis
+## Synopsis
 
 | **rbd-fuse** [ -p pool ] [-c conffile] *mountpoint* [ *fuse options* ]
 
-# Note
+## Note
 
 **rbd-fuse** is not recommended for any production or high performance workloads.
 
-# Description
+## Description
 
 **rbd-fuse** is a FUSE ("Filesystem in USErspace") client for RADOS
 block device (rbd) images.  Given a pool containing rbd images,
@@ -34,7 +34,7 @@ fusermount -u mountpoint
 
 or by sending ``SIGINT`` to the ``rbd-fuse`` process.
 
-# Options
+## Options
 
 Any options not recognized by rbd-fuse will be passed on to libfuse.
 
@@ -47,12 +47,12 @@ Any options not recognized by rbd-fuse will be passed on to libfuse.
 
    Use *pool* as the pool to search for rbd images.  Default is ``rbd``.
 
-# Availability
+## Availability
 
 **rbd-fuse** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 fusermount(8),
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

@@ -21,7 +21,7 @@ is very safe and you cannot afford authentication, you can disable it.
 For information about creating users, see [User Management](../operations/user-management.md). For details on
 the architecture of CephX, see [Architecture - High Availability Authentication](../../architecture.md#high-availability-authentication).
 
-# Deployment Scenarios
+## Deployment Scenarios
 
 How you initially configure CephX depends on your scenario. There are two
 common strategies for deploying a Ceph cluster.  If you are a first-time Ceph
@@ -31,14 +31,14 @@ Ansible, Chef, Juju, or Puppet), you will need either to use the manual
 deployment procedures or to configure your deployment tool so that it will
 bootstrap your monitor(s).
 
-## Manual Deployment
+### Manual Deployment
 
 When you deploy a cluster manually, it is necessary to bootstrap the Monitors
 manually and to create the ``client.admin`` user and keyring. To bootstrap
 Monitors, follow the steps in [Monitor Bootstrapping](../../install/manual-deployment.md#monitor-bootstrapping). Follow these steps when
 using third-party deployment tools (for example, Chef, Puppet, and Juju).
 
-# Enabling/Disabling CephX
+## Enabling/Disabling CephX
 
 Enabling CephX is possible only if the keys for your Monitors, OSD, and MDS
 have already been deployed. If you are simply toggling CephX on or off, it is
@@ -54,7 +54,7 @@ this.
 
 .. confval:: auth_client_required
 
-## Enabling CephX
+### Enabling CephX
 
 When CephX is enabled, Ceph will look for the keyring in the default search
 path: this path includes ``/etc/ceph/$cluster.$name.keyring``. It is possible
@@ -122,7 +122,7 @@ auth_client_required = cephx
 
 For details on bootstrapping a monitor manually, see [Manual Deployment](../../install/manual-deployment.md).
 
-## Disabling CephX
+### Disabling CephX
 
 The following procedure describes how to disable CephX. If your cluster
 environment is safe, you might want to disable CephX in order to offset the
@@ -142,11 +142,11 @@ auth_client_required = none
 
 1. Start or restart the Ceph cluster. For details, see [Operating a Cluster](../operations/operating.md).
 
-# Configuration Settings
+## Configuration Settings
 
 .. index:: keys; keyring
 
-## Keys
+### Keys
 
 When Ceph is run with authentication enabled, ``ceph`` administrative commands
 and Ceph clients can access the Ceph Storage Cluster only if they use
@@ -183,7 +183,7 @@ file.
 
 .. confval:: key
 
-## Daemon Keyrings
+### Daemon Keyrings
 
 Administrative users or deployment tools (for example, ``cephadm``) generate
 daemon keyrings in the same way that they generate user keyrings. By default,
@@ -209,7 +209,7 @@ It is possible to override these locations, but it is not recommended.
 
 .. index:: signatures
 
-## Signatures
+### Signatures
 
 Ceph performs a signature check that provides some limited protection against
 messages being tampered with in flight (for example, by a "man in the middle"
@@ -229,7 +229,7 @@ Note that even when signatures are enabled data is not encrypted in flight.
 
 .. confval:: cephx_sign_messages
 
-## Time to Live
+### Time to Live
 
 .. confval:: auth_mon_ticket_ttl
 
@@ -237,7 +237,7 @@ Note that even when signatures are enabled data is not encrypted in flight.
 
 <a id="cephx-upgrade"></a>
 
-# Upgrading and Rotating CephX Keys
+## Upgrading and Rotating CephX Keys
 
 In 2026, it became necessary to upgrade the cipher key type for all CephX keys
 due to the potential vulnerabilities in the older encryption schemes. To effect
@@ -458,7 +458,7 @@ ceph --format=json health detail | jq '.checks | has("AUTH_INSECURE_KEYS_CREATAB
 
    output gives ``false``.
 
-   For more information, see [auth_allow_insecure_keys](auth-config-ref.md#auth-allow-insecure-keys).
+   For more information, see [auth_allow_insecure_keys](auth-config-ref.md#auth_allow_insecure_keys).
 
 1. **Rotate the admin key.**
 
@@ -571,7 +571,7 @@ ceph mon set auth_allowed_ciphers aes256k
 
 > **Note:** This will now disable the default value for ``mon_auth_allow_insecure_key`` and clear the ``AUTH_INSECURE_KEYS_CREATABLE`` warning.
 
-> **Warning:** If you remove the key type for the ``client.admin`` key or for service daemon keys, you may break authentication in your cluster. That situation will require rescue via [auth_emergency_allowed_ciphers](auth-config-ref.md#auth-emergency-allowed-ciphers). Ensure that ``AUTH_INSECURE_CLIENT_KEY_TYPE`` and ``AUTH_INSECURE_SERVICE_KEY_TYPE`` health warnings are clear!
+> **Warning:** If you remove the key type for the ``client.admin`` key or for service daemon keys, you may break authentication in your cluster. That situation will require rescue via [auth_emergency_allowed_ciphers](auth-config-ref.md#auth_emergency_allowed_ciphers). Ensure that ``AUTH_INSECURE_CLIENT_KEY_TYPE`` and ``AUTH_INSECURE_SERVICE_KEY_TYPE`` health warnings are clear!
 
    Once changed, you should see the [auth-insecure-keys-allowed](../operations/health-checks.md#auth-insecure-keys-allowed) health warning clear.
 
@@ -583,9 +583,9 @@ ceph --format=json health detail | jq '.checks | has("AUTH_INSECURE_KEYS_ALLOWED
 
 At this point, your CephX ciphers and keys should be upgraded.
 
-<a id="auth-rotate"></a>
+<a id="auth_rotate"></a>
 
-## Rotating CephX Keys
+### Rotating CephX Keys
 
 The Monitors provide a mechanism to only update the key for an entity via the
 ``auth rotate`` command.
@@ -620,9 +620,9 @@ ceph-authtool --import-keyring ./client.fs.keyring /etc/ceph/client.fs.keyring
 
 > **Note:** The key must be distributed to all locations where the key is in use.
 
-<a id="auth-emergency-allowed-ciphers"></a>
+<a id="auth_emergency_allowed_ciphers"></a>
 
-## Emergency Allowed Ciphers
+### Emergency Allowed Ciphers
 
 The Monitors maintain the set of allowed ciphers for credential keys in the ``MonMap``. This is normally set live on the cluster using:
 
@@ -642,9 +642,9 @@ When this configuration is set, the Monitors will raise the
 [auth-emergency-ciphers-set](../operations/health-checks.md#auth-emergency-ciphers-set) health warning. It should only be set on a
 temporary basis to rescue the cluster.
 
-<a id="auth-allow-insecure-keys"></a>
+<a id="auth_allow_insecure_keys"></a>
 
-## Allow Creation of Insecure Keys
+### Allow Creation of Insecure Keys
 
 By default, the Monitors will allow creation of keys with a cipher type known
 to be insecure so long as the Monitors also allow that cipher to authenticate.
@@ -660,9 +660,9 @@ type.
 When this configuration is enabled by default or otherwise, the Monitors will
 raise the [auth-insecure-keys-creatable](../operations/health-checks.md#auth-insecure-keys-creatable) health warning.
 
-<a id="auth-dump-keys"></a>
+<a id="auth_dump_keys"></a>
 
-## Dump Existing Keys
+### Dump Existing Keys
 
 The Monitors provide a command to dump all CephX credentials and key metadata
 as well as all rotating service key metadata.

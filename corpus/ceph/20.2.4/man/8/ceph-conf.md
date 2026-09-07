@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-conf
 
-# Synopsis
+## Synopsis
 
 | **ceph-conf** -c *conffile* --list-all-sections
 | **ceph-conf** -c *conffile* -L
@@ -20,7 +20,7 @@ fetched_at: 2026-08-18T01:32:45Z
 | **ceph-conf** [-s *section* ] [-r] --lookup *key*
 | **ceph-conf** [-s *section* ] *key*
 
-# Description
+## Description
 
 **ceph-conf** is a utility for getting information from a ceph
 configuration file. As with most Ceph programs, you can specify which
@@ -40,7 +40,7 @@ occasionally vary between daemons), config files, and the monitor's
 config database, providing the exact value that that daemon would be
 using if it were started.
 
-# Actions
+## Actions
 
 **ceph-conf** performs one of the following actions:
 
@@ -63,7 +63,7 @@ using if it were started.
 
    print a summary of usage.
 
-# Options
+## Options
 
 .. option:: -c *conffile*
 
@@ -101,7 +101,7 @@ using if it were started.
    before the sections that would normally be searched. As always, the first
    matching entry we find will be returned.
 
-# Examples
+## Examples
 
 To find out what value osd 0 will use for the "osd data" option:
 
@@ -133,18 +133,18 @@ To print the path of the "keyring" used by "client.0":
 ceph-conf --name client.0 -r -l keyring
 ```
 
-# Files
+## Files
 
 ``/etc/ceph/$cluster.conf``, ``~/.ceph/$cluster.conf``, ``$cluster.conf``
 
 the Ceph configuration files to use if not specified.
 
-# Availability
+## Availability
 
 **ceph-conf** is part of Ceph, a massively scalable, open-source, distributed storage system.  Please refer
 to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8),

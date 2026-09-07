@@ -650,7 +650,7 @@ Valid starting       Expires              Service principal
 |
 |
 
-# ** *For Ceph Developers Only* **
+### ** *For Ceph Developers Only* **
 
 We certainly could have used straight native ``KRB5 APIs`` (instead of
 ``GSSAPIs``), but we wanted a more portable option as regards network security,

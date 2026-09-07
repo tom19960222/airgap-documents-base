@@ -26,11 +26,11 @@ see [nfs-ganesha-config](nfs.md#nfs-ganesha-config).
 
 > **Note:** Starting with Ceph Pacific, the ``nfs`` mgr module must be enabled.
 
-# NFS Cluster management
+## NFS Cluster management
 
 <a id="nfs-module-cluster-create"></a>
 
-## Create NFS Ganesha Cluster
+### Create NFS Ganesha Cluster
 
 ```bash
 ceph nfs cluster create <cluster_id> [<placement>] [--ingress] [--virtual_ip <value>] [--ingress-mode {default|keepalive-only|haproxy-standard|haproxy-protocol}] [--port <int>] [--enable-nfsv3]
@@ -98,7 +98,7 @@ ceph orch ls --service_name=nfs.<cluster_id>
 ceph orch ls --service_name=ingress.nfs.<cluster_id>
 ```
 
-## Ingress
+### Ingress
 
 The core *nfs* service will deploy one or more nfs-ganesha daemons,
 each of which will provide a working NFS endpoint.  The IP for each
@@ -141,7 +141,7 @@ without the ``--ingress`` flag), and the basic NFS service can
 also be modified after the fact to include non-default options, by modifying
 the services directly.  For more information, see [cephadm-ha-nfs](../cephadm/services/nfs.md#cephadm-ha-nfs).
 
-## Show NFS Cluster IP(s)
+### Show NFS Cluster IP(s)
 
 To examine an NFS cluster's IP endpoints, including the IPs for the individual NFS
 daemons, and the virtual IP (if any) for the ingress service,
@@ -154,12 +154,12 @@ ceph nfs cluster info [<cluster_id>]
 > with the kubectl patch command and fetch the port details with kubectl get
 > services command:
 >
-> .. prompt:: bash #
->
->    kubectl patch service -n rook-ceph -p '{"spec":{"type": "NodePort"}}' rook-ceph-nfs-<cluster-name>-<node-id>
->    kubectl get services -n rook-ceph rook-ceph-nfs-<cluster-name>-<node-id>
+> ```bash
+> kubectl patch service -n rook-ceph -p '{"spec":{"type": "NodePort"}}' rook-ceph-nfs-<cluster-name>-<node-id>
+> kubectl get services -n rook-ceph rook-ceph-nfs-<cluster-name>-<node-id>
+> ```
 
-## Delete NFS Ganesha Cluster
+### Delete NFS Ganesha Cluster
 
 ```bash
 ceph nfs cluster rm <cluster_id>
@@ -177,7 +177,7 @@ ceph orch ls --service_name=nfs.<cluster_id>
 ceph orch ls --service_name=ingress.nfs.<cluster_id>
 ```
 
-## Updating an NFS Cluster
+### Updating an NFS Cluster
 
 In order to modify cluster parameters (for example, the port or the placement),
 use the orchestrator interface to update the NFS service spec. The safest way
@@ -194,7 +194,7 @@ ceph orch apply -i nfs.foo.yaml
 For more information about the NFS service spec, see
 [deploy-cephadm-nfs-ganesha](../cephadm/services/nfs.md#deploy-cephadm-nfs-ganesha).
 
-## List NFS Ganesha Clusters
+### List NFS Ganesha Clusters
 
 ```bash
 ceph nfs cluster ls
@@ -204,7 +204,7 @@ This lists deployed clusters.
 
 <a id="nfs-cluster-set"></a>
 
-## Set Customized NFS Ganesha Configuration
+### Set Customized NFS Ganesha Configuration
 
 ```bash
 ceph nfs cluster config set <cluster_id> -i <config_file>
@@ -254,11 +254,11 @@ EXPORT {
 > daemons to access ceph cluster. User can be created in following way using
 > `auth get-or-create`:
 >
-> .. prompt:: bash #
->
->    ceph auth get-or-create client.<user_id> mon 'allow r' osd 'allow rw pool=.nfs namespace=<nfs_cluster_name>, allow rw tag cephfs data=<fs_name>' mds 'allow rw path=<export_path>'
+> ```bash
+> ceph auth get-or-create client.<user_id> mon 'allow r' osd 'allow rw pool=.nfs namespace=<nfs_cluster_name>, allow rw tag cephfs data=<fs_name>' mds 'allow rw path=<export_path>'
+> ```
 
-## View Customized NFS Ganesha Configuration
+### View Customized NFS Ganesha Configuration
 
 ```bash
 ceph nfs cluster config get <cluster_id>
@@ -266,7 +266,7 @@ ceph nfs cluster config get <cluster_id>
 
 This will output the user defined configuration (if any).
 
-## Reset NFS Ganesha Configuration
+### Reset NFS Ganesha Configuration
 
 ```bash
 ceph nfs cluster config reset <cluster_id>
@@ -277,14 +277,14 @@ This removes the user defined configuration.
 > **Note:** With a rook deployment, ganesha pods must be explicitly restarted
 > for the new config blocks to be effective.
 
-# Export Management
+## Export Management
 
 > **Warning:** Currently, the nfs interface is not integrated with dashboard. Both
 > dashboard and nfs interface have different export requirements and
 > create exports differently. Management of dashboard created exports is not
 > supported.
 
-## Create CephFS Export
+### Create CephFS Export
 
 ```bash
 ceph nfs export create cephfs --cluster-id <cluster_id> --pseudo-path <pseudo_path> --fsname <fsname> [--readonly] [--path=/path/in/cephfs] [--client_addr <value>...] [--squash <value>] [--sectype <value>...] [--cmount_path <value>]
@@ -335,7 +335,7 @@ allowed to be any complete path hierarchy between ``/`` and the ``EXPORT {path}`
 
 > **Note:** Export creation is supported only for NFS Ganesha clusters deployed using nfs interface.
 
-## Create RGW Export
+### Create RGW Export
 
 There are two kinds of RGW exports:
 
@@ -344,7 +344,7 @@ There are two kinds of RGW exports:
 - a *bucket* export will export a single bucket, where the top-level directory contains
   the objects in the bucket.
 
-### RGW bucket export
+#### RGW bucket export
 
 To export a *bucket*:
 
@@ -397,7 +397,7 @@ client preferring the supplied methods left-to-right.
 > function on servers that are configured to support Kerberos. Setting up
 > NFS-Ganesha to support Kerberos is outside the scope of this document.
 
-### RGW user export
+#### RGW user export
 
 To export an RGW *user*:
 
@@ -411,7 +411,7 @@ For example, to export *myuser* via NFS cluster *mynfs* at the pseudo-path */myu
 ceph nfs export create rgw --cluster-id mynfs --pseudo-path /bucketdata --user-id myuser --client_addr 192.168.10.0/24
 ```
 
-## Delete Export
+### Delete Export
 
 ```bash
 ceph nfs export rm <cluster_id> <pseudo_path>
@@ -423,7 +423,7 @@ This deletes an export in an NFS Ganesha cluster, where:
 
 ``<pseudo_path>`` is the pseudo root path (must be an absolute path).
 
-## List Exports
+### List Exports
 
 ```bash
 ceph nfs export ls <cluster_id> [--detailed]
@@ -435,7 +435,7 @@ It lists exports for a cluster, where:
 
 With the ``--detailed`` option enabled it shows entire export block.
 
-## Get Export
+### Get Export
 
 ```bash
 ceph nfs export info <cluster_id> <pseudo_path>
@@ -447,7 +447,7 @@ This displays export block for a cluster based on pseudo root name, where:
 
 ``<pseudo_path>`` is the pseudo root path (must be an absolute path).
 
-## Create or update export via JSON specification
+### Create or update export via JSON specification
 
 An existing export can be dumped in JSON format with:
 
@@ -570,7 +570,7 @@ EXPORT {
 }
 ```
 
-# Mounting
+## Mounting
 
 After the exports are successfully created and NFS Ganesha daemons are
 deployed, exports can be mounted with:
@@ -598,7 +598,7 @@ mount -t nfs -o port=<ganesha-port> <ganesha-host-name>:<ganesha-pseudo_path> <m
 > **Note:** As of this writing (01 Jan 2024), no version of Microsoft Windows
 > supports mouting an NFS v4.x export natively.
 
-# Troubleshooting
+## Troubleshooting
 
 There are two methds for examining NFS-Ganesha logs:
 
@@ -626,7 +626,7 @@ The NFS log level can be adjusted using the ``nfs cluster config set`` command
 
 <a id="nfs-ganesha-config"></a>
 
-# Manual Ganesha deployment
+## Manual Ganesha deployment
 
 It may be possible to deploy and manage the NFS ganesha daemons without
 orchestration frameworks such as cephadm or rook.
@@ -635,7 +635,7 @@ orchestration frameworks such as cephadm or rook.
 > mileage may vary. If you make this work, please help us by
 > updating this documentation.
 
-## Limitations
+### Limitations
 
 If no orchestrator module is enabled for the Ceph Manager the NFS cluster
 management commands, such as those starting with ``ceph nfs cluster``, will not
@@ -647,14 +647,14 @@ find some details about the object by reading the source code for the
 ``mgr/nfs`` module (found in the ceph source tree under
 ``src/pybind/mgr/nfs``).
 
-## Requirements
+### Requirements
 
 The following packages are required to enable CephFS and RGW exports with nfs-ganesha:
 
 -  ``nfs-ganesha``, ``nfs-ganesha-ceph``, ``nfs-ganesha-rados-grace`` and
    ``nfs-ganesha-rados-urls`` packages (version 3.3 and above)
 
-## Ganesha Configuration Hierarchy
+### Ganesha Configuration Hierarchy
 
 Cephadm and rook start each nfs-ganesha daemon with a minimal
 `bootstrap` configuration file that pulls from a shared `common`

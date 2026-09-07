@@ -13,7 +13,7 @@ responsible for managing cache coherency themselves.
 
 Libcephfs supports LazyIO since nautilus release.
 
-# Enable LazyIO
+## Enable LazyIO
 
 LazyIO can be enabled by following ways.
 
@@ -23,7 +23,7 @@ LazyIO can be enabled by following ways.
 - ``ceph_lazyio(...)`` and ``ceph_ll_lazyio(...)`` enable LAZY_IO for file handle
   in libcephfs.
 
-# Using LazyIO
+## Using LazyIO
 
 LazyIO includes two methods ``lazyio_propagate()`` and ``lazyio_synchronize()``.
 With LazyIO enabled, writes may not be visible to other clients until

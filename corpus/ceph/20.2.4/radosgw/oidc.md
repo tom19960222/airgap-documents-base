@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 An entity describing the OpenID Connect Provider needs to be created in RGW, in order to establish trust between the two.
 
-# REST APIs for Manipulating an OpenID Connect Provider
+## REST APIs for Manipulating an OpenID Connect Provider
 
 The following REST APIs can be used for creating and managing an OpenID Connect Provider entity in RGW.
 
@@ -20,7 +20,7 @@ radosgw-admin --uid TESTER --display-name "TestUser" --access_key TESTER --secre
 radosgw-admin caps add --uid="TESTER" --caps="oidc-provider=*"
 ```
 
-## CreateOpenIDConnectProvider
+### CreateOpenIDConnectProvider
 
 Create an OpenID Connect Provider entity in RGW
 
@@ -50,7 +50,7 @@ POST "<hostname>?Action=Action=CreateOpenIDConnectProvider
   &Url=http://localhost:8080/auth/realms/quickstart"
 ```
 
-## DeleteOpenIDConnectProvider
+### DeleteOpenIDConnectProvider
 
 Deletes an OpenID Connect Provider entity in RGW
 
@@ -68,7 +68,7 @@ POST "<hostname>?Action=Action=DeleteOpenIDConnectProvider
   &OpenIDConnectProviderArn=arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"
 ```
 
-## GetOpenIDConnectProvider
+### GetOpenIDConnectProvider
 
 Gets information about an IDP.
 
@@ -86,7 +86,7 @@ POST "<hostname>?Action=Action=GetOpenIDConnectProvider
   &OpenIDConnectProviderArn=arn:aws:iam:::oidc-provider/localhost:8080/auth/realms/quickstart"
 ```
 
-## ListOpenIDConnectProviders
+### ListOpenIDConnectProviders
 
 Lists information about all IDPs
 
@@ -100,7 +100,7 @@ Example:
 POST "<hostname>?Action=Action=ListOpenIDConnectProviders
 ```
 
-## AddClientIDToOpenIDConnectProvider
+### AddClientIDToOpenIDConnectProvider
 
 Add a client id to the list of existing client ids registered while creating an OpenIDConnectProvider.
 
@@ -124,7 +124,7 @@ POST "<hostname>?Action=Action=AddClientIDToOpenIDConnectProvider
   &ClientID=app-jee-jsp"
 ```
 
-## RemoveClientIDFromOpenIDConnectProvider
+### RemoveClientIDFromOpenIDConnectProvider
 
 Remove a client id from the list of existing client ids registered while creating an OpenIDConnectProvider.
 
@@ -148,7 +148,7 @@ POST "<hostname>?Action=Action=RemoveClientIDFromOpenIDConnectProvider
   &ClientID=app-jee-jsp"
 ```
 
-## UpdateOpenIDConnectProviderThumbprint
+### UpdateOpenIDConnectProviderThumbprint
 
 Update the existing thumbprint list of an OpenIDConnectProvider with the given list.
 This API removes the existing thumbprint list and replaces that with the input thumbprint list.

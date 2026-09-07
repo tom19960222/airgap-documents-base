@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-debugpack
 
-# Synopsis
+## Synopsis
 
 | **ceph-debugpack** [ *options* ] *filename.tar.gz*
 
-# Description
+## Description
 
 **ceph-debugpack** will build a tarball containing various items that are
 useful for debugging crashes. The resulting tarball can be shared with
@@ -26,7 +26,7 @@ log files, the ceph.conf configuration file, any core files we can
 find, and (if the system is running) dumps of the current cluster state
 as reported by 'ceph report'.
 
-# Options
+## Options
 
 .. option:: -c ceph.conf, --conf=ceph.conf
 
@@ -34,13 +34,13 @@ as reported by 'ceph report'.
    ``/etc/ceph/ceph.conf`` to determine monitor addresses during
    startup.
 
-# Availability
+## Availability
 
 **ceph-debugpack** is part of Ceph, a massively scalable, open-source, distributed storage system. Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)
 [ceph-post-file](ceph-post-file.md)\(8)

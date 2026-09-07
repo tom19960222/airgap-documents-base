@@ -13,7 +13,7 @@ It provides a user interface to add, query and remove snapshots schedules and
 retention policies, as well as a scheduler that takes the snapshots and prunes
 existing snapshots accordingly.
 
-# How to enable
+## How to enable
 
 The *snap_schedule* module is enabled with:
 
@@ -21,7 +21,7 @@ The *snap_schedule* module is enabled with:
 ceph mgr module enable snap_schedule
 ```
 
-# Usage
+## Usage
 
 This module uses [/dev/cephfs-snapshots](../dev/cephfs-snapshots.md), please consider this documentation
 as well.
@@ -91,7 +91,7 @@ Error EINVAL: invalid command
 ### Note:
 A `subvolume` argument is no longer accepted by the commands.
 
-## Inspect snapshot schedules
+#### Inspect snapshot schedules
 
 The module offers two subcommands to inspect existing schedules: `list` and
 `status`. Bother offer plain and json output via the optional `format` argument.
@@ -111,7 +111,7 @@ ceph fs snap-schedule list /
 ceph fs snap-schedule list / --recursive=true # list all schedules in the tree
 ```
 
-## Add and remove schedules
+#### Add and remove schedules
 The `add` and `remove` subcommands add and remove snapshots schedules
 respectively. Both require at least a `path` argument, `add` additionally
 requires a `schedule` argument as described in the USAGE section.
@@ -136,7 +136,7 @@ ceph fs snap-schedule remove / 1h # removes all schedules with --repeat=1h
 ceph fs snap-schedule remove / # removes all schedules on path /
 ```
 
-## Add and remove retention policies
+#### Add and remove retention policies
 The `retention add` and `retention remove` subcommands allow to manage
 retention policies. One path has exactly one retention policy. A policy can
 however contain multiple count-time period pairs in order to specify complex
@@ -175,7 +175,7 @@ ceph fs snap-schedule retention remove / 7d4w # remove 7 daily and 4 weekly, lea
 
 .. note: The --fs argument is now required if there is more than one file system.
 
-## Active and inactive schedules
+#### Active and inactive schedules
 Snapshot schedules can be added for a path that doesn't exist yet in the
 directory tree. Similarly a path can be removed without affecting any snapshot
 schedules on that path.
@@ -194,7 +194,7 @@ ceph fs snap-schedule activate / # activate all schedules on the root directory
 ceph fs snap-schedule deactivate / 1d # deactivates daily snapshots on the root directory
 ```
 
-## Limitations
+#### Limitations
 Snapshots are scheduled using python Timers. Under normal circumstances
 specifying 1h as the schedule will result in snapshots 1 hour apart fairly
 precisely. If the mgr daemon is under heavy load however, the Timer threads
@@ -217,7 +217,7 @@ module will only keep a maximum of 50 snapshots per directory. If the retention
 policy results in more then 50 retained snapshots, the retention list will be
 shortened to the newest 50 snapshots.
 
-## Data storage
+#### Data storage
 The snapshot schedule data is stored in a rados object in the cephfs metadata
 pool. At runtime all data lives in a sqlite database that is serialized and
 stored as a rados object.

@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-dencoder
 
-# Synopsis
+## Synopsis
 
 | **ceph-dencoder** [commands...]
 
-# Description
+## Description
 
 **ceph-dencoder** is a utility to encode, decode, and dump ceph data
 structures.  It is used for debugging and for testing inter-version
@@ -24,7 +24,7 @@ compatibility.
 **ceph-dencoder** takes a simple list of commands and performs them
 in order.
 
-# Commands
+## Commands
 
 .. option:: version
 
@@ -89,7 +89,7 @@ in order.
    you to encode objects such that they can be understood by old
    versions of the software (for those types that support it).
 
-# Example
+## Example
 
 Say you want to examine an attribute on an object stored by ``ceph-osd``.  You can do this:
 
@@ -140,12 +140,12 @@ $ ceph-dencoder type SnapServer skip 8 import mds_snaptable.bin decode dump_json
    "pending_destroy": []}}
 ```
 
-# Availability
+## Availability
 
 **ceph-dencoder** is part of Ceph, a massively scalable, open-source, distributed storage system. Please
 refer to the Ceph documentation at https://docs.ceph.com for more
 information.
 
-# See also
+## See also
 
 [ceph](../../install/clone-source.md)\(8)

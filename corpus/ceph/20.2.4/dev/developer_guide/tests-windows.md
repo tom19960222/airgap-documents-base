@@ -16,7 +16,7 @@ such as iSCSI gateways or SMB shares.
 A significant amount of unit tests and integration tests were ported in order
 to ensure that these components continue to function properly on Windows.
 
-# Windows CI Job
+## Windows CI Job
 
 The [Windows CI job](https://github.com/ceph/ceph-build/blob/main/ceph-windows-pull-requests/config/definitions/ceph-windows-pull-requests.yml) performs the following steps for each GitHub pull request:
 
@@ -99,7 +99,7 @@ You may also want to check the service logs (both client and server side). Also,
 be aware that the Windows "application" event log will contain entries in case
 of crashed Windows processes.
 
-# Frequently asked questions
+## Frequently asked questions
 
 1. Why is the Windows CI job the only one that fails on my PR?
 

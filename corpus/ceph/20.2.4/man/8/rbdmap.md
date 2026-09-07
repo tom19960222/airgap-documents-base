@@ -11,12 +11,12 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbdmap
 
-# Synopsis
+## Synopsis
 
 | **rbdmap map**
 | **rbdmap unmap**
 
-# Description
+## Description
 
 **rbdmap** is a shell script that automates ``rbd map`` and ``rbd unmap``
 operations on one or more RBD (RADOS Block Device) images. While the script can be
@@ -83,7 +83,7 @@ exists. (Since ``rbdmap.service``
 executes a shell script, it is typically triggered quite late in the boot
 sequence.)
 
-# Examples
+## Examples
 
 Example ``/etc/ceph/rbdmap`` for three RBD images called "bar1", "bar2" and "bar3",
 which are in pool "foopool":
@@ -121,16 +121,16 @@ enabling that unit:
 systemctl enable rbdmap.service
 ```
 
-# Options
+## Options
 
 None
 
-# Availability
+## Availability
 
 **rbdmap** is part of Ceph, a massively scalable, open-source, distributed
 storage system. Please refer to the Ceph documentation at
 https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8),

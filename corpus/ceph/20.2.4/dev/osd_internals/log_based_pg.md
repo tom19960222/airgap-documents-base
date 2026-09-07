@@ -9,15 +9,15 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Log Based PG
 
-# Background
+## Background
 
-## Why PrimaryLogPG?
+### Why PrimaryLogPG?
 
 Currently, consistency for all ceph pool types is ensured by primary
 log-based replication. This goes for both erasure-coded (EC) and
 replicated pools.
 
-## Primary log-based replication
+### Primary log-based replication
 
 Reads must return data written by any write which completed (where the
 client could possibly have received a commit message).  There are lots
@@ -73,9 +73,9 @@ never able to be rolled back.
 For more details, see ``PGLog.h/cc``, ``osd_types.h:pg_log_t``,
 ``osd_types.h:pg_log_entry_t``, and peering in general.
 
-# ReplicatedBackend/ECBackend unification strategy
+## ReplicatedBackend/ECBackend unification strategy
 
-## PGBackend
+### PGBackend
 
 The fundamental difference between replication and erasure coding
 is that replication can do destructive updates while erasure coding
@@ -116,12 +116,12 @@ The replicated implementation is in ``ReplicatedBackend.h/cc`` and doesn't
 require much additional explanation.  More detail on the ``ECBackend`` can be
 found in ``doc/dev/osd_internals/erasure_coding/ecbackend.rst``.
 
-# PGBackend Interface Explanation
+## PGBackend Interface Explanation
 
 Note: this is from a design document that predated the Firefly release
 and is probably out of date w.r.t. some of the method names.
 
-## Readable vs Degraded
+### Readable vs Degraded
 
 For a replicated pool, an object is readable IFF it is present on
 the primary (at the right version).  For an EC pool, we need at least
@@ -135,7 +135,7 @@ Core Changes:
 - | ``PGBackend`` needs to be able to return ``IsPG(Recoverable|Readable)Predicate``
   | objects to allow the user to make these determinations.
 
-## Client Reads
+### Client Reads
 
 Reads from a replicated pool can always be satisfied
 synchronously by the primary OSD.  Within an erasure coded pool,
@@ -149,7 +149,7 @@ the former won't be implemented by the ``ECBackend``.
 - ``objects_read_sync``
 - ``objects_read_async``
 
-## Scrubs
+### Scrubs
 
 We currently have two scrub modes with different default frequencies:
 
@@ -172,7 +172,7 @@ actually doing the scan.
 
 - ``be_*``
 
-## Recovery
+### Recovery
 
 The logic for recovering an object depends on the backend.  With
 the current replicated strategy, we first pull the object replica

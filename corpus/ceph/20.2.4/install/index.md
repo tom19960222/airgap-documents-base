@@ -11,9 +11,9 @@ fetched_at: 2026-08-18T01:32:45Z
 
 There are multiple ways to install Ceph.
 
-#### Recommended methods
+## Recommended methods
 
-[Cephadm](../cephadm/install.md#cephadm-deploying-new-cluster) is a tool that can be used to
+[Cephadm](../cephadm/install.md#cephadm_deploying_new_cluster) is a tool that can be used to
 install and manage a Ceph cluster.
 
 * cephadm supports only Octopus and newer releases.
@@ -35,7 +35,7 @@ Kubernetes or to connect an existing Ceph storage cluster to Kubernetes.
 * Rook supports the orchestrator API. Management features in the CLI and
   dashboard are fully supported.
 
-#### Other methods
+## Other methods
 
 [ceph-ansible](https://docs.ceph.com/ceph-ansible/) deploys and manages
 Ceph clusters using Ansible.
@@ -69,7 +69,7 @@ Ceph can also be [installed manually](index_manual.md#install-manual).
 
    index_manual
 
-#### Windows
+## Windows
 
 For Windows installations, consult this document:
 [Windows installation guide](windows-install.md).

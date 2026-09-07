@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Troubleshooting PGs
 
-# Placement Groups Never Get Clean
+## Placement Groups Never Get Clean
 
 Placement Groups (PGs) that remain in the ``active`` status, the
 ``active+remapped`` status or the ``active+degraded`` status and never achieve
@@ -21,7 +21,7 @@ of greater than two object replicas.
 
 <a id="one-node-cluster"></a>
 
-## One Node Cluster
+### One Node Cluster
 
 Ceph no longer provides documentation for operating on a single node.  Systems
 designed for distributed computing by definition do not run on a single node.
@@ -46,7 +46,7 @@ another node, chassis, rack, row, or datacenter depending on the setting.
 If you are creating OSDs using a single disk, you must manually create
 directories for the data first.
 
-## Fewer OSDs than Replicas
+### Fewer OSDs than Replicas
 
 If two OSDs are in an ``up`` and ``in`` state, but the placement gropus are not
 in an ``active + clean`` state, you may have an ``osd_pool_default_size`` set
@@ -64,7 +64,7 @@ state.
 > the changes in your Ceph configuration file, you might need to restart your
 > cluster.
 
-## Pool Size = 1
+### Pool Size = 1
 
 If you have ``osd_pool_default_size`` set to ``1``, you will have only one copy
 of the object. OSDs rely on other OSDs to tell them which objects they should
@@ -78,12 +78,12 @@ command of the following form:
 ceph osd force-create-pg <pgid>
 ```
 
-## CRUSH Map Errors
+### CRUSH Map Errors
 
 If any placement groups in your cluster are unclean, then there might be errors
 in your CRUSH map.
 
-# Stuck Placement Groups
+## Stuck Placement Groups
 
 It is normal for placement groups to enter "degraded" or "peering" states after
 a component failure. Normally, these states reflect the expected progression
@@ -120,7 +120,7 @@ ceph pg dump_stuck unclean
 
 <a id="failures-osd-peering"></a>
 
-# Placement Group Down - Peering Failure
+## Placement Group Down - Peering Failure
 
 In certain cases, the ``ceph-osd`` `peering` process can run into problems,
 which can prevent a PG from becoming active and usable. In such a case, running
@@ -195,7 +195,7 @@ Recovery will proceed.
 
 <a id="failures-osd-unfound"></a>
 
-# Unfound Objects
+## Unfound Objects
 
 Under certain combinations of failures, Ceph may complain about ``unfound``
 objects, as in this example:
@@ -339,7 +339,7 @@ either roll back to a previous version of the object or (if it was a new
 object) forget about the object entirely. Use ``revert`` with caution, as it
 may confuse applications that expect the object to exist.
 
-# Homeless Placement Groups
+## Homeless Placement Groups
 
 It is possible that every OSD that has copies of a given placement group fails.
 If this happens, then the subset of the object store that contains those
@@ -380,27 +380,27 @@ This output indicates that placement group 2.5 (``pg 2.5``) was last managed by
 ``osd.0`` and ``osd.2``. Restart those OSDs to allow the cluster to recover
 that placement group.
 
-# Only a Few OSDs Receive Data
+## Only a Few OSDs Receive Data
 
 If only a few of the nodes in the cluster are receiving data, check the number
-of placement groups in the pool as instructed in the [Placement Groups](../operations/placement-groups.md#rados-ops-pgs-get-pg-num) documentation. Since placement groups get mapped to
+of placement groups in the pool as instructed in the [Placement Groups](../operations/placement-groups.md#rados_ops_pgs_get_pg_num) documentation. Since placement groups get mapped to
 OSDs in an operation involving dividing the number of placement groups in the
 cluster by the number of OSDs in the cluster, a small number of placement
 groups (the remainder, in this operation) are sometimes not distributed across
 the cluster. In situations like this, create a pool with a placement group
 count that is a multiple of the number of OSDs. See [Placement Groups](../operations/placement-groups.md) for
-details. See the [Pool, PG, and CRUSH Config Reference](../configuration/pool-pg-config-ref.md#rados-config-pool-pg-crush-ref) for instructions on changing the default
+details. See the [Pool, PG, and CRUSH Config Reference](../configuration/pool-pg-config-ref.md#rados_config_pool_pg_crush_ref) for instructions on changing the default
 values used to determine how many placement groups are assigned to each pool.
 
-# Can't Write Data
+## Can't Write Data
 
 If the cluster is up, but some OSDs are down and you cannot write data, make
 sure that you have the minimum number of OSDs running in the pool. If you don't
 have the minimum number of OSDs running in the pool, Ceph will not allow you to
 write data to it because there is no guarantee that Ceph can replicate your
-data. See ``osd_pool_default_min_size`` in the [Pool, PG, and CRUSH Config Reference](../configuration/pool-pg-config-ref.md#rados-config-pool-pg-crush-ref) for details.
+data. See ``osd_pool_default_min_size`` in the [Pool, PG, and CRUSH Config Reference](../configuration/pool-pg-config-ref.md#rados_config_pool_pg_crush_ref) for details.
 
-# PGs Inconsistent
+## PGs Inconsistent
 
 If the command ``ceph health detail`` returns an ``active + clean +
 inconsistent`` state, this might indicate an error during scrubbing. Identify
@@ -559,7 +559,7 @@ clock skew, consider configuring the [NTP](https://en.wikipedia.org/wiki/Network
 hosts to act as peers. See [The Network Time Protocol](http://www.ntp.org)
 and Ceph [Clock Settings](../configuration/mon-config-ref.md#mon-config-ref-clock) for more information.
 
-## More Information on PG Repair
+### More Information on PG Repair
 Ceph stores and updates the checksums of objects stored in the cluster. When a
 scrub is performed on a PG, the lead OSD attempts to choose an authoritative
 copy from among its replicas. Only one of the possible cases is consistent.
@@ -603,12 +603,12 @@ might not be the uncorrupted replica. Because of this uncertainty, human
 intervention is necessary when an inconsistency is discovered. This
 intervention sometimes involves use of ``ceph-objectstore-tool``.
 
-## PG Repair Walkthrough
+### PG Repair Walkthrough
 https://ceph.io/geen-categorie/ceph-manually-repair-object/ - This page
 contains a walkthrough of the repair of a PG. It is recommended reading if you
 want to repair a PG but have never done so.
 
-# Erasure Coded PGs are not active+clean
+## Erasure Coded PGs are not active+clean
 
 If CRUSH fails to find enough OSDs to map to a PG, it will show as a
 ``2147483647`` which is ``ITEM_NONE`` or ``no OSD found``. For example:
@@ -617,7 +617,7 @@ If CRUSH fails to find enough OSDs to map to a PG, it will show as a
 [2,1,6,0,5,8,2147483647,7,4]
 ```
 
-## Not enough OSDs
+### Not enough OSDs
 
 If the Ceph cluster has only eight OSDs and an erasure coded pool needs nine
 OSDs, the cluster will show "Not enough OSDs". In this case, you either create
@@ -631,7 +631,7 @@ ceph osd pool create erasurepool erasure myprofile
 
 or add new OSDs, and the PG will automatically use them.
 
-## CRUSH constraints cannot be satisfied
+### CRUSH constraints cannot be satisfied
 
 If the cluster has enough OSDs, it is possible that the CRUSH rule is imposing
 constraints that cannot be satisfied. If there are ten OSDs on two hosts and
@@ -671,7 +671,7 @@ ceph osd erasure-code-profile set myprofile crush-failure-domain=osd
 ceph osd pool create erasurepool erasure myprofile
 ```
 
-## CRUSH gives up too soon
+### CRUSH gives up too soon
 
 If the Ceph cluster has just enough OSDs to map the PG (for instance a cluster
 with a total of nine OSDs and an erasure coded pool that requires nine OSDs per

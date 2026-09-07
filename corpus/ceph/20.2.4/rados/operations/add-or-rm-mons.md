@@ -14,7 +14,7 @@ maintained. To bootstrap a monitor, see [Manual Deployment](../../install/manual
 
 <a id="adding-monitors"></a>
 
-# Adding Monitors
+## Adding Monitors
 
 Ceph monitors serve as the single source of truth for the cluster map. It is
 possible to run a cluster with only one monitor, but for a production cluster
@@ -52,7 +52,7 @@ recommended to run monitors and managers on dedicated hosts.
 > **Note:** A *majority* of monitors in your cluster must be able to
 > reach each other in order for quorum to be established.
 
-## Deploying your Hardware
+### Deploying your Hardware
 
 Some operators choose to add a new monitor host at the same time that they add
 a new monitor. For details on the minimum recommendations for monitor hardware,
@@ -62,7 +62,7 @@ make sure that there is an up-to-date version of Linux installed.
 Add the newly installed monitor host to a rack in your cluster, connect the
 host to the network, and make sure that the host has network connectivity.
 
-## Installing the Required Software
+### Installing the Required Software
 
 In manually deployed clusters, it is necessary to install Ceph packages
 manually. For details, see [Installing Packages](../../install/install-storage-cluster.md). Configure SSH so that it can
@@ -70,7 +70,7 @@ be used by a user that has passwordless authentication and root permissions.
 
 <a id="adding-a-monitor-manual"></a>
 
-## Adding a Monitor (Manual)
+### Adding a Monitor (Manual)
 
 The procedure in this section creates a ``ceph-mon`` data directory, retrieves
 both the monitor map and the monitor keyring, and adds a ``ceph-mon`` daemon to
@@ -137,7 +137,7 @@ ceph-mon -i {mon-id} --public-addr {ip:port}
 
 <a id="removing-monitors"></a>
 
-# Removing Monitors
+## Removing Monitors
 
 When monitors are removed from a cluster, it is important to remember
 that Ceph monitors use Paxos to maintain consensus about the cluster
@@ -146,7 +146,7 @@ to establish quorum.
 
 <a id="removing-a-monitor-manual"></a>
 
-## Removing a Monitor (Manual)
+### Removing a Monitor (Manual)
 
 The procedure in this section removes a ``ceph-mon`` daemon from the cluster.
 The procedure might result in a Ceph cluster that contains a number of monitors
@@ -171,7 +171,7 @@ ceph mon remove {mon-id}
 
 <a id="rados-mon-remove-from-unhealthy"></a>
 
-## Removing Monitors from an Unhealthy Cluster
+### Removing Monitors from an Unhealthy Cluster
 
 The procedure in this section removes a ``ceph-mon`` daemon from an unhealthy
 cluster (for example, a cluster whose monitors are unable to form a quorum).
@@ -245,9 +245,9 @@ ceph-mon -i a --inject-monmap /tmp/monmap
    that there is also room for an archived copy of the DB. The archived copy
    can be compressed.
 
-<a id="changing-a-monitor-s-ip-address"></a>
+<a id="changing-a-monitors-ip-address"></a>
 
-# Changing a Monitor's IP Address
+## Changing a Monitor's IP Address
 
 > **Important:** Existing monitors are not supposed to change their IP addresses.
 
@@ -265,7 +265,7 @@ the ``monmap`` is one of the arguments required by the ``ceph-mon -i {mon-id}
 for Ceph monitors, and also explain a number of safe ways to change a monitor's
 IP address.
 
-## Consistency Requirements
+### Consistency Requirements
 
 When a monitor discovers other monitors in the cluster, it always refers to the
 local copy of the monitor map. Using the monitor map instead of using the
@@ -293,9 +293,9 @@ which [Paxos](https://en.wikipedia.org/wiki/[Paxos](https://en.wikipedia.org/wik
 system. Because of these risks, any changes to an existing monitor's IP address
 must be made with great care.
 
-<a id="operations-add-or-rm-mons-changing-mon-ip"></a>
+<a id="operations_add_or_rm_mons_changing_mon_ip"></a>
 
-## Changing a Monitor's IP address (Preferred Method)
+### Changing a Monitor's IP address (Preferred Method)
 
 If a monitor's IP address is changed only in the ``ceph.conf`` file, there is
 no guarantee that the other monitors in the cluster will receive the update.
@@ -325,10 +325,10 @@ monitor ``mon.d``, (2) make sure that ``mon.d`` is  running before removing
 ``mon.c`` or else quorum will be broken, and (3) follow the steps in [Removing a Monitor (Manual)](add-or-rm-mons.md#removing-a-monitor-manual) to remove ``mon.c``. To move all three monitors to new IP
 addresses, repeat this process.
 
-## Changing a Monitor's IP address (Advanced Method)
+### Changing a Monitor's IP address (Advanced Method)
 
 There are cases in which the method outlined in
-[operations_add_or_rm_mons_changing_mon_ip](add-or-rm-mons.md#operations-add-or-rm-mons-changing-mon-ip) cannot be used. For example,
+[operations_add_or_rm_mons_changing_mon_ip](add-or-rm-mons.md#operations_add_or_rm_mons_changing_mon_ip) cannot be used. For example,
 it might be necessary to move the cluster's monitors to a different network, to
 a different part of the datacenter, or to a different datacenter altogether. It
 is still possible to change the monitors' IP addresses, but a different method
@@ -341,7 +341,7 @@ routine task. As stated at the beginning of this section, existing monitors are
 not supposed to change their IP addresses.
 
 Continue with the monitor configuration in the example from
-[operations_add_or_rm_mons_changing_mon_ip](add-or-rm-mons.md#operations-add-or-rm-mons-changing-mon-ip). Suppose that all of the
+[operations_add_or_rm_mons_changing_mon_ip](add-or-rm-mons.md#operations_add_or_rm_mons_changing_mon_ip). Suppose that all of the
 monitors are to be moved from the ``10.0.0.x`` range to the ``10.1.0.x`` range,
 and that these networks are unable to communicate. Carry out the following
 procedure:
@@ -439,9 +439,9 @@ ceph-mon -i {mon-id} --inject-monmap {tmp}/{filename}
 Migration to the new location is now complete. The monitors should operate
 successfully.
 
-# Using cephadm to change the public network
+## Using cephadm to change the public network
 
-## Overview
+### Overview
 
 The procedure in this overview section provides only the broad outlines of
 using ``cephadm`` to change the public network.
@@ -455,7 +455,7 @@ using ``cephadm`` to change the public network.
 
 1. Change the network setup as desired.
 
-## Example Procedure
+### Example Procedure
 
 > **Note:** In this procedure, the "old network" has addresses of the form
 > ``10.10.10.0/24`` and the "new network" has addresses of the form

@@ -39,12 +39,12 @@ Alternatively, using a path to a JSON file directly is also possible:
 ceph-volume simple activate --file /etc/ceph/osd/0-6cc43680-4f6e-4feb-92ff-9c7ba204120e.json
 ```
 
-### requiring uuids
+## requiring uuids
 The OSD uuid is being required as an extra step to ensure that the
 right OSD is being activated. It is entirely possible that a previous OSD with
 the same id exists and would end up activating the incorrect one.
 
-## Discovery
+### Discovery
 With OSDs previously scanned by ``ceph-volume``, a *discovery* process is
 performed using ``blkid`` and ``lvm``. There is currently support only for
 devices with GPT partitions and LVM logical volumes.

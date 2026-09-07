@@ -5,7 +5,7 @@ title: "A Detailed Description of the Cephx Authentication Protocol"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/cephx_protocol.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="cephx-2012-peter"></a>
+<a id="cephx_2012_peter"></a>
 
 # A Detailed Description of the Cephx Authentication Protocol
 

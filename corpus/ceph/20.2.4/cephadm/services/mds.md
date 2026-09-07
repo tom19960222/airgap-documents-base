@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 <a id="orchestrator-cli-cephfs"></a>
 
-# Deploy CephFS
+## Deploy CephFS
 
 One or more MDS daemons is required to use the CephFS file system.
 These are created automatically if the newer ``ceph fs volume``
@@ -55,6 +55,6 @@ ceph orch apply -i mds.yaml
 See [orchestrator-cli-stateless-services](../../mgr/orchestrator.md#orchestrator-cli-stateless-services) for manually deploying
 MDS daemons on the CLI.
 
-# Further Reading
+## Further Reading
 
 * [ceph-file-system](../../cephfs/index.md#ceph-file-system)

@@ -17,7 +17,7 @@ Ceph's SNMP gateway service deploys one instance of the gateway by default. You 
 by providing placement information. However, bear in mind that if you enable multiple SNMP gateway daemons,
 your SNMP management platform will receive multiple notifications for the same event.
 
-# Compatibility
+## Compatibility
 The table below shows the SNMP versions that are supported by the gateway implementation
 
 | SNMP Version | Supported | Notes |
@@ -29,13 +29,13 @@ The table below shows the SNMP versions that are supported by the gateway implem
 | V3 authPriv | ✔ | uses username/password authentication with |
 |  |  | encryption to the SNMP management platform |
 
-# Deploying an SNMP Gateway
+## Deploying an SNMP Gateway
 Both SNMP V2c and V3 provide credentials support. In the case of V2c, this is just the community string - but for V3
 environments you must provide additional authentication information. These credentials are not supported on the command
 line when deploying the service. Instead, you must create the service using a credentials file (in YAML format), or
 specify the complete service definition in a YAML file.
 
-## Command format
+### Command format
 
 ```bash
 ceph orch apply snmp-gateway <snmp_version:V2c|V3> <destination> [<port:int>] [<engine_id>] [<auth_protocol: MD5|SHA>] [<privacy_protocol:DES|AES>] [<placement>] ...
@@ -52,9 +52,9 @@ Usage Notes
 - for SNMP V3, with encryption you must define the ``--privacy-protocol``
 - you **must** provide a -i <filename> to pass the secrets/passwords to the orchestrator
 
-# Deployment Examples
+## Deployment Examples
 
-## SNMP V2c
+### SNMP V2c
 Here's an example for V2c, showing CLI and service based deployments
 
 ```bash
@@ -89,7 +89,7 @@ spec:
   snmp_version: V2c
 ```
 
-## SNMP V3 (authNoPriv)
+### SNMP V3 (authNoPriv)
 Deploying an snmp-gateway service supporting SNMP V3 with authentication only would look like this:
 
 ```bash
@@ -121,7 +121,7 @@ spec:
   snmp_version: V3
 ```
 
-## SNMP V3 (authPriv)
+### SNMP V3 (authPriv)
 
 To define an SNMP V3 gateway service that implements authentication and privacy (encryption), supply two additional values:
 
@@ -142,10 +142,10 @@ snmp_v3_priv_password: mysecret
 > The credentials are stored on the host, restricted to the ``root`` user and passed to the ``snmp_notifier`` daemon as
 > an environment file (``--env-file``), to limit exposure.
 
-# AlertManager Integration
+## AlertManager Integration
 When an SNMP gateway service is deployed or updated, the Prometheus Alertmanager configuration is automatically updated to forward any
 alert that has an [OID](https://en.wikipedia.org/wiki/Object_identifier) label to the SNMP gateway daemon for processing.
 
-# Implementing the MIB
+## Implementing the MIB
 To make sense of SNMP notifications and traps, you'll need to apply the MIB to your SNMP management platform. The MIB (``CEPH-MIB.txt``) can
 downloaded from the main Ceph GitHub [repository](https://github.com/ceph/ceph/tree/master/monitoring/snmp)

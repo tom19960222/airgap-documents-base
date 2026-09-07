@@ -21,7 +21,7 @@ Object Gateway stores that data in the Ceph Storage Cluster in encrypted form.
 
 > **Note:** Server-side encryption keys must be 256-bit long and base64 encoded.
 
-# Customer-Provided Keys
+## Customer-Provided Keys
 
 In this mode, the client passes an encryption key along with each request to
 read or write encrypted data. It is the client's responsibility to manage those
@@ -32,7 +32,7 @@ This is implemented in S3 according to the [Amazon SSE-C](https://docs.aws.amazo
 As all key management is handled by the client, no special Ceph configuration
 is needed to support this encryption mode.
 
-# Key Management Service
+## Key Management Service
 
 In this mode, an administrator stores keys in a secure key management service.
 These keys are then
@@ -47,7 +47,7 @@ integration with [Barbican](https://wiki.openstack.org/wiki/Barbican), [Vault](h
 See [radosgw-barbican](barbican.md#radosgw-barbican), [radosgw-vault](vault.md#radosgw-vault),
 and [radosgw-kmip](kmip.md#radosgw-kmip).
 
-# SSE-S3
+## SSE-S3
 
 This makes key management invisible to the user.  They are still stored
 in Vault, but they are automatically created and deleted by Ceph and
@@ -61,14 +61,14 @@ only integration with [Vault](https://www.vaultproject.io/docs/), is implemented
 
 See [radosgw-vault](vault.md#radosgw-vault).
 
-# Bucket Encryption APIs
+## Bucket Encryption APIs
 
 Bucket Encryption APIs to support server-side encryption with Amazon
 S3-managed keys (SSE-S3) or AWS KMS customer master keys (SSE-KMS).
 
 See [PutBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html), [GetBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html), [DeleteBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html)
 
-# Automatic Encryption (for testing only)
+## Automatic Encryption (for testing only)
 
 A ``rgw crypt default encryption key`` can be set in ceph.conf to force the
 encryption of all objects that do not otherwise specify an encryption mode.

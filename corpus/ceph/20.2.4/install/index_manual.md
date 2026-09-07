@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Installation (Manual)
 
-# Get Software
+## Get Software
 
 There are several methods for getting Ceph software. The easiest and most common
 method is to [get packages](get-packages.md) by adding repositories for use with package
@@ -28,7 +28,7 @@ repository and build Ceph yourself.
         Ceph Mirrors <mirrors>
         Ceph Containers <containers>
 
-# Install Software
+## Install Software
 
 Once you have the Ceph software (or added repositories), installing the software
 is easy. To install packages on each Ceph Node in your cluster, use package
@@ -42,7 +42,7 @@ QEMU.
         Install Ceph Storage Cluster <install-storage-cluster>
         Install Virtualization for Block <install-vm-cloud>
 
-# Deploy a Cluster Manually
+## Deploy a Cluster Manually
 
 Once you have Ceph installed on your nodes, you can deploy a cluster manually.
 The manual procedure is primarily for exemplary purposes for those developing
@@ -53,7 +53,7 @@ deployment scripts with Chef, Juju, Puppet, etc.
    Manual Deployment <manual-deployment>
    Manual Deployment on FreeBSD <manual-freebsd-deployment>
 
-# Upgrade Software
+## Upgrade Software
 
 As new versions of Ceph become available, you may upgrade your cluster to take
 advantage of new functionality. Read the upgrade documentation before you

@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 You can delegate the Ceph Object Gateway authentication to an LDAP server.
 
-# How it works
+## How it works
 
 The Ceph Object Gateway extracts the users LDAP credentials from a token. A
 search filter is constructed with the user name. The Ceph Object Gateway uses
@@ -30,7 +30,7 @@ The LDAP credentials must be available on the server to perform the LDAP
 authentication. Make sure to set the ``rgw`` log level low enough to hide the
 base-64-encoded credentials / access tokens.
 
-# Requirements
+## Requirements
 
 - **LDAP or Active Directory:** A running LDAP instance accessible by the Ceph
   Object Gateway
@@ -42,7 +42,7 @@ base-64-encoded credentials / access tokens.
   Ceph Object Gateway cannot distinguish them and it treats them as the same
   user.
 
-# Sanity checks
+## Sanity checks
 
 Use the ``ldapsearch`` utility to verify the service account or the LDAP connection:
 
@@ -56,7 +56,7 @@ Use the ``ldapsearch`` utility to verify the service account or the LDAP connect
 > **Note:** Make sure to use the same LDAP parameters like in the Ceph configuration file to
 > eliminate possible problems.
 
-# Configuring the Ceph Object Gateway to use LDAP authentication
+## Configuring the Ceph Object Gateway to use LDAP authentication
 
 The following parameters in the Ceph configuration file are related to the LDAP
 authentication:
@@ -81,11 +81,11 @@ authentication:
   flexible ways. Consult the *Using a custom search filter to limit user access
   section* for details
 
-# Using a custom search filter to limit user access
+## Using a custom search filter to limit user access
 
 There are two ways to use the ``rgw_search_filter`` parameter:
 
-## Specifying a partial filter to further limit the constructed search filter
+### Specifying a partial filter to further limit the constructed search filter
 
 An example for a partial filter:
 
@@ -111,7 +111,7 @@ So user ``hari`` will only be granted access if he is found in the LDAP
 directory, has an object class of ``inetorgperson``, and did specify a valid
 password.
 
-## Specifying a complete filter
+### Specifying a complete filter
 
 A complete filter must contain a ``@USERNAME@`` token which will be substituted
 with the user name during the authentication attempt. The ``rgw_ldap_dnattr``
@@ -127,7 +127,7 @@ to a specific group, use the following filter:
 > **Note:** Using the ``memberOf`` attribute in LDAP searches requires server side
 > support from you specific LDAP server implementation.
 
-# Generating an access token for LDAP authentication
+## Generating an access token for LDAP authentication
 
 The ``radosgw-token`` utility generates the access token based on the LDAP
 user name and password. It will output a base-64 encoded string which is the
@@ -160,7 +160,7 @@ this JSON snippet, if they do not have the ``radosgw-token`` tool installed.
 }
 ```
 
-# Using the access token
+## Using the access token
 
 Use your favorite S3 client and specify the token as the access key in your
 client or environment variables.

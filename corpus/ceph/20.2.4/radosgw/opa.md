@@ -14,7 +14,7 @@ sidecar, host-level daemon, or library.
 Services can offload policy decisions to OPA by executing queries. Hence,
 policy enforcement can be decoupled from policy decisions.
 
-# Configure OPA
+## Configure OPA
 
 To configure OPA, load custom policies into OPA that control the resources users
 are allowed to access. Relevant data or context can also be loaded into OPA to make decisions.
@@ -27,7 +27,7 @@ Policies and data can be loaded into OPA in the following ways:
 * Filesystem
 ```
 
-# Configure the Ceph Object Gateway
+## Configure the Ceph Object Gateway
 
 The following configuration options are available for OPA integration:
 
@@ -38,7 +38,7 @@ rgw opa token = {opa bearer token}
 rgw opa verify ssl = {verify opa server ssl certificate}
 ```
 
-# How does the RGW-OPA integration work
+## How does the RGW-OPA integration work
 
 After a user is authenticated, OPA can be used to check if the user is authorized
 to perform the given action on the resource. OPA responds with an allow or deny

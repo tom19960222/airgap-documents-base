@@ -1,13 +1,13 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "feature_toggles.inc"
+title: "Feature Toggles"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/mgr/dashboard_plugins/feature_toggles.inc.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
 <a id="dashboard-feature-toggles"></a>
 
-### Feature Toggles
+# Feature Toggles
 
 This plug-in allows to enable or disable some features from the Ceph Dashboard
 on-demand. When a feature becomes disabled:

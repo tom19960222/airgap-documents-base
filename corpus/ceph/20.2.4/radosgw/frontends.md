@@ -5,7 +5,7 @@ title: "HTTP Frontends"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/frontends.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="rgw-frontends"></a>
+<a id="rgw_frontends"></a>
 
 # HTTP Frontends
 
@@ -15,14 +15,14 @@ The Ceph Object Gateway supports two embedded HTTP frontend libraries
 that can be configured with ``rgw_frontends``. See [Config Reference](config-ref.md)
 for details about the syntax.
 
-# Beast
+## Beast
 
 .. versionadded:: Mimic
 
 The ``beast`` frontend uses the Boost.Beast library for HTTP parsing
 and the Boost.Asio library for asynchronous network i/o.
 
-## Options
+### Options
 
 ``port`` and ``ssl_port``
 
@@ -148,7 +148,7 @@ and the Boost.Asio library for asynchronous network i/o.
 :Type: Integer (0 or 1)
 :Default: 0
 
-# Generic Options
+## Generic Options
 
 Some frontend options are generic and supported by all frontends:
 

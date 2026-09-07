@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # OAuth2 Proxy
 
-# Deploying oauth2-proxy
+## Deploying oauth2-proxy
 
 In Ceph releases starting from Squid, the `oauth2-proxy` service introduces an advanced method
 for managing authentication and access control for Ceph applications. This service integrates
@@ -27,31 +27,31 @@ Once applied, `cephadm` will re-configure the necessary components to use `oauth
 thereby securing access to all Ceph applications. The service will handle login flows, redirect users
 to the appropriate IDP for authentication, and manage session tokens to facilitate seamless user access.
 
-# Benefits of the oauth2-proxy service
+## Benefits of the oauth2-proxy service
 * ``Enhanced Security``: Provides robust authentication through integration with external IDPs using the OIDC protocol.
 * ``Seamless SSO``: Enables seamless single sign-on (SSO) across all Ceph applications, improving user access control.
 * ``Centralized Authentication``: Centralizes authentication management, reducing complexity and improving control over access.
 
-# Security enhancements
+## Security enhancements
 
 The `oauth2-proxy` service ensures that all access to Ceph applications is authenticated, preventing unauthorized users from
 accessing sensitive information. Since it makes use of the `oauth2-proxy` open source project, this service integrates
 easily with a variety of [external IDPs](https://oauth2-proxy.github.io/oauth2-proxy/configuration/providers/) to provide
 a secure and flexible authentication mechanism.
 
-# High availability
+## High availability
 In general, `oauth2-proxy` is used in conjunction with the `mgmt-gateway`. The `oauth2-proxy` service can be deployed as multiple
 stateless instances, with the `mgmt-gateway` (nginx reverse-proxy) handling load balancing across these instances using a round-robin strategy.
 Since oauth2-proxy integrates with an external identity provider (IDP), ensuring high availability for login is managed externally
 and not the responsibility of this service.
 
-# Accessing services with oauth2-proxy
+## Accessing services with oauth2-proxy
 
 After deploying `oauth2-proxy`, access to Ceph applications will require authentication through the configured IDP. Users will
 be redirected to the IDP for login and then returned to the requested application. This setup ensures secure access and integrates
 seamlessly with the Ceph management stack.
 
-# Service Specification
+## Service Specification
 
 Before deploying `oauth2-proxy` service please remember to deploy the `mgmt-gateway` service by turning on the `--enable_auth` flag. i.e:
 
@@ -103,14 +103,14 @@ the `mgmt-gateway` service while adapting its configuration to redirect the auth
 ceph orch apply -i oauth2-proxy.yaml
 ```
 
-# Limitations
+## Limitations
 
 A non-exhaustive list of important limitations for the `oauth2-proxy` service follows:
 
 * High-availability configurations for `oauth2-proxy` itself are not supported.
 * Proper configuration of the IDP and OAuth2 parameters is crucial to avoid authentication failures. Misconfigurations can lead to access issues.
 
-#### Container images
+### Container images
 
 The container image the `oauth2-proxy` service will use can be found by running:
 

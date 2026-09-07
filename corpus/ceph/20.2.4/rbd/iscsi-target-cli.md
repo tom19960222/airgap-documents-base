@@ -92,7 +92,7 @@ ceph osd lspools
 ```
 
    If it does not exist instructions for creating pools can be found on the
-   [RADOS pool operations page](../rados/operations/pools.md#rados-pools).
+   [RADOS pool operations page](../rados/operations/pools.md#rados_pools).
 
 1. As ``root``, on a iSCSI gateway node, create a file named
    ``iscsi-gateway.cfg`` in the ``/etc/ceph/`` directory:

@@ -7,9 +7,9 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # MON Service
 
-<a id="deploy-additional-monitors"></a>
+<a id="deploy_additional_monitors"></a>
 
-# Deploying additional monitors
+## Deploying additional monitors
 
 A typical Ceph cluster has three or five monitor daemons that are spread
 across different hosts.  We recommend deploying five monitors if there are
@@ -34,7 +34,7 @@ By default, cephadm will deploy 5 daemons on arbitrary hosts. See
 [orchestrator-cli-placement-spec](index.md#orchestrator-cli-placement-spec) for details of specifying
 the placement of daemons.
 
-## Designating a Particular Subnet for Monitors
+### Designating a Particular Subnet for Monitors
 
 To designate a particular IP subnet for use by Ceph monitor daemons, use a
 command of the following form, including the subnet's address in [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)
@@ -65,7 +65,7 @@ ceph config set mon public_network *<mon-cidr-network1>,<mon-cidr-network2>*
 ceph config set mon public_network 10.1.2.0/24,192.168.0.1/24
 ```
 
-## Deploying Monitors on a Particular Network
+### Deploying Monitors on a Particular Network
 
 You can explicitly specify the IP address or CIDR network for each monitor and
 control where each monitor is placed.  To disable automated monitor deployment,
@@ -106,7 +106,7 @@ ceph orch apply mon --placement="newhost1,newhost2,newhost3" --dry-run
 ceph orch apply mon --placement="newhost1,newhost2,newhost3"
 ```
 
-## Moving Monitors to a Different Network
+### Moving Monitors to a Different Network
 
 To move Monitors to a new network, deploy new monitors on the new network and
 subsequently remove monitors from the old network. It is not advised to
@@ -167,7 +167,7 @@ ceph orch apply mon --placement="newhost1,newhost2,newhost3" --dry-run
 ceph orch apply mon --placement="newhost1,newhost2,newhost3"
 ```
 
-## Setting Crush Locations for Monitors
+### Setting Crush Locations for Monitors
 
 Cephadm supports setting CRUSH locations for mon daemons
 using the mon service spec. The CRUSH locations are set
@@ -180,14 +180,13 @@ will attempt to set the additional locations using the
 "ceph mon set_location" command.
 
 > **Note:**
->   Setting the CRUSH location in the spec is the recommended way of
+> Setting the CRUSH location in the spec is the recommended way of
 >   replacing tiebreaker mon daemons, as they require having a location
 >   set when they are added.
 >
-> .. note::
->
->   Tiebreaker mon daemons are a part of stretch mode clusters. For more
->   info on stretch mode clusters see [stretch_mode](../../rados/operations/stretch-mode.md#stretch-mode)
+> > **Note:**
+> > Tiebreaker mon daemons are a part of stretch mode clusters. For more
+> > info on stretch mode clusters see [stretch_mode](../../rados/operations/stretch-mode.md#stretch_mode)
 
 Example syntax for setting the CRUSH locations:
 
@@ -219,7 +218,7 @@ spec:
 > location for a mon that is already deployed, the flag may not be set until
 > a redeploy command is issued for that mon daemon.
 
-# Further Reading
+## Further Reading
 
 * [rados-operations](../../rados/operations/index.md#rados-operations)
 * [rados-troubleshooting-mon](../../rados/troubleshooting/troubleshooting-mon.md#rados-troubleshooting-mon)

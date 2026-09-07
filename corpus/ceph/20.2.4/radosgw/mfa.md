@@ -5,7 +5,7 @@ title: "RGW Support for Multifactor Authentication"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/mfa.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="rgw-mfa"></a>
+<a id="rgw_mfa"></a>
 
 # RGW Support for Multifactor Authentication
 
@@ -22,14 +22,14 @@ through radosgw-admin. Each token has a secret seed, and a serial
 id that is assigned to it. Tokens are added to the user, can
 be listed, removed, and can also be re-synchronized.
 
-# Multisite
+## Multisite
 
 While the MFA IDs are set on the user's metadata, the
 actual MFA one time password configuration resides in the local zone's
 osds. Therefore, in a multi-site environment it is advisable to use
 different tokens for different zones.
 
-# Terminology
+## Terminology
 
 -``TOTP``: Time-based One Time Password
 
@@ -43,9 +43,9 @@ different tokens for different zones.
 
 -``totp pin``: the valid value of a TOTP token at a certain time
 
-# Admin commands
+## Admin commands
 
-## Create a new MFA TOTP token
+### Create a new MFA TOTP token
 
 :
 
@@ -58,7 +58,7 @@ different tokens for different zones.
                            [ --totp-window=<twindow> ]
 ```
 
-## List MFA TOTP tokens
+### List MFA TOTP tokens
 
 :
 
@@ -66,7 +66,7 @@ different tokens for different zones.
 # radosgw-admin mfa list --uid=<user-id>
 ```
 
-## Show MFA TOTP token
+### Show MFA TOTP token
 
 :
 
@@ -74,7 +74,7 @@ different tokens for different zones.
 # radosgw-admin mfa get --uid=<user-id> --totp-serial=<serial>
 ```
 
-## Delete MFA TOTP token
+### Delete MFA TOTP token
 
 :
 
@@ -82,7 +82,7 @@ different tokens for different zones.
 # radosgw-admin mfa remove --uid=<user-id> --totp-serial=<serial>
 ```
 
-## Check MFA TOTP token
+### Check MFA TOTP token
 
 Test a TOTP token pin, needed for validating that TOTP functions correctly. :
 
@@ -91,7 +91,7 @@ Test a TOTP token pin, needed for validating that TOTP functions correctly. :
                           --totp-pin=<pin>
 ```
 
-## Re-sync MFA TOTP token
+### Re-sync MFA TOTP token
 
 In order to re-sync the TOTP token (in case of time skew). This requires
 feeding two consecutive pins: the previous pin, and the current pin. :

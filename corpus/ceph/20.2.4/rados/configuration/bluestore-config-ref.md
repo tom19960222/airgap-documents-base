@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # BlueStore Configuration Reference
 
-# Devices
+## Devices
 
 BlueStore manages either one, two, or in certain cases three storage devices.
 These *devices* are "devices" in the Linux/Unix sense. This means that they are
@@ -68,7 +68,7 @@ ceph-volume lvm prepare --bluestore --data <device> --block.wal <wal-device> --b
 > following devices: logical volumes specified using *vg/lv* notation,
 > existing logical volumes, and GPT partitions.
 
-## Provisioning strategies
+### Provisioning strategies
 
 BlueStore differs from Filestore in that there are several ways to deploy a
 BlueStore OSD. However, the overall deployment strategy for BlueStore can be
@@ -76,7 +76,7 @@ clarified by examining just these two common arrangements:
 
 <a id="bluestore-single-type-device-config"></a>
 
-### **block (data) only**
+#### **block (data) only**
 If all devices are of the same type (for example, they are all HDDs), and if
 there are no fast devices available for the storage of metadata, then it makes
 sense to specify the block device only and to leave ``block.db`` and
@@ -97,7 +97,7 @@ ceph-volume lvm create --bluestore --data ceph-vg/block-lv
 
 <a id="bluestore-mixed-device-config"></a>
 
-### **block and block.db**
+#### **block and block.db**
 
 If you have a mix of fast and slow devices (for example, SSD or HDD), then we
 recommend placing ``block.db`` on the faster device while ``block`` (that is,
@@ -152,7 +152,7 @@ After this procedure is finished, there should be four OSDs, ``block`` should
 be on the four HDDs, and each HDD should have a 50GB logical volume
 (specifically, a DB device) on the shared SSD.
 
-# Sizing
+## Sizing
 When using a [mixed spinning-and-solid-drive setup](bluestore-config-ref.md#bluestore-mixed-device-config), it is important to make a large enough
 ``block.db`` logical volume for BlueStore. The logical volumes associated with
 ``block.db`` should have logical volumes that are *as large as possible*.
@@ -183,7 +183,7 @@ When *not* using a mix of fast and slow devices, there is no requirement to
 create separate logical volumes for ``block.db`` or ``block.wal``. BlueStore
 will automatically colocate these devices within the space of ``block``.
 
-# Automatic Cache Sizing
+## Automatic Cache Sizing
 
 BlueStore can be configured to automatically resize its caches, provided that
 certain conditions are met: TCMalloc must be configured as the memory allocator
@@ -211,7 +211,7 @@ the values specified in the ``bluestore_cache_meta_ratio`` and
 
 .. confval:: osd_memory_cache_resize_interval
 
-# Manual Cache Sizing
+## Manual Cache Sizing
 
 The amount of memory consumed by each OSD to be used for its BlueStore cache is
 determined by the ``bluestore_cache_size`` configuration option. If that option
@@ -251,7 +251,7 @@ bluestore_cache_meta_ratio - bluestore_cache_kv_ratio)``.
 
 .. confval:: bluestore_cache_kv_ratio
 
-# Checksums
+## Checksums
 
 BlueStore checksums all metadata and all data written to disk. Metadata
 checksumming is handled by RocksDB and uses the `crc32c` algorithm. By
@@ -282,7 +282,7 @@ ceph osd pool set <pool-name> csum_type <algorithm>
 
 .. confval:: bluestore_csum_type
 
-# Inline Compression
+## Inline Compression
 
 BlueStore supports inline compression using `snappy`, `zlib`, `lz4`, or `zstd`.
 
@@ -342,7 +342,7 @@ ceph osd pool set <pool-name> compression_max_blob_size <size>
 
 <a id="bluestore-rocksdb-sharding"></a>
 
-# RocksDB Sharding
+## RocksDB Sharding
 
 BlueStore maintains several types of internal key-value data, all of which are
 stored in RocksDB. Each data type in BlueStore is assigned a unique prefix.
@@ -374,7 +374,7 @@ ceph-bluestore-tool \
 
 .. confval:: bluestore_rocksdb_cfs
 
-# Throttling
+## Throttling
 
 .. confval:: bluestore_throttle_bytes
 
@@ -386,7 +386,7 @@ ceph-bluestore-tool \
 
 .. confval:: bluestore_throttle_cost_per_io_ssd
 
-# SPDK Usage
+## SPDK Usage
 
 To use the SPDK driver for NVMe devices, you must first prepare your system.
 See [SPDK document](http://www.spdk.io/doc/getting_started.html#getting_started_examples).
@@ -445,7 +445,7 @@ If these settings are not entered, then the current implementation will
 populate the SPDK map files with kernel file system symbols and will use the
 kernel driver to issue DB/WAL I/Os.
 
-# Minimum Allocation Size
+## Minimum Allocation Size
 
 There is a configured minimum amount of storage that BlueStore allocates on an
 underlying storage device. In practice, this is the least amount of capacity
@@ -548,7 +548,7 @@ were deployed under older releases or with other settings.
 
 .. confval:: bluestore_use_optimal_io_size_for_min_alloc_size
 
-# DSA (Data Streaming Accelerator) Usage
+## DSA (Data Streaming Accelerator) Usage
 
 If you want to use the DML library to drive the DSA device for offloading
 read/write operations on persistent memory (PMEM) in BlueStore, you need to

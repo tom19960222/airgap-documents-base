@@ -44,7 +44,7 @@ time the OSD full flag is sent.  Clients update the ``osd_epoch_barrier``
 when releasing capabilities on files affected by cancelled operations, in
 order to ensure that these cancelled operations do not interfere with
 subsequent access to the data objects by the MDS or other clients.  For
-more on the epoch barrier mechanism, see [background_blocklisting_and_osd_epoch_barrier](eviction.md#background-blocklisting-and-osd-epoch-barrier).
+more on the epoch barrier mechanism, see [background_blocklisting_and_osd_epoch_barrier](eviction.md#background_blocklisting_and_osd_epoch_barrier).
 
 ## Legacy (pre-hammer) behavior
 

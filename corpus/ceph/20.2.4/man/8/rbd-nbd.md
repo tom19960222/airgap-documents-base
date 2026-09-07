@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd-nbd
 
-# Synopsis
+## Synopsis
 
 | **rbd-nbd** [-c conf] [--read-only] [--device *nbd device*] [--snap-id *snap-id*] [--nbds_max *limit*] [--max_part *limit*] [--exclusive] [--notrim] [--encryption-format *format*] [--encryption-passphrase-file *passphrase-file*] [--io-timeout *seconds*] [--reattach-timeout *seconds*] map *image-spec* | *snap-spec*
 | **rbd-nbd** unmap *nbd device* | *image-spec* | *snap-spec*
@@ -19,13 +19,13 @@ fetched_at: 2026-08-18T01:32:45Z
 | **rbd-nbd** attach --device *nbd device* *image-spec* | *snap-spec*
 | **rbd-nbd** detach *nbd device* | *image-spec* | *snap-spec*
 
-# Description
+## Description
 
 **rbd-nbd** is a client for RADOS block device (rbd) images like rbd kernel module.
 It will map a rbd image to a nbd (Network Block Device) device, allowing access it
 as regular local block device.
 
-# Options
+## Options
 
 .. option:: -c ceph.conf
 
@@ -77,7 +77,7 @@ as regular local block device.
 
    Specify a snapshot to map/unmap/attach/detach by ID instead of by name.
 
-# Image and snap specs
+## Image and snap specs
 
 | *image-spec* is [*pool-name*]/*image-name*
 | *snap-spec*  is [*pool-name*]/*image-name*\ @\ *snap-name*
@@ -85,11 +85,11 @@ as regular local block device.
 The default for *pool-name* is "rbd".  If an image name contains a slash
 character ('/'), *pool-name* is required.
 
-# Availability
+## Availability
 
 **rbd-nbd** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com/ for more information.
 
-# See also
+## See also
 
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

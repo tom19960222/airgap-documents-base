@@ -15,7 +15,7 @@ compute-intensive workloads.
 
 See [QAT Support for Compression](https://github.com/ceph/ceph/pull/19714) and [QAT based Encryption for RGW](https://github.com/ceph/ceph/pull/19386).
 
-# QAT in the Software Stack
+## QAT in the Software Stack
 
 Application developers can access QuickAssist features through the QAT API.
 The QAT API is the top-level API for QuickAssist technology, and enables easy
@@ -30,7 +30,7 @@ A user can write directly to the QAT API, or the use of QAT can be done via
 frameworks that have been enabled by others including Intel (for example, zlib*,
 OpenSSL* libcrypto*, and the Linux* Kernel Crypto Framework).
 
-# QAT Environment Setup
+## QAT Environment Setup
 1. QuickAssist Accelerator hardware is necessary to make use of accelerated
    encryption and compression services. And QAT driver in kernel space have to
    be loaded to drive the hardware.
@@ -51,7 +51,7 @@ driver.
 
 See [QATzip](https://github.com/intel/QATzip).
 
-# Implementation
+## Implementation
 1. QAT based Encryption for RGW
 
 [OpenSSL support for RGW encryption](https://github.com/ceph/ceph/pull/15168) has been merged into Ceph, and Intel also
@@ -74,7 +74,7 @@ existing compression types, but only the zlib compressor is supported at the
 time of writing. This means that this tool class can be used to speed up
 the zlib compressor if QAT hardware is available.
 
-# Configuration
+## Configuration
 1. Prerequisites
 
    **For out-of-tree QAT**
@@ -218,7 +218,7 @@ radosgw-admin zonegroup placement add --rgw-zonegroup default --placement-id def
 radosgw-admin zone placement add --rgw-zone default --placement-id default-placement --storage-class COLD --compression zlib --data-pool default.rgw.cold.data
 ```
 
-# CONFIG REFERENCE
+## CONFIG REFERENCE
 The following QAT-related settings can be added to the Ceph configuration file
 (usually `ceph.conf`) under the ``[client.rgw.{instance-name}]`` section.
 

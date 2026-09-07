@@ -11,7 +11,7 @@ Kraken is the 11th stable release of Ceph.  It is named after the
 mythical kraken, a legendary sea monster in Scandinavian folklore with
 cephalopod-like appearance.
 
-# v11.2.1 Kraken
+## v11.2.1 Kraken
 
 This is the first bugfix release for Kraken, and probably the last release of
 the Kraken series (Kraken will be declared "End Of Life" (EOL) when Luminous
@@ -22,7 +22,7 @@ We recommend that all v11.2.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v11.2.1.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * In previous versions, if a client sent an op to the wrong OSD, the OSD
   would reply with ENXIO.  The rationale here is that the client or OSD is
@@ -56,7 +56,7 @@ ceph osd rm osd.123
   otherwise adds the given number of seconds in delay between every dispatch
   of trim operations to the underlying system.
 
-## Other Notable Changes
+### Other Notable Changes
 
 * build/ops: ceph-base missing dependency for psmisc in Ubuntu Xenial ([issue#19129](http://tracker.ceph.com/issues/19129), [issue#19564](http://tracker.ceph.com/issues/19564), [pr#14425](https://github.com/ceph/ceph/pull/14425), Nathan Cutler)
 * build/ops: logrotate is missing from debian package (kraken, master) ([issue#19670](http://tracker.ceph.com/issues/19670), [issue#19390](http://tracker.ceph.com/issues/19390), [pr#14734](https://github.com/ceph/ceph/pull/14734), Kefu Chai)
@@ -286,13 +286,13 @@ ceph osd rm osd.123
 * tools: ceph-disk prepare writes osd log 0 with root owner ([issue#18538](http://tracker.ceph.com/issues/18538), [issue#18606](http://tracker.ceph.com/issues/18606), [pr#13026](https://github.com/ceph/ceph/pull/13026), Samuel Matzek)
 * tools: RadosImport::import should return an error if Rados::connect fails ([issue#19351](http://tracker.ceph.com/issues/19351), [issue#19319](http://tracker.ceph.com/issues/19319), [pr#14095](https://github.com/ceph/ceph/pull/14095), Brad Hubbard)
 
-# v11.2.0 Kraken
+## v11.2.0 Kraken
 
 This is the first release of the Kraken series.  It is a stable
 release that will be maintained with bugfixes and backports until the
 next stable release, Luminous, is completed in the Spring of 2017.
 
-## Major Changes from Jewel
+### Major Changes from Jewel
 
 - *RADOS*:
 
@@ -370,13 +370,13 @@ next stable release, Luminous, is completed in the Spring of 2017.
   * The false-positive "failing to respond to cache pressure" warnings have
     been fixed.
 
-## Upgrading from Kraken release candidate 11.1.0
+### Upgrading from Kraken release candidate 11.1.0
 
 * The new *BlueStore* backend had an on-disk format change after 11.1.0.
   Any BlueStore OSDs created with 11.1.0 will need to be destroyed and
   recreated.
 
-## Upgrading from Jewel
+### Upgrading from Jewel
 
 * All clusters must first be upgraded to Jewel 10.2.z before upgrading
   to Kraken 11.2.z (or, eventually, Luminous 12.2.z).
@@ -396,7 +396,7 @@ next stable release, Luminous, is completed in the Spring of 2017.
   and destroy the auto-created ones if you do not with them to be colocated
   with the ceph-mon daemons.
 
-## BlueStore
+### BlueStore
 
 BlueStore is a new backend for managing data stored by each OSD on the directly
 hard disk or SSD.  Unlike the existing FileStore implementation, which makes
@@ -437,7 +437,7 @@ enable experimental unrecoverable data corrupting features = bluestore
 To create a BlueStore OSD, pass the --bluestore option to ceph-disk or
 ceph-deploy during OSD creation.
 
-## Upgrade notes
+### Upgrade notes
 
 * The OSDs now avoid starting new scrubs while recovery is in progress.  To
   revert to the old behavior (and do not let recovery activity affect the
@@ -563,7 +563,7 @@ echo rocksdb > /var/lib/ceph/mon/ceph-`hostname`/kv_backend
   than new ones. Once upgraded, the cluster will operate on
   consistent values.
 
-## Notable Changes
+### Notable Changes
 
 * bluestore: add counter to trace blob splitting ([pr#11718](http://github.com/ceph/ceph/pull/11718), xie xingguo)
 * bluestore: a few more cleanups ([pr#11780](http://github.com/ceph/ceph/pull/11780), xie xingguo)
@@ -1411,7 +1411,7 @@ echo rocksdb > /var/lib/ceph/mon/ceph-`hostname`/kv_backend
 * tools: src/vstart.sh: Only execute btrfs if it is available ([pr#11683](http://github.com/ceph/ceph/pull/11683), Willem Jan Withagen)
 * tools: tools/ceph-monstore-update-crush.sh: FreeBSD getopt is not compatible… ([pr#11525](http://github.com/ceph/ceph/pull/11525), Willem Jan Withagen)
 
-# v11.0.2 Kraken
+## v11.0.2 Kraken
 
 This development checkpoint release includes a lot of changes and improvements
 to Kraken. This is the first release introducing ceph-mgr, a new daemon which
@@ -1420,7 +1420,7 @@ systems. There are also many improvements to bluestore, RGW introduces sync
 modules, copy part for multipart uploads and metadata search via elastic search
 as a tech preview.
 
-## Notable Changes
+### Notable Changes
 
 * bluestore: os/bluestore: misc fixes ([pr#10953](http://github.com/ceph/ceph/pull/10953), Sage Weil)
 * bluestore: os/bluestore/BlueFS: do not op_file_update deleted files ([pr#10686](http://github.com/ceph/ceph/pull/10686), Sage Weil)

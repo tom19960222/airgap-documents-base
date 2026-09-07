@@ -18,7 +18,7 @@ understand the parameters. Note that the ``jerasure.org``
 web site as of 2023 may no longer be connected to the original
 project or legitimate.
 
-# Create a jerasure profile
+## Create a jerasure profile
 
 To create a new *jerasure* erasure code profile:
 

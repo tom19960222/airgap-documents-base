@@ -68,7 +68,7 @@ Exclusive locking is mostly transparent to the user:
 > The ``exclusive-lock`` feature is incompatible with RBD advisory locks
 > (the ``rbd lock add`` and ``rbd lock rm`` commands).
 
-# Blocklisting
+## Blocklisting
 
 Sometimes a client that previously held an exclusive lock on an RBD image does
 not terminate gracefully, but dies abruptly. This may be because the client

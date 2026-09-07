@@ -1,13 +1,13 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "AUTH MONITOR"
+title: "ON-DISK FORMAT"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/dev/mon-on-disk-formats.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-###### ON-DISK FORMAT
+# ON-DISK FORMAT
 
-### UPGRADE PATH
+## UPGRADE PATH
 
 On-disk formats, or even data structure formats, may be changed during an
 upgrade. Services wishing to do so, may so do it via the
@@ -16,9 +16,9 @@ format versioning; the `PaxosService` class keeps track of its
 `format_version` through a key in the store, assumed an `unsigned int`,  but
 it will be the service's responsibility to give meaning to those versions.
 
-# AUTH MONITOR
+### AUTH MONITOR
 
-## versions
+#### versions
 
 versions are represented with a single `unsigned int`. By default, the value
 zero represents the absence of a formal upgraded format. The first format
@@ -40,7 +40,7 @@ version 2: introduces mgr caps and bootstrap-mgr key
 version 3: creates all bootstrap and admin keys if they don't yet exist
 ```
 
-## callstack
+#### callstack
 
 format_version set on `PaxosService::refresh()`:
 
@@ -66,7 +66,7 @@ AuthMonitor::upgrade_format() called by `PaxosService::_active()`:
   no format to upgrade at this point.
 ```
 
-## boil down
+#### boil down
 
 * if `format_version >= current_version` then format is up-to-date, return.
 * if `features doesn't contain LUMINOUS` then `current_version = 1`

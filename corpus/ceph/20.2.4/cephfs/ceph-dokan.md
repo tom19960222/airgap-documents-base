@@ -17,9 +17,9 @@ See the [installation guide](../install/windows-install.md) to get started.
 > **Note:**
 > See the [OS recommendations](../start/os-recommendations.md) for information about client package support.
 
-# Usage
+## Usage
 
-## Mounting file systems
+### Mounting file systems
 
 Run the following command to mount a Ceph file system:
 
@@ -73,7 +73,7 @@ DriveLetter Filesystem FilesystemLabel
 
 Run ``ceph-dokan --help`` for a full list of arguments.
 
-## Credentials
+### Credentials
 
 The ``--id`` option passes the name of the CephX user whose keyring is used
 when mounting a CephFS file system. The following commands are equivalent:
@@ -96,7 +96,7 @@ ceph-dokan.exe unmap -l x
 > **Note:** When unmapping CephFS file systems, you must specify the mount point
 > argument that was used at the time of the creation of the mapping.
 
-## Limitations
+### Limitations
 
 Windows ACLs are ignored. Posix ACLs are supported but cannot be modified using
 the current CLI. In the future, we may add command actions that change file
@@ -108,6 +108,6 @@ Ceph relies upon Dokan to handle file locks, which are enforced only locally.
 Unlike ``rbd-wnbd``, ``ceph-dokan`` doesn't provide a ``service`` command. To
 ensure that a CephFS mount survives reboots of its host, use ``NSSM``.
 
-# Troubleshooting
+## Troubleshooting
 
 See the [Windows troubleshooting](../install/windows-troubleshooting.md) page.

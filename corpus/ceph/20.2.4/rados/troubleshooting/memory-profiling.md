@@ -168,7 +168,7 @@ ceph tell osd.0 heap stop_profiler
 
 ## Alternative Methods of  Memory Profiling
 
-#### Running Massif heap profiler with Valgrind
+### Running Massif heap profiler with Valgrind
 
 The Massif heap profiler tool can be used with Valgrind to measure how much
 heap memory is used. This method is well-suited to troubleshooting RadosGW.

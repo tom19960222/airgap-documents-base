@@ -39,7 +39,7 @@ data distribution in order to ensure that OSDs are utilized equally.
 Additional modes include ``upmap-read`` and ``read``. ``upmap-read`` mode
 combines the upmap balancer with the read balancer so that both writes
 and reads are optimized. ``read`` mode can be used when only read optimization
-is desired. For more details, see [read_balancer](read-balancer.md#read-balancer).
+is desired. For more details, see [read_balancer](read-balancer.md#read_balancer).
 
 ## Throttling
 
@@ -178,13 +178,13 @@ There are four supported balancer modes:
    uses cases in which only read balancing is desired.
 
    To use ``pg-upmap-primary``, all clients must be Reef or newer. For more
-   details about client compatibility, see [read_balancer](read-balancer.md#read-balancer).
+   details about client compatibility, see [read_balancer](read-balancer.md#read_balancer).
 
 1. **upmap-read**. This balancer mode combines optimization benefits of
    both ``upmap`` and ``read`` mode. Like in ``read`` mode, ``upmap-read``
    makes use of ``pg-upmap-primary``. As such, only Reef and later clients
    are compatible. For more details about client compatibility, see
-   [read_balancer](read-balancer.md#read-balancer).
+   [read_balancer](read-balancer.md#read_balancer).
 
    ``upmap-read`` is highly recommended for achieving the ``upmap`` mode's
    offering of balanced PG distribution as well as the ``read`` mode's

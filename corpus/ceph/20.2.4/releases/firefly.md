@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Firefly is the 6th stable release of Ceph. It is named after the
 firefly squid (Watasenia scintillans).
 
-# v0.80.11 Firefly
+## v0.80.11 Firefly
 
 This is a bugfix release for Firefly.  This Firefly 0.80.x is nearing
 its planned end of life in January 2016 it may also be the last.
@@ -19,7 +19,7 @@ We recommend that all Firefly users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.11.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * build/ops: /etc/init.d/radosgw restart does not work correctly ([issue#11140](http://tracker.ceph.com/issues/11140), [pr#5831](http://github.com/ceph/ceph/pull/5831), Dmitry Yatsushkevich)
 * build/ops: Fix -Wno-format and -Werror=format-security options clash  ([issue#13417](http://tracker.ceph.com/issues/13417), [pr#6207](http://github.com/ceph/ceph/pull/6207), Boris Ranto)
@@ -107,7 +107,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tools: ceph_argparse_flag has no regular 3rd parameter ([issue#11543](http://tracker.ceph.com/issues/11543), [pr#4582](http://github.com/ceph/ceph/pull/4582), Thorsten Behrens)
 * tools: use a new disk as journal disk,ceph-disk prepare fail ([issue#10983](http://tracker.ceph.com/issues/10983), [pr#4630](http://github.com/ceph/ceph/pull/4630), Loic Dachary)
 
-# v0.80.10 Firefly
+## v0.80.10 Firefly
 
 This is a bugfix release for Firefly.
 
@@ -115,7 +115,7 @@ We recommend that all Firefly users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.10.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * build/ops: ceph.spec.in: package mkcephfs on EL6 ([issue#11955](http://tracker.ceph.com/issues/11955), [pr#4924](http://github.com/ceph/ceph/pull/4924), Ken Dreyer)
 * build/ops: debian: ceph-test and rest-bench debug packages should require their respective binary packages ([issue#11673](http://tracker.ceph.com/issues/11673), [pr#4766](http://github.com/ceph/ceph/pull/4766), Ken Dreyer)
@@ -185,7 +185,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * tools: ceph-objectstore-tool: Use exit status 11 for incompatible import attemp... ([issue#11139](http://tracker.ceph.com/issues/11139), [pr#4129](http://github.com/ceph/ceph/pull/4129), David Zafman)
 * tools: Fix do_autogen.sh so that -L is allowed ([issue#11303](http://tracker.ceph.com/issues/11303), [pr#4247](http://github.com/ceph/ceph/pull/4247), Alfredo Deza)
 
-# v0.80.9 Firefly
+## v0.80.9 Firefly
 
 This is a bugfix release for firefly.  It fixes a performance
 regression in librbd, an important CRUSH misbehavior (see below), and
@@ -196,7 +196,7 @@ We recommend that all Firefly users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.9.txt -->.
 
-## Adjusting CRUSH maps
+### Adjusting CRUSH maps
 
 * This point release fixes several issues with CRUSH that trigger
   excessive data migration when adjusting OSD weights.  These are most
@@ -243,7 +243,7 @@ Otherwise, it will happen at some unknown point in the future when
 CRUSH weights are next adjusted.
 ```
 
-## Notable Changes
+### Notable Changes
 
 * ceph-fuse: flock, fcntl lock support (Yan, Zheng, Greg Farnum)
 * crush: fix straw bucket weight calculation, add straw_calc_version tunable (#10095 Sage Weil)
@@ -276,7 +276,7 @@ CRUSH weights are next adjusted.
 * rgw: use attrs when reading object attrs (#10307 Yehuda Sadeh)
 * rgw: use \r\n for http headers (#9254 Benedikt Fraunhofer, Yehuda Sadeh)
 
-# v0.80.8 Firefly
+## v0.80.8 Firefly
 
 This is a long-awaited bugfix release for firefly.  It has several
 important (but relatively rare) OSD peering fixes, performance issues
@@ -288,7 +288,7 @@ convenient to do so.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.8.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * build: remove stack-execute bit from assembled code sections (#10114 Dan Mick)
 * ceph-disk: fix dmcrypt key permissions (#9785 Loic Dachary)
@@ -357,7 +357,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * rpm: misc packaging improvements (Sandon Van Ness, Dan Mick, Erik Logthenberg, Boris Ranto)
 * rpm: use standard udev rules for CentOS7/RHEL7 (#9747 Loic Dachary)
 
-# v0.80.7 Firefly
+## v0.80.7 Firefly
 
 This release fixes a few critical issues with v0.80.6, particularly
 with clusters running mixed versions.
@@ -366,13 +366,13 @@ We recommend that all v0.80.x Firefly users upgrade to this release.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.7.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * osd: fix invalid memory reference in log trimming (#9731 Samuel Just)
 * osd: fix use-after-free in cache tiering code (#7588 Sage Weil)
 * osd: remove bad backfill assertion for mixed-version clusters (#9696 Samuel Just)
 
-# v0.80.6 Firefly
+## v0.80.6 Firefly
 
 This is a major bugfix release for firefly, fixing a range of issues
 in the OSD and monitor, particularly with cache tiering.  There are
@@ -388,7 +388,7 @@ We recommend that all v0.80.x Firefly users upgrade to this release.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.6.txt -->.
 
-## Notable Changes
+### Notable Changes
 
 * build: fix atomic64_t on i386 (#8969 Sage Weil)
 * build: fix build on alpha (Michael Cree, Dmitry Smirnov)
@@ -465,7 +465,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
 * systemd: use systemd-run when starting radosgw (JuanJose Galvez)
 * sysvinit: support non-default cluster name (Alfredo Deza)
 
-# v0.80.5 Firefly
+## v0.80.5 Firefly
 
 This release fixes a few important bugs in the radosgw and fixes
 several packaging and environment issues, including OSD log rotation,
@@ -474,7 +474,7 @@ systemd environments, and daemon restarts on upgrade.
 We recommend that all v0.80.x Firefly users upgrade, particularly if they
 are using upstart, systemd, or radosgw.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-dencoder: do not needlessly link to librgw, librados, etc. (Sage Weil)
 * do not needlessly link binaries to leveldb (Sage Weil)
@@ -488,7 +488,7 @@ are using upstart, systemd, or radosgw.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.5.txt -->.
 
-# v0.80.4 Firefly
+## v0.80.4 Firefly
 
 This Firefly point release fixes an potential data corruption problem
 when ceph-osd daemons run on top of XFS and service Firefly librbd
@@ -502,14 +502,14 @@ use the hint on.
 We recommend that all v0.80.x Firefly users urgently upgrade,
 especially if they are using RBD.
 
-## Notable Changes
+### Notable Changes
 
 * osd: disable XFS extsize hint by default (#8830, Samuel Just)
 * rgw: fix extra data pool default name (Yehuda Sadeh)
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.4.txt -->.
 
-# v0.80.3 Firefly
+## v0.80.3 Firefly
 
 This is the third Firefly point release.  It includes a single fix
 for a radosgw regression that was discovered in v0.80.2 right after it
@@ -517,13 +517,13 @@ was released.
 
 We recommend that all v0.80.x Firefly users upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * radosgw: fix regression in manifest decoding (#8804, Sage Weil)
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.3.txt -->.
 
-# v0.80.2 Firefly
+## v0.80.2 Firefly
 
 This is the second Firefly point release.  It contains a range of
 important fixes, including several bugs in the OSD cache tiering, some
@@ -540,7 +540,7 @@ without any of the server-side daemons.
 We recommend that all v0.80.x Firefly users skip this release and use
 v0.80.3.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-disk: better debug logging (Alfredo Deza)
 * ceph-disk: fix preparation of OSDs with dmcrypt (#6700, Stephen F Taylor)
@@ -586,12 +586,12 @@ v0.80.3.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.2.txt -->.
 
-# v0.80.1 Firefly
+## v0.80.1 Firefly
 
 This first Firefly point release fixes a few bugs, the most visible
 being a problem that prevents scrub from completing in some cases.
 
-## Notable Changes
+### Notable Changes
 
 * osd: revert incomplete scrub fix (Samuel Just)
 * rgw: fix stripe calculation for manifest objects (Yehuda Sadeh)
@@ -607,7 +607,7 @@ being a problem that prevents scrub from completing in some cases.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.80.1.txt -->.
 
-# v0.80 Firefly
+## v0.80 Firefly
 
 This release will form the basis for our long-term supported release
 Firefly, v0.80.x.  The big new features are support for erasure coding
@@ -640,7 +640,7 @@ CephFS distributed file system, more alternative storage backends
 codes, and additional functionality in the block device (RBD) like
 copy-on-read and multisite mirroring.
 
-## Upgrade Sequencing
+### Upgrade Sequencing
 
 * If your existing cluster is running a version older than v0.67
   Dumpling, please first upgrade to the latest Dumpling release before
@@ -678,7 +678,7 @@ mon warn on legacy crush tunables = false
   for multipart uploads that prevents a multipart request that was initiated
   with a new radosgw from being completed by an old radosgw.
 
-## Upgrading from v0.79
+### Upgrading from v0.79
 
 * OSDMap's json-formatted dump changed for keys 'full' and 'nearfull'.
   What was previously being outputted as 'true' or 'false' strings are
@@ -706,7 +706,7 @@ mon warn on legacy crush tunables = false
   'hostname'.  Failure to adjust this when upgrading from emperor or dumpling
   may prevent the radosgw daemon from starting.
 
-## Upgrading from v0.72 Emperor
+### Upgrading from v0.72 Emperor
 
 * See notes above.
 
@@ -789,7 +789,7 @@ mon warn on legacy crush tunables = false
 * The 'osd dump' command now dumps pool snaps as an array instead of an
   object.
 
-## Upgrading from v0.67 Dumpling
+### Upgrading from v0.67 Dumpling
 
 * See notes above.
 
@@ -851,7 +851,7 @@ mon warn on legacy crush tunables = false
   the get_version() method should modify their code to avoid getting a
   value that is truncated from 64 to to 32 bits.
 
-## Notable changes since v0.79
+### Notable changes since v0.79
 
 * ceph-fuse, libcephfs: fix several caching bugs (Yan, Zheng)
 * ceph-fuse: trim inodes in response to mds memory pressure (Yan, Zheng)
@@ -874,7 +874,7 @@ mon warn on legacy crush tunables = false
 * rgw: fixed subuser modify (Yehuda Sadeh)
 * rpm: fix redhat-lsb dependency (Sage Weil, Alfredo Deza)
 
-## Notable changes since v0.72 Emperor
+### Notable changes since v0.72 Emperor
 
 * buffer: some zero-copy groundwork (Josh Durgin)
 * build: misc improvements (Ken Dreyer)
@@ -1072,7 +1072,7 @@ mon warn on legacy crush tunables = false
 * specfile: ship libdir/ceph (Key Dreyer)
 * sysvinit, upstart: prevent both init systems from starting the same daemons (Josh Durgin)
 
-## Notable changes since v0.67 Dumpling
+### Notable changes since v0.67 Dumpling
 
 * build cleanly under clang (Christophe Courtaut)
 * build: Makefile refactor (Roald J. van Loon)
@@ -1205,7 +1205,7 @@ mon warn on legacy crush tunables = false
 * sysvinit: add condrestart command (Dan van der Ster)
 * sysvinit: fix shutdown order (mons last) (Alfredo Deza)
 
-# v0.79
+## v0.79
 
 This release is intended to serve as a release candidate for firefly,
 which will hopefully be v0.80.  No changes are being made to the code
@@ -1220,7 +1220,7 @@ large directories).  The main notable new piece of functionality is a
 small change to allow radosgw to use an erasure-coded pool for object
 data.
 
-## Upgrading
+### Upgrading
 * Erasure pools created with v0.78 will no longer function with v0.79.  You
   will need to delete the old pool and create a new one.
 
@@ -1247,7 +1247,7 @@ ceph auth print-key
 ceph auth list
 ```
 
-## Notable Changes
+### Notable Changes
 * ceph-conf: stop creating bogus log files (Josh Durgin, Sage Weil)
 * common: fix authentication on big-endian architectures (Dan Mick)
 * debian: change directory ownership between ceph and ceph-common (Sage Weil)
@@ -1272,7 +1272,7 @@ ceph auth list
 * osd: reduce scrub lock contention (Guang Yang)
 * rgw: allow use of an erasure data pool (Yehuda Sadeh)
 
-# v0.78
+## v0.78
 
 This development release includes two key features: erasure coding and
 cache tiering.  A huge amount of code was merged for this release and
@@ -1291,7 +1291,7 @@ long term support.
 > subtlely change.  Please do not populate your test pools
 > with important data that can't be reloaded.
 
-## Upgrading
+### Upgrading
 
 * Upgrade daemons in the following order:
 
@@ -1341,7 +1341,7 @@ leveldb cache size = 0
 
   to your ceph.conf to get back the (leveldb) defaults.
 
-## Notable Changes
+### Notable Changes
 * ceph-brag: new client and server tools (Sebastien Han, Babu Shanmugam)
 * ceph-disk: use partx on RHEL or CentOS instead of partprobe (Alfredo Deza)
 * ceph: fix combination of 'tell' and interactive mode (Joao Eduardo Luis)
@@ -1411,7 +1411,7 @@ leveldb cache size = 0
 * rgw: misc fixes for multipart objects, policies (Yehuda Sadeh)
 * rgw: support non-standard MultipartUpload command (Yehuda Sadeh)
 
-# v0.77
+## v0.77
 
 This is the final development release before the Firefly feature
 freeze.  The main items in this release include some additional
@@ -1422,7 +1422,7 @@ prototype leveldb-based backend for the OSD.  The C librados API also
 got support for atomic write operations (read side transactions will
 appear in v0.78).
 
-## Upgrading
+### Upgrading
 
 * The 'ceph -s' or 'ceph status' command's 'num_in_osds' field in the
   JSON and XML output has been changed from a string to an int.
@@ -1435,7 +1435,7 @@ appear in v0.78).
 * The syntax for allowing snapshots is now 'mds set allow_new_snaps
   <true|false>' instead of 'mds <set,unset> allow_new_snaps'.
 
-## Notable Changes
+### Notable Changes
 
 * osd: client IO path changes for EC (Samuel Just)
 * common: portability changes to support libc++ (Noah Watkins)
@@ -1466,7 +1466,7 @@ appear in v0.78).
 * rgw: fix read_user_buckets 'max' behavior (Yehuda Sadeh)
 * mon: change mds allow_new_snaps syntax to be more consistent (Sage Weil)
 
-# v0.76
+## v0.76
 
 This release includes another batch of updates for firefly
 functionality.  Most notably, the cache pool infrastructure now
@@ -1478,7 +1478,7 @@ migrates to) the OSD key/value interface (aka omap) for storing directory
 objects.  There continue to be many other fixes and improvements for
 usability and code portability across the tree.
 
-## Upgrading
+### Upgrading
 
 * 'rbd ls' on a pool which never held rbd images now exits with code
   0. It outputs nothing in plain format, or an empty list in
@@ -1494,7 +1494,7 @@ usability and code portability across the tree.
 * The 'ceph mds set_max_mds N' command is now deprecated in favor of
   'ceph mds set max_mds N'.
 
-## Notable Changes
+### Notable Changes
 
 * build: misc improvements (Ken Dreyer)
 * ceph-disk: generalize path names, add tests (Loic Dachary)
@@ -1530,7 +1530,7 @@ usability and code portability across the tree.
 * specfile: fix RPM build on RHEL6 (Ken Dreyer, Derek Yarnell)
 * specfile: ship libdir/ceph (Key Dreyer)
 
-# v0.75
+## v0.75
 
 This is a big release, with lots of infrastructure going in for
 firefly.  The big items include a prototype standalone frontend for
@@ -1548,7 +1548,7 @@ v0.74 192 files changed, 17980 insertions(+), 1062 deletions(-)
 v0.73 148 files changed, 4464 insertions(+), 2129 deletions(-)
 ```
 
-## Upgrading
+### Upgrading
 
 - The 'osd pool create ...' syntax has changed for erasure pools.
 
@@ -1557,7 +1557,7 @@ v0.73 148 files changed, 4464 insertions(+), 2129 deletions(-)
   now present with a health WARN state.  This can be disabled by
   adding 'mon warn on legacy crush tunables = false' to ceph.conf.
 
-## Notable Changes
+### Notable Changes
 
 * common: bloom filter improvements (Sage Weil)
 * common: fix config variable substitution (Loic Dachary)
@@ -1607,7 +1607,7 @@ v0.73 148 files changed, 4464 insertions(+), 2129 deletions(-)
 * rgw: fix misc CORS bugs (Robin H. Johnson)
 * rgw: prototype mongoose frontend (Yehuda Sadeh)
 
-# v0.74
+## v0.74
 
 This release includes a few substantial pieces for Firefly, including
 a long-overdue switch to 3x replication by default and a switch to the
@@ -1615,7 +1615,7 @@ a long-overdue switch to 3x replication by default and a switch to the
 also a fix for a long-standing radosgw bug (stalled GET) that has
 already been backported to emperor and dumpling.
 
-## Upgrading
+### Upgrading
 
 * We now default to the 'bobtail' CRUSH tunable values that are first supported
   by Ceph clients in bobtail (v0.56) and Linux kernel version v3.9.  If you
@@ -1641,7 +1641,7 @@ already been backported to emperor and dumpling.
   pool default crush rule' takes precedence for backward compatibility
   and a deprecation warning is displayed when it is used.
 
-## Notable Changes
+### Notable Changes
 
 * buffer: some zero-copy groundwork (Josh Durgin)
 * ceph-disk: avoid fd0 (Loic Dachary)
@@ -1667,14 +1667,14 @@ already been backported to emperor and dumpling.
 * rgw: fix reading bucket policy (#6940)
 * rgw: fix use-after-free when releasing completion handle (Yehuda Sadeh)
 
-# v0.73
+## v0.73
 
 This release, the first development release after emperor, includes
 many bug fixes and a few additional pieces of functionality.  The
 first batch of larger changes will be landing in the next version,
 v0.74.
 
-## Upgrading
+### Upgrading
 
 - As part of fix for #6796, 'ceph osd pool set <pool> <var> <arg>' now
   receives <arg> as an integer instead of a string.  This affects how
@@ -1699,7 +1699,7 @@ v0.74.
   'hostname'.  Failure to adjust this when upgrading from emperor or dumpling
   may prevent the radosgw daemon from starting.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-crush-location: new hook for setting CRUSH location of osd daemons on start
 * ceph-kvstore-tool: expanded command set and capabilities (Joao Eduardo Luis)

@@ -11,35 +11,35 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd-ggate
 
-# Synopsis
+## Synopsis
 
 | **rbd-ggate** [--read-only] [--exclusive] [--device *ggate device*] map *image-spec* | *snap-spec*
 | **rbd-ggate** unmap *ggate device*
 | **rbd-ggate** list
 
-# Description
+## Description
 
 **rbd-ggate** is a client for RADOS block device (rbd) images. It will
 map a rbd image to a ggate (FreeBSD GEOM Gate class) device, allowing
 access it as regular local block device.
 
-# Commands
+## Commands
 
-## map
+### map
 
 Spawn a process responsible for the creation of ggate device and
 forwarding I/O requests between the GEOM Gate kernel subsystem and
 RADOS.
 
-## unmap
+### unmap
 
 Destroy ggate device and terminate the process responsible for it.
 
-## list
+### list
 
 List mapped ggate devices.
 
-# Options
+## Options
 
 .. option:: --device *ggate device*
 
@@ -53,7 +53,7 @@ List mapped ggate devices.
 
    Forbid writes by other clients.
 
-# Image and snap specs
+## Image and snap specs
 
 | *image-spec* is [*pool-name*]/*image-name*
 | *snap-spec*  is [*pool-name*]/*image-name*\ @\ *snap-name*
@@ -61,13 +61,13 @@ List mapped ggate devices.
 The default for *pool-name* is "rbd".  If an image name contains a slash
 character ('/'), *pool-name* is required.
 
-# Availability
+## Availability
 
 **rbd-ggate** is part of Ceph, a massively scalable, open-source,
 distributed storage system. Please refer to the Ceph documentation at
 https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)
 [ceph](../../install/clone-source.md)\(8)

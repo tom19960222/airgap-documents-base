@@ -10,7 +10,7 @@ fetched_at: 2026-08-18T01:32:45Z
 Miscellaneous copy-pastes from emails, when this gets cleaned up it
 should move out of /dev.
 
-# Overview
+## Overview
 
 PG = "placement group". When placing data in the cluster, objects are
 mapped into PGs, and those PGs are mapped onto OSDs. We use the
@@ -29,7 +29,7 @@ There are a couple of different categories of PGs; the 6 that exist
 are tied to a specific OSD. However, those aren't actually used in a
 standard Ceph configuration.
 
-# Mapping algorithm (simplified)
+## Mapping algorithm (simplified)
 
 | > How does the Object->PG mapping look like, do you map more than one object on
 | > one PG, or do you sometimes map an object to more than one PG? How about the
@@ -86,7 +86,7 @@ def crush(pg):
    return result
 ```
 
-# User-visible PG States
+## User-visible PG States
 
 .. todo:: diagram of states and how they can overlap
 
@@ -194,7 +194,7 @@ def crush(pg):
 *failed_repair*
   an attempt to repair the PG has failed.  Manual intervention is required.
 
-# OMAP STATISTICS
+## OMAP STATISTICS
 
 Omap statistics are gathered during deep scrub and displayed in the output of
 the following commands:

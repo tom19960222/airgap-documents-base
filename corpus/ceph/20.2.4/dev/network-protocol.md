@@ -11,12 +11,12 @@ This file describes the network protocol used by Ceph.  In order to understand
 the way the structures are defined it is recommended to read the introduction
 of [/dev/network-encoding](network-encoding.md) first.
 
-# Hello
+## Hello
 
 The protocol starts with a handshake that confirms that both nodes are talking
 ceph and shares some basic information.
 
-## Banner
+### Banner
 
 The first action is the server sending banner to the client.  The banner is
 defined in ``CEPH_BANNER`` from ``src/include/msgr.h``.  This is followed by
@@ -25,7 +25,7 @@ the server's then client's address each encoded as a ``entity_addr_t``.
 Once the client verifies that the servers banner matches its own it replies with
 its banner and its address.
 
-## Connect
+### Connect
 
 Once the banners have been verified and the addresses exchanged the connection
 negotiation begins.  First the client sends a ``ceph_msg_connect`` structure
@@ -48,7 +48,7 @@ struct ceph_msg_connect {
 }
 ```
 
-## Connect Reply
+### Connect Reply
 
 Once the connect has been sent the connection has effectively been opened,
 however the first message the server sends must be a connect reply message.
@@ -68,7 +68,7 @@ struct ceph_msg_connect_reply {
 }
 ```
 
-# MSGR Protocol
+## MSGR Protocol
 
 This is a low level protocol over which messages are delivered.  The messages
 at this level consist of a tag byte, identifying the type of message, followed
@@ -96,7 +96,7 @@ are listed below along with the data they include.  Note that the defined
 structures don't exist in the source and are merely for representing the
 protocol.
 
-## CEPH_MSGR_TAG_CLOSE (0x06)
+### CEPH_MSGR_TAG_CLOSE (0x06)
 
 :
 
@@ -109,7 +109,7 @@ struct ceph_msgr_close {
 
 The close message indicates that the connection is being closed.
 
-## CEPH_MSGR_TAG_MSG (0x07)
+### CEPH_MSGR_TAG_MSG (0x07)
 
 :
 
@@ -162,7 +162,7 @@ The only difference between the two is that the first are considered "public"
 while the second is for internal use only.  There is no protocol-level
 difference.
 
-## CEPH_MSGR_TAG_ACK (0x08)
+### CEPH_MSGR_TAG_ACK (0x08)
 
 :
 
@@ -173,7 +173,7 @@ struct ceph_msgr_ack {
 }
 ```
 
-## CEPH_MSGR_TAG_KEEPALIVE (0x09)
+### CEPH_MSGR_TAG_KEEPALIVE (0x09)
 
 :
 
@@ -184,7 +184,7 @@ struct ceph_msgr_keepalive {
 }
 ```
 
-## CEPH_MSGR_TAG_KEEPALIVE2 (0x0E)
+### CEPH_MSGR_TAG_KEEPALIVE2 (0x0E)
 
 :
 
@@ -195,7 +195,7 @@ struct ceph_msgr_keepalive2 {
 }
 ```
 
-## CEPH_MSGR_TAG_KEEPALIVE2_ACK (0x0F)
+### CEPH_MSGR_TAG_KEEPALIVE2_ACK (0x0F)
 
 :
 

@@ -37,7 +37,7 @@ where *S* is the amount of data stored on a single OSD undergoing repair. In the
 used the largest possible value of *d* as this will result in the smallest amount of data download needed
 to achieve recovery from an OSD failure.
 
-# Erasure-code profile examples
+## Erasure-code profile examples
 
 An example configuration that can be used to observe reduced bandwidth usage:
 
@@ -49,7 +49,7 @@ ceph osd erasure-code-profile set CLAYprofile \
 ceph osd pool create claypool erasure CLAYprofile
 ```
 
-# Creating a clay profile
+## Creating a clay profile
 
 To create a new clay code profile:
 
@@ -167,7 +167,7 @@ Where:
 :Type: String
 :Required: No.
 
-# Notion of sub-chunks
+## Notion of sub-chunks
 
 The Clay code is able to save in terms of disk IO, network bandwidth as it
 is a vector code and it is able to view and manipulate data within a chunk
@@ -182,7 +182,7 @@ of sub-chunks within a chunk that are accessed during repair is given by:
 
         repair sub-chunk count = \frac{sub---chunk \: count}{q}
 
-## Examples
+### Examples
 
 1. For a configuration with *k=4*, *m=2*, *d=5*, the sub-chunk count is
    8 and  the repair sub-chunk count is 4. Therefore, only half of a chunk is read
@@ -191,7 +191,7 @@ of sub-chunks within a chunk that are accessed during repair is given by:
    is 16. A quarter of a chunk is read from an available OSD for repair of a failed
    chunk.
 
-# How to choose a configuration given a workload
+## How to choose a configuration given a workload
 
 Only a few sub-chunks are read of all the sub-chunks within a chunk. These sub-chunks
 are not necessarily stored consecutively within a chunk. For best disk IO
@@ -208,7 +208,7 @@ For a given stripe-size (that's fixed based on a workload), choose ``k``, ``m``,
 1. For small size workloads, *k=4*, *m=2* is a good configuration that provides both network
    and disk IO benefits.
 
-# Comparisons with LRC
+## Comparisons with LRC
 
 Locally Recoverable Codes (LRC) are also designed in order to save in terms of network
 bandwidth, disk IO during single OSD recovery. However, the focus in LRCs is to keep the

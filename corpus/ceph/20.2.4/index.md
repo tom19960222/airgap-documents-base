@@ -13,7 +13,7 @@ Ceph delivers **object, block, and file storage in one unified system**.
 > [If this is your first time using Ceph, read the "Basic Workflow" page in the Ceph Developer Guide to learn how to contribute to the Ceph project. (Click anywhere in this paragraph to read the "Basic Workflow" page of the Ceph Developer Guide.)](dev/developer_guide/basic-workflow.md#basic-workflow-dev-guide).
 
 > **Note:**
-> [If you want to make a commit to the documentation but you don't know how to get started, read the "Documenting Ceph" page. (Click anywhere in this paragraph to read the "Documenting Ceph" page.)](start/documenting-ceph.md#documenting-ceph).
+> [If you want to make a commit to the documentation but you don't know how to get started, read the "Documenting Ceph" page. (Click anywhere in this paragraph to read the "Documenting Ceph" page.)](start/documenting-ceph.md#documenting_ceph).
 
 .. container:: columns-3
 

@@ -42,7 +42,7 @@ availability. For larger clusters, administrators must carefully consider their
 choice of failure domain. For example, distributing replicas across racks is
 typical for mid- to large-sized clusters.
 
-# CRUSH Location
+## CRUSH Location
 
 The location of an OSD within the CRUSH map's hierarchy is referred to as its
 ``CRUSH location``. The specification of a CRUSH location takes the form of a
@@ -86,7 +86,7 @@ where the hostname is determined by the output of the ``hostname -s`` command.
 > **Note:** If you switch from this default to an explicitly set ``crush_location``,
 > do not forget to include ``root=default`` because existing CRUSH rules refer to it.
 
-## Custom location hooks
+### Custom location hooks
 
 A custom location hook can be used to generate a more complete CRUSH location,
 on startup.
@@ -125,7 +125,7 @@ file ``/etc/rack`` (assuming it contains no spaces) might be as follows:
 echo "root=default rack=$(cat /etc/rack) host=$(hostname -s)"
 ```
 
-# CRUSH structure
+## CRUSH structure
 
 The CRUSH map consists of (1) a hierarchy that describes the physical topology
 of the cluster and (2) a set of rules that defines data placement policy. The
@@ -134,7 +134,7 @@ other physical features or groupings: hosts, racks, rows, data centers, and so
 on. The rules determine how replicas are placed in terms of that hierarchy (for
 example, 'three replicas in different racks').
 
-## Devices
+### Devices
 
 Devices are individual OSDs that store data (usually one device for each
 storage drive).  Devices are identified by an ``id`` (a non-negative integer)
@@ -145,9 +145,9 @@ example, ``hdd`` or ``ssd`` or ``nvme``), allowing them to be targeted by CRUSH
 rules. Device classes are especially useful when mixing device types within
 hosts.
 
-<a id="crush-map-default-types"></a>
+<a id="crush_map_default_types"></a>
 
-## Types and Buckets
+### Types and Buckets
 
 "Bucket", in the context of CRUSH, is a term for any of the internal nodes in
 the hierarchy: hosts, racks, rows, and so on. The CRUSH map defines a series of
@@ -205,7 +205,7 @@ the following command:
 ceph osd tree
 ```
 
-## Rules
+### Rules
 
 CRUSH rules define policy governing how data is distributed across the devices
 in the hierarchy. The rules define placement as well as replication strategies
@@ -233,9 +233,9 @@ To view the contents of the rules, run the following command:
 ceph osd crush rule dump
 ```
 
-<a id="device-classes"></a>
+<a id="device_classes"></a>
 
-## Device classes
+### Device classes
 
 Each device can optionally have a *class* assigned. By default, OSDs
 automatically set their class at startup to `hdd`, `ssd`, or `nvme` in
@@ -290,7 +290,7 @@ clusters, there is a *reclassify* tool available that can help them transition
 to device classes without triggering unwanted data movement (see
 [crush-reclassify](crush-map-edits.md#crush-reclassify)).
 
-## Weight sets
+### Weight sets
 
 A *weight set* is an alternative set of weights to use when calculating data
 placement. The normal weights associated with each device in the CRUSH map are
@@ -338,11 +338,11 @@ Although weight sets can be set up and adjusted manually, we recommend enabling
 the ``ceph-mgr`` *balancer* module to perform these tasks automatically if the
 cluster is running Luminous or a later release.
 
-# Modifying the CRUSH map
+## Modifying the CRUSH map
 
 <a id="addosd"></a>
 
-## Adding/Moving an OSD
+### Adding/Moving an OSD
 
 > **Note:** Under normal conditions, OSDs automatically add themselves to the
 > CRUSH map when they are created. The command in this section is rarely
@@ -388,7 +388,7 @@ In the following example, the command adds ``osd.0`` to the hierarchy, or moves
 ceph osd crush set osd.0 1.0 root=default datacenter=dc1 room=room1 row=foo rack=bar host=foo-bar-1
 ```
 
-## Adjusting OSD weight
+### Adjusting OSD weight
 
 > **Note:** Under normal conditions, OSDs automatically add themselves to the
 > CRUSH map with the correct weight when they are created. The command in this
@@ -417,7 +417,7 @@ For details on this command's parameters, see the following:
 
 <a id="removeosd"></a>
 
-## Removing an OSD
+### Removing an OSD
 
 > **Note:** OSDs are normally removed from the CRUSH map as a result of the
 > `ceph osd purge`` command. This command is rarely needed.
@@ -437,7 +437,7 @@ For details on the ``name`` parameter, see the following:
    :Required: Yes
    :Example: ``osd.0``
 
-## Adding a CRUSH Bucket
+### Adding a CRUSH Bucket
 
 > **Note:** Buckets are implicitly created when an OSD is added and the command
 > that creates it specifies a ``{bucket-type}={bucket-name}`` as part of the
@@ -477,7 +477,7 @@ In the following example, the command adds the ``rack12`` bucket to the hierarch
 ceph osd crush add-bucket rack12 rack
 ```
 
-## Moving a Bucket
+### Moving a Bucket
 
 To move a bucket to a different location or position in the CRUSH map
 hierarchy, run a command of the following form:
@@ -500,7 +500,7 @@ For details on this command's parameters, see the following:
    :Required: No
    :Example: ``datacenter=dc1 room=room1 row=foo rack=bar host=foo-bar-1``
 
-## Renaming a bucket
+### Renaming a bucket
 
 To rename a bucket while maintaining its position in the CRUSH map hierarchy,
 run a command of the following form:
@@ -509,7 +509,7 @@ run a command of the following form:
 ceph osd crush rename-bucket {oldname} {newname}
 ```
 
-## Removing a Bucket
+### Removing a Bucket
 
 To remove a bucket from the CRUSH hierarchy, run a command of the following
 form:
@@ -537,7 +537,7 @@ hierarchy:
 ceph osd crush remove rack12
 ```
 
-## Creating a compat weight set
+### Creating a compat weight set
 
 > **Note:** Normally this action is done automatically if needed by the
 > ``balancer`` module (provided that the module is enabled).
@@ -561,7 +561,7 @@ To destroy the compat weight set, run the following command:
 ceph osd crush weight-set rm-compat
 ```
 
-## Creating per-pool weight sets
+### Creating per-pool weight sets
 
 To create a weight set for a specific pool, run a command of the following
 form:
@@ -612,7 +612,7 @@ To remove a weight set, run a command of the following form:
 ceph osd crush weight-set rm {pool-name}
 ```
 
-## Creating a rule for a replicated pool
+### Creating a rule for a replicated pool
 
 When you create a CRUSH rule for a replicated pool, there is an important
 decision to make: selecting a failure domain. For example, if you select a
@@ -669,7 +669,7 @@ For details on this command's parameters, see the following:
    :Required: No
    :Example: ``ssd``
 
-## Creating a rule for an erasure-coded pool
+### Creating a rule for an erasure-coded pool
 
 For an erasure-coded pool, similar decisions need to be made: what the failure
 domain is, which node in the hierarchy data will be placed under (usually
@@ -730,7 +730,7 @@ ceph osd crush rule create-erasure {name} {profile-name}
    explicitly. If only the erasure-code profile is specified and the rule
    argument is omitted, then Ceph will create the CRUSH rule automatically.
 
-## CRUSH MSR Rules
+### CRUSH MSR Rules
 
 Creating an erasure-code profile with a ``crush-osds-per-failure-domain``
 value greater than one will cause a CRUSH MSR rule type to be created
@@ -743,7 +743,7 @@ steps when an out OSD is encountered.  Using MSR rules requires that
 OSDs and clients be required to support the CRUSH_MSR feature bit
 (squid or newer).
 
-## Deleting rules
+### Deleting rules
 
 To delete rules that are not in use by pools, run a command of the following
 form:
@@ -754,7 +754,7 @@ ceph osd crush rule rm {rule-name}
 
 <a id="crush-map-tunables"></a>
 
-# Tunables
+## Tunables
 
 The CRUSH algorithm that is used to calculate the placement of data has been
 improved over time. In order to support changes in behavior, we have provided
@@ -771,12 +771,12 @@ set to a newer or ``optimal`` set, the ``ceph-mon`` and ``ceph-osd`` options
 will prevent older clients that do not support the new CRUSH features from
 connecting to the cluster.
 
-## argonaut (legacy)
+### argonaut (legacy)
 
 The legacy CRUSH behavior used by Argonaut and older releases works fine for
 most clusters, provided that not many OSDs have been marked ``out``.
 
-## bobtail (CRUSH_TUNABLES2)
+### bobtail (CRUSH_TUNABLES2)
 
 The ``bobtail`` tunable profile provides the following improvements:
 
@@ -817,7 +817,7 @@ Migration impact:
    moderate amount of data movement. Use caution on a cluster that is already
    populated with data.
 
-## firefly (CRUSH_TUNABLES3)
+### firefly (CRUSH_TUNABLES3)
 
 #### chooseleaf_vary_r
 
@@ -862,7 +862,7 @@ Migration impact:
 This tunable option is notable in that it has absolutely no impact on the
 required kernel version in the client side.
 
-## hammer (CRUSH_V4)
+### hammer (CRUSH_V4)
 
 The ``hammer`` tunable profile does not affect the mapping of existing CRUSH
 maps simply by changing the profile. However:
@@ -884,7 +884,7 @@ Migration impact:
    and the more variance there is in the weights the more movement there will
    be.
 
-## jewel (CRUSH_TUNABLES5)
+### jewel (CRUSH_TUNABLES5)
 
 The ``jewel`` tunable profile improves the overall behavior of CRUSH. As a
 result, significantly fewer mappings change when an OSD is marked ``out`` of
@@ -902,32 +902,32 @@ Migration impact:
  * Changing this value on an existing cluster will result in a very large
    amount of data movement because nearly every PG mapping is likely to change.
 
-## Client versions that support CRUSH_TUNABLES2
+### Client versions that support CRUSH_TUNABLES2
 
  * v0.55 and later, including Bobtail (v0.56.x)
  * Linux kernel version v3.9 and later (for the CephFS and RBD kernel clients)
 
-## Client versions that support CRUSH_TUNABLES3
+### Client versions that support CRUSH_TUNABLES3
 
  * v0.78 (Firefly) and later
  * Linux kernel version v3.15 and later (for the CephFS and RBD kernel clients)
 
-## Client versions that support CRUSH_V4
+### Client versions that support CRUSH_V4
 
  * v0.94 (Hammer) and later
  * Linux kernel version v4.1 and later (for the CephFS and RBD kernel clients)
 
-## Client versions that support CRUSH_TUNABLES5
+### Client versions that support CRUSH_TUNABLES5
 
  * v10.0.2 (Jewel) and later
  * Linux kernel version v4.5 and later (for the CephFS and RBD kernel clients)
 
-## "Non-optimal tunables" warning
+### "Non-optimal tunables" warning
 
 In v0.74 and later versions, Ceph will raise a health check ("HEALTH_WARN crush
 map has non-optimal tunables") if any of the current CRUSH tunables have
 non-optimal values: that is, if any fail to have the optimal values from the
-[``default`` profile](crush-map.md#rados-operations-crush-map-default-profile-definition).  There are two
+[``default`` profile](crush-map.md#rados_operations_crush_map_default_profile_definition).  There are two
 different ways to silence the alert:
 
 1. Adjust the CRUSH tunables on the existing cluster so as to render them
@@ -968,7 +968,7 @@ mon_warn_on_legacy_crush_tunables = false
 ceph tell mon.\* config set mon_warn_on_legacy_crush_tunables false
 ```
 
-## Tuning CRUSH
+### Tuning CRUSH
 
 When making adjustments to CRUSH tunables, keep the following considerations in
 mind:
@@ -1001,7 +1001,7 @@ profiles:
  * ``hammer``: The values supported by the hammer release.
  * ``jewel``: The values supported by the jewel release.
  * ``optimal``: The best values for the current version of Ceph.
-<a id="rados-operations-crush-map-default-profile-definition"></a>
+<a id="rados_operations_crush_map_default_profile_definition"></a>
  * ``default``: The default values of a new cluster that has been installed
    from scratch. These values, which depend on the current version of Ceph, are
    hardcoded and are typically a mix of optimal and legacy values.  These
@@ -1020,7 +1020,7 @@ and documentation before changing the profile on a running cluster. Consider
 throttling recovery and backfill parameters in order to limit the backfill
 resulting from a specific change.
 
-# Tuning Primary OSD Selection
+## Tuning Primary OSD Selection
 
 When a Ceph client reads or writes data, it first contacts the primary OSD in
 each affected PG's acting set. By default, the first OSD in the acting set is
@@ -1041,9 +1041,9 @@ operations are served from the primary OSD of each PG. For erasure-coded pools,
 however, the speed of read operations can be increased by enabling **fast
 read** (see [pool-settings](../configuration/mon-config-ref.md#pool-settings)).
 
-<a id="rados-ops-primary-affinity"></a>
+<a id="rados_ops_primary_affinity"></a>
 
-## Primary Affinity
+### Primary Affinity
 
 **Primary affinity** is a characteristic of an OSD that governs the likelihood
 that a given OSD will be selected as the primary OSD (or "lead OSD") in a given
@@ -1089,7 +1089,7 @@ simple probability determined by relative affinity values. Nevertheless,
 measurable results can be achieved even with first-order approximations of
 desirable primary affinity values.
 
-## Custom CRUSH Rules
+### Custom CRUSH Rules
 
 Some clusters balance cost and performance by mixing SSDs and HDDs in the same
 replicated pool. By setting the primary affinity of HDD OSDs to ``0``,

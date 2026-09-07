@@ -50,7 +50,7 @@ we should plan on allowing at least a few full stripes per active
 client. Limiting the cache occupancy on a per-client basis will reduce
 the noisy neighbor problem.
 
-# Recovery and Rollback Details
+### Recovery and Rollback Details
 
 ## Implementing a Rollback-able Prepare Operation
 
@@ -188,7 +188,7 @@ removes the append only checksum and writes in whatever stripe
 checksums actually got written.  The next deep scrub then writes
 out the full checksum omap entries.
 
-# RADOS Client Acknowledgement Generation Optimization
+### RADOS Client Acknowledgement Generation Optimization
 
 Now that the recovery scheme is understood, we can discuss the
 generation of the RADOS operation acknowledgement (ACK) by the
@@ -202,7 +202,7 @@ the data, Thus after writing W + M chunks you can afford the lost of M
 chunks. Hence the primary can generate the RADOS ACK after W+M-M => W
 of those prepare operations are completed.
 
-# Inconsistent object_info_t versions
+### Inconsistent object_info_t versions
 
 A natural consequence of only writing the blocks which actually
 changed is that we don't want to update the object_info_t of the
@@ -304,7 +304,7 @@ consistency of the gathered version vectors -- probably by just
 taking 3 random valid subsets and verifying that they generate
 the same authoritative version vector.
 
-# Implementation Strategy
+### Implementation Strategy
 
 It goes without saying that it would be unwise to attempt to do all of
 this in one massive PR.  It's also not a good idea to merge code which
@@ -370,7 +370,7 @@ me can't be productively tested (and therefore implemented) until the
 above are complete, so best to get all of the supporting code in
 first.
 
-# Open Questions
+### Open Questions
 
 Is there a code we should be using that would let us compute a parity
 delta without rereading and reencoding the full stripe?  If so, is it

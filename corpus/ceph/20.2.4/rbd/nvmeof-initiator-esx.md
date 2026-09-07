@@ -1,20 +1,20 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "Prerequisites"
+title: "NVMe/TCP Initiator for VMware ESX"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rbd/nvmeof-initiator-esx.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-## NVMe/TCP Initiator for VMware ESX
+# NVMe/TCP Initiator for VMware ESX
 
-# Prerequisites
+## Prerequisites
 
 - A VMware ESXi host running VMware vSphere Hypervisor (ESXi) 7.0U3 version or later.
 - Deployed Ceph NVMe-oF gateway.
 - Ceph cluster with NVMe-oF configuration.
 - Subsystem defined in the gateway.
 
-# Configuration
+## Configuration
 
 The following instructions will use the default vSphere web client and esxcli.
 

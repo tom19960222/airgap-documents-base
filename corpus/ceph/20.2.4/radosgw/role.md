@@ -27,7 +27,7 @@ To create a role, run a command of the following form:
 radosgw-admin role create --role-name={role-name} [--path=="{path to the role}"] [--assume-role-policy-doc={trust-policy-document}]
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -71,7 +71,7 @@ To delete a role, run a command of the following form:
 radosgw-admin role delete --role-name={role-name}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -95,7 +95,7 @@ To get information about a role, run a command of the following form:
 radosgw-admin role get --role-name={role-name}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -128,7 +128,7 @@ To list roles with a specified path prefix, run a command of the following form:
 radosgw-admin role list [--path-prefix ={path prefix}]
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``path-prefix``
 
@@ -164,7 +164,7 @@ To modify a role's assume role policy document, execute the following:
 radosgw-admin role-trust-policy modify --role-name={role-name} --assume-role-policy-doc={trust-policy-document}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -204,7 +204,7 @@ To add or update the inline policy attached to a role, execute the following:
 radosgw-admin role policy put --role-name={role-name} --policy-name={policy-name} --policy-doc={permission-policy-doc}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -243,7 +243,7 @@ To list the names of permission policies attached to a role, execute the followi
 radosgw-admin role policy get --role-name={role-name}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -270,7 +270,7 @@ To get a specific permission policy attached to a role, execute the following:
 radosgw-admin role policy get --role-name={role-name} --policy-name={policy-name}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -302,7 +302,7 @@ To delete permission policy attached to a role, execute the following:
 radosgw-admin role policy delete --role-name={role-name} --policy-name={policy-name}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -328,7 +328,7 @@ To update a role's max-session-duration, execute the following:
 radosgw-admin role update --role-name={role-name} --max-session-duration={max-session-duration}
 ```
 
-#### Request Parameters
+### Request Parameters
 
 ``role-name``
 
@@ -348,7 +348,7 @@ radosgw-admin role update --role-name=S3Access1 --max-session-duration=43200
 
 Note: This command currently can only be used to update max-session-duration.
 
-# REST APIs for Manipulating a Role
+#### REST APIs for Manipulating a Role
 
 In addition to the above radosgw-admin commands, the following REST APIs can be used for manipulating a role. For the request parameters and their explanations, refer to the sections above.
 

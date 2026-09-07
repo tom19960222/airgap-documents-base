@@ -13,7 +13,7 @@ This module provides a command line interface (CLI) for orchestrator modules.
 Orchestrator modules are ``ceph-mgr`` plugins that interface with external
 orchestration services.
 
-# Definition of Terms
+## Definition of Terms
 
 The orchestrator CLI unifies multiple external orchestrators, so we need a
 common nomenclature for the orchestrator module:
@@ -33,7 +33,7 @@ Here is how the names relate:
 > Orchestrator modules might implement only a subset of the commands listed
 > below. The implementation of the commands may differ between modules.
 
-# Status
+## Status
 
 ```bash
 ceph orch status [--detail]
@@ -73,7 +73,7 @@ ceph orch device fault-off <dev_id> <host> [--force=true]
 
 <a id="orchestrator-cli-stateless-services"></a>
 
-# Stateless services (MDS/RGW/NFS/rbd-mirror/iSCSI)
+## Stateless services (MDS/RGW/NFS/rbd-mirror/iSCSI)
 
 > **Note:**
 > The orchestrator will not configure the services. See the relevant
@@ -106,7 +106,7 @@ ceph orch <start|stop|restart|redeploy|reconfig> <service_name>
 
 > **Note:** These commands apply only to cephadm containerized daemons.
 
-# Options
+## Options
 
 .. option:: start
 
@@ -132,7 +132,7 @@ ceph orch <start|stop|restart|redeploy|reconfig> <service_name>
 
    .. note:: this command assumes the daemon directory ``/var/lib/ceph/<fsid>/<daemon-name>`` already exists.
 
-# Configuring the Orchestrator CLI
+## Configuring the Orchestrator CLI
 
 Enable the orchestrator by using the ``set backend`` command to select the orchestrator module that will be used:
 
@@ -140,7 +140,7 @@ Enable the orchestrator by using the ``set backend`` command to select the orche
 ceph orch set backend <module>
 ```
 
-## Example - Configuring the Orchestrator CLI
+### Example - Configuring the Orchestrator CLI
 
 For example, to enable the Rook orchestrator module and use it with the CLI:
 
@@ -155,7 +155,7 @@ Confirm that the backend is properly configured:
 ceph orch status
 ```
 
-## Disable the Orchestrator
+### Disable the Orchestrator
 
 To disable the orchestrator, use the empty string ``""``:
 
@@ -164,7 +164,7 @@ ceph orch set backend ""
 ceph mgr module disable rook
 ```
 
-# Current Implementation Status
+## Current Implementation Status
 
 This is an overview of the current implementation status of the orchestrators.
 

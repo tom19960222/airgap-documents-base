@@ -1,13 +1,13 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "intro"
+title: "Overview"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/ceph-volume/intro.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
 <a id="ceph-volume-overview"></a>
 
-## Overview
+# Overview
 The ``ceph-volume`` tool aims to be a single purpose command line tool to deploy
 logical volumes as OSDs, trying to maintain a similar API to ``ceph-disk`` when
 preparing, activating, and creating OSDs.
@@ -19,7 +19,7 @@ them.
 
 <a id="ceph-disk-replaced"></a>
 
-## Replacing ``ceph-disk``
+# Replacing ``ceph-disk``
 The ``ceph-disk`` tool was created at a time when the project was required to
 support many different types of init systems (upstart, sysvinit, etc...) while
 being able to discover devices. This caused the tool to concentrate initially
@@ -45,7 +45,7 @@ that it couldn't work with other technologies like LVM, or similar device
 mapper devices. It was ultimately decided to create something modular, starting
 with LVM support, and the ability to expand on other technologies as needed.
 
-## GPT partitions are simple?
+# GPT partitions are simple?
 Although partitions in general are simple to reason about, ``ceph-disk``
 partitions were not simple by any means. It required a tremendous amount of
 special flags in order to get them to work correctly with the device discovery
@@ -66,7 +66,7 @@ partition being created:
 /sbin/sgdisk --new=5:0:+10M --change-name=5:ceph lockbox --partition-guid=5:None --typecode=5:fb3aabf9-d25f-47cc-bf5e-721d181642be --mbrtogpt -- /dev/sdad
 ```
 
-## Modularity
+# Modularity
 ``ceph-volume`` was designed to be a modular tool because we anticipate that
 there are going to be lots of ways that people provision the hardware devices
 that we need to consider. There are already two: legacy ceph-disk devices that
@@ -75,12 +75,12 @@ and lvm. SPDK devices where we manage NVMe devices directly from userspace are
 on the immediate horizon, where LVM won't work there since the kernel isn't
 involved at all.
 
-## ``ceph-volume lvm``
+# ``ceph-volume lvm``
 By making use of LVM tags, the [ceph-volume-lvm](lvm/index.md#ceph-volume-lvm) sub-command is
 able to store and later re-discover and query devices associated with OSDs so
 that they can later be activated.
 
-## LVM performance penalty
+# LVM performance penalty
 In short: we haven't been able to notice any significant performance penalties
 associated with the change to LVM. By being able to work closely with LVM, the
 ability to work with other device mapper technologies was a given: there is no

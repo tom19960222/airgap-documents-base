@@ -139,7 +139,7 @@ To apply changes from the allowlist to all RGWs:
 ```
 
 ## Context Free Functions
-#### Debug Log
+### Debug Log
 The ``RGWDebugLog()`` function accepts a string and prints it to the debug log with priority 20.
 Each log message is prefixed ``Lua INFO:``. This function has no return value.
 
@@ -238,10 +238,10 @@ Each log message is prefixed ``Lua INFO:``. This function has no return value.
 | ``Request.Trace.Enable`` | boolean | tracing is enabled | no | yes | no |
 
 ## Request Functions
-#### Operations Log
+### Operations Log
 The ``Request.Log()`` function prints the requests into the operations log. This function has no parameters. It returns 0 for success and an error code if it fails.
 
-#### Tracing
+### Tracing
 Tracing functions can be used only in the ``postrequest`` context.
 
 - ``Request.Trace.SetAttribute(<key>, <value>)`` - sets the attribute for the request's trace.
@@ -254,15 +254,15 @@ Tracing functions can be used only in the ``postrequest`` context.
   An event's attributes must be a table of strings.
 
 ## Request Blocking and Error Handling
-#### Script Execution Errors
+### Script Execution Errors
 If the Lua script fails with a syntax or runtime error, RGW will log the error. The request that triggered the script will still go through.
 
-#### Request Blocking and Return Values
+### Request Blocking and Return Values
 The script's return value determines how RGW proceeds with the request:
 - To block the request: The script must return the value ``RGW_ABORT_REQUEST``. RGW interprets this as ``-EPERM`` and will stop processing the request.
 - To continue the request: No return value, or any other return value or type will be treated as success.
 
-#### Return Value Context
+### Return Value Context
 The Lua script’s return value is evaluated only during the prerequest context and is ignored in any other RGW request-processing context.
 The HTTP response status code is 403 (Forbidden) by default when a request is blocked by Lua. The response code can be changed using ``Request.Response.HTTPStatusCode`` and ``Request.Response.HTTPStatus``.
 If a request is aborted this way, the ``data`` and ``postrequest`` context will also be aborted.
@@ -284,7 +284,7 @@ during execution so that it may be read and used later during other executions, 
 A Lua script will abort with an error if the number of entries or entry size exceeds these limits.
 - The ``RGW`` Lua table uses string indices and can store values of type: string, integer, double and boolean
 
-#### Increment/Decrement Functions
+### Increment/Decrement Functions
 Since entries in the ``RGW`` table could be accessed from multiple places at the same time we need a way
 to atomically increment and decrement numeric values in it. For that the following functions should be used:
 - ``RGW.increment(<key>, [value])`` would increment the value of ``key`` by ``value`` if value is provided or by 1 if not

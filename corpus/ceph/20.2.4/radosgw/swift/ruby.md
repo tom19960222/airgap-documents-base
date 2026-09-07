@@ -5,11 +5,11 @@ title: "Ruby Swift Examples"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/swift/ruby.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="ruby-swift"></a>
+<a id="ruby_swift"></a>
 
 # Ruby Swift Examples
 
-# Create a Connection
+## Create a Connection
 
 This creates a connection so that you can interact with the server:
 
@@ -25,7 +25,7 @@ conn = CloudFiles::Connection.new(
 )
 ```
 
-# Create a Container
+## Create a Container
 
 This creates a new container called ``my-new-container``
 
@@ -33,7 +33,7 @@ This creates a new container called ``my-new-container``
 container = conn.create_container('my-new-container')
 ```
 
-# Create an Object
+## Create an Object
 
 This creates a file ``hello.txt`` from the file named ``my_hello.txt``
 
@@ -43,7 +43,7 @@ obj.load_from_filename('./my_hello.txt')
 obj.content_type = 'text/plain'
 ```
 
-# List Owned Containers
+## List Owned Containers
 
 This gets a list of Containers that you own, and also prints out
 the container name:
@@ -62,7 +62,7 @@ mahbuckat2
 mahbuckat3
 ```
 
-# List a Container's Contents
+## List a Container's Contents
 
 This gets a list of objects in the container, and prints out each
 object's name, the file size, and last modified date:
@@ -82,7 +82,7 @@ myphoto1.jpg 251262  2011-08-08T21:35:48.000Z
 myphoto2.jpg 262518  2011-08-08T21:38:01.000Z
 ```
 
-# Retrieve an Object
+## Retrieve an Object
 
 This downloads the object ``hello.txt`` and saves it in
 ``./my_hello.txt``:
@@ -92,7 +92,7 @@ obj = container.object('hello.txt')
 obj.save_to_filename('./my_hello.txt')
 ```
 
-# Delete an Object
+## Delete an Object
 
 This deletes the object ``goodbye.txt``:
 
@@ -100,7 +100,7 @@ This deletes the object ``goodbye.txt``:
 container.delete_object('goodbye.txt')
 ```
 
-# Delete a Container
+## Delete a Container
 
 > **Note:**
 > The container must be empty! Otherwise the request won't work!

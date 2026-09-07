@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. index:: Ceph Block Device; Persistent Read-only Cache
 
-# Shared, Read-only Parent Image Cache
+## Shared, Read-only Parent Image Cache
 
 [Cloned RBD images](rbd-snapshot.md#layering) usually modify only a small fraction of the parent
 image. For example, in a VDI use-case, VMs are cloned from the same
@@ -37,7 +37,7 @@ will be serviced from the local cache.
    |      OSDs/Mons    | |     local cached parent image    |
    +-------------------+ +----------------------------------+
 
-## Enable RBD Shared Read-only Parent Image Cache
+### Enable RBD Shared Read-only Parent Image Cache
 
 To enable RBD shared read-only parent image cache, the following Ceph settings
 need to added in the ``[client]`` [section](../rados/configuration/ceph-conf.md#configuration-sections) of your ``ceph.conf`` file:
@@ -47,9 +47,9 @@ rbd parent cache enabled = true
 rbd plugins = parent_cache
 ```
 
-# Immutable Object Cache Daemon
+## Immutable Object Cache Daemon
 
-## Introduction and Generic Settings
+### Introduction and Generic Settings
 
 The ``ceph-immutable-object-cache`` daemon is responsible for caching parent
 image content within its local caching directory. Using SSDs as the underlying
@@ -116,7 +116,7 @@ The ``ceph-immutable-object-cache`` daemon is available within the optional
 > **Important:** ``ceph-immutable-object-cache`` daemon requires the ability to
 > connect RADOS clusters.
 
-## Running the Immutable Object Cache Daemon
+### Running the Immutable Object Cache Daemon
 
 ``ceph-immutable-object-cache`` daemon should use a unique Ceph user ID.
 To [create a Ceph user](../rados/operations/user-management.md#add-a-user), with ``ceph`` specify the ``auth get-or-create``
@@ -139,7 +139,7 @@ The ``ceph-immutable-object-cache`` can also be run in foreground by ``ceph-immu
 ceph-immutable-object-cache -f --log-file={log_path}
 ```
 
-## QOS Settings
+### QOS Settings
 
 The immutable object cache supports throttling, controlled by the following settings:
 

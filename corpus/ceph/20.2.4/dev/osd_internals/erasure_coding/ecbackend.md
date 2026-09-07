@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # ECBackend Implementation Strategy
 
-# Miscellaneous initial design notes
+## Miscellaneous initial design notes
 
 The initial (and still true for EC pools without the hacky EC
 overwrites debug flag enabled) design for EC pools restricted
@@ -29,7 +29,7 @@ Log entries contain a structure explaining how to locally undo the
 operation represented by the operation
 (see osd_types.h:TransactionInfo::LocalRollBack).
 
-## PGTemp and Crush
+### PGTemp and Crush
 
 Primaries are able to request a temp acting set mapping in order to
 allow an up-to-date OSD to serve requests while a new primary is
@@ -48,7 +48,7 @@ Core Changes:
   and that all elements of acting are valid.  This needs to be cleaned
   up since the acting set may contain holes.
 
-## Distinguished acting set positions
+### Distinguished acting set positions
 
 With the replicated strategy, all replicas of a PG are
 interchangeable.  With erasure coding, different positions in the
@@ -77,12 +77,12 @@ Core changes:
   chunk should get the message since the OSD may contain both a
   primary and non-primary chunk for the same PG
 
-## Object Classes
+### Object Classes
 
 Reads from object classes will return ENOTSUP on EC pools by invoking
 a special SYNC read.
 
-## Scrub
+### Scrub
 
 The main catch, however, for EC pools is that sending a crc32 of the
 stored chunk on a replica isn't particularly helpful since the chunks
@@ -96,7 +96,7 @@ then reports to the primary whether the checksums match.
 With overwrites, all scrubs are disabled for now until we work out
 what to do (see doc/dev/osd_internals/erasure_coding/proposals.rst).
 
-## Crush
+### Crush
 
 If crush is unable to generate a replacement for a down member of an
 acting set, the acting set should have a hole at that position rather
@@ -104,7 +104,7 @@ than shifting the other elements of the acting set out of position.
 
 # ECBackend
 
-# MAIN OPERATION OVERVIEW
+## MAIN OPERATION OVERVIEW
 
 A RADOS put operation can span
 multiple stripes of a single object. There must be code that
@@ -123,7 +123,7 @@ parity-generation algorithm.
 (1) Whole stripe is written/overwritten
 (2) A read-modify-write operation is performed.
 
-## WHOLE STRIPE WRITE
+### WHOLE STRIPE WRITE
 
 This is a simple case, and is already performed in the existing code
 (for appends, that is). The primary receives all of the data for the
@@ -131,7 +131,7 @@ stripe in the RADOS request, computes the appropriate parity blocks
 and send the data and parity blocks to their destination shards which
 write them. This is essentially the current EC code.
 
-## READ-MODIFY-WRITE
+### READ-MODIFY-WRITE
 
 The primary determines which of the K-W blocks are to be unmodified,
 and reads them from the shards. Once all of the data is received it is
@@ -139,7 +139,7 @@ combined with the received new data and new parity blocks are
 computed. The modified blocks are sent to their respective shards and
 written. The RADOS operation is acknowledged.
 
-## OSD Object Write and Consistency
+### OSD Object Write and Consistency
 
 Regardless of the algorithm chosen above, writing of the data is a two-
 phase process: commit and rollforward. The primary sends the log
@@ -165,7 +165,7 @@ when we arrive at the waiting_rollforward queue, we start a dummy
 write to move things along (see the Pipeline section later on and
 ECBackend::try_finish_rmw).
 
-## ExtentCache
+### ExtentCache
 
 It's pretty important to be able to pipeline writes on the same
 object.  For this reason, there is a cache of extents written by
@@ -178,7 +178,7 @@ See ExtentCache.h for a detailed explanation of how the cache
 states correspond to the higher level invariants about the conditions
 under which concurrent operations can refer to the same object.
 
-## Pipeline
+### Pipeline
 
 Reading src/osd/ExtentCache.h should have given a good idea of how
 operations might overlap.  There are several states involved in

@@ -1,11 +1,11 @@
 ---
 collection: ceph
 version: "20.2.4"
-title: "iscsi-initiator-linux"
+title: "iSCSI Initiator for Linux"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/rbd/iscsi-initiator-linux.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-## iSCSI Initiator for Linux
+# iSCSI Initiator for Linux
 
 **Prerequisite:**
 

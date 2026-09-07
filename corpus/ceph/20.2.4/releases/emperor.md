@@ -9,9 +9,9 @@ fetched_at: 2026-08-18T01:32:45Z
 
 Emperor is the 5th stable release of Ceph.  It is named after the emperor squid.
 
-# v0.72.3 Emperor (pending release)
+## v0.72.3 Emperor (pending release)
 
-## Upgrading
+### Upgrading
 
 * Monitor 'auth' read-only commands now expect the user to have 'rx' caps.
   This is the same behavior that was present in dumpling, but in emperor
@@ -27,14 +27,14 @@ ceph auth print-key
 ceph auth list
 ```
 
-# v0.72.2 Emperor
+## v0.72.2 Emperor
 
 This is the second bugfix release for the v0.72.x Emperor series.  We
 have fixed a hang in radosgw, and fixed (again) a problem with monitor
 CLI compatibility with mixed version monitors.  (In the future this
 will no longer be a problem.)
 
-## Upgrading
+### Upgrading
 
 * The JSON schema for the 'osd pool set ...' command changed slightly.  Please
   avoid issuing this particular command via the CLI while there is a mix of
@@ -45,7 +45,7 @@ will no longer be a problem.)
   'hashpspool' flag is set/unset: instead of 'true' or 'false', it now
   must be '0' or '1'.
 
-## Changes
+### Changes
 
 * mon: 'osd pool set ...' syntax change
 * osd: added test for missing on-disk HEAD object
@@ -58,16 +58,16 @@ will no longer be a problem.)
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.72.2.txt -->.
 
-# v0.72.1 Emperor
+## v0.72.1 Emperor
 
-## Important Note
+### Important Note
 
 When you are upgrading from Dumpling to Emperor, do not run any of the
 "ceph osd pool set" commands while your monitors are running separate versions.
 Doing so could result in inadvertently changing cluster configuration settings
 that exhaust compute resources in your OSDs.
 
-## Changes
+### Changes
 
 * osd: fix upgrade bug #6761
 * ceph_filestore_tool: introduced tool to repair errors caused by #6761
@@ -102,7 +102,7 @@ ceph_filestore_tool --fix-lost-objects=true --list-lost-objects=true --filestore
 Note, the ceph_filestore_tool performs a scan of all objects on the
 osd and may take some time.
 
-# v0.72 Emperor
+## v0.72 Emperor
 
 This is the fifth major release of Ceph, the fourth since adopting a
 3-month development cycle.  This release brings several new features,
@@ -110,14 +110,14 @@ including multi-datacenter replication for the radosgw, improved
 usability, and lands a lot of incremental performance and internal
 refactoring work to support upcoming features in Firefly.
 
-## Important Note
+### Important Note
 
 When you are upgrading from Dumpling to Emperor, do not run any of the
 "ceph osd pool set" commands while your monitors are running separate versions.
 Doing so could result in inadvertently changing cluster configuration settings
 that exhaust compute resources in your OSDs.
 
-## Highlights
+### Highlights
 
 * common: improved crc32c performance
 * librados: new example client and class code
@@ -139,7 +139,7 @@ Coincident with core Ceph, the Emperor release also brings:
 
 Packages for both are available on ceph.com.
 
-## Upgrade sequencing
+### Upgrade sequencing
 
 There are no specific upgrade restrictions on the order or sequence of
 upgrading from 0.67.x Dumpling. However, you cannot run any of the
@@ -162,7 +162,7 @@ restrictions for Cuttlefish to Dumpling.)
    This can happen one daemon or host at a time.
 1. Upgrade radosgw (upgrade radosgw package, restart radosgw daemons).
 
-## Upgrading from v0.71
+### Upgrading from v0.71
 
 * ceph-fuse and radosgw now use the same default values for the admin
   socket and log file paths that the other daemons (ceph-osd,
@@ -170,7 +170,7 @@ restrictions for Cuttlefish to Dumpling.)
   need to adjust your ceph.conf to disable these options or to adjust
   the permissions on /var/run/ceph and /var/log/ceph.
 
-## Upgrading from v0.67 Dumpling
+### Upgrading from v0.67 Dumpling
 
 * ceph-fuse and radosgw now use the same default values for the admin
   socket and log file paths that the other daemons (ceph-osd,
@@ -230,7 +230,7 @@ restrictions for Cuttlefish to Dumpling.)
   the get_version() method should modify their code to avoid getting a
   value that is truncated from 64 to to 32 bits.
 
-## Notable Changes since v0.71
+### Notable Changes since v0.71
 
 * build: fix [/usr]/sbin locations (Alan Somers)
 * ceph-fuse, radosgw: enable admin socket and logging by default
@@ -255,7 +255,7 @@ restrictions for Cuttlefish to Dumpling.)
 * rgw: per-bucket quota (Yehuda Sadeh)
 * rpm: fix junit dependencies (Alan Grosskurth)
 
-## Notable Changes since v0.67 Dumpling
+### Notable Changes since v0.67 Dumpling
 
 * build cleanly under clang (Christophe Courtaut)
 * build: Makefile refactor (Roald J. van Loon)
@@ -388,14 +388,14 @@ restrictions for Cuttlefish to Dumpling.)
 * sysvinit: add condrestart command (Dan van der Ster)
 * sysvinit: fix shutdown order (mons last) (Alfredo Deza)
 
-# v0.71
+## v0.71
 
 This development release includes a significant amount of new code and
 refactoring, as well as a lot of preliminary functionality that will be needed
 for erasure coding and tiering support.  There are also several significant
 patch sets improving this with the MDS.
 
-## Upgrading
+### Upgrading
 
 * The MDS now disallows snapshots by default as they are not
   considered stable.  The command 'ceph mds set allow_snaps' will
@@ -418,7 +418,7 @@ patch sets improving this with the MDS.
   lower-case k to match the official SI convention.  Any scripts that
   parse output and check for an upper-case K will need to be modified.
 
-## Notable Changes
+### Notable Changes
 
 * build: Makefile refactor (Roald J. van Loon)
 * ceph-disk: fix journal preallocation
@@ -461,9 +461,9 @@ patch sets improving this with the MDS.
 * rgw: fix acl group check (Yehuda Sadeh)
 * sysvinit: fix shutdown order (mons last) (Alfredo Deza)
 
-# v0.70
+## v0.70
 
-## Upgrading
+### Upgrading
 
 * librados::Rados::pool_create_async() and librados::Rados::pool_delete_async()
   don't drop a reference to the completion object on error, caller needs to take
@@ -475,7 +475,7 @@ patch sets improving this with the MDS.
   however continue to work just the same as long as the osd already exists
   in the crush map.
 
-## Notable Changes
+### Notable Changes
 
 * mon: a few 'ceph mon add' races fixed (command is now idempotent) (Joao Luis)
 * crush: fix name caching
@@ -488,9 +488,9 @@ patch sets improving this with the MDS.
 * mds: fix heap profiler commands (Joao Luis)
 * rgw: fix inefficient use of std::list::size() (Yehuda Sadeh)
 
-# v0.69
+## v0.69
 
-## Upgrading
+### Upgrading
 
 * The sysvinit /etc/init.d/ceph script will, by default, update the
   CRUSH location of an OSD when it starts.  Previously, if the
@@ -530,7 +530,7 @@ patch sets improving this with the MDS.
   the get_version() method should modify their code to avoid getting a
   value that is truncated from 64 to to 32 bits.
 
-## Notable Changes
+### Notable Changes
 
 * build cleanly under clang (Christophe Courtaut)
 * common: migrate SharedPtrRegistry to use boost::shared_ptr<> (Loic Dachary)
@@ -562,9 +562,9 @@ patch sets improving this with the MDS.
 * sysvinit radosgw: fix status return code (Danny Al-Gaaf)
 * sysvinit rbdmap: fix error 'service rbdmap stop' (Laurent Barbe)
 
-# v0.68
+## v0.68
 
-## Upgrading
+### Upgrading
 
 * 'ceph osd crush set <id> <weight> <loc..>' no longer adds the osd to the
   specified location, as that's a job for 'ceph osd crush add'.  It will
@@ -592,7 +592,7 @@ patch sets improving this with the MDS.
   the get_version() method should modify their code to avoid getting a
   value that is truncated from 64 to to 32 bits.
 
-## Notable Changes
+### Notable Changes
 
 * ceph-fuse: fix problem with readahead vs truncate race (Yan, Zheng)
 * ceph-post-file: new command to easily share logs or other files with ceph devs

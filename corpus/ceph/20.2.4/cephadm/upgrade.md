@@ -34,23 +34,23 @@ The automated upgrade process follows Ceph best practices.  For example:
 > change PG autoscaler behavior by e.g. changing the default value
 > of mon_target_pg_per_osd.
 >
-> .. prompt:: bash #
->
->   ceph osd pool set noautoscale
->   # Perform the upgrade
->   ceph osd pool unset noautoscale
+> ```bash
+> ceph osd pool set noautoscale
+> # Perform the upgrade
+> ceph osd pool unset noautoscale
+> ```
 >
 > When pausing autoscaler activity in this fashion, the existing values for
 > each pool's mode, ``off``, ``on``, or ``warn``, are expected to remain.
 > If the new release changes the above target value, there may be splitting
 > or merging of PGs when unsetting after the upgrade.
 
-# Starting the upgrade
+## Starting the upgrade
 
 > **Note:**
-> .. note::
->    [Staggered Upgrade](upgrade.md#staggered-upgrade) of the Monitors and Managers may be necessary to use
->    the below CephFS upgrade feature.
+> > **Note:**
+> > [Staggered Upgrade](upgrade.md#staggered-upgrade) of the Monitors and Managers may be necessary to use
+> > the below CephFS upgrade feature.
 >
 > Cephadm by default reduces ``max_mds`` to ``1``. This can be disruptive for large
 > scale CephFS deployments because the cluster cannot quickly reduce active MDS(s)
@@ -59,9 +59,9 @@ The automated upgrade process follows Ceph best practices.  For example:
 > the ``fail_fs`` option can to be set to ``true`` (default value is ``false``) prior
 > to initiating the upgrade:
 >
-> .. prompt:: bash #
->
->    ceph config set mgr mgr/orchestrator/fail_fs true
+> ```bash
+> ceph config set mgr mgr/orchestrator/fail_fs true
+> ```
 >
 > This would:
 >             1. Fail CephFS filesystems, bringing active MDS daemon(s) to
@@ -97,7 +97,7 @@ ceph orch upgrade start --ceph-version 16.2.6
 ceph orch upgrade start --image quay.io/ceph/ceph:v16.2.6
 ```
 
-# Monitoring the upgrade
+## Monitoring the upgrade
 
 Determine (1) whether an upgrade is in progress and (2) which version the
 cluster is upgrading to by running the following command:
@@ -106,7 +106,7 @@ cluster is upgrading to by running the following command:
 ceph orch upgrade status
 ```
 
-## Watching the progress bar during a Ceph upgrade
+### Watching the progress bar during a Ceph upgrade
 
 During the upgrade, a progress bar is visible in the ceph status output. It
 looks like this:
@@ -120,7 +120,7 @@ looks like this:
       [=======.....................] (time remaining: 01h 43m 31s)
 ```
 
-## Watching the cephadm log during an upgrade
+### Watching the cephadm log during an upgrade
 
 Watch the cephadm log by running the following command:
 
@@ -128,7 +128,7 @@ Watch the cephadm log by running the following command:
 ceph -W cephadm
 ```
 
-# Canceling an upgrade
+## Canceling an upgrade
 
 You can stop the upgrade process at any time by running the following command:
 
@@ -136,15 +136,15 @@ You can stop the upgrade process at any time by running the following command:
 ceph orch upgrade stop
 ```
 
-# Post upgrade actions
+## Post upgrade actions
 
 In case the new version is based on ``cephadm``, once done with the upgrade the user
 has to update the ``cephadm`` package (or ceph-common package in case the user
 doesn't use ``cephadm shell``) to a version compatible with the new version.
 
-# Potential problems
+## Potential problems
 
-## Error: ENOENT: Module not found
+### Error: ENOENT: Module not found
 
 The message ``Error ENOENT: Module not found`` appears in response to the command ``ceph orch upgrade status`` if the orchestrator has crashed:
 
@@ -162,7 +162,7 @@ This is possibly caused by invalid JSON in a mgr config-key.
 See [Redmine tracker Issue #67329](https://tracker.ceph.com/issues/67329)
 and [this discussion on the ceph-users mailing list](https://www.spinics.net/lists/ceph-users/msg83667.html).
 
-## UPGRADE_NO_STANDBY_MGR
+### UPGRADE_NO_STANDBY_MGR
 
 This alert (``UPGRADE_NO_STANDBY_MGR``) means that Ceph does not detect an
 active standby Manager daemon. In order to proceed with the upgrade, Ceph
@@ -190,7 +190,7 @@ following command:
 ceph orch daemon restart <name>
 ```
 
-## UPGRADE_FAILED_PULL
+### UPGRADE_FAILED_PULL
 
 This alert (``UPGRADE_FAILED_PULL``) means that Ceph was unable to pull the
 container image for the target version. This can happen if you specify a
@@ -205,7 +205,7 @@ ceph orch upgrade stop
 ceph orch upgrade start --ceph-version <version>
 ```
 
-# Using customized container images
+## Using customized container images
 
 For most users, upgrading requires nothing more complicated than specifying the
 Ceph version to which to upgrade.  In such cases, cephadm locates the specific
@@ -222,7 +222,7 @@ ceph orch upgrade start --image quay.ceph.io/ceph-ci/ceph:recent-git-branch-name
 
 For more information about available container images, see [containers](../install/containers.md#containers).
 
-# Staggered Upgrade
+## Staggered Upgrade
 
 Some users may prefer to upgrade components in phases rather than all at once.
 The upgrade command, starting in 16.2.11 and 17.2.1 allows parameters
@@ -271,7 +271,7 @@ ceph orch upgrade start --image <image-name> --services rgw.example1,rgw.example
 > than expected. Note that the versions of monitoring stack daemons may not change between
 > Ceph releases, in which case they are only redeployed.
 
-## Upgrading to a version that supports staggered upgrade from one that doesn't
+### Upgrading to a version that supports staggered upgrade from one that doesn't
 
 While upgrading from a version that already supports staggered upgrades the process
 simply requires providing the necessary arguments. However, if you wish to upgrade
@@ -313,7 +313,7 @@ ceph orch upgrade start --image <new-image-name> --daemon-types mgr
 You should now have all your Manager daemons on the new version and be able to
 specify the limiting parameters for the rest of the upgrade.
 
-# Updating a non-Ceph image service with custom image
+## Updating a non-Ceph image service with custom image
 
 To update a non-Ceph image service, run a command of the following form:
 

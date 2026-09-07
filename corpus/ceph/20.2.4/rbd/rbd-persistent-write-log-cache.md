@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. index:: Ceph Block Device; Persistent Write Log Cache
 
-# Persistent Write Log Cache
+## Persistent Write Log Cache
 
 The Persistent Write Log Cache (PWL) provides a persistent, fault-tolerant
 write-back cache for librbd-based RBD clients.
@@ -24,7 +24,7 @@ mode is called ``replica write log (rwl)``. At present, only local cache is
 supported, and the replica function is under development. For SSD, the cache
 mode is called ``ssd``.
 
-# Usage
+## Usage
 
 The PWL cache manages the cache data in a persistent device. It looks for and
 creates cache files in a configured directory, and then caches data in the
@@ -43,7 +43,7 @@ The data is persisted to the cache device when a flush request is received.
 Initially it defaults to the persistent-on-write mode and it switches to
 persistent-on-flush mode after the first flush request is received.
 
-# Enable Cache
+## Enable Cache
 
 To enable the PWL cache, set the following configuration settings:
 
@@ -74,7 +74,7 @@ set per-host, add the overrides to the appropriate [section](../rados/configurat
 ``ceph.conf`` file. To set per-pool, per-image, etc, please refer to the
 ``rbd config`` [commands](../man/8/rbd.md#commands).
 
-## Cache Status
+### Cache Status
 
 The PWL cache is enabled when the exclusive lock is acquired,
 and it is closed when the exclusive lock is released. To check the cache status,
@@ -111,7 +111,7 @@ Persistent cache state:
         miss_bytes: 97 MiB
 ```
 
-## Flush Cache
+### Flush Cache
 
 To flush a cache file with ``rbd``, specify the ``persistent-cache flush``
 command, the pool name and the image name.  :
@@ -129,7 +129,7 @@ For example:
 $ rbd persistent-cache flush rbd/foo
 ```
 
-## Invalidate Cache
+### Invalidate Cache
 
 To invalidate (discard) a cache file with ``rbd``, specify the
 ``persistent-cache invalidate`` command, the pool name and the image name.  :

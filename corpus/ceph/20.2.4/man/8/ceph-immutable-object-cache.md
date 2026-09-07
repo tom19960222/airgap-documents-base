@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: ceph-immutable-object-cache
 
-# Synopsis
+## Synopsis
 
 | **ceph-immutable-object-cache**
 
-# Description
+## Description
 
 ceph-immutable-object-cache is a daemon for object cache of RADOS
 objects among Ceph clusters. It will promote the objects to a local directory
@@ -30,7 +30,7 @@ authentication information for them, i.e. ``/etc/ceph/$cluster.conf``,
 human-friendly name of the cluster, and ``$name`` is the rados user to
 connect as, e.g. ``client.ceph-immutable-object-cache``.
 
-# Options
+## Options
 
 .. option:: -c ceph.conf, --conf=ceph.conf
 
@@ -61,12 +61,12 @@ connect as, e.g. ``client.ceph-immutable-object-cache``.
 
    Run in foreground, log to usual location
 
-# Availability
+## Availability
 
 ceph-immutable-object-cache is part of Ceph, a massively scalable, open-source, distributed
 storage system. Please refer to the Ceph documentation at https://docs.ceph.com for
 more information.
 
-# See also
+## See also
 
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

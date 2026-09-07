@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd-mirror
 
-# Synopsis
+## Synopsis
 
 | **rbd-mirror**
 
-# Description
+## Description
 
 rbd-mirror is a daemon for asynchronous mirroring of RADOS
 block device (rbd) images among Ceph clusters. It replays changes to
@@ -29,7 +29,7 @@ authentication information for them, i.e. ``/etc/ceph/$cluster.conf``,
 human-friendly name of the cluster, and ``$name`` is the rados user to
 connect as, e.g. ``client.rbd-mirror``.
 
-# Options
+## Options
 
 .. option:: -c ceph.conf, --conf=ceph.conf
 
@@ -60,12 +60,12 @@ connect as, e.g. ``client.rbd-mirror``.
 
    Run in foreground, log to usual location
 
-# Availability
+## Availability
 
 rbd-mirror is part of Ceph, a massively scalable, open-source, distributed
 storage system. Please refer to the Ceph documentation at https://docs.ceph.com for
 more information.
 
-# See also
+## See also
 
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

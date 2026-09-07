@@ -21,7 +21,7 @@ All the features that ``ceph-volume lvm create`` supports, like ``dmcrypt``,
 avoiding ``systemd`` units from starting, defining bluestore,
 is supported.
 
-<a id="ceph-volume-lvm-batch-auto"></a>
+<a id="ceph-volume-lvm-batch_auto"></a>
 
 ## Automatic sorting of disks
 If ``batch`` receives only a single list of data devices and other options are
@@ -47,7 +47,7 @@ Instead devices are not automatically sorted unless the ``--auto`` option is pas
 It is recommended to make use of the explicit device lists for ``block.db``,
    ``block.wal`` and ``journal``.
 
-<a id="ceph-volume-lvm-batch-bluestore"></a>
+<a id="ceph-volume-lvm-batch_bluestore"></a>
 
 # Reporting
 By default ``batch`` will print a report of the computed OSD layout and ask the

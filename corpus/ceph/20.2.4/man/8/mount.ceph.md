@@ -11,11 +11,11 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: mount.ceph
 
-# Synopsis
+## Synopsis
 
 | **mount.ceph** *name*@*fsid*.*fs_name*=/[*subdir*] *dir* [-o *options* ]
 
-# Description
+## Description
 
 **mount.ceph** is a helper for mounting the Ceph file system on a Linux host.
 It serves to resolve monitor hostname(s) into IP addresses and read
@@ -65,9 +65,9 @@ Mount helper application conventions dictate that the first two options are
 device to be mounted and the mount point for that device. Options must be
 passed only after these fixed arguments.
 
-# Options
+## Options
 
-## Basic
+### Basic
 
 conf
     Path to a ceph.conf file. This is used to initialize the Ceph context
@@ -125,7 +125,7 @@ recover_session=
 :command: `mds_namespace=<fs-name>`
     A synonym of "fs=" (Deprecated).
 
-## Advanced
+### Advanced
 cap_release_safety
     int, Default: calculated
 
@@ -249,7 +249,7 @@ read_from_replica=
       require-osd-release octopus").  Otherwise it should be limited to read-only
       workloads such as snapshots.
 
-# Examples
+## Examples
 
 Mount the full file system:
 
@@ -306,18 +306,18 @@ To mount using the old syntax:
 mount -t ceph 192.168.0.1:/ /mnt/mycephfs
 ```
 
-# Availability
+## Availability
 
 **mount.ceph** is part of Ceph, a massively scalable, open-source, distributed
 storage system. Please refer to the Ceph documentation at https://docs.ceph.com
 for more information.
 
-# Feature Availability
+## Feature Availability
 
 The ``recover_session=`` option was added to mainline Linux kernels in v5.4.
 ``wsync`` and ``nowsync`` were added in v5.7.
 
-# See also
+## See also
 
 [ceph-fuse](ceph-fuse.md#options)\(8),
 [ceph](../../install/clone-source.md)\(8)

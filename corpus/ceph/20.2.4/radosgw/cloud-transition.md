@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 This feature makes it possible to transition S3 objects to a remote cloud
 service as part of the [object lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html)
-via [storage_classes](placement.md#storage-classes). The transition is unidirectional: data cannot be
+via [storage_classes](placement.md#storage_classes). The transition is unidirectional: data cannot be
 transitioned back from the remote zone. The purpose of this feature is to
 enable data transition to multiple cloud providers. Cloud providers compatible
 with AWS (S3) are supported.
@@ -56,7 +56,7 @@ to map permissions of specific source users to specific destination users.
 }
 ```
 
-#### Cloud Transition Specific Configurables
+### Cloud Transition Specific Configurables
 
 * ``access_key`` (string)
 
@@ -123,7 +123,7 @@ to map permissions of specific source users to specific destination users.
   This option is ignored for current-versioned objects. For more details,
   refer to the "Versioned Objects" section below.
 
-#### S3 Specific Configurables
+### S3 Specific Configurables
 
 Currently, cloud transition will work only with backends that are compatible with
 AWS S3 protocol. There are a few configurables that can be used to tweak behavior
@@ -144,9 +144,9 @@ when accessing cloud services:
 
   Minimum part size to use when transitioning objects using multipart upload.
 
-#### How to Configure
+### How to Configure
 
-See [adding_a_storage_class](placement.md#adding-a-storage-class) for how to configure storage-class for a zonegroup. The cloud transition requires a creation of a special storage class with tier type defined as ``cloud-s3`` or ``cloud-s3-glacier``.
+See [adding_a_storage_class](placement.md#adding_a_storage_class) for how to configure storage-class for a zonegroup. The cloud transition requires a creation of a special storage class with tier type defined as ``cloud-s3`` or ``cloud-s3-glacier``.
 
 > **Note:** If you have not performed previous [Multisite Configuration](multisite.md),
 > a ``default`` zone and zonegroup are created for you, and changes
@@ -415,7 +415,7 @@ Below is the object name format:
 s3://<target_path>/<source_bucket_name>/<source_object_name>(-<source_object_version_id>)
 ```
 
-#### Versioned Objects
+### Versioned Objects
 
 For versioned and locked objects, similar semantics as that of LifecycleExpiration are applied as stated below.
 

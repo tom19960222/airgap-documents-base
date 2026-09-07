@@ -101,7 +101,7 @@ Currently (December 2020) the following modules use **tox**:
 
   * ``./src/ceph-volume/ceph_volume/tests/functional/lvm/tox.ini``
 
-##### Configuring Tox environments and tasks
+#### Configuring Tox environments and tasks
 Most tox configurations support multiple environments and tasks.
 
 The list of environments and tasks that are supported is in the ``tox.ini``
@@ -128,7 +128,7 @@ Or:
 tox -l
 ```
 
-##### Running Tox
+#### Running Tox
 To run **tox**, just execute ``tox`` in the directory containing
 ``tox.ini``.  If you do not specify any environments (for example, ``-e
 $env1,$env2``), then ``tox`` will run all environments. Jenkins will run
@@ -148,7 +148,7 @@ $ tox -e py3,lint,check
 $ ../../../script/run_tox.sh --tox-env py3,lint,check
 ```
 
-##### Manager core unit tests
+#### Manager core unit tests
 
 Currently only [doctests](https://docs.python.org/3/library/doctest.html) inside ``mgr_util.py`` are run.
 

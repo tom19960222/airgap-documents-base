@@ -5,11 +5,11 @@ title: "Java Swift Examples"
 source_url: https://github.com/ceph/ceph/blob/7f793731f1b39eb4f465e960113d2363c311b964/doc/radosgw/swift/java.rst
 fetched_at: 2026-08-18T01:32:45Z
 ---
-<a id="java-swift"></a>
+<a id="java_swift"></a>
 
 # Java Swift Examples
 
-# Setup
+## Setup
 
 The following examples may require some or all of the following Java
 classes to be imported:
@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.*;
 ```
 
-# Create a Connection
+## Create a Connection
 
 This creates a connection so that you can interact with the server:
 
@@ -43,7 +43,7 @@ config.setAuthenticationMethod(AuthenticationMethod.BASIC);
 Account account = new AccountFactory(config).createAccount();
 ```
 
-# Create a Container
+## Create a Container
 
 This creates a new container called ``my-new-container``:
 
@@ -52,7 +52,7 @@ Container container = account.getContainer("my-new-container");
 container.create();
 ```
 
-# Create an Object
+## Create an Object
 
 This creates an object ``foo.txt`` from the file named ``foo.txt`` in
 the container ``my-new-container``:
@@ -63,7 +63,7 @@ StoredObject object = container.getObject("foo.txt");
 object.uploadObject(new File("foo.txt"));
 ```
 
-# Add/Update Object Metadata
+## Add/Update Object Metadata
 
 This adds the metadata key-value pair ``key``:``value`` to the object named
 ``foo.txt`` in the container ``my-new-container``:
@@ -76,7 +76,7 @@ metadata.put("key", "value");
 object.setMetadata(metadata);
 ```
 
-# List Owned Containers
+## List Owned Containers
 
 This gets a list of Containers that you own.
 This also prints out the container name.
@@ -96,7 +96,7 @@ mahbuckat2
 mahbuckat3
 ```
 
-# List a Container's Content
+## List a Container's Content
 
 This gets a list of objects in the container ``my-new-container``; and, it also
 prints out each object's name, the file size, and last modified date:
@@ -116,7 +116,7 @@ myphoto1.jpg
 myphoto2.jpg
 ```
 
-# Retrieve an Object's Metadata
+## Retrieve an Object's Metadata
 
 This retrieves metadata and gets the MIME type for an object named ``foo.txt``
 in a container named ``my-new-container``:
@@ -130,7 +130,7 @@ for (String name : returnedMetadata.keySet()) {
 }
 ```
 
-# Retrieve an Object
+## Retrieve an Object
 
 This downloads the object ``foo.txt`` in the container ``my-new-container``
 and saves it in ``./outfile.txt``:
@@ -141,7 +141,7 @@ StoredObject object = container.getObject("foo.txt");
 object.downloadObject(new File("outfile.txt"));
 ```
 
-# Delete an Object
+## Delete an Object
 
 This deletes the object ``goodbye.txt`` in the container "my-new-container":
 
@@ -151,7 +151,7 @@ StoredObject object = container.getObject("foo.txt");
 object.delete();
 ```
 
-# Delete a Container
+## Delete a Container
 
 This deletes a container named "my-new-container":
 

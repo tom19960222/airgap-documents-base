@@ -13,7 +13,7 @@ world.
 These mirrors are kindly sponsored by various companies who want to support the
 Ceph project.
 
-# Locations
+## Locations
 
 These mirrors are available on the following locations:
 
@@ -39,7 +39,7 @@ Change this to:
 - http://eu.ceph.com/debian-hammer/
 - http://eu.ceph.com/rpm-hammer/
 
-# Mirroring
+## Mirroring
 
 You can easily mirror Ceph yourself using a Bash script and rsync. An easy-to-use
 script can be found at [GitHub](https://github.com/ceph/ceph/tree/master/mirroring).
@@ -50,7 +50,7 @@ When mirroring Ceph, please keep the following guidelines in mind:
 - Do not sync in a interval shorter than 3 hours
 - Avoid syncing at minute 0 of the hour, use something between 0 and 59
 
-# Becoming a mirror
+## Becoming a mirror
 
 If you want to provide a public mirror for other users of Ceph you can opt to
 become a official mirror.

@@ -11,7 +11,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 The Ceph open source community is guided by a few different groups.
 
-# Key principles
+## Key principles
 
  * Decision-making is consensus-driven by those who participate.
  * Leadership roles are defined primarily by responsibility, not prestige or seniority.
@@ -19,11 +19,11 @@ The Ceph open source community is guided by a few different groups.
  * Everyone's role is ultimately to serve the users and participation
    is voluntary.
 
-## Bodies
+### Bodies
 
-# Ceph Executive Council
+## Ceph Executive Council
 
-## Responsibilities
+### Responsibilities
 
  * Arbiter in cases where decisions cannot be reached by consensus
  * Distribute key responsibilities amongst themselves or others
@@ -31,7 +31,7 @@ The Ceph open source community is guided by a few different groups.
  * Representatives for Ceph foundation board meetings
  * Ensure things get done
 
-## Membership
+### Membership
 
  * 3 people
  * Elected by the steering committee
@@ -44,7 +44,7 @@ The Ceph open source community is guided by a few different groups.
    to appoint a replacement for the rest of their term
  * members must involve >1 employer
 
-### Current Members
+#### Current Members
 
 * Dan van der Ster <dan.vanderster@clyso.com>
 * Josh Durgin <jdurgin@redhat.com>
@@ -52,9 +52,9 @@ The Ceph open source community is guided by a few different groups.
 
 <a id="csc"></a>
 
-# Ceph Steering Committee
+## Ceph Steering Committee
 
-## Responsibilities
+### Responsibilities
 
  * Elect executive council
  * Amend governance model by supermajority vote
@@ -62,7 +62,7 @@ The Ceph open source community is guided by a few different groups.
    and improvements
  * Hold an annual election
 
-## Membership
+### Membership
 
  * Developers, users, community members
  * Members can be nominated and added/removed by existing members via a
@@ -75,7 +75,7 @@ The Ceph open source community is guided by a few different groups.
 > **Note:** A "supermajority" is a 2/3 majority of votes on a particular item
 > in an election. Abstaining does not bias a vote.
 
-### Current Members
+#### Current Members
 
  * Adam King <adking@redhat.com>
  * Casey Bodley <cbodley@redhat.com>
@@ -117,9 +117,9 @@ The Ceph open source community is guided by a few different groups.
 
 <a id="ctl"></a>
 
-# Component Team Leads
+## Component Team Leads
 
-## Responsibilities
+### Responsibilities
 
  * Manage a [component team](https://ceph.io/en/community/team/) in Ceph
  * Ensure PRs are reviewed and merged
@@ -132,7 +132,7 @@ Team leads are selected by the executive council, generally based on
 the recommendation by team members and outgoing lead.  Periodic
 rotation of lead responsibility among team members is encouraged.
 
-## The Ceph Foundation
+### The Ceph Foundation
 
 The Ceph Foundation is organized as a directed fund under the Linux
 Foundation and is tasked with supporting the Ceph project community

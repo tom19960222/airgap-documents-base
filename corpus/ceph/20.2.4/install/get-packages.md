@@ -27,7 +27,7 @@ There are three ways to get packages:
   way to install Ceph if your environment does not allow a Ceph Node to
   access the internet.
 
-# Install packages with cephadm
+## Install packages with cephadm
 
 1. Download cephadm
 
@@ -59,7 +59,7 @@ For development packages, you can specify a specific branch name::
 ./cephadm install ceph-common
 ```
 
-# Configure Repositories Manually
+## Configure Repositories Manually
 
 All Ceph deployments require Ceph packages (except for development). You should
 also add keys and recommended packages.
@@ -76,7 +76,7 @@ also add keys and recommended packages.
   development builds, or if you want features from the bleeding edge of Ceph
   development, you may get Ceph development packages.
 
-## Add Keys
+### Add Keys
 
 Add a key to your system's list of trusted keys to avoid a security warning. For
 major releases (e.g., ``luminous``, ``mimic``, ``nautilus``) and development releases
@@ -98,7 +98,7 @@ To install the ``release.asc`` key, execute the following:
 sudo rpm --import 'https://download.ceph.com/keys/release.asc'
 ```
 
-## Ceph Release Packages
+### Ceph Release Packages
 
 Release repositories use the ``release.asc`` key to verify packages.
 To install Ceph packages with the Advanced Package Tool (APT) or
@@ -178,7 +178,7 @@ echo deb https://download.ceph.com/debian-testing/ $(lsb_release -sc) main | sud
 
 #### RPM Packages
 
-### RHEL
+##### RHEL
 
 For major releases, you may add a Ceph entry to the ``/etc/yum.repos.d``
 directory. Create a ``ceph.repo`` file. In the example below, replace
@@ -238,7 +238,7 @@ https://download.ceph.com/rpm-testing
 > **Tip:** For non-US users: There might be a mirror close to you where
 > to download Ceph from. For more information see: [Ceph Mirrors](mirrors.md).
 
-### openSUSE Leap 15.1
+##### openSUSE Leap 15.1
 
 You need to add the Ceph package repository to your list of zypper sources. This can be done with the following command
 
@@ -246,12 +246,12 @@ You need to add the Ceph package repository to your list of zypper sources. This
 zypper ar https://download.opensuse.org/repositories/filesystems:/ceph/openSUSE_Leap_15.1/filesystems:ceph.repo
 ```
 
-### openSUSE Tumbleweed
+##### openSUSE Tumbleweed
 
 The newest major release of Ceph is already available through the normal Tumbleweed repositories.
 There's no need to add another package repository manually.
 
-### openEuler
+##### openEuler
 
 There are two Ceph releases supported in normal openEuler repositories. They are Ceph 12.2.8 in the openEuler-20.03-LTS series and Ceph 16.2.7 in the openEuler-22.03-LTS series. There’s no need to add another package repository manually.
 You can install Ceph by executing the following:
@@ -262,7 +262,7 @@ sudo yum -y install ceph
 
 Also you can download packages manually from https://repo.openeuler.org/openEuler-{release}/everything/{arch}/Packages/.
 
-## Ceph Development Packages
+### Ceph Development Packages
 
 If you are developing Ceph and need to deploy and test specific Ceph branches,
 ensure that you remove repository entries for major releases first.
@@ -316,7 +316,7 @@ curl -L https://shaman.ceph.com/api/repos/ceph/master/488e6be0edff7eb18343fd5c7e
 
 > **Note:** If the repository is not ready an HTTP 504 will be returned
 
-## Download Packages Manually
+### Download Packages Manually
 
 If you are attempting to install behind a firewall in an environment without internet
 access, you must retrieve the packages (mirrored with all the necessary dependencies)

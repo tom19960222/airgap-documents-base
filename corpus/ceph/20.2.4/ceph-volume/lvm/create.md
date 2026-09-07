@@ -23,7 +23,7 @@ immediately after completion.
 
 The backing objectstore can be specified with:
 
-* [--bluestore](prepare.md#ceph-volume-lvm-prepare-bluestore)
+* [--bluestore](prepare.md#ceph-volume-lvm-prepare_bluestore)
 
 All command line flags and options are the same as ``ceph-volume lvm prepare``.
 Please refer to [ceph-volume-lvm-prepare](prepare.md#ceph-volume-lvm-prepare) for details.

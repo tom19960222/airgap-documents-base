@@ -49,7 +49,7 @@ To make it easier to debug failed daemons, cephadm stores events per service
 and per daemon. These events often contain information relevant to
 the troubleshooting of your Ceph cluster.
 
-#### Listing Service Events
+### Listing Service Events
 
 To see the events associated with a certain service, run a command of the
 following form:
@@ -76,7 +76,7 @@ events:
   place <AlertManagerSpec for service_name=alertmanager> on unknown_host: Unknown hosts"'
 ```
 
-#### Listing Daemon Events
+### Listing Daemon Events
 
 To see the events associated with a certain daemon, run a command of the
 following form:
@@ -101,7 +101,7 @@ events:
 ## Checking Cephadm Logs
 
 To learn how to monitor cephadm logs as they are generated, read
-[watching_cephadm_logs](operations.md#watching-cephadm-logs).
+[watching_cephadm_logs](operations.md#watching_cephadm_logs).
 
 If your Ceph cluster has been configured to log events to files, there will be
 a ``ceph.cephadm.log`` file on all monitor hosts. See [cephadm-logs](operations.md#cephadm-logs) for a
@@ -125,9 +125,9 @@ cephadm logs --name <name-of-daemon>
 > To get the logs of a daemon that is running on a different host, add the
 > ``--fsid`` option to the command, as in the following example:
 >
-> .. prompt:: bash
->
->    cephadm logs --fsid <fsid> --name <name-of-daemon>
+> ```bash
+> cephadm logs --fsid <fsid> --name <name-of-daemon>
+> ```
 >
 > In this example, ``<fsid>`` corresponds to the cluster ID returned by the
 > ``ceph status`` command.
@@ -223,7 +223,7 @@ or::
 [root@mon1 ~]# ssh -F config -i ~/cephadm_private_key root@mon1
 ```
 
-#### Verifying that the Public Key is Listed in the authorized_keys file
+### Verifying that the Public Key is Listed in the authorized_keys file
 
 To verify that the public key is in the ``authorized_keys`` file, run the
 following commands:
@@ -254,7 +254,7 @@ ceph config set mon public_network <mon_network>
 ```
 
 For more detail on operations of this kind, see
-[deploy_additional_monitors](services/mon.md#deploy-additional-monitors).
+[deploy_additional_monitors](services/mon.md#deploy_additional_monitors).
 
 ## Accessing the Admin Socket
 
@@ -398,7 +398,7 @@ example ``killall -3 ceph-mon``.
 
 ## Running the Debugger with cephadm
 
-#### Running a single debugging session
+### Running a single debugging session
 
 Initiate a debugging session by using the ``cephadm shell`` command.
 From within the shell container we need to install the debugger and debuginfo
@@ -439,7 +439,7 @@ bt
 #3  0x0000563085ca3d7e in main ()
 ```
 
-#### Running repeated debugging sessions
+### Running repeated debugging sessions
 
 When using ``cephadm shell``, as in the example above, any changes made to the
 container that is spawned by the shell command are ephemeral. After the shell
@@ -479,7 +479,7 @@ previously described, run:
 cephadm --image ceph:debugging shell --mount /var/lib/system/coredump
 ```
 
-#### Debugging live processes
+### Debugging live processes
 
 The gdb debugger can attach to running processes to debug them. This can be
 achieved with a containerized process by using the debug image and attaching it

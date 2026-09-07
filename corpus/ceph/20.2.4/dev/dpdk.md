@@ -7,7 +7,7 @@ fetched_at: 2026-08-18T01:32:45Z
 ---
 # Ceph messenger DPDKStack
 
-# Compiling DPDKStack
+## Compiling DPDKStack
 
 Ceph dpdkstack is not compiled by default. Therefore, you need to recompile and
 enable the DPDKstack component.
@@ -17,7 +17,7 @@ Optionally install ``dpdk-devel`` or ``dpdk-dev`` on distros with precompiled DP
 do_cmake.sh -DWITH_DPDK=ON
 ```
 
-# Setting the DPDK Network Adapter
+## Setting the DPDK Network Adapter
 
 Most mainstream NICs support SR-IOV and can be virtualized into multiple VF NICs.
 Each OSD uses some dedicated NICs through DPDK. The mon, mgr and client use the PF NICs
@@ -48,7 +48,7 @@ Binding NICs to DPDK Applications:
 dpdk-devbind.py -b vfio-pci 0000:xx:yy.z
 ```
 
-# Configuring OSD DPDKStack
+## Configuring OSD DPDKStack
 
 By default, the DPDK RTE initialization process requires the root privileges
 for accessing various resources in system. To grant the root access to
@@ -104,7 +104,7 @@ cluster_addr=172.19.36.51
 ms_dpdk_devs_allowlist=--allow=0000:7d:01.1
 ```
 
-# Debug and Optimization
+## Debug and Optimization
 
 Locate faults based on logs and adjust logs to a proper level:
 
@@ -154,7 +154,7 @@ single core to improve performance:
 ms_dpdk_hw_queues_per_qp=4
 ```
 
-# Status and Future Work
+## Status and Future Work
 
 Compared with POSIX Stack, in the multi-concurrency test, DPDKStack has the same
 4K random write performance, 8K random write performance is improved by 28%, and

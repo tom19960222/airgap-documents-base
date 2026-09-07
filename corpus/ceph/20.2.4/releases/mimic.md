@@ -10,24 +10,24 @@ fetched_at: 2026-08-18T01:32:45Z
 Mimic is the 13th stable release of Ceph.  It is named after the Mimic
 Octopus (Thaumoctopus mimicus).
 
-# v13.2.10 Mimic
+## v13.2.10 Mimic
 
 This is the tenth bugfix release of Ceph Mimic, this release fixes an RGW
 vulnerability, and we recommend that all Mimic users upgrade.
 
-## Notable Changes
+### Notable Changes
 * CVE 2020 12059: Fix an issue with Post Object Requests with Tagging
   ([issue#44967](http://tracker.ceph.com/issues/44967), Lei Cao, Abhishek
   Lekshmanan)
 
-# v13.2.9 Mimic
+## v13.2.9 Mimic
 
 This is the ninth and very likely the last stable release in the Ceph Mimic
 series. This release fixes bugs across all components and also
 contains a RGW security fix. We recommend all Mimic users to upgrade to this
 version.
 
-## Notable Changes
+### Notable Changes
 
 * CVE-2020-1760: Fixed XSS due to RGW GetObject header-splitting
 
@@ -44,7 +44,7 @@ version.
 * The ``cephfs-data-scan scan_links`` command now automatically repair inotables
   and snaptable.
 
-## Changelog
+### Changelog
 
 * bluestore: os/bluestore: fix improper setting of STATE_KV_SUBMITTED ([pr#31673](https://github.com/ceph/ceph/pull/31673), Igor Fedotov)
 * ceph-volume/batch: check lvs list before access ([pr#34479](https://github.com/ceph/ceph/pull/34479), Jan Fajerski)
@@ -158,12 +158,12 @@ version.
 * rgw: prevent bucket reshard scheduling if bucket is resharding ([pr#31299](https://github.com/ceph/ceph/pull/31299), J. Eric Ivancich)
 * rgw: update the hash source for multipart entries during resharding ([pr#33312](https://github.com/ceph/ceph/pull/33312), dongdong tao)
 
-# v13.2.8 Mimic
+## v13.2.8 Mimic
 
 This is the eighth release in the Ceph Mimic stable release series. Its sole
 purpose is to fix a regression that found its way into the previous release.
 
-## Notable Changes
+### Notable Changes
 
 * Due to a missed backport, clusters in the process of being upgraded from
   13.2.6 to 13.2.7 might suffer an OSD crash in build_incremental_map_msg.
@@ -171,18 +171,18 @@ purpose is to fix a regression that found its way into the previous release.
   and is fixed in 13.2.8 (this release). Users of 13.2.6 can upgrade to 13.2.8
   directly - i.e., skip 13.2.7 - to avoid this.
 
-## Changelog
+### Changelog
 
 * osd: fix sending incremental map messages (more) ([issue#43106](https://tracker.ceph.com/issues/43106), [pr#32000](https://github.com/ceph/ceph/pull/32000), Sage Weil)
 * tests: added missing point release versions ([pr#32087](https://github.com/ceph/ceph/pull/32087), Yuri Weinstein)
 * tests: rgw: add missing force-branch: ceph-mimic for swift tasks ([pr#32033](https://github.com/ceph/ceph/pull/32033), Casey Bodley)
 
-# v13.2.7 Mimic
+## v13.2.7 Mimic
 
 This is the seventh bugfix release of the Mimic v13.2.x long-term stable release
 series. All Mimic users are advised to upgrade.
 
-## Notable Changes
+### Notable Changes
 
 MDS:
 
@@ -236,7 +236,7 @@ RGW:
   of RGW. One subcommand lists such objects and the other deletes them. Read the
   troubleshooting section of the dynamic resharding docs for details.
 
-## Changelog
+### Changelog
 
 * bluestore: 50-100% iops lost due to bluefs_preextend_wal_files = false ([issue#40280](http://tracker.ceph.com/issues/40280), [pr#28574](https://github.com/ceph/ceph/pull/28574), Vitaliy Filippov)
 * bluestore: Change default for bluestore_fsck_on_mount_deep as false ([pr#29699](https://github.com/ceph/ceph/pull/29699), Neha Ojha)
@@ -543,18 +543,18 @@ RGW:
 * tools: ceph-objectstore-tool: update-mon-db: do not fail if incmap is missing ([pr#30979](https://github.com/ceph/ceph/pull/30979), Kefu Chai)
 * tools: crushtool crash on Fedora 28 and newer ([issue#39174](http://tracker.ceph.com/issues/39174), [issue#39311](http://tracker.ceph.com/issues/39311), [pr#27986](https://github.com/ceph/ceph/pull/27986), Brad Hubbard)
 
-# v13.2.6 Mimic
+## v13.2.6 Mimic
 
 This is the sixth bugfix release of the Mimic v13.2.x long term
 stable release series. We recommend all Mimic users upgrade.
 
-## Notable Changes
+### Notable Changes
 * Ceph v13.2.6 now packages python bindings for python3.6 instead of
   python3.4, because EPEL7 recently switched from python3.4 to
   python3.6 as the native python3. See the `announcement <https://lists.fedoraproject.org/archives/list/epel-announce@lists.fedoraproject.org/message/EGUMKAIMPK2UD5VSHXM53BH2MBDGDWMO/>_`
   for more details on the background of this change.
 
-## Changelog
+### Changelog
 * cephfs: MDSMonitor: do not assign standby-replay when degraded ([issue#36384](http://tracker.ceph.com/issues/36384), [pr#26643](https://github.com/ceph/ceph/pull/26643), Patrick Donnelly)
 * ceph-volume: add --all flag to simple activate ([pr#26655](https://github.com/ceph/ceph/pull/26655), Jan Fajerski)
 * ceph-volume: use our own testinfra suite for functional testing ([pr#26702](https://github.com/ceph/ceph/pull/26702), Andrew Schoen)
@@ -656,12 +656,12 @@ stable release series. We recommend all Mimic users upgrade.
 * tools: ceph-disk/tests: use random unused port for CEPH_MON ([issue#39066](http://tracker.ceph.com/issues/39066), [pr#27228](https://github.com/ceph/ceph/pull/27228), Kefu Chai)
 * tools: ceph-objectstore-tool: rename dump-import to dump-export ([issue#39284](http://tracker.ceph.com/issues/39284), [pr#27635](https://github.com/ceph/ceph/pull/27635), David Zafman)
 
-# v13.2.5 Mimic
+## v13.2.5 Mimic
 
 This is the fifth bugfix release of the Mimic v13.2.x long term
 stable release series. We recommend all Mimic users upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * This release fixes the pg log hard limit bug that was introduced in
   13.2.2, https://tracker.ceph.com/issues/36686. A flag called
@@ -687,7 +687,7 @@ stable release series. We recommend all Mimic users upgrade.
   multisite cluster, however for the current release users are urged not to
   use the delete command on a multisite cluster.
 
-## Changelog
+### Changelog
 
 * build/ops: Destruction of basic_string _GLIBCXX_USE_CXX11_ABI=0 and C++17 mode results in invalid delete ([issue#38177](http://tracker.ceph.com/issues/38177), [pr#26593](https://github.com/ceph/ceph/pull/26593), Kefu Chai, Jason Dillaman)
 * build/ops: rpm: require ceph-base instead of ceph-common ([issue#37620](http://tracker.ceph.com/issues/37620), [pr#25809](https://github.com/ceph/ceph/pull/25809), Sébastien Han)
@@ -811,19 +811,19 @@ stable release series. We recommend all Mimic users upgrade.
 * rgw: rgwgc: process coredump in some special case ([issue#23199](http://tracker.ceph.com/issues/23199), [pr#25624](https://github.com/ceph/ceph/pull/25624), zhaokun)
 * rpm: Use hardened LDFLAGS ([issue#36316](http://tracker.ceph.com/issues/36316), [pr#25171](https://github.com/ceph/ceph/pull/25171), Boris Ranto)
 
-# v13.2.4 Mimic
+## v13.2.4 Mimic
 
 This is the fourth bugfix release of the Mimic v13.2.x long term
 stable release series.  This release includes two security fixes that
 were tested but inadvertently excluded from the final v13.2.3 release
 build.
 
-## Changelog
+### Changelog
 
 * CVE-2018-16846: rgw: enforce bounds on max-keys/max-uploads/max-parts ([issue#35994](http://tracker.ceph.com/issues/35994))
 * CVE-2018-14662: mon: limit caps allowed to access the config store
 
-# v13.2.3 Mimic
+## v13.2.3 Mimic
 
 This is the third bugfix release of the Mimic v13.2.x long term stable release
 series. This release contains many fixes across all components of Ceph.
@@ -857,7 +857,7 @@ We recommend that all users upgrade.
   successfully upgraded to 13.2.2, this issue should not impact you. Going
   forward, we are working on a clean upgrade path for this feature.
 
-## Changelog
+### Changelog
 
 * build/ops: Can't compile Ceph on Fedora 29 as it doesn't recognize python\*3\*-tox as an install Tox ([issue#18163](http://tracker.ceph.com/issues/18163), [issue#37301](http://tracker.ceph.com/issues/37301), [issue#37422](http://tracker.ceph.com/issues/37422), [pr#25294](https://github.com/ceph/ceph/pull/25294), Nathan Cutler, Brad Hubbard)
 * build/ops: debian: correct ceph-common relationship with older radosgw package ([pr#25115](https://github.com/ceph/ceph/pull/25115), Matthew Vernon)
@@ -1031,7 +1031,7 @@ We recommend that all users upgrade.
 * test: Use a grep pattern that works across releases ([issue#35845](http://tracker.ceph.com/issues/35845), [issue#35909](http://tracker.ceph.com/issues/35909), [pr#24017](https://github.com/ceph/ceph/pull/24017), David Zafman)
 * tools: ceph-objectstore-tool: Allow target level as first positional … ([issue#35846](http://tracker.ceph.com/issues/35846), [issue#35992](http://tracker.ceph.com/issues/35992), [pr#24116](https://github.com/ceph/ceph/pull/24116), David Zafman)
 
-# v13.2.2 Mimic
+## v13.2.2 Mimic
 
 This is the second bugfix release of the Mimic v13.2.x long term stable release
 series. This release contains many fixes across all components of Ceph.
@@ -1045,7 +1045,7 @@ We recommend that all users upgrade.
   If you have successfully upgraded to 13.2.2, this issue should not impact
   you. Going forward, we are working on a clean upgrade path for this feature.
 
-## Changelog
+### Changelog
 
 * build/ops: Boost system library is no longer required to compile and link example librados program ([issue#25073](http://tracker.ceph.com/issues/25073), [issue#25054](http://tracker.ceph.com/issues/25054), [pr#23201](https://github.com/ceph/ceph/pull/23201), Nathan Cutler)
 * build/ops: debian/rules: fix ceph-mgr .pyc files left behind ([issue#27059](http://tracker.ceph.com/issues/27059), [issue#26883](http://tracker.ceph.com/issues/26883), [pr#23831](https://github.com/ceph/ceph/pull/23831), Dan Mick)
@@ -1177,19 +1177,19 @@ We recommend that all users upgrade.
 * tools: ceph-detect-init: support SLED ([issue#18163](http://tracker.ceph.com/issues/18163), [pr#23111](https://github.com/ceph/ceph/pull/23111), Nathan Cutler)
 * tools: cephfs-data-scan: print the max used ino ([issue#26978](http://tracker.ceph.com/issues/26978), [issue#26925](http://tracker.ceph.com/issues/26925), [pr#23880](https://github.com/ceph/ceph/pull/23880), "Yan, Zheng")
 
-# v13.2.1 Mimic
+## v13.2.1 Mimic
 
 This is the first bugfix release of the Mimic v13.2.x long term stable release
 series. This release contains many fixes across all components of Ceph,
 including a few security fixes. We recommend that all users upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * CVE 2018-1128: auth: cephx authorizer subject to replay attack ([issue#24836](http://tracker.ceph.com/issues/24836), Sage Weil)
 * CVE 2018-1129: auth: cephx signature check is weak ([issue#24837](http://tracker.ceph.com/issues/24837), Sage Weil)
 * CVE 2018-10861: mon: auth checks not correct for pool ops ([issue#24838](http://tracker.ceph.com/issues/24838), Jason Dillaman)
 
-## Changelog
+### Changelog
 
 * bluestore:  common/hobject: improved hash calculation for hobject_t etc ([pr#22777](https://github.com/ceph/ceph/pull/22777), Adam Kupczyk, Sage Weil)
 * bluestore,core: mimic: os/bluestore: don't store/use path_block.{db,wal} from meta ([pr#22477](https://github.com/ceph/ceph/pull/22477), Sage Weil, Alfredo Deza)
@@ -1333,11 +1333,11 @@ including a few security fixes. We recommend that all users upgrade.
 * tests: tests: make test_ceph_argparse.py pass on py3-only systems ([issue#24825](http://tracker.ceph.com/issues/24825), [issue#24816](http://tracker.ceph.com/issues/24816), [pr#22988](https://github.com/ceph/ceph/pull/22988), Nathan Cutler)
 * tests: upgrade/luminous-x: whitelist REQUEST_SLOW for rados_mon_thrash ([issue#25056](http://tracker.ceph.com/issues/25056), [issue#25051](http://tracker.ceph.com/issues/25051), [pr#23164](https://github.com/ceph/ceph/pull/23164), Nathan Cutler)
 
-# v13.2.0 Mimic
+## v13.2.0 Mimic
 
 This is the first stable release of Mimic, the next long term release series.
 
-## Major Changes from Luminous
+### Major Changes from Luminous
 
 - *Dashboard*:
 
@@ -1384,7 +1384,7 @@ This is the first stable release of Mimic, the next long term release series.
     Luminous release (and possibly later Mimic point releases) once
     Buster is available.
 
-## Upgrading from Luminous
+### Upgrading from Luminous
 
 #### Notes
 
@@ -1572,14 +1572,14 @@ on current monmap (epoch NNN)
 
 1. Verify the cluster is healthy with ``ceph health``.
 
-## Upgrading from pre-Luminous releases (like Jewel)
+### Upgrading from pre-Luminous releases (like Jewel)
 
 You *must* first upgrade to Luminous (12.2.z) before attempting an
 upgrade to Mimic.  In addition, your cluster must have completed at
 least one scrub of all PGs while running Luminous, setting the
 ``recovery_deletes`` and ``purged_snapdirs`` flags in the OSD map.
 
-## Upgrade compatibility notes
+### Upgrade compatibility notes
 
 These changes occurred between the Luminous and Mimic releases.
 
@@ -1804,12 +1804,12 @@ ceph fs set <fs_name> allow_new_snaps
 * *RGW*
 
   - The RGW Beast frontend is now declared stable and ready for production use.
-    [rgw_frontends](../radosgw/frontends.md#rgw-frontends) for details.
+    [rgw_frontends](../radosgw/frontends.md#rgw_frontends) for details.
 
   - Civetweb frontend has been updated to the latest 1.10 release.
 
   - The S3 API now has support for multi-factor authentication. Refer to
-    [rgw_mfa](../radosgw/mfa.md#rgw-mfa) for details.
+    [rgw_mfa](../radosgw/mfa.md#rgw_mfa) for details.
 
   - RGW now has a sync plugin to sync to AWS and clouds with S3-like APIs.
 
@@ -1853,7 +1853,7 @@ ceph fs set <fs_name> allow_new_snaps
   - The Ceph LZ4 compression plugin is now enabled by default, and introduces a
     new build dependency.
 
-## Detailed Changelog
+### Detailed Changelog
 
 * arch/arm: set ceph_arch_aarch64_crc32 only if the build host supports crc32cx ([issue#19705](http://tracker.ceph.com/issues/19705), [pr#17420](https://github.com/ceph/ceph/pull/17420), Kefu Chai)
 * assert(false)->ceph_abort() ([pr#18072](https://github.com/ceph/ceph/pull/18072), Li Wang)

@@ -13,9 +13,9 @@ The Ceph client tools and libraries can be natively used on Windows. This avoids
 the need for additional layers such as iSCSI gateways or SMB shares,
 drastically improving the performance.
 
-# Prerequisites
+## Prerequisites
 
-## Supported platforms
+### Supported platforms
 > **Note:**
 > Please see the [OS recommendations](../start/os-recommendations.md) regarding client package support.
 
@@ -26,12 +26,12 @@ work but haven't been tested.
 Windows Server 2016 does not provide Unix sockets, in which case some commands
 might be unavailable.
 
-## Secure boot
+### Secure boot
 
 The ``WNBD`` driver hasn't been signed by Microsoft, which means that Secure Boot
 must be disabled.
 
-## Dokany
+### Dokany
 
 In order to mount Ceph filesystems, ``ceph-dokan`` requires Dokany to be
 installed. You may fetch the installer as well as the source code from the
@@ -41,7 +41,7 @@ Make sure to install Dokany 2.0.5 or later.
 
 Unlike ``WNBD``, Dokany isn't included in the Ceph MSI installer.
 
-# MSI installer
+## MSI installer
 
 Using the MSI installer is the recommended way of installing Ceph on Windows.
 It can be downloaded from here: https://cloudbase.it/ceph-for-windows/
@@ -56,12 +56,12 @@ The following project allows building the MSI installer:
 https://github.com/cloudbase/ceph-windows-installer. It can either use prebuilt
 Ceph and WNBD binaries or compile them from scratch.
 
-# Manual installation
+## Manual installation
 
 The following document describes the build process and manual installation:
 https://github.com/ceph/ceph/blob/master/README.windows.rst
 
-# Configuration
+## Configuration
 
 Please check the [Windows configuration sample](windows-basic-config.md) to get started.
 
@@ -72,7 +72,7 @@ key can be retrieved.
 For more details on CephX user management, see the [Client Authentication](../cephfs/client-auth.md)
 and [User Management](../rados/operations/user-management.md#user-management).
 
-# Further reading
+## Further reading
 
 * [RBD Windows documentation](../rbd/rbd-windows.md)
 * [CephFS Windows documentation](../cephfs/ceph-dokan.md)

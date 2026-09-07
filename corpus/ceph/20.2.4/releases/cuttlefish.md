@@ -11,13 +11,13 @@ Cuttlefish is the 3rd stable release of Ceph. It is named after a type
 of cephalopod (order Sepiida) characterized by a unique internal shell, the
 cuttlebone, which is used for control of buoyancy.
 
-# v0.61.9 "Cuttlefish"
+## v0.61.9 "Cuttlefish"
 
 This point release resolves several low to medium-impact bugs across
 the code base, and fixes a performance problem (CPU utilization) with
 radosgw.  We recommend that all production cuttlefish users upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * ceph, ceph-authtool: fix help (Danny Al-Gaaf)
 * ceph-disk: partprobe after creating journal partition
@@ -43,14 +43,14 @@ radosgw.  We recommend that all production cuttlefish users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.9.txt -->.
 
-# v0.61.8 "Cuttlefish"
+## v0.61.8 "Cuttlefish"
 
 This release includes a number of important issues, including rare
 race conditions in the OSD, a few monitor bugs, and fixes for RBD
 flush behavior.  We recommend that production users upgrade at their
 convenience.
 
-## Notable Changes
+### Notable Changes
 
 * librados: fix async aio completion wakeup
 * librados: fix aio completion locking
@@ -71,13 +71,13 @@ convenience.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.8.txt -->.
 
-# v0.61.7 "Cuttlefish"
+## v0.61.7 "Cuttlefish"
 
 This release fixes another regression preventing monitors to start after
 undergoing certain upgrade sequences, as well as some corner cases with
 Paxos and support for unusual device names in ceph-disk/ceph-deploy.
 
-## Notable Changes
+### Notable Changes
 
 * mon: fix regression in latest full osdmap retrieval
 * mon: fix a long-standing bug in a paxos corner case
@@ -85,7 +85,7 @@ Paxos and support for unusual device names in ceph-disk/ceph-deploy.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.7.txt -->.
 
-# v0.61.6 "Cuttlefish"
+## v0.61.6 "Cuttlefish"
 
 This release fixes a regression in v0.61.5 that could prevent monitors
 from restarting.  This affects any cluster that was upgraded from a
@@ -93,7 +93,7 @@ previous version of Ceph (and not freshly created with v0.61.5).
 
 All users are strongly recommended to upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * mon: record latest full osdmap
 * mon: work around previous bug in which latest full osdmap is not recorded
@@ -101,13 +101,13 @@ All users are strongly recommended to upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.6.txt -->.
 
-# v0.61.5 "Cuttlefish"
+## v0.61.5 "Cuttlefish"
 
 This release most improves stability of the monitor and fixes a few
 bugs with the ceph-disk utility (used by ceph-deploy).  We recommend
 that all v0.61.x users upgrade.
 
-## Upgrading
+### Upgrading
 
 * This release fixes a 32-bit vs 64-bit arithmetic bug with the
   feature bits.  An unfortunate consequence of the fix is that 0.61.4
@@ -115,7 +115,7 @@ that all v0.61.x users upgrade.
   later) monitors.  To avoid the possibility of service disruption, we
   recommend you upgrade all monitors at once.
 
-## Notable Changes
+### Notable Changes
 
 * mon: misc sync improvements (faster, more reliable, better tuning)
 * mon: enable leveldb cache by default (big performance improvement)
@@ -142,18 +142,18 @@ that all v0.61.x users upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.5.txt -->.
 
-# v0.61.4 "Cuttlefish"
+## v0.61.4 "Cuttlefish"
 
 This release resolves a possible data corruption on power-cycle when
 using XFS, a few outstanding problems with monitor sync, several
 problems with ceph-disk and ceph-deploy operation, and a problem with
 OSD memory usage during scrub.
 
-## Upgrading
+### Upgrading
 
 * No issues.
 
-## Notable Changes
+### Notable Changes
 
 * mon: fix daemon exit behavior when error is encountered on startup
 * mon: more robust sync behavior
@@ -178,12 +178,12 @@ OSD memory usage during scrub.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.4.txt -->.
 
-# v0.61.3 "Cuttlefish"
+## v0.61.3 "Cuttlefish"
 
 This release resolves a number of problems with the monitors and leveldb that users have
 been seeing.  Please upgrade.
 
-## Upgrading
+### Upgrading
 
 * There is one known problem with mon upgrades from bobtail.  If the
   ceph-mon conversion on startup is aborted or fails for some reason, we
@@ -193,7 +193,7 @@ been seeing.  Please upgrade.
 
 * In the meantime, for current cuttlefish users, v0.61.3 is safe to use.
 
-## Notable Changes
+### Notable Changes
 
 * mon: paxos state trimming fix (resolves runaway disk usage)
 * mon: finer-grained compaction on trim
@@ -220,24 +220,24 @@ been seeing.  Please upgrade.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.3.txt -->.
 
-# v0.61.2 "Cuttlefish"
+## v0.61.2 "Cuttlefish"
 
 This release disables a monitor debug log that consumes disk space and
 fixes a bug when upgrade some monitors from bobtail to cuttlefish.
 
-## Notable Changes
+### Notable Changes
 
 * mon: fix conversion of stores with duplicated GV values
 * mon: disable 'mon debug dump transactions' by default
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.2.txt -->.
 
-# v0.61.1 "Cuttlefish"
+## v0.61.1 "Cuttlefish"
 
 This release fixes a problem when upgrading a bobtail cluster that had
 snapshots to cuttlefish.
 
-## Notable Changes
+### Notable Changes
 
 * osd: handle upgrade when legacy snap collections are present; repair from previous failed restart
 * ceph-create-keys: fix race with ceph-mon startup (which broke 'ceph-deploy gatherkeys ...')
@@ -249,9 +249,9 @@ snapshots to cuttlefish.
 
 For more detailed information, see the complete changelog <!-- unresolved-rst-link: kind=download target=../changelog/v0.61.1.txt -->.
 
-# v0.61 "Cuttlefish"
+## v0.61 "Cuttlefish"
 
-## Upgrading from v0.60
+### Upgrading from v0.60
 
 * The ceph-deploy tool is now the preferred method of provisioning
   new clusters.  For existing clusters created via mkcephfs that
@@ -291,7 +291,7 @@ For more detailed information, see the complete changelog <!-- unresolved-rst-li
   on the remote host (it is not copied to a temporary file, as it was
   previously).
 
-## Upgrading from v0.56.4 "Bobtail"
+### Upgrading from v0.56.4 "Bobtail"
 
 Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=named target=Upgrading from Bobtail to Cuttlefish --> for details.
 
@@ -360,7 +360,7 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
   pool removal.  Any scripts currently rely on these functions zapping
   data without confirmation need to be adjusted accordingly.
 
-## Notable Changes from v0.60
+### Notable Changes from v0.60
 
 * rbd: incremental backups
 * rbd: only set STRIPINGV2 feature if striping parameters are incompatible with old versions
@@ -402,7 +402,7 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
 * osd: fix udev rules for RHEL/CentOS systems
 * fix daemon logging during initial startup
 
-## Notable changes from v0.56 "Bobtail"
+### Notable changes from v0.56 "Bobtail"
 * always use installed system leveldb (Gary Lowell)
 * auth: ability to require new cephx signatures on messages (still off by default)
 * buffer unit testing (Loic Dachary)
@@ -521,15 +521,15 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
 * upstart: automatically set osd weight based on df (Guilhem Lettron)
 * use less memory for logging by default
 
-# v0.60
+## v0.60
 
-## Upgrading
+### Upgrading
 
 * Please note that the recently added librados 'list_snaps' function
   call is in a state of flux and is changing slightly in v0.61.  You
   are advised not to make use of it in v0.59 or v0.60.
 
-## Notable Changes
+### Notable Changes
 
 * osd: make tracking of object snapshot metadata more efficient (Sam Just)
 * osd: misc fixes to PG split (Sam Just)
@@ -555,9 +555,9 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
 * init-ceph, mkcephfs: close a few security holes with -a  (Sage Weil)
 * rpm/deb: do not remove /var/lib/ceph on purge (v0.59 was the only release to do so)
 
-# v0.59
+## v0.59
 
-## Upgrading
+### Upgrading
 
 * The monitor is using a completely new storage strategy and
   intra-cluster protocol.  This means that v0.59 and pre-v0.59
@@ -573,7 +573,7 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
   longer automatically created, and custom scripts should be adjusted to
   reflect just that.
 
-## Notable Changes
+### Notable Changes
 
  * mon: rearchitected to utilize single instance of paxos and a key/value store (Joao Luis)
  * mon: new 'ceph df [detail]' command
@@ -596,9 +596,9 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
  * consume less memory for logging by default
  * always use system leveldb (Gary Lowell)
 
-# v0.58
+## v0.58
 
-## Upgrading
+### Upgrading
 
 * The monitor now enforces that MDS names be unique.  If you have
   multiple daemons start with the same id (e.g., ``mds.a``) the
@@ -608,7 +608,7 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
   multi-mds configurations may need to be adjusted accordingly to give
   daemons unique names.
 
-## Notable Changes
+### Notable Changes
 
  * librbd: fixed some locking issues with flatten (Josh Durgin)
  * rbd: udevadm settle on map/unmap to avoid various races (Dan Mick)
@@ -630,21 +630,21 @@ Please see Upgrading from Bobtail to Cuttlefish <!-- unresolved-rst-link: kind=n
  * buffer unit testing (Loic Dachary)
  * fixed log rotation (Gary Lowell)
 
-# v0.57
+## v0.57
 
 This development release has a lot of additional functionality
 accumulated over the last couple months.  Most of the bug fixes (with
 the notable exception of the MDS related work) has already been
 backported to v0.56.x, and is not mentioned here.
 
-## Upgrading
+### Upgrading
 
 * The 'ceph osd pool delete <poolname>' and 'rados rmpool <poolname>'
   now have safety interlocks with loud warnings that make you confirm
   pool removal.  Any scripts currently rely on these functions zapping
   data without confirmation need to be adjusted accordingly.
 
-## Notable Changes
+### Notable Changes
 
 * osd: default to libaio for the journal (some performance boost)
 * osd: validate snap collections on startup

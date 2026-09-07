@@ -36,13 +36,13 @@ A wildcard zone, and a wildcard bucket parameter in the policy defines all relev
 > to the bucket policy needs to be applied on the zonegroup master
 > zone. The changes are dynamically handled by RGW.
 
-#### S3 Replication API
+## S3 Replication API
 
 The S3 bucket replication API has also been implemented, and allows users to create replication rules between different buckets. Note though that while the AWS replication feature allows bucket replication within the same zone, RGW does not allow it at the moment.  However, the RGW API also added a new 'Zone' array that allows users to select to what zones the specific bucket will be synced.
 
-#### Sync Policy Control Reference
+## Sync Policy Control Reference
 
-# Get Sync Policy
+### Get Sync Policy
 
 To retrieve the current zonegroup sync policy, or a specific bucket policy:
 
@@ -50,7 +50,7 @@ To retrieve the current zonegroup sync policy, or a specific bucket policy:
 radosgw-admin sync policy get [--bucket=<bucket>]
 ```
 
-# Create Sync Policy Group
+### Create Sync Policy Group
 
 To create a sync policy group:
 
@@ -60,7 +60,7 @@ radosgw-admin sync group create [--bucket=<bucket>] \
                                   --status=<enabled | allowed | forbidden>
 ```
 
-# Modify Sync Policy Group
+### Modify Sync Policy Group
 
 To modify a sync policy group:
 
@@ -70,7 +70,7 @@ radosgw-admin sync group modify [--bucket=<bucket>] \
                                   --status=<enabled | allowed | forbidden>
 ```
 
-# Show Sync Policy Group
+### Show Sync Policy Group
 
 To show a sync policy group:
 
@@ -79,7 +79,7 @@ radosgw-admin sync group get [--bucket=<bucket>] \
                                --group-id=<group-id>
 ```
 
-# Remove Sync Policy Group
+### Remove Sync Policy Group
 
 To remove a sync policy group:
 
@@ -88,7 +88,7 @@ radosgw-admin sync group remove [--bucket=<bucket>] \
                                   --group-id=<group-id>
 ```
 
-# Create Sync Flow
+### Create Sync Flow
 
 To create or update directional sync flow:
 
@@ -113,7 +113,7 @@ radosgw-admin sync group flow create [--bucket=<bucket>] \
 
 Where zones are a comma separated list of all the zones that need to add to the flow.
 
-# Remove Sync Flow Zones
+### Remove Sync Flow Zones
 
 To remove directional sync flow:
 
@@ -147,7 +147,7 @@ radosgw-admin sync group flow remove [--bucket=<bucket>] \
                                        --flow-type=symmetrical
 ```
 
-# Create Sync Pipe
+### Create Sync Pipe
 
 To create sync group pipe, or update its parameters:
 
@@ -179,7 +179,7 @@ Destination owner can be set to force a destination owner of the objects. If use
 Destination storage class can also be configured.
 User id can be set for user mode, and will be the user under which the sync operation will be executed (for permissions validation).
 
-# Remove Sync Pipe
+### Remove Sync Pipe
 
 To remove specific sync group pipe params, or the entire pipe:
 
@@ -195,7 +195,7 @@ radosgw-admin sync group pipe remove [--bucket=<bucket>] \
                                        [--dest-bucket-id=<dest_bucket_id>]
 ```
 
-# Sync Info
+### Sync Info
 
 To get information about the expected sync sources and targets (as defined by the sync policy):
 
@@ -206,11 +206,11 @@ radosgw-admin sync info [--bucket=<bucket>] \
 
 Since a bucket can define a policy that defines data movement from it towards a different bucket at a different zone, when the policy is created we also generate a list of bucket dependencies that are used as hints when a sync of any particular bucket happens. The fact that a bucket references another bucket does not mean it actually syncs to/from it, as the data flow might not permit it.
 
-#### Examples
+## Examples
 
 The system in these examples includes 3 zones: ``us-east`` (the master zone), ``us-west``, ``us-west-2``.
 
-# Example 1: Two Zones, Complete Mirror
+### Example 1: Two Zones, Complete Mirror
 
 This is similar to older (pre Octopus) sync capabilities, but being done via the new sync policy engine. Note that changes to the zonegroup sync policy require a period update and commit.
 
@@ -311,7 +311,7 @@ radosgw-admin sync info --bucket=buck
 }
 ```
 
-# Example 2: Directional, Entire Zone Backup
+### Example 2: Directional, Entire Zone Backup
 
 Also similar to older sync capabilities. In here we add a third zone, ``us-west-2`` that will be a replica of ``us-west``, but data will not be replicated back from it.
 
@@ -405,7 +405,7 @@ radosgw-admin sync info --bucket=buck
 }
 ```
 
-# Example 3: Mirror a Specific Bucket
+### Example 3: Mirror a Specific Bucket
 
 Using the same group configuration, but this time switching it to ``allowed`` state, which means that sync is allowed but not enabled.
 
@@ -424,7 +424,7 @@ radosgw-admin sync group pipe create --bucket=buck2 \
                                                 --source-zones='*' --dest-zones='*'
 ```
 
-# Example 4: Limit Bucket Sync to Specific Zones
+### Example 4: Limit Bucket Sync to Specific Zones
 
 This will only sync ``buck3`` to ``us-east`` (from any zone that flow allows to sync into ``us-east``).
 
@@ -436,7 +436,7 @@ radosgw-admin sync group pipe create --bucket=buck3 \
                                                 --source-zones='*' --dest-zones=us-east
 ```
 
-# Example 5: Sync From a Different Bucket
+### Example 5: Sync From a Different Bucket
 
 Note that bucket sync only works (currently) across zones and not within the same zone.
 
@@ -517,7 +517,7 @@ radosgw-admin sync info --bucket=buck5
 
 Note that there are resolved hints, which means that the bucket ``buck5`` found about ``buck4`` syncing from it indirectly, and not from its own policy (the policy for ``buck5`` itself is empty).
 
-# Example 6: Sync to Different Bucket
+### Example 6: Sync to Different Bucket
 
 The same mechanism can work for configuring data to be synced to (vs. synced from as in the previous example). Note that internally data is still pulled from the source at the destination zone:
 
@@ -536,7 +536,7 @@ A wildcard bucket name means the current bucket in the context of bucket sync po
 
 Combined with the configuration in Example 5, we can now write data to ``buck6`` on ``us-east``, data will sync to ``buck5`` on ``us-west``, and from there it will be distributed to ``buck4`` on ``us-east``, and on ``us-west-2``.
 
-# Example 7: Source Filters
+### Example 7: Source Filters
 
 Sync from ``buck8`` to ``buck9``, but only objects that start with ``foo/``:
 
@@ -627,7 +627,7 @@ Note that there aren't any sources, only two different destinations (one for eac
 
 Prefixes and tags can be combined, in which object will need to have both in order to be synced. The priority param can also be passed, and it can be used to determine when there are multiple different rules that are matched (and have the same source and destination), to determine which of the rules to be used.
 
-# Example 8: Destination Params: Storage Class
+### Example 8: Destination Params: Storage Class
 
 Storage class of the destination objects can be configured:
 
@@ -641,7 +641,7 @@ radosgw-admin sync group pipe create --bucket=buck10 \
                                                 --storage-class=CHEAP_AND_SLOW
 ```
 
-# Example 9: Destination Params: Destination Owner Translation
+### Example 9: Destination Params: Destination Owner Translation
 
 Set the destination objects owner as the destination bucket owner.
 This requires specifying the uid of the destination bucket:
@@ -655,7 +655,7 @@ radosgw-admin sync group pipe create --bucket=buck11 \
                                                 --dest-bucket=buck12 --dest-owner=joe
 ```
 
-# Example 10: Destination Params: User Mode
+### Example 10: Destination Params: User Mode
 
 User mode makes sure that the user has permissions to both read the objects, and write to the destination bucket. This requires that the uid of the user (which in its context the operation executes) is specified.
 

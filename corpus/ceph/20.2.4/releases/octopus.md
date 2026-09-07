@@ -10,12 +10,12 @@ fetched_at: 2026-08-18T01:32:45Z
 Octopus is the 15th stable release of Ceph.  It is named after an
 order of 8-limbed cephalopods.
 
-# v15.2.17 Octopus
+## v15.2.17 Octopus
 
 This is the 17th and final backport release in the Octopus series. We recommend
 all users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * Octopus modified the SnapMapper key format from
   <LEGACY_MAPPING_PREFIX><snapid>_<shardid>_<hobject_t::to_str()>
@@ -51,7 +51,7 @@ all users update to this release.
   Again, this vulnerability only impacts OpenStack Manila clusters which
   provided native CephFS access to their users.
 
-## Changelog
+### Changelog
 
 * admin/doc-requirements: bump sphinx to 4.4.0 ([pr#45972](https://github.com/ceph/ceph/pull/45972), Kefu Chai)
 * backport qemu-iotests fixup for centos stream 8 ([pr#45206](https://github.com/ceph/ceph/pull/45206), Ken Dreyer, Ilya Dryomov)
@@ -179,12 +179,12 @@ all users update to this release.
 * test: fix wrong alarm (HitSetWrite) ([pr#45320](https://github.com/ceph/ceph/pull/45320), Myoungwon Oh)
 * tools/rbd: expand where option rbd_default_map_options can be set ([pr#45182](https://github.com/ceph/ceph/pull/45182), Christopher Hoffman, Ilya Dryomov)
 
-# v15.2.16 Octopus
+## v15.2.16 Octopus
 
 This is the 16th backport release in the Octopus series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * Fix in the read lease logic to prevent PGs from going into WAIT state
   after OSD restart.
@@ -192,7 +192,7 @@ users update to this release.
 * Several bug fixes in BlueStore, including a fix for object listing bug, which
   could cause stat mismatch scrub errors.
 
-## Changelog
+### Changelog
 
 * Fix data corruption in bluefs truncate() ([pr#44860](https://github.com/ceph/ceph/pull/44860), Adam Kupczyk)
 * Octopus: mds: just respawn mds daemon when osd op requests timeout ([pr#43785](https://github.com/ceph/ceph/pull/43785), Xiubo Li)
@@ -277,12 +277,12 @@ users update to this release.
 * rgwlc:  remove lc entry on bucket delete ([pr#44730](https://github.com/ceph/ceph/pull/44730), Matt Benjamin)
 * rpm, debian: move smartmontools and nvme-cli to ceph-base ([pr#44177](https://github.com/ceph/ceph/pull/44177), Yaarit Hatuka)
 
-# v15.2.15 Octopus
+## v15.2.15 Octopus
 
 This is the 15th backport release in the Octopus series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * The default value of `osd_client_message_cap` has been set to 256, to provide
   better flow control by limiting maximum number of in-flight client requests.
@@ -290,7 +290,7 @@ users update to this release.
 * A new ceph-erasure-code-tool has been added to help manually recover an
   object from a damaged PG.
 
-## Changelog
+### Changelog
 
 * auth,mon: don't log "unable to find a keyring" error when key is given ([pr#43312](https://github.com/ceph/ceph/pull/43312), Ilya Dryomov)
 * ceph-monstore-tool: use a large enough paxos/{first,last}_committed ([issue#38219](http://tracker.ceph.com/issues/38219), [pr#43263](https://github.com/ceph/ceph/pull/43263), Kefu Chai)
@@ -350,12 +350,12 @@ users update to this release.
 * run-make-check.sh: Increase failure output log size ([pr#42849](https://github.com/ceph/ceph/pull/42849), David Galloway)
 * tools/erasure-code: new tool to encode/decode files ([pr#43407](https://github.com/ceph/ceph/pull/43407), Mykola Golub)
 
-# v15.2.14 Octopus
+## v15.2.14 Octopus
 
 This is the 14th backport release in the Octopus series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * RGW: It is possible to specify ssl options and ciphers for beast frontend now.
   The default ssl options setting is "no_sslv2:no_sslv3:no_tlsv1:no_tlsv1_1".
@@ -382,7 +382,7 @@ users update to this release.
 
 * Includes a fix for a bug that affects recovery below *min_size* for EC pools.
 
-## Changelog
+### Changelog
 
 * bind on loopback address if no other addresses are available ([pr#42478](https://github.com/ceph/ceph/pull/42478), Kefu Chai, Matthew Oliver)
 * bluestore: use string_view and strip trailing slash for dir listing ([pr#41757](https://github.com/ceph/ceph/pull/41757), Jonas Jelten, Kefu Chai)
@@ -475,12 +475,12 @@ users update to this release.
 * rpm: three spec file cleanups ([pr#42440](https://github.com/ceph/ceph/pull/42440), Nathan Cutler, Franck Bui)
 * test: bump DecayCounter.steady acceptable error ([pr#41619](https://github.com/ceph/ceph/pull/41619), Patrick Donnelly)
 
-# v15.2.13 Octopus
+## v15.2.13 Octopus
 
 This is the 13th backport release in the Octopus series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * RADOS: Ability to dynamically adjust trimming rate in the monitor and several other bug fixes.
 
@@ -488,7 +488,7 @@ users update to this release.
   interoperability under msgr v2 has been fixed.  In particular, mixing armv7l
   (armhf) and x86_64 or aarch64 servers in the same cluster now works.
 
-## Changelog
+### Changelog
 
 * blk/kernel: fix io_uring got (4) Interrupted system call ([pr#39899](https://github.com/ceph/ceph/pull/39899), Yanhu Cao)
 * ceph.spec.in: Enable tcmalloc on IBM Power and Z ([pr#39487](https://github.com/ceph/ceph/pull/39487), Nathan Cutler, Yaakov Selkowitz)
@@ -628,25 +628,25 @@ users update to this release.
 * tools/cephfs: don't bind to public_addr ([pr#40762](https://github.com/ceph/ceph/pull/40762), "Yan, Zheng")
 * vstart.sh: disable "auth_allow_insecure_global_id_reclaim" ([pr#40958](https://github.com/ceph/ceph/pull/40958), Kefu Chai)
 
-# v15.2.12 Octopus
+## v15.2.12 Octopus
 
 This is a hotfix release addressing a number of security issues and regressions. We recommend all users update to this release.
 
-## Changelog
+### Changelog
 
 * mgr/dashboard: fix base-href: revert it to previous approach ([issue#50684](https://tracker.ceph.com/issues/50684), Avan Thakkar)
 * mgr/dashboard: fix cookie injection issue ([CVE-2021-3509](../security/CVE-2021-3509.md#cve-2021-3509), Ernesto Puerta)
 * rgw: RGWSwiftWebsiteHandler::is_web_dir checks empty subdir_name ([CVE-2021-3531](../security/CVE-2021-3531.md#cve-2021-3531), Felix Huettner)
 * rgw: sanitize \r in s3 CORSConfiguration's ExposeHeader ([CVE-2021-3524](../security/CVE-2021-3524.md#cve-2021-3524), Sergey Bobrov, Casey Bodley)
 
-# v15.2.11 Octopus
+## v15.2.11 Octopus
 
 This is the 11th bugfix release in the Octopus stable series.  It addresses a
 security vulnerability in the Ceph authentication framework.
 
 We recommend all Octopus users upgrade.
 
-## Security fixes
+### Security fixes
 
 * This release includes a security fix that ensures the global_id
   value (a numeric value that should be unique for every authenticated
@@ -666,12 +666,12 @@ ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM_ALLOWED 1h
 
   For more information, see [CVE-2021-20288](../security/CVE-2021-20288.md#cve-2021-20288).
 
-# v15.2.10 Octopus
+## v15.2.10 Octopus
 
 This is the 10th backport release in the Octopus series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * The containers include an updated tcmalloc that avoids crashes seen on 15.2.9.  See [issue#49618](https://tracker.ceph.com/issues/49618) for details.
 
@@ -688,7 +688,7 @@ ceph orch redeploy grafana
 ceph orch redeploy alertmanager
 ```
 
-## Changelog
+### Changelog
 
 * octopus: .github: add workflow for adding label and milestone ([pr#39890](https://github.com/ceph/ceph/pull/39890), Kefu Chai, Ernesto Puerta)
 * octopus: ceph-volume: Fix usage of is_lv ([pr#39220](https://github.com/ceph/ceph/pull/39220), Michał Nasiadka)
@@ -735,19 +735,19 @@ ceph orch redeploy alertmanager
 * octopus: whitelist -> ignorelist for qa/\* only ([pr#39534](https://github.com/ceph/ceph/pull/39534), Neha Ojha, Sage Weil)
 * qa/tests: fixed branch entry ([pr#39819](https://github.com/ceph/ceph/pull/39819), Yuri Weinstein)
 
-# v15.2.9 Octopus
+## v15.2.9 Octopus
 
 This is the 9th backport release in the Octopus series. We recommend all
 users update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * MGR: progress module can now be turned on/off, using the commands:
   ``ceph progress on`` and ``ceph progress off``.
 
 * OSD: PG removal has been optimized in this release.
 
-## Changelog
+### Changelog
 
 * octopus: Do not add sensitive information in Ceph log files ([pr#38620](https://github.com/ceph/ceph/pull/38620), Neha Ojha)
 * octopus: PendingReleaseNotes: mgr/pg_autoscaler ([pr#39393](https://github.com/ceph/ceph/pull/39393), Kamoltat)
@@ -879,13 +879,13 @@ users update to this release.
 * octopus: test/run-cli-tests: use cram from github ([pr#39071](https://github.com/ceph/ceph/pull/39071), Kefu Chai)
 * octopus: tests: qa/task/cephadm: run cephadm only on bootstrap_remote ([pr#38040](https://github.com/ceph/ceph/pull/38040), Kyr Shatskyy)
 
-# v15.2.8 Octopus
+## v15.2.8 Octopus
 
 This is the 8th backport release in the Octopus series. This release fixes
 a security flaw in CephFS and includes a number of bug fixes. We recommend
 users to update to this release.
 
-## Notable Changes
+### Notable Changes
 
 * CVE-2020-27781 : OpenStack Manila use of ceph_volume_client.py library allowed
   tenant access to any Ceph credential's secret. (Kotresh Hiremath Ravishankar,
@@ -911,7 +911,7 @@ users to update to this release.
   be used for debugging and only affects initial communication with Ceph's
   monitor cluster.
 
-## Changelog
+### Changelog
 
 * pybind/ceph_volume_client: disallow authorize on existing auth ids (Kotresh
   Hiremath Ravishankar, Ramana Raja)
@@ -1105,7 +1105,7 @@ users to update to this release.
 * tools/rados: flush formatter periodically during json output of "rados ls" ([pr#37835](https://github.com/ceph/ceph/pull/37835), J. Eric Ivancich)
 * vstart.sh: fix fs set max_mds bug ([pr#37837](https://github.com/ceph/ceph/pull/37837), Jinmyeong Lee)
 
-# v15.2.7 Octopus
+## v15.2.7 Octopus
 
 This is the 7th backport release in the Octopus series. This release fixes
 a serious bug in RGW that has been shown to cause data loss when a read of
@@ -1115,31 +1115,31 @@ The bug causes the tail segments of that read object to be added to the RGW
 garbage collection queue, which will in turn cause them to be deleted after
 a period of time.
 
-## Changelog
+### Changelog
 
 * rgw: during GC defer, prevent new GC enqueue ([issue#47866](https://tracker.ceph.com/issues/47866), [pr#38249](https://github.com/ceph/ceph/pull/38249), Eric Ivancich, Casey Bodley)
 
-# v15.2.6 Octopus
+## v15.2.6 Octopus
 
 This is the 6th backport release in the Octopus series. This release fixes
 a security flaw affecting Messenger v1 & v2. We recommend users to update to
 this release.
 
-## Notable Changes
+### Notable Changes
 
 * CVE 2020-25660: CEPHX_V2 replay attack protection lost, for Messenger v1 & v2 (Ilya Dryomov)
 
-## Changelog
+### Changelog
 
 * mon/MonClient: bring back CEPHX_V2 authorizer challenges (Ilya Dryomov)
 
-# v15.2.5 Octopus
+## v15.2.5 Octopus
 
 This is the fifth release of the Ceph Octopus stable release series. This
 release brings a range of fixes across all components. We recommend that all
 Octopus users upgrade to this release.
 
-## Notable Changes
+### Notable Changes
 
 * CephFS: Automatic static subtree partitioning policies may now be configured
   using the new distributed and random ephemeral pinning extended attributes on
@@ -1158,7 +1158,7 @@ Octopus users upgrade to this release.
   [issue#47297](https://tracker.ceph.com/issues/47297),
   [pr#36981](https://github.com/ceph/ceph/pull/36981))
 
-## Changelog
+### Changelog
 
 * bluestore,core: bluestore: blk:BlockDevice.cc: use pending_aios instead of iovec size as ios num ([pr#36668](https://github.com/ceph/ceph/pull/36668), weixinwei)
 * bluestore,tests: test/store_test: refactor bluestore spillover test ([pr#34943](https://github.com/ceph/ceph/pull/34943), Igor Fedotov)
@@ -1327,14 +1327,14 @@ Octopus users upgrade to this release.
 * rgw: stop realm reloader before store shutdown ([pr#36644](https://github.com/ceph/ceph/pull/36644), Kefu Chai, Casey Bodley)
 * tools: tools: Add statfs operation to ceph-objecstore-tool ([pr#35715](https://github.com/ceph/ceph/pull/35715), David Zafman)
 
-# v15.2.4 Octopus
+## v15.2.4 Octopus
 
 This is the fourth release of the Ceph Octopus stable release series.
 In addition to a security fix in RGW, this release brings a range of fixes
 across all components. We recommend that all Octopus users upgrade to this
 release.
 
-## Notable Changes
+### Notable Changes
 
 * CVE-2020-10753: rgw: sanitize newlines in s3 CORSConfiguration's ExposeHeader
   (William Bowling, Adam Mohammed, Casey Bodley)
@@ -1394,7 +1394,7 @@ rados -p <pool-name> [-N namespace] rm rbd_trash_trash_purge_schedule
   or use any other convenient way to restore the schedule after the
   upgrade.
 
-## Changelog
+### Changelog
 
 * build/ops: address SElinux denials observed in rgw/multisite test run ([pr#34538](https://github.com/ceph/ceph/pull/34538), Kefu Chai, Kaleb S. Keithley)
 * ceph-volume: add and delete lvm tags in a single lvchange call ([pr#35452](https://github.com/ceph/ceph/pull/35452), Jan Fajerski)
@@ -1482,7 +1482,7 @@ rados -p <pool-name> [-N namespace] rm rbd_trash_trash_purge_schedule
 * rgw: url: fix amqp urls with vhosts ([pr#35432](https://github.com/ceph/ceph/pull/35432), Yuval Lifshitz)
 * tests: migrate qa/ to Python3 ([pr#35364](https://github.com/ceph/ceph/pull/35364), Kyr Shatskyy, Ilya Dryomov, Xiubo Li, Kefu Chai, Casey Bodley, Rishabh Dave, Patrick Donnelly, Sidharth Anupkrishnan, Michael Fritch)
 
-# v15.2.3 Octopus
+## v15.2.3 Octopus
 
 This is the third bug-fix release of the Ceph Octopus stable release series.
 This release mainly is a workaround for a potential OSD corruption in v15.2.2.
@@ -1493,21 +1493,21 @@ execute the following:
 ceph config set osd bluefs_preextend_wal_files false
 ```
 
-## Changelog
+### Changelog
 
 * bluestore: remove preextended WAL support ([issue#45613](http://tracker.ceph.com/issues/45613), Igor Fedotov, Neha Ojha)
 
-# v15.2.2 Octopus
+## v15.2.2 Octopus
 
 This is the second bug-fix release of the Ceph Octopus stable release series. This release
 brings a range of fixes across all components, as well as patching a security flaw. We
 recommend that all Octopus users upgrade.
 
-## Notable Changes
+### Notable Changes
 
 * CVE-2020-10736: Fixed an authorization bypass in mons & mgrs (Olle SegerDahl, Josh Durgin)
 
-## Changelog
+### Changelog
 
 * bluestore,core: common/options: Disable bluefs_buffered_io by default again ([pr#34353](https://github.com/ceph/ceph/pull/34353), Mark Nelson)
 * bluestore: os/bluestore: Don't pollute old journal when add new device ([pr#34795](https://github.com/ceph/ceph/pull/34795), Yang Honggang)
@@ -1579,18 +1579,18 @@ recommend that all Octopus users upgrade.
 * rgw: reshard: skip stale bucket id entries from reshard queue ([pr#34734](https://github.com/ceph/ceph/pull/34734), Abhishek Lekshmanan)
 * rgw: use DEFER_DROP_PRIVILEGES flag unconditionally ([pr#34731](https://github.com/ceph/ceph/pull/34731), Casey Bodley)
 
-# v15.2.1 Octopus
+## v15.2.1 Octopus
 
 This is the first bugfix release of Ceph Octopus, we recommend all Octopus users
 upgrade. This release fixes an upgrade issue and also has 2 security fixes
 
-## Notable Changes
+### Notable Changes
 
 * issue#44759: Fixed luminous->nautilus->octopus upgrade asserts
 * CVE-2020-1759: Fixed nonce reuse in msgr V2 secure mode
 * CVE-2020-1760: Fixed XSS due to RGW GetObject header-splitting
 
-## Changelog
+### Changelog
 
 * build/ops: fix ceph_release type to 'stable' ([pr#34194](https://github.com/ceph/ceph/pull/34194), Sage Weil)
 * build/ops: vstart_runner.py: fix OSError when checking if non-existent path is mounted ([pr#34132](https://github.com/ceph/ceph/pull/34132), Alfonso Martínez)
@@ -1618,11 +1618,11 @@ upgrade. This release fixes an upgrade issue and also has 2 security fixes
 * rbd: librbd: fix client backwards compatibility issues ([issue#39450](http://tracker.ceph.com/issues/39450), [issue#38834](http://tracker.ceph.com/issues/38834), [pr#34323](https://github.com/ceph/ceph/pull/34323), Jason Dillaman)
 * tools: ceph-backport.sh: add deprecation warning ([pr#34125](https://github.com/ceph/ceph/pull/34125), Nathan Cutler)
 
-# v15.2.0 Octopus
+## v15.2.0 Octopus
 
 This is the first stable release of Ceph Octopus.
 
-## Major Changes from Nautilus
+### Major Changes from Nautilus
 
 #### General
 
@@ -1789,7 +1789,7 @@ New and enhanced management of Ceph features/services:
   via CSI, including snapshots and cloning.
 * cephfs-shell has had numerous incremental improvements and bug fixes.
 
-## Upgrading from Mimic or Nautilus
+### Upgrading from Mimic or Nautilus
 
 > **Note:**
 > You can monitor the progress of your upgrade at each stage with the
@@ -2016,12 +2016,12 @@ ceph telemetry on
 
    For more information about the telemetry module, see [the documentation](../mgr/telemetry.md#telemetry).
 
-## Upgrading from pre-Mimic releases (like Luminous)
+### Upgrading from pre-Mimic releases (like Luminous)
 
 You *must* first upgrade to Mimic (13.2.z) or Nautilus (14.2.z) before
 upgrading to Octopus.
 
-## Upgrade compatibility notes
+### Upgrade compatibility notes
 
 * Starting with Octopus, there is now a separate repository directory
   for each version on `download.ceph.com` (e.g., ``rpm-15.2.0`` and
@@ -2354,7 +2354,7 @@ ceph osd pool set <pool-name> pg_autoscale_mode warn
   ``radosgw-admin period update --commit`` - otherwise the change will take
   effect after radosgws are restarted.
 
-## Changelog
+### Changelog
 * .gitignore: add more stuff ([pr#29568](https://github.com/ceph/ceph/pull/29568), Volker Theile)
 * async/dpdk: fix compile errors from ceph::mutex update ([pr#30066](https://github.com/ceph/ceph/pull/30066), yehu)
 * bluestore,build/ops,common,rgw: Enable _GLIBCXX_ASSERTIONS and fix unittest problems ([pr#32387](https://github.com/ceph/ceph/pull/32387), Samuel Just)

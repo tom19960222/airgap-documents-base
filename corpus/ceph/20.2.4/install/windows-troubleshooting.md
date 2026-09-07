@@ -9,7 +9,7 @@ fetched_at: 2026-08-18T01:32:45Z
 
 # Troubleshooting Ceph on Windows
 
-#### MSI installer
+## MSI installer
 
 The MSI source code can be consulted here:
 https://github.com/cloudbase/ceph-windows-installer
@@ -24,16 +24,16 @@ WNBD driver installation failures will be logged here: ``C:\Windows\inf\setupapi
 A server reboot is required after uninstalling the driver, otherwise subsequent
 install attempts may fail.
 
-#### Wnbd
+## Wnbd
 
 For ``WNBD`` troubleshooting, please check this page: https://github.com/cloudbase/wnbd#troubleshooting
 
-#### Privileges
+## Privileges
 
 Most ``rbd-wnbd`` and ``rbd device`` commands require privileged rights. Make
 sure to use an elevated PowerShell or CMD command prompt.
 
-#### Crash dumps
+## Crash dumps
 
 Userspace crash dumps can be placed at a configurable location and enabled for all
 applications or just predefined ones, as outlined here:
@@ -54,7 +54,7 @@ https://github.com/ssbssa/gdb/releases. As an alternative, ``DWARF`` symbols
 can be converted using ``cv2pdb`` but be aware that this tool has limited C++
 support.
 
-#### ceph tool
+## ceph tool
 
 The ``ceph`` Python tool can't be used on Windows natively yet. With minor
 changes it may run, but the main issue is that Python doesn't currently allow
@@ -68,7 +68,7 @@ using:
 ceph daemon /mnt/c/ProgramData/ceph/out/ceph-client.admin.61436.1209215304.asok help
 ```
 
-#### IO counters
+## IO counters
 
 Along with the standard RBD perf counters, the ``libwnbd`` IO counters may be
 retrieved using:
@@ -86,7 +86,7 @@ wnbd-client stats $mappingId
 Note that the ``wnbd-client`` mapping identifier will be the full RBD image spec
 (the ``device`` column of the ``rbd device list`` output).
 
-#### Missing libraries
+## Missing libraries
 
 The Ceph tools can silently exit with a -1073741515 return code if one of the
 required DLLs is missing or unsupported.

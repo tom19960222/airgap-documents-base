@@ -28,7 +28,7 @@ All directories are initially created as a single fragment.  This fragment
 may be *split* to divide up the directory into more fragments, and these
 fragments may be *merged* to reduce the number of fragments in the directory.
 
-# Splitting and merging
+## Splitting and merging
 
 When an MDS identifies a directory fragment to be split, it does not
 do the split immediately.  Because splitting interrupts metadata IO,
@@ -45,7 +45,7 @@ created.  The default setting is 3, i.e. splits create 8 new fragments.
 The criteria for initiating a split or a merge are described in the
 following sections.
 
-# Size thresholds
+## Size thresholds
 
 A directory fragment is eligible for splitting when its size exceeds
 ``mds_bal_split_size`` (default 10000 directory entries).  Ordinarily this
@@ -70,7 +70,7 @@ than ``mds_bal_merge_size``.  There is no merge equivalent of the
 creating oversized directory fragments, there is no equivalent issue
 to avoid when merging.  The default merge size is 50 directory entries.
 
-# Activity thresholds
+## Activity thresholds
 
 In addition to splitting fragments based
 on their size, the MDS may split directory fragments if their

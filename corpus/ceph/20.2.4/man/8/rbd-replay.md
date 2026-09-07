@@ -11,15 +11,15 @@ fetched_at: 2026-08-18T01:32:45Z
 
 .. program:: rbd-replay
 
-# Synopsis
+## Synopsis
 
 | **rbd-replay** [ *options* ] *replay_file*
 
-# Description
+## Description
 
 **rbd-replay** is a utility for replaying rados block device (RBD) workloads.
 
-# Options
+## Options
 
 .. option:: -c ceph.conf, --conf ceph.conf
 
@@ -51,7 +51,7 @@ fetched_at: 2026-08-18T01:32:45Z
    or if the same image is opened and closed multiple times.
    Performance counters and their meaning may change between versions.
 
-# Examples
+## Examples
 
 To replay workload1 as fast as possible:
 
@@ -65,12 +65,12 @@ To replay workload1 but use test_image instead of prod_image:
 rbd-replay --map-image=prod_image=test_image workload1
 ```
 
-# Availability
+## Availability
 
 **rbd-replay** is part of Ceph, a massively scalable, open-source, distributed storage system. Please refer to
 the Ceph documentation at https://docs.ceph.com for more information.
 
-# See also
+## See also
 
 [rbd-replay-prep](rbd-replay-prep.md)\(8),
 [rbd](../../dev/osd_internals/manifest.md#rbd)\(8)

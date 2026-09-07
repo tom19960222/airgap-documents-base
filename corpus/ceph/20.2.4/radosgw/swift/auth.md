@@ -29,7 +29,7 @@ For details on RADOS Gateway administration, see [man-radosgw-admin](../../man/8
 To authenticate a user, make a request containing an ``X-Auth-User`` and a
 ``X-Auth-Key`` in the header.
 
-#### Syntax
+### Syntax
 
 :
 
@@ -40,7 +40,7 @@ X-Auth-User: johndoe
 X-Auth-Key: R7UUOLFDI2ZI9PRCQ53K
 ```
 
-#### Request Headers
+### Request Headers
 
 ``X-Auth-User``
 
@@ -54,7 +54,7 @@ X-Auth-Key: R7UUOLFDI2ZI9PRCQ53K
 :Type: String
 :Required: Yes
 
-#### Response Headers
+### Response Headers
 
 The response from the server should include an ``X-Auth-Token`` value. The
 response may also contain a ``X-Storage-Url`` that provides the

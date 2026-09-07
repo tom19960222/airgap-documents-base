@@ -11,7 +11,7 @@ This guide describes installing Ceph packages manually. This procedure
 is only for users who are not installing with a deployment tool such as
 ``cephadm``, ``chef``, ``juju``, etc.
 
-# Installing with APT
+## Installing with APT
 
 Once you have added either release or development packages to APT, you should
 update APT's database and install Ceph:
@@ -20,7 +20,7 @@ update APT's database and install Ceph:
 sudo apt-get update && sudo apt-get install ceph ceph-mds
 ```
 
-# Installing with RPM
+## Installing with RPM
 
 To install Ceph with RPMs, execute the following steps:
 
@@ -81,7 +81,7 @@ Once you have added either release or development packages, or added a
 sudo yum install ceph
 ```
 
-# Installing a Build
+## Installing a Build
 
 If you build Ceph from source code, you may install Ceph in user space by
 executing the following:
