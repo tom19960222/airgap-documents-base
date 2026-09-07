@@ -1,0 +1,9 @@
+name = "sveltekit-2.70.3"
+collection = "sveltekit"
+version = "2.70.3"
+source_type = "git"
+repo_url = "https://github.com/sveltejs/kit"
+git_ref = "@sveltejs/kit@2.70.3"
+docs_paths = ["documentation/docs"]
+sparse_paths = ["documentation/docs"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

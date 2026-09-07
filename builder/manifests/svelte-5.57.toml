@@ -1,0 +1,9 @@
+name = "svelte-5.57"
+collection = "svelte"
+version = "5.57.0"
+source_type = "git"
+repo_url = "https://github.com/sveltejs/svelte"
+git_ref = "svelte@5.57.0"
+docs_paths = ["documentation/docs"]
+sparse_paths = ["documentation/docs"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"
