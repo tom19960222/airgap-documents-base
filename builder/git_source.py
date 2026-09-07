@@ -1,4 +1,4 @@
-"""Git 來源建置：clone git repo 並正規化 Markdown 文件成 corpus。
+"""Git 來源建置：clone git repo 並正規化 Markdown/RST 文件成 corpus。
 
 用法：
     python git_source.py fetch manifests/node-driver-registrar-2.13.toml
@@ -6,7 +6,7 @@
     python git_source.py all manifests/node-driver-registrar-2.13.toml
 
 fetch 階段會 clone 指定 tag/branch 到 raw/<collection>/<version>/repo，並記錄 commit date。
-normalize 階段可離線重跑，將 docs_paths 下的 Markdown 檔案轉換並附加統一 frontmatter。
+normalize 階段可離線重跑，將 docs_paths 下的 Markdown/RST 檔案轉換並附加統一 frontmatter。
 """
 
 from __future__ import annotations
@@ -21,14 +21,687 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
-import yaml
+from urllib.parse import urlsplit, urlunsplit
 
 from common import REPO_ROOT, Manifest, load_manifest
-from normalize import to_markdown as html_to_markdown
 
 FRONTMATTER_PATTERN = re.compile(r"^---\r?\n(.*?)\r?\n---\r?\n?", re.DOTALL)
 HEADING1_PATTERN = re.compile(r"^#\s+(.+)$", re.MULTILINE)
+
+RST_SECTION_CHARS = set("=-^~\"'*`+_.|#")
+RST_DIRECTIVE_PATTERN = re.compile(
+    r"^(?P<indent>[ ]*)\.\.\s+(?P<name>[A-Za-z0-9_.-]+)::(?:[ \t]*(?P<argument>.*))?$"
+)
+RST_TARGET_PATTERN = re.compile(
+    r"^(?P<indent>[ ]*)\.\.\s+_(?P<label>`[^`]+`|[^:]+):(?:[ \t]*(?P<target>.*))?$",
+    re.MULTILINE,
+)
+RST_LINK_ROLES = {"ref", "doc", "download", "numref"}
+ASSET_SUFFIXES = {
+    ".7z",
+    ".bz2",
+    ".eot",
+    ".gif",
+    ".gz",
+    ".ico",
+    ".jpeg",
+    ".jpg",
+    ".otf",
+    ".pdf",
+    ".png",
+    ".svg",
+    ".tar",
+    ".tgz",
+    ".ttf",
+    ".webp",
+    ".woff",
+    ".woff2",
+    ".xz",
+    ".zip",
+}
+RST_ADMONITIONS = {
+    "attention",
+    "caution",
+    "danger",
+    "error",
+    "hint",
+    "important",
+    "note",
+    "seealso",
+    "tip",
+    "warning",
+}
+RST_CODE_DIRECTIVES = {"code", "code-block", "sourcecode", "prompt"}
+
+
+def _indent_width(line: str) -> int:
+    return len(line) - len(line.lstrip(" "))
+
+
+def _is_section_underline(line: str) -> bool:
+    stripped = line.strip()
+    return (
+        len(stripped) >= 3
+        and len(set(stripped)) == 1
+        and stripped[0] in RST_SECTION_CHARS
+    )
+
+
+def _rst_section_at(lines: list[str], index: int) -> tuple[str, str, bool, int] | None:
+    """Return a top-level RST section's title, adornment, and shape."""
+
+    line = lines[index]
+    if RST_TARGET_PATTERN.match(line):
+        return None
+    if (
+        _indent_width(line) == 0
+        and _is_section_underline(line)
+        and index + 2 < len(lines)
+        and lines[index + 1].strip()
+        and lines[index + 2].strip() == line.strip()
+    ):
+        return lines[index + 1].strip(), line.strip(), True, index + 3
+    if (
+        line.strip()
+        and _indent_width(line) == 0
+        and index + 1 < len(lines)
+        and _is_section_underline(lines[index + 1])
+    ):
+        return line.strip(), lines[index + 1].strip(), False, index + 2
+    return None
+
+
+def _section_levels(lines: list[str]) -> dict[tuple[str, bool], int]:
+    """Assign levels by first-seen RST adornment style and shape."""
+
+    levels: dict[tuple[str, bool], int] = {}
+    index = 0
+    while index < len(lines):
+        section = _rst_section_at(lines, index)
+        if section is None:
+            index += 1
+            continue
+        _, adornment, overline, end = section
+        levels.setdefault((adornment[0], overline), len(levels) + 1)
+        index = end
+    return levels
+
+
+def _section_level(adornment: str, overline: bool, levels: dict[tuple[str, bool], int]) -> int:
+    return levels[(adornment.strip()[0], overline)]
+
+
+def _deindent(lines: list[str], minimum: int | None = None) -> list[str]:
+    nonblank = [_indent_width(line) for line in lines if line.strip()]
+    if not nonblank:
+        return ["" if not line.strip() else line for line in lines]
+    amount = min(nonblank) if minimum is None else minimum
+    result = []
+    for line in lines:
+        if not line.strip():
+            result.append("")
+        else:
+            result.append(line[min(amount, _indent_width(line)):])
+    return result
+
+
+def _inline_rst_to_markdown(line: str, *, preserve_rst_links: bool = False) -> str:
+    """Convert safe inline RST constructs without interpreting unknown roles."""
+
+    # Protect literal spans before interpreting roles or explicit links.  RST
+    # teaching text such as ``:ref:`example``` is not a real cross-reference.
+    literals: list[str] = []
+
+    def protect_literal(match: re.Match[str]) -> str:
+        literals.append(match.group(1))
+        return f"\x00RST_INLINE_LITERAL_{len(literals) - 1}\x01"
+
+    line = re.sub(r"``([^\n]*?)``", protect_literal, line)
+
+    def explicit_link(match: re.Match[str]) -> str:
+        label = match.group(1).strip()
+        target = match.group(2).strip()
+        return f"[{label}]({target})"
+
+    def role_value(match: re.Match[str]) -> str:
+        if preserve_rst_links and match.group(1).lower() in RST_LINK_ROLES:
+            return match.group(0)
+        value = match.group(2).strip()
+        if "<" in value and value.endswith(">"):
+            value = value.rsplit("<", 1)[0].strip() or value[1:-1].strip()
+        return value
+
+    line = re.sub(r"`([^`]+?)\s+<([^`>]+)>`_{1,2}", explicit_link, line)
+    line = re.sub(r":([A-Za-z][\w.-]*):`([^`]+)`", role_value, line)
+    if not preserve_rst_links:
+        line = re.sub(r"`([^`]+)`_{1,2}", r"\1", line)
+
+    def restore_literal(match: re.Match[str]) -> str:
+        content = literals[int(match.group(1))]
+        return f"``{content}``" if preserve_rst_links else f"`{content}`"
+
+    line = re.sub(r"\x00RST_INLINE_LITERAL_(\d+)\x01", restore_literal, line)
+    line = re.sub(r"^(\s*)#\.\s+", r"\g<1>1. ", line)
+    return line
+
+
+def _directive_block(lines: list[str], start: int) -> tuple[str, str, list[str], int] | None:
+    match = RST_DIRECTIVE_PATTERN.match(lines[start])
+    if match is None:
+        return None
+    indent = len(match.group("indent"))
+    name = match.group("name").lower()
+    argument = (match.group("argument") or "").strip()
+    end = start + 1
+    while end < len(lines):
+        line = lines[end]
+        if line.strip() and _indent_width(line) <= indent:
+            break
+        end += 1
+    return name, argument, lines[start + 1:end], end
+
+
+def _directive_content(body: list[str]) -> list[str]:
+    """Drop directive options and normalize the indentation of its content."""
+
+    content = body[:]
+    while content:
+        if not content[0].strip():
+            content.pop(0)
+            continue
+        # Directive options have a space or end-of-line after the closing
+        # colon.  Do not mistake an inline role such as ``:ref:`...`` for an
+        # option in the directive body.
+        if re.match(r"^[ ]+:[^:]+:(?:[ \t].*)?$", content[0]):
+            content.pop(0)
+            continue
+        break
+    while content and not content[-1].strip():
+        content.pop()
+    return _deindent(content)
+
+
+RST_ROLE_OPEN_PATTERN = re.compile(r":(?:ref|doc|download|numref):`", re.IGNORECASE)
+
+
+def _join_multiline_rst_roles(lines: list[str]) -> list[str]:
+    """Join wrapped RST roles before adding Markdown blockquote prefixes."""
+
+    output: list[str] = []
+    pending: list[str] | None = None
+    for line in lines:
+        if pending is not None:
+            pending.append(line.strip())
+            if line.count("`") % 2:
+                output.append(" ".join(part for part in pending if part))
+                pending = None
+            continue
+
+        role = RST_ROLE_OPEN_PATTERN.search(line)
+        if role is not None and line[role.start() :].count("`") % 2:
+            pending = [line.strip()]
+            continue
+        output.append(line)
+    if pending is not None:
+        output.extend(pending)
+    return output
+
+
+def _is_fenced_markdown_line(line: str) -> bool:
+    """Recognize fences with any depth of Markdown blockquote prefix."""
+
+    return re.match(r"^(?:>\s*)*```", line) is not None
+
+
+def _directive_option(body: list[str], name: str) -> str:
+    pattern = re.compile(rf"^[ ]+:{re.escape(name)}:(?:[ \t]+(.*))?$")
+    for line in body:
+        match = pattern.match(line)
+        if match:
+            return (match.group(1) or "").strip()
+    return ""
+
+
+def _grid_border_positions(line: str) -> list[int] | None:
+    """Return column boundaries for an RST grid-table border."""
+
+    raw = line.rstrip()
+    if not raw:
+        return None
+    indent = len(raw) - len(raw.lstrip(" "))
+    if indent >= len(raw) or raw[indent] not in "+|" or not raw.endswith("+"):
+        return None
+    if raw[indent] == "|" and "+" not in raw[indent + 1 :]:
+        return None
+    border = raw[indent + 1 : -1]
+    if not border or any(char not in "+-=| " for char in border):
+        return None
+    positions: list[int] = []
+    if raw[indent] == "|":
+        positions.append(indent)
+    for index, char in enumerate(raw):
+        if char == "+" and (not positions or index > positions[-1] + 1):
+            positions.append(index)
+    return positions if len(positions) >= 2 else None
+
+
+def _simple_border_spans(line: str) -> list[tuple[int, int]] | None:
+    """Return fixed-width column spans for an RST simple-table border."""
+
+    raw = line.rstrip()
+    runs = list(re.finditer(r"=+", raw))
+    if len(runs) < 2:
+        return None
+    if any(left.end() < right.start() and raw[left.end() : right.start()].strip()
+           for left, right in zip(runs, runs[1:])):
+        return None
+    return [(match.start(), match.end()) for match in runs]
+
+
+def _table_cell(value: str) -> str:
+    value = " ".join(value.split())
+    return value.replace("|", r"\|")
+
+
+def _gfm_table(rows: list[list[str]]) -> list[str] | None:
+    """Render parsed rows as GFM, treating the first row as the header."""
+
+    if not rows or not rows[0] or not any(cell.strip() for cell in rows[0]):
+        return None
+    width = max(len(row) for row in rows)
+    normalized = [row + [""] * (width - len(row)) for row in rows]
+    output = [
+        "| " + " | ".join(_table_cell(cell) for cell in normalized[0]) + " |",
+        "| " + " | ".join("---" for _ in range(width)) + " |",
+    ]
+    output.extend(
+        "| " + " | ".join(_table_cell(cell) for cell in row) + " |"
+        for row in normalized[1:]
+    )
+    return output
+
+
+def _grid_table_at(lines: list[str], start: int) -> tuple[list[str], int] | None:
+    first_border = _grid_border_positions(lines[start])
+    if first_border is None:
+        return None
+
+    border_positions = [first_border]
+    outer_left = first_border[0]
+    outer_right = first_border[-1]
+    end = start + 1
+    while end < len(lines):
+        border = _grid_border_positions(lines[end])
+        if border is not None:
+            border_positions.append(border)
+            outer_left = min(outer_left, border[0])
+            outer_right = max(outer_right, border[-1])
+            end += 1
+            continue
+        raw = lines[end].rstrip()
+        if raw and len(raw) > outer_right and raw[outer_left] == "|":
+            end += 1
+            continue
+        break
+
+    if end <= start + 2 or _grid_border_positions(lines[end - 1]) is None:
+        return None
+
+    positions = sorted({position for border in border_positions for position in border})
+    if len(positions) < 2:
+        return None
+
+    rows: list[list[str]] = []
+    current: list[list[str]] = [[] for _ in range(len(positions) - 1)]
+    for line in lines[start + 1 : end - 1]:
+        if _grid_border_positions(line) is not None:
+            if any(cell.strip() for column in current for cell in column):
+                rows.append(["<br>".join(column) for column in current])
+            current = [[] for _ in range(len(positions) - 1)]
+            continue
+        raw = line.rstrip()
+        if len(raw) <= outer_left or raw[outer_left] != "|":
+            return None
+        # A literal ``|`` inside a cell is content, not a column boundary.
+        # Only bars or plus signs at positions observed on a border line can
+        # delimit cells.  A plus sign inside a content line is a partial
+        # horizontal border for a spanning cell, so retain the text before it
+        # and treat the dashed portions as empty cells.
+        content_positions = [
+            index for index in positions if index < len(raw) and raw[index] in "|+"
+        ]
+        logical_positions = {position: index for index, position in enumerate(positions)}
+        if content_positions and content_positions[-1] != outer_right:
+            for shifted_right in range(outer_right + 1, min(len(raw), outer_right + 5)):
+                if raw[shifted_right] == "|":
+                    content_positions.append(shifted_right)
+                    logical_positions[shifted_right] = len(positions) - 1
+                    break
+        if len(content_positions) < 2 or content_positions[0] != outer_left:
+            return None
+        for left, right in zip(content_positions, content_positions[1:]):
+            left_index = logical_positions.get(left)
+            right_index = logical_positions.get(right)
+            if left_index is None or right_index is None:
+                return None
+            if right_index <= left_index:
+                return None
+            cell = raw[left + 1 : right]
+            if raw[left] == "+" and not cell.strip(" +-=|"):
+                cell = ""
+            current[left_index].append(cell)
+    if any(cell.strip() for column in current for cell in column):
+        rows.append(["<br>".join(column) for column in current])
+
+    rendered = _gfm_table(rows)
+    return (rendered, end) if rendered is not None else None
+
+
+def _simple_table_at(lines: list[str], start: int) -> tuple[list[str], int] | None:
+    spans = _simple_border_spans(lines[start])
+    if spans is None:
+        return None
+
+    rows: list[list[str]] = []
+    border_count = 1
+    end = start + 1
+    while end < len(lines):
+        line = lines[end]
+        if _simple_border_spans(line) is not None:
+            border_count += 1
+            end += 1
+            if border_count >= 3 or (border_count == 2 and len(rows) >= 2):
+                break
+            continue
+        if not line.strip():
+            break
+        if len(line) < spans[0][0]:
+            break
+        rows.append([line[left:right].strip() for left, right in spans])
+        end += 1
+
+    if border_count < 2 or not rows:
+        return None
+    rendered = _gfm_table(rows)
+    return (rendered, end) if rendered is not None else None
+
+
+def _rst_table_at(lines: list[str], start: int) -> tuple[list[str], int] | None:
+    return _grid_table_at(lines, start) or _simple_table_at(lines, start)
+
+
+def _normalize_embedded_tables(lines: list[str], *, allow_indented: bool = False) -> list[str]:
+    """Convert RST tables while leaving fenced code and diagrams untouched."""
+
+    output: list[str] = []
+    in_fence = False
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        if line.startswith("```"):
+            in_fence = not in_fence
+            output.append(line)
+            index += 1
+            continue
+        if not in_fence and (allow_indented or _indent_width(line) == 0):
+            table = _rst_table_at(lines, index)
+            if table is not None:
+                rendered, end = table
+                output.extend(rendered)
+                index = end
+                continue
+        output.append(line)
+        index += 1
+    return output
+
+
+def _resolve_literalinclude(
+    argument: str,
+    raw_body: list[str],
+    repo_dir: Path | None,
+    source_path: Path | None,
+) -> tuple[str, str, list[str]] | None:
+    """Resolve a safe, unsliced literalinclude inside the fixed source tree."""
+
+    if repo_dir is None or source_path is None or not argument:
+        return None
+    options = {
+        match.group(1)
+        for line in raw_body
+        if (match := re.match(r"^[ ]+:([^:]+):", line))
+    }
+    if options - {"language", "linenos", "caption", "name", "class"}:
+        return None
+
+    repo_root = repo_dir.resolve()
+    include_path = (source_path.parent / argument.strip()).resolve()
+    try:
+        include_rel = include_path.relative_to(repo_root).as_posix()
+    except ValueError:
+        return None
+    if not include_path.is_file() or include_path.stat().st_size > 1_000_000:
+        return None
+    try:
+        content = include_path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+    language = _directive_option(raw_body, "language")
+    if not language:
+        language = include_path.suffix.removeprefix(".")
+    return include_rel, language, content.rstrip("\n").splitlines()
+
+
+def _resolve_text_include(
+    argument: str,
+    repo_dir: Path | None,
+    source_path: Path | None,
+) -> tuple[str, Path, str] | None:
+    """Resolve a bounded text include without allowing path escape."""
+
+    if repo_dir is None or source_path is None or not argument:
+        return None
+    repo_root = repo_dir.resolve()
+    include_path = (source_path.parent / argument.strip()).resolve()
+    try:
+        include_rel = include_path.relative_to(repo_root).as_posix()
+    except ValueError:
+        return None
+    if not include_path.is_file() or include_path.stat().st_size > 1_000_000:
+        return None
+    if include_path.suffix.lower() not in {".rst", ".md", ".markdown", ".txt", ".inc"}:
+        return None
+    try:
+        content = include_path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+    return include_rel, include_path, content
+
+
+def rst_to_markdown(
+    text: str,
+    default_title: str = "",
+    *,
+    repo_dir: Path | None = None,
+    source_path: Path | None = None,
+    preserve_rst_links: bool = False,
+    _include_depth: int = 0,
+    _section_levels_context: dict[tuple[str, bool], int] | None = None,
+) -> tuple[str, str]:
+    """Convert Ceph's RST to conservative Markdown while retaining unknown RST.
+
+    This is deliberately not a Sphinx reimplementation.  Structural headings,
+    code directives, admonitions, links, and common roles become Markdown; all
+    other directives remain visible as indented RST so source content is not
+    silently discarded when the upstream documentation adds a directive.
+    """
+
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").expandtabs(8).split("\n")
+    local_section_levels = _section_levels(lines)
+    if _section_levels_context is None:
+        section_levels = local_section_levels
+    else:
+        section_levels = dict(_section_levels_context)
+        next_level = max(section_levels.values(), default=0) + 1
+        for style in local_section_levels:
+            if style not in section_levels:
+                section_levels[style] = next_level
+                next_level += 1
+    output: list[str] = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+
+        directive = _directive_block(lines, i)
+        if directive is not None:
+            name, argument, raw_body, end = directive
+            content = _directive_content(raw_body)
+            if name == "literalinclude":
+                included = _resolve_literalinclude(argument, raw_body, repo_dir, source_path)
+                if included is not None:
+                    include_rel, language, include_lines = included
+                    output.extend([f"Included file `{include_rel}`:", "", f"```{language}".rstrip()])
+                    output.extend(include_lines)
+                    output.extend(["```", ""])
+                else:
+                    output.append(f".. {name}::{(' ' + argument) if argument else ''}".rstrip())
+                    for raw_line in _deindent(raw_body):
+                        output.append(f"   {raw_line}" if raw_line else "")
+                    output.append("")
+            elif name in {"image", "figure"}:
+                target = argument.split()[0] if argument else ""
+                alt = _directive_option(raw_body, "alt") or _directive_option(raw_body, "caption")
+                output.append(f"![{alt}]({target})" if target else f".. {name}::")
+                output.append("")
+            elif name == "include":
+                included = _resolve_text_include(argument, repo_dir, source_path)
+                if included is not None and _include_depth < 5:
+                    include_rel, include_path, include_text = included
+                    _, include_body = rst_to_markdown(
+                        include_text,
+                        default_title=include_path.stem,
+                        repo_dir=repo_dir,
+                        source_path=include_path,
+                        preserve_rst_links=preserve_rst_links,
+                        _include_depth=_include_depth + 1,
+                        _section_levels_context=section_levels,
+                    )
+                    output.extend([f"Included file `{include_rel}`:", ""])
+                    output.extend(include_body.rstrip("\n").splitlines())
+                    output.append("")
+                else:
+                    output.append(f".. {name}::{(' ' + argument) if argument else ''}".rstrip())
+                    output.extend(f"   {raw_line}" if raw_line else "" for raw_line in _deindent(raw_body))
+                    output.append("")
+            elif name == "table":
+                if argument:
+                    output.extend([f"**{_inline_rst_to_markdown(argument, preserve_rst_links=preserve_rst_links)}**", ""])
+                rendered = _normalize_embedded_tables(content, allow_indented=True)
+                output.extend(rendered)
+                output.append("")
+            elif name in RST_CODE_DIRECTIVES:
+                language = argument.split()[0] if argument else ""
+                output.extend(["", f"```{language}".rstrip()])
+                output.extend(content)
+                output.extend(["```", ""])
+            elif name in RST_ADMONITIONS:
+                label = name.capitalize()
+                first = _inline_rst_to_markdown(argument, preserve_rst_links=preserve_rst_links) if argument else ""
+                output.append(f"> **{label}:**" + (f" {first}" if first else ""))
+                admonition_content = _join_multiline_rst_roles(content)
+                _, rendered_content = rst_to_markdown(
+                    "\n".join(admonition_content),
+                    repo_dir=repo_dir,
+                    source_path=source_path,
+                    preserve_rst_links=preserve_rst_links,
+                    _include_depth=_include_depth,
+                    _section_levels_context=section_levels,
+                )
+                rendered_in_fence = False
+                for content_line in rendered_content.rstrip("\n").splitlines():
+                    if _is_fenced_markdown_line(content_line):
+                        rendered_in_fence = not rendered_in_fence
+                        rendered_line = content_line
+                    elif rendered_in_fence:
+                        rendered_line = content_line
+                    else:
+                        rendered_line = _inline_rst_to_markdown(
+                            content_line,
+                            preserve_rst_links=preserve_rst_links,
+                        )
+                    output.append(">" if not rendered_line else f"> {rendered_line}")
+                output.append("")
+            else:
+                output.append(f".. {name}::{(' ' + argument) if argument else ''}".rstrip())
+                for content_line in _deindent(raw_body):
+                    output.append(f"   {content_line}" if content_line else "")
+                output.append("")
+            i = end
+            continue
+
+        if line.strip():
+            table = _rst_table_at(lines, i)
+            if table is not None:
+                rendered, end = table
+                output.extend(rendered)
+                output.append("")
+                i = end
+                continue
+
+        if RST_TARGET_PATTERN.match(line):
+            output.append(line.strip())
+            i += 1
+            continue
+
+        section = _rst_section_at(lines, i)
+        if section is not None:
+            title, adornment, overline, end = section
+            level = _section_level(adornment, overline, section_levels)
+            output.append(f"{'#' * level} {title}")
+            i = end
+            continue
+
+        if (
+            line.strip().endswith("::")
+            and i + 1 < len(lines)
+            and not line.lstrip().startswith(".. ")
+        ):
+            body_start = i + 1
+            if body_start < len(lines) and not lines[body_start].strip():
+                body_start += 1
+            base_indent = _indent_width(line)
+            body_end = body_start
+            while body_end < len(lines):
+                if lines[body_end].strip() and _indent_width(lines[body_end]) <= base_indent:
+                    break
+                body_end += 1
+            if body_end > body_start and any(lines[k].strip() for k in range(body_start, body_end)):
+                output.append(_inline_rst_to_markdown(line.rstrip()[:-1], preserve_rst_links=preserve_rst_links))
+                literal = _deindent(lines[body_start:body_end])
+                while literal and not literal[-1].strip():
+                    literal.pop()
+                output.extend(["", "```"])
+                output.extend(literal)
+                output.extend(["```", ""])
+                i = body_end
+                continue
+
+        output.append(_inline_rst_to_markdown(line.rstrip(), preserve_rst_links=preserve_rst_links))
+        i += 1
+
+    output = _normalize_embedded_tables(output)
+    # RST examples frequently mix spaces and tabs.  Markdown renders them as
+    # indentation, but the mixed form trips git's whitespace checker and can
+    # make copied code depend on the viewer's tab stop.  Keep the rendered
+    # layout while making the generated corpus deterministic.
+    body = re.sub(r"[ \t]+$", "", "\n".join(output).expandtabs(8), flags=re.MULTILINE)
+    body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
+    title = ""
+    for candidate in body.splitlines():
+        heading = re.match(r"^#\s+(.+)$", candidate)
+        if heading:
+            title = heading.group(1).strip()
+            break
+    return title or default_title, body
 
 # 副檔名與代碼語言對映
 EXT_TO_LANG: dict[str, str] = {
@@ -157,6 +830,8 @@ def extract_frontmatter(content: str, default_title: str) -> tuple[str, str]:
         raw_yaml = match.group(1)
         body = content[match.end():]
         try:
+            import yaml
+
             parsed = yaml.safe_load(raw_yaml)
             if isinstance(parsed, dict) and "title" in parsed:
                 t = parsed["title"]
@@ -624,13 +1299,7 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
 
 def clean_gitlab_shortcodes(content: str) -> str:
     """Convert GitLab Docs Hugo shortcodes into readable plain Markdown."""
-    # Some upstream API examples contain credential-shaped values. Keep the
-    # examples useful without copying token-like values into the corpus.
-    text = re.sub(
-        r'("personal_access_token"\s*:\s*")[^"<]+(")',
-        r"\1<your_bitbucket_server_personal_access_token>\2",
-        content,
-    )
+    text = content
 
     alert_pattern = re.compile(
         r'\{\{<\s*alert\s+type=["\']([^"\']+)["\']\s*>\}\}'
@@ -688,6 +1357,568 @@ def clean_gitlab_shortcodes(content: str) -> str:
     return text
 
 
+def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Path, str]]:
+    supported_suffixes = {".md", ".markdown", ".rst"}
+    if manifest.content_selector:
+        supported_suffixes.add(".html")
+
+    discovered: list[tuple[Path, str]] = []
+    for doc_item in manifest.docs_paths:
+        item_path = repo_dir / doc_item
+        if not item_path.exists():
+            print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
+            continue
+        if item_path.is_file():
+            if item_path.suffix.lower() in supported_suffixes:
+                discovered.append((item_path, Path(doc_item).name))
+            continue
+        for path in sorted(item_path.rglob("*")):
+            if path.is_file() and path.suffix.lower() in supported_suffixes:
+                discovered.append((path, path.relative_to(item_path).as_posix()))
+    return discovered
+
+
+def _has_source_content(text: str) -> bool:
+    return bool(text.strip())
+
+
+def _source_url(manifest: Manifest, repo_rel_path: str, doc_path: str = "") -> str:
+    """Build the immutable source URL used by frontmatter and assets."""
+
+    base_repo_url = manifest.repo_url.rstrip("/")
+    if manifest.source_url_template:
+        return manifest.source_url_template.format(
+            repo_url=base_repo_url,
+            git_ref=manifest.git_ref,
+            path=repo_rel_path,
+            doc_path=doc_path or repo_rel_path,
+        )
+    return f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
+
+
+def _pinned_asset_url(manifest: Manifest, target: str) -> str | None:
+    """Pin same-repository GitHub blob assets to the manifest commit."""
+
+    repository = urlsplit(manifest.repo_url.rstrip("/"))
+    parsed = urlsplit(target)
+    if (parsed.scheme, parsed.netloc) != (repository.scheme, repository.netloc):
+        return None
+    prefix = repository.path.rstrip("/") + "/blob/"
+    if not parsed.path.startswith(prefix):
+        return None
+    remainder = parsed.path[len(prefix) :]
+    parts = remainder.split("/", 1)
+    if len(parts) != 2 or Path(parts[1]).suffix.lower() not in ASSET_SUFFIXES:
+        return None
+    pinned_path = f"{prefix}{manifest.git_ref}/{parts[1]}"
+    return urlunsplit((parsed.scheme, parsed.netloc, pinned_path, parsed.query, parsed.fragment))
+
+
+def _source_link_candidates(file_path: Path, target: str) -> list[Path]:
+    target_path = target.split("#", 1)[0].split("?", 1)[0]
+    if not target_path:
+        return []
+    candidates: list[Path] = []
+    bases = (file_path.parent / file_path.stem, file_path.parent)
+    for base in bases:
+        candidate = Path(os.path.normpath(str(base / target_path)))
+        candidates.append(candidate)
+        if candidate.suffix == "":
+            for suffix in (".rst", ".md", ".markdown"):
+                candidates.append(candidate.with_suffix(suffix))
+            candidates.extend((candidate / "index.rst", candidate / "index.md"))
+        elif candidate.suffix.lower() in {".md", ".markdown"}:
+            candidates.append(candidate.with_suffix(".rst"))
+    unique: list[Path] = []
+    seen: set[Path] = set()
+    for candidate in candidates:
+        if candidate not in seen:
+            unique.append(candidate)
+            seen.add(candidate)
+    return unique
+
+
+def _rewrite_source_links(
+    body: str,
+    file_path: Path,
+    target_rel: Path,
+    repo_dir: Path,
+    source_outputs: dict[str, str],
+    manifest: Manifest,
+) -> str:
+    """Point source-relative Markdown links at corpus pages or fixed assets."""
+
+    repo_root = repo_dir.resolve()
+
+    def replacement(open_text: str, target: str) -> str:
+        original = f"{open_text}{target})"
+        target = target.strip()
+        pinned_asset = _pinned_asset_url(manifest, target)
+        if pinned_asset is not None:
+            return f"{open_text}{pinned_asset})"
+        if (
+            not target
+            or target.startswith(("#", "/", "//", "http:", "https:", "mailto:", "ftp:"))
+            or re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", target)
+            or ("@" in target and "/" not in target)
+            or re.match(r"^[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+){2,}(?:/|$)", target)
+        ):
+            return original
+
+        if target.startswith("<") and target.endswith(">"):
+            target = target[1:-1].strip()
+        path_part, hash_mark, fragment = target.partition("#")
+        query = ""
+        if "?" in path_part:
+            path_part, query = path_part.split("?", 1)
+        suffix = (f"?{query}" if query else "") + (f"#{fragment}" if hash_mark else "")
+
+        for candidate in _source_link_candidates(file_path, path_part):
+            try:
+                repo_rel = candidate.resolve().relative_to(repo_root).as_posix()
+            except ValueError:
+                continue
+            output_path = source_outputs.get(repo_rel)
+            if output_path is not None:
+                relative = os.path.relpath(output_path, start=target_rel.parent.as_posix()).replace(os.sep, "/")
+                return f"{open_text}{relative}{suffix})"
+            if candidate.is_file():
+                return f"{open_text}{_source_url(manifest, repo_rel)}{suffix})"
+        # Keep upstream prose readable when a source-relative target points to
+        # a page outside the pinned documentation corpus, but make the
+        # classification explicit instead of silently turning it into plain
+        # text.
+        return f"{original} <!-- unresolved-source-link: target={target} -->"
+
+    link_open_pattern = re.compile(r"(?P<open>!?\[[^\]\n]*\]\()")
+
+    def rewrite_segment(segment: str) -> str:
+        output: list[str] = []
+        cursor = 0
+        while True:
+            match = link_open_pattern.search(segment, cursor)
+            if match is None:
+                output.append(segment[cursor:])
+                break
+            output.append(segment[cursor : match.start()])
+            target_start = match.end()
+            index = target_start
+            depth = 0
+            escaped = False
+            target_end: int | None = None
+            while index < len(segment):
+                char = segment[index]
+                if escaped:
+                    escaped = False
+                elif char == "\\":
+                    escaped = True
+                elif char == "(":
+                    depth += 1
+                elif char == ")":
+                    if depth == 0:
+                        target_end = index
+                        break
+                    depth -= 1
+                index += 1
+            if target_end is None:
+                output.append(segment[match.start() :])
+                break
+            output.append(replacement(match.group("open"), segment[target_start:target_end]))
+            cursor = target_end + 1
+        return "".join(output)
+
+    output: list[str] = []
+    normal: list[str] = []
+    in_fence = False
+    for line in body.splitlines(keepends=True):
+        if _is_fenced_markdown_line(line):
+            if normal:
+                output.append(rewrite_segment("".join(normal)))
+                normal = []
+            output.append(line)
+            in_fence = not in_fence
+        elif in_fence:
+            output.append(line)
+        else:
+            normal.append(line)
+    if normal:
+        output.append(rewrite_segment("".join(normal)))
+    return "".join(output)
+
+
+def _reference_key(label: str) -> str:
+    plain = re.sub(r"``([^`\n]+)``", r"\1", label)
+    plain = re.sub(r"`([^`\n]+)`", r"\1", plain)
+    return " ".join(plain.strip().split()).lower()
+
+
+def _reference_anchor(label: str) -> str:
+    plain = re.sub(r"``([^`\n]+)``", r"\1", label)
+    plain = re.sub(r"`([^`\n]+)`", r"\1", plain)
+    anchor = plain.lower().strip()
+    anchor = re.sub(r"[^\w\s-]", "", anchor)
+    anchor = re.sub(r"\s", "-", anchor)
+    anchor = anchor.strip("-")
+    return anchor or "section"
+
+
+RstTarget = tuple[Path, str, str]
+RstTargetMap = dict[str, RstTarget | list[RstTarget]]
+
+
+def _rst_target_candidates(
+    rst_targets: RstTargetMap,
+    key: str,
+) -> list[RstTarget]:
+    """Return all definitions for a label, keeping local collisions resolvable."""
+
+    value = rst_targets.get(key)
+    if value is None:
+        return []
+    if isinstance(value, tuple):
+        # Keep compatibility with callers/tests that provide the old one-target map.
+        return [value]
+    return value
+
+
+def _collect_rst_targets(
+    files_to_process: list[tuple[Path, str]],
+) -> RstTargetMap:
+    targets: RstTargetMap = {}
+    for file_path, _ in files_to_process:
+        if file_path.suffix.lower() != ".rst":
+            continue
+        try:
+            text = file_path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        for match in RST_TARGET_PATTERN.finditer(text):
+            label = match.group("label").strip()
+            targets.setdefault(_reference_key(label), []).append(
+                (file_path, (match.group("target") or "").strip(), label)
+            )
+        lines = text.replace("\r\n", "\n").replace("\r", "\n").splitlines()
+        for index, line in enumerate(lines[:-1]):
+            if (
+                line.strip()
+                and _indent_width(line) == 0
+                and _is_section_underline(lines[index + 1])
+            ):
+                label = line.strip()
+                key = _reference_key(label)
+                candidates = _rst_target_candidates(targets, key)
+                if not any(candidate[0].resolve() == file_path.resolve() for candidate in candidates):
+                    targets.setdefault(key, []).append((file_path, "", label))
+    return targets
+
+
+def _source_output_for(
+    file_path: Path,
+    repo_dir: Path,
+    source_outputs: dict[str, str],
+) -> str | None:
+    try:
+        return source_outputs.get(file_path.resolve().relative_to(repo_dir.resolve()).as_posix())
+    except ValueError:
+        return None
+
+
+def _resolve_source_target(
+    target: str,
+    *,
+    base_file: Path,
+    target_rel: Path,
+    repo_dir: Path,
+    source_outputs: dict[str, str],
+    manifest: Manifest,
+) -> str | None:
+    target = target.strip()
+    if not target:
+        return None
+    if re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", target) or target.startswith("//"):
+        return target
+    if target.startswith("#"):
+        return target
+    path_part, hash_mark, fragment = target.partition("#")
+    link_suffix = f"#{fragment}" if hash_mark else ""
+    query = ""
+    if "?" in path_part:
+        path_part, query = path_part.split("?", 1)
+    link_suffix = (f"?{query}" if query else "") + link_suffix
+    if path_part.startswith("/"):
+        roots = [repo_dir]
+        roots.extend(repo_dir / docs_path for docs_path in manifest.docs_paths)
+        candidates = []
+        for root in roots:
+            candidate = root / path_part.lstrip("/")
+            candidates.append(candidate)
+            if candidate.suffix == "":
+                for extension in (".rst", ".md", ".markdown"):
+                    candidates.append(candidate.with_suffix(extension))
+                candidates.extend((candidate / "index.rst", candidate / "index.md"))
+    else:
+        candidates = _source_link_candidates(base_file, path_part)
+    for candidate in candidates:
+        try:
+            repo_rel = candidate.resolve().relative_to(repo_dir.resolve()).as_posix()
+        except ValueError:
+            continue
+        output_path = source_outputs.get(repo_rel)
+        if output_path is not None:
+            relative = os.path.relpath(output_path, start=target_rel.parent.as_posix()).replace(os.sep, "/")
+            return f"{relative}{link_suffix}"
+        if candidate.is_file() and candidate.suffix.lower() in ASSET_SUFFIXES:
+            return f"{_source_url(manifest, repo_rel)}{link_suffix}"
+    return None
+
+
+def _resolve_rst_reference(
+    label: str,
+    *,
+    base_file: Path,
+    target_rel: Path,
+    repo_dir: Path,
+    source_outputs: dict[str, str],
+    manifest: Manifest,
+    rst_targets: RstTargetMap,
+) -> str | None:
+    target = label.strip()
+    candidates = _rst_target_candidates(rst_targets, _reference_key(target))
+    target_spec = next(
+        (candidate for candidate in candidates if candidate[0].resolve() == base_file.resolve()),
+        candidates[0] if candidates else None,
+    )
+    if target_spec is not None:
+        target_file, defined_target, defined_label = target_spec
+        if not defined_target:
+            output_path = _source_output_for(target_file, repo_dir, source_outputs)
+            if output_path is None:
+                return None
+            relative = os.path.relpath(output_path, start=target_rel.parent.as_posix()).replace(os.sep, "/")
+            return f"{relative}#{_reference_anchor(defined_label)}"
+        target = defined_target
+        base_file = target_file
+    return _resolve_source_target(
+        target,
+        base_file=base_file,
+        target_rel=target_rel,
+        repo_dir=repo_dir,
+        source_outputs=source_outputs,
+        manifest=manifest,
+    )
+
+
+def _rewrite_rst_links(
+    body: str,
+    file_path: Path,
+    target_rel: Path,
+    repo_dir: Path,
+    source_outputs: dict[str, str],
+    manifest: Manifest,
+    rst_targets: RstTargetMap | None = None,
+) -> str:
+    """Resolve RST roles and named references without touching fenced code."""
+
+    rst_targets = rst_targets or {}
+    anonymous_targets: list[str] = []
+    in_fence = False
+    for line in body.splitlines():
+        if _is_fenced_markdown_line(line):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        match = re.match(r"^__\s+(?P<target>.+?)\s*$", line)
+        if match is None:
+            match = re.match(r"^\.\.\s+__:\s*(?P<target>.+?)\s*$", line)
+        if match is not None:
+            anonymous_targets.append(match.group("target"))
+    anonymous_index = [0]
+    bare_labels = sorted(
+        {
+            label
+            for value in rst_targets.values()
+            for _, _, label in (
+                [value] if isinstance(value, tuple) else value
+            )
+            if label
+        },
+        key=len,
+        reverse=True,
+    )
+    bare_reference_pattern = (
+        re.compile(
+            r"(?<![\w`])(?P<label>" + "|".join(re.escape(label) for label in bare_labels) + r")_(?!\w)"
+        )
+        if bare_labels
+        else None
+    )
+
+    def rewrite_segment(segment: str) -> str:
+        literals: list[str] = []
+
+        def protect_literal(match: re.Match[str]) -> str:
+            literals.append(match.group(1))
+            return f"\x00RST_REWRITE_LITERAL_{len(literals) - 1}\x01"
+
+        segment = re.sub(r"``([^\n]*?)``(?!_)", protect_literal, segment)
+
+        def target_definition(match: re.Match[str]) -> str:
+            label = match.group("label").strip()
+            target = (match.group("target") or "").strip()
+            if target:
+                return ""
+            return f'<a id="{_reference_anchor(label)}"></a>'
+
+        segment = RST_TARGET_PATTERN.sub(target_definition, segment)
+        segment = re.sub(r"(?m)^__\s+.*$\n?", "", segment)
+        segment = _inline_rst_to_markdown(segment, preserve_rst_links=True)
+
+        def resolve_value(kind: str, value: str) -> str:
+            value = re.sub(r"\n[ \t]*>[ \t]?", " ", value)
+            value = " ".join(value.split())
+            label = value
+            target = value
+            explicit = re.match(r"^(?P<label>.+?)\s*<(?P<target>[^>]+)>$", value)
+            if explicit is not None:
+                label = explicit.group("label").strip()
+                target = explicit.group("target").strip()
+            resolved = _resolve_rst_reference(
+                target,
+                base_file=file_path,
+                target_rel=target_rel,
+                repo_dir=repo_dir,
+                source_outputs=source_outputs,
+                manifest=manifest,
+                rst_targets=rst_targets,
+            )
+            if resolved is None:
+                return f"{label} <!-- unresolved-rst-link: kind={kind} target={target} -->"
+            return f"[{label}]({resolved})"
+
+        segment = re.sub(
+            r":(?P<kind>ref|doc|download|numref):[ \t]*`(?P<value>[^`]+)`",
+            lambda match: resolve_value(match.group("kind").lower(), match.group("value")),
+            segment,
+            flags=re.IGNORECASE,
+        )
+        segment = re.sub(
+            r":(?P<kind>ref|doc|download|numref):(?P<target>[A-Za-z0-9_./#-]+)",
+            lambda match: resolve_value(match.group("kind").lower(), match.group("target")),
+            segment,
+            flags=re.IGNORECASE,
+        )
+
+        def named_link(label: str, kind: str = "named") -> str:
+            label = re.sub(r"\n[ \t]*>[ \t]?", " ", label)
+            label = " ".join(label.split())
+            resolved = _resolve_rst_reference(
+                label,
+                base_file=file_path,
+                target_rel=target_rel,
+                repo_dir=repo_dir,
+                source_outputs=source_outputs,
+                manifest=manifest,
+                rst_targets=rst_targets,
+            )
+            if resolved is None:
+                return f"{label} <!-- unresolved-rst-link: kind={kind} target={label} -->"
+            return f"[{label}]({resolved})"
+
+        def named_reference(match: re.Match[str]) -> str:
+            return named_link(match.group("label"))
+
+        def multiline_named_reference(match: re.Match[str]) -> str:
+            return named_link("\n".join((match.group("label"), match.group("continuation"))))
+
+        def double_named_reference(match: re.Match[str]) -> str:
+            return named_link(match.group("label"))
+
+        def anonymous_link(label: str) -> str:
+            label = re.sub(r"\n[ \t]*>[ \t]?", " ", label)
+            label = " ".join(label.split())
+            if anonymous_index[0] >= len(anonymous_targets):
+                return f"{label} <!-- unresolved-rst-link: kind=anonymous target={label} -->"
+            raw_target = anonymous_targets[anonymous_index[0]].strip()
+            anonymous_index[0] += 1
+            if raw_target.startswith("`") and raw_target.endswith("_"):
+                target = raw_target[1:-2]
+            else:
+                target = raw_target[:-1] if raw_target.endswith("_") else raw_target
+            resolved = _resolve_rst_reference(
+                target,
+                base_file=file_path,
+                target_rel=target_rel,
+                repo_dir=repo_dir,
+                source_outputs=source_outputs,
+                manifest=manifest,
+                rst_targets=rst_targets,
+            )
+            if resolved is None:
+                return f"{label} <!-- unresolved-rst-link: kind=anonymous target={target} -->"
+            return f"[{label}]({resolved})"
+
+        def anonymous_reference(match: re.Match[str]) -> str:
+            return anonymous_link(match.group("label"))
+
+        segment = re.sub(r"``(?P<label>[^`\n]+)``_{1,2}", double_named_reference, segment)
+
+        # Apply one pattern to both single-line and wrapped anonymous links.
+        # Separate substitutions reorder wrapped links ahead of single-line
+        # links, which makes the positional anonymous-target mapping wrong.
+        def anonymous_reference_match(match: re.Match[str]) -> str:
+            label = match.group("label")
+            continuation = match.group("continuation")
+            if continuation:
+                label = "\n".join((label, continuation))
+            return anonymous_link(label)
+
+        segment = re.sub(
+            r"(?<![\w`])`(?P<label>[^`\n]{1,200})(?:\n(?P<continuation>[^`\n]{1,200}))?`__",
+            anonymous_reference_match,
+            segment,
+        )
+
+        segment = re.sub(
+            r"(?<![\w`])`(?P<label>[^`\n]{1,200})\n(?P<continuation>[^`\n]{1,200})`_{1,2}",
+            multiline_named_reference,
+            segment,
+        )
+        segment = re.sub(r"(?<![\w`])`(?P<label>[^`\n]+)`_{1,2}", named_reference, segment)
+
+        # Bare references must run after anonymous links.  Anonymous targets
+        # are positional, so a preceding named-reference substitution must not
+        # reorder the anonymous-reference pass.
+        if bare_reference_pattern is not None:
+            def bare_reference(match: re.Match[str]) -> str:
+                return named_link(match.group("label"))
+
+            segment = bare_reference_pattern.sub(bare_reference, segment)
+
+        def restore_literal(match: re.Match[str]) -> str:
+            return "``" + literals[int(match.group(1))] + "``"
+
+        return re.sub(r"\x00RST_REWRITE_LITERAL_(\d+)\x01", restore_literal, segment)
+
+    output: list[str] = []
+    normal: list[str] = []
+    in_fence = False
+    for line in body.splitlines(keepends=True):
+        if _is_fenced_markdown_line(line):
+            if normal:
+                output.append(rewrite_segment("".join(normal)))
+                normal = []
+            output.append(line)
+            in_fence = not in_fence
+        elif in_fence:
+            output.append(line)
+        else:
+            normal.append(line)
+    if normal:
+        output.append(rewrite_segment("".join(normal)))
+    return "".join(output)
+
+
 def normalize(manifest: Manifest) -> None:
     """Normalize 階段：將 repo 內的 Markdown/HTML 文件轉入 corpus。"""
     repo_dir = manifest.raw_dir / "repo"
@@ -711,87 +1942,97 @@ def normalize(manifest: Manifest) -> None:
     corpus_dir = manifest.corpus_dir
     written = 0
 
-    base_repo_url = manifest.repo_url.rstrip("/")
     is_k8s = manifest.collection == "k8s"
     is_gitlab = manifest.collection == "gitlab"
 
-    for doc_item in manifest.docs_paths:
-        item_path = repo_dir / doc_item
-        if not item_path.exists():
-            print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
+    files_to_process = _discover_source_files(manifest, repo_dir)
+    source_outputs = {
+        file_path.relative_to(repo_dir).as_posix(): Path(rel_out_path).with_suffix(".md").as_posix()
+        for file_path, rel_out_path in files_to_process
+    }
+    rst_targets = _collect_rst_targets(files_to_process)
+
+    for file_path, rel_out_path_str in files_to_process:
+        repo_rel_path = file_path.relative_to(repo_dir).as_posix()
+        source_url = _source_url(manifest, repo_rel_path, rel_out_path_str)
+
+        try:
+            raw_text = file_path.read_text(encoding="utf-8", errors="replace")
+        except Exception as e:
+            print(f"[{manifest.name}] Error reading {file_path}: {e}", file=sys.stderr)
+            continue
+        if not _has_source_content(raw_text):
+            print(f"[{manifest.name}] Skipping empty source: {repo_rel_path}")
             continue
 
-        supported_suffixes = {".md", ".markdown"}
-        if manifest.content_selector:
-            supported_suffixes.add(".html")
+        target_rel = Path(rel_out_path_str).with_suffix(".md")
+        default_title = target_rel.stem
 
-        if item_path.is_file():
-            if item_path.suffix.lower() not in supported_suffixes:
+        if file_path.suffix.lower() == ".html":
+            from normalize import to_markdown as html_to_markdown
+
+            page_url = f"{manifest.base_url.rstrip('/')}/{rel_out_path_str}"
+            html_result = html_to_markdown(raw_text, page_url, manifest)
+            if html_result is None:
+                print(f"[{manifest.name}] Skipping HTML with no matching content: {repo_rel_path}", file=sys.stderr)
                 continue
-            files_to_process = [(item_path, Path(doc_item).name)]
+            title, body = html_result
+            body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
+        elif file_path.suffix.lower() == ".rst":
+            title, body = rst_to_markdown(
+                raw_text,
+                default_title=default_title,
+                repo_dir=repo_dir,
+                source_path=file_path,
+                preserve_rst_links=True,
+            )
         else:
-            files_to_process = []
-            for p in sorted(item_path.rglob("*")):
-                if p.is_file() and p.suffix.lower() in supported_suffixes:
-                    rel_to_item = p.relative_to(item_path).as_posix()
-                    files_to_process.append((p, rel_to_item))
+            title, body = extract_frontmatter(raw_text, default_title=default_title)
 
-        for file_path, rel_out_path_str in files_to_process:
-            repo_rel_path = file_path.relative_to(repo_dir).as_posix()
-            if manifest.source_url_template:
-                source_url = manifest.source_url_template.format(
-                    repo_url=base_repo_url,
-                    git_ref=manifest.git_ref,
-                    path=repo_rel_path,
-                    doc_path=rel_out_path_str,
+        if is_k8s:
+            body = clean_hugo_shortcodes(body, repo_dir)
+        elif is_gitlab:
+            body = clean_gitlab_shortcodes(body)
+
+        if file_path.suffix.lower() in {".md", ".markdown", ".rst"}:
+            if file_path.suffix.lower() == ".rst":
+                body = _rewrite_rst_links(
+                    body,
+                    file_path,
+                    target_rel,
+                    repo_dir,
+                    source_outputs,
+                    manifest,
+                    rst_targets,
                 )
-            else:
-                source_url = f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
+            body = _rewrite_source_links(
+                body,
+                file_path,
+                target_rel,
+                repo_dir,
+                source_outputs,
+                manifest,
+            )
+        title = _inline_rst_to_markdown(title)
+        body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
+        body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
 
-            try:
-                raw_text = file_path.read_text(encoding="utf-8", errors="replace")
-            except Exception as e:
-                print(f"[{manifest.name}] Error reading {file_path}: {e}", file=sys.stderr)
-                continue
+        out_path = corpus_dir / target_rel
+        out_path.parent.mkdir(parents=True, exist_ok=True)
 
-            target_rel = Path(rel_out_path_str).with_suffix(".md")
-            default_title = target_rel.stem
+        frontmatter = "\n".join([
+            "---",
+            f"collection: {manifest.collection}",
+            f'version: "{manifest.version}"',
+            f"title: {json.dumps(title, ensure_ascii=False)}",
+            f"source_url: {source_url}",
+            f"fetched_at: {fetched_at}",
+            "---",
+            "",
+        ])
 
-            if file_path.suffix.lower() == ".html":
-                page_url = f"{manifest.base_url.rstrip('/')}/{rel_out_path_str}"
-                html_result = html_to_markdown(raw_text, page_url, manifest)
-                if html_result is None:
-                    print(f"[{manifest.name}] Skipping HTML with no matching content: {repo_rel_path}", file=sys.stderr)
-                    continue
-                title, body = html_result
-                body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
-            else:
-                title, body = extract_frontmatter(raw_text, default_title=default_title)
-
-            if is_k8s:
-                body = clean_hugo_shortcodes(body, repo_dir)
-            elif is_gitlab:
-                body = clean_gitlab_shortcodes(body)
-                body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
-
-            body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"
-
-            out_path = corpus_dir / target_rel
-            out_path.parent.mkdir(parents=True, exist_ok=True)
-
-            frontmatter = "\n".join([
-                "---",
-                f"collection: {manifest.collection}",
-                f'version: "{manifest.version}"',
-                f"title: {json.dumps(title, ensure_ascii=False)}",
-                f"source_url: {source_url}",
-                f"fetched_at: {fetched_at}",
-                "---",
-                "",
-            ])
-
-            out_path.write_text(frontmatter + body, encoding="utf-8")
-            written += 1
+        out_path.write_text(frontmatter + body, encoding="utf-8")
+        written += 1
 
     print(f"[{manifest.name}] corpus written: {written} pages")
 

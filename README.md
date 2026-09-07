@@ -23,6 +23,20 @@ cd builder
 .venv/bin/python git_source.py all manifests/node-driver-registrar-2.13.toml
 ```
 
+Ceph 20.2.4 的全量產出可用 validator 重跑 metadata、RST table 與 offline link
+檢查：
+
+```bash
+builder/.venv/bin/python builder/validate_ceph_corpus.py
+```
+
+這個完整模式需要建置端的固定 commit raw checkout；只有 corpus 時可明確使用
+`--allow-missing-raw` 做 content-only 檢查。
+
+無法解析的 RST reference 或 source-relative link 會保留明確 classification marker，
+報告數量但不假裝全部 offline link 都已解析；真正殘留的 RST syntax、錯誤的 local
+target 或 source/commit metadata mismatch 仍會 fail。
+
 產出的 `corpus/` 進 git；`raw/` 只留在建置端。
 
 ## Air-gap 端（pull 下來就能用）
