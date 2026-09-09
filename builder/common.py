@@ -33,6 +33,7 @@ class Manifest:
     git_ref: str = ""
     docs_paths: list[str] = field(default_factory=list)
     sparse_paths: list[str] = field(default_factory=list)
+    exclude_globs: list[str] = field(default_factory=list)
     source_url_template: str = ""
 
     @property

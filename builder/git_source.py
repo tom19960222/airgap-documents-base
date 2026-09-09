@@ -12,6 +12,7 @@ normalize 階段可離線重跑，將 docs_paths 下的 Markdown/RST 檔案轉�
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import json
 import os
 import re
@@ -21,7 +22,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 from common import REPO_ROOT, Manifest, load_manifest
 
@@ -1363,18 +1364,27 @@ def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Pat
         supported_suffixes.add(".html")
 
     discovered: list[tuple[Path, str]] = []
+
+    def excluded(relative_path: str) -> bool:
+        return any(fnmatch.fnmatch(relative_path, pattern) for pattern in manifest.exclude_globs)
+
     for doc_item in manifest.docs_paths:
         item_path = repo_dir / doc_item
         if not item_path.exists():
             print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
             continue
         if item_path.is_file():
-            if item_path.suffix.lower() in supported_suffixes:
+            if item_path.suffix.lower() in supported_suffixes and not excluded(Path(doc_item).name):
                 discovered.append((item_path, Path(doc_item).name))
             continue
         for path in sorted(item_path.rglob("*")):
-            if path.is_file() and path.suffix.lower() in supported_suffixes:
-                discovered.append((path, path.relative_to(item_path).as_posix()))
+            relative_path = path.relative_to(item_path).as_posix()
+            if (
+                path.is_file()
+                and path.suffix.lower() in supported_suffixes
+                and not excluded(relative_path)
+            ):
+                discovered.append((path, relative_path))
     return discovered
 
 
@@ -1396,26 +1406,30 @@ def _source_url(manifest: Manifest, repo_rel_path: str, doc_path: str = "") -> s
     return f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
 
 
-def _pinned_asset_url(manifest: Manifest, target: str) -> str | None:
-    """Pin same-repository GitHub blob assets to the manifest commit."""
+def _pinned_repository_url(manifest: Manifest, target: str) -> str | None:
+    """Pin mutable same-repository GitHub links to the manifest commit."""
 
     repository = urlsplit(manifest.repo_url.rstrip("/"))
     parsed = urlsplit(target)
     if (parsed.scheme, parsed.netloc) != (repository.scheme, repository.netloc):
         return None
-    prefix = repository.path.rstrip("/") + "/blob/"
+    prefix = repository.path.rstrip("/") + "/"
     if not parsed.path.startswith(prefix):
         return None
     remainder = parsed.path[len(prefix) :]
-    parts = remainder.split("/", 1)
-    if len(parts) != 2 or Path(parts[1]).suffix.lower() not in ASSET_SUFFIXES:
+    parts = remainder.split("/", 2)
+    if len(parts) != 3 or parts[0] not in {"blob", "tree"}:
         return None
-    pinned_path = f"{prefix}{manifest.git_ref}/{parts[1]}"
+    is_mutable_master_link = parts[1] == "master"
+    is_blob_asset = parts[0] == "blob" and Path(parts[2]).suffix.lower() in ASSET_SUFFIXES
+    if not (is_mutable_master_link or is_blob_asset):
+        return None
+    pinned_path = f"{prefix}{parts[0]}/{manifest.git_ref}/{parts[2]}"
     return urlunsplit((parsed.scheme, parsed.netloc, pinned_path, parsed.query, parsed.fragment))
 
 
 def _source_link_candidates(file_path: Path, target: str) -> list[Path]:
-    target_path = target.split("#", 1)[0].split("?", 1)[0]
+    target_path = unquote(target.split("#", 1)[0].split("?", 1)[0])
     if not target_path:
         return []
     candidates: list[Path] = []
@@ -1453,9 +1467,9 @@ def _rewrite_source_links(
     def replacement(open_text: str, target: str) -> str:
         original = f"{open_text}{target})"
         target = target.strip()
-        pinned_asset = _pinned_asset_url(manifest, target)
-        if pinned_asset is not None:
-            return f"{open_text}{pinned_asset})"
+        pinned_repository_url = _pinned_repository_url(manifest, target)
+        if pinned_repository_url is not None:
+            return f"{open_text}{pinned_repository_url})"
         if (
             not target
             or target.startswith(("#", "/", "//", "http:", "https:", "mailto:", "ftp:"))
@@ -1483,7 +1497,8 @@ def _rewrite_source_links(
                 relative = os.path.relpath(output_path, start=target_rel.parent.as_posix()).replace(os.sep, "/")
                 return f"{open_text}{relative}{suffix})"
             if candidate.is_file():
-                return f"{open_text}{_source_url(manifest, repo_rel)}{suffix})"
+                pinned_source = _source_url(manifest, quote(repo_rel, safe="/"))
+                return f"{open_text}{pinned_source}{suffix})"
         # Keep upstream prose readable when a source-relative target points to
         # a page outside the pinned documentation corpus, but make the
         # classification explicit instead of silently turning it into plain

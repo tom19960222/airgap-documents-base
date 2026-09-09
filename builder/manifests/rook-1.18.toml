@@ -1,0 +1,11 @@
+name = "rook-1.18"
+collection = "rook"
+version = "1.18.11"
+source_type = "git"
+repo_url = "https://github.com/rook/rook"
+# Peeled commit for the official annotated v1.18.11 tag.
+git_ref = "8059413c805f8ed3a0992af0113c002b0250805e"
+docs_paths = ["Documentation"]
+sparse_paths = ["Documentation"]
+exclude_globs = ["README.md", "*.gotmpl", "*.gotmpl.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"
