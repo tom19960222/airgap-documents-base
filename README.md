@@ -43,7 +43,23 @@ target 或 source/commit metadata mismatch 仍會 fail。
 
 ```bash
 git pull
-python3 runtime/build_index.py        # corpus → index/docs.db（純標準庫，幾秒鐘）
+python3 runtime/build_index.py        # corpus → index/docs.db（純標準庫，預設增量更新）
+```
+
+首次執行、舊索引升級或索引規則版本變更時會完整重建；之後以 SHA-256 比對文件內容，只更新新增、修改及刪除的頁面與全文搜尋索引。即使沒有變動，仍會讀取所有 Markdown 計算雜湊，但不重新切段或寫入索引。輸出會列出處理頁數與各階段耗時。
+
+需要強制完整重建時：
+
+```bash
+python3 runtime/build_index.py --full
+```
+
+增量更新失敗會回復整筆交易；完整重建先寫入同目錄暫存資料庫，成功才替換舊索引，因此需要容納新舊兩份資料庫的空間。請勿同時執行多個 build。完整重建後，已啟動的 MCP 程序需重新啟動才能開啟新的資料庫。
+
+索引回歸測試（純標準庫）：
+
+```bash
+python3 -m unittest discover -s runtime/tests -v
 ```
 
 ### 方式一：讓 agent 直接 grep corpus/（Phase 1 baseline）
