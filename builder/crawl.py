@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import json
+import re
 import sys
 import time
 from collections import deque
@@ -24,6 +25,30 @@ from bs4 import BeautifulSoup
 from common import Manifest, canonicalize, in_scope, load_manifest, url_key
 
 USER_AGENT = "airgap-documents-base/0.1 (docs archiver for offline use)"
+
+# <meta charset="utf-8"> 或 <meta http-equiv="content-type" content="...; charset=utf-8">
+META_CHARSET_RE = re.compile(
+    rb"""<meta[^>]+charset\s*=\s*["']?\s*([a-zA-Z0-9_\-.:]+)""", re.IGNORECASE
+)
+
+
+def decode_html(resp: requests.Response) -> str:
+    """把 response body 解成文字。
+
+    requests 對沒有 charset 參數的 `text/*` 依 RFC 2616 退回 ISO-8859-1，會把
+    docs.python.org 這類「只送 `Content-Type: text/html`」的 UTF-8 文件站解成
+    mojibake。這裡優先用伺服器宣告的 charset，其次用文件自己宣告的 meta
+    charset，最後才退回 UTF-8（HTML5 預設）。伺服器有宣告 charset 時行為與
+    原本一致。
+    """
+    if "charset=" in resp.headers.get("content-type", "").lower():
+        return resp.text
+    match = META_CHARSET_RE.search(resp.content[:2048])
+    encoding = match.group(1).decode("ascii", "replace") if match else "utf-8"
+    try:
+        return resp.content.decode(encoding, "replace")
+    except LookupError:  # 頁面宣告了不存在的 charset
+        return resp.content.decode("utf-8", "replace")
 
 
 def extract_links(html: str, page_url: str, manifest: Manifest) -> list[str]:
@@ -144,7 +169,7 @@ def crawl(manifest: Manifest, max_pages: int) -> None:
                     "content_type": content_type, "fetched_at": fetched_at,
                 })
             else:
-                html = resp.text
+                html = decode_html(resp)
                 (pages_dir / f"{url_key(url)}.html.gz").write_bytes(gzip.compress(html.encode()))
                 record(index_file, {
                     "url": url, "status": 200, "archived": True, "fetched_at": fetched_at,

@@ -1,0 +1,13 @@
+name = "python-3.12"
+collection = "python"
+version = "3.12.14"
+# docs.python.org 只以 major.minor（/3.12/）發佈文件樹，內容跟著 3.12 分支持續重建；
+# 爬取當下該文件樹標示的版本與 3.12 系列最新的 patch release 都是 3.12.14（2026-08-12），
+# 這裡如實標成這個版本。
+# 只收 library/（The Python Standard Library）：涵蓋內建函式、內建型別、例外與所有標準庫模組。
+# tutorial / reference / c-api / howto 不在範圍內，指向這些區塊的連結會保留絕對 URL。
+base_url = "https://docs.python.org/3.12/library/"
+content_selector = "div[role=main]"
+deny_prefixes = []
+max_pages = 800
+delay_seconds = 0.3

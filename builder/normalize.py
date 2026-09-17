@@ -91,6 +91,16 @@ def clean(main, collection: str = "") -> None:
     ):
         el.decompose()
 
+    # 標題內指向本頁錨點的連結沒有檢索價值：docutils `contents` 的 backref
+    # （`<h2><a class="toc-backref" href="#id2">Coroutines</a></h2>`）與 Sphinx
+    # 模組頁標題指向自己 module target 的 `:mod:` 交叉引用都屬於這類。拆掉
+    # anchor 只留標題文字，避免標題在 Markdown 變成自我連結；標題裡指向其他
+    # 頁面的交叉引用不受影響。
+    for heading in main.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+        for anchor in heading.find_all("a", href=True):
+            if anchor["href"].startswith("#"):
+                anchor.unwrap()
+
     if collection == "tocas":
         # The checked-in TOCAS pages contain both a rendered component preview
         # and its source. The preview is presentation-only and would duplicate
