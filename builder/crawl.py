@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import json
+import re
 import sys
 import time
 from collections import deque
@@ -24,6 +25,30 @@ from bs4 import BeautifulSoup
 from common import Manifest, canonicalize, in_scope, load_manifest, url_key
 
 USER_AGENT = "airgap-documents-base/0.1 (docs archiver for offline use)"
+
+
+META_CHARSET_RE = re.compile(rb"""<meta[^>]+charset=["']?\s*([\w.:-]+)""", re.I)
+
+
+def response_text(resp) -> str:
+    """以文件實際宣告的編碼解讀回應。
+
+    HTTP 1.1 對沒有 charset 參數的 ``text/*`` 規定預設值是 ISO-8859-1，requests
+    也照做；但 docs.python.org 這類站只送 ``text/html``，內容其實是 UTF-8，照
+    預設值解讀會讓破折號與彎引號整份變成 mojibake，而且會被原封不動存進 raw
+    archive。header 有標 charset 時相信 header，否則改用 HTML 自己宣告的
+    ``<meta charset>``，再退回 requests 的內容偵測。
+    """
+    if "charset=" in resp.headers.get("content-type", "").lower():
+        return resp.text
+    match = META_CHARSET_RE.search(resp.content[:4096])
+    if match:
+        try:
+            return resp.content.decode(match.group(1).decode("ascii", "replace"), "replace")
+        except LookupError:  # 頁面宣告了 Python 不認識的 codec 名稱
+            pass
+    resp.encoding = resp.apparent_encoding or resp.encoding
+    return resp.text
 
 
 def extract_links(html: str, page_url: str, manifest: Manifest) -> list[str]:
@@ -144,7 +169,7 @@ def crawl(manifest: Manifest, max_pages: int) -> None:
                     "content_type": content_type, "fetched_at": fetched_at,
                 })
             else:
-                html = resp.text
+                html = response_text(resp)
                 (pages_dir / f"{url_key(url)}.html.gz").write_bytes(gzip.compress(html.encode()))
                 record(index_file, {
                     "url": url, "status": 200, "archived": True, "fetched_at": fetched_at,

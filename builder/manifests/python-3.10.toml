@@ -1,0 +1,15 @@
+name = "python-3.10"
+collection = "python"
+version = "3.10.21"
+# 官方 docs.python.org 的 3.10 文件以 3.10 維護分支建置，URL 本身沒有 patch 段；
+# 抓取當下站上每頁 <title> 自述為「Python 3.10.21 documentation」，也就是 3.10 線
+# 最新的 patch release（2026-08-13 發布），因此 corpus 版本固定記為 3.10.21。
+base_url = "https://docs.python.org/3.10/"
+# 標準函式庫參考（library/）是所有內建模組的文件本體；distutils/ 是 3.10 仍在
+# 標準函式庫內、但 API reference 放在 library/ 之外的唯一模組群（library/distutils.html
+# 只是指向該節的說明頁）。tutorial、reference、c-api、howto 等不是模組文件，不收。
+allow_prefixes = ["library/", "distutils/"]
+content_selector = "div.body[role=main]"
+deny_prefixes = []
+max_pages = 1000
+delay_seconds = 0.3

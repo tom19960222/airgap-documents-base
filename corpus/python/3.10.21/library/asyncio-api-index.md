@@ -1,0 +1,121 @@
+---
+collection: python
+version: "3.10.21"
+title: "High-level API Index"
+source_url: https://docs.python.org/3.10/library/asyncio-api-index.html
+fetched_at: 2026-09-17T15:15:32+00:00
+---
+# High-level API Index
+
+This page lists all high-level async/await enabled asyncio APIs.
+
+## Tasks
+
+Utilities to run asyncio programs, create Tasks, and
+await on multiple things with timeouts.
+
+|  |  |
+| --- | --- |
+| [`run()`](asyncio-task.md#asyncio.run "asyncio.run") | Create event loop, run a coroutine, close the loop. |
+| [`create_task()`](asyncio-task.md#asyncio.create_task "asyncio.create_task") | Start an asyncio Task. |
+| `await` [`sleep()`](asyncio-task.md#asyncio.sleep "asyncio.sleep") | Sleep for a number of seconds. |
+| `await` [`gather()`](asyncio-task.md#asyncio.gather "asyncio.gather") | Schedule and wait for things concurrently. |
+| `await` [`wait_for()`](asyncio-task.md#asyncio.wait_for "asyncio.wait_for") | Run with a timeout. |
+| `await` [`shield()`](asyncio-task.md#asyncio.shield "asyncio.shield") | Shield from cancellation. |
+| `await` [`wait()`](asyncio-task.md#asyncio.wait "asyncio.wait") | Monitor for completion. |
+| [`current_task()`](asyncio-task.md#asyncio.current_task "asyncio.current_task") | Return the current Task. |
+| [`all_tasks()`](asyncio-task.md#asyncio.all_tasks "asyncio.all_tasks") | Return all tasks for an event loop. |
+| [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task") | Task object. |
+| [`to_thread()`](asyncio-task.md#asyncio.to_thread "asyncio.to_thread") | Asynchronously run a function in a separate OS thread. |
+| [`run_coroutine_threadsafe()`](asyncio-task.md#asyncio.run_coroutine_threadsafe "asyncio.run_coroutine_threadsafe") | Schedule a coroutine from another OS thread. |
+| `for in` [`as_completed()`](asyncio-task.md#asyncio.as_completed "asyncio.as_completed") | Monitor for completion with a `for` loop. |
+
+Examples
+
+- [Using asyncio.gather() to run things in parallel](asyncio-task.md#asyncio-example-gather).
+- [Using asyncio.wait_for() to enforce a timeout](asyncio-task.md#asyncio-example-waitfor).
+- [Cancellation](asyncio-task.md#asyncio-example-task-cancel).
+- [Using asyncio.sleep()](asyncio-task.md#asyncio-example-sleep).
+- See also the main [Tasks documentation page](asyncio-task.md#coroutine).
+
+## Queues
+
+Queues should be used to distribute work amongst multiple asyncio Tasks,
+implement connection pools, and pub/sub patterns.
+
+|  |  |
+| --- | --- |
+| [`Queue`](asyncio-queue.md#asyncio.Queue "asyncio.Queue") | A FIFO queue. |
+| [`PriorityQueue`](asyncio-queue.md#asyncio.PriorityQueue "asyncio.PriorityQueue") | A priority queue. |
+| [`LifoQueue`](asyncio-queue.md#asyncio.LifoQueue "asyncio.LifoQueue") | A LIFO queue. |
+
+Examples
+
+- [Using asyncio.Queue to distribute workload between several
+  Tasks](asyncio-queue.md#asyncio-example-queue-dist).
+- See also the [Queues documentation page](asyncio-queue.md#asyncio-queues).
+
+## Subprocesses
+
+Utilities to spawn subprocesses and run shell commands.
+
+|  |  |
+| --- | --- |
+| `await` [`create_subprocess_exec()`](asyncio-subprocess.md#asyncio.create_subprocess_exec "asyncio.create_subprocess_exec") | Create a subprocess. |
+| `await` [`create_subprocess_shell()`](asyncio-subprocess.md#asyncio.create_subprocess_shell "asyncio.create_subprocess_shell") | Run a shell command. |
+
+Examples
+
+- [Executing a shell command](asyncio-subprocess.md#asyncio-example-subprocess-shell).
+- See also the [subprocess APIs](asyncio-subprocess.md#asyncio-subprocess)
+  documentation.
+
+## Streams
+
+High-level APIs to work with network IO.
+
+|  |  |
+| --- | --- |
+| `await` [`open_connection()`](asyncio-stream.md#asyncio.open_connection "asyncio.open_connection") | Establish a TCP connection. |
+| `await` [`open_unix_connection()`](asyncio-stream.md#asyncio.open_unix_connection "asyncio.open_unix_connection") | Establish a Unix socket connection. |
+| `await` [`start_server()`](asyncio-stream.md#asyncio.start_server "asyncio.start_server") | Start a TCP server. |
+| `await` [`start_unix_server()`](asyncio-stream.md#asyncio.start_unix_server "asyncio.start_unix_server") | Start a Unix socket server. |
+| [`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader") | High-level async/await object to receive network data. |
+| [`StreamWriter`](asyncio-stream.md#asyncio.StreamWriter "asyncio.StreamWriter") | High-level async/await object to send network data. |
+
+Examples
+
+- [Example TCP client](asyncio-stream.md#asyncio-example-stream).
+- See also the [streams APIs](asyncio-stream.md#asyncio-streams)
+  documentation.
+
+## Synchronization
+
+Threading-like synchronization primitives that can be used in Tasks.
+
+|  |  |
+| --- | --- |
+| [`Lock`](asyncio-sync.md#asyncio.Lock "asyncio.Lock") | A mutex lock. |
+| [`Event`](asyncio-sync.md#asyncio.Event "asyncio.Event") | An event object. |
+| [`Condition`](asyncio-sync.md#asyncio.Condition "asyncio.Condition") | A condition object. |
+| [`Semaphore`](asyncio-sync.md#asyncio.Semaphore "asyncio.Semaphore") | A semaphore. |
+| [`BoundedSemaphore`](asyncio-sync.md#asyncio.BoundedSemaphore "asyncio.BoundedSemaphore") | A bounded semaphore. |
+
+Examples
+
+- [Using asyncio.Event](asyncio-sync.md#asyncio-example-sync-event).
+- See also the documentation of asyncio
+  [synchronization primitives](asyncio-sync.md#asyncio-sync).
+
+## Exceptions
+
+|  |  |
+| --- | --- |
+| [`asyncio.TimeoutError`](asyncio-exceptions.md#asyncio.TimeoutError "asyncio.TimeoutError") | Raised on timeout by functions like [`wait_for()`](asyncio-task.md#asyncio.wait_for "asyncio.wait_for"). Keep in mind that `asyncio.TimeoutError` is **unrelated** to the built-in [`TimeoutError`](exceptions.md#TimeoutError "TimeoutError") exception. |
+| [`asyncio.CancelledError`](asyncio-exceptions.md#asyncio.CancelledError "asyncio.CancelledError") | Raised when a Task is cancelled. See also [`Task.cancel()`](asyncio-task.md#asyncio.Task.cancel "asyncio.Task.cancel"). |
+
+Examples
+
+- [Handling CancelledError to run code on cancellation request](asyncio-task.md#asyncio-example-task-cancel).
+- See also the full list of
+  [asyncio-specific exceptions](asyncio-exceptions.md#asyncio-exceptions).

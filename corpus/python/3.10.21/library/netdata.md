@@ -1,0 +1,67 @@
+---
+collection: python
+version: "3.10.21"
+title: "Internet Data Handling"
+source_url: https://docs.python.org/3.10/library/netdata.html
+fetched_at: 2026-09-17T15:14:16+00:00
+---
+# Internet Data Handling
+
+This chapter describes modules which support handling data formats commonly used
+on the internet.
+
+- [`email` — An email and MIME handling package](email.md)
+  - [`email.message`: Representing an email message](email.message.md)
+  - [`email.parser`: Parsing email messages](email.parser.md)
+    - [FeedParser API](email.parser.md#feedparser-api)
+    - [Parser API](email.parser.md#parser-api)
+    - [Additional notes](email.parser.md#additional-notes)
+  - [`email.generator`: Generating MIME documents](email.generator.md)
+  - [`email.policy`: Policy Objects](email.policy.md)
+  - [`email.errors`: Exception and Defect classes](email.errors.md)
+  - [`email.headerregistry`: Custom Header Objects](email.headerregistry.md)
+  - [`email.contentmanager`: Managing MIME Content](email.contentmanager.md)
+    - [Content Manager Instances](email.contentmanager.md#content-manager-instances)
+  - [`email`: Examples](email.examples.md)
+  - [`email.message.Message`: Representing an email message using the `compat32` API](email.compat32-message.md)
+  - [`email.mime`: Creating email and MIME objects from scratch](email.mime.md)
+  - [`email.header`: Internationalized headers](email.header.md)
+  - [`email.charset`: Representing character sets](email.charset.md)
+  - [`email.encoders`: Encoders](email.encoders.md)
+  - [`email.utils`: Miscellaneous utilities](email.utils.md)
+  - [`email.iterators`: Iterators](email.iterators.md)
+- [`json` — JSON encoder and decoder](json.md)
+  - [Basic Usage](json.md#basic-usage)
+  - [Encoders and Decoders](json.md#encoders-and-decoders)
+  - [Exceptions](json.md#exceptions)
+  - [Standard Compliance and Interoperability](json.md#standard-compliance-and-interoperability)
+    - [Character Encodings](json.md#character-encodings)
+    - [Infinite and NaN Number Values](json.md#infinite-and-nan-number-values)
+    - [Repeated Names Within an Object](json.md#repeated-names-within-an-object)
+    - [Top-level Non-Object, Non-Array Values](json.md#top-level-non-object-non-array-values)
+    - [Implementation Limitations](json.md#implementation-limitations)
+  - [Command Line Interface](json.md#module-json.tool)
+    - [Command line options](json.md#command-line-options)
+- [`mailbox` — Manipulate mailboxes in various formats](mailbox.md)
+  - [`Mailbox` objects](mailbox.md#mailbox-objects)
+    - [`Maildir`](mailbox.md#maildir)
+    - [`mbox`](mailbox.md#mbox)
+    - [`MH`](mailbox.md#mh)
+    - [`Babyl`](mailbox.md#babyl)
+    - [`MMDF`](mailbox.md#mmdf)
+  - [`Message` objects](mailbox.md#message-objects)
+    - [`MaildirMessage`](mailbox.md#maildirmessage)
+    - [`mboxMessage`](mailbox.md#mboxmessage)
+    - [`MHMessage`](mailbox.md#mhmessage)
+    - [`BabylMessage`](mailbox.md#babylmessage)
+    - [`MMDFMessage`](mailbox.md#mmdfmessage)
+  - [Exceptions](mailbox.md#exceptions)
+  - [Examples](mailbox.md#examples)
+- [`mimetypes` — Map filenames to MIME types](mimetypes.md)
+  - [MimeTypes Objects](mimetypes.md#mimetypes-objects)
+- [`base64` — Base16, Base32, Base64, Base85 Data Encodings](base64.md)
+  - [Security Considerations](base64.md#security-considerations)
+- [`binhex` — Encode and decode binhex4 files](binhex.md)
+  - [Notes](binhex.md#notes)
+- [`binascii` — Convert between binary and ASCII](binascii.md)
+- [`quopri` — Encode and decode MIME quoted-printable data](quopri.md)
