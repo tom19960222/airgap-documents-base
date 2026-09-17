@@ -74,17 +74,17 @@ related constants listed below were turned into
 
 The signal module defines three enums:
 
-*class* signal.Signals
+`class signal.Signals`
 :   [`enum.IntEnum`](enum.md#enum.IntEnum "enum.IntEnum") collection of SIG\* constants and the CTRL_\* constants.
 
     Added in version 3.5.
 
-*class* signal.Handlers
+`class signal.Handlers`
 :   [`enum.IntEnum`](enum.md#enum.IntEnum "enum.IntEnum") collection the constants [`SIG_DFL`](signal.md#signal.SIG_DFL "signal.SIG_DFL") and [`SIG_IGN`](signal.md#signal.SIG_IGN "signal.SIG_IGN").
 
     Added in version 3.5.
 
-*class* signal.Sigmasks
+`class signal.Sigmasks`
 :   [`enum.IntEnum`](enum.md#enum.IntEnum "enum.IntEnum") collection the constants [`SIG_BLOCK`](signal.md#signal.SIG_BLOCK "signal.SIG_BLOCK"), [`SIG_UNBLOCK`](signal.md#signal.SIG_UNBLOCK "signal.SIG_UNBLOCK") and [`SIG_SETMASK`](signal.md#signal.SIG_SETMASK "signal.SIG_SETMASK").
 
     [Availability](intro.md#availability): Unix.
@@ -96,50 +96,50 @@ The signal module defines three enums:
 
 The variables defined in the [`signal`](signal.md#module-signal "signal: Set handlers for asynchronous events.") module are:
 
-signal.SIG_DFL
+`signal.SIG_DFL`
 :   This is one of two standard signal handling options; it will simply perform
     the default function for the signal. For example, on most systems the
     default action for `SIGQUIT` is to dump core and exit, while the
     default action for [`SIGCHLD`](signal.md#signal.SIGCHLD "signal.SIGCHLD") is to simply ignore it.
 
-signal.SIG_IGN
+`signal.SIG_IGN`
 :   This is another standard signal handler, which will simply ignore the given
     signal.
 
-signal.SIGABRT
+`signal.SIGABRT`
 :   Abort signal from *[abort(3)](https://manpages.debian.org/abort(3))*.
 
-signal.SIGALRM
+`signal.SIGALRM`
 :   Timer signal from *[alarm(2)](https://manpages.debian.org/alarm(2))*.
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGBREAK
+`signal.SIGBREAK`
 :   Interrupt from keyboard (CTRL + BREAK).
 
     [Availability](intro.md#availability): Windows.
 
-signal.SIGBUS
+`signal.SIGBUS`
 :   Bus error (bad memory access).
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGCHLD
+`signal.SIGCHLD`
 :   Child process stopped or terminated.
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGCLD
+`signal.SIGCLD`
 :   Alias to [`SIGCHLD`](signal.md#signal.SIGCHLD "signal.SIGCHLD").
 
     [Availability](intro.md#availability): not macOS.
 
-signal.SIGCONT
+`signal.SIGCONT`
 :   Continue the process if it is currently stopped
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGFPE
+`signal.SIGFPE`
 :   Floating-point exception. For example, division by zero.
 
     > **See also:**
@@ -147,37 +147,37 @@ signal.SIGFPE
     > [`ZeroDivisionError`](exceptions.md#ZeroDivisionError "ZeroDivisionError") is raised when the second argument of a division
     > or modulo operation is zero.
 
-signal.SIGHUP
+`signal.SIGHUP`
 :   Hangup detected on controlling terminal or death of controlling process.
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGILL
+`signal.SIGILL`
 :   Illegal instruction.
 
-signal.SIGINT
+`signal.SIGINT`
 :   Interrupt from keyboard (CTRL + C).
 
     Default action is to raise [`KeyboardInterrupt`](exceptions.md#KeyboardInterrupt "KeyboardInterrupt").
 
-signal.SIGKILL
+`signal.SIGKILL`
 :   Kill signal.
 
     It cannot be caught, blocked, or ignored.
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGPIPE
+`signal.SIGPIPE`
 :   Broken pipe: write to pipe with no readers.
 
     Default action is to ignore the signal.
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGSEGV
+`signal.SIGSEGV`
 :   Segmentation fault: invalid memory reference.
 
-signal.SIGSTKFLT
+`signal.SIGSTKFLT`
 :   > Stack fault on coprocessor. The Linux kernel does not raise this signal: it
     > can only be raised in user space.
 
@@ -188,25 +188,25 @@ signal.SIGSTKFLT
 
     Added in version 3.11.
 
-signal.SIGTERM
+`signal.SIGTERM`
 :   Termination signal.
 
-signal.SIGUSR1
+`signal.SIGUSR1`
 :   User-defined signal 1.
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGUSR2
+`signal.SIGUSR2`
 :   User-defined signal 2.
 
     [Availability](intro.md#availability): Unix.
 
-signal.SIGWINCH
+`signal.SIGWINCH`
 :   Window resize signal.
 
     [Availability](intro.md#availability): Unix.
 
-SIG\*
+`SIG*`
 :   All the signal numbers are defined symbolically. For example, the hangup signal
     is defined as [`signal.SIGHUP`](signal.md#signal.SIGHUP "signal.SIGHUP"); the variable names are identical to the
     names used in C programs, as found in `<signal.h>`. The Unix man page for
@@ -215,7 +215,7 @@ SIG\*
     not all systems define the same set of signal names; only those names defined by
     the system are defined by this module.
 
-signal.CTRL_C_EVENT
+`signal.CTRL_C_EVENT`
 :   The signal corresponding to the `Ctrl`+`C` keystroke event. This signal can
     only be used with [`os.kill()`](os.md#os.kill "os.kill").
 
@@ -223,7 +223,7 @@ signal.CTRL_C_EVENT
 
     Added in version 3.2.
 
-signal.CTRL_BREAK_EVENT
+`signal.CTRL_BREAK_EVENT`
 :   The signal corresponding to the `Ctrl`+`Break` keystroke event. This signal can
     only be used with [`os.kill()`](os.md#os.kill "os.kill").
 
@@ -231,37 +231,37 @@ signal.CTRL_BREAK_EVENT
 
     Added in version 3.2.
 
-signal.NSIG
+`signal.NSIG`
 :   One more than the number of the highest signal number.
     Use [`valid_signals()`](signal.md#signal.valid_signals "signal.valid_signals") to get valid signal numbers.
 
-signal.ITIMER_REAL
+`signal.ITIMER_REAL`
 :   Decrements interval timer in real time, and delivers [`SIGALRM`](signal.md#signal.SIGALRM "signal.SIGALRM") upon
     expiration.
 
-signal.ITIMER_VIRTUAL
+`signal.ITIMER_VIRTUAL`
 :   Decrements interval timer only when the process is executing, and delivers
     SIGVTALRM upon expiration.
 
-signal.ITIMER_PROF
+`signal.ITIMER_PROF`
 :   Decrements interval timer both when the process executes and when the
     system is executing on behalf of the process. Coupled with ITIMER_VIRTUAL,
     this timer is usually used to profile the time spent by the application
     in user and kernel space. SIGPROF is delivered upon expiration.
 
-signal.SIG_BLOCK
+`signal.SIG_BLOCK`
 :   A possible value for the *how* parameter to [`pthread_sigmask()`](signal.md#signal.pthread_sigmask "signal.pthread_sigmask")
     indicating that signals are to be blocked.
 
     Added in version 3.3.
 
-signal.SIG_UNBLOCK
+`signal.SIG_UNBLOCK`
 :   A possible value for the *how* parameter to [`pthread_sigmask()`](signal.md#signal.pthread_sigmask "signal.pthread_sigmask")
     indicating that signals are to be unblocked.
 
     Added in version 3.3.
 
-signal.SIG_SETMASK
+`signal.SIG_SETMASK`
 :   A possible value for the *how* parameter to [`pthread_sigmask()`](signal.md#signal.pthread_sigmask "signal.pthread_sigmask")
     indicating that the signal mask is to be replaced.
 
@@ -269,7 +269,7 @@ signal.SIG_SETMASK
 
 The [`signal`](signal.md#module-signal "signal: Set handlers for asynchronous events.") module defines one exception:
 
-*exception* signal.ItimerError
+`exception signal.ItimerError`
 :   Raised to signal an error from the underlying [`setitimer()`](signal.md#signal.setitimer "signal.setitimer") or
     [`getitimer()`](signal.md#signal.getitimer "signal.getitimer") implementation. Expect this error if an invalid
     interval timer or a negative time is passed to [`setitimer()`](signal.md#signal.setitimer "signal.setitimer").
@@ -280,7 +280,7 @@ The [`signal`](signal.md#module-signal "signal: Set handlers for asynchronous ev
 
 The [`signal`](signal.md#module-signal "signal: Set handlers for asynchronous events.") module defines the following functions:
 
-signal.alarm(*time*)
+`signal.alarm(time)`
 :   If *time* is non-zero, this function requests that a [`SIGALRM`](signal.md#signal.SIGALRM "signal.SIGALRM") signal be
     sent to the process in *time* seconds. Any previously scheduled alarm is
     canceled (only one alarm can be scheduled at any time). The returned value is
@@ -292,7 +292,7 @@ signal.alarm(*time*)
 
     See the man page *[alarm(2)](https://manpages.debian.org/alarm(2))* for further information.
 
-signal.getsignal(*signalnum*)
+`signal.getsignal(signalnum)`
 :   Return the current signal handler for the signal *signalnum*. The returned value
     may be a callable Python object, or one of the special values
     [`signal.SIG_IGN`](signal.md#signal.SIG_IGN "signal.SIG_IGN"), [`signal.SIG_DFL`](signal.md#signal.SIG_DFL "signal.SIG_DFL") or [`None`](constants.md#None "None"). Here,
@@ -301,21 +301,21 @@ signal.getsignal(*signalnum*)
     previously in use, and `None` means that the previous signal handler was not
     installed from Python.
 
-signal.strsignal(*signalnum*)
+`signal.strsignal(signalnum)`
 :   Returns the description of signal *signalnum*, such as “Interrupt”
     for [`SIGINT`](signal.md#signal.SIGINT "signal.SIGINT"). Returns [`None`](constants.md#None "None") if *signalnum* has no
     description. Raises [`ValueError`](exceptions.md#ValueError "ValueError") if *signalnum* is invalid.
 
     Added in version 3.8.
 
-signal.valid_signals()
+`signal.valid_signals()`
 :   Return the set of valid signal numbers on this platform. This can be
     less than `range(1, NSIG)` if some signals are reserved by the system
     for internal use.
 
     Added in version 3.8.
 
-signal.pause()
+`signal.pause()`
 :   Cause the process to sleep until a signal is received; the appropriate handler
     will then be called. Returns nothing.
 
@@ -326,12 +326,12 @@ signal.pause()
     See also [`sigwait()`](signal.md#signal.sigwait "signal.sigwait"), [`sigwaitinfo()`](signal.md#signal.sigwaitinfo "signal.sigwaitinfo"), [`sigtimedwait()`](signal.md#signal.sigtimedwait "signal.sigtimedwait") and
     [`sigpending()`](signal.md#signal.sigpending "signal.sigpending").
 
-signal.raise_signal(*signum*)
+`signal.raise_signal(signum)`
 :   Sends a signal to the calling process. Returns nothing.
 
     Added in version 3.8.
 
-signal.pidfd_send_signal(*pidfd*, *sig*, *siginfo=None*, *flags=0*)
+`signal.pidfd_send_signal(pidfd, sig, siginfo=None, flags=0)`
 :   Send signal *sig* to the process referred to by file descriptor *pidfd*.
     Python does not currently support the *siginfo* parameter; it must be
     `None`. The *flags* argument is provided for future extensions; no flag
@@ -343,7 +343,7 @@ signal.pidfd_send_signal(*pidfd*, *sig*, *siginfo=None*, *flags=0*)
 
     Added in version 3.9.
 
-signal.pthread_kill(*thread_id*, *signalnum*)
+`signal.pthread_kill(thread_id, signalnum)`
 :   Send the signal *signalnum* to the thread *thread_id*, another thread in the
     same process as the caller. The target thread can be executing any code
     (Python or not). However, if the target thread is executing the Python
@@ -369,7 +369,7 @@ signal.pthread_kill(*thread_id*, *signalnum*)
 
     Added in version 3.3.
 
-signal.pthread_sigmask(*how*, *mask*)
+`signal.pthread_sigmask(how, mask)`
 :   Fetch and/or change the signal mask of the calling thread. The signal mask
     is the set of signals whose delivery is currently blocked for the caller.
     Return the old signal mask as a set of signals.
@@ -402,7 +402,7 @@ signal.pthread_sigmask(*how*, *mask*)
 
     Added in version 3.3.
 
-signal.setitimer(*which*, *seconds*, *interval=0.0*)
+`signal.setitimer(which, seconds, interval=0.0)`
 :   Sets given interval timer (one of [`signal.ITIMER_REAL`](signal.md#signal.ITIMER_REAL "signal.ITIMER_REAL"),
     [`signal.ITIMER_VIRTUAL`](signal.md#signal.ITIMER_VIRTUAL "signal.ITIMER_VIRTUAL") or [`signal.ITIMER_PROF`](signal.md#signal.ITIMER_PROF "signal.ITIMER_PROF")) specified
     by *which* to fire after *seconds* (float is accepted, different from
@@ -423,12 +423,12 @@ signal.setitimer(*which*, *seconds*, *interval=0.0*)
 
     [Availability](intro.md#availability): Unix.
 
-signal.getitimer(*which*)
+`signal.getitimer(which)`
 :   Returns current value of a given interval timer specified by *which*.
 
     [Availability](intro.md#availability): Unix.
 
-signal.set_wakeup_fd(*fd*, *\**, *warn_on_full_buffer=True*)
+`signal.set_wakeup_fd(fd, *, warn_on_full_buffer=True)`
 :   Set the wakeup file descriptor to *fd*. When a signal is received, the
     signal number is written as a single byte into the fd. This can be used by
     a library to wakeup a poll or select call, allowing the signal to be fully
@@ -469,7 +469,7 @@ signal.set_wakeup_fd(*fd*, *\**, *warn_on_full_buffer=True*)
 
     Changed in version 3.7: Added `warn_on_full_buffer` parameter.
 
-signal.siginterrupt(*signalnum*, *flag*)
+`signal.siginterrupt(signalnum, flag)`
 :   Change system call restart behaviour: if *flag* is [`False`](constants.md#False "False"), system
     calls will be restarted when interrupted by signal *signalnum*, otherwise
     system calls will be interrupted. Returns nothing.
@@ -482,7 +482,7 @@ signal.siginterrupt(*signalnum*, *flag*)
     restart behaviour to interruptible by implicitly calling
     `siginterrupt()` with a true *flag* value for the given signal.
 
-signal.signal(*signalnum*, *handler*)
+`signal.signal(signalnum, handler)`
 :   Set the handler for signal *signalnum* to the function *handler*. *handler* can
     be a callable Python object taking two arguments (see below), or one of the
     special values [`signal.SIG_IGN`](signal.md#signal.SIG_IGN "signal.SIG_IGN") or [`signal.SIG_DFL`](signal.md#signal.SIG_DFL "signal.SIG_DFL"). The previous
@@ -507,7 +507,7 @@ signal.signal(*signalnum*, *handler*)
     [`AttributeError`](exceptions.md#AttributeError "AttributeError") will be raised if a signal name is not defined as
     `SIG*` module level constant.
 
-signal.sigpending()
+`signal.sigpending()`
 :   Examine the set of signals that are pending for delivery to the calling
     thread (i.e., the signals which have been raised while blocked). Return the
     set of the pending signals.
@@ -520,7 +520,7 @@ signal.sigpending()
 
     Added in version 3.3.
 
-signal.sigwait(*sigset*)
+`signal.sigwait(sigset)`
 :   Suspend execution of the calling thread until the delivery of one of the
     signals specified in the signal set *sigset*. The function accepts the signal
     (removes it from the pending list of signals), and returns the signal number.
@@ -534,7 +534,7 @@ signal.sigwait(*sigset*)
 
     Added in version 3.3.
 
-signal.sigwaitinfo(*sigset*)
+`signal.sigwaitinfo(sigset)`
 :   Suspend execution of the calling thread until the delivery of one of the
     signals specified in the signal set *sigset*. The function accepts the
     signal and removes it from the pending list of signals. If one of the
@@ -561,7 +561,7 @@ signal.sigwaitinfo(*sigset*)
     and the signal handler does not raise an exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for
     the rationale).
 
-signal.sigtimedwait(*sigset*, *timeout*)
+`signal.sigtimedwait(sigset, timeout)`
 :   Like [`sigwaitinfo()`](signal.md#signal.sigwaitinfo "signal.sigwaitinfo"), but takes an additional *timeout* argument
     specifying a timeout. If *timeout* is specified as `0`, a poll is
     performed. Returns [`None`](constants.md#None "None") if a timeout occurs.

@@ -28,7 +28,7 @@ optional third argument.
 This module provides two functions and an
 exception:
 
-getopt.getopt(*args*, *shortopts*, *longopts=[]*)
+`getopt.getopt(args, shortopts, longopts=[])`
 :   Parses command line options and parameter list. *args* is the argument list to
     be parsed, without the leading reference to the running program. Typically, this
     means `sys.argv[1:]`. *shortopts* is the string of option letters that the
@@ -62,7 +62,7 @@ getopt.getopt(*args*, *shortopts*, *longopts=[]*)
     options occur in the list in the same order in which they were found, thus
     allowing multiple occurrences. Long and short options may be mixed.
 
-getopt.gnu_getopt(*args*, *shortopts*, *longopts=[]*)
+`getopt.gnu_getopt(args, shortopts, longopts=[])`
 :   This function works like [`getopt()`](getopt.md#module-getopt "getopt: Portable parser for command line options; support both short and long option names."), except that GNU style scanning mode is
     used by default. This means that option and non-option arguments may be
     intermixed. The [`getopt()`](getopt.md#module-getopt "getopt: Portable parser for command line options; support both short and long option names.") function stops processing options as soon as a
@@ -72,7 +72,7 @@ getopt.gnu_getopt(*args*, *shortopts*, *longopts=[]*)
     variable `POSIXLY_CORRECT` is set, then option processing stops as
     soon as a non-option argument is encountered.
 
-*exception* getopt.GetoptError
+`exception getopt.GetoptError`
 :   This is raised when an unrecognized option is found in the argument list or when
     an option requiring an argument is given none. The argument to the exception is
     a string indicating the cause of the error. For long options, an argument given
@@ -81,7 +81,7 @@ getopt.gnu_getopt(*args*, *shortopts*, *longopts=[]*)
     related option; if there is no specific option to which the exception relates,
     `opt` is an empty string.
 
-*exception* getopt.error
+`exception getopt.error`
 :   Alias for [`GetoptError`](getopt.md#getopt.GetoptError "getopt.GetoptError"); for backward compatibility.
 
 An example using only Unix style options:

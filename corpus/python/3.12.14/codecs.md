@@ -24,7 +24,7 @@ types, but some module features are restricted to be used specifically with
 The module defines the following functions for encoding and decoding with
 any codec:
 
-codecs.encode(*obj*, *encoding='utf-8'*, *errors='strict'*)
+`codecs.encode(obj, encoding='utf-8', errors='strict')`
 :   Encodes *obj* using the codec registered for *encoding*.
 
     *Errors* may be given to set the desired error handling scheme. The
@@ -33,7 +33,7 @@ codecs.encode(*obj*, *encoding='utf-8'*, *errors='strict'*)
     [`UnicodeEncodeError`](exceptions.md#UnicodeEncodeError "UnicodeEncodeError")). Refer to [Codec Base Classes](codecs.md#codec-base-classes) for more
     information on codec error handling.
 
-codecs.decode(*obj*, *encoding='utf-8'*, *errors='strict'*)
+`codecs.decode(obj, encoding='utf-8', errors='strict')`
 :   Decodes *obj* using the codec registered for *encoding*.
 
     *Errors* may be given to set the desired error handling scheme. The
@@ -44,7 +44,7 @@ codecs.decode(*obj*, *encoding='utf-8'*, *errors='strict'*)
 
 The full details for each codec can also be looked up directly:
 
-codecs.lookup(*encoding*)
+`codecs.lookup(encoding)`
 :   Looks up the codec info in the Python codec registry and returns a
     [`CodecInfo`](codecs.md#codecs.CodecInfo "codecs.CodecInfo") object as defined below.
 
@@ -53,33 +53,33 @@ codecs.lookup(*encoding*)
     found, a [`LookupError`](exceptions.md#LookupError "LookupError") is raised. Otherwise, the [`CodecInfo`](codecs.md#codecs.CodecInfo "codecs.CodecInfo") object
     is stored in the cache and returned to the caller.
 
-*class* codecs.CodecInfo(*encode*, *decode*, *streamreader=None*, *streamwriter=None*, *incrementalencoder=None*, *incrementaldecoder=None*, *name=None*)
+`class codecs.CodecInfo(encode, decode, streamreader=None, streamwriter=None, incrementalencoder=None, incrementaldecoder=None, name=None)`
 :   Codec details when looking up the codec registry. The constructor
     arguments are stored in attributes of the same name:
 
-    name
+    `name`
     :   The name of the encoding.
 
-    encode
+    `encode`
 
-    decode
+    `decode`
     :   The stateless encoding and decoding functions. These must be
         functions or methods which have the same interface as
         the [`encode()`](codecs.md#codecs.Codec.encode "codecs.Codec.encode") and [`decode()`](codecs.md#codecs.Codec.decode "codecs.Codec.decode") methods of Codec
         instances (see [Codec Interface](codecs.md#codec-objects)).
         The functions or methods are expected to work in a stateless mode.
 
-    incrementalencoder
+    `incrementalencoder`
 
-    incrementaldecoder
+    `incrementaldecoder`
     :   Incremental encoder and decoder classes or factory functions.
         These have to provide the interface defined by the base classes
         [`IncrementalEncoder`](codecs.md#codecs.IncrementalEncoder "codecs.IncrementalEncoder") and [`IncrementalDecoder`](codecs.md#codecs.IncrementalDecoder "codecs.IncrementalDecoder"),
         respectively. Incremental codecs can maintain state.
 
-    streamwriter
+    `streamwriter`
 
-    streamreader
+    `streamreader`
     :   Stream writer and reader classes or factory functions. These have to
         provide the interface defined by the base classes
         [`StreamWriter`](codecs.md#codecs.StreamWriter "codecs.StreamWriter") and [`StreamReader`](codecs.md#codecs.StreamReader "codecs.StreamReader"), respectively.
@@ -88,37 +88,37 @@ codecs.lookup(*encoding*)
 To simplify access to the various codec components, the module provides
 these additional functions which use [`lookup()`](codecs.md#codecs.lookup "codecs.lookup") for the codec lookup:
 
-codecs.getencoder(*encoding*)
+`codecs.getencoder(encoding)`
 :   Look up the codec for the given encoding and return its encoder function.
 
     Raises a [`LookupError`](exceptions.md#LookupError "LookupError") in case the encoding cannot be found.
 
-codecs.getdecoder(*encoding*)
+`codecs.getdecoder(encoding)`
 :   Look up the codec for the given encoding and return its decoder function.
 
     Raises a [`LookupError`](exceptions.md#LookupError "LookupError") in case the encoding cannot be found.
 
-codecs.getincrementalencoder(*encoding*)
+`codecs.getincrementalencoder(encoding)`
 :   Look up the codec for the given encoding and return its incremental encoder
     class or factory function.
 
     Raises a [`LookupError`](exceptions.md#LookupError "LookupError") in case the encoding cannot be found or the codec
     doesn’t support an incremental encoder.
 
-codecs.getincrementaldecoder(*encoding*)
+`codecs.getincrementaldecoder(encoding)`
 :   Look up the codec for the given encoding and return its incremental decoder
     class or factory function.
 
     Raises a [`LookupError`](exceptions.md#LookupError "LookupError") in case the encoding cannot be found or the codec
     doesn’t support an incremental decoder.
 
-codecs.getreader(*encoding*)
+`codecs.getreader(encoding)`
 :   Look up the codec for the given encoding and return its [`StreamReader`](codecs.md#codecs.StreamReader "codecs.StreamReader")
     class or factory function.
 
     Raises a [`LookupError`](exceptions.md#LookupError "LookupError") in case the encoding cannot be found.
 
-codecs.getwriter(*encoding*)
+`codecs.getwriter(encoding)`
 :   Look up the codec for the given encoding and return its [`StreamWriter`](codecs.md#codecs.StreamWriter "codecs.StreamWriter")
     class or factory function.
 
@@ -127,7 +127,7 @@ codecs.getwriter(*encoding*)
 Custom codecs are made available by registering a suitable codec search
 function:
 
-codecs.register(*search_function*)
+`codecs.register(search_function)`
 :   Register a codec search function. Search functions are expected to take one
     argument, being the encoding name in all lower case letters with hyphens
     and spaces converted to underscores, and return a [`CodecInfo`](codecs.md#codecs.CodecInfo "codecs.CodecInfo") object.
@@ -136,7 +136,7 @@ codecs.register(*search_function*)
 
     Changed in version 3.9: Hyphens and spaces are converted to underscore.
 
-codecs.unregister(*search_function*)
+`codecs.unregister(search_function)`
 :   Unregister a codec search function and clear the registry’s cache.
     If the search function is not registered, do nothing.
 
@@ -147,7 +147,7 @@ recommended approach for working with encoded text files, this module
 provides additional utility functions and classes that allow the use of a
 wider range of codecs when working with binary files:
 
-codecs.open(*filename*, *mode='r'*, *encoding=None*, *errors='strict'*, *buffering=-1*)
+`codecs.open(filename, mode='r', encoding=None, errors='strict', buffering=-1)`
 :   Open an encoded file using the given *mode* and return an instance of
     [`StreamReaderWriter`](codecs.md#codecs.StreamReaderWriter "codecs.StreamReaderWriter"), providing transparent encoding/decoding.
     The default file mode is `'r'`, meaning to open the file in read mode.
@@ -172,7 +172,7 @@ codecs.open(*filename*, *mode='r'*, *encoding=None*, *errors='strict'*, *bufferi
 
     Changed in version 3.11: The `'U'` mode has been removed.
 
-codecs.EncodedFile(*file*, *data_encoding*, *file_encoding=None*, *errors='strict'*)
+`codecs.EncodedFile(file, data_encoding, file_encoding=None, errors='strict')`
 :   Return a [`StreamRecoder`](codecs.md#codecs.StreamRecoder "codecs.StreamRecoder") instance, a wrapped version of *file*
     which provides transparent transcoding. The original file is closed
     when the wrapped version is closed.
@@ -189,7 +189,7 @@ codecs.EncodedFile(*file*, *data_encoding*, *file_encoding=None*, *errors='stric
     `'strict'`, which causes [`ValueError`](exceptions.md#ValueError "ValueError") to be raised in case an encoding
     error occurs.
 
-codecs.iterencode(*iterator*, *encoding*, *errors='strict'*, *\*\*kwargs*)
+`codecs.iterencode(iterator, encoding, errors='strict', **kwargs)`
 :   Uses an incremental encoder to iteratively encode the input provided by
     *iterator*. This function is a [generator](https://docs.python.org/3.12/glossary.html#term-generator).
     The *errors* argument (as well as any
@@ -199,7 +199,7 @@ codecs.iterencode(*iterator*, *encoding*, *errors='strict'*, *\*\*kwargs*)
     to encode. Therefore it does not support bytes-to-bytes encoders such as
     `base64_codec`.
 
-codecs.iterdecode(*iterator*, *encoding*, *errors='strict'*, *\*\*kwargs*)
+`codecs.iterdecode(iterator, encoding, errors='strict', **kwargs)`
 :   Uses an incremental decoder to iteratively decode the input provided by
     *iterator*. This function is a [generator](https://docs.python.org/3.12/glossary.html#term-generator).
     The *errors* argument (as well as any
@@ -213,25 +213,25 @@ codecs.iterdecode(*iterator*, *encoding*, *errors='strict'*, *\*\*kwargs*)
 The module also provides the following constants which are useful for reading
 and writing to platform dependent files:
 
-codecs.BOM
+`codecs.BOM`
 
-codecs.BOM_BE
+`codecs.BOM_BE`
 
-codecs.BOM_LE
+`codecs.BOM_LE`
 
-codecs.BOM_UTF8
+`codecs.BOM_UTF8`
 
-codecs.BOM_UTF16
+`codecs.BOM_UTF16`
 
-codecs.BOM_UTF16_BE
+`codecs.BOM_UTF16_BE`
 
-codecs.BOM_UTF16_LE
+`codecs.BOM_UTF16_LE`
 
-codecs.BOM_UTF32
+`codecs.BOM_UTF32`
 
-codecs.BOM_UTF32_BE
+`codecs.BOM_UTF32_BE`
 
-codecs.BOM_UTF32_LE
+`codecs.BOM_UTF32_LE`
 :   These constants define various byte sequences,
     being Unicode byte order marks (BOMs) for several encodings. They are
     used in UTF-16 and UTF-32 data streams to indicate the byte order used,
@@ -304,7 +304,7 @@ translating.
 The set of allowed values can be extended by registering a new named error
 handler:
 
-codecs.register_error(*name*, *error_handler*)
+`codecs.register_error(name, error_handler)`
 :   Register the error handling function *error_handler* under the name *name*.
     The *error_handler* argument will be called during encoding and decoding
     in case of an error, when *name* is specified as the errors parameter.
@@ -328,7 +328,7 @@ codecs.register_error(*name*, *error_handler*)
 Previously registered error handlers (including the standard error handlers)
 can be looked up by name:
 
-codecs.lookup_error(*name*)
+`codecs.lookup_error(name)`
 :   Return the error handler previously registered under the name *name*.
 
     Raises a [`LookupError`](exceptions.md#LookupError "LookupError") in case the handler cannot be found.
@@ -336,24 +336,24 @@ codecs.lookup_error(*name*)
 The following standard error handlers are also made available as module level
 functions:
 
-codecs.strict_errors(*exception*)
+`codecs.strict_errors(exception)`
 :   Implements the `'strict'` error handling.
 
     Each encoding or decoding error raises a [`UnicodeError`](exceptions.md#UnicodeError "UnicodeError").
 
-codecs.ignore_errors(*exception*)
+`codecs.ignore_errors(exception)`
 :   Implements the `'ignore'` error handling.
 
     Malformed data is ignored; encoding or decoding is continued without
     further notice.
 
-codecs.replace_errors(*exception*)
+`codecs.replace_errors(exception)`
 :   Implements the `'replace'` error handling.
 
     Substitutes `?` (ASCII character) for encoding errors or `�` (U+FFFD,
     the official REPLACEMENT CHARACTER) for decoding errors.
 
-codecs.backslashreplace_errors(*exception*)
+`codecs.backslashreplace_errors(exception)`
 :   Implements the `'backslashreplace'` error handling.
 
     Malformed data is replaced by a backslashed escape sequence.
@@ -364,7 +364,7 @@ codecs.backslashreplace_errors(*exception*)
 
     Changed in version 3.5: Works with decoding and translating.
 
-codecs.xmlcharrefreplace_errors(*exception*)
+`codecs.xmlcharrefreplace_errors(exception)`
 :   Implements the `'xmlcharrefreplace'` error handling (for encoding within
     [text encoding](https://docs.python.org/3.12/glossary.html#term-text-encoding) only).
 
@@ -372,7 +372,7 @@ codecs.xmlcharrefreplace_errors(*exception*)
     character reference, which is a decimal form of Unicode code point with
     format `&#num;` .
 
-codecs.namereplace_errors(*exception*)
+`codecs.namereplace_errors(exception)`
 :   Implements the `'namereplace'` error handling (for encoding within
     [text encoding](https://docs.python.org/3.12/glossary.html#term-text-encoding) only).
 
@@ -388,8 +388,8 @@ codecs.namereplace_errors(*exception*)
 The base [`Codec`](codecs.md#codecs.Codec "codecs.Codec") class defines these methods which also define the
 function interfaces of the stateless encoder and decoder:
 
-*class* codecs.Codec
-:   encode(*input*, *errors='strict'*)
+`class codecs.Codec`
+:   `encode(input, errors='strict')`
     :   Encodes the object *input* and returns a tuple (output object, length consumed).
         For instance, [text encoding](https://docs.python.org/3.12/glossary.html#term-text-encoding) converts
         a string object to a bytes object using a particular
@@ -405,7 +405,7 @@ function interfaces of the stateless encoder and decoder:
         The encoder must be able to handle zero length input and return an empty object
         of the output object type in this situation.
 
-    decode(*input*, *errors='strict'*)
+    `decode(input, errors='strict')`
     :   Decodes the object *input* and returns a tuple (output object, length
         consumed). For instance, for a [text encoding](https://docs.python.org/3.12/glossary.html#term-text-encoding), decoding converts
         a bytes object encoded using a particular
@@ -446,7 +446,7 @@ The [`IncrementalEncoder`](codecs.md#codecs.IncrementalEncoder "codecs.Increment
 steps. It defines the following methods which every incremental encoder must
 define in order to be compatible with the Python codec registry.
 
-*class* codecs.IncrementalEncoder(*errors='strict'*)
+`class codecs.IncrementalEncoder(errors='strict')`
 :   Constructor for an [`IncrementalEncoder`](codecs.md#codecs.IncrementalEncoder "codecs.IncrementalEncoder") instance.
 
     All incremental encoders must provide this constructor interface. They are free
@@ -462,24 +462,24 @@ define in order to be compatible with the Python codec registry.
     handling strategies during the lifetime of the [`IncrementalEncoder`](codecs.md#codecs.IncrementalEncoder "codecs.IncrementalEncoder")
     object.
 
-    encode(*object*, *final=False*)
+    `encode(object, final=False)`
     :   Encodes *object* (taking the current state of the encoder into account)
         and returns the resulting encoded object. If this is the last call to
         [`encode()`](codecs.md#codecs.encode "codecs.encode") *final* must be true (the default is false).
 
-    reset()
+    `reset()`
     :   Reset the encoder to the initial state. The output is discarded: call
         `.encode(object, final=True)`, passing an empty byte or text string
         if necessary, to reset the encoder and to get the output.
 
-    getstate()
+    `getstate()`
     :   Return the current state of the encoder which must be an integer. The
         implementation should make sure that `0` is the most common
         state. (States that are more complicated than integers can be converted
         into an integer by marshaling/pickling the state and encoding the bytes
         of the resulting string into an integer.)
 
-    setstate(*state*)
+    `setstate(state)`
     :   Set the state of the encoder to *state*. *state* must be an encoder state
         returned by [`getstate()`](codecs.md#codecs.IncrementalEncoder.getstate "codecs.IncrementalEncoder.getstate").
 
@@ -489,7 +489,7 @@ The [`IncrementalDecoder`](codecs.md#codecs.IncrementalDecoder "codecs.Increment
 steps. It defines the following methods which every incremental decoder must
 define in order to be compatible with the Python codec registry.
 
-*class* codecs.IncrementalDecoder(*errors='strict'*)
+`class codecs.IncrementalDecoder(errors='strict')`
 :   Constructor for an [`IncrementalDecoder`](codecs.md#codecs.IncrementalDecoder "codecs.IncrementalDecoder") instance.
 
     All incremental decoders must provide this constructor interface. They are free
@@ -505,7 +505,7 @@ define in order to be compatible with the Python codec registry.
     handling strategies during the lifetime of the [`IncrementalDecoder`](codecs.md#codecs.IncrementalDecoder "codecs.IncrementalDecoder")
     object.
 
-    decode(*object*, *final=False*)
+    `decode(object, final=False)`
     :   Decodes *object* (taking the current state of the decoder into account)
         and returns the resulting decoded object. If this is the last call to
         [`decode()`](codecs.md#codecs.decode "codecs.decode") *final* must be true (the default is false). If *final* is
@@ -514,10 +514,10 @@ define in order to be compatible with the Python codec registry.
         at the end of the input) it must initiate error handling just like in the
         stateless case (which might raise an exception).
 
-    reset()
+    `reset()`
     :   Reset the decoder to the initial state.
 
-    getstate()
+    `getstate()`
     :   Return the current state of the decoder. This must be a tuple with two
         items, the first must be the buffer containing the still undecoded
         input. The second must be an integer and can be additional state
@@ -530,7 +530,7 @@ define in order to be compatible with the Python codec registry.
         integers can be converted into an integer by marshaling/pickling the info
         and encoding the bytes of the resulting string into an integer.)
 
-    setstate(*state*)
+    `setstate(state)`
     :   Set the state of the decoder to *state*. *state* must be a decoder state
         returned by [`getstate()`](codecs.md#codecs.IncrementalDecoder.getstate "codecs.IncrementalDecoder.getstate").
 
@@ -546,7 +546,7 @@ The [`StreamWriter`](codecs.md#codecs.StreamWriter "codecs.StreamWriter") class 
 following methods which every stream writer must define in order to be
 compatible with the Python codec registry.
 
-*class* codecs.StreamWriter(*stream*, *errors='strict'*)
+`class codecs.StreamWriter(stream, errors='strict')`
 :   Constructor for a [`StreamWriter`](codecs.md#codecs.StreamWriter "codecs.StreamWriter") instance.
 
     All stream writers must provide this constructor interface. They are free to add
@@ -564,16 +564,16 @@ compatible with the Python codec registry.
     Assigning to this attribute makes it possible to switch between different error
     handling strategies during the lifetime of the [`StreamWriter`](codecs.md#codecs.StreamWriter "codecs.StreamWriter") object.
 
-    write(*object*)
+    `write(object)`
     :   Writes the object’s contents encoded to the stream.
 
-    writelines(*list*)
+    `writelines(list)`
     :   Writes the concatenated iterable of strings to the stream (possibly by reusing
         the [`write()`](codecs.md#codecs.StreamWriter.write "codecs.StreamWriter.write") method). Infinite or
         very large iterables are not supported. The standard bytes-to-bytes codecs
         do not support this method.
 
-    reset()
+    `reset()`
     :   Resets the codec buffers used for keeping internal state.
 
         Calling this method should ensure that the data on the output is put into
@@ -589,7 +589,7 @@ The [`StreamReader`](codecs.md#codecs.StreamReader "codecs.StreamReader") class 
 following methods which every stream reader must define in order to be
 compatible with the Python codec registry.
 
-*class* codecs.StreamReader(*stream*, *errors='strict'*)
+`class codecs.StreamReader(stream, errors='strict')`
 :   Constructor for a [`StreamReader`](codecs.md#codecs.StreamReader "codecs.StreamReader") instance.
 
     All stream readers must provide this constructor interface. They are free to add
@@ -610,7 +610,7 @@ compatible with the Python codec registry.
     The set of allowed values for the *errors* argument can be extended with
     [`register_error()`](codecs.md#codecs.register_error "codecs.register_error").
 
-    read(*size=-1*, *chars=-1*, *firstline=False*)
+    `read(size=-1, chars=-1, firstline=False)`
     :   Decodes data from the stream and returns the resulting object.
 
         The *chars* argument indicates the number of decoded
@@ -634,7 +634,7 @@ compatible with the Python codec registry.
         given size, e.g. if optional encoding endings or state markers are
         available on the stream, these should be read too.
 
-    readline(*size=None*, *keepends=True*)
+    `readline(size=None, keepends=True)`
     :   Read one line from the input stream and return the decoded data.
 
         *size*, if given, is passed as size argument to the stream’s
@@ -643,7 +643,7 @@ compatible with the Python codec registry.
         If *keepends* is false line-endings will be stripped from the lines
         returned.
 
-    readlines(*sizehint=None*, *keepends=True*)
+    `readlines(sizehint=None, keepends=True)`
     :   Read all lines available on the input stream and return them as a list of
         lines.
 
@@ -653,7 +653,7 @@ compatible with the Python codec registry.
         *sizehint*, if given, is passed as the *size* argument to the stream’s
         [`read()`](codecs.md#codecs.StreamReader.read "codecs.StreamReader.read") method.
 
-    reset()
+    `reset()`
     :   Resets the codec buffers used for keeping internal state.
 
         Note that no stream repositioning should take place. This method is
@@ -670,7 +670,7 @@ streams which work in both read and write modes.
 The design is such that one can use the factory functions returned by the
 [`lookup()`](codecs.md#codecs.lookup "codecs.lookup") function to construct the instance.
 
-*class* codecs.StreamReaderWriter(*stream*, *Reader*, *Writer*, *errors='strict'*)
+`class codecs.StreamReaderWriter(stream, Reader, Writer, errors='strict')`
 :   Creates a [`StreamReaderWriter`](codecs.md#codecs.StreamReaderWriter "codecs.StreamReaderWriter") instance. *stream* must be a file-like
     object. *Reader* and *Writer* must be factory functions or classes providing the
     [`StreamReader`](codecs.md#codecs.StreamReader "codecs.StreamReader") and [`StreamWriter`](codecs.md#codecs.StreamWriter "codecs.StreamWriter") interface resp. Error handling
@@ -688,7 +688,7 @@ which is sometimes useful when dealing with different encoding environments.
 The design is such that one can use the factory functions returned by the
 [`lookup()`](codecs.md#codecs.lookup "codecs.lookup") function to construct the instance.
 
-*class* codecs.StreamRecoder(*stream*, *encode*, *decode*, *Reader*, *Writer*, *errors='strict'*)
+`class codecs.StreamRecoder(stream, encode, decode, Reader, Writer, errors='strict')`
 :   Creates a [`StreamRecoder`](codecs.md#codecs.StreamRecoder "codecs.StreamRecoder") instance which implements a two-way conversion:
     *encode* and *decode* work on the frontend — the data visible to
     code calling [`read()`](codecs.md#codecs.StreamReader.read "codecs.StreamReader.read") and [`write()`](codecs.md#codecs.StreamWriter.write "codecs.StreamWriter.write"),
@@ -1061,15 +1061,15 @@ performs certain normalizations on host names, to achieve case-insensitivity of
 international domain names, and to unify similar characters. The nameprep
 functions can be used directly if desired.
 
-encodings.idna.nameprep(*label*)
+`encodings.idna.nameprep(label)`
 :   Return the nameprepped version of *label*. The implementation currently assumes
     query strings, so `AllowUnassigned` is true.
 
-encodings.idna.ToASCII(*label*)
+`encodings.idna.ToASCII(label)`
 :   Convert a label to ASCII, as specified in [**RFC 3490**](https://datatracker.ietf.org/doc/html/rfc3490.html). `UseSTD3ASCIIRules` is
     assumed to be false.
 
-encodings.idna.ToUnicode(*label*)
+`encodings.idna.ToUnicode(label)`
 :   Convert a label to Unicode, as specified in [**RFC 3490**](https://datatracker.ietf.org/doc/html/rfc3490.html).
 
 ## `encodings.mbcs` — Windows ANSI codepage

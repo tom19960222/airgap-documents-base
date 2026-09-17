@@ -26,7 +26,7 @@ point between values in an array.
 
 The following functions are provided:
 
-bisect.bisect_left(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
+`bisect.bisect_left(a, x, lo=0, hi=len(a), *, key=None)`
 :   Locate the insertion point for *x* in *a* to maintain sorted order.
     The parameters *lo* and *hi* may be used to specify a subset of the list
     which should be considered; by default the entire list is used. If *x* is
@@ -48,9 +48,9 @@ bisect.bisect_left(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
 
     Changed in version 3.10: Added the *key* parameter.
 
-bisect.bisect_right(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
+`bisect.bisect_right(a, x, lo=0, hi=len(a), *, key=None)`
 
-bisect.bisect(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
+`bisect.bisect(a, x, lo=0, hi=len(a), *, key=None)`
 :   Similar to [`bisect_left()`](bisect.md#bisect.bisect_left "bisect.bisect_left"), but returns an insertion point which comes
     after (to the right of) any existing entries of *x* in *a*.
 
@@ -60,7 +60,7 @@ bisect.bisect(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
 
     Changed in version 3.10: Added the *key* parameter.
 
-bisect.insort_left(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
+`bisect.insort_left(a, x, lo=0, hi=len(a), *, key=None)`
 :   Insert *x* in *a* in sorted order.
 
     This function first runs [`bisect_left()`](bisect.md#bisect.bisect_left "bisect.bisect_left") to locate an insertion point.
@@ -75,9 +75,9 @@ bisect.insort_left(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
 
     Changed in version 3.10: Added the *key* parameter.
 
-bisect.insort_right(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
+`bisect.insort_right(a, x, lo=0, hi=len(a), *, key=None)`
 
-bisect.insort(*a*, *x*, *lo=0*, *hi=len(a)*, *\**, *key=None*)
+`bisect.insort(a, x, lo=0, hi=len(a), *, key=None)`
 :   Similar to [`insort_left()`](bisect.md#bisect.insort_left "bisect.insort_left"), but inserting *x* in *a* after any existing
     entries of *x*.
 

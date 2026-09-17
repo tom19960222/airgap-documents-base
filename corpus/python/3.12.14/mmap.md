@@ -55,7 +55,7 @@ Changed in version 3.7: Added `ACCESS_DEFAULT` constant.
 
 To map anonymous memory, -1 should be passed as the fileno along with the length.
 
-*class* mmap.mmap(*fileno*, *length*, *tagname=None*, *access=ACCESS_DEFAULT*[, *offset*])
+`class mmap.mmap(fileno, length, tagname=None, access=ACCESS_DEFAULT[, offset])`
 :   **(Windows version)** Maps *length* bytes from the file specified by the
     file handle *fileno*, and creates a mmap object. If *length* is larger
     than the current size of the file, the file is extended to contain *length*
@@ -77,7 +77,7 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
     Raises an [auditing event](sys.md#auditing) `mmap.__new__` with arguments `fileno`, `length`, `access`, `offset`.
 
-*class* mmap.mmap(*fileno*, *length*, *flags=MAP_SHARED*, *prot=PROT_WRITE|PROT_READ*, *access=ACCESS_DEFAULT*[, *offset*])
+`class mmap.mmap(fileno, length, flags=MAP_SHARED, prot=PROT_WRITE|PROT_READ, access=ACCESS_DEFAULT[, offset])`
 :   **(Unix version)** Maps *length* bytes from the file specified by the file
     descriptor *fileno*, and returns a mmap object. If *length* is `0`, the
     maximum length of the map will be the current size of the file when
@@ -171,17 +171,17 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
     Memory-mapped file objects support the following methods:
 
-    close()
+    `close()`
     :   Closes the mmap. Subsequent calls to other methods of the object will
         result in a ValueError exception being raised. This will not close
         the open file.
 
-    closed
+    `closed`
     :   `True` if the file is closed.
 
         Added in version 3.2.
 
-    find(*sub*[, *start*[, *end*]])
+    `find(sub[, start[, end]])`
     :   Returns the lowest index in the object where the subsequence *sub* is
         found, such that *sub* is contained in the range [*start*, *end*].
         Optional arguments *start* and *end* are interpreted as in slice notation.
@@ -189,7 +189,7 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
         Changed in version 3.5: Writable [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-    flush([*offset*[, *size*]])
+    `flush([offset[, size]])`
     :   Flushes changes made to the in-memory copy of a file back to disk. Without
         use of this call there is no guarantee that changes are written back before
         the object is destroyed. If *offset* and *size* are specified, only
@@ -204,7 +204,7 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
         on error under Windows. A zero value was returned on success; an
         exception was raised on error under Unix.
 
-    madvise(*option*[, *start*[, *length*]])
+    `madvise(option[, start[, length]])`
     :   Send advice *option* to the kernel about the memory region beginning at
         *start* and extending *length* bytes. *option* must be one of the
         [MADV_\* constants](mmap.md#madvise-constants) available on the system. If
@@ -216,12 +216,12 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
         Added in version 3.8.
 
-    move(*dest*, *src*, *count*)
+    `move(dest, src, count)`
     :   Copy the *count* bytes starting at offset *src* to the destination index
         *dest*. If the mmap was created with `ACCESS_READ`, then calls to
         move will raise a [`TypeError`](exceptions.md#TypeError "TypeError") exception.
 
-    read([*n*])
+    `read([n])`
     :   Return a [`bytes`](stdtypes.md#bytes "bytes") containing up to *n* bytes starting from the
         current file position. If the argument is omitted, `None` or negative,
         return all bytes from the current file position to the end of the
@@ -230,16 +230,16 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
         Changed in version 3.3: Argument can be omitted or `None`.
 
-    read_byte()
+    `read_byte()`
     :   Returns a byte at the current file position as an integer, and advances
         the file position by 1.
 
-    readline()
+    `readline()`
     :   Returns a single line, starting at the current file position and up to the
         next newline. The file position is updated to point after the bytes that were
         returned.
 
-    resize(*newsize*)
+    `resize(newsize)`
     :   Resizes the map and the underlying file, if any. If the mmap was created
         with `ACCESS_READ` or `ACCESS_COPY`, resizing the map will
         raise a [`TypeError`](exceptions.md#TypeError "TypeError") exception.
@@ -252,7 +252,7 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
         Changed in version 3.11: Correctly fails if attempting to resize when another map is held
         Allows resize against an anonymous map on Windows
 
-    rfind(*sub*[, *start*[, *end*]])
+    `rfind(sub[, start[, end]])`
     :   Returns the highest index in the object where the subsequence *sub* is
         found, such that *sub* is contained in the range [*start*, *end*].
         Optional arguments *start* and *end* are interpreted as in slice notation.
@@ -260,20 +260,20 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
         Changed in version 3.5: Writable [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-    seek(*pos*[, *whence*])
+    `seek(pos[, whence])`
     :   Set the file’s current position. *whence* argument is optional and
         defaults to `os.SEEK_SET` or `0` (absolute file positioning); other
         values are `os.SEEK_CUR` or `1` (seek relative to the current
         position) and `os.SEEK_END` or `2` (seek relative to the file’s end).
 
-    size()
+    `size()`
     :   Return the length of the file, which can be larger than the size of the
         memory-mapped area.
 
-    tell()
+    `tell()`
     :   Returns the current position of the file pointer.
 
-    write(*bytes*)
+    `write(bytes)`
     :   Write the bytes in *bytes* into memory at the current position of the
         file pointer and return the number of bytes written (never less than
         `len(bytes)`, since if the write fails, a [`ValueError`](exceptions.md#ValueError "ValueError") will be
@@ -285,7 +285,7 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
         Changed in version 3.6: The number of bytes written is now returned.
 
-    write_byte(*byte*)
+    `write_byte(byte)`
     :   Write the integer *byte* into memory at the current
         position of the file pointer; the file position is advanced by `1`. If
         the mmap was created with `ACCESS_READ`, then writing to it will
@@ -293,53 +293,53 @@ To map anonymous memory, -1 should be passed as the fileno along with the length
 
 ## MADV_\* Constants
 
-mmap.MADV_NORMAL
+`mmap.MADV_NORMAL`
 
-mmap.MADV_RANDOM
+`mmap.MADV_RANDOM`
 
-mmap.MADV_SEQUENTIAL
+`mmap.MADV_SEQUENTIAL`
 
-mmap.MADV_WILLNEED
+`mmap.MADV_WILLNEED`
 
-mmap.MADV_DONTNEED
+`mmap.MADV_DONTNEED`
 
-mmap.MADV_REMOVE
+`mmap.MADV_REMOVE`
 
-mmap.MADV_DONTFORK
+`mmap.MADV_DONTFORK`
 
-mmap.MADV_DOFORK
+`mmap.MADV_DOFORK`
 
-mmap.MADV_HWPOISON
+`mmap.MADV_HWPOISON`
 
-mmap.MADV_MERGEABLE
+`mmap.MADV_MERGEABLE`
 
-mmap.MADV_UNMERGEABLE
+`mmap.MADV_UNMERGEABLE`
 
-mmap.MADV_SOFT_OFFLINE
+`mmap.MADV_SOFT_OFFLINE`
 
-mmap.MADV_HUGEPAGE
+`mmap.MADV_HUGEPAGE`
 
-mmap.MADV_NOHUGEPAGE
+`mmap.MADV_NOHUGEPAGE`
 
-mmap.MADV_DONTDUMP
+`mmap.MADV_DONTDUMP`
 
-mmap.MADV_DODUMP
+`mmap.MADV_DODUMP`
 
-mmap.MADV_FREE
+`mmap.MADV_FREE`
 
-mmap.MADV_NOSYNC
+`mmap.MADV_NOSYNC`
 
-mmap.MADV_AUTOSYNC
+`mmap.MADV_AUTOSYNC`
 
-mmap.MADV_NOCORE
+`mmap.MADV_NOCORE`
 
-mmap.MADV_CORE
+`mmap.MADV_CORE`
 
-mmap.MADV_PROTECT
+`mmap.MADV_PROTECT`
 
-mmap.MADV_FREE_REUSABLE
+`mmap.MADV_FREE_REUSABLE`
 
-mmap.MADV_FREE_REUSE
+`mmap.MADV_FREE_REUSE`
 :   These options can be passed to [`mmap.madvise()`](mmap.md#mmap.mmap.madvise "mmap.mmap.madvise"). Not every option will
     be present on every system.
 
@@ -349,25 +349,25 @@ mmap.MADV_FREE_REUSE
 
 ## MAP_\* Constants
 
-mmap.MAP_SHARED
+`mmap.MAP_SHARED`
 
-mmap.MAP_PRIVATE
+`mmap.MAP_PRIVATE`
 
-mmap.MAP_DENYWRITE
+`mmap.MAP_DENYWRITE`
 
-mmap.MAP_EXECUTABLE
+`mmap.MAP_EXECUTABLE`
 
-mmap.MAP_ANON
+`mmap.MAP_ANON`
 
-mmap.MAP_ANONYMOUS
+`mmap.MAP_ANONYMOUS`
 
-mmap.MAP_POPULATE
+`mmap.MAP_POPULATE`
 
-mmap.MAP_STACK
+`mmap.MAP_STACK`
 
-mmap.MAP_ALIGNED_SUPER
+`mmap.MAP_ALIGNED_SUPER`
 
-mmap.MAP_CONCEAL
+`mmap.MAP_CONCEAL`
 :   These are the various flags that can be passed to [`mmap.mmap()`](mmap.md#mmap.mmap "mmap.mmap"). [`MAP_ALIGNED_SUPER`](mmap.md#mmap.MAP_ALIGNED_SUPER "mmap.MAP_ALIGNED_SUPER")
     is only available at FreeBSD and [`MAP_CONCEAL`](mmap.md#mmap.MAP_CONCEAL "mmap.MAP_CONCEAL") is only available at OpenBSD. Note
     that some options might not be present on some systems.

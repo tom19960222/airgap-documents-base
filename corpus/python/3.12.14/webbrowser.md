@@ -37,10 +37,10 @@ The script **webbrowser** can be used as a command-line interface for the
 module. It accepts a URL as the argument. It accepts the following optional
 parameters:
 
--n, --new-window
+`-n, --new-window`
 :   Opens the URL in a new browser window, if possible.
 
--t, --new-tab
+`-t, --new-tab`
 :   Opens the URL in a new browser tab.
 
 The options are, naturally, mutually exclusive. Usage example:
@@ -57,12 +57,12 @@ This module does not work or is not available on WebAssembly platforms
 
 The following exception is defined:
 
-*exception* webbrowser.Error
+`exception webbrowser.Error`
 :   Exception raised when a browser control error occurs.
 
 The following functions are defined:
 
-webbrowser.open(*url*, *new=0*, *autoraise=True*)
+`webbrowser.open(url, new=0, autoraise=True)`
 :   Display *url* using the default browser. If *new* is 0, the *url* is opened
     in the same browser window if possible. If *new* is 1, a new browser window
     is opened if possible. If *new* is 2, a new browser page (“tab”) is opened
@@ -78,24 +78,24 @@ webbrowser.open(*url*, *new=0*, *autoraise=True*)
 
     Raises an [auditing event](sys.md#auditing) `webbrowser.open` with argument `url`.
 
-webbrowser.open_new(*url*)
+`webbrowser.open_new(url)`
 :   Open *url* in a new window of the default browser, if possible, otherwise, open
     *url* in the only browser window.
 
     Returns `True` if a browser was successfully launched, `False` otherwise.
 
-webbrowser.open_new_tab(*url*)
+`webbrowser.open_new_tab(url)`
 :   Open *url* in a new page (“tab”) of the default browser, if possible, otherwise
     equivalent to [`open_new()`](webbrowser.md#webbrowser.open_new "webbrowser.open_new").
 
     Returns `True` if a browser was successfully launched, `False` otherwise.
 
-webbrowser.get(*using=None*)
+`webbrowser.get(using=None)`
 :   Return a controller object for the browser type *using*. If *using* is
     `None`, return a controller for a default browser appropriate to the
     caller’s environment.
 
-webbrowser.register(*name*, *constructor*, *instance=None*, *\**, *preferred=False*)
+`webbrowser.register(name, constructor, instance=None, *, preferred=False)`
 :   Register the browser type *name*. Once a browser type is registered, the
     [`get()`](webbrowser.md#webbrowser.get "webbrowser.get") function can return a controller for that browser type. If
     *instance* is not provided, or is `None`, *constructor* will be called without
@@ -170,20 +170,20 @@ webbrowser.open_new(url)
 Browser controllers provide these methods which parallel three of the
 module-level convenience functions:
 
-webbrowser.name
+`webbrowser.name`
 :   System-dependent name for the browser.
 
-controller.open(*url*, *new=0*, *autoraise=True*)
+`controller.open(url, new=0, autoraise=True)`
 :   Display *url* using the browser handled by this controller. If *new* is 1, a new
     browser window is opened if possible. If *new* is 2, a new browser page (“tab”)
     is opened if possible.
 
-controller.open_new(*url*)
+`controller.open_new(url)`
 :   Open *url* in a new window of the browser handled by this controller, if
     possible, otherwise, open *url* in the only browser window. Alias
     [`open_new()`](webbrowser.md#webbrowser.open_new "webbrowser.open_new").
 
-controller.open_new_tab(*url*)
+`controller.open_new_tab(url)`
 :   Open *url* in a new page (“tab”) of the browser handled by this controller, if
     possible, otherwise equivalent to [`open_new()`](webbrowser.md#webbrowser.open_new "webbrowser.open_new").
 

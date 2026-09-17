@@ -144,7 +144,7 @@ When initializing [`TZPATH`](zoneinfo.md#zoneinfo.TZPATH "zoneinfo.TZPATH") (eit
 use the environment variable `PYTHONTZPATH`, if it exists, to set the search
 path.
 
-PYTHONTZPATH
+`PYTHONTZPATH`
 :   This is an [`os.pathsep`](os.md#os.pathsep "os.pathsep")-separated string containing the time zone
     search path to use. It must consist of only absolute rather than relative
     paths. Relative components specified in `PYTHONTZPATH` will not be used,
@@ -165,7 +165,7 @@ specific time zone path (or require disabling access to the system time zones).
 
 ## The `ZoneInfo` class
 
-*class* zoneinfo.ZoneInfo(*key*)
+`class zoneinfo.ZoneInfo(key)`
 :   A concrete [`datetime.tzinfo`](datetime.md#datetime.tzinfo "datetime.tzinfo") subclass that represents an IANA time
     zone specified by the string `key`. Calls to the primary constructor will
     always return objects that compare identically; put another way, barring
@@ -187,7 +187,7 @@ specific time zone path (or require disabling access to the system time zones).
 
 The `ZoneInfo` class has two alternate constructors:
 
-*classmethod* ZoneInfo.from_file(*fobj*, */*, *key=None*)
+`classmethod ZoneInfo.from_file(fobj, /, key=None)`
 :   Constructs a `ZoneInfo` object from a file-like object returning bytes
     (e.g. a file opened in binary mode or an [`io.BytesIO`](io.md#io.BytesIO "io.BytesIO") object).
     Unlike the primary constructor, this always constructs a new object.
@@ -197,7 +197,7 @@ The `ZoneInfo` class has two alternate constructors:
 
     Objects created via this constructor cannot be pickled (see [pickling](zoneinfo.md#pickling)).
 
-*classmethod* ZoneInfo.no_cache(*key*)
+`classmethod ZoneInfo.no_cache(key)`
 :   An alternate constructor that bypasses the constructor’s cache. It is
     identical to the primary constructor, but returns a new object on each
     call. This is most likely to be useful for testing or demonstration
@@ -214,7 +214,7 @@ The `ZoneInfo` class has two alternate constructors:
 
 The following class methods are also available:
 
-*classmethod* ZoneInfo.clear_cache(*\**, *only_keys=None*)
+`classmethod ZoneInfo.clear_cache(*, only_keys=None)`
 :   A method for invalidating the cache on the `ZoneInfo` class. If no
     arguments are passed, all caches are invalidated and the next call to
     the primary constructor for each key will return a new instance.
@@ -232,7 +232,7 @@ The following class methods are also available:
 
 The class has one attribute:
 
-ZoneInfo.key
+`ZoneInfo.key`
 :   This is a read-only [attribute](https://docs.python.org/3.12/glossary.html#term-attribute) that returns the value of `key`
     passed to the constructor, which should be a lookup key in the IANA time
     zone database (e.g. `America/New_York`, `Europe/Paris` or
@@ -320,7 +320,7 @@ pickled in an environment with a different version of the time zone data.
 
 ## Functions
 
-zoneinfo.available_timezones()
+`zoneinfo.available_timezones()`
 :   Get a set containing all the valid keys for IANA time zones available
     anywhere on the time zone path. This is recalculated on every call to the
     function.
@@ -342,7 +342,7 @@ zoneinfo.available_timezones()
     > Unicode Common Locale Data Repository) to get more user-friendly
     > strings. See also the cautionary note on [`ZoneInfo.key`](zoneinfo.md#zoneinfo.ZoneInfo.key "zoneinfo.ZoneInfo.key").
 
-zoneinfo.reset_tzpath(*to=None*)
+`zoneinfo.reset_tzpath(to=None)`
 :   Sets or resets the time zone search path ([`TZPATH`](zoneinfo.md#zoneinfo.TZPATH "zoneinfo.TZPATH")) for the module.
     When called with no arguments, [`TZPATH`](zoneinfo.md#zoneinfo.TZPATH "zoneinfo.TZPATH") is set to the default value.
 
@@ -357,7 +357,7 @@ zoneinfo.reset_tzpath(*to=None*)
 
 ## Globals
 
-zoneinfo.TZPATH
+`zoneinfo.TZPATH`
 :   A read-only sequence representing the time zone search path – when
     constructing a `ZoneInfo` from a key, the key is joined to each entry in
     the `TZPATH`, and the first file found is used.
@@ -375,11 +375,11 @@ zoneinfo.TZPATH
 
 ## Exceptions and warnings
 
-*exception* zoneinfo.ZoneInfoNotFoundError
+`exception zoneinfo.ZoneInfoNotFoundError`
 :   Raised when construction of a [`ZoneInfo`](zoneinfo.md#zoneinfo.ZoneInfo "zoneinfo.ZoneInfo") object fails because the
     specified key could not be found on the system. This is a subclass of
     [`KeyError`](exceptions.md#KeyError "KeyError").
 
-*exception* zoneinfo.InvalidTZPathWarning
+`exception zoneinfo.InvalidTZPathWarning`
 :   Raised when [`PYTHONTZPATH`](zoneinfo.md#envvar-PYTHONTZPATH) contains an invalid component that will
     be filtered out, such as a relative path.

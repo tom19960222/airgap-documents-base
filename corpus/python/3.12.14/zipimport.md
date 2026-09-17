@@ -50,7 +50,7 @@ Changed in version 3.8: Previously, ZIP archives with an archive comment were no
 
 This module defines an exception:
 
-*exception* zipimport.ZipImportError
+`exception zipimport.ZipImportError`
 :   Exception raised by zipimporter objects. It’s a subclass of [`ImportError`](exceptions.md#ImportError "ImportError"),
     so it can be caught as [`ImportError`](exceptions.md#ImportError "ImportError"), too.
 
@@ -58,7 +58,7 @@ This module defines an exception:
 
 [`zipimporter`](zipimport.md#zipimport.zipimporter "zipimport.zipimporter") is the class for importing ZIP files.
 
-*class* zipimport.zipimporter(*archivepath*)
+`class zipimport.zipimporter(archivepath)`
 :   Create a new zipimporter instance. *archivepath* must be a path to a ZIP
     file, or to a specific path within a ZIP file. For example, an *archivepath*
     of `foo/bar.zip/lib` will look for modules in the `lib` directory
@@ -70,67 +70,67 @@ This module defines an exception:
     Changed in version 3.12: Methods `find_loader()` and `find_module()`, deprecated in 3.10 are
     now removed. Use [`find_spec()`](zipimport.md#zipimport.zipimporter.find_spec "zipimport.zipimporter.find_spec") instead.
 
-    create_module(*spec*)
+    `create_module(spec)`
     :   Implementation of [`importlib.abc.Loader.create_module()`](importlib.md#importlib.abc.Loader.create_module "importlib.abc.Loader.create_module") that returns
         [`None`](constants.md#None "None") to explicitly request the default semantics.
 
         Added in version 3.10.
 
-    exec_module(*module*)
+    `exec_module(module)`
     :   Implementation of [`importlib.abc.Loader.exec_module()`](importlib.md#importlib.abc.Loader.exec_module "importlib.abc.Loader.exec_module").
 
         Added in version 3.10.
 
-    find_spec(*fullname*, *target=None*)
+    `find_spec(fullname, target=None)`
     :   An implementation of [`importlib.abc.PathEntryFinder.find_spec()`](importlib.md#importlib.abc.PathEntryFinder.find_spec "importlib.abc.PathEntryFinder.find_spec").
 
         Added in version 3.10.
 
-    get_code(*fullname*)
+    `get_code(fullname)`
     :   Return the code object for the specified module. Raise
         [`ZipImportError`](zipimport.md#zipimport.ZipImportError "zipimport.ZipImportError") if the module couldn’t be imported.
 
-    get_data(*pathname*)
+    `get_data(pathname)`
     :   Return the data associated with *pathname*. Raise [`OSError`](exceptions.md#OSError "OSError") if the
         file wasn’t found.
 
         Changed in version 3.3: [`IOError`](exceptions.md#IOError "IOError") used to be raised, it is now an alias of [`OSError`](exceptions.md#OSError "OSError").
 
-    get_filename(*fullname*)
+    `get_filename(fullname)`
     :   Return the value `__file__` would be set to if the specified module
         was imported. Raise [`ZipImportError`](zipimport.md#zipimport.ZipImportError "zipimport.ZipImportError") if the module couldn’t be
         imported.
 
         Added in version 3.1.
 
-    get_source(*fullname*)
+    `get_source(fullname)`
     :   Return the source code for the specified module. Raise
         [`ZipImportError`](zipimport.md#zipimport.ZipImportError "zipimport.ZipImportError") if the module couldn’t be found, return
         [`None`](constants.md#None "None") if the archive does contain the module, but has no source
         for it.
 
-    is_package(*fullname*)
+    `is_package(fullname)`
     :   Return `True` if the module specified by *fullname* is a package. Raise
         [`ZipImportError`](zipimport.md#zipimport.ZipImportError "zipimport.ZipImportError") if the module couldn’t be found.
 
-    load_module(*fullname*)
+    `load_module(fullname)`
     :   Load the module specified by *fullname*. *fullname* must be the fully
         qualified (dotted) module name. Returns the imported module on success,
         raises [`ZipImportError`](zipimport.md#zipimport.ZipImportError "zipimport.ZipImportError") on failure.
 
         Deprecated since version 3.10: Use [`exec_module()`](zipimport.md#zipimport.zipimporter.exec_module "zipimport.zipimporter.exec_module") instead.
 
-    invalidate_caches()
+    `invalidate_caches()`
     :   Clear out the internal cache of information about files found within
         the ZIP archive.
 
         Added in version 3.10.
 
-    archive
+    `archive`
     :   The file name of the importer’s associated ZIP file, without a possible
         subpath.
 
-    prefix
+    `prefix`
     :   The subpath within the ZIP file where modules are searched. This is the
         empty string for zipimporter objects which point to the root of the ZIP
         file.

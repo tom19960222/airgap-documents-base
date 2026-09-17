@@ -50,7 +50,7 @@ XFS). This behavior is commonly referred to as “copy-on-write”.
 
 The module defines the following functions:
 
-fcntl.fcntl(*fd*, *cmd*, *arg=0*)
+`fcntl.fcntl(fd, cmd, arg=0)`
 :   Perform the operation *cmd* on file descriptor *fd* (file objects providing
     a [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method are accepted as well). The values used
     for *cmd* are operating system dependent, and are available as constants
@@ -72,7 +72,7 @@ fcntl.fcntl(*fd*, *cmd*, *arg=0*)
 
     Raises an [auditing event](sys.md#auditing) `fcntl.fcntl` with arguments `fd`, `cmd`, `arg`.
 
-fcntl.ioctl(*fd*, *request*, *arg=0*, *mutate_flag=True*)
+`fcntl.ioctl(fd, request, arg=0, mutate_flag=True)`
 :   This function is identical to the [`fcntl()`](fcntl.md#fcntl.fcntl "fcntl.fcntl") function, except
     that the argument handling is even more complicated.
 
@@ -123,7 +123,7 @@ fcntl.ioctl(*fd*, *request*, *arg=0*, *mutate_flag=True*)
 
     Raises an [auditing event](sys.md#auditing) `fcntl.ioctl` with arguments `fd`, `request`, `arg`.
 
-fcntl.flock(*fd*, *operation*)
+`fcntl.flock(fd, operation)`
 :   Perform the lock operation *operation* on file descriptor *fd* (file objects providing
     a [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method are accepted as well). See the Unix manual
     *[flock(2)](https://manpages.debian.org/flock(2))* for details. (On some systems, this function is emulated
@@ -133,22 +133,22 @@ fcntl.flock(*fd*, *operation*)
 
     Raises an [auditing event](sys.md#auditing) `fcntl.flock` with arguments `fd`, `operation`.
 
-fcntl.lockf(*fd*, *cmd*, *len=0*, *start=0*, *whence=0*)
+`fcntl.lockf(fd, cmd, len=0, start=0, whence=0)`
 :   This is essentially a wrapper around the [`fcntl()`](fcntl.md#fcntl.fcntl "fcntl.fcntl") locking calls.
     *fd* is the file descriptor (file objects providing a [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno")
     method are accepted as well) of the file to lock or unlock, and *cmd*
     is one of the following values:
 
-    fcntl.LOCK_UN
+    `fcntl.LOCK_UN`
     :   Release an existing lock.
 
-    fcntl.LOCK_SH
+    `fcntl.LOCK_SH`
     :   Acquire a shared lock.
 
-    fcntl.LOCK_EX
+    `fcntl.LOCK_EX`
     :   Acquire an exclusive lock.
 
-    fcntl.LOCK_NB
+    `fcntl.LOCK_NB`
     :   Bitwise OR with any of the other three `LOCK_*` constants to make
         the request non-blocking.
 

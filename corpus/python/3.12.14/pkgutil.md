@@ -14,12 +14,12 @@ fetched_at: 2026-09-17T15:35:09+00:00
 This module provides utilities for the import system, in particular package
 support.
 
-*class* pkgutil.ModuleInfo(*module_finder*, *name*, *ispkg*)
+`class pkgutil.ModuleInfo(module_finder, name, ispkg)`
 :   A namedtuple that holds a brief summary of a module’s info.
 
     Added in version 3.6.
 
-pkgutil.extend_path(*path*, *name*)
+`pkgutil.extend_path(path, name)`
 :   Extend the search path for the modules which comprise a package. Intended
     use is to place the following code in a package’s `__init__.py`:
 
@@ -52,7 +52,7 @@ pkgutil.extend_path(*path*, *name*)
     this function to raise an exception (in line with [`os.path.isdir()`](os.path.md#os.path.isdir "os.path.isdir")
     behavior).
 
-pkgutil.find_loader(*fullname*)
+`pkgutil.find_loader(fullname)`
 :   Retrieve a module [loader](https://docs.python.org/3.12/glossary.html#term-loader) for the given *fullname*.
 
     This is a backwards compatibility wrapper around
@@ -67,7 +67,7 @@ pkgutil.find_loader(*fullname*)
 
     Deprecated since version 3.12, will be removed in version 3.14: Use [`importlib.util.find_spec()`](importlib.md#importlib.util.find_spec "importlib.util.find_spec") instead.
 
-pkgutil.get_importer(*path_item*)
+`pkgutil.get_importer(path_item)`
 :   Retrieve a [finder](https://docs.python.org/3.12/glossary.html#term-finder) for the given *path_item*.
 
     The returned finder is cached in [`sys.path_importer_cache`](sys.md#sys.path_importer_cache "sys.path_importer_cache") if it was
@@ -79,7 +79,7 @@ pkgutil.get_importer(*path_item*)
     Changed in version 3.3: Updated to be based directly on [`importlib`](importlib.md#module-importlib "importlib: The implementation of the import machinery.") rather than relying
     on the package internal [**PEP 302**](https://peps.python.org/pep-0302/) import emulation.
 
-pkgutil.get_loader(*module_or_name*)
+`pkgutil.get_loader(module_or_name)`
 :   Get a [loader](https://docs.python.org/3.12/glossary.html#term-loader) object for *module_or_name*.
 
     If the module or package is accessible via the normal import mechanism, a
@@ -95,7 +95,7 @@ pkgutil.get_loader(*module_or_name*)
 
     Deprecated since version 3.12, will be removed in version 3.14: Use [`importlib.util.find_spec()`](importlib.md#importlib.util.find_spec "importlib.util.find_spec") instead.
 
-pkgutil.iter_importers(*fullname=''*)
+`pkgutil.iter_importers(fullname='')`
 :   Yield [finder](https://docs.python.org/3.12/glossary.html#term-finder) objects for the given module name.
 
     If fullname contains a `'.'`, the finders will be for the package
@@ -110,7 +110,7 @@ pkgutil.iter_importers(*fullname=''*)
     Changed in version 3.3: Updated to be based directly on [`importlib`](importlib.md#module-importlib "importlib: The implementation of the import machinery.") rather than relying
     on the package internal [**PEP 302**](https://peps.python.org/pep-0302/) import emulation.
 
-pkgutil.iter_modules(*path=None*, *prefix=''*)
+`pkgutil.iter_modules(path=None, prefix='')`
 :   Yields [`ModuleInfo`](pkgutil.md#pkgutil.ModuleInfo "pkgutil.ModuleInfo") for all submodules on *path*, or, if
     *path* is `None`, all top-level modules on [`sys.path`](sys.md#sys.path "sys.path").
 
@@ -128,7 +128,7 @@ pkgutil.iter_modules(*path=None*, *prefix=''*)
     Changed in version 3.3: Updated to be based directly on [`importlib`](importlib.md#module-importlib "importlib: The implementation of the import machinery.") rather than relying
     on the package internal [**PEP 302**](https://peps.python.org/pep-0302/) import emulation.
 
-pkgutil.walk_packages(*path=None*, *prefix=''*, *onerror=None*)
+`pkgutil.walk_packages(path=None, prefix='', onerror=None)`
 :   Yields [`ModuleInfo`](pkgutil.md#pkgutil.ModuleInfo "pkgutil.ModuleInfo") for all modules recursively on
     *path*, or, if *path* is `None`, all accessible modules.
 
@@ -166,7 +166,7 @@ pkgutil.walk_packages(*path=None*, *prefix=''*, *onerror=None*)
     Changed in version 3.3: Updated to be based directly on [`importlib`](importlib.md#module-importlib "importlib: The implementation of the import machinery.") rather than relying
     on the package internal [**PEP 302**](https://peps.python.org/pep-0302/) import emulation.
 
-pkgutil.get_data(*package*, *resource*)
+`pkgutil.get_data(package, resource)`
 :   Get a resource from a package.
 
     This is a wrapper for the [loader](https://docs.python.org/3.12/glossary.html#term-loader)
@@ -193,7 +193,7 @@ pkgutil.get_data(*package*, *resource*)
     [namespace packages](https://docs.python.org/3.12/glossary.html#term-namespace-package) does not support
     [`get_data`](importlib.md#importlib.abc.ResourceLoader.get_data "importlib.abc.ResourceLoader.get_data").
 
-pkgutil.resolve_name(*name*)
+`pkgutil.resolve_name(name)`
 :   Resolve a name to an object.
 
     This functionality is used in numerous places in the standard library (see

@@ -18,17 +18,17 @@ tables.
 
 ## Generating Symbol Tables
 
-symtable.symtable(*code*, *filename*, *compile_type*)
+`symtable.symtable(code, filename, compile_type)`
 :   Return the toplevel [`SymbolTable`](symtable.md#symtable.SymbolTable "symtable.SymbolTable") for the Python source *code*.
     *filename* is the name of the file containing the code. *compile_type* is
     like the *mode* argument to [`compile()`](functions.md#compile "compile").
 
 ## Examining Symbol Tables
 
-*class* symtable.SymbolTable
+`class symtable.SymbolTable`
 :   A namespace table for a block. The constructor is not public.
 
-    get_type()
+    `get_type()`
     :   Return the type of the symbol table. Possible values are `'class'`,
         `'module'`, `'function'`, `'annotation'`, `'TypeVar bound'`,
         `'type alias'`, and `'type parameter'`. The latter four refer to
@@ -37,10 +37,10 @@ symtable.symtable(*code*, *filename*, *compile_type*)
         Changed in version 3.12: Added `'annotation'`, `'TypeVar bound'`, `'type alias'`,
         and `'type parameter'` as possible return values.
 
-    get_id()
+    `get_id()`
     :   Return the table’s identifier.
 
-    get_name()
+    `get_name()`
     :   Return the table’s name. This is the name of the class if the table is
         for a class, the name of the function if the table is for a function, or
         `'top'` if the table is global ([`get_type()`](symtable.md#symtable.SymbolTable.get_type "symtable.SymbolTable.get_type") returns `'module'`).
@@ -49,55 +49,55 @@ symtable.symtable(*code*, *filename*, *compile_type*)
         type alias. For type alias scopes, it is the name of the type alias.
         For [`TypeVar`](typing.md#typing.TypeVar "typing.TypeVar") bound scopes, it is the name of the `TypeVar`.
 
-    get_lineno()
+    `get_lineno()`
     :   Return the number of the first line in the block this table represents.
 
-    is_optimized()
+    `is_optimized()`
     :   Return `True` if the locals in this table can be optimized.
 
-    is_nested()
+    `is_nested()`
     :   Return `True` if the block is a nested class or function.
 
-    has_children()
+    `has_children()`
     :   Return `True` if the block has nested namespaces within it. These can
         be obtained with [`get_children()`](symtable.md#symtable.SymbolTable.get_children "symtable.SymbolTable.get_children").
 
-    get_identifiers()
+    `get_identifiers()`
     :   Return a view object containing the names of symbols in the table.
         See the [documentation of view objects](stdtypes.md#dict-views).
 
-    lookup(*name*)
+    `lookup(name)`
     :   Lookup *name* in the table and return a [`Symbol`](symtable.md#symtable.Symbol "symtable.Symbol") instance.
 
-    get_symbols()
+    `get_symbols()`
     :   Return a list of [`Symbol`](symtable.md#symtable.Symbol "symtable.Symbol") instances for names in the table.
 
-    get_children()
+    `get_children()`
     :   Return a list of the nested symbol tables.
 
-*class* symtable.Function
+`class symtable.Function`
 :   A namespace for a function or method. This class inherits from
     [`SymbolTable`](symtable.md#symtable.SymbolTable "symtable.SymbolTable").
 
-    get_parameters()
+    `get_parameters()`
     :   Return a tuple containing names of parameters to this function.
 
-    get_locals()
+    `get_locals()`
     :   Return a tuple containing names of locals in this function.
 
-    get_globals()
+    `get_globals()`
     :   Return a tuple containing names of globals in this function.
 
-    get_nonlocals()
+    `get_nonlocals()`
     :   Return a tuple containing names of nonlocals in this function.
 
-    get_frees()
+    `get_frees()`
     :   Return a tuple containing names of free variables in this function.
 
-*class* symtable.Class
+`class symtable.Class`
 :   A namespace of a class. This class inherits from [`SymbolTable`](symtable.md#symtable.SymbolTable "symtable.SymbolTable").
 
-    get_methods()
+    `get_methods()`
     :   Return a tuple containing the names of method-like functions declared
         in the class.
 
@@ -134,47 +134,47 @@ symtable.symtable(*code*, *filename*, *compile_type*)
         Although `A().f()` raises [`TypeError`](exceptions.md#TypeError "TypeError") at runtime, `A.f` is still
         considered as a method-like function.
 
-*class* symtable.Symbol
+`class symtable.Symbol`
 :   An entry in a [`SymbolTable`](symtable.md#symtable.SymbolTable "symtable.SymbolTable") corresponding to an identifier in the
     source. The constructor is not public.
 
-    get_name()
+    `get_name()`
     :   Return the symbol’s name.
 
-    is_referenced()
+    `is_referenced()`
     :   Return `True` if the symbol is used in its block.
 
-    is_imported()
+    `is_imported()`
     :   Return `True` if the symbol is created from an import statement.
 
-    is_parameter()
+    `is_parameter()`
     :   Return `True` if the symbol is a parameter.
 
-    is_global()
+    `is_global()`
     :   Return `True` if the symbol is global.
 
-    is_nonlocal()
+    `is_nonlocal()`
     :   Return `True` if the symbol is nonlocal.
 
-    is_declared_global()
+    `is_declared_global()`
     :   Return `True` if the symbol is declared global with a global statement.
 
-    is_local()
+    `is_local()`
     :   Return `True` if the symbol is local to its block.
 
-    is_annotated()
+    `is_annotated()`
     :   Return `True` if the symbol is annotated.
 
         Added in version 3.6.
 
-    is_free()
+    `is_free()`
     :   Return `True` if the symbol is referenced in its block, but not assigned
         to.
 
-    is_assigned()
+    `is_assigned()`
     :   Return `True` if the symbol is assigned to in its block.
 
-    is_namespace()
+    `is_namespace()`
     :   Return `True` if name binding introduces new namespace.
 
         If the name is used as the target of a function or class statement, this
@@ -192,9 +192,9 @@ symtable.symtable(*code*, *filename*, *compile_type*)
         is `True`, the name may also be bound to other objects, like an int or
         list, that does not introduce a new namespace.
 
-    get_namespaces()
+    `get_namespaces()`
     :   Return a list of namespaces bound to this name.
 
-    get_namespace()
+    `get_namespace()`
     :   Return the namespace bound to this name. If more than one or no namespace
         is bound to this name, a [`ValueError`](exceptions.md#ValueError "ValueError") is raised.

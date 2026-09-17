@@ -35,21 +35,21 @@ in exchange for the smaller functionality.
 
 The [`queue`](queue.md#module-queue "queue: A synchronized queue class.") module defines the following classes and exceptions:
 
-*class* queue.Queue(*maxsize=0*)
+`class queue.Queue(maxsize=0)`
 :   Constructor for a FIFO queue. *maxsize* is
     an integer that sets the upperbound
     limit on the number of items that can be placed in the queue. Insertion will
     block once this size has been reached, until queue items are consumed. If
     *maxsize* is less than or equal to zero, the queue size is infinite.
 
-*class* queue.LifoQueue(*maxsize=0*)
+`class queue.LifoQueue(maxsize=0)`
 :   Constructor for a LIFO queue. *maxsize* is
     an integer that sets the upperbound
     limit on the number of items that can be placed in the queue. Insertion will
     block once this size has been reached, until queue items are consumed. If
     *maxsize* is less than or equal to zero, the queue size is infinite.
 
-*class* queue.PriorityQueue(*maxsize=0*)
+`class queue.PriorityQueue(maxsize=0)`
 :   Constructor for a priority queue. *maxsize* is an integer that sets the upperbound
     limit on the number of items that can be placed in the queue. Insertion will
     block once this size has been reached, until queue items are consumed. If
@@ -72,18 +72,18 @@ The [`queue`](queue.md#module-queue "queue: A synchronized queue class.") module
         item: Any=field(compare=False)
     ```
 
-*class* queue.SimpleQueue
+`class queue.SimpleQueue`
 :   Constructor for an unbounded FIFO queue.
     Simple queues lack advanced functionality such as task tracking.
 
     Added in version 3.7.
 
-*exception* queue.Empty
+`exception queue.Empty`
 :   Exception raised when non-blocking [`get()`](queue.md#queue.Queue.get "queue.Queue.get") (or
     [`get_nowait()`](queue.md#queue.Queue.get_nowait "queue.Queue.get_nowait")) is called
     on a [`Queue`](queue.md#queue.Queue "queue.Queue") object which is empty.
 
-*exception* queue.Full
+`exception queue.Full`
 :   Exception raised when non-blocking [`put()`](queue.md#queue.Queue.put "queue.Queue.put") (or
     [`put_nowait()`](queue.md#queue.Queue.put_nowait "queue.Queue.put_nowait")) is called
     on a [`Queue`](queue.md#queue.Queue "queue.Queue") object which is full.
@@ -93,24 +93,24 @@ The [`queue`](queue.md#module-queue "queue: A synchronized queue class.") module
 Queue objects ([`Queue`](queue.md#queue.Queue "queue.Queue"), [`LifoQueue`](queue.md#queue.LifoQueue "queue.LifoQueue"), or [`PriorityQueue`](queue.md#queue.PriorityQueue "queue.PriorityQueue"))
 provide the public methods described below.
 
-Queue.qsize()
+`Queue.qsize()`
 :   Return the approximate size of the queue. Note, qsize() > 0 doesn’t
     guarantee that a subsequent get() will not block, nor will qsize() < maxsize
     guarantee that put() will not block.
 
-Queue.empty()
+`Queue.empty()`
 :   Return `True` if the queue is empty, `False` otherwise. If empty()
     returns `True` it doesn’t guarantee that a subsequent call to put()
     will not block. Similarly, if empty() returns `False` it doesn’t
     guarantee that a subsequent call to get() will not block.
 
-Queue.full()
+`Queue.full()`
 :   Return `True` if the queue is full, `False` otherwise. If full()
     returns `True` it doesn’t guarantee that a subsequent call to get()
     will not block. Similarly, if full() returns `False` it doesn’t
     guarantee that a subsequent call to put() will not block.
 
-Queue.put(*item*, *block=True*, *timeout=None*)
+`Queue.put(item, block=True, timeout=None)`
 :   Put *item* into the queue. If optional args *block* is true and *timeout* is
     `None` (the default), block if necessary until a free slot is available. If
     *timeout* is a positive number, it blocks at most *timeout* seconds and raises
@@ -119,10 +119,10 @@ Queue.put(*item*, *block=True*, *timeout=None*)
     immediately available, else raise the [`Full`](queue.md#queue.Full "queue.Full") exception (*timeout* is
     ignored in that case).
 
-Queue.put_nowait(*item*)
+`Queue.put_nowait(item)`
 :   Equivalent to `put(item, block=False)`.
 
-Queue.get(*block=True*, *timeout=None*)
+`Queue.get(block=True, timeout=None)`
 :   Remove and return an item from the queue. If optional args *block* is true and
     *timeout* is `None` (the default), block if necessary until an item is available.
     If *timeout* is a positive number, it blocks at most *timeout* seconds and
@@ -135,13 +135,13 @@ Queue.get(*block=True*, *timeout=None*)
     an uninterruptible wait on an underlying lock. This means that no exceptions
     can occur, and in particular a SIGINT will not trigger a [`KeyboardInterrupt`](exceptions.md#KeyboardInterrupt "KeyboardInterrupt").
 
-Queue.get_nowait()
+`Queue.get_nowait()`
 :   Equivalent to `get(False)`.
 
 Two methods are offered to support tracking whether enqueued tasks have been
 fully processed by daemon consumer threads.
 
-Queue.task_done()
+`Queue.task_done()`
 :   Indicate that a formerly enqueued task is complete. Used by queue consumer
     threads. For each [`get()`](queue.md#queue.Queue.get "queue.Queue.get") used to fetch a task, a subsequent call to
     [`task_done()`](queue.md#queue.Queue.task_done "queue.Queue.task_done") tells the queue that the processing on the task is complete.
@@ -153,7 +153,7 @@ Queue.task_done()
     Raises a [`ValueError`](exceptions.md#ValueError "ValueError") if called more times than there were items placed in
     the queue.
 
-Queue.join()
+`Queue.join()`
 :   Blocks until all items in the queue have been gotten and processed.
 
     The count of unfinished tasks goes up whenever an item is added to the queue.
@@ -192,16 +192,16 @@ print('All work completed')
 
 [`SimpleQueue`](queue.md#queue.SimpleQueue "queue.SimpleQueue") objects provide the public methods described below.
 
-SimpleQueue.qsize()
+`SimpleQueue.qsize()`
 :   Return the approximate size of the queue. Note, qsize() > 0 doesn’t
     guarantee that a subsequent get() will not block.
 
-SimpleQueue.empty()
+`SimpleQueue.empty()`
 :   Return `True` if the queue is empty, `False` otherwise. If empty()
     returns `False` it doesn’t guarantee that a subsequent call to get()
     will not block.
 
-SimpleQueue.put(*item*, *block=True*, *timeout=None*)
+`SimpleQueue.put(item, block=True, timeout=None)`
 :   Put *item* into the queue. The method never blocks and always succeeds
     (except for potential low-level errors such as failure to allocate memory).
     The optional args *block* and *timeout* are ignored and only provided
@@ -213,11 +213,11 @@ SimpleQueue.put(*item*, *block=True*, *timeout=None*)
     state inside the queue. This makes it appropriate for use in
     destructors such as `__del__` methods or [`weakref`](weakref.md#module-weakref "weakref: Support for weak references and weak dictionaries.") callbacks.
 
-SimpleQueue.put_nowait(*item*)
+`SimpleQueue.put_nowait(item)`
 :   Equivalent to `put(item, block=False)`, provided for compatibility with
     [`Queue.put_nowait()`](queue.md#queue.Queue.put_nowait "queue.Queue.put_nowait").
 
-SimpleQueue.get(*block=True*, *timeout=None*)
+`SimpleQueue.get(block=True, timeout=None)`
 :   Remove and return an item from the queue. If optional args *block* is true and
     *timeout* is `None` (the default), block if necessary until an item is available.
     If *timeout* is a positive number, it blocks at most *timeout* seconds and
@@ -225,7 +225,7 @@ SimpleQueue.get(*block=True*, *timeout=None*)
     Otherwise (*block* is false), return an item if one is immediately available,
     else raise the [`Empty`](queue.md#queue.Empty "queue.Empty") exception (*timeout* is ignored in that case).
 
-SimpleQueue.get_nowait()
+`SimpleQueue.get_nowait()`
 :   Equivalent to `get(False)`.
 
 > **See also:**

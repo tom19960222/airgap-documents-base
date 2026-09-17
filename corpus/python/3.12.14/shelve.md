@@ -17,7 +17,7 @@ arbitrary Python objects — anything that the [`pickle`](pickle.md#module-pickl
 This includes most class instances, recursive data types, and objects containing
 lots of shared sub-objects. The keys are ordinary strings.
 
-shelve.open(*filename*, *flag='c'*, *protocol=None*, *writeback=False*)
+`shelve.open(filename, flag='c', protocol=None, writeback=False)`
 :   Open a persistent dictionary. The filename specified is the base filename for
     the underlying database. As a side-effect, an extension may be added to the
     filename and more than one file may be created. By default, the underlying
@@ -68,13 +68,13 @@ transition from dictionary based scripts to those requiring persistent storage.
 
 Two additional methods are supported:
 
-Shelf.sync()
+`Shelf.sync()`
 :   Write back all entries in the cache if the shelf was opened with *writeback*
     set to [`True`](constants.md#True "True"). Also empty the cache and synchronize the persistent
     dictionary on disk, if feasible. This is called automatically when the shelf
     is closed with [`close()`](shelve.md#shelve.Shelf.close "shelve.Shelf.close").
 
-Shelf.close()
+`Shelf.close()`
 :   Synchronize and close the persistent *dict* object. Operations on a closed
     shelf will fail with a [`ValueError`](exceptions.md#ValueError "ValueError").
 
@@ -102,7 +102,7 @@ Shelf.close()
 - On macOS [`dbm.ndbm`](dbm.md#module-dbm.ndbm "dbm.ndbm: The New Database Manager (Unix)") can silently corrupt the database file on updates,
   which can cause hard crashes when trying to read from the database.
 
-*class* shelve.Shelf(*dict*, *protocol=None*, *writeback=False*, *keyencoding='utf-8'*)
+`class shelve.Shelf(dict, protocol=None, writeback=False, keyencoding='utf-8')`
 :   A subclass of [`collections.abc.MutableMapping`](collections.abc.md#collections.abc.MutableMapping "collections.abc.MutableMapping") which stores pickled
     values in the *dict* object.
 
@@ -130,7 +130,7 @@ Shelf.close()
     Changed in version 3.10: [`pickle.DEFAULT_PROTOCOL`](pickle.md#pickle.DEFAULT_PROTOCOL "pickle.DEFAULT_PROTOCOL") is now used as the default pickle
     protocol.
 
-*class* shelve.BsdDbShelf(*dict*, *protocol=None*, *writeback=False*, *keyencoding='utf-8'*)
+`class shelve.BsdDbShelf(dict, protocol=None, writeback=False, keyencoding='utf-8')`
 :   A subclass of [`Shelf`](shelve.md#shelve.Shelf "shelve.Shelf") which exposes `first()`, `next()`,
     `previous()`, `last()` and `set_location()` methods.
     These are available
@@ -141,7 +141,7 @@ Shelf.close()
     optional *protocol*, *writeback*, and *keyencoding* parameters have the same
     interpretation as for the [`Shelf`](shelve.md#shelve.Shelf "shelve.Shelf") class.
 
-*class* shelve.DbfilenameShelf(*filename*, *flag='c'*, *protocol=None*, *writeback=False*)
+`class shelve.DbfilenameShelf(filename, flag='c', protocol=None, writeback=False)`
 :   A subclass of [`Shelf`](shelve.md#shelve.Shelf "shelve.Shelf") which accepts a *filename* instead of a dict-like
     object. The underlying file will be opened using [`dbm.open()`](dbm.md#dbm.open "dbm.open"). By
     default, the file will be created and opened for both read and write. The

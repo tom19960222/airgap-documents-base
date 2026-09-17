@@ -1301,7 +1301,7 @@ directly.
 The `ctypes.util` module provides a function which can help to determine
 the library to load.
 
-ctypes.util.find_library(*name*)
+`ctypes.util.find_library(name)`
 :   Try to find a library and return a pathname. *name* is the library name without
     any prefix like *lib*, suffix like `.so`, `.dylib` or version number (this
     is the form used for the posix linker option `-l`). If no library can
@@ -1358,7 +1358,7 @@ module instead of using [`find_library()`](ctypes.md#ctypes.util.find_library "c
 There are several ways to load shared libraries into the Python process. One
 way is to instantiate one of the following classes:
 
-*class* ctypes.CDLL(*name*, *mode=DEFAULT_MODE*, *handle=None*, *use_errno=False*, *use_last_error=False*, *winmode=None*)
+`class ctypes.CDLL(name, mode=DEFAULT_MODE, handle=None, use_errno=False, use_last_error=False, winmode=None)`
 :   Instances of this class represent loaded shared libraries. Functions in these
     libraries use the standard C calling convention, and are assumed to return
     int.
@@ -1380,7 +1380,7 @@ way is to instantiate one of the following classes:
 > [Microsoft DUMPBIN tool](https://docs.microsoft.com/cpp/build/reference/dependents)
 > – A tool to find DLL dependents.
 
-*class* ctypes.OleDLL(*name*, *mode=DEFAULT_MODE*, *handle=None*, *use_errno=False*, *use_last_error=False*, *winmode=None*)
+`class ctypes.OleDLL(name, mode=DEFAULT_MODE, handle=None, use_errno=False, use_last_error=False, winmode=None)`
 :   Instances of this class represent loaded shared libraries,
     functions in these libraries use the `stdcall` calling convention, and are
     assumed to return the windows specific [`HRESULT`](ctypes.md#ctypes.HRESULT "ctypes.HRESULT") code. [`HRESULT`](ctypes.md#ctypes.HRESULT "ctypes.HRESULT")
@@ -1395,7 +1395,7 @@ way is to instantiate one of the following classes:
 
     Changed in version 3.12: The *name* parameter can now be a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-*class* ctypes.WinDLL(*name*, *mode=DEFAULT_MODE*, *handle=None*, *use_errno=False*, *use_last_error=False*, *winmode=None*)
+`class ctypes.WinDLL(name, mode=DEFAULT_MODE, handle=None, use_errno=False, use_last_error=False, winmode=None)`
 :   Instances of this class represent loaded shared libraries,
     functions in these libraries use the `stdcall` calling convention, and are
     assumed to return int by default.
@@ -1407,7 +1407,7 @@ way is to instantiate one of the following classes:
 The Python [global interpreter lock](https://docs.python.org/3.12/glossary.html#term-global-interpreter-lock) is released before calling any
 function exported by these libraries, and reacquired afterwards.
 
-*class* ctypes.PyDLL(*name*, *mode=DEFAULT_MODE*, *handle=None*)
+`class ctypes.PyDLL(name, mode=DEFAULT_MODE, handle=None)`
 :   Instances of this class behave like [`CDLL`](ctypes.md#ctypes.CDLL "ctypes.CDLL") instances, except that the
     Python GIL is *not* released during the function call, and after the function
     execution the Python error flag is checked. If the error flag is set, a Python
@@ -1455,15 +1455,15 @@ correct library and dependencies are loaded.
 
 Changed in version 3.8: Added *winmode* parameter.
 
-ctypes.RTLD_GLOBAL
+`ctypes.RTLD_GLOBAL`
 :   Flag to use as *mode* parameter. On platforms where this flag is not available,
     it is defined as the integer zero.
 
-ctypes.RTLD_LOCAL
+`ctypes.RTLD_LOCAL`
 :   Flag to use as *mode* parameter. On platforms where this is not available, it
     is the same as *RTLD_GLOBAL*.
 
-ctypes.DEFAULT_MODE
+`ctypes.DEFAULT_MODE`
 :   The default mode which is used to load shared libraries. On OSX 10.3, this is
     *RTLD_GLOBAL*, otherwise it is the same as *RTLD_LOCAL*.
 
@@ -1485,10 +1485,10 @@ False
 The following public attributes are available, their name starts with an
 underscore to not clash with exported function names:
 
-PyDLL._handle
+`PyDLL._handle`
 :   The system handle used to access the library.
 
-PyDLL._name
+`PyDLL._name`
 :   The name of the library passed in the constructor.
 
 Shared libraries can also be loaded by using one of the prefabricated objects,
@@ -1496,7 +1496,7 @@ which are instances of the [`LibraryLoader`](ctypes.md#ctypes.LibraryLoader "cty
 [`LoadLibrary()`](ctypes.md#ctypes.LibraryLoader.LoadLibrary "ctypes.LibraryLoader.LoadLibrary") method, or by retrieving the library as
 attribute of the loader instance.
 
-*class* ctypes.LibraryLoader(*dlltype*)
+`class ctypes.LibraryLoader(dlltype)`
 :   Class which loads shared libraries. *dlltype* should be one of the
     [`CDLL`](ctypes.md#ctypes.CDLL "ctypes.CDLL"), [`PyDLL`](ctypes.md#ctypes.PyDLL "ctypes.PyDLL"), [`WinDLL`](ctypes.md#ctypes.WinDLL "ctypes.WinDLL"), or [`OleDLL`](ctypes.md#ctypes.OleDLL "ctypes.OleDLL") types.
 
@@ -1504,32 +1504,32 @@ attribute of the loader instance.
     accessing it as attribute of a library loader instance. The result is cached,
     so repeated attribute accesses return the same library each time.
 
-    LoadLibrary(*name*)
+    `LoadLibrary(name)`
     :   Load a shared library into the process and return it. This method always
         returns a new instance of the library.
 
 These prefabricated library loaders are available:
 
-ctypes.cdll
+`ctypes.cdll`
 :   Creates [`CDLL`](ctypes.md#ctypes.CDLL "ctypes.CDLL") instances.
 
-ctypes.windll
+`ctypes.windll`
 :   Creates [`WinDLL`](ctypes.md#ctypes.WinDLL "ctypes.WinDLL") instances.
 
     [Availability](intro.md#availability): Windows
 
-ctypes.oledll
+`ctypes.oledll`
 :   Creates [`OleDLL`](ctypes.md#ctypes.OleDLL "ctypes.OleDLL") instances.
 
     [Availability](intro.md#availability): Windows
 
-ctypes.pydll
+`ctypes.pydll`
 :   Creates [`PyDLL`](ctypes.md#ctypes.PyDLL "ctypes.PyDLL") instances.
 
 For accessing the C Python api directly, a ready-to-use Python shared library
 object is available:
 
-ctypes.pythonapi
+`ctypes.pythonapi`
 :   An instance of [`PyDLL`](ctypes.md#ctypes.PyDLL "ctypes.PyDLL") that exposes Python C API functions as
     attributes. Note that all these functions are assumed to return C
     int, which is of course not always the truth, so you have to assign
@@ -1566,7 +1566,7 @@ True
 False
 ```
 
-*class* ctypes._CFuncPtr
+`class ctypes._CFuncPtr`
 :   Base class for C callable foreign functions.
 
     Instances of foreign functions are also C compatible data types; they
@@ -1575,7 +1575,7 @@ False
     This behavior can be customized by assigning to special attributes of the
     foreign function object.
 
-    restype
+    `restype`
     :   Assign a ctypes type to specify the result type of the foreign function.
         Use `None` for void, a function not returning anything.
 
@@ -1586,7 +1586,7 @@ False
         post processing or error checking use a ctypes data type as
         `restype` and assign a callable to the [`errcheck`](ctypes.md#ctypes._CFuncPtr.errcheck "ctypes._CFuncPtr.errcheck") attribute.
 
-    argtypes
+    `argtypes`
     :   Assign a tuple of ctypes types to specify the argument types that the
         function accepts. Functions using the `stdcall` calling convention can
         only be called with the same number of arguments as the length of this
@@ -1605,11 +1605,11 @@ False
         value usable as argument (integer, string, ctypes instance). This allows
         defining adapters that can adapt custom objects as function parameters.
 
-    errcheck
+    `errcheck`
     :   Assign a Python function or another callable to this attribute. The
         callable will be called with three or more arguments:
 
-        callable(*result*, *func*, *arguments*)
+        `callable(result, func, arguments)`
         :   *result* is what the foreign function returns, as specified by the
             `restype` attribute.
 
@@ -1625,7 +1625,7 @@ False
         foreign function call, but it can also check the result value
         and raise an exception if the foreign function call failed.
 
-*exception* ctypes.ArgumentError
+`exception ctypes.ArgumentError`
 :   This exception is raised when a foreign function call cannot convert one of the
     passed arguments.
 
@@ -1648,7 +1648,7 @@ type and the argument types of the function, and can be used as decorator
 factories, and as such, be applied to functions through the `@wrapper` syntax.
 See [Callback functions](ctypes.md#ctypes-callback-functions) for examples.
 
-ctypes.CFUNCTYPE(*restype*, *\*argtypes*, *use_errno=False*, *use_last_error=False*)
+`ctypes.CFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False)`
 :   The returned function prototype creates functions that use the standard C
     calling convention. The function will release the GIL during the call. If
     *use_errno* is set to true, the ctypes private copy of the system
@@ -1656,7 +1656,7 @@ ctypes.CFUNCTYPE(*restype*, *\*argtypes*, *use_errno=False*, *use_last_error=Fal
     and after the call; *use_last_error* does the same for the Windows error
     code.
 
-ctypes.WINFUNCTYPE(*restype*, *\*argtypes*, *use_errno=False*, *use_last_error=False*)
+`ctypes.WINFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False)`
 :   The returned function prototype creates functions that use the
     `stdcall` calling convention. The function will
     release the GIL during the call. *use_errno* and *use_last_error* have the
@@ -1664,26 +1664,26 @@ ctypes.WINFUNCTYPE(*restype*, *\*argtypes*, *use_errno=False*, *use_last_error=F
 
     [Availability](intro.md#availability): Windows
 
-ctypes.PYFUNCTYPE(*restype*, *\*argtypes*)
+`ctypes.PYFUNCTYPE(restype, *argtypes)`
 :   The returned function prototype creates functions that use the Python calling
     convention. The function will *not* release the GIL during the call.
 
 Function prototypes created by these factory functions can be instantiated in
 different ways, depending on the type and number of the parameters in the call:
 
-prototype(*address*)
+`prototype(address)`
 :   Returns a foreign function at the specified address which must be an integer.
 
-prototype(*callable*)
+`prototype(callable)`
 :   Create a C callable function (a callback function) from a Python *callable*.
 
-prototype(*func_spec*[, *paramflags*])
+`prototype(func_spec[, paramflags])`
 :   Returns a foreign function exported by a shared library. *func_spec* must
     be a 2-tuple `(name_or_ordinal, library)`. The first item is the name of
     the exported function as string, or the ordinal of the exported function
     as small integer. The second item is the shared library instance.
 
-prototype(*vtbl_index*, *name*[, *paramflags*[, *iid*]])
+`prototype(vtbl_index, name[, paramflags[, iid]])`
 :   Returns a foreign function that will call a COM method. *vtbl_index* is
     the index into the virtual function table, a small non-negative
     integer. *name* is name of the COM method. *iid* is an optional pointer to
@@ -1810,17 +1810,17 @@ instead, the normal processing will no longer take place:
 
 ### Utility functions
 
-ctypes.addressof(*obj*)
+`ctypes.addressof(obj)`
 :   Returns the address of the memory buffer as integer. *obj* must be an
     instance of a ctypes type.
 
     Raises an [auditing event](sys.md#auditing) `ctypes.addressof` with argument `obj`.
 
-ctypes.alignment(*obj_or_type*)
+`ctypes.alignment(obj_or_type)`
 :   Returns the alignment requirements of a ctypes type. *obj_or_type* must be a
     ctypes type or instance.
 
-ctypes.byref(*obj*[, *offset*])
+`ctypes.byref(obj[, offset])`
 :   Returns a light-weight pointer to *obj*, which must be an instance of a
     ctypes type. *offset* defaults to zero, and must be an integer that will be
     added to the internal pointer value.
@@ -1834,13 +1834,13 @@ ctypes.byref(*obj*[, *offset*])
     The returned object can only be used as a foreign function call parameter.
     It behaves similar to `pointer(obj)`, but the construction is a lot faster.
 
-ctypes.cast(*obj*, *type*)
+`ctypes.cast(obj, type)`
 :   This function is similar to the cast operator in C. It returns a new instance
     of *type* which points to the same memory block as *obj*. *type* must be a
     pointer type, and *obj* must be an object that can be interpreted as a
     pointer.
 
-ctypes.create_string_buffer(*init_or_size*, *size=None*)
+`ctypes.create_string_buffer(init_or_size, size=None)`
 :   This function creates a mutable character buffer. The returned object is a
     ctypes array of [`c_char`](ctypes.md#ctypes.c_char "ctypes.c_char").
 
@@ -1854,7 +1854,7 @@ ctypes.create_string_buffer(*init_or_size*, *size=None*)
 
     Raises an [auditing event](sys.md#auditing) `ctypes.create_string_buffer` with arguments `init`, `size`.
 
-ctypes.create_unicode_buffer(*init_or_size*, *size=None*)
+`ctypes.create_unicode_buffer(init_or_size, size=None)`
 :   This function creates a mutable unicode character buffer. The returned object is
     a ctypes array of [`c_wchar`](ctypes.md#ctypes.c_wchar "ctypes.c_wchar").
 
@@ -1869,21 +1869,21 @@ ctypes.create_unicode_buffer(*init_or_size*, *size=None*)
 
     Raises an [auditing event](sys.md#auditing) `ctypes.create_unicode_buffer` with arguments `init`, `size`.
 
-ctypes.DllCanUnloadNow()
+`ctypes.DllCanUnloadNow()`
 :   This function is a hook which allows implementing in-process
     COM servers with ctypes. It is called from the DllCanUnloadNow function that
     the _ctypes extension dll exports.
 
     [Availability](intro.md#availability): Windows
 
-ctypes.DllGetClassObject()
+`ctypes.DllGetClassObject()`
 :   This function is a hook which allows implementing in-process
     COM servers with ctypes. It is called from the DllGetClassObject function
     that the `_ctypes` extension dll exports.
 
     [Availability](intro.md#availability): Windows
 
-ctypes.util.find_library(*name*)
+`ctypes.util.find_library(name)`
 :   Try to find a library and return a pathname. *name* is the library name
     without any prefix like `lib`, suffix like `.so`, `.dylib` or version
     number (this is the form used for the posix linker option `-l`). If
@@ -1891,7 +1891,7 @@ ctypes.util.find_library(*name*)
 
     The exact functionality is system dependent.
 
-ctypes.util.find_msvcrt()
+`ctypes.util.find_msvcrt()`
 :   Returns the filename of the VC runtime library used by Python,
     and by the extension modules. If the name of the library cannot be
     determined, `None` is returned.
@@ -1902,27 +1902,27 @@ ctypes.util.find_msvcrt()
 
     [Availability](intro.md#availability): Windows
 
-ctypes.FormatError([*code*])
+`ctypes.FormatError([code])`
 :   Returns a textual description of the error code *code*. If no
     error code is specified, the last error code is used by calling the Windows
     api function GetLastError.
 
     [Availability](intro.md#availability): Windows
 
-ctypes.GetLastError()
+`ctypes.GetLastError()`
 :   Returns the last error code set by Windows in the calling thread.
     This function calls the Windows `GetLastError()` function directly,
     it does not return the ctypes-private copy of the error code.
 
     [Availability](intro.md#availability): Windows
 
-ctypes.get_errno()
+`ctypes.get_errno()`
 :   Returns the current value of the ctypes-private copy of the system
     [`errno`](errno.md#module-errno "errno: Standard errno system symbols.") variable in the calling thread.
 
     Raises an [auditing event](sys.md#auditing) `ctypes.get_errno` with no arguments.
 
-ctypes.get_last_error()
+`ctypes.get_last_error()`
 :   Returns the current value of the ctypes-private copy of the system
     `LastError` variable in the calling thread.
 
@@ -1930,41 +1930,41 @@ ctypes.get_last_error()
 
     Raises an [auditing event](sys.md#auditing) `ctypes.get_last_error` with no arguments.
 
-ctypes.memmove(*dst*, *src*, *count*)
+`ctypes.memmove(dst, src, count)`
 :   Same as the standard C memmove library function: copies *count* bytes from
     *src* to *dst*. *dst* and *src* must be integers or ctypes instances that can
     be converted to pointers.
 
-ctypes.memset(*dst*, *c*, *count*)
+`ctypes.memset(dst, c, count)`
 :   Same as the standard C memset library function: fills the memory block at
     address *dst* with *count* bytes of value *c*. *dst* must be an integer
     specifying an address, or a ctypes instance.
 
-ctypes.POINTER(*type*, */*)
+`ctypes.POINTER(type, /)`
 :   Create and return a new ctypes pointer type. Pointer types are cached and
     reused internally, so calling this function repeatedly is cheap.
     *type* must be a ctypes type.
 
-ctypes.pointer(*obj*, */*)
+`ctypes.pointer(obj, /)`
 :   Create a new pointer instance, pointing to *obj*.
     The returned object is of the type `POINTER(type(obj))`.
 
     Note: If you just want to pass a pointer to an object to a foreign function
     call, you should use `byref(obj)` which is much faster.
 
-ctypes.resize(*obj*, *size*)
+`ctypes.resize(obj, size)`
 :   This function resizes the internal memory buffer of *obj*, which must be an
     instance of a ctypes type. It is not possible to make the buffer smaller
     than the native size of the objects type, as given by `sizeof(type(obj))`,
     but it is possible to enlarge the buffer.
 
-ctypes.set_errno(*value*)
+`ctypes.set_errno(value)`
 :   Set the current value of the ctypes-private copy of the system [`errno`](errno.md#module-errno "errno: Standard errno system symbols.")
     variable in the calling thread to *value* and return the previous value.
 
     Raises an [auditing event](sys.md#auditing) `ctypes.set_errno` with argument `errno`.
 
-ctypes.set_last_error(*value*)
+`ctypes.set_last_error(value)`
 :   Sets the current value of the ctypes-private copy of the system
     `LastError` variable in the calling thread to *value* and return the
     previous value.
@@ -1973,18 +1973,18 @@ ctypes.set_last_error(*value*)
 
     Raises an [auditing event](sys.md#auditing) `ctypes.set_last_error` with argument `error`.
 
-ctypes.sizeof(*obj_or_type*)
+`ctypes.sizeof(obj_or_type)`
 :   Returns the size in bytes of a ctypes type or instance memory buffer.
     Does the same as the C `sizeof` operator.
 
-ctypes.string_at(*ptr*, *size=-1*)
+`ctypes.string_at(ptr, size=-1)`
 :   Return the byte string at *void \*ptr*.
     If *size* is specified, it is used as size, otherwise the string is assumed
     to be zero-terminated.
 
     Raises an [auditing event](sys.md#auditing) `ctypes.string_at` with arguments `ptr`, `size`.
 
-ctypes.WinError(*code=None*, *descr=None*)
+`ctypes.WinError(code=None, descr=None)`
 :   This function is probably the worst-named thing in ctypes. It
     creates an instance of [`OSError`](exceptions.md#OSError "OSError"). If *code* is not specified,
     `GetLastError` is called to determine the error code. If *descr* is not
@@ -1996,7 +1996,7 @@ ctypes.WinError(*code=None*, *descr=None*)
     Changed in version 3.3: An instance of [`WindowsError`](exceptions.md#WindowsError "WindowsError") used to be created, which is now an
     alias of [`OSError`](exceptions.md#OSError "OSError").
 
-ctypes.wstring_at(*ptr*, *size=-1*)
+`ctypes.wstring_at(ptr, size=-1)`
 :   Return the wide-character string at *void \*ptr*.
     If *size* is specified, it is used as the number of
     characters of the string, otherwise the string is assumed to be
@@ -2006,7 +2006,7 @@ ctypes.wstring_at(*ptr*, *size=-1*)
 
 ### Data types
 
-*class* ctypes._CData
+`class ctypes._CData`
 :   This non-public class is the common base class of all ctypes data types.
     Among other things, all ctypes type instances contain a memory block that
     hold C compatible data; the address of the memory block is returned by the
@@ -2017,7 +2017,7 @@ ctypes.wstring_at(*ptr*, *size=-1*)
     Common methods of ctypes data types, these are all class methods (to be
     exact, they are methods of the [metaclass](https://docs.python.org/3.12/glossary.html#term-metaclass)):
 
-    from_buffer(*source*[, *offset*])
+    `from_buffer(source[, offset])`
     :   This method returns a ctypes instance that shares the buffer of the
         *source* object. The *source* object must support the writeable buffer
         interface. The optional *offset* parameter specifies an offset into the
@@ -2026,7 +2026,7 @@ ctypes.wstring_at(*ptr*, *size=-1*)
 
         Raises an [auditing event](sys.md#auditing) `ctypes.cdata/buffer` with arguments `pointer`, `size`, `offset`.
 
-    from_buffer_copy(*source*[, *offset*])
+    `from_buffer_copy(source[, offset])`
     :   This method creates a ctypes instance, copying the buffer from the
         *source* object buffer which must be readable. The optional *offset*
         parameter specifies an offset into the source buffer in bytes; the default
@@ -2035,7 +2035,7 @@ ctypes.wstring_at(*ptr*, *size=-1*)
 
         Raises an [auditing event](sys.md#auditing) `ctypes.cdata/buffer` with arguments `pointer`, `size`, `offset`.
 
-    from_address(*address*)
+    `from_address(address)`
     :   This method returns a ctypes type instance using the memory specified by
         *address* which must be an integer.
 
@@ -2043,7 +2043,7 @@ ctypes.wstring_at(*ptr*, *size=-1*)
         [auditing event](sys.md#auditing) `ctypes.cdata` with argument
         `address`.
 
-    from_param(*obj*)
+    `from_param(obj)`
     :   This method adapts *obj* to a ctypes type. It is called with the actual
         object used in a foreign function call when the type is present in the
         foreign function’s [`argtypes`](ctypes.md#ctypes._CFuncPtr.argtypes "ctypes._CFuncPtr.argtypes") tuple;
@@ -2053,24 +2053,24 @@ ctypes.wstring_at(*ptr*, *size=-1*)
         that normally returns *obj* if that is an instance of the type. Some
         types accept other objects as well.
 
-    in_dll(*library*, *name*)
+    `in_dll(library, name)`
     :   This method returns a ctypes type instance exported by a shared
         library. *name* is the name of the symbol that exports the data, *library*
         is the loaded shared library.
 
     Common instance variables of ctypes data types:
 
-    _b_base_
+    `_b_base_`
     :   Sometimes ctypes data instances do not own the memory block they contain,
         instead they share part of the memory block of a base object. The
         [`_b_base_`](ctypes.md#ctypes._CData._b_base_ "ctypes._CData._b_base_") read-only member is the root ctypes object that owns the
         memory block.
 
-    _b_needsfree_
+    `_b_needsfree_`
     :   This read-only variable is true when the ctypes data instance has
         allocated the memory block itself, false otherwise.
 
-    _objects
+    `_objects`
     :   This member is either `None` or a dictionary containing Python objects
         that need to be kept alive so that the memory block contents is kept
         valid. This object is only exposed for debugging; never modify the
@@ -2078,7 +2078,7 @@ ctypes.wstring_at(*ptr*, *size=-1*)
 
 ### Fundamental data types
 
-*class* ctypes._SimpleCData
+`class ctypes._SimpleCData`
 :   This non-public class is the base class of all fundamental ctypes data
     types. It is mentioned here because it contains the common attributes of the
     fundamental ctypes data types. [`_SimpleCData`](ctypes.md#ctypes._SimpleCData "ctypes._SimpleCData") is a subclass of
@@ -2087,7 +2087,7 @@ ctypes.wstring_at(*ptr*, *size=-1*)
 
     Instances have a single attribute:
 
-    value
+    `value`
     :   This attribute contains the actual value of the instance. For integer and
         pointer types, it is an integer, for character types, it is a single
         character bytes object or string, for character pointer types it is a
@@ -2111,145 +2111,145 @@ get the value of the pointer by accessing the `value` attribute.
 
 These are the fundamental ctypes data types:
 
-*class* ctypes.c_byte
+`class ctypes.c_byte`
 :   Represents the C signed char datatype, and interprets the value as
     small integer. The constructor accepts an optional integer initializer; no
     overflow checking is done.
 
-*class* ctypes.c_char
+`class ctypes.c_char`
 :   Represents the C char datatype, and interprets the value as a single
     character. The constructor accepts an optional string initializer, the
     length of the string must be exactly one character.
 
-*class* ctypes.c_char_p
+`class ctypes.c_char_p`
 :   Represents the C char\* datatype when it points to a zero-terminated
     string. For a general character pointer that may also point to binary data,
     `POINTER(c_char)` must be used. The constructor accepts an integer
     address, or a bytes object.
 
-*class* ctypes.c_double
+`class ctypes.c_double`
 :   Represents the C double datatype. The constructor accepts an
     optional float initializer.
 
-*class* ctypes.c_longdouble
+`class ctypes.c_longdouble`
 :   Represents the C long double datatype. The constructor accepts an
     optional float initializer. On platforms where `sizeof(long double) ==
     sizeof(double)` it is an alias to [`c_double`](ctypes.md#ctypes.c_double "ctypes.c_double").
 
-*class* ctypes.c_float
+`class ctypes.c_float`
 :   Represents the C float datatype. The constructor accepts an
     optional float initializer.
 
-*class* ctypes.c_int
+`class ctypes.c_int`
 :   Represents the C signed int datatype. The constructor accepts an
     optional integer initializer; no overflow checking is done. On platforms
     where `sizeof(int) == sizeof(long)` it is an alias to [`c_long`](ctypes.md#ctypes.c_long "ctypes.c_long").
 
-*class* ctypes.c_int8
+`class ctypes.c_int8`
 :   Represents the C 8-bit signed int datatype. Usually an alias for
     [`c_byte`](ctypes.md#ctypes.c_byte "ctypes.c_byte").
 
-*class* ctypes.c_int16
+`class ctypes.c_int16`
 :   Represents the C 16-bit signed int datatype. Usually an alias for
     [`c_short`](ctypes.md#ctypes.c_short "ctypes.c_short").
 
-*class* ctypes.c_int32
+`class ctypes.c_int32`
 :   Represents the C 32-bit signed int datatype. Usually an alias for
     [`c_int`](ctypes.md#ctypes.c_int "ctypes.c_int").
 
-*class* ctypes.c_int64
+`class ctypes.c_int64`
 :   Represents the C 64-bit signed int datatype. Usually an alias for
     [`c_longlong`](ctypes.md#ctypes.c_longlong "ctypes.c_longlong").
 
-*class* ctypes.c_long
+`class ctypes.c_long`
 :   Represents the C signed long datatype. The constructor accepts an
     optional integer initializer; no overflow checking is done.
 
-*class* ctypes.c_longlong
+`class ctypes.c_longlong`
 :   Represents the C signed long long datatype. The constructor accepts
     an optional integer initializer; no overflow checking is done.
 
-*class* ctypes.c_short
+`class ctypes.c_short`
 :   Represents the C signed short datatype. The constructor accepts an
     optional integer initializer; no overflow checking is done.
 
-*class* ctypes.c_size_t
+`class ctypes.c_size_t`
 :   Represents the C `size_t` datatype.
 
-*class* ctypes.c_ssize_t
+`class ctypes.c_ssize_t`
 :   Represents the C `ssize_t` datatype.
 
     Added in version 3.2.
 
-*class* ctypes.c_time_t
+`class ctypes.c_time_t`
 :   Represents the C `time_t` datatype.
 
     Added in version 3.12.
 
-*class* ctypes.c_ubyte
+`class ctypes.c_ubyte`
 :   Represents the C unsigned char datatype, it interprets the value as
     small integer. The constructor accepts an optional integer initializer; no
     overflow checking is done.
 
-*class* ctypes.c_uint
+`class ctypes.c_uint`
 :   Represents the C unsigned int datatype. The constructor accepts an
     optional integer initializer; no overflow checking is done. On platforms
     where `sizeof(int) == sizeof(long)` it is an alias for [`c_ulong`](ctypes.md#ctypes.c_ulong "ctypes.c_ulong").
 
-*class* ctypes.c_uint8
+`class ctypes.c_uint8`
 :   Represents the C 8-bit unsigned int datatype. Usually an alias for
     [`c_ubyte`](ctypes.md#ctypes.c_ubyte "ctypes.c_ubyte").
 
-*class* ctypes.c_uint16
+`class ctypes.c_uint16`
 :   Represents the C 16-bit unsigned int datatype. Usually an alias for
     [`c_ushort`](ctypes.md#ctypes.c_ushort "ctypes.c_ushort").
 
-*class* ctypes.c_uint32
+`class ctypes.c_uint32`
 :   Represents the C 32-bit unsigned int datatype. Usually an alias for
     [`c_uint`](ctypes.md#ctypes.c_uint "ctypes.c_uint").
 
-*class* ctypes.c_uint64
+`class ctypes.c_uint64`
 :   Represents the C 64-bit unsigned int datatype. Usually an alias for
     [`c_ulonglong`](ctypes.md#ctypes.c_ulonglong "ctypes.c_ulonglong").
 
-*class* ctypes.c_ulong
+`class ctypes.c_ulong`
 :   Represents the C unsigned long datatype. The constructor accepts an
     optional integer initializer; no overflow checking is done.
 
-*class* ctypes.c_ulonglong
+`class ctypes.c_ulonglong`
 :   Represents the C unsigned long long datatype. The constructor
     accepts an optional integer initializer; no overflow checking is done.
 
-*class* ctypes.c_ushort
+`class ctypes.c_ushort`
 :   Represents the C unsigned short datatype. The constructor accepts
     an optional integer initializer; no overflow checking is done.
 
-*class* ctypes.c_void_p
+`class ctypes.c_void_p`
 :   Represents the C void\* type. The value is represented as integer.
     The constructor accepts an optional integer initializer.
 
-*class* ctypes.c_wchar
+`class ctypes.c_wchar`
 :   Represents the C `wchar_t` datatype, and interprets the value as a
     single character unicode string. The constructor accepts an optional string
     initializer, the length of the string must be exactly one character.
 
-*class* ctypes.c_wchar_p
+`class ctypes.c_wchar_p`
 :   Represents the C wchar_t\* datatype, which must be a pointer to a
     zero-terminated wide character string. The constructor accepts an integer
     address, or a string.
 
-*class* ctypes.c_bool
+`class ctypes.c_bool`
 :   Represent the C bool datatype (more accurately, _Bool from
     C99). Its value can be `True` or `False`, and the constructor accepts any object
     that has a truth value.
 
-*class* ctypes.HRESULT
+`class ctypes.HRESULT`
 :   Represents a `HRESULT` value, which contains success or
     error information for a function or method call.
 
     [Availability](intro.md#availability): Windows
 
-*class* ctypes.py_object
+`class ctypes.py_object`
 :   Represents the C [PyObject](https://docs.python.org/3.12/c-api/structures.html#c.PyObject "PyObject")\* datatype. Calling this without an
     argument creates a `NULL` [PyObject](https://docs.python.org/3.12/c-api/structures.html#c.PyObject "PyObject")\* pointer.
 
@@ -2259,29 +2259,29 @@ Some useful structures like `MSG` or `RECT` are also defined.
 
 ### Structured data types
 
-*class* ctypes.Union(*\*args*, *\*\*kw*)
+`class ctypes.Union(*args, **kw)`
 :   Abstract base class for unions in native byte order.
 
-*class* ctypes.BigEndianUnion(*\*args*, *\*\*kw*)
+`class ctypes.BigEndianUnion(*args, **kw)`
 :   Abstract base class for unions in *big endian* byte order.
 
     Added in version 3.11.
 
-*class* ctypes.LittleEndianUnion(*\*args*, *\*\*kw*)
+`class ctypes.LittleEndianUnion(*args, **kw)`
 :   Abstract base class for unions in *little endian* byte order.
 
     Added in version 3.11.
 
-*class* ctypes.BigEndianStructure(*\*args*, *\*\*kw*)
+`class ctypes.BigEndianStructure(*args, **kw)`
 :   Abstract base class for structures in *big endian* byte order.
 
-*class* ctypes.LittleEndianStructure(*\*args*, *\*\*kw*)
+`class ctypes.LittleEndianStructure(*args, **kw)`
 :   Abstract base class for structures in *little endian* byte order.
 
 Structures and unions with non-native byte order cannot contain pointer type
 fields, or any other data types containing pointer type fields.
 
-*class* ctypes.Structure(*\*args*, *\*\*kw*)
+`class ctypes.Structure(*args, **kw)`
 :   Abstract base class for structures in *native* byte order.
 
     Concrete structure and union types must be created by subclassing one of these
@@ -2289,7 +2289,7 @@ fields, or any other data types containing pointer type fields.
     create [descriptor](https://docs.python.org/3.12/glossary.html#term-descriptor)s which allow reading and writing the fields by direct
     attribute accesses. These are the
 
-    _fields_
+    `_fields_`
     :   A sequence defining the structure fields. The items must be 2-tuples or
         3-tuples. The first item is the name of the field, the second item
         specifies the type of the field; it can be any ctypes data type.
@@ -2322,13 +2322,13 @@ fields, or any other data types containing pointer type fields.
         the fields of the base class plus the [`_fields_`](ctypes.md#ctypes.Structure._fields_ "ctypes.Structure._fields_") defined in the
         sub-subclass, if any.
 
-    _pack_
+    `_pack_`
     :   An optional small integer that allows overriding the alignment of
         structure fields in the instance. [`_pack_`](ctypes.md#ctypes.Structure._pack_ "ctypes.Structure._pack_") must already be defined
         when [`_fields_`](ctypes.md#ctypes.Structure._fields_ "ctypes.Structure._fields_") is assigned, otherwise it will have no effect.
         Setting this attribute to 0 is the same as not setting it at all.
 
-    _anonymous_
+    `_anonymous_`
     :   An optional sequence that lists the names of unnamed (anonymous) fields.
         [`_anonymous_`](ctypes.md#ctypes.Structure._anonymous_ "ctypes.Structure._anonymous_") must be already defined when [`_fields_`](ctypes.md#ctypes.Structure._fields_ "ctypes.Structure._fields_") is
         assigned, otherwise it will have no effect.
@@ -2380,7 +2380,7 @@ fields, or any other data types containing pointer type fields.
 
 ### Arrays and pointers
 
-*class* ctypes.Array(*\*args*)
+`class ctypes.Array(*args)`
 :   Abstract base class for arrays.
 
     The recommended way to create concrete array types is by multiplying any
@@ -2390,18 +2390,18 @@ fields, or any other data types containing pointer type fields.
     subscript and slice accesses; for slice reads, the resulting object is
     *not* itself an [`Array`](ctypes.md#ctypes.Array "ctypes.Array").
 
-    _length_
+    `_length_`
     :   A positive integer specifying the number of elements in the array.
         Out-of-range subscripts result in an [`IndexError`](exceptions.md#IndexError "IndexError"). Will be
         returned by [`len()`](functions.md#len "len").
 
-    _type_
+    `_type_`
     :   Specifies the type of each element in the array.
 
     Array subclass constructors accept positional arguments, used to
     initialize the elements in order.
 
-*class* ctypes._Pointer
+`class ctypes._Pointer`
 :   Private, abstract base class for pointers.
 
     Concrete pointer types are created by calling [`POINTER()`](ctypes.md#ctypes.POINTER "ctypes.POINTER") with the
@@ -2415,9 +2415,9 @@ fields, or any other data types containing pointer type fields.
     out-of-range subscripts will probably crash with an access violation (if
     you’re lucky).
 
-    _type_
+    `_type_`
     :   Specifies the type pointed to.
 
-    contents
+    `contents`
     :   Returns the object to which to pointer points. Assigning to this
         attribute changes the pointer to point to the assigned object.

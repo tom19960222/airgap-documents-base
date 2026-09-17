@@ -37,7 +37,7 @@ or to acknowledge that they are expected and the archive is fully trusted.
 By default, archives are fully trusted, but this default is deprecated
 and slated to change in Python 3.14.
 
-tarfile.open(*name=None*, *mode='r'*, *fileobj=None*, *bufsize=10240*, *\*\*kwargs*)
+`tarfile.open(name=None, mode='r', fileobj=None, bufsize=10240, **kwargs)`
 :   Return a [`TarFile`](tarfile.md#tarfile.TarFile "tarfile.TarFile") object for the pathname *name*. For detailed
     information on [`TarFile`](tarfile.md#tarfile.TarFile "tarfile.TarFile") objects and the keyword arguments that are
     allowed, see [TarFile Objects](tarfile.md#tarfile-objects).
@@ -108,11 +108,11 @@ tarfile.open(*name=None*, *mode='r'*, *fileobj=None*, *bufsize=10240*, *\*\*kwar
 
     Changed in version 3.12: The *compresslevel* keyword argument also works for streams.
 
-*class* tarfile.TarFile
+`class tarfile.TarFile`
 :   Class for reading and writing tar archives. Do not use this class directly:
     use [`tarfile.open()`](tarfile.md#tarfile.open "tarfile.open") instead. See [TarFile Objects](tarfile.md#tarfile-objects).
 
-tarfile.is_tarfile(*name*)
+`tarfile.is_tarfile(name)`
 :   Return [`True`](constants.md#True "True") if *name* is a tar archive file, that the [`tarfile`](tarfile.md#module-tarfile "tarfile: Read and write tar-format archive files.")
     module can read. *name* may be a [`str`](stdtypes.md#str "str"), file, or file-like object.
 
@@ -120,53 +120,53 @@ tarfile.is_tarfile(*name*)
 
 The [`tarfile`](tarfile.md#module-tarfile "tarfile: Read and write tar-format archive files.") module defines the following exceptions:
 
-*exception* tarfile.TarError
+`exception tarfile.TarError`
 :   Base class for all [`tarfile`](tarfile.md#module-tarfile "tarfile: Read and write tar-format archive files.") exceptions.
 
-*exception* tarfile.ReadError
+`exception tarfile.ReadError`
 :   Is raised when a tar archive is opened, that either cannot be handled by the
     [`tarfile`](tarfile.md#module-tarfile "tarfile: Read and write tar-format archive files.") module or is somehow invalid.
 
-*exception* tarfile.CompressionError
+`exception tarfile.CompressionError`
 :   Is raised when a compression method is not supported or when the data cannot be
     decoded properly.
 
-*exception* tarfile.StreamError
+`exception tarfile.StreamError`
 :   Is raised for the limitations that are typical for stream-like [`TarFile`](tarfile.md#tarfile.TarFile "tarfile.TarFile")
     objects.
 
-*exception* tarfile.ExtractError
+`exception tarfile.ExtractError`
 :   Is raised for *non-fatal* errors when using [`TarFile.extract()`](tarfile.md#tarfile.TarFile.extract "tarfile.TarFile.extract"), but only if
     [`TarFile.errorlevel`](tarfile.md#tarfile.TarFile.errorlevel "tarfile.TarFile.errorlevel")`== 2`.
 
-*exception* tarfile.HeaderError
+`exception tarfile.HeaderError`
 :   Is raised by [`TarInfo.frombuf()`](tarfile.md#tarfile.TarInfo.frombuf "tarfile.TarInfo.frombuf") if the buffer it gets is invalid.
 
-*exception* tarfile.FilterError
+`exception tarfile.FilterError`
 :   Base class for members [refused](tarfile.md#tarfile-extraction-refuse) by
     filters.
 
-    tarinfo
+    `tarinfo`
     :   Information about the member that the filter refused to extract,
         as [TarInfo](tarfile.md#tarinfo-objects).
 
-*exception* tarfile.AbsolutePathError
+`exception tarfile.AbsolutePathError`
 :   Raised to refuse extracting a member with an absolute path.
 
-*exception* tarfile.OutsideDestinationError
+`exception tarfile.OutsideDestinationError`
 :   Raised to refuse extracting a member outside the destination directory.
 
-*exception* tarfile.SpecialFileError
+`exception tarfile.SpecialFileError`
 :   Raised to refuse extracting a special file (e.g. a device or pipe).
 
-*exception* tarfile.AbsoluteLinkError
+`exception tarfile.AbsoluteLinkError`
 :   Raised to refuse extracting a symbolic link with an absolute path.
 
-*exception* tarfile.LinkOutsideDestinationError
+`exception tarfile.LinkOutsideDestinationError`
 :   Raised to refuse extracting a symbolic link pointing outside the destination
     directory.
 
-*exception* tarfile.LinkFallbackError
+`exception tarfile.LinkFallbackError`
 :   Raised to refuse emulating a link (hard or symbolic) by extracting another
     archive member, when that member would be rejected by the filter location.
     The exception that was raised to reject the replacement member is available
@@ -176,59 +176,59 @@ The [`tarfile`](tarfile.md#module-tarfile "tarfile: Read and write tar-format ar
 
 The following constants are available at the module level:
 
-tarfile.ENCODING
+`tarfile.ENCODING`
 :   The default character encoding: `'utf-8'` on Windows, the value returned by
     [`sys.getfilesystemencoding()`](sys.md#sys.getfilesystemencoding "sys.getfilesystemencoding") otherwise.
 
-tarfile.REGTYPE
+`tarfile.REGTYPE`
 
-tarfile.AREGTYPE
+`tarfile.AREGTYPE`
 :   A regular file [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.LNKTYPE
+`tarfile.LNKTYPE`
 :   A link (inside tarfile) [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.SYMTYPE
+`tarfile.SYMTYPE`
 :   A symbolic link [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.CHRTYPE
+`tarfile.CHRTYPE`
 :   A character special device [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.BLKTYPE
+`tarfile.BLKTYPE`
 :   A block special device [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.DIRTYPE
+`tarfile.DIRTYPE`
 :   A directory [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.FIFOTYPE
+`tarfile.FIFOTYPE`
 :   A FIFO special device [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.CONTTYPE
+`tarfile.CONTTYPE`
 :   A contiguous file [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.GNUTYPE_LONGNAME
+`tarfile.GNUTYPE_LONGNAME`
 :   A GNU tar longname [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.GNUTYPE_LONGLINK
+`tarfile.GNUTYPE_LONGLINK`
 :   A GNU tar longlink [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
-tarfile.GNUTYPE_SPARSE
+`tarfile.GNUTYPE_SPARSE`
 :   A GNU tar sparse file [`type`](tarfile.md#tarfile.TarInfo.type "tarfile.TarInfo.type").
 
 Each of the following constants defines a tar archive format that the
 [`tarfile`](tarfile.md#module-tarfile "tarfile: Read and write tar-format archive files.") module is able to create. See section [Supported tar formats](tarfile.md#tar-formats) for
 details.
 
-tarfile.USTAR_FORMAT
+`tarfile.USTAR_FORMAT`
 :   POSIX.1-1988 (ustar) format.
 
-tarfile.GNU_FORMAT
+`tarfile.GNU_FORMAT`
 :   GNU tar format.
 
-tarfile.PAX_FORMAT
+`tarfile.PAX_FORMAT`
 :   POSIX.1-2001 (pax) format.
 
-tarfile.DEFAULT_FORMAT
+`tarfile.DEFAULT_FORMAT`
 :   The default format for creating archives. This is currently [`PAX_FORMAT`](tarfile.md#tarfile.PAX_FORMAT "tarfile.PAX_FORMAT").
 
     Changed in version 3.8: The default format for new archives was changed to
@@ -262,7 +262,7 @@ be finalized; only the internally used file object will be closed. See the
 
 Added in version 3.2: Added support for the context management protocol.
 
-*class* tarfile.TarFile(*name=None*, *mode='r'*, *fileobj=None*, *format=DEFAULT_FORMAT*, *tarinfo=TarInfo*, *dereference=False*, *ignore_zeros=False*, *encoding=ENCODING*, *errors='surrogateescape'*, *pax_headers=None*, *debug=0*, *errorlevel=1*)
+`class tarfile.TarFile(name=None, mode='r', fileobj=None, format=DEFAULT_FORMAT, tarinfo=TarInfo, dereference=False, ignore_zeros=False, encoding=ENCODING, errors='surrogateescape', pax_headers=None, debug=0, errorlevel=1)`
 :   All following arguments are optional and can be accessed as instance attributes
     as well.
 
@@ -318,11 +318,11 @@ Added in version 3.2: Added support for the context management protocol.
 
     Changed in version 3.6: The *name* parameter accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-*classmethod* TarFile.open(*...*)
+`classmethod TarFile.open(...)`
 :   Alternative constructor. The [`tarfile.open()`](tarfile.md#tarfile.open "tarfile.open") function is actually a
     shortcut to this classmethod.
 
-TarFile.getmember(*name*)
+`TarFile.getmember(name)`
 :   Return a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object for member *name*. If *name* can not be found
     in the archive, [`KeyError`](exceptions.md#KeyError "KeyError") is raised.
 
@@ -331,15 +331,15 @@ TarFile.getmember(*name*)
     > If a member occurs more than once in the archive, its last occurrence is assumed
     > to be the most up-to-date version.
 
-TarFile.getmembers()
+`TarFile.getmembers()`
 :   Return the members of the archive as a list of [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") objects. The
     list has the same order as the members in the archive.
 
-TarFile.getnames()
+`TarFile.getnames()`
 :   Return the members as a list of their names. It has the same order as the list
     returned by [`getmembers()`](tarfile.md#tarfile.TarFile.getmembers "tarfile.TarFile.getmembers").
 
-TarFile.list(*verbose=True*, *\**, *members=None*)
+`TarFile.list(verbose=True, *, members=None)`
 :   Print a table of contents to `sys.stdout`. If *verbose* is [`False`](constants.md#False "False"),
     only the names of the members are printed. If it is [`True`](constants.md#True "True"), output
     similar to that of **ls -l** is produced. If optional *members* is
@@ -347,12 +347,12 @@ TarFile.list(*verbose=True*, *\**, *members=None*)
 
     Changed in version 3.5: Added the *members* parameter.
 
-TarFile.next()
+`TarFile.next()`
 :   Return the next member of the archive as a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object, when
     [`TarFile`](tarfile.md#tarfile.TarFile "tarfile.TarFile") is opened for reading. Return [`None`](constants.md#None "None") if there is no more
     available.
 
-TarFile.extractall(*path='.'*, *members=None*, *\**, *numeric_owner=False*, *filter=None*)
+`TarFile.extractall(path='.', members=None, *, numeric_owner=False, filter=None)`
 :   Extract all members from the archive to the current working directory or
     directory *path*. If optional *members* is given, it must be a subset of the
     list returned by [`getmembers()`](tarfile.md#tarfile.TarFile.getmembers "tarfile.TarFile.getmembers"). Directory information like owner,
@@ -387,7 +387,7 @@ TarFile.extractall(*path='.'*, *members=None*, *\**, *numeric_owner=False*, *fil
 
     Changed in version 3.12: Added the *filter* parameter.
 
-TarFile.extract(*member*, *path=''*, *set_attrs=True*, *\**, *numeric_owner=False*, *filter=None*)
+`TarFile.extract(member, path='', set_attrs=True, *, numeric_owner=False, filter=None)`
 :   Extract a member from the archive to the current working directory, using its
     full name. Its file information is extracted as accurately as possible. *member*
     may be a filename or a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object. You can specify a different
@@ -417,7 +417,7 @@ TarFile.extract(*member*, *path=''*, *set_attrs=True*, *\**, *numeric_owner=Fals
 
     Changed in version 3.12: Added the *filter* parameter.
 
-TarFile.extractfile(*member*)
+`TarFile.extractfile(member)`
 :   Extract a member from the archive as a file object. *member* may be
     a filename or a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object. If *member* is a regular file or
     a link, an [`io.BufferedReader`](io.md#io.BufferedReader "io.BufferedReader") object is returned. For all other
@@ -426,7 +426,7 @@ TarFile.extractfile(*member*)
 
     Changed in version 3.3: Return an [`io.BufferedReader`](io.md#io.BufferedReader "io.BufferedReader") object.
 
-TarFile.errorlevel*: [int](functions.md#int "int")*
+`TarFile.errorlevel: int`
 :   If *errorlevel* is `0`, errors are ignored when using [`TarFile.extract()`](tarfile.md#tarfile.TarFile.extract "tarfile.TarFile.extract")
     and [`TarFile.extractall()`](tarfile.md#tarfile.TarFile.extractall "tarfile.TarFile.extractall").
     Nevertheless, they appear as error messages in the debug output when
@@ -445,7 +445,7 @@ TarFile.errorlevel*: [int](functions.md#int "int")*
     Note that when an exception is raised, the archive may be partially
     extracted. It is the user’s responsibility to clean up.
 
-TarFile.extraction_filter
+`TarFile.extraction_filter`
 :   Added in version 3.12.
 
     The [extraction filter](tarfile.md#tarfile-extraction-filter) used
@@ -473,7 +473,7 @@ TarFile.extraction_filter
     To set a global default this way, a filter function needs to be wrapped in
     [`staticmethod()`](functions.md#staticmethod "staticmethod") to prevent injection of a `self` argument.
 
-TarFile.add(*name*, *arcname=None*, *recursive=True*, *\**, *filter=None*)
+`TarFile.add(name, arcname=None, recursive=True, *, filter=None)`
 :   Add the file *name* to the archive. *name* may be any type of file
     (directory, fifo, symbolic link, etc.). If given, *arcname* specifies an
     alternative name for the file in the archive. Directories are added
@@ -489,13 +489,13 @@ TarFile.add(*name*, *arcname=None*, *recursive=True*, *\**, *filter=None*)
 
     Changed in version 3.7: Recursion adds entries in sorted order.
 
-TarFile.addfile(*tarinfo*, *fileobj=None*)
+`TarFile.addfile(tarinfo, fileobj=None)`
 :   Add the [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object *tarinfo* to the archive. If *fileobj* is given,
     it should be a [binary file](https://docs.python.org/3.12/glossary.html#term-binary-file), and
     `tarinfo.size` bytes are read from it and added to the archive. You can
     create [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") objects directly, or by using [`gettarinfo()`](tarfile.md#tarfile.TarFile.gettarinfo "tarfile.TarFile.gettarinfo").
 
-TarFile.gettarinfo(*name=None*, *arcname=None*, *fileobj=None*)
+`TarFile.gettarinfo(name=None, arcname=None, fileobj=None)`
 :   Create a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object from the result of [`os.stat()`](os.md#os.stat "os.stat") or
     equivalent on an existing file. The file is either named by *name*, or
     specified as a [file object](https://docs.python.org/3.12/glossary.html#term-file-object) *fileobj* with a file descriptor.
@@ -515,11 +515,11 @@ TarFile.gettarinfo(*name=None*, *arcname=None*, *fileobj=None*)
 
     Changed in version 3.6: The *name* parameter accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-TarFile.close()
+`TarFile.close()`
 :   Close the [`TarFile`](tarfile.md#tarfile.TarFile "tarfile.TarFile"). In write mode, two finishing zero blocks are
     appended to the archive.
 
-TarFile.pax_headers*: [dict](stdtypes.md#dict "dict")*
+`TarFile.pax_headers: dict`
 :   A dictionary containing key-value pairs of pax global headers.
 
 ## TarInfo Objects
@@ -548,19 +548,19 @@ Different [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") methods hand
 - [`addfile()`](tarfile.md#tarfile.TarFile.addfile "tarfile.TarFile.addfile") will fail.
 - [`list()`](tarfile.md#tarfile.TarFile.list "tarfile.TarFile.list") will print a placeholder string.
 
-*class* tarfile.TarInfo(*name=''*)
+`class tarfile.TarInfo(name='')`
 :   Create a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object.
 
-*classmethod* TarInfo.frombuf(*buf*, *encoding*, *errors*)
+`classmethod TarInfo.frombuf(buf, encoding, errors)`
 :   Create and return a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object from string buffer *buf*.
 
     Raises [`HeaderError`](tarfile.md#tarfile.HeaderError "tarfile.HeaderError") if the buffer is invalid.
 
-*classmethod* TarInfo.fromtarfile(*tarfile*)
+`classmethod TarInfo.fromtarfile(tarfile)`
 :   Read the next member from the [`TarFile`](tarfile.md#tarfile.TarFile "tarfile.TarFile") object *tarfile* and return it as
     a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object.
 
-TarInfo.tobuf(*format=DEFAULT_FORMAT*, *encoding=ENCODING*, *errors='surrogateescape'*)
+`TarInfo.tobuf(format=DEFAULT_FORMAT, encoding=ENCODING, errors='surrogateescape')`
 :   Create a string buffer from a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object. For information on the
     arguments see the constructor of the [`TarFile`](tarfile.md#tarfile.TarFile "tarfile.TarFile") class.
 
@@ -568,13 +568,13 @@ TarInfo.tobuf(*format=DEFAULT_FORMAT*, *encoding=ENCODING*, *errors='surrogatees
 
 A `TarInfo` object has the following public data attributes:
 
-TarInfo.name*: [str](stdtypes.md#str "str")*
+`TarInfo.name: str`
 :   Name of the archive member.
 
-TarInfo.size*: [int](functions.md#int "int")*
+`TarInfo.size: int`
 :   Size in bytes.
 
-TarInfo.mtime*: [int](functions.md#int "int") | [float](functions.md#float "float")*
+`TarInfo.mtime: int | float`
 :   Time of last modification in seconds since the [epoch](time.md#epoch),
     as in [`os.stat_result.st_mtime`](os.md#os.stat_result.st_mtime "os.stat_result.st_mtime").
 
@@ -582,21 +582,21 @@ TarInfo.mtime*: [int](functions.md#int "int") | [float](functions.md#float "floa
     [`extractall()`](tarfile.md#tarfile.TarFile.extractall "tarfile.TarFile.extractall"), causing extraction to skip applying this
     attribute.
 
-TarInfo.mode*: [int](functions.md#int "int")*
+`TarInfo.mode: int`
 :   Permission bits, as for [`os.chmod()`](os.md#os.chmod "os.chmod").
 
     Changed in version 3.12: Can be set to `None` for [`extract()`](tarfile.md#tarfile.TarFile.extract "tarfile.TarFile.extract") and
     [`extractall()`](tarfile.md#tarfile.TarFile.extractall "tarfile.TarFile.extractall"), causing extraction to skip applying this
     attribute.
 
-TarInfo.type
+`TarInfo.type`
 :   File type. *type* is usually one of these constants: [`REGTYPE`](tarfile.md#tarfile.REGTYPE "tarfile.REGTYPE"),
     [`AREGTYPE`](tarfile.md#tarfile.AREGTYPE "tarfile.AREGTYPE"), [`LNKTYPE`](tarfile.md#tarfile.LNKTYPE "tarfile.LNKTYPE"), [`SYMTYPE`](tarfile.md#tarfile.SYMTYPE "tarfile.SYMTYPE"), [`DIRTYPE`](tarfile.md#tarfile.DIRTYPE "tarfile.DIRTYPE"),
     [`FIFOTYPE`](tarfile.md#tarfile.FIFOTYPE "tarfile.FIFOTYPE"), [`CONTTYPE`](tarfile.md#tarfile.CONTTYPE "tarfile.CONTTYPE"), [`CHRTYPE`](tarfile.md#tarfile.CHRTYPE "tarfile.CHRTYPE"), [`BLKTYPE`](tarfile.md#tarfile.BLKTYPE "tarfile.BLKTYPE"),
     [`GNUTYPE_SPARSE`](tarfile.md#tarfile.GNUTYPE_SPARSE "tarfile.GNUTYPE_SPARSE"). To determine the type of a [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object
     more conveniently, use the `is*()` methods below.
 
-TarInfo.linkname*: [str](stdtypes.md#str "str")*
+`TarInfo.linkname: str`
 :   Name of the target file name, which is only present in [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") objects
     of type [`LNKTYPE`](tarfile.md#tarfile.LNKTYPE "tarfile.LNKTYPE") and [`SYMTYPE`](tarfile.md#tarfile.SYMTYPE "tarfile.SYMTYPE").
 
@@ -605,56 +605,56 @@ TarInfo.linkname*: [str](stdtypes.md#str "str")*
     For hard links (`LNKTYPE`), the *linkname* is relative to the root of
     the archive.
 
-TarInfo.uid*: [int](functions.md#int "int")*
+`TarInfo.uid: int`
 :   User ID of the user who originally stored this member.
 
     Changed in version 3.12: Can be set to `None` for [`extract()`](tarfile.md#tarfile.TarFile.extract "tarfile.TarFile.extract") and
     [`extractall()`](tarfile.md#tarfile.TarFile.extractall "tarfile.TarFile.extractall"), causing extraction to skip applying this
     attribute.
 
-TarInfo.gid*: [int](functions.md#int "int")*
+`TarInfo.gid: int`
 :   Group ID of the user who originally stored this member.
 
     Changed in version 3.12: Can be set to `None` for [`extract()`](tarfile.md#tarfile.TarFile.extract "tarfile.TarFile.extract") and
     [`extractall()`](tarfile.md#tarfile.TarFile.extractall "tarfile.TarFile.extractall"), causing extraction to skip applying this
     attribute.
 
-TarInfo.uname*: [str](stdtypes.md#str "str")*
+`TarInfo.uname: str`
 :   User name.
 
     Changed in version 3.12: Can be set to `None` for [`extract()`](tarfile.md#tarfile.TarFile.extract "tarfile.TarFile.extract") and
     [`extractall()`](tarfile.md#tarfile.TarFile.extractall "tarfile.TarFile.extractall"), causing extraction to skip applying this
     attribute.
 
-TarInfo.gname*: [str](stdtypes.md#str "str")*
+`TarInfo.gname: str`
 :   Group name.
 
     Changed in version 3.12: Can be set to `None` for [`extract()`](tarfile.md#tarfile.TarFile.extract "tarfile.TarFile.extract") and
     [`extractall()`](tarfile.md#tarfile.TarFile.extractall "tarfile.TarFile.extractall"), causing extraction to skip applying this
     attribute.
 
-TarInfo.chksum*: [int](functions.md#int "int")*
+`TarInfo.chksum: int`
 :   Header checksum.
 
-TarInfo.devmajor*: [int](functions.md#int "int")*
+`TarInfo.devmajor: int`
 :   Device major number.
 
-TarInfo.devminor*: [int](functions.md#int "int")*
+`TarInfo.devminor: int`
 :   Device minor number.
 
-TarInfo.offset*: [int](functions.md#int "int")*
+`TarInfo.offset: int`
 :   The tar header starts here.
 
-TarInfo.offset_data*: [int](functions.md#int "int")*
+`TarInfo.offset_data: int`
 :   The file’s data starts here.
 
-TarInfo.sparse
+`TarInfo.sparse`
 :   Sparse member information.
 
-TarInfo.pax_headers*: [dict](stdtypes.md#dict "dict")*
+`TarInfo.pax_headers: dict`
 :   A dictionary containing key-value pairs of an associated pax extended header.
 
-TarInfo.replace(*name=...*, *mtime=...*, *mode=...*, *linkname=...*, *uid=...*, *gid=...*, *uname=...*, *gname=...*, *deep=True*)
+`TarInfo.replace(name=..., mtime=..., mode=..., linkname=..., uid=..., gid=..., uname=..., gname=..., deep=True)`
 :   Added in version 3.12.
 
     Return a *new* copy of the `TarInfo` object with the given attributes
@@ -671,31 +671,31 @@ TarInfo.replace(*name=...*, *mtime=...*, *mode=...*, *linkname=...*, *uid=...*, 
 
 A [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object also provides some convenient query methods:
 
-TarInfo.isfile()
+`TarInfo.isfile()`
 :   Return [`True`](constants.md#True "True") if the [`TarInfo`](tarfile.md#tarfile.TarInfo "tarfile.TarInfo") object is a regular file.
 
-TarInfo.isreg()
+`TarInfo.isreg()`
 :   Same as [`isfile()`](tarfile.md#tarfile.TarInfo.isfile "tarfile.TarInfo.isfile").
 
-TarInfo.isdir()
+`TarInfo.isdir()`
 :   Return [`True`](constants.md#True "True") if it is a directory.
 
-TarInfo.issym()
+`TarInfo.issym()`
 :   Return [`True`](constants.md#True "True") if it is a symbolic link.
 
-TarInfo.islnk()
+`TarInfo.islnk()`
 :   Return [`True`](constants.md#True "True") if it is a hard link.
 
-TarInfo.ischr()
+`TarInfo.ischr()`
 :   Return [`True`](constants.md#True "True") if it is a character device.
 
-TarInfo.isblk()
+`TarInfo.isblk()`
 :   Return [`True`](constants.md#True "True") if it is a block device.
 
-TarInfo.isfifo()
+`TarInfo.isfifo()`
 :   Return [`True`](constants.md#True "True") if it is a FIFO.
 
-TarInfo.isdev()
+`TarInfo.isdev()`
 :   Return [`True`](constants.md#True "True") if it is one of character device, block device or FIFO.
 
 ## Extraction filters
@@ -766,12 +766,12 @@ can be:
 The pre-defined, named filters are available as functions, so they can be
 reused in custom filters:
 
-tarfile.fully_trusted_filter(*member*, *path*)
+`tarfile.fully_trusted_filter(member, path)`
 :   Return *member* unchanged.
 
     This implements the `'fully_trusted'` filter.
 
-tarfile.tar_filter(*member*, *path*)
+`tarfile.tar_filter(member, path)`
 :   Implements the `'tar'` filter.
 
     - Strip leading slashes (`/` and [`os.sep`](os.md#os.sep "os.sep")) from filenames.
@@ -793,7 +793,7 @@ tarfile.tar_filter(*member*, *path*)
 
     Changed in version 3.12.14 (unreleased): Filenames containing `..` components are now normalized.
 
-tarfile.data_filter(*member*, *path*)
+`tarfile.data_filter(member, path)`
 :   Implements the `'data'` filter.
     In addition to what `tar_filter` does:
 
@@ -990,30 +990,30 @@ $ python -m tarfile -l monty.tar
 
 ### Command-line options
 
--l <tarfile>
+`-l <tarfile>`
 
---list <tarfile>
+`--list <tarfile>`
 :   List files in a tarfile.
 
--c <tarfile> <source1> ... <sourceN>
+`-c <tarfile> <source1> ... <sourceN>`
 
---create <tarfile> <source1> ... <sourceN>
+`--create <tarfile> <source1> ... <sourceN>`
 :   Create tarfile from source files.
 
--e <tarfile> [<output_dir>]
+`-e <tarfile> [<output_dir>]`
 
---extract <tarfile> [<output_dir>]
+`--extract <tarfile> [<output_dir>]`
 :   Extract tarfile into the current directory if *output_dir* is not specified.
 
--t <tarfile>
+`-t <tarfile>`
 
---test <tarfile>
+`--test <tarfile>`
 :   Test whether the tarfile is valid or not.
 
--v, --verbose
+`-v, --verbose`
 :   Verbose output.
 
---filter <filtername>
+`--filter <filtername>`
 :   Specifies the *filter* for `--extract`.
     See [Extraction filters](tarfile.md#tarfile-extraction-filter) for details.
     Only string names are accepted (that is, `fully_trusted`, `tar`,

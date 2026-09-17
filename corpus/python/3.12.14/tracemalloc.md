@@ -307,12 +307,12 @@ could optimise (by removing the unnecessary call to [`list`](stdtypes.md#list "l
 
 ### Functions
 
-tracemalloc.clear_traces()
+`tracemalloc.clear_traces()`
 :   Clear traces of memory blocks allocated by Python.
 
     See also [`stop()`](tracemalloc.md#tracemalloc.stop "tracemalloc.stop").
 
-tracemalloc.get_object_traceback(*obj*)
+`tracemalloc.get_object_traceback(obj)`
 :   Get the traceback where the Python object *obj* was allocated.
     Return a [`Traceback`](tracemalloc.md#tracemalloc.Traceback "tracemalloc.Traceback") instance, or `None` if the [`tracemalloc`](tracemalloc.md#module-tracemalloc "tracemalloc: Trace memory allocations.")
     module is not tracing memory allocations or did not trace the allocation of
@@ -320,7 +320,7 @@ tracemalloc.get_object_traceback(*obj*)
 
     See also [`gc.get_referrers()`](gc.md#gc.get_referrers "gc.get_referrers") and [`sys.getsizeof()`](sys.md#sys.getsizeof "sys.getsizeof") functions.
 
-tracemalloc.get_traceback_limit()
+`tracemalloc.get_traceback_limit()`
 :   Get the maximum number of frames stored in the traceback of a trace.
 
     The [`tracemalloc`](tracemalloc.md#module-tracemalloc "tracemalloc: Trace memory allocations.") module must be tracing memory allocations to
@@ -328,11 +328,11 @@ tracemalloc.get_traceback_limit()
 
     The limit is set by the [`start()`](tracemalloc.md#tracemalloc.start "tracemalloc.start") function.
 
-tracemalloc.get_traced_memory()
+`tracemalloc.get_traced_memory()`
 :   Get the current size and peak size of memory blocks traced by the
     [`tracemalloc`](tracemalloc.md#module-tracemalloc "tracemalloc: Trace memory allocations.") module as a tuple: `(current: int, peak: int)`.
 
-tracemalloc.reset_peak()
+`tracemalloc.reset_peak()`
 :   Set the peak size of memory blocks traced by the [`tracemalloc`](tracemalloc.md#module-tracemalloc "tracemalloc: Trace memory allocations.") module
     to the current size.
 
@@ -348,18 +348,18 @@ tracemalloc.reset_peak()
 
     Added in version 3.9.
 
-tracemalloc.get_tracemalloc_memory()
+`tracemalloc.get_tracemalloc_memory()`
 :   Get the memory usage in bytes of the [`tracemalloc`](tracemalloc.md#module-tracemalloc "tracemalloc: Trace memory allocations.") module used to store
     traces of memory blocks.
     Return an [`int`](functions.md#int "int").
 
-tracemalloc.is_tracing()
+`tracemalloc.is_tracing()`
 :   `True` if the [`tracemalloc`](tracemalloc.md#module-tracemalloc "tracemalloc: Trace memory allocations.") module is tracing Python memory
     allocations, `False` otherwise.
 
     See also [`start()`](tracemalloc.md#tracemalloc.start "tracemalloc.start") and [`stop()`](tracemalloc.md#tracemalloc.stop "tracemalloc.stop") functions.
 
-tracemalloc.start(*nframe: [int](functions.md#int "int") = 1*)
+`tracemalloc.start(nframe: int = 1)`
 :   Start tracing Python memory allocations: install hooks on Python memory
     allocators. Collected tracebacks of traces will be limited to *nframe*
     frames. By default, a trace of a memory block only stores the most recent
@@ -383,7 +383,7 @@ tracemalloc.start(*nframe: [int](functions.md#int "int") = 1*)
     See also [`stop()`](tracemalloc.md#tracemalloc.stop "tracemalloc.stop"), [`is_tracing()`](tracemalloc.md#tracemalloc.is_tracing "tracemalloc.is_tracing") and [`get_traceback_limit()`](tracemalloc.md#tracemalloc.get_traceback_limit "tracemalloc.get_traceback_limit")
     functions.
 
-tracemalloc.stop()
+`tracemalloc.stop()`
 :   Stop tracing Python memory allocations: uninstall hooks on Python memory
     allocators. Also clears all previously collected traces of memory blocks
     allocated by Python.
@@ -394,7 +394,7 @@ tracemalloc.stop()
     See also [`start()`](tracemalloc.md#tracemalloc.start "tracemalloc.start"), [`is_tracing()`](tracemalloc.md#tracemalloc.is_tracing "tracemalloc.is_tracing") and [`clear_traces()`](tracemalloc.md#tracemalloc.clear_traces "tracemalloc.clear_traces")
     functions.
 
-tracemalloc.take_snapshot()
+`tracemalloc.take_snapshot()`
 :   Take a snapshot of traces of memory blocks allocated by Python. Return a new
     [`Snapshot`](tracemalloc.md#tracemalloc.Snapshot "tracemalloc.Snapshot") instance.
 
@@ -411,24 +411,24 @@ tracemalloc.take_snapshot()
 
 ### DomainFilter
 
-*class* tracemalloc.DomainFilter(*inclusive: [bool](functions.md#bool "bool")*, *domain: [int](functions.md#int "int")*)
+`class tracemalloc.DomainFilter(inclusive: bool, domain: int)`
 :   Filter traces of memory blocks by their address space (domain).
 
     Added in version 3.6.
 
-    inclusive
+    `inclusive`
     :   If *inclusive* is `True` (include), match memory blocks allocated
         in the address space [`domain`](tracemalloc.md#tracemalloc.DomainFilter.domain "tracemalloc.DomainFilter.domain").
 
         If *inclusive* is `False` (exclude), match memory blocks not allocated
         in the address space [`domain`](tracemalloc.md#tracemalloc.DomainFilter.domain "tracemalloc.DomainFilter.domain").
 
-    domain
+    `domain`
     :   Address space of a memory block (`int`). Read-only property.
 
 ### Filter
 
-*class* tracemalloc.Filter(*inclusive: [bool](functions.md#bool "bool")*, *filename_pattern: [str](stdtypes.md#str "str")*, *lineno: [int](functions.md#int "int") = None*, *all_frames: [bool](functions.md#bool "bool") = False*, *domain: [int](functions.md#int "int") = None*)
+`class tracemalloc.Filter(inclusive: bool, filename_pattern: str, lineno: int = None, all_frames: bool = False, domain: int = None)`
 :   Filter on traces of memory blocks.
 
     See the [`fnmatch.fnmatch()`](fnmatch.md#fnmatch.fnmatch "fnmatch.fnmatch") function for the syntax of
@@ -447,13 +447,13 @@ tracemalloc.take_snapshot()
 
     Changed in version 3.6: Added the [`domain`](tracemalloc.md#tracemalloc.Filter.domain "tracemalloc.Filter.domain") attribute.
 
-    domain
+    `domain`
     :   Address space of a memory block (`int` or `None`).
 
         tracemalloc uses the domain `0` to trace memory allocations made by
         Python. C extensions can use other domains to trace other resources.
 
-    inclusive
+    `inclusive`
     :   If *inclusive* is `True` (include), only match memory blocks allocated
         in a file with a name matching [`filename_pattern`](tracemalloc.md#tracemalloc.Filter.filename_pattern "tracemalloc.Filter.filename_pattern") at line number
         [`lineno`](tracemalloc.md#tracemalloc.Filter.lineno "tracemalloc.Filter.lineno").
@@ -462,14 +462,14 @@ tracemalloc.take_snapshot()
         a file with a name matching [`filename_pattern`](tracemalloc.md#tracemalloc.Filter.filename_pattern "tracemalloc.Filter.filename_pattern") at line number
         [`lineno`](tracemalloc.md#tracemalloc.Filter.lineno "tracemalloc.Filter.lineno").
 
-    lineno
+    `lineno`
     :   Line number (`int`) of the filter. If *lineno* is `None`, the filter
         matches any line number.
 
-    filename_pattern
+    `filename_pattern`
     :   Filename pattern of the filter (`str`). Read-only property.
 
-    all_frames
+    `all_frames`
     :   If *all_frames* is `True`, all frames of the traceback are checked. If
         *all_frames* is `False`, only the most recent frame is checked.
 
@@ -479,25 +479,25 @@ tracemalloc.take_snapshot()
 
 ### Frame
 
-*class* tracemalloc.Frame
+`class tracemalloc.Frame`
 :   Frame of a traceback.
 
     The [`Traceback`](tracemalloc.md#tracemalloc.Traceback "tracemalloc.Traceback") class is a sequence of [`Frame`](tracemalloc.md#tracemalloc.Frame "tracemalloc.Frame") instances.
 
-    filename
+    `filename`
     :   Filename (`str`).
 
-    lineno
+    `lineno`
     :   Line number (`int`).
 
 ### Snapshot
 
-*class* tracemalloc.Snapshot
+`class tracemalloc.Snapshot`
 :   Snapshot of traces of memory blocks allocated by Python.
 
     The [`take_snapshot()`](tracemalloc.md#tracemalloc.take_snapshot "tracemalloc.take_snapshot") function creates a snapshot instance.
 
-    compare_to(*old_snapshot: [Snapshot](tracemalloc.md#tracemalloc.Snapshot "tracemalloc.Snapshot")*, *key_type: [str](stdtypes.md#str "str")*, *cumulative: [bool](functions.md#bool "bool") = False*)
+    `compare_to(old_snapshot: Snapshot, key_type: str, cumulative: bool = False)`
     :   Compute the differences with an old snapshot. Get statistics as a sorted
         list of [`StatisticDiff`](tracemalloc.md#tracemalloc.StatisticDiff "tracemalloc.StatisticDiff") instances grouped by *key_type*.
 
@@ -509,12 +509,12 @@ tracemalloc.take_snapshot()
         value of [`StatisticDiff.count_diff`](tracemalloc.md#tracemalloc.StatisticDiff.count_diff "tracemalloc.StatisticDiff.count_diff"), [`Statistic.count`](tracemalloc.md#tracemalloc.Statistic.count "tracemalloc.Statistic.count") and
         then by [`StatisticDiff.traceback`](tracemalloc.md#tracemalloc.StatisticDiff.traceback "tracemalloc.StatisticDiff.traceback").
 
-    dump(*filename*)
+    `dump(filename)`
     :   Write the snapshot into a file.
 
         Use [`load()`](tracemalloc.md#tracemalloc.Snapshot.load "tracemalloc.Snapshot.load") to reload the snapshot.
 
-    filter_traces(*filters*)
+    `filter_traces(filters)`
     :   Create a new [`Snapshot`](tracemalloc.md#tracemalloc.Snapshot "tracemalloc.Snapshot") instance with a filtered [`traces`](tracemalloc.md#tracemalloc.Snapshot.traces "tracemalloc.Snapshot.traces")
         sequence, *filters* is a list of [`DomainFilter`](tracemalloc.md#tracemalloc.DomainFilter "tracemalloc.DomainFilter") and
         [`Filter`](tracemalloc.md#tracemalloc.Filter "tracemalloc.Filter") instances. If *filters* is an empty list, return a new
@@ -526,12 +526,12 @@ tracemalloc.take_snapshot()
 
         Changed in version 3.6: [`DomainFilter`](tracemalloc.md#tracemalloc.DomainFilter "tracemalloc.DomainFilter") instances are now also accepted in *filters*.
 
-    *classmethod* load(*filename*)
+    `classmethod load(filename)`
     :   Load a snapshot from a file.
 
         See also [`dump()`](tracemalloc.md#tracemalloc.Snapshot.dump "tracemalloc.Snapshot.dump").
 
-    statistics(*key_type: [str](stdtypes.md#str "str")*, *cumulative: [bool](functions.md#bool "bool") = False*)
+    `statistics(key_type: str, cumulative: bool = False)`
     :   Get statistics as a sorted list of [`Statistic`](tracemalloc.md#tracemalloc.Statistic "tracemalloc.Statistic") instances grouped
         by *key_type*:
 
@@ -550,11 +550,11 @@ tracemalloc.take_snapshot()
         [`Statistic.size`](tracemalloc.md#tracemalloc.Statistic.size "tracemalloc.Statistic.size"), [`Statistic.count`](tracemalloc.md#tracemalloc.Statistic.count "tracemalloc.Statistic.count") and then by
         [`Statistic.traceback`](tracemalloc.md#tracemalloc.Statistic.traceback "tracemalloc.Statistic.traceback").
 
-    traceback_limit
+    `traceback_limit`
     :   Maximum number of frames stored in the traceback of [`traces`](tracemalloc.md#tracemalloc.Snapshot.traces "tracemalloc.Snapshot.traces"):
         result of the [`get_traceback_limit()`](tracemalloc.md#tracemalloc.get_traceback_limit "tracemalloc.get_traceback_limit") when the snapshot was taken.
 
-    traces
+    `traces`
     :   Traces of all memory blocks allocated by Python: sequence of
         [`Trace`](tracemalloc.md#tracemalloc.Trace "tracemalloc.Trace") instances.
 
@@ -563,57 +563,57 @@ tracemalloc.take_snapshot()
 
 ### Statistic
 
-*class* tracemalloc.Statistic
+`class tracemalloc.Statistic`
 :   Statistic on memory allocations.
 
     [`Snapshot.statistics()`](tracemalloc.md#tracemalloc.Snapshot.statistics "tracemalloc.Snapshot.statistics") returns a list of [`Statistic`](tracemalloc.md#tracemalloc.Statistic "tracemalloc.Statistic") instances.
 
     See also the [`StatisticDiff`](tracemalloc.md#tracemalloc.StatisticDiff "tracemalloc.StatisticDiff") class.
 
-    count
+    `count`
     :   Number of memory blocks (`int`).
 
-    size
+    `size`
     :   Total size of memory blocks in bytes (`int`).
 
-    traceback
+    `traceback`
     :   Traceback where the memory block was allocated, [`Traceback`](tracemalloc.md#tracemalloc.Traceback "tracemalloc.Traceback")
         instance.
 
 ### StatisticDiff
 
-*class* tracemalloc.StatisticDiff
+`class tracemalloc.StatisticDiff`
 :   Statistic difference on memory allocations between an old and a new
     [`Snapshot`](tracemalloc.md#tracemalloc.Snapshot "tracemalloc.Snapshot") instance.
 
     [`Snapshot.compare_to()`](tracemalloc.md#tracemalloc.Snapshot.compare_to "tracemalloc.Snapshot.compare_to") returns a list of [`StatisticDiff`](tracemalloc.md#tracemalloc.StatisticDiff "tracemalloc.StatisticDiff")
     instances. See also the [`Statistic`](tracemalloc.md#tracemalloc.Statistic "tracemalloc.Statistic") class.
 
-    count
+    `count`
     :   Number of memory blocks in the new snapshot (`int`): `0` if
         the memory blocks have been released in the new snapshot.
 
-    count_diff
+    `count_diff`
     :   Difference of number of memory blocks between the old and the new
         snapshots (`int`): `0` if the memory blocks have been allocated in
         the new snapshot.
 
-    size
+    `size`
     :   Total size of memory blocks in bytes in the new snapshot (`int`):
         `0` if the memory blocks have been released in the new snapshot.
 
-    size_diff
+    `size_diff`
     :   Difference of total size of memory blocks in bytes between the old and
         the new snapshots (`int`): `0` if the memory blocks have been
         allocated in the new snapshot.
 
-    traceback
+    `traceback`
     :   Traceback where the memory blocks were allocated, [`Traceback`](tracemalloc.md#tracemalloc.Traceback "tracemalloc.Traceback")
         instance.
 
 ### Trace
 
-*class* tracemalloc.Trace
+`class tracemalloc.Trace`
 :   Trace of a memory block.
 
     The [`Snapshot.traces`](tracemalloc.md#tracemalloc.Snapshot.traces "tracemalloc.Snapshot.traces") attribute is a sequence of [`Trace`](tracemalloc.md#tracemalloc.Trace "tracemalloc.Trace")
@@ -621,22 +621,22 @@ tracemalloc.take_snapshot()
 
     Changed in version 3.6: Added the [`domain`](tracemalloc.md#tracemalloc.Trace.domain "tracemalloc.Trace.domain") attribute.
 
-    domain
+    `domain`
     :   Address space of a memory block (`int`). Read-only property.
 
         tracemalloc uses the domain `0` to trace memory allocations made by
         Python. C extensions can use other domains to trace other resources.
 
-    size
+    `size`
     :   Size of the memory block in bytes (`int`).
 
-    traceback
+    `traceback`
     :   Traceback where the memory block was allocated, [`Traceback`](tracemalloc.md#tracemalloc.Traceback "tracemalloc.Traceback")
         instance.
 
 ### Traceback
 
-*class* tracemalloc.Traceback
+`class tracemalloc.Traceback`
 :   Sequence of [`Frame`](tracemalloc.md#tracemalloc.Frame "tracemalloc.Frame") instances sorted from the oldest frame to the
     most recent frame.
 
@@ -655,14 +655,14 @@ tracemalloc.take_snapshot()
 
     Changed in version 3.7: Frames are now sorted from the oldest to the most recent, instead of most recent to oldest.
 
-    total_nframe
+    `total_nframe`
     :   Total number of frames that composed the traceback before truncation.
         This attribute can be set to `None` if the information is not
         available.
 
     Changed in version 3.9: The [`Traceback.total_nframe`](tracemalloc.md#tracemalloc.Traceback.total_nframe "tracemalloc.Traceback.total_nframe") attribute was added.
 
-    format(*limit=None*, *most_recent_first=False*)
+    `format(limit=None, most_recent_first=False)`
     :   Format the traceback as a list of lines. Use the [`linecache`](linecache.md#module-linecache "linecache: Provides random access to individual lines from text files.") module to
         retrieve lines from the source code. If *limit* is set, format the *limit*
         most recent frames if *limit* is positive. Otherwise, format the

@@ -134,7 +134,7 @@ added matters. To illustrate:
 100
 ```
 
-*class* email.policy.Policy(*\*\*kw*)
+`class email.policy.Policy(**kw)`
 :   This is the [abstract base class](https://docs.python.org/3.12/glossary.html#term-abstract-base-class) for all policy classes. It provides
     default implementations for a couple of trivial methods, as well as the
     implementation of the immutability property, the [`clone()`](email.policy.md#email.policy.Policy.clone "email.policy.Policy.clone") method, and
@@ -149,18 +149,18 @@ added matters. To illustrate:
     This class defines the following properties, and thus values for the
     following may be passed in the constructor of any policy class:
 
-    max_line_length
+    `max_line_length`
     :   The maximum length of any line in the serialized output, not counting the
         end of line character(s). Default is 78, per [**RFC 5322**](https://datatracker.ietf.org/doc/html/rfc5322.html). A value of
         `0` or [`None`](constants.md#None "None") indicates that no line wrapping should be
         done at all.
 
-    linesep
+    `linesep`
     :   The string to be used to terminate lines in serialized output. The
         default is `\n` because that’s the internal end-of-line discipline used
         by Python, though `\r\n` is required by the RFCs.
 
-    cte_type
+    `cte_type`
     :   Controls the type of Content Transfer Encodings that may be or are
         required to be used. The possible values are:
 
@@ -174,12 +174,12 @@ added matters. To illustrate:
         `Generator` is operating under a policy that specifies
         `cte_type=8bit`, it will act as if `cte_type` is `7bit`.
 
-    raise_on_defect
+    `raise_on_defect`
     :   If [`True`](constants.md#True "True"), any defects encountered will be raised as errors. If
         [`False`](constants.md#False "False") (the default), defects will be passed to the
         [`register_defect()`](email.policy.md#email.policy.Policy.register_defect "email.policy.Policy.register_defect") method.
 
-    mangle_from_
+    `mangle_from_`
     :   If [`True`](constants.md#True "True"), lines starting with *“From “* in the body are
         escaped by putting a `>` in front of them. This parameter is used when
         the message is being serialized by a generator.
@@ -187,14 +187,14 @@ added matters. To illustrate:
 
         Added in version 3.5.
 
-    message_factory
+    `message_factory`
     :   A factory function for constructing a new empty message object. Used
         by the parser when building messages. Defaults to `None`, in
         which case [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") is used.
 
         Added in version 3.6.
 
-    verify_generated_headers
+    `verify_generated_headers`
     :   If `True` (the default), the generator will raise
         [`HeaderWriteError`](email.errors.md#email.errors.HeaderWriteError "email.errors.HeaderWriteError") instead of writing a header
         that is improperly folded or delimited, such that it would
@@ -212,7 +212,7 @@ added matters. To illustrate:
     The following [`Policy`](email.policy.md#email.policy.Policy "email.policy.Policy") method is intended to be called by code using
     the email library to create policy instances with custom settings:
 
-    clone(*\*\*kw*)
+    `clone(**kw)`
     :   Return a new [`Policy`](email.policy.md#email.policy.Policy "email.policy.Policy") instance whose attributes have the same
         values as the current instance, except where those attributes are
         given new values by the keyword arguments.
@@ -221,7 +221,7 @@ added matters. To illustrate:
     and are not intended to be called by an application using the email package.
     A custom policy must implement all of these methods.
 
-    handle_defect(*obj*, *defect*)
+    `handle_defect(obj, defect)`
     :   Handle a *defect* found on *obj*. When the email package calls this
         method, *defect* will always be a subclass of
         [`MessageDefect`](email.errors.md#email.errors.MessageDefect "email.errors.MessageDefect").
@@ -230,7 +230,7 @@ added matters. To illustrate:
         it is `True`, *defect* is raised as an exception. If it is `False`
         (the default), *obj* and *defect* are passed to [`register_defect()`](email.policy.md#email.policy.Policy.register_defect "email.policy.Policy.register_defect").
 
-    register_defect(*obj*, *defect*)
+    `register_defect(obj, defect)`
     :   Register a *defect* on *obj*. In the email package, *defect* will always
         be a subclass of [`MessageDefect`](email.errors.md#email.errors.MessageDefect "email.errors.MessageDefect").
 
@@ -241,7 +241,7 @@ added matters. To illustrate:
         custom `Message` objects) should also provide such an attribute,
         otherwise defects in parsed messages will raise unexpected errors.
 
-    header_max_count(*name*)
+    `header_max_count(name)`
     :   Return the maximum allowed number of headers named *name*.
 
         Called when a header is added to an [`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage")
@@ -260,7 +260,7 @@ added matters. To illustrate:
 
         The default implementation returns `None` for all header names.
 
-    header_source_parse(*sourcelines*)
+    `header_source_parse(sourcelines)`
     :   The email package calls this method with a list of strings, each string
         ending with the line separation characters found in the source being
         parsed. The first line includes the field header name and separator.
@@ -278,7 +278,7 @@ added matters. To illustrate:
 
         There is no default implementation
 
-    header_store_parse(*name*, *value*)
+    `header_store_parse(name, value)`
     :   The email package calls this method with the name and value provided by
         the application program when the application program is modifying a
         `Message` programmatically (as opposed to a `Message` created by a
@@ -292,7 +292,7 @@ added matters. To illustrate:
 
         There is no default implementation
 
-    header_fetch_parse(*name*, *value*)
+    `header_fetch_parse(name, value)`
     :   The email package calls this method with the *name* and *value* currently
         stored in the `Message` when that header is requested by the
         application program, and whatever the method returns is what is passed
@@ -306,7 +306,7 @@ added matters. To illustrate:
 
         There is no default implementation
 
-    fold(*name*, *value*)
+    `fold(name, value)`
     :   The email package calls this method with the *name* and *value* currently
         stored in the `Message` for a given header. The method should return a
         string that represents that header “folded” correctly (according to the
@@ -317,14 +317,14 @@ added matters. To illustrate:
         *value* may contain surrogateescaped binary data. There should be no
         surrogateescaped binary data in the string returned by the method.
 
-    fold_binary(*name*, *value*)
+    `fold_binary(name, value)`
     :   The same as [`fold()`](email.policy.md#email.policy.Policy.fold "email.policy.Policy.fold"), except that the returned value should be a
         bytes object rather than a string.
 
         *value* may contain surrogateescaped binary data. These could be
         converted back into binary data in the returned bytes object.
 
-*class* email.policy.EmailPolicy(*\*\*kw*)
+`class email.policy.EmailPolicy(**kw)`
 :   This concrete [`Policy`](email.policy.md#email.policy.Policy "email.policy.Policy") provides behavior that is intended to be fully
     compliant with the current email RFCs. These include (but are not limited
     to) [**RFC 5322**](https://datatracker.ietf.org/doc/html/rfc5322.html), [**RFC 2047**](https://datatracker.ietf.org/doc/html/rfc2047.html), and the current MIME RFCs.
@@ -342,14 +342,14 @@ added matters. To illustrate:
 
     Added in version 3.6: [[1]](email.policy.md#id2)
 
-    utf8
+    `utf8`
     :   If `False`, follow [**RFC 5322**](https://datatracker.ietf.org/doc/html/rfc5322.html), supporting non-ASCII characters in
         headers by encoding them as “encoded words”. If `True`, follow
         [**RFC 6532**](https://datatracker.ietf.org/doc/html/rfc6532.html) and use `utf-8` encoding for headers. Messages
         formatted in this way may be passed to SMTP servers that support
         the `SMTPUTF8` extension ([**RFC 6531**](https://datatracker.ietf.org/doc/html/rfc6531.html)).
 
-    refold_source
+    `refold_source`
     :   If the value for a header in the `Message` object originated from a
         [`parser`](email.parser.md#module-email.parser "email.parser: Parse flat text email messages to produce a message object structure.") (as opposed to being set by a program), this
         attribute indicates whether or not a generator should refold that value
@@ -364,7 +364,7 @@ added matters. To illustrate:
 
         The default is `long`.
 
-    header_factory
+    `header_factory`
     :   A callable that takes two arguments, `name` and `value`, where
         `name` is a header field name and `value` is an unfolded header field
         value, and returns a string subclass that represents that header. A
@@ -373,7 +373,7 @@ added matters. To illustrate:
         header field types, and the major MIME header field stypes. Support for
         additional custom parsing will be added in the future.
 
-    content_manager
+    `content_manager`
     :   An object with at least two methods: get_content and set_content. When
         the [`get_content()`](email.message.md#email.message.EmailMessage.get_content "email.message.EmailMessage.get_content") or
         [`set_content()`](email.message.md#email.message.EmailMessage.set_content "email.message.EmailMessage.set_content") method of an
@@ -388,18 +388,18 @@ added matters. To illustrate:
     The class provides the following concrete implementations of the abstract
     methods of [`Policy`](email.policy.md#email.policy.Policy "email.policy.Policy"):
 
-    header_max_count(*name*)
+    `header_max_count(name)`
     :   Returns the value of the
         [`max_count`](email.headerregistry.md#email.headerregistry.BaseHeader.max_count "email.headerregistry.BaseHeader.max_count") attribute of the
         specialized class used to represent the header with the given name.
 
-    header_source_parse(*sourcelines*)
+    `header_source_parse(sourcelines)`
     :   The name is parsed as everything up to the ‘`:`’ and returned
         unmodified. The value is determined by stripping leading whitespace off
         the remainder of the first line, joining all subsequent lines together,
         and stripping any trailing carriage return or linefeed characters.
 
-    header_store_parse(*name*, *value*)
+    `header_store_parse(name, value)`
     :   The name is returned unchanged. If the input value has a `name`
         attribute and it matches *name* ignoring case, the value is returned
         unchanged. Otherwise the *name* and *value* are passed to
@@ -407,14 +407,14 @@ added matters. To illustrate:
         the value. In this case a `ValueError` is raised if the input value
         contains CR or LF characters.
 
-    header_fetch_parse(*name*, *value*)
+    `header_fetch_parse(name, value)`
     :   If the value has a `name` attribute, it is returned to unmodified.
         Otherwise the *name*, and the *value* with any CR or LF characters
         removed, are passed to the `header_factory`, and the resulting
         header object is returned. Any surrogateescaped bytes get turned into
         the unicode unknown-character glyph.
 
-    fold(*name*, *value*)
+    `fold(name, value)`
     :   Header folding is controlled by the [`refold_source`](email.policy.md#email.policy.EmailPolicy.refold_source "email.policy.EmailPolicy.refold_source") policy setting.
         A value is considered to be a ‘source value’ if and only if it does not
         have a `name` attribute (having a `name` attribute means it is a
@@ -431,7 +431,7 @@ added matters. To illustrate:
         regardless of the `refold_source` setting, which causes the binary data
         to be CTE encoded using the `unknown-8bit` charset.
 
-    fold_binary(*name*, *value*)
+    `fold_binary(name, value)`
     :   The same as [`fold()`](email.policy.md#email.policy.EmailPolicy.fold "email.policy.EmailPolicy.fold") if [`cte_type`](email.policy.md#email.policy.Policy.cte_type "email.policy.Policy.cte_type") is `7bit`, except
         that the returned value is bytes.
 
@@ -446,28 +446,28 @@ specific application domains. Note that in the future the behavior of these
 instances (in particular the `HTTP` instance) may be adjusted to conform even
 more closely to the RFCs relevant to their domains.
 
-email.policy.default
+`email.policy.default`
 :   An instance of `EmailPolicy` with all defaults unchanged. This policy
     uses the standard Python `\n` line endings rather than the RFC-correct
     `\r\n`.
 
-email.policy.SMTP
+`email.policy.SMTP`
 :   Suitable for serializing messages in conformance with the email RFCs.
     Like `default`, but with `linesep` set to `\r\n`, which is RFC
     compliant.
 
-email.policy.SMTPUTF8
+`email.policy.SMTPUTF8`
 :   The same as `SMTP` except that [`utf8`](email.policy.md#email.policy.EmailPolicy.utf8 "email.policy.EmailPolicy.utf8") is `True`.
     Useful for serializing messages to a message store without using encoded
     words in the headers. Should only be used for SMTP transmission if the
     sender or recipient addresses have non-ASCII characters (the
     [`smtplib.SMTP.send_message()`](smtplib.md#smtplib.SMTP.send_message "smtplib.SMTP.send_message") method handles this automatically).
 
-email.policy.HTTP
+`email.policy.HTTP`
 :   Suitable for serializing headers with for use in HTTP traffic. Like
     `SMTP` except that `max_line_length` is set to `None` (unlimited).
 
-email.policy.strict
+`email.policy.strict`
 :   Convenience instance. The same as `default` except that
     `raise_on_defect` is set to `True`. This allows any policy to be made
     strict by writing:
@@ -499,7 +499,7 @@ the unicode string into the correct RFC encoded form.
 The header objects and their attributes are described in
 [`headerregistry`](email.headerregistry.md#module-email.headerregistry "email.headerregistry: Automatic Parsing of headers based on the field name").
 
-*class* email.policy.Compat32(*\*\*kw*)
+`class email.policy.Compat32(**kw)`
 :   This concrete [`Policy`](email.policy.md#email.policy.Policy "email.policy.Policy") is the backward compatibility policy. It
     replicates the behavior of the email package in Python 3.2. The
     [`policy`](email.policy.md#module-email.policy "email.policy: Controlling the parsing and generating of messages") module also defines an instance of this class,
@@ -509,33 +509,33 @@ The header objects and their attributes are described in
     The following attributes have values that are different from the
     [`Policy`](email.policy.md#email.policy.Policy "email.policy.Policy") default:
 
-    mangle_from_
+    `mangle_from_`
     :   The default is `True`.
 
     The class provides the following concrete implementations of the
     abstract methods of [`Policy`](email.policy.md#email.policy.Policy "email.policy.Policy"):
 
-    header_source_parse(*sourcelines*)
+    `header_source_parse(sourcelines)`
     :   The name is parsed as everything up to the ‘`:`’ and returned
         unmodified. The value is determined by stripping leading whitespace off
         the remainder of the first line, joining all subsequent lines together,
         and stripping any trailing carriage return or linefeed characters.
 
-    header_store_parse(*name*, *value*)
+    `header_store_parse(name, value)`
     :   The name and value are returned unmodified.
 
-    header_fetch_parse(*name*, *value*)
+    `header_fetch_parse(name, value)`
     :   If the value contains binary data, it is converted into a
         [`Header`](email.header.md#email.header.Header "email.header.Header") object using the `unknown-8bit` charset.
         Otherwise it is returned unmodified.
 
-    fold(*name*, *value*)
+    `fold(name, value)`
     :   Headers are folded using the [`Header`](email.header.md#email.header.Header "email.header.Header") folding
         algorithm, which preserves existing line breaks in the value, and wraps
         each resulting line to the `max_line_length`. Non-ASCII binary data are
         CTE encoded using the `unknown-8bit` charset.
 
-    fold_binary(*name*, *value*)
+    `fold_binary(name, value)`
     :   Headers are folded using the [`Header`](email.header.md#email.header.Header "email.header.Header") folding
         algorithm, which preserves existing line breaks in the value, and wraps
         each resulting line to the `max_line_length`. If `cte_type` is
@@ -543,7 +543,7 @@ The header objects and their attributes are described in
         charset. Otherwise the original source header is used, with its existing
         line breaks and any (RFC invalid) binary data it may contain.
 
-email.policy.compat32
+`email.policy.compat32`
 :   An instance of [`Compat32`](email.policy.md#email.policy.Compat32 "email.policy.Compat32"), providing backward compatibility with the
     behavior of the email package in Python 3.2.
 

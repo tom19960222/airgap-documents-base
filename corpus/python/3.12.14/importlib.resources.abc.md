@@ -13,7 +13,7 @@ fetched_at: 2026-09-17T15:35:14+00:00
 
 Added in version 3.11.
 
-*class* importlib.resources.abc.ResourceReader
+`class importlib.resources.abc.ResourceReader`
 :   *Superseded by TraversableResources*
 
     An [abstract base class](https://docs.python.org/3.12/glossary.html#term-abstract-base-class) to provide the ability to read
@@ -47,24 +47,24 @@ Added in version 3.11.
 
     Deprecated since version 3.12: Use [`importlib.resources.abc.TraversableResources`](importlib.resources.abc.md#importlib.resources.abc.TraversableResources "importlib.resources.abc.TraversableResources") instead.
 
-    *abstractmethod* open_resource(*resource*)
+    `abstractmethod open_resource(resource)`
     :   > Returns an opened, [file-like object](https://docs.python.org/3.12/glossary.html#term-file-like-object) for binary reading
         > of the *resource*.
         >
         > If the resource cannot be found, [`FileNotFoundError`](exceptions.md#FileNotFoundError "FileNotFoundError") is
         > raised.
 
-    *abstractmethod* resource_path(*resource*)
+    `abstractmethod resource_path(resource)`
     :   > Returns the file system path to the *resource*.
         >
         > If the resource does not concretely exist on the file system,
         > raise [`FileNotFoundError`](exceptions.md#FileNotFoundError "FileNotFoundError").
 
-    *abstractmethod* is_resource(*name*)
+    `abstractmethod is_resource(name)`
     :   > Returns `True` if the named *name* is considered a resource.
         > [`FileNotFoundError`](exceptions.md#FileNotFoundError "FileNotFoundError") is raised if *name* does not exist.
 
-    *abstractmethod* contents()
+    `abstractmethod contents()`
     :   > Returns an [iterable](https://docs.python.org/3.12/glossary.html#term-iterable) of strings over the contents of
         > the package. Do note that it is not required that all names
         > returned by the iterator be actual resources, e.g. it is
@@ -81,26 +81,26 @@ Added in version 3.11.
         >
         > The abstract method returns an iterable of no items.
 
-*class* importlib.resources.abc.Traversable
+`class importlib.resources.abc.Traversable`
 :   An object with a subset of [`pathlib.Path`](pathlib.md#pathlib.Path "pathlib.Path") methods suitable for
     traversing directories and opening files.
 
     For a representation of the object on the file-system, use
     [`importlib.resources.as_file()`](importlib.resources.md#importlib.resources.as_file "importlib.resources.as_file").
 
-    name
+    `name`
     :   Abstract. The base name of this object without any parent references.
 
-    *abstractmethod* iterdir()
+    `abstractmethod iterdir()`
     :   Yield Traversable objects in self.
 
-    *abstractmethod* is_dir()
+    `abstractmethod is_dir()`
     :   Return `True` if self is a directory.
 
-    *abstractmethod* is_file()
+    `abstractmethod is_file()`
     :   Return `True` if self is a file.
 
-    *abstractmethod* joinpath(*\*pathsegments*)
+    `abstractmethod joinpath(*pathsegments)`
     :   Traverse directories according to *pathsegments* and return
         the result as `Traversable`.
 
@@ -126,24 +126,24 @@ Added in version 3.11.
         may contain forward slashes as path separators.
         Previously, only a single *child* argument was accepted.
 
-    *abstractmethod* __truediv__(*child*)
+    `abstractmethod __truediv__(child)`
     :   Return Traversable child in self.
         Equivalent to `joinpath(child)`.
 
-    *abstractmethod* open(*mode='r'*, *\*args*, *\*\*kwargs*)
+    `abstractmethod open(mode='r', *args, **kwargs)`
     :   *mode* may be ‘r’ or ‘rb’ to open as text or binary. Return a handle
         suitable for reading (same as [`pathlib.Path.open`](pathlib.md#pathlib.Path.open "pathlib.Path.open")).
 
         When opening as text, accepts encoding parameters such as those
         accepted by [`io.TextIOWrapper`](io.md#io.TextIOWrapper "io.TextIOWrapper").
 
-    read_bytes()
+    `read_bytes()`
     :   Read contents of self as bytes.
 
-    read_text(*encoding=None*)
+    `read_text(encoding=None)`
     :   Read contents of self as text.
 
-*class* importlib.resources.abc.TraversableResources
+`class importlib.resources.abc.TraversableResources`
 :   An abstract base class for resource readers capable of serving
     the [`importlib.resources.files()`](importlib.resources.md#importlib.resources.files "importlib.resources.files") interface. Subclasses
     [`ResourceReader`](importlib.resources.abc.md#importlib.resources.abc.ResourceReader "importlib.resources.abc.ResourceReader") and provides
@@ -154,6 +154,6 @@ Added in version 3.11.
     Loaders that wish to support resource reading are expected to
     implement this interface.
 
-    *abstractmethod* files()
+    `abstractmethod files()`
     :   Returns a [`importlib.resources.abc.Traversable`](importlib.resources.abc.md#importlib.resources.abc.Traversable "importlib.resources.abc.Traversable") object for the loaded
         package.

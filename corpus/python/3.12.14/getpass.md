@@ -19,7 +19,7 @@ This module does not work or is not available on WebAssembly platforms
 
 The [`getpass`](getpass.md#module-getpass "getpass: Portable reading of passwords and retrieval of the userid.") module provides two functions:
 
-getpass.getpass(*prompt='Password: '*, *stream=None*)
+`getpass.getpass(prompt='Password: ', stream=None)`
 :   Prompt the user for a password without echoing. The user is prompted using
     the string *prompt*, which defaults to `'Password: '`. On Unix, the
     prompt is written to the file-like object *stream* using the replace error
@@ -36,10 +36,10 @@ getpass.getpass(*prompt='Password: '*, *stream=None*)
     > If you call getpass from within IDLE, the input may be done in the
     > terminal you launched IDLE from rather than the idle window itself.
 
-*exception* getpass.GetPassWarning
+`exception getpass.GetPassWarning`
 :   A [`UserWarning`](exceptions.md#UserWarning "UserWarning") subclass issued when password input may be echoed.
 
-getpass.getuser()
+`getpass.getuser()`
 :   Return the “login name” of the user.
 
     This function checks the environment variables `LOGNAME`,

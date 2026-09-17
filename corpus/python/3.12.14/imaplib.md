@@ -26,7 +26,7 @@ This module does not work or is not available on WebAssembly platforms
 Three classes are provided by the [`imaplib`](imaplib.md#module-imaplib "imaplib: IMAP4 protocol client (requires sockets).") module, [`IMAP4`](imaplib.md#imaplib.IMAP4 "imaplib.IMAP4") is the
 base class:
 
-*class* imaplib.IMAP4(*host=''*, *port=IMAP4_PORT*, *timeout=None*)
+`class imaplib.IMAP4(host='', port=IMAP4_PORT, timeout=None)`
 :   This class implements the actual IMAP4 protocol. The connection is created and
     protocol version (IMAP4 or IMAP4rev1) is determined when the instance is
     initialized. If *host* is not specified, `''` (the local host) is used. If
@@ -52,16 +52,16 @@ base class:
 
 Three exceptions are defined as attributes of the [`IMAP4`](imaplib.md#imaplib.IMAP4 "imaplib.IMAP4") class:
 
-*exception* IMAP4.error
+`exception IMAP4.error`
 :   Exception raised on any errors. The reason for the exception is passed to the
     constructor as a string.
 
-*exception* IMAP4.abort
+`exception IMAP4.abort`
 :   IMAP4 server errors cause this exception to be raised. This is a sub-class of
     [`IMAP4.error`](imaplib.md#imaplib.IMAP4.error "imaplib.IMAP4.error"). Note that closing the instance and instantiating a new one
     will usually allow recovery from this exception.
 
-*exception* IMAP4.readonly
+`exception IMAP4.readonly`
 :   This exception is raised when a writable mailbox has its status changed by the
     server. This is a sub-class of [`IMAP4.error`](imaplib.md#imaplib.IMAP4.error "imaplib.IMAP4.error"). Some other client now has
     write permission, and the mailbox will need to be re-opened to re-obtain write
@@ -69,7 +69,7 @@ Three exceptions are defined as attributes of the [`IMAP4`](imaplib.md#imaplib.I
 
 There’s also a subclass for secure connections:
 
-*class* imaplib.IMAP4_SSL(*host=''*, *port=IMAP4_SSL_PORT*, *\**, *ssl_context=None*, *timeout=None*)
+`class imaplib.IMAP4_SSL(host='', port=IMAP4_SSL_PORT, *, ssl_context=None, timeout=None)`
 :   This is a subclass derived from [`IMAP4`](imaplib.md#imaplib.IMAP4 "imaplib.IMAP4") that connects over an SSL
     encrypted socket (to use this class you need a socket module that was compiled
     with SSL support). If *host* is not specified, `''` (the local host) is used.
@@ -95,26 +95,26 @@ There’s also a subclass for secure connections:
 
 The second subclass allows for connections created by a child process:
 
-*class* imaplib.IMAP4_stream(*command*)
+`class imaplib.IMAP4_stream(command)`
 :   This is a subclass derived from [`IMAP4`](imaplib.md#imaplib.IMAP4 "imaplib.IMAP4") that connects to the
     `stdin/stdout` file descriptors created by passing *command* to
     `subprocess.Popen()`.
 
 The following utility functions are defined:
 
-imaplib.Internaldate2tuple(*datestr*)
+`imaplib.Internaldate2tuple(datestr)`
 :   Parse an IMAP4 `INTERNALDATE` string and return corresponding local
     time. The return value is a [`time.struct_time`](time.md#time.struct_time "time.struct_time") tuple or
     `None` if the string has wrong format.
 
-imaplib.Int2AP(*num*)
+`imaplib.Int2AP(num)`
 :   Converts an integer into a bytes representation using characters from the set
     [`A` .. `P`].
 
-imaplib.ParseFlags(*flagstr*)
+`imaplib.ParseFlags(flagstr)`
 :   Converts an IMAP4 `FLAGS` response to a tuple of individual flags.
 
-imaplib.Time2Internaldate(*date_time*)
+`imaplib.Time2Internaldate(date_time)`
 :   Convert *date_time* to an IMAP4 `INTERNALDATE` representation.
     The return value is a string in the form: `"DD-Mmm-YYYY HH:MM:SS
     +HHMM"` (including double-quotes). The *date_time* argument can
@@ -165,10 +165,10 @@ upper bound (`'3:*'`).
 
 An [`IMAP4`](imaplib.md#imaplib.IMAP4 "imaplib.IMAP4") instance has the following methods:
 
-IMAP4.append(*mailbox*, *flags*, *date_time*, *message*)
+`IMAP4.append(mailbox, flags, date_time, message)`
 :   Append *message* to named mailbox.
 
-IMAP4.authenticate(*mechanism*, *authobject*)
+`IMAP4.authenticate(mechanism, authobject)`
 :   Authenticate command — requires response processing.
 
     *mechanism* specifies which authentication mechanism is to be used - it should
@@ -188,91 +188,91 @@ IMAP4.authenticate(*mechanism*, *authobject*)
     Changed in version 3.5: string usernames and passwords are now encoded to `utf-8` instead of
     being limited to ASCII.
 
-IMAP4.check()
+`IMAP4.check()`
 :   Checkpoint mailbox on server.
 
-IMAP4.close()
+`IMAP4.close()`
 :   Close currently selected mailbox. Deleted messages are removed from writable
     mailbox. This is the recommended command before `LOGOUT`.
 
-IMAP4.copy(*message_set*, *new_mailbox*)
+`IMAP4.copy(message_set, new_mailbox)`
 :   Copy *message_set* messages onto end of *new_mailbox*.
 
-IMAP4.create(*mailbox*)
+`IMAP4.create(mailbox)`
 :   Create new mailbox named *mailbox*.
 
-IMAP4.delete(*mailbox*)
+`IMAP4.delete(mailbox)`
 :   Delete old mailbox named *mailbox*.
 
-IMAP4.deleteacl(*mailbox*, *who*)
+`IMAP4.deleteacl(mailbox, who)`
 :   Delete the ACLs (remove any rights) set for who on mailbox.
 
-IMAP4.enable(*capability*)
+`IMAP4.enable(capability)`
 :   Enable *capability* (see [**RFC 5161**](https://datatracker.ietf.org/doc/html/rfc5161.html)). Most capabilities do not need to be
     enabled. Currently only the `UTF8=ACCEPT` capability is supported
     (see [**RFC 6855**](https://datatracker.ietf.org/doc/html/rfc6855.html)).
 
     Added in version 3.5: The [`enable()`](imaplib.md#imaplib.IMAP4.enable "imaplib.IMAP4.enable") method itself, and [**RFC 6855**](https://datatracker.ietf.org/doc/html/rfc6855.html) support.
 
-IMAP4.expunge()
+`IMAP4.expunge()`
 :   Permanently remove deleted items from selected mailbox. Generates an `EXPUNGE`
     response for each deleted message. Returned data contains a list of `EXPUNGE`
     message numbers in order received.
 
-IMAP4.fetch(*message_set*, *message_parts*)
+`IMAP4.fetch(message_set, message_parts)`
 :   Fetch (parts of) messages. *message_parts* should be a string of message part
     names enclosed within parentheses, eg: `"(UID BODY[TEXT])"`. Returned data
     are tuples of message part envelope and data.
 
-IMAP4.getacl(*mailbox*)
+`IMAP4.getacl(mailbox)`
 :   Get the `ACL`s for *mailbox*. The method is non-standard, but is supported
     by the `Cyrus` server.
 
-IMAP4.getannotation(*mailbox*, *entry*, *attribute*)
+`IMAP4.getannotation(mailbox, entry, attribute)`
 :   Retrieve the specified `ANNOTATION`s for *mailbox*. The method is
     non-standard, but is supported by the `Cyrus` server.
 
-IMAP4.getquota(*root*)
+`IMAP4.getquota(root)`
 :   Get the `quota` *root*’s resource usage and limits. This method is part of the
     IMAP4 QUOTA extension defined in rfc2087.
 
-IMAP4.getquotaroot(*mailbox*)
+`IMAP4.getquotaroot(mailbox)`
 :   Get the list of `quota` `roots` for the named *mailbox*. This method is part
     of the IMAP4 QUOTA extension defined in rfc2087.
 
-IMAP4.list([*directory*[, *pattern*]])
+`IMAP4.list([directory[, pattern]])`
 :   List mailbox names in *directory* matching *pattern*. *directory* defaults to
     the top-level mail folder, and *pattern* defaults to match anything. Returned
     data contains a list of `LIST` responses.
 
-IMAP4.login(*user*, *password*)
+`IMAP4.login(user, password)`
 :   Identify the client using a plaintext password. The *password* will be quoted.
 
-IMAP4.login_cram_md5(*user*, *password*)
+`IMAP4.login_cram_md5(user, password)`
 :   Force use of `CRAM-MD5` authentication when identifying the client to protect
     the password. Will only work if the server `CAPABILITY` response includes the
     phrase `AUTH=CRAM-MD5`.
 
-IMAP4.logout()
+`IMAP4.logout()`
 :   Shutdown connection to server. Returns server `BYE` response.
 
     Changed in version 3.8: The method no longer ignores silently arbitrary exceptions.
 
-IMAP4.lsub(*directory='""'*, *pattern='\*'*)
+`IMAP4.lsub(directory='""', pattern='*')`
 :   List subscribed mailbox names in directory matching pattern. *directory*
     defaults to the top level directory and *pattern* defaults to match any mailbox.
     Returned data are tuples of message part envelope and data.
 
-IMAP4.myrights(*mailbox*)
+`IMAP4.myrights(mailbox)`
 :   Show my ACLs for a mailbox (i.e. the rights that I have on mailbox).
 
-IMAP4.namespace()
+`IMAP4.namespace()`
 :   Returns IMAP namespaces as defined in [**RFC 2342**](https://datatracker.ietf.org/doc/html/rfc2342.html).
 
-IMAP4.noop()
+`IMAP4.noop()`
 :   Send `NOOP` to server.
 
-IMAP4.open(*host*, *port*, *timeout=None*)
+`IMAP4.open(host, port, timeout=None)`
 :   Opens socket to *port* at *host*. The optional *timeout* parameter
     specifies a timeout in seconds for the connection attempt.
     If timeout is not given or is `None`, the global default socket timeout
@@ -287,32 +287,32 @@ IMAP4.open(*host*, *port*, *timeout=None*)
 
     Changed in version 3.9: The *timeout* parameter was added.
 
-IMAP4.partial(*message_num*, *message_part*, *start*, *length*)
+`IMAP4.partial(message_num, message_part, start, length)`
 :   Fetch truncated part of a message. Returned data is a tuple of message part
     envelope and data.
 
-IMAP4.proxyauth(*user*)
+`IMAP4.proxyauth(user)`
 :   Assume authentication as *user*. Allows an authorised administrator to proxy
     into any user’s mailbox.
 
-IMAP4.read(*size*)
+`IMAP4.read(size)`
 :   Reads *size* bytes from the remote server. You may override this method.
 
-IMAP4.readline()
+`IMAP4.readline()`
 :   Reads one line from the remote server. You may override this method.
 
-IMAP4.recent()
+`IMAP4.recent()`
 :   Prompt server for an update. Returned data is `None` if no new messages, else
     value of `RECENT` response.
 
-IMAP4.rename(*oldmailbox*, *newmailbox*)
+`IMAP4.rename(oldmailbox, newmailbox)`
 :   Rename mailbox named *oldmailbox* to *newmailbox*.
 
-IMAP4.response(*code*)
+`IMAP4.response(code)`
 :   Return data for response *code* if received, or `None`. Returns the given
     code, instead of the usual type.
 
-IMAP4.search(*charset*, *criterion*[, *...*])
+`IMAP4.search(charset, criterion[, ...])`
 :   Search mailbox for matching messages. *charset* may be `None`, in which case
     no `CHARSET` will be specified in the request to the server. The IMAP
     protocol requires that at least one criterion be specified; an exception will be
@@ -330,36 +330,36 @@ IMAP4.search(*charset*, *criterion*[, *...*])
     typ, msgnums = M.search(None, '(FROM "LDJ")')
     ```
 
-IMAP4.select(*mailbox='INBOX'*, *readonly=False*)
+`IMAP4.select(mailbox='INBOX', readonly=False)`
 :   Select a mailbox. Returned data is the count of messages in *mailbox*
     (`EXISTS` response). The default *mailbox* is `'INBOX'`. If the *readonly*
     flag is set, modifications to the mailbox are not allowed.
 
-IMAP4.send(*data*)
+`IMAP4.send(data)`
 :   Sends `data` to the remote server. You may override this method.
 
     Raises an [auditing event](sys.md#auditing) `imaplib.send` with arguments `self`, `data`.
 
-IMAP4.setacl(*mailbox*, *who*, *what*)
+`IMAP4.setacl(mailbox, who, what)`
 :   Set an `ACL` for *mailbox*. The method is non-standard, but is supported by
     the `Cyrus` server.
 
-IMAP4.setannotation(*mailbox*, *entry*, *attribute*[, *...*])
+`IMAP4.setannotation(mailbox, entry, attribute[, ...])`
 :   Set `ANNOTATION`s for *mailbox*. The method is non-standard, but is
     supported by the `Cyrus` server.
 
-IMAP4.setquota(*root*, *limits*)
+`IMAP4.setquota(root, limits)`
 :   Set the `quota` *root*’s resource *limits*. This method is part of the IMAP4
     QUOTA extension defined in rfc2087.
 
-IMAP4.shutdown()
+`IMAP4.shutdown()`
 :   Close connection established in `open`. This method is implicitly
     called by [`IMAP4.logout()`](imaplib.md#imaplib.IMAP4.logout "imaplib.IMAP4.logout"). You may override this method.
 
-IMAP4.socket()
+`IMAP4.socket()`
 :   Returns socket instance used to connect to server.
 
-IMAP4.sort(*sort_criteria*, *charset*, *search_criterion*[, *...*])
+`IMAP4.sort(sort_criteria, charset, search_criterion[, ...])`
 :   The `sort` command is a variant of `search` with sorting semantics for the
     results. Returned data contains a space separated list of matching message
     numbers.
@@ -375,7 +375,7 @@ IMAP4.sort(*sort_criteria*, *charset*, *search_criterion*[, *...*])
 
     This is an `IMAP4rev1` extension command.
 
-IMAP4.starttls(*ssl_context=None*)
+`IMAP4.starttls(ssl_context=None)`
 :   Send a `STARTTLS` command. The *ssl_context* argument is optional
     and should be a [`ssl.SSLContext`](ssl.md#ssl.SSLContext "ssl.SSLContext") object. This will enable
     encryption on the IMAP connection. Please read [Security considerations](ssl.md#ssl-security) for
@@ -387,10 +387,10 @@ IMAP4.starttls(*ssl_context=None*)
     [`ssl.SSLContext.check_hostname`](ssl.md#ssl.SSLContext.check_hostname "ssl.SSLContext.check_hostname") and *Server Name Indication* (see
     [`ssl.HAS_SNI`](ssl.md#ssl.HAS_SNI "ssl.HAS_SNI")).
 
-IMAP4.status(*mailbox*, *names*)
+`IMAP4.status(mailbox, names)`
 :   Request named status conditions for *mailbox*.
 
-IMAP4.store(*message_set*, *command*, *flag_list*)
+`IMAP4.store(message_set, command, flag_list)`
 :   Alters flag dispositions for messages in mailbox. *command* is specified by
     section 6.4.6 of [**RFC 2060**](https://datatracker.ietf.org/doc/html/rfc2060.html) as being one of “FLAGS”, “+FLAGS”, or “-FLAGS”,
     optionally with a suffix of “.SILENT”.
@@ -416,10 +416,10 @@ IMAP4.store(*message_set*, *command*, *flag_list*)
     > Python 3.6, handles them if they are sent from the server, since this
     > improves real-world compatibility.
 
-IMAP4.subscribe(*mailbox*)
+`IMAP4.subscribe(mailbox)`
 :   Subscribe to new mailbox.
 
-IMAP4.thread(*threading_algorithm*, *charset*, *search_criterion*[, *...*])
+`IMAP4.thread(threading_algorithm, charset, search_criterion[, ...])`
 :   The `thread` command is a variant of `search` with threading semantics for
     the results. Returned data contains a space separated list of thread members.
 
@@ -438,16 +438,16 @@ IMAP4.thread(*threading_algorithm*, *charset*, *search_criterion*[, *...*])
 
     This is an `IMAP4rev1` extension command.
 
-IMAP4.uid(*command*, *arg*[, *...*])
+`IMAP4.uid(command, arg[, ...])`
 :   Execute command args with messages identified by UID, rather than message
     number. Returns response appropriate to command. At least one argument must be
     supplied; if none are provided, the server will return an error and an exception
     will be raised.
 
-IMAP4.unsubscribe(*mailbox*)
+`IMAP4.unsubscribe(mailbox)`
 :   Unsubscribe from old mailbox.
 
-IMAP4.unselect()
+`IMAP4.unselect()`
 :   [`imaplib.IMAP4.unselect()`](imaplib.md#imaplib.IMAP4.unselect "imaplib.IMAP4.unselect") frees server’s resources associated with the
     selected mailbox and returns the server to the authenticated
     state. This command performs the same actions as [`imaplib.IMAP4.close()`](imaplib.md#imaplib.IMAP4.close "imaplib.IMAP4.close"), except
@@ -456,20 +456,20 @@ IMAP4.unselect()
 
     Added in version 3.9.
 
-IMAP4.xatom(*name*[, *...*])
+`IMAP4.xatom(name[, ...])`
 :   Allow simple extension commands notified by server in `CAPABILITY` response.
 
 The following attributes are defined on instances of [`IMAP4`](imaplib.md#imaplib.IMAP4 "imaplib.IMAP4"):
 
-IMAP4.PROTOCOL_VERSION
+`IMAP4.PROTOCOL_VERSION`
 :   The most recent supported protocol in the `CAPABILITY` response from the
     server.
 
-IMAP4.debug
+`IMAP4.debug`
 :   Integer value to control debugging output. The initialize value is taken from
     the module variable `Debug`. Values greater than three trace each command.
 
-IMAP4.utf8_enabled
+`IMAP4.utf8_enabled`
 :   Boolean value that is normally `False`, but is set to `True` if an
     [`enable()`](imaplib.md#imaplib.IMAP4.enable "imaplib.IMAP4.enable") command is successfully issued for the `UTF8=ACCEPT`
     capability.

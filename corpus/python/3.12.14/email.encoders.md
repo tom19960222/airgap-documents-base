@@ -41,25 +41,25 @@ must be applied to individual subparts instead, and will raise a
 
 Here are the encoding functions provided:
 
-email.encoders.encode_quopri(*msg*)
+`email.encoders.encode_quopri(msg)`
 :   Encodes the payload into quoted-printable form and sets the
     *Content-Transfer-Encoding* header to `quoted-printable` [[1]](email.encoders.md#id2).
     This is a good encoding to use when most of your payload is normal printable
     data, but contains a few unprintable characters.
 
-email.encoders.encode_base64(*msg*)
+`email.encoders.encode_base64(msg)`
 :   Encodes the payload into base64 form and sets the
     *Content-Transfer-Encoding* header to `base64`. This is a good
     encoding to use when most of your payload is unprintable data since it is a more
     compact form than quoted-printable. The drawback of base64 encoding is that it
     renders the text non-human readable.
 
-email.encoders.encode_7or8bit(*msg*)
+`email.encoders.encode_7or8bit(msg)`
 :   This doesn’t actually modify the message’s payload, but it does set the
     *Content-Transfer-Encoding* header to either `7bit` or `8bit` as
     appropriate, based on the payload data.
 
-email.encoders.encode_noop(*msg*)
+`email.encoders.encode_noop(msg)`
 :   This does nothing; it doesn’t even set the
     *Content-Transfer-Encoding* header.
 

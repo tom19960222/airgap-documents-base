@@ -16,10 +16,10 @@ a Python module, which must provide a function `create_parser()`. This
 function is invoked by [`xml.sax.make_parser()`](xml.sax.md#xml.sax.make_parser "xml.sax.make_parser") with no arguments to create
 a new parser object.
 
-*class* xml.sax.xmlreader.XMLReader
+`class xml.sax.xmlreader.XMLReader`
 :   Base class which can be inherited by SAX parsers.
 
-*class* xml.sax.xmlreader.IncrementalParser
+`class xml.sax.xmlreader.IncrementalParser`
 :   In some cases, it is desirable not to parse an input source at once, but to feed
     chunks of the document as they get available. Note that the reader will normally
     not read the entire file, but read it in chunks as well; still `parse()`
@@ -38,13 +38,13 @@ a new parser object.
     interface using the feed, close and reset methods of the IncrementalParser
     interface as a convenience to SAX 2.0 driver writers.
 
-*class* xml.sax.xmlreader.Locator
+`class xml.sax.xmlreader.Locator`
 :   Interface for associating a SAX event with a document location. A locator object
     will return valid results only during calls to DocumentHandler methods; at any
     other time, the results are unpredictable. If information is not available,
     methods may return `None`.
 
-*class* xml.sax.xmlreader.InputSource(*system_id=None*)
+`class xml.sax.xmlreader.InputSource(system_id=None)`
 :   Encapsulation of the information needed by the [`XMLReader`](xml.sax.reader.md#xml.sax.xmlreader.XMLReader "xml.sax.xmlreader.XMLReader") to read
     entities.
 
@@ -60,7 +60,7 @@ a new parser object.
     not allowed to modify [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource") objects passed to it from the
     application, although it may make copies and modify those.
 
-*class* xml.sax.xmlreader.AttributesImpl(*attrs*)
+`class xml.sax.xmlreader.AttributesImpl(attrs)`
 :   This is an implementation of the `Attributes` interface (see section
     [The Attributes Interface](xml.sax.reader.md#attributes-objects)). This is a dictionary-like object which
     represents the element attributes in a `startElement()` call. In addition
@@ -69,7 +69,7 @@ a new parser object.
     instantiated by readers; *attrs* must be a dictionary-like object containing
     a mapping from attribute names to attribute values.
 
-*class* xml.sax.xmlreader.AttributesNSImpl(*attrs*, *qnames*)
+`class xml.sax.xmlreader.AttributesNSImpl(attrs, qnames)`
 :   Namespace-aware variant of [`AttributesImpl`](xml.sax.reader.md#xml.sax.xmlreader.AttributesImpl "xml.sax.xmlreader.AttributesImpl"), which will be passed to
     `startElementNS()`. It is derived from [`AttributesImpl`](xml.sax.reader.md#xml.sax.xmlreader.AttributesImpl "xml.sax.xmlreader.AttributesImpl"), but
     understands attribute names as two-tuples of *namespaceURI* and
@@ -81,7 +81,7 @@ a new parser object.
 
 The [`XMLReader`](xml.sax.reader.md#xml.sax.xmlreader.XMLReader "xml.sax.xmlreader.XMLReader") interface supports the following methods:
 
-XMLReader.parse(*source*)
+`XMLReader.parse(source)`
 :   Process an input source, producing SAX events. The *source* object can be a
     system identifier (a string identifying the input source – typically a file
     name or a URL), a [`pathlib.Path`](pathlib.md#pathlib.Path "pathlib.Path") or [path-like](https://docs.python.org/3.12/glossary.html#term-path-like-object)
@@ -93,61 +93,61 @@ XMLReader.parse(*source*)
 
     Changed in version 3.8: Added support of path-like objects.
 
-XMLReader.getContentHandler()
+`XMLReader.getContentHandler()`
 :   Return the current [`ContentHandler`](xml.sax.handler.md#xml.sax.handler.ContentHandler "xml.sax.handler.ContentHandler").
 
-XMLReader.setContentHandler(*handler*)
+`XMLReader.setContentHandler(handler)`
 :   Set the current [`ContentHandler`](xml.sax.handler.md#xml.sax.handler.ContentHandler "xml.sax.handler.ContentHandler"). If no
     [`ContentHandler`](xml.sax.handler.md#xml.sax.handler.ContentHandler "xml.sax.handler.ContentHandler") is set, content events will be
     discarded.
 
-XMLReader.getDTDHandler()
+`XMLReader.getDTDHandler()`
 :   Return the current [`DTDHandler`](xml.sax.handler.md#xml.sax.handler.DTDHandler "xml.sax.handler.DTDHandler").
 
-XMLReader.setDTDHandler(*handler*)
+`XMLReader.setDTDHandler(handler)`
 :   Set the current [`DTDHandler`](xml.sax.handler.md#xml.sax.handler.DTDHandler "xml.sax.handler.DTDHandler"). If no
     [`DTDHandler`](xml.sax.handler.md#xml.sax.handler.DTDHandler "xml.sax.handler.DTDHandler") is set, DTD
     events will be discarded.
 
-XMLReader.getEntityResolver()
+`XMLReader.getEntityResolver()`
 :   Return the current [`EntityResolver`](xml.sax.handler.md#xml.sax.handler.EntityResolver "xml.sax.handler.EntityResolver").
 
-XMLReader.setEntityResolver(*handler*)
+`XMLReader.setEntityResolver(handler)`
 :   Set the current [`EntityResolver`](xml.sax.handler.md#xml.sax.handler.EntityResolver "xml.sax.handler.EntityResolver"). If no
     [`EntityResolver`](xml.sax.handler.md#xml.sax.handler.EntityResolver "xml.sax.handler.EntityResolver") is set,
     attempts to resolve an external entity will result in opening the system
     identifier for the entity, and fail if it is not available.
 
-XMLReader.getErrorHandler()
+`XMLReader.getErrorHandler()`
 :   Return the current [`ErrorHandler`](xml.sax.handler.md#xml.sax.handler.ErrorHandler "xml.sax.handler.ErrorHandler").
 
-XMLReader.setErrorHandler(*handler*)
+`XMLReader.setErrorHandler(handler)`
 :   Set the current error handler. If no [`ErrorHandler`](xml.sax.handler.md#xml.sax.handler.ErrorHandler "xml.sax.handler.ErrorHandler")
     is set, errors will be raised as exceptions, and warnings will be printed.
 
-XMLReader.setLocale(*locale*)
+`XMLReader.setLocale(locale)`
 :   Allow an application to set the locale for errors and warnings.
 
     SAX parsers are not required to provide localization for errors and warnings; if
     they cannot support the requested locale, however, they must raise a SAX
     exception. Applications may request a locale change in the middle of a parse.
 
-XMLReader.getFeature(*featurename*)
+`XMLReader.getFeature(featurename)`
 :   Return the current setting for feature *featurename*. If the feature is not
     recognized, `SAXNotRecognizedException` is raised. The well-known
     featurenames are listed in the module [`xml.sax.handler`](xml.sax.handler.md#module-xml.sax.handler "xml.sax.handler: Base classes for SAX event handlers.").
 
-XMLReader.setFeature(*featurename*, *value*)
+`XMLReader.setFeature(featurename, value)`
 :   Set the *featurename* to *value*. If the feature is not recognized,
     `SAXNotRecognizedException` is raised. If the feature or its setting is not
     supported by the parser, *SAXNotSupportedException* is raised.
 
-XMLReader.getProperty(*propertyname*)
+`XMLReader.getProperty(propertyname)`
 :   Return the current setting for property *propertyname*. If the property is not
     recognized, a `SAXNotRecognizedException` is raised. The well-known
     propertynames are listed in the module [`xml.sax.handler`](xml.sax.handler.md#module-xml.sax.handler "xml.sax.handler: Base classes for SAX event handlers.").
 
-XMLReader.setProperty(*propertyname*, *value*)
+`XMLReader.setProperty(propertyname, value)`
 :   Set the *propertyname* to *value*. If the property is not recognized,
     `SAXNotRecognizedException` is raised. If the property or its setting is
     not supported by the parser, *SAXNotSupportedException* is raised.
@@ -156,15 +156,15 @@ XMLReader.setProperty(*propertyname*, *value*)
 
 Instances of [`IncrementalParser`](xml.sax.reader.md#xml.sax.xmlreader.IncrementalParser "xml.sax.xmlreader.IncrementalParser") offer the following additional methods:
 
-IncrementalParser.feed(*data*)
+`IncrementalParser.feed(data)`
 :   Process a chunk of *data*.
 
-IncrementalParser.close()
+`IncrementalParser.close()`
 :   Assume the end of the document. That will check well-formedness conditions that
     can be checked only at the end, invoke handlers, and may clean up resources
     allocated during parsing.
 
-IncrementalParser.reset()
+`IncrementalParser.reset()`
 :   This method is called after close has been called to reset the parser so that it
     is ready to parse new documents. The results of calling parse or feed after
     close without calling reset are undefined.
@@ -173,33 +173,33 @@ IncrementalParser.reset()
 
 Instances of [`Locator`](xml.sax.reader.md#xml.sax.xmlreader.Locator "xml.sax.xmlreader.Locator") provide these methods:
 
-Locator.getColumnNumber()
+`Locator.getColumnNumber()`
 :   Return the column number where the current event begins.
 
-Locator.getLineNumber()
+`Locator.getLineNumber()`
 :   Return the line number where the current event begins.
 
-Locator.getPublicId()
+`Locator.getPublicId()`
 :   Return the public identifier for the current event.
 
-Locator.getSystemId()
+`Locator.getSystemId()`
 :   Return the system identifier for the current event.
 
 ## InputSource Objects
 
-InputSource.setPublicId(*id*)
+`InputSource.setPublicId(id)`
 :   Sets the public identifier of this [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource").
 
-InputSource.getPublicId()
+`InputSource.getPublicId()`
 :   Returns the public identifier of this [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource").
 
-InputSource.setSystemId(*id*)
+`InputSource.setSystemId(id)`
 :   Sets the system identifier of this [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource").
 
-InputSource.getSystemId()
+`InputSource.getSystemId()`
 :   Returns the system identifier of this [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource").
 
-InputSource.setEncoding(*encoding*)
+`InputSource.setEncoding(encoding)`
 :   Sets the character encoding of this [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource").
 
     The encoding must be a string acceptable for an XML encoding declaration (see
@@ -208,10 +208,10 @@ InputSource.setEncoding(*encoding*)
     The encoding attribute of the [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource") is ignored if the
     [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource") also contains a character stream.
 
-InputSource.getEncoding()
+`InputSource.getEncoding()`
 :   Get the character encoding of this InputSource.
 
-InputSource.setByteStream(*bytefile*)
+`InputSource.setByteStream(bytefile)`
 :   Set the byte stream (a [binary file](https://docs.python.org/3.12/glossary.html#term-binary-file)) for this input source.
 
     The SAX parser will ignore this if there is also a character stream specified,
@@ -220,19 +220,19 @@ InputSource.setByteStream(*bytefile*)
     If the application knows the character encoding of the byte stream, it should
     set it with the setEncoding method.
 
-InputSource.getByteStream()
+`InputSource.getByteStream()`
 :   Get the byte stream for this input source.
 
     The getEncoding method will return the character encoding for this byte stream,
     or `None` if unknown.
 
-InputSource.setCharacterStream(*charfile*)
+`InputSource.setCharacterStream(charfile)`
 :   Set the character stream (a [text file](https://docs.python.org/3.12/glossary.html#term-text-file)) for this input source.
 
     If there is a character stream specified, the SAX parser will ignore any byte
     stream and will not attempt to open a URI connection to the system identifier.
 
-InputSource.getCharacterStream()
+`InputSource.getCharacterStream()`
 :   Get the character stream for this input source.
 
 ## The `Attributes` Interface
@@ -243,16 +243,16 @@ InputSource.getCharacterStream()
 and `values()`. The following methods
 are also provided:
 
-Attributes.getLength()
+`Attributes.getLength()`
 :   Return the number of attributes.
 
-Attributes.getNames()
+`Attributes.getNames()`
 :   Return the names of the attributes.
 
-Attributes.getType(*name*)
+`Attributes.getType(name)`
 :   Returns the type of the attribute *name*, which is normally `'CDATA'`.
 
-Attributes.getValue(*name*)
+`Attributes.getValue(name)`
 :   Return the value of attribute *name*.
 
 ## The `AttributesNS` Interface
@@ -263,14 +263,14 @@ available on `AttributesNS` objects.
 
 The following methods are also available:
 
-AttributesNS.getValueByQName(*name*)
+`AttributesNS.getValueByQName(name)`
 :   Return the value for a qualified name.
 
-AttributesNS.getNameByQName(*name*)
+`AttributesNS.getNameByQName(name)`
 :   Return the `(namespace, localname)` pair for a qualified *name*.
 
-AttributesNS.getQNameByName(*name*)
+`AttributesNS.getQNameByName(name)`
 :   Return the qualified name for a `(namespace, localname)` pair.
 
-AttributesNS.getQNames()
+`AttributesNS.getQNames()`
 :   Return the qualified names of all attributes.

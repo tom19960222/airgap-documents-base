@@ -46,10 +46,10 @@ Notes on the availability of these functions:
 > the case of invalid or inaccessible file names and paths, or other arguments
 > that have the correct type, but are not accepted by the operating system.
 
-*exception* os.error
+`exception os.error`
 :   An alias for the built-in [`OSError`](exceptions.md#OSError "OSError") exception.
 
-os.name
+`os.name`
 :   The name of the operating system dependent module imported. The following
     names have currently been registered: `'posix'`, `'nt'`,
     `'java'`.
@@ -151,12 +151,12 @@ and the [filesystem encoding and error handler](https://docs.python.org/3.12/glo
 These functions and data items provide information and operate on the current
 process and user.
 
-os.ctermid()
+`os.ctermid()`
 :   Return the filename corresponding to the controlling terminal of the process.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.environ
+`os.environ`
 :   A [mapping](https://docs.python.org/3.12/glossary.html#term-mapping) object where keys and values are strings that represent
     the process environment. For example, `environ['HOME']` is the pathname
     of your home directory (on some platforms), and is equivalent to
@@ -198,7 +198,7 @@ os.environ
 
     Changed in version 3.9: Updated to support [**PEP 584**](https://peps.python.org/pep-0584/)’s merge (`|`) and update (`|=`) operators.
 
-os.environb
+`os.environb`
 :   Bytes version of [`environ`](os.md#os.environ "os.environ"): a [mapping](https://docs.python.org/3.12/glossary.html#term-mapping) object where both keys
     and values are [`bytes`](stdtypes.md#bytes "bytes") objects representing the process environment.
     [`environ`](os.md#os.environ "os.environ") and [`environb`](os.md#os.environb "os.environb") are synchronized (modifying
@@ -211,14 +211,14 @@ os.environb
 
     Changed in version 3.9: Updated to support [**PEP 584**](https://peps.python.org/pep-0584/)’s merge (`|`) and update (`|=`) operators.
 
-os.chdir(*path*)
+`os.chdir(path)`
 
-os.fchdir(*fd*)
+`os.fchdir(fd)`
 
-os.getcwd()
+`os.getcwd()`
 :   These functions are described in [Files and Directories](os.md#os-file-dir).
 
-os.fsencode(*filename*)
+`os.fsencode(filename)`
 :   Encode [path-like](https://docs.python.org/3.12/glossary.html#term-path-like-object) *filename* to the
     [filesystem encoding and error handler](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler); return [`bytes`](stdtypes.md#bytes "bytes")
     unchanged.
@@ -230,7 +230,7 @@ os.fsencode(*filename*)
     Changed in version 3.6: Support added to accept objects implementing the [`os.PathLike`](os.md#os.PathLike "os.PathLike")
     interface.
 
-os.fsdecode(*filename*)
+`os.fsdecode(filename)`
 :   Decode the [path-like](https://docs.python.org/3.12/glossary.html#term-path-like-object) *filename* from the
     [filesystem encoding and error handler](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler); return [`str`](stdtypes.md#str "str")
     unchanged.
@@ -242,7 +242,7 @@ os.fsdecode(*filename*)
     Changed in version 3.6: Support added to accept objects implementing the [`os.PathLike`](os.md#os.PathLike "os.PathLike")
     interface.
 
-os.fspath(*path*)
+`os.fspath(path)`
 :   Return the file system representation of the path.
 
     If [`str`](stdtypes.md#str "str") or [`bytes`](stdtypes.md#bytes "bytes") is passed in, it is returned unchanged.
@@ -252,19 +252,19 @@ os.fspath(*path*)
 
     Added in version 3.6.
 
-*class* os.PathLike
+`class os.PathLike`
 :   An [abstract base class](https://docs.python.org/3.12/glossary.html#term-abstract-base-class) for objects representing a file system path,
     e.g. [`pathlib.PurePath`](pathlib.md#pathlib.PurePath "pathlib.PurePath").
 
     Added in version 3.6.
 
-    *abstractmethod* __fspath__()
+    `abstractmethod __fspath__()`
     :   Return the file system path representation of the object.
 
         The method should only return a [`str`](stdtypes.md#str "str") or [`bytes`](stdtypes.md#bytes "bytes") object,
         with the preference being for [`str`](stdtypes.md#str "str").
 
-os.getenv(*key*, *default=None*)
+`os.getenv(key, default=None)`
 :   Return the value of the environment variable *key* as a string if it exists, or
     *default* if it doesn’t. *key* is a string. Note that
     since [`getenv()`](os.md#os.getenv "os.getenv") uses [`os.environ`](os.md#os.environ "os.environ"), the mapping of [`getenv()`](os.md#os.getenv "os.getenv") is
@@ -277,7 +277,7 @@ os.getenv(*key*, *default=None*)
 
     [Availability](intro.md#availability): Unix, Windows.
 
-os.getenvb(*key*, *default=None*)
+`os.getenvb(key, default=None)`
 :   Return the value of the environment variable *key* as bytes if it exists, or
     *default* if it doesn’t. *key* must be bytes. Note that
     since [`getenvb()`](os.md#os.getenvb "os.getenvb") uses [`os.environb`](os.md#os.environb "os.environb"), the mapping of [`getenvb()`](os.md#os.getenvb "os.getenvb") is
@@ -291,7 +291,7 @@ os.getenvb(*key*, *default=None*)
 
     Added in version 3.2.
 
-os.get_exec_path(*env=None*)
+`os.get_exec_path(env=None)`
 :   Returns the list of directories that will be searched for a named
     executable, similar to a shell, when launching a process.
     *env*, when specified, should be an environment variable dictionary
@@ -300,18 +300,18 @@ os.get_exec_path(*env=None*)
 
     Added in version 3.2.
 
-os.getegid()
+`os.getegid()`
 :   Return the effective group id of the current process. This corresponds to the
     “set id” bit on the file being executed in the current process.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.geteuid()
+`os.geteuid()`
 :   Return the current process’s effective user id.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.getgid()
+`os.getgid()`
 :   Return the real group id of the current process.
 
     [Availability](intro.md#availability): Unix.
@@ -319,7 +319,7 @@ os.getgid()
     The function is a stub on Emscripten and WASI, see
     [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-os.getgrouplist(*user*, *group*, */*)
+`os.getgrouplist(user, group, /)`
 :   Return list of group ids that *user* belongs to. If *group* is not in the
     list, it is included; typically, *group* is specified as the group ID
     field from the password record for *user*, because that group ID will
@@ -329,7 +329,7 @@ os.getgrouplist(*user*, *group*, */*)
 
     Added in version 3.3.
 
-os.getgroups()
+`os.getgroups()`
 :   Return list of supplemental group ids associated with the current process.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
@@ -350,7 +350,7 @@ os.getgroups()
     > deployment target value, `MACOSX_DEPLOYMENT_TARGET`, can be
     > obtained with [`sysconfig.get_config_var()`](sysconfig.md#sysconfig.get_config_var "sysconfig.get_config_var").
 
-os.getlogin()
+`os.getlogin()`
 :   Return the name of the user logged in on the controlling terminal of the
     process. For most purposes, it is more useful to use
     [`getpass.getuser()`](getpass.md#getpass.getuser "getpass.getuser") since the latter checks the environment variables
@@ -360,24 +360,24 @@ os.getlogin()
 
     [Availability](intro.md#availability): Unix, Windows, not Emscripten, not WASI.
 
-os.getpgid(*pid*)
+`os.getpgid(pid)`
 :   Return the process group id of the process with process id *pid*. If *pid* is 0,
     the process group id of the current process is returned.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.getpgrp()
+`os.getpgrp()`
 :   Return the id of the current process group.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.getpid()
+`os.getpid()`
 :   Return the current process id.
 
     The function is a stub on Emscripten and WASI, see
     [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-os.getppid()
+`os.getppid()`
 :   Return the parent’s process id. When the parent process has exited, on Unix
     the id returned is the one of the init process (1), on Windows it is still
     the same id, which may be already reused by another process.
@@ -386,7 +386,7 @@ os.getppid()
 
     Changed in version 3.2: Added support for Windows.
 
-os.getpriority(*which*, *who*)
+`os.getpriority(which, who)`
 :   Get program scheduling priority. The value *which* is one of
     [`PRIO_PROCESS`](os.md#os.PRIO_PROCESS "os.PRIO_PROCESS"), [`PRIO_PGRP`](os.md#os.PRIO_PGRP "os.PRIO_PGRP"), or [`PRIO_USER`](os.md#os.PRIO_USER "os.PRIO_USER"), and *who*
     is interpreted relative to *which* (a process identifier for
@@ -399,31 +399,31 @@ os.getpriority(*which*, *who*)
 
     Added in version 3.3.
 
-os.PRIO_PROCESS
+`os.PRIO_PROCESS`
 
-os.PRIO_PGRP
+`os.PRIO_PGRP`
 
-os.PRIO_USER
+`os.PRIO_USER`
 :   Parameters for the [`getpriority()`](os.md#os.getpriority "os.getpriority") and [`setpriority()`](os.md#os.setpriority "os.setpriority") functions.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
     Added in version 3.3.
 
-os.PRIO_DARWIN_THREAD
+`os.PRIO_DARWIN_THREAD`
 
-os.PRIO_DARWIN_PROCESS
+`os.PRIO_DARWIN_PROCESS`
 
-os.PRIO_DARWIN_BG
+`os.PRIO_DARWIN_BG`
 
-os.PRIO_DARWIN_NONUI
+`os.PRIO_DARWIN_NONUI`
 :   Parameters for the [`getpriority()`](os.md#os.getpriority "os.getpriority") and [`setpriority()`](os.md#os.setpriority "os.setpriority") functions.
 
     [Availability](intro.md#availability): macOS
 
     Added in version 3.12.
 
-os.getresuid()
+`os.getresuid()`
 :   Return a tuple (ruid, euid, suid) denoting the current process’s
     real, effective, and saved user ids.
 
@@ -431,7 +431,7 @@ os.getresuid()
 
     Added in version 3.2.
 
-os.getresgid()
+`os.getresgid()`
 :   Return a tuple (rgid, egid, sgid) denoting the current process’s
     real, effective, and saved group ids.
 
@@ -439,7 +439,7 @@ os.getresgid()
 
     Added in version 3.2.
 
-os.getuid()
+`os.getuid()`
 :   Return the current process’s real user id.
 
     [Availability](intro.md#availability): Unix.
@@ -447,7 +447,7 @@ os.getuid()
     The function is a stub on Emscripten and WASI, see
     [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-os.initgroups(*username*, *gid*, */*)
+`os.initgroups(username, gid, /)`
 :   Call the system initgroups() to initialize the group access list with all of
     the groups of which the specified username is a member, plus the specified
     group id.
@@ -456,7 +456,7 @@ os.initgroups(*username*, *gid*, */*)
 
     Added in version 3.2.
 
-os.putenv(*key*, *value*, */*)
+`os.putenv(key, value, /)`
 :   Set the environment variable named *key* to the string *value*. Such
     changes to the environment affect subprocesses started with [`os.system()`](os.md#os.system "os.system"),
     [`popen()`](os.md#os.popen "os.popen") or [`fork()`](os.md#os.fork "os.fork") and [`execv()`](os.md#os.execv "os.execv").
@@ -476,22 +476,22 @@ os.putenv(*key*, *value*, */*)
 
     Changed in version 3.9: The function is now always available.
 
-os.setegid(*egid*, */*)
+`os.setegid(egid, /)`
 :   Set the current process’s effective group id.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.seteuid(*euid*, */*)
+`os.seteuid(euid, /)`
 :   Set the current process’s effective user id.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.setgid(*gid*, */*)
+`os.setgid(gid, /)`
 :   Set the current process’ group id.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.setgroups(*groups*, */*)
+`os.setgroups(groups, /)`
 :   Set the list of supplemental group ids associated with the current process to
     *groups*. *groups* must be a sequence, and each element must be an integer
     identifying a group. This operation is typically available only to the superuser.
@@ -505,7 +505,7 @@ os.setgroups(*groups*, */*)
     > See the documentation for [`getgroups()`](os.md#os.getgroups "os.getgroups") for cases where it may not
     > return the same group list set by calling setgroups().
 
-os.setns(*fd*, *nstype=0*)
+`os.setns(fd, nstype=0)`
 :   Reassociate the current thread with a Linux namespace.
     See the *[setns(2)](https://manpages.debian.org/setns(2))* and *[namespaces(7)](https://manpages.debian.org/namespaces(7))* man pages for more
     details.
@@ -544,20 +544,20 @@ os.setns(*fd*, *nstype=0*)
     >
     > The [`unshare()`](os.md#os.unshare "os.unshare") function.
 
-os.setpgrp()
+`os.setpgrp()`
 :   Call the system call `setpgrp()` or `setpgrp(0, 0)` depending on
     which version is implemented (if any). See the Unix manual for the semantics.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.setpgid(*pid*, *pgrp*, */*)
+`os.setpgid(pid, pgrp, /)`
 :   Call the system call `setpgid()` to set the process group id of the
     process with id *pid* to the process group with id *pgrp*. See the Unix manual
     for the semantics.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.setpriority(*which*, *who*, *priority*)
+`os.setpriority(which, who, priority)`
 :   Set program scheduling priority. The value *which* is one of
     [`PRIO_PROCESS`](os.md#os.PRIO_PROCESS "os.PRIO_PROCESS"), [`PRIO_PGRP`](os.md#os.PRIO_PGRP "os.PRIO_PGRP"), or [`PRIO_USER`](os.md#os.PRIO_USER "os.PRIO_USER"), and *who*
     is interpreted relative to *which* (a process identifier for
@@ -572,63 +572,63 @@ os.setpriority(*which*, *who*, *priority*)
 
     Added in version 3.3.
 
-os.setregid(*rgid*, *egid*, */*)
+`os.setregid(rgid, egid, /)`
 :   Set the current process’s real and effective group ids.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.setresgid(*rgid*, *egid*, *sgid*, */*)
+`os.setresgid(rgid, egid, sgid, /)`
 :   Set the current process’s real, effective, and saved group ids.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
     Added in version 3.2.
 
-os.setresuid(*ruid*, *euid*, *suid*, */*)
+`os.setresuid(ruid, euid, suid, /)`
 :   Set the current process’s real, effective, and saved user ids.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
     Added in version 3.2.
 
-os.setreuid(*ruid*, *euid*, */*)
+`os.setreuid(ruid, euid, /)`
 :   Set the current process’s real and effective user ids.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.getsid(*pid*, */*)
+`os.getsid(pid, /)`
 :   Call the system call `getsid()`. See the Unix manual for the semantics.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.setsid()
+`os.setsid()`
 :   Call the system call `setsid()`. See the Unix manual for the semantics.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.setuid(*uid*, */*)
+`os.setuid(uid, /)`
 :   Set the current process’s user id.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.strerror(*code*, */*)
+`os.strerror(code, /)`
 :   Return the error message corresponding to the error code in *code*.
     On platforms where `strerror()` returns `NULL` when given an unknown
     error number, [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
 
-os.supports_bytes_environ
+`os.supports_bytes_environ`
 :   `True` if the native OS type of the environment is bytes (eg. `False` on
     Windows).
 
     Added in version 3.2.
 
-os.umask(*mask*, */*)
+`os.umask(mask, /)`
 :   Set the current numeric umask and return the previous umask.
 
     The function is a stub on Emscripten and WASI, see
     [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-os.uname()
+`os.uname()`
 :   Returns information identifying the current operating system.
     The return value is an object with five attributes:
 
@@ -653,7 +653,7 @@ os.uname()
     Changed in version 3.3: Return type changed from a tuple to a tuple-like object
     with named attributes.
 
-os.unsetenv(*key*, */*)
+`os.unsetenv(key, /)`
 :   Unset (delete) the environment variable named *key*. Such changes to the
     environment affect subprocesses started with [`os.system()`](os.md#os.system "os.system"), [`popen()`](os.md#os.popen "os.popen") or
     [`fork()`](os.md#os.fork "os.fork") and [`execv()`](os.md#os.execv "os.execv").
@@ -667,7 +667,7 @@ os.unsetenv(*key*, */*)
 
     Changed in version 3.9: The function is now always available and is also available on Windows.
 
-os.unshare(*flags*)
+`os.unshare(flags)`
 :   Disassociate parts of the process execution context, and move them into a
     newly created namespace.
     See the *[unshare(2)](https://manpages.debian.org/unshare(2))*
@@ -691,40 +691,40 @@ Flags to the [`unshare()`](os.md#os.unshare "os.unshare") function, if the imple
 See *[unshare(2)](https://manpages.debian.org/unshare(2))* in the Linux manual
 for their exact effect and availability.
 
-os.CLONE_FILES
+`os.CLONE_FILES`
 
-os.CLONE_FS
+`os.CLONE_FS`
 
-os.CLONE_NEWCGROUP
+`os.CLONE_NEWCGROUP`
 
-os.CLONE_NEWIPC
+`os.CLONE_NEWIPC`
 
-os.CLONE_NEWNET
+`os.CLONE_NEWNET`
 
-os.CLONE_NEWNS
+`os.CLONE_NEWNS`
 
-os.CLONE_NEWPID
+`os.CLONE_NEWPID`
 
-os.CLONE_NEWTIME
+`os.CLONE_NEWTIME`
 
-os.CLONE_NEWUSER
+`os.CLONE_NEWUSER`
 
-os.CLONE_NEWUTS
+`os.CLONE_NEWUTS`
 
-os.CLONE_SIGHAND
+`os.CLONE_SIGHAND`
 
-os.CLONE_SYSVSEM
+`os.CLONE_SYSVSEM`
 
-os.CLONE_THREAD
+`os.CLONE_THREAD`
 
-os.CLONE_VM
+`os.CLONE_VM`
 
 ## File Object Creation
 
 These functions create new [file objects](https://docs.python.org/3.12/glossary.html#term-file-object). (See also
 [`open()`](os.md#os.open "os.open") for opening file descriptors.)
 
-os.fdopen(*fd*, *\*args*, *\*\*kwargs*)
+`os.fdopen(fd, *args, **kwargs)`
 :   Return an open file object connected to the file descriptor *fd*. This is an
     alias of the [`open()`](functions.md#open "open") built-in function and accepts the same arguments.
     The only difference is that the first argument of [`fdopen()`](os.md#os.fdopen "os.fdopen") must always
@@ -746,7 +746,7 @@ associated with a [file object](https://docs.python.org/3.12/glossary.html#term-
 descriptor directly will bypass the file object methods, ignoring aspects such
 as internal buffering of data.
 
-os.close(*fd*)
+`os.close(fd)`
 :   Close file descriptor *fd*.
 
     > **Note:**
@@ -756,7 +756,7 @@ os.close(*fd*)
     > object” returned by the built-in function [`open()`](functions.md#open "open") or by [`popen()`](os.md#os.popen "os.popen") or
     > [`fdopen()`](os.md#os.fdopen "os.fdopen"), use its [`close()`](io.md#io.IOBase.close "io.IOBase.close") method.
 
-os.closerange(*fd_low*, *fd_high*, */*)
+`os.closerange(fd_low, fd_high, /)`
 :   Close all file descriptors from *fd_low* (inclusive) to *fd_high* (exclusive),
     ignoring errors. Equivalent to (but much faster than):
 
@@ -768,7 +768,7 @@ os.closerange(*fd_low*, *fd_high*, */*)
             pass
     ```
 
-os.copy_file_range(*src*, *dst*, *count*, *offset_src=None*, *offset_dst=None*)
+`os.copy_file_range(src, dst, count, offset_src=None, offset_dst=None)`
 :   Copy *count* bytes from file descriptor *src*, starting from offset
     *offset_src*, to file descriptor *dst*, starting from offset *offset_dst*.
     If *offset_src* is `None`, then *src* is read from the current position;
@@ -802,7 +802,7 @@ os.copy_file_range(*src*, *dst*, *count*, *offset_src=None*, *offset_dst=None*)
 
     Added in version 3.8.
 
-os.device_encoding(*fd*)
+`os.device_encoding(fd)`
 :   Return a string describing the encoding of the device associated with *fd*
     if it is connected to a terminal; else return [`None`](constants.md#None "None").
 
@@ -811,7 +811,7 @@ os.device_encoding(*fd*)
 
     Changed in version 3.10: On Unix, the function now implements the Python UTF-8 Mode.
 
-os.dup(*fd*, */*)
+`os.dup(fd, /)`
 :   Return a duplicate of file descriptor *fd*. The new file descriptor is
     [non-inheritable](os.md#fd-inheritance).
 
@@ -822,7 +822,7 @@ os.dup(*fd*, */*)
 
     Changed in version 3.4: The new file descriptor is now non-inheritable.
 
-os.dup2(*fd*, *fd2*, *inheritable=True*)
+`os.dup2(fd, fd2, inheritable=True)`
 :   Duplicate file descriptor *fd* to *fd2*, closing the latter first if
     necessary. Return *fd2*. The new file descriptor is [inheritable](os.md#fd-inheritance) by default or non-inheritable if *inheritable*
     is `False`.
@@ -833,7 +833,7 @@ os.dup2(*fd*, *fd2*, *inheritable=True*)
 
     Changed in version 3.7: Return *fd2* on success. Previously, `None` was always returned.
 
-os.fchmod(*fd*, *mode*)
+`os.fchmod(fd, mode)`
 :   Change the mode of the file given by *fd* to the numeric *mode*. See the
     docs for [`chmod()`](os.md#os.chmod "os.chmod") for possible values of *mode*. As of Python 3.3, this
     is equivalent to `os.chmod(fd, mode)`.
@@ -845,7 +845,7 @@ os.fchmod(*fd*, *mode*)
     The function is limited on Emscripten and WASI, see
     [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-os.fchown(*fd*, *uid*, *gid*)
+`os.fchown(fd, uid, gid)`
 :   Change the owner and group id of the file given by *fd* to the numeric *uid*
     and *gid*. To leave one of the ids unchanged, set it to -1. See
     [`chown()`](os.md#os.chown "os.chown"). As of Python 3.3, this is equivalent to `os.chown(fd, uid,
@@ -858,7 +858,7 @@ os.fchown(*fd*, *uid*, *gid*)
     The function is limited on Emscripten and WASI, see
     [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-os.fdatasync(*fd*)
+`os.fdatasync(fd)`
 :   Force write of file with filedescriptor *fd* to disk. Does not force update of
     metadata.
 
@@ -868,7 +868,7 @@ os.fdatasync(*fd*)
     >
     > This function is not available on MacOS.
 
-os.fpathconf(*fd*, *name*, */*)
+`os.fpathconf(fd, name, /)`
 :   Return system configuration information relevant to an open file. *name*
     specifies the configuration value to retrieve; it may be a string which is the
     name of a defined system value; these names are specified in a number of
@@ -886,7 +886,7 @@ os.fpathconf(*fd*, *name*, */*)
 
     [Availability](intro.md#availability): Unix.
 
-os.fstat(*fd*)
+`os.fstat(fd)`
 :   Get the status of the file descriptor *fd*. Return a [`stat_result`](os.md#os.stat_result "os.stat_result")
     object.
 
@@ -896,14 +896,14 @@ os.fstat(*fd*)
     >
     > The [`stat()`](os.md#os.stat "os.stat") function.
 
-os.fstatvfs(*fd*, */*)
+`os.fstatvfs(fd, /)`
 :   Return information about the filesystem containing the file associated with
     file descriptor *fd*, like [`statvfs()`](os.md#os.statvfs "os.statvfs"). As of Python 3.3, this is
     equivalent to `os.statvfs(fd)`.
 
     [Availability](intro.md#availability): Unix.
 
-os.fsync(*fd*)
+`os.fsync(fd)`
 :   Force write of file with filedescriptor *fd* to disk. On Unix, this calls the
     native `fsync()` function; on Windows, the MS `_commit()` function.
 
@@ -913,7 +913,7 @@ os.fsync(*fd*)
 
     [Availability](intro.md#availability): Unix, Windows.
 
-os.ftruncate(*fd*, *length*, */*)
+`os.ftruncate(fd, length, /)`
 :   Truncate the file corresponding to file descriptor *fd*, so that it is at
     most *length* bytes in size. As of Python 3.3, this is equivalent to
     `os.truncate(fd, length)`.
@@ -924,7 +924,7 @@ os.ftruncate(*fd*, *length*, */*)
 
     Changed in version 3.5: Added support for Windows
 
-os.get_blocking(*fd*, */*)
+`os.get_blocking(fd, /)`
 :   Get the blocking mode of the file descriptor: `False` if the
     [`O_NONBLOCK`](os.md#os.O_NONBLOCK "os.O_NONBLOCK") flag is set, `True` if the flag is cleared.
 
@@ -941,11 +941,11 @@ os.get_blocking(*fd*, */*)
 
     Changed in version 3.12: Added support for pipes on Windows.
 
-os.isatty(*fd*, */*)
+`os.isatty(fd, /)`
 :   Return `True` if the file descriptor *fd* is open and connected to a
     tty(-like) device, else `False`.
 
-os.lockf(*fd*, *cmd*, *len*, */*)
+`os.lockf(fd, cmd, len, /)`
 :   Apply, test or remove a POSIX lock on an open file descriptor.
     *fd* is an open file descriptor.
     *cmd* specifies the command to use - one of [`F_LOCK`](os.md#os.F_LOCK "os.F_LOCK"), [`F_TLOCK`](os.md#os.F_TLOCK "os.F_TLOCK"),
@@ -958,20 +958,20 @@ os.lockf(*fd*, *cmd*, *len*, */*)
 
     Added in version 3.3.
 
-os.F_LOCK
+`os.F_LOCK`
 
-os.F_TLOCK
+`os.F_TLOCK`
 
-os.F_ULOCK
+`os.F_ULOCK`
 
-os.F_TEST
+`os.F_TEST`
 :   Flags that specify what action [`lockf()`](os.md#os.lockf "os.lockf") will take.
 
     [Availability](intro.md#availability): Unix.
 
     Added in version 3.3.
 
-os.login_tty(*fd*, */*)
+`os.login_tty(fd, /)`
 :   Prepare the tty of which fd is a file descriptor for a new login session.
     Make the calling process a session leader; make the tty the controlling tty,
     the stdin, the stdout, and the stderr of the calling process; close fd.
@@ -980,7 +980,7 @@ os.login_tty(*fd*, */*)
 
     Added in version 3.11.
 
-os.lseek(*fd*, *pos*, *whence*, */*)
+`os.lseek(fd, pos, whence, /)`
 :   Set the current position of file descriptor *fd* to position *pos*, modified
     by *whence*, and return the new position in bytes relative to
     the start of the file.
@@ -994,11 +994,11 @@ os.lseek(*fd*, *pos*, *whence*, */*)
 
     Changed in version 3.3: Add support for `SEEK_HOLE` and `SEEK_DATA`.
 
-os.SEEK_SET
+`os.SEEK_SET`
 
-os.SEEK_CUR
+`os.SEEK_CUR`
 
-os.SEEK_END
+`os.SEEK_END`
 :   Parameters to the [`lseek()`](os.md#os.lseek "os.lseek") function and the [`seek()`](io.md#io.IOBase.seek "io.IOBase.seek")
     method on [file-like objects](https://docs.python.org/3.12/glossary.html#term-file-object),
     for whence to adjust the file position indicator.
@@ -1014,9 +1014,9 @@ os.SEEK_END
 
     Their values are 0, 1, and 2, respectively.
 
-os.SEEK_HOLE
+`os.SEEK_HOLE`
 
-os.SEEK_DATA
+`os.SEEK_DATA`
 :   Parameters to the [`lseek()`](os.md#os.lseek "os.lseek") function and the [`seek()`](io.md#io.IOBase.seek "io.IOBase.seek")
     method on [file-like objects](https://docs.python.org/3.12/glossary.html#term-file-object),
     for seeking file data and holes on sparsely allocated files.
@@ -1038,7 +1038,7 @@ os.SEEK_DATA
 
     Added in version 3.3.
 
-os.open(*path*, *flags*, *mode=0o777*, *\**, *dir_fd=None*)
+`os.open(path, flags, mode=0o777, *, dir_fd=None)`
 :   Open the file *path* and set various flags according to *flags* and possibly
     its mode according to *mode*. When computing *mode*, the current umask value
     is first masked out. Return the file descriptor for the newly opened file.
@@ -1076,82 +1076,82 @@ The following constants are options for the *flags* parameter to the
 their availability and use, consult the *[open(2)](https://manpages.debian.org/open(2))* manual page on Unix
 or [the MSDN](https://msdn.microsoft.com/en-us/library/z0kc8e3z.aspx) on Windows.
 
-os.O_RDONLY
+`os.O_RDONLY`
 
-os.O_WRONLY
+`os.O_WRONLY`
 
-os.O_RDWR
+`os.O_RDWR`
 
-os.O_APPEND
+`os.O_APPEND`
 
-os.O_CREAT
+`os.O_CREAT`
 
-os.O_EXCL
+`os.O_EXCL`
 
-os.O_TRUNC
+`os.O_TRUNC`
 :   The above constants are available on Unix and Windows.
 
-os.O_DSYNC
+`os.O_DSYNC`
 
-os.O_RSYNC
+`os.O_RSYNC`
 
-os.O_SYNC
+`os.O_SYNC`
 
-os.O_NDELAY
+`os.O_NDELAY`
 
-os.O_NONBLOCK
+`os.O_NONBLOCK`
 
-os.O_NOCTTY
+`os.O_NOCTTY`
 
-os.O_CLOEXEC
+`os.O_CLOEXEC`
 :   The above constants are only available on Unix.
 
     Changed in version 3.3: Add [`O_CLOEXEC`](os.md#os.O_CLOEXEC "os.O_CLOEXEC") constant.
 
-os.O_BINARY
+`os.O_BINARY`
 
-os.O_NOINHERIT
+`os.O_NOINHERIT`
 
-os.O_SHORT_LIVED
+`os.O_SHORT_LIVED`
 
-os.O_TEMPORARY
+`os.O_TEMPORARY`
 
-os.O_RANDOM
+`os.O_RANDOM`
 
-os.O_SEQUENTIAL
+`os.O_SEQUENTIAL`
 
-os.O_TEXT
+`os.O_TEXT`
 :   The above constants are only available on Windows.
 
-os.O_EVTONLY
+`os.O_EVTONLY`
 
-os.O_FSYNC
+`os.O_FSYNC`
 
-os.O_SYMLINK
+`os.O_SYMLINK`
 
-os.O_NOFOLLOW_ANY
+`os.O_NOFOLLOW_ANY`
 :   The above constants are only available on macOS.
 
     Changed in version 3.10: Add [`O_EVTONLY`](os.md#os.O_EVTONLY "os.O_EVTONLY"), [`O_FSYNC`](os.md#os.O_FSYNC "os.O_FSYNC"), [`O_SYMLINK`](os.md#os.O_SYMLINK "os.O_SYMLINK")
     and [`O_NOFOLLOW_ANY`](os.md#os.O_NOFOLLOW_ANY "os.O_NOFOLLOW_ANY") constants.
 
-os.O_ASYNC
+`os.O_ASYNC`
 
-os.O_DIRECT
+`os.O_DIRECT`
 
-os.O_DIRECTORY
+`os.O_DIRECTORY`
 
-os.O_NOFOLLOW
+`os.O_NOFOLLOW`
 
-os.O_NOATIME
+`os.O_NOATIME`
 
-os.O_PATH
+`os.O_PATH`
 
-os.O_TMPFILE
+`os.O_TMPFILE`
 
-os.O_SHLOCK
+`os.O_SHLOCK`
 
-os.O_EXLOCK
+`os.O_EXLOCK`
 :   The above constants are extensions and not present if they are not defined by
     the C library.
 
@@ -1159,7 +1159,7 @@ os.O_EXLOCK
     Add [`O_TMPFILE`](os.md#os.O_TMPFILE "os.O_TMPFILE"), only available on Linux Kernel 3.11
     or newer.
 
-os.openpty()
+`os.openpty()`
 :   Open a new pseudo-terminal pair. Return a pair of file descriptors
     `(master, slave)` for the pty and the tty, respectively. The new file
     descriptors are [non-inheritable](os.md#fd-inheritance). For a (slightly) more
@@ -1169,7 +1169,7 @@ os.openpty()
 
     Changed in version 3.4: The new file descriptors are now non-inheritable.
 
-os.pipe()
+`os.pipe()`
 :   Create a pipe. Return a pair of file descriptors `(r, w)` usable for
     reading and writing, respectively. The new file descriptor is
     [non-inheritable](os.md#fd-inheritance).
@@ -1178,7 +1178,7 @@ os.pipe()
 
     Changed in version 3.4: The new file descriptors are now non-inheritable.
 
-os.pipe2(*flags*, */*)
+`os.pipe2(flags, /)`
 :   Create a pipe with *flags* set atomically.
     *flags* can be constructed by ORing together one or more of these values:
     [`O_NONBLOCK`](os.md#os.O_NONBLOCK "os.O_NONBLOCK"), [`O_CLOEXEC`](os.md#os.O_CLOEXEC "os.O_CLOEXEC").
@@ -1189,7 +1189,7 @@ os.pipe2(*flags*, */*)
 
     Added in version 3.3.
 
-os.posix_fallocate(*fd*, *offset*, *len*, */*)
+`os.posix_fallocate(fd, offset, len, /)`
 :   Ensures that enough disk space is allocated for the file specified by *fd*
     starting from *offset* and continuing for *len* bytes.
 
@@ -1197,7 +1197,7 @@ os.posix_fallocate(*fd*, *offset*, *len*, */*)
 
     Added in version 3.3.
 
-os.posix_fadvise(*fd*, *offset*, *len*, *advice*, */*)
+`os.posix_fadvise(fd, offset, len, advice, /)`
 :   Announces an intention to access data in a specific pattern thus allowing
     the kernel to make optimizations.
     The advice applies to the region of the file specified by *fd* starting at
@@ -1210,17 +1210,17 @@ os.posix_fadvise(*fd*, *offset*, *len*, *advice*, */*)
 
     Added in version 3.3.
 
-os.POSIX_FADV_NORMAL
+`os.POSIX_FADV_NORMAL`
 
-os.POSIX_FADV_SEQUENTIAL
+`os.POSIX_FADV_SEQUENTIAL`
 
-os.POSIX_FADV_RANDOM
+`os.POSIX_FADV_RANDOM`
 
-os.POSIX_FADV_NOREUSE
+`os.POSIX_FADV_NOREUSE`
 
-os.POSIX_FADV_WILLNEED
+`os.POSIX_FADV_WILLNEED`
 
-os.POSIX_FADV_DONTNEED
+`os.POSIX_FADV_DONTNEED`
 :   Flags that can be used in *advice* in [`posix_fadvise()`](os.md#os.posix_fadvise "os.posix_fadvise") that specify
     the access pattern that is likely to be used.
 
@@ -1228,7 +1228,7 @@ os.POSIX_FADV_DONTNEED
 
     Added in version 3.3.
 
-os.pread(*fd*, *n*, *offset*, */*)
+`os.pread(fd, n, offset, /)`
 :   Read at most *n* bytes from file descriptor *fd* at a position of *offset*,
     leaving the file offset unchanged.
 
@@ -1239,7 +1239,7 @@ os.pread(*fd*, *n*, *offset*, */*)
 
     Added in version 3.3.
 
-os.preadv(*fd*, *buffers*, *offset*, *flags=0*, */*)
+`os.preadv(fd, buffers, offset, flags=0, /)`
 :   Read from a file descriptor *fd* at a position of *offset* into mutable
     [bytes-like objects](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *buffers*, leaving the file
     offset unchanged. Transfer data into each buffer until it is full and then
@@ -1265,7 +1265,7 @@ os.preadv(*fd*, *buffers*, *offset*, *flags=0*, */*)
 
     Added in version 3.7.
 
-os.RWF_NOWAIT
+`os.RWF_NOWAIT`
 :   Do not wait for data which is not immediately available. If this flag is
     specified, the system call will return instantly if it would have to read
     data from the backing storage or wait for a lock.
@@ -1278,7 +1278,7 @@ os.RWF_NOWAIT
 
     Added in version 3.7.
 
-os.RWF_HIPRI
+`os.RWF_HIPRI`
 :   High priority read/write. Allows block-based filesystems to use polling
     of the device, which provides lower latency, but may use additional
     resources.
@@ -1290,7 +1290,7 @@ os.RWF_HIPRI
 
     Added in version 3.7.
 
-os.pwrite(*fd*, *str*, *offset*, */*)
+`os.pwrite(fd, str, offset, /)`
 :   Write the bytestring in *str* to file descriptor *fd* at position of
     *offset*, leaving the file offset unchanged.
 
@@ -1300,7 +1300,7 @@ os.pwrite(*fd*, *str*, *offset*, */*)
 
     Added in version 3.3.
 
-os.pwritev(*fd*, *buffers*, *offset*, *flags=0*, */*)
+`os.pwritev(fd, buffers, offset, flags=0, /)`
 :   Write the *buffers* contents to file descriptor *fd* at an offset *offset*,
     leaving the file offset unchanged. *buffers* must be a sequence of
     [bytes-like objects](https://docs.python.org/3.12/glossary.html#term-bytes-like-object). Buffers are processed in
@@ -1327,7 +1327,7 @@ os.pwritev(*fd*, *buffers*, *offset*, *flags=0*, */*)
 
     Added in version 3.7.
 
-os.RWF_DSYNC
+`os.RWF_DSYNC`
 :   Provide a per-write equivalent of the [`O_DSYNC`](os.md#os.O_DSYNC "os.O_DSYNC") [`os.open()`](os.md#os.open "os.open") flag.
     This flag effect applies only to the data range written by the system call.
 
@@ -1335,7 +1335,7 @@ os.RWF_DSYNC
 
     Added in version 3.7.
 
-os.RWF_SYNC
+`os.RWF_SYNC`
 :   Provide a per-write equivalent of the [`O_SYNC`](os.md#os.O_SYNC "os.O_SYNC") [`os.open()`](os.md#os.open "os.open") flag.
     This flag effect applies only to the data range written by the system call.
 
@@ -1343,7 +1343,7 @@ os.RWF_SYNC
 
     Added in version 3.7.
 
-os.RWF_APPEND
+`os.RWF_APPEND`
 :   Provide a per-write equivalent of the [`O_APPEND`](os.md#os.O_APPEND "os.O_APPEND") [`os.open()`](os.md#os.open "os.open")
     flag. This flag is meaningful only for [`os.pwritev()`](os.md#os.pwritev "os.pwritev"), and its
     effect applies only to the data range written by the system call. The
@@ -1355,7 +1355,7 @@ os.RWF_APPEND
 
     Added in version 3.10.
 
-os.read(*fd*, *n*, */*)
+`os.read(fd, n, /)`
 :   Read at most *n* bytes from file descriptor *fd*.
 
     Return a bytestring containing the bytes read. If the end of the file
@@ -1373,9 +1373,9 @@ os.read(*fd*, *n*, */*)
     exception, the function now retries the system call instead of raising an
     [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-os.sendfile(*out_fd*, *in_fd*, *offset*, *count*)
+`os.sendfile(out_fd, in_fd, offset, count)`
 
-os.sendfile(*out_fd*, *in_fd*, *offset*, *count*, *headers=()*, *trailers=()*, *flags=0*)
+`os.sendfile(out_fd, in_fd, offset, count, headers=(), trailers=(), flags=0)`
 :   Copy *count* bytes from file descriptor *in_fd* to file descriptor *out_fd*
     starting at *offset*.
     Return the number of bytes sent. When EOF is reached return `0`.
@@ -1410,11 +1410,11 @@ os.sendfile(*out_fd*, *in_fd*, *offset*, *count*, *headers=()*, *trailers=()*, *
 
     Changed in version 3.9: Parameters *out* and *in* was renamed to *out_fd* and *in_fd*.
 
-os.SF_NODISKIO
+`os.SF_NODISKIO`
 
-os.SF_MNOWAIT
+`os.SF_MNOWAIT`
 
-os.SF_SYNC
+`os.SF_SYNC`
 :   Parameters to the [`sendfile()`](os.md#os.sendfile "os.sendfile") function, if the implementation supports
     them.
 
@@ -1422,7 +1422,7 @@ os.SF_SYNC
 
     Added in version 3.3.
 
-os.SF_NOCACHE
+`os.SF_NOCACHE`
 :   Parameter to the [`sendfile()`](os.md#os.sendfile "os.sendfile") function, if the implementation supports
     it. The data won’t be cached in the virtual memory and will be freed afterwards.
 
@@ -1430,7 +1430,7 @@ os.SF_NOCACHE
 
     Added in version 3.11.
 
-os.set_blocking(*fd*, *blocking*, */*)
+`os.set_blocking(fd, blocking, /)`
 :   Set the blocking mode of the specified file descriptor. Set the
     [`O_NONBLOCK`](os.md#os.O_NONBLOCK "os.O_NONBLOCK") flag if blocking is `False`, clear the flag otherwise.
 
@@ -1447,7 +1447,7 @@ os.set_blocking(*fd*, *blocking*, */*)
 
     Changed in version 3.12: Added support for pipes on Windows.
 
-os.splice(*src*, *dst*, *count*, *offset_src=None*, *offset_dst=None*)
+`os.splice(src, dst, count, offset_src=None, offset_dst=None)`
 :   Transfer *count* bytes from file descriptor *src*, starting from offset
     *offset_src*, to file descriptor *dst*, starting from offset *offset_dst*.
     At least one of the file descriptors must refer to a pipe. If *offset_src*
@@ -1472,14 +1472,14 @@ os.splice(*src*, *dst*, *count*, *offset_src=None*, *offset_dst=None*)
 
     Added in version 3.10.
 
-os.SPLICE_F_MOVE
+`os.SPLICE_F_MOVE`
 
-os.SPLICE_F_NONBLOCK
+`os.SPLICE_F_NONBLOCK`
 
-os.SPLICE_F_MORE
+`os.SPLICE_F_MORE`
 :   Added in version 3.10.
 
-os.readv(*fd*, *buffers*, */*)
+`os.readv(fd, buffers, /)`
 :   Read from a file descriptor *fd* into a number of mutable [bytes-like
     objects](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *buffers*. Transfer data into each buffer until
     it is full and then move on to the next buffer in the sequence to hold the
@@ -1495,26 +1495,26 @@ os.readv(*fd*, *buffers*, */*)
 
     Added in version 3.3.
 
-os.tcgetpgrp(*fd*, */*)
+`os.tcgetpgrp(fd, /)`
 :   Return the process group associated with the terminal given by *fd* (an open
     file descriptor as returned by [`os.open()`](os.md#os.open "os.open")).
 
     [Availability](intro.md#availability): Unix, not WASI.
 
-os.tcsetpgrp(*fd*, *pg*, */*)
+`os.tcsetpgrp(fd, pg, /)`
 :   Set the process group associated with the terminal given by *fd* (an open file
     descriptor as returned by [`os.open()`](os.md#os.open "os.open")) to *pg*.
 
     [Availability](intro.md#availability): Unix, not WASI.
 
-os.ttyname(*fd*, */*)
+`os.ttyname(fd, /)`
 :   Return a string which specifies the terminal device associated with
     file descriptor *fd*. If *fd* is not associated with a terminal device, an
     exception is raised.
 
     [Availability](intro.md#availability): Unix.
 
-os.write(*fd*, *str*, */*)
+`os.write(fd, str, /)`
 :   Write the bytestring in *str* to file descriptor *fd*.
 
     Return the number of bytes actually written.
@@ -1531,7 +1531,7 @@ os.write(*fd*, *str*, */*)
     exception, the function now retries the system call instead of raising an
     [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-os.writev(*fd*, *buffers*, */*)
+`os.writev(fd, buffers, /)`
 :   Write the contents of *buffers* to file descriptor *fd*. *buffers* must be
     a sequence of [bytes-like objects](https://docs.python.org/3.12/glossary.html#term-bytes-like-object). Buffers are
     processed in array order. Entire contents of the first buffer is written
@@ -1550,7 +1550,7 @@ os.writev(*fd*, *buffers*, */*)
 
 Added in version 3.3.
 
-os.get_terminal_size(*fd=STDOUT_FILENO*, */*)
+`os.get_terminal_size(fd=STDOUT_FILENO, /)`
 :   Return the size of the terminal window as `(columns, lines)`,
     tuple of type [`terminal_size`](os.md#os.terminal_size "os.terminal_size").
 
@@ -1566,13 +1566,13 @@ os.get_terminal_size(*fd=STDOUT_FILENO*, */*)
 
     [Availability](intro.md#availability): Unix, Windows.
 
-*class* os.terminal_size
+`class os.terminal_size`
 :   A subclass of tuple, holding `(columns, lines)` of the terminal window size.
 
-    columns
+    `columns`
     :   Width of the terminal window in characters.
 
-    lines
+    `lines`
     :   Height of the terminal window in characters.
 
 ### Inheritance of File Descriptors
@@ -1597,18 +1597,18 @@ streams are closed, and inheritable handles are only inherited if the
 On WebAssembly platforms `wasm32-emscripten` and `wasm32-wasi`, the file
 descriptor cannot be modified.
 
-os.get_inheritable(*fd*, */*)
+`os.get_inheritable(fd, /)`
 :   Get the “inheritable” flag of the specified file descriptor (a boolean).
 
-os.set_inheritable(*fd*, *inheritable*, */*)
+`os.set_inheritable(fd, inheritable, /)`
 :   Set the “inheritable” flag of the specified file descriptor.
 
-os.get_handle_inheritable(*handle*, */*)
+`os.get_handle_inheritable(handle, /)`
 :   Get the “inheritable” flag of the specified handle (a boolean).
 
     [Availability](intro.md#availability): Windows.
 
-os.set_handle_inheritable(*handle*, *inheritable*, */*)
+`os.set_handle_inheritable(handle, inheritable, /)`
 :   Set the “inheritable” flag of the specified handle.
 
     [Availability](intro.md#availability): Windows.
@@ -1655,7 +1655,7 @@ features:
   function on your platform using [`os.supports_follow_symlinks`](os.md#os.supports_follow_symlinks "os.supports_follow_symlinks").
   If it’s unavailable, using it will raise a [`NotImplementedError`](exceptions.md#NotImplementedError "NotImplementedError").
 
-os.access(*path*, *mode*, *\**, *dir_fd=None*, *effective_ids=False*, *follow_symlinks=True*)
+`os.access(path, mode, *, dir_fd=None, effective_ids=False, follow_symlinks=True)`
 :   Use the real uid/gid to test for access to *path*. Note that most operations
     will use the effective uid/gid, therefore this routine can be used in a
     suid/sgid environment to test if the invoking user has the specified access to
@@ -1711,18 +1711,18 @@ os.access(*path*, *mode*, *\**, *dir_fd=None*, *effective_ids=False*, *follow_sy
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.F_OK
+`os.F_OK`
 
-os.R_OK
+`os.R_OK`
 
-os.W_OK
+`os.W_OK`
 
-os.X_OK
+`os.X_OK`
 :   Values to pass as the *mode* parameter of [`access()`](os.md#os.access "os.access") to test the
     existence, readability, writability and executability of *path*,
     respectively.
 
-os.chdir(*path*)
+`os.chdir(path)`
 :   Change the current working directory to *path*.
 
     This function can support [specifying a file descriptor](os.md#path-fd). The
@@ -1738,7 +1738,7 @@ os.chdir(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.chflags(*path*, *flags*, *\**, *follow_symlinks=True*)
+`os.chflags(path, flags, *, follow_symlinks=True)`
 :   Set the flags of *path* to the numeric *flags*. *flags* may take a combination
     (bitwise OR) of the following values (as defined in the [`stat`](stat.md#module-stat "stat: Utilities for interpreting the results of os.stat(), os.lstat() and os.fstat().") module):
 
@@ -1765,7 +1765,7 @@ os.chflags(*path*, *flags*, *\**, *follow_symlinks=True*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.chmod(*path*, *mode*, *\**, *dir_fd=None*, *follow_symlinks=True*)
+`os.chmod(path, mode, *, dir_fd=None, follow_symlinks=True)`
 :   Change the mode of *path* to the numeric *mode*. *mode* may take one of the
     following values (as defined in the [`stat`](stat.md#module-stat "stat: Utilities for interpreting the results of os.stat(), os.lstat() and os.fstat().") module) or bitwise ORed
     combinations of them:
@@ -1810,7 +1810,7 @@ os.chmod(*path*, *mode*, *\**, *dir_fd=None*, *follow_symlinks=True*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.chown(*path*, *uid*, *gid*, *\**, *dir_fd=None*, *follow_symlinks=True*)
+`os.chown(path, uid, gid, *, dir_fd=None, follow_symlinks=True)`
 :   Change the owner and group id of *path* to the numeric *uid* and *gid*. To
     leave one of the ids unchanged, set it to -1.
 
@@ -1833,14 +1833,14 @@ os.chown(*path*, *uid*, *gid*, *\**, *dir_fd=None*, *follow_symlinks=True*)
 
     Changed in version 3.6: Supports a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.chroot(*path*)
+`os.chroot(path)`
 :   Change the root directory of the current process to *path*.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.fchdir(*fd*)
+`os.fchdir(fd)`
 :   Change the current working directory to the directory represented by the file
     descriptor *fd*. The descriptor must refer to an opened directory, not an
     open file. As of Python 3.3, this is equivalent to `os.chdir(fd)`.
@@ -1849,17 +1849,17 @@ os.fchdir(*fd*)
 
     [Availability](intro.md#availability): Unix.
 
-os.getcwd()
+`os.getcwd()`
 :   Return a string representing the current working directory.
 
-os.getcwdb()
+`os.getcwdb()`
 :   Return a bytestring representing the current working directory.
 
     Changed in version 3.8: The function now uses the UTF-8 encoding on Windows, rather than the ANSI
     code page: see [**PEP 529**](https://peps.python.org/pep-0529/) for the rationale. The function is no longer
     deprecated on Windows.
 
-os.lchflags(*path*, *flags*)
+`os.lchflags(path, flags)`
 :   Set the flags of *path* to the numeric *flags*, like [`chflags()`](os.md#os.chflags "os.chflags"), but do
     not follow symbolic links. As of Python 3.3, this is equivalent to
     `os.chflags(path, flags, follow_symlinks=False)`.
@@ -1870,7 +1870,7 @@ os.lchflags(*path*, *flags*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.lchmod(*path*, *mode*)
+`os.lchmod(path, mode)`
 :   Change the mode of *path* to the numeric *mode*. If path is a symlink, this
     affects the symlink rather than the target. See the docs for [`chmod()`](os.md#os.chmod "os.chmod")
     for possible values of *mode*. As of Python 3.3, this is equivalent to
@@ -1885,7 +1885,7 @@ os.lchmod(*path*, *mode*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.lchown(*path*, *uid*, *gid*)
+`os.lchown(path, uid, gid)`
 :   Change the owner and group id of *path* to the numeric *uid* and *gid*. This
     function will not follow symbolic links. As of Python 3.3, this is equivalent
     to `os.chown(path, uid, gid, follow_symlinks=False)`.
@@ -1896,7 +1896,7 @@ os.lchown(*path*, *uid*, *gid*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.link(*src*, *dst*, *\**, *src_dir_fd=None*, *dst_dir_fd=None*, *follow_symlinks=True*)
+`os.link(src, dst, *, src_dir_fd=None, dst_dir_fd=None, follow_symlinks=True)`
 :   Create a hard link pointing to *src* named *dst*.
 
     This function can support specifying *src_dir_fd* and/or *dst_dir_fd* to
@@ -1913,7 +1913,7 @@ os.link(*src*, *dst*, *\**, *src_dir_fd=None*, *dst_dir_fd=None*, *follow_symlin
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *src* and *dst*.
 
-os.listdir(*path='.'*)
+`os.listdir(path='.')`
 :   Return a list containing the names of the entries in the directory given by
     *path*. The list is in arbitrary order, and does not include the special
     entries `'.'` and `'..'` even if they are present in the directory.
@@ -1945,7 +1945,7 @@ os.listdir(*path='.'*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.listdrives()
+`os.listdrives()`
 :   Return a list containing the names of drives on a Windows system.
 
     A drive name typically looks like `'C:\\'`. Not every drive name
@@ -1962,7 +1962,7 @@ os.listdrives()
 
     Added in version 3.12.
 
-os.listmounts(*volume*)
+`os.listmounts(volume)`
 :   Return a list containing the mount points for a volume on a Windows
     system.
 
@@ -1984,7 +1984,7 @@ os.listmounts(*volume*)
 
     Added in version 3.12.
 
-os.listvolumes()
+`os.listvolumes()`
 :   Return a list containing the volumes in the system.
 
     Volumes are typically represented as a GUID path that looks like
@@ -2002,7 +2002,7 @@ os.listvolumes()
 
     Added in version 3.12.
 
-os.lstat(*path*, *\**, *dir_fd=None*)
+`os.lstat(path, *, dir_fd=None)`
 :   Perform the equivalent of an `lstat()` system call on the given path.
     Similar to [`stat()`](os.md#os.stat "os.stat"), but does not follow symbolic links. Return a
     [`stat_result`](os.md#os.stat_result "os.stat_result") object.
@@ -2030,7 +2030,7 @@ os.lstat(*path*, *\**, *dir_fd=None*)
     Other kinds of reparse points are resolved by the operating system as
     for [`stat()`](os.md#os.stat "os.stat").
 
-os.mkdir(*path*, *mode=0o777*, *\**, *dir_fd=None*)
+`os.mkdir(path, mode=0o777, *, dir_fd=None)`
 :   Create a directory named *path* with numeric mode *mode*.
 
     If the directory already exists, [`FileExistsError`](exceptions.md#FileExistsError "FileExistsError") is raised. If a parent
@@ -2059,7 +2059,7 @@ os.mkdir(*path*, *mode=0o777*, *\**, *dir_fd=None*)
 
     Changed in version 3.12.4: Windows now handles a *mode* of `0o700`.
 
-os.makedirs(*name*, *mode=0o777*, *exist_ok=False*)
+`os.makedirs(name, mode=0o777, exist_ok=False)`
 :   Recursive directory creation function. Like [`mkdir()`](os.md#os.mkdir "os.mkdir"), but makes all
     intermediate-level directories needed to contain the leaf directory.
 
@@ -2093,7 +2093,7 @@ os.makedirs(*name*, *mode=0o777*, *exist_ok=False*)
     Changed in version 3.7: The *mode* argument no longer affects the file permission bits of
     newly created intermediate-level directories.
 
-os.mkfifo(*path*, *mode=0o666*, *\**, *dir_fd=None*)
+`os.mkfifo(path, mode=0o666, *, dir_fd=None)`
 :   Create a FIFO (a named pipe) named *path* with numeric mode *mode*.
     The current umask value is first masked out from the mode.
 
@@ -2111,7 +2111,7 @@ os.mkfifo(*path*, *mode=0o666*, *\**, *dir_fd=None*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.mknod(*path*, *mode=0o600*, *device=0*, *\**, *dir_fd=None*)
+`os.mknod(path, mode=0o600, device=0, *, dir_fd=None)`
 :   Create a filesystem node (file, device special file or named pipe) named
     *path*. *mode* specifies both the permissions to use and the type of node
     to be created, being combined (bitwise OR) with one of `stat.S_IFREG`,
@@ -2128,18 +2128,18 @@ os.mknod(*path*, *mode=0o600*, *device=0*, *\**, *dir_fd=None*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.major(*device*, */*)
+`os.major(device, /)`
 :   Extract the device major number from a raw device number (usually the
     `st_dev` or `st_rdev` field from `stat`).
 
-os.minor(*device*, */*)
+`os.minor(device, /)`
 :   Extract the device minor number from a raw device number (usually the
     `st_dev` or `st_rdev` field from `stat`).
 
-os.makedev(*major*, *minor*, */*)
+`os.makedev(major, minor, /)`
 :   Compose a raw device number from the major and minor device numbers.
 
-os.pathconf(*path*, *name*)
+`os.pathconf(path, name)`
 :   Return system configuration information relevant to a named file. *name*
     specifies the configuration value to retrieve; it may be a string which is the
     name of a defined system value; these names are specified in a number of
@@ -2159,14 +2159,14 @@ os.pathconf(*path*, *name*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.pathconf_names
+`os.pathconf_names`
 :   Dictionary mapping names accepted by [`pathconf()`](os.md#os.pathconf "os.pathconf") and [`fpathconf()`](os.md#os.fpathconf "os.fpathconf") to
     the integer values defined for those names by the host operating system. This
     can be used to determine the set of names known to the system.
 
     [Availability](intro.md#availability): Unix.
 
-os.readlink(*path*, *\**, *dir_fd=None*)
+`os.readlink(path, *, dir_fd=None)`
 :   Return a string representing the path to which the symbolic link points. The
     result may be either an absolute or relative pathname; if it is relative, it
     may be converted to an absolute pathname using
@@ -2197,7 +2197,7 @@ os.readlink(*path*, *\**, *dir_fd=None*)
     substitution path (which typically includes `\\?\` prefix) rather
     than the optional “print name” field that was previously returned.
 
-os.remove(*path*, *\**, *dir_fd=None*)
+`os.remove(path, *, dir_fd=None)`
 :   Remove (delete) the file *path*. If *path* is a directory, an
     [`OSError`](exceptions.md#OSError "OSError") is raised. Use [`rmdir()`](os.md#os.rmdir "os.rmdir") to remove directories.
     If the file does not exist, a [`FileNotFoundError`](exceptions.md#FileNotFoundError "FileNotFoundError") is raised.
@@ -2216,7 +2216,7 @@ os.remove(*path*, *\**, *dir_fd=None*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.removedirs(*name*)
+`os.removedirs(name)`
 :   Remove directories recursively. Works like [`rmdir()`](os.md#os.rmdir "os.rmdir") except that, if the
     leaf directory is successfully removed, [`removedirs()`](os.md#os.removedirs "os.removedirs") tries to
     successively remove every parent directory mentioned in *path* until an error
@@ -2230,7 +2230,7 @@ os.removedirs(*name*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.rename(*src*, *dst*, *\**, *src_dir_fd=None*, *dst_dir_fd=None*)
+`os.rename(src, dst, *, src_dir_fd=None, dst_dir_fd=None)`
 :   Rename the file or directory *src* to *dst*. If *dst* exists, the operation
     will fail with an [`OSError`](exceptions.md#OSError "OSError") subclass in a number of cases:
 
@@ -2258,7 +2258,7 @@ os.rename(*src*, *dst*, *\**, *src_dir_fd=None*, *dst_dir_fd=None*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *src* and *dst*.
 
-os.renames(*old*, *new*)
+`os.renames(old, new)`
 :   Recursive directory or file renaming function. Works like [`rename()`](os.md#os.rename "os.rename"), except
     creation of any intermediate directories needed to make the new pathname good is
     attempted first. After the rename, directories corresponding to rightmost path
@@ -2273,7 +2273,7 @@ os.renames(*old*, *new*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *old* and *new*.
 
-os.replace(*src*, *dst*, *\**, *src_dir_fd=None*, *dst_dir_fd=None*)
+`os.replace(src, dst, *, src_dir_fd=None, dst_dir_fd=None)`
 :   Rename the file or directory *src* to *dst*. If *dst* is a non-empty directory,
     [`OSError`](exceptions.md#OSError "OSError") will be raised. If *dst* exists and is a file, it will
     be replaced silently if the user has permission. The operation may fail
@@ -2289,7 +2289,7 @@ os.replace(*src*, *dst*, *\**, *src_dir_fd=None*, *dst_dir_fd=None*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *src* and *dst*.
 
-os.rmdir(*path*, *\**, *dir_fd=None*)
+`os.rmdir(path, *, dir_fd=None)`
 :   Remove (delete) the directory *path*. If the directory does not exist or is
     not empty, a [`FileNotFoundError`](exceptions.md#FileNotFoundError "FileNotFoundError") or an [`OSError`](exceptions.md#OSError "OSError") is raised
     respectively. In order to remove whole directory trees,
@@ -2303,7 +2303,7 @@ os.rmdir(*path*, *\**, *dir_fd=None*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.scandir(*path='.'*)
+`os.scandir(path='.')`
 :   Return an iterator of [`os.DirEntry`](os.md#os.DirEntry "os.DirEntry") objects corresponding to the
     entries in the directory given by *path*. The entries are yielded in
     arbitrary order, and the special entries `'.'` and `'..'` are not
@@ -2334,7 +2334,7 @@ os.scandir(*path='.'*)
     The [`scandir()`](os.md#os.scandir "os.scandir") iterator supports the [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager) protocol
     and has the following method:
 
-    scandir.close()
+    `scandir.close()`
     :   Close the iterator and free acquired resources.
 
         This is called automatically when the iterator is exhausted or garbage
@@ -2379,7 +2379,7 @@ os.scandir(*path='.'*)
 
     Changed in version 3.7: Added support for [file descriptors](os.md#path-fd) on Unix.
 
-*class* os.DirEntry
+`class os.DirEntry`
 :   Object yielded by [`scandir()`](os.md#os.scandir "os.scandir") to expose the file path and other file
     attributes of a directory entry.
 
@@ -2402,7 +2402,7 @@ os.scandir(*path='.'*)
 
     Attributes and methods on a `os.DirEntry` instance are as follows:
 
-    name
+    `name`
     :   The entry’s base filename, relative to the [`scandir()`](os.md#os.scandir "os.scandir") *path*
         argument.
 
@@ -2410,7 +2410,7 @@ os.scandir(*path='.'*)
         *path* argument is of type `bytes` and `str` otherwise. Use
         [`fsdecode()`](os.md#os.fsdecode "os.fsdecode") to decode byte filenames.
 
-    path
+    `path`
     :   The entry’s full path name: equivalent to `os.path.join(scandir_path,
         entry.name)` where *scandir_path* is the [`scandir()`](os.md#os.scandir "os.scandir") *path*
         argument. The path is only absolute if the [`scandir()`](os.md#os.scandir "os.scandir") *path*
@@ -2422,7 +2422,7 @@ os.scandir(*path='.'*)
         *path* argument is of type `bytes` and `str` otherwise. Use
         [`fsdecode()`](os.md#os.fsdecode "os.fsdecode") to decode byte filenames.
 
-    inode()
+    `inode()`
     :   Return the inode number of the entry.
 
         The result is cached on the `os.DirEntry` object. Use
@@ -2432,7 +2432,7 @@ os.scandir(*path='.'*)
         On the first, uncached call, a system call is required on Windows but
         not on Unix.
 
-    is_dir(*\**, *follow_symlinks=True*)
+    `is_dir(*, follow_symlinks=True)`
     :   Return `True` if this entry is a directory or a symbolic link pointing
         to a directory; return `False` if the entry is or points to any other
         kind of file, or if it doesn’t exist anymore.
@@ -2455,7 +2455,7 @@ os.scandir(*path='.'*)
         This method can raise [`OSError`](exceptions.md#OSError "OSError"), such as [`PermissionError`](exceptions.md#PermissionError "PermissionError"),
         but [`FileNotFoundError`](exceptions.md#FileNotFoundError "FileNotFoundError") is caught and not raised.
 
-    is_file(*\**, *follow_symlinks=True*)
+    `is_file(*, follow_symlinks=True)`
     :   Return `True` if this entry is a file or a symbolic link pointing to a
         file; return `False` if the entry is or points to a directory or other
         non-file entry, or if it doesn’t exist anymore.
@@ -2467,7 +2467,7 @@ os.scandir(*path='.'*)
         The result is cached on the `os.DirEntry` object. Caching, system calls
         made, and exceptions raised are as per [`is_dir()`](os.md#os.DirEntry.is_dir "os.DirEntry.is_dir").
 
-    is_symlink()
+    `is_symlink()`
     :   Return `True` if this entry is a symbolic link (even if broken);
         return `False` if the entry points to a directory or any kind of file,
         or if it doesn’t exist anymore.
@@ -2483,7 +2483,7 @@ os.scandir(*path='.'*)
         This method can raise [`OSError`](exceptions.md#OSError "OSError"), such as [`PermissionError`](exceptions.md#PermissionError "PermissionError"),
         but [`FileNotFoundError`](exceptions.md#FileNotFoundError "FileNotFoundError") is caught and not raised.
 
-    is_junction()
+    `is_junction()`
     :   Return `True` if this entry is a junction (even if broken);
         return `False` if the entry points to a regular directory, any kind
         of file, a symlink, or if it doesn’t exist anymore.
@@ -2493,7 +2493,7 @@ os.scandir(*path='.'*)
 
         Added in version 3.12.
 
-    stat(*\**, *follow_symlinks=True*)
+    `stat(*, follow_symlinks=True)`
     :   Return a [`stat_result`](os.md#os.stat_result "os.stat_result") object for this entry. This method
         follows symbolic links by default; to stat a symbolic link add the
         `follow_symlinks=False` argument.
@@ -2527,7 +2527,7 @@ os.scandir(*path='.'*)
     in the future `st_ctime` may be changed to return zero or the
     metadata change time, if available.
 
-os.stat(*path*, *\**, *dir_fd=None*, *follow_symlinks=True*)
+`os.stat(path, *, dir_fd=None, follow_symlinks=True)`
 :   Get the status of a file or a file descriptor. Perform the equivalent of a
     `stat()` system call on the given path. *path* may be specified as
     either a string or bytes – directly or indirectly through the [`PathLike`](os.md#os.PathLike "os.PathLike")
@@ -2580,17 +2580,17 @@ os.stat(*path*, *\**, *dir_fd=None*, *follow_symlinks=True*)
     returns the information for the original path as if
     `follow_symlinks=False` had been specified instead of raising an error.
 
-*class* os.stat_result
+`class os.stat_result`
 :   Object whose attributes correspond roughly to the members of the
     `stat` structure. It is used for the result of [`os.stat()`](os.md#os.stat "os.stat"),
     [`os.fstat()`](os.md#os.fstat "os.fstat") and [`os.lstat()`](os.md#os.lstat "os.lstat").
 
     Attributes:
 
-    st_mode
+    `st_mode`
     :   File mode: file type and file mode bits (permissions).
 
-    st_ino
+    `st_ino`
     :   Platform dependent, but if non-zero, uniquely identifies the
         file for a given value of `st_dev`. Typically:
 
@@ -2598,50 +2598,50 @@ os.stat(*path*, *\**, *dir_fd=None*, *follow_symlinks=True*)
         - the [file index](https://msdn.microsoft.com/en-us/library/aa363788) on
           Windows
 
-    st_dev
+    `st_dev`
     :   Identifier of the device on which this file resides.
 
-    st_nlink
+    `st_nlink`
     :   Number of hard links.
 
-    st_uid
+    `st_uid`
     :   User identifier of the file owner.
 
-    st_gid
+    `st_gid`
     :   Group identifier of the file owner.
 
-    st_size
+    `st_size`
     :   Size of the file in bytes, if it is a regular file or a symbolic link.
         The size of a symbolic link is the length of the pathname it contains,
         without a terminating null byte.
 
     Timestamps:
 
-    st_atime
+    `st_atime`
     :   Time of most recent access expressed in seconds.
 
-    st_mtime
+    `st_mtime`
     :   Time of most recent content modification expressed in seconds.
 
-    st_ctime
+    `st_ctime`
     :   Time of most recent metadata change expressed in seconds.
 
         Changed in version 3.12: `st_ctime` is deprecated on Windows. Use `st_birthtime` for
         the file creation time. In the future, `st_ctime` will contain
         the time of the most recent metadata change, as for other platforms.
 
-    st_atime_ns
+    `st_atime_ns`
     :   Time of most recent access expressed in nanoseconds as an integer.
 
         Added in version 3.3.
 
-    st_mtime_ns
+    `st_mtime_ns`
     :   Time of most recent content modification expressed in nanoseconds as an
         integer.
 
         Added in version 3.3.
 
-    st_ctime_ns
+    `st_ctime_ns`
     :   Time of most recent metadata change expressed in nanoseconds as an
         integer.
 
@@ -2651,13 +2651,13 @@ os.stat(*path*, *\**, *dir_fd=None*, *follow_symlinks=True*)
         for the file creation time. In the future, `st_ctime` will contain
         the time of the most recent metadata change, as for other platforms.
 
-    st_birthtime
+    `st_birthtime`
     :   Time of file creation expressed in seconds. This attribute is not
         always available, and may raise [`AttributeError`](exceptions.md#AttributeError "AttributeError").
 
         Changed in version 3.12: `st_birthtime` is now available on Windows.
 
-    st_birthtime_ns
+    `st_birthtime_ns`
     :   Time of file creation expressed in nanoseconds as an integer.
         This attribute is not always available, and may raise
         [`AttributeError`](exceptions.md#AttributeError "AttributeError").
@@ -2686,47 +2686,47 @@ os.stat(*path*, *\**, *dir_fd=None*, *follow_symlinks=True*)
     On some Unix systems (such as Linux), the following attributes may also be
     available:
 
-    st_blocks
+    `st_blocks`
     :   Number of 512-byte blocks allocated for file.
         This may be smaller than [`st_size`](os.md#os.stat_result.st_size "os.stat_result.st_size")/512 when the file has holes.
 
-    st_blksize
+    `st_blksize`
     :   “Preferred” blocksize for efficient file system I/O. Writing to a file in
         smaller chunks may cause an inefficient read-modify-rewrite.
 
-    st_rdev
+    `st_rdev`
     :   Type of device if an inode device.
 
-    st_flags
+    `st_flags`
     :   User defined flags for file.
 
     On other Unix systems (such as FreeBSD), the following attributes may be
     available (but may be only filled out if root tries to use them):
 
-    st_gen
+    `st_gen`
     :   File generation number.
 
     On Solaris and derivatives, the following attributes may also be
     available:
 
-    st_fstype
+    `st_fstype`
     :   String that uniquely identifies the type of the filesystem that
         contains the file.
 
     On macOS systems, the following attributes may also be available:
 
-    st_rsize
+    `st_rsize`
     :   Real size of the file.
 
-    st_creator
+    `st_creator`
     :   Creator of the file.
 
-    st_type
+    `st_type`
     :   File type.
 
     On Windows systems, the following attributes are also available:
 
-    st_file_attributes
+    `st_file_attributes`
     :   Windows file attributes: `dwFileAttributes` member of the
         `BY_HANDLE_FILE_INFORMATION` structure returned by
         `GetFileInformationByHandle()`.
@@ -2735,7 +2735,7 @@ os.stat(*path*, *\**, *dir_fd=None*, *follow_symlinks=True*)
 
         Added in version 3.5.
 
-    st_reparse_tag
+    `st_reparse_tag`
     :   When [`st_file_attributes`](os.md#os.stat_result.st_file_attributes "os.stat_result.st_file_attributes") has the [`FILE_ATTRIBUTE_REPARSE_POINT`](stat.md#stat.FILE_ATTRIBUTE_REPARSE_POINT "stat.FILE_ATTRIBUTE_REPARSE_POINT")
         set, this field contains the tag identifying the type of reparse point.
         See the [`IO_REPARSE_TAG_*`](stat.md#stat.IO_REPARSE_TAG_SYMLINK "stat.IO_REPARSE_TAG_SYMLINK")
@@ -2779,7 +2779,7 @@ os.stat(*path*, *\**, *dir_fd=None*, *follow_symlinks=True*)
 
     Added the [`st_birthtime`](os.md#os.stat_result.st_birthtime "os.stat_result.st_birthtime") member on Windows.
 
-os.statvfs(*path*)
+`os.statvfs(path)`
 :   Perform a `statvfs()` system call on the given path. The return value is
     an object whose attributes describe the filesystem on the given path, and
     correspond to the members of the `statvfs` structure, namely:
@@ -2818,7 +2818,7 @@ os.statvfs(*path*)
 
     Changed in version 3.7: Added the `f_fsid` attribute.
 
-os.supports_dir_fd
+`os.supports_dir_fd`
 :   A [`set`](stdtypes.md#set "set") object indicating which functions in the [`os`](os.md#module-os "os: Miscellaneous operating system interfaces.")
     module accept an open file descriptor for their *dir_fd* parameter.
     Different platforms provide different features, and the underlying
@@ -2843,7 +2843,7 @@ os.supports_dir_fd
 
     Added in version 3.3.
 
-os.supports_effective_ids
+`os.supports_effective_ids`
 :   A [`set`](stdtypes.md#set "set") object indicating whether [`os.access()`](os.md#os.access "os.access") permits
     specifying `True` for its *effective_ids* parameter on the local platform.
     (Specifying `False` for *effective_ids* is always supported on all
@@ -2862,7 +2862,7 @@ os.supports_effective_ids
 
     Added in version 3.3.
 
-os.supports_fd
+`os.supports_fd`
 :   A [`set`](stdtypes.md#set "set") object indicating which functions in the
     [`os`](os.md#module-os "os: Miscellaneous operating system interfaces.") module permit specifying their *path* parameter as an open file
     descriptor on the local platform. Different platforms provide different
@@ -2882,7 +2882,7 @@ os.supports_fd
 
     Added in version 3.3.
 
-os.supports_follow_symlinks
+`os.supports_follow_symlinks`
 :   A [`set`](stdtypes.md#set "set") object indicating which functions in the [`os`](os.md#module-os "os: Miscellaneous operating system interfaces.") module
     accept `False` for their *follow_symlinks* parameter on the local platform.
     Different platforms provide different features, and the underlying
@@ -2905,7 +2905,7 @@ os.supports_follow_symlinks
 
     Added in version 3.3.
 
-os.symlink(*src*, *dst*, *target_is_directory=False*, *\**, *dir_fd=None*)
+`os.symlink(src, dst, target_is_directory=False, *, dir_fd=None)`
 :   Create a symbolic link pointing to *src* named *dst*.
 
     On Windows, a symlink represents either a file or a directory, and does not
@@ -2942,14 +2942,14 @@ os.symlink(*src*, *dst*, *target_is_directory=False*, *\**, *dir_fd=None*)
 
     Changed in version 3.8: Added support for unelevated symlinks on Windows with Developer Mode.
 
-os.sync()
+`os.sync()`
 :   Force write of everything to disk.
 
     [Availability](intro.md#availability): Unix.
 
     Added in version 3.3.
 
-os.truncate(*path*, *length*)
+`os.truncate(path, length)`
 :   Truncate the file corresponding to *path*, so that it is at most
     *length* bytes in size.
 
@@ -2965,7 +2965,7 @@ os.truncate(*path*, *length*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.unlink(*path*, *\**, *dir_fd=None*)
+`os.unlink(path, *, dir_fd=None)`
 :   Remove (delete) the file *path*. This function is semantically
     identical to [`remove()`](os.md#os.remove "os.remove"); the `unlink` name is its
     traditional Unix name. Please see the documentation for
@@ -2977,7 +2977,7 @@ os.unlink(*path*, *\**, *dir_fd=None*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.utime(*path*, *times=None*, *\**, [*ns*, ]*dir_fd=None*, *follow_symlinks=True*)
+`os.utime(path, times=None, *, [ns, ]dir_fd=None, follow_symlinks=True)`
 :   Set the access and modified times of the file specified by *path*.
 
     [`utime()`](os.md#os.utime "os.utime") takes two optional parameters, *times* and *ns*.
@@ -3013,7 +3013,7 @@ os.utime(*path*, *times=None*, *\**, [*ns*, ]*dir_fd=None*, *follow_symlinks=Tru
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.walk(*top*, *topdown=True*, *onerror=None*, *followlinks=False*)
+`os.walk(top, topdown=True, onerror=None, followlinks=False)`
 :   Generate the file names in a directory tree by walking the tree
     either top-down or bottom-up. For each directory in the tree rooted at directory
     *top* (including *top* itself), it yields a 3-tuple `(dirpath, dirnames,
@@ -3109,7 +3109,7 @@ os.walk(*top*, *topdown=True*, *onerror=None*, *followlinks=False*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.fwalk(*top='.'*, *topdown=True*, *onerror=None*, *\**, *follow_symlinks=False*, *dir_fd=None*)
+`os.fwalk(top='.', topdown=True, onerror=None, *, follow_symlinks=False, dir_fd=None)`
 :   This behaves exactly like [`walk()`](os.md#os.walk "os.walk"), except that it yields a 4-tuple
     `(dirpath, dirnames, filenames, dirfd)`, and it supports `dir_fd`.
 
@@ -3168,7 +3168,7 @@ os.fwalk(*top='.'*, *topdown=True*, *onerror=None*, *\**, *follow_symlinks=False
 
     Changed in version 3.7: Added support for [`bytes`](stdtypes.md#bytes "bytes") paths.
 
-os.memfd_create(*name*[, *flags=os.MFD_CLOEXEC*])
+`os.memfd_create(name[, flags=os.MFD_CLOEXEC])`
 :   Create an anonymous file and return a file descriptor that refers to it.
     *flags* must be one of the `os.MFD_*` constants available on the system
     (or a bitwise ORed combination of them). By default, the new file
@@ -3185,39 +3185,39 @@ os.memfd_create(*name*[, *flags=os.MFD_CLOEXEC*])
 
     Added in version 3.8.
 
-os.MFD_CLOEXEC
+`os.MFD_CLOEXEC`
 
-os.MFD_ALLOW_SEALING
+`os.MFD_ALLOW_SEALING`
 
-os.MFD_HUGETLB
+`os.MFD_HUGETLB`
 
-os.MFD_HUGE_SHIFT
+`os.MFD_HUGE_SHIFT`
 
-os.MFD_HUGE_MASK
+`os.MFD_HUGE_MASK`
 
-os.MFD_HUGE_64KB
+`os.MFD_HUGE_64KB`
 
-os.MFD_HUGE_512KB
+`os.MFD_HUGE_512KB`
 
-os.MFD_HUGE_1MB
+`os.MFD_HUGE_1MB`
 
-os.MFD_HUGE_2MB
+`os.MFD_HUGE_2MB`
 
-os.MFD_HUGE_8MB
+`os.MFD_HUGE_8MB`
 
-os.MFD_HUGE_16MB
+`os.MFD_HUGE_16MB`
 
-os.MFD_HUGE_32MB
+`os.MFD_HUGE_32MB`
 
-os.MFD_HUGE_256MB
+`os.MFD_HUGE_256MB`
 
-os.MFD_HUGE_512MB
+`os.MFD_HUGE_512MB`
 
-os.MFD_HUGE_1GB
+`os.MFD_HUGE_1GB`
 
-os.MFD_HUGE_2GB
+`os.MFD_HUGE_2GB`
 
-os.MFD_HUGE_16GB
+`os.MFD_HUGE_16GB`
 :   These flags can be passed to [`memfd_create()`](os.md#os.memfd_create "os.memfd_create").
 
     [Availability](intro.md#availability): Linux >= 3.17 with glibc >= 2.27
@@ -3226,7 +3226,7 @@ os.MFD_HUGE_16GB
 
     Added in version 3.8.
 
-os.eventfd(*initval*[, *flags=os.EFD_CLOEXEC*])
+`os.eventfd(initval[, flags=os.EFD_CLOEXEC])`
 :   Create and return an event file descriptor. The file descriptors supports
     raw [`read()`](os.md#os.read "os.read") and [`write()`](os.md#os.write "os.write") with a buffer size of 8,
     [`select()`](select.md#select.select "select.select"), [`poll()`](select.md#select.poll "select.poll") and similar. See man page
@@ -3278,7 +3278,7 @@ os.eventfd(*initval*[, *flags=os.EFD_CLOEXEC*])
 
     Added in version 3.10.
 
-os.eventfd_read(*fd*)
+`os.eventfd_read(fd)`
 :   Read value from an [`eventfd()`](os.md#os.eventfd "os.eventfd") file descriptor and return a 64 bit
     unsigned int. The function does not verify that *fd* is an [`eventfd()`](os.md#os.eventfd "os.eventfd").
 
@@ -3286,7 +3286,7 @@ os.eventfd_read(*fd*)
 
     Added in version 3.10.
 
-os.eventfd_write(*fd*, *value*)
+`os.eventfd_write(fd, value)`
 :   Add value to an [`eventfd()`](os.md#os.eventfd "os.eventfd") file descriptor. *value* must be a 64 bit
     unsigned int. The function does not verify that *fd* is an [`eventfd()`](os.md#os.eventfd "os.eventfd").
 
@@ -3294,14 +3294,14 @@ os.eventfd_write(*fd*, *value*)
 
     Added in version 3.10.
 
-os.EFD_CLOEXEC
+`os.EFD_CLOEXEC`
 :   Set close-on-exec flag for new [`eventfd()`](os.md#os.eventfd "os.eventfd") file descriptor.
 
     [Availability](intro.md#availability): Linux >= 2.6.27
 
     Added in version 3.10.
 
-os.EFD_NONBLOCK
+`os.EFD_NONBLOCK`
 :   Set [`O_NONBLOCK`](os.md#os.O_NONBLOCK "os.O_NONBLOCK") status flag for new [`eventfd()`](os.md#os.eventfd "os.eventfd") file
     descriptor.
 
@@ -3309,7 +3309,7 @@ os.EFD_NONBLOCK
 
     Added in version 3.10.
 
-os.EFD_SEMAPHORE
+`os.EFD_SEMAPHORE`
 :   Provide semaphore-like semantics for reads from an [`eventfd()`](os.md#os.eventfd "os.eventfd") file
     descriptor. On read the internal counter is decremented by one.
 
@@ -3323,7 +3323,7 @@ Added in version 3.3.
 
 These functions are all available on Linux only.
 
-os.getxattr(*path*, *attribute*, *\**, *follow_symlinks=True*)
+`os.getxattr(path, attribute, *, follow_symlinks=True)`
 :   Return the value of the extended filesystem attribute *attribute* for
     *path*. *attribute* can be bytes or str (directly or indirectly through the
     [`PathLike`](os.md#os.PathLike "os.PathLike") interface). If it is str, it is encoded with the filesystem
@@ -3336,7 +3336,7 @@ os.getxattr(*path*, *attribute*, *\**, *follow_symlinks=True*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *path* and *attribute*.
 
-os.listxattr(*path=None*, *\**, *follow_symlinks=True*)
+`os.listxattr(path=None, *, follow_symlinks=True)`
 :   Return a list of the extended filesystem attributes on *path*. The
     attributes in the list are represented as strings decoded with the filesystem
     encoding. If *path* is `None`, [`listxattr()`](os.md#os.listxattr "os.listxattr") will examine the current
@@ -3349,7 +3349,7 @@ os.listxattr(*path=None*, *\**, *follow_symlinks=True*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.removexattr(*path*, *attribute*, *\**, *follow_symlinks=True*)
+`os.removexattr(path, attribute, *, follow_symlinks=True)`
 :   Removes the extended filesystem attribute *attribute* from *path*.
     *attribute* should be bytes or str (directly or indirectly through the
     [`PathLike`](os.md#os.PathLike "os.PathLike") interface). If it is a string, it is encoded
@@ -3362,7 +3362,7 @@ os.removexattr(*path*, *attribute*, *\**, *follow_symlinks=True*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *path* and *attribute*.
 
-os.setxattr(*path*, *attribute*, *value*, *flags=0*, *\**, *follow_symlinks=True*)
+`os.setxattr(path, attribute, value, flags=0, *, follow_symlinks=True)`
 :   Set the extended filesystem attribute *attribute* on *path* to *value*.
     *attribute* must be a bytes or str with no embedded NULs (directly or
     indirectly through the [`PathLike`](os.md#os.PathLike "os.PathLike") interface). If it is a str,
@@ -3384,15 +3384,15 @@ os.setxattr(*path*, *attribute*, *value*, *flags=0*, *\**, *follow_symlinks=True
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *path* and *attribute*.
 
-os.XATTR_SIZE_MAX
+`os.XATTR_SIZE_MAX`
 :   The maximum size the value of an extended attribute can be. Currently, this
     is 64 KiB on Linux.
 
-os.XATTR_CREATE
+`os.XATTR_CREATE`
 :   This is a possible value for the flags argument in [`setxattr()`](os.md#os.setxattr "os.setxattr"). It
     indicates the operation must create an attribute.
 
-os.XATTR_REPLACE
+`os.XATTR_REPLACE`
 :   This is a possible value for the flags argument in [`setxattr()`](os.md#os.setxattr "os.setxattr"). It
     indicates the operation must replace an existing attribute.
 
@@ -3408,14 +3408,14 @@ passed to a program’s `main()`. For example, `os.execv('/bin/echo',
 ['foo', 'bar'])` will only print `bar` on standard output; `foo` will seem
 to be ignored.
 
-os.abort()
+`os.abort()`
 :   Generate a `SIGABRT` signal to the current process. On Unix, the default
     behavior is to produce a core dump; on Windows, the process immediately returns
     an exit code of `3`. Be aware that calling this function will not call the
     Python signal handler registered for `SIGABRT` with
     [`signal.signal()`](signal.md#signal.signal "signal.signal").
 
-os.add_dll_directory(*path*)
+`os.add_dll_directory(path)`
 :   Add a path to the DLL search path.
 
     This search path is used when resolving dependencies for imported
@@ -3443,21 +3443,21 @@ os.add_dll_directory(*path*)
     [porting notes](https://docs.python.org/3.12/whatsnew/3.8.html#bpo-36085-whatsnew) for information on
     updating libraries.
 
-os.execl(*path*, *arg0*, *arg1*, *...*)
+`os.execl(path, arg0, arg1, ...)`
 
-os.execle(*path*, *arg0*, *arg1*, *...*, *env*)
+`os.execle(path, arg0, arg1, ..., env)`
 
-os.execlp(*file*, *arg0*, *arg1*, *...*)
+`os.execlp(file, arg0, arg1, ...)`
 
-os.execlpe(*file*, *arg0*, *arg1*, *...*, *env*)
+`os.execlpe(file, arg0, arg1, ..., env)`
 
-os.execv(*path*, *args*)
+`os.execv(path, args)`
 
-os.execve(*path*, *args*, *env*)
+`os.execve(path, args, env)`
 
-os.execvp(*file*, *args*)
+`os.execvp(file, args)`
 
-os.execvpe(*file*, *args*, *env*)
+`os.execvpe(file, args, env)`
 :   These functions all execute a new program, replacing the current process; they
     do not return. On Unix, the new executable is loaded into the current process,
     and will have the same process id as the caller. Errors will be reported as
@@ -3510,7 +3510,7 @@ os.execvpe(*file*, *args*, *env*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os._exit(*n*)
+`os._exit(n)`
 :   Exit the process with status *n*, without calling cleanup handlers, flushing
     stdio buffers, etc.
 
@@ -3529,100 +3529,100 @@ written in Python, such as a mail server’s external command delivery program.
 > variation. These constants are defined where they are defined by the underlying
 > platform.
 
-os.EX_OK
+`os.EX_OK`
 :   Exit code that means no error occurred. May be taken from the defined value of
     `EXIT_SUCCESS` on some platforms. Generally has a value of zero.
 
     [Availability](intro.md#availability): Unix, Windows.
 
-os.EX_USAGE
+`os.EX_USAGE`
 :   Exit code that means the command was used incorrectly, such as when the wrong
     number of arguments are given.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_DATAERR
+`os.EX_DATAERR`
 :   Exit code that means the input data was incorrect.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_NOINPUT
+`os.EX_NOINPUT`
 :   Exit code that means an input file did not exist or was not readable.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_NOUSER
+`os.EX_NOUSER`
 :   Exit code that means a specified user did not exist.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_NOHOST
+`os.EX_NOHOST`
 :   Exit code that means a specified host did not exist.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_UNAVAILABLE
+`os.EX_UNAVAILABLE`
 :   Exit code that means that a required service is unavailable.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_SOFTWARE
+`os.EX_SOFTWARE`
 :   Exit code that means an internal software error was detected.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_OSERR
+`os.EX_OSERR`
 :   Exit code that means an operating system error was detected, such as the
     inability to fork or create a pipe.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_OSFILE
+`os.EX_OSFILE`
 :   Exit code that means some system file did not exist, could not be opened, or had
     some other kind of error.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_CANTCREAT
+`os.EX_CANTCREAT`
 :   Exit code that means a user specified output file could not be created.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_IOERR
+`os.EX_IOERR`
 :   Exit code that means that an error occurred while doing I/O on some file.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_TEMPFAIL
+`os.EX_TEMPFAIL`
 :   Exit code that means a temporary failure occurred. This indicates something
     that may not really be an error, such as a network connection that couldn’t be
     made during a retryable operation.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_PROTOCOL
+`os.EX_PROTOCOL`
 :   Exit code that means that a protocol exchange was illegal, invalid, or not
     understood.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_NOPERM
+`os.EX_NOPERM`
 :   Exit code that means that there were insufficient permissions to perform the
     operation (but not intended for file system problems).
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_CONFIG
+`os.EX_CONFIG`
 :   Exit code that means that some kind of configuration error occurred.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.EX_NOTFOUND
+`os.EX_NOTFOUND`
 :   Exit code that means something like “an entry was not found”.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.fork()
+`os.fork()`
 :   Fork a child process. Return `0` in the child and the child’s process id in the
     parent. If an error occurs [`OSError`](exceptions.md#OSError "OSError") is raised.
 
@@ -3666,7 +3666,7 @@ os.fork()
 
     [Availability](intro.md#availability): POSIX, not Emscripten, not WASI.
 
-os.forkpty()
+`os.forkpty()`
 :   Fork a child process, using a new pseudo-terminal as the child’s controlling
     terminal. Return a pair of `(pid, fd)`, where *pid* is `0` in the child, the
     new child’s process id in the parent, and *fd* is the file descriptor of the
@@ -3689,7 +3689,7 @@ os.forkpty()
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.kill(*pid*, *sig*, */*)
+`os.kill(pid, sig, /)`
 :   Send signal *sig* to the process *pid*. Constants for the specific signals
     available on the host platform are defined in the [`signal`](signal.md#module-signal "signal: Set handlers for asynchronous events.") module.
 
@@ -3708,19 +3708,19 @@ os.kill(*pid*, *sig*, */*)
 
     Changed in version 3.2: Added Windows support.
 
-os.killpg(*pgid*, *sig*, */*)
+`os.killpg(pgid, sig, /)`
 :   Send the signal *sig* to the process group *pgid*.
 
     Raises an [auditing event](sys.md#auditing) `os.killpg` with arguments `pgid`, `sig`.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.nice(*increment*, */*)
+`os.nice(increment, /)`
 :   Add *increment* to the process’s “niceness”. Return the new niceness.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.pidfd_open(*pid*, *flags=0*)
+`os.pidfd_open(pid, flags=0)`
 :   Return a file descriptor referring to the process *pid* with *flags* set.
     This descriptor can be used to perform process management without races
     and signals.
@@ -3731,7 +3731,7 @@ os.pidfd_open(*pid*, *flags=0*)
 
     Added in version 3.9.
 
-    os.PIDFD_NONBLOCK
+    `os.PIDFD_NONBLOCK`
     :   This flag indicates that the file descriptor will be non-blocking.
         If the process referred to by the file descriptor has not yet terminated,
         then an attempt to wait on the file descriptor using *[waitid(2)](https://manpages.debian.org/waitid(2))*
@@ -3741,13 +3741,13 @@ os.pidfd_open(*pid*, *flags=0*)
 
     Added in version 3.12.
 
-os.plock(*op*, */*)
+`os.plock(op, /)`
 :   Lock program segments into memory. The value of *op* (defined in
     `<sys/lock.h>`) determines which segments are locked.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.popen(*cmd*, *mode='r'*, *buffering=-1*)
+`os.popen(cmd, mode='r', buffering=-1)`
 :   Open a pipe to or from command *cmd*.
     The return value is an open file object
     connected to the pipe, which can be read or written depending on whether *mode*
@@ -3786,7 +3786,7 @@ os.popen(*cmd*, *mode='r'*, *buffering=-1*)
     > Use [`subprocess.Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") or [`subprocess.run()`](subprocess.md#subprocess.run "subprocess.run") to
     > control options like encodings.
 
-os.posix_spawn(*path*, *argv*, *env*, *\**, *file_actions=None*, *setpgroup=None*, *resetids=False*, *setsid=False*, *setsigmask=()*, *setsigdef=()*, *scheduler=None*)
+`os.posix_spawn(path, argv, env, *, file_actions=None, setpgroup=None, resetids=False, setsid=False, setsigmask=(), setsigdef=(), scheduler=None)`
 :   Wraps the `posix_spawn()` C library API for use from Python.
 
     Most users should use [`subprocess.run()`](subprocess.md#subprocess.run "subprocess.run") instead of [`posix_spawn()`](os.md#os.posix_spawn "os.posix_spawn").
@@ -3804,17 +3804,17 @@ os.posix_spawn(*path*, *argv*, *env*, *\**, *file_actions=None*, *setpgroup=None
     The first item in each tuple must be one of the three type indicator
     listed below describing the remaining tuple elements:
 
-    os.POSIX_SPAWN_OPEN
+    `os.POSIX_SPAWN_OPEN`
     :   (`os.POSIX_SPAWN_OPEN`, *fd*, *path*, *flags*, *mode*)
 
         Performs `os.dup2(os.open(path, flags, mode), fd)`.
 
-    os.POSIX_SPAWN_CLOSE
+    `os.POSIX_SPAWN_CLOSE`
     :   (`os.POSIX_SPAWN_CLOSE`, *fd*)
 
         Performs `os.close(fd)`.
 
-    os.POSIX_SPAWN_DUP2
+    `os.POSIX_SPAWN_DUP2`
     :   (`os.POSIX_SPAWN_DUP2`, *fd*, *new_fd*)
 
         Performs `os.dup2(fd, new_fd)`.
@@ -3866,7 +3866,7 @@ os.posix_spawn(*path*, *argv*, *env*, *\**, *file_actions=None*, *setpgroup=None
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.posix_spawnp(*path*, *argv*, *env*, *\**, *file_actions=None*, *setpgroup=None*, *resetids=False*, *setsid=False*, *setsigmask=()*, *setsigdef=()*, *scheduler=None*)
+`os.posix_spawnp(path, argv, env, *, file_actions=None, setpgroup=None, resetids=False, setsid=False, setsigmask=(), setsigdef=(), scheduler=None)`
 :   Wraps the `posix_spawnp()` C library API for use from Python.
 
     Similar to [`posix_spawn()`](os.md#os.posix_spawn "os.posix_spawn") except that the system searches
@@ -3881,7 +3881,7 @@ os.posix_spawnp(*path*, *argv*, *env*, *\**, *file_actions=None*, *setpgroup=Non
 
     See [`posix_spawn()`](os.md#os.posix_spawn "os.posix_spawn") documentation.
 
-os.register_at_fork(*\**, *before=None*, *after_in_parent=None*, *after_in_child=None*)
+`os.register_at_fork(*, before=None, after_in_parent=None, after_in_child=None)`
 :   Register callables to be executed when a new child process is forked
     using [`os.fork()`](os.md#os.fork "os.fork") or similar process cloning APIs.
     The parameters are optional and keyword-only.
@@ -3911,21 +3911,21 @@ os.register_at_fork(*\**, *before=None*, *after_in_parent=None*, *after_in_child
 
     Added in version 3.7.
 
-os.spawnl(*mode*, *path*, *...*)
+`os.spawnl(mode, path, ...)`
 
-os.spawnle(*mode*, *path*, *...*, *env*)
+`os.spawnle(mode, path, ..., env)`
 
-os.spawnlp(*mode*, *file*, *...*)
+`os.spawnlp(mode, file, ...)`
 
-os.spawnlpe(*mode*, *file*, *...*, *env*)
+`os.spawnlpe(mode, file, ..., env)`
 
-os.spawnv(*mode*, *path*, *args*)
+`os.spawnv(mode, path, args)`
 
-os.spawnve(*mode*, *path*, *args*, *env*)
+`os.spawnve(mode, path, args, env)`
 
-os.spawnvp(*mode*, *file*, *args*)
+`os.spawnvp(mode, file, args)`
 
-os.spawnvpe(*mode*, *file*, *args*, *env*)
+`os.spawnvpe(mode, file, args, env)`
 :   Execute the program *path* in a new process.
 
     (Note that the [`subprocess`](subprocess.md#module-subprocess "subprocess: Subprocess management.") module provides more powerful facilities for
@@ -3992,9 +3992,9 @@ os.spawnvpe(*mode*, *file*, *args*, *env*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.P_NOWAIT
+`os.P_NOWAIT`
 
-os.P_NOWAITO
+`os.P_NOWAITO`
 :   Possible values for the *mode* parameter to the [`spawn*`](os.md#os.spawnl "os.spawnl") family of
     functions. If either of these values is given, the [`spawn*`](os.md#os.spawnl "os.spawnl") functions
     will return as soon as the new process has been created, with the process id as
@@ -4002,7 +4002,7 @@ os.P_NOWAITO
 
     [Availability](intro.md#availability): Unix, Windows.
 
-os.P_WAIT
+`os.P_WAIT`
 :   Possible value for the *mode* parameter to the [`spawn*`](os.md#os.spawnl "os.spawnl") family of
     functions. If this is given as *mode*, the [`spawn*`](os.md#os.spawnl "os.spawnl") functions will not
     return until the new process has run to completion and will return the exit code
@@ -4011,9 +4011,9 @@ os.P_WAIT
 
     [Availability](intro.md#availability): Unix, Windows.
 
-os.P_DETACH
+`os.P_DETACH`
 
-os.P_OVERLAY
+`os.P_OVERLAY`
 :   Possible values for the *mode* parameter to the [`spawn*`](os.md#os.spawnl "os.spawnl") family of
     functions. These are less portable than those listed above. [`P_DETACH`](os.md#os.P_DETACH "os.P_DETACH")
     is similar to [`P_NOWAIT`](os.md#os.P_NOWAIT "os.P_NOWAIT"), but the new process is detached from the
@@ -4022,7 +4022,7 @@ os.P_OVERLAY
 
     [Availability](intro.md#availability): Windows.
 
-os.startfile(*path*[, *operation*][, *arguments*][, *cwd*][, *show_cmd*])
+`os.startfile(path[, operation][, arguments][, cwd][, show_cmd])`
 :   Start a file with its associated application.
 
     When *operation* is not specified, this acts like double-clicking
@@ -4068,7 +4068,7 @@ os.startfile(*path*[, *operation*][, *arguments*][, *cwd*][, *show_cmd*])
     Changed in version 3.10: Added the *arguments*, *cwd* and *show_cmd* arguments, and the
     `os.startfile/2` audit event.
 
-os.system(*command*)
+`os.system(command)`
 :   Execute the command (a string) in a subshell. This is implemented by calling
     the Standard C function `system()`, and has the same limitations.
     Changes to [`sys.stdin`](sys.md#sys.stdin "sys.stdin"), etc. are not reflected in the environment of
@@ -4099,7 +4099,7 @@ os.system(*command*)
 
     [Availability](intro.md#availability): Unix, Windows, not Emscripten, not WASI.
 
-os.times()
+`os.times()`
 :   Returns the current global process times.
     The return value is an object with five attributes:
 
@@ -4122,7 +4122,7 @@ os.times()
     Changed in version 3.3: Return type changed from a tuple to a tuple-like object
     with named attributes.
 
-os.wait()
+`os.wait()`
 :   Wait for completion of a child process, and return a tuple containing its pid
     and exit status indication: a 16-bit number, whose low byte is the signal number
     that killed the process, and whose high byte is the exit status (if the signal
@@ -4143,7 +4143,7 @@ os.wait()
     > completion of a specific child process and have more options.
     > [`waitpid()`](os.md#os.waitpid "os.waitpid") is the only one also available on Windows.
 
-os.waitid(*idtype*, *id*, *options*, */*)
+`os.waitid(idtype, id, options, /)`
 :   Wait for the completion of a child process.
 
     *idtype* can be [`P_PID`](os.md#os.P_PID "os.P_PID"), [`P_PGID`](os.md#os.P_PGID "os.P_PGID"), [`P_ALL`](os.md#os.P_ALL "os.P_ALL"), or (on Linux) [`P_PIDFD`](os.md#os.P_PIDFD "os.P_PIDFD").
@@ -4175,7 +4175,7 @@ os.waitid(*idtype*, *id*, *options*, */*)
 
     Added in version 3.3.
 
-os.waitpid(*pid*, *options*, */*)
+`os.waitpid(pid, options, /)`
 :   The details of this function differ on Unix and Windows.
 
     On Unix: Wait for completion of a child process given by process id *pid*, and
@@ -4213,7 +4213,7 @@ os.waitpid(*pid*, *options*, */*)
     exception, the function now retries the system call instead of raising an
     [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-os.wait3(*options*)
+`os.wait3(options)`
 :   Similar to [`waitpid()`](os.md#os.waitpid "os.waitpid"), except no process id argument is given and a
     3-element tuple containing the child’s process id, exit status indication,
     and resource usage information is returned. Refer to
@@ -4226,7 +4226,7 @@ os.wait3(*options*)
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.wait4(*pid*, *options*)
+`os.wait4(pid, options)`
 :   Similar to [`waitpid()`](os.md#os.waitpid "os.waitpid"), except a 3-element tuple, containing the child’s
     process id, exit status indication, and resource usage information is
     returned. Refer to [`resource.getrusage()`](resource.md#resource.getrusage "resource.getrusage") for details on resource usage
@@ -4238,13 +4238,13 @@ os.wait4(*pid*, *options*)
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.P_PID
+`os.P_PID`
 
-os.P_PGID
+`os.P_PGID`
 
-os.P_ALL
+`os.P_ALL`
 
-os.P_PIDFD
+`os.P_PIDFD`
 :   These are the possible values for *idtype* in [`waitid()`](os.md#os.waitid "os.waitid"). They affect
     how *id* is interpreted:
 
@@ -4264,14 +4264,14 @@ os.P_PIDFD
 
     Added in version 3.9: The `P_PIDFD` constant.
 
-os.WCONTINUED
+`os.WCONTINUED`
 :   This *options* flag for [`waitpid()`](os.md#os.waitpid "os.waitpid"), [`wait3()`](os.md#os.wait3 "os.wait3"), [`wait4()`](os.md#os.wait4 "os.wait4"), and
     [`waitid()`](os.md#os.waitid "os.waitid") causes child processes to be reported if they have been
     continued from a job control stop since they were last reported.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WEXITED
+`os.WEXITED`
 :   This *options* flag for [`waitid()`](os.md#os.waitid "os.waitid") causes child processes that have terminated to
     be reported.
 
@@ -4282,7 +4282,7 @@ os.WEXITED
 
     Added in version 3.3.
 
-os.WSTOPPED
+`os.WSTOPPED`
 :   This *options* flag for [`waitid()`](os.md#os.waitid "os.waitid") causes child processes that have been stopped
     by the delivery of a signal to be reported.
 
@@ -4292,7 +4292,7 @@ os.WSTOPPED
 
     Added in version 3.3.
 
-os.WUNTRACED
+`os.WUNTRACED`
 :   This *options* flag for [`waitpid()`](os.md#os.waitpid "os.waitpid"), [`wait3()`](os.md#os.wait3 "os.wait3"), and [`wait4()`](os.md#os.wait4 "os.wait4") causes
     child processes to also be reported if they have been stopped but their
     current state has not been reported since they were stopped.
@@ -4301,14 +4301,14 @@ os.WUNTRACED
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WNOHANG
+`os.WNOHANG`
 :   This *options* flag causes [`waitpid()`](os.md#os.waitpid "os.waitpid"), [`wait3()`](os.md#os.wait3 "os.wait3"), [`wait4()`](os.md#os.wait4 "os.wait4"), and
     [`waitid()`](os.md#os.waitid "os.waitid") to return right away if no child process status is available
     immediately.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WNOWAIT
+`os.WNOWAIT`
 :   This *options* flag causes [`waitid()`](os.md#os.waitid "os.waitid") to leave the child in a waitable state, so that
     a later `wait*()` call can be used to retrieve the child status information again.
 
@@ -4316,17 +4316,17 @@ os.WNOWAIT
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.CLD_EXITED
+`os.CLD_EXITED`
 
-os.CLD_KILLED
+`os.CLD_KILLED`
 
-os.CLD_DUMPED
+`os.CLD_DUMPED`
 
-os.CLD_TRAPPED
+`os.CLD_TRAPPED`
 
-os.CLD_STOPPED
+`os.CLD_STOPPED`
 
-os.CLD_CONTINUED
+`os.CLD_CONTINUED`
 :   These are the possible values for `si_code` in the result returned by
     [`waitid()`](os.md#os.waitid "os.waitid").
 
@@ -4336,7 +4336,7 @@ os.CLD_CONTINUED
 
     Changed in version 3.9: Added [`CLD_KILLED`](os.md#os.CLD_KILLED "os.CLD_KILLED") and [`CLD_STOPPED`](os.md#os.CLD_STOPPED "os.CLD_STOPPED") values.
 
-os.waitstatus_to_exitcode(*status*)
+`os.waitstatus_to_exitcode(status)`
 :   Convert a wait status to an exit code.
 
     On Unix:
@@ -4370,7 +4370,7 @@ The following functions take a process status code as returned by
 [`system()`](os.md#os.system "os.system"), [`wait()`](os.md#os.wait "os.wait"), or [`waitpid()`](os.md#os.waitpid "os.waitpid") as a parameter. They may be
 used to determine the disposition of a process.
 
-os.WCOREDUMP(*status*, */*)
+`os.WCOREDUMP(status, /)`
 :   Return `True` if a core dump was generated for the process, otherwise
     return `False`.
 
@@ -4378,7 +4378,7 @@ os.WCOREDUMP(*status*, */*)
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WIFCONTINUED(*status*)
+`os.WIFCONTINUED(status)`
 :   Return `True` if a stopped child has been resumed by delivery of
     [`SIGCONT`](signal.md#signal.SIGCONT "signal.SIGCONT") (if the process has been continued from a job
     control stop), otherwise return `False`.
@@ -4387,7 +4387,7 @@ os.WIFCONTINUED(*status*)
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WIFSTOPPED(*status*)
+`os.WIFSTOPPED(status)`
 :   Return `True` if the process was stopped by delivery of a signal,
     otherwise return `False`.
 
@@ -4397,34 +4397,34 @@ os.WIFSTOPPED(*status*)
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WIFSIGNALED(*status*)
+`os.WIFSIGNALED(status)`
 :   Return `True` if the process was terminated by a signal, otherwise return
     `False`.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WIFEXITED(*status*)
+`os.WIFEXITED(status)`
 :   Return `True` if the process exited terminated normally, that is,
     by calling `exit()` or `_exit()`, or by returning from `main()`;
     otherwise return `False`.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WEXITSTATUS(*status*)
+`os.WEXITSTATUS(status)`
 :   Return the process exit status.
 
     This function should be employed only if [`WIFEXITED()`](os.md#os.WIFEXITED "os.WIFEXITED") is true.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WSTOPSIG(*status*)
+`os.WSTOPSIG(status)`
 :   Return the signal which caused the process to stop.
 
     This function should be employed only if [`WIFSTOPPED()`](os.md#os.WIFSTOPPED "os.WIFSTOPPED") is true.
 
     [Availability](intro.md#availability): Unix, not Emscripten, not WASI.
 
-os.WTERMSIG(*status*)
+`os.WTERMSIG(status)`
 :   Return the number of the signal that caused the process to terminate.
 
     This function should be employed only if [`WIFSIGNALED()`](os.md#os.WIFSIGNALED "os.WIFSIGNALED") is true.
@@ -4442,79 +4442,79 @@ Added in version 3.3.
 The following scheduling policies are exposed if they are supported by the
 operating system.
 
-os.SCHED_OTHER
+`os.SCHED_OTHER`
 :   The default scheduling policy.
 
-os.SCHED_BATCH
+`os.SCHED_BATCH`
 :   Scheduling policy for CPU-intensive processes that tries to preserve
     interactivity on the rest of the computer.
 
-os.SCHED_IDLE
+`os.SCHED_IDLE`
 :   Scheduling policy for extremely low priority background tasks.
 
-os.SCHED_SPORADIC
+`os.SCHED_SPORADIC`
 :   Scheduling policy for sporadic server programs.
 
-os.SCHED_FIFO
+`os.SCHED_FIFO`
 :   A First In First Out scheduling policy.
 
-os.SCHED_RR
+`os.SCHED_RR`
 :   A round-robin scheduling policy.
 
-os.SCHED_RESET_ON_FORK
+`os.SCHED_RESET_ON_FORK`
 :   This flag can be OR’ed with any other scheduling policy. When a process with
     this flag set forks, its child’s scheduling policy and priority are reset to
     the default.
 
-*class* os.sched_param(*sched_priority*)
+`class os.sched_param(sched_priority)`
 :   This class represents tunable scheduling parameters used in
     [`sched_setparam()`](os.md#os.sched_setparam "os.sched_setparam"), [`sched_setscheduler()`](os.md#os.sched_setscheduler "os.sched_setscheduler"), and
     [`sched_getparam()`](os.md#os.sched_getparam "os.sched_getparam"). It is immutable.
 
     At the moment, there is only one possible parameter:
 
-    sched_priority
+    `sched_priority`
     :   The scheduling priority for a scheduling policy.
 
-os.sched_get_priority_min(*policy*)
+`os.sched_get_priority_min(policy)`
 :   Get the minimum priority value for *policy*. *policy* is one of the
     scheduling policy constants above.
 
-os.sched_get_priority_max(*policy*)
+`os.sched_get_priority_max(policy)`
 :   Get the maximum priority value for *policy*. *policy* is one of the
     scheduling policy constants above.
 
-os.sched_setscheduler(*pid*, *policy*, *param*, */*)
+`os.sched_setscheduler(pid, policy, param, /)`
 :   Set the scheduling policy for the process with PID *pid*. A *pid* of 0 means
     the calling process. *policy* is one of the scheduling policy constants
     above. *param* is a [`sched_param`](os.md#os.sched_param "os.sched_param") instance.
 
-os.sched_getscheduler(*pid*, */*)
+`os.sched_getscheduler(pid, /)`
 :   Return the scheduling policy for the process with PID *pid*. A *pid* of 0
     means the calling process. The result is one of the scheduling policy
     constants above.
 
-os.sched_setparam(*pid*, *param*, */*)
+`os.sched_setparam(pid, param, /)`
 :   Set the scheduling parameters for the process with PID *pid*. A *pid* of 0 means
     the calling process. *param* is a [`sched_param`](os.md#os.sched_param "os.sched_param") instance.
 
-os.sched_getparam(*pid*, */*)
+`os.sched_getparam(pid, /)`
 :   Return the scheduling parameters as a [`sched_param`](os.md#os.sched_param "os.sched_param") instance for the
     process with PID *pid*. A *pid* of 0 means the calling process.
 
-os.sched_rr_get_interval(*pid*, */*)
+`os.sched_rr_get_interval(pid, /)`
 :   Return the round-robin quantum in seconds for the process with PID *pid*. A
     *pid* of 0 means the calling process.
 
-os.sched_yield()
+`os.sched_yield()`
 :   Voluntarily relinquish the CPU. See *[sched_yield(2)](https://manpages.debian.org/sched_yield(2))* for details.
 
-os.sched_setaffinity(*pid*, *mask*, */*)
+`os.sched_setaffinity(pid, mask, /)`
 :   Restrict the process with PID *pid* (or the current process if zero) to a
     set of CPUs. *mask* is an iterable of integers representing the set of
     CPUs to which the process should be restricted.
 
-os.sched_getaffinity(*pid*, */*)
+`os.sched_getaffinity(pid, /)`
 :   Return the set of CPUs the process with PID *pid* is restricted to.
 
     If *pid* is zero, return the set of CPUs the calling thread of the current
@@ -4522,7 +4522,7 @@ os.sched_getaffinity(*pid*, */*)
 
 ## Miscellaneous System Information
 
-os.confstr(*name*, */*)
+`os.confstr(name, /)`
 :   Return string-valued system configuration values. *name* specifies the
     configuration value to retrieve; it may be a string which is the name of a
     defined system value; these names are specified in a number of standards (POSIX,
@@ -4541,14 +4541,14 @@ os.confstr(*name*, */*)
 
     [Availability](intro.md#availability): Unix.
 
-os.confstr_names
+`os.confstr_names`
 :   Dictionary mapping names accepted by [`confstr()`](os.md#os.confstr "os.confstr") to the integer values
     defined for those names by the host operating system. This can be used to
     determine the set of names known to the system.
 
     [Availability](intro.md#availability): Unix.
 
-os.cpu_count()
+`os.cpu_count()`
 :   Return the number of logical CPUs in the system. Returns `None` if
     undetermined.
 
@@ -4558,14 +4558,14 @@ os.cpu_count()
 
     Added in version 3.4.
 
-os.getloadavg()
+`os.getloadavg()`
 :   Return the number of processes in the system run queue averaged over the last
     1, 5, and 15 minutes or raises [`OSError`](exceptions.md#OSError "OSError") if the load average was
     unobtainable.
 
     [Availability](intro.md#availability): Unix.
 
-os.sysconf(*name*, */*)
+`os.sysconf(name, /)`
 :   Return integer-valued system configuration values. If the configuration value
     specified by *name* isn’t defined, `-1` is returned. The comments regarding
     the *name* parameter for [`confstr()`](os.md#os.confstr "os.confstr") apply here as well; the dictionary that
@@ -4573,7 +4573,7 @@ os.sysconf(*name*, */*)
 
     [Availability](intro.md#availability): Unix.
 
-os.sysconf_names
+`os.sysconf_names`
 :   Dictionary mapping names accepted by [`sysconf()`](os.md#os.sysconf "os.sysconf") to the integer values
     defined for those names by the host operating system. This can be used to
     determine the set of names known to the system.
@@ -4587,67 +4587,67 @@ are defined for all platforms.
 
 Higher-level operations on pathnames are defined in the [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.") module.
 
-os.curdir
+`os.curdir`
 :   The constant string used by the operating system to refer to the current
     directory. This is `'.'` for Windows and POSIX. Also available via
     [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.pardir
+`os.pardir`
 :   The constant string used by the operating system to refer to the parent
     directory. This is `'..'` for Windows and POSIX. Also available via
     [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.sep
+`os.sep`
 :   The character used by the operating system to separate pathname components.
     This is `'/'` for POSIX and `'\\'` for Windows. Note that knowing this
     is not sufficient to be able to parse or concatenate pathnames — use
     [`os.path.split()`](os.path.md#os.path.split "os.path.split") and [`os.path.join()`](os.path.md#os.path.join "os.path.join") — but it is occasionally
     useful. Also available via [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.altsep
+`os.altsep`
 :   An alternative character used by the operating system to separate pathname
     components, or `None` if only one separator character exists. This is set to
     `'/'` on Windows systems where `sep` is a backslash. Also available via
     [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.extsep
+`os.extsep`
 :   The character which separates the base filename from the extension; for example,
     the `'.'` in `os.py`. Also available via [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.pathsep
+`os.pathsep`
 :   The character conventionally used by the operating system to separate search
     path components (as in `PATH`), such as `':'` for POSIX or `';'` for
     Windows. Also available via [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.defpath
+`os.defpath`
 :   The default search path used by [`exec*p*`](os.md#os.execl "os.execl") and
     [`spawn*p*`](os.md#os.spawnl "os.spawnl") if the environment doesn’t have a `'PATH'`
     key. Also available via [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.linesep
+`os.linesep`
 :   The string used to separate (or, rather, terminate) lines on the current
     platform. This may be a single character, such as `'\n'` for POSIX, or
     multiple characters, for example, `'\r\n'` for Windows. Do not use
     *os.linesep* as a line terminator when writing files opened in text mode (the
     default); use a single `'\n'` instead, on all platforms.
 
-os.devnull
+`os.devnull`
 :   The file path of the null device. For example: `'/dev/null'` for
     POSIX, `'nul'` for Windows. Also available via [`os.path`](os.path.md#module-os.path "os.path: Operations on pathnames.").
 
-os.RTLD_LAZY
+`os.RTLD_LAZY`
 
-os.RTLD_NOW
+`os.RTLD_NOW`
 
-os.RTLD_GLOBAL
+`os.RTLD_GLOBAL`
 
-os.RTLD_LOCAL
+`os.RTLD_LOCAL`
 
-os.RTLD_NODELETE
+`os.RTLD_NODELETE`
 
-os.RTLD_NOLOAD
+`os.RTLD_NOLOAD`
 
-os.RTLD_DEEPBIND
+`os.RTLD_DEEPBIND`
 :   Flags for use with the [`setdlopenflags()`](sys.md#sys.setdlopenflags "sys.setdlopenflags") and
     [`getdlopenflags()`](sys.md#sys.getdlopenflags "sys.getdlopenflags") functions. See the Unix manual page
     *[dlopen(3)](https://manpages.debian.org/dlopen(3))* for what the different flags mean.
@@ -4656,7 +4656,7 @@ os.RTLD_DEEPBIND
 
 ## Random numbers
 
-os.getrandom(*size*, *flags=0*)
+`os.getrandom(size, flags=0)`
 :   Get up to *size* random bytes. The function can return less bytes than
     requested.
 
@@ -4678,7 +4678,7 @@ os.getrandom(*size*, *flags=0*)
 
     Added in version 3.6.
 
-os.urandom(*size*, */*)
+`os.urandom(size, /)`
 :   Return a bytestring of *size* random bytes suitable for cryptographic use.
 
     This function returns random bytes from an OS-specific randomness source. The
@@ -4718,7 +4718,7 @@ os.urandom(*size*, */*)
     Changed in version 3.11: On Windows, `BCryptGenRandom()` is used instead of `CryptGenRandom()`
     which is deprecated.
 
-os.GRND_NONBLOCK
+`os.GRND_NONBLOCK`
 :   By default, when reading from `/dev/random`, [`getrandom()`](os.md#os.getrandom "os.getrandom") blocks if
     no random bytes are available, and when reading from `/dev/urandom`, it blocks
     if the entropy pool has not yet been initialized.
@@ -4728,7 +4728,7 @@ os.GRND_NONBLOCK
 
     Added in version 3.6.
 
-os.GRND_RANDOM
+`os.GRND_RANDOM`
 :   If this bit is set, then random bytes are drawn from the
     `/dev/random` pool instead of the `/dev/urandom` pool.
 

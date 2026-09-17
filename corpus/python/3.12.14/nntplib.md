@@ -64,7 +64,7 @@ headers, and that you have right to post on the particular newsgroup):
 
 The module itself defines the following classes:
 
-*class* nntplib.NNTP(*host*, *port=119*, *user=None*, *password=None*, *readermode=None*, *usenetrc=False*[, *timeout*])
+`class nntplib.NNTP(host, port=119, user=None, password=None, readermode=None, usenetrc=False[, timeout])`
 :   Return a new [`NNTP`](nntplib.md#nntplib.NNTP "nntplib.NNTP") object, representing a connection
     to the NNTP server running on host *host*, listening at port *port*.
     An optional *timeout* can be specified for the socket connection.
@@ -103,7 +103,7 @@ The module itself defines the following classes:
     Changed in version 3.9: If the *timeout* parameter is set to be zero, it will raise a
     [`ValueError`](exceptions.md#ValueError "ValueError") to prevent the creation of a non-blocking socket.
 
-*class* nntplib.NNTP_SSL(*host*, *port=563*, *user=None*, *password=None*, *ssl_context=None*, *readermode=None*, *usenetrc=False*[, *timeout*])
+`class nntplib.NNTP_SSL(host, port=563, user=None, password=None, ssl_context=None, readermode=None, usenetrc=False[, timeout])`
 :   Return a new [`NNTP_SSL`](nntplib.md#nntplib.NNTP_SSL "nntplib.NNTP_SSL") object, representing an encrypted
     connection to the NNTP server running on host *host*, listening at
     port *port*. [`NNTP_SSL`](nntplib.md#nntplib.NNTP_SSL "nntplib.NNTP_SSL") objects have the same methods as
@@ -131,28 +131,28 @@ The module itself defines the following classes:
     Changed in version 3.9: If the *timeout* parameter is set to be zero, it will raise a
     [`ValueError`](exceptions.md#ValueError "ValueError") to prevent the creation of a non-blocking socket.
 
-*exception* nntplib.NNTPError
+`exception nntplib.NNTPError`
 :   Derived from the standard exception [`Exception`](exceptions.md#Exception "Exception"), this is the base
     class for all exceptions raised by the [`nntplib`](nntplib.md#module-nntplib "nntplib: NNTP protocol client (requires sockets). (deprecated)") module. Instances
     of this class have the following attribute:
 
-    response
+    `response`
     :   The response of the server if available, as a [`str`](stdtypes.md#str "str") object.
 
-*exception* nntplib.NNTPReplyError
+`exception nntplib.NNTPReplyError`
 :   Exception raised when an unexpected reply is received from the server.
 
-*exception* nntplib.NNTPTemporaryError
+`exception nntplib.NNTPTemporaryError`
 :   Exception raised when a response code in the range 400–499 is received.
 
-*exception* nntplib.NNTPPermanentError
+`exception nntplib.NNTPPermanentError`
 :   Exception raised when a response code in the range 500–599 is received.
 
-*exception* nntplib.NNTPProtocolError
+`exception nntplib.NNTPProtocolError`
 :   Exception raised when a reply is received from the server that does not begin
     with a digit in the range 1–5.
 
-*exception* nntplib.NNTPDataError
+`exception nntplib.NNTPDataError`
 :   Exception raised when there is some error in the response data.
 
 ## NNTP Objects
@@ -162,14 +162,14 @@ following methods and attributes.
 
 ### Attributes
 
-NNTP.nntp_version
+`NNTP.nntp_version`
 :   An integer representing the version of the NNTP protocol supported by the
     server. In practice, this should be `2` for servers advertising
     [**RFC 3977**](https://datatracker.ietf.org/doc/html/rfc3977.html) compliance and `1` for others.
 
     Added in version 3.2.
 
-NNTP.nntp_implementation
+`NNTP.nntp_implementation`
 :   A string describing the software name and version of the NNTP server,
     or [`None`](constants.md#None "None") if not advertised by the server.
 
@@ -192,16 +192,16 @@ tuples or objects that the method normally returns will be empty.
 Changed in version 3.2: Many of the following methods have been reworked and fixed, which makes
 them incompatible with their 3.1 counterparts.
 
-NNTP.quit()
+`NNTP.quit()`
 :   Send a `QUIT` command and close the connection. Once this method has been
     called, no other methods of the NNTP object should be called.
 
-NNTP.getwelcome()
+`NNTP.getwelcome()`
 :   Return the welcome message sent by the server in reply to the initial
     connection. (This message sometimes contains disclaimers or help information
     that may be relevant to the user.)
 
-NNTP.getcapabilities()
+`NNTP.getcapabilities()`
 :   Return the [**RFC 3977**](https://datatracker.ietf.org/doc/html/rfc3977.html) capabilities advertised by the server, as a
     [`dict`](stdtypes.md#dict "dict") instance mapping capability names to (possibly empty) lists
     of values. On legacy servers which don’t understand the `CAPABILITIES`
@@ -215,7 +215,7 @@ NNTP.getcapabilities()
 
     Added in version 3.2.
 
-NNTP.login(*user=None*, *password=None*, *usenetrc=True*)
+`NNTP.login(user=None, password=None, usenetrc=True)`
 :   Send `AUTHINFO` commands with the user name and password. If *user*
     and *password* are `None` and *usenetrc* is true, credentials from
     `~/.netrc` will be used if possible.
@@ -228,7 +228,7 @@ NNTP.login(*user=None*, *password=None*, *usenetrc=True*)
 
     Added in version 3.2.
 
-NNTP.starttls(*context=None*)
+`NNTP.starttls(context=None)`
 :   Send a `STARTTLS` command. This will enable encryption on the NNTP
     connection. The *context* argument is optional and should be a
     [`ssl.SSLContext`](ssl.md#ssl.SSLContext "ssl.SSLContext") object. Please read [Security considerations](ssl.md#ssl-security) for best
@@ -245,7 +245,7 @@ NNTP.starttls(*context=None*)
     [`ssl.SSLContext.check_hostname`](ssl.md#ssl.SSLContext.check_hostname "ssl.SSLContext.check_hostname") and *Server Name Indication* (see
     [`ssl.HAS_SNI`](ssl.md#ssl.HAS_SNI "ssl.HAS_SNI")).
 
-NNTP.newgroups(*date*, *\**, *file=None*)
+`NNTP.newgroups(date, *, file=None)`
 :   Send a `NEWGROUPS` command. The *date* argument should be a
     [`datetime.date`](datetime.md#datetime.date "datetime.date") or [`datetime.datetime`](datetime.md#datetime.datetime "datetime.datetime") object.
     Return a pair `(response, groups)` where *groups* is a list representing
@@ -261,14 +261,14 @@ NNTP.newgroups(*date*, *\**, *file=None*)
     GroupInfo(group='gmane.network.tor.devel', last='4', first='1', flag='m')
     ```
 
-NNTP.newnews(*group*, *date*, *\**, *file=None*)
+`NNTP.newnews(group, date, *, file=None)`
 :   Send a `NEWNEWS` command. Here, *group* is a group name or `'*'`, and
     *date* has the same meaning as for [`newgroups()`](nntplib.md#nntplib.NNTP.newgroups "nntplib.NNTP.newgroups"). Return a pair
     `(response, articles)` where *articles* is a list of message ids.
 
     This command is frequently disabled by NNTP server administrators.
 
-NNTP.list(*group_pattern=None*, *\**, *file=None*)
+`NNTP.list(group_pattern=None, *, file=None)`
 :   Send a `LIST` or `LIST ACTIVE` command. Return a pair
     `(response, list)` where *list* is a list of tuples representing all
     the groups available from this NNTP server, optionally matching the
@@ -293,7 +293,7 @@ NNTP.list(*group_pattern=None*, *\**, *file=None*)
 
     Changed in version 3.2: *group_pattern* was added.
 
-NNTP.descriptions(*grouppattern*)
+`NNTP.descriptions(grouppattern)`
 :   Send a `LIST NEWSGROUPS` command, where *grouppattern* is a wildmat string as
     specified in [**RFC 3977**](https://datatracker.ietf.org/doc/html/rfc3977.html) (it’s essentially the same as DOS or UNIX shell wildcard
     strings). Return a pair `(response, descriptions)`, where *descriptions*
@@ -307,7 +307,7 @@ NNTP.descriptions(*grouppattern*)
     ('gmane.comp.python.bio.general', 'BioPython discussion list (Moderated)')
     ```
 
-NNTP.description(*group*)
+`NNTP.description(group)`
 :   Get a description for a single group *group*. If more than one group matches
     (if ‘group’ is a real wildmat string), return the first match. If no group
     matches, return an empty string.
@@ -315,7 +315,7 @@ NNTP.description(*group*)
     This elides the response code from the server. If the response code is needed,
     use [`descriptions()`](nntplib.md#nntplib.NNTP.descriptions "nntplib.NNTP.descriptions").
 
-NNTP.group(*name*)
+`NNTP.group(name)`
 :   Send a `GROUP` command, where *name* is the group name. The group is
     selected as the current group, if it exists. Return a tuple
     `(response, count, first, last, name)` where *count* is the (estimated)
@@ -323,7 +323,7 @@ NNTP.group(*name*)
     the group, *last* is the last article number in the group, and *name*
     is the group name.
 
-NNTP.over(*message_spec*, *\**, *file=None*)
+`NNTP.over(message_spec, *, file=None)`
 :   Send an `OVER` command, or an `XOVER` command on legacy servers.
     *message_spec* can be either a string representing a message id, or
     a `(first, last)` tuple of numbers indicating a range of articles in
@@ -366,11 +366,11 @@ NNTP.over(*message_spec*, *\**, *file=None*)
 
     Added in version 3.2.
 
-NNTP.help(*\**, *file=None*)
+`NNTP.help(*, file=None)`
 :   Send a `HELP` command. Return a pair `(response, list)` where *list* is a
     list of help strings.
 
-NNTP.stat(*message_spec=None*)
+`NNTP.stat(message_spec=None)`
 :   Send a `STAT` command, where *message_spec* is either a message id
     (enclosed in `'<'` and `'>'`) or an article number in the current group.
     If *message_spec* is omitted or [`None`](constants.md#None "None"), the current article in the
@@ -384,13 +384,13 @@ NNTP.stat(*message_spec=None*)
     (9099, '<20030112190404.GE29873@epoch.metaslash.com>')
     ```
 
-NNTP.next()
+`NNTP.next()`
 :   Send a `NEXT` command. Return as for [`stat()`](nntplib.md#nntplib.NNTP.stat "nntplib.NNTP.stat").
 
-NNTP.last()
+`NNTP.last()`
 :   Send a `LAST` command. Return as for [`stat()`](nntplib.md#nntplib.NNTP.stat "nntplib.NNTP.stat").
 
-NNTP.article(*message_spec=None*, *\**, *file=None*)
+`NNTP.article(message_spec=None, *, file=None)`
 :   Send an `ARTICLE` command, where *message_spec* has the same meaning as
     for [`stat()`](nntplib.md#nntplib.NNTP.stat "nntplib.NNTP.stat"). Return a tuple `(response, info)` where *info*
     is a [`namedtuple`](collections.md#collections.namedtuple "collections.namedtuple") with three attributes *number*,
@@ -415,17 +415,17 @@ NNTP.article(*message_spec=None*, *\**, *file=None*)
     [b'There is a patch for 2.3 as well as 2.2.', b'', b'Neal']
     ```
 
-NNTP.head(*message_spec=None*, *\**, *file=None*)
+`NNTP.head(message_spec=None, *, file=None)`
 :   Same as [`article()`](nntplib.md#nntplib.NNTP.article "nntplib.NNTP.article"), but sends a `HEAD` command. The *lines*
     returned (or written to *file*) will only contain the message headers, not
     the body.
 
-NNTP.body(*message_spec=None*, *\**, *file=None*)
+`NNTP.body(message_spec=None, *, file=None)`
 :   Same as [`article()`](nntplib.md#nntplib.NNTP.article "nntplib.NNTP.article"), but sends a `BODY` command. The *lines*
     returned (or written to *file*) will only contain the message body, not the
     headers.
 
-NNTP.post(*data*)
+`NNTP.post(data)`
 :   Post an article using the `POST` command. The *data* argument is either
     a [file object](https://docs.python.org/3.12/glossary.html#term-file-object) opened for binary reading, or any iterable of bytes
     objects (representing raw lines of the article to be posted). It should
@@ -436,19 +436,19 @@ NNTP.post(*data*)
     If the method succeeds, the server’s response is returned. If the server
     refuses posting, a [`NNTPReplyError`](nntplib.md#nntplib.NNTPReplyError "nntplib.NNTPReplyError") is raised.
 
-NNTP.ihave(*message_id*, *data*)
+`NNTP.ihave(message_id, data)`
 :   Send an `IHAVE` command. *message_id* is the id of the message to send
     to the server (enclosed in `'<'` and `'>'`). The *data* parameter
     and the return value are the same as for [`post()`](nntplib.md#nntplib.NNTP.post "nntplib.NNTP.post").
 
-NNTP.date()
+`NNTP.date()`
 :   Return a pair `(response, date)`. *date* is a [`datetime`](datetime.md#datetime.datetime "datetime.datetime")
     object containing the current date and time of the server.
 
-NNTP.slave()
+`NNTP.slave()`
 :   Send a `SLAVE` command. Return the server’s *response*.
 
-NNTP.set_debuglevel(*level*)
+`NNTP.set_debuglevel(level)`
 :   Set the instance’s debugging level. This controls the amount of debugging
     output printed. The default, `0`, produces no debugging output. A value of
     `1` produces a moderate amount of debugging output, generally a single line
@@ -459,7 +459,7 @@ NNTP.set_debuglevel(*level*)
 The following are optional NNTP extensions defined in [**RFC 2980**](https://datatracker.ietf.org/doc/html/rfc2980.html). Some of
 them have been superseded by newer commands in [**RFC 3977**](https://datatracker.ietf.org/doc/html/rfc3977.html).
 
-NNTP.xhdr(*hdr*, *str*, *\**, *file=None*)
+`NNTP.xhdr(hdr, str, *, file=None)`
 :   Send an `XHDR` command. The *hdr* argument is a header keyword, e.g.
     `'subject'`. The *str* argument should have the form `'first-last'`
     where *first* and *last* are the first and last article numbers to search.
@@ -472,7 +472,7 @@ NNTP.xhdr(*hdr*, *str*, *\**, *file=None*)
     it to store the lines of the command output. If *file* is supplied, then the
     returned *list* is an empty list.
 
-NNTP.xover(*start*, *end*, *\**, *file=None*)
+`NNTP.xover(start, end, *, file=None)`
 :   Send an `XOVER` command. *start* and *end* are article numbers
     delimiting the range of articles to select. The return value is the
     same of for [`over()`](nntplib.md#nntplib.NNTP.over "nntplib.NNTP.over"). It is recommended to use [`over()`](nntplib.md#nntplib.NNTP.over "nntplib.NNTP.over")
@@ -483,7 +483,7 @@ NNTP.xover(*start*, *end*, *\**, *file=None*)
 
 The module also defines the following utility function:
 
-nntplib.decode_header(*header_str*)
+`nntplib.decode_header(header_str)`
 :   Decode a header value, un-escaping any escaped non-ASCII characters.
     *header_str* must be a [`str`](stdtypes.md#str "str") object. The unescaped value is
     returned. Using this function is recommended to display some headers

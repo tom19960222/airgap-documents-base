@@ -44,13 +44,13 @@ raised if the entry asked for cannot be found.
 
 It defines the following items:
 
-pwd.getpwuid(*uid*)
+`pwd.getpwuid(uid)`
 :   Return the password database entry for the given numeric user ID.
 
-pwd.getpwnam(*name*)
+`pwd.getpwnam(name)`
 :   Return the password database entry for the given user name.
 
-pwd.getpwall()
+`pwd.getpwall()`
 :   Return a list of all available password database entries, in arbitrary order.
 
 > **See also:**

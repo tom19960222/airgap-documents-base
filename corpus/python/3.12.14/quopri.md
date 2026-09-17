@@ -19,14 +19,14 @@ few nonprintable characters; the base64 encoding scheme available via the
 [`base64`](base64.md#module-base64 "base64: RFC 4648: Base16, Base32, Base64 Data Encodings; Base85 and Ascii85") module is more compact if there are many such characters, as when
 sending a graphics file.
 
-quopri.decode(*input*, *output*, *header=False*)
+`quopri.decode(input, output, header=False)`
 :   Decode the contents of the *input* file and write the resulting decoded binary
     data to the *output* file. *input* and *output* must be [binary file objects](https://docs.python.org/3.12/glossary.html#term-file-object). If the optional argument *header* is present and true, underscore
     will be decoded as space. This is used to decode “Q”-encoded headers as
     described in [**RFC 1522**](https://datatracker.ietf.org/doc/html/rfc1522.html): “MIME (Multipurpose Internet Mail Extensions)
     Part Two: Message Header Extensions for Non-ASCII Text”.
 
-quopri.encode(*input*, *output*, *quotetabs*, *header=False*)
+`quopri.encode(input, output, quotetabs, header=False)`
 :   Encode the contents of the *input* file and write the resulting quoted-printable
     data to the *output* file. *input* and *output* must be
     [binary file objects](https://docs.python.org/3.12/glossary.html#term-file-object). *quotetabs*, a
@@ -37,11 +37,11 @@ quopri.encode(*input*, *output*, *quotetabs*, *header=False*)
     as per [**RFC 1521**](https://datatracker.ietf.org/doc/html/rfc1521.html). *header* is a flag which controls if spaces are encoded
     as underscores as per [**RFC 1522**](https://datatracker.ietf.org/doc/html/rfc1522.html).
 
-quopri.decodestring(*s*, *header=False*)
+`quopri.decodestring(s, header=False)`
 :   Like [`decode()`](quopri.md#quopri.decode "quopri.decode"), except that it accepts a source [`bytes`](stdtypes.md#bytes "bytes") and
     returns the corresponding decoded [`bytes`](stdtypes.md#bytes "bytes").
 
-quopri.encodestring(*s*, *quotetabs=False*, *header=False*)
+`quopri.encodestring(s, quotetabs=False, header=False)`
 :   Like [`encode()`](quopri.md#quopri.encode "quopri.encode"), except that it accepts a source [`bytes`](stdtypes.md#bytes "bytes") and
     returns the corresponding encoded [`bytes`](stdtypes.md#bytes "bytes"). By default, it sends a
     `False` value to *quotetabs* parameter of the [`encode()`](quopri.md#quopri.encode "quopri.encode") function.

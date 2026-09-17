@@ -494,9 +494,9 @@ Most of the examples in this section refer to a Turtle instance called
 
 ### Turtle motion
 
-turtle.forward(*distance*)
+`turtle.forward(distance)`
 
-turtle.fd(*distance*)
+`turtle.fd(distance)`
 :   Parameters:
     :   **distance** – a number (integer or float)
 
@@ -514,11 +514,11 @@ turtle.fd(*distance*)
     (-50.00,0.00)
     ```
 
-turtle.back(*distance*)
+`turtle.back(distance)`
 
-turtle.bk(*distance*)
+`turtle.bk(distance)`
 
-turtle.backward(*distance*)
+`turtle.backward(distance)`
 :   Parameters:
     :   **distance** – a number
 
@@ -533,9 +533,9 @@ turtle.backward(*distance*)
     (-30.00,0.00)
     ```
 
-turtle.right(*angle*)
+`turtle.right(angle)`
 
-turtle.rt(*angle*)
+`turtle.rt(angle)`
 :   Parameters:
     :   **angle** – a number (integer or float)
 
@@ -551,9 +551,9 @@ turtle.rt(*angle*)
     337.0
     ```
 
-turtle.left(*angle*)
+`turtle.left(angle)`
 
-turtle.lt(*angle*)
+`turtle.lt(angle)`
 :   Parameters:
     :   **angle** – a number (integer or float)
 
@@ -569,11 +569,11 @@ turtle.lt(*angle*)
     67.0
     ```
 
-turtle.goto(*x*, *y=None*)
+`turtle.goto(x, y=None)`
 
-turtle.setpos(*x*, *y=None*)
+`turtle.setpos(x, y=None)`
 
-turtle.setposition(*x*, *y=None*)
+`turtle.setposition(x, y=None)`
 :   Parameters:
     :   - **x** – a number or a pair/vector of numbers
         - **y** – a number or `None`
@@ -599,7 +599,7 @@ turtle.setposition(*x*, *y=None*)
     (0.00,0.00)
     ```
 
-turtle.teleport(*x*, *y=None*, *\**, *fill_gap=False*)
+`turtle.teleport(x, y=None, *, fill_gap=False)`
 :   Parameters:
     :   - **x** – a number or `None`
         - **y** – a number or `None`
@@ -629,7 +629,7 @@ turtle.teleport(*x*, *y=None*, *\**, *fill_gap=False*)
 
     Added in version 3.12.
 
-turtle.setx(*x*)
+`turtle.setx(x)`
 :   Parameters:
     :   **x** – a number (integer or float)
 
@@ -644,7 +644,7 @@ turtle.setx(*x*)
     (10.00,240.00)
     ```
 
-turtle.sety(*y*)
+`turtle.sety(y)`
 :   Parameters:
     :   **y** – a number (integer or float)
 
@@ -658,9 +658,9 @@ turtle.sety(*y*)
     (0.00,-10.00)
     ```
 
-turtle.setheading(*to_angle*)
+`turtle.setheading(to_angle)`
 
-turtle.seth(*to_angle*)
+`turtle.seth(to_angle)`
 :   Parameters:
     :   **to_angle** – a number (integer or float)
 
@@ -680,7 +680,7 @@ turtle.seth(*to_angle*)
     90.0
     ```
 
-turtle.home()
+`turtle.home()`
 :   Move turtle to the origin – coordinates (0,0) – and set its heading to
     its start-orientation (which depends on the mode, see [`mode()`](turtle.md#turtle.mode "turtle.mode")).
 
@@ -696,7 +696,7 @@ turtle.home()
     0.0
     ```
 
-turtle.circle(*radius*, *extent=None*, *steps=None*)
+`turtle.circle(radius, extent=None, steps=None)`
 :   Parameters:
     :   - **radius** – a number
         - **extent** – a number (or `None`)
@@ -732,7 +732,7 @@ turtle.circle(*radius*, *extent=None*, *steps=None*)
     180.0
     ```
 
-turtle.dot(*size=None*, *\*color*)
+`turtle.dot(size=None, *color)`
 :   Parameters:
     :   - **size** – an integer >= 1 (if given)
         - **color** – a colorstring or a numeric color tuple
@@ -750,7 +750,7 @@ turtle.dot(*size=None*, *\*color*)
     0.0
     ```
 
-turtle.stamp()
+`turtle.stamp()`
 :   Stamp a copy of the turtle shape onto the canvas at the current turtle
     position. Return a stamp_id for that stamp, which can be used to delete
     it by calling `clearstamp(stamp_id)`.
@@ -761,7 +761,7 @@ turtle.stamp()
     >>> turtle.fd(50)
     ```
 
-turtle.clearstamp(*stampid*)
+`turtle.clearstamp(stampid)`
 :   Parameters:
     :   **stampid** – an integer, must be return value of previous
         [`stamp()`](turtle.md#turtle.stamp "turtle.stamp") call
@@ -781,7 +781,7 @@ turtle.clearstamp(*stampid*)
     (200.00,-0.00)
     ```
 
-turtle.clearstamps(*n=None*)
+`turtle.clearstamps(n=None)`
 :   Parameters:
     :   **n** – an integer (or `None`)
 
@@ -798,7 +798,7 @@ turtle.clearstamps(*n=None*)
     >>> turtle.clearstamps()
     ```
 
-turtle.undo()
+`turtle.undo()`
 :   Undo (repeatedly) the last turtle action(s). Number of available
     undo actions is determined by the size of the undobuffer.
 
@@ -810,7 +810,7 @@ turtle.undo()
     ...     turtle.undo()
     ```
 
-turtle.speed(*speed=None*)
+`turtle.speed(speed=None)`
 :   Parameters:
     :   **speed** – an integer in the range 0..10 or a speedstring (see below)
 
@@ -846,9 +846,9 @@ turtle.speed(*speed=None*)
 
 ### Tell Turtle’s state
 
-turtle.position()
+`turtle.position()`
 
-turtle.pos()
+`turtle.pos()`
 :   Return the turtle’s current location (x,y) (as a [`Vec2D`](turtle.md#turtle.Vec2D "turtle.Vec2D") vector).
 
     ```pycon
@@ -856,7 +856,7 @@ turtle.pos()
     (440.00,-0.00)
     ```
 
-turtle.towards(*x*, *y=None*)
+`turtle.towards(x, y=None)`
 :   Parameters:
     :   - **x** – a number or a pair/vector of numbers or a turtle instance
         - **y** – a number if *x* is a number, else `None`
@@ -871,7 +871,7 @@ turtle.towards(*x*, *y=None*)
     225.0
     ```
 
-turtle.xcor()
+`turtle.xcor()`
 :   Return the turtle’s x coordinate.
 
     ```pycon
@@ -884,7 +884,7 @@ turtle.xcor()
     64.27876
     ```
 
-turtle.ycor()
+`turtle.ycor()`
 :   Return the turtle’s y coordinate.
 
     ```pycon
@@ -897,7 +897,7 @@ turtle.ycor()
     86.60254
     ```
 
-turtle.heading()
+`turtle.heading()`
 :   Return the turtle’s current heading (value depends on the turtle mode, see
     [`mode()`](turtle.md#turtle.mode "turtle.mode")).
 
@@ -908,7 +908,7 @@ turtle.heading()
     67.0
     ```
 
-turtle.distance(*x*, *y=None*)
+`turtle.distance(x, y=None)`
 :   Parameters:
     :   - **x** – a number or a pair/vector of numbers or a turtle instance
         - **y** – a number if *x* is a number, else `None`
@@ -930,7 +930,7 @@ turtle.distance(*x*, *y=None*)
 
 ### Settings for measurement
 
-turtle.degrees(*fullcircle=360.0*)
+`turtle.degrees(fullcircle=360.0)`
 :   Parameters:
     :   **fullcircle** – a number
 
@@ -953,7 +953,7 @@ turtle.degrees(*fullcircle=360.0*)
     90.0
     ```
 
-turtle.radians()
+`turtle.radians()`
 :   Set the angle measurement units to radians. Equivalent to
     `degrees(2*math.pi)`.
 
@@ -971,23 +971,23 @@ turtle.radians()
 
 #### Drawing state
 
-turtle.pendown()
+`turtle.pendown()`
 
-turtle.pd()
+`turtle.pd()`
 
-turtle.down()
+`turtle.down()`
 :   Pull the pen down – drawing when moving.
 
-turtle.penup()
+`turtle.penup()`
 
-turtle.pu()
+`turtle.pu()`
 
-turtle.up()
+`turtle.up()`
 :   Pull the pen up – no drawing when moving.
 
-turtle.pensize(*width=None*)
+`turtle.pensize(width=None)`
 
-turtle.width(*width=None*)
+`turtle.width(width=None)`
 :   Parameters:
     :   **width** – a positive number
 
@@ -1001,7 +1001,7 @@ turtle.width(*width=None*)
     >>> turtle.pensize(10)   # from here on lines of width 10 are drawn
     ```
 
-turtle.pen(*pen=None*, *\*\*pendict*)
+`turtle.pen(pen=None, **pendict)`
 :   Parameters:
     :   - **pen** – a dictionary with some or all of the below listed keys
         - **pendict** – one or more keyword-arguments with the below listed keys as keywords
@@ -1042,7 +1042,7 @@ turtle.pen(*pen=None*, *\*\*pendict*)
     [('fillcolor', 'green'), ('outline', 1), ('pencolor', 'red')]
     ```
 
-turtle.isdown()
+`turtle.isdown()`
 :   Return `True` if pen is down, `False` if it’s up.
 
     ```pycon
@@ -1056,7 +1056,7 @@ turtle.isdown()
 
 #### Color control
 
-turtle.pencolor(*\*args*)
+`turtle.pencolor(*args)`
 :   Return or set the pencolor.
 
     Four input formats are allowed:
@@ -1102,7 +1102,7 @@ turtle.pencolor(*\*args*)
     (50.0, 193.0, 143.0)
     ```
 
-turtle.fillcolor(*\*args*)
+`turtle.fillcolor(*args)`
 :   Return or set the fillcolor.
 
     Four input formats are allowed:
@@ -1142,7 +1142,7 @@ turtle.fillcolor(*\*args*)
     (255.0, 255.0, 255.0)
     ```
 
-turtle.color(*\*args*)
+`turtle.color(*args)`
 :   Return or set pencolor and fillcolor.
 
     Several input formats are allowed. They use 0 to 3 arguments as
@@ -1177,7 +1177,7 @@ See also: Screen method [`colormode()`](turtle.md#turtle.colormode "turtle.color
 
 #### Filling
 
-turtle.filling()
+`turtle.filling()`
 :   Return fillstate (`True` if filling, `False` else).
 
     ```pycon
@@ -1188,10 +1188,10 @@ turtle.filling()
     ...    turtle.pensize(3)
     ```
 
-turtle.begin_fill()
+`turtle.begin_fill()`
 :   To be called just before drawing a shape to be filled.
 
-turtle.end_fill()
+`turtle.end_fill()`
 :   Fill the shape drawn after the last call to [`begin_fill()`](turtle.md#turtle.begin_fill "turtle.begin_fill").
 
     Whether or not overlap regions for self-intersecting polygons
@@ -1208,7 +1208,7 @@ turtle.end_fill()
 
 #### More drawing control
 
-turtle.reset()
+`turtle.reset()`
 :   Delete the turtle’s drawings from the screen, re-center the turtle and set
     variables to the default values.
 
@@ -1226,11 +1226,11 @@ turtle.reset()
     0.0
     ```
 
-turtle.clear()
+`turtle.clear()`
 :   Delete the turtle’s drawings from the screen. Do not move turtle. State and
     position of the turtle as well as drawings of other turtles are not affected.
 
-turtle.write(*arg*, *move=False*, *align='left'*, *font=('Arial', 8, 'normal')*)
+`turtle.write(arg, move=False, align='left', font=('Arial', 8, 'normal'))`
 :   Parameters:
     :   - **arg** – object to be written to the TurtleScreen
         - **move** – True/False
@@ -1251,9 +1251,9 @@ turtle.write(*arg*, *move=False*, *align='left'*, *font=('Arial', 8, 'normal')*)
 
 #### Visibility
 
-turtle.hideturtle()
+`turtle.hideturtle()`
 
-turtle.ht()
+`turtle.ht()`
 :   Make the turtle invisible. It’s a good idea to do this while you’re in the
     middle of doing some complex drawing, because hiding the turtle speeds up the
     drawing observably.
@@ -1262,16 +1262,16 @@ turtle.ht()
     >>> turtle.hideturtle()
     ```
 
-turtle.showturtle()
+`turtle.showturtle()`
 
-turtle.st()
+`turtle.st()`
 :   Make the turtle visible.
 
     ```pycon
     >>> turtle.showturtle()
     ```
 
-turtle.isvisible()
+`turtle.isvisible()`
 :   Return `True` if the Turtle is shown, `False` if it’s hidden.
 
     ```
@@ -1285,7 +1285,7 @@ turtle.isvisible()
 
 #### Appearance
 
-turtle.shape(*name=None*)
+`turtle.shape(name=None)`
 :   Parameters:
     :   **name** – a string which is a valid shapename
 
@@ -1303,7 +1303,7 @@ turtle.shape(*name=None*)
     'turtle'
     ```
 
-turtle.resizemode(*rmode=None*)
+`turtle.resizemode(rmode=None)`
 :   Parameters:
     :   **rmode** – one of the strings “auto”, “user”, “noresize”
 
@@ -1327,9 +1327,9 @@ turtle.resizemode(*rmode=None*)
     'auto'
     ```
 
-turtle.shapesize(*stretch_wid=None*, *stretch_len=None*, *outline=None*)
+`turtle.shapesize(stretch_wid=None, stretch_len=None, outline=None)`
 
-turtle.turtlesize(*stretch_wid=None*, *stretch_len=None*, *outline=None*)
+`turtle.turtlesize(stretch_wid=None, stretch_len=None, outline=None)`
 :   Parameters:
     :   - **stretch_wid** – positive number
         - **stretch_len** – positive number
@@ -1354,7 +1354,7 @@ turtle.turtlesize(*stretch_wid=None*, *stretch_len=None*, *outline=None*)
     (5, 5, 8)
     ```
 
-turtle.shearfactor(*shear=None*)
+`turtle.shearfactor(shear=None)`
 :   Parameters:
     :   **shear** – number (optional)
 
@@ -1373,7 +1373,7 @@ turtle.shearfactor(*shear=None*)
     0.5
     ```
 
-turtle.tilt(*angle*)
+`turtle.tilt(angle)`
 :   Parameters:
     :   **angle** – a number
 
@@ -1390,7 +1390,7 @@ turtle.tilt(*angle*)
     >>> turtle.fd(50)
     ```
 
-turtle.settiltangle(*angle*)
+`turtle.settiltangle(angle)`
 :   Parameters:
     :   **angle** – a number
 
@@ -1410,7 +1410,7 @@ turtle.settiltangle(*angle*)
 
     Deprecated since version 3.1.
 
-turtle.tiltangle(*angle=None*)
+`turtle.tiltangle(angle=None)`
 :   Parameters:
     :   **angle** – a number (optional)
 
@@ -1431,7 +1431,7 @@ turtle.tiltangle(*angle=None*)
     45.0
     ```
 
-turtle.shapetransform(*t11=None*, *t12=None*, *t21=None*, *t22=None*)
+`turtle.shapetransform(t11=None, t12=None, t21=None, t22=None)`
 :   Parameters:
     :   - **t11** – a number (optional)
         - **t12** – a number (optional)
@@ -1458,7 +1458,7 @@ turtle.shapetransform(*t11=None*, *t12=None*, *t21=None*, *t22=None*)
     (4.0, -1.0, -0.0, 2.0)
     ```
 
-turtle.get_shapepoly()
+`turtle.get_shapepoly()`
 :   Return the current shape polygon as tuple of coordinate pairs. This
     can be used to define a new shape or components of a compound shape.
 
@@ -1471,7 +1471,7 @@ turtle.get_shapepoly()
 
 ### Using events
 
-turtle.onclick(*fun*, *btn=1*, *add=None*)
+`turtle.onclick(fun, btn=1, add=None)`
 :   Parameters:
     :   - **fun** – a function with two arguments which will be called with the
           coordinates of the clicked point on the canvas
@@ -1491,7 +1491,7 @@ turtle.onclick(*fun*, *btn=1*, *add=None*)
     >>> onclick(None)  # event-binding will be removed
     ```
 
-turtle.onrelease(*fun*, *btn=1*, *add=None*)
+`turtle.onrelease(fun, btn=1, add=None)`
 :   Parameters:
     :   - **fun** – a function with two arguments which will be called with the
           coordinates of the clicked point on the canvas
@@ -1514,7 +1514,7 @@ turtle.onrelease(*fun*, *btn=1*, *add=None*)
     >>> turtle.onrelease(turtle.unglow) # releasing turns it to transparent.
     ```
 
-turtle.ondrag(*fun*, *btn=1*, *add=None*)
+`turtle.ondrag(fun, btn=1, add=None)`
 :   Parameters:
     :   - **fun** – a function with two arguments which will be called with the
           coordinates of the clicked point on the canvas
@@ -1537,15 +1537,15 @@ turtle.ondrag(*fun*, *btn=1*, *add=None*)
 
 ### Special Turtle methods
 
-turtle.begin_poly()
+`turtle.begin_poly()`
 :   Start recording the vertices of a polygon. Current turtle position is first
     vertex of polygon.
 
-turtle.end_poly()
+`turtle.end_poly()`
 :   Stop recording the vertices of a polygon. Current turtle position is last
     vertex of polygon. This will be connected with the first vertex.
 
-turtle.get_poly()
+`turtle.get_poly()`
 :   Return the last recorded polygon.
 
     ```pycon
@@ -1561,7 +1561,7 @@ turtle.get_poly()
     >>> register_shape("myFavouriteShape", p)
     ```
 
-turtle.clone()
+`turtle.clone()`
 :   Create and return a clone of the turtle with same position, heading and
     turtle properties.
 
@@ -1570,9 +1570,9 @@ turtle.clone()
     >>> joe = mick.clone()
     ```
 
-turtle.getturtle()
+`turtle.getturtle()`
 
-turtle.getpen()
+`turtle.getpen()`
 :   Return the Turtle object itself. Only reasonable use: as a function to
     return the “anonymous turtle”:
 
@@ -1583,7 +1583,7 @@ turtle.getpen()
     <turtle.Turtle object at 0x...>
     ```
 
-turtle.getscreen()
+`turtle.getscreen()`
 :   Return the [`TurtleScreen`](turtle.md#turtle.TurtleScreen "turtle.TurtleScreen") object the turtle is drawing on.
     TurtleScreen methods can then be called for that object.
 
@@ -1594,7 +1594,7 @@ turtle.getscreen()
     >>> ts.bgcolor("pink")
     ```
 
-turtle.setundobuffer(*size*)
+`turtle.setundobuffer(size)`
 :   Parameters:
     :   **size** – an integer or `None`
 
@@ -1607,7 +1607,7 @@ turtle.setundobuffer(*size*)
     >>> turtle.setundobuffer(42)
     ```
 
-turtle.undobufferentries()
+`turtle.undobufferentries()`
 :   Return number of entries in the undobuffer.
 
     ```pycon
@@ -1654,7 +1654,7 @@ Most of the examples in this section refer to a TurtleScreen instance called
 
 ### Window control
 
-turtle.bgcolor(*\*args*)
+`turtle.bgcolor(*args)`
 :   Parameters:
     :   **args** – a color string or three numbers in the range 0..colormode or a
         3-tuple of such numbers
@@ -1670,7 +1670,7 @@ turtle.bgcolor(*\*args*)
     (128.0, 0.0, 128.0)
     ```
 
-turtle.bgpic(*picname=None*)
+`turtle.bgpic(picname=None)`
 :   Parameters:
     :   **picname** – a string, name of a gif-file or `"nopic"`, or `None`
 
@@ -1687,29 +1687,29 @@ turtle.bgpic(*picname=None*)
     "landscape.gif"
     ```
 
-turtle.clear()
+`turtle.clear()`
 :   > **Note:**
     >
     > This TurtleScreen method is available as a global function only under the
     > name `clearscreen`. The global function `clear` is a different one
     > derived from the Turtle method `clear`.
 
-turtle.clearscreen()
+`turtle.clearscreen()`
 :   Delete all drawings and all turtles from the TurtleScreen. Reset the now
     empty TurtleScreen to its initial state: white background, no background
     image, no event bindings and tracing on.
 
-turtle.reset()
+`turtle.reset()`
 :   > **Note:**
     >
     > This TurtleScreen method is available as a global function only under the
     > name `resetscreen`. The global function `reset` is another one
     > derived from the Turtle method `reset`.
 
-turtle.resetscreen()
+`turtle.resetscreen()`
 :   Reset all Turtles on the Screen to their initial state.
 
-turtle.screensize(*canvwidth=None*, *canvheight=None*, *bg=None*)
+`turtle.screensize(canvwidth=None, canvheight=None, bg=None)`
 :   Parameters:
     :   - **canvwidth** – positive integer, new width of canvas in pixels
         - **canvheight** – positive integer, new height of canvas in pixels
@@ -1731,7 +1731,7 @@ turtle.screensize(*canvwidth=None*, *canvheight=None*, *bg=None*)
 
     e.g. to search for an erroneously escaped turtle ;-)
 
-turtle.setworldcoordinates(*llx*, *lly*, *urx*, *ury*)
+`turtle.setworldcoordinates(llx, lly, urx, ury)`
 :   Parameters:
     :   - **llx** – a number, x-coordinate of lower left corner of canvas
         - **lly** – a number, y-coordinate of lower left corner of canvas
@@ -1757,7 +1757,7 @@ turtle.setworldcoordinates(*llx*, *lly*, *urx*, *ury*)
 
 ### Animation control
 
-turtle.delay(*delay=None*)
+`turtle.delay(delay=None)`
 :   Parameters:
     :   **delay** – positive integer
 
@@ -1775,7 +1775,7 @@ turtle.delay(*delay=None*)
     5
     ```
 
-turtle.tracer(*n=None*, *delay=None*)
+`turtle.tracer(n=None, delay=None)`
 :   Parameters:
     :   - **n** – nonnegative integer
         - **delay** – nonnegative integer
@@ -1796,20 +1796,20 @@ turtle.tracer(*n=None*, *delay=None*)
     ...     dist += 2
     ```
 
-turtle.update()
+`turtle.update()`
 :   Perform a TurtleScreen update. To be used when tracer is turned off.
 
 See also the RawTurtle/Turtle method [`speed()`](turtle.md#turtle.speed "turtle.speed").
 
 ### Using screen events
 
-turtle.listen(*xdummy=None*, *ydummy=None*)
+`turtle.listen(xdummy=None, ydummy=None)`
 :   Set focus on TurtleScreen (in order to collect key-events). Dummy arguments
     are provided in order to be able to pass [`listen()`](turtle.md#turtle.listen "turtle.listen") to the onclick method.
 
-turtle.onkey(*fun*, *key*)
+`turtle.onkey(fun, key)`
 
-turtle.onkeyrelease(*fun*, *key*)
+`turtle.onkeyrelease(fun, key)`
 :   Parameters:
     :   - **fun** – a function with no arguments or `None`
         - **key** – a string: key (e.g. “a”) or key-symbol (e.g. “space”)
@@ -1827,7 +1827,7 @@ turtle.onkeyrelease(*fun*, *key*)
     >>> screen.listen()
     ```
 
-turtle.onkeypress(*fun*, *key=None*)
+`turtle.onkeypress(fun, key=None)`
 :   Parameters:
     :   - **fun** – a function with no arguments or `None`
         - **key** – a string: key (e.g. “a”) or key-symbol (e.g. “space”)
@@ -1845,9 +1845,9 @@ turtle.onkeypress(*fun*, *key=None*)
     >>> screen.listen()
     ```
 
-turtle.onclick(*fun*, *btn=1*, *add=None*)
+`turtle.onclick(fun, btn=1, add=None)`
 
-turtle.onscreenclick(*fun*, *btn=1*, *add=None*)
+`turtle.onscreenclick(fun, btn=1, add=None)`
 :   Parameters:
     :   - **fun** – a function with two arguments which will be called with the
           coordinates of the clicked point on the canvas
@@ -1873,7 +1873,7 @@ turtle.onscreenclick(*fun*, *btn=1*, *add=None*)
     > name `onscreenclick`. The global function `onclick` is another one
     > derived from the Turtle method `onclick`.
 
-turtle.ontimer(*fun*, *t=0*)
+`turtle.ontimer(fun, t=0)`
 :   Parameters:
     :   - **fun** – a function with no arguments
         - **t** – a number >= 0
@@ -1891,9 +1891,9 @@ turtle.ontimer(*fun*, *t=0*)
     >>> running = False
     ```
 
-turtle.mainloop()
+`turtle.mainloop()`
 
-turtle.done()
+`turtle.done()`
 :   Starts event loop - calling Tkinter’s mainloop function.
     Must be the last statement in a turtle graphics program.
     Must *not* be used if a script is run from within IDLE in -n mode
@@ -1905,7 +1905,7 @@ turtle.done()
 
 ### Input methods
 
-turtle.textinput(*title*, *prompt*)
+`turtle.textinput(title, prompt)`
 :   Parameters:
     :   - **title** – string
         - **prompt** – string
@@ -1919,7 +1919,7 @@ turtle.textinput(*title*, *prompt*)
     >>> screen.textinput("NIM", "Name of first player:")
     ```
 
-turtle.numinput(*title*, *prompt*, *default=None*, *minval=None*, *maxval=None*)
+`turtle.numinput(title, prompt, default=None, minval=None, maxval=None)`
 :   Parameters:
     :   - **title** – string
         - **prompt** – string
@@ -1942,7 +1942,7 @@ turtle.numinput(*title*, *prompt*, *default=None*, *minval=None*, *maxval=None*)
 
 ### Settings and special methods
 
-turtle.mode(*mode=None*)
+`turtle.mode(mode=None)`
 :   Parameters:
     :   **mode** – one of the strings “standard”, “logo” or “world”
 
@@ -1965,7 +1965,7 @@ turtle.mode(*mode=None*)
     'logo'
     ```
 
-turtle.colormode(*cmode=None*)
+`turtle.colormode(cmode=None)`
 :   Parameters:
     :   **cmode** – one of the values 1.0 or 255
 
@@ -1986,7 +1986,7 @@ turtle.colormode(*cmode=None*)
     >>> turtle.pencolor(240,160,80)
     ```
 
-turtle.getcanvas()
+`turtle.getcanvas()`
 :   Return the Canvas of this TurtleScreen. Useful for insiders who know what to
     do with a Tkinter Canvas.
 
@@ -1996,7 +1996,7 @@ turtle.getcanvas()
     <turtle.ScrolledCanvas object ...>
     ```
 
-turtle.getshapes()
+`turtle.getshapes()`
 :   Return a list of names of all currently available turtle shapes.
 
     ```pycon
@@ -2004,9 +2004,9 @@ turtle.getshapes()
     ['arrow', 'blank', 'circle', ..., 'turtle']
     ```
 
-turtle.register_shape(*name*, *shape=None*)
+`turtle.register_shape(name, shape=None)`
 
-turtle.addshape(*name*, *shape=None*)
+`turtle.addshape(name, shape=None)`
 :   There are three different ways to call this function:
 
     1. *name* is the name of a gif-file and *shape* is `None`: Install the
@@ -2032,7 +2032,7 @@ turtle.addshape(*name*, *shape=None*)
     Add a turtle shape to TurtleScreen’s shapelist. Only thusly registered
     shapes can be used by issuing the command `shape(shapename)`.
 
-turtle.turtles()
+`turtle.turtles()`
 :   Return the list of turtles on the screen.
 
     ```pycon
@@ -2040,7 +2040,7 @@ turtle.turtles()
     ...     turtle.color("red")
     ```
 
-turtle.window_height()
+`turtle.window_height()`
 :   Return the height of the turtle window.
 
     ```python3
@@ -2048,7 +2048,7 @@ turtle.window_height()
     480
     ```
 
-turtle.window_width()
+`turtle.window_width()`
 :   Return the width of the turtle window.
 
     ```python3
@@ -2058,10 +2058,10 @@ turtle.window_width()
 
 ### Methods specific to Screen, not inherited from TurtleScreen
 
-turtle.bye()
+`turtle.bye()`
 :   Shut the turtlegraphics window.
 
-turtle.exitonclick()
+`turtle.exitonclick()`
 :   Bind `bye()` method to mouse clicks on the Screen.
 
     If the value “using_IDLE” in the configuration dictionary is `False`
@@ -2070,7 +2070,7 @@ turtle.exitonclick()
     `turtle.cfg`. In this case IDLE’s own mainloop is active also for the
     client script.
 
-turtle.setup(*width=_CFG['width']*, *height=_CFG['height']*, *startx=_CFG['leftright']*, *starty=_CFG['topbottom']*)
+`turtle.setup(width=_CFG['width'], height=_CFG['height'], startx=_CFG['leftright'], starty=_CFG['topbottom'])`
 :   Set the size and position of the main window. Default values of arguments
     are stored in the configuration dictionary and can be changed via a
     `turtle.cfg` file.
@@ -2094,7 +2094,7 @@ turtle.setup(*width=_CFG['width']*, *height=_CFG['height']*, *startx=_CFG['leftr
     >>>              # sets window to 75% of screen by 50% of screen and centers
     ```
 
-turtle.title(*titlestring*)
+`turtle.title(titlestring)`
 :   Parameters:
     :   **titlestring** – a string that is shown in the titlebar of the turtle
         graphics window
@@ -2107,9 +2107,9 @@ turtle.title(*titlestring*)
 
 ## Public classes
 
-*class* turtle.RawTurtle(*canvas*)
+`class turtle.RawTurtle(canvas)`
 
-*class* turtle.RawPen(*canvas*)
+`class turtle.RawPen(canvas)`
 :   Parameters:
     :   **canvas** – a `tkinter.Canvas`, a [`ScrolledCanvas`](turtle.md#turtle.ScrolledCanvas "turtle.ScrolledCanvas") or a
         [`TurtleScreen`](turtle.md#turtle.TurtleScreen "turtle.TurtleScreen")
@@ -2117,21 +2117,21 @@ turtle.title(*titlestring*)
     Create a turtle. The turtle has all methods described above as “methods of
     Turtle/RawTurtle”.
 
-*class* turtle.Turtle
+`class turtle.Turtle`
 :   Subclass of RawTurtle, has the same interface but draws on a default
     [`Screen`](turtle.md#turtle.Screen "turtle.Screen") object created automatically when needed for the first time.
 
-*class* turtle.TurtleScreen(*cv*)
+`class turtle.TurtleScreen(cv)`
 :   Parameters:
     :   **cv** – a `tkinter.Canvas`
 
     Provides screen oriented methods like [`bgcolor()`](turtle.md#turtle.bgcolor "turtle.bgcolor") etc. that are described
     above.
 
-*class* turtle.Screen
+`class turtle.Screen`
 :   Subclass of TurtleScreen, with [four methods added](turtle.md#screenspecific).
 
-*class* turtle.ScrolledCanvas(*master*)
+`class turtle.ScrolledCanvas(master)`
 :   Parameters:
     :   **master** – some Tkinter widget to contain the ScrolledCanvas, i.e.
         a Tkinter-canvas with scrollbars added
@@ -2139,7 +2139,7 @@ turtle.title(*titlestring*)
     Used by class Screen, which thus automatically provides a ScrolledCanvas as
     playground for the turtles.
 
-*class* turtle.Shape(*type_*, *data*)
+`class turtle.Shape(type_, data)`
 :   Parameters:
     :   **type_** – one of the strings “polygon”, “image”, “compound”
 
@@ -2152,7 +2152,7 @@ turtle.title(*titlestring*)
     | “image” | an image (in this form only used internally!) |
     | “compound” | `None` (a compound shape has to be constructed using the [`addcomponent()`](turtle.md#turtle.Shape.addcomponent "turtle.Shape.addcomponent") method) |
 
-    addcomponent(*poly*, *fill*, *outline=None*)
+    `addcomponent(poly, fill, outline=None)`
     :   Parameters:
         :   - **poly** – a polygon, i.e. a tuple of pairs of numbers
             - **fill** – a color the *poly* will be filled with
@@ -2169,7 +2169,7 @@ turtle.title(*titlestring*)
 
         See [Compound shapes](turtle.md#compoundshapes).
 
-*class* turtle.Vec2D(*x*, *y*)
+`class turtle.Vec2D(x, y)`
 :   A two-dimensional vector class, used as a helper class for implementing
     turtle graphics. May be useful for turtle graphics programs too. Derived
     from tuple, so a vector is a tuple!
@@ -2299,7 +2299,7 @@ There is a utility to create a dictionary the keys of which are the method names
 and the values of which are the docstrings of the public methods of the classes
 Screen and Turtle.
 
-turtle.write_docstringdict(*filename='turtle_docstringdict'*)
+`turtle.write_docstringdict(filename='turtle_docstringdict')`
 :   Parameters:
     :   **filename** – a string, used as filename
 

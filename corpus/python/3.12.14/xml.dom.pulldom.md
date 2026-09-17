@@ -75,13 +75,13 @@ context-related state (i.e. remembering where one is in the document at any
 given point) or to make use of the [`DOMEventStream.expandNode()`](xml.dom.pulldom.md#xml.dom.pulldom.DOMEventStream.expandNode "xml.dom.pulldom.DOMEventStream.expandNode") method
 and switch to DOM-related processing.
 
-*class* xml.dom.pulldom.PullDom(*documentFactory=None*)
+`class xml.dom.pulldom.PullDom(documentFactory=None)`
 :   Subclass of [`xml.sax.handler.ContentHandler`](xml.sax.handler.md#xml.sax.handler.ContentHandler "xml.sax.handler.ContentHandler").
 
-*class* xml.dom.pulldom.SAX2DOM(*documentFactory=None*)
+`class xml.dom.pulldom.SAX2DOM(documentFactory=None)`
 :   Subclass of [`xml.sax.handler.ContentHandler`](xml.sax.handler.md#xml.sax.handler.ContentHandler "xml.sax.handler.ContentHandler").
 
-xml.dom.pulldom.parse(*stream_or_string*, *parser=None*, *bufsize=None*)
+`xml.dom.pulldom.parse(stream_or_string, parser=None, bufsize=None)`
 :   Return a [`DOMEventStream`](xml.dom.pulldom.md#xml.dom.pulldom.DOMEventStream "xml.dom.pulldom.DOMEventStream") from the given input. *stream_or_string* may be
     either a file name, or a file-like object. *parser*, if given, must be an
     [`XMLReader`](xml.sax.reader.md#xml.sax.xmlreader.XMLReader "xml.sax.xmlreader.XMLReader") object. This function will change the
@@ -91,10 +91,10 @@ xml.dom.pulldom.parse(*stream_or_string*, *parser=None*, *bufsize=None*)
 
 If you have XML in a string, you can use the [`parseString()`](xml.dom.pulldom.md#xml.dom.pulldom.parseString "xml.dom.pulldom.parseString") function instead:
 
-xml.dom.pulldom.parseString(*string*, *parser=None*)
+`xml.dom.pulldom.parseString(string, parser=None)`
 :   Return a [`DOMEventStream`](xml.dom.pulldom.md#xml.dom.pulldom.DOMEventStream "xml.dom.pulldom.DOMEventStream") that represents the (Unicode) *string*.
 
-xml.dom.pulldom.default_bufsize
+`xml.dom.pulldom.default_bufsize`
 :   Default value for the *bufsize* parameter to [`parse()`](xml.dom.pulldom.md#xml.dom.pulldom.parse "xml.dom.pulldom.parse").
 
     The value of this variable can be changed before calling [`parse()`](xml.dom.pulldom.md#xml.dom.pulldom.parse "xml.dom.pulldom.parse") and
@@ -102,10 +102,10 @@ xml.dom.pulldom.default_bufsize
 
 ## DOMEventStream Objects
 
-*class* xml.dom.pulldom.DOMEventStream(*stream*, *parser*, *bufsize*)
+`class xml.dom.pulldom.DOMEventStream(stream, parser, bufsize)`
 :   Changed in version 3.11: Support for [`__getitem__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getitem__ "object.__getitem__") method has been removed.
 
-    getEvent()
+    `getEvent()`
     :   Return a tuple containing *event* and the current *node* as
         `xml.dom.minidom.Document` if event equals `START_DOCUMENT`,
         `xml.dom.minidom.Element` if event equals `START_ELEMENT` or
@@ -114,7 +114,7 @@ xml.dom.pulldom.default_bufsize
         The current node does not contain information about its children, unless
         [`expandNode()`](xml.dom.pulldom.md#xml.dom.pulldom.DOMEventStream.expandNode "xml.dom.pulldom.DOMEventStream.expandNode") is called.
 
-    expandNode(*node*)
+    `expandNode(node)`
     :   Expands all children of *node* into *node*. Example:
 
         ```python3
@@ -131,4 +131,4 @@ xml.dom.pulldom.default_bufsize
                 print(node.toxml())
         ```
 
-    reset()
+    `reset()`

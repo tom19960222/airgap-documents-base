@@ -17,7 +17,7 @@ see also the [`difflib`](difflib.md#module-difflib "difflib: Helpers for computi
 
 The [`filecmp`](filecmp.md#module-filecmp "filecmp: Compare files efficiently.") module defines the following functions:
 
-filecmp.cmp(*f1*, *f2*, *shallow=True*)
+`filecmp.cmp(f1, f2, shallow=True)`
 :   Compare the files named *f1* and *f2*, returning `True` if they seem equal,
     `False` otherwise.
 
@@ -34,7 +34,7 @@ filecmp.cmp(*f1*, *f2*, *shallow=True*)
     with cache entries invalidated if the [`os.stat()`](os.md#os.stat "os.stat") information for the
     file changes. The entire cache may be cleared using [`clear_cache()`](filecmp.md#filecmp.clear_cache "filecmp.clear_cache").
 
-filecmp.cmpfiles(*dir1*, *dir2*, *common*, *shallow=True*)
+`filecmp.cmpfiles(dir1, dir2, common, shallow=True)`
 :   Compare the files in the two directories *dir1* and *dir2* whose names are
     given by *common*.
 
@@ -52,7 +52,7 @@ filecmp.cmpfiles(*dir1*, *dir2*, *common*, *shallow=True*)
     `b/c` and `a/d/e` with `b/d/e`. `'c'` and `'d/e'` will each be in
     one of the three returned lists.
 
-filecmp.clear_cache()
+`filecmp.clear_cache()`
 :   Clear the filecmp cache. This may be useful if a file is compared so quickly
     after it is modified that it is within the mtime resolution of
     the underlying filesystem.
@@ -61,7 +61,7 @@ filecmp.clear_cache()
 
 ## The `dircmp` class
 
-*class* filecmp.dircmp(*a*, *b*, *ignore=None*, *hide=None*)
+`class filecmp.dircmp(a, b, ignore=None, hide=None)`
 :   Construct a new directory comparison object, to compare the directories *a*
     and *b*. *ignore* is a list of names to ignore, and defaults to
     [`filecmp.DEFAULT_IGNORES`](filecmp.md#filecmp.DEFAULT_IGNORES "filecmp.DEFAULT_IGNORES"). *hide* is a list of names to hide, and
@@ -72,14 +72,14 @@ filecmp.clear_cache()
 
     The [`dircmp`](filecmp.md#filecmp.dircmp "filecmp.dircmp") class provides the following methods:
 
-    report()
+    `report()`
     :   Print (to [`sys.stdout`](sys.md#sys.stdout "sys.stdout")) a comparison between *a* and *b*.
 
-    report_partial_closure()
+    `report_partial_closure()`
     :   Print a comparison between *a* and *b* and common immediate
         subdirectories.
 
-    report_full_closure()
+    `report_full_closure()`
     :   Print a comparison between *a* and *b* and common subdirectories
         (recursively).
 
@@ -91,49 +91,49 @@ filecmp.clear_cache()
     so there is no speed penalty if only those attributes which are lightweight
     to compute are used.
 
-    left
+    `left`
     :   The directory *a*.
 
-    right
+    `right`
     :   The directory *b*.
 
-    left_list
+    `left_list`
     :   Files and subdirectories in *a*, filtered by *hide* and *ignore*.
 
-    right_list
+    `right_list`
     :   Files and subdirectories in *b*, filtered by *hide* and *ignore*.
 
-    common
+    `common`
     :   Files and subdirectories in both *a* and *b*.
 
-    left_only
+    `left_only`
     :   Files and subdirectories only in *a*.
 
-    right_only
+    `right_only`
     :   Files and subdirectories only in *b*.
 
-    common_dirs
+    `common_dirs`
     :   Subdirectories in both *a* and *b*.
 
-    common_files
+    `common_files`
     :   Files in both *a* and *b*.
 
-    common_funny
+    `common_funny`
     :   Names in both *a* and *b*, such that the type differs between the
         directories, or names for which [`os.stat()`](os.md#os.stat "os.stat") reports an error.
 
-    same_files
+    `same_files`
     :   Files which are identical in both *a* and *b*, using the class’s
         file comparison operator.
 
-    diff_files
+    `diff_files`
     :   Files which are in both *a* and *b*, whose contents differ according
         to the class’s file comparison operator.
 
-    funny_files
+    `funny_files`
     :   Files which are in both *a* and *b*, but could not be compared.
 
-    subdirs
+    `subdirs`
     :   A dictionary mapping names in [`common_dirs`](filecmp.md#filecmp.dircmp.common_dirs "filecmp.dircmp.common_dirs") to [`dircmp`](filecmp.md#filecmp.dircmp "filecmp.dircmp")
         instances (or MyDirCmp instances if this instance is of type MyDirCmp, a
         subclass of [`dircmp`](filecmp.md#filecmp.dircmp "filecmp.dircmp")).
@@ -142,7 +142,7 @@ filecmp.clear_cache()
         are the same type as *self*, if *self* is a subclass of
         [`dircmp`](filecmp.md#filecmp.dircmp "filecmp.dircmp").
 
-filecmp.DEFAULT_IGNORES
+`filecmp.DEFAULT_IGNORES`
 :   Added in version 3.4.
 
     List of directories ignored by [`dircmp`](filecmp.md#filecmp.dircmp "filecmp.dircmp") by default.

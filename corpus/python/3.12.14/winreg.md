@@ -21,7 +21,7 @@ Changed in version 3.3: Several functions in this module used to raise a
 
 This module offers the following functions:
 
-winreg.CloseKey(*hkey*)
+`winreg.CloseKey(hkey)`
 :   Closes a previously opened registry key. The *hkey* argument specifies a
     previously opened key.
 
@@ -30,7 +30,7 @@ winreg.CloseKey(*hkey*)
     > If *hkey* is not closed using this method (or via [`hkey.Close()`](winreg.md#winreg.PyHKEY.Close "winreg.PyHKEY.Close")), it is closed when the *hkey* object is destroyed by
     > Python.
 
-winreg.ConnectRegistry(*computer_name*, *key*)
+`winreg.ConnectRegistry(computer_name, key)`
 :   Establishes a connection to a predefined registry handle on another computer,
     and returns a [handle object](winreg.md#handle-object).
 
@@ -46,7 +46,7 @@ winreg.ConnectRegistry(*computer_name*, *key*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.CreateKey(*key*, *sub_key*)
+`winreg.CreateKey(key, sub_key)`
 :   Creates or opens the specified key, returning a
     [handle object](winreg.md#handle-object).
 
@@ -69,7 +69,7 @@ winreg.CreateKey(*key*, *sub_key*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.CreateKeyEx(*key*, *sub_key*, *reserved=0*, *access=KEY_WRITE*)
+`winreg.CreateKeyEx(key, sub_key, reserved=0, access=KEY_WRITE)`
 :   Creates or opens the specified key, returning a
     [handle object](winreg.md#handle-object).
 
@@ -100,7 +100,7 @@ winreg.CreateKeyEx(*key*, *sub_key*, *reserved=0*, *access=KEY_WRITE*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.DeleteKey(*key*, *sub_key*)
+`winreg.DeleteKey(key, sub_key)`
 :   Deletes the specified key.
 
     *key* is an already open key, or one of the predefined
@@ -118,7 +118,7 @@ winreg.DeleteKey(*key*, *sub_key*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.DeleteKeyEx(*key*, *sub_key*, *access=KEY_WOW64_64KEY*, *reserved=0*)
+`winreg.DeleteKeyEx(key, sub_key, access=KEY_WOW64_64KEY, reserved=0)`
 :   Deletes the specified key.
 
     *key* is an already open key, or one of the predefined
@@ -148,7 +148,7 @@ winreg.DeleteKeyEx(*key*, *sub_key*, *access=KEY_WOW64_64KEY*, *reserved=0*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.DeleteValue(*key*, *value*)
+`winreg.DeleteValue(key, value)`
 :   Removes a named value from a registry key.
 
     *key* is an already open key, or one of the predefined
@@ -158,7 +158,7 @@ winreg.DeleteValue(*key*, *value*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.DeleteValue` with arguments `key`, `value`.
 
-winreg.EnumKey(*key*, *index*)
+`winreg.EnumKey(key, index)`
 :   Enumerates subkeys of an open registry key, returning a string.
 
     *key* is an already open key, or one of the predefined
@@ -174,7 +174,7 @@ winreg.EnumKey(*key*, *index*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.EnumValue(*key*, *index*)
+`winreg.EnumValue(key, index)`
 :   Enumerates values of an open registry key, returning a tuple.
 
     *key* is an already open key, or one of the predefined
@@ -198,7 +198,7 @@ winreg.EnumValue(*key*, *index*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.ExpandEnvironmentStrings(*str*)
+`winreg.ExpandEnvironmentStrings(str)`
 :   Expands environment variable placeholders `%NAME%` in strings like
     [`REG_EXPAND_SZ`](winreg.md#winreg.REG_EXPAND_SZ "winreg.REG_EXPAND_SZ"):
 
@@ -209,7 +209,7 @@ winreg.ExpandEnvironmentStrings(*str*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.ExpandEnvironmentStrings` with argument `str`.
 
-winreg.FlushKey(*key*)
+`winreg.FlushKey(key)`
 :   Writes all the attributes of a key to the registry.
 
     *key* is an already open key, or one of the predefined
@@ -227,7 +227,7 @@ winreg.FlushKey(*key*)
     > If you don’t know whether a [`FlushKey()`](winreg.md#winreg.FlushKey "winreg.FlushKey") call is required, it probably
     > isn’t.
 
-winreg.LoadKey(*key*, *sub_key*, *file_name*)
+`winreg.LoadKey(key, sub_key, file_name)`
 :   Creates a subkey under the specified key and stores registration information
     from a specified file into that subkey.
 
@@ -250,9 +250,9 @@ winreg.LoadKey(*key*, *sub_key*, *file_name*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.LoadKey` with arguments `key`, `sub_key`, `file_name`.
 
-winreg.OpenKey(*key*, *sub_key*, *reserved=0*, *access=KEY_READ*)
+`winreg.OpenKey(key, sub_key, reserved=0, access=KEY_READ)`
 
-winreg.OpenKeyEx(*key*, *sub_key*, *reserved=0*, *access=KEY_READ*)
+`winreg.OpenKeyEx(key, sub_key, reserved=0, access=KEY_READ)`
 :   Opens the specified key, returning a [handle object](winreg.md#handle-object).
 
     *key* is an already open key, or one of the predefined
@@ -278,7 +278,7 @@ winreg.OpenKeyEx(*key*, *sub_key*, *reserved=0*, *access=KEY_READ*)
 
     Changed in version 3.3: See [above](winreg.md#exception-changed).
 
-winreg.QueryInfoKey(*key*)
+`winreg.QueryInfoKey(key)`
 :   Returns information about a key, as a tuple.
 
     *key* is an already open key, or one of the predefined
@@ -294,7 +294,7 @@ winreg.QueryInfoKey(*key*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.QueryInfoKey` with argument `key`.
 
-winreg.QueryValue(*key*, *sub_key*)
+`winreg.QueryValue(key, sub_key)`
 :   Retrieves the unnamed value for a key, as a string.
 
     *key* is an already open key, or one of the predefined
@@ -311,7 +311,7 @@ winreg.QueryValue(*key*, *sub_key*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.QueryValue` with arguments `key`, `sub_key`, `value_name`.
 
-winreg.QueryValueEx(*key*, *value_name*)
+`winreg.QueryValueEx(key, value_name)`
 :   Retrieves the type and data for a specified value name associated with
     an open registry key.
 
@@ -329,7 +329,7 @@ winreg.QueryValueEx(*key*, *value_name*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.QueryValue` with arguments `key`, `sub_key`, `value_name`.
 
-winreg.SaveKey(*key*, *file_name*)
+`winreg.SaveKey(key, file_name)`
 :   Saves the specified key, and all its subkeys to the specified file.
 
     *key* is an already open key, or one of the predefined
@@ -351,7 +351,7 @@ winreg.SaveKey(*key*, *file_name*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.SaveKey` with arguments `key`, `file_name`.
 
-winreg.SetValue(*key*, *sub_key*, *type*, *value*)
+`winreg.SetValue(key, sub_key, type, value)`
 :   Associates a value with a specified key.
 
     *key* is an already open key, or one of the predefined
@@ -377,7 +377,7 @@ winreg.SetValue(*key*, *sub_key*, *type*, *value*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.SetValue` with arguments `key`, `sub_key`, `type`, `value`.
 
-winreg.SetValueEx(*key*, *value_name*, *reserved*, *type*, *value*)
+`winreg.SetValueEx(key, value_name, reserved, type, value)`
 :   Stores data in the value field of an open registry key.
 
     *key* is an already open key, or one of the predefined
@@ -405,7 +405,7 @@ winreg.SetValueEx(*key*, *value_name*, *reserved*, *type*, *value*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.SetValue` with arguments `key`, `sub_key`, `type`, `value`.
 
-winreg.DisableReflectionKey(*key*)
+`winreg.DisableReflectionKey(key)`
 :   Disables registry reflection for 32-bit processes running on a 64-bit
     operating system.
 
@@ -420,7 +420,7 @@ winreg.DisableReflectionKey(*key*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.DisableReflectionKey` with argument `key`.
 
-winreg.EnableReflectionKey(*key*)
+`winreg.EnableReflectionKey(key)`
 :   Restores registry reflection for the specified disabled key.
 
     *key* is an already open key, or one of the predefined [HKEY_\* constants](winreg.md#hkey-constants).
@@ -432,7 +432,7 @@ winreg.EnableReflectionKey(*key*)
 
     Raises an [auditing event](sys.md#auditing) `winreg.EnableReflectionKey` with argument `key`.
 
-winreg.QueryReflectionKey(*key*)
+`winreg.QueryReflectionKey(key)`
 :   Determines the reflection state for the specified key.
 
     *key* is an already open key, or one of the predefined
@@ -451,89 +451,89 @@ The following constants are defined for use in many [`winreg`](winreg.md#module-
 
 ### HKEY_\* Constants
 
-winreg.HKEY_CLASSES_ROOT
+`winreg.HKEY_CLASSES_ROOT`
 :   Registry entries subordinate to this key define types (or classes) of
     documents and the properties associated with those types. Shell and
     COM applications use the information stored under this key.
 
-winreg.HKEY_CURRENT_USER
+`winreg.HKEY_CURRENT_USER`
 :   Registry entries subordinate to this key define the preferences of
     the current user. These preferences include the settings of
     environment variables, data about program groups, colors, printers,
     network connections, and application preferences.
 
-winreg.HKEY_LOCAL_MACHINE
+`winreg.HKEY_LOCAL_MACHINE`
 :   Registry entries subordinate to this key define the physical state
     of the computer, including data about the bus type, system memory,
     and installed hardware and software.
 
-winreg.HKEY_USERS
+`winreg.HKEY_USERS`
 :   Registry entries subordinate to this key define the default user
     configuration for new users on the local computer and the user
     configuration for the current user.
 
-winreg.HKEY_PERFORMANCE_DATA
+`winreg.HKEY_PERFORMANCE_DATA`
 :   Registry entries subordinate to this key allow you to access
     performance data. The data is not actually stored in the registry;
     the registry functions cause the system to collect the data from
     its source.
 
-winreg.HKEY_CURRENT_CONFIG
+`winreg.HKEY_CURRENT_CONFIG`
 :   Contains information about the current hardware profile of the
     local computer system.
 
-winreg.HKEY_DYN_DATA
+`winreg.HKEY_DYN_DATA`
 :   This key is not used in versions of Windows after 98.
 
 ### Access Rights
 
 For more information, see [Registry Key Security and Access](https://msdn.microsoft.com/en-us/library/ms724878%28v=VS.85%29.aspx).
 
-winreg.KEY_ALL_ACCESS
+`winreg.KEY_ALL_ACCESS`
 :   Combines the STANDARD_RIGHTS_REQUIRED, [`KEY_QUERY_VALUE`](winreg.md#winreg.KEY_QUERY_VALUE "winreg.KEY_QUERY_VALUE"),
     [`KEY_SET_VALUE`](winreg.md#winreg.KEY_SET_VALUE "winreg.KEY_SET_VALUE"), [`KEY_CREATE_SUB_KEY`](winreg.md#winreg.KEY_CREATE_SUB_KEY "winreg.KEY_CREATE_SUB_KEY"),
     [`KEY_ENUMERATE_SUB_KEYS`](winreg.md#winreg.KEY_ENUMERATE_SUB_KEYS "winreg.KEY_ENUMERATE_SUB_KEYS"), [`KEY_NOTIFY`](winreg.md#winreg.KEY_NOTIFY "winreg.KEY_NOTIFY"),
     and [`KEY_CREATE_LINK`](winreg.md#winreg.KEY_CREATE_LINK "winreg.KEY_CREATE_LINK") access rights.
 
-winreg.KEY_WRITE
+`winreg.KEY_WRITE`
 :   Combines the STANDARD_RIGHTS_WRITE, [`KEY_SET_VALUE`](winreg.md#winreg.KEY_SET_VALUE "winreg.KEY_SET_VALUE"), and
     [`KEY_CREATE_SUB_KEY`](winreg.md#winreg.KEY_CREATE_SUB_KEY "winreg.KEY_CREATE_SUB_KEY") access rights.
 
-winreg.KEY_READ
+`winreg.KEY_READ`
 :   Combines the STANDARD_RIGHTS_READ, [`KEY_QUERY_VALUE`](winreg.md#winreg.KEY_QUERY_VALUE "winreg.KEY_QUERY_VALUE"),
     [`KEY_ENUMERATE_SUB_KEYS`](winreg.md#winreg.KEY_ENUMERATE_SUB_KEYS "winreg.KEY_ENUMERATE_SUB_KEYS"), and [`KEY_NOTIFY`](winreg.md#winreg.KEY_NOTIFY "winreg.KEY_NOTIFY") values.
 
-winreg.KEY_EXECUTE
+`winreg.KEY_EXECUTE`
 :   Equivalent to [`KEY_READ`](winreg.md#winreg.KEY_READ "winreg.KEY_READ").
 
-winreg.KEY_QUERY_VALUE
+`winreg.KEY_QUERY_VALUE`
 :   Required to query the values of a registry key.
 
-winreg.KEY_SET_VALUE
+`winreg.KEY_SET_VALUE`
 :   Required to create, delete, or set a registry value.
 
-winreg.KEY_CREATE_SUB_KEY
+`winreg.KEY_CREATE_SUB_KEY`
 :   Required to create a subkey of a registry key.
 
-winreg.KEY_ENUMERATE_SUB_KEYS
+`winreg.KEY_ENUMERATE_SUB_KEYS`
 :   Required to enumerate the subkeys of a registry key.
 
-winreg.KEY_NOTIFY
+`winreg.KEY_NOTIFY`
 :   Required to request change notifications for a registry key or for
     subkeys of a registry key.
 
-winreg.KEY_CREATE_LINK
+`winreg.KEY_CREATE_LINK`
 :   Reserved for system use.
 
 #### 64-bit Specific
 
 For more information, see [Accessing an Alternate Registry View](https://msdn.microsoft.com/en-us/library/aa384129(v=VS.85).aspx).
 
-winreg.KEY_WOW64_64KEY
+`winreg.KEY_WOW64_64KEY`
 :   Indicates that an application on 64-bit Windows should operate on
     the 64-bit registry view. On 32-bit Windows, this constant is ignored.
 
-winreg.KEY_WOW64_32KEY
+`winreg.KEY_WOW64_32KEY`
 :   Indicates that an application on 64-bit Windows should operate on
     the 32-bit registry view. On 32-bit Windows, this constant is ignored.
 
@@ -541,52 +541,52 @@ winreg.KEY_WOW64_32KEY
 
 For more information, see [Registry Value Types](https://msdn.microsoft.com/en-us/library/ms724884%28v=VS.85%29.aspx).
 
-winreg.REG_BINARY
+`winreg.REG_BINARY`
 :   Binary data in any form.
 
-winreg.REG_DWORD
+`winreg.REG_DWORD`
 :   32-bit number.
 
-winreg.REG_DWORD_LITTLE_ENDIAN
+`winreg.REG_DWORD_LITTLE_ENDIAN`
 :   A 32-bit number in little-endian format. Equivalent to [`REG_DWORD`](winreg.md#winreg.REG_DWORD "winreg.REG_DWORD").
 
-winreg.REG_DWORD_BIG_ENDIAN
+`winreg.REG_DWORD_BIG_ENDIAN`
 :   A 32-bit number in big-endian format.
 
-winreg.REG_EXPAND_SZ
+`winreg.REG_EXPAND_SZ`
 :   Null-terminated string containing references to environment
     variables (`%PATH%`).
 
-winreg.REG_LINK
+`winreg.REG_LINK`
 :   A Unicode symbolic link.
 
-winreg.REG_MULTI_SZ
+`winreg.REG_MULTI_SZ`
 :   A sequence of null-terminated strings, terminated by two null characters.
     (Python handles this termination automatically.)
 
-winreg.REG_NONE
+`winreg.REG_NONE`
 :   No defined value type.
 
-winreg.REG_QWORD
+`winreg.REG_QWORD`
 :   A 64-bit number.
 
     Added in version 3.6.
 
-winreg.REG_QWORD_LITTLE_ENDIAN
+`winreg.REG_QWORD_LITTLE_ENDIAN`
 :   A 64-bit number in little-endian format. Equivalent to [`REG_QWORD`](winreg.md#winreg.REG_QWORD "winreg.REG_QWORD").
 
     Added in version 3.6.
 
-winreg.REG_RESOURCE_LIST
+`winreg.REG_RESOURCE_LIST`
 :   A device-driver resource list.
 
-winreg.REG_FULL_RESOURCE_DESCRIPTOR
+`winreg.REG_FULL_RESOURCE_DESCRIPTOR`
 :   A hardware setting.
 
-winreg.REG_RESOURCE_REQUIREMENTS_LIST
+`winreg.REG_RESOURCE_REQUIREMENTS_LIST`
 :   A hardware resource list.
 
-winreg.REG_SZ
+`winreg.REG_SZ`
 :   A null-terminated string.
 
 ## Registry Handle Objects
@@ -618,12 +618,12 @@ Handle objects can be converted to an integer (e.g., using the built-in
 returned. You can also use the [`Detach()`](winreg.md#winreg.PyHKEY.Detach "winreg.PyHKEY.Detach") method to return the
 integer handle, and also disconnect the Windows handle from the handle object.
 
-PyHKEY.Close()
+`PyHKEY.Close()`
 :   Closes the underlying Windows handle.
 
     If the handle is already closed, no error is raised.
 
-PyHKEY.Detach()
+`PyHKEY.Detach()`
 :   Detaches the Windows handle from the handle object.
 
     The result is an integer that holds the value of the handle before it is
@@ -636,9 +636,9 @@ PyHKEY.Detach()
 
     Raises an [auditing event](sys.md#auditing) `winreg.PyHKEY.Detach` with argument `key`.
 
-PyHKEY.__enter__()
+`PyHKEY.__enter__()`
 
-PyHKEY.__exit__(*\*exc_info*)
+`PyHKEY.__exit__(*exc_info)`
 :   The HKEY object implements [`__enter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__enter__ "object.__enter__") and
     [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") and thus supports the context protocol for the
     [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement:

@@ -83,7 +83,7 @@ An explanation of some terminology and conventions is in order.
 
 ## Functions
 
-time.asctime([*t*])
+`time.asctime([t])`
 :   Convert a tuple or [`struct_time`](time.md#time.struct_time "time.struct_time") representing a time as returned by
     [`gmtime()`](time.md#time.gmtime "time.gmtime") or [`localtime()`](time.md#time.localtime "time.localtime") to a string of the following
     form: `'Sun Jun 20 23:21:05 1993'`. The day field is two characters long
@@ -98,7 +98,7 @@ time.asctime([*t*])
     > Unlike the C function of the same name, [`asctime()`](time.md#time.asctime "time.asctime") does not add a
     > trailing newline.
 
-time.pthread_getcpuclockid(*thread_id*)
+`time.pthread_getcpuclockid(thread_id)`
 :   Return the *clk_id* of the thread-specific CPU-time clock for the specified *thread_id*.
 
     Use [`threading.get_ident()`](threading.md#threading.get_ident "threading.get_ident") or the [`ident`](threading.md#threading.Thread.ident "threading.Thread.ident")
@@ -117,7 +117,7 @@ time.pthread_getcpuclockid(*thread_id*)
 
     Added in version 3.7.
 
-time.clock_getres(*clk_id*)
+`time.clock_getres(clk_id)`
 :   Return the resolution (precision) of the specified clock *clk_id*. Refer to
     [Clock ID Constants](time.md#time-clock-id-constants) for a list of accepted values for *clk_id*.
 
@@ -125,7 +125,7 @@ time.clock_getres(*clk_id*)
 
     Added in version 3.3.
 
-time.clock_gettime(*clk_id*) → [float](functions.md#float "float")
+`time.clock_gettime(clk_id) → float`
 :   Return the time of the specified clock *clk_id*. Refer to
     [Clock ID Constants](time.md#time-clock-id-constants) for a list of accepted values for *clk_id*.
 
@@ -136,14 +136,14 @@ time.clock_gettime(*clk_id*) → [float](functions.md#float "float")
 
     Added in version 3.3.
 
-time.clock_gettime_ns(*clk_id*) → [int](functions.md#int "int")
+`time.clock_gettime_ns(clk_id) → int`
 :   Similar to [`clock_gettime()`](time.md#time.clock_gettime "time.clock_gettime") but return time as nanoseconds.
 
     [Availability](intro.md#availability): Unix.
 
     Added in version 3.7.
 
-time.clock_settime(*clk_id*, *time: [float](functions.md#float "float")*)
+`time.clock_settime(clk_id, time: float)`
 :   Set the time of the specified clock *clk_id*. Currently,
     [`CLOCK_REALTIME`](time.md#time.CLOCK_REALTIME "time.CLOCK_REALTIME") is the only accepted value for *clk_id*.
 
@@ -154,14 +154,14 @@ time.clock_settime(*clk_id*, *time: [float](functions.md#float "float")*)
 
     Added in version 3.3.
 
-time.clock_settime_ns(*clk_id*, *time: [int](functions.md#int "int")*)
+`time.clock_settime_ns(clk_id, time: int)`
 :   Similar to [`clock_settime()`](time.md#time.clock_settime "time.clock_settime") but set time with nanoseconds.
 
     [Availability](intro.md#availability): Unix.
 
     Added in version 3.7.
 
-time.ctime([*secs*])
+`time.ctime([secs])`
 :   Convert a time expressed in seconds since the [epoch](time.md#epoch) to a string of a form:
     `'Sun Jun 20 23:21:05 1993'` representing local time. The day field
     is two characters long and is space padded if the day is a single digit,
@@ -172,7 +172,7 @@ time.ctime([*secs*])
     `asctime(localtime(secs))`. Locale information is not used by
     [`ctime()`](time.md#time.ctime "time.ctime").
 
-time.get_clock_info(*name*)
+`time.get_clock_info(name)`
 :   Get information on the specified clock as a namespace object.
     Supported clock names and the corresponding functions to read their value
     are:
@@ -195,7 +195,7 @@ time.get_clock_info(*name*)
 
     Added in version 3.3.
 
-time.gmtime([*secs*])
+`time.gmtime([secs])`
 :   Convert a time expressed in seconds since the [epoch](time.md#epoch) to a [`struct_time`](time.md#time.struct_time "time.struct_time") in
     UTC in which the dst flag is always zero. If *secs* is not provided or
     [`None`](constants.md#None "None"), the current time as returned by [`time()`](time.md#time.time "time.time") is used. Fractions
@@ -203,7 +203,7 @@ time.gmtime([*secs*])
     [`struct_time`](time.md#time.struct_time "time.struct_time") object. See [`calendar.timegm()`](calendar.md#calendar.timegm "calendar.timegm") for the inverse of this
     function.
 
-time.localtime([*secs*])
+`time.localtime([secs])`
 :   Like [`gmtime()`](time.md#time.gmtime "time.gmtime") but converts to local time. If *secs* is not provided or
     [`None`](constants.md#None "None"), the current time as returned by [`time()`](time.md#time.time "time.time") is used. The dst
     flag is set to `1` when DST applies to the given time.
@@ -214,7 +214,7 @@ time.localtime([*secs*])
     `gmtime()` failure. It’s common for this to be restricted to years
     between 1970 and 2038.
 
-time.mktime(*t*)
+`time.mktime(t)`
 :   This is the inverse function of [`localtime()`](time.md#time.localtime "time.localtime"). Its argument is the
     [`struct_time`](time.md#time.struct_time "time.struct_time") or full 9-tuple (since the dst flag is needed; use `-1`
     as the dst flag if it is unknown) which expresses the time in *local* time, not
@@ -224,7 +224,7 @@ time.mktime(*t*)
     whether the invalid value is caught by Python or the underlying C libraries).
     The earliest date for which it can generate a time is platform-dependent.
 
-time.monotonic() → [float](functions.md#float "float")
+`time.monotonic() → float`
 :   Return the value (in fractional seconds) of a monotonic clock, i.e. a clock
     that cannot go backwards. The clock is not affected by system clock updates.
     The reference point of the returned value is undefined, so that only the
@@ -239,12 +239,12 @@ time.monotonic() → [float](functions.md#float "float")
 
     Changed in version 3.10: On macOS, the function is now system-wide.
 
-time.monotonic_ns() → [int](functions.md#int "int")
+`time.monotonic_ns() → int`
 :   Similar to [`monotonic()`](time.md#time.monotonic "time.monotonic"), but return time as nanoseconds.
 
     Added in version 3.7.
 
-time.perf_counter() → [float](functions.md#float "float")
+`time.perf_counter() → float`
 :   Return the value (in fractional seconds) of a performance counter, i.e. a
     clock with the highest available resolution to measure a short duration. It
     does include time elapsed during sleep and is system-wide. The reference
@@ -258,12 +258,12 @@ time.perf_counter() → [float](functions.md#float "float")
 
     Changed in version 3.10: On Windows, the function is now system-wide.
 
-time.perf_counter_ns() → [int](functions.md#int "int")
+`time.perf_counter_ns() → int`
 :   Similar to [`perf_counter()`](time.md#time.perf_counter "time.perf_counter"), but return time as nanoseconds.
 
     Added in version 3.7.
 
-time.process_time() → [float](functions.md#float "float")
+`time.process_time() → float`
 :   Return the value (in fractional seconds) of the sum of the system and user
     CPU time of the current process. It does not include time elapsed during
     sleep. It is process-wide by definition. The reference point of the
@@ -275,12 +275,12 @@ time.process_time() → [float](functions.md#float "float")
 
     Added in version 3.3.
 
-time.process_time_ns() → [int](functions.md#int "int")
+`time.process_time_ns() → int`
 :   Similar to [`process_time()`](time.md#time.process_time "time.process_time") but return time as nanoseconds.
 
     Added in version 3.7.
 
-time.sleep(*secs*)
+`time.sleep(secs)`
 :   Suspend execution of the calling thread for the given number of seconds.
     The argument may be a floating-point number to indicate a more precise sleep
     time.
@@ -320,7 +320,7 @@ time.sleep(*secs*)
     Changed in version 3.11: On Unix, the `clock_nanosleep()` and `nanosleep()` functions are now
     used if available. On Windows, a waitable timer is now used.
 
-time.strftime(*format*[, *t*])
+`time.strftime(format[, t])`
 :   Convert a tuple or [`struct_time`](time.md#time.struct_time "time.struct_time") representing a time as returned by
     [`gmtime()`](time.md#time.gmtime "time.gmtime") or [`localtime()`](time.md#time.localtime "time.localtime") to a string as specified by the *format*
     argument. If *t* is not provided, the current time as returned by
@@ -398,7 +398,7 @@ time.strftime(*format*[, *t*])
     this is also not portable. The field width is normally 2 except for `%j` where
     it is 3.
 
-time.strptime(*string*[, *format*])
+`time.strptime(string[, format])`
 :   Parse a string representing a time according to a format. The return value
     is a [`struct_time`](time.md#time.struct_time "time.struct_time") as returned by [`gmtime()`](time.md#time.gmtime "time.gmtime") or
     [`localtime()`](time.md#time.localtime "time.localtime").
@@ -431,7 +431,7 @@ time.strptime(*string*[, *format*])
     and thus does not necessarily support all directives available that are not
     documented as supported.
 
-*class* time.struct_time
+`class time.struct_time`
 :   The type of the time value sequence returned by [`gmtime()`](time.md#time.gmtime "time.gmtime"),
     [`localtime()`](time.md#time.localtime "time.localtime"), and [`strptime()`](time.md#time.strptime "time.strptime"). It is an object with a [named
     tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) interface: values can be accessed by index and by attribute name. The
@@ -440,17 +440,17 @@ time.strptime(*string*[, *format*])
     |  |  |  |
     | --- | --- | --- |
     | Index | Attribute | Values |
-    | 0 | tm_year | (for example, 1993) |
-    | 1 | tm_mon | range [1, 12] |
-    | 2 | tm_mday | range [1, 31] |
-    | 3 | tm_hour | range [0, 23] |
-    | 4 | tm_min | range [0, 59] |
-    | 5 | tm_sec | range [0, 61]; see [Note (2)](time.md#leap-second) in [`strftime()`](time.md#time.strftime "time.strftime") |
-    | 6 | tm_wday | range [0, 6]; Monday is 0 |
-    | 7 | tm_yday | range [1, 366] |
-    | 8 | tm_isdst | 0, 1 or -1; see below |
-    | N/A | tm_zone | abbreviation of timezone name |
-    | N/A | tm_gmtoff | offset east of UTC in seconds |
+    | 0 | `tm_year` | (for example, 1993) |
+    | 1 | `tm_mon` | range [1, 12] |
+    | 2 | `tm_mday` | range [1, 31] |
+    | 3 | `tm_hour` | range [0, 23] |
+    | 4 | `tm_min` | range [0, 59] |
+    | 5 | `tm_sec` | range [0, 61]; see [Note (2)](time.md#leap-second) in [`strftime()`](time.md#time.strftime "time.strftime") |
+    | 6 | `tm_wday` | range [0, 6]; Monday is 0 |
+    | 7 | `tm_yday` | range [1, 366] |
+    | 8 | `tm_isdst` | 0, 1 or -1; see below |
+    | N/A | `tm_zone` | abbreviation of timezone name |
+    | N/A | `tm_gmtoff` | offset east of UTC in seconds |
 
     Note that unlike the C structure, the month value is a range of [1, 12], not
     [0, 11].
@@ -463,7 +463,7 @@ time.strptime(*string*[, *format*])
     [`struct_time`](time.md#time.struct_time "time.struct_time"), or having elements of the wrong type, a
     [`TypeError`](exceptions.md#TypeError "TypeError") is raised.
 
-time.time() → [float](functions.md#float "float")
+`time.time() → float`
 :   Return the time in seconds since the [epoch](time.md#epoch) as a floating-point
     number. The handling of [leap seconds](https://en.wikipedia.org/wiki/Leap_second) is platform dependent.
     On Windows and most Unix systems, the leap seconds are not counted towards
@@ -486,13 +486,13 @@ time.time() → [float](functions.md#float "float")
     Use [`time_ns()`](time.md#time.time_ns "time.time_ns") to avoid the precision loss caused by the [`float`](functions.md#float "float")
     type.
 
-time.time_ns() → [int](functions.md#int "int")
+`time.time_ns() → int`
 :   Similar to [`time()`](time.md#time.time "time.time") but returns time as an integer number of
     nanoseconds since the [epoch](time.md#epoch).
 
     Added in version 3.7.
 
-time.thread_time() → [float](functions.md#float "float")
+`time.thread_time() → float`
 :   Return the value (in fractional seconds) of the sum of the system and user
     CPU time of the current thread. It does not include time elapsed during
     sleep. It is thread-specific by definition. The reference point of the
@@ -508,12 +508,12 @@ time.thread_time() → [float](functions.md#float "float")
 
     Added in version 3.7.
 
-time.thread_time_ns() → [int](functions.md#int "int")
+`time.thread_time_ns() → int`
 :   Similar to [`thread_time()`](time.md#time.thread_time "time.thread_time") but return time as nanoseconds.
 
     Added in version 3.7.
 
-time.tzset()
+`time.tzset()`
 :   Reset the time conversion rules used by the library routines. The environment
     variable `TZ` specifies how this is done. It will also set the variables
     `tzname` (from the `TZ` environment variable), `timezone` (non-DST
@@ -608,7 +608,7 @@ time.tzset()
 These constants are used as parameters for [`clock_getres()`](time.md#time.clock_getres "time.clock_getres") and
 [`clock_gettime()`](time.md#time.clock_gettime "time.clock_gettime").
 
-time.CLOCK_BOOTTIME
+`time.CLOCK_BOOTTIME`
 :   Identical to [`CLOCK_MONOTONIC`](time.md#time.CLOCK_MONOTONIC "time.CLOCK_MONOTONIC"), except it also includes any time that
     the system is suspended.
 
@@ -621,7 +621,7 @@ time.CLOCK_BOOTTIME
 
     Added in version 3.7.
 
-time.CLOCK_HIGHRES
+`time.CLOCK_HIGHRES`
 :   The Solaris OS has a `CLOCK_HIGHRES` timer that attempts to use an optimal
     hardware source, and may give close to nanosecond resolution.
     `CLOCK_HIGHRES` is the nonadjustable, high-resolution clock.
@@ -630,7 +630,7 @@ time.CLOCK_HIGHRES
 
     Added in version 3.3.
 
-time.CLOCK_MONOTONIC
+`time.CLOCK_MONOTONIC`
 :   Clock that cannot be set and represents monotonic time since some unspecified
     starting point.
 
@@ -638,7 +638,7 @@ time.CLOCK_MONOTONIC
 
     Added in version 3.3.
 
-time.CLOCK_MONOTONIC_RAW
+`time.CLOCK_MONOTONIC_RAW`
 :   Similar to [`CLOCK_MONOTONIC`](time.md#time.CLOCK_MONOTONIC "time.CLOCK_MONOTONIC"), but provides access to a raw
     hardware-based time that is not subject to NTP adjustments.
 
@@ -646,21 +646,21 @@ time.CLOCK_MONOTONIC_RAW
 
     Added in version 3.3.
 
-time.CLOCK_PROCESS_CPUTIME_ID
+`time.CLOCK_PROCESS_CPUTIME_ID`
 :   High-resolution per-process timer from the CPU.
 
     [Availability](intro.md#availability): Unix.
 
     Added in version 3.3.
 
-time.CLOCK_PROF
+`time.CLOCK_PROF`
 :   High-resolution per-process timer from the CPU.
 
     [Availability](intro.md#availability): FreeBSD, NetBSD >= 7, OpenBSD.
 
     Added in version 3.7.
 
-time.CLOCK_TAI
+`time.CLOCK_TAI`
 :   [International Atomic Time](https://www.nist.gov/pml/time-and-frequency-division/nist-time-frequently-asked-questions-faq#tai)
 
     The system must have a current leap second table in order for this to give
@@ -670,14 +670,14 @@ time.CLOCK_TAI
 
     Added in version 3.9.
 
-time.CLOCK_THREAD_CPUTIME_ID
+`time.CLOCK_THREAD_CPUTIME_ID`
 :   Thread-specific CPU-time clock.
 
     [Availability](intro.md#availability): Unix.
 
     Added in version 3.3.
 
-time.CLOCK_UPTIME
+`time.CLOCK_UPTIME`
 :   Time whose absolute value is the time the system has been running and not
     suspended, providing accurate uptime measurement, both absolute and
     interval.
@@ -686,7 +686,7 @@ time.CLOCK_UPTIME
 
     Added in version 3.7.
 
-time.CLOCK_UPTIME_RAW
+`time.CLOCK_UPTIME_RAW`
 :   Clock that increments monotonically, tracking the time since an arbitrary
     point, unaffected by frequency or time adjustments and not incremented while
     the system is asleep.
@@ -698,7 +698,7 @@ time.CLOCK_UPTIME_RAW
 The following constant is the only parameter that can be sent to
 [`clock_settime()`](time.md#time.clock_settime "time.clock_settime").
 
-time.CLOCK_REALTIME
+`time.CLOCK_REALTIME`
 :   System-wide real-time clock. Setting this clock requires appropriate
     privileges.
 
@@ -708,19 +708,19 @@ time.CLOCK_REALTIME
 
 ## Timezone Constants
 
-time.altzone
+`time.altzone`
 :   The offset of the local DST timezone, in seconds west of UTC, if one is defined.
     This is negative if the local DST timezone is east of UTC (as in Western Europe,
     including the UK). Only use this if `daylight` is nonzero. See note below.
 
-time.daylight
+`time.daylight`
 :   Nonzero if a DST timezone is defined. See note below.
 
-time.timezone
+`time.timezone`
 :   The offset of the local (non-DST) timezone, in seconds west of UTC (negative in
     most of Western Europe, positive in the US, zero in the UK). See note below.
 
-time.tzname
+`time.tzname`
 :   A tuple of two strings: the first is the name of the local non-DST timezone, the
     second is the name of the local DST timezone. If no DST timezone is defined,
     the second string should not be used. See note below.

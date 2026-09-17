@@ -38,26 +38,26 @@ followed by the API for modifying the behavior of [`HeaderRegistry`](email.heade
 finally the support classes used to represent the data parsed from structured
 headers.
 
-*class* email.headerregistry.BaseHeader(*name*, *value*)
+`class email.headerregistry.BaseHeader(name, value)`
 :   *name* and *value* are passed to `BaseHeader` from the
     [`header_factory`](email.policy.md#email.policy.EmailPolicy.header_factory "email.policy.EmailPolicy.header_factory") call. The string value of
     any header object is the *value* fully decoded to unicode.
 
     This base class defines the following read-only properties:
 
-    name
+    `name`
     :   The name of the header (the portion of the field before the ‘:’). This
         is exactly the value passed in the
         [`header_factory`](email.policy.md#email.policy.EmailPolicy.header_factory "email.policy.EmailPolicy.header_factory") call for *name*; that
         is, case is preserved.
 
-    defects
+    `defects`
     :   A tuple of [`HeaderDefect`](email.errors.md#email.errors.HeaderDefect "email.errors.HeaderDefect") instances reporting any
         RFC compliance problems found during parsing. The email package tries to
         be complete about detecting compliance issues. See the [`errors`](email.errors.md#module-email.errors "email.errors: The exception classes used by the email package.")
         module for a discussion of the types of defects that may be reported.
 
-    max_count
+    `max_count`
     :   The maximum number of headers of this type that can have the same
         `name`. A value of `None` means unlimited. The `BaseHeader` value
         for this attribute is `None`; it is expected that specialized header
@@ -67,7 +67,7 @@ headers.
     email library code and should not in general be called by application
     programs:
 
-    fold(*\**, *policy*)
+    `fold(*, policy)`
     :   Return a string containing [`linesep`](email.policy.md#email.policy.Policy.linesep "email.policy.Policy.linesep")
         characters as required to correctly fold the header according to
         *policy*. A [`cte_type`](email.policy.md#email.policy.Policy.cte_type "email.policy.Policy.cte_type") of `8bit` will be
@@ -109,7 +109,7 @@ headers.
     dictionary should be removed and handled, and the remaining contents of
     `kw` (and `args`) passed to the `BaseHeader` `init` method.
 
-*class* email.headerregistry.UnstructuredHeader
+`class email.headerregistry.UnstructuredHeader`
 :   An “unstructured” header is the default type of header in [**RFC 5322**](https://datatracker.ietf.org/doc/html/rfc5322.html).
     Any header that does not have a specified syntax is treated as
     unstructured. The classic example of an unstructured header is the
@@ -127,7 +127,7 @@ headers.
 
     This header type provides no additional attributes.
 
-*class* email.headerregistry.DateHeader
+`class email.headerregistry.DateHeader`
 :   [**RFC 5322**](https://datatracker.ietf.org/doc/html/rfc5322.html) specifies a very specific format for dates within email headers.
     The `DateHeader` parser recognizes that date format, as well as
     recognizing a number of variant forms that are sometimes found “in the
@@ -135,7 +135,7 @@ headers.
 
     This header type provides the following additional attributes:
 
-    datetime
+    `datetime`
     :   If the header value can be recognized as a valid date of one form or
         another, this attribute will contain a [`datetime`](datetime.md#datetime.datetime "datetime.datetime")
         instance representing that date. If the timezone of the input date is
@@ -173,20 +173,20 @@ headers.
     This example sets the date header to the current time and date using
     the current timezone offset.
 
-*class* email.headerregistry.AddressHeader
+`class email.headerregistry.AddressHeader`
 :   Address headers are one of the most complex structured header types.
     The `AddressHeader` class provides a generic interface to any address
     header.
 
     This header type provides the following additional attributes:
 
-    groups
+    `groups`
     :   A tuple of [`Group`](email.headerregistry.md#email.headerregistry.Group "email.headerregistry.Group") objects encoding the
         addresses and groups found in the header value. Addresses that are
         not part of a group are represented in this list as single-address
         `Groups` whose [`display_name`](email.headerregistry.md#email.headerregistry.Group.display_name "email.headerregistry.Group.display_name") is `None`.
 
-    addresses
+    `addresses`
     :   A tuple of [`Address`](email.headerregistry.md#email.headerregistry.Address "email.headerregistry.Address") objects encoding all
         of the individual addresses from the header value. If the header value
         contains any groups, the individual addresses from the group are included
@@ -205,11 +205,11 @@ headers.
     allows an address list to be copied with groups intact by using the list
     obtained from the `groups` attribute of the source header.
 
-*class* email.headerregistry.SingleAddressHeader
+`class email.headerregistry.SingleAddressHeader`
 :   A subclass of [`AddressHeader`](email.headerregistry.md#email.headerregistry.AddressHeader "email.headerregistry.AddressHeader") that adds one
     additional attribute:
 
-    address
+    `address`
     :   The single address encoded by the header value. If the header value
         actually contains more than one address (which would be a violation of
         the RFC under the default [`policy`](email.policy.md#module-email.policy "email.policy: Controlling the parsing and generating of messages")), accessing this attribute
@@ -219,58 +219,58 @@ Many of the above classes also have a `Unique` variant (for example,
 `UniqueUnstructuredHeader`). The only difference is that in the `Unique`
 variant, [`max_count`](email.headerregistry.md#email.headerregistry.BaseHeader.max_count "email.headerregistry.BaseHeader.max_count") is set to 1.
 
-*class* email.headerregistry.MIMEVersionHeader
+`class email.headerregistry.MIMEVersionHeader`
 :   There is really only one valid value for the *MIME-Version*
     header, and that is `1.0`. For future proofing, this header class
     supports other valid version numbers. If a version number has a valid value
     per [**RFC 2045**](https://datatracker.ietf.org/doc/html/rfc2045.html), then the header object will have non-`None` values for
     the following attributes:
 
-    version
+    `version`
     :   The version number as a string, with any whitespace and/or comments
         removed.
 
-    major
+    `major`
     :   The major version number as an integer
 
-    minor
+    `minor`
     :   The minor version number as an integer
 
-*class* email.headerregistry.ParameterizedMIMEHeader
+`class email.headerregistry.ParameterizedMIMEHeader`
 :   MIME headers all start with the prefix ‘Content-’. Each specific header has
     a certain value, described under the class for that header. Some can
     also take a list of supplemental parameters, which have a common format.
     This class serves as a base for all the MIME headers that take parameters.
 
-    params
+    `params`
     :   A dictionary mapping parameter names to parameter values.
 
-*class* email.headerregistry.ContentTypeHeader
+`class email.headerregistry.ContentTypeHeader`
 :   A [`ParameterizedMIMEHeader`](email.headerregistry.md#email.headerregistry.ParameterizedMIMEHeader "email.headerregistry.ParameterizedMIMEHeader") class that handles the
     *Content-Type* header.
 
-    content_type
+    `content_type`
     :   The content type string, in the form `maintype/subtype`.
 
-    maintype
+    `maintype`
 
-    subtype
+    `subtype`
 
-*class* email.headerregistry.ContentDispositionHeader
+`class email.headerregistry.ContentDispositionHeader`
 :   A [`ParameterizedMIMEHeader`](email.headerregistry.md#email.headerregistry.ParameterizedMIMEHeader "email.headerregistry.ParameterizedMIMEHeader") class that handles the
     *Content-Disposition* header.
 
-    content_disposition
+    `content_disposition`
     :   `inline` and `attachment` are the only valid values in common use.
 
-*class* email.headerregistry.ContentTransferEncoding
+`class email.headerregistry.ContentTransferEncoding`
 :   Handles the *Content-Transfer-Encoding* header.
 
-    cte
+    `cte`
     :   Valid values are `7bit`, `8bit`, `base64`, and
         `quoted-printable`. See [**RFC 2045**](https://datatracker.ietf.org/doc/html/rfc2045.html) for more information.
 
-*class* email.headerregistry.HeaderRegistry(*base_class=BaseHeader*, *default_class=UnstructuredHeader*, *use_default_map=True*)
+`class email.headerregistry.HeaderRegistry(base_class=BaseHeader, default_class=UnstructuredHeader, use_default_map=True)`
 :   This is the factory used by [`EmailPolicy`](email.policy.md#email.policy.EmailPolicy "email.policy.EmailPolicy") by default.
     `HeaderRegistry` builds the class used to create a header instance
     dynamically, using *base_class* and a specialized class retrieved from a
@@ -345,16 +345,16 @@ variant, [`max_count`](email.headerregistry.md#email.headerregistry.BaseHeader.m
 
     `HeaderRegistry` has the following methods:
 
-    map_to_type(*self*, *name*, *cls*)
+    `map_to_type(self, name, cls)`
     :   *name* is the name of the header to be mapped. It will be converted to
         lower case in the registry. *cls* is the specialized class to be used,
         along with *base_class*, to create the class used to instantiate headers
         that match *name*.
 
-    __getitem__(*name*)
+    `__getitem__(name)`
     :   Construct and return a class to handle creating a *name* header.
 
-    __call__(*name*, *value*)
+    `__call__(name, value)`
     :   Retrieves the specialized header associated with *name* from the
         registry (using *default_class* if *name* does not appear in the
         registry) and composes it with *base_class* to produce a class,
@@ -365,7 +365,7 @@ The following classes are the classes used to represent data parsed from
 structured headers and can, in general, be used by an application program to
 construct structured values to assign to specific headers.
 
-*class* email.headerregistry.Address(*display_name=''*, *username=''*, *domain=''*, *addr_spec=None*)
+`class email.headerregistry.Address(display_name='', username='', domain='', addr_spec=None)`
 :   The class used to represent an email address. The general form of an
     address is:
 
@@ -389,23 +389,23 @@ construct structured values to assign to specific headers.
     will be property encoded when serialized. However, per the RFCs, unicode is
     *not* allowed in the username portion of the address.
 
-    display_name
+    `display_name`
     :   The display name portion of the address, if any, with all quoting
         removed. If the address does not have a display name, this attribute
         will be an empty string.
 
-    username
+    `username`
     :   The `username` portion of the address, with all quoting removed.
 
-    domain
+    `domain`
     :   The `domain` portion of the address.
 
-    addr_spec
+    `addr_spec`
     :   The `username@domain` portion of the address, correctly quoted
         for use as a bare address (the second form shown above). This
         attribute is not mutable.
 
-    __str__()
+    `__str__()`
     :   The `str` value of the object is the address quoted according to
         [**RFC 5322**](https://datatracker.ietf.org/doc/html/rfc5322.html) rules, but with no Content Transfer Encoding of any non-ASCII
         characters.
@@ -414,7 +414,7 @@ construct structured values to assign to specific headers.
     `username` and `domain` are both the empty string (or `None`), then
     the string value of the `Address` is `<>`.
 
-*class* email.headerregistry.Group(*display_name=None*, *addresses=None*)
+`class email.headerregistry.Group(display_name=None, addresses=None)`
 :   The class used to represent an address group. The general form of an
     address group is:
 
@@ -427,16 +427,16 @@ construct structured values to assign to specific headers.
     single addresses that are not part of a group by setting *display_name* to
     `None` and providing a list of the single address as *addresses*.
 
-    display_name
+    `display_name`
     :   The `display_name` of the group. If it is `None` and there is
         exactly one `Address` in `addresses`, then the `Group` represents a
         single address that is not in a group.
 
-    addresses
+    `addresses`
     :   A possibly empty tuple of [`Address`](email.headerregistry.md#email.headerregistry.Address "email.headerregistry.Address") objects representing the
         addresses in the group.
 
-    __str__()
+    `__str__()`
     :   The `str` value of a `Group` is formatted according to [**RFC 5322**](https://datatracker.ietf.org/doc/html/rfc5322.html),
         but with no Content Transfer Encoding of any non-ASCII characters. If
         `display_name` is none and there is a single `Address` in the

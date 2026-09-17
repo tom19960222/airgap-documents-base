@@ -162,20 +162,20 @@ an exclamation point indicating that the bit is off.
 Besides the methods described below, the `ttk.Widget` supports the
 methods `tkinter.Widget.cget()` and `tkinter.Widget.configure()`.
 
-*class* tkinter.ttk.Widget
-:   identify(*x*, *y*)
+`class tkinter.ttk.Widget`
+:   `identify(x, y)`
     :   Returns the name of the element at position *x* *y*, or the empty string
         if the point does not lie within any element.
 
         *x* and *y* are pixel coordinates relative to the widget.
 
-    instate(*statespec*, *callback=None*, *\*args*, *\*\*kw*)
+    `instate(statespec, callback=None, *args, **kw)`
     :   Test the widget’s state. If a callback is not specified, returns `True`
         if the widget state matches *statespec* and `False` otherwise. If callback
         is specified then it is called with args if widget state matches
         *statespec*.
 
-    state(*statespec=None*)
+    `state(statespec=None)`
     :   Modify or inquire widget state. If *statespec* is specified, sets the
         widget state according to it and return a new *statespec* indicating
         which flags were changed. If *statespec* is not specified, returns
@@ -218,16 +218,16 @@ when the user selects an element from the list of values.
 
 ### ttk.Combobox
 
-*class* tkinter.ttk.Combobox
-:   current(*newindex=None*)
+`class tkinter.ttk.Combobox`
+:   `current(newindex=None)`
     :   If *newindex* is specified, sets the combobox value to the element
         position *newindex*. Otherwise, returns the index of the current value or
         -1 if the current value is not in the values list.
 
-    get()
+    `get()`
     :   Returns the current value of the combobox.
 
-    set(*value*)
+    `set(value)`
     :   Sets the value of the combobox to *value*.
 
 ## Spinbox
@@ -265,11 +265,11 @@ presses <Down>.
 
 ### ttk.Spinbox
 
-*class* tkinter.ttk.Spinbox
-:   get()
+`class tkinter.ttk.Spinbox`
+:   `get()`
     :   Returns the current value of the spinbox.
 
-    set(*value*)
+    `set(value)`
     :   Sets the value of the spinbox to *value*.
 
 ## Notebook
@@ -321,8 +321,8 @@ tab is selected.
 
 ### ttk.Notebook
 
-*class* tkinter.ttk.Notebook
-:   add(*child*, *\*\*kw*)
+`class tkinter.ttk.Notebook`
+:   `add(child, **kw)`
     :   Adds a new tab to the notebook.
 
         If window is currently managed by the notebook but hidden, it is
@@ -330,26 +330,26 @@ tab is selected.
 
         See [Tab Options](tkinter.ttk.md#tab-options) for the list of available options.
 
-    forget(*tab_id*)
+    `forget(tab_id)`
     :   Removes the tab specified by *tab_id*, unmaps and unmanages the
         associated window.
 
-    hide(*tab_id*)
+    `hide(tab_id)`
     :   Hides the tab specified by *tab_id*.
 
         The tab will not be displayed, but the associated window remains
         managed by the notebook and its configuration remembered. Hidden tabs
         may be restored with the [`add()`](tkinter.ttk.md#tkinter.ttk.Notebook.add "tkinter.ttk.Notebook.add") command.
 
-    identify(*x*, *y*)
+    `identify(x, y)`
     :   Returns the name of the tab element at position *x*, *y*, or the empty
         string if none.
 
-    index(*tab_id*)
+    `index(tab_id)`
     :   Returns the numeric index of the tab specified by *tab_id*, or the total
         number of tabs if *tab_id* is the string “end”.
 
-    insert(*pos*, *child*, *\*\*kw*)
+    `insert(pos, child, **kw)`
     :   Inserts a pane at the specified position.
 
         *pos* is either the string “end”, an integer index, or the name of a
@@ -358,24 +358,24 @@ tab is selected.
 
         See [Tab Options](tkinter.ttk.md#tab-options) for the list of available options.
 
-    select(*tab_id=None*)
+    `select(tab_id=None)`
     :   Selects the specified *tab_id*.
 
         The associated child window will be displayed, and the
         previously selected window (if different) is unmapped. If *tab_id* is
         omitted, returns the widget name of the currently selected pane.
 
-    tab(*tab_id*, *option=None*, *\*\*kw*)
+    `tab(tab_id, option=None, **kw)`
     :   Query or modify the options of the specific *tab_id*.
 
         If *kw* is not given, returns a dictionary of the tab option values. If
         *option* is specified, returns the value of that *option*. Otherwise,
         sets the options to the corresponding values.
 
-    tabs()
+    `tabs()`
     :   Returns a list of windows managed by the notebook.
 
-    enable_traversal()
+    `enable_traversal()`
     :   Enable keyboard traversal for a toplevel window containing this notebook.
 
         This will extend the bindings for the toplevel window containing the
@@ -414,18 +414,18 @@ This widget accepts the following specific options:
 
 ### ttk.Progressbar
 
-*class* tkinter.ttk.Progressbar
-:   start(*interval=None*)
+`class tkinter.ttk.Progressbar`
+:   `start(interval=None)`
     :   Begin autoincrement mode: schedules a recurring timer event that calls
         [`Progressbar.step()`](tkinter.ttk.md#tkinter.ttk.Progressbar.step "tkinter.ttk.Progressbar.step") every *interval* milliseconds. If omitted,
         *interval* defaults to 50 milliseconds.
 
-    step(*amount=None*)
+    `step(amount=None)`
     :   Increments the progress bar’s value by *amount*.
 
         *amount* defaults to 1.0 if omitted.
 
-    stop()
+    `stop()`
     :   Stop autoincrement mode: cancels any recurring timer event initiated by
         [`Progressbar.start()`](tkinter.ttk.md#tkinter.ttk.Progressbar.start "tkinter.ttk.Progressbar.start") for this progress bar.
 
@@ -563,8 +563,8 @@ to determine the affected item or items.
 
 ### ttk.Treeview
 
-*class* tkinter.ttk.Treeview
-:   bbox(*item*, *column=None*)
+`class tkinter.ttk.Treeview`
+:   `bbox(item, column=None)`
     :   Returns the bounding box (relative to the treeview widget’s window) of
         the specified *item* in the form (x, y, width, height).
 
@@ -572,12 +572,12 @@ to determine the affected item or items.
         *item* is not visible (i.e., if it is a descendant of a closed item or is
         scrolled offscreen), returns an empty string.
 
-    get_children(*item=None*)
+    `get_children(item=None)`
     :   Returns the list of children belonging to *item*.
 
         If *item* is not specified, returns root children.
 
-    set_children(*item*, *\*newchildren*)
+    `set_children(item, *newchildren)`
     :   Replaces *item*’s child with *newchildren*.
 
         Children present in *item* that are not present in *newchildren* are
@@ -585,7 +585,7 @@ to determine the affected item or items.
         *item*. Note that not specifying *newchildren* results in detaching
         *item*’s children.
 
-    column(*column*, *option=None*, *\*\*kw*)
+    `column(column, option=None, **kw)`
     :   Query or modify the options for the specified *column*.
 
         If *kw* is not given, returns a dict of the column option values. If
@@ -615,12 +615,12 @@ to determine the affected item or items.
 
         To configure the tree column, call this with column = “#0”
 
-    delete(*\*items*)
+    `delete(*items)`
     :   Delete all specified *items* and all their descendants.
 
         The root item may not be deleted.
 
-    detach(*\*items*)
+    `detach(*items)`
     :   Unlinks all of the specified *items* from the tree.
 
         The items and all of their descendants are still present, and may be
@@ -628,14 +628,14 @@ to determine the affected item or items.
 
         The root item may not be detached.
 
-    exists(*item*)
+    `exists(item)`
     :   Returns `True` if the specified *item* is present in the tree.
 
-    focus(*item=None*)
+    `focus(item=None)`
     :   If *item* is specified, sets the focus item to *item*. Otherwise, returns
         the current focus item, or ‘’ if there is none.
 
-    heading(*column*, *option=None*, *\*\*kw*)
+    `heading(column, option=None, **kw)`
     :   Query or modify the heading options for the specified *column*.
 
         If *kw* is not given, returns a dict of the heading option values. If
@@ -659,20 +659,20 @@ to determine the affected item or items.
 
         To configure the tree column heading, call this with column = “#0”.
 
-    identify(*component*, *x*, *y*)
+    `identify(component, x, y)`
     :   Returns a description of the specified *component* under the point given
         by *x* and *y*, or the empty string if no such *component* is present at
         that position.
 
-    identify_row(*y*)
+    `identify_row(y)`
     :   Returns the item ID of the item at position *y*.
 
-    identify_column(*x*)
+    `identify_column(x)`
     :   Returns the data column identifier of the cell at position *x*.
 
         The tree column has ID #0.
 
-    identify_region(*x*, *y*)
+    `identify_region(x, y)`
     :   Returns one of:
 
         | region | meaning |
@@ -684,15 +684,15 @@ to determine the affected item or items.
 
         Availability: Tk 8.6.
 
-    identify_element(*x*, *y*)
+    `identify_element(x, y)`
     :   Returns the element at position *x*, *y*.
 
         Availability: Tk 8.6.
 
-    index(*item*)
+    `index(item)`
     :   Returns the integer index of *item* within its parent’s list of children.
 
-    insert(*parent*, *index*, *iid=None*, *\*\*kw*)
+    `insert(parent, index, iid=None, **kw)`
     :   Creates a new item and returns the item identifier of the newly created
         item.
 
@@ -707,7 +707,7 @@ to determine the affected item or items.
 
         See [Item Options](tkinter.ttk.md#item-options) for the list of available options.
 
-    item(*item*, *option=None*, *\*\*kw*)
+    `item(item, option=None, **kw)`
     :   Query or modify the options for the specified *item*.
 
         If no options are given, a dict with options/values for the item is
@@ -715,7 +715,7 @@ to determine the affected item or items.
         If *option* is specified then the value for that option is returned.
         Otherwise, sets the options to the corresponding values as given by *kw*.
 
-    move(*item*, *parent*, *index*)
+    `move(item, parent, index)`
     :   Moves *item* to position *index* in *parent*’s list of children.
 
         It is illegal to move an item under one of its descendants. If *index* is
@@ -723,66 +723,66 @@ to determine the affected item or items.
         than or equal to the number of children, it is moved to the end. If *item*
         was detached it is reattached.
 
-    next(*item*)
+    `next(item)`
     :   Returns the identifier of *item*’s next sibling, or ‘’ if *item* is the
         last child of its parent.
 
-    parent(*item*)
+    `parent(item)`
     :   Returns the ID of the parent of *item*, or ‘’ if *item* is at the top
         level of the hierarchy.
 
-    prev(*item*)
+    `prev(item)`
     :   Returns the identifier of *item*’s previous sibling, or ‘’ if *item* is
         the first child of its parent.
 
-    reattach(*item*, *parent*, *index*)
+    `reattach(item, parent, index)`
     :   An alias for [`Treeview.move()`](tkinter.ttk.md#tkinter.ttk.Treeview.move "tkinter.ttk.Treeview.move").
 
-    see(*item*)
+    `see(item)`
     :   Ensure that *item* is visible.
 
         Sets all of *item*’s ancestors open option to `True`, and scrolls the
         widget if necessary so that *item* is within the visible portion of
         the tree.
 
-    selection()
+    `selection()`
     :   Returns a tuple of selected items.
 
         Changed in version 3.8: `selection()` no longer takes arguments. For changing the selection
         state use the following selection methods.
 
-    selection_set(*\*items*)
+    `selection_set(*items)`
     :   *items* becomes the new selection.
 
         Changed in version 3.6: *items* can be passed as separate arguments, not just as a single tuple.
 
-    selection_add(*\*items*)
+    `selection_add(*items)`
     :   Add *items* to the selection.
 
         Changed in version 3.6: *items* can be passed as separate arguments, not just as a single tuple.
 
-    selection_remove(*\*items*)
+    `selection_remove(*items)`
     :   Remove *items* from the selection.
 
         Changed in version 3.6: *items* can be passed as separate arguments, not just as a single tuple.
 
-    selection_toggle(*\*items*)
+    `selection_toggle(*items)`
     :   Toggle the selection state of each item in *items*.
 
         Changed in version 3.6: *items* can be passed as separate arguments, not just as a single tuple.
 
-    set(*item*, *column=None*, *value=None*)
+    `set(item, column=None, value=None)`
     :   With one argument, returns a dictionary of column/value pairs for the
         specified *item*. With two arguments, returns the current value of the
         specified *column*. With three arguments, sets the value of given
         *column* in given *item* to the specified *value*.
 
-    tag_bind(*tagname*, *sequence=None*, *callback=None*)
+    `tag_bind(tagname, sequence=None, callback=None)`
     :   Bind a callback for the given event *sequence* to the tag *tagname*.
         When an event is delivered to an item, the callbacks for each of the
         item’s tags option are called.
 
-    tag_configure(*tagname*, *option=None*, *\*\*kw*)
+    `tag_configure(tagname, option=None, **kw)`
     :   Query or modify the options for the specified *tagname*.
 
         If *kw* is not given, returns a dict of the option settings for
@@ -790,17 +790,17 @@ to determine the affected item or items.
         for the specified *tagname*. Otherwise, sets the options to the
         corresponding values for the given *tagname*.
 
-    tag_has(*tagname*, *item=None*)
+    `tag_has(tagname, item=None)`
     :   If *item* is specified, returns 1 or 0 depending on whether the specified
         *item* has the given *tagname*. Otherwise, returns a list of all items
         that have the specified tag.
 
         Availability: Tk 8.6
 
-    xview(*\*args*)
+    `xview(*args)`
     :   Query or modify horizontal position of the treeview.
 
-    yview(*\*args*)
+    `yview(*args)`
     :   Query or modify vertical position of the treeview.
 
 ## Ttk Styling
@@ -817,10 +817,10 @@ option. If you don’t know the class name of a widget, use the method
 > [Tcl’2004 conference presentation](https://tktable.sourceforge.net/tile/tile-tcl2004.pdf)
 > :   This document explains how the theme engine works
 
-*class* tkinter.ttk.Style
+`class tkinter.ttk.Style`
 :   This class is used to manipulate the style database.
 
-    configure(*style*, *query_opt=None*, *\*\*kw*)
+    `configure(style, query_opt=None, **kw)`
     :   Query or set the default value of the specified option(s) in *style*.
 
         Each key in *kw* is an option and each value is a string identifying
@@ -844,7 +844,7 @@ option. If you don’t know the class name of a widget, use the method
         root.mainloop()
         ```
 
-    map(*style*, *query_opt=None*, *\*\*kw*)
+    `map(style, query_opt=None, **kw)`
     :   Query or sets dynamic values of the specified option(s) in *style*.
 
         Each key in *kw* is an option and each value should be a list or a
@@ -876,7 +876,7 @@ option. If you don’t know the class name of a widget, use the method
         'red')]` in the foreground option, for example, the result would be a
         blue foreground when the widget were in active or pressed states.
 
-    lookup(*style*, *option*, *state=None*, *default=None*)
+    `lookup(style, option, state=None, default=None)`
     :   Returns the value specified for *option* in *style*.
 
         If *state* is specified, it is expected to be a sequence of one or more
@@ -891,7 +891,7 @@ option. If you don’t know the class name of a widget, use the method
         print(ttk.Style().lookup("TButton", "font"))
         ```
 
-    layout(*style*, *layoutspec=None*)
+    `layout(style, layoutspec=None)`
     :   Define the widget layout for given *style*. If *layoutspec* is omitted,
         return the layout specification for given style.
 
@@ -926,7 +926,7 @@ option. If you don’t know the class name of a widget, use the method
         root.mainloop()
         ```
 
-    element_create(*elementname*, *etype*, *\*args*, *\*\*kw*)
+    `element_create(elementname, etype, *args, **kw)`
     :   Create a new element in the current theme, of the given *etype* which is
         expected to be either “image” or “from”.
 
@@ -980,13 +980,13 @@ option. If you don’t know the class name of a widget, use the method
         style.element_create('plain.background', 'from', 'default')
         ```
 
-    element_names()
+    `element_names()`
     :   Returns the list of elements defined in the current theme.
 
-    element_options(*elementname*)
+    `element_options(elementname)`
     :   Returns the list of *elementname*’s options.
 
-    theme_create(*themename*, *parent=None*, *settings=None*)
+    `theme_create(themename, parent=None, settings=None)`
     :   Create a new theme.
 
         It is an error if *themename* already exists. If *parent* is specified,
@@ -994,7 +994,7 @@ option. If you don’t know the class name of a widget, use the method
         theme. If *settings* are present they are expected to have the same
         syntax used for [`theme_settings()`](tkinter.ttk.md#tkinter.ttk.Style.theme_settings "tkinter.ttk.Style.theme_settings").
 
-    theme_settings(*themename*, *settings*)
+    `theme_settings(themename, settings)`
     :   Temporarily sets the current theme to *themename*, apply specified
         *settings* and then restore the previous theme.
 
@@ -1031,10 +1031,10 @@ option. If you don’t know the class name of a widget, use the method
         root.mainloop()
         ```
 
-    theme_names()
+    `theme_names()`
     :   Returns a list of all known themes.
 
-    theme_use(*themename=None*)
+    `theme_use(themename=None)`
     :   If *themename* is not given, returns the theme in use. Otherwise, sets
         the current theme to *themename*, refreshes all widgets and emits a
         <<ThemeChanged>> event.

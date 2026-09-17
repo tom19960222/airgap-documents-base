@@ -26,12 +26,12 @@ noted otherwise, all return values are floats.
 
 ## Number-theoretic and representation functions
 
-math.ceil(*x*)
+`math.ceil(x)`
 :   Return the ceiling of *x*, the smallest integer greater than or equal to *x*.
     If *x* is not a float, delegates to [`x.__ceil__`](https://docs.python.org/3.12/reference/datamodel.html#object.__ceil__ "object.__ceil__"),
     which should return an [`Integral`](numbers.md#numbers.Integral "numbers.Integral") value.
 
-math.comb(*n*, *k*)
+`math.comb(n, k)`
 :   Return the number of ways to choose *k* items from *n* items without repetition
     and without order.
 
@@ -47,26 +47,26 @@ math.comb(*n*, *k*)
 
     Added in version 3.8.
 
-math.copysign(*x*, *y*)
+`math.copysign(x, y)`
 :   Return a float with the magnitude (absolute value) of *x* but the sign of
     *y*. On platforms that support signed zeros, `copysign(1.0, -0.0)`
     returns *-1.0*.
 
-math.fabs(*x*)
+`math.fabs(x)`
 :   Return the absolute value of *x*.
 
-math.factorial(*n*)
+`math.factorial(n)`
 :   Return *n* factorial as an integer. Raises [`ValueError`](exceptions.md#ValueError "ValueError") if *n* is not integral or
     is negative.
 
     Deprecated since version 3.9: Accepting floats with integral values (like `5.0`) is deprecated.
 
-math.floor(*x*)
+`math.floor(x)`
 :   Return the floor of *x*, the largest integer less than or equal to *x*. If
     *x* is not a float, delegates to [`x.__floor__`](https://docs.python.org/3.12/reference/datamodel.html#object.__floor__ "object.__floor__"), which
     should return an [`Integral`](numbers.md#numbers.Integral "numbers.Integral") value.
 
-math.fmod(*x*, *y*)
+`math.fmod(x, y)`
 :   Return the floating-point remainder of `x / y`,
     as defined by the platform C library function `fmod(x, y)`. Note that the
     Python expression `x % y` may not return the same result. The intent of the C
@@ -80,13 +80,13 @@ math.fmod(*x*, *y*)
     this reason, function [`fmod()`](math.md#math.fmod "math.fmod") is generally preferred when working with
     floats, while Python’s `x % y` is preferred when working with integers.
 
-math.frexp(*x*)
+`math.frexp(x)`
 :   Return the mantissa and exponent of *x* as the pair `(m, e)`. *m* is a float
     and *e* is an integer such that `x == m * 2**e` exactly. If *x* is zero,
     returns `(0.0, 0)`, otherwise `0.5 <= abs(m) < 1`. This is used to “pick
     apart” the internal representation of a float in a portable way.
 
-math.fsum(*iterable*)
+`math.fsum(iterable)`
 :   Return an accurate floating-point sum of values in the iterable. Avoids
     loss of precision by tracking multiple intermediate partial sums.
 
@@ -99,7 +99,7 @@ math.fsum(*iterable*)
     For further discussion and two alternative approaches, see the [ASPN cookbook
     recipes for accurate floating-point summation](https://code.activestate.com/recipes/393090-binary-floating-point-summation-accurate-to-full-p/).
 
-math.gcd(*\*integers*)
+`math.gcd(*integers)`
 :   Return the greatest common divisor of the specified integer arguments.
     If any of the arguments is nonzero, then the returned value is the largest
     positive integer that is a divisor of all arguments. If all arguments
@@ -111,7 +111,7 @@ math.gcd(*\*integers*)
     Changed in version 3.9: Added support for an arbitrary number of arguments. Formerly, only two
     arguments were supported.
 
-math.isclose(*a*, *b*, *\**, *rel_tol=1e-09*, *abs_tol=0.0*)
+`math.isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)`
 :   Return `True` if the values *a* and *b* are close to each other and
     `False` otherwise.
 
@@ -143,20 +143,20 @@ math.isclose(*a*, *b*, *\**, *rel_tol=1e-09*, *abs_tol=0.0*)
     >
     > [**PEP 485**](https://peps.python.org/pep-0485/) – A function for testing approximate equality
 
-math.isfinite(*x*)
+`math.isfinite(x)`
 :   Return `True` if *x* is neither an infinity nor a NaN, and
     `False` otherwise. (Note that `0.0` *is* considered finite.)
 
     Added in version 3.2.
 
-math.isinf(*x*)
+`math.isinf(x)`
 :   Return `True` if *x* is a positive or negative infinity, and
     `False` otherwise.
 
-math.isnan(*x*)
+`math.isnan(x)`
 :   Return `True` if *x* is a NaN (not a number), and `False` otherwise.
 
-math.isqrt(*n*)
+`math.isqrt(n)`
 :   Return the integer square root of the nonnegative integer *n*. This is the
     floor of the exact square root of *n*, or equivalently the greatest integer
     *a* such that *a*² ≤ *n*.
@@ -168,7 +168,7 @@ math.isqrt(*n*)
 
     Added in version 3.8.
 
-math.lcm(*\*integers*)
+`math.lcm(*integers)`
 :   Return the least common multiple of the specified integer arguments.
     If all arguments are nonzero, then the returned value is the smallest
     positive integer that is a multiple of all arguments. If any of the arguments
@@ -177,15 +177,15 @@ math.lcm(*\*integers*)
 
     Added in version 3.9.
 
-math.ldexp(*x*, *i*)
+`math.ldexp(x, i)`
 :   Return `x * (2**i)`. This is essentially the inverse of function
     [`frexp()`](math.md#math.frexp "math.frexp").
 
-math.modf(*x*)
+`math.modf(x)`
 :   Return the fractional and integer parts of *x*. Both results carry the sign
     of *x* and are floats.
 
-math.nextafter(*x*, *y*, *steps=1*)
+`math.nextafter(x, y, steps=1)`
 :   Return the floating-point value *steps* steps after *x* towards *y*.
 
     If *x* is equal to *y*, return *y*, unless *steps* is zero.
@@ -203,7 +203,7 @@ math.nextafter(*x*, *y*, *steps=1*)
 
     Changed in version 3.12: Added the *steps* argument.
 
-math.perm(*n*, *k=None*)
+`math.perm(n, k=None)`
 :   Return the number of ways to choose *k* items from *n* items
     without repetition and with order.
 
@@ -218,7 +218,7 @@ math.perm(*n*, *k=None*)
 
     Added in version 3.8.
 
-math.prod(*iterable*, *\**, *start=1*)
+`math.prod(iterable, *, start=1)`
 :   Calculate the product of all the elements in the input *iterable*.
     The default *start* value for the product is `1`.
 
@@ -228,7 +228,7 @@ math.prod(*iterable*, *\**, *start=1*)
 
     Added in version 3.8.
 
-math.remainder(*x*, *y*)
+`math.remainder(x, y)`
 :   Return the IEEE 754-style remainder of *x* with respect to *y*. For
     finite *x* and finite nonzero *y*, this is the difference `x - n*y`,
     where `n` is the closest integer to the exact value of the quotient `x /
@@ -247,7 +247,7 @@ math.remainder(*x*, *y*)
 
     Added in version 3.7.
 
-math.sumprod(*p*, *q*)
+`math.sumprod(p, q)`
 :   Return the sum of products of values from two iterables *p* and *q*.
 
     Raises [`ValueError`](exceptions.md#ValueError "ValueError") if the inputs do not have the same length.
@@ -263,13 +263,13 @@ math.sumprod(*p*, *q*)
 
     Added in version 3.12.
 
-math.trunc(*x*)
+`math.trunc(x)`
 :   Return *x* with the fractional part
     removed, leaving the integer part. This rounds toward 0: `trunc()` is
     equivalent to [`floor()`](math.md#math.floor "math.floor") for positive *x*, and equivalent to [`ceil()`](math.md#math.ceil "math.ceil")
     for negative *x*. If *x* is not a float, delegates to [`x.__trunc__`](https://docs.python.org/3.12/reference/datamodel.html#object.__trunc__ "object.__trunc__"), which should return an [`Integral`](numbers.md#numbers.Integral "numbers.Integral") value.
 
-math.ulp(*x*)
+`math.ulp(x)`
 :   Return the value of the least significant bit of the float *x*:
 
     - If *x* is a NaN (not a number), return *x*.
@@ -304,22 +304,22 @@ necessarily has no fractional bits.
 
 ## Power and logarithmic functions
 
-math.cbrt(*x*)
+`math.cbrt(x)`
 :   Return the cube root of *x*.
 
     Added in version 3.11.
 
-math.exp(*x*)
+`math.exp(x)`
 :   Return *e* raised to the power *x*, where *e* = 2.718281… is the base
     of natural logarithms. This is usually more accurate than `math.e ** x`
     or `pow(math.e, x)`.
 
-math.exp2(*x*)
+`math.exp2(x)`
 :   Return *2* raised to the power *x*.
 
     Added in version 3.11.
 
-math.expm1(*x*)
+`math.expm1(x)`
 :   Return *e* raised to the power *x*, minus 1. Here *e* is the base of natural
     logarithms. For small floats *x*, the subtraction in `exp(x) - 1`
     can result in a [significant loss of precision](https://en.wikipedia.org/wiki/Loss_of_significance); the [`expm1()`](math.md#math.expm1 "math.expm1")
@@ -335,17 +335,17 @@ math.expm1(*x*)
 
     Added in version 3.2.
 
-math.log(*x*[, *base*])
+`math.log(x[, base])`
 :   With one argument, return the natural logarithm of *x* (to base *e*).
 
     With two arguments, return the logarithm of *x* to the given *base*,
     calculated as `log(x)/log(base)`.
 
-math.log1p(*x*)
+`math.log1p(x)`
 :   Return the natural logarithm of *1+x* (base *e*). The
     result is calculated in a way which is accurate for *x* near zero.
 
-math.log2(*x*)
+`math.log2(x)`
 :   Return the base-2 logarithm of *x*. This is usually more accurate than
     `log(x, 2)`.
 
@@ -356,11 +356,11 @@ math.log2(*x*)
     > [`int.bit_length()`](stdtypes.md#int.bit_length "int.bit_length") returns the number of bits necessary to represent
     > an integer in binary, excluding the sign and leading zeros.
 
-math.log10(*x*)
+`math.log10(x)`
 :   Return the base-10 logarithm of *x*. This is usually more accurate
     than `log(x, 10)`.
 
-math.pow(*x*, *y*)
+`math.pow(x, y)`
 :   Return `x` raised to the power `y`. Exceptional cases follow
     the IEEE 754 standard as far as possible. In particular,
     `pow(1.0, x)` and `pow(x, 0.0)` always return `1.0`, even
@@ -376,24 +376,24 @@ math.pow(*x*, *y*)
     changed to return `inf` instead of raising [`ValueError`](exceptions.md#ValueError "ValueError"),
     for consistency with IEEE 754.
 
-math.sqrt(*x*)
+`math.sqrt(x)`
 :   Return the square root of *x*.
 
 ## Trigonometric functions
 
-math.acos(*x*)
+`math.acos(x)`
 :   Return the arc cosine of *x*, in radians. The result is between `0` and
     `pi`.
 
-math.asin(*x*)
+`math.asin(x)`
 :   Return the arc sine of *x*, in radians. The result is between `-pi/2` and
     `pi/2`.
 
-math.atan(*x*)
+`math.atan(x)`
 :   Return the arc tangent of *x*, in radians. The result is between `-pi/2` and
     `pi/2`.
 
-math.atan2(*y*, *x*)
+`math.atan2(y, x)`
 :   Return `atan(y / x)`, in radians. The result is between `-pi` and `pi`.
     The vector in the plane from the origin to point `(x, y)` makes this angle
     with the positive X axis. The point of [`atan2()`](math.md#math.atan2 "math.atan2") is that the signs of both
@@ -401,10 +401,10 @@ math.atan2(*y*, *x*)
     For example, `atan(1)` and `atan2(1, 1)` are both `pi/4`, but `atan2(-1,
     -1)` is `-3*pi/4`.
 
-math.cos(*x*)
+`math.cos(x)`
 :   Return the cosine of *x* radians.
 
-math.dist(*p*, *q*)
+`math.dist(p, q)`
 :   Return the Euclidean distance between two points *p* and *q*, each
     given as a sequence (or iterable) of coordinates. The two points
     must have the same dimension.
@@ -417,7 +417,7 @@ math.dist(*p*, *q*)
 
     Added in version 3.8.
 
-math.hypot(*\*coordinates*)
+`math.hypot(*coordinates)`
 :   Return the Euclidean norm, `sqrt(sum(x**2 for x in coordinates))`.
     This is the length of the vector from the origin to the point
     given by the coordinates.
@@ -433,18 +433,18 @@ math.hypot(*\*coordinates*)
     under 1 ulp (unit in the last place). More typically, the result
     is almost always correctly rounded to within 1/2 ulp.
 
-math.sin(*x*)
+`math.sin(x)`
 :   Return the sine of *x* radians.
 
-math.tan(*x*)
+`math.tan(x)`
 :   Return the tangent of *x* radians.
 
 ## Angular conversion
 
-math.degrees(*x*)
+`math.degrees(x)`
 :   Convert angle *x* from radians to degrees.
 
-math.radians(*x*)
+`math.radians(x)`
 :   Convert angle *x* from degrees to radians.
 
 ## Hyperbolic functions
@@ -453,27 +453,27 @@ math.radians(*x*)
 are analogs of trigonometric functions that are based on hyperbolas
 instead of circles.
 
-math.acosh(*x*)
+`math.acosh(x)`
 :   Return the inverse hyperbolic cosine of *x*.
 
-math.asinh(*x*)
+`math.asinh(x)`
 :   Return the inverse hyperbolic sine of *x*.
 
-math.atanh(*x*)
+`math.atanh(x)`
 :   Return the inverse hyperbolic tangent of *x*.
 
-math.cosh(*x*)
+`math.cosh(x)`
 :   Return the hyperbolic cosine of *x*.
 
-math.sinh(*x*)
+`math.sinh(x)`
 :   Return the hyperbolic sine of *x*.
 
-math.tanh(*x*)
+`math.tanh(x)`
 :   Return the hyperbolic tangent of *x*.
 
 ## Special functions
 
-math.erf(*x*)
+`math.erf(x)`
 :   Return the [error function](https://en.wikipedia.org/wiki/Error_function) at
     *x*.
 
@@ -488,7 +488,7 @@ math.erf(*x*)
 
     Added in version 3.2.
 
-math.erfc(*x*)
+`math.erfc(x)`
 :   Return the complementary error function at *x*. The [complementary error
     function](https://en.wikipedia.org/wiki/Error_function) is defined as
     `1.0 - erf(x)`. It is used for large values of *x* where a subtraction
@@ -496,13 +496,13 @@ math.erfc(*x*)
 
     Added in version 3.2.
 
-math.gamma(*x*)
+`math.gamma(x)`
 :   Return the [Gamma function](https://en.wikipedia.org/wiki/Gamma_function) at
     *x*.
 
     Added in version 3.2.
 
-math.lgamma(*x*)
+`math.lgamma(x)`
 :   Return the natural logarithm of the absolute value of the Gamma
     function at *x*.
 
@@ -510,13 +510,13 @@ math.lgamma(*x*)
 
 ## Constants
 
-math.pi
+`math.pi`
 :   The mathematical constant *π* = 3.141592…, to available precision.
 
-math.e
+`math.e`
 :   The mathematical constant *e* = 2.718281…, to available precision.
 
-math.tau
+`math.tau`
 :   The mathematical constant *τ* = 6.283185…, to available precision.
     Tau is a circle constant equal to 2*π*, the ratio of a circle’s circumference to
     its radius. To learn more about Tau, check out Vi Hart’s video [Pi is (still)
@@ -525,13 +525,13 @@ math.tau
 
     Added in version 3.6.
 
-math.inf
+`math.inf`
 :   A floating-point positive infinity. (For negative infinity, use
     `-math.inf`.) Equivalent to the output of `float('inf')`.
 
     Added in version 3.5.
 
-math.nan
+`math.nan`
 :   A floating-point “not a number” (NaN) value. Equivalent to the output of
     `float('nan')`. Due to the requirements of the [IEEE-754 standard](https://en.wikipedia.org/wiki/IEEE_754), `math.nan` and `float('nan')` are
     not considered to equal to any other numeric value, including themselves. To check

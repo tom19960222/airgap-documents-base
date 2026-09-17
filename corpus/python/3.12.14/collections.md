@@ -37,7 +37,7 @@ a new dictionary and running multiple [`update()`](stdtypes.md#dict.update "dict
 
 The class can be used to simulate nested scopes and is useful in templating.
 
-*class* collections.ChainMap(*\*maps*)
+`class collections.ChainMap(*maps)`
 :   A [`ChainMap`](collections.md#collections.ChainMap "collections.ChainMap") groups multiple dicts or other mappings together to
     create a single, updateable view. If no *maps* are specified, a single empty
     dictionary is provided so that a new chain always has at least one mapping.
@@ -56,13 +56,13 @@ The class can be used to simulate nested scopes and is useful in templating.
     *maps* attribute, a method for creating new subcontexts, and a property for
     accessing all but the first mapping:
 
-    maps
+    `maps`
     :   A user updateable list of mappings. The list is ordered from
         first-searched to last-searched. It is the only stored state and can
         be modified to change which mappings are searched. The list should
         always contain at least one mapping.
 
-    new_child(*m=None*, *\*\*kwargs*)
+    `new_child(m=None, **kwargs)`
     :   Returns a new [`ChainMap`](collections.md#collections.ChainMap "collections.ChainMap") containing a new map followed by
         all of the maps in the current instance. If `m` is specified,
         it becomes the new map at the front of the list of mappings; if not
@@ -76,7 +76,7 @@ The class can be used to simulate nested scopes and is useful in templating.
 
         Changed in version 3.10: Keyword arguments support was added.
 
-    parents
+    `parents`
     :   Property returning a new [`ChainMap`](collections.md#collections.ChainMap "collections.ChainMap") containing all of the maps in
         the current instance except the first one. This is useful for skipping
         the first map in the search. Use cases are similar to those for the
@@ -225,7 +225,7 @@ Counter({'blue': 3, 'red': 2, 'green': 1})
  ('you', 554),  ('a', 546), ('my', 514), ('hamlet', 471), ('in', 451)]
 ```
 
-*class* collections.Counter([*iterable-or-mapping*])
+`class collections.Counter([iterable-or-mapping])`
 :   A [`Counter`](collections.md#collections.Counter "collections.Counter") is a [`dict`](stdtypes.md#dict "dict") subclass for counting [hashable](https://docs.python.org/3.12/glossary.html#term-hashable) objects.
     It is a collection where elements are stored as dictionary keys
     and their counts are stored as dictionary values. Counts are allowed to be
@@ -270,7 +270,7 @@ Counter({'blue': 3, 'red': 2, 'green': 1})
     Counter objects support additional methods beyond those available for all
     dictionaries:
 
-    elements()
+    `elements()`
     :   Return an iterator over elements repeating each as many times as its
         count. Elements are returned in the order first encountered. If an
         element’s count is less than one, [`elements()`](collections.md#collections.Counter.elements "collections.Counter.elements") will ignore it.
@@ -281,7 +281,7 @@ Counter({'blue': 3, 'red': 2, 'green': 1})
         ['a', 'a', 'a', 'a', 'b', 'b']
         ```
 
-    most_common([*n*])
+    `most_common([n])`
     :   Return a list of the *n* most common elements and their counts from the
         most common to the least. If *n* is omitted or `None`,
         [`most_common()`](collections.md#collections.Counter.most_common "collections.Counter.most_common") returns *all* elements in the counter.
@@ -292,7 +292,7 @@ Counter({'blue': 3, 'red': 2, 'green': 1})
         [('a', 5), ('b', 2), ('r', 2)]
         ```
 
-    subtract([*iterable-or-mapping*])
+    `subtract([iterable-or-mapping])`
     :   Elements are subtracted from an *iterable* or from another *mapping*
         (or counter). Like [`dict.update()`](stdtypes.md#dict.update "dict.update") but subtracts counts instead
         of replacing them. Both inputs and outputs may be zero or negative.
@@ -307,7 +307,7 @@ Counter({'blue': 3, 'red': 2, 'green': 1})
 
         Added in version 3.2.
 
-    total()
+    `total()`
     :   Compute the sum of the counts.
 
         ```
@@ -321,10 +321,10 @@ Counter({'blue': 3, 'red': 2, 'green': 1})
     The usual dictionary methods are available for [`Counter`](collections.md#collections.Counter "collections.Counter") objects
     except for two which work differently for counters.
 
-    fromkeys(*iterable*)
+    `fromkeys(iterable)`
     :   This class method is not implemented for [`Counter`](collections.md#collections.Counter "collections.Counter") objects.
 
-    update([*iterable-or-mapping*])
+    `update([iterable-or-mapping])`
     :   Elements are counted from an *iterable* or added-in from another
         *mapping* (or counter). Like [`dict.update()`](stdtypes.md#dict.update "dict.update") but adds counts
         instead of replacing them. Also, the *iterable* is expected to be a
@@ -435,7 +435,7 @@ Added in version 3.3: Added support for unary plus, unary minus, and in-place mu
 
 ## `deque` objects
 
-*class* collections.deque([*iterable*[, *maxlen*]])
+`class collections.deque([iterable[, maxlen]])`
 :   Returns a new deque object initialized left-to-right (using [`append()`](collections.md#collections.deque.append "collections.deque.append")) with
     data from *iterable*. If *iterable* is not specified, the new deque is empty.
 
@@ -459,42 +459,42 @@ Added in version 3.3: Added support for unary plus, unary minus, and in-place mu
 
     Deque objects support the following methods:
 
-    append(*x*)
+    `append(x)`
     :   Add *x* to the right side of the deque.
 
-    appendleft(*x*)
+    `appendleft(x)`
     :   Add *x* to the left side of the deque.
 
-    clear()
+    `clear()`
     :   Remove all elements from the deque leaving it with length 0.
 
-    copy()
+    `copy()`
     :   Create a shallow copy of the deque.
 
         Added in version 3.5.
 
-    count(*x*)
+    `count(x)`
     :   Count the number of deque elements equal to *x*.
 
         Added in version 3.2.
 
-    extend(*iterable*)
+    `extend(iterable)`
     :   Extend the right side of the deque by appending elements from the iterable
         argument.
 
-    extendleft(*iterable*)
+    `extendleft(iterable)`
     :   Extend the left side of the deque by appending elements from *iterable*.
         Note, the series of left appends results in reversing the order of
         elements in the iterable argument.
 
-    index(*x*[, *start*[, *stop*]])
+    `index(x[, start[, stop]])`
     :   Return the position of *x* in the deque (at or after index *start*
         and before index *stop*). Returns the first match or raises
         [`ValueError`](exceptions.md#ValueError "ValueError") if not found.
 
         Added in version 3.5.
 
-    insert(*i*, *x*)
+    `insert(i, x)`
     :   Insert *x* into the deque at position *i*.
 
         If the insertion would cause a bounded deque to grow beyond *maxlen*,
@@ -502,24 +502,24 @@ Added in version 3.3: Added support for unary plus, unary minus, and in-place mu
 
         Added in version 3.5.
 
-    pop()
+    `pop()`
     :   Remove and return an element from the right side of the deque. If no
         elements are present, raises an [`IndexError`](exceptions.md#IndexError "IndexError").
 
-    popleft()
+    `popleft()`
     :   Remove and return an element from the left side of the deque. If no
         elements are present, raises an [`IndexError`](exceptions.md#IndexError "IndexError").
 
-    remove(*value*)
+    `remove(value)`
     :   Remove the first occurrence of *value*. If not found, raises a
         [`ValueError`](exceptions.md#ValueError "ValueError").
 
-    reverse()
+    `reverse()`
     :   Reverse the elements of the deque in-place and then return `None`.
 
         Added in version 3.2.
 
-    rotate(*n=1*)
+    `rotate(n=1)`
     :   Rotate the deque *n* steps to the right. If *n* is negative, rotate
         to the left.
 
@@ -529,7 +529,7 @@ Added in version 3.3: Added support for unary plus, unary minus, and in-place mu
 
     Deque objects also provide one read-only attribute:
 
-    maxlen
+    `maxlen`
     :   Maximum size of a deque or `None` if unbounded.
 
         Added in version 3.1.
@@ -670,7 +670,7 @@ stack manipulations such as `dup`, `drop`, `swap`, `over`, `pick`,
 
 ## `defaultdict` objects
 
-*class* collections.defaultdict(*default_factory=None*, */*[, *...*])
+`class collections.defaultdict(default_factory=None, /[, ...])`
 :   Return a new dictionary-like object. [`defaultdict`](collections.md#collections.defaultdict "collections.defaultdict") is a subclass of the
     built-in [`dict`](stdtypes.md#dict "dict") class. It overrides one method and adds one writable
     instance variable. The remaining functionality is the same as for the
@@ -684,7 +684,7 @@ stack manipulations such as `dup`, `drop`, `swap`, `over`, `pick`,
     [`defaultdict`](collections.md#collections.defaultdict "collections.defaultdict") objects support the following method in addition to the
     standard [`dict`](stdtypes.md#dict "dict") operations:
 
-    __missing__(*key*)
+    `__missing__(key)`
     :   If the [`default_factory`](collections.md#collections.defaultdict.default_factory "collections.defaultdict.default_factory") attribute is `None`, this raises a
         [`KeyError`](exceptions.md#KeyError "KeyError") exception with the *key* as argument.
 
@@ -706,7 +706,7 @@ stack manipulations such as `dup`, `drop`, `swap`, `over`, `pick`,
 
     [`defaultdict`](collections.md#collections.defaultdict "collections.defaultdict") objects support the following instance variable:
 
-    default_factory
+    `default_factory`
     :   This attribute is used by the [`__missing__()`](collections.md#collections.defaultdict.__missing__ "collections.defaultdict.__missing__") method; it is
         initialized from the first argument to the constructor, if present, or to
         `None`, if absent.
@@ -798,7 +798,7 @@ Named tuples assign meaning to each position in a tuple and allow for more reada
 self-documenting code. They can be used wherever regular tuples are used, and
 they add the ability to access fields by name instead of position index.
 
-collections.namedtuple(*typename*, *field_names*, *\**, *rename=False*, *defaults=None*, *module=None*)
+`collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None)`
 :   Returns a new tuple subclass named *typename*. The new subclass is used to
     create tuple-like objects that have fields accessible by attribute lookup as
     well as being indexable and iterable. Instances of the subclass also have a
@@ -886,7 +886,7 @@ In addition to the methods inherited from tuples, named tuples support
 three additional methods and two attributes. To prevent conflicts with
 field names, the method and attribute names start with an underscore.
 
-*classmethod* somenamedtuple._make(*iterable*)
+`classmethod somenamedtuple._make(iterable)`
 :   Class method that makes a new instance from an existing sequence or iterable.
 
     ```pycon
@@ -895,7 +895,7 @@ field names, the method and attribute names start with an underscore.
     Point(x=11, y=22)
     ```
 
-somenamedtuple._asdict()
+`somenamedtuple._asdict()`
 :   Return a new [`dict`](stdtypes.md#dict "dict") which maps field names to their corresponding
     values:
 
@@ -913,7 +913,7 @@ somenamedtuple._asdict()
     remediation is to cast the result to the desired type:
     `OrderedDict(nt._asdict())`.
 
-somenamedtuple._replace(*\*\*kwargs*)
+`somenamedtuple._replace(**kwargs)`
 :   Return a new instance of the named tuple replacing specified fields with new
     values:
 
@@ -926,7 +926,7 @@ somenamedtuple._replace(*\*\*kwargs*)
     ...     inventory[partnum] = record._replace(price=newprices[partnum], timestamp=time.now())
     ```
 
-somenamedtuple._fields
+`somenamedtuple._fields`
 :   Tuple of strings listing the field names. Useful for introspection
     and for creating new named tuple types from existing named tuples.
 
@@ -940,7 +940,7 @@ somenamedtuple._fields
     Pixel(x=11, y=22, red=128, green=255, blue=0)
     ```
 
-somenamedtuple._field_defaults
+`somenamedtuple._field_defaults`
 :   Dictionary mapping field names to default values.
 
     ```pycon
@@ -1070,19 +1070,19 @@ Some differences from [`dict`](stdtypes.md#dict "dict") still remain:
   and its associated value to the leftmost (first) position.
 - Until Python 3.8, [`dict`](stdtypes.md#dict "dict") lacked a [`__reversed__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__reversed__ "object.__reversed__") method.
 
-*class* collections.OrderedDict([*items*])
+`class collections.OrderedDict([items])`
 :   Return an instance of a [`dict`](stdtypes.md#dict "dict") subclass that has methods
     specialized for rearranging dictionary order.
 
     Added in version 3.1.
 
-    popitem(*last=True*)
+    `popitem(last=True)`
     :   The [`popitem()`](collections.md#collections.OrderedDict.popitem "collections.OrderedDict.popitem") method for ordered dictionaries returns and removes a
         (key, value) pair. The pairs are returned in
         LIFO order if *last* is true
         or FIFO order if false.
 
-    move_to_end(*key*, *last=True*)
+    `move_to_end(key, last=True)`
     :   Move an existing *key* to either end of an ordered dictionary. The item
         is moved to the right end if *last* is true (the default) or to the
         beginning if *last* is false. Raises [`KeyError`](exceptions.md#KeyError "KeyError") if the *key* does
@@ -1209,7 +1209,7 @@ subclass directly from [`dict`](stdtypes.md#dict "dict"); however, this class ca
 to work with because the underlying dictionary is accessible as an
 attribute.
 
-*class* collections.UserDict([*initialdata*])
+`class collections.UserDict([initialdata])`
 :   Class that simulates a dictionary. The instance’s contents are kept in a
     regular dictionary, which is accessible via the [`data`](collections.md#collections.UserDict.data "collections.UserDict.data") attribute of
     [`UserDict`](collections.md#collections.UserDict "collections.UserDict") instances. If *initialdata* is provided, [`data`](collections.md#collections.UserDict.data "collections.UserDict.data") is
@@ -1219,7 +1219,7 @@ attribute.
     In addition to supporting the methods and operations of mappings,
     [`UserDict`](collections.md#collections.UserDict "collections.UserDict") instances provide the following attribute:
 
-    data
+    `data`
     :   A real dictionary used to store the contents of the [`UserDict`](collections.md#collections.UserDict "collections.UserDict")
         class.
 
@@ -1234,7 +1234,7 @@ The need for this class has been partially supplanted by the ability to
 subclass directly from [`list`](stdtypes.md#list "list"); however, this class can be easier
 to work with because the underlying list is accessible as an attribute.
 
-*class* collections.UserList([*list*])
+`class collections.UserList([list])`
 :   Class that simulates a list. The instance’s contents are kept in a regular
     list, which is accessible via the [`data`](collections.md#collections.UserList.data "collections.UserList.data") attribute of [`UserList`](collections.md#collections.UserList "collections.UserList")
     instances. The instance’s contents are initially set to a copy of *list*,
@@ -1244,7 +1244,7 @@ to work with because the underlying list is accessible as an attribute.
     In addition to supporting the methods and operations of mutable sequences,
     [`UserList`](collections.md#collections.UserList "collections.UserList") instances provide the following attribute:
 
-    data
+    `data`
     :   A real [`list`](stdtypes.md#list "list") object used to store the contents of the
         [`UserList`](collections.md#collections.UserList "collections.UserList") class.
 
@@ -1268,7 +1268,7 @@ subclass directly from [`str`](stdtypes.md#str "str"); however, this class can b
 to work with because the underlying string is accessible as an
 attribute.
 
-*class* collections.UserString(*seq*)
+`class collections.UserString(seq)`
 :   Class that simulates a string object. The instance’s
     content is kept in a regular string object, which is accessible via the
     [`data`](collections.md#collections.UserString.data "collections.UserString.data") attribute of [`UserString`](collections.md#collections.UserString "collections.UserString") instances. The instance’s
@@ -1279,7 +1279,7 @@ attribute.
     In addition to supporting the methods and operations of strings,
     [`UserString`](collections.md#collections.UserString "collections.UserString") instances provide the following attribute:
 
-    data
+    `data`
     :   A real [`str`](stdtypes.md#str "str") object used to store the contents of the
         [`UserString`](collections.md#collections.UserString "collections.UserString") class.
 

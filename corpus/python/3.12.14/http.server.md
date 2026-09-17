@@ -35,13 +35,13 @@ def run(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):
     httpd.serve_forever()
 ```
 
-*class* http.server.HTTPServer(*server_address*, *RequestHandlerClass*)
+`class http.server.HTTPServer(server_address, RequestHandlerClass)`
 :   This class builds on the [`TCPServer`](socketserver.md#socketserver.TCPServer "socketserver.TCPServer") class by storing
     the server address as instance variables named `server_name` and
     `server_port`. The server is accessible by the handler, typically
     through the handler’s `server` instance variable.
 
-*class* http.server.ThreadingHTTPServer(*server_address*, *RequestHandlerClass*)
+`class http.server.ThreadingHTTPServer(server_address, RequestHandlerClass)`
 :   This class is identical to HTTPServer but uses threads to handle
     requests by using the [`ThreadingMixIn`](socketserver.md#socketserver.ThreadingMixIn "socketserver.ThreadingMixIn"). This
     is useful to handle web browsers pre-opening sockets, on which
@@ -53,7 +53,7 @@ The [`HTTPServer`](http.server.md#http.server.HTTPServer "http.server.HTTPServer
 a *RequestHandlerClass* on instantiation, of which this module
 provides three different variants:
 
-*class* http.server.BaseHTTPRequestHandler(*request*, *client_address*, *server*)
+`class http.server.BaseHTTPRequestHandler(request, client_address, server)`
 :   This class is used to handle the HTTP requests that arrive at the server. By
     itself, it cannot respond to any actual HTTP requests; it must be subclassed
     to handle each request method (e.g. GET or POST).
@@ -69,47 +69,47 @@ provides three different variants:
 
     [`BaseHTTPRequestHandler`](http.server.md#http.server.BaseHTTPRequestHandler "http.server.BaseHTTPRequestHandler") has the following instance variables:
 
-    client_address
+    `client_address`
     :   Contains a tuple of the form `(host, port)` referring to the client’s
         address.
 
-    server
+    `server`
     :   Contains the server instance.
 
-    close_connection
+    `close_connection`
     :   Boolean that should be set before [`handle_one_request()`](http.server.md#http.server.BaseHTTPRequestHandler.handle_one_request "http.server.BaseHTTPRequestHandler.handle_one_request") returns,
         indicating if another request may be expected, or if the connection should
         be shut down.
 
-    requestline
+    `requestline`
     :   Contains the string representation of the HTTP request line. The
         terminating CRLF is stripped. This attribute should be set by
         [`handle_one_request()`](http.server.md#http.server.BaseHTTPRequestHandler.handle_one_request "http.server.BaseHTTPRequestHandler.handle_one_request"). If no valid request line was processed, it
         should be set to the empty string.
 
-    command
+    `command`
     :   Contains the command (request type). For example, `'GET'`.
 
-    path
+    `path`
     :   Contains the request path. If query component of the URL is present,
         then `path` includes the query. Using the terminology of [**RFC 3986**](https://datatracker.ietf.org/doc/html/rfc3986.html),
         `path` here includes `hier-part` and the `query`.
 
-    request_version
+    `request_version`
     :   Contains the version string from the request. For example, `'HTTP/1.0'`.
 
-    headers
+    `headers`
     :   Holds an instance of the class specified by the [`MessageClass`](http.server.md#http.server.BaseHTTPRequestHandler.MessageClass "http.server.BaseHTTPRequestHandler.MessageClass") class
         variable. This instance parses and manages the headers in the HTTP
         request. The [`parse_headers()`](http.client.md#http.client.parse_headers "http.client.parse_headers") function from
         [`http.client`](http.client.md#module-http.client "http.client: HTTP and HTTPS protocol client (requires sockets).") is used to parse the headers and it requires that the
         HTTP request provide a valid [**RFC 2822**](https://datatracker.ietf.org/doc/html/rfc2822.html) style header.
 
-    rfile
+    `rfile`
     :   An [`io.BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") input stream, ready to read from
         the start of the optional input data.
 
-    wfile
+    `wfile`
     :   Contains the output stream for writing a response back to the
         client. Proper adherence to the HTTP protocol must be used when writing to
         this stream in order to achieve successful interoperation with HTTP
@@ -119,27 +119,27 @@ provides three different variants:
 
     [`BaseHTTPRequestHandler`](http.server.md#http.server.BaseHTTPRequestHandler "http.server.BaseHTTPRequestHandler") has the following attributes:
 
-    server_version
+    `server_version`
     :   Specifies the server software version. You may want to override this. The
         format is multiple whitespace-separated strings, where each string is of
         the form name[/version]. For example, `'BaseHTTP/0.2'`.
 
-    sys_version
+    `sys_version`
     :   Contains the Python system version, in a form usable by the
         [`version_string`](http.server.md#http.server.BaseHTTPRequestHandler.version_string "http.server.BaseHTTPRequestHandler.version_string") method and the [`server_version`](http.server.md#http.server.BaseHTTPRequestHandler.server_version "http.server.BaseHTTPRequestHandler.server_version") class
         variable. For example, `'Python/1.4'`.
 
-    error_message_format
+    `error_message_format`
     :   Specifies a format string that should be used by [`send_error()`](http.server.md#http.server.BaseHTTPRequestHandler.send_error "http.server.BaseHTTPRequestHandler.send_error") method
         for building an error response to the client. The string is filled by
         default with variables from [`responses`](http.server.md#http.server.BaseHTTPRequestHandler.responses "http.server.BaseHTTPRequestHandler.responses") based on the status code
         that passed to [`send_error()`](http.server.md#http.server.BaseHTTPRequestHandler.send_error "http.server.BaseHTTPRequestHandler.send_error").
 
-    error_content_type
+    `error_content_type`
     :   Specifies the Content-Type HTTP header of error responses sent to the
         client. The default value is `'text/html'`.
 
-    protocol_version
+    `protocol_version`
     :   Specifies the HTTP version to which the server is conformant. It is sent
         in responses to let the client know the server’s communication
         capabilities for future requests. If set to
@@ -148,12 +148,12 @@ provides three different variants:
         header (using [`send_header()`](http.server.md#http.server.BaseHTTPRequestHandler.send_header "http.server.BaseHTTPRequestHandler.send_header")) in all of its responses to clients.
         For backwards compatibility, the setting defaults to `'HTTP/1.0'`.
 
-    MessageClass
+    `MessageClass`
     :   Specifies an [`email.message.Message`](email.compat32-message.md#email.message.Message "email.message.Message")-like class to parse HTTP
         headers. Typically, this is not overridden, and it defaults to
         [`http.client.HTTPMessage`](http.client.md#http.client.HTTPMessage "http.client.HTTPMessage").
 
-    responses
+    `responses`
     :   This attribute contains a mapping of error code integers to two-element tuples
         containing a short and long message. For example, `{code: (shortmessage,
         longmessage)}`. The *shortmessage* is usually used as the *message* key in an
@@ -162,17 +162,17 @@ provides three different variants:
 
     A [`BaseHTTPRequestHandler`](http.server.md#http.server.BaseHTTPRequestHandler "http.server.BaseHTTPRequestHandler") instance has the following methods:
 
-    handle()
+    `handle()`
     :   Calls [`handle_one_request()`](http.server.md#http.server.BaseHTTPRequestHandler.handle_one_request "http.server.BaseHTTPRequestHandler.handle_one_request") once (or, if persistent connections are
         enabled, multiple times) to handle incoming HTTP requests. You should
         never need to override it; instead, implement appropriate `do_*()`
         methods.
 
-    handle_one_request()
+    `handle_one_request()`
     :   This method will parse and dispatch the request to the appropriate
         `do_*()` method. You should never need to override it.
 
-    handle_expect_100()
+    `handle_expect_100()`
     :   When an HTTP/1.1 conformant server receives an `Expect: 100-continue`
         request header it responds back with a `100 Continue` followed by `200
         OK` headers.
@@ -182,7 +182,7 @@ provides three different variants:
 
         Added in version 3.2.
 
-    send_error(*code*, *message=None*, *explain=None*)
+    `send_error(code, message=None, explain=None)`
     :   Sends and logs a complete error reply to the client. The numeric *code*
         specifies the HTTP error code, with *message* as an optional, short, human
         readable description of the error. The *explain* argument can be used to
@@ -198,7 +198,7 @@ provides three different variants:
         Changed in version 3.4: The error response includes a Content-Length header.
         Added the *explain* argument.
 
-    send_response(*code*, *message=None*)
+    `send_response(code, message=None)`
     :   Adds a response header to the headers buffer and logs the accepted
         request. The HTTP response line is written to the internal buffer,
         followed by *Server* and *Date* headers. The values for these two headers
@@ -211,7 +211,7 @@ provides three different variants:
         Changed in version 3.3: Headers are stored to an internal buffer and [`end_headers()`](http.server.md#http.server.BaseHTTPRequestHandler.end_headers "http.server.BaseHTTPRequestHandler.end_headers")
         needs to be called explicitly.
 
-    send_header(*keyword*, *value*)
+    `send_header(keyword, value)`
     :   Adds the HTTP header to an internal buffer which will be written to the
         output stream when either [`end_headers()`](http.server.md#http.server.BaseHTTPRequestHandler.end_headers "http.server.BaseHTTPRequestHandler.end_headers") or [`flush_headers()`](http.server.md#http.server.BaseHTTPRequestHandler.flush_headers "http.server.BaseHTTPRequestHandler.flush_headers") is
         invoked. *keyword* should specify the header keyword, with *value*
@@ -220,7 +220,7 @@ provides three different variants:
 
         Changed in version 3.2: Headers are stored in an internal buffer.
 
-    send_response_only(*code*, *message=None*)
+    `send_response_only(code, message=None)`
     :   Sends the response header only, used for the purposes when `100
         Continue` response is sent by the server to the client. The headers not
         buffered and sent directly the output stream.If the *message* is not
@@ -228,57 +228,57 @@ provides three different variants:
 
         Added in version 3.2.
 
-    end_headers()
+    `end_headers()`
     :   Adds a blank line
         (indicating the end of the HTTP headers in the response)
         to the headers buffer and calls [`flush_headers()`](http.server.md#http.server.BaseHTTPRequestHandler.flush_headers "http.server.BaseHTTPRequestHandler.flush_headers").
 
         Changed in version 3.2: The buffered headers are written to the output stream.
 
-    flush_headers()
+    `flush_headers()`
     :   Finally send the headers to the output stream and flush the internal
         headers buffer.
 
         Added in version 3.3.
 
-    log_request(*code='-'*, *size='-'*)
+    `log_request(code='-', size='-')`
     :   Logs an accepted (successful) request. *code* should specify the numeric
         HTTP code associated with the response. If a size of the response is
         available, then it should be passed as the *size* parameter.
 
-    log_error(*...*)
+    `log_error(...)`
     :   Logs an error when a request cannot be fulfilled. By default, it passes
         the message to [`log_message()`](http.server.md#http.server.BaseHTTPRequestHandler.log_message "http.server.BaseHTTPRequestHandler.log_message"), so it takes the same arguments
         (*format* and additional values).
 
-    log_message(*format*, *...*)
+    `log_message(format, ...)`
     :   Logs an arbitrary message to `sys.stderr`. This is typically overridden
         to create custom error logging mechanisms. The *format* argument is a
         standard printf-style format string, where the additional arguments to
         [`log_message()`](http.server.md#http.server.BaseHTTPRequestHandler.log_message "http.server.BaseHTTPRequestHandler.log_message") are applied as inputs to the formatting. The client
         ip address and current date and time are prefixed to every message logged.
 
-    version_string()
+    `version_string()`
     :   Returns the server software’s version string. This is a combination of the
         [`server_version`](http.server.md#http.server.BaseHTTPRequestHandler.server_version "http.server.BaseHTTPRequestHandler.server_version") and [`sys_version`](http.server.md#http.server.BaseHTTPRequestHandler.sys_version "http.server.BaseHTTPRequestHandler.sys_version") attributes.
 
-    date_time_string(*timestamp=None*)
+    `date_time_string(timestamp=None)`
     :   Returns the date and time given by *timestamp* (which must be `None` or in
         the format returned by [`time.time()`](time.md#time.time "time.time")), formatted for a message
         header. If *timestamp* is omitted, it uses the current date and time.
 
         The result looks like `'Sun, 06 Nov 1994 08:49:37 GMT'`.
 
-    log_date_time_string()
+    `log_date_time_string()`
     :   Returns the current date and time, formatted for logging.
 
-    address_string()
+    `address_string()`
     :   Returns the client address.
 
         Changed in version 3.3: Previously, a name lookup was performed. To avoid name resolution
         delays, it now always returns the IP address.
 
-*class* http.server.SimpleHTTPRequestHandler(*request*, *client_address*, *server*, *directory=None*)
+`class http.server.SimpleHTTPRequestHandler(request, client_address, server, directory=None)`
 :   This class serves files from the directory *directory* and below,
     or the current directory if *directory* is not provided, directly
     mapping the directory structure to HTTP requests.
@@ -294,11 +294,11 @@ provides three different variants:
     The following are defined as class-level attributes of
     [`SimpleHTTPRequestHandler`](http.server.md#http.server.SimpleHTTPRequestHandler "http.server.SimpleHTTPRequestHandler"):
 
-    server_version
+    `server_version`
     :   This will be `"SimpleHTTP/" + __version__`, where `__version__` is
         defined at the module level.
 
-    extensions_map
+    `extensions_map`
     :   A dictionary mapping suffixes into MIME types, contains custom overrides
         for the default system mappings. The mapping is used case-insensitively,
         and so should contain only lower-cased keys.
@@ -308,12 +308,12 @@ provides three different variants:
 
     The [`SimpleHTTPRequestHandler`](http.server.md#http.server.SimpleHTTPRequestHandler "http.server.SimpleHTTPRequestHandler") class defines the following methods:
 
-    do_HEAD()
+    `do_HEAD()`
     :   This method serves the `'HEAD'` request type: it sends the headers it
         would send for the equivalent `GET` request. See the [`do_GET()`](http.server.md#http.server.SimpleHTTPRequestHandler.do_GET "http.server.SimpleHTTPRequestHandler.do_GET")
         method for a more complete explanation of the possible headers.
 
-    do_GET()
+    `do_GET()`
     :   The request is mapped to a local file by interpreting the request as a
         path relative to the current working directory.
 
@@ -366,7 +366,7 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
 such as using different index file names by overriding the class attribute
 `index_pages`.
 
-*class* http.server.CGIHTTPRequestHandler(*request*, *client_address*, *server*)
+`class http.server.CGIHTTPRequestHandler(request, client_address, server)`
 :   This class is used to serve either files or output of CGI scripts from the
     current directory and below. Note that mapping HTTP hierarchic structure to
     local directory structure is exactly as in [`SimpleHTTPRequestHandler`](http.server.md#http.server.SimpleHTTPRequestHandler "http.server.SimpleHTTPRequestHandler").
@@ -389,13 +389,13 @@ such as using different index file names by overriding the class attribute
 
     The [`CGIHTTPRequestHandler`](http.server.md#http.server.CGIHTTPRequestHandler "http.server.CGIHTTPRequestHandler") defines the following data member:
 
-    cgi_directories
+    `cgi_directories`
     :   This defaults to `['/cgi-bin', '/htbin']` and describes directories to
         treat as containing CGI scripts.
 
     The [`CGIHTTPRequestHandler`](http.server.md#http.server.CGIHTTPRequestHandler "http.server.CGIHTTPRequestHandler") defines the following method:
 
-    do_POST()
+    `do_POST()`
     :   This method serves the `'POST'` request type, only allowed for CGI
         scripts. Error 501, “Can only POST to CGI scripts”, is output when trying
         to POST to a non-CGI url.
@@ -415,7 +415,7 @@ python -m http.server [OPTIONS] [port]
 
 The following options are accepted:
 
-port
+`port`
 :   The server listens to port 8000 by default. The default can be overridden
     by passing the desired port number as an argument:
 
@@ -423,7 +423,7 @@ port
     python -m http.server 9000
     ```
 
--b, --bind <address>
+`-b, --bind <address>`
 :   Specifies a specific address to which it should bind. Both IPv4 and IPv6
     addresses are supported. By default, the server binds itself to all
     interfaces. For example, the following command causes the server to bind
@@ -437,7 +437,7 @@ port
 
     Changed in version 3.8: Support IPv6 in the `--bind` option.
 
--d, --directory <dir>
+`-d, --directory <dir>`
 :   Specifies a directory to which it should serve the files. By default,
     the server uses the current directory. For example, the following command
     uses a specific directory:
@@ -448,7 +448,7 @@ port
 
     Added in version 3.7.
 
--p, --protocol <version>
+`-p, --protocol <version>`
 :   Specifies the HTTP version to which the server is conformant. By default,
     the server is conformant to HTTP/1.0. For example, the following command
     runs an HTTP/1.1 conformant server:
@@ -459,7 +459,7 @@ port
 
     Added in version 3.11.
 
---cgi
+`--cgi`
 :   [`CGIHTTPRequestHandler`](http.server.md#http.server.CGIHTTPRequestHandler "http.server.CGIHTTPRequestHandler") can be enabled in the command line by passing
     the `--cgi` option:
 

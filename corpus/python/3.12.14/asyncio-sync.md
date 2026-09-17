@@ -34,7 +34,7 @@ asyncio has the following basic synchronization primitives:
 
 ## Lock
 
-*class* asyncio.Lock
+`class asyncio.Lock`
 :   Implements a mutex lock for asyncio tasks. Not thread-safe.
 
     An asyncio lock can be used to guarantee exclusive access to a
@@ -66,7 +66,7 @@ asyncio has the following basic synchronization primitives:
 
     Changed in version 3.10: Removed the *loop* parameter.
 
-    *async* acquire()
+    `async acquire()`
     :   Acquire the lock.
 
         This method waits until the lock is *unlocked*, sets it to
@@ -79,19 +79,19 @@ asyncio has the following basic synchronization primitives:
         Acquiring a lock is *fair*: the coroutine that proceeds will be
         the first coroutine that started waiting on the lock.
 
-    release()
+    `release()`
     :   Release the lock.
 
         When the lock is *locked*, reset it to *unlocked* and return.
 
         If the lock is *unlocked*, a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is raised.
 
-    locked()
+    `locked()`
     :   Return `True` if the lock is *locked*.
 
 ## Event
 
-*class* asyncio.Event
+`class asyncio.Event`
 :   An event object. Not thread-safe.
 
     An asyncio event can be used to notify multiple asyncio tasks
@@ -129,30 +129,30 @@ asyncio has the following basic synchronization primitives:
     asyncio.run(main())
     ```
 
-    *async* wait()
+    `async wait()`
     :   Wait until the event is set.
 
         If the event is set, return `True` immediately.
         Otherwise block until another task calls [`set()`](asyncio-sync.md#asyncio.Event.set "asyncio.Event.set").
 
-    set()
+    `set()`
     :   Set the event.
 
         All tasks waiting for event to be set will be immediately
         awakened.
 
-    clear()
+    `clear()`
     :   Clear (unset) the event.
 
         Tasks awaiting on [`wait()`](asyncio-sync.md#asyncio.Event.wait "asyncio.Event.wait") will now block until the
         [`set()`](asyncio-sync.md#asyncio.Event.set "asyncio.Event.set") method is called again.
 
-    is_set()
+    `is_set()`
     :   Return `True` if the event is set.
 
 ## Condition
 
-*class* asyncio.Condition(*lock=None*)
+`class asyncio.Condition(lock=None)`
 :   A Condition object. Not thread-safe.
 
     An asyncio condition primitive can be used by a task to wait for
@@ -195,13 +195,13 @@ asyncio has the following basic synchronization primitives:
         cond.release()
     ```
 
-    *async* acquire()
+    `async acquire()`
     :   Acquire the underlying lock.
 
         This method waits until the underlying lock is *unlocked*,
         sets it to *locked* and returns `True`.
 
-    notify(*n=1*)
+    `notify(n=1)`
     :   Wake up at most *n* tasks (1 by default) waiting on this
         condition. The method is no-op if no tasks are waiting.
 
@@ -209,10 +209,10 @@ asyncio has the following basic synchronization primitives:
         released shortly after. If called with an *unlocked* lock
         a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") error is raised.
 
-    locked()
+    `locked()`
     :   Return `True` if the underlying lock is acquired.
 
-    notify_all()
+    `notify_all()`
     :   Wake up all tasks waiting on this condition.
 
         This method acts like [`notify()`](asyncio-sync.md#asyncio.Condition.notify "asyncio.Condition.notify"), but wakes up all waiting
@@ -222,13 +222,13 @@ asyncio has the following basic synchronization primitives:
         released shortly after. If called with an *unlocked* lock
         a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") error is raised.
 
-    release()
+    `release()`
     :   Release the underlying lock.
 
         When invoked on an unlocked lock, a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is
         raised.
 
-    *async* wait()
+    `async wait()`
     :   Wait until notified.
 
         If the calling task has not acquired the lock when this method is
@@ -239,7 +239,7 @@ asyncio has the following basic synchronization primitives:
         Once awakened, the Condition re-acquires its lock and this method
         returns `True`.
 
-    *async* wait_for(*predicate*)
+    `async wait_for(predicate)`
     :   Wait until a predicate becomes *true*.
 
         The predicate must be a callable which result will be
@@ -249,7 +249,7 @@ asyncio has the following basic synchronization primitives:
 
 ## Semaphore
 
-*class* asyncio.Semaphore(*value=1*)
+`class asyncio.Semaphore(value=1)`
 :   A Semaphore object. Not thread-safe.
 
     A semaphore manages an internal counter which is decremented by each
@@ -288,17 +288,17 @@ asyncio has the following basic synchronization primitives:
         sem.release()
     ```
 
-    *async* acquire()
+    `async acquire()`
     :   Acquire a semaphore.
 
         If the internal counter is greater than zero, decrement
         it by one and return `True` immediately. If it is zero, wait
         until a [`release()`](asyncio-sync.md#asyncio.Semaphore.release "asyncio.Semaphore.release") is called and return `True`.
 
-    locked()
+    `locked()`
     :   Returns `True` if semaphore can not be acquired immediately.
 
-    release()
+    `release()`
     :   Release a semaphore, incrementing the internal counter by one.
         Can wake up a task waiting to acquire the semaphore.
 
@@ -307,7 +307,7 @@ asyncio has the following basic synchronization primitives:
 
 ## BoundedSemaphore
 
-*class* asyncio.BoundedSemaphore(*value=1*)
+`class asyncio.BoundedSemaphore(value=1)`
 :   A bounded semaphore object. Not thread-safe.
 
     Bounded Semaphore is a version of [`Semaphore`](asyncio-sync.md#asyncio.Semaphore "asyncio.Semaphore") that raises
@@ -318,7 +318,7 @@ asyncio has the following basic synchronization primitives:
 
 ## Barrier
 
-*class* asyncio.Barrier(*parties*)
+`class asyncio.Barrier(parties)`
 :   A barrier object. Not thread-safe.
 
     A barrier is a simple synchronization primitive that allows to block until
@@ -368,7 +368,7 @@ asyncio has the following basic synchronization primitives:
 
     Added in version 3.11.
 
-    *async* wait()
+    `async wait()`
     :   Pass the barrier. When all the tasks party to the barrier have called
         this function, they are all unblocked simultaneously.
 
@@ -393,28 +393,28 @@ asyncio has the following basic synchronization primitives:
         barrier is broken or reset while a task is waiting.
         It could raise a [`CancelledError`](asyncio-exceptions.md#asyncio.CancelledError "asyncio.CancelledError") if a task is cancelled.
 
-    *async* reset()
+    `async reset()`
     :   Return the barrier to the default, empty state. Any tasks waiting on it
         will receive the [`BrokenBarrierError`](asyncio-sync.md#asyncio.BrokenBarrierError "asyncio.BrokenBarrierError") exception.
 
         If a barrier is broken it may be better to just leave it and create a new one.
 
-    *async* abort()
+    `async abort()`
     :   Put the barrier into a broken state. This causes any active or future
         calls to [`wait()`](asyncio-sync.md#asyncio.Barrier.wait "asyncio.Barrier.wait") to fail with the [`BrokenBarrierError`](asyncio-sync.md#asyncio.BrokenBarrierError "asyncio.BrokenBarrierError").
         Use this for example if one of the tasks needs to abort, to avoid infinite
         waiting tasks.
 
-    parties
+    `parties`
     :   The number of tasks required to pass the barrier.
 
-    n_waiting
+    `n_waiting`
     :   The number of tasks currently waiting in the barrier while filling.
 
-    broken
+    `broken`
     :   A boolean that is `True` if the barrier is in the broken state.
 
-*exception* asyncio.BrokenBarrierError
+`exception asyncio.BrokenBarrierError`
 :   This exception, a subclass of [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError"), is raised when the
     [`Barrier`](asyncio-sync.md#asyncio.Barrier "asyncio.Barrier") object is reset or broken.
 

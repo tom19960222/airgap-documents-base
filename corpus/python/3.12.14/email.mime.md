@@ -31,7 +31,7 @@ make things easier.
 
 Here are the classes:
 
-*class* email.mime.base.MIMEBase(*_maintype*, *_subtype*, *\**, *policy=compat32*, *\*\*_params*)
+`class email.mime.base.MIMEBase(_maintype, _subtype, *, policy=compat32, **_params)`
 :   Module: [`email.mime.base`](email.mime.md#module-email.mime.base "email.mime.base")
 
     This is the base class for all the MIME-specific subclasses of
@@ -55,7 +55,7 @@ Here are the classes:
 
     Changed in version 3.6: Added *policy* keyword-only parameter.
 
-*class* email.mime.nonmultipart.MIMENonMultipart
+`class email.mime.nonmultipart.MIMENonMultipart`
 :   Module: [`email.mime.nonmultipart`](email.mime.md#module-email.mime.nonmultipart "email.mime.nonmultipart")
 
     A subclass of [`MIMEBase`](email.mime.md#email.mime.base.MIMEBase "email.mime.base.MIMEBase"), this is an intermediate base
@@ -65,7 +65,7 @@ Here are the classes:
     *multipart* messages. If [`attach()`](email.compat32-message.md#email.message.Message.attach "email.message.Message.attach")
     is called, a [`MultipartConversionError`](email.errors.md#email.errors.MultipartConversionError "email.errors.MultipartConversionError") exception is raised.
 
-*class* email.mime.multipart.MIMEMultipart(*_subtype='mixed'*, *boundary=None*, *_subparts=None*, *\**, *policy=compat32*, *\*\*_params*)
+`class email.mime.multipart.MIMEMultipart(_subtype='mixed', boundary=None, _subparts=None, *, policy=compat32, **_params)`
 :   Module: [`email.mime.multipart`](email.mime.md#module-email.mime.multipart "email.mime.multipart")
 
     A subclass of [`MIMEBase`](email.mime.md#email.mime.base.MIMEBase "email.mime.base.MIMEBase"), this is an intermediate base
@@ -91,7 +91,7 @@ Here are the classes:
 
     Changed in version 3.6: Added *policy* keyword-only parameter.
 
-*class* email.mime.application.MIMEApplication(*_data*, *_subtype='octet-stream'*, *_encoder=email.encoders.encode_base64*, *\**, *policy=compat32*, *\*\*_params*)
+`class email.mime.application.MIMEApplication(_data, _subtype='octet-stream', _encoder=email.encoders.encode_base64, *, policy=compat32, **_params)`
 :   Module: [`email.mime.application`](email.mime.md#module-email.mime.application "email.mime.application")
 
     A subclass of [`MIMENonMultipart`](email.mime.md#email.mime.nonmultipart.MIMENonMultipart "email.mime.nonmultipart.MIMENonMultipart"), the
@@ -116,7 +116,7 @@ Here are the classes:
 
     Changed in version 3.6: Added *policy* keyword-only parameter.
 
-*class* email.mime.audio.MIMEAudio(*_audiodata*, *_subtype=None*, *_encoder=email.encoders.encode_base64*, *\**, *policy=compat32*, *\*\*_params*)
+`class email.mime.audio.MIMEAudio(_audiodata, _subtype=None, _encoder=email.encoders.encode_base64, *, policy=compat32, **_params)`
 :   Module: [`email.mime.audio`](email.mime.md#module-email.mime.audio "email.mime.audio")
 
     A subclass of [`MIMENonMultipart`](email.mime.md#email.mime.nonmultipart.MIMENonMultipart "email.mime.nonmultipart.MIMENonMultipart"), the
@@ -144,7 +144,7 @@ Here are the classes:
 
     Changed in version 3.6: Added *policy* keyword-only parameter.
 
-*class* email.mime.image.MIMEImage(*_imagedata*, *_subtype=None*, *_encoder=email.encoders.encode_base64*, *\**, *policy=compat32*, *\*\*_params*)
+`class email.mime.image.MIMEImage(_imagedata, _subtype=None, _encoder=email.encoders.encode_base64, *, policy=compat32, **_params)`
 :   Module: [`email.mime.image`](email.mime.md#module-email.mime.image "email.mime.image")
 
     A subclass of [`MIMENonMultipart`](email.mime.md#email.mime.nonmultipart.MIMENonMultipart "email.mime.nonmultipart.MIMENonMultipart"), the
@@ -174,7 +174,7 @@ Here are the classes:
 
     Changed in version 3.6: Added *policy* keyword-only parameter.
 
-*class* email.mime.message.MIMEMessage(*_msg*, *_subtype='rfc822'*, *\**, *policy=compat32*)
+`class email.mime.message.MIMEMessage(_msg, _subtype='rfc822', *, policy=compat32)`
 :   Module: [`email.mime.message`](email.mime.md#module-email.mime.message "email.mime.message")
 
     A subclass of [`MIMENonMultipart`](email.mime.md#email.mime.nonmultipart.MIMENonMultipart "email.mime.nonmultipart.MIMENonMultipart"), the
@@ -190,7 +190,7 @@ Here are the classes:
 
     Changed in version 3.6: Added *policy* keyword-only parameter.
 
-*class* email.mime.text.MIMEText(*_text*, *_subtype='plain'*, *_charset=None*, *\**, *policy=compat32*)
+`class email.mime.text.MIMEText(_text, _subtype='plain', _charset=None, *, policy=compat32)`
 :   Module: [`email.mime.text`](email.mime.md#module-email.mime.text "email.mime.text")
 
     A subclass of [`MIMENonMultipart`](email.mime.md#email.mime.nonmultipart.MIMENonMultipart "email.mime.nonmultipart.MIMENonMultipart"), the

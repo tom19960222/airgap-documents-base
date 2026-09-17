@@ -33,12 +33,12 @@ This module does not work or is not available on WebAssembly platforms
 
 The module defines the following:
 
-*exception* select.error
+`exception select.error`
 :   A deprecated alias of [`OSError`](exceptions.md#OSError "OSError").
 
     Changed in version 3.3: Following [**PEP 3151**](https://peps.python.org/pep-3151/), this class was made an alias of [`OSError`](exceptions.md#OSError "OSError").
 
-select.devpoll()
+`select.devpoll()`
 :   (Only supported on Solaris and derivatives.) Returns a `/dev/poll`
     polling object; see section [/dev/poll Polling Objects](select.md#devpoll-objects) below for the
     methods supported by devpoll objects.
@@ -55,7 +55,7 @@ select.devpoll()
 
     Changed in version 3.4: The new file descriptor is now non-inheritable.
 
-select.epoll(*sizehint=-1*, *flags=0*)
+`select.epoll(sizehint=-1, flags=0)`
 :   (Only supported on Linux 2.5.44 and newer.) Return an edge polling object,
     which can be used as Edge or Level Triggered interface for I/O
     events.
@@ -86,13 +86,13 @@ select.epoll(*sizehint=-1*, *flags=0*)
     Deprecated since version 3.4: The *flags* parameter. `select.EPOLL_CLOEXEC` is used by default now.
     Use [`os.set_inheritable()`](os.md#os.set_inheritable "os.set_inheritable") to make the file descriptor inheritable.
 
-select.poll()
+`select.poll()`
 :   (Not supported by all operating systems.) Returns a polling object, which
     supports registering and unregistering file descriptors, and then polling them
     for I/O events; see section [Polling Objects](select.md#poll-objects) below for the methods supported
     by polling objects.
 
-select.kqueue()
+`select.kqueue()`
 :   (Only supported on BSD.) Returns a kernel queue object; see section
     [Kqueue Objects](select.md#kqueue-objects) below for the methods supported by kqueue objects.
 
@@ -100,11 +100,11 @@ select.kqueue()
 
     Changed in version 3.4: The new file descriptor is now non-inheritable.
 
-select.kevent(*ident*, *filter=KQ_FILTER_READ*, *flags=KQ_EV_ADD*, *fflags=0*, *data=0*, *udata=0*)
+`select.kevent(ident, filter=KQ_FILTER_READ, flags=KQ_EV_ADD, fflags=0, data=0, udata=0)`
 :   (Only supported on BSD.) Returns a kernel event object; see section
     [Kevent Objects](select.md#kevent-objects) below for the methods supported by kevent objects.
 
-select.select(*rlist*, *wlist*, *xlist*[, *timeout*])
+`select.select(rlist, wlist, xlist[, timeout])`
 :   This is a straightforward interface to the Unix `select()` system call.
     The first three arguments are iterables of ‘waitable objects’: either
     integers representing file descriptors or objects with a parameterless method
@@ -145,7 +145,7 @@ select.select(*rlist*, *wlist*, *xlist*[, *timeout*])
     [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale), instead of raising
     [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError").
 
-select.PIPE_BUF
+`select.PIPE_BUF`
 :   The minimum number of bytes which can be written without blocking to a pipe
     when the pipe has been reported as ready for writing by [`select()`](select.md#select.select "select.select"),
     `poll()` or another interface in this module. This doesn’t apply
@@ -166,22 +166,22 @@ descriptors*), `/dev/poll` is *O*(*active file descriptors*).
 `/dev/poll` behaviour is very close to the standard `poll()`
 object.
 
-devpoll.close()
+`devpoll.close()`
 :   Close the file descriptor of the polling object.
 
     Added in version 3.4.
 
-devpoll.closed
+`devpoll.closed`
 :   `True` if the polling object is closed.
 
     Added in version 3.4.
 
-devpoll.fileno()
+`devpoll.fileno()`
 :   Return the file descriptor number of the polling object.
 
     Added in version 3.4.
 
-devpoll.register(*fd*[, *eventmask*])
+`devpoll.register(fd[, eventmask])`
 :   Register a file descriptor with the polling object. Future calls to the
     [`poll()`](select.md#select.poll "select.poll") method will then check whether the file descriptor has any
     pending I/O events. *fd* can be either an integer, or an object with a
@@ -200,12 +200,12 @@ devpoll.register(*fd*[, *eventmask*])
     > unregister or modify it first. This is an important difference
     > compared with `poll()`.
 
-devpoll.modify(*fd*[, *eventmask*])
+`devpoll.modify(fd[, eventmask])`
 :   This method does an [`unregister()`](select.md#select.devpoll.unregister "select.devpoll.unregister") followed by a
     [`register()`](select.md#select.devpoll.register "select.devpoll.register"). It is (a bit) more efficient that doing the same
     explicitly.
 
-devpoll.unregister(*fd*)
+`devpoll.unregister(fd)`
 :   Remove a file descriptor being tracked by a polling object. Just like the
     [`register()`](select.md#select.devpoll.register "select.devpoll.register") method, *fd* can be an integer or an object with a
     [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method that returns an integer.
@@ -213,7 +213,7 @@ devpoll.unregister(*fd*)
     Attempting to remove a file descriptor that was never registered is
     safely ignored.
 
-devpoll.poll([*timeout*])
+`devpoll.poll([timeout])`
 :   Polls the set of registered file descriptors, and returns a possibly empty list
     containing `(fd, event)` 2-tuples for the descriptors that have events or
     errors to report. *fd* is the file descriptor, and *event* is a bitmask with
@@ -256,30 +256,30 @@ devpoll.poll([*timeout*])
 > Added in version 3.6: `EPOLLEXCLUSIVE` was added. It’s only supported by Linux Kernel 4.5
 > or later.
 
-epoll.close()
+`epoll.close()`
 :   Close the control file descriptor of the epoll object.
 
-epoll.closed
+`epoll.closed`
 :   `True` if the epoll object is closed.
 
-epoll.fileno()
+`epoll.fileno()`
 :   Return the file descriptor number of the control fd.
 
-epoll.fromfd(*fd*)
+`epoll.fromfd(fd)`
 :   Create an epoll object from a given file descriptor.
 
-epoll.register(*fd*[, *eventmask*])
+`epoll.register(fd[, eventmask])`
 :   Register a fd descriptor with the epoll object.
 
-epoll.modify(*fd*, *eventmask*)
+`epoll.modify(fd, eventmask)`
 :   Modify a registered file descriptor.
 
-epoll.unregister(*fd*)
+`epoll.unregister(fd)`
 :   Remove a registered file descriptor from the epoll object.
 
     Changed in version 3.9: The method no longer ignores the [`EBADF`](errno.md#errno.EBADF "errno.EBADF") error.
 
-epoll.poll(*timeout=None*, *maxevents=-1*)
+`epoll.poll(timeout=None, maxevents=-1)`
 :   Wait for events. timeout in seconds (float)
 
     Changed in version 3.5: The function is now retried with a recomputed timeout when interrupted by
@@ -297,7 +297,7 @@ on bits for the fds of interest, and then afterward the whole bitmap has to be
 linearly scanned again. `select()` is *O*(*highest file descriptor*), while
 `poll()` is *O*(*number of file descriptors*).
 
-poll.register(*fd*[, *eventmask*])
+`poll.register(fd[, eventmask])`
 :   Register a file descriptor with the polling object. Future calls to the
     [`poll()`](select.md#select.poll "select.poll") method will then check whether the file descriptor has any
     pending I/O events. *fd* can be either an integer, or an object with a
@@ -322,13 +322,13 @@ poll.register(*fd*[, *eventmask*])
     Registering a file descriptor that’s already registered is not an error, and has
     the same effect as registering the descriptor exactly once.
 
-poll.modify(*fd*, *eventmask*)
+`poll.modify(fd, eventmask)`
 :   Modifies an already registered fd. This has the same effect as
     `register(fd, eventmask)`. Attempting to modify a file descriptor
     that was never registered causes an [`OSError`](exceptions.md#OSError "OSError") exception with errno
     `ENOENT` to be raised.
 
-poll.unregister(*fd*)
+`poll.unregister(fd)`
 :   Remove a file descriptor being tracked by a polling object. Just like the
     [`register()`](select.md#select.poll.register "select.poll.register") method, *fd* can be an integer or an object with a
     [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method that returns an integer.
@@ -336,7 +336,7 @@ poll.unregister(*fd*)
     Attempting to remove a file descriptor that was never registered causes a
     [`KeyError`](exceptions.md#KeyError "KeyError") exception to be raised.
 
-poll.poll([*timeout*])
+`poll.poll([timeout])`
 :   Polls the set of registered file descriptors, and returns a possibly empty list
     containing `(fd, event)` 2-tuples for the descriptors that have events or
     errors to report. *fd* is the file descriptor, and *event* is a bitmask with
@@ -355,19 +355,19 @@ poll.poll([*timeout*])
 
 ## Kqueue Objects
 
-kqueue.close()
+`kqueue.close()`
 :   Close the control file descriptor of the kqueue object.
 
-kqueue.closed
+`kqueue.closed`
 :   `True` if the kqueue object is closed.
 
-kqueue.fileno()
+`kqueue.fileno()`
 :   Return the file descriptor number of the control fd.
 
-kqueue.fromfd(*fd*)
+`kqueue.fromfd(fd)`
 :   Create a kqueue object from a given file descriptor.
 
-kqueue.control(*changelist*, *max_events*[, *timeout*]) → eventlist
+`kqueue.control(changelist, max_events[, timeout]) → eventlist`
 :   Low level interface to kevent
 
     - changelist must be an iterable of kevent objects or `None`
@@ -384,13 +384,13 @@ kqueue.control(*changelist*, *max_events*[, *timeout*]) → eventlist
 
 <https://man.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2>
 
-kevent.ident
+`kevent.ident`
 :   Value used to identify the event. The interpretation depends on the filter
     but it’s usually the file descriptor. In the constructor ident can either
     be an int or an object with a [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method. kevent
     stores the integer internally.
 
-kevent.filter
+`kevent.filter`
 :   Name of the kernel filter.
 
     | Constant | Meaning |
@@ -404,7 +404,7 @@ kevent.filter
     | `KQ_FILTER_SIGNAL` | Returns whenever the watched signal is delivered to the process |
     | `KQ_FILTER_TIMER` | Establishes an arbitrary timer |
 
-kevent.flags
+`kevent.flags`
 :   Filter action.
 
     | Constant | Meaning |
@@ -420,7 +420,7 @@ kevent.flags
     | `KQ_EV_EOF` | Filter specific EOF condition |
     | `KQ_EV_ERROR` | See return values |
 
-kevent.fflags
+`kevent.fflags`
 :   Filter specific flags.
 
     `KQ_FILTER_READ` and `KQ_FILTER_WRITE` filter flags:
@@ -462,8 +462,8 @@ kevent.fflags
     | `KQ_NOTE_LINKDOWN` | link is down |
     | `KQ_NOTE_LINKINV` | link state is invalid |
 
-kevent.data
+`kevent.data`
 :   Filter specific data.
 
-kevent.udata
+`kevent.udata`
 :   User defined value.

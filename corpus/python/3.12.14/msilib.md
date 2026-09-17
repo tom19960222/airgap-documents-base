@@ -28,7 +28,7 @@ The package contents can be roughly split into four parts: low-level CAB
 routines, low-level MSI routines, higher-level MSI routines, and standard table
 structures.
 
-msilib.FCICreate(*cabname*, *files*)
+`msilib.FCICreate(cabname, files)`
 :   Create a new CAB file named *cabname*. *files* must be a list of tuples, each
     containing the name of the file on disk, and the name of the file inside the CAB
     file.
@@ -39,11 +39,11 @@ msilib.FCICreate(*cabname*, *files*)
     Callbacks to Python for the various steps of MSI creation are currently not
     exposed.
 
-msilib.UuidCreate()
+`msilib.UuidCreate()`
 :   Return the string representation of a new unique identifier. This wraps the
     Windows API functions `UuidCreate()` and `UuidToString()`.
 
-msilib.OpenDatabase(*path*, *persist*)
+`msilib.OpenDatabase(path, persist)`
 :   Return a new database object by calling MsiOpenDatabase. *path* is the file
     name of the MSI file; *persist* can be one of the constants
     `MSIDBOPEN_CREATEDIRECT`, `MSIDBOPEN_CREATE`, `MSIDBOPEN_DIRECT`,
@@ -52,11 +52,11 @@ msilib.OpenDatabase(*path*, *persist*)
     these flags; depending on the flags, an existing database is opened, or a new
     one created.
 
-msilib.CreateRecord(*count*)
+`msilib.CreateRecord(count)`
 :   Return a new record object by calling `MSICreateRecord()`. *count* is the
     number of fields of the record.
 
-msilib.init_database(*name*, *schema*, *ProductName*, *ProductCode*, *ProductVersion*, *Manufacturer*)
+`msilib.init_database(name, schema, ProductName, ProductCode, ProductVersion, Manufacturer)`
 :   Create and return a new database *name*, initialize it with *schema*, and set
     the properties *ProductName*, *ProductCode*, *ProductVersion*, and
     *Manufacturer*.
@@ -68,7 +68,7 @@ msilib.init_database(*name*, *schema*, *ProductName*, *ProductCode*, *ProductVer
     The database will contain just the schema and the validation records when this
     function returns.
 
-msilib.add_data(*database*, *table*, *records*)
+`msilib.add_data(database, table, records)`
 :   Add all *records* to the table named *table* in *database*.
 
     The *table* argument must be one of the predefined tables in the MSI schema,
@@ -81,22 +81,22 @@ msilib.add_data(*database*, *table*, *records*)
 
     Field values can be ints, strings, or instances of the Binary class.
 
-*class* msilib.Binary(*filename*)
+`class msilib.Binary(filename)`
 :   Represents entries in the Binary table; inserting such an object using
     [`add_data()`](msilib.md#msilib.add_data "msilib.add_data") reads the file named *filename* into the table.
 
-msilib.add_tables(*database*, *module*)
+`msilib.add_tables(database, module)`
 :   Add all table content from *module* to *database*. *module* must contain an
     attribute *tables* listing all tables for which content should be added, and one
     attribute per table that has the actual content.
 
     This is typically used to install the sequence tables.
 
-msilib.add_stream(*database*, *name*, *path*)
+`msilib.add_stream(database, name, path)`
 :   Add the file *path* into the `_Stream` table of *database*, with the stream
     name *name*.
 
-msilib.gen_uuid()
+`msilib.gen_uuid()`
 :   Return a new UUID, in the format that MSI typically requires (i.e. in curly
     braces, and with all hexdigits in uppercase).
 
@@ -108,20 +108,20 @@ msilib.gen_uuid()
 
 ## Database Objects
 
-Database.OpenView(*sql*)
+`Database.OpenView(sql)`
 :   Return a view object, by calling `MSIDatabaseOpenView()`. *sql* is the SQL
     statement to execute.
 
-Database.Commit()
+`Database.Commit()`
 :   Commit the changes pending in the current transaction, by calling
     `MSIDatabaseCommit()`.
 
-Database.GetSummaryInformation(*count*)
+`Database.GetSummaryInformation(count)`
 :   Return a new summary information object, by calling
     `MsiGetSummaryInformation()`. *count* is the maximum number of updated
     values.
 
-Database.Close()
+`Database.Close()`
 :   Close the database object, through `MsiCloseHandle()`.
 
     Added in version 3.7.
@@ -135,20 +135,20 @@ Database.Close()
 
 ## View Objects
 
-View.Execute(*params*)
+`View.Execute(params)`
 :   Execute the SQL query of the view, through `MSIViewExecute()`. If
     *params* is not `None`, it is a record describing actual values of the
     parameter tokens in the query.
 
-View.GetColumnInfo(*kind*)
+`View.GetColumnInfo(kind)`
 :   Return a record describing the columns of the view, through calling
     `MsiViewGetColumnInfo()`. *kind* can be either `MSICOLINFO_NAMES` or
     `MSICOLINFO_TYPES`.
 
-View.Fetch()
+`View.Fetch()`
 :   Return a result record of the query, through calling `MsiViewFetch()`.
 
-View.Modify(*kind*, *data*)
+`View.Modify(kind, data)`
 :   Modify the view, by calling `MsiViewModify()`. *kind* can be one of
     `MSIMODIFY_SEEK`, `MSIMODIFY_REFRESH`, `MSIMODIFY_INSERT`,
     `MSIMODIFY_UPDATE`, `MSIMODIFY_ASSIGN`, `MSIMODIFY_REPLACE`,
@@ -158,7 +158,7 @@ View.Modify(*kind*, *data*)
 
     *data* must be a record describing the new data.
 
-View.Close()
+`View.Close()`
 :   Close the view, through `MsiViewClose()`.
 
 > **See also:**
@@ -171,7 +171,7 @@ View.Close()
 
 ## Summary Information Objects
 
-SummaryInformation.GetProperty(*field*)
+`SummaryInformation.GetProperty(field)`
 :   Return a property of the summary, through `MsiSummaryInfoGetProperty()`.
     *field* is the name of the property, and can be one of the constants
     `PID_CODEPAGE`, `PID_TITLE`, `PID_SUBJECT`, `PID_AUTHOR`,
@@ -180,16 +180,16 @@ SummaryInformation.GetProperty(*field*)
     `PID_LASTSAVE_DTM`, `PID_PAGECOUNT`, `PID_WORDCOUNT`, `PID_CHARCOUNT`,
     `PID_APPNAME`, or `PID_SECURITY`.
 
-SummaryInformation.GetPropertyCount()
+`SummaryInformation.GetPropertyCount()`
 :   Return the number of summary properties, through
     `MsiSummaryInfoGetPropertyCount()`.
 
-SummaryInformation.SetProperty(*field*, *value*)
+`SummaryInformation.SetProperty(field, value)`
 :   Set a property through `MsiSummaryInfoSetProperty()`. *field* can have the
     same values as in [`GetProperty()`](msilib.md#msilib.SummaryInformation.GetProperty "msilib.SummaryInformation.GetProperty"), *value* is the new value of the property.
     Possible value types are integer and string.
 
-SummaryInformation.Persist()
+`SummaryInformation.Persist()`
 :   Write the modified properties to the summary information stream, using
     `MsiSummaryInfoPersist()`.
 
@@ -202,31 +202,31 @@ SummaryInformation.Persist()
 
 ## Record Objects
 
-Record.GetFieldCount()
+`Record.GetFieldCount()`
 :   Return the number of fields of the record, through
     `MsiRecordGetFieldCount()`.
 
-Record.GetInteger(*field*)
+`Record.GetInteger(field)`
 :   Return the value of *field* as an integer where possible. *field* must
     be an integer.
 
-Record.GetString(*field*)
+`Record.GetString(field)`
 :   Return the value of *field* as a string where possible. *field* must
     be an integer.
 
-Record.SetString(*field*, *value*)
+`Record.SetString(field, value)`
 :   Set *field* to *value* through `MsiRecordSetString()`. *field* must be an
     integer; *value* a string.
 
-Record.SetStream(*field*, *value*)
+`Record.SetStream(field, value)`
 :   Set *field* to the contents of the file named *value*, through
     `MsiRecordSetStream()`. *field* must be an integer; *value* a string.
 
-Record.SetInteger(*field*, *value*)
+`Record.SetInteger(field, value)`
 :   Set *field* to *value* through `MsiRecordSetInteger()`. Both *field* and
     *value* must be an integer.
 
-Record.ClearData()
+`Record.ClearData()`
 :   Set all fields of the record to 0, through `MsiRecordClearData()`.
 
 > **See also:**
@@ -244,7 +244,7 @@ exception will contain more detail.
 
 ## CAB Objects
 
-*class* msilib.CAB(*name*)
+`class msilib.CAB(name)`
 :   The class [`CAB`](msilib.md#msilib.CAB "msilib.CAB") represents a CAB file. During MSI construction, files
     will be added simultaneously to the `Files` table, and to a CAB file. Then,
     when all files have been added, the CAB file can be written, then added to the
@@ -252,7 +252,7 @@ exception will contain more detail.
 
     *name* is the name of the CAB file in the MSI file.
 
-    append(*full*, *file*, *logical*)
+    `append(full, file, logical)`
     :   Add the file with the pathname *full* to the CAB file, under the name
         *logical*. If there is already a file named *logical*, a new file name is
         created.
@@ -260,13 +260,13 @@ exception will contain more detail.
         Return the index of the file in the CAB file, and the new name of the file
         inside the CAB file.
 
-    commit(*database*)
+    `commit(database)`
     :   Generate a CAB file, add it as a stream to the MSI file, put it into the
         `Media` table, and remove the generated file from the disk.
 
 ## Directory Objects
 
-*class* msilib.Directory(*database*, *cab*, *basedir*, *physical*, *logical*, *default*[, *componentflags*])
+`class msilib.Directory(database, cab, basedir, physical, logical, default[, componentflags])`
 :   Create a new directory in the Directory table. There is a current component at
     each point in time for the directory, which is either explicitly created through
     [`start_component()`](msilib.md#msilib.Directory.start_component "msilib.Directory.start_component"), or implicitly when files are added for the first time.
@@ -276,25 +276,25 @@ exception will contain more detail.
     specifies the DefaultDir slot in the directory table. *componentflags* specifies
     the default flags that new components get.
 
-    start_component(*component=None*, *feature=None*, *flags=None*, *keyfile=None*, *uuid=None*)
+    `start_component(component=None, feature=None, flags=None, keyfile=None, uuid=None)`
     :   Add an entry to the Component table, and make this component the current
         component for this directory. If no component name is given, the directory
         name is used. If no *feature* is given, the current feature is used. If no
         *flags* are given, the directory’s default flags are used. If no *keyfile*
         is given, the KeyPath is left null in the Component table.
 
-    add_file(*file*, *src=None*, *version=None*, *language=None*)
+    `add_file(file, src=None, version=None, language=None)`
     :   Add a file to the current component of the directory, starting a new one
         if there is no current component. By default, the file name in the source
         and the file table will be identical. If the *src* file is specified, it
         is interpreted relative to the current directory. Optionally, a *version*
         and a *language* can be specified for the entry in the File table.
 
-    glob(*pattern*, *exclude=None*)
+    `glob(pattern, exclude=None)`
     :   Add a list of files to the current component as specified in the glob
         pattern. Individual files can be excluded in the *exclude* list.
 
-    remove_pyc()
+    `remove_pyc()`
     :   Remove `.pyc` files on uninstall.
 
 > **See also:**
@@ -306,13 +306,13 @@ exception will contain more detail.
 
 ## Features
 
-*class* msilib.Feature(*db*, *id*, *title*, *desc*, *display*, *level=1*, *parent=None*, *directory=None*, *attributes=0*)
+`class msilib.Feature(db, id, title, desc, display, level=1, parent=None, directory=None, attributes=0)`
 :   Add a new record to the `Feature` table, using the values *id*, *parent.id*,
     *title*, *desc*, *display*, *level*, *directory*, and *attributes*. The
     resulting feature object can be passed to the `start_component()` method of
     [`Directory`](msilib.md#msilib.Directory "msilib.Directory").
 
-    set_current()
+    `set_current()`
     :   Make this feature the current feature of [`msilib`](msilib.md#module-msilib "msilib: Creation of Microsoft Installer files, and CAB files. (deprecated) (Windows)"). New components are
         automatically added to the default feature, unless a feature is explicitly
         specified.
@@ -326,56 +326,56 @@ exception will contain more detail.
 [`msilib`](msilib.md#module-msilib "msilib: Creation of Microsoft Installer files, and CAB files. (deprecated) (Windows)") provides several classes that wrap the GUI tables in an MSI
 database. However, no standard user interface is provided.
 
-*class* msilib.Control(*dlg*, *name*)
+`class msilib.Control(dlg, name)`
 :   Base class of the dialog controls. *dlg* is the dialog object the control
     belongs to, and *name* is the control’s name.
 
-    event(*event*, *argument*, *condition=1*, *ordering=None*)
+    `event(event, argument, condition=1, ordering=None)`
     :   Make an entry into the `ControlEvent` table for this control.
 
-    mapping(*event*, *attribute*)
+    `mapping(event, attribute)`
     :   Make an entry into the `EventMapping` table for this control.
 
-    condition(*action*, *condition*)
+    `condition(action, condition)`
     :   Make an entry into the `ControlCondition` table for this control.
 
-*class* msilib.RadioButtonGroup(*dlg*, *name*, *property*)
+`class msilib.RadioButtonGroup(dlg, name, property)`
 :   Create a radio button control named *name*. *property* is the installer property
     that gets set when a radio button is selected.
 
-    add(*name*, *x*, *y*, *width*, *height*, *text*, *value=None*)
+    `add(name, x, y, width, height, text, value=None)`
     :   Add a radio button named *name* to the group, at the coordinates *x*, *y*,
         *width*, *height*, and with the label *text*. If *value* is `None`, it
         defaults to *name*.
 
-*class* msilib.Dialog(*db*, *name*, *x*, *y*, *w*, *h*, *attr*, *title*, *first*, *default*, *cancel*)
+`class msilib.Dialog(db, name, x, y, w, h, attr, title, first, default, cancel)`
 :   Return a new [`Dialog`](msilib.md#msilib.Dialog "msilib.Dialog") object. An entry in the `Dialog` table is made,
     with the specified coordinates, dialog attributes, title, name of the first,
     default, and cancel controls.
 
-    control(*name*, *type*, *x*, *y*, *width*, *height*, *attributes*, *property*, *text*, *control_next*, *help*)
+    `control(name, type, x, y, width, height, attributes, property, text, control_next, help)`
     :   Return a new [`Control`](msilib.md#msilib.Control "msilib.Control") object. An entry in the `Control` table is
         made with the specified parameters.
 
         This is a generic method; for specific types, specialized methods are
         provided.
 
-    text(*name*, *x*, *y*, *width*, *height*, *attributes*, *text*)
+    `text(name, x, y, width, height, attributes, text)`
     :   Add and return a `Text` control.
 
-    bitmap(*name*, *x*, *y*, *width*, *height*, *text*)
+    `bitmap(name, x, y, width, height, text)`
     :   Add and return a `Bitmap` control.
 
-    line(*name*, *x*, *y*, *width*, *height*)
+    `line(name, x, y, width, height)`
     :   Add and return a `Line` control.
 
-    pushbutton(*name*, *x*, *y*, *width*, *height*, *attributes*, *text*, *next_control*)
+    `pushbutton(name, x, y, width, height, attributes, text, next_control)`
     :   Add and return a `PushButton` control.
 
-    radiogroup(*name*, *x*, *y*, *width*, *height*, *attributes*, *property*, *text*, *next_control*)
+    `radiogroup(name, x, y, width, height, attributes, property, text, next_control)`
     :   Add and return a `RadioButtonGroup` control.
 
-    checkbox(*name*, *x*, *y*, *width*, *height*, *attributes*, *property*, *text*, *next_control*)
+    `checkbox(name, x, y, width, height, attributes, property, text, next_control)`
     :   Add and return a `CheckBox` control.
 
 > **See also:**
@@ -393,16 +393,16 @@ database. However, no standard user interface is provided.
 [`msilib`](msilib.md#module-msilib "msilib: Creation of Microsoft Installer files, and CAB files. (deprecated) (Windows)") provides a few subpackages that contain only schema and table
 definitions. Currently, these definitions are based on MSI version 2.0.
 
-msilib.schema
+`msilib.schema`
 :   This is the standard MSI schema for MSI 2.0, with the *tables* variable
     providing a list of table definitions, and *_Validation_records* providing the
     data for MSI validation.
 
-msilib.sequence
+`msilib.sequence`
 :   This module contains table contents for the standard sequence tables:
     *AdminExecuteSequence*, *AdminUISequence*, *AdvtExecuteSequence*,
     *InstallExecuteSequence*, and *InstallUISequence*.
 
-msilib.text
+`msilib.text`
 :   This module contains definitions for the UIText and ActionText tables, for the
     standard installer actions.

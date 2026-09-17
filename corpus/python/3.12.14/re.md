@@ -589,14 +589,14 @@ form.
 Changed in version 3.6: Flag constants are now instances of [`RegexFlag`](re.md#re.RegexFlag "re.RegexFlag"), which is a subclass of
 [`enum.IntFlag`](enum.md#enum.IntFlag "enum.IntFlag").
 
-*class* re.RegexFlag
+`class re.RegexFlag`
 :   An [`enum.IntFlag`](enum.md#enum.IntFlag "enum.IntFlag") class containing the regex options listed below.
 
     Added in version 3.11: - added to `__all__`
 
-re.A
+`re.A`
 
-re.ASCII
+`re.ASCII`
 :   Make `\w`, `\W`, `\b`, `\B`, `\d`, `\D`, `\s` and `\S`
     perform ASCII-only matching instead of full Unicode matching. This is only
     meaningful for Unicode (str) patterns, and is ignored for bytes patterns.
@@ -611,14 +611,14 @@ re.ASCII
     > and Unicode matching isn’t allowed for bytes patterns.
     > [`UNICODE`](re.md#re.UNICODE "re.UNICODE") and the inline flag `(?u)` are similarly redundant.
 
-re.DEBUG
+`re.DEBUG`
 :   Display debug information about compiled expression.
 
     No corresponding inline flag.
 
-re.I
+`re.I`
 
-re.IGNORECASE
+`re.IGNORECASE`
 :   Perform case-insensitive matching;
     expressions like `[A-Z]` will also match lowercase letters.
     Full Unicode matching (such as `Ü` matching `ü`)
@@ -637,9 +637,9 @@ re.IGNORECASE
     If the [`ASCII`](re.md#re.ASCII "re.ASCII") flag is used, only letters ‘a’ to ‘z’
     and ‘A’ to ‘Z’ are matched.
 
-re.L
+`re.L`
 
-re.LOCALE
+`re.LOCALE`
 :   Make `\w`, `\W`, `\b`, `\B` and case-insensitive matching
     dependent on the current locale.
     This flag can be used only with bytes patterns.
@@ -662,9 +662,9 @@ re.LOCALE
     no longer depend on the locale at compile time.
     Only the locale at matching time affects the result of matching.
 
-re.M
+`re.M`
 
-re.MULTILINE
+`re.MULTILINE`
 :   When specified, the pattern character `'^'` matches at the beginning of the
     string and at the beginning of each line (immediately following each newline);
     and the pattern character `'$'` matches at the end of the string and at the
@@ -674,7 +674,7 @@ re.MULTILINE
 
     Corresponds to the inline flag `(?m)`.
 
-re.NOFLAG
+`re.NOFLAG`
 :   Indicates no flag being applied, the value is `0`. This flag may be used
     as a default value for a function keyword argument or as a base value that
     will be conditionally ORed with other flags. Example of use as a default
@@ -687,17 +687,17 @@ re.NOFLAG
 
     Added in version 3.11.
 
-re.S
+`re.S`
 
-re.DOTALL
+`re.DOTALL`
 :   Make the `'.'` special character match any character at all, including a
     newline; without this flag, `'.'` will match anything *except* a newline.
 
     Corresponds to the inline flag `(?s)`.
 
-re.U
+`re.U`
 
-re.UNICODE
+`re.UNICODE`
 :   In Python 3, Unicode characters are matched by default
     for `str` patterns.
     This flag is therefore redundant with **no effect**
@@ -705,9 +705,9 @@ re.UNICODE
 
     See [`ASCII`](re.md#re.ASCII "re.ASCII") to restrict matching to ASCII characters instead.
 
-re.X
+`re.X`
 
-re.VERBOSE
+`re.VERBOSE`
 :   This flag allows you to write regular expressions that look nicer and are
     more readable by allowing you to visually separate logical sections of the
     pattern and add comments. Whitespace within the pattern is ignored, except
@@ -732,7 +732,7 @@ re.VERBOSE
 
 ### Functions
 
-re.compile(*pattern*, *flags=0*)
+`re.compile(pattern, flags=0)`
 :   Compile a regular expression pattern into a [regular expression object](re.md#re-objects), which can be used for matching using its
     [`match()`](re.md#re.Pattern.match "re.Pattern.match"), [`search()`](re.md#re.Pattern.search "re.Pattern.search") and other methods, described
     below.
@@ -765,7 +765,7 @@ re.compile(*pattern*, *flags=0*)
     > programs that use only a few regular expressions at a time needn’t worry
     > about compiling regular expressions.
 
-re.search(*pattern*, *string*, *flags=0*)
+`re.search(pattern, string, flags=0)`
 :   Scan through *string* looking for the first location where the regular expression
     *pattern* produces a match, and return a corresponding [`Match`](re.md#re.Match "re.Match"). Return
     `None` if no position in the string matches the pattern; note that this is
@@ -775,7 +775,7 @@ re.search(*pattern*, *string*, *flags=0*)
     Values can be any of the [flags](re.md#flags) variables, combined using bitwise OR
     (the `|` operator).
 
-re.match(*pattern*, *string*, *flags=0*)
+`re.match(pattern, string, flags=0)`
 :   If zero or more characters at the beginning of *string* match the regular
     expression *pattern*, return a corresponding [`Match`](re.md#re.Match "re.Match"). Return
     `None` if the string does not match the pattern; note that this is
@@ -791,7 +791,7 @@ re.match(*pattern*, *string*, *flags=0*)
     Values can be any of the [flags](re.md#flags) variables, combined using bitwise OR
     (the `|` operator).
 
-re.fullmatch(*pattern*, *string*, *flags=0*)
+`re.fullmatch(pattern, string, flags=0)`
 :   If the whole *string* matches the regular expression *pattern*, return a
     corresponding [`Match`](re.md#re.Match "re.Match"). Return `None` if the string does not match
     the pattern; note that this is different from a zero-length match.
@@ -802,7 +802,7 @@ re.fullmatch(*pattern*, *string*, *flags=0*)
 
     Added in version 3.4.
 
-re.split(*pattern*, *string*, *maxsplit=0*, *flags=0*)
+`re.split(pattern, string, maxsplit=0, flags=0)`
 :   Split *string* by the occurrences of *pattern*. If capturing parentheses are
     used in *pattern*, then the text of all groups in the pattern are also returned
     as part of the resulting list. If *maxsplit* is nonzero, at most *maxsplit*
@@ -852,7 +852,7 @@ re.split(*pattern*, *string*, *maxsplit=0*, *flags=0*)
 
     Changed in version 3.7: Added support of splitting on a pattern that could match an empty string.
 
-re.findall(*pattern*, *string*, *flags=0*)
+`re.findall(pattern, string, flags=0)`
 :   Return all non-overlapping matches of *pattern* in *string*, as a list of
     strings or tuples. The *string* is scanned left-to-right, and matches
     are returned in the order found. Empty matches are included in the result.
@@ -877,7 +877,7 @@ re.findall(*pattern*, *string*, *flags=0*)
 
     Changed in version 3.7: Non-empty matches can now start just after a previous empty match.
 
-re.finditer(*pattern*, *string*, *flags=0*)
+`re.finditer(pattern, string, flags=0)`
 :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) yielding [`Match`](re.md#re.Match "re.Match") objects over
     all non-overlapping matches for the RE *pattern* in *string*. The *string*
     is scanned left-to-right, and matches are returned in the order found. Empty
@@ -889,7 +889,7 @@ re.finditer(*pattern*, *string*, *flags=0*)
 
     Changed in version 3.7: Non-empty matches can now start just after a previous empty match.
 
-re.sub(*pattern*, *repl*, *string*, *count=0*, *flags=0*)
+`re.sub(pattern, repl, string, count=0, flags=0)`
 :   Return the string obtained by replacing the leftmost non-overlapping occurrences
     of *pattern* in *string* by the replacement *repl*. If the pattern isn’t found,
     *string* is returned unchanged. *repl* can be a string or a function; if it is
@@ -962,7 +962,7 @@ re.sub(*pattern*, *repl*, *string*, *count=0*, *flags=0*)
     In [`bytes`](stdtypes.md#bytes "bytes") replacement strings, group *name* can only contain bytes
     in the ASCII range (`b'\x00'`-`b'\x7f'`).
 
-re.subn(*pattern*, *repl*, *string*, *count=0*, *flags=0*)
+`re.subn(pattern, repl, string, count=0, flags=0)`
 :   Perform the same operation as [`sub()`](re.md#re.sub "re.sub"), but return a tuple `(new_string,
     number_of_subs_made)`.
 
@@ -974,7 +974,7 @@ re.subn(*pattern*, *repl*, *string*, *count=0*, *flags=0*)
     Values can be any of the [flags](re.md#flags) variables, combined using bitwise OR
     (the `|` operator).
 
-re.escape(*pattern*)
+`re.escape(pattern)`
 :   Escape special characters in *pattern*.
     This is useful if you want to match an arbitrary literal string that may
     have regular expression metacharacters in it. For example:
@@ -1009,44 +1009,44 @@ re.escape(*pattern*)
     `'/'`, `':'`, `';'`, `'<'`, `'='`, `'>'`, `'@'`, and
     `` "`" `` are no longer escaped.
 
-re.purge()
+`re.purge()`
 :   Clear the regular expression cache.
 
 ### Exceptions
 
-*exception* re.error(*msg*, *pattern=None*, *pos=None*)
+`exception re.error(msg, pattern=None, pos=None)`
 :   Exception raised when a string passed to one of the functions here is not a
     valid regular expression (for example, it might contain unmatched parentheses)
     or when some other error occurs during compilation or matching. It is never an
     error if a string contains no match for a pattern. The error instance has
     the following additional attributes:
 
-    msg
+    `msg`
     :   The unformatted error message.
 
-    pattern
+    `pattern`
     :   The regular expression pattern.
 
-    pos
+    `pos`
     :   The index in *pattern* where compilation failed (may be `None`).
 
-    lineno
+    `lineno`
     :   The line corresponding to *pos* (may be `None`).
 
-    colno
+    `colno`
     :   The column corresponding to *pos* (may be `None`).
 
     Changed in version 3.5: Added additional attributes.
 
 ## Regular Expression Objects
 
-*class* re.Pattern
+`class re.Pattern`
 :   Compiled regular expression object returned by [`re.compile()`](re.md#re.compile "re.compile").
 
     Changed in version 3.9: [`re.Pattern`](re.md#re.Pattern "re.Pattern") supports `[]` to indicate a Unicode (str) or bytes pattern.
     See [Generic Alias Type](stdtypes.md#types-genericalias).
 
-Pattern.search(*string*[, *pos*[, *endpos*]])
+`Pattern.search(string[, pos[, endpos]])`
 :   Scan through *string* looking for the first location where this regular
     expression produces a match, and return a corresponding [`Match`](re.md#re.Match "re.Match").
     Return `None` if no position in the string matches the pattern; note that
@@ -1072,7 +1072,7 @@ Pattern.search(*string*[, *pos*[, *endpos*]])
     >>> pattern.search("dog", 1)  # No match; search doesn't include the "d"
     ```
 
-Pattern.match(*string*[, *pos*[, *endpos*]])
+`Pattern.match(string[, pos[, endpos]])`
 :   If zero or more characters at the *beginning* of *string* match this regular
     expression, return a corresponding [`Match`](re.md#re.Match "re.Match"). Return `None` if the
     string does not match the pattern; note that this is different from a
@@ -1091,7 +1091,7 @@ Pattern.match(*string*[, *pos*[, *endpos*]])
     If you want to locate a match anywhere in *string*, use
     [`search()`](re.md#re.Pattern.search "re.Pattern.search") instead (see also [search() vs. match()](re.md#search-vs-match)).
 
-Pattern.fullmatch(*string*[, *pos*[, *endpos*]])
+`Pattern.fullmatch(string[, pos[, endpos]])`
 :   If the whole *string* matches this regular expression, return a corresponding
     [`Match`](re.md#re.Match "re.Match"). Return `None` if the string does not match the pattern;
     note that this is different from a zero-length match.
@@ -1109,39 +1109,39 @@ Pattern.fullmatch(*string*[, *pos*[, *endpos*]])
 
     Added in version 3.4.
 
-Pattern.split(*string*, *maxsplit=0*)
+`Pattern.split(string, maxsplit=0)`
 :   Identical to the [`split()`](re.md#re.split "re.split") function, using the compiled pattern.
 
-Pattern.findall(*string*[, *pos*[, *endpos*]])
+`Pattern.findall(string[, pos[, endpos]])`
 :   Similar to the [`findall()`](re.md#re.findall "re.findall") function, using the compiled pattern, but
     also accepts optional *pos* and *endpos* parameters that limit the search
     region like for [`search()`](re.md#re.search "re.search").
 
-Pattern.finditer(*string*[, *pos*[, *endpos*]])
+`Pattern.finditer(string[, pos[, endpos]])`
 :   Similar to the [`finditer()`](re.md#re.finditer "re.finditer") function, using the compiled pattern, but
     also accepts optional *pos* and *endpos* parameters that limit the search
     region like for [`search()`](re.md#re.search "re.search").
 
-Pattern.sub(*repl*, *string*, *count=0*)
+`Pattern.sub(repl, string, count=0)`
 :   Identical to the [`sub()`](re.md#re.sub "re.sub") function, using the compiled pattern.
 
-Pattern.subn(*repl*, *string*, *count=0*)
+`Pattern.subn(repl, string, count=0)`
 :   Identical to the [`subn()`](re.md#re.subn "re.subn") function, using the compiled pattern.
 
-Pattern.flags
+`Pattern.flags`
 :   The regex matching flags. This is a combination of the flags given to
     [`compile()`](re.md#re.compile "re.compile"), any `(?...)` inline flags in the pattern, and implicit
     flags such as [`UNICODE`](re.md#re.UNICODE "re.UNICODE") if the pattern is a Unicode string.
 
-Pattern.groups
+`Pattern.groups`
 :   The number of capturing groups in the pattern.
 
-Pattern.groupindex
+`Pattern.groupindex`
 :   A dictionary mapping any symbolic group names defined by `(?P<id>)` to group
     numbers. The dictionary is empty if no symbolic groups were used in the
     pattern.
 
-Pattern.pattern
+`Pattern.pattern`
 :   The pattern string from which the pattern object was compiled.
 
 Changed in version 3.7: Added support of [`copy.copy()`](copy.md#copy.copy "copy.copy") and [`copy.deepcopy()`](copy.md#copy.deepcopy "copy.deepcopy"). Compiled
@@ -1160,13 +1160,13 @@ if match:
     process(match)
 ```
 
-*class* re.Match
+`class re.Match`
 :   Match object returned by successful `match`es and `search`es.
 
     Changed in version 3.9: [`re.Match`](re.md#re.Match "re.Match") supports `[]` to indicate a Unicode (str) or bytes match.
     See [Generic Alias Type](stdtypes.md#types-genericalias).
 
-Match.expand(*template*)
+`Match.expand(template)`
 :   Return the string obtained by doing backslash substitution on the template
     string *template*, as done by the [`sub()`](re.md#re.Pattern.sub "re.Pattern.sub") method.
     Escapes such as `\n` are converted to the appropriate characters,
@@ -1177,7 +1177,7 @@ Match.expand(*template*)
 
     Changed in version 3.5: Unmatched groups are replaced with an empty string.
 
-Match.group([*group1*, *...*])
+`Match.group([group1, ...])`
 :   Returns one or more subgroups of the match. If there is a single argument, the
     result is a single string; if there are multiple arguments, the result is a
     tuple with one item per argument. Without arguments, *group1* defaults to zero
@@ -1234,7 +1234,7 @@ Match.group([*group1*, *...*])
     'c3'
     ```
 
-Match.__getitem__(*g*)
+`Match.__getitem__(g)`
 :   This is identical to `m.group(g)`. This allows easier access to
     an individual group from a match:
 
@@ -1260,7 +1260,7 @@ Match.__getitem__(*g*)
 
     Added in version 3.6.
 
-Match.groups(*default=None*)
+`Match.groups(default=None)`
 :   Return a tuple containing all the subgroups of the match, from 1 up to however
     many groups are in the pattern. The *default* argument is used for groups that
     did not participate in the match; it defaults to `None`.
@@ -1285,7 +1285,7 @@ Match.groups(*default=None*)
     ('24', '0')
     ```
 
-Match.groupdict(*default=None*)
+`Match.groupdict(default=None)`
 :   Return a dictionary containing all the *named* subgroups of the match, keyed by
     the subgroup name. The *default* argument is used for groups that did not
     participate in the match; it defaults to `None`. For example:
@@ -1296,9 +1296,9 @@ Match.groupdict(*default=None*)
     {'first_name': 'Malcolm', 'last_name': 'Reynolds'}
     ```
 
-Match.start([*group*])
+`Match.start([group])`
 
-Match.end([*group*])
+`Match.end([group])`
 :   Return the indices of the start and end of the substring matched by *group*;
     *group* defaults to zero (meaning the whole matched substring). Return `-1` if
     *group* exists but did not contribute to the match. For a match object *m*, and
@@ -1323,37 +1323,37 @@ Match.end([*group*])
     'tony@tiger.net'
     ```
 
-Match.span([*group*])
+`Match.span([group])`
 :   For a match *m*, return the 2-tuple `(m.start(group), m.end(group))`. Note
     that if *group* did not contribute to the match, this is `(-1, -1)`.
     *group* defaults to zero, the entire match.
 
-Match.pos
+`Match.pos`
 :   The value of *pos* which was passed to the [`search()`](re.md#re.Pattern.search "re.Pattern.search") or
     [`match()`](re.md#re.Pattern.match "re.Pattern.match") method of a [regex object](re.md#re-objects). This is
     the index into the string at which the RE engine started looking for a match.
 
-Match.endpos
+`Match.endpos`
 :   The value of *endpos* which was passed to the [`search()`](re.md#re.Pattern.search "re.Pattern.search") or
     [`match()`](re.md#re.Pattern.match "re.Pattern.match") method of a [regex object](re.md#re-objects). This is
     the index into the string beyond which the RE engine will not go.
 
-Match.lastindex
+`Match.lastindex`
 :   The integer index of the last matched capturing group, or `None` if no group
     was matched at all. For example, the expressions `(a)b`, `((a)(b))`, and
     `((ab))` will have `lastindex == 1` if applied to the string `'ab'`, while
     the expression `(a)(b)` will have `lastindex == 2`, if applied to the same
     string.
 
-Match.lastgroup
+`Match.lastgroup`
 :   The name of the last matched capturing group, or `None` if the group didn’t
     have a name, or if no group was matched at all.
 
-Match.re
+`Match.re`
 :   The [regular expression object](re.md#re-objects) whose [`match()`](re.md#re.Pattern.match "re.Pattern.match") or
     [`search()`](re.md#re.Pattern.search "re.Pattern.search") method produced this match instance.
 
-Match.string
+`Match.string`
 :   The string passed to [`match()`](re.md#re.Pattern.match "re.Pattern.match") or [`search()`](re.md#re.Pattern.search "re.Pattern.search").
 
 Changed in version 3.7: Added support of [`copy.copy()`](copy.md#copy.copy "copy.copy") and [`copy.deepcopy()`](copy.md#copy.deepcopy "copy.deepcopy"). Match objects

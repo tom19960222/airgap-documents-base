@@ -48,26 +48,26 @@ highest protocol among opcodes = 2
 
 ### Command line options
 
--a, --annotate
+`-a, --annotate`
 :   Annotate each line with a short opcode description.
 
--o, --output=<file>
+`-o, --output=<file>`
 :   Name of a file where the output should be written.
 
--l, --indentlevel=<num>
+`-l, --indentlevel=<num>`
 :   The number of blanks by which to indent a new MARK level.
 
--m, --memo
+`-m, --memo`
 :   When multiple objects are disassembled, preserve memo between
     disassemblies.
 
--p, --preamble=<preamble>
+`-p, --preamble=<preamble>`
 :   When more than one pickle file are specified, print given preamble
     before each disassembly.
 
 ## Programmatic Interface
 
-pickletools.dis(*pickle*, *out=None*, *memo=None*, *indentlevel=4*, *annotate=0*)
+`pickletools.dis(pickle, out=None, memo=None, indentlevel=4, annotate=0)`
 :   Outputs a symbolic disassembly of the pickle to the file-like
     object *out*, defaulting to `sys.stdout`. *pickle* can be a
     string or a file-like object. *memo* can be a Python dictionary
@@ -81,14 +81,14 @@ pickletools.dis(*pickle*, *out=None*, *memo=None*, *indentlevel=4*, *annotate=0*
 
     Changed in version 3.2: Added the *annotate* parameter.
 
-pickletools.genops(*pickle*)
+`pickletools.genops(pickle)`
 :   Provides an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) over all of the opcodes in a pickle, returning a
     sequence of `(opcode, arg, pos)` triples. *opcode* is an instance of an
     `OpcodeInfo` class; *arg* is the decoded value, as a Python object, of
     the opcode’s argument; *pos* is the position at which this opcode is located.
     *pickle* can be a string or a file-like object.
 
-pickletools.optimize(*picklestring*)
+`pickletools.optimize(picklestring)`
 :   Returns a new equivalent pickle string after eliminating unused `PUT`
     opcodes. The optimized pickle is shorter, takes less transmission time,
     requires less storage space, and unpickles more efficiently.

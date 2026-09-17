@@ -43,7 +43,7 @@ Changed in version 3.9: Old API removed.
 
 This module defines the following functions:
 
-plistlib.load(*fp*, *\**, *fmt=None*, *dict_type=dict*)
+`plistlib.load(fp, *, fmt=None, dict_type=dict)`
 :   Read a plist file. *fp* should be a readable and binary file object.
     Return the unpacked root object (which usually is a
     dictionary).
@@ -66,13 +66,13 @@ plistlib.load(*fp*, *\**, *fmt=None*, *dict_type=dict*)
 
     Added in version 3.4.
 
-plistlib.loads(*data*, *\**, *fmt=None*, *dict_type=dict*)
+`plistlib.loads(data, *, fmt=None, dict_type=dict)`
 :   Load a plist from a bytes object. See [`load()`](plistlib.md#plistlib.load "plistlib.load") for an explanation of
     the keyword arguments.
 
     Added in version 3.4.
 
-plistlib.dump(*value*, *fp*, *\**, *fmt=FMT_XML*, *sort_keys=True*, *skipkeys=False*)
+`plistlib.dump(value, fp, *, fmt=FMT_XML, sort_keys=True, skipkeys=False)`
 :   Write *value* to a plist file. *fp* should be a writable, binary
     file object.
 
@@ -97,7 +97,7 @@ plistlib.dump(*value*, *fp*, *\**, *fmt=FMT_XML*, *sort_keys=True*, *skipkeys=Fa
 
     Added in version 3.4.
 
-plistlib.dumps(*value*, *\**, *fmt=FMT_XML*, *sort_keys=True*, *skipkeys=False*)
+`plistlib.dumps(value, *, fmt=FMT_XML, sort_keys=True, skipkeys=False)`
 :   Return *value* as a plist-formatted bytes object. See
     the documentation for [`dump()`](plistlib.md#plistlib.dump "plistlib.dump") for an explanation of the keyword
     arguments of this function.
@@ -106,7 +106,7 @@ plistlib.dumps(*value*, *\**, *fmt=FMT_XML*, *sort_keys=True*, *skipkeys=False*)
 
 The following classes are available:
 
-*class* plistlib.UID(*data*)
+`class plistlib.UID(data)`
 :   Wraps an [`int`](functions.md#int "int"). This is used when reading or writing NSKeyedArchiver
     encoded data, which contains UID (see PList manual).
 
@@ -117,19 +117,19 @@ The following classes are available:
 
 The following constants are available:
 
-plistlib.FMT_XML
+`plistlib.FMT_XML`
 :   The XML format for plist files.
 
     Added in version 3.4.
 
-plistlib.FMT_BINARY
+`plistlib.FMT_BINARY`
 :   The binary format for plist files
 
     Added in version 3.4.
 
 The module defines the following exceptions:
 
-*exception* plistlib.InvalidFileException
+`exception plistlib.InvalidFileException`
 :   Raised when a file cannot be parsed.
 
     Added in version 3.4.

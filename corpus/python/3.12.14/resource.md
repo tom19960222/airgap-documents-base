@@ -19,7 +19,7 @@ request usage information about either the current process or its children.
 
 An [`OSError`](exceptions.md#OSError "OSError") is raised on syscall failure.
 
-*exception* resource.error
+`exception resource.error`
 :   A deprecated alias of [`OSError`](exceptions.md#OSError "OSError").
 
     Changed in version 3.3: Following [**PEP 3151**](https://peps.python.org/pep-3151/), this class was made an alias of [`OSError`](exceptions.md#OSError "OSError").
@@ -40,15 +40,15 @@ are supported when the underlying operating system supports them; resources
 which cannot be checked or controlled by the operating system are not defined in
 this module for those platforms.
 
-resource.RLIM_INFINITY
+`resource.RLIM_INFINITY`
 :   Constant used to represent the limit for an unlimited resource.
 
-resource.getrlimit(*resource*)
+`resource.getrlimit(resource)`
 :   Returns a tuple `(soft, hard)` with the current soft and hard limits of
     *resource*. Raises [`ValueError`](exceptions.md#ValueError "ValueError") if an invalid resource is specified, or
     [`error`](resource.md#resource.error "resource.error") if the underlying system call fails unexpectedly.
 
-resource.setrlimit(*resource*, *limits*)
+`resource.setrlimit(resource, limits)`
 :   Sets new limits of consumption of *resource*. The *limits* argument must be a
     tuple `(soft, hard)` of two integers describing the new limits. A value of
     [`RLIM_INFINITY`](resource.md#resource.RLIM_INFINITY "resource.RLIM_INFINITY") can be used to request a limit that is
@@ -70,7 +70,7 @@ resource.setrlimit(*resource*, *limits*)
 
     Raises an [auditing event](sys.md#auditing) `resource.setrlimit` with arguments `resource`, `limits`.
 
-resource.prlimit(*pid*, *resource*[, *limits*])
+`resource.prlimit(pid, resource[, limits])`
 :   Combines [`setrlimit()`](resource.md#resource.setrlimit "resource.setrlimit") and [`getrlimit()`](resource.md#resource.getrlimit "resource.getrlimit") in one function and
     supports to get and set the resources limits of an arbitrary process. If
     *pid* is 0, then the call applies to the current process. *resource* and
@@ -101,72 +101,72 @@ resource. This module does not attempt to mask platform differences — symbols
 not defined for a platform will not be available from this module on that
 platform.
 
-resource.RLIMIT_CORE
+`resource.RLIMIT_CORE`
 :   The maximum size (in bytes) of a core file that the current process can create.
     This may result in the creation of a partial core file if a larger core would be
     required to contain the entire process image.
 
-resource.RLIMIT_CPU
+`resource.RLIMIT_CPU`
 :   The maximum amount of processor time (in seconds) that a process can use. If
     this limit is exceeded, a `SIGXCPU` signal is sent to the process. (See
     the [`signal`](signal.md#module-signal "signal: Set handlers for asynchronous events.") module documentation for information about how to catch this
     signal and do something useful, e.g. flush open files to disk.)
 
-resource.RLIMIT_FSIZE
+`resource.RLIMIT_FSIZE`
 :   The maximum size of a file which the process may create.
 
-resource.RLIMIT_DATA
+`resource.RLIMIT_DATA`
 :   The maximum size (in bytes) of the process’s heap.
 
-resource.RLIMIT_STACK
+`resource.RLIMIT_STACK`
 :   The maximum size (in bytes) of the call stack for the current process. This only
     affects the stack of the main thread in a multi-threaded process.
 
-resource.RLIMIT_RSS
+`resource.RLIMIT_RSS`
 :   The maximum resident set size that should be made available to the process.
 
-resource.RLIMIT_NPROC
+`resource.RLIMIT_NPROC`
 :   The maximum number of processes the current process may create.
 
-resource.RLIMIT_NOFILE
+`resource.RLIMIT_NOFILE`
 :   The maximum number of open file descriptors for the current process.
 
-resource.RLIMIT_OFILE
+`resource.RLIMIT_OFILE`
 :   The BSD name for [`RLIMIT_NOFILE`](resource.md#resource.RLIMIT_NOFILE "resource.RLIMIT_NOFILE").
 
-resource.RLIMIT_MEMLOCK
+`resource.RLIMIT_MEMLOCK`
 :   The maximum address space which may be locked in memory.
 
-resource.RLIMIT_VMEM
+`resource.RLIMIT_VMEM`
 :   The largest area of mapped memory which the process may occupy.
 
     [Availability](intro.md#availability): FreeBSD >= 11.
 
-resource.RLIMIT_AS
+`resource.RLIMIT_AS`
 :   The maximum area (in bytes) of address space which may be taken by the process.
 
-resource.RLIMIT_MSGQUEUE
+`resource.RLIMIT_MSGQUEUE`
 :   The number of bytes that can be allocated for POSIX message queues.
 
     [Availability](intro.md#availability): Linux >= 2.6.8.
 
     Added in version 3.4.
 
-resource.RLIMIT_NICE
+`resource.RLIMIT_NICE`
 :   The ceiling for the process’s nice level (calculated as 20 - rlim_cur).
 
     [Availability](intro.md#availability): Linux >= 2.6.12.
 
     Added in version 3.4.
 
-resource.RLIMIT_RTPRIO
+`resource.RLIMIT_RTPRIO`
 :   The ceiling of the real-time priority.
 
     [Availability](intro.md#availability): Linux >= 2.6.12.
 
     Added in version 3.4.
 
-resource.RLIMIT_RTTIME
+`resource.RLIMIT_RTTIME`
 :   The time limit (in microseconds) on CPU time that a process can spend
     under real-time scheduling without making a blocking syscall.
 
@@ -174,14 +174,14 @@ resource.RLIMIT_RTTIME
 
     Added in version 3.4.
 
-resource.RLIMIT_SIGPENDING
+`resource.RLIMIT_SIGPENDING`
 :   The number of signals which the process may queue.
 
     [Availability](intro.md#availability): Linux >= 2.6.8.
 
     Added in version 3.4.
 
-resource.RLIMIT_SBSIZE
+`resource.RLIMIT_SBSIZE`
 :   The maximum size (in bytes) of socket buffer usage for this user.
     This limits the amount of network memory, and hence the amount of mbufs,
     that this user may hold at any time.
@@ -190,7 +190,7 @@ resource.RLIMIT_SBSIZE
 
     Added in version 3.4.
 
-resource.RLIMIT_SWAP
+`resource.RLIMIT_SWAP`
 :   The maximum size (in bytes) of the swap space that may be reserved or
     used by all of this user id’s processes.
     This limit is enforced only if bit 1 of the vm.overcommit sysctl is set.
@@ -202,14 +202,14 @@ resource.RLIMIT_SWAP
 
     Added in version 3.4.
 
-resource.RLIMIT_NPTS
+`resource.RLIMIT_NPTS`
 :   The maximum number of pseudo-terminals created by this user id.
 
     [Availability](intro.md#availability): FreeBSD.
 
     Added in version 3.4.
 
-resource.RLIMIT_KQUEUES
+`resource.RLIMIT_KQUEUES`
 :   The maximum number of kqueues this user id is allowed to create.
 
     [Availability](intro.md#availability): FreeBSD >= 11.
@@ -220,7 +220,7 @@ resource.RLIMIT_KQUEUES
 
 These functions are used to retrieve resource usage information:
 
-resource.getrusage(*who*)
+`resource.getrusage(who)`
 :   This function returns an object that describes the resources consumed by either
     the current process or its children, as specified by the *who* parameter. The
     *who* parameter should be specified using one of the `RUSAGE_*`
@@ -278,26 +278,26 @@ resource.getrusage(*who*)
     This function will raise a [`ValueError`](exceptions.md#ValueError "ValueError") if an invalid *who* parameter is
     specified. It may also raise [`error`](resource.md#resource.error "resource.error") exception in unusual circumstances.
 
-resource.getpagesize()
+`resource.getpagesize()`
 :   Returns the number of bytes in a system page. (This need not be the same as the
     hardware page size.)
 
 The following `RUSAGE_*` symbols are passed to the [`getrusage()`](resource.md#resource.getrusage "resource.getrusage")
 function to specify which processes information should be provided for.
 
-resource.RUSAGE_SELF
+`resource.RUSAGE_SELF`
 :   Pass to [`getrusage()`](resource.md#resource.getrusage "resource.getrusage") to request resources consumed by the calling
     process, which is the sum of resources used by all threads in the process.
 
-resource.RUSAGE_CHILDREN
+`resource.RUSAGE_CHILDREN`
 :   Pass to [`getrusage()`](resource.md#resource.getrusage "resource.getrusage") to request resources consumed by child processes
     of the calling process which have been terminated and waited for.
 
-resource.RUSAGE_BOTH
+`resource.RUSAGE_BOTH`
 :   Pass to [`getrusage()`](resource.md#resource.getrusage "resource.getrusage") to request resources consumed by both the current
     process and child processes. May not be available on all systems.
 
-resource.RUSAGE_THREAD
+`resource.RUSAGE_THREAD`
 :   Pass to [`getrusage()`](resource.md#resource.getrusage "resource.getrusage") to request resources consumed by the current
     thread. May not be available on all systems.
 

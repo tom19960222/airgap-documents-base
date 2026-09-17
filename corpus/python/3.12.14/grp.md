@@ -34,17 +34,17 @@ accessible via [`getgrnam()`](grp.md#grp.getgrnam "grp.getgrnam") or [`getgrgid(
 
 It defines the following items:
 
-grp.getgrgid(*id*)
+`grp.getgrgid(id)`
 :   Return the group database entry for the given numeric group ID. [`KeyError`](exceptions.md#KeyError "KeyError")
     is raised if the entry asked for cannot be found.
 
     Changed in version 3.10: [`TypeError`](exceptions.md#TypeError "TypeError") is raised for non-integer arguments like floats or strings.
 
-grp.getgrnam(*name*)
+`grp.getgrnam(name)`
 :   Return the group database entry for the given group name. [`KeyError`](exceptions.md#KeyError "KeyError") is
     raised if the entry asked for cannot be found.
 
-grp.getgrall()
+`grp.getgrall()`
 :   Return a list of all available group entries, in arbitrary order.
 
 > **See also:**

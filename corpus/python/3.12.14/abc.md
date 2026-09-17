@@ -25,7 +25,7 @@ a class or instance provides a particular interface, for example, if it is
 This module provides the metaclass [`ABCMeta`](abc.md#abc.ABCMeta "abc.ABCMeta") for defining ABCs and
 a helper class [`ABC`](abc.md#abc.ABC "abc.ABC") to alternatively define ABCs through inheritance:
 
-*class* abc.ABC
+`class abc.ABC`
 :   A helper class that has [`ABCMeta`](abc.md#abc.ABCMeta "abc.ABCMeta") as its metaclass. With this class,
     an abstract base class can be created by simply deriving from `ABC`
     avoiding sometimes confusing metaclass usage, for example:
@@ -52,7 +52,7 @@ a helper class [`ABC`](abc.md#abc.ABC "abc.ABC") to alternatively define ABCs th
 
     Added in version 3.4.
 
-*class* abc.ABCMeta
+`class abc.ABCMeta`
 :   Metaclass for defining Abstract Base Classes (ABCs).
 
     Use this metaclass to create an ABC. An ABC can be subclassed directly, and
@@ -66,7 +66,7 @@ a helper class [`ABC`](abc.md#abc.ABC "abc.ABC") to alternatively define ABCs th
 
     Classes created with a metaclass of `ABCMeta` have the following method:
 
-    register(*subclass*)
+    `register(subclass)`
     :   Register *subclass* as a “virtual subclass” of this ABC. For
         example:
 
@@ -89,7 +89,7 @@ a helper class [`ABC`](abc.md#abc.ABC "abc.ABC") to alternatively define ABCs th
 
     You can also override this method in an abstract base class:
 
-    __subclasshook__(*subclass*)
+    `__subclasshook__(subclass)`
     :   (Must be defined as a class method.)
 
         Check whether *subclass* is considered a subclass of this ABC. This means
@@ -155,7 +155,7 @@ a helper class [`ABC`](abc.md#abc.ABC "abc.ABC") to alternatively define ABCs th
 
 The `abc` module also provides the following decorator:
 
-@abc.abstractmethod
+`@abc.abstractmethod`
 :   A decorator indicating abstract methods.
 
     Using this decorator requires that the class’s metaclass is [`ABCMeta`](abc.md#abc.ABCMeta "abc.ABCMeta")
@@ -234,7 +234,7 @@ The `abc` module also provides the following decorator:
 
 The `abc` module also supports the following legacy decorators:
 
-@abc.abstractclassmethod
+`@abc.abstractclassmethod`
 :   Added in version 3.2.
 
     Deprecated since version 3.3: It is now possible to use [`classmethod`](functions.md#classmethod "classmethod") with
@@ -255,7 +255,7 @@ The `abc` module also supports the following legacy decorators:
             ...
     ```
 
-@abc.abstractstaticmethod
+`@abc.abstractstaticmethod`
 :   Added in version 3.2.
 
     Deprecated since version 3.3: It is now possible to use [`staticmethod`](functions.md#staticmethod "staticmethod") with
@@ -276,7 +276,7 @@ The `abc` module also supports the following legacy decorators:
             ...
     ```
 
-@abc.abstractproperty
+`@abc.abstractproperty`
 :   Deprecated since version 3.3: It is now possible to use [`property`](functions.md#property "property"), [`property.getter()`](functions.md#property.getter "property.getter"),
     [`property.setter()`](functions.md#property.setter "property.setter") and [`property.deleter()`](functions.md#property.deleter "property.deleter") with
     [`abstractmethod()`](abc.md#abc.abstractmethod "abc.abstractmethod"), making this decorator redundant.
@@ -324,7 +324,7 @@ The `abc` module also supports the following legacy decorators:
 
 The `abc` module also provides the following functions:
 
-abc.get_cache_token()
+`abc.get_cache_token()`
 :   Returns the current abstract base class cache token.
 
     The token is an opaque object (that supports equality testing) identifying
@@ -333,7 +333,7 @@ abc.get_cache_token()
 
     Added in version 3.4.
 
-abc.update_abstractmethods(*cls*)
+`abc.update_abstractmethods(cls)`
 :   A function to recalculate an abstract class’s abstraction status. This
     function should be called if a class’s abstract methods have been
     implemented or changed after it was created. Usually, this function should

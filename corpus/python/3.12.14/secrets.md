@@ -30,18 +30,18 @@ is designed for modelling and simulation, not security or cryptography.
 The [`secrets`](secrets.md#module-secrets "secrets: Generate secure random numbers for managing secrets.") module provides access to the most secure source of
 randomness that your operating system provides.
 
-*class* secrets.SystemRandom
+`class secrets.SystemRandom`
 :   A class for generating random numbers using the highest-quality
     sources provided by the operating system. See
     [`random.SystemRandom`](random.md#random.SystemRandom "random.SystemRandom") for additional details.
 
-secrets.choice(*seq*)
+`secrets.choice(seq)`
 :   Return a randomly chosen element from a non-empty sequence.
 
-secrets.randbelow(*exclusive_upper_bound*)
+`secrets.randbelow(exclusive_upper_bound)`
 :   Return a random int in the range [0, *exclusive_upper_bound*).
 
-secrets.randbits(*k*)
+`secrets.randbits(k)`
 :   Return a non-negative int with *k* random bits.
 
 ## Generating tokens
@@ -50,7 +50,7 @@ The [`secrets`](secrets.md#module-secrets "secrets: Generate secure random numbe
 tokens, suitable for applications such as password resets,
 hard-to-guess URLs, and similar.
 
-secrets.token_bytes([*nbytes=None*])
+`secrets.token_bytes([nbytes=None])`
 :   Return a random byte string containing *nbytes* number of bytes.
     If *nbytes* is `None` or not supplied, a reasonable default is
     used.
@@ -60,7 +60,7 @@ secrets.token_bytes([*nbytes=None*])
     b'\xebr\x17D*t\xae\xd4\xe3S\xb6\xe2\xebP1\x8b'
     ```
 
-secrets.token_hex([*nbytes=None*])
+`secrets.token_hex([nbytes=None])`
 :   Return a random text string, in hexadecimal. The string has *nbytes*
     random bytes, each byte converted to two hex digits. If *nbytes* is
     `None` or not supplied, a reasonable default is used.
@@ -70,7 +70,7 @@ secrets.token_hex([*nbytes=None*])
     'f9bf78b9a18ce6d46a0cd2b0b86df9da'
     ```
 
-secrets.token_urlsafe([*nbytes=None*])
+`secrets.token_urlsafe([nbytes=None])`
 :   Return a random URL-safe text string, containing *nbytes* random
     bytes. The text is Base64 encoded, so on average each byte results
     in approximately 1.3 characters. If *nbytes* is `None` or not
@@ -106,7 +106,7 @@ the `token_*` functions will use a reasonable default instead.
 
 ## Other functions
 
-secrets.compare_digest(*a*, *b*)
+`secrets.compare_digest(a, b)`
 :   Return `True` if strings or
     [bytes-like objects](https://docs.python.org/3.12/glossary.html#term-bytes-like-object)
     *a* and *b* are equal, otherwise `False`,

@@ -306,7 +306,7 @@ On top of the core functionality, [`ConfigParser`](configparser.md#configparser.
 interpolation. This means values can be preprocessed before returning them
 from `get()` calls.
 
-*class* configparser.BasicInterpolation
+`class configparser.BasicInterpolation`
 :   The default implementation used by [`ConfigParser`](configparser.md#configparser.ConfigParser "configparser.ConfigParser"). It enables
     values to contain format strings which refer to other values in the same
     section, or values in the special default section [[1]](configparser.md#id15). Additional default
@@ -336,7 +336,7 @@ from `get()` calls.
     `%(my_dir)s/Pictures` as the value of `my_pictures` and
     `%(home_dir)s/lumberjack` as the value of `my_dir`.
 
-*class* configparser.ExtendedInterpolation
+`class configparser.ExtendedInterpolation`
 :   An alternative handler for interpolation which implements a more advanced
     syntax, used for instance in `zc.buildout`. Extended interpolation is
     using `${section:option}` to denote a value from a foreign section.
@@ -662,7 +662,7 @@ More advanced customization may be achieved by overriding default values of
 these parser attributes. The defaults are defined on the classes, so they may
 be overridden by subclasses or by attribute assignment.
 
-ConfigParser.BOOLEAN_STATES
+`ConfigParser.BOOLEAN_STATES`
 :   By default when using [`getboolean()`](configparser.md#configparser.ConfigParser.getboolean "configparser.ConfigParser.getboolean"), config parsers
     consider the following values `True`: `'1'`, `'yes'`, `'true'`,
     `'on'` and the following values `False`: `'0'`, `'no'`, `'false'`,
@@ -684,7 +684,7 @@ ConfigParser.BOOLEAN_STATES
     Other typical Boolean pairs include `accept`/`reject` or
     `enabled`/`disabled`.
 
-ConfigParser.optionxform(*option*)
+`ConfigParser.optionxform(option)`
 :   This method transforms option names on every read, get, or set
     operation. The default converts the name to lowercase. This also
     means that when a configuration file gets written, all keys will be
@@ -720,7 +720,7 @@ ConfigParser.optionxform(*option*)
     > This should be an idempotent function: if the name is already in
     > canonical form, it should be returned unchanged.
 
-ConfigParser.SECTCRE
+`ConfigParser.SECTCRE`
 :   A compiled regular expression used to parse section headers. The default
     matches `[section]` to the name `"section"`. Whitespace is considered
     part of the section name, thus `[  larch  ]` will be read as a section of
@@ -859,7 +859,7 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
 
 ## ConfigParser Objects
 
-*class* configparser.ConfigParser(*defaults=None*, *dict_type=dict*, *allow_no_value=False*, *delimiters=('=', ':')*, *comment_prefixes=('#', ';')*, *inline_comment_prefixes=None*, *strict=True*, *empty_lines_in_values=True*, *default_section=configparser.DEFAULTSECT*, *interpolation=BasicInterpolation()*, *converters={}*)
+`class configparser.ConfigParser(defaults=None, dict_type=dict, allow_no_value=False, delimiters=('=', ':'), comment_prefixes=('#', ';'), inline_comment_prefixes=None, strict=True, empty_lines_in_values=True, default_section=configparser.DEFAULTSECT, interpolation=BasicInterpolation(), converters={})`
 :   The main configuration parser. When *defaults* is given, it is initialized
     into the dictionary of intrinsic defaults. When *dict_type* is given, it
     will be used to create the dictionary objects for the list of sections, for
@@ -946,14 +946,14 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
     Changed in version 3.8: The default *dict_type* is [`dict`](stdtypes.md#dict "dict"), since it now preserves
     insertion order.
 
-    defaults()
+    `defaults()`
     :   Return a dictionary containing the instance-wide defaults.
 
-    sections()
+    `sections()`
     :   Return a list of the sections available; the *default section* is not
         included in the list.
 
-    add_section(*section*)
+    `add_section(section)`
     :   Add a section named *section* to the instance. If a section by the given
         name already exists, [`DuplicateSectionError`](configparser.md#configparser.DuplicateSectionError "configparser.DuplicateSectionError") is raised. If the
         *default section* name is passed, [`ValueError`](exceptions.md#ValueError "ValueError") is raised. The name
@@ -961,19 +961,19 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
 
         Changed in version 3.2: Non-string section names raise [`TypeError`](exceptions.md#TypeError "TypeError").
 
-    has_section(*section*)
+    `has_section(section)`
     :   Indicates whether the named *section* is present in the configuration.
         The *default section* is not acknowledged.
 
-    options(*section*)
+    `options(section)`
     :   Return a list of options available in the specified *section*.
 
-    has_option(*section*, *option*)
+    `has_option(section, option)`
     :   If the given *section* exists, and contains the given *option*, return
         [`True`](constants.md#True "True"); otherwise return [`False`](constants.md#False "False"). If the specified
         *section* is [`None`](constants.md#None "None") or an empty string, DEFAULT is assumed.
 
-    read(*filenames*, *encoding=None*)
+    `read(filenames, encoding=None)`
     :   Attempt to read and parse an iterable of filenames, returning a list of
         filenames which were successfully parsed.
 
@@ -1008,7 +1008,7 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
 
         Changed in version 3.7: The *filenames* parameter accepts a [`bytes`](stdtypes.md#bytes "bytes") object.
 
-    read_file(*f*, *source=None*)
+    `read_file(f, source=None)`
     :   Read and parse configuration data from *f* which must be an iterable
         yielding Unicode strings (for example files opened in text mode).
 
@@ -1018,7 +1018,7 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
 
         Added in version 3.2: Replaces `readfp()`.
 
-    read_string(*string*, *source='<string>'*)
+    `read_string(string, source='<string>')`
     :   Parse configuration data from a string.
 
         Optional argument *source* specifies a context-specific name of the
@@ -1027,7 +1027,7 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
 
         Added in version 3.2.
 
-    read_dict(*dictionary*, *source='<dict>'*)
+    `read_dict(dictionary, source='<dict>')`
     :   Load configuration from any object that provides a dict-like `items()`
         method. Keys are section names, values are dictionaries with keys and
         values that should be present in the section. If the used dictionary
@@ -1041,7 +1041,7 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
 
         Added in version 3.2.
 
-    get(*section*, *option*, *\**, *raw=False*, *vars=None*[, *fallback*])
+    `get(section, option, *, raw=False, vars=None[, fallback])`
     :   Get an *option* value for the named *section*. If *vars* is provided, it
         must be a dictionary. The *option* is looked up in *vars* (if provided),
         *section*, and in *DEFAULTSECT* in that order. If the key is not found
@@ -1056,17 +1056,17 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
         users from trying to use the third argument as the *fallback* fallback
         (especially when using the mapping protocol).
 
-    getint(*section*, *option*, *\**, *raw=False*, *vars=None*[, *fallback*])
+    `getint(section, option, *, raw=False, vars=None[, fallback])`
     :   A convenience method which coerces the *option* in the specified *section*
         to an integer. See [`get()`](configparser.md#configparser.ConfigParser.get "configparser.ConfigParser.get") for explanation of *raw*, *vars* and
         *fallback*.
 
-    getfloat(*section*, *option*, *\**, *raw=False*, *vars=None*[, *fallback*])
+    `getfloat(section, option, *, raw=False, vars=None[, fallback])`
     :   A convenience method which coerces the *option* in the specified *section*
         to a floating-point number. See [`get()`](configparser.md#configparser.ConfigParser.get "configparser.ConfigParser.get") for explanation of *raw*,
         *vars* and *fallback*.
 
-    getboolean(*section*, *option*, *\**, *raw=False*, *vars=None*[, *fallback*])
+    `getboolean(section, option, *, raw=False, vars=None[, fallback])`
     :   A convenience method which coerces the *option* in the specified *section*
         to a Boolean value. Note that the accepted values for the option are
         `'1'`, `'yes'`, `'true'`, and `'on'`, which cause this method to
@@ -1076,9 +1076,9 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
         [`ValueError`](exceptions.md#ValueError "ValueError"). See [`get()`](configparser.md#configparser.ConfigParser.get "configparser.ConfigParser.get") for explanation of *raw*, *vars* and
         *fallback*.
 
-    items(*raw=False*, *vars=None*)
+    `items(raw=False, vars=None)`
 
-    items(*section*, *raw=False*, *vars=None*)
+    `items(section, raw=False, vars=None)`
     :   When *section* is not given, return a list of *section_name*,
         *section_proxy* pairs, including DEFAULTSECT.
 
@@ -1090,12 +1090,12 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
         behaviour mixed actual parser options with variables provided for
         interpolation.
 
-    set(*section*, *option*, *value*)
+    `set(section, option, value)`
     :   If the given section exists, set the given option to the specified value;
         otherwise raise [`NoSectionError`](configparser.md#configparser.NoSectionError "configparser.NoSectionError"). *option* and *value* must be
         strings; if not, [`TypeError`](exceptions.md#TypeError "TypeError") is raised.
 
-    write(*fileobject*, *space_around_delimiters=True*)
+    `write(fileobject, space_around_delimiters=True)`
     :   Write a representation of the configuration to the specified [file
         object](https://docs.python.org/3.12/glossary.html#term-file-object), which must be opened in text mode (accepting strings). This
         representation can be parsed by a future [`read()`](configparser.md#configparser.ConfigParser.read "configparser.ConfigParser.read") call. If
@@ -1109,17 +1109,17 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
     > What is considered a comment, depends on the given values for
     > *comment_prefix* and *inline_comment_prefix*.
 
-    remove_option(*section*, *option*)
+    `remove_option(section, option)`
     :   Remove the specified *option* from the specified *section*. If the
         section does not exist, raise [`NoSectionError`](configparser.md#configparser.NoSectionError "configparser.NoSectionError"). If the option
         existed to be removed, return [`True`](constants.md#True "True"); otherwise return
         [`False`](constants.md#False "False").
 
-    remove_section(*section*)
+    `remove_section(section)`
     :   Remove the specified *section* from the configuration. If the section in
         fact existed, return `True`. Otherwise return `False`.
 
-    optionxform(*option*)
+    `optionxform(option)`
     :   Transforms the option name *option* as found in an input file or as passed
         in by client code to the form that should be used in the internal
         structures. The default implementation returns a lower-case version of
@@ -1139,14 +1139,14 @@ print(config.get('Section1', 'foo'))     # -> "Life is hard!"
         Note that when reading configuration files, whitespace around the option
         names is stripped before [`optionxform()`](configparser.md#configparser.ConfigParser.optionxform "configparser.ConfigParser.optionxform") is called.
 
-configparser.MAX_INTERPOLATION_DEPTH
+`configparser.MAX_INTERPOLATION_DEPTH`
 :   The maximum depth for recursive interpolation for [`get()`](configparser.md#configparser.ConfigParser.get "configparser.ConfigParser.get") when the *raw*
     parameter is false. This is relevant only when the default *interpolation*
     is used.
 
 ## RawConfigParser Objects
 
-*class* configparser.RawConfigParser(*defaults=None*, *dict_type=dict*, *allow_no_value=False*, *\**, *delimiters=('='*, *':')*, *comment_prefixes=('#'*, *';')*, *inline_comment_prefixes=None*, *strict=True*, *empty_lines_in_values=True*, *default_section=configparser.DEFAULTSECT*[, *interpolation*])
+`class configparser.RawConfigParser(defaults=None, dict_type=dict, allow_no_value=False, *, delimiters=('=', ':'), comment_prefixes=('#', ';'), inline_comment_prefixes=None, strict=True, empty_lines_in_values=True, default_section=configparser.DEFAULTSECT[, interpolation])`
 :   Legacy variant of the [`ConfigParser`](configparser.md#configparser.ConfigParser "configparser.ConfigParser"). It has interpolation
     disabled by default and allows for non-string section names, option
     names, and values via its unsafe `add_section` and `set` methods,
@@ -1161,7 +1161,7 @@ configparser.MAX_INTERPOLATION_DEPTH
     > the values to be stored internally. If you don’t want interpolation, you
     > can use `ConfigParser(interpolation=None)`.
 
-    add_section(*section*)
+    `add_section(section)`
     :   Add a section named *section* to the instance. If a section by the given
         name already exists, [`DuplicateSectionError`](configparser.md#configparser.DuplicateSectionError "configparser.DuplicateSectionError") is raised. If the
         *default section* name is passed, [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
@@ -1169,7 +1169,7 @@ configparser.MAX_INTERPOLATION_DEPTH
         Type of *section* is not checked which lets users create non-string named
         sections. This behaviour is unsupported and may cause internal errors.
 
-    set(*section*, *option*, *value*)
+    `set(section, option, value)`
     :   If the given section exists, set the given option to the specified value;
         otherwise raise [`NoSectionError`](configparser.md#configparser.NoSectionError "configparser.NoSectionError"). While it is possible to use
         [`RawConfigParser`](configparser.md#configparser.RawConfigParser "configparser.RawConfigParser") (or [`ConfigParser`](configparser.md#configparser.ConfigParser "configparser.ConfigParser") with *raw* parameters
@@ -1184,13 +1184,13 @@ configparser.MAX_INTERPOLATION_DEPTH
 
 ## Exceptions
 
-*exception* configparser.Error
+`exception configparser.Error`
 :   Base class for all other [`configparser`](configparser.md#module-configparser "configparser: Configuration file parser.") exceptions.
 
-*exception* configparser.NoSectionError
+`exception configparser.NoSectionError`
 :   Exception raised when a specified section is not found.
 
-*exception* configparser.DuplicateSectionError
+`exception configparser.DuplicateSectionError`
 :   Exception raised if [`add_section()`](configparser.md#configparser.ConfigParser.add_section "configparser.ConfigParser.add_section") is called with the name of a section
     that is already present or in strict parsers when a section if found more
     than once in a single input file, string or dictionary.
@@ -1198,38 +1198,38 @@ configparser.MAX_INTERPOLATION_DEPTH
     Changed in version 3.2: Added the optional *source* and *lineno* attributes and parameters to
     `__init__()`.
 
-*exception* configparser.DuplicateOptionError
+`exception configparser.DuplicateOptionError`
 :   Exception raised by strict parsers if a single option appears twice during
     reading from a single file, string or dictionary. This catches misspellings
     and case sensitivity-related errors, e.g. a dictionary may have two keys
     representing the same case-insensitive configuration key.
 
-*exception* configparser.NoOptionError
+`exception configparser.NoOptionError`
 :   Exception raised when a specified option is not found in the specified
     section.
 
-*exception* configparser.InterpolationError
+`exception configparser.InterpolationError`
 :   Base class for exceptions raised when problems occur performing string
     interpolation.
 
-*exception* configparser.InterpolationDepthError
+`exception configparser.InterpolationDepthError`
 :   Exception raised when string interpolation cannot be completed because the
     number of iterations exceeds [`MAX_INTERPOLATION_DEPTH`](configparser.md#configparser.MAX_INTERPOLATION_DEPTH "configparser.MAX_INTERPOLATION_DEPTH"). Subclass of
     [`InterpolationError`](configparser.md#configparser.InterpolationError "configparser.InterpolationError").
 
-*exception* configparser.InterpolationMissingOptionError
+`exception configparser.InterpolationMissingOptionError`
 :   Exception raised when an option referenced from a value does not exist.
     Subclass of [`InterpolationError`](configparser.md#configparser.InterpolationError "configparser.InterpolationError").
 
-*exception* configparser.InterpolationSyntaxError
+`exception configparser.InterpolationSyntaxError`
 :   Exception raised when the source text into which substitutions are made does
     not conform to the required syntax. Subclass of [`InterpolationError`](configparser.md#configparser.InterpolationError "configparser.InterpolationError").
 
-*exception* configparser.MissingSectionHeaderError
+`exception configparser.MissingSectionHeaderError`
 :   Exception raised when attempting to parse a file which has no section
     headers.
 
-*exception* configparser.ParsingError
+`exception configparser.ParsingError`
 :   Exception raised when errors occur attempting to parse a file.
 
     Changed in version 3.12: The `filename` attribute and `__init__()` constructor argument were

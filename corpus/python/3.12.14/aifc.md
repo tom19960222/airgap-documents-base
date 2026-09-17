@@ -34,7 +34,7 @@ frame size of 4 bytes (2\*2), and a second’s worth occupies 2\*2\*44100 bytes
 
 Module [`aifc`](aifc.md#module-aifc "aifc: Read and write audio files in AIFF or AIFC format. (deprecated)") defines the following function:
 
-aifc.open(*file*, *mode=None*)
+`aifc.open(file, mode=None)`
 :   Open an AIFF or AIFF-C file and return an object instance with methods that are
     described below. The argument *file* is either a string naming a file or a
     [file object](https://docs.python.org/3.12/glossary.html#term-file-object). *mode* must be `'r'` or `'rb'` when the file must be
@@ -51,59 +51,59 @@ aifc.open(*file*, *mode=None*)
 Objects returned by [`open()`](aifc.md#aifc.open "aifc.open") when a file is opened for reading have the
 following methods:
 
-aifc.getnchannels()
+`aifc.getnchannels()`
 :   Return the number of audio channels (1 for mono, 2 for stereo).
 
-aifc.getsampwidth()
+`aifc.getsampwidth()`
 :   Return the size in bytes of individual samples.
 
-aifc.getframerate()
+`aifc.getframerate()`
 :   Return the sampling rate (number of audio frames per second).
 
-aifc.getnframes()
+`aifc.getnframes()`
 :   Return the number of audio frames in the file.
 
-aifc.getcomptype()
+`aifc.getcomptype()`
 :   Return a bytes array of length 4 describing the type of compression
     used in the audio file. For AIFF files, the returned value is
     `b'NONE'`.
 
-aifc.getcompname()
+`aifc.getcompname()`
 :   Return a bytes array convertible to a human-readable description
     of the type of compression used in the audio file. For AIFF files,
     the returned value is `b'not compressed'`.
 
-aifc.getparams()
+`aifc.getparams()`
 :   Returns a [`namedtuple()`](collections.md#collections.namedtuple "collections.namedtuple") `(nchannels, sampwidth,
     framerate, nframes, comptype, compname)`, equivalent to output of the
     `get*()` methods.
 
-aifc.getmarkers()
+`aifc.getmarkers()`
 :   Return a list of markers in the audio file. A marker consists of a tuple of
     three elements. The first is the mark ID (an integer), the second is the mark
     position in frames from the beginning of the data (an integer), the third is the
     name of the mark (a string).
 
-aifc.getmark(*id*)
+`aifc.getmark(id)`
 :   Return the tuple as described in [`getmarkers()`](aifc.md#aifc.aifc.getmarkers "aifc.aifc.getmarkers") for the mark with the given
     *id*.
 
-aifc.readframes(*nframes*)
+`aifc.readframes(nframes)`
 :   Read and return the next *nframes* frames from the audio file. The returned
     data is a string containing for each frame the uncompressed samples of all
     channels.
 
-aifc.rewind()
+`aifc.rewind()`
 :   Rewind the read pointer. The next [`readframes()`](aifc.md#aifc.aifc.readframes "aifc.aifc.readframes") will start from the
     beginning.
 
-aifc.setpos(*pos*)
+`aifc.setpos(pos)`
 :   Seek to the specified frame number.
 
-aifc.tell()
+`aifc.tell()`
 :   Return the current frame number.
 
-aifc.close()
+`aifc.close()`
 :   Close the AIFF file. After calling this method, the object can no longer be
     used.
 
@@ -114,29 +114,29 @@ the corresponding `set*()` methods have been called. Before the first
 `writeframes()` or `writeframesraw()`, all parameters except for the
 number of frames must be filled in.
 
-aifc.aiff()
+`aifc.aiff()`
 :   Create an AIFF file. The default is that an AIFF-C file is created, unless the
     name of the file ends in `'.aiff'` in which case the default is an AIFF file.
 
-aifc.aifc()
+`aifc.aifc()`
 :   Create an AIFF-C file. The default is that an AIFF-C file is created, unless
     the name of the file ends in `'.aiff'` in which case the default is an AIFF
     file.
 
-aifc.setnchannels(*nchannels*)
+`aifc.setnchannels(nchannels)`
 :   Specify the number of channels in the audio file.
 
-aifc.setsampwidth(*width*)
+`aifc.setsampwidth(width)`
 :   Specify the size in bytes of audio samples.
 
-aifc.setframerate(*rate*)
+`aifc.setframerate(rate)`
 :   Specify the sampling frequency in frames per second.
 
-aifc.setnframes(*nframes*)
+`aifc.setnframes(nframes)`
 :   Specify the number of frames that are to be written to the audio file. If this
     parameter is not set, or not set correctly, the file needs to support seeking.
 
-aifc.setcomptype(*type*, *name*)
+`aifc.setcomptype(type, name)`
 :   Specify the compression type. If not specified, the audio data will
     not be compressed. In AIFF files, compression is not possible.
     The name parameter should be a human-readable description of the
@@ -144,32 +144,32 @@ aifc.setcomptype(*type*, *name*)
     bytes array of length 4. Currently the following compression types
     are supported: `b'NONE'`, `b'ULAW'`, `b'ALAW'`, `b'G722'`.
 
-aifc.setparams(*nchannels*, *sampwidth*, *framerate*, *comptype*, *compname*)
+`aifc.setparams(nchannels, sampwidth, framerate, comptype, compname)`
 :   Set all the above parameters at once. The argument is a tuple consisting of the
     various parameters. This means that it is possible to use the result of a
     [`getparams()`](aifc.md#aifc.aifc.getparams "aifc.aifc.getparams") call as argument to [`setparams()`](aifc.md#aifc.aifc.setparams "aifc.aifc.setparams").
 
-aifc.setmark(*id*, *pos*, *name*)
+`aifc.setmark(id, pos, name)`
 :   Add a mark with the given id (larger than 0), and the given name at the given
     position. This method can be called at any time before [`close()`](aifc.md#aifc.aifc.close "aifc.aifc.close").
 
-aifc.tell()
+`aifc.tell()`
 :   Return the current write position in the output file. Useful in combination
     with [`setmark()`](aifc.md#aifc.aifc.setmark "aifc.aifc.setmark").
 
-aifc.writeframes(*data*)
+`aifc.writeframes(data)`
 :   Write data to the output file. This method can only be called after the audio
     file parameters have been set.
 
     Changed in version 3.4: Any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-aifc.writeframesraw(*data*)
+`aifc.writeframesraw(data)`
 :   Like [`writeframes()`](aifc.md#aifc.aifc.writeframes "aifc.aifc.writeframes"), except that the header of the audio file is not
     updated.
 
     Changed in version 3.4: Any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-aifc.close()
+`aifc.close()`
 :   Close the AIFF file. The header of the file is updated to reflect the actual
     size of the audio data. After calling this method, the object can no longer be
     used.

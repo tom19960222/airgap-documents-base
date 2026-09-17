@@ -17,7 +17,7 @@ with high-level async/await code.
 
 ## Future Functions
 
-asyncio.isfuture(*obj*)
+`asyncio.isfuture(obj)`
 :   Return `True` if *obj* is either of:
 
     - an instance of [`asyncio.Future`](asyncio-future.md#asyncio.Future "asyncio.Future"),
@@ -27,7 +27,7 @@ asyncio.isfuture(*obj*)
 
     Added in version 3.5.
 
-asyncio.ensure_future(*obj*, *\**, *loop=None*)
+`asyncio.ensure_future(obj, *, loop=None)`
 :   Return:
 
     - *obj* argument as is, if *obj* is a [`Future`](asyncio-future.md#asyncio.Future "asyncio.Future"),
@@ -55,7 +55,7 @@ asyncio.ensure_future(*obj*, *\**, *loop=None*)
     Deprecated since version 3.10: Deprecation warning is emitted if *obj* is not a Future-like object
     and *loop* is not specified and there is no running event loop.
 
-asyncio.wrap_future(*future*, *\**, *loop=None*)
+`asyncio.wrap_future(future, *, loop=None)`
 :   Wrap a [`concurrent.futures.Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") object in a
     [`asyncio.Future`](asyncio-future.md#asyncio.Future "asyncio.Future") object.
 
@@ -64,7 +64,7 @@ asyncio.wrap_future(*future*, *\**, *loop=None*)
 
 ## Future Object
 
-*class* asyncio.Future(*\**, *loop=None*)
+`class asyncio.Future(*, loop=None)`
 :   A Future represents an eventual result of an asynchronous
     operation. Not thread-safe.
 
@@ -89,7 +89,7 @@ asyncio.wrap_future(*future*, *\**, *loop=None*)
     Deprecated since version 3.10: Deprecation warning is emitted if *loop* is not specified
     and there is no running event loop.
 
-    result()
+    `result()`
     :   Return the result of the Future.
 
         If the Future is *done* and has a result set by the
@@ -104,26 +104,26 @@ asyncio.wrap_future(*future*, *\**, *loop=None*)
         If the Future’s result isn’t yet available, this method raises
         an [`InvalidStateError`](asyncio-exceptions.md#asyncio.InvalidStateError "asyncio.InvalidStateError") exception.
 
-    set_result(*result*)
+    `set_result(result)`
     :   Mark the Future as *done* and set its result.
 
         Raises an [`InvalidStateError`](asyncio-exceptions.md#asyncio.InvalidStateError "asyncio.InvalidStateError") error if the Future is
         already *done*.
 
-    set_exception(*exception*)
+    `set_exception(exception)`
     :   Mark the Future as *done* and set an exception.
 
         Raises an [`InvalidStateError`](asyncio-exceptions.md#asyncio.InvalidStateError "asyncio.InvalidStateError") error if the Future is
         already *done*.
 
-    done()
+    `done()`
     :   Return `True` if the Future is *done*.
 
         A Future is *done* if it was *cancelled* or if it has a result
         or an exception set with [`set_result()`](asyncio-future.md#asyncio.Future.set_result "asyncio.Future.set_result") or
         [`set_exception()`](asyncio-future.md#asyncio.Future.set_exception "asyncio.Future.set_exception") calls.
 
-    cancelled()
+    `cancelled()`
     :   Return `True` if the Future was *cancelled*.
 
         The method is usually used to check if a Future is not
@@ -134,7 +134,7 @@ asyncio.wrap_future(*future*, *\**, *loop=None*)
             fut.set_result(42)
         ```
 
-    add_done_callback(*callback*, *\**, *context=None*)
+    `add_done_callback(callback, *, context=None)`
     :   Add a callback to be run when the Future is *done*.
 
         The *callback* is called with the Future object as its only
@@ -159,13 +159,13 @@ asyncio.wrap_future(*future*, *\**, *loop=None*)
         Changed in version 3.7: The *context* keyword-only parameter was added.
         See [**PEP 567**](https://peps.python.org/pep-0567/) for more details.
 
-    remove_done_callback(*callback*)
+    `remove_done_callback(callback)`
     :   Remove *callback* from the callbacks list.
 
         Returns the number of callbacks removed, which is typically 1,
         unless a callback was added more than once.
 
-    cancel(*msg=None*)
+    `cancel(msg=None)`
     :   Cancel the Future and schedule callbacks.
 
         If the Future is already *done* or *cancelled*, return `False`.
@@ -174,7 +174,7 @@ asyncio.wrap_future(*future*, *\**, *loop=None*)
 
         Changed in version 3.9: Added the *msg* parameter.
 
-    exception()
+    `exception()`
     :   Return the exception that was set on this Future.
 
         The exception (or `None` if no exception was set) is
@@ -186,7 +186,7 @@ asyncio.wrap_future(*future*, *\**, *loop=None*)
         If the Future isn’t *done* yet, this method raises an
         [`InvalidStateError`](asyncio-exceptions.md#asyncio.InvalidStateError "asyncio.InvalidStateError") exception.
 
-    get_loop()
+    `get_loop()`
     :   Return the event loop the Future object is bound to.
 
         Added in version 3.7.

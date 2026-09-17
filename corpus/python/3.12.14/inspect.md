@@ -116,7 +116,7 @@ Changed in version 3.7: Add `cr_origin` attribute to coroutines.
 
 Changed in version 3.10: Add `__builtins__` attribute to functions.
 
-inspect.getmembers(*object*[, *predicate*])
+`inspect.getmembers(object[, predicate])`
 :   Return all the members of an object in a list of `(name, value)`
     pairs sorted by name. If the optional *predicate* argument—which will be
     called with the `value` object of each member—is supplied, only members
@@ -128,7 +128,7 @@ inspect.getmembers(*object*[, *predicate*])
     > metaclass when the argument is a class and those attributes have been
     > listed in the metaclass’ custom [`__dir__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__dir__ "object.__dir__").
 
-inspect.getmembers_static(*object*[, *predicate*])
+`inspect.getmembers_static(object[, predicate])`
 :   Return all the members of an object in a list of `(name, value)`
     pairs sorted by name without triggering dynamic lookup via the descriptor
     protocol, __getattr__ or __getattribute__. Optionally, only return members
@@ -144,7 +144,7 @@ inspect.getmembers_static(*object*[, *predicate*])
 
     Added in version 3.11.
 
-inspect.getmodulename(*path*)
+`inspect.getmodulename(path)`
 :   Return the name of the module named by the file *path*, without including the
     names of enclosing packages. The file extension is checked against all of
     the entries in [`importlib.machinery.all_suffixes()`](importlib.md#importlib.machinery.all_suffixes "importlib.machinery.all_suffixes"). If it matches,
@@ -157,30 +157,30 @@ inspect.getmodulename(*path*)
 
     Changed in version 3.3: The function is based directly on [`importlib`](importlib.md#module-importlib "importlib: The implementation of the import machinery.").
 
-inspect.ismodule(*object*)
+`inspect.ismodule(object)`
 :   Return `True` if the object is a module.
 
-inspect.isclass(*object*)
+`inspect.isclass(object)`
 :   Return `True` if the object is a class, whether built-in or created in Python
     code.
 
-inspect.ismethod(*object*)
+`inspect.ismethod(object)`
 :   Return `True` if the object is a bound method written in Python.
 
-inspect.isfunction(*object*)
+`inspect.isfunction(object)`
 :   Return `True` if the object is a Python function, which includes functions
     created by a [lambda](https://docs.python.org/3.12/glossary.html#term-lambda) expression.
 
-inspect.isgeneratorfunction(*object*)
+`inspect.isgeneratorfunction(object)`
 :   Return `True` if the object is a Python generator function.
 
     Changed in version 3.8: Functions wrapped in [`functools.partial()`](functools.md#functools.partial "functools.partial") now return `True` if the
     wrapped function is a Python generator function.
 
-inspect.isgenerator(*object*)
+`inspect.isgenerator(object)`
 :   Return `True` if the object is a generator.
 
-inspect.iscoroutinefunction(*object*)
+`inspect.iscoroutinefunction(object)`
 :   Return `True` if the object is a [coroutine function](https://docs.python.org/3.12/glossary.html#term-coroutine-function) (a function
     defined with an [`async def`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def) syntax), a [`functools.partial()`](functools.md#functools.partial "functools.partial")
     wrapping a [coroutine function](https://docs.python.org/3.12/glossary.html#term-coroutine-function), or a sync function marked with
@@ -194,7 +194,7 @@ inspect.iscoroutinefunction(*object*)
     Changed in version 3.12: Sync functions marked with [`markcoroutinefunction()`](inspect.md#inspect.markcoroutinefunction "inspect.markcoroutinefunction") now return
     `True`.
 
-inspect.markcoroutinefunction(*func*)
+`inspect.markcoroutinefunction(func)`
 :   Decorator to mark a callable as a [coroutine function](https://docs.python.org/3.12/glossary.html#term-coroutine-function) if it would not
     otherwise be detected by [`iscoroutinefunction()`](inspect.md#inspect.iscoroutinefunction "inspect.iscoroutinefunction").
 
@@ -207,13 +207,13 @@ inspect.markcoroutinefunction(*func*)
 
     Added in version 3.12.
 
-inspect.iscoroutine(*object*)
+`inspect.iscoroutine(object)`
 :   Return `True` if the object is a [coroutine](https://docs.python.org/3.12/glossary.html#term-coroutine) created by an
     [`async def`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def) function.
 
     Added in version 3.5.
 
-inspect.isawaitable(*object*)
+`inspect.isawaitable(object)`
 :   Return `True` if the object can be used in [`await`](https://docs.python.org/3.12/reference/expressions.html#await) expression.
 
     Can also be used to distinguish generator-based coroutines from regular
@@ -234,7 +234,7 @@ inspect.isawaitable(*object*)
 
     Added in version 3.5.
 
-inspect.isasyncgenfunction(*object*)
+`inspect.isasyncgenfunction(object)`
 :   Return `True` if the object is an [asynchronous generator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator) function,
     for example:
 
@@ -251,25 +251,25 @@ inspect.isasyncgenfunction(*object*)
     Changed in version 3.8: Functions wrapped in [`functools.partial()`](functools.md#functools.partial "functools.partial") now return `True` if the
     wrapped function is an [asynchronous generator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator) function.
 
-inspect.isasyncgen(*object*)
+`inspect.isasyncgen(object)`
 :   Return `True` if the object is an [asynchronous generator iterator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator-iterator)
     created by an [asynchronous generator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator) function.
 
     Added in version 3.6.
 
-inspect.istraceback(*object*)
+`inspect.istraceback(object)`
 :   Return `True` if the object is a traceback.
 
-inspect.isframe(*object*)
+`inspect.isframe(object)`
 :   Return `True` if the object is a frame.
 
-inspect.iscode(*object*)
+`inspect.iscode(object)`
 :   Return `True` if the object is a code.
 
-inspect.isbuiltin(*object*)
+`inspect.isbuiltin(object)`
 :   Return `True` if the object is a built-in function or a bound built-in method.
 
-inspect.ismethodwrapper(*object*)
+`inspect.ismethodwrapper(object)`
 :   Return `True` if the type of object is a [`MethodWrapperType`](types.md#types.MethodWrapperType "types.MethodWrapperType").
 
     These are instances of [`MethodWrapperType`](types.md#types.MethodWrapperType "types.MethodWrapperType"), such as [`__str__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__str__ "object.__str__"),
@@ -277,13 +277,13 @@ inspect.ismethodwrapper(*object*)
 
     Added in version 3.11.
 
-inspect.isroutine(*object*)
+`inspect.isroutine(object)`
 :   Return `True` if the object is a user-defined or built-in function or method.
 
-inspect.isabstract(*object*)
+`inspect.isabstract(object)`
 :   Return `True` if the object is an abstract base class.
 
-inspect.ismethoddescriptor(*object*)
+`inspect.ismethoddescriptor(object)`
 :   Return `True` if the object is a method descriptor, but not if
     [`ismethod()`](inspect.md#inspect.ismethod "inspect.ismethod"), [`isclass()`](inspect.md#inspect.isclass "inspect.isclass"), [`isfunction()`](inspect.md#inspect.isfunction "inspect.isfunction") or [`isbuiltin()`](inspect.md#inspect.isbuiltin "inspect.isbuiltin")
     are true.
@@ -300,7 +300,7 @@ inspect.ismethoddescriptor(*object*)
     [`__func__`](https://docs.python.org/3.12/reference/datamodel.html#method.__func__ "method.__func__") attribute (etc) when an object passes
     [`ismethod()`](inspect.md#inspect.ismethod "inspect.ismethod").
 
-inspect.isdatadescriptor(*object*)
+`inspect.isdatadescriptor(object)`
 :   Return `True` if the object is a data descriptor.
 
     Data descriptors have a [`__set__`](https://docs.python.org/3.12/reference/datamodel.html#object.__set__ "object.__set__") or a [`__delete__`](https://docs.python.org/3.12/reference/datamodel.html#object.__delete__ "object.__delete__") method.
@@ -311,14 +311,14 @@ inspect.isdatadescriptor(*object*)
     (properties, getsets, and members have both of these attributes), but this is
     not guaranteed.
 
-inspect.isgetsetdescriptor(*object*)
+`inspect.isgetsetdescriptor(object)`
 :   Return `True` if the object is a getset descriptor.
 
     **CPython implementation detail:** getsets are attributes defined in extension modules via
     [`PyGetSetDef`](https://docs.python.org/3.12/c-api/structures.html#c.PyGetSetDef "PyGetSetDef") structures. For Python implementations without such
     types, this method will always return `False`.
 
-inspect.ismemberdescriptor(*object*)
+`inspect.ismemberdescriptor(object)`
 :   Return `True` if the object is a member descriptor.
 
     **CPython implementation detail:** Member descriptors are attributes defined in extension modules via
@@ -327,7 +327,7 @@ inspect.ismemberdescriptor(*object*)
 
 ## Retrieving source code
 
-inspect.getdoc(*object*)
+`inspect.getdoc(object)`
 :   Get the documentation string for an object, cleaned up with [`cleandoc()`](inspect.md#inspect.cleandoc "inspect.cleandoc").
     If the documentation string for an object is not provided and the object is
     a class, a method, a property or a descriptor, retrieve the documentation
@@ -336,29 +336,29 @@ inspect.getdoc(*object*)
 
     Changed in version 3.5: Documentation strings are now inherited if not overridden.
 
-inspect.getcomments(*object*)
+`inspect.getcomments(object)`
 :   Return in a single string any lines of comments immediately preceding the
     object’s source code (for a class, function, or method), or at the top of the
     Python source file (if the object is a module). If the object’s source code
     is unavailable, return `None`. This could happen if the object has been
     defined in C or the interactive shell.
 
-inspect.getfile(*object*)
+`inspect.getfile(object)`
 :   Return the name of the (text or binary) file in which an object was defined.
     This will fail with a [`TypeError`](exceptions.md#TypeError "TypeError") if the object is a built-in module,
     class, or function.
 
-inspect.getmodule(*object*)
+`inspect.getmodule(object)`
 :   Try to guess which module an object was defined in. Return `None`
     if the module cannot be determined.
 
-inspect.getsourcefile(*object*)
+`inspect.getsourcefile(object)`
 :   Return the name of the Python source file in which an object was defined
     or `None` if no way can be identified to get the source. This
     will fail with a [`TypeError`](exceptions.md#TypeError "TypeError") if the object is a built-in module, class, or
     function.
 
-inspect.getsourcelines(*object*)
+`inspect.getsourcelines(object)`
 :   Return a list of source lines and starting line number for an object. The
     argument may be a module, class, method, function, traceback, frame, or code
     object. The source code is returned as a list of the lines corresponding to the
@@ -371,7 +371,7 @@ inspect.getsourcelines(*object*)
     Changed in version 3.3: [`OSError`](exceptions.md#OSError "OSError") is raised instead of [`IOError`](exceptions.md#IOError "IOError"), now an alias of the
     former.
 
-inspect.getsource(*object*)
+`inspect.getsource(object)`
 :   Return the text of the source code for an object. The argument may be a module,
     class, method, function, traceback, frame, or code object. The source code is
     returned as a single string. An [`OSError`](exceptions.md#OSError "OSError") is raised if the source code
@@ -382,7 +382,7 @@ inspect.getsource(*object*)
     Changed in version 3.3: [`OSError`](exceptions.md#OSError "OSError") is raised instead of [`IOError`](exceptions.md#IOError "IOError"), now an alias of the
     former.
 
-inspect.cleandoc(*doc*)
+`inspect.cleandoc(doc)`
 :   Clean up indentation from docstrings that are indented to line up with blocks
     of code.
 
@@ -400,7 +400,7 @@ and its return annotation. To retrieve a `Signature` object,
 use the `signature()`
 function.
 
-inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *locals=None*, *eval_str=False*)
+`inspect.signature(callable, *, follow_wrapped=True, globals=None, locals=None, eval_str=False)`
 :   Return a [`Signature`](inspect.md#inspect.Signature "inspect.Signature") object for the given *callable*:
 
     ```pycon
@@ -460,7 +460,7 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
     The exact semantics are an implementation detail and are subject to
     unannounced changes. Consult the source code for current semantics.
 
-*class* inspect.Signature(*parameters=None*, *\**, *return_annotation=Signature.empty*)
+`class inspect.Signature(parameters=None, *, return_annotation=Signature.empty)`
 :   A `Signature` object represents the call signature of a function
     and its return
     annotation. For each parameter accepted by the function it stores a
@@ -480,10 +480,10 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
 
     Changed in version 3.5: `Signature` objects are now picklable and [hashable](https://docs.python.org/3.12/glossary.html#term-hashable).
 
-    empty
+    `empty`
     :   A special class-level marker to specify absence of a return annotation.
 
-    parameters
+    `parameters`
     :   An ordered mapping of parameters’ names to the corresponding
         [`Parameter`](inspect.md#inspect.Parameter "inspect.Parameter") objects. Parameters appear in strict definition
         order, including keyword-only parameters.
@@ -492,22 +492,22 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
         order of keyword-only parameters as of version 3.7, although in practice
         this order had always been preserved in Python 3.
 
-    return_annotation
+    `return_annotation`
     :   The “return” annotation for the callable. If the callable has no “return”
         annotation, this attribute is set to [`Signature.empty`](inspect.md#inspect.Signature.empty "inspect.Signature.empty").
 
-    bind(*\*args*, *\*\*kwargs*)
+    `bind(*args, **kwargs)`
     :   Create a mapping from positional and keyword arguments to parameters.
         Returns [`BoundArguments`](inspect.md#inspect.BoundArguments "inspect.BoundArguments") if `*args` and `**kwargs` match the
         signature, or raises a [`TypeError`](exceptions.md#TypeError "TypeError").
 
-    bind_partial(*\*args*, *\*\*kwargs*)
+    `bind_partial(*args, **kwargs)`
     :   Works the same way as [`Signature.bind()`](inspect.md#inspect.Signature.bind "inspect.Signature.bind"), but allows the omission of
         some required arguments (mimics [`functools.partial()`](functools.md#functools.partial "functools.partial") behavior.)
         Returns [`BoundArguments`](inspect.md#inspect.BoundArguments "inspect.BoundArguments"), or raises a [`TypeError`](exceptions.md#TypeError "TypeError") if the
         passed arguments do not match the signature.
 
-    replace(*\*[, parameters][, return_annotation]*)
+    `replace(*[, parameters][, return_annotation])`
     :   Create a new [`Signature`](inspect.md#inspect.Signature "inspect.Signature") instance based on the instance
         [`replace()`](inspect.md#inspect.Signature.replace "inspect.Signature.replace") was invoked on.
         It is possible to pass different *parameters* and/or
@@ -526,7 +526,7 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
         "(a, b) -> 'new return anno'"
         ```
 
-    *classmethod* from_callable(*obj*, *\**, *follow_wrapped=True*, *globals=None*, *locals=None*, *eval_str=False*)
+    `classmethod from_callable(obj, *, follow_wrapped=True, globals=None, locals=None, eval_str=False)`
     :   Return a [`Signature`](inspect.md#inspect.Signature "inspect.Signature") (or its subclass) object for a given callable
         *obj*.
 
@@ -545,18 +545,18 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
 
         Changed in version 3.10: The *globals*, *locals*, and *eval_str* parameters were added.
 
-*class* inspect.Parameter(*name*, *kind*, *\**, *default=Parameter.empty*, *annotation=Parameter.empty*)
+`class inspect.Parameter(name, kind, *, default=Parameter.empty, annotation=Parameter.empty)`
 :   `Parameter` objects are *immutable*.
     Instead of modifying a `Parameter` object,
     you can use [`Parameter.replace()`](inspect.md#inspect.Parameter.replace "inspect.Parameter.replace") to create a modified copy.
 
     Changed in version 3.5: Parameter objects are now picklable and [hashable](https://docs.python.org/3.12/glossary.html#term-hashable).
 
-    empty
+    `empty`
     :   A special class-level marker to specify absence of default values and
         annotations.
 
-    name
+    `name`
     :   The name of the parameter as a string. The name must be a valid
         Python identifier.
 
@@ -567,15 +567,15 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
         Changed in version 3.6: These parameter names are now exposed by this module as names like
         `implicit0`.
 
-    default
+    `default`
     :   The default value for the parameter. If the parameter has no default
         value, this attribute is set to [`Parameter.empty`](inspect.md#inspect.Parameter.empty "inspect.Parameter.empty").
 
-    annotation
+    `annotation`
     :   The annotation for the parameter. If the parameter has no annotation,
         this attribute is set to [`Parameter.empty`](inspect.md#inspect.Parameter.empty "inspect.Parameter.empty").
 
-    kind
+    `kind`
     :   Describes how argument values are bound to the parameter. The possible
         values are accessible via [`Parameter`](inspect.md#inspect.Parameter "inspect.Parameter") (like `Parameter.KEYWORD_ONLY`),
         and support comparison and ordering, in the following order:
@@ -602,7 +602,7 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
         Parameter: c
         ```
 
-    kind.description
+    `kind.description`
     :   Describes an enum value of [`Parameter.kind`](inspect.md#inspect.Parameter.kind "inspect.Parameter.kind").
 
         Added in version 3.8.
@@ -622,7 +622,7 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
         keyword-only
         ```
 
-    replace(*\*[, name][, kind][, default][, annotation]*)
+    `replace(*[, name][, kind][, default][, annotation])`
     :   Create a new [`Parameter`](inspect.md#inspect.Parameter "inspect.Parameter") instance based on the instance replaced was invoked
         on. To override a `Parameter` attribute, pass the corresponding
         argument. To remove a default value or/and an annotation from a
@@ -645,11 +645,11 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
     to `None` if their `kind` was set to `POSITIONAL_ONLY`.
     This is no longer permitted.
 
-*class* inspect.BoundArguments
+`class inspect.BoundArguments`
 :   Result of a [`Signature.bind()`](inspect.md#inspect.Signature.bind "inspect.Signature.bind") or [`Signature.bind_partial()`](inspect.md#inspect.Signature.bind_partial "inspect.Signature.bind_partial") call.
     Holds the mapping of arguments to the function’s parameters.
 
-    arguments
+    `arguments`
     :   A mutable mapping of parameters’ names to arguments’ values.
         Contains only explicitly bound arguments. Changes in [`arguments`](inspect.md#inspect.BoundArguments.arguments "inspect.BoundArguments.arguments")
         will reflect in [`args`](inspect.md#inspect.BoundArguments.args "inspect.BoundArguments.args") and [`kwargs`](inspect.md#inspect.BoundArguments.kwargs "inspect.BoundArguments.kwargs").
@@ -667,19 +667,19 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
         Changed in version 3.9: [`arguments`](inspect.md#inspect.BoundArguments.arguments "inspect.BoundArguments.arguments") is now of type [`dict`](stdtypes.md#dict "dict"). Formerly, it was of
         type [`collections.OrderedDict`](collections.md#collections.OrderedDict "collections.OrderedDict").
 
-    args
+    `args`
     :   A tuple of positional arguments values. Dynamically computed from the
         [`arguments`](inspect.md#inspect.BoundArguments.arguments "inspect.BoundArguments.arguments") attribute.
 
-    kwargs
+    `kwargs`
     :   A dict of keyword arguments values. Dynamically computed from the
         [`arguments`](inspect.md#inspect.BoundArguments.arguments "inspect.BoundArguments.arguments") attribute. Arguments that can be passed positionally
         are included in [`args`](inspect.md#inspect.BoundArguments.args "inspect.BoundArguments.args") instead.
 
-    signature
+    `signature`
     :   A reference to the parent [`Signature`](inspect.md#inspect.Signature "inspect.Signature") object.
 
-    apply_defaults()
+    `apply_defaults()`
     :   Set default values for missing arguments.
 
         For variable-positional arguments (`*args`) the default is an
@@ -717,7 +717,7 @@ inspect.signature(*callable*, *\**, *follow_wrapped=True*, *globals=None*, *loca
 
 ## Classes and functions
 
-inspect.getclasstree(*classes*, *unique=False*)
+`inspect.getclasstree(classes, unique=False)`
 :   Arrange the given list of classes into a hierarchy of nested lists. Where a
     nested list appears, it contains classes derived from the class whose entry
     immediately precedes the list. Each entry is a 2-tuple containing a class and a
@@ -726,7 +726,7 @@ inspect.getclasstree(*classes*, *unique=False*)
     classes using multiple inheritance and their descendants will appear multiple
     times.
 
-inspect.getfullargspec(*func*)
+`inspect.getfullargspec(func)`
 :   Get the names and default values of a Python function’s parameters. A
     [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) is returned:
 
@@ -769,7 +769,7 @@ inspect.getfullargspec(*func*)
     order of keyword-only parameters as of version 3.7, although in practice
     this order had always been preserved in Python 3.
 
-inspect.getargvalues(*frame*)
+`inspect.getargvalues(frame)`
 :   Get information about arguments passed into a particular frame. A
     [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) `ArgInfo(args, varargs, keywords, locals)` is
     returned. *args* is a list of the argument names. *varargs* and *keywords*
@@ -780,7 +780,7 @@ inspect.getargvalues(*frame*)
     >
     > This function was inadvertently marked as deprecated in Python 3.5.
 
-inspect.formatargvalues(*args*[, *varargs*, *varkw*, *locals*, *formatarg*, *formatvarargs*, *formatvarkw*, *formatvalue*])
+`inspect.formatargvalues(args[, varargs, varkw, locals, formatarg, formatvarargs, formatvarkw, formatvalue])`
 :   Format a pretty argument spec from the four values returned by
     [`getargvalues()`](inspect.md#inspect.getargvalues "inspect.getargvalues"). The format\* arguments are the corresponding optional
     formatting functions that are called to turn names and values into strings.
@@ -789,13 +789,13 @@ inspect.formatargvalues(*args*[, *varargs*, *varkw*, *locals*, *formatarg*, *for
     >
     > This function was inadvertently marked as deprecated in Python 3.5.
 
-inspect.getmro(*cls*)
+`inspect.getmro(cls)`
 :   Return a tuple of class cls’s base classes, including cls, in method resolution
     order. No class appears more than once in this tuple. Note that the method
     resolution order depends on cls’s type. Unless a very peculiar user-defined
     metatype is in use, cls will be the first element of the tuple.
 
-inspect.getcallargs(*func*, */*, *\*args*, *\*\*kwds*)
+`inspect.getcallargs(func, /, *args, **kwds)`
 :   Bind the *args* and *kwds* to the argument names of the Python function or
     method *func*, as if it was called with them. For bound methods, bind also the
     first argument (typically named `self`) to the associated instance. A dict
@@ -824,7 +824,7 @@ inspect.getcallargs(*func*, */*, *\*args*, *\*\*kwds*)
 
     Deprecated since version 3.5: Use [`Signature.bind()`](inspect.md#inspect.Signature.bind "inspect.Signature.bind") and [`Signature.bind_partial()`](inspect.md#inspect.Signature.bind_partial "inspect.Signature.bind_partial") instead.
 
-inspect.getclosurevars(*func*)
+`inspect.getclosurevars(func)`
 :   Get the mapping of external name references in a Python function or
     method *func* to their current values. A
     [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) `ClosureVars(nonlocals, globals, builtins, unbound)`
@@ -838,7 +838,7 @@ inspect.getclosurevars(*func*)
 
     Added in version 3.3.
 
-inspect.unwrap(*func*, *\**, *stop=None*)
+`inspect.unwrap(func, *, stop=None)`
 :   Get the object wrapped by *func*. It follows the chain of `__wrapped__`
     attributes returning the last object in the chain.
 
@@ -853,7 +853,7 @@ inspect.unwrap(*func*, *\**, *stop=None*)
 
     Added in version 3.4.
 
-inspect.get_annotations(*obj*, *\**, *globals=None*, *locals=None*, *eval_str=False*)
+`inspect.get_annotations(obj, *, globals=None, locals=None, eval_str=False)`
 :   Compute the annotations dict for an object.
 
     `obj` may be a callable, class, or module.
@@ -915,29 +915,29 @@ Some of the following functions return
 tuple-like operations on all attributes except `positions`. This behavior
 is considered deprecated and may be removed in the future.
 
-*class* inspect.FrameInfo
-:   frame
+`class inspect.FrameInfo`
+:   `frame`
     :   The [frame object](https://docs.python.org/3.12/reference/datamodel.html#frame-objects) that the record corresponds to.
 
-    filename
+    `filename`
     :   The file name associated with the code being executed by the frame this record
         corresponds to.
 
-    lineno
+    `lineno`
     :   The line number of the current line associated with the code being
         executed by the frame this record corresponds to.
 
-    function
+    `function`
     :   The function name that is being executed by the frame this record corresponds to.
 
-    code_context
+    `code_context`
     :   A list of lines of context from the source code that’s being executed by the frame
         this record corresponds to.
 
-    index
+    `index`
     :   The index of the current line being executed in the [`code_context`](inspect.md#inspect.FrameInfo.code_context "inspect.FrameInfo.code_context") list.
 
-    positions
+    `positions`
     :   A [`dis.Positions`](dis.md#dis.Positions "dis.Positions") object containing the start line number, end line
         number, start column offset, and end column offset associated with the
         instruction being executed by the frame this record corresponds to.
@@ -947,26 +947,26 @@ is considered deprecated and may be removed in the future.
     Changed in version 3.11: `FrameInfo` is now a class instance
     (that is backwards compatible with the previous [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple)).
 
-*class* inspect.Traceback
-:   filename
+`class inspect.Traceback`
+:   `filename`
     :   The file name associated with the code being executed by the frame this traceback
         corresponds to.
 
-    lineno
+    `lineno`
     :   The line number of the current line associated with the code being
         executed by the frame this traceback corresponds to.
 
-    function
+    `function`
     :   The function name that is being executed by the frame this traceback corresponds to.
 
-    code_context
+    `code_context`
     :   A list of lines of context from the source code that’s being executed by the frame
         this traceback corresponds to.
 
-    index
+    `index`
     :   The index of the current line being executed in the [`code_context`](inspect.md#inspect.Traceback.code_context "inspect.Traceback.code_context") list.
 
-    positions
+    `positions`
     :   A [`dis.Positions`](dis.md#dis.Positions "dis.Positions") object containing the start line number, end
         line number, start column offset, and end column offset associated with
         the instruction being executed by the frame this traceback corresponds
@@ -1007,13 +1007,13 @@ The optional *context* argument supported by most of these functions specifies
 the number of lines of context to return, which are centered around the current
 line.
 
-inspect.getframeinfo(*frame*, *context=1*)
+`inspect.getframeinfo(frame, context=1)`
 :   Get information about a frame or traceback object. A [`Traceback`](inspect.md#inspect.Traceback "inspect.Traceback") object
     is returned.
 
     Changed in version 3.11: A [`Traceback`](inspect.md#inspect.Traceback "inspect.Traceback") object is returned instead of a named tuple.
 
-inspect.getouterframes(*frame*, *context=1*)
+`inspect.getouterframes(frame, context=1)`
 :   Get a list of [`FrameInfo`](inspect.md#inspect.FrameInfo "inspect.FrameInfo") objects for a frame and all outer frames.
     These frames represent the calls that lead to the creation of *frame*. The
     first entry in the returned list represents *frame*; the last entry
@@ -1025,7 +1025,7 @@ inspect.getouterframes(*frame*, *context=1*)
 
     Changed in version 3.11: A list of [`FrameInfo`](inspect.md#inspect.FrameInfo "inspect.FrameInfo") objects is returned.
 
-inspect.getinnerframes(*traceback*, *context=1*)
+`inspect.getinnerframes(traceback, context=1)`
 :   Get a list of [`FrameInfo`](inspect.md#inspect.FrameInfo "inspect.FrameInfo") objects for a traceback’s frame and all
     inner frames. These frames represent calls made as a consequence of *frame*.
     The first entry in the list represents *traceback*; the last entry represents
@@ -1037,7 +1037,7 @@ inspect.getinnerframes(*traceback*, *context=1*)
 
     Changed in version 3.11: A list of [`FrameInfo`](inspect.md#inspect.FrameInfo "inspect.FrameInfo") objects is returned.
 
-inspect.currentframe()
+`inspect.currentframe()`
 :   Return the frame object for the caller’s stack frame.
 
     **CPython implementation detail:** This function relies on Python stack frame support in the interpreter,
@@ -1045,7 +1045,7 @@ inspect.currentframe()
     running in an implementation without Python stack frame support this
     function returns `None`.
 
-inspect.stack(*context=1*)
+`inspect.stack(context=1)`
 :   Return a list of [`FrameInfo`](inspect.md#inspect.FrameInfo "inspect.FrameInfo") objects for the caller’s stack. The
     first entry in the returned list represents the caller; the last entry
     represents the outermost call on the stack.
@@ -1056,7 +1056,7 @@ inspect.stack(*context=1*)
 
     Changed in version 3.11: A list of [`FrameInfo`](inspect.md#inspect.FrameInfo "inspect.FrameInfo") objects is returned.
 
-inspect.trace(*context=1*)
+`inspect.trace(context=1)`
 :   Return a list of [`FrameInfo`](inspect.md#inspect.FrameInfo "inspect.FrameInfo") objects for the stack between the current
     frame and the frame in which an exception currently being handled was raised
     in. The first entry in the list represents the caller; the last entry
@@ -1080,7 +1080,7 @@ For cases where you want passive introspection, like documentation tools, this
 can be inconvenient. [`getattr_static()`](inspect.md#inspect.getattr_static "inspect.getattr_static") has the same signature as [`getattr()`](functions.md#getattr "getattr")
 but avoids executing code when it fetches attributes.
 
-inspect.getattr_static(*obj*, *attr*, *default=None*)
+`inspect.getattr_static(obj, attr, default=None)`
 :   Retrieve attributes without triggering dynamic lookup via the
     descriptor protocol, [`__getattr__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getattr__ "object.__getattr__")
     or [`__getattribute__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getattribute__ "object.__getattribute__").
@@ -1135,7 +1135,7 @@ executing, is waiting to start or resume or execution, or has already
 terminated. [`getgeneratorstate()`](inspect.md#inspect.getgeneratorstate "inspect.getgeneratorstate") allows the current state of a
 generator to be determined easily.
 
-inspect.getgeneratorstate(*generator*)
+`inspect.getgeneratorstate(generator)`
 :   Get current state of a generator-iterator.
 
     Possible states are:
@@ -1147,7 +1147,7 @@ inspect.getgeneratorstate(*generator*)
 
     Added in version 3.2.
 
-inspect.getcoroutinestate(*coroutine*)
+`inspect.getcoroutinestate(coroutine)`
 :   Get current state of a coroutine object. The function is intended to be
     used with coroutine objects created by [`async def`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def) functions, but
     will accept any coroutine-like object that has `cr_running` and
@@ -1162,7 +1162,7 @@ inspect.getcoroutinestate(*coroutine*)
 
     Added in version 3.5.
 
-inspect.getasyncgenstate(*agen*)
+`inspect.getasyncgenstate(agen)`
 :   Get current state of an asynchronous generator object. The function is
     intended to be used with asynchronous iterator objects created by
     [`async def`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def) functions which use the [`yield`](https://docs.python.org/3.12/reference/simple_stmts.html#yield) statement,
@@ -1182,7 +1182,7 @@ The current internal state of the generator can also be queried. This is
 mostly useful for testing purposes, to ensure that internal state is being
 updated as expected:
 
-inspect.getgeneratorlocals(*generator*)
+`inspect.getgeneratorlocals(generator)`
 :   Get the mapping of live local variables in *generator* to their current
     values. A dictionary is returned that maps from variable names to values.
     This is the equivalent of calling [`locals()`](functions.md#locals "locals") in the body of the
@@ -1199,13 +1199,13 @@ inspect.getgeneratorlocals(*generator*)
 
     Added in version 3.3.
 
-inspect.getcoroutinelocals(*coroutine*)
+`inspect.getcoroutinelocals(coroutine)`
 :   This function is analogous to [`getgeneratorlocals()`](inspect.md#inspect.getgeneratorlocals "inspect.getgeneratorlocals"), but
     works for coroutine objects created by [`async def`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def) functions.
 
     Added in version 3.5.
 
-inspect.getasyncgenlocals(*agen*)
+`inspect.getasyncgenlocals(agen)`
 :   This function is analogous to [`getgeneratorlocals()`](inspect.md#inspect.getgeneratorlocals "inspect.getgeneratorlocals"), but
     works for asynchronous generator objects created by [`async def`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def)
     functions which use the [`yield`](https://docs.python.org/3.12/reference/simple_stmts.html#yield) statement.
@@ -1217,34 +1217,34 @@ inspect.getasyncgenlocals(*agen*)
 Python code objects have a [`co_flags`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_flags "codeobject.co_flags") attribute,
 which is a bitmap of the following flags:
 
-inspect.CO_OPTIMIZED
+`inspect.CO_OPTIMIZED`
 :   The code object is optimized, using fast locals.
 
-inspect.CO_NEWLOCALS
+`inspect.CO_NEWLOCALS`
 :   If set, a new dict will be created for the frame’s [`f_locals`](https://docs.python.org/3.12/reference/datamodel.html#frame.f_locals "frame.f_locals")
     when the code object is executed.
 
-inspect.CO_VARARGS
+`inspect.CO_VARARGS`
 :   The code object has a variable positional parameter (`*args`-like).
 
-inspect.CO_VARKEYWORDS
+`inspect.CO_VARKEYWORDS`
 :   The code object has a variable keyword parameter (`**kwargs`-like).
 
-inspect.CO_NESTED
+`inspect.CO_NESTED`
 :   The flag is set when the code object is a nested function.
 
-inspect.CO_GENERATOR
+`inspect.CO_GENERATOR`
 :   The flag is set when the code object is a generator function, i.e.
     a generator object is returned when the code object is executed.
 
-inspect.CO_COROUTINE
+`inspect.CO_COROUTINE`
 :   The flag is set when the code object is a coroutine function.
     When the code object is executed it returns a coroutine object.
     See [**PEP 492**](https://peps.python.org/pep-0492/) for more details.
 
     Added in version 3.5.
 
-inspect.CO_ITERABLE_COROUTINE
+`inspect.CO_ITERABLE_COROUTINE`
 :   The flag is used to transform generators into generator-based
     coroutines. Generator objects with this flag can be used in
     `await` expression, and can `yield from` coroutine objects.
@@ -1252,7 +1252,7 @@ inspect.CO_ITERABLE_COROUTINE
 
     Added in version 3.5.
 
-inspect.CO_ASYNC_GENERATOR
+`inspect.CO_ASYNC_GENERATOR`
 :   The flag is set when the code object is an asynchronous generator
     function. When the code object is executed it returns an
     asynchronous generator object. See [**PEP 525**](https://peps.python.org/pep-0525/) for more details.
@@ -1269,50 +1269,50 @@ inspect.CO_ASYNC_GENERATOR
 
 ## Buffer flags
 
-*class* inspect.BufferFlags
+`class inspect.BufferFlags`
 :   This is an [`enum.IntFlag`](enum.md#enum.IntFlag "enum.IntFlag") that represents the flags that
     can be passed to the [`__buffer__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__buffer__ "object.__buffer__") method of objects
     implementing the [buffer protocol](https://docs.python.org/3.12/c-api/buffer.html#bufferobjects).
 
     The meaning of the flags is explained at [Buffer request types](https://docs.python.org/3.12/c-api/buffer.html#buffer-request-types).
 
-    SIMPLE
+    `SIMPLE`
 
-    WRITABLE
+    `WRITABLE`
 
-    FORMAT
+    `FORMAT`
 
-    ND
+    `ND`
 
-    STRIDES
+    `STRIDES`
 
-    C_CONTIGUOUS
+    `C_CONTIGUOUS`
 
-    F_CONTIGUOUS
+    `F_CONTIGUOUS`
 
-    ANY_CONTIGUOUS
+    `ANY_CONTIGUOUS`
 
-    INDIRECT
+    `INDIRECT`
 
-    CONTIG
+    `CONTIG`
 
-    CONTIG_RO
+    `CONTIG_RO`
 
-    STRIDED
+    `STRIDED`
 
-    STRIDED_RO
+    `STRIDED_RO`
 
-    RECORDS
+    `RECORDS`
 
-    RECORDS_RO
+    `RECORDS_RO`
 
-    FULL
+    `FULL`
 
-    FULL_RO
+    `FULL_RO`
 
-    READ
+    `READ`
 
-    WRITE
+    `WRITE`
 
     Added in version 3.12.
 
@@ -1325,5 +1325,5 @@ By default, accepts the name of a module and prints the source of that
 module. A class or function within the module can be printed instead by
 appended a colon and the qualified name of the target object.
 
---details
+`--details`
 :   Print information about the specified object rather than the source code

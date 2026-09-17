@@ -25,7 +25,7 @@ This module does not work or is not available on WebAssembly platforms
 
 The [`nis`](nis.md#module-nis "nis: Interface to Sun's NIS (Yellow Pages) library. (deprecated) (Unix)") module defines the following functions:
 
-nis.match(*key*, *mapname*, *domain=default_domain*)
+`nis.match(key, mapname, domain=default_domain)`
 :   Return the match for *key* in map *mapname*, or raise an error
     ([`nis.error`](nis.md#nis.error "nis.error")) if there is none. Both should be strings, *key* is 8-bit
     clean. Return value is an arbitrary array of bytes (may contain `NULL` and
@@ -36,7 +36,7 @@ nis.match(*key*, *mapname*, *domain=default_domain*)
     The *domain* argument allows overriding the NIS domain used for the lookup. If
     unspecified, lookup is in the default NIS domain.
 
-nis.cat(*mapname*, *domain=default_domain*)
+`nis.cat(mapname, domain=default_domain)`
 :   Return a dictionary mapping *key* to *value* such that `match(key,
     mapname)==value`. Note that both keys and values of the dictionary are
     arbitrary arrays of bytes.
@@ -46,16 +46,16 @@ nis.cat(*mapname*, *domain=default_domain*)
     The *domain* argument allows overriding the NIS domain used for the lookup. If
     unspecified, lookup is in the default NIS domain.
 
-nis.maps(*domain=default_domain*)
+`nis.maps(domain=default_domain)`
 :   Return a list of all valid maps.
 
     The *domain* argument allows overriding the NIS domain used for the lookup. If
     unspecified, lookup is in the default NIS domain.
 
-nis.get_default_domain()
+`nis.get_default_domain()`
 :   Return the system default NIS domain.
 
 The [`nis`](nis.md#module-nis "nis: Interface to Sun's NIS (Yellow Pages) library. (deprecated) (Unix)") module defines the following exception:
 
-*exception* nis.error
+`exception nis.error`
 :   An error raised when a NIS function returns an error code.

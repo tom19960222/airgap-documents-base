@@ -46,7 +46,7 @@ The module’s API can be divided into two parts:
 
 ## Module-Level Functions
 
-traceback.print_tb(*tb*, *limit=None*, *file=None*)
+`traceback.print_tb(tb, limit=None, file=None)`
 :   Print up to *limit* stack trace entries from
     [traceback object](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects) *tb* (starting
     from the caller’s frame) if *limit* is positive. Otherwise, print the last
@@ -66,7 +66,7 @@ traceback.print_tb(*tb*, *limit=None*, *file=None*)
 
     Changed in version 3.5: Added negative *limit* support.
 
-traceback.print_exception(*exc*, */*, [*value*, *tb*, ]*limit=None*, *file=None*, *chain=True*)
+`traceback.print_exception(exc, /, [value, tb, ]limit=None, file=None, chain=True)`
 :   Print exception information and stack trace entries from
     [traceback object](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects)
     *tb* to *file*. This differs from [`print_tb()`](traceback.md#traceback.print_tb "traceback.print_tb") in the following
@@ -96,16 +96,16 @@ traceback.print_exception(*exc*, */*, [*value*, *tb*, ]*limit=None*, *file=None*
     Changed in version 3.10: The *etype* parameter has been renamed to *exc* and is now
     positional-only.
 
-traceback.print_exc(*limit=None*, *file=None*, *chain=True*)
+`traceback.print_exc(limit=None, file=None, chain=True)`
 :   This is a shorthand for `print_exception(sys.exception(), limit=limit, file=file,
     chain=chain)`.
 
-traceback.print_last(*limit=None*, *file=None*, *chain=True*)
+`traceback.print_last(limit=None, file=None, chain=True)`
 :   This is a shorthand for `print_exception(sys.last_exc, limit=limit, file=file,
     chain=chain)`. In general it will work only after an exception has reached
     an interactive prompt (see [`sys.last_exc`](sys.md#sys.last_exc "sys.last_exc")).
 
-traceback.print_stack(*f=None*, *limit=None*, *file=None*)
+`traceback.print_stack(f=None, limit=None, file=None)`
 :   Print up to *limit* stack trace entries (starting from the invocation
     point) if *limit* is positive. Otherwise, print the last `abs(limit)`
     entries. If *limit* is omitted or `None`, all entries are printed.
@@ -116,7 +116,7 @@ traceback.print_stack(*f=None*, *limit=None*, *file=None*)
 
     Changed in version 3.5: Added negative *limit* support.
 
-traceback.extract_tb(*tb*, *limit=None*)
+`traceback.extract_tb(tb, limit=None)`
 :   Return a [`StackSummary`](traceback.md#traceback.StackSummary "traceback.StackSummary") object representing a list of “pre-processed”
     stack trace entries extracted from the
     [traceback object](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects) *tb*. It is useful
@@ -127,18 +127,18 @@ traceback.extract_tb(*tb*, *limit=None*)
     [`name`](traceback.md#traceback.FrameSummary.name "traceback.FrameSummary.name"), and [`line`](traceback.md#traceback.FrameSummary.line "traceback.FrameSummary.line") representing the
     information that is usually printed for a stack trace.
 
-traceback.extract_stack(*f=None*, *limit=None*)
+`traceback.extract_stack(f=None, limit=None)`
 :   Extract the raw traceback from the current
     [stack frame](https://docs.python.org/3.12/reference/datamodel.html#frame-objects). The return value has
     the same format as for [`extract_tb()`](traceback.md#traceback.extract_tb "traceback.extract_tb"). The optional *f* and *limit*
     arguments have the same meaning as for [`print_stack()`](traceback.md#traceback.print_stack "traceback.print_stack").
 
-traceback.print_list(*extracted_list*, *file=None*)
+`traceback.print_list(extracted_list, file=None)`
 :   Print the list of tuples as returned by [`extract_tb()`](traceback.md#traceback.extract_tb "traceback.extract_tb") or
     [`extract_stack()`](traceback.md#traceback.extract_stack "traceback.extract_stack") as a formatted stack trace to the given file.
     If *file* is `None`, the output is written to [`sys.stderr`](sys.md#sys.stderr "sys.stderr").
 
-traceback.format_list(*extracted_list*)
+`traceback.format_list(extracted_list)`
 :   Given a list of tuples or [`FrameSummary`](traceback.md#traceback.FrameSummary "traceback.FrameSummary") objects as returned by
     [`extract_tb()`](traceback.md#traceback.extract_tb "traceback.extract_tb") or [`extract_stack()`](traceback.md#traceback.extract_stack "traceback.extract_stack"), return a list of strings ready
     for printing. Each string in the resulting list corresponds to the item with
@@ -146,7 +146,7 @@ traceback.format_list(*extracted_list*)
     strings may contain internal newlines as well, for those items whose source
     text line is not `None`.
 
-traceback.format_exception_only(*exc*, */*[, *value*])
+`traceback.format_exception_only(exc, /[, value])`
 :   Format the exception part of a traceback using an exception value such as
     given by [`sys.last_value`](sys.md#sys.last_value "sys.last_value"). The return value is a list of strings, each
     ending in a newline. The list contains the exception’s message, which is
@@ -165,7 +165,7 @@ traceback.format_exception_only(*exc*, */*[, *value*])
     Changed in version 3.11: The returned list now includes any
     [`notes`](exceptions.md#BaseException.__notes__ "BaseException.__notes__") attached to the exception.
 
-traceback.format_exception(*exc*, */*, [*value*, *tb*, ]*limit=None*, *chain=True*)
+`traceback.format_exception(exc, /, [value, tb, ]limit=None, chain=True)`
 :   Format a stack trace and the exception information. The arguments have the
     same meaning as the corresponding arguments to [`print_exception()`](traceback.md#traceback.print_exception "traceback.print_exception"). The
     return value is a list of strings, each ending in a newline and some
@@ -177,17 +177,17 @@ traceback.format_exception(*exc*, */*, [*value*, *tb*, ]*limit=None*, *chain=Tru
     Changed in version 3.10: This function’s behavior and signature were modified to match
     [`print_exception()`](traceback.md#traceback.print_exception "traceback.print_exception").
 
-traceback.format_exc(*limit=None*, *chain=True*)
+`traceback.format_exc(limit=None, chain=True)`
 :   This is like `print_exc(limit)` but returns a string instead of printing to
     a file.
 
-traceback.format_tb(*tb*, *limit=None*)
+`traceback.format_tb(tb, limit=None)`
 :   A shorthand for `format_list(extract_tb(tb, limit))`.
 
-traceback.format_stack(*f=None*, *limit=None*)
+`traceback.format_stack(f=None, limit=None)`
 :   A shorthand for `format_list(extract_stack(f, limit))`.
 
-traceback.clear_frames(*tb*)
+`traceback.clear_frames(tb)`
 :   Clears the local variables of all the stack frames in a
     [traceback](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects) *tb*
     by calling the [`clear()`](https://docs.python.org/3.12/reference/datamodel.html#frame.clear "frame.clear") method of each
@@ -195,7 +195,7 @@ traceback.clear_frames(*tb*)
 
     Added in version 3.4.
 
-traceback.walk_stack(*f*)
+`traceback.walk_stack(f)`
 :   Walk a stack following [`f.f_back`](https://docs.python.org/3.12/reference/datamodel.html#frame.f_back "frame.f_back") from the given frame,
     yielding the frame
     and line number for each frame. If *f* is `None`, the current stack is
@@ -203,7 +203,7 @@ traceback.walk_stack(*f*)
 
     Added in version 3.5.
 
-traceback.walk_tb(*tb*)
+`traceback.walk_tb(tb)`
 :   Walk a traceback following [`tb_next`](https://docs.python.org/3.12/reference/datamodel.html#traceback.tb_next "traceback.tb_next") yielding the frame and
     line number
     for each frame. This helper is used with [`StackSummary.extract()`](traceback.md#traceback.StackSummary.extract "traceback.StackSummary.extract").
@@ -221,7 +221,7 @@ storing this information by avoiding holding references to
 In addition, they expose more options to configure the output compared to
 the module-level functions described above.
 
-*class* traceback.TracebackException(*exc_type*, *exc_value*, *exc_traceback*, *\**, *limit=None*, *lookup_lines=True*, *capture_locals=False*, *compact=False*, *max_group_width=15*, *max_group_depth=10*)
+`class traceback.TracebackException(exc_type, exc_value, exc_traceback, *, limit=None, lookup_lines=True, capture_locals=False, compact=False, max_group_width=15, max_group_depth=10)`
 :   Capture an exception for later rendering. The meaning of *limit*,
     *lookup_lines* and *capture_locals* are as for the [`StackSummary`](traceback.md#traceback.StackSummary "traceback.StackSummary")
     class.
@@ -244,26 +244,26 @@ the module-level functions described above.
 
     Changed in version 3.11: Added the *max_group_width* and *max_group_depth* parameters.
 
-    __cause__
+    `__cause__`
     :   A `TracebackException` of the original
         [`__cause__`](exceptions.md#BaseException.__cause__ "BaseException.__cause__").
 
-    __context__
+    `__context__`
     :   A `TracebackException` of the original
         [`__context__`](exceptions.md#BaseException.__context__ "BaseException.__context__").
 
-    exceptions
+    `exceptions`
     :   If `self` represents an [`ExceptionGroup`](exceptions.md#ExceptionGroup "ExceptionGroup"), this field holds a list of
         `TracebackException` instances representing the nested exceptions.
         Otherwise it is `None`.
 
         Added in version 3.11.
 
-    __suppress_context__
+    `__suppress_context__`
     :   The [`__suppress_context__`](exceptions.md#BaseException.__suppress_context__ "BaseException.__suppress_context__") value from the original
         exception.
 
-    __notes__
+    `__notes__`
     :   The [`__notes__`](exceptions.md#BaseException.__notes__ "BaseException.__notes__") value from the original exception,
         or `None`
         if the exception does not have any notes. If it is not `None`
@@ -271,52 +271,52 @@ the module-level functions described above.
 
         Added in version 3.11.
 
-    stack
+    `stack`
     :   A [`StackSummary`](traceback.md#traceback.StackSummary "traceback.StackSummary") representing the traceback.
 
-    exc_type
+    `exc_type`
     :   The class of the original traceback.
 
-    filename
+    `filename`
     :   For syntax errors - the file name where the error occurred.
 
-    lineno
+    `lineno`
     :   For syntax errors - the line number where the error occurred.
 
-    end_lineno
+    `end_lineno`
     :   For syntax errors - the end line number where the error occurred.
         Can be `None` if not present.
 
         Added in version 3.10.
 
-    text
+    `text`
     :   For syntax errors - the text where the error occurred.
 
-    offset
+    `offset`
     :   For syntax errors - the offset into the text where the error occurred.
 
-    end_offset
+    `end_offset`
     :   For syntax errors - the end offset into the text where the error occurred.
         Can be `None` if not present.
 
         Added in version 3.10.
 
-    msg
+    `msg`
     :   For syntax errors - the compiler error message.
 
-    *classmethod* from_exception(*exc*, *\**, *limit=None*, *lookup_lines=True*, *capture_locals=False*)
+    `classmethod from_exception(exc, *, limit=None, lookup_lines=True, capture_locals=False)`
     :   Capture an exception for later rendering. *limit*, *lookup_lines* and
         *capture_locals* are as for the [`StackSummary`](traceback.md#traceback.StackSummary "traceback.StackSummary") class.
 
         Note that when locals are captured, they are also shown in the traceback.
 
-    print(*\**, *file=None*, *chain=True*)
+    `print(*, file=None, chain=True)`
     :   Print to *file* (default `sys.stderr`) the exception information returned by
         [`format()`](functions.md#format "format").
 
         Added in version 3.11.
 
-    format(*\**, *chain=True*)
+    `format(*, chain=True)`
     :   Format the exception.
 
         If *chain* is not `True`, [`__cause__`](traceback.md#traceback.TracebackException.__cause__ "traceback.TracebackException.__cause__") and [`__context__`](traceback.md#traceback.TracebackException.__context__ "traceback.TracebackException.__context__")
@@ -326,7 +326,7 @@ the module-level functions described above.
         some containing internal newlines. [`print_exception()`](traceback.md#traceback.print_exception "traceback.print_exception")
         is a wrapper around this method which just prints the lines to a file.
 
-    format_exception_only()
+    `format_exception_only()`
     :   Format the exception part of the traceback.
 
         The return value is a generator of strings, each ending in a newline.
@@ -346,8 +346,8 @@ Added in version 3.5.
 
 `StackSummary` objects represent a call stack ready for formatting.
 
-*class* traceback.StackSummary
-:   *classmethod* extract(*frame_gen*, *\**, *limit=None*, *lookup_lines=True*, *capture_locals=False*)
+`class traceback.StackSummary`
+:   `classmethod extract(frame_gen, *, limit=None, lookup_lines=True, capture_locals=False)`
     :   Construct a `StackSummary` object from a frame generator (such as
         is returned by [`walk_stack()`](traceback.md#traceback.walk_stack "traceback.walk_stack") or
         [`walk_tb()`](traceback.md#traceback.walk_tb "traceback.walk_tb")).
@@ -363,13 +363,13 @@ Added in version 3.5.
         Changed in version 3.12: Exceptions raised from [`repr()`](functions.md#repr "repr") on a local variable (when
         *capture_locals* is `True`) are no longer propagated to the caller.
 
-    *classmethod* from_list(*a_list*)
+    `classmethod from_list(a_list)`
     :   Construct a `StackSummary` object from a supplied list of
         [`FrameSummary`](traceback.md#traceback.FrameSummary "traceback.FrameSummary") objects or old-style list of tuples. Each tuple
         should be a 4-tuple with *filename*, *lineno*, *name*, *line* as the
         elements.
 
-    format()
+    `format()`
     :   Returns a list of strings ready for printing. Each string in the
         resulting list corresponds to a single [frame](https://docs.python.org/3.12/reference/datamodel.html#frame-objects) from
         the stack.
@@ -382,7 +382,7 @@ Added in version 3.5.
 
         Changed in version 3.6: Long sequences of repeated frames are now abbreviated.
 
-    format_frame_summary(*frame_summary*)
+    `format_frame_summary(frame_summary)`
     :   Returns a string for printing one of the [frames](https://docs.python.org/3.12/reference/datamodel.html#frame-objects)
         involved in the stack.
         This method is called for each [`FrameSummary`](traceback.md#traceback.FrameSummary "traceback.FrameSummary") object to be
@@ -398,7 +398,7 @@ Added in version 3.5.
 A `FrameSummary` object represents a single [frame](https://docs.python.org/3.12/reference/datamodel.html#frame-objects)
 in a [traceback](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects).
 
-*class* traceback.FrameSummary(*filename*, *lineno*, *name*, *\**, *lookup_line=True*, *locals=None*, *line=None*, *end_lineno=None*, *colno=None*, *end_colno=None*)
+`class traceback.FrameSummary(filename, lineno, name, *, lookup_line=True, locals=None, line=None, end_lineno=None, colno=None, end_colno=None)`
 :   Represents a single [frame](https://docs.python.org/3.12/reference/datamodel.html#frame-objects) in the
     [traceback](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects) or stack that is being formatted
     or printed. It may optionally have a stringified version of the frame’s
@@ -412,32 +412,32 @@ in a [traceback](https://docs.python.org/3.12/reference/datamodel.html#traceback
 
     `FrameSummary` instances have the following attributes:
 
-    filename
+    `filename`
     :   The filename of the source code for this frame. Equivalent to accessing
         [`f.f_code.co_filename`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_filename "codeobject.co_filename") on a
         [frame object](https://docs.python.org/3.12/reference/datamodel.html#frame-objects) *f*.
 
-    lineno
+    `lineno`
     :   The line number of the source code for this frame.
 
-    name
+    `name`
     :   Equivalent to accessing [`f.f_code.co_name`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_name "codeobject.co_name") on
         a [frame object](https://docs.python.org/3.12/reference/datamodel.html#frame-objects) *f*.
 
-    line
+    `line`
     :   A string representing the source code for this frame, with leading and
         trailing whitespace stripped.
         If the source is not available, it is `None`.
 
-    end_lineno
+    `end_lineno`
     :   The last line number of the source code for this frame.
         By default, it is set to `None` and indexation starts from 1.
 
-    colno
+    `colno`
     :   The column number of the source code for this frame.
         By default, it is `None` and indexation starts from 0.
 
-    end_colno
+    `end_colno`
     :   The last column number of the source code for this frame.
         By default, it is `None` and indexation starts from 0.
 

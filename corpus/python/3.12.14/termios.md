@@ -27,7 +27,7 @@ control interfaces.
 
 The module defines the following functions:
 
-termios.tcgetattr(*fd*)
+`termios.tcgetattr(fd)`
 :   Return a list containing the tty attributes for file descriptor *fd*, as
     follows: `[iflag, oflag, cflag, lflag, ispeed, ospeed, cc]` where *cc* is a
     list of the tty special characters (each a string of length 1, except the
@@ -36,46 +36,46 @@ termios.tcgetattr(*fd*)
     well as the indexing in the *cc* array must be done using the symbolic
     constants defined in the [`termios`](termios.md#module-termios "termios: POSIX style tty control. (Unix)") module.
 
-termios.tcsetattr(*fd*, *when*, *attributes*)
+`termios.tcsetattr(fd, when, attributes)`
 :   Set the tty attributes for file descriptor *fd* from the *attributes*, which is
     a list like the one returned by [`tcgetattr()`](termios.md#termios.tcgetattr "termios.tcgetattr"). The *when* argument
     determines when the attributes are changed:
 
-    termios.TCSANOW
+    `termios.TCSANOW`
     :   Change attributes immediately.
 
-    termios.TCSADRAIN
+    `termios.TCSADRAIN`
     :   Change attributes after transmitting all queued output.
 
-    termios.TCSAFLUSH
+    `termios.TCSAFLUSH`
     :   Change attributes after transmitting all queued output and
         discarding all queued input.
 
-termios.tcsendbreak(*fd*, *duration*)
+`termios.tcsendbreak(fd, duration)`
 :   Send a break on file descriptor *fd*. A zero *duration* sends a break for
     0.25–0.5 seconds; a nonzero *duration* has a system dependent meaning.
 
-termios.tcdrain(*fd*)
+`termios.tcdrain(fd)`
 :   Wait until all output written to file descriptor *fd* has been transmitted.
 
-termios.tcflush(*fd*, *queue*)
+`termios.tcflush(fd, queue)`
 :   Discard queued data on file descriptor *fd*. The *queue* selector specifies
     which queue: `TCIFLUSH` for the input queue, `TCOFLUSH` for the
     output queue, or `TCIOFLUSH` for both queues.
 
-termios.tcflow(*fd*, *action*)
+`termios.tcflow(fd, action)`
 :   Suspend or resume input or output on file descriptor *fd*. The *action*
     argument can be `TCOOFF` to suspend output, `TCOON` to restart
     output, `TCIOFF` to suspend input, or `TCION` to restart input.
 
-termios.tcgetwinsize(*fd*)
+`termios.tcgetwinsize(fd)`
 :   Return a tuple `(ws_row, ws_col)` containing the tty window size for file
     descriptor *fd*. Requires `termios.TIOCGWINSZ` or
     `termios.TIOCGSIZE`.
 
     Added in version 3.11.
 
-termios.tcsetwinsize(*fd*, *winsize*)
+`termios.tcsetwinsize(fd, winsize)`
 :   Set the tty window size for file descriptor *fd* from *winsize*, which is
     a two-item tuple `(ws_row, ws_col)` like the one returned by
     [`tcgetwinsize()`](termios.md#termios.tcgetwinsize "termios.tcgetwinsize"). Requires at least one of the pairs

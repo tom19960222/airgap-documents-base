@@ -13,7 +13,7 @@ fetched_at: 2026-09-17T15:33:50+00:00
 
 This module defines utilities to manipulate HTML.
 
-html.escape(*s*, *quote=True*)
+`html.escape(s, quote=True)`
 :   Convert the characters `&`, `<` and `>` in string *s* to HTML-safe
     sequences. Use this if you need to display text that might contain such
     characters in HTML. If the optional flag *quote* is true, the characters
@@ -22,7 +22,7 @@ html.escape(*s*, *quote=True*)
 
     Added in version 3.2.
 
-html.unescape(*s*)
+`html.unescape(s)`
 :   Convert all named and numeric character references (e.g. `&gt;`,
     `&#62;`, `&#x3e;`) in the string *s* to the corresponding Unicode
     characters. This function uses the rules defined by the HTML 5 standard

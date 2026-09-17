@@ -25,35 +25,35 @@ implemented in native Python rather than C.
 
 The module defines the following items:
 
-*exception* zipfile.BadZipFile
+`exception zipfile.BadZipFile`
 :   The error raised for bad ZIP files.
 
     Added in version 3.2.
 
-*exception* zipfile.BadZipfile
+`exception zipfile.BadZipfile`
 :   Alias of [`BadZipFile`](zipfile.md#zipfile.BadZipFile "zipfile.BadZipFile"), for compatibility with older Python versions.
 
     Deprecated since version 3.2.
 
-*exception* zipfile.LargeZipFile
+`exception zipfile.LargeZipFile`
 :   The error raised when a ZIP file would require ZIP64 functionality but that has
     not been enabled.
 
-*class* zipfile.ZipFile
+`class zipfile.ZipFile`
 :   The class for reading and writing ZIP files. See section
     [ZipFile Objects](zipfile.md#zipfile-objects) for constructor details.
 
-*class* zipfile.Path
+`class zipfile.Path`
 :   Class that implements a subset of the interface provided by
     [`pathlib.Path`](pathlib.md#pathlib.Path "pathlib.Path"), including the full
     [`importlib.resources.abc.Traversable`](importlib.resources.abc.md#importlib.resources.abc.Traversable "importlib.resources.abc.Traversable") interface.
 
     Added in version 3.8.
 
-*class* zipfile.PyZipFile
+`class zipfile.PyZipFile`
 :   Class for creating ZIP archives containing Python libraries.
 
-*class* zipfile.ZipInfo(*filename='NoName'*, *date_time=(1980, 1, 1, 0, 0, 0)*)
+`class zipfile.ZipInfo(filename='NoName', date_time=(1980, 1, 1, 0, 0, 0))`
 :   Class used to represent information about a member of an archive. Instances
     of this class are returned by the [`getinfo()`](zipfile.md#zipfile.ZipFile.getinfo "zipfile.ZipFile.getinfo") and [`infolist()`](zipfile.md#zipfile.ZipFile.infolist "zipfile.ZipFile.infolist")
     methods of [`ZipFile`](zipfile.md#zipfile.ZipFile "zipfile.ZipFile") objects. Most users of the [`zipfile`](zipfile.md#module-zipfile "zipfile: Read and write ZIP-format archive files.") module
@@ -63,26 +63,26 @@ The module defines the following items:
     of the last modification to the file; the fields are described in section
     [ZipInfo Objects](zipfile.md#zipinfo-objects).
 
-zipfile.is_zipfile(*filename*)
+`zipfile.is_zipfile(filename)`
 :   Returns `True` if *filename* is a valid ZIP file based on its magic number,
     otherwise returns `False`. *filename* may be a file or file-like object too.
 
     Changed in version 3.1: Support for file and file-like objects.
 
-zipfile.ZIP_STORED
+`zipfile.ZIP_STORED`
 :   The numeric constant for an uncompressed archive member.
 
-zipfile.ZIP_DEFLATED
+`zipfile.ZIP_DEFLATED`
 :   The numeric constant for the usual ZIP compression method. This requires the
     [`zlib`](zlib.md#module-zlib "zlib: Low-level interface to compression and decompression routines compatible with gzip.") module.
 
-zipfile.ZIP_BZIP2
+`zipfile.ZIP_BZIP2`
 :   The numeric constant for the BZIP2 compression method. This requires the
     [`bz2`](bz2.md#module-bz2 "bz2: Interfaces for bzip2 compression and decompression.") module.
 
     Added in version 3.3.
 
-zipfile.ZIP_LZMA
+`zipfile.ZIP_LZMA`
 :   The numeric constant for the LZMA compression method. This requires the
     [`lzma`](lzma.md#module-lzma "lzma: A Python wrapper for the liblzma compression library.") module.
 
@@ -108,7 +108,7 @@ zipfile.ZIP_LZMA
 
 ## ZipFile Objects
 
-*class* zipfile.ZipFile(*file*, *mode='r'*, *compression=ZIP_STORED*, *allowZip64=True*, *compresslevel=None*, *\**, *strict_timestamps=True*, *metadata_encoding=None*)
+`class zipfile.ZipFile(file, mode='r', compression=ZIP_STORED, allowZip64=True, compresslevel=None, *, strict_timestamps=True, metadata_encoding=None)`
 :   Open a ZIP file, where *file* can be a path to a file (a string), a
     file-like object or a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
@@ -202,24 +202,24 @@ zipfile.ZIP_LZMA
     Changed in version 3.11: Added support for specifying member name encoding for reading
     metadata in the zipfile’s directory and file headers.
 
-ZipFile.close()
+`ZipFile.close()`
 :   Close the archive file. You must call [`close()`](zipfile.md#zipfile.ZipFile.close "zipfile.ZipFile.close") before exiting your program
     or essential records will not be written.
 
-ZipFile.getinfo(*name*)
+`ZipFile.getinfo(name)`
 :   Return a [`ZipInfo`](zipfile.md#zipfile.ZipInfo "zipfile.ZipInfo") object with information about the archive member
     *name*. Calling [`getinfo()`](zipfile.md#zipfile.ZipFile.getinfo "zipfile.ZipFile.getinfo") for a name not currently contained in the
     archive will raise a [`KeyError`](exceptions.md#KeyError "KeyError").
 
-ZipFile.infolist()
+`ZipFile.infolist()`
 :   Return a list containing a [`ZipInfo`](zipfile.md#zipfile.ZipInfo "zipfile.ZipInfo") object for each member of the
     archive. The objects are in the same order as their entries in the actual ZIP
     file on disk if an existing archive was opened.
 
-ZipFile.namelist()
+`ZipFile.namelist()`
 :   Return a list of archive members by name.
 
-ZipFile.open(*name*, *mode='r'*, *pwd=None*, *\**, *force_zip64=False*)
+`ZipFile.open(name, mode='r', pwd=None, *, force_zip64=False)`
 :   Access a member of the archive as a binary file-like object. *name*
     can be either the name of a file within the archive or a [`ZipInfo`](zipfile.md#zipfile.ZipInfo "zipfile.ZipInfo")
     object. The *mode* parameter, if included, must be `'r'` (the default)
@@ -268,7 +268,7 @@ ZipFile.open(*name*, *mode='r'*, *pwd=None*, *\**, *force_zip64=False*)
     Changed in version 3.6: Calling [`open()`](zipfile.md#zipfile.ZipFile.open "zipfile.ZipFile.open") on a closed ZipFile will raise a [`ValueError`](exceptions.md#ValueError "ValueError").
     Previously, a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") was raised.
 
-ZipFile.extract(*member*, *path=None*, *pwd=None*)
+`ZipFile.extract(member, path=None, pwd=None)`
 :   Extract a member from the archive to the current working directory; *member*
     must be its full name or a [`ZipInfo`](zipfile.md#zipfile.ZipInfo "zipfile.ZipInfo") object. Its file information is
     extracted as accurately as possible. *path* specifies a different directory
@@ -292,7 +292,7 @@ ZipFile.extract(*member*, *path=None*, *pwd=None*)
 
     Changed in version 3.6.2: The *path* parameter accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-ZipFile.extractall(*path=None*, *members=None*, *pwd=None*)
+`ZipFile.extractall(path=None, members=None, pwd=None)`
 :   Extract all members from the archive to the current working directory. *path*
     specifies a different directory to extract to. *members* is optional and must
     be a subset of the list returned by [`namelist()`](zipfile.md#zipfile.ZipFile.namelist "zipfile.ZipFile.namelist"). *pwd* is the password
@@ -311,13 +311,13 @@ ZipFile.extractall(*path=None*, *members=None*, *pwd=None*)
 
     Changed in version 3.6.2: The *path* parameter accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-ZipFile.printdir()
+`ZipFile.printdir()`
 :   Print a table of contents for the archive to `sys.stdout`.
 
-ZipFile.setpassword(*pwd*)
+`ZipFile.setpassword(pwd)`
 :   Set *pwd* (a [`bytes`](stdtypes.md#bytes "bytes") object) as default password to extract encrypted files.
 
-ZipFile.read(*name*, *pwd=None*)
+`ZipFile.read(name, pwd=None)`
 :   Return the bytes of the file *name* in the archive. *name* is the name of the
     file in the archive, or a [`ZipInfo`](zipfile.md#zipfile.ZipInfo "zipfile.ZipInfo") object. The archive must be open for
     read or append. *pwd* is the password used for encrypted files as a [`bytes`](stdtypes.md#bytes "bytes")
@@ -330,14 +330,14 @@ ZipFile.read(*name*, *pwd=None*)
     Changed in version 3.6: Calling [`read()`](zipfile.md#zipfile.ZipFile.read "zipfile.ZipFile.read") on a closed ZipFile will raise a [`ValueError`](exceptions.md#ValueError "ValueError").
     Previously, a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") was raised.
 
-ZipFile.testzip()
+`ZipFile.testzip()`
 :   Read all the files in the archive and check their CRC’s and file headers.
     Return the name of the first bad file, or else return `None`.
 
     Changed in version 3.6: Calling [`testzip()`](zipfile.md#zipfile.ZipFile.testzip "zipfile.ZipFile.testzip") on a closed ZipFile will raise a
     [`ValueError`](exceptions.md#ValueError "ValueError"). Previously, a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") was raised.
 
-ZipFile.write(*filename*, *arcname=None*, *compress_type=None*, *compresslevel=None*)
+`ZipFile.write(filename, arcname=None, compress_type=None, compresslevel=None)`
 :   Write the file named *filename* to the archive, giving it the archive name
     *arcname* (by default, this will be the same as *filename*, but without a drive
     letter and with leading path separators removed). If given, *compress_type*
@@ -374,7 +374,7 @@ ZipFile.write(*filename*, *arcname=None*, *compress_type=None*, *compresslevel=N
     a closed ZipFile will raise a [`ValueError`](exceptions.md#ValueError "ValueError"). Previously,
     a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") was raised.
 
-ZipFile.writestr(*zinfo_or_arcname*, *data*, *compress_type=None*, *compresslevel=None*)
+`ZipFile.writestr(zinfo_or_arcname, data, compress_type=None, compresslevel=None)`
 :   Write a file into the archive. The contents is *data*, which may be either
     a [`str`](stdtypes.md#str "str") or a [`bytes`](stdtypes.md#bytes "bytes") instance; if it is a [`str`](stdtypes.md#str "str"),
     it is encoded as UTF-8 first. *zinfo_or_arcname* is either the file
@@ -401,7 +401,7 @@ ZipFile.writestr(*zinfo_or_arcname*, *data*, *compress_type=None*, *compressleve
     a closed ZipFile will raise a [`ValueError`](exceptions.md#ValueError "ValueError"). Previously,
     a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") was raised.
 
-ZipFile.mkdir(*zinfo_or_directory*, *mode=511*)
+`ZipFile.mkdir(zinfo_or_directory, mode=511)`
 :   Create a directory inside the archive. If *zinfo_or_directory* is a string,
     a directory is created inside the archive with the mode that is specified in
     the *mode* argument. If, however, *zinfo_or_directory* is
@@ -413,15 +413,15 @@ ZipFile.mkdir(*zinfo_or_directory*, *mode=511*)
 
 The following data attributes are also available:
 
-ZipFile.filename
+`ZipFile.filename`
 :   Name of the ZIP file.
 
-ZipFile.debug
+`ZipFile.debug`
 :   The level of debug output to use. This may be set from `0` (the default, no
     output) to `3` (the most output). Debugging information is written to
     `sys.stdout`.
 
-ZipFile.comment
+`ZipFile.comment`
 :   The comment associated with the ZIP file as a [`bytes`](stdtypes.md#bytes "bytes") object.
     If assigning a comment to a
     [`ZipFile`](zipfile.md#zipfile.ZipFile "zipfile.ZipFile") instance created with mode `'w'`, `'x'` or `'a'`,
@@ -430,7 +430,7 @@ ZipFile.comment
 
 ## Path Objects
 
-*class* zipfile.Path(*root*, *at=''*)
+`class zipfile.Path(root, at='')`
 :   Construct a Path object from a `root` zipfile (which may be a
     [`ZipFile`](zipfile.md#zipfile.ZipFile "zipfile.ZipFile") instance or `file` suitable for passing to
     the [`ZipFile`](zipfile.md#zipfile.ZipFile "zipfile.ZipFile") constructor).
@@ -453,10 +453,10 @@ objects:
 
 Path objects are traversable using the `/` operator or `joinpath`.
 
-Path.name
+`Path.name`
 :   The final path component.
 
-Path.open(*mode='r'*, *\**, *pwd*, *\*\**)
+`Path.open(mode='r', *, pwd, **)`
 :   Invoke [`ZipFile.open()`](zipfile.md#zipfile.ZipFile.open "zipfile.ZipFile.open") on the current path.
     Allows opening for read or write, text or binary
     through supported modes: ‘r’, ‘w’, ‘rb’, ‘wb’.
@@ -474,35 +474,35 @@ Path.open(*mode='r'*, *\**, *pwd*, *\*\**)
     be compatible with unpatched 3.10 and 3.11 versions must pass all
     [`io.TextIOWrapper`](io.md#io.TextIOWrapper "io.TextIOWrapper") arguments, `encoding` included, as keywords.
 
-Path.iterdir()
+`Path.iterdir()`
 :   Enumerate the children of the current directory.
 
-Path.is_dir()
+`Path.is_dir()`
 :   Return `True` if the current context references a directory.
 
-Path.is_file()
+`Path.is_file()`
 :   Return `True` if the current context references a file.
 
-Path.exists()
+`Path.exists()`
 :   Return `True` if the current context references a file or
     directory in the zip file.
 
-Path.suffix
+`Path.suffix`
 :   The file extension of the final component.
 
     Added in version 3.11: Added [`Path.suffix`](zipfile.md#zipfile.Path.suffix "zipfile.Path.suffix") property.
 
-Path.stem
+`Path.stem`
 :   The final path component, without its suffix.
 
     Added in version 3.11: Added [`Path.stem`](zipfile.md#zipfile.Path.stem "zipfile.Path.stem") property.
 
-Path.suffixes
+`Path.suffixes`
 :   A list of the path’s file extensions.
 
     Added in version 3.11: Added [`Path.suffixes`](zipfile.md#zipfile.Path.suffixes "zipfile.Path.suffixes") property.
 
-Path.read_text(*\**, *\*\**)
+`Path.read_text(*, **)`
 :   Read the current file as unicode text. Positional and
     keyword arguments are passed through to
     [`io.TextIOWrapper`](io.md#io.TextIOWrapper "io.TextIOWrapper") (except `buffer`, which is
@@ -513,10 +513,10 @@ Path.read_text(*\**, *\*\**)
     be compatible with unpatched 3.10 and 3.11 versions must pass all
     [`io.TextIOWrapper`](io.md#io.TextIOWrapper "io.TextIOWrapper") arguments, `encoding` included, as keywords.
 
-Path.read_bytes()
+`Path.read_bytes()`
 :   Read the current file as bytes.
 
-Path.joinpath(*\*other*)
+`Path.joinpath(*other)`
 :   Return a new Path object with each of the *other* arguments
     joined. The following are equivalent:
 
@@ -539,14 +539,14 @@ changes.
 The [`PyZipFile`](zipfile.md#zipfile.PyZipFile "zipfile.PyZipFile") constructor takes the same parameters as the
 [`ZipFile`](zipfile.md#zipfile.ZipFile "zipfile.ZipFile") constructor, and one additional parameter, *optimize*.
 
-*class* zipfile.PyZipFile(*file*, *mode='r'*, *compression=ZIP_STORED*, *allowZip64=True*, *optimize=-1*)
+`class zipfile.PyZipFile(file, mode='r', compression=ZIP_STORED, allowZip64=True, optimize=-1)`
 :   Changed in version 3.2: Added the *optimize* parameter.
 
     Changed in version 3.4: ZIP64 extensions are enabled by default.
 
     Instances have one method in addition to those of [`ZipFile`](zipfile.md#zipfile.ZipFile "zipfile.ZipFile") objects:
 
-    writepy(*pathname*, *basename=''*, *filterfunc=None*)
+    `writepy(pathname, basename='', filterfunc=None)`
     :   Search for files `*.py` and add the corresponding file to the
         archive.
 
@@ -612,7 +612,7 @@ information about a single member of the ZIP archive.
 There is one classmethod to make a [`ZipInfo`](zipfile.md#zipfile.ZipInfo "zipfile.ZipInfo") instance for a filesystem
 file:
 
-*classmethod* ZipInfo.from_file(*filename*, *arcname=None*, *\**, *strict_timestamps=True*)
+`classmethod ZipInfo.from_file(filename, arcname=None, *, strict_timestamps=True)`
 :   Construct a [`ZipInfo`](zipfile.md#zipfile.ZipInfo "zipfile.ZipInfo") instance for a file on the filesystem, in
     preparation for adding it to a zip file.
 
@@ -636,17 +636,17 @@ file:
 
 Instances have the following methods and attributes:
 
-ZipInfo.is_dir()
+`ZipInfo.is_dir()`
 :   Return `True` if this archive member is a directory.
 
     This uses the entry’s name: directories should always end with `/`.
 
     Added in version 3.6.
 
-ZipInfo.filename
+`ZipInfo.filename`
 :   Name of the file in the archive.
 
-ZipInfo.date_time
+`ZipInfo.date_time`
 :   The time and date of the last modification to the archive member. This is a
     tuple of six values:
 
@@ -663,51 +663,51 @@ ZipInfo.date_time
     >
     > The ZIP file format does not support timestamps before 1980.
 
-ZipInfo.compress_type
+`ZipInfo.compress_type`
 :   Type of compression for the archive member.
 
-ZipInfo.comment
+`ZipInfo.comment`
 :   Comment for the individual archive member as a [`bytes`](stdtypes.md#bytes "bytes") object.
 
-ZipInfo.extra
+`ZipInfo.extra`
 :   Expansion field data. The [PKZIP Application Note](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT) contains
     some comments on the internal structure of the data contained in this
     [`bytes`](stdtypes.md#bytes "bytes") object.
 
-ZipInfo.create_system
+`ZipInfo.create_system`
 :   System which created ZIP archive.
 
-ZipInfo.create_version
+`ZipInfo.create_version`
 :   PKZIP version which created ZIP archive.
 
-ZipInfo.extract_version
+`ZipInfo.extract_version`
 :   PKZIP version needed to extract archive.
 
-ZipInfo.reserved
+`ZipInfo.reserved`
 :   Must be zero.
 
-ZipInfo.flag_bits
+`ZipInfo.flag_bits`
 :   ZIP flag bits.
 
-ZipInfo.volume
+`ZipInfo.volume`
 :   Volume number of file header.
 
-ZipInfo.internal_attr
+`ZipInfo.internal_attr`
 :   Internal attributes.
 
-ZipInfo.external_attr
+`ZipInfo.external_attr`
 :   External file attributes.
 
-ZipInfo.header_offset
+`ZipInfo.header_offset`
 :   Byte offset to the file header.
 
-ZipInfo.CRC
+`ZipInfo.CRC`
 :   CRC-32 of the uncompressed file.
 
-ZipInfo.compress_size
+`ZipInfo.compress_size`
 :   Size of the compressed data.
 
-ZipInfo.file_size
+`ZipInfo.file_size`
 :   Size of the uncompressed file.
 
 ## Command-Line Interface
@@ -743,27 +743,27 @@ $ python -m zipfile -l monty.zip
 
 ### Command-line options
 
--l <zipfile>
+`-l <zipfile>`
 
---list <zipfile>
+`--list <zipfile>`
 :   List files in a zipfile.
 
--c <zipfile> <source1> ... <sourceN>
+`-c <zipfile> <source1> ... <sourceN>`
 
---create <zipfile> <source1> ... <sourceN>
+`--create <zipfile> <source1> ... <sourceN>`
 :   Create zipfile from source files.
 
--e <zipfile> <output_dir>
+`-e <zipfile> <output_dir>`
 
---extract <zipfile> <output_dir>
+`--extract <zipfile> <output_dir>`
 :   Extract zipfile into target directory.
 
--t <zipfile>
+`-t <zipfile>`
 
---test <zipfile>
+`--test <zipfile>`
 :   Test whether the zipfile is valid or not.
 
---metadata-encoding <encoding>
+`--metadata-encoding <encoding>`
 :   Specify encoding of member names for [`-l`](zipfile.md#cmdoption-zipfile-l), [`-e`](zipfile.md#cmdoption-zipfile-e) and
     [`-t`](zipfile.md#cmdoption-zipfile-t).
 

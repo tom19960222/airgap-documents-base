@@ -257,12 +257,12 @@ The module [`socket`](socket.md#module-socket "socket: Low-level networking inte
 
 ### Exceptions
 
-*exception* socket.error
+`exception socket.error`
 :   A deprecated alias of [`OSError`](exceptions.md#OSError "OSError").
 
     Changed in version 3.3: Following [**PEP 3151**](https://peps.python.org/pep-3151/), this class was made an alias of [`OSError`](exceptions.md#OSError "OSError").
 
-*exception* socket.herror
+`exception socket.herror`
 :   A subclass of [`OSError`](exceptions.md#OSError "OSError"), this exception is raised for
     address-related errors, i.e. for functions that use *h_errno* in the POSIX
     C API, including [`gethostbyname_ex()`](socket.md#socket.gethostbyname_ex "socket.gethostbyname_ex") and [`gethostbyaddr()`](socket.md#socket.gethostbyaddr "socket.gethostbyaddr").
@@ -273,7 +273,7 @@ The module [`socket`](socket.md#module-socket "socket: Low-level networking inte
 
     Changed in version 3.3: This class was made a subclass of [`OSError`](exceptions.md#OSError "OSError").
 
-*exception* socket.gaierror
+`exception socket.gaierror`
 :   A subclass of [`OSError`](exceptions.md#OSError "OSError"), this exception is raised for
     address-related errors by [`getaddrinfo()`](socket.md#socket.getaddrinfo "socket.getaddrinfo") and [`getnameinfo()`](socket.md#socket.getnameinfo "socket.getnameinfo").
     The accompanying value is a pair `(error, string)` representing an error
@@ -284,7 +284,7 @@ The module [`socket`](socket.md#module-socket "socket: Low-level networking inte
 
     Changed in version 3.3: This class was made a subclass of [`OSError`](exceptions.md#OSError "OSError").
 
-*exception* socket.timeout
+`exception socket.timeout`
 :   A deprecated alias of [`TimeoutError`](exceptions.md#TimeoutError "TimeoutError").
 
     A subclass of [`OSError`](exceptions.md#OSError "OSError"), this exception is raised when a timeout
@@ -304,38 +304,38 @@ The module [`socket`](socket.md#module-socket "socket: Low-level networking inte
 >
 > Added in version 3.4.
 
-socket.AF_UNIX
+`socket.AF_UNIX`
 
-socket.AF_INET
+`socket.AF_INET`
 
-socket.AF_INET6
+`socket.AF_INET6`
 :   These constants represent the address (and protocol) families, used for the
     first argument to [`socket()`](socket.md#socket.socket "socket.socket"). If the [`AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX") constant is not
     defined then this protocol is unsupported. More constants may be available
     depending on the system.
 
-socket.AF_UNSPEC
+`socket.AF_UNSPEC`
 :   [`AF_UNSPEC`](socket.md#socket.AF_UNSPEC "socket.AF_UNSPEC") means that
     [`getaddrinfo()`](socket.md#socket.getaddrinfo "socket.getaddrinfo") should return socket addresses for any
     address family (either IPv4, IPv6, or any other) that can be used.
 
-socket.SOCK_STREAM
+`socket.SOCK_STREAM`
 
-socket.SOCK_DGRAM
+`socket.SOCK_DGRAM`
 
-socket.SOCK_RAW
+`socket.SOCK_RAW`
 
-socket.SOCK_RDM
+`socket.SOCK_RDM`
 
-socket.SOCK_SEQPACKET
+`socket.SOCK_SEQPACKET`
 :   These constants represent the socket types, used for the second argument to
     [`socket()`](socket.md#socket.socket "socket.socket"). More constants may be available depending on the system.
     (Only [`SOCK_STREAM`](socket.md#socket.SOCK_STREAM "socket.SOCK_STREAM") and [`SOCK_DGRAM`](socket.md#socket.SOCK_DGRAM "socket.SOCK_DGRAM") appear to be generally
     useful.)
 
-socket.SOCK_CLOEXEC
+`socket.SOCK_CLOEXEC`
 
-socket.SOCK_NONBLOCK
+`socket.SOCK_NONBLOCK`
 :   These two constants, if defined, can be combined with the socket types and
     allow you to set some flags atomically (thus avoiding possible race
     conditions and the need for separate calls).
@@ -349,33 +349,33 @@ socket.SOCK_NONBLOCK
 
     Added in version 3.2.
 
-SO_\*
+`SO_*`
 
-socket.SOMAXCONN
+`socket.SOMAXCONN`
 
-MSG_\*
+`MSG_*`
 
-SOL_\*
+`SOL_*`
 
-SCM_\*
+`SCM_*`
 
-IPPROTO_\*
+`IPPROTO_*`
 
-IPPORT_\*
+`IPPORT_*`
 
-INADDR_\*
+`INADDR_*`
 
-IP_\*
+`IP_*`
 
-IPV6_\*
+`IPV6_*`
 
-EAI_\*
+`EAI_*`
 
-AI_\*
+`AI_*`
 
-NI_\*
+`NI_*`
 
-TCP_\*
+`TCP_*`
 :   Many constants of these forms, documented in the Unix documentation on sockets
     and/or the IP protocol, are also defined in the socket module. They are
     generally used in arguments to the [`setsockopt()`](socket.md#socket.socket.setsockopt "socket.socket.setsockopt") and [`getsockopt()`](socket.md#socket.socket.getsockopt "socket.socket.getsockopt")
@@ -414,13 +414,13 @@ TCP_\*
     Added `IP_PKTINFO`, `IP_UNBLOCK_SOURCE`, `IP_BLOCK_SOURCE`,
     `IP_ADD_SOURCE_MEMBERSHIP`, `IP_DROP_SOURCE_MEMBERSHIP`.
 
-socket.AF_CAN
+`socket.AF_CAN`
 
-socket.PF_CAN
+`socket.PF_CAN`
 
-SOL_CAN_\*
+`SOL_CAN_*`
 
-CAN_\*
+`CAN_*`
 :   Many constants of these forms, documented in the Linux documentation, are
     also defined in the socket module.
 
@@ -430,9 +430,9 @@ CAN_\*
 
     Changed in version 3.11: NetBSD support was added.
 
-socket.CAN_BCM
+`socket.CAN_BCM`
 
-CAN_BCM_\*
+`CAN_BCM_*`
 :   CAN_BCM, in the CAN protocol family, is the broadcast manager (BCM) protocol.
     Broadcast manager constants, documented in the Linux documentation, are also
     defined in the socket module.
@@ -445,7 +445,7 @@ CAN_BCM_\*
 
     Added in version 3.4.
 
-socket.CAN_RAW_FD_FRAMES
+`socket.CAN_RAW_FD_FRAMES`
 :   Enables CAN FD support in a CAN_RAW socket. This is disabled by default.
     This allows your application to send both CAN and CAN FD frames; however,
     you must accept both CAN and CAN FD frames when reading from the socket.
@@ -456,7 +456,7 @@ socket.CAN_RAW_FD_FRAMES
 
     Added in version 3.5.
 
-socket.CAN_RAW_JOIN_FILTERS
+`socket.CAN_RAW_JOIN_FILTERS`
 :   Joins the applied CAN filters such that only CAN frames that match all
     given CAN filters are passed to user space.
 
@@ -466,7 +466,7 @@ socket.CAN_RAW_JOIN_FILTERS
 
     Added in version 3.9.
 
-socket.CAN_ISOTP
+`socket.CAN_ISOTP`
 :   CAN_ISOTP, in the CAN protocol family, is the ISO-TP (ISO 15765-2) protocol.
     ISO-TP constants, documented in the Linux documentation.
 
@@ -474,7 +474,7 @@ socket.CAN_ISOTP
 
     Added in version 3.7.
 
-socket.CAN_J1939
+`socket.CAN_J1939`
 :   CAN_J1939, in the CAN protocol family, is the SAE J1939 protocol.
     J1939 constants, documented in the Linux documentation.
 
@@ -482,9 +482,9 @@ socket.CAN_J1939
 
     Added in version 3.9.
 
-socket.AF_DIVERT
+`socket.AF_DIVERT`
 
-socket.PF_DIVERT
+`socket.PF_DIVERT`
 :   These two constants, documented in the FreeBSD divert(4) manual page, are
     also defined in the socket module.
 
@@ -492,17 +492,17 @@ socket.PF_DIVERT
 
     Added in version 3.12.
 
-socket.AF_PACKET
+`socket.AF_PACKET`
 
-socket.PF_PACKET
+`socket.PF_PACKET`
 
-PACKET_\*
+`PACKET_*`
 :   Many constants of these forms, documented in the Linux documentation, are
     also defined in the socket module.
 
     [Availability](intro.md#availability): Linux >= 2.2.
 
-socket.ETH_P_ALL
+`socket.ETH_P_ALL`
 :   `ETH_P_ALL` can be used in the [`socket`](socket.md#socket.socket "socket.socket")
     constructor as *proto* for the [`AF_PACKET`](socket.md#socket.AF_PACKET "socket.AF_PACKET") family in order to
     capture every packet, regardless of protocol.
@@ -513,13 +513,13 @@ socket.ETH_P_ALL
 
     Added in version 3.12.
 
-socket.AF_RDS
+`socket.AF_RDS`
 
-socket.PF_RDS
+`socket.PF_RDS`
 
-socket.SOL_RDS
+`socket.SOL_RDS`
 
-RDS_\*
+`RDS_*`
 :   Many constants of these forms, documented in the Linux documentation, are
     also defined in the socket module.
 
@@ -527,84 +527,84 @@ RDS_\*
 
     Added in version 3.3.
 
-socket.SIO_RCVALL
+`socket.SIO_RCVALL`
 
-socket.SIO_KEEPALIVE_VALS
+`socket.SIO_KEEPALIVE_VALS`
 
-socket.SIO_LOOPBACK_FAST_PATH
+`socket.SIO_LOOPBACK_FAST_PATH`
 
-RCVALL_\*
+`RCVALL_*`
 :   Constants for Windows’ WSAIoctl(). The constants are used as arguments to the
     [`ioctl()`](socket.md#socket.socket.ioctl "socket.socket.ioctl") method of socket objects.
 
     Changed in version 3.6: `SIO_LOOPBACK_FAST_PATH` was added.
 
-TIPC_\*
+`TIPC_*`
 :   TIPC related constants, matching the ones exported by the C socket API. See
     the TIPC documentation for more information.
 
-socket.AF_ALG
+`socket.AF_ALG`
 
-socket.SOL_ALG
+`socket.SOL_ALG`
 
-ALG_\*
+`ALG_*`
 :   Constants for Linux Kernel cryptography.
 
     [Availability](intro.md#availability): Linux >= 2.6.38.
 
     Added in version 3.6.
 
-socket.AF_VSOCK
+`socket.AF_VSOCK`
 
-socket.IOCTL_VM_SOCKETS_GET_LOCAL_CID
+`socket.IOCTL_VM_SOCKETS_GET_LOCAL_CID`
 
-VMADDR\*
+`VMADDR*`
 
-SO_VM\*
+`SO_VM*`
 :   Constants for Linux host/guest communication.
 
     [Availability](intro.md#availability): Linux >= 4.8.
 
     Added in version 3.7.
 
-socket.AF_LINK
+`socket.AF_LINK`
 :   [Availability](intro.md#availability): BSD, macOS.
 
     Added in version 3.4.
 
-socket.has_ipv6
+`socket.has_ipv6`
 :   This constant contains a boolean value which indicates if IPv6 is supported on
     this platform.
 
-socket.BDADDR_ANY
+`socket.BDADDR_ANY`
 
-socket.BDADDR_LOCAL
+`socket.BDADDR_LOCAL`
 :   These are string constants containing Bluetooth addresses with special
     meanings. For example, [`BDADDR_ANY`](socket.md#socket.BDADDR_ANY "socket.BDADDR_ANY") can be used to indicate
     any address when specifying the binding socket with
     `BTPROTO_RFCOMM`.
 
-socket.HCI_FILTER
+`socket.HCI_FILTER`
 
-socket.HCI_TIME_STAMP
+`socket.HCI_TIME_STAMP`
 
-socket.HCI_DATA_DIR
+`socket.HCI_DATA_DIR`
 :   For use with `BTPROTO_HCI`. [`HCI_FILTER`](socket.md#socket.HCI_FILTER "socket.HCI_FILTER") is not
     available for NetBSD or DragonFlyBSD. [`HCI_TIME_STAMP`](socket.md#socket.HCI_TIME_STAMP "socket.HCI_TIME_STAMP") and
     [`HCI_DATA_DIR`](socket.md#socket.HCI_DATA_DIR "socket.HCI_DATA_DIR") are not available for FreeBSD, NetBSD, or
     DragonFlyBSD.
 
-socket.AF_QIPCRTR
+`socket.AF_QIPCRTR`
 :   Constant for Qualcomm’s IPC router protocol, used to communicate with
     service providing remote processors.
 
     [Availability](intro.md#availability): Linux >= 4.7.
 
-socket.SCM_CREDS2
+`socket.SCM_CREDS2`
 
-socket.LOCAL_CREDS
+`socket.LOCAL_CREDS`
 
-socket.LOCAL_CREDS_PERSISTENT
+`socket.LOCAL_CREDS_PERSISTENT`
 :   LOCAL_CREDS and LOCAL_CREDS_PERSISTENT can be used
     with SOCK_DGRAM, SOCK_STREAM sockets, equivalent to
     Linux/DragonFlyBSD SO_PASSCRED, while LOCAL_CREDS
@@ -616,7 +616,7 @@ socket.LOCAL_CREDS_PERSISTENT
 
     [Availability](intro.md#availability): FreeBSD.
 
-socket.SO_INCOMING_CPU
+`socket.SO_INCOMING_CPU`
 :   > Constant to optimize CPU locality, to be used in conjunction with
     > `SO_REUSEPORT`.
 
@@ -624,42 +624,42 @@ socket.SO_INCOMING_CPU
 
     [Availability](intro.md#availability): Linux >= 3.9
 
-socket.AF_HYPERV
+`socket.AF_HYPERV`
 
-socket.HV_PROTOCOL_RAW
+`socket.HV_PROTOCOL_RAW`
 
-socket.HVSOCKET_CONNECT_TIMEOUT
+`socket.HVSOCKET_CONNECT_TIMEOUT`
 
-socket.HVSOCKET_CONNECT_TIMEOUT_MAX
+`socket.HVSOCKET_CONNECT_TIMEOUT_MAX`
 
-socket.HVSOCKET_CONNECTED_SUSPEND
+`socket.HVSOCKET_CONNECTED_SUSPEND`
 
-socket.HVSOCKET_ADDRESS_FLAG_PASSTHRU
+`socket.HVSOCKET_ADDRESS_FLAG_PASSTHRU`
 
-socket.HV_GUID_ZERO
+`socket.HV_GUID_ZERO`
 
-socket.HV_GUID_WILDCARD
+`socket.HV_GUID_WILDCARD`
 
-socket.HV_GUID_BROADCAST
+`socket.HV_GUID_BROADCAST`
 
-socket.HV_GUID_CHILDREN
+`socket.HV_GUID_CHILDREN`
 
-socket.HV_GUID_LOOPBACK
+`socket.HV_GUID_LOOPBACK`
 
-socket.HV_GUID_PARENT
+`socket.HV_GUID_PARENT`
 :   Constants for Windows Hyper-V sockets for host/guest communications.
 
     [Availability](intro.md#availability): Windows.
 
     Added in version 3.12.
 
-socket.ETHERTYPE_ARP
+`socket.ETHERTYPE_ARP`
 
-socket.ETHERTYPE_IP
+`socket.ETHERTYPE_IP`
 
-socket.ETHERTYPE_IPV6
+`socket.ETHERTYPE_IPV6`
 
-socket.ETHERTYPE_VLAN
+`socket.ETHERTYPE_VLAN`
 :   [IEEE 802.3 protocol number](https://www.iana.org/assignments/ieee-802-numbers/ieee-802-numbers.txt).
     constants.
 
@@ -667,11 +667,11 @@ socket.ETHERTYPE_VLAN
 
     Added in version 3.12.
 
-socket.SHUT_RD
+`socket.SHUT_RD`
 
-socket.SHUT_WR
+`socket.SHUT_WR`
 
-socket.SHUT_RDWR
+`socket.SHUT_RDWR`
 :   These constants are used by the [`shutdown()`](socket.md#socket.socket.shutdown "socket.socket.shutdown") method of socket objects.
 
     [Availability](intro.md#availability): not WASI.
@@ -682,7 +682,7 @@ socket.SHUT_RDWR
 
 The following functions all create [socket objects](socket.md#socket-objects).
 
-*class* socket.socket(*family=AF_INET*, *type=SOCK_STREAM*, *proto=0*, *fileno=None*)
+`class socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)`
 :   Create a new socket using the given address family, socket type and protocol
     number. The address family should be [`AF_INET`](socket.md#socket.AF_INET "socket.AF_INET") (the default),
     [`AF_INET6`](socket.md#socket.AF_INET6 "socket.AF_INET6"), [`AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX"), [`AF_CAN`](socket.md#socket.AF_CAN "socket.AF_CAN"), [`AF_PACKET`](socket.md#socket.AF_PACKET "socket.AF_PACKET"),
@@ -734,7 +734,7 @@ The following functions all create [socket objects](socket.md#socket-objects).
 
     Changed in version 3.10: The IPPROTO_MPTCP protocol was added.
 
-socket.socketpair([*family*[, *type*[, *proto*]]])
+`socket.socketpair([family[, type[, proto]]])`
 :   Build a pair of connected socket objects using the given address family, socket
     type, and protocol number. Address family, socket type, and protocol number are
     as for the [`socket()`](socket.md#socket.socket "socket.socket") function above. The default family is [`AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX")
@@ -749,7 +749,7 @@ socket.socketpair([*family*[, *type*[, *proto*]]])
 
     Changed in version 3.5: Windows support added.
 
-socket.create_connection(*address*, *timeout=GLOBAL_DEFAULT*, *source_address=None*, *\**, *all_errors=False*)
+`socket.create_connection(address, timeout=GLOBAL_DEFAULT, source_address=None, *, all_errors=False)`
 :   Connect to a TCP service listening on the internet *address* (a 2-tuple
     `(host, port)`), and return the socket object. This is a higher-level
     function than [`socket.connect()`](socket.md#socket.socket.connect "socket.socket.connect"): if *host* is a non-numeric hostname,
@@ -776,7 +776,7 @@ socket.create_connection(*address*, *timeout=GLOBAL_DEFAULT*, *source_address=No
 
     Changed in version 3.11: *all_errors* was added.
 
-socket.create_server(*address*, *\**, *family=AF_INET*, *backlog=None*, *reuse_port=False*, *dualstack_ipv6=False*)
+`socket.create_server(address, *, family=AF_INET, backlog=None, reuse_port=False, dualstack_ipv6=False)`
 :   Convenience function which creates a TCP socket bound to *address* (a 2-tuple
     `(host, port)`) and returns the socket object.
 
@@ -814,13 +814,13 @@ socket.create_server(*address*, *\**, *family=AF_INET*, *backlog=None*, *reuse_p
 
     Added in version 3.8.
 
-socket.has_dualstack_ipv6()
+`socket.has_dualstack_ipv6()`
 :   Return `True` if the platform supports creating a TCP socket which can
     handle both IPv4 and IPv6 connections.
 
     Added in version 3.8.
 
-socket.fromfd(*fd*, *family*, *type*, *proto=0*)
+`socket.fromfd(fd, family, type, proto=0)`
 :   Duplicate the file descriptor *fd* (an integer as returned by a file object’s
     [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method) and build a socket object from the result. Address
     family, socket type and protocol number are as for the [`socket()`](socket.md#socket.socket "socket.socket") function
@@ -834,7 +834,7 @@ socket.fromfd(*fd*, *family*, *type*, *proto=0*)
 
     Changed in version 3.4: The returned socket is now non-inheritable.
 
-socket.fromshare(*data*)
+`socket.fromshare(data)`
 :   Instantiate a socket from data obtained from the [`socket.share()`](socket.md#socket.socket.share "socket.socket.share")
     method. The socket is assumed to be in blocking mode.
 
@@ -842,7 +842,7 @@ socket.fromshare(*data*)
 
     Added in version 3.3.
 
-socket.SocketType
+`socket.SocketType`
 :   This is a Python type object that represents the socket object type. It is the
     same as `type(socket(...))`.
 
@@ -850,14 +850,14 @@ socket.SocketType
 
 The [`socket`](socket.md#module-socket "socket: Low-level networking interface.") module also offers various network-related services:
 
-socket.close(*fd*)
+`socket.close(fd)`
 :   Close a socket file descriptor. This is like [`os.close()`](os.md#os.close "os.close"), but for
     sockets. On some platforms (most noticeable Windows) [`os.close()`](os.md#os.close "os.close")
     does not work for socket file descriptors.
 
     Added in version 3.7.
 
-socket.getaddrinfo(*host*, *port*, *family=AF_UNSPEC*, *type=0*, *proto=0*, *flags=0*)
+`socket.getaddrinfo(host, port, family=AF_UNSPEC, type=0, proto=0, flags=0)`
 :   This function wraps the C function `getaddrinfo` of the underlying system.
 
     Translate the *host*/*port* argument into a sequence of 5-tuples that contain
@@ -933,7 +933,7 @@ socket.getaddrinfo(*host*, *port*, *family=AF_UNSPEC*, *type=0*, *proto=0*, *fla
     Changed in version 3.7: for IPv6 multicast addresses, string representing an address will not
     contain `%scope_id` part.
 
-socket.getfqdn([*name*])
+`socket.getfqdn([name])`
 :   Return a fully qualified domain name for *name*. If *name* is omitted or empty,
     it is interpreted as the local host. To find the fully qualified name, the
     hostname returned by [`gethostbyaddr()`](socket.md#socket.gethostbyaddr "socket.gethostbyaddr") is checked, followed by aliases for the
@@ -942,7 +942,7 @@ socket.getfqdn([*name*])
     it is returned unchanged. If *name* was empty or equal to `'0.0.0.0'`,
     the hostname from [`gethostname()`](socket.md#socket.gethostname "socket.gethostname") is returned.
 
-socket.gethostbyname(*hostname*)
+`socket.gethostbyname(hostname)`
 :   Translate a host name to IPv4 address format. The IPv4 address is returned as a
     string, such as `'100.50.200.5'`. If the host name is an IPv4 address itself
     it is returned unchanged. See [`gethostbyname_ex()`](socket.md#socket.gethostbyname_ex "socket.gethostbyname_ex") for a more complete
@@ -953,7 +953,7 @@ socket.gethostbyname(*hostname*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.gethostbyname_ex(*hostname*)
+`socket.gethostbyname_ex(hostname)`
 :   Translate a host name to IPv4 address format, extended interface. Return a
     3-tuple `(hostname, aliaslist, ipaddrlist)` where *hostname* is the host’s
     primary host name, *aliaslist* is a (possibly
@@ -967,7 +967,7 @@ socket.gethostbyname_ex(*hostname*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.gethostname()
+`socket.gethostname()`
 :   Return a string containing the hostname of the machine where the Python
     interpreter is currently executing.
 
@@ -978,7 +978,7 @@ socket.gethostname()
 
     [Availability](intro.md#availability): not WASI.
 
-socket.gethostbyaddr(*ip_address*)
+`socket.gethostbyaddr(ip_address)`
 :   Return a 3-tuple `(hostname, aliaslist, ipaddrlist)` where *hostname* is the
     primary host name responding to the given *ip_address*, *aliaslist* is a
     (possibly empty) list of alternative host names for the same address, and
@@ -991,7 +991,7 @@ socket.gethostbyaddr(*ip_address*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.getnameinfo(*sockaddr*, *flags*)
+`socket.getnameinfo(sockaddr, flags)`
 :   Translate a socket address *sockaddr* into a 2-tuple `(host, port)`. Depending
     on the settings of *flags*, the result can contain a fully qualified domain name
     or numeric address representation in *host*. Similarly, *port* can contain a
@@ -1006,7 +1006,7 @@ socket.getnameinfo(*sockaddr*, *flags*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.getprotobyname(*protocolname*)
+`socket.getprotobyname(protocolname)`
 :   Translate an internet protocol name (for example, `'icmp'`) to a constant
     suitable for passing as the (optional) third argument to the [`socket()`](socket.md#socket.socket "socket.socket")
     function. This is usually only needed for sockets opened in “raw” mode
@@ -1015,7 +1015,7 @@ socket.getprotobyname(*protocolname*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.getservbyname(*servicename*[, *protocolname*])
+`socket.getservbyname(servicename[, protocolname])`
 :   Translate an internet service name and protocol name to a port number for that
     service. The optional protocol name, if given, should be `'tcp'` or
     `'udp'`, otherwise any protocol will match.
@@ -1024,7 +1024,7 @@ socket.getservbyname(*servicename*[, *protocolname*])
 
     [Availability](intro.md#availability): not WASI.
 
-socket.getservbyport(*port*[, *protocolname*])
+`socket.getservbyport(port[, protocolname])`
 :   Translate an internet port number and protocol name to a service name for that
     service. The optional protocol name, if given, should be `'tcp'` or
     `'udp'`, otherwise any protocol will match.
@@ -1033,12 +1033,12 @@ socket.getservbyport(*port*[, *protocolname*])
 
     [Availability](intro.md#availability): not WASI.
 
-socket.ntohl(*x*)
+`socket.ntohl(x)`
 :   Convert 32-bit positive integers from network to host byte order. On machines
     where the host byte order is the same as network byte order, this is a no-op;
     otherwise, it performs a 4-byte swap operation.
 
-socket.ntohs(*x*)
+`socket.ntohs(x)`
 :   Convert 16-bit positive integers from network to host byte order. On machines
     where the host byte order is the same as network byte order, this is a no-op;
     otherwise, it performs a 2-byte swap operation.
@@ -1046,12 +1046,12 @@ socket.ntohs(*x*)
     Changed in version 3.10: Raises [`OverflowError`](exceptions.md#OverflowError "OverflowError") if *x* does not fit in a 16-bit unsigned
     integer.
 
-socket.htonl(*x*)
+`socket.htonl(x)`
 :   Convert 32-bit positive integers from host to network byte order. On machines
     where the host byte order is the same as network byte order, this is a no-op;
     otherwise, it performs a 4-byte swap operation.
 
-socket.htons(*x*)
+`socket.htons(x)`
 :   Convert 16-bit positive integers from host to network byte order. On machines
     where the host byte order is the same as network byte order, this is a no-op;
     otherwise, it performs a 2-byte swap operation.
@@ -1059,7 +1059,7 @@ socket.htons(*x*)
     Changed in version 3.10: Raises [`OverflowError`](exceptions.md#OverflowError "OverflowError") if *x* does not fit in a 16-bit unsigned
     integer.
 
-socket.inet_aton(*ip_string*)
+`socket.inet_aton(ip_string)`
 :   Convert an IPv4 address from dotted-quad string format (for example,
     ‘123.45.67.89’) to 32-bit packed binary format, as a bytes object four characters in
     length. This is useful when conversing with a program that uses the standard C
@@ -1076,7 +1076,7 @@ socket.inet_aton(*ip_string*)
     [`inet_aton()`](socket.md#socket.inet_aton "socket.inet_aton") does not support IPv6, and [`inet_pton()`](socket.md#socket.inet_pton "socket.inet_pton") should be used
     instead for IPv4/v6 dual stack support.
 
-socket.inet_ntoa(*packed_ip*)
+`socket.inet_ntoa(packed_ip)`
 :   Convert a 32-bit packed IPv4 address (a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) four
     bytes in length) to its standard dotted-quad string representation (for example,
     ‘123.45.67.89’). This is useful when conversing with a program that uses the
@@ -1091,7 +1091,7 @@ socket.inet_ntoa(*packed_ip*)
 
     Changed in version 3.5: Writable [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-socket.inet_pton(*address_family*, *ip_string*)
+`socket.inet_pton(address_family, ip_string)`
 :   Convert an IP address from its family-specific string format to a packed,
     binary format. [`inet_pton()`](socket.md#socket.inet_pton "socket.inet_pton") is useful when a library or network protocol
     calls for an object of type `in_addr` (similar to
@@ -1107,7 +1107,7 @@ socket.inet_pton(*address_family*, *ip_string*)
 
     Changed in version 3.4: Windows support added
 
-socket.inet_ntop(*address_family*, *packed_ip*)
+`socket.inet_ntop(address_family, packed_ip)`
 :   Convert a packed IP address (a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) of some number of
     bytes) to its standard, family-specific string representation (for
     example, `'7.10.0.5'` or `'5aef:2b::8'`).
@@ -1126,7 +1126,7 @@ socket.inet_ntop(*address_family*, *packed_ip*)
 
     Changed in version 3.5: Writable [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-socket.CMSG_LEN(*length*)
+`socket.CMSG_LEN(length)`
 :   Return the total length, without trailing padding, of an ancillary
     data item with associated data of the given *length*. This value
     can often be used as the buffer size for [`recvmsg()`](socket.md#socket.socket.recvmsg "socket.socket.recvmsg") to
@@ -1142,7 +1142,7 @@ socket.CMSG_LEN(*length*)
 
     Added in version 3.3.
 
-socket.CMSG_SPACE(*length*)
+`socket.CMSG_SPACE(length)`
 :   Return the buffer size needed for [`recvmsg()`](socket.md#socket.socket.recvmsg "socket.socket.recvmsg") to
     receive an ancillary data item with associated data of the given
     *length*, along with any trailing padding. The buffer space needed
@@ -1163,18 +1163,18 @@ socket.CMSG_SPACE(*length*)
 
     Added in version 3.3.
 
-socket.getdefaulttimeout()
+`socket.getdefaulttimeout()`
 :   Return the default timeout in seconds (float) for new socket objects. A value
     of `None` indicates that new socket objects have no timeout. When the socket
     module is first imported, the default is `None`.
 
-socket.setdefaulttimeout(*timeout*)
+`socket.setdefaulttimeout(timeout)`
 :   Set the default timeout in seconds (float) for new socket objects. When
     the socket module is first imported, the default is `None`. See
     [`settimeout()`](socket.md#socket.socket.settimeout "socket.socket.settimeout") for possible values and their respective
     meanings.
 
-socket.sethostname(*name*)
+`socket.sethostname(name)`
 :   Set the machine’s hostname to *name*. This will raise an
     [`OSError`](exceptions.md#OSError "OSError") if you don’t have enough rights.
 
@@ -1184,7 +1184,7 @@ socket.sethostname(*name*)
 
     Added in version 3.3.
 
-socket.if_nameindex()
+`socket.if_nameindex()`
 :   Return a list of network interface information
     (index int, name string) tuples.
     [`OSError`](exceptions.md#OSError "OSError") if the system call fails.
@@ -1208,7 +1208,7 @@ socket.if_nameindex()
     > This function returns names of the second form from the list, `ethernet_32770`
     > in this example case.
 
-socket.if_nametoindex(*if_name*)
+`socket.if_nametoindex(if_name)`
 :   Return a network interface index number corresponding to an
     interface name.
     [`OSError`](exceptions.md#OSError "OSError") if no interface with the given name exists.
@@ -1223,7 +1223,7 @@ socket.if_nametoindex(*if_name*)
     >
     > “Interface name” is a name as documented in [`if_nameindex()`](socket.md#socket.if_nameindex "socket.if_nameindex").
 
-socket.if_indextoname(*if_index*)
+`socket.if_indextoname(if_index)`
 :   Return a network interface name corresponding to an
     interface index number.
     [`OSError`](exceptions.md#OSError "OSError") if no interface with the given index exists.
@@ -1238,7 +1238,7 @@ socket.if_indextoname(*if_index*)
     >
     > “Interface name” is a name as documented in [`if_nameindex()`](socket.md#socket.if_nameindex "socket.if_nameindex").
 
-socket.send_fds(*sock*, *buffers*, *fds*[, *flags*[, *address*]])
+`socket.send_fds(sock, buffers, fds[, flags[, address]])`
 :   Send the list of file descriptors *fds* over an [`AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX") socket *sock*.
     The *fds* parameter is a sequence of file descriptors.
     Consult [`sendmsg()`](socket.md#socket.socket.sendmsg "socket.socket.sendmsg") for the documentation of these parameters.
@@ -1250,7 +1250,7 @@ socket.send_fds(*sock*, *buffers*, *fds*[, *flags*[, *address*]])
 
     Added in version 3.9.
 
-socket.recv_fds(*sock*, *bufsize*, *maxfds*[, *flags*])
+`socket.recv_fds(sock, bufsize, maxfds[, flags])`
 :   Receive up to *maxfds* file descriptors from an [`AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX") socket *sock*.
     Return `(msg, list(fds), flags, addr)`.
     Consult [`recvmsg()`](socket.md#socket.socket.recvmsg "socket.socket.recvmsg") for the documentation of these parameters.
@@ -1275,7 +1275,7 @@ to sockets.
 Changed in version 3.2: Support for the [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager) protocol was added. Exiting the
 context manager is equivalent to calling [`close()`](socket.md#socket.close "socket.close").
 
-socket.accept()
+`socket.accept()`
 :   Accept a connection. The socket must be bound to an address and listening for
     connections. The return value is a pair `(conn, address)` where *conn* is a
     *new* socket object usable to send and receive data on the connection, and
@@ -1289,7 +1289,7 @@ socket.accept()
     an exception, the method now retries the system call instead of raising
     an [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-socket.bind(*address*)
+`socket.bind(address)`
 :   Bind the socket to *address*. The socket must not already be bound. (The format
     of *address* depends on the address family — see above.)
 
@@ -1297,7 +1297,7 @@ socket.bind(*address*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.close()
+`socket.close()`
 :   Mark the socket closed. The underlying system resource (e.g. a file
     descriptor) is also closed when all file objects from [`makefile()`](socket.md#socket.socket.makefile "socket.socket.makefile")
     are closed. Once that happens, all future operations on the socket
@@ -1318,7 +1318,7 @@ socket.close()
     > to close the connection in a timely fashion, call [`shutdown()`](socket.md#socket.socket.shutdown "socket.socket.shutdown")
     > before [`close()`](socket.md#socket.close "socket.close").
 
-socket.connect(*address*)
+`socket.connect(address)`
 :   Connect to a remote socket at *address*. (The format of *address* depends on the
     address family — see above.)
 
@@ -1338,7 +1338,7 @@ socket.connect(*address*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.connect_ex(*address*)
+`socket.connect_ex(address)`
 :   Like `connect(address)`, but return an error indicator instead of raising an
     exception for errors returned by the C-level `connect()` call (other
     problems, such as “host not found,” can still raise exceptions). The error
@@ -1350,14 +1350,14 @@ socket.connect_ex(*address*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.detach()
+`socket.detach()`
 :   Put the socket object into closed state without actually closing the
     underlying file descriptor. The file descriptor is returned, and can
     be reused for other purposes.
 
     Added in version 3.2.
 
-socket.dup()
+`socket.dup()`
 :   Duplicate the socket.
 
     The newly created socket is [non-inheritable](os.md#fd-inheritance).
@@ -1366,7 +1366,7 @@ socket.dup()
 
     [Availability](intro.md#availability): not WASI.
 
-socket.fileno()
+`socket.fileno()`
 :   Return the socket’s file descriptor (a small integer), or -1 on failure. This
     is useful with [`select.select()`](select.md#select.select "select.select").
 
@@ -1374,25 +1374,25 @@ socket.fileno()
     file descriptor can be used (such as [`os.fdopen()`](os.md#os.fdopen "os.fdopen")). Unix does not have
     this limitation.
 
-socket.get_inheritable()
+`socket.get_inheritable()`
 :   Get the [inheritable flag](os.md#fd-inheritance) of the socket’s file
     descriptor or socket’s handle: `True` if the socket can be inherited in
     child processes, `False` if it cannot.
 
     Added in version 3.4.
 
-socket.getpeername()
+`socket.getpeername()`
 :   Return the remote address to which the socket is connected. This is useful to
     find out the port number of a remote IPv4/v6 socket, for instance. (The format
     of the address returned depends on the address family — see above.) On some
     systems this function is not supported.
 
-socket.getsockname()
+`socket.getsockname()`
 :   Return the socket’s own address. This is useful to find out the port number of
     an IPv4/v6 socket, for instance. (The format of the address returned depends on
     the address family — see above.)
 
-socket.getsockopt(*level*, *optname*[, *buflen*])
+`socket.getsockopt(level, optname[, buflen])`
 :   Return the value of the given socket option (see the Unix man page
     *[getsockopt(2)](https://manpages.debian.org/getsockopt(2))*). The needed symbolic constants ([SO_\* etc.](socket.md#socket-unix-constants))
     are defined in this module. If *buflen* is absent, an integer option is assumed
@@ -1404,7 +1404,7 @@ socket.getsockopt(*level*, *optname*[, *buflen*])
 
     [Availability](intro.md#availability): not WASI.
 
-socket.getblocking()
+`socket.getblocking()`
 :   Return `True` if socket is in blocking mode, `False` if in
     non-blocking.
 
@@ -1412,12 +1412,12 @@ socket.getblocking()
 
     Added in version 3.7.
 
-socket.gettimeout()
+`socket.gettimeout()`
 :   Return the timeout in seconds (float) associated with socket operations,
     or `None` if no timeout is set. This reflects the last call to
     [`setblocking()`](socket.md#socket.socket.setblocking "socket.socket.setblocking") or [`settimeout()`](socket.md#socket.socket.settimeout "socket.socket.settimeout").
 
-socket.ioctl(*control*, *option*)
+`socket.ioctl(control, option)`
 :   Platform:
     :   Windows
 
@@ -1433,7 +1433,7 @@ socket.ioctl(*control*, *option*)
 
     Changed in version 3.6: `SIO_LOOPBACK_FAST_PATH` was added.
 
-socket.listen([*backlog*])
+`socket.listen([backlog])`
 :   Enable a server to accept connections. If *backlog* is specified, it must
     be at least 0 (if it is lower, it is set to 0); it specifies the number of
     unaccepted connections that the system will allow before refusing new
@@ -1443,7 +1443,7 @@ socket.listen([*backlog*])
 
     Changed in version 3.5: The *backlog* parameter is now optional.
 
-socket.makefile(*mode='r'*, *buffering=None*, *\**, *encoding=None*, *errors=None*, *newline=None*)
+`socket.makefile(mode='r', buffering=None, *, encoding=None, errors=None, newline=None)`
 :   Return a [file object](https://docs.python.org/3.12/glossary.html#term-file-object) associated with the socket. The exact returned
     type depends on the arguments given to [`makefile()`](socket.md#socket.socket.makefile "socket.socket.makefile"). These arguments are
     interpreted the same way as by the built-in [`open()`](functions.md#open "open") function, except
@@ -1464,7 +1464,7 @@ socket.makefile(*mode='r'*, *buffering=None*, *\**, *encoding=None*, *errors=Non
     > used where a file object with a file descriptor is expected, such as the
     > stream arguments of [`subprocess.Popen()`](subprocess.md#subprocess.Popen "subprocess.Popen").
 
-socket.recv(*bufsize*[, *flags*])
+`socket.recv(bufsize[, flags])`
 :   Receive data from the socket. The return value is a bytes object representing the
     data received. The maximum amount of data to be received at once is specified
     by *bufsize*. A returned empty bytes object indicates that the client has disconnected.
@@ -1475,7 +1475,7 @@ socket.recv(*bufsize*[, *flags*])
     an exception, the method now retries the system call instead of raising
     an [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-socket.recvfrom(*bufsize*[, *flags*])
+`socket.recvfrom(bufsize[, flags])`
 :   Receive data from the socket. The return value is a pair `(bytes, address)`
     where *bytes* is a bytes object representing the data received and *address* is the
     address of the socket sending the data. See the Unix manual page
@@ -1490,7 +1490,7 @@ socket.recvfrom(*bufsize*[, *flags*])
     `%scope_id` part anymore. In order to get full IPv6 address use
     [`getnameinfo()`](socket.md#socket.getnameinfo "socket.getnameinfo").
 
-socket.recvmsg(*bufsize*[, *ancbufsize*[, *flags*]])
+`socket.recvmsg(bufsize[, ancbufsize[, flags]])`
 :   Receive normal data (up to *bufsize* bytes) and ancillary data from
     the socket. The *ancbufsize* argument sets the size in bytes of
     the internal buffer used to receive the ancillary data; it defaults
@@ -1562,7 +1562,7 @@ socket.recvmsg(*bufsize*[, *ancbufsize*[, *flags*]])
     an exception, the method now retries the system call instead of raising
     an [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-socket.recvmsg_into(*buffers*[, *ancbufsize*[, *flags*]])
+`socket.recvmsg_into(buffers[, ancbufsize[, flags]])`
 :   Receive normal data and ancillary data from the socket, behaving as
     [`recvmsg()`](socket.md#socket.socket.recvmsg "socket.socket.recvmsg") would, but scatter the non-ancillary data into a
     series of buffers instead of returning a new bytes object. The
@@ -1601,7 +1601,7 @@ socket.recvmsg_into(*buffers*[, *ancbufsize*[, *flags*]])
 
     Added in version 3.3.
 
-socket.recvfrom_into(*buffer*[, *nbytes*[, *flags*]])
+`socket.recvfrom_into(buffer[, nbytes[, flags]])`
 :   Receive data from the socket, writing it into *buffer* instead of creating a
     new bytestring. The return value is a pair `(nbytes, address)` where *nbytes* is
     the number of bytes received and *address* is the address of the socket sending
@@ -1609,14 +1609,14 @@ socket.recvfrom_into(*buffer*[, *nbytes*[, *flags*]])
     optional argument *flags*; it defaults to zero. (The format of *address*
     depends on the address family — see above.)
 
-socket.recv_into(*buffer*[, *nbytes*[, *flags*]])
+`socket.recv_into(buffer[, nbytes[, flags]])`
 :   Receive up to *nbytes* bytes from the socket, storing the data into a buffer
     rather than creating a new bytestring. If *nbytes* is not specified (or 0),
     receive up to the size available in the given buffer. Returns the number of
     bytes received. See the Unix manual page *[recv(2)](https://manpages.debian.org/recv(2))* for the meaning
     of the optional argument *flags*; it defaults to zero.
 
-socket.send(*bytes*[, *flags*])
+`socket.send(bytes[, flags])`
 :   Send data to the socket. The socket must be connected to a remote socket. The
     optional *flags* argument has the same meaning as for [`recv()`](socket.md#socket.socket.recv "socket.socket.recv") above.
     Returns the number of bytes sent. Applications are responsible for checking that
@@ -1628,7 +1628,7 @@ socket.send(*bytes*[, *flags*])
     an exception, the method now retries the system call instead of raising
     an [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-socket.sendall(*bytes*[, *flags*])
+`socket.sendall(bytes[, flags])`
 :   Send data to the socket. The socket must be connected to a remote socket. The
     optional *flags* argument has the same meaning as for [`recv()`](socket.md#socket.socket.recv "socket.socket.recv") above.
     Unlike [`send()`](socket.md#socket.socket.send "socket.socket.send"), this method continues to send data from *bytes* until
@@ -1643,9 +1643,9 @@ socket.sendall(*bytes*[, *flags*])
     an exception, the method now retries the system call instead of raising
     an [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-socket.sendto(*bytes*, *address*)
+`socket.sendto(bytes, address)`
 
-socket.sendto(*bytes*, *flags*, *address*)
+`socket.sendto(bytes, flags, address)`
 :   Send data to the socket. The socket should not be connected to a remote socket,
     since the destination socket is specified by *address*. The optional *flags*
     argument has the same meaning as for [`recv()`](socket.md#socket.socket.recv "socket.socket.recv") above. Return the number of
@@ -1658,7 +1658,7 @@ socket.sendto(*bytes*, *flags*, *address*)
     an exception, the method now retries the system call instead of raising
     an [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-socket.sendmsg(*buffers*[, *ancdata*[, *flags*[, *address*]]])
+`socket.sendmsg(buffers[, ancdata[, flags[, address]]])`
 :   Send normal and ancillary data to the socket, gathering the
     non-ancillary data from a series of buffers and concatenating it
     into a single message. The *buffers* argument specifies the
@@ -1702,7 +1702,7 @@ socket.sendmsg(*buffers*[, *ancdata*[, *flags*[, *address*]]])
     an exception, the method now retries the system call instead of raising
     an [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError") exception (see [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale).
 
-socket.sendmsg_afalg([*msg*, ]*\**, *op*[, *iv*[, *assoclen*[, *flags*]]])
+`socket.sendmsg_afalg([msg, ]*, op[, iv[, assoclen[, flags]]])`
 :   Specialized version of [`sendmsg()`](socket.md#socket.socket.sendmsg "socket.socket.sendmsg") for [`AF_ALG`](socket.md#socket.AF_ALG "socket.AF_ALG") socket.
     Set mode, IV, AEAD associated data length and flags for [`AF_ALG`](socket.md#socket.AF_ALG "socket.AF_ALG") socket.
 
@@ -1710,7 +1710,7 @@ socket.sendmsg_afalg([*msg*, ]*\**, *op*[, *iv*[, *assoclen*[, *flags*]]])
 
     Added in version 3.6.
 
-socket.sendfile(*file*, *offset=0*, *count=None*)
+`socket.sendfile(file, offset=0, count=None)`
 :   Send a file until EOF is reached by using high-performance
     [`os.sendfile`](os.md#os.sendfile "os.sendfile") and return the total number of bytes which were sent.
     *file* must be a regular file object opened in binary mode. If
@@ -1725,13 +1725,13 @@ socket.sendfile(*file*, *offset=0*, *count=None*)
 
     Added in version 3.5.
 
-socket.set_inheritable(*inheritable*)
+`socket.set_inheritable(inheritable)`
 :   Set the [inheritable flag](os.md#fd-inheritance) of the socket’s file
     descriptor or socket’s handle.
 
     Added in version 3.4.
 
-socket.setblocking(*flag*)
+`socket.setblocking(flag)`
 :   Set blocking or non-blocking mode of the socket: if *flag* is false, the
     socket is set to non-blocking, else to blocking mode.
 
@@ -1743,7 +1743,7 @@ socket.setblocking(*flag*)
     Changed in version 3.7: The method no longer applies [`SOCK_NONBLOCK`](socket.md#socket.SOCK_NONBLOCK "socket.SOCK_NONBLOCK") flag on
     [`socket.type`](socket.md#socket.socket.type "socket.socket.type").
 
-socket.settimeout(*value*)
+`socket.settimeout(value)`
 :   Set a timeout on blocking socket operations. The *value* argument can be a
     nonnegative floating-point number expressing seconds, or `None`.
     If a non-zero value is given, subsequent socket operations will raise a
@@ -1756,11 +1756,11 @@ socket.settimeout(*value*)
     Changed in version 3.7: The method no longer toggles [`SOCK_NONBLOCK`](socket.md#socket.SOCK_NONBLOCK "socket.SOCK_NONBLOCK") flag on
     [`socket.type`](socket.md#socket.socket.type "socket.socket.type").
 
-socket.setsockopt(*level*, *optname*, *value: [int](functions.md#int "int")*)
+`socket.setsockopt(level, optname, value: int)`
 
-socket.setsockopt(*level*, *optname*, *value: buffer*)
+`socket.setsockopt(level, optname, value: buffer)`
 
-socket.setsockopt(*level*, *optname*, *None*, *optlen: int*)
+`socket.setsockopt(level, optname, None, optlen: int)`
 :   Set the value of the given socket option (see the Unix manual page
     *[setsockopt(2)](https://manpages.debian.org/setsockopt(2))*). The needed symbolic constants are defined in this
     module (SO_\* etc. <socket-unix-constants>). The value can be an integer,
@@ -1777,7 +1777,7 @@ socket.setsockopt(*level*, *optname*, *None*, *optlen: int*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.shutdown(*how*)
+`socket.shutdown(how)`
 :   Shut down one or both halves of the connection. If *how* is [`SHUT_RD`](socket.md#socket.SHUT_RD "socket.SHUT_RD"),
     further receives are disallowed. If *how* is [`SHUT_WR`](socket.md#socket.SHUT_WR "socket.SHUT_WR"), further sends
     are disallowed. If *how* is [`SHUT_RDWR`](socket.md#socket.SHUT_RDWR "socket.SHUT_RDWR"), further sends and receives are
@@ -1785,7 +1785,7 @@ socket.shutdown(*how*)
 
     [Availability](intro.md#availability): not WASI.
 
-socket.share(*process_id*)
+`socket.share(process_id)`
 :   Duplicate a socket and prepare it for sharing with a target process. The
     target process must be provided with *process_id*. The resulting bytes object
     can then be passed to the target process using some form of interprocess
@@ -1803,13 +1803,13 @@ Note that there are no methods `read()` or `write()`; use
 Socket objects also have these (read-only) attributes that correspond to the
 values given to the [`socket`](socket.md#socket.socket "socket.socket") constructor.
 
-socket.family
+`socket.family`
 :   The socket family.
 
-socket.type
+`socket.type`
 :   The socket type.
 
-socket.proto
+`socket.proto`
 :   The socket protocol.
 
 ## Notes on socket timeouts

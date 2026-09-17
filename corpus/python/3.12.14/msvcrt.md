@@ -27,7 +27,7 @@ was raised.
 
 ## File Operations
 
-msvcrt.locking(*fd*, *mode*, *nbytes*)
+`msvcrt.locking(fd, mode, nbytes)`
 :   Lock part of a file based on file descriptor *fd* from the C runtime. Raises
     [`OSError`](exceptions.md#OSError "OSError") on failure. The locked region of the file extends from the
     current file position for *nbytes* bytes, and may continue beyond the end of the
@@ -37,28 +37,28 @@ msvcrt.locking(*fd*, *mode*, *nbytes*)
 
     Raises an [auditing event](sys.md#auditing) `msvcrt.locking` with arguments `fd`, `mode`, `nbytes`.
 
-msvcrt.LK_LOCK
+`msvcrt.LK_LOCK`
 
-msvcrt.LK_RLCK
+`msvcrt.LK_RLCK`
 :   Locks the specified bytes. If the bytes cannot be locked, the program
     immediately tries again after 1 second. If, after 10 attempts, the bytes cannot
     be locked, [`OSError`](exceptions.md#OSError "OSError") is raised.
 
-msvcrt.LK_NBLCK
+`msvcrt.LK_NBLCK`
 
-msvcrt.LK_NBRLCK
+`msvcrt.LK_NBRLCK`
 :   Locks the specified bytes. If the bytes cannot be locked, [`OSError`](exceptions.md#OSError "OSError") is
     raised.
 
-msvcrt.LK_UNLCK
+`msvcrt.LK_UNLCK`
 :   Unlocks the specified bytes, which must have been previously locked.
 
-msvcrt.setmode(*fd*, *flags*)
+`msvcrt.setmode(fd, flags)`
 :   Set the line-end translation mode for the file descriptor *fd*. To set it to
     text mode, *flags* should be [`os.O_TEXT`](os.md#os.O_TEXT "os.O_TEXT"); for binary, it should be
     [`os.O_BINARY`](os.md#os.O_BINARY "os.O_BINARY").
 
-msvcrt.open_osfhandle(*handle*, *flags*)
+`msvcrt.open_osfhandle(handle, flags)`
 :   Create a C runtime file descriptor from the file handle *handle*. The *flags*
     parameter should be a bitwise OR of [`os.O_APPEND`](os.md#os.O_APPEND "os.O_APPEND"), [`os.O_RDONLY`](os.md#os.O_RDONLY "os.O_RDONLY"),
     and [`os.O_TEXT`](os.md#os.O_TEXT "os.O_TEXT"). The returned file descriptor may be used as a parameter
@@ -66,7 +66,7 @@ msvcrt.open_osfhandle(*handle*, *flags*)
 
     Raises an [auditing event](sys.md#auditing) `msvcrt.open_osfhandle` with arguments `handle`, `flags`.
 
-msvcrt.get_osfhandle(*fd*)
+`msvcrt.get_osfhandle(fd)`
 :   Return the file handle for the file descriptor *fd*. Raises [`OSError`](exceptions.md#OSError "OSError") if
     *fd* is not recognized.
 
@@ -74,10 +74,10 @@ msvcrt.get_osfhandle(*fd*)
 
 ## Console I/O
 
-msvcrt.kbhit()
+`msvcrt.kbhit()`
 :   Return `True` if a keypress is waiting to be read.
 
-msvcrt.getch()
+`msvcrt.getch()`
 :   Read a keypress and return the resulting character as a byte string.
     Nothing is echoed to the console. This call will block if a keypress
     is not already available, but will not wait for `Enter` to be
@@ -85,40 +85,40 @@ msvcrt.getch()
     return `'\000'` or `'\xe0'`; the next call will return the keycode.
     The `Control`-`C` keypress cannot be read with this function.
 
-msvcrt.getwch()
+`msvcrt.getwch()`
 :   Wide char variant of [`getch()`](msvcrt.md#msvcrt.getch "msvcrt.getch"), returning a Unicode value.
 
-msvcrt.getche()
+`msvcrt.getche()`
 :   Similar to [`getch()`](msvcrt.md#msvcrt.getch "msvcrt.getch"), but the keypress will be echoed if it represents a
     printable character.
 
-msvcrt.getwche()
+`msvcrt.getwche()`
 :   Wide char variant of [`getche()`](msvcrt.md#msvcrt.getche "msvcrt.getche"), returning a Unicode value.
 
-msvcrt.putch(*char*)
+`msvcrt.putch(char)`
 :   Print the byte string *char* to the console without buffering.
 
-msvcrt.putwch(*unicode_char*)
+`msvcrt.putwch(unicode_char)`
 :   Wide char variant of [`putch()`](msvcrt.md#msvcrt.putch "msvcrt.putch"), accepting a Unicode value.
 
-msvcrt.ungetch(*char*)
+`msvcrt.ungetch(char)`
 :   Cause the byte string *char* to be “pushed back” into the console buffer;
     it will be the next character read by [`getch()`](msvcrt.md#msvcrt.getch "msvcrt.getch") or [`getche()`](msvcrt.md#msvcrt.getche "msvcrt.getche").
 
-msvcrt.ungetwch(*unicode_char*)
+`msvcrt.ungetwch(unicode_char)`
 :   Wide char variant of [`ungetch()`](msvcrt.md#msvcrt.ungetch "msvcrt.ungetch"), accepting a Unicode value.
 
 ## Other Functions
 
-msvcrt.heapmin()
+`msvcrt.heapmin()`
 :   Force the `malloc()` heap to clean itself up and return unused blocks to
     the operating system. On failure, this raises [`OSError`](exceptions.md#OSError "OSError").
 
-msvcrt.CRT_ASSEMBLY_VERSION
+`msvcrt.CRT_ASSEMBLY_VERSION`
 :   The CRT Assembly version, from the `crtassem.h` header file.
 
-msvcrt.VC_ASSEMBLY_PUBLICKEYTOKEN
+`msvcrt.VC_ASSEMBLY_PUBLICKEYTOKEN`
 :   The VC Assembly public key token, from the `crtassem.h` header file.
 
-msvcrt.LIBRARIES_ASSEMBLY_NAME_PREFIX
+`msvcrt.LIBRARIES_ASSEMBLY_NAME_PREFIX`
 :   The Libraries Assembly name prefix, from the `crtassem.h` header file.

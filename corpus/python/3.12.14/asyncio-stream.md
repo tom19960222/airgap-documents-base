@@ -46,7 +46,7 @@ Stream Functions
 The following top-level asyncio functions can be used to create
 and work with streams:
 
-*async* asyncio.open_connection(*host=None*, *port=None*, *\**, *limit=None*, *ssl=None*, *family=0*, *proto=0*, *flags=0*, *sock=None*, *local_addr=None*, *server_hostname=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*, *happy_eyeballs_delay=None*, *interleave=None*)
+`async asyncio.open_connection(host=None, port=None, *, limit=None, ssl=None, family=0, proto=0, flags=0, sock=None, local_addr=None, server_hostname=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None, happy_eyeballs_delay=None, interleave=None)`
 :   Establish a network connection and return a pair of
     `(reader, writer)` objects.
 
@@ -74,7 +74,7 @@ and work with streams:
 
     Changed in version 3.11: Added the *ssl_shutdown_timeout* parameter.
 
-*async* asyncio.start_server(*client_connected_cb*, *host=None*, *port=None*, *\**, *limit=None*, *family=socket.AF_UNSPEC*, *flags=socket.AI_PASSIVE*, *sock=None*, *backlog=100*, *ssl=None*, *reuse_address=None*, *reuse_port=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*, *start_serving=True*)
+`async asyncio.start_server(client_connected_cb, host=None, port=None, *, limit=None, family=socket.AF_UNSPEC, flags=socket.AI_PASSIVE, sock=None, backlog=100, ssl=None, reuse_address=None, reuse_port=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None, start_serving=True)`
 :   Start a socket server.
 
     The *client_connected_cb* callback is called whenever a new client
@@ -107,9 +107,9 @@ and work with streams:
 
 Unix Sockets
 
-asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=None*, *server_hostname=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*)
+`asyncio.open_unix_connection(path=None, *, limit=None, ssl=None, sock=None, server_hostname=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None)`
 
-:async:
+`:async:`
 :   > Establish a Unix socket connection and return a pair of
     > `(reader, writer)`.
     >
@@ -132,7 +132,7 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
 
     Changed in version 3.11: Added the *ssl_shutdown_timeout* parameter.
 
-*async* asyncio.start_unix_server(*client_connected_cb*, *path=None*, *\**, *limit=None*, *sock=None*, *backlog=100*, *ssl=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*, *start_serving=True*)
+`async asyncio.start_unix_server(client_connected_cb, path=None, *, limit=None, sock=None, backlog=100, ssl=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None, start_serving=True)`
 :   Start a Unix socket server.
 
     Similar to [`start_server()`](asyncio-stream.md#asyncio.start_server "asyncio.start_server") but works with Unix sockets.
@@ -156,7 +156,7 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
 
 ## StreamReader
 
-*class* asyncio.StreamReader
+`class asyncio.StreamReader`
 :   Represents a reader object that provides APIs to read data
     from the IO stream. As an [asynchronous iterable](https://docs.python.org/3.12/glossary.html#term-asynchronous-iterable), the
     object supports the [`async for`](https://docs.python.org/3.12/reference/compound_stmts.html#async-for) statement.
@@ -165,10 +165,10 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
     directly; use [`open_connection()`](asyncio-stream.md#asyncio.open_connection "asyncio.open_connection") and [`start_server()`](asyncio-stream.md#asyncio.start_server "asyncio.start_server")
     instead.
 
-    feed_eof()
+    `feed_eof()`
     :   Acknowledge the EOF.
 
-    *async* read(*n=-1*)
+    `async read(n=-1)`
     :   Read up to *n* bytes from the stream.
 
         If *n* is not provided or set to `-1`,
@@ -183,7 +183,7 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
         If EOF is received before any byte is read, return an empty
         `bytes` object.
 
-    *async* readline()
+    `async readline()`
     :   Read one line, where “line” is a sequence of bytes
         ending with `\n`.
 
@@ -193,14 +193,14 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
         If EOF is received and the internal buffer is empty,
         return an empty `bytes` object.
 
-    *async* readexactly(*n*)
+    `async readexactly(n)`
     :   Read exactly *n* bytes.
 
         Raise an [`IncompleteReadError`](asyncio-exceptions.md#asyncio.IncompleteReadError "asyncio.IncompleteReadError") if EOF is reached before *n*
         can be read. Use the [`IncompleteReadError.partial`](asyncio-exceptions.md#asyncio.IncompleteReadError.partial "asyncio.IncompleteReadError.partial")
         attribute to get the partially read data.
 
-    *async* readuntil(*separator=b'\n'*)
+    `async readuntil(separator=b'\n')`
     :   Read data from the stream until *separator* is found.
 
         On success, the data and separator will be removed from the
@@ -218,13 +218,13 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
 
         Added in version 3.5.2.
 
-    at_eof()
+    `at_eof()`
     :   Return `True` if the buffer is empty and [`feed_eof()`](asyncio-stream.md#asyncio.StreamReader.feed_eof "asyncio.StreamReader.feed_eof")
         was called.
 
 ## StreamWriter
 
-*class* asyncio.StreamWriter
+`class asyncio.StreamWriter`
 :   Represents a writer object that provides APIs to write data
     to the IO stream.
 
@@ -232,7 +232,7 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
     directly; use [`open_connection()`](asyncio-stream.md#asyncio.open_connection "asyncio.open_connection") and [`start_server()`](asyncio-stream.md#asyncio.start_server "asyncio.start_server")
     instead.
 
-    write(*data*)
+    `write(data)`
     :   The method attempts to write the *data* to the underlying socket immediately.
         If that fails, the data is queued in an internal write buffer until it can be
         sent.
@@ -244,7 +244,7 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
         await stream.drain()
         ```
 
-    writelines(*data*)
+    `writelines(data)`
     :   The method writes a list (or any iterable) of bytes to the underlying socket
         immediately.
         If that fails, the data is queued in an internal write buffer until it can be
@@ -257,7 +257,7 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
         await stream.drain()
         ```
 
-    close()
+    `close()`
     :   The method closes the stream and the underlying socket.
 
         The method should be used, though not mandatory,
@@ -268,22 +268,22 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
         await stream.wait_closed()
         ```
 
-    can_write_eof()
+    `can_write_eof()`
     :   Return `True` if the underlying transport supports
         the [`write_eof()`](asyncio-stream.md#asyncio.StreamWriter.write_eof "asyncio.StreamWriter.write_eof") method, `False` otherwise.
 
-    write_eof()
+    `write_eof()`
     :   Close the write end of the stream after the buffered write
         data is flushed.
 
-    transport
+    `transport`
     :   Return the underlying asyncio transport.
 
-    get_extra_info(*name*, *default=None*)
+    `get_extra_info(name, default=None)`
     :   Access optional transport information; see
         [`BaseTransport.get_extra_info()`](asyncio-protocol.md#asyncio.BaseTransport.get_extra_info "asyncio.BaseTransport.get_extra_info") for details.
 
-    *async* drain()
+    `async drain()`
     :   Wait until it is appropriate to resume writing to the stream.
         Example:
 
@@ -299,7 +299,7 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
         be resumed. When there is nothing to wait for, the [`drain()`](asyncio-stream.md#asyncio.StreamWriter.drain "asyncio.StreamWriter.drain")
         returns immediately.
 
-    *async* start_tls(*sslcontext*, *\**, *server_hostname=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*)
+    `async start_tls(sslcontext, *, server_hostname=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None)`
     :   Upgrade an existing stream-based connection to TLS.
 
         Parameters:
@@ -318,13 +318,13 @@ asyncio.open_unix_connection(*path=None*, *\**, *limit=None*, *ssl=None*, *sock=
 
         Changed in version 3.12: Added the *ssl_shutdown_timeout* parameter.
 
-    is_closing()
+    `is_closing()`
     :   Return `True` if the stream is closed or in the process of
         being closed.
 
         Added in version 3.7.
 
-    *async* wait_closed()
+    `async wait_closed()`
     :   Wait until the stream is closed.
 
         Should be called after [`close()`](asyncio-stream.md#asyncio.StreamWriter.close "asyncio.StreamWriter.close") to wait until the underlying

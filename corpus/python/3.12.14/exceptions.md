@@ -37,11 +37,11 @@ information on defining exceptions is available in the Python Tutorial under
 Three attributes on exception objects provide information about the context in
 which the exception was raised:
 
-BaseException.__context__
+`BaseException.__context__`
 
-BaseException.__cause__
+`BaseException.__cause__`
 
-BaseException.__suppress_context__
+`BaseException.__suppress_context__`
 :   When raising a new exception while another exception
     is already being handled, the new exception’s
     `__context__` attribute is automatically set to the handled
@@ -94,20 +94,20 @@ subclassing multiple exception types altogether.
 
 The following exceptions are used mostly as base classes for other exceptions.
 
-*exception* BaseException
+`exception BaseException`
 :   The base class for all built-in exceptions. It is not meant to be directly
     inherited by user-defined classes (for that, use [`Exception`](exceptions.md#Exception "Exception")). If
     [`str()`](stdtypes.md#str "str") is called on an instance of this class, the representation of
     the argument(s) to the instance are returned, or the empty string when
     there were no arguments.
 
-    args
+    `args`
     :   The tuple of arguments given to the exception constructor. Some built-in
         exceptions (like [`OSError`](exceptions.md#OSError "OSError")) expect a certain number of arguments and
         assign a special meaning to the elements of this tuple, while others are
         usually called only with a single string giving an error message.
 
-    with_traceback(*tb*)
+    `with_traceback(tb)`
     :   This method sets *tb* as the new traceback for the exception and returns
         the exception object. It was more commonly used before the exception
         chaining features of [**PEP 3134**](https://peps.python.org/pep-3134/) became available. The following example
@@ -125,38 +125,38 @@ The following exceptions are used mostly as base classes for other exceptions.
             raise OtherException(...).with_traceback(tb)
         ```
 
-    __traceback__
+    `__traceback__`
     :   A writable field that holds the
         [traceback object](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects) associated with this
         exception. See also: [The raise statement](https://docs.python.org/3.12/reference/simple_stmts.html#raise).
 
-    add_note(*note*)
+    `add_note(note)`
     :   Add the string `note` to the exception’s notes which appear in the standard
         traceback after the exception string. A [`TypeError`](exceptions.md#TypeError "TypeError") is raised if `note`
         is not a string.
 
         Added in version 3.11.
 
-    __notes__
+    `__notes__`
     :   A list of the notes of this exception, which were added with [`add_note()`](exceptions.md#BaseException.add_note "BaseException.add_note").
         This attribute is created when [`add_note()`](exceptions.md#BaseException.add_note "BaseException.add_note") is called.
 
         Added in version 3.11.
 
-*exception* Exception
+`exception Exception`
 :   All built-in, non-system-exiting exceptions are derived from this class. All
     user-defined exceptions should also be derived from this class.
 
-*exception* ArithmeticError
+`exception ArithmeticError`
 :   The base class for those built-in exceptions that are raised for various
     arithmetic errors: [`OverflowError`](exceptions.md#OverflowError "OverflowError"), [`ZeroDivisionError`](exceptions.md#ZeroDivisionError "ZeroDivisionError"),
     [`FloatingPointError`](exceptions.md#FloatingPointError "FloatingPointError").
 
-*exception* BufferError
+`exception BufferError`
 :   Raised when a [buffer](https://docs.python.org/3.12/c-api/buffer.html#bufferobjects) related operation cannot be
     performed.
 
-*exception* LookupError
+`exception LookupError`
 :   The base class for the exceptions that are raised when a key or index used on
     a mapping or sequence is invalid: [`IndexError`](exceptions.md#IndexError "IndexError"), [`KeyError`](exceptions.md#KeyError "KeyError"). This
     can be raised directly by [`codecs.lookup()`](codecs.md#codecs.lookup "codecs.lookup").
@@ -165,10 +165,10 @@ The following exceptions are used mostly as base classes for other exceptions.
 
 The following exceptions are the exceptions that are usually raised.
 
-*exception* AssertionError
+`exception AssertionError`
 :   Raised when an [`assert`](https://docs.python.org/3.12/reference/simple_stmts.html#assert) statement fails.
 
-*exception* AttributeError
+`exception AttributeError`
 :   Raised when an attribute reference (see [Attribute references](https://docs.python.org/3.12/reference/expressions.html#attribute-references)) or
     assignment fails. (When an object does not support attribute references or
     attribute assignments at all, [`TypeError`](exceptions.md#TypeError "TypeError") is raised.)
@@ -180,21 +180,21 @@ The following exceptions are the exceptions that are usually raised.
 
     Changed in version 3.10: Added the `name` and `obj` attributes.
 
-*exception* EOFError
+`exception EOFError`
 :   Raised when the [`input()`](functions.md#input "input") function hits an end-of-file condition (EOF)
     without reading any data. (N.B.: the `io.IOBase.read()` and
     [`io.IOBase.readline()`](io.md#io.IOBase.readline "io.IOBase.readline") methods return an empty string when they hit EOF.)
 
-*exception* FloatingPointError
+`exception FloatingPointError`
 :   Not currently used.
 
-*exception* GeneratorExit
+`exception GeneratorExit`
 :   Raised when a [generator](https://docs.python.org/3.12/glossary.html#term-generator) or [coroutine](https://docs.python.org/3.12/glossary.html#term-coroutine) is closed;
     see [`generator.close()`](https://docs.python.org/3.12/reference/expressions.html#generator.close "generator.close") and [`coroutine.close()`](https://docs.python.org/3.12/reference/datamodel.html#coroutine.close "coroutine.close"). It
     directly inherits from [`BaseException`](exceptions.md#BaseException "BaseException") instead of [`Exception`](exceptions.md#Exception "Exception") since
     it is technically not an error.
 
-*exception* ImportError
+`exception ImportError`
 :   Raised when the [`import`](https://docs.python.org/3.12/reference/simple_stmts.html#import) statement has troubles trying to
     load a module. Also raised when the “from list” in `from ... import`
     has a name that cannot be found.
@@ -202,30 +202,30 @@ The following exceptions are the exceptions that are usually raised.
     The optional *name* and *path* keyword-only arguments
     set the corresponding attributes:
 
-    name
+    `name`
     :   The name of the module that was attempted to be imported.
 
-    path
+    `path`
     :   The path to any file which triggered the exception.
 
     Changed in version 3.3: Added the [`name`](exceptions.md#ImportError.name "ImportError.name") and [`path`](exceptions.md#ImportError.path "ImportError.path") attributes.
 
-*exception* ModuleNotFoundError
+`exception ModuleNotFoundError`
 :   A subclass of [`ImportError`](exceptions.md#ImportError "ImportError") which is raised by [`import`](https://docs.python.org/3.12/reference/simple_stmts.html#import)
     when a module could not be located. It is also raised when `None`
     is found in [`sys.modules`](sys.md#sys.modules "sys.modules").
 
     Added in version 3.6.
 
-*exception* IndexError
+`exception IndexError`
 :   Raised when a sequence subscript is out of range. (Slice indices are
     silently truncated to fall in the allowed range; if an index is not an
     integer, [`TypeError`](exceptions.md#TypeError "TypeError") is raised.)
 
-*exception* KeyError
+`exception KeyError`
 :   Raised when a mapping (dictionary) key is not found in the set of existing keys.
 
-*exception* KeyboardInterrupt
+`exception KeyboardInterrupt`
 :   Raised when the user hits the interrupt key (normally `Control`-`C` or
     `Delete`). During execution, a check for interrupts is made
     regularly. The exception inherits from [`BaseException`](exceptions.md#BaseException "BaseException") so as to not be
@@ -241,7 +241,7 @@ The following exceptions are the exceptions that are usually raised.
     > quickly as possible or avoid raising it entirely. (See
     > [Note on Signal Handlers and Exceptions](signal.md#handlers-and-exceptions).)
 
-*exception* MemoryError
+`exception MemoryError`
 :   Raised when an operation runs out of memory but the situation may still be
     rescued (by deleting some objects). The associated value is a string indicating
     what kind of (internal) operation ran out of memory. Note that because of the
@@ -250,7 +250,7 @@ The following exceptions are the exceptions that are usually raised.
     nevertheless raises an exception so that a stack traceback can be printed, in
     case a run-away program was the cause.
 
-*exception* NameError
+`exception NameError`
 :   Raised when a local or global name is not found. This applies only to
     unqualified names. The associated value is an error message that includes the
     name that could not be found.
@@ -261,7 +261,7 @@ The following exceptions are the exceptions that are usually raised.
 
     Changed in version 3.10: Added the `name` attribute.
 
-*exception* NotImplementedError
+`exception NotImplementedError`
 :   This exception is derived from [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError"). In user defined base
     classes, abstract methods should raise this exception when they require
     derived classes to override the method, or while the class is being
@@ -280,9 +280,9 @@ The following exceptions are the exceptions that are usually raised.
     > above; see [`NotImplemented`](constants.md#NotImplemented "NotImplemented") for details on correct usage of
     > the built-in constant.
 
-*exception* OSError([*arg*])
+`exception OSError([arg])`
 
-*exception* OSError(*errno*, *strerror*[, *filename*[, *winerror*[, *filename2*]]])
+`exception OSError(errno, strerror[, filename[, winerror[, filename2]]])`
 :   This exception is raised when a system function returns a system-related
     error, including I/O failures such as “file not found” or “disk full”
     (not for illegal argument types or other incidental errors).
@@ -299,10 +299,10 @@ The following exceptions are the exceptions that are usually raised.
     constructing [`OSError`](exceptions.md#OSError "OSError") directly or via an alias, and is not
     inherited when subclassing.
 
-    errno
+    `errno`
     :   A numeric error code from the C variable `errno`.
 
-    winerror
+    `winerror`
     :   Under Windows, this gives you the native
         Windows error code. The [`errno`](exceptions.md#OSError.errno "OSError.errno") attribute is then an approximate
         translation, in POSIX terms, of that native error code.
@@ -313,15 +313,15 @@ The following exceptions are the exceptions that are usually raised.
         *winerror* argument is ignored, and the [`winerror`](exceptions.md#OSError.winerror "OSError.winerror") attribute
         does not exist.
 
-    strerror
+    `strerror`
     :   The corresponding error message, as provided by
         the operating system. It is formatted by the C
         functions `perror()` under POSIX, and `FormatMessage()`
         under Windows.
 
-    filename
+    `filename`
 
-    filename2
+    `filename2`
     :   For exceptions that involve a file system path (such as [`open()`](functions.md#open "open") or
         [`os.unlink()`](os.md#os.unlink "os.unlink")), [`filename`](exceptions.md#OSError.filename "OSError.filename") is the file name passed to the function.
         For functions that involve two file system paths (such as
@@ -338,7 +338,7 @@ The following exceptions are the exceptions that are usually raised.
     [filesystem encoding and error handler](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler). Also, the *filename2*
     constructor argument and attribute was added.
 
-*exception* OverflowError
+`exception OverflowError`
 :   Raised when the result of an arithmetic operation is too large to be
     represented. This cannot occur for integers (which would rather raise
     [`MemoryError`](exceptions.md#MemoryError "MemoryError") than give up). However, for historical reasons,
@@ -346,30 +346,30 @@ The following exceptions are the exceptions that are usually raised.
     range. Because of the lack of standardization of floating-point exception
     handling in C, most floating-point operations are not checked.
 
-*exception* RecursionError
+`exception RecursionError`
 :   This exception is derived from [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError"). It is raised when the
     interpreter detects that the maximum recursion depth (see
     [`sys.getrecursionlimit()`](sys.md#sys.getrecursionlimit "sys.getrecursionlimit")) is exceeded.
 
     Added in version 3.5: Previously, a plain [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") was raised.
 
-*exception* ReferenceError
+`exception ReferenceError`
 :   This exception is raised when a weak reference proxy, created by the
     [`weakref.proxy()`](weakref.md#weakref.proxy "weakref.proxy") function, is used to access an attribute of the referent
     after it has been garbage collected. For more information on weak references,
     see the [`weakref`](weakref.md#module-weakref "weakref: Support for weak references and weak dictionaries.") module.
 
-*exception* RuntimeError
+`exception RuntimeError`
 :   Raised when an error is detected that doesn’t fall in any of the other
     categories. The associated value is a string indicating what precisely went
     wrong.
 
-*exception* StopIteration
+`exception StopIteration`
 :   Raised by built-in function [`next()`](functions.md#next "next") and an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator)'s
     [`__next__()`](stdtypes.md#iterator.__next__ "iterator.__next__") method to signal that there are no further
     items produced by the iterator.
 
-    value
+    `value`
     :   The exception object has a single attribute `value`, which is
         given as an argument when constructing the exception, and defaults
         to [`None`](constants.md#None "None").
@@ -392,13 +392,13 @@ The following exceptions are the exceptions that are usually raised.
     Changed in version 3.7: Enable [**PEP 479**](https://peps.python.org/pep-0479/) for all code by default: a [`StopIteration`](exceptions.md#StopIteration "StopIteration")
     error raised in a generator is transformed into a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError").
 
-*exception* StopAsyncIteration
+`exception StopAsyncIteration`
 :   Must be raised by [`__anext__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__anext__ "object.__anext__") method of an
     [asynchronous iterator](https://docs.python.org/3.12/glossary.html#term-asynchronous-iterator) object to stop the iteration.
 
     Added in version 3.5.
 
-*exception* SyntaxError(*message*, *details*)
+`exception SyntaxError(message, details)`
 :   Raised when the parser encounters a syntax error. This may occur in an
     [`import`](https://docs.python.org/3.12/reference/simple_stmts.html#import) statement, in a call to the built-in functions
     [`compile()`](functions.md#compile "compile"), [`exec()`](functions.md#exec "exec"),
@@ -408,25 +408,25 @@ The following exceptions are the exceptions that are usually raised.
     The [`str()`](stdtypes.md#str "str") of the exception instance returns only the error message.
     Details is a tuple whose members are also available as separate attributes.
 
-    filename
+    `filename`
     :   The name of the file the syntax error occurred in.
 
-    lineno
+    `lineno`
     :   Which line number in the file the error occurred in. This is
         1-indexed: the first line in the file has a `lineno` of 1.
 
-    offset
+    `offset`
     :   The column in the line where the error occurred. This is
         1-indexed: the first character in the line has an `offset` of 1.
 
-    text
+    `text`
     :   The source code text involved in the error.
 
-    end_lineno
+    `end_lineno`
     :   Which line number in the file the error occurred ends in. This is
         1-indexed: the first line in the file has a `lineno` of 1.
 
-    end_offset
+    `end_offset`
     :   The column in the end line where the error occurred finishes. This is
         1-indexed: the first character in the line has an `offset` of 1.
 
@@ -437,15 +437,15 @@ The following exceptions are the exceptions that are usually raised.
 
     Changed in version 3.10: Added the [`end_lineno`](exceptions.md#SyntaxError.end_lineno "SyntaxError.end_lineno") and [`end_offset`](exceptions.md#SyntaxError.end_offset "SyntaxError.end_offset") attributes.
 
-*exception* IndentationError
+`exception IndentationError`
 :   Base class for syntax errors related to incorrect indentation. This is a
     subclass of [`SyntaxError`](exceptions.md#SyntaxError "SyntaxError").
 
-*exception* TabError
+`exception TabError`
 :   Raised when indentation contains an inconsistent use of tabs and spaces.
     This is a subclass of [`IndentationError`](exceptions.md#IndentationError "IndentationError").
 
-*exception* SystemError
+`exception SystemError`
 :   Raised when the interpreter finds an internal error, but the situation does not
     look so serious to cause it to abandon all hope. The associated value is a
     string indicating what went wrong (in low-level terms). In [CPython](https://docs.python.org/3.12/glossary.html#term-CPython),
@@ -460,7 +460,7 @@ The following exceptions are the exceptions that are usually raised.
     message (the exception’s associated value) and if possible the source of the
     program that triggered the error.
 
-*exception* SystemExit
+`exception SystemExit`
 :   This exception is raised by the [`sys.exit()`](sys.md#sys.exit "sys.exit") function. It inherits from
     [`BaseException`](exceptions.md#BaseException "BaseException") instead of [`Exception`](exceptions.md#Exception "Exception") so that it is not accidentally
     caught by code that catches [`Exception`](exceptions.md#Exception "Exception"). This allows the exception to
@@ -479,11 +479,11 @@ The following exceptions are the exceptions that are usually raised.
     absolutely positively necessary to exit immediately (for example, in the child
     process after a call to [`os.fork()`](os.md#os.fork "os.fork")).
 
-    code
+    `code`
     :   The exit status or error message that is passed to the constructor.
         (Defaults to `None`.)
 
-*exception* TypeError
+`exception TypeError`
 :   Raised when an operation or function is applied to an object of inappropriate
     type. The associated value is a string giving details about the type mismatch.
 
@@ -497,12 +497,12 @@ The following exceptions are the exceptions that are usually raised.
     arguments with the wrong value (e.g. a number outside expected boundaries)
     should result in a [`ValueError`](exceptions.md#ValueError "ValueError").
 
-*exception* UnboundLocalError
+`exception UnboundLocalError`
 :   Raised when a reference is made to a local variable in a function or method, but
     no value has been bound to that variable. This is a subclass of
     [`NameError`](exceptions.md#NameError "NameError").
 
-*exception* UnicodeError
+`exception UnicodeError`
 :   Raised when a Unicode-related encoding or decoding error occurs. It is a
     subclass of [`ValueError`](exceptions.md#ValueError "ValueError").
 
@@ -510,39 +510,39 @@ The following exceptions are the exceptions that are usually raised.
     error. For example, `err.object[err.start:err.end]` gives the particular
     invalid input that the codec failed on.
 
-    encoding
+    `encoding`
     :   The name of the encoding that raised the error.
 
-    reason
+    `reason`
     :   A string describing the specific codec error.
 
-    object
+    `object`
     :   The object the codec was attempting to encode or decode.
 
-    start
+    `start`
     :   The first index of invalid data in [`object`](functions.md#object "object").
 
-    end
+    `end`
     :   The index after the last invalid data in [`object`](functions.md#object "object").
 
-*exception* UnicodeEncodeError
+`exception UnicodeEncodeError`
 :   Raised when a Unicode-related error occurs during encoding. It is a subclass of
     [`UnicodeError`](exceptions.md#UnicodeError "UnicodeError").
 
-*exception* UnicodeDecodeError
+`exception UnicodeDecodeError`
 :   Raised when a Unicode-related error occurs during decoding. It is a subclass of
     [`UnicodeError`](exceptions.md#UnicodeError "UnicodeError").
 
-*exception* UnicodeTranslateError
+`exception UnicodeTranslateError`
 :   Raised when a Unicode-related error occurs during translating. It is a subclass
     of [`UnicodeError`](exceptions.md#UnicodeError "UnicodeError").
 
-*exception* ValueError
+`exception ValueError`
 :   Raised when an operation or function receives an argument that has the
     right type but an inappropriate value, and the situation is not described by a
     more precise exception such as [`IndexError`](exceptions.md#IndexError "IndexError").
 
-*exception* ZeroDivisionError
+`exception ZeroDivisionError`
 :   Raised when the second argument of a division or modulo operation is zero. The
     associated value is a string indicating the type of the operands and the
     operation.
@@ -550,11 +550,11 @@ The following exceptions are the exceptions that are usually raised.
 The following exceptions are kept for compatibility with previous versions;
 starting from Python 3.3, they are aliases of [`OSError`](exceptions.md#OSError "OSError").
 
-*exception* EnvironmentError
+`exception EnvironmentError`
 
-*exception* IOError
+`exception IOError`
 
-*exception* WindowsError
+`exception WindowsError`
 :   Only available on Windows.
 
 ### OS exceptions
@@ -562,7 +562,7 @@ starting from Python 3.3, they are aliases of [`OSError`](exceptions.md#OSError 
 The following exceptions are subclasses of [`OSError`](exceptions.md#OSError "OSError"), they get raised
 depending on the system error code.
 
-*exception* BlockingIOError
+`exception BlockingIOError`
 :   Raised when an operation would block on an object (e.g. socket) set
     for non-blocking operation.
     Corresponds to `errno` [`EAGAIN`](errno.md#errno.EAGAIN "errno.EAGAIN"), [`EALREADY`](errno.md#errno.EALREADY "errno.EALREADY"),
@@ -571,51 +571,51 @@ depending on the system error code.
     In addition to those of [`OSError`](exceptions.md#OSError "OSError"), [`BlockingIOError`](exceptions.md#BlockingIOError "BlockingIOError") can have
     one more attribute:
 
-    characters_written
+    `characters_written`
     :   An integer containing the number of characters written to the stream
         before it blocked. This attribute is available when using the
         buffered I/O classes from the [`io`](io.md#module-io "io: Core tools for working with streams.") module.
 
-*exception* ChildProcessError
+`exception ChildProcessError`
 :   Raised when an operation on a child process failed.
     Corresponds to `errno` [`ECHILD`](errno.md#errno.ECHILD "errno.ECHILD").
 
-*exception* ConnectionError
+`exception ConnectionError`
 :   A base class for connection-related issues.
 
     Subclasses are [`BrokenPipeError`](exceptions.md#BrokenPipeError "BrokenPipeError"), [`ConnectionAbortedError`](exceptions.md#ConnectionAbortedError "ConnectionAbortedError"),
     [`ConnectionRefusedError`](exceptions.md#ConnectionRefusedError "ConnectionRefusedError") and [`ConnectionResetError`](exceptions.md#ConnectionResetError "ConnectionResetError").
 
-*exception* BrokenPipeError
+`exception BrokenPipeError`
 :   A subclass of [`ConnectionError`](exceptions.md#ConnectionError "ConnectionError"), raised when trying to write on a
     pipe while the other end has been closed, or trying to write on a socket
     which has been shutdown for writing.
     Corresponds to `errno` [`EPIPE`](errno.md#errno.EPIPE "errno.EPIPE") and [`ESHUTDOWN`](errno.md#errno.ESHUTDOWN "errno.ESHUTDOWN").
 
-*exception* ConnectionAbortedError
+`exception ConnectionAbortedError`
 :   A subclass of [`ConnectionError`](exceptions.md#ConnectionError "ConnectionError"), raised when a connection attempt
     is aborted by the peer.
     Corresponds to `errno` [`ECONNABORTED`](errno.md#errno.ECONNABORTED "errno.ECONNABORTED").
 
-*exception* ConnectionRefusedError
+`exception ConnectionRefusedError`
 :   A subclass of [`ConnectionError`](exceptions.md#ConnectionError "ConnectionError"), raised when a connection attempt
     is refused by the peer.
     Corresponds to `errno` [`ECONNREFUSED`](errno.md#errno.ECONNREFUSED "errno.ECONNREFUSED").
 
-*exception* ConnectionResetError
+`exception ConnectionResetError`
 :   A subclass of [`ConnectionError`](exceptions.md#ConnectionError "ConnectionError"), raised when a connection is
     reset by the peer.
     Corresponds to `errno` [`ECONNRESET`](errno.md#errno.ECONNRESET "errno.ECONNRESET").
 
-*exception* FileExistsError
+`exception FileExistsError`
 :   Raised when trying to create a file or directory which already exists.
     Corresponds to `errno` [`EEXIST`](errno.md#errno.EEXIST "errno.EEXIST").
 
-*exception* FileNotFoundError
+`exception FileNotFoundError`
 :   Raised when a file or directory is requested but doesn’t exist.
     Corresponds to `errno` [`ENOENT`](errno.md#errno.ENOENT "errno.ENOENT").
 
-*exception* InterruptedError
+`exception InterruptedError`
 :   Raised when a system call is interrupted by an incoming signal.
     Corresponds to `errno` [`EINTR`](errno.md#errno.EINTR "errno.EINTR").
 
@@ -623,19 +623,19 @@ depending on the system error code.
     signal, except if the signal handler raises an exception (see [**PEP 475**](https://peps.python.org/pep-0475/)
     for the rationale), instead of raising [`InterruptedError`](exceptions.md#InterruptedError "InterruptedError").
 
-*exception* IsADirectoryError
+`exception IsADirectoryError`
 :   Raised when a file operation (such as [`os.remove()`](os.md#os.remove "os.remove")) is requested
     on a directory.
     Corresponds to `errno` [`EISDIR`](errno.md#errno.EISDIR "errno.EISDIR").
 
-*exception* NotADirectoryError
+`exception NotADirectoryError`
 :   Raised when a directory operation (such as [`os.listdir()`](os.md#os.listdir "os.listdir")) is requested on
     something which is not a directory. On most POSIX platforms, it may also be
     raised if an operation attempts to open or traverse a non-directory file as if
     it were a directory.
     Corresponds to `errno` [`ENOTDIR`](errno.md#errno.ENOTDIR "errno.ENOTDIR").
 
-*exception* PermissionError
+`exception PermissionError`
 :   Raised when trying to run an operation without the adequate access
     rights - for example filesystem permissions.
     Corresponds to `errno` [`EACCES`](errno.md#errno.EACCES "errno.EACCES"),
@@ -644,11 +644,11 @@ depending on the system error code.
     Changed in version 3.11.1: WASI’s [`ENOTCAPABLE`](errno.md#errno.ENOTCAPABLE "errno.ENOTCAPABLE") is now mapped to
     [`PermissionError`](exceptions.md#PermissionError "PermissionError").
 
-*exception* ProcessLookupError
+`exception ProcessLookupError`
 :   Raised when a given process doesn’t exist.
     Corresponds to `errno` [`ESRCH`](errno.md#errno.ESRCH "errno.ESRCH").
 
-*exception* TimeoutError
+`exception TimeoutError`
 :   Raised when a system function timed out at the system level.
     Corresponds to `errno` [`ETIMEDOUT`](errno.md#errno.ETIMEDOUT "errno.ETIMEDOUT").
 
@@ -663,13 +663,13 @@ Added in version 3.3: All the above [`OSError`](exceptions.md#OSError "OSError")
 The following exceptions are used as warning categories; see the
 [Warning Categories](warnings.md#warning-categories) documentation for more details.
 
-*exception* Warning
+`exception Warning`
 :   Base class for warning categories.
 
-*exception* UserWarning
+`exception UserWarning`
 :   Base class for warnings generated by user code.
 
-*exception* DeprecationWarning
+`exception DeprecationWarning`
 :   Base class for warnings about deprecated features when those warnings are
     intended for other Python developers.
 
@@ -679,7 +679,7 @@ The following exceptions are used as warning categories; see the
 
     The deprecation policy is described in [**PEP 387**](https://peps.python.org/pep-0387/).
 
-*exception* PendingDeprecationWarning
+`exception PendingDeprecationWarning`
 :   Base class for warnings about features which are obsolete and
     expected to be deprecated in the future, but are not deprecated
     at the moment.
@@ -693,36 +693,36 @@ The following exceptions are used as warning categories; see the
 
     The deprecation policy is described in [**PEP 387**](https://peps.python.org/pep-0387/).
 
-*exception* SyntaxWarning
+`exception SyntaxWarning`
 :   Base class for warnings about dubious syntax.
 
-*exception* RuntimeWarning
+`exception RuntimeWarning`
 :   Base class for warnings about dubious runtime behavior.
 
-*exception* FutureWarning
+`exception FutureWarning`
 :   Base class for warnings about deprecated features when those warnings are
     intended for end users of applications that are written in Python.
 
-*exception* ImportWarning
+`exception ImportWarning`
 :   Base class for warnings about probable mistakes in module imports.
 
     Ignored by the default warning filters. Enabling the [Python
     Development Mode](devmode.md#devmode) shows this warning.
 
-*exception* UnicodeWarning
+`exception UnicodeWarning`
 :   Base class for warnings related to Unicode.
 
-*exception* EncodingWarning
+`exception EncodingWarning`
 :   Base class for warnings related to encodings.
 
     See [Opt-in EncodingWarning](io.md#io-encoding-warning) for details.
 
     Added in version 3.10.
 
-*exception* BytesWarning
+`exception BytesWarning`
 :   Base class for warnings related to [`bytes`](stdtypes.md#bytes "bytes") and [`bytearray`](stdtypes.md#bytearray "bytearray").
 
-*exception* ResourceWarning
+`exception ResourceWarning`
 :   Base class for warnings related to resource usage.
 
     Ignored by the default warning filters. Enabling the [Python
@@ -738,9 +738,9 @@ handled with [`except`](https://docs.python.org/3.12/reference/compound_stmts.ht
 they are recognised by [`except*`](https://docs.python.org/3.12/reference/compound_stmts.html#except-star), which matches
 their subgroups based on the types of the contained exceptions.
 
-*exception* ExceptionGroup(*msg*, *excs*)
+`exception ExceptionGroup(msg, excs)`
 
-*exception* BaseExceptionGroup(*msg*, *excs*)
+`exception BaseExceptionGroup(msg, excs)`
 :   Both of these exception types wrap the exceptions in the sequence `excs`.
     The `msg` parameter must be a string. The difference between the two
     classes is that [`BaseExceptionGroup`](exceptions.md#BaseExceptionGroup "BaseExceptionGroup") extends [`BaseException`](exceptions.md#BaseException "BaseException") and
@@ -756,14 +756,14 @@ their subgroups based on the types of the contained exceptions.
     raises a [`TypeError`](exceptions.md#TypeError "TypeError") if any contained exception is not an
     [`Exception`](exceptions.md#Exception "Exception") subclass.
 
-    message
+    `message`
     :   The `msg` argument to the constructor. This is a read-only attribute.
 
-    exceptions
+    `exceptions`
     :   A tuple of the exceptions in the `excs` sequence given to the
         constructor. This is a read-only attribute.
 
-    subgroup(*condition*)
+    `subgroup(condition)`
     :   Returns an exception group that contains only the exceptions from the
         current group that match *condition*, or `None` if the result is empty.
 
@@ -783,12 +783,12 @@ their subgroups based on the types of the contained exceptions.
         including the top-level and any nested exception groups. If the condition is
         true for such an exception group, it is included in the result in full.
 
-    split(*condition*)
+    `split(condition)`
     :   Like [`subgroup()`](exceptions.md#BaseExceptionGroup.subgroup "BaseExceptionGroup.subgroup"), but returns the pair `(match, rest)` where `match`
         is `subgroup(condition)` and `rest` is the remaining non-matching
         part.
 
-    derive(*excs*)
+    `derive(excs)`
     :   Returns an exception group with the same [`message`](exceptions.md#BaseExceptionGroup.message "BaseExceptionGroup.message"), but which
         wraps the exceptions in `excs`.
 

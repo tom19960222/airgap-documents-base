@@ -24,9 +24,9 @@ be used directly to achieve most normal geometry management behavior.
 Should more specific control be necessary, the following attributes are
 available:
 
-*class* tkinter.scrolledtext.ScrolledText(*master=None*, *\*\*kw*)
-:   frame
+`class tkinter.scrolledtext.ScrolledText(master=None, **kw)`
+:   `frame`
     :   The frame which surrounds the text and scroll bar widgets.
 
-    vbar
+    `vbar`
     :   The scroll bar widget.

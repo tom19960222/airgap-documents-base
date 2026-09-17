@@ -74,7 +74,7 @@ python -m dis [-h] [infile]
 
 The following options are accepted:
 
--h, --help
+`-h, --help`
 :   Display usage and exit.
 
 If `infile` is specified, its disassembled code will be written to stdout.
@@ -88,7 +88,7 @@ The bytecode analysis API allows pieces of Python code to be wrapped in a
 [`Bytecode`](dis.md#dis.Bytecode "dis.Bytecode") object that provides easy access to details of the compiled
 code.
 
-*class* dis.Bytecode(*x*, *\**, *first_line=None*, *current_offset=None*, *show_caches=False*, *adaptive=False*)
+`class dis.Bytecode(x, *, first_line=None, current_offset=None, show_caches=False, adaptive=False)`
 :   Analyse the bytecode corresponding to a function, generator, asynchronous
     generator, coroutine, method, string of source code, or a code object (as
     returned by [`compile()`](functions.md#compile "compile")).
@@ -112,21 +112,21 @@ code.
     If *adaptive* is `True`, [`dis()`](dis.md#dis.Bytecode.dis "dis.Bytecode.dis") will display specialized bytecode
     that may be different from the original bytecode.
 
-    *classmethod* from_traceback(*tb*, *\**, *show_caches=False*)
+    `classmethod from_traceback(tb, *, show_caches=False)`
     :   Construct a [`Bytecode`](dis.md#dis.Bytecode "dis.Bytecode") instance from the given traceback, setting
         *current_offset* to the instruction responsible for the exception.
 
-    codeobj
+    `codeobj`
     :   The compiled code object.
 
-    first_line
+    `first_line`
     :   The first source line of the code object (if available)
 
-    dis()
+    `dis()`
     :   Return a formatted view of the bytecode operations (the same as printed by
         [`dis.dis()`](dis.md#dis.dis "dis.dis"), but returned as a multi-line string).
 
-    info()
+    `info()`
     :   Return a formatted multi-line string with detailed information about the
         code object, like [`code_info()`](dis.md#dis.code_info "dis.code_info").
 
@@ -154,7 +154,7 @@ The [`dis`](dis.md#module-dis "dis: Disassembler for Python bytecode.") module a
 the input directly to the desired output. They can be useful if only a single
 operation is being performed, so the intermediate analysis object isn’t useful:
 
-dis.code_info(*x*)
+`dis.code_info(x)`
 :   Return a formatted multi-line string with detailed code object information
     for the supplied function, generator, asynchronous generator, coroutine,
     method, source code string or code object.
@@ -167,7 +167,7 @@ dis.code_info(*x*)
 
     Changed in version 3.7: This can now handle coroutine and asynchronous generator objects.
 
-dis.show_code(*x*, *\**, *file=None*)
+`dis.show_code(x, *, file=None)`
 :   Print detailed code object information for the supplied function, method,
     source code string or code object to *file* (or `sys.stdout` if *file*
     is not specified).
@@ -179,7 +179,7 @@ dis.show_code(*x*, *\**, *file=None*)
 
     Changed in version 3.4: Added *file* parameter.
 
-dis.dis(*x=None*, *\**, *file=None*, *depth=None*, *show_caches=False*, *adaptive=False*)
+`dis.dis(x=None, *, file=None, depth=None, show_caches=False, adaptive=False)`
 :   Disassemble the *x* object. *x* can denote either a module, a class, a
     method, a function, a generator, an asynchronous generator, a coroutine,
     a code object, a string of source code or a byte sequence of raw bytecode.
@@ -213,7 +213,7 @@ dis.dis(*x=None*, *\**, *file=None*, *depth=None*, *show_caches=False*, *adaptiv
 
     Changed in version 3.11: Added the *show_caches* and *adaptive* parameters.
 
-dis.distb(*tb=None*, *\**, *file=None*, *show_caches=False*, *adaptive=False*)
+`dis.distb(tb=None, *, file=None, show_caches=False, adaptive=False)`
 :   Disassemble the top-of-stack function of a traceback, using the last
     traceback if none was passed. The instruction causing the exception is
     indicated.
@@ -225,9 +225,9 @@ dis.distb(*tb=None*, *\**, *file=None*, *show_caches=False*, *adaptive=False*)
 
     Changed in version 3.11: Added the *show_caches* and *adaptive* parameters.
 
-dis.disassemble(*code*, *lasti=-1*, *\**, *file=None*, *show_caches=False*, *adaptive=False*)
+`dis.disassemble(code, lasti=-1, *, file=None, show_caches=False, adaptive=False)`
 
-dis.disco(*code*, *lasti=-1*, *\**, *file=None*, *show_caches=False*, *adaptive=False*)
+`dis.disco(code, lasti=-1, *, file=None, show_caches=False, adaptive=False)`
 :   Disassemble a code object, indicating the last instruction if *lasti* was
     provided. The output is divided in the following columns:
 
@@ -249,7 +249,7 @@ dis.disco(*code*, *lasti=-1*, *\**, *file=None*, *show_caches=False*, *adaptive=
 
     Changed in version 3.11: Added the *show_caches* and *adaptive* parameters.
 
-dis.get_instructions(*x*, *\**, *first_line=None*, *show_caches=False*, *adaptive=False*)
+`dis.get_instructions(x, *, first_line=None, show_caches=False, adaptive=False)`
 :   Return an iterator over the instructions in the supplied function, method,
     source code string or code object.
 
@@ -267,7 +267,7 @@ dis.get_instructions(*x*, *\**, *first_line=None*, *show_caches=False*, *adaptiv
 
     Changed in version 3.11: Added the *show_caches* and *adaptive* parameters.
 
-dis.findlinestarts(*code*)
+`dis.findlinestarts(code)`
 :   This generator function uses the [`co_lines()`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_lines "codeobject.co_lines") method
     of the [code object](https://docs.python.org/3.12/reference/datamodel.html#code-objects) *code* to find the offsets which
     are starts of
@@ -279,11 +279,11 @@ dis.findlinestarts(*code*)
     [`co_firstlineno`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_firstlineno "codeobject.co_firstlineno") and [`co_lnotab`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_lnotab "codeobject.co_lnotab")
     attributes of the [code object](https://docs.python.org/3.12/reference/datamodel.html#code-objects).
 
-dis.findlabels(*code*)
+`dis.findlabels(code)`
 :   Detect all offsets in the raw compiled bytecode string *code* which are jump targets, and
     return a list of these offsets.
 
-dis.stack_effect(*opcode*, *oparg=None*, *\**, *jump=None*)
+`dis.stack_effect(opcode, oparg=None, *, jump=None)`
 :   Compute the stack effect of *opcode* with argument *oparg*.
 
     If the code has a jump target and *jump* is `True`, [`stack_effect()`](dis.md#dis.stack_effect "dis.stack_effect")
@@ -300,36 +300,36 @@ dis.stack_effect(*opcode*, *oparg=None*, *\**, *jump=None*)
 The [`get_instructions()`](dis.md#dis.get_instructions "dis.get_instructions") function and [`Bytecode`](dis.md#dis.Bytecode "dis.Bytecode") class provide
 details of bytecode instructions as [`Instruction`](dis.md#dis.Instruction "dis.Instruction") instances:
 
-*class* dis.Instruction
+`class dis.Instruction`
 :   Details for a bytecode operation
 
-    opcode
+    `opcode`
     :   numeric code for operation, corresponding to the opcode values listed
         below and the bytecode values in the [Opcode collections](dis.md#opcode-collections).
 
-    opname
+    `opname`
     :   human readable name for operation
 
-    arg
+    `arg`
     :   numeric argument to operation (if any), otherwise `None`
 
-    argval
+    `argval`
     :   resolved arg value (if any), otherwise `None`
 
-    argrepr
+    `argrepr`
     :   human readable description of operation argument (if any),
         otherwise an empty string.
 
-    offset
+    `offset`
     :   start index of operation within bytecode sequence
 
-    starts_line
+    `starts_line`
     :   line started by this opcode (if any), otherwise `None`
 
-    is_jump_target
+    `is_jump_target`
     :   `True` if other code jumps to here, otherwise `False`
 
-    positions
+    `positions`
     :   [`dis.Positions`](dis.md#dis.Positions "dis.Positions") object holding the
         start and end locations that are covered by this instruction.
 
@@ -337,16 +337,16 @@ details of bytecode instructions as [`Instruction`](dis.md#dis.Instruction "dis.
 
     Changed in version 3.11: Field `positions` is added.
 
-*class* dis.Positions
+`class dis.Positions`
 :   In case the information is not available, some fields might be `None`.
 
-    lineno
+    `lineno`
 
-    end_lineno
+    `end_lineno`
 
-    col_offset
+    `col_offset`
 
-    end_col_offset
+    `end_col_offset`
 
     Added in version 3.11.
 
@@ -358,31 +358,31 @@ In the following, We will refer to the interpreter stack as `STACK` and describe
 operations on it as if it was a Python list. The top of the stack corresponds to
 `STACK[-1]` in this language.
 
-NOP
+`NOP`
 :   Do nothing code. Used as a placeholder by the bytecode optimizer, and to
     generate line tracing events.
 
-POP_TOP
+`POP_TOP`
 :   Removes the top-of-stack item:
 
     ```python3
     STACK.pop()
     ```
 
-END_FOR
+`END_FOR`
 :   Removes the top two values from the stack.
     Equivalent to `POP_TOP`; `POP_TOP`.
     Used to clean up at the end of loops, hence the name.
 
     Added in version 3.12.
 
-END_SEND
+`END_SEND`
 :   Implements `del STACK[-2]`.
     Used to clean up when a generator exits.
 
     Added in version 3.12.
 
-COPY(*i*)
+`COPY(i)`
 :   Push the i-th item to the top of the stack without removing it from its original
     location:
 
@@ -393,7 +393,7 @@ COPY(*i*)
 
     Added in version 3.11.
 
-SWAP(*i*)
+`SWAP(i)`
 :   Swap the top of the stack with the i-th element:
 
     ```python3
@@ -402,7 +402,7 @@ SWAP(*i*)
 
     Added in version 3.11.
 
-CACHE
+`CACHE`
 :   Rather than being an actual instruction, this opcode is used to mark extra
     space for the interpreter to cache useful data directly in the bytecode
     itself. It is automatically hidden by all `dis` utilities, but can be
@@ -423,19 +423,19 @@ CACHE
 Unary operations take the top of the stack, apply the operation, and push the
 result back on the stack.
 
-UNARY_NEGATIVE
+`UNARY_NEGATIVE`
 :   Implements `STACK[-1] = -STACK[-1]`.
 
-UNARY_NOT
+`UNARY_NOT`
 :   Implements `STACK[-1] = not STACK[-1]`.
 
-UNARY_INVERT
+`UNARY_INVERT`
 :   Implements `STACK[-1] = ~STACK[-1]`.
 
-GET_ITER
+`GET_ITER`
 :   Implements `STACK[-1] = iter(STACK[-1])`.
 
-GET_YIELD_FROM_ITER
+`GET_YIELD_FROM_ITER`
 :   If `STACK[-1]` is a [generator iterator](https://docs.python.org/3.12/glossary.html#term-generator-iterator) or [coroutine](https://docs.python.org/3.12/glossary.html#term-coroutine) object
     it is left as is. Otherwise, implements `STACK[-1] = iter(STACK[-1])`.
 
@@ -450,7 +450,7 @@ In-place operations are like binary operations, but the operation is done in-pla
 when `STACK[-2]` supports it, and the resulting `STACK[-1]` may be (but does
 not have to be) the original `STACK[-2]`.
 
-BINARY_OP(*op*)
+`BINARY_OP(op)`
 :   Implements the binary and in-place operators (depending on the value of
     *op*):
 
@@ -462,7 +462,7 @@ BINARY_OP(*op*)
 
     Added in version 3.11.
 
-BINARY_SUBSCR
+`BINARY_SUBSCR`
 :   Implements:
 
     ```python3
@@ -471,7 +471,7 @@ BINARY_SUBSCR
     STACK.append(container[key])
     ```
 
-STORE_SUBSCR
+`STORE_SUBSCR`
 :   Implements:
 
     ```python3
@@ -481,7 +481,7 @@ STORE_SUBSCR
     container[key] = value
     ```
 
-DELETE_SUBSCR
+`DELETE_SUBSCR`
 :   Implements:
 
     ```python3
@@ -490,7 +490,7 @@ DELETE_SUBSCR
     del container[key]
     ```
 
-BINARY_SLICE
+`BINARY_SLICE`
 :   Implements:
 
     ```python3
@@ -502,7 +502,7 @@ BINARY_SLICE
 
     Added in version 3.12.
 
-STORE_SLICE
+`STORE_SLICE`
 :   Implements:
 
     ```python3
@@ -517,7 +517,7 @@ STORE_SLICE
 
 **Coroutine opcodes**
 
-GET_AWAITABLE(*where*)
+`GET_AWAITABLE(where)`
 :   Implements `STACK[-1] = get_awaitable(STACK[-1])`, where `get_awaitable(o)`
     returns `o` if `o` is a coroutine object or a generator object with
     the [`CO_ITERABLE_COROUTINE`](inspect.md#inspect.CO_ITERABLE_COROUTINE "inspect.CO_ITERABLE_COROUTINE") flag, or resolves
@@ -533,7 +533,7 @@ GET_AWAITABLE(*where*)
 
     Changed in version 3.11: Previously, this instruction did not have an oparg.
 
-GET_AITER
+`GET_AITER`
 :   Implements `STACK[-1] = STACK[-1].__aiter__()`.
 
     Added in version 3.5.
@@ -541,13 +541,13 @@ GET_AITER
     Changed in version 3.7: Returning awaitable objects from `__aiter__` is no longer
     supported.
 
-GET_ANEXT
+`GET_ANEXT`
 :   Implement `STACK.append(get_awaitable(STACK[-1].__anext__()))` to the stack.
     See `GET_AWAITABLE` for details about `get_awaitable`.
 
     Added in version 3.5.
 
-END_ASYNC_FOR
+`END_ASYNC_FOR`
 :   Terminates an [`async for`](https://docs.python.org/3.12/reference/compound_stmts.html#async-for) loop. Handles an exception raised
     when awaiting a next item. The stack contains the async iterable in
     `STACK[-2]` and the raised exception in `STACK[-1]`. Both are popped.
@@ -557,7 +557,7 @@ END_ASYNC_FOR
 
     Changed in version 3.11: Exception representation on the stack now consist of one, not three, items.
 
-CLEANUP_THROW
+`CLEANUP_THROW`
 :   Handles an exception raised during a [`throw()`](https://docs.python.org/3.12/reference/expressions.html#generator.throw "generator.throw") or
     [`close()`](https://docs.python.org/3.12/reference/expressions.html#generator.close "generator.close") call through the current frame. If `STACK[-1]` is an
     instance of [`StopIteration`](exceptions.md#StopIteration "StopIteration"), pop three values from the stack and push
@@ -565,7 +565,7 @@ CLEANUP_THROW
 
     Added in version 3.12.
 
-BEFORE_ASYNC_WITH
+`BEFORE_ASYNC_WITH`
 :   Resolves `__aenter__` and `__aexit__` from `STACK[-1]`.
     Pushes `__aexit__` and result of `__aenter__()` to the stack:
 
@@ -577,7 +577,7 @@ BEFORE_ASYNC_WITH
 
 **Miscellaneous opcodes**
 
-SET_ADD(*i*)
+`SET_ADD(i)`
 :   Implements:
 
     ```python3
@@ -587,7 +587,7 @@ SET_ADD(*i*)
 
     Used to implement set comprehensions.
 
-LIST_APPEND(*i*)
+`LIST_APPEND(i)`
 :   Implements:
 
     ```python3
@@ -597,7 +597,7 @@ LIST_APPEND(*i*)
 
     Used to implement list comprehensions.
 
-MAP_ADD(*i*)
+`MAP_ADD(i)`
 :   Implements:
 
     ```python3
@@ -618,22 +618,22 @@ instructions, while the added value or key/value pair is popped off, the
 container object remains on the stack so that it is available for further
 iterations of the loop.
 
-RETURN_VALUE
+`RETURN_VALUE`
 :   Returns with `STACK[-1]` to the caller of the function.
 
-RETURN_CONST(*consti*)
+`RETURN_CONST(consti)`
 :   Returns with `co_consts[consti]` to the caller of the function.
 
     Added in version 3.12.
 
-YIELD_VALUE
+`YIELD_VALUE`
 :   Yields `STACK.pop()` from a [generator](https://docs.python.org/3.12/glossary.html#term-generator).
 
     Changed in version 3.11: oparg set to be the stack depth.
 
     Changed in version 3.12: oparg set to be the exception block depth, for efficient closing of generators.
 
-SETUP_ANNOTATIONS
+`SETUP_ANNOTATIONS`
 :   Checks whether `__annotations__` is defined in `locals()`, if not it is
     set up to an empty `dict`. This opcode is only emitted if a class
     or module body contains [variable annotations](https://docs.python.org/3.12/glossary.html#term-variable-annotation)
@@ -641,12 +641,12 @@ SETUP_ANNOTATIONS
 
     Added in version 3.6.
 
-POP_EXCEPT
+`POP_EXCEPT`
 :   Pops a value from the stack, which is used to restore the exception state.
 
     Changed in version 3.11: Exception representation on the stack now consist of one, not three, items.
 
-RERAISE
+`RERAISE`
 :   Re-raises the exception currently on top of the stack. If oparg is non-zero,
     pops an additional value from the stack which is used to set
     [`f_lasti`](https://docs.python.org/3.12/reference/datamodel.html#frame.f_lasti "frame.f_lasti") of the current frame.
@@ -655,21 +655,21 @@ RERAISE
 
     Changed in version 3.11: Exception representation on the stack now consist of one, not three, items.
 
-PUSH_EXC_INFO
+`PUSH_EXC_INFO`
 :   Pops a value from the stack. Pushes the current exception to the top of the stack.
     Pushes the value originally popped back to the stack.
     Used in exception handlers.
 
     Added in version 3.11.
 
-CHECK_EXC_MATCH
+`CHECK_EXC_MATCH`
 :   Performs exception matching for `except`. Tests whether the `STACK[-2]`
     is an exception matching `STACK[-1]`. Pops `STACK[-1]` and pushes the boolean
     result of the test.
 
     Added in version 3.11.
 
-CHECK_EG_MATCH
+`CHECK_EG_MATCH`
 :   Performs exception matching for `except*`. Applies `split(STACK[-1])` on
     the exception group representing `STACK[-2]`.
 
@@ -680,7 +680,7 @@ CHECK_EG_MATCH
 
     Added in version 3.11.
 
-WITH_EXCEPT_START
+`WITH_EXCEPT_START`
 :   Calls the function in position 4 on the stack with arguments (type, val, tb)
     representing the exception at the top of the stack.
     Used to implement the call `context_manager.__exit__(*exc_info())` when an exception
@@ -691,17 +691,17 @@ WITH_EXCEPT_START
     Changed in version 3.11: The `__exit__` function is in position 4 of the stack rather than 7.
     Exception representation on the stack now consist of one, not three, items.
 
-LOAD_ASSERTION_ERROR
+`LOAD_ASSERTION_ERROR`
 :   Pushes [`AssertionError`](exceptions.md#AssertionError "AssertionError") onto the stack. Used by the [`assert`](https://docs.python.org/3.12/reference/simple_stmts.html#assert)
     statement.
 
     Added in version 3.9.
 
-LOAD_BUILD_CLASS
+`LOAD_BUILD_CLASS`
 :   Pushes `builtins.__build_class__()` onto the stack. It is later called
     to construct a class.
 
-BEFORE_WITH
+`BEFORE_WITH`
 :   This opcode performs several operations before a with block starts. First,
     it loads [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") from the context manager and pushes it onto
     the stack for later use by [`WITH_EXCEPT_START`](dis.md#opcode-WITH_EXCEPT_START). Then,
@@ -710,13 +710,13 @@ BEFORE_WITH
 
     Added in version 3.11.
 
-GET_LEN
+`GET_LEN`
 :   Perform `STACK.append(len(STACK[-1]))`. Used in [`match`](https://docs.python.org/3.12/reference/compound_stmts.html#match) statements where
     comparison with structure of pattern is needed.
 
     Added in version 3.10.
 
-MATCH_MAPPING
+`MATCH_MAPPING`
 :   If `STACK[-1]` is an instance of [`collections.abc.Mapping`](collections.abc.md#collections.abc.Mapping "collections.abc.Mapping") (or, more
     technically: if it has the [`Py_TPFLAGS_MAPPING`](https://docs.python.org/3.12/c-api/typeobj.html#c.Py_TPFLAGS_MAPPING "Py_TPFLAGS_MAPPING") flag set in its
     [`tp_flags`](https://docs.python.org/3.12/c-api/typeobj.html#c.PyTypeObject.tp_flags "PyTypeObject.tp_flags")), push `True` onto the stack. Otherwise,
@@ -724,7 +724,7 @@ MATCH_MAPPING
 
     Added in version 3.10.
 
-MATCH_SEQUENCE
+`MATCH_SEQUENCE`
 :   If `STACK[-1]` is an instance of [`collections.abc.Sequence`](collections.abc.md#collections.abc.Sequence "collections.abc.Sequence") and is *not* an instance
     of [`str`](stdtypes.md#str "str")/[`bytes`](stdtypes.md#bytes "bytes")/[`bytearray`](stdtypes.md#bytearray "bytearray") (or, more technically: if it has
     the [`Py_TPFLAGS_SEQUENCE`](https://docs.python.org/3.12/c-api/typeobj.html#c.Py_TPFLAGS_SEQUENCE "Py_TPFLAGS_SEQUENCE") flag set in its [`tp_flags`](https://docs.python.org/3.12/c-api/typeobj.html#c.PyTypeObject.tp_flags "PyTypeObject.tp_flags")),
@@ -732,7 +732,7 @@ MATCH_SEQUENCE
 
     Added in version 3.10.
 
-MATCH_KEYS
+`MATCH_KEYS`
 :   `STACK[-1]` is a tuple of mapping keys, and `STACK[-2]` is the match subject.
     If `STACK[-2]` contains all of the keys in `STACK[-1]`, push a [`tuple`](stdtypes.md#tuple "tuple")
     containing the corresponding values. Otherwise, push `None`.
@@ -742,16 +742,16 @@ MATCH_KEYS
     Changed in version 3.11: Previously, this instruction also pushed a boolean value indicating
     success (`True`) or failure (`False`).
 
-STORE_NAME(*namei*)
+`STORE_NAME(namei)`
 :   Implements `name = STACK.pop()`. *namei* is the index of *name* in the attribute
     [`co_names`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_names "codeobject.co_names") of the [code object](https://docs.python.org/3.12/reference/datamodel.html#code-objects).
     The compiler tries to use [`STORE_FAST`](dis.md#opcode-STORE_FAST) or [`STORE_GLOBAL`](dis.md#opcode-STORE_GLOBAL) if possible.
 
-DELETE_NAME(*namei*)
+`DELETE_NAME(namei)`
 :   Implements `del name`, where *namei* is the index into [`co_names`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_names "codeobject.co_names")
     attribute of the [code object](https://docs.python.org/3.12/reference/datamodel.html#code-objects).
 
-UNPACK_SEQUENCE(*count*)
+`UNPACK_SEQUENCE(count)`
 :   Unpacks `STACK[-1]` into *count* individual values, which are put onto the stack
     right-to-left. Require there to be exactly *count* values.:
 
@@ -760,7 +760,7 @@ UNPACK_SEQUENCE(*count*)
     STACK.extend(STACK.pop()[:-count-1:-1])
     ```
 
-UNPACK_EX(*counts*)
+`UNPACK_EX(counts)`
 :   Implements assignment with a starred target: Unpacks an iterable in `STACK[-1]`
     into individual values, where the total number of values can be smaller than the
     number of items in the iterable: one of the new values will be a list of all
@@ -777,7 +777,7 @@ UNPACK_EX(*counts*)
     The extracted values are put onto the stack right-to-left, i.e. `a, *b, c = d`
     will be stored after execution as `STACK.extend((a, b, c))`.
 
-STORE_ATTR(*namei*)
+`STORE_ATTR(namei)`
 :   Implements:
 
     ```python3
@@ -789,7 +789,7 @@ STORE_ATTR(*namei*)
     where *namei* is the index of name in [`co_names`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_names "codeobject.co_names") of the
     [code object](https://docs.python.org/3.12/reference/datamodel.html#code-objects).
 
-DELETE_ATTR(*namei*)
+`DELETE_ATTR(namei)`
 :   Implements:
 
     ```python3
@@ -800,27 +800,27 @@ DELETE_ATTR(*namei*)
     where *namei* is the index of name into [`co_names`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_names "codeobject.co_names") of the
     [code object](https://docs.python.org/3.12/reference/datamodel.html#code-objects).
 
-STORE_GLOBAL(*namei*)
+`STORE_GLOBAL(namei)`
 :   Works as [`STORE_NAME`](dis.md#opcode-STORE_NAME), but stores the name as a global.
 
-DELETE_GLOBAL(*namei*)
+`DELETE_GLOBAL(namei)`
 :   Works as [`DELETE_NAME`](dis.md#opcode-DELETE_NAME), but deletes a global name.
 
-LOAD_CONST(*consti*)
+`LOAD_CONST(consti)`
 :   Pushes `co_consts[consti]` onto the stack.
 
-LOAD_NAME(*namei*)
+`LOAD_NAME(namei)`
 :   Pushes the value associated with `co_names[namei]` onto the stack.
     The name is looked up within the locals, then the globals, then the builtins.
 
-LOAD_LOCALS
+`LOAD_LOCALS`
 :   Pushes a reference to the locals dictionary onto the stack. This is used
     to prepare namespace dictionaries for [`LOAD_FROM_DICT_OR_DEREF`](dis.md#opcode-LOAD_FROM_DICT_OR_DEREF)
     and [`LOAD_FROM_DICT_OR_GLOBALS`](dis.md#opcode-LOAD_FROM_DICT_OR_GLOBALS).
 
     Added in version 3.12.
 
-LOAD_FROM_DICT_OR_GLOBALS(*i*)
+`LOAD_FROM_DICT_OR_GLOBALS(i)`
 :   Pops a mapping off the stack and looks up the value for `co_names[namei]`.
     If the name is not found there, looks it up in the globals and then the builtins,
     similar to [`LOAD_GLOBAL`](dis.md#opcode-LOAD_GLOBAL).
@@ -829,7 +829,7 @@ LOAD_FROM_DICT_OR_GLOBALS(*i*)
 
     Added in version 3.12.
 
-BUILD_TUPLE(*count*)
+`BUILD_TUPLE(count)`
 :   Creates a tuple consuming *count* items from the stack, and pushes the
     resulting tuple onto the stack:
 
@@ -843,13 +843,13 @@ BUILD_TUPLE(*count*)
     STACK.append(value)
     ```
 
-BUILD_LIST(*count*)
+`BUILD_LIST(count)`
 :   Works as [`BUILD_TUPLE`](dis.md#opcode-BUILD_TUPLE), but creates a list.
 
-BUILD_SET(*count*)
+`BUILD_SET(count)`
 :   Works as [`BUILD_TUPLE`](dis.md#opcode-BUILD_TUPLE), but creates a set.
 
-BUILD_MAP(*count*)
+`BUILD_MAP(count)`
 :   Pushes a new dictionary object onto the stack. Pops `2 * count` items
     so that the dictionary holds *count* entries:
     `{..., STACK[-4]: STACK[-3], STACK[-2]: STACK[-1]}`.
@@ -857,20 +857,20 @@ BUILD_MAP(*count*)
     Changed in version 3.5: The dictionary is created from stack items instead of creating an
     empty dictionary pre-sized to hold *count* items.
 
-BUILD_CONST_KEY_MAP(*count*)
+`BUILD_CONST_KEY_MAP(count)`
 :   The version of [`BUILD_MAP`](dis.md#opcode-BUILD_MAP) specialized for constant keys. Pops the
     top element on the stack which contains a tuple of keys, then starting from
     `STACK[-2]`, pops *count* values to form values in the built dictionary.
 
     Added in version 3.6.
 
-BUILD_STRING(*count*)
+`BUILD_STRING(count)`
 :   Concatenates *count* strings from the stack and pushes the resulting string
     onto the stack.
 
     Added in version 3.6.
 
-LIST_EXTEND(*i*)
+`LIST_EXTEND(i)`
 :   Implements:
 
     ```python3
@@ -882,7 +882,7 @@ LIST_EXTEND(*i*)
 
     Added in version 3.9.
 
-SET_UPDATE(*i*)
+`SET_UPDATE(i)`
 :   Implements:
 
     ```python3
@@ -894,7 +894,7 @@ SET_UPDATE(*i*)
 
     Added in version 3.9.
 
-DICT_UPDATE(*i*)
+`DICT_UPDATE(i)`
 :   Implements:
 
     ```python3
@@ -906,12 +906,12 @@ DICT_UPDATE(*i*)
 
     Added in version 3.9.
 
-DICT_MERGE(*i*)
+`DICT_MERGE(i)`
 :   Like [`DICT_UPDATE`](dis.md#opcode-DICT_UPDATE) but raises an exception for duplicate keys.
 
     Added in version 3.9.
 
-LOAD_ATTR(*namei*)
+`LOAD_ATTR(namei)`
 :   If the low bit of `namei` is not set, this replaces `STACK[-1]` with
     `getattr(STACK[-1], co_names[namei>>1])`.
 
@@ -926,7 +926,7 @@ LOAD_ATTR(*namei*)
     Changed in version 3.12: If the low bit of `namei` is set, then a `NULL` or `self` is
     pushed to the stack before the attribute or unbound method respectively.
 
-LOAD_SUPER_ATTR(*namei*)
+`LOAD_SUPER_ATTR(namei)`
 :   This opcode implements [`super()`](functions.md#super "super"), both in its zero-argument and
     two-argument forms (e.g. `super().method()`, `super().attr` and
     `super(cls, self).method()`, `super(cls, self).attr`).
@@ -948,47 +948,47 @@ LOAD_SUPER_ATTR(*namei*)
 
     Added in version 3.12.
 
-COMPARE_OP(*opname*)
+`COMPARE_OP(opname)`
 :   Performs a Boolean operation. The operation name can be found in
     `cmp_op[opname >> 4]`.
 
     Changed in version 3.12: The cmp_op index is now stored in the four-highest bits of oparg instead of the four-lowest bits of oparg.
 
-IS_OP(*invert*)
+`IS_OP(invert)`
 :   Performs `is` comparison, or `is not` if `invert` is 1.
 
     Added in version 3.9.
 
-CONTAINS_OP(*invert*)
+`CONTAINS_OP(invert)`
 :   Performs `in` comparison, or `not in` if `invert` is 1.
 
     Added in version 3.9.
 
-IMPORT_NAME(*namei*)
+`IMPORT_NAME(namei)`
 :   Imports the module `co_names[namei]`. `STACK[-1]` and `STACK[-2]` are
     popped and provide the *fromlist* and *level* arguments of [`__import__()`](functions.md#import__ "__import__").
     The module object is pushed onto the stack. The current namespace is not affected: for a proper import statement, a subsequent [`STORE_FAST`](dis.md#opcode-STORE_FAST) instruction
     modifies the namespace.
 
-IMPORT_FROM(*namei*)
+`IMPORT_FROM(namei)`
 :   Loads the attribute `co_names[namei]` from the module found in `STACK[-1]`.
     The resulting object is pushed onto the stack, to be subsequently stored by a
     [`STORE_FAST`](dis.md#opcode-STORE_FAST) instruction.
 
-JUMP_FORWARD(*delta*)
+`JUMP_FORWARD(delta)`
 :   Increments bytecode counter by *delta*.
 
-JUMP_BACKWARD(*delta*)
+`JUMP_BACKWARD(delta)`
 :   Decrements bytecode counter by *delta*. Checks for interrupts.
 
     Added in version 3.11.
 
-JUMP_BACKWARD_NO_INTERRUPT(*delta*)
+`JUMP_BACKWARD_NO_INTERRUPT(delta)`
 :   Decrements bytecode counter by *delta*. Does not check for interrupts.
 
     Added in version 3.11.
 
-POP_JUMP_IF_TRUE(*delta*)
+`POP_JUMP_IF_TRUE(delta)`
 :   If `STACK[-1]` is true, increments the bytecode counter by *delta*.
     `STACK[-1]` is popped.
 
@@ -998,7 +998,7 @@ POP_JUMP_IF_TRUE(*delta*)
 
     Changed in version 3.12: This is no longer a pseudo-instruction.
 
-POP_JUMP_IF_FALSE(*delta*)
+`POP_JUMP_IF_FALSE(delta)`
 :   If `STACK[-1]` is false, increments the bytecode counter by *delta*.
     `STACK[-1]` is popped.
 
@@ -1008,7 +1008,7 @@ POP_JUMP_IF_FALSE(*delta*)
 
     Changed in version 3.12: This is no longer a pseudo-instruction.
 
-POP_JUMP_IF_NOT_NONE(*delta*)
+`POP_JUMP_IF_NOT_NONE(delta)`
 :   If `STACK[-1]` is not `None`, increments the bytecode counter by *delta*.
     `STACK[-1]` is popped.
 
@@ -1019,7 +1019,7 @@ POP_JUMP_IF_NOT_NONE(*delta*)
 
     Changed in version 3.12: This is no longer a pseudo-instruction.
 
-POP_JUMP_IF_NONE(*delta*)
+`POP_JUMP_IF_NONE(delta)`
 :   If `STACK[-1]` is `None`, increments the bytecode counter by *delta*.
     `STACK[-1]` is popped.
 
@@ -1030,7 +1030,7 @@ POP_JUMP_IF_NONE(*delta*)
 
     Changed in version 3.12: This is no longer a pseudo-instruction.
 
-FOR_ITER(*delta*)
+`FOR_ITER(delta)`
 :   `STACK[-1]` is an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator). Call its [`__next__()`](stdtypes.md#iterator.__next__ "iterator.__next__") method.
     If this yields a new value, push it on the stack (leaving the iterator below
     it). If the iterator indicates it is exhausted then the byte code counter is
@@ -1038,45 +1038,45 @@ FOR_ITER(*delta*)
 
     Changed in version 3.12: Up until 3.11 the iterator was popped when it was exhausted.
 
-LOAD_GLOBAL(*namei*)
+`LOAD_GLOBAL(namei)`
 :   Loads the global named `co_names[namei>>1]` onto the stack.
 
     Changed in version 3.11: If the low bit of `namei` is set, then a `NULL` is pushed to the
     stack before the global variable.
 
-LOAD_FAST(*var_num*)
+`LOAD_FAST(var_num)`
 :   Pushes a reference to the local `co_varnames[var_num]` onto the stack.
 
     Changed in version 3.12: This opcode is now only used in situations where the local variable is
     guaranteed to be initialized. It cannot raise [`UnboundLocalError`](exceptions.md#UnboundLocalError "UnboundLocalError").
 
-LOAD_FAST_CHECK(*var_num*)
+`LOAD_FAST_CHECK(var_num)`
 :   Pushes a reference to the local `co_varnames[var_num]` onto the stack,
     raising an [`UnboundLocalError`](exceptions.md#UnboundLocalError "UnboundLocalError") if the local variable has not been
     initialized.
 
     Added in version 3.12.
 
-LOAD_FAST_AND_CLEAR(*var_num*)
+`LOAD_FAST_AND_CLEAR(var_num)`
 :   Pushes a reference to the local `co_varnames[var_num]` onto the stack (or
     pushes `NULL` onto the stack if the local variable has not been
     initialized) and sets `co_varnames[var_num]` to `NULL`.
 
     Added in version 3.12.
 
-STORE_FAST(*var_num*)
+`STORE_FAST(var_num)`
 :   Stores `STACK.pop()` into the local `co_varnames[var_num]`.
 
-DELETE_FAST(*var_num*)
+`DELETE_FAST(var_num)`
 :   Deletes local `co_varnames[var_num]`.
 
-MAKE_CELL(*i*)
+`MAKE_CELL(i)`
 :   Creates a new cell in slot `i`. If that slot is nonempty then
     that value is stored into the new cell.
 
     Added in version 3.11.
 
-LOAD_CLOSURE(*i*)
+`LOAD_CLOSURE(i)`
 :   Pushes a reference to the cell contained in slot `i` of the “fast locals”
     storage. The name of the variable is `co_fastlocalnames[i]`.
 
@@ -1085,13 +1085,13 @@ LOAD_CLOSURE(*i*)
 
     Changed in version 3.11: `i` is no longer offset by the length of `co_varnames`.
 
-LOAD_DEREF(*i*)
+`LOAD_DEREF(i)`
 :   Loads the cell contained in slot `i` of the “fast locals” storage.
     Pushes a reference to the object the cell contains on the stack.
 
     Changed in version 3.11: `i` is no longer offset by the length of [`co_varnames`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_varnames "codeobject.co_varnames").
 
-LOAD_FROM_DICT_OR_DEREF(*i*)
+`LOAD_FROM_DICT_OR_DEREF(i)`
 :   Pops a mapping off the stack and looks up the name associated with
     slot `i` of the “fast locals” storage in this mapping.
     If the name is not found there, loads it from the cell contained in
@@ -1102,13 +1102,13 @@ LOAD_FROM_DICT_OR_DEREF(*i*)
 
     Added in version 3.12.
 
-STORE_DEREF(*i*)
+`STORE_DEREF(i)`
 :   Stores `STACK.pop()` into the cell contained in slot `i` of the “fast locals”
     storage.
 
     Changed in version 3.11: `i` is no longer offset by the length of [`co_varnames`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_varnames "codeobject.co_varnames").
 
-DELETE_DEREF(*i*)
+`DELETE_DEREF(i)`
 :   Empties the cell contained in slot `i` of the “fast locals” storage.
     Used by the [`del`](https://docs.python.org/3.12/reference/simple_stmts.html#del) statement.
 
@@ -1116,14 +1116,14 @@ DELETE_DEREF(*i*)
 
     Changed in version 3.11: `i` is no longer offset by the length of [`co_varnames`](https://docs.python.org/3.12/reference/datamodel.html#codeobject.co_varnames "codeobject.co_varnames").
 
-COPY_FREE_VARS(*n*)
+`COPY_FREE_VARS(n)`
 :   Copies the `n` free variables from the closure into the frame.
     Removes the need for special code on the caller’s side when calling
     closures.
 
     Added in version 3.11.
 
-RAISE_VARARGS(*argc*)
+`RAISE_VARARGS(argc)`
 :   Raises an exception using one of the 3 forms of the `raise` statement,
     depending on the value of *argc*:
 
@@ -1132,7 +1132,7 @@ RAISE_VARARGS(*argc*)
     - 2: `raise STACK[-2] from STACK[-1]` (raise exception instance or type at
       `STACK[-2]` with `__cause__` set to `STACK[-1]`)
 
-CALL(*argc*)
+`CALL(argc)`
 :   Calls a callable object with the number of arguments specified by `argc`,
     including the named arguments specified by the preceding
     [`KW_NAMES`](dis.md#opcode-KW_NAMES), if any.
@@ -1159,7 +1159,7 @@ CALL(*argc*)
 
     Added in version 3.11.
 
-CALL_FUNCTION_EX(*flags*)
+`CALL_FUNCTION_EX(flags)`
 :   Calls a callable object with variable set of positional and keyword
     arguments. If the lowest bit of *flags* is set, the top of the stack
     contains a mapping object containing additional keyword arguments.
@@ -1172,21 +1172,21 @@ CALL_FUNCTION_EX(*flags*)
 
     Added in version 3.6.
 
-PUSH_NULL
+`PUSH_NULL`
 :   Pushes a `NULL` to the stack.
     Used in the call sequence to match the `NULL` pushed by
     [`LOAD_METHOD`](dis.md#opcode-LOAD_METHOD) for non-method calls.
 
     Added in version 3.11.
 
-KW_NAMES(*consti*)
+`KW_NAMES(consti)`
 :   Prefixes [`CALL`](dis.md#opcode-CALL).
     Stores a reference to `co_consts[consti]` into an internal variable
     for use by [`CALL`](dis.md#opcode-CALL). `co_consts[consti]` must be a tuple of strings.
 
     Added in version 3.11.
 
-MAKE_FUNCTION(*flags*)
+`MAKE_FUNCTION(flags)`
 :   Pushes a new function object on the stack. From bottom to top, the consumed
     stack must consist of values if the argument carries a specified flag value
 
@@ -1201,7 +1201,7 @@ MAKE_FUNCTION(*flags*)
 
     Changed in version 3.11: Qualified name at `STACK[-1]` was removed.
 
-BUILD_SLICE(*argc*)
+`BUILD_SLICE(argc)`
 :   Pushes a slice object on the stack. *argc* must be 2 or 3. If it is 2, implements:
 
     ```python3
@@ -1221,13 +1221,13 @@ BUILD_SLICE(*argc*)
 
     See the [`slice()`](functions.md#slice "slice") built-in function for more information.
 
-EXTENDED_ARG(*ext*)
+`EXTENDED_ARG(ext)`
 :   Prefixes any opcode which has an argument too big to fit into the default one
     byte. *ext* holds an additional byte which act as higher bits in the argument.
     For each opcode, at most three prefixal `EXTENDED_ARG` are allowed, forming
     an argument from two-byte to four-byte.
 
-FORMAT_VALUE(*flags*)
+`FORMAT_VALUE(flags)`
 :   Used for implementing formatted literal strings (f-strings). Pops
     an optional *fmt_spec* from the stack, then a required *value*.
     *flags* is interpreted as follows:
@@ -1247,7 +1247,7 @@ FORMAT_VALUE(*flags*)
 
     Added in version 3.6.
 
-MATCH_CLASS(*count*)
+`MATCH_CLASS(count)`
 :   `STACK[-1]` is a tuple of keyword attribute names, `STACK[-2]` is the class
     being matched against, and `STACK[-3]` is the match subject. *count* is the
     number of positional sub-patterns.
@@ -1262,7 +1262,7 @@ MATCH_CLASS(*count*)
     Changed in version 3.11: Previously, this instruction also pushed a boolean value indicating
     success (`True`) or failure (`False`).
 
-RESUME(*where*)
+`RESUME(where)`
 :   A no-op. Performs internal tracing, debugging and optimization checks.
 
     The `where` operand marks where the `RESUME` occurs:
@@ -1275,14 +1275,14 @@ RESUME(*where*)
 
     Added in version 3.11.
 
-RETURN_GENERATOR
+`RETURN_GENERATOR`
 :   Create a generator, coroutine, or async generator from the current frame.
     Used as first opcode of in code object for the above mentioned callables.
     Clear the current frame and return the newly created generator.
 
     Added in version 3.11.
 
-SEND(*delta*)
+`SEND(delta)`
 :   Equivalent to `STACK[-1] = STACK[-2].send(STACK[-1])`. Used in `yield from`
     and `await` statements.
 
@@ -1292,7 +1292,7 @@ SEND(*delta*)
 
     Added in version 3.11.
 
-HAVE_ARGUMENT
+`HAVE_ARGUMENT`
 :   This is not really an opcode. It identifies the dividing line between
     opcodes in the range [0,255] which don’t use their argument and those
     that do (`< HAVE_ARGUMENT` and `>= HAVE_ARGUMENT`, respectively).
@@ -1307,7 +1307,7 @@ HAVE_ARGUMENT
     it is not true that comparison with `HAVE_ARGUMENT` indicates whether
     they use their arg.
 
-CALL_INTRINSIC_1
+`CALL_INTRINSIC_1`
 :   Calls an intrinsic function with one argument. Passes `STACK[-1]` as the
     argument and sets `STACK[-1]` to the result. Used to implement
     functionality that is not performance critical.
@@ -1331,7 +1331,7 @@ CALL_INTRINSIC_1
 
     Added in version 3.12.
 
-CALL_INTRINSIC_2
+`CALL_INTRINSIC_2`
 :   Calls an intrinsic function with two arguments. Used to implement functionality
     that is not performance critical:
 
@@ -1359,19 +1359,19 @@ CALL_INTRINSIC_2
 These opcodes do not appear in Python bytecode. They are used by the compiler
 but are replaced by real opcodes or removed before bytecode is generated.
 
-SETUP_FINALLY(*target*)
+`SETUP_FINALLY(target)`
 :   Set up an exception handler for the following code block. If an exception
     occurs, the value stack level is restored to its current state and control
     is transferred to the exception handler at `target`.
 
-SETUP_CLEANUP(*target*)
+`SETUP_CLEANUP(target)`
 :   Like `SETUP_FINALLY`, but in case of an exception also pushes the last
     instruction (`lasti`) to the stack so that `RERAISE` can restore it.
     If an exception occurs, the value stack level and the last instruction on
     the frame are restored to their current state, and control is transferred
     to the exception handler at `target`.
 
-SETUP_WITH(*target*)
+`SETUP_WITH(target)`
 :   Like `SETUP_CLEANUP`, but in case of an exception one more item is popped
     from the stack before control is transferred to the exception handler at
     `target`.
@@ -1380,17 +1380,17 @@ SETUP_WITH(*target*)
     constructs, which push the return value of the context manager’s
     [`__enter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__enter__ "object.__enter__") or [`__aenter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__aenter__ "object.__aenter__") to the stack.
 
-POP_BLOCK
+`POP_BLOCK`
 :   Marks the end of the code block associated with the last `SETUP_FINALLY`,
     `SETUP_CLEANUP` or `SETUP_WITH`.
 
-JUMP
+`JUMP`
 
-JUMP_NO_INTERRUPT
+`JUMP_NO_INTERRUPT`
 :   Undirected relative jump instructions which are replaced by their
     directed (forward/backward) counterparts by the assembler.
 
-LOAD_METHOD
+`LOAD_METHOD`
 :   Optimized unbound method lookup. Emitted as a `LOAD_ATTR` opcode
     with a flag set in the arg.
 
@@ -1403,45 +1403,45 @@ Changed in version 3.12: The collections now contain pseudo instructions and ins
 instructions as well. These are opcodes with values `>= MIN_PSEUDO_OPCODE`
 and `>= MIN_INSTRUMENTED_OPCODE`.
 
-dis.opname
+`dis.opname`
 :   Sequence of operation names, indexable using the bytecode.
 
-dis.opmap
+`dis.opmap`
 :   Dictionary mapping operation names to bytecodes.
 
-dis.cmp_op
+`dis.cmp_op`
 :   Sequence of all compare operation names.
 
-dis.hasarg
+`dis.hasarg`
 :   Sequence of bytecodes that use their argument.
 
     Added in version 3.12.
 
-dis.hasconst
+`dis.hasconst`
 :   Sequence of bytecodes that access a constant.
 
-dis.hasfree
+`dis.hasfree`
 :   Sequence of bytecodes that access a free variable. ‘free’ in this
     context refers to names in the current scope that are referenced by inner
     scopes or names in outer scopes that are referenced from this scope. It does
     *not* include references to global or builtin scopes.
 
-dis.hasname
+`dis.hasname`
 :   Sequence of bytecodes that access an attribute by name.
 
-dis.hasjrel
+`dis.hasjrel`
 :   Sequence of bytecodes that have a relative jump target.
 
-dis.hasjabs
+`dis.hasjabs`
 :   Sequence of bytecodes that have an absolute jump target.
 
-dis.haslocal
+`dis.haslocal`
 :   Sequence of bytecodes that access a local variable.
 
-dis.hascompare
+`dis.hascompare`
 :   Sequence of bytecodes of Boolean operations.
 
-dis.hasexc
+`dis.hasexc`
 :   Sequence of bytecodes that set an exception handler.
 
     Added in version 3.12.

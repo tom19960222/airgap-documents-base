@@ -16,7 +16,7 @@ Iterating over a message object tree is fairly easy with the
 [`email.iterators`](email.iterators.md#module-email.iterators "email.iterators: Iterate over a  message object tree.") module provides some useful higher level iterations over
 message object trees.
 
-email.iterators.body_line_iterator(*msg*, *decode=False*)
+`email.iterators.body_line_iterator(msg, decode=False)`
 :   This iterates over all the payloads in all the subparts of *msg*, returning the
     string payloads line-by-line. It skips over all the subpart headers, and it
     skips over any subpart with a payload that isn’t a Python string. This is
@@ -26,7 +26,7 @@ email.iterators.body_line_iterator(*msg*, *decode=False*)
 
     Optional *decode* is passed through to [`Message.get_payload`](email.compat32-message.md#email.message.Message.get_payload "email.message.Message.get_payload").
 
-email.iterators.typed_subpart_iterator(*msg*, *maintype='text'*, *subtype=None*)
+`email.iterators.typed_subpart_iterator(msg, maintype='text', subtype=None)`
 :   This iterates over all the subparts of *msg*, returning only those subparts that
     match the MIME type specified by *maintype* and *subtype*.
 
@@ -40,7 +40,7 @@ email.iterators.typed_subpart_iterator(*msg*, *maintype='text'*, *subtype=None*)
 The following function has been added as a useful debugging tool. It should
 *not* be considered part of the supported public interface for the package.
 
-email.iterators._structure(*msg*, *fp=None*, *level=0*, *include_default=False*)
+`email.iterators._structure(msg, fp=None, level=0, include_default=False)`
 :   Prints an indented representation of the content types of the message object
     structure. For example:
 

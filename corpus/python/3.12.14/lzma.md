@@ -23,13 +23,13 @@ module. Note that [`LZMAFile`](lzma.md#lzma.LZMAFile "lzma.LZMAFile") and [`bz2.
 thread-safe, so if you need to use a single [`LZMAFile`](lzma.md#lzma.LZMAFile "lzma.LZMAFile") instance
 from multiple threads, it is necessary to protect it with a lock.
 
-*exception* lzma.LZMAError
+`exception lzma.LZMAError`
 :   This exception is raised when an error occurs during compression or
     decompression, or while initializing the compressor/decompressor state.
 
 ## Reading and writing compressed files
 
-lzma.open(*filename*, *mode='rb'*, *\**, *format=None*, *check=-1*, *preset=None*, *filters=None*, *encoding=None*, *errors=None*, *newline=None*)
+`lzma.open(filename, mode='rb', *, format=None, check=-1, preset=None, filters=None, encoding=None, errors=None, newline=None)`
 :   Open an LZMA-compressed file in binary or text mode, returning a [file
     object](https://docs.python.org/3.12/glossary.html#term-file-object).
 
@@ -61,7 +61,7 @@ lzma.open(*filename*, *mode='rb'*, *\**, *format=None*, *check=-1*, *preset=None
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-*class* lzma.LZMAFile(*filename=None*, *mode='r'*, *\**, *format=None*, *check=-1*, *preset=None*, *filters=None*)
+`class lzma.LZMAFile(filename=None, mode='r', *, format=None, check=-1, preset=None, filters=None)`
 :   Open an LZMA-compressed file in binary mode.
 
     An [`LZMAFile`](lzma.md#lzma.LZMAFile "lzma.LZMAFile") can wrap an already-open [file object](https://docs.python.org/3.12/glossary.html#term-file-object), or operate
@@ -97,7 +97,7 @@ lzma.open(*filename*, *mode='rb'*, *\**, *format=None*, *check=-1*, *preset=None
 
     The following method is also provided:
 
-    peek(*size=-1*)
+    `peek(size=-1)`
     :   Return buffered data without advancing the file position. At least one
         byte of data will be returned, unless EOF has been reached. The exact
         number of bytes returned is unspecified (the *size* argument is ignored).
@@ -118,7 +118,7 @@ lzma.open(*filename*, *mode='rb'*, *\**, *format=None*, *check=-1*, *preset=None
 
 ## Compressing and decompressing data in memory
 
-*class* lzma.LZMACompressor(*format=FORMAT_XZ*, *check=-1*, *preset=None*, *filters=None*)
+`class lzma.LZMACompressor(format=FORMAT_XZ, check=-1, preset=None, filters=None)`
 :   Create a compressor object, which can be used to compress data incrementally.
 
     For a more convenient way of compressing a single chunk of data, see
@@ -174,20 +174,20 @@ lzma.open(*filename*, *mode='rb'*, *\**, *format=None*, *check=-1*, *preset=None
     The *filters* argument (if provided) should be a filter chain specifier.
     See [Specifying custom filter chains](lzma.md#filter-chain-specs) for details.
 
-    compress(*data*)
+    `compress(data)`
     :   Compress *data* (a [`bytes`](stdtypes.md#bytes "bytes") object), returning a [`bytes`](stdtypes.md#bytes "bytes")
         object containing compressed data for at least part of the input. Some of
         *data* may be buffered internally, for use in later calls to
         [`compress()`](lzma.md#lzma.compress "lzma.compress") and [`flush()`](lzma.md#lzma.LZMACompressor.flush "lzma.LZMACompressor.flush"). The returned data should be
         concatenated with the output of any previous calls to [`compress()`](lzma.md#lzma.compress "lzma.compress").
 
-    flush()
+    `flush()`
     :   Finish the compression process, returning a [`bytes`](stdtypes.md#bytes "bytes") object
         containing any data stored in the compressor’s internal buffers.
 
         The compressor cannot be used after this method has been called.
 
-*class* lzma.LZMADecompressor(*format=FORMAT_AUTO*, *memlimit=None*, *filters=None*)
+`class lzma.LZMADecompressor(format=FORMAT_AUTO, memlimit=None, filters=None)`
 :   Create a decompressor object, which can be used to decompress data
     incrementally.
 
@@ -216,7 +216,7 @@ lzma.open(*filename*, *mode='rb'*, *\**, *format=None*, *check=-1*, *preset=None
     > decompress a multi-stream input with [`LZMADecompressor`](lzma.md#lzma.LZMADecompressor "lzma.LZMADecompressor"), you must
     > create a new decompressor for each stream.
 
-    decompress(*data*, *max_length=-1*)
+    `decompress(data, max_length=-1)`
     :   Decompress *data* (a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object)), returning
         uncompressed data as bytes. Some of *data* may be buffered
         internally, for use in later calls to [`decompress()`](lzma.md#lzma.decompress "lzma.decompress"). The
@@ -241,33 +241,33 @@ lzma.open(*filename*, *mode='rb'*, *\**, *format=None*, *check=-1*, *preset=None
 
         Changed in version 3.5: Added the *max_length* parameter.
 
-    check
+    `check`
     :   The ID of the integrity check used by the input stream. This may be
         `CHECK_UNKNOWN` until enough of the input has been decoded to
         determine what integrity check it uses.
 
-    eof
+    `eof`
     :   `True` if the end-of-stream marker has been reached.
 
-    unused_data
+    `unused_data`
     :   Data found after the end of the compressed stream.
 
         Before the end of the stream is reached, this will be `b""`.
 
-    needs_input
+    `needs_input`
     :   `False` if the [`decompress()`](lzma.md#lzma.LZMADecompressor.decompress "lzma.LZMADecompressor.decompress") method can provide more
         decompressed data before requiring new uncompressed input.
 
         Added in version 3.5.
 
-lzma.compress(*data*, *format=FORMAT_XZ*, *check=-1*, *preset=None*, *filters=None*)
+`lzma.compress(data, format=FORMAT_XZ, check=-1, preset=None, filters=None)`
 :   Compress *data* (a [`bytes`](stdtypes.md#bytes "bytes") object), returning the compressed data as a
     [`bytes`](stdtypes.md#bytes "bytes") object.
 
     See [`LZMACompressor`](lzma.md#lzma.LZMACompressor "lzma.LZMACompressor") above for a description of the *format*, *check*,
     *preset* and *filters* arguments.
 
-lzma.decompress(*data*, *format=FORMAT_AUTO*, *memlimit=None*, *filters=None*)
+`lzma.decompress(data, format=FORMAT_AUTO, memlimit=None, filters=None)`
 :   Decompress *data* (a [`bytes`](stdtypes.md#bytes "bytes") object), returning the uncompressed data
     as a [`bytes`](stdtypes.md#bytes "bytes") object.
 
@@ -279,7 +279,7 @@ lzma.decompress(*data*, *format=FORMAT_AUTO*, *memlimit=None*, *filters=None*)
 
 ## Miscellaneous
 
-lzma.is_check_supported(*check*)
+`lzma.is_check_supported(check)`
 :   Return `True` if the given integrity check is supported on this system.
 
     `CHECK_NONE` and `CHECK_CRC32` are always supported.

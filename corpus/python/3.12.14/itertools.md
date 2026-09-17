@@ -76,7 +76,7 @@ The following module functions all construct and return iterators. Some provide
 streams of infinite length, so they should only be accessed by functions or
 loops that truncate the stream.
 
-itertools.accumulate(*iterable*[, *function*, *\**, *initial=None*])
+`itertools.accumulate(iterable[, function, *, initial=None])`
 :   Make an iterator that returns accumulated sums or accumulated
     results from other binary functions.
 
@@ -137,7 +137,7 @@ itertools.accumulate(*iterable*[, *function*, *\**, *initial=None*])
 
     Changed in version 3.8: Added the optional *initial* parameter.
 
-itertools.batched(*iterable*, *n*)
+`itertools.batched(iterable, n)`
 :   Batch data from the *iterable* into tuples of length *n*. The last
     batch may be shorter than *n*.
 
@@ -167,7 +167,7 @@ itertools.batched(*iterable*, *n*)
 
     Added in version 3.12.
 
-itertools.chain(*\*iterables*)
+`itertools.chain(*iterables)`
 :   Make an iterator that returns elements from the first iterable until it is
     exhausted, then proceeds to the next iterable, until all of the iterables are
     exhausted. Used for treating consecutive sequences as a single sequence.
@@ -180,7 +180,7 @@ itertools.chain(*\*iterables*)
             yield from iterable
     ```
 
-*classmethod* chain.from_iterable(*iterable*)
+`classmethod chain.from_iterable(iterable)`
 :   Alternate constructor for [`chain()`](itertools.md#itertools.chain "itertools.chain"). Gets chained inputs from a
     single iterable argument that is evaluated lazily. Roughly equivalent to:
 
@@ -191,7 +191,7 @@ itertools.chain(*\*iterables*)
             yield from iterable
     ```
 
-itertools.combinations(*iterable*, *r*)
+`itertools.combinations(iterable, r)`
 :   Return *r* length subsequences of elements from the input *iterable*.
 
     The output is a subsequence of [`product()`](itertools.md#itertools.product "itertools.product") keeping only entries that
@@ -233,7 +233,7 @@ itertools.combinations(*iterable*, *r*)
             yield tuple(pool[i] for i in indices)
     ```
 
-itertools.combinations_with_replacement(*iterable*, *r*)
+`itertools.combinations_with_replacement(iterable, r)`
 :   Return *r* length subsequences of elements from the input *iterable*
     allowing individual elements to be repeated more than once.
 
@@ -275,7 +275,7 @@ itertools.combinations_with_replacement(*iterable*, *r*)
 
     Added in version 3.1.
 
-itertools.compress(*data*, *selectors*)
+`itertools.compress(data, selectors)`
 :   Make an iterator that returns elements from *data* where the
     corresponding element in *selectors* is true. Stops when either the
     *data* or *selectors* iterables have been exhausted. Roughly
@@ -289,7 +289,7 @@ itertools.compress(*data*, *selectors*)
 
     Added in version 3.1.
 
-itertools.count(*start=0*, *step=1*)
+`itertools.count(start=0, step=1)`
 :   Make an iterator that returns evenly spaced values beginning with
     *start*. Can be used with [`map()`](functions.md#map "map") to generate consecutive data
     points or with [`zip()`](functions.md#zip "zip") to add sequence numbers. Roughly
@@ -311,7 +311,7 @@ itertools.count(*start=0*, *step=1*)
 
     Changed in version 3.1: Added *step* argument and allowed non-integer arguments.
 
-itertools.cycle(*iterable*)
+`itertools.cycle(iterable)`
 :   Make an iterator returning elements from the *iterable* and saving a
     copy of each. When the iterable is exhausted, return elements from
     the saved copy. Repeats indefinitely. Roughly equivalent to:
@@ -331,7 +331,7 @@ itertools.cycle(*iterable*)
     This itertool may require significant auxiliary storage (depending on
     the length of the iterable).
 
-itertools.dropwhile(*predicate*, *iterable*)
+`itertools.dropwhile(predicate, iterable)`
 :   Make an iterator that drops elements from the *iterable* while the
     *predicate* is true and afterwards returns every element. Roughly
     equivalent to:
@@ -353,7 +353,7 @@ itertools.dropwhile(*predicate*, *iterable*)
     Note this does not produce *any* output until the predicate first
     becomes false, so this itertool may have a lengthy start-up time.
 
-itertools.filterfalse(*predicate*, *iterable*)
+`itertools.filterfalse(predicate, iterable)`
 :   Make an iterator that filters elements from the *iterable* returning
     only those for which the *predicate* returns a false value. If
     *predicate* is `None`, returns the items that are false. Roughly
@@ -369,7 +369,7 @@ itertools.filterfalse(*predicate*, *iterable*)
                 yield x
     ```
 
-itertools.groupby(*iterable*, *key=None*)
+`itertools.groupby(iterable, key=None)`
 :   Make an iterator that returns consecutive keys and groups from the *iterable*.
     The *key* is a function computing a key value for each element. If not
     specified or is `None`, *key* defaults to an identity function and returns
@@ -432,9 +432,9 @@ itertools.groupby(*iterable*, *key=None*)
                     pass
     ```
 
-itertools.islice(*iterable*, *stop*)
+`itertools.islice(iterable, stop)`
 
-itertools.islice(*iterable*, *start*, *stop*[, *step*])
+`itertools.islice(iterable, start, stop[, step])`
 :   Make an iterator that returns selected elements from the iterable.
     Works like sequence slicing but does not support negative values for
     *start*, *stop*, or *step*.
@@ -473,7 +473,7 @@ itertools.islice(*iterable*, *start*, *stop*[, *step*])
                 next_i += step
     ```
 
-itertools.pairwise(*iterable*)
+`itertools.pairwise(iterable)`
 :   Return successive overlapping pairs taken from the input *iterable*.
 
     The number of 2-tuples in the output iterator will be one fewer than the
@@ -494,7 +494,7 @@ itertools.pairwise(*iterable*)
 
     Added in version 3.10.
 
-itertools.permutations(*iterable*, *r=None*)
+`itertools.permutations(iterable, r=None)`
 :   Return successive *r* length [permutations of elements](https://www.britannica.com/science/permutation) from the *iterable*.
 
     If *r* is not specified or is `None`, then *r* defaults to the length
@@ -546,7 +546,7 @@ itertools.permutations(*iterable*, *r=None*)
                 return
     ```
 
-itertools.product(*\*iterables*, *repeat=1*)
+`itertools.product(*iterables, repeat=1)`
 :   Cartesian product of input iterables.
 
     Roughly equivalent to nested for-loops in a generator expression. For example,
@@ -583,7 +583,7 @@ itertools.product(*\*iterables*, *repeat=1*)
     keeping pools of values in memory to generate the products. Accordingly,
     it is only useful with finite inputs.
 
-itertools.repeat(*object*[, *times*])
+`itertools.repeat(object[, times])`
 :   Make an iterator that returns *object* over and over again. Runs indefinitely
     unless the *times* argument is specified.
 
@@ -608,7 +608,7 @@ itertools.repeat(*object*[, *times*])
     [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
     ```
 
-itertools.starmap(*function*, *iterable*)
+`itertools.starmap(function, iterable)`
 :   Make an iterator that computes the *function* using arguments obtained
     from the *iterable*. Used instead of [`map()`](functions.md#map "map") when argument
     parameters have already been “pre-zipped” into tuples.
@@ -624,7 +624,7 @@ itertools.starmap(*function*, *iterable*)
             yield function(*args)
     ```
 
-itertools.takewhile(*predicate*, *iterable*)
+`itertools.takewhile(predicate, iterable)`
 :   Make an iterator that returns elements from the *iterable* as long as
     the *predicate* is true. Roughly equivalent to:
 
@@ -644,7 +644,7 @@ itertools.takewhile(*predicate*, *iterable*)
     around this problem, consider using [more-itertools before_and_after()](https://more-itertools.readthedocs.io/en/stable/api.html#more_itertools.before_and_after)
     instead.
 
-itertools.tee(*iterable*, *n=2*)
+`itertools.tee(iterable, n=2)`
 :   Return *n* independent iterators from a single iterable.
 
     Roughly equivalent to:
@@ -693,7 +693,7 @@ itertools.tee(*iterable*, *n=2*)
     most or all of the data before another iterator starts, it is faster to use
     [`list()`](stdtypes.md#list "list") instead of [`tee()`](itertools.md#itertools.tee "itertools.tee").
 
-itertools.zip_longest(*\*iterables*, *fillvalue=None*)
+`itertools.zip_longest(*iterables, fillvalue=None)`
 :   Make an iterator that aggregates elements from each of the
     *iterables*.
 

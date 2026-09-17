@@ -20,231 +20,231 @@ change between Python versions.
 The module also provides a mapping from numeric codes to names and some
 functions. The functions mirror definitions in the Python C header files.
 
-token.tok_name
+`token.tok_name`
 :   Dictionary mapping the numeric values of the constants defined in this module
     back to name strings, allowing more human-readable representation of parse trees
     to be generated.
 
-token.ISTERMINAL(*x*)
+`token.ISTERMINAL(x)`
 :   Return `True` for terminal token values.
 
-token.ISNONTERMINAL(*x*)
+`token.ISNONTERMINAL(x)`
 :   Return `True` for non-terminal token values.
 
-token.ISEOF(*x*)
+`token.ISEOF(x)`
 :   Return `True` if *x* is the marker indicating the end of input.
 
 The token constants are:
 
-token.ENDMARKER
+`token.ENDMARKER`
 
-token.NAME
+`token.NAME`
 
-token.NUMBER
+`token.NUMBER`
 
-token.STRING
+`token.STRING`
 
-token.NEWLINE
+`token.NEWLINE`
 
-token.INDENT
+`token.INDENT`
 
-token.DEDENT
+`token.DEDENT`
 
-token.LPAR
+`token.LPAR`
 :   Token value for `"("`.
 
-token.RPAR
+`token.RPAR`
 :   Token value for `")"`.
 
-token.LSQB
+`token.LSQB`
 :   Token value for `"["`.
 
-token.RSQB
+`token.RSQB`
 :   Token value for `"]"`.
 
-token.COLON
+`token.COLON`
 :   Token value for `":"`.
 
-token.COMMA
+`token.COMMA`
 :   Token value for `","`.
 
-token.SEMI
+`token.SEMI`
 :   Token value for `";"`.
 
-token.PLUS
+`token.PLUS`
 :   Token value for `"+"`.
 
-token.MINUS
+`token.MINUS`
 :   Token value for `"-"`.
 
-token.STAR
+`token.STAR`
 :   Token value for `"*"`.
 
-token.SLASH
+`token.SLASH`
 :   Token value for `"/"`.
 
-token.VBAR
+`token.VBAR`
 :   Token value for `"|"`.
 
-token.AMPER
+`token.AMPER`
 :   Token value for `"&"`.
 
-token.LESS
+`token.LESS`
 :   Token value for `"<"`.
 
-token.GREATER
+`token.GREATER`
 :   Token value for `">"`.
 
-token.EQUAL
+`token.EQUAL`
 :   Token value for `"="`.
 
-token.DOT
+`token.DOT`
 :   Token value for `"."`.
 
-token.PERCENT
+`token.PERCENT`
 :   Token value for `"%"`.
 
-token.LBRACE
+`token.LBRACE`
 :   Token value for `"{"`.
 
-token.RBRACE
+`token.RBRACE`
 :   Token value for `"}"`.
 
-token.EQEQUAL
+`token.EQEQUAL`
 :   Token value for `"=="`.
 
-token.NOTEQUAL
+`token.NOTEQUAL`
 :   Token value for `"!="`.
 
-token.LESSEQUAL
+`token.LESSEQUAL`
 :   Token value for `"<="`.
 
-token.GREATEREQUAL
+`token.GREATEREQUAL`
 :   Token value for `">="`.
 
-token.TILDE
+`token.TILDE`
 :   Token value for `"~"`.
 
-token.CIRCUMFLEX
+`token.CIRCUMFLEX`
 :   Token value for `"^"`.
 
-token.LEFTSHIFT
+`token.LEFTSHIFT`
 :   Token value for `"<<"`.
 
-token.RIGHTSHIFT
+`token.RIGHTSHIFT`
 :   Token value for `">>"`.
 
-token.DOUBLESTAR
+`token.DOUBLESTAR`
 :   Token value for `"**"`.
 
-token.PLUSEQUAL
+`token.PLUSEQUAL`
 :   Token value for `"+="`.
 
-token.MINEQUAL
+`token.MINEQUAL`
 :   Token value for `"-="`.
 
-token.STAREQUAL
+`token.STAREQUAL`
 :   Token value for `"*="`.
 
-token.SLASHEQUAL
+`token.SLASHEQUAL`
 :   Token value for `"/="`.
 
-token.PERCENTEQUAL
+`token.PERCENTEQUAL`
 :   Token value for `"%="`.
 
-token.AMPEREQUAL
+`token.AMPEREQUAL`
 :   Token value for `"&="`.
 
-token.VBAREQUAL
+`token.VBAREQUAL`
 :   Token value for `"|="`.
 
-token.CIRCUMFLEXEQUAL
+`token.CIRCUMFLEXEQUAL`
 :   Token value for `"^="`.
 
-token.LEFTSHIFTEQUAL
+`token.LEFTSHIFTEQUAL`
 :   Token value for `"<<="`.
 
-token.RIGHTSHIFTEQUAL
+`token.RIGHTSHIFTEQUAL`
 :   Token value for `">>="`.
 
-token.DOUBLESTAREQUAL
+`token.DOUBLESTAREQUAL`
 :   Token value for `"**="`.
 
-token.DOUBLESLASH
+`token.DOUBLESLASH`
 :   Token value for `"//"`.
 
-token.DOUBLESLASHEQUAL
+`token.DOUBLESLASHEQUAL`
 :   Token value for `"//="`.
 
-token.AT
+`token.AT`
 :   Token value for `"@"`.
 
-token.ATEQUAL
+`token.ATEQUAL`
 :   Token value for `"@="`.
 
-token.RARROW
+`token.RARROW`
 :   Token value for `"->"`.
 
-token.ELLIPSIS
+`token.ELLIPSIS`
 :   Token value for `"..."`.
 
-token.COLONEQUAL
+`token.COLONEQUAL`
 :   Token value for `":="`.
 
-token.EXCLAMATION
+`token.EXCLAMATION`
 :   Token value for `"!"`.
 
-token.OP
+`token.OP`
 
-token.AWAIT
+`token.AWAIT`
 
-token.ASYNC
+`token.ASYNC`
 
-token.TYPE_IGNORE
+`token.TYPE_IGNORE`
 
-token.TYPE_COMMENT
+`token.TYPE_COMMENT`
 
-token.SOFT_KEYWORD
+`token.SOFT_KEYWORD`
 
-token.FSTRING_START
+`token.FSTRING_START`
 
-token.FSTRING_MIDDLE
+`token.FSTRING_MIDDLE`
 
-token.FSTRING_END
+`token.FSTRING_END`
 
-token.COMMENT
+`token.COMMENT`
 
-token.NL
+`token.NL`
 
-token.ERRORTOKEN
+`token.ERRORTOKEN`
 
-token.N_TOKENS
+`token.N_TOKENS`
 
-token.NT_OFFSET
+`token.NT_OFFSET`
 
 The following token type values aren’t used by the C tokenizer but are needed for
 the [`tokenize`](tokenize.md#module-tokenize "tokenize: Lexical scanner for Python source code.") module.
 
-token.COMMENT
+`token.COMMENT`
 :   Token value used to indicate a comment.
 
-token.NL
+`token.NL`
 :   Token value used to indicate a non-terminating newline. The
     [`NEWLINE`](token.md#token.NEWLINE "token.NEWLINE") token indicates the end of a logical line of Python code;
     `NL` tokens are generated when a logical line of code is continued over
     multiple physical lines.
 
-token.ENCODING
+`token.ENCODING`
 :   Token value that indicates the encoding used to decode the source bytes
     into text. The first token returned by [`tokenize.tokenize()`](tokenize.md#tokenize.tokenize "tokenize.tokenize") will
     always be an `ENCODING` token.
 
-token.TYPE_COMMENT
+`token.TYPE_COMMENT`
 :   Token value indicating that a type comment was recognized. Such
     tokens are only produced when [`ast.parse()`](ast.md#ast.parse "ast.parse") is invoked with
     `type_comments=True`.
 
-token.EXACT_TOKEN_TYPES
+`token.EXACT_TOKEN_TYPES`
 :   A dictionary mapping the string representation of a token to its numeric code.
 
     Added in version 3.8.

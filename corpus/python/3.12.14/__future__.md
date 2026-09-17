@@ -49,7 +49,7 @@ language using this mechanism:
 | generator_stop | 3.5.0b1 | 3.7 | [**PEP 479**](https://peps.python.org/pep-0479/): *StopIteration handling inside generators* |
 | annotations | 3.7.0b1 | TBD [[1]](__future__.md#id2) | [**PEP 563**](https://peps.python.org/pep-0563/): *Postponed evaluation of annotations* |
 
-*class* __future__._Feature
+`class __future__._Feature`
 :   Each statement in `__future__.py` is of the form:
 
     ```python3
@@ -69,10 +69,10 @@ language using this mechanism:
     )
     ```
 
-_Feature.getOptionalRelease()
+`_Feature.getOptionalRelease()`
 :   *OptionalRelease* records the first release in which the feature was accepted.
 
-_Feature.getMandatoryRelease()
+`_Feature.getMandatoryRelease()`
 :   In the case of a *MandatoryRelease* that has not yet occurred,
     *MandatoryRelease* predicts the release in which the feature will become part of
     the language.
@@ -84,7 +84,7 @@ _Feature.getMandatoryRelease()
     *MandatoryRelease* may also be `None`, meaning that a planned feature got
     dropped or that it is not yet decided.
 
-_Feature.compiler_flag
+`_Feature.compiler_flag`
 :   *CompilerFlag* is the (bitfield) flag that should be passed in the fourth
     argument to the built-in function [`compile()`](functions.md#compile "compile") to enable the feature in
     dynamically compiled code. This flag is stored in the [`_Feature.compiler_flag`](__future__.md#future__._Feature.compiler_flag "__future__._Feature.compiler_flag")

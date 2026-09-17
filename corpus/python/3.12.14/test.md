@@ -190,33 +190,33 @@ test suite.
 
 This module defines the following exceptions:
 
-*exception* test.support.TestFailed
+`exception test.support.TestFailed`
 :   Exception to be raised when a test fails. This is deprecated in favor of
     [`unittest`](unittest.md#module-unittest "unittest: Unit testing framework for Python.")-based tests and [`unittest.TestCase`](unittest.md#unittest.TestCase "unittest.TestCase")’s assertion
     methods.
 
-*exception* test.support.ResourceDenied
+`exception test.support.ResourceDenied`
 :   Subclass of [`unittest.SkipTest`](unittest.md#unittest.SkipTest "unittest.SkipTest"). Raised when a resource (such as a
     network connection) is not available. Raised by the [`requires()`](test.md#test.support.requires "test.support.requires")
     function.
 
 The [`test.support`](test.md#module-test.support "test.support: Support for Python's regression test suite.") module defines the following constants:
 
-test.support.verbose
+`test.support.verbose`
 :   `True` when verbose output is enabled. Should be checked when more
     detailed information is desired about a running test. *verbose* is set by
     [`test.regrtest`](test.md#module-test.regrtest "test.regrtest: Drives the regression test suite.").
 
-test.support.is_jython
+`test.support.is_jython`
 :   `True` if the running interpreter is Jython.
 
-test.support.is_android
+`test.support.is_android`
 :   `True` if the system is Android.
 
-test.support.unix_shell
+`test.support.unix_shell`
 :   Path for shell if not on Windows; otherwise `None`.
 
-test.support.LOOPBACK_TIMEOUT
+`test.support.LOOPBACK_TIMEOUT`
 :   Timeout in seconds for tests using a network server listening on the network
     local loopback interface like `127.0.0.1`.
 
@@ -232,7 +232,7 @@ test.support.LOOPBACK_TIMEOUT
 
     See also [`INTERNET_TIMEOUT`](test.md#test.support.INTERNET_TIMEOUT "test.support.INTERNET_TIMEOUT").
 
-test.support.INTERNET_TIMEOUT
+`test.support.INTERNET_TIMEOUT`
 :   Timeout in seconds for network requests going to the internet.
 
     The timeout is short enough to prevent a test to wait for too long if the
@@ -246,7 +246,7 @@ test.support.INTERNET_TIMEOUT
 
     See also [`LOOPBACK_TIMEOUT`](test.md#test.support.LOOPBACK_TIMEOUT "test.support.LOOPBACK_TIMEOUT").
 
-test.support.SHORT_TIMEOUT
+`test.support.SHORT_TIMEOUT`
 :   Timeout in seconds to mark a test as failed if the test takes “too long”.
 
     The timeout value depends on the regrtest `--timeout` command line option.
@@ -256,7 +256,7 @@ test.support.SHORT_TIMEOUT
 
     Its default value is 30 seconds.
 
-test.support.LONG_TIMEOUT
+`test.support.LONG_TIMEOUT`
 :   Timeout in seconds to detect when a test hangs.
 
     It is long enough to reduce the risk of test failure on the slowest Python
@@ -269,78 +269,78 @@ test.support.LONG_TIMEOUT
     See also [`LOOPBACK_TIMEOUT`](test.md#test.support.LOOPBACK_TIMEOUT "test.support.LOOPBACK_TIMEOUT"), [`INTERNET_TIMEOUT`](test.md#test.support.INTERNET_TIMEOUT "test.support.INTERNET_TIMEOUT") and
     [`SHORT_TIMEOUT`](test.md#test.support.SHORT_TIMEOUT "test.support.SHORT_TIMEOUT").
 
-test.support.PGO
+`test.support.PGO`
 :   Set when tests can be skipped when they are not useful for PGO.
 
-test.support.PIPE_MAX_SIZE
+`test.support.PIPE_MAX_SIZE`
 :   A constant that is likely larger than the underlying OS pipe buffer size,
     to make writes blocking.
 
-test.support.Py_DEBUG
+`test.support.Py_DEBUG`
 :   `True` if Python was built with the [`Py_DEBUG`](https://docs.python.org/3.12/c-api/intro.html#c.Py_DEBUG "Py_DEBUG") macro
     defined, that is, if
     Python was [built in debug mode](https://docs.python.org/3.12/using/configure.html#debug-build).
 
     Added in version 3.12.
 
-test.support.SOCK_MAX_SIZE
+`test.support.SOCK_MAX_SIZE`
 :   A constant that is likely larger than the underlying OS socket buffer size,
     to make writes blocking.
 
-test.support.TEST_SUPPORT_DIR
+`test.support.TEST_SUPPORT_DIR`
 :   Set to the top level directory that contains [`test.support`](test.md#module-test.support "test.support: Support for Python's regression test suite.").
 
-test.support.TEST_HOME_DIR
+`test.support.TEST_HOME_DIR`
 :   Set to the top level directory for the test package.
 
-test.support.TEST_DATA_DIR
+`test.support.TEST_DATA_DIR`
 :   Set to the `data` directory within the test package.
 
-test.support.MAX_Py_ssize_t
+`test.support.MAX_Py_ssize_t`
 :   Set to [`sys.maxsize`](sys.md#sys.maxsize "sys.maxsize") for big memory tests.
 
-test.support.max_memuse
+`test.support.max_memuse`
 :   Set by [`set_memlimit()`](test.md#test.support.set_memlimit "test.support.set_memlimit") as the memory limit for big memory tests.
     Limited by [`MAX_Py_ssize_t`](test.md#test.support.MAX_Py_ssize_t "test.support.MAX_Py_ssize_t").
 
-test.support.real_max_memuse
+`test.support.real_max_memuse`
 :   Set by [`set_memlimit()`](test.md#test.support.set_memlimit "test.support.set_memlimit") as the memory limit for big memory tests. Not
     limited by [`MAX_Py_ssize_t`](test.md#test.support.MAX_Py_ssize_t "test.support.MAX_Py_ssize_t").
 
-test.support.MISSING_C_DOCSTRINGS
+`test.support.MISSING_C_DOCSTRINGS`
 :   Set to `True` if Python is built without docstrings (the
     `WITH_DOC_STRINGS` macro is not defined).
     See the [`configure --without-doc-strings`](https://docs.python.org/3.12/using/configure.html#cmdoption-without-doc-strings) option.
 
     See also the [`HAVE_DOCSTRINGS`](test.md#test.support.HAVE_DOCSTRINGS "test.support.HAVE_DOCSTRINGS") variable.
 
-test.support.HAVE_DOCSTRINGS
+`test.support.HAVE_DOCSTRINGS`
 :   Set to `True` if function docstrings are available.
     See the [`python -OO`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-O) option, which strips docstrings of functions implemented in Python.
 
     See also the [`MISSING_C_DOCSTRINGS`](test.md#test.support.MISSING_C_DOCSTRINGS "test.support.MISSING_C_DOCSTRINGS") variable.
 
-test.support.TEST_HTTP_URL
+`test.support.TEST_HTTP_URL`
 :   Define the URL of a dedicated HTTP server for the network tests.
 
-test.support.ALWAYS_EQ
+`test.support.ALWAYS_EQ`
 :   Object that is equal to anything. Used to test mixed type comparison.
 
-test.support.NEVER_EQ
+`test.support.NEVER_EQ`
 :   Object that is not equal to anything (even to [`ALWAYS_EQ`](test.md#test.support.ALWAYS_EQ "test.support.ALWAYS_EQ")).
     Used to test mixed type comparison.
 
-test.support.LARGEST
+`test.support.LARGEST`
 :   Object that is greater than anything (except itself).
     Used to test mixed type comparison.
 
-test.support.SMALLEST
+`test.support.SMALLEST`
 :   Object that is less than anything (except itself).
     Used to test mixed type comparison.
 
 The [`test.support`](test.md#module-test.support "test.support: Support for Python's regression test suite.") module defines the following functions:
 
-test.support.busy_retry(*timeout*, *err_msg=None*, */*, *\**, *error=True*)
+`test.support.busy_retry(timeout, err_msg=None, /, *, error=True)`
 :   Run the loop body until `break` stops the loop.
 
     After *timeout* seconds, raise an [`AssertionError`](exceptions.md#AssertionError "AssertionError") if *error* is true,
@@ -364,7 +364,7 @@ test.support.busy_retry(*timeout*, *err_msg=None*, */*, *\**, *error=True*)
         raise RuntimeError('my custom error')
     ```
 
-test.support.sleeping_retry(*timeout*, *err_msg=None*, */*, *\**, *init_delay=0.010*, *max_delay=1.0*, *error=True*)
+`test.support.sleeping_retry(timeout, err_msg=None, /, *, init_delay=0.010, max_delay=1.0, error=True)`
 :   Wait strategy that applies exponential backoff.
 
     Run the loop body until `break` stops the loop. Sleep at each loop
@@ -391,27 +391,27 @@ test.support.sleeping_retry(*timeout*, *err_msg=None*, */*, *\**, *init_delay=0.
         raise RuntimeError('my custom error')
     ```
 
-test.support.is_resource_enabled(*resource*)
+`test.support.is_resource_enabled(resource)`
 :   Return `True` if *resource* is enabled and available. The list of
     available resources is only set when [`test.regrtest`](test.md#module-test.regrtest "test.regrtest: Drives the regression test suite.") is executing the
     tests.
 
-test.support.python_is_optimized()
+`test.support.python_is_optimized()`
 :   Return `True` if Python was not built with `-O0` or `-Og`.
 
-test.support.with_pymalloc()
+`test.support.with_pymalloc()`
 :   Return `_testcapi.WITH_PYMALLOC`.
 
-test.support.requires(*resource*, *msg=None*)
+`test.support.requires(resource, msg=None)`
 :   Raise [`ResourceDenied`](test.md#test.support.ResourceDenied "test.support.ResourceDenied") if *resource* is not available. *msg* is the
     argument to [`ResourceDenied`](test.md#test.support.ResourceDenied "test.support.ResourceDenied") if it is raised. Always returns
     `True` if called by a function whose `__name__` is `'__main__'`.
     Used when tests are executed by [`test.regrtest`](test.md#module-test.regrtest "test.regrtest: Drives the regression test suite.").
 
-test.support.sortdict(*dict*)
+`test.support.sortdict(dict)`
 :   Return a repr of *dict* with keys sorted.
 
-test.support.findfile(*filename*, *subdir=None*)
+`test.support.findfile(filename, subdir=None)`
 :   Return the path to the file named *filename*. If no match is found
     *filename* is returned. This does not equal a failure since it could be the
     path to the file.
@@ -419,16 +419,16 @@ test.support.findfile(*filename*, *subdir=None*)
     Setting *subdir* indicates a relative path to use to find the file
     rather than looking directly in the path directories.
 
-test.support.get_pagesize()
+`test.support.get_pagesize()`
 :   Get size of a page in bytes.
 
     Added in version 3.12.
 
-test.support.setswitchinterval(*interval*)
+`test.support.setswitchinterval(interval)`
 :   Set the [`sys.setswitchinterval()`](sys.md#sys.setswitchinterval "sys.setswitchinterval") to the given *interval*. Defines
     a minimum interval for Android systems to prevent the system from hanging.
 
-test.support.check_impl_detail(*\*\*guards*)
+`test.support.check_impl_detail(**guards)`
 :   Use this check to guard CPython’s implementation-specific tests or to
     run them only on the implementations guarded by the arguments. This
     function returns `True` or `False` depending on the host platform.
@@ -440,31 +440,31 @@ test.support.check_impl_detail(*\*\*guards*)
     check_impl_detail(cpython=False)  # Everywhere except CPython.
     ```
 
-test.support.set_memlimit(*limit*)
+`test.support.set_memlimit(limit)`
 :   Set the values for [`max_memuse`](test.md#test.support.max_memuse "test.support.max_memuse") and [`real_max_memuse`](test.md#test.support.real_max_memuse "test.support.real_max_memuse") for big
     memory tests.
 
-test.support.record_original_stdout(*stdout*)
+`test.support.record_original_stdout(stdout)`
 :   Store the value from *stdout*. It is meant to hold the stdout at the
     time the regrtest began.
 
-test.support.get_original_stdout()
+`test.support.get_original_stdout()`
 :   Return the original stdout set by [`record_original_stdout()`](test.md#test.support.record_original_stdout "test.support.record_original_stdout") or
     `sys.stdout` if it’s not set.
 
-test.support.args_from_interpreter_flags()
+`test.support.args_from_interpreter_flags()`
 :   Return a list of command line arguments reproducing the current settings
     in `sys.flags` and `sys.warnoptions`.
 
-test.support.optim_args_from_interpreter_flags()
+`test.support.optim_args_from_interpreter_flags()`
 :   Return a list of command line arguments reproducing the current
     optimization settings in `sys.flags`.
 
-test.support.captured_stdin()
+`test.support.captured_stdin()`
 
-test.support.captured_stdout()
+`test.support.captured_stdout()`
 
-test.support.captured_stderr()
+`test.support.captured_stderr()`
 :   A context managers that temporarily replaces the named stream with
     [`io.StringIO`](io.md#io.StringIO "io.StringIO") object.
 
@@ -489,20 +489,20 @@ test.support.captured_stderr()
     self.assertEqual(captured, "hello")
     ```
 
-test.support.disable_faulthandler()
+`test.support.disable_faulthandler()`
 :   A context manager that temporary disables [`faulthandler`](faulthandler.md#module-faulthandler "faulthandler: Dump the Python traceback.").
 
-test.support.gc_collect()
+`test.support.gc_collect()`
 :   Force as many objects as possible to be collected. This is needed because
     timely deallocation is not guaranteed by the garbage collector. This means
     that `__del__` methods may be called later than expected and weakrefs
     may remain alive for longer than expected.
 
-test.support.disable_gc()
+`test.support.disable_gc()`
 :   A context manager that disables the garbage collector on entry. On
     exit, the garbage collector is restored to its prior state.
 
-test.support.swap_attr(*obj*, *attr*, *new_val*)
+`test.support.swap_attr(obj, attr, new_val)`
 :   Context manager to swap out an attribute with a new object.
 
     Usage:
@@ -520,7 +520,7 @@ test.support.swap_attr(*obj*, *attr*, *new_val*)
     The old value (or `None` if it doesn’t exist) will be assigned to the
     target of the “as” clause, if there is one.
 
-test.support.swap_item(*obj*, *attr*, *new_val*)
+`test.support.swap_item(obj, attr, new_val)`
 :   Context manager to swap out an item with a new object.
 
     Usage:
@@ -538,21 +538,21 @@ test.support.swap_item(*obj*, *attr*, *new_val*)
     The old value (or `None` if it doesn’t exist) will be assigned to the
     target of the “as” clause, if there is one.
 
-test.support.flush_std_streams()
+`test.support.flush_std_streams()`
 :   Call the `flush()` method on [`sys.stdout`](sys.md#sys.stdout "sys.stdout") and then on
     [`sys.stderr`](sys.md#sys.stderr "sys.stderr"). It can be used to make sure that the logs order is
     consistent before writing into stderr.
 
     Added in version 3.11.
 
-test.support.print_warning(*msg*)
+`test.support.print_warning(msg)`
 :   Print a warning into [`sys.__stderr__`](sys.md#sys.__stderr__ "sys.__stderr__"). Format the message as:
     `f"Warning -- {msg}"`. If *msg* is made of multiple lines, add
     `"Warning -- "` prefix to each line.
 
     Added in version 3.9.
 
-test.support.wait_process(*pid*, *\**, *exitcode*, *timeout=None*)
+`test.support.wait_process(pid, *, exitcode, timeout=None)`
 :   Wait until process *pid* completes and check that the process exit code is
     *exitcode*.
 
@@ -565,90 +565,90 @@ test.support.wait_process(*pid*, *\**, *exitcode*, *timeout=None*)
 
     Added in version 3.9.
 
-test.support.calcobjsize(*fmt*)
+`test.support.calcobjsize(fmt)`
 :   Return the size of the [`PyObject`](https://docs.python.org/3.12/c-api/structures.html#c.PyObject "PyObject") whose structure members are
     defined by *fmt*. The returned value includes the size of the Python object header and alignment.
 
-test.support.calcvobjsize(*fmt*)
+`test.support.calcvobjsize(fmt)`
 :   Return the size of the [`PyVarObject`](https://docs.python.org/3.12/c-api/structures.html#c.PyVarObject "PyVarObject") whose structure members are
     defined by *fmt*. The returned value includes the size of the Python object header and alignment.
 
-test.support.checksizeof(*test*, *o*, *size*)
+`test.support.checksizeof(test, o, size)`
 :   For testcase *test*, assert that the `sys.getsizeof` for *o* plus the GC
     header size equals *size*.
 
-@test.support.anticipate_failure(*condition*)
+`@test.support.anticipate_failure(condition)`
 :   A decorator to conditionally mark tests with
     [`unittest.expectedFailure()`](unittest.md#unittest.expectedFailure "unittest.expectedFailure"). Any use of this decorator should
     have an associated comment identifying the relevant tracker issue.
 
-test.support.system_must_validate_cert(*f*)
+`test.support.system_must_validate_cert(f)`
 :   A decorator that skips the decorated test on TLS certification validation failures.
 
-@test.support.run_with_locale(*catstr*, *\*locales*)
+`@test.support.run_with_locale(catstr, *locales)`
 :   A decorator for running a function in a different locale, correctly
     resetting it after it has finished. *catstr* is the locale category as
     a string (for example `"LC_ALL"`). The *locales* passed will be tried
     sequentially, and the first valid locale will be used.
 
-@test.support.run_with_tz(*tz*)
+`@test.support.run_with_tz(tz)`
 :   A decorator for running a function in a specific timezone, correctly
     resetting it after it has finished.
 
-@test.support.requires_freebsd_version(*\*min_version*)
+`@test.support.requires_freebsd_version(*min_version)`
 :   Decorator for the minimum version when running test on FreeBSD. If the
     FreeBSD version is less than the minimum, the test is skipped.
 
-@test.support.requires_linux_version(*\*min_version*)
+`@test.support.requires_linux_version(*min_version)`
 :   Decorator for the minimum version when running test on Linux. If the
     Linux version is less than the minimum, the test is skipped.
 
-@test.support.requires_mac_version(*\*min_version*)
+`@test.support.requires_mac_version(*min_version)`
 :   Decorator for the minimum version when running test on macOS. If the
     macOS version is less than the minimum, the test is skipped.
 
-@test.support.requires_IEEE_754
+`@test.support.requires_IEEE_754`
 :   Decorator for skipping tests on non-IEEE 754 platforms.
 
-@test.support.requires_zlib
+`@test.support.requires_zlib`
 :   Decorator for skipping tests if [`zlib`](zlib.md#module-zlib "zlib: Low-level interface to compression and decompression routines compatible with gzip.") doesn’t exist.
 
-@test.support.requires_gzip
+`@test.support.requires_gzip`
 :   Decorator for skipping tests if [`gzip`](gzip.md#module-gzip "gzip: Interfaces for gzip compression and decompression using file objects.") doesn’t exist.
 
-@test.support.requires_bz2
+`@test.support.requires_bz2`
 :   Decorator for skipping tests if [`bz2`](bz2.md#module-bz2 "bz2: Interfaces for bzip2 compression and decompression.") doesn’t exist.
 
-@test.support.requires_lzma
+`@test.support.requires_lzma`
 :   Decorator for skipping tests if [`lzma`](lzma.md#module-lzma "lzma: A Python wrapper for the liblzma compression library.") doesn’t exist.
 
-@test.support.requires_resource(*resource*)
+`@test.support.requires_resource(resource)`
 :   Decorator for skipping tests if *resource* is not available.
 
-@test.support.requires_docstrings
+`@test.support.requires_docstrings`
 :   Decorator for only running the test if [`HAVE_DOCSTRINGS`](test.md#test.support.HAVE_DOCSTRINGS "test.support.HAVE_DOCSTRINGS").
 
-@test.support.requires_limited_api
+`@test.support.requires_limited_api`
 :   Decorator for only running the test if [Limited C API](https://docs.python.org/3.12/c-api/stable.html#limited-c-api)
     is available.
 
-@test.support.cpython_only
+`@test.support.cpython_only`
 :   Decorator for tests only applicable to CPython.
 
-@test.support.impl_detail(*msg=None*, *\*\*guards*)
+`@test.support.impl_detail(msg=None, **guards)`
 :   Decorator for invoking [`check_impl_detail()`](test.md#test.support.check_impl_detail "test.support.check_impl_detail") on *guards*. If that
     returns `False`, then uses *msg* as the reason for skipping the test.
 
-@test.support.no_tracing
+`@test.support.no_tracing`
 :   Decorator to temporarily turn off tracing for the duration of the test.
 
-@test.support.refcount_test
+`@test.support.refcount_test`
 :   Decorator for tests which involve reference counting. The decorator does
     not run the test if it is not run by CPython. Any trace function is unset
     for the duration of the test to prevent unexpected refcounts caused by
     the trace function.
 
-@test.support.bigmemtest(*size*, *memuse*, *dry_run=True*)
+`@test.support.bigmemtest(size, memuse, dry_run=True)`
 :   Decorator for bigmem tests.
 
     *size* is a requested size for the test (in arbitrary, test-interpreted
@@ -661,10 +661,10 @@ test.support.system_must_validate_cert(*f*)
     method may be less than the requested value. If *dry_run* is `False`, it
     means the test doesn’t support dummy runs when `-M` is not specified.
 
-@test.support.bigaddrspacetest
+`@test.support.bigaddrspacetest`
 :   Decorator for tests that fill the address space.
 
-test.support.check_syntax_error(*testcase*, *statement*, *errtext=''*, *\**, *lineno=None*, *offset=None*)
+`test.support.check_syntax_error(testcase, statement, errtext='', *, lineno=None, offset=None)`
 :   Test for syntax errors in *statement* by attempting to compile *statement*.
     *testcase* is the [`unittest`](unittest.md#module-unittest "unittest: Unit testing framework for Python.") instance for the test. *errtext* is the
     regular expression which should match the string representation of the
@@ -672,19 +672,19 @@ test.support.check_syntax_error(*testcase*, *statement*, *errtext=''*, *\**, *li
     the line of the exception. If *offset* is not `None`, compares to
     the offset of the exception.
 
-test.support.open_urlresource(*url*, *\*args*, *\*\*kw*)
+`test.support.open_urlresource(url, *args, **kw)`
 :   Open *url*. If open fails, raises [`TestFailed`](test.md#test.support.TestFailed "test.support.TestFailed").
 
-test.support.reap_children()
+`test.support.reap_children()`
 :   Use this at the end of `test_main` whenever sub-processes are started.
     This will help ensure that no extra children (zombies) stick around to
     hog resources and create problems when looking for refleaks.
 
-test.support.get_attribute(*obj*, *name*)
+`test.support.get_attribute(obj, name)`
 :   Get an attribute, raising [`unittest.SkipTest`](unittest.md#unittest.SkipTest "unittest.SkipTest") if [`AttributeError`](exceptions.md#AttributeError "AttributeError")
     is raised.
 
-test.support.catch_unraisable_exception()
+`test.support.catch_unraisable_exception()`
 :   Context manager catching unraisable exception using
     [`sys.unraisablehook()`](sys.md#sys.unraisablehook "sys.unraisablehook").
 
@@ -712,7 +712,7 @@ test.support.catch_unraisable_exception()
 
     Added in version 3.8.
 
-test.support.load_package_tests(*pkg_dir*, *loader*, *standard_tests*, *pattern*)
+`test.support.load_package_tests(pkg_dir, loader, standard_tests, pattern)`
 :   Generic implementation of the [`unittest`](unittest.md#module-unittest "unittest: Unit testing framework for Python.") `load_tests` protocol for
     use in test packages. *pkg_dir* is the root directory of the package;
     *loader*, *standard_tests*, and *pattern* are the arguments expected by
@@ -727,7 +727,7 @@ test.support.load_package_tests(*pkg_dir*, *loader*, *standard_tests*, *pattern*
         return load_package_tests(os.path.dirname(__file__), *args)
     ```
 
-test.support.detect_api_mismatch(*ref_api*, *other_api*, *\**, *ignore=()*)
+`test.support.detect_api_mismatch(ref_api, other_api, *, ignore=())`
 :   Returns the set of attributes, functions or methods of *ref_api* not
     found on *other_api*, except for a defined list of items to be
     ignored in this check specified in *ignore*.
@@ -737,26 +737,26 @@ test.support.detect_api_mismatch(*ref_api*, *other_api*, *\**, *ignore=()*)
 
     Added in version 3.5.
 
-test.support.patch(*test_instance*, *object_to_patch*, *attr_name*, *new_value*)
+`test.support.patch(test_instance, object_to_patch, attr_name, new_value)`
 :   Override *object_to_patch.attr_name* with *new_value*. Also add
     cleanup procedure to *test_instance* to restore *object_to_patch* for
     *attr_name*. The *attr_name* should be a valid attribute for
     *object_to_patch*.
 
-test.support.run_in_subinterp(*code*)
+`test.support.run_in_subinterp(code)`
 :   Run *code* in subinterpreter. Raise [`unittest.SkipTest`](unittest.md#unittest.SkipTest "unittest.SkipTest") if
     [`tracemalloc`](tracemalloc.md#module-tracemalloc "tracemalloc: Trace memory allocations.") is enabled.
 
-test.support.check_free_after_iterating(*test*, *iter*, *cls*, *args=()*)
+`test.support.check_free_after_iterating(test, iter, cls, args=())`
 :   Assert instances of *cls* are deallocated after iterating.
 
-test.support.missing_compiler_executable(*cmd_names=[]*)
+`test.support.missing_compiler_executable(cmd_names=[])`
 :   Check for the existence of the compiler executables whose names are listed
     in *cmd_names* or all the compiler executables when *cmd_names* is empty
     and return the first missing executable or `None` when none is found
     missing.
 
-test.support.check__all__(*test_case*, *module*, *name_of_module=None*, *extra=()*, *not_exported=()*)
+`test.support.check__all__(test_case, module, name_of_module=None, extra=(), not_exported=())`
 :   Assert that the `__all__` variable of *module* contains all public names.
 
     The module’s public names (its API) are detected automatically
@@ -798,19 +798,19 @@ test.support.check__all__(*test_case*, *module*, *name_of_module=None*, *extra=(
 
     Added in version 3.6.
 
-test.support.skip_if_broken_multiprocessing_synchronize()
+`test.support.skip_if_broken_multiprocessing_synchronize()`
 :   Skip tests if the `multiprocessing.synchronize` module is missing, if
     there is no available semaphore implementation, or if creating a lock raises
     an [`OSError`](exceptions.md#OSError "OSError").
 
     Added in version 3.10.
 
-test.support.check_disallow_instantiation(*test_case*, *tp*, *\*args*, *\*\*kwds*)
+`test.support.check_disallow_instantiation(test_case, tp, *args, **kwds)`
 :   Assert that type *tp* cannot be instantiated using *args* and *kwds*.
 
     Added in version 3.10.
 
-test.support.adjust_int_max_str_digits(*max_digits*)
+`test.support.adjust_int_max_str_digits(max_digits)`
 :   This function returns a context manager that will change the global
     [`sys.set_int_max_str_digits()`](sys.md#sys.set_int_max_str_digits "sys.set_int_max_str_digits") setting for the duration of the
     context to allow execution of test code that needs a different limit
@@ -820,7 +820,7 @@ test.support.adjust_int_max_str_digits(*max_digits*)
 
 The [`test.support`](test.md#module-test.support "test.support: Support for Python's regression test suite.") module defines the following classes:
 
-*class* test.support.SuppressCrashReport
+`class test.support.SuppressCrashReport`
 :   A context manager used to try to prevent crash dialog popups on tests that
     are expected to crash a subprocess.
 
@@ -833,23 +833,23 @@ The [`test.support`](test.md#module-test.support "test.support: Support for Pyth
 
     On both platforms, the old value is restored by [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__").
 
-*class* test.support.SaveSignals
+`class test.support.SaveSignals`
 :   Class to save and restore signal handlers registered by the Python signal
     handler.
 
-    save(*self*)
+    `save(self)`
     :   Save the signal handlers to a dictionary mapping signal numbers to the
         current signal handler.
 
-    restore(*self*)
+    `restore(self)`
     :   Set the signal numbers from the [`save()`](test.md#test.support.SaveSignals.save "test.support.SaveSignals.save") dictionary to the saved
         handler.
 
-*class* test.support.Matcher
-:   matches(*self*, *d*, *\*\*kwargs*)
+`class test.support.Matcher`
+:   `matches(self, d, **kwargs)`
     :   Try to match a single dict with the supplied arguments.
 
-    match_value(*self*, *k*, *dv*, *v*)
+    `match_value(self, k, dv, v)`
     :   Try to match a single stored value (*dv*) with a supplied value (*v*).
 
 # `test.support.socket_helper` — Utilities for socket tests
@@ -858,10 +858,10 @@ The [`test.support.socket_helper`](test.md#module-test.support.socket_helper "te
 
 Added in version 3.9.
 
-test.support.socket_helper.IPV6_ENABLED
+`test.support.socket_helper.IPV6_ENABLED`
 :   Set to `True` if IPv6 is enabled on this host, `False` otherwise.
 
-test.support.socket_helper.find_unused_port(*family=socket.AF_INET*, *socktype=socket.SOCK_STREAM*)
+`test.support.socket_helper.find_unused_port(family=socket.AF_INET, socktype=socket.SOCK_STREAM)`
 :   Returns an unused port that should be suitable for binding. This is
     achieved by creating a temporary socket with the same family and type as
     the `sock` parameter (default is [`AF_INET`](socket.md#socket.AF_INET "socket.AF_INET"),
@@ -882,7 +882,7 @@ test.support.socket_helper.find_unused_port(*family=socket.AF_INET*, *socktype=s
     discouraged since it can make multiple instances of the test impossible to
     run simultaneously, which is a problem for buildbots.
 
-test.support.socket_helper.bind_port(*sock*, *host=HOST*)
+`test.support.socket_helper.bind_port(sock, host=HOST)`
 :   Bind the socket to a free port and return the port number. Relies on
     ephemeral ports in order to ensure we are using an unbound port. This is
     important as many tests may be running simultaneously, especially in a
@@ -899,15 +899,15 @@ test.support.socket_helper.bind_port(*sock*, *host=HOST*)
     prevent anyone else from binding to our host/port for the duration of the
     test.
 
-test.support.socket_helper.bind_unix_socket(*sock*, *addr*)
+`test.support.socket_helper.bind_unix_socket(sock, addr)`
 :   Bind a Unix socket, raising [`unittest.SkipTest`](unittest.md#unittest.SkipTest "unittest.SkipTest") if
     [`PermissionError`](exceptions.md#PermissionError "PermissionError") is raised.
 
-@test.support.socket_helper.skip_unless_bind_unix_socket
+`@test.support.socket_helper.skip_unless_bind_unix_socket`
 :   A decorator for running tests that require a functional `bind()` for Unix
     sockets.
 
-test.support.socket_helper.transient_internet(*resource_name*, *\**, *timeout=30.0*, *errnos=()*)
+`test.support.socket_helper.transient_internet(resource_name, *, timeout=30.0, errnos=())`
 :   A context manager that raises [`ResourceDenied`](test.md#test.support.ResourceDenied "test.support.ResourceDenied") when
     various issues with the internet connection manifest themselves as
     exceptions.
@@ -917,7 +917,7 @@ test.support.socket_helper.transient_internet(*resource_name*, *\**, *timeout=30
 The [`test.support.script_helper`](test.md#module-test.support.script_helper "test.support.script_helper: Support for Python's script execution tests.") module provides support for Python’s
 script execution tests.
 
-test.support.script_helper.interpreter_requires_environment()
+`test.support.script_helper.interpreter_requires_environment()`
 :   Return `True` if `sys.executable interpreter` requires environment
     variables in order to be able to run at all.
 
@@ -934,14 +934,14 @@ test.support.script_helper.interpreter_requires_environment()
     other common environment variables that might impact whether or not the
     interpreter can start.
 
-test.support.script_helper.run_python_until_end(*\*args*, *\*\*env_vars*)
+`test.support.script_helper.run_python_until_end(*args, **env_vars)`
 :   Set up the environment based on *env_vars* for running the interpreter
     in a subprocess. The values can include `__isolated`, `__cleanenv`,
     `__cwd`, and `TERM`.
 
     Changed in version 3.9: The function no longer strips whitespaces from *stderr*.
 
-test.support.script_helper.assert_python_ok(*\*args*, *\*\*env_vars*)
+`test.support.script_helper.assert_python_ok(*args, **env_vars)`
 :   Assert that running the interpreter with *args* and optional environment
     variables *env_vars* succeeds (`rc == 0`) and return a `(return code,
     stdout, stderr)` tuple.
@@ -954,7 +954,7 @@ test.support.script_helper.assert_python_ok(*\*args*, *\*\*env_vars*)
 
     Changed in version 3.9: The function no longer strips whitespaces from *stderr*.
 
-test.support.script_helper.assert_python_failure(*\*args*, *\*\*env_vars*)
+`test.support.script_helper.assert_python_failure(*args, **env_vars)`
 :   Assert that running the interpreter with *args* and optional environment
     variables *env_vars* fails (`rc != 0`) and return a `(return code,
     stdout, stderr)` tuple.
@@ -963,31 +963,31 @@ test.support.script_helper.assert_python_failure(*\*args*, *\*\*env_vars*)
 
     Changed in version 3.9: The function no longer strips whitespaces from *stderr*.
 
-test.support.script_helper.spawn_python(*\*args*, *stdout=subprocess.PIPE*, *stderr=subprocess.STDOUT*, *\*\*kw*)
+`test.support.script_helper.spawn_python(*args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, **kw)`
 :   Run a Python subprocess with the given arguments.
 
     *kw* is extra keyword args to pass to [`subprocess.Popen()`](subprocess.md#subprocess.Popen "subprocess.Popen"). Returns a
     [`subprocess.Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") object.
 
-test.support.script_helper.kill_python(*p*)
+`test.support.script_helper.kill_python(p)`
 :   Run the given [`subprocess.Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") process until completion and return
     stdout.
 
-test.support.script_helper.make_script(*script_dir*, *script_basename*, *source*, *omit_suffix=False*)
+`test.support.script_helper.make_script(script_dir, script_basename, source, omit_suffix=False)`
 :   Create script containing *source* in path *script_dir* and *script_basename*.
     If *omit_suffix* is `False`, append `.py` to the name. Return the full
     script path.
 
-test.support.script_helper.make_zip_script(*zip_dir*, *zip_basename*, *script_name*, *name_in_zip=None*)
+`test.support.script_helper.make_zip_script(zip_dir, zip_basename, script_name, name_in_zip=None)`
 :   Create zip file at *zip_dir* and *zip_basename* with extension `zip` which
     contains the files in *script_name*. *name_in_zip* is the archive name.
     Return a tuple containing `(full path, full path of archive name)`.
 
-test.support.script_helper.make_pkg(*pkg_dir*, *init_source=''*)
+`test.support.script_helper.make_pkg(pkg_dir, init_source='')`
 :   Create a directory named *pkg_dir* containing an `__init__` file with
     *init_source* as its contents.
 
-test.support.script_helper.make_zip_pkg(*zip_dir*, *zip_basename*, *pkg_name*, *script_basename*, *source*, *depth=1*, *compiled=False*)
+`test.support.script_helper.make_zip_pkg(zip_dir, zip_basename, pkg_name, script_basename, source, depth=1, compiled=False)`
 :   Create a zip package directory with a path of *zip_dir* and *zip_basename*
     containing an empty `__init__` file and a file *script_basename*
     containing the *source*. If *compiled* is `True`, both source files will
@@ -1003,16 +1003,16 @@ Added in version 3.9.
 
 The module defines the following class:
 
-*class* test.support.bytecode_helper.BytecodeTestCase(*unittest.TestCase*)
+`class test.support.bytecode_helper.BytecodeTestCase(unittest.TestCase)`
 :   This class has custom assertion methods for inspecting bytecode.
 
-BytecodeTestCase.get_disassembly_as_string(*co*)
+`BytecodeTestCase.get_disassembly_as_string(co)`
 :   Return the disassembly of *co* as string.
 
-BytecodeTestCase.assertInBytecode(*x*, *opname*, *argval=_UNSPECIFIED*)
+`BytecodeTestCase.assertInBytecode(x, opname, argval=_UNSPECIFIED)`
 :   Return instr if *opname* is found, otherwise throws [`AssertionError`](exceptions.md#AssertionError "AssertionError").
 
-BytecodeTestCase.assertNotInBytecode(*x*, *opname*, *argval=_UNSPECIFIED*)
+`BytecodeTestCase.assertNotInBytecode(x, opname, argval=_UNSPECIFIED)`
 :   Throws [`AssertionError`](exceptions.md#AssertionError "AssertionError") if *opname* is found.
 
 # `test.support.threading_helper` — Utilities for threading tests
@@ -1021,31 +1021,31 @@ The [`test.support.threading_helper`](test.md#module-test.support.threading_help
 
 Added in version 3.10.
 
-test.support.threading_helper.join_thread(*thread*, *timeout=None*)
+`test.support.threading_helper.join_thread(thread, timeout=None)`
 :   Join a *thread* within *timeout*. Raise an [`AssertionError`](exceptions.md#AssertionError "AssertionError") if thread
     is still alive after *timeout* seconds.
 
-@test.support.threading_helper.reap_threads
+`@test.support.threading_helper.reap_threads`
 :   Decorator to ensure the threads are cleaned up even if the test fails.
 
-test.support.threading_helper.start_threads(*threads*, *unlock=None*)
+`test.support.threading_helper.start_threads(threads, unlock=None)`
 :   Context manager to start *threads*, which is a sequence of threads.
     *unlock* is a function called after the threads are started, even if an
     exception was raised; an example would be [`threading.Event.set()`](threading.md#threading.Event.set "threading.Event.set").
     `start_threads` will attempt to join the started threads upon exit.
 
-test.support.threading_helper.threading_cleanup(*\*original_values*)
+`test.support.threading_helper.threading_cleanup(*original_values)`
 :   Cleanup up threads not specified in *original_values*. Designed to emit
     a warning if a test leaves running threads in the background.
 
-test.support.threading_helper.threading_setup()
+`test.support.threading_helper.threading_setup()`
 :   Return current thread count and copy of dangling threads.
 
-test.support.threading_helper.wait_threads_exit(*timeout=None*)
+`test.support.threading_helper.wait_threads_exit(timeout=None)`
 :   Context manager to wait until all threads created in the `with` statement
     exit.
 
-test.support.threading_helper.catch_threading_exception()
+`test.support.threading_helper.catch_threading_exception()`
 :   Context manager catching [`threading.Thread`](threading.md#threading.Thread "threading.Thread") exception using
     [`threading.excepthook()`](threading.md#threading.excepthook "threading.excepthook").
 
@@ -1084,36 +1084,36 @@ The [`test.support.os_helper`](test.md#module-test.support.os_helper "test.suppo
 
 Added in version 3.10.
 
-test.support.os_helper.FS_NONASCII
+`test.support.os_helper.FS_NONASCII`
 :   A non-ASCII character encodable by [`os.fsencode()`](os.md#os.fsencode "os.fsencode").
 
-test.support.os_helper.SAVEDCWD
+`test.support.os_helper.SAVEDCWD`
 :   Set to [`os.getcwd()`](os.md#os.getcwd "os.getcwd").
 
-test.support.os_helper.TESTFN
+`test.support.os_helper.TESTFN`
 :   Set to a name that is safe to use as the name of a temporary file. Any
     temporary file that is created should be closed and unlinked (removed).
 
-test.support.os_helper.TESTFN_NONASCII
+`test.support.os_helper.TESTFN_NONASCII`
 :   Set to a filename containing the [`FS_NONASCII`](test.md#test.support.os_helper.FS_NONASCII "test.support.os_helper.FS_NONASCII") character, if it exists.
     This guarantees that if the filename exists, it can be encoded and decoded
     with the default filesystem encoding. This allows tests that require a
     non-ASCII filename to be easily skipped on platforms where they can’t work.
 
-test.support.os_helper.TESTFN_UNENCODABLE
+`test.support.os_helper.TESTFN_UNENCODABLE`
 :   Set to a filename (str type) that should not be able to be encoded by file
     system encoding in strict mode. It may be `None` if it’s not possible to
     generate such a filename.
 
-test.support.os_helper.TESTFN_UNDECODABLE
+`test.support.os_helper.TESTFN_UNDECODABLE`
 :   Set to a filename (bytes type) that should not be able to be decoded by
     file system encoding in strict mode. It may be `None` if it’s not
     possible to generate such a filename.
 
-test.support.os_helper.TESTFN_UNICODE
+`test.support.os_helper.TESTFN_UNICODE`
 :   Set to a non-ASCII name for a temporary file.
 
-*class* test.support.os_helper.EnvironmentVarGuard
+`class test.support.os_helper.EnvironmentVarGuard`
 :   Class used to temporarily set or unset environment variables. Instances can
     be used as a context manager and have a complete dictionary interface for
     querying/modifying the underlying `os.environ`. After exit from the
@@ -1122,28 +1122,28 @@ test.support.os_helper.TESTFN_UNICODE
 
     Changed in version 3.1: Added dictionary interface.
 
-*class* test.support.os_helper.FakePath(*path*)
+`class test.support.os_helper.FakePath(path)`
 :   Simple [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object). It implements the
     [`__fspath__()`](os.md#os.PathLike.__fspath__ "os.PathLike.__fspath__")
     method which just returns the *path* argument. If *path* is an exception,
     it will be raised in `__fspath__()`.
 
-EnvironmentVarGuard.set(*envvar*, *value*)
+`EnvironmentVarGuard.set(envvar, value)`
 :   Temporarily set the environment variable `envvar` to the value of
     `value`.
 
-EnvironmentVarGuard.unset(*envvar*)
+`EnvironmentVarGuard.unset(envvar)`
 :   Temporarily unset the environment variable `envvar`.
 
-test.support.os_helper.can_symlink()
+`test.support.os_helper.can_symlink()`
 :   Return `True` if the OS supports symbolic links, `False`
     otherwise.
 
-test.support.os_helper.can_xattr()
+`test.support.os_helper.can_xattr()`
 :   Return `True` if the OS supports xattr, `False`
     otherwise.
 
-test.support.os_helper.change_cwd(*path*, *quiet=False*)
+`test.support.os_helper.change_cwd(path, quiet=False)`
 :   A context manager that temporarily changes the current working
     directory to *path* and yields the directory.
 
@@ -1151,38 +1151,38 @@ test.support.os_helper.change_cwd(*path*, *quiet=False*)
     on error. Otherwise, it issues only a warning and keeps the current
     working directory the same.
 
-test.support.os_helper.create_empty_file(*filename*)
+`test.support.os_helper.create_empty_file(filename)`
 :   Create an empty file with *filename*. If it already exists, truncate it.
 
-test.support.os_helper.fd_count()
+`test.support.os_helper.fd_count()`
 :   Count the number of open file descriptors.
 
-test.support.os_helper.fs_is_case_insensitive(*directory*)
+`test.support.os_helper.fs_is_case_insensitive(directory)`
 :   Return `True` if the file system for *directory* is case-insensitive.
 
-test.support.os_helper.make_bad_fd()
+`test.support.os_helper.make_bad_fd()`
 :   Create an invalid file descriptor by opening and closing a temporary file,
     and returning its descriptor.
 
-test.support.os_helper.rmdir(*filename*)
+`test.support.os_helper.rmdir(filename)`
 :   Call [`os.rmdir()`](os.md#os.rmdir "os.rmdir") on *filename*. On Windows platforms, this is
     wrapped with a wait loop that checks for the existence of the file,
     which is needed due to antivirus programs that can hold files open and prevent
     deletion.
 
-test.support.os_helper.rmtree(*path*)
+`test.support.os_helper.rmtree(path)`
 :   Call [`shutil.rmtree()`](shutil.md#shutil.rmtree "shutil.rmtree") on *path* or call [`os.lstat()`](os.md#os.lstat "os.lstat") and
     [`os.rmdir()`](os.md#os.rmdir "os.rmdir") to remove a path and its contents. As with [`rmdir()`](test.md#test.support.os_helper.rmdir "test.support.os_helper.rmdir"),
     on Windows platforms
     this is wrapped with a wait loop that checks for the existence of the files.
 
-@test.support.os_helper.skip_unless_symlink
+`@test.support.os_helper.skip_unless_symlink`
 :   A decorator for running tests that require support for symbolic links.
 
-@test.support.os_helper.skip_unless_xattr
+`@test.support.os_helper.skip_unless_xattr`
 :   A decorator for running tests that require support for xattr.
 
-test.support.os_helper.temp_cwd(*name='tempcwd'*, *quiet=False*)
+`test.support.os_helper.temp_cwd(name='tempcwd', quiet=False)`
 :   A context manager that temporarily creates a new directory and
     changes the current working directory (CWD).
 
@@ -1195,7 +1195,7 @@ test.support.os_helper.temp_cwd(*name='tempcwd'*, *quiet=False*)
     the CWD, an error is raised. Otherwise, only a warning is raised
     and the original CWD is used.
 
-test.support.os_helper.temp_dir(*path=None*, *quiet=False*)
+`test.support.os_helper.temp_dir(path=None, quiet=False)`
 :   A context manager that creates a temporary directory at *path* and
     yields the directory.
 
@@ -1204,10 +1204,10 @@ test.support.os_helper.temp_dir(*path=None*, *quiet=False*)
     raises an exception on error. Otherwise, if *path* is specified and
     cannot be created, only a warning is issued.
 
-test.support.os_helper.temp_umask(*umask*)
+`test.support.os_helper.temp_umask(umask)`
 :   A context manager that temporarily sets the process umask.
 
-test.support.os_helper.unlink(*filename*)
+`test.support.os_helper.unlink(filename)`
 :   Call [`os.unlink()`](os.md#os.unlink "os.unlink") on *filename*. As with [`rmdir()`](test.md#test.support.os_helper.rmdir "test.support.os_helper.rmdir"),
     on Windows platforms, this is
     wrapped with a wait loop that checks for the existence of the file.
@@ -1218,11 +1218,11 @@ The [`test.support.import_helper`](test.md#module-test.support.import_helper "te
 
 Added in version 3.10.
 
-test.support.import_helper.forget(*module_name*)
+`test.support.import_helper.forget(module_name)`
 :   Remove the module named *module_name* from `sys.modules` and delete any
     byte-compiled files of the module.
 
-test.support.import_helper.import_fresh_module(*name*, *fresh=()*, *blocked=()*, *deprecated=False*)
+`test.support.import_helper.import_fresh_module(name, fresh=(), blocked=(), deprecated=False)`
 :   This function imports and returns a fresh copy of the named Python module
     by removing the named module from `sys.modules` before doing the import.
     Note that unlike `reload()`, the original module is not affected by
@@ -1258,7 +1258,7 @@ test.support.import_helper.import_fresh_module(*name*, *fresh=()*, *blocked=()*,
 
     Added in version 3.1.
 
-test.support.import_helper.import_module(*name*, *deprecated=False*, *\**, *required_on=()*)
+`test.support.import_helper.import_module(name, deprecated=False, *, required_on=())`
 :   This function imports and returns the named module. Unlike a normal
     import, this function raises [`unittest.SkipTest`](unittest.md#unittest.SkipTest "unittest.SkipTest") if the module
     cannot be imported.
@@ -1270,23 +1270,23 @@ test.support.import_helper.import_module(*name*, *deprecated=False*, *\**, *requ
 
     Added in version 3.1.
 
-test.support.import_helper.modules_setup()
+`test.support.import_helper.modules_setup()`
 :   Return a copy of [`sys.modules`](sys.md#sys.modules "sys.modules").
 
-test.support.import_helper.modules_cleanup(*oldmodules*)
+`test.support.import_helper.modules_cleanup(oldmodules)`
 :   Remove modules except for *oldmodules* and `encodings` in order to
     preserve internal cache.
 
-test.support.import_helper.unload(*name*)
+`test.support.import_helper.unload(name)`
 :   Delete *name* from `sys.modules`.
 
-test.support.import_helper.make_legacy_pyc(*source*)
+`test.support.import_helper.make_legacy_pyc(source)`
 :   Move a [**PEP 3147**](https://peps.python.org/pep-3147/)/[**PEP 488**](https://peps.python.org/pep-0488/) pyc file to its legacy pyc location and return the file
     system path to the legacy pyc file. The *source* value is the file system
     path to the source file. It does not need to exist, however the PEP
     3147/488 pyc file must exist.
 
-*class* test.support.import_helper.CleanImport(*\*module_names*)
+`class test.support.import_helper.CleanImport(*module_names)`
 :   A context manager to force import to return a new module reference. This
     is useful for testing module-level behaviors, such as the emission of a
     [`DeprecationWarning`](exceptions.md#DeprecationWarning "DeprecationWarning") on import. Example usage:
@@ -1296,7 +1296,7 @@ test.support.import_helper.make_legacy_pyc(*source*)
         importlib.import_module('foo')  # New reference.
     ```
 
-*class* test.support.import_helper.DirsOnSysPath(*\*paths*)
+`class test.support.import_helper.DirsOnSysPath(*paths)`
 :   A context manager to temporarily add directories to [`sys.path`](sys.md#sys.path "sys.path").
 
     This makes a copy of [`sys.path`](sys.md#sys.path "sys.path"), appends any directories given
@@ -1313,7 +1313,7 @@ The [`test.support.warnings_helper`](test.md#module-test.support.warnings_helper
 
 Added in version 3.10.
 
-test.support.warnings_helper.ignore_warnings(*\**, *category*)
+`test.support.warnings_helper.ignore_warnings(*, category)`
 :   Suppress warnings that are instances of *category*,
     which must be [`Warning`](exceptions.md#Warning "Warning") or a subclass.
     Roughly equivalent to [`warnings.catch_warnings()`](warnings.md#warnings.catch_warnings "warnings.catch_warnings")
@@ -1328,12 +1328,12 @@ test.support.warnings_helper.ignore_warnings(*\**, *category*)
 
     Added in version 3.8.
 
-test.support.warnings_helper.check_no_resource_warning(*testcase*)
+`test.support.warnings_helper.check_no_resource_warning(testcase)`
 :   Context manager to check that no [`ResourceWarning`](exceptions.md#ResourceWarning "ResourceWarning") was raised. You
     must remove the object which may emit [`ResourceWarning`](exceptions.md#ResourceWarning "ResourceWarning") before the
     end of the context manager.
 
-test.support.warnings_helper.check_syntax_warning(*testcase*, *statement*, *errtext=''*, *\**, *lineno=1*, *offset=None*)
+`test.support.warnings_helper.check_syntax_warning(testcase, statement, errtext='', *, lineno=1, offset=None)`
 :   Test for syntax warning in *statement* by attempting to compile *statement*.
     Test also that the [`SyntaxWarning`](exceptions.md#SyntaxWarning "SyntaxWarning") is emitted only once, and that it
     will be converted to a [`SyntaxError`](exceptions.md#SyntaxError "SyntaxError") when turned into error.
@@ -1345,7 +1345,7 @@ test.support.warnings_helper.check_syntax_warning(*testcase*, *statement*, *errt
 
     Added in version 3.8.
 
-test.support.warnings_helper.check_warnings(*\*filters*, *quiet=True*)
+`test.support.warnings_helper.check_warnings(*filters, quiet=True)`
 :   A convenience wrapper for [`warnings.catch_warnings()`](warnings.md#warnings.catch_warnings "warnings.catch_warnings") that makes it
     easier to test that a warning was correctly raised. It is approximately
     equivalent to calling `warnings.catch_warnings(record=True)` with
@@ -1413,6 +1413,6 @@ test.support.warnings_helper.check_warnings(*\*filters*, *quiet=True*)
 
     Changed in version 3.2: New optional arguments *filters* and *quiet*.
 
-*class* test.support.warnings_helper.WarningsRecorder
+`class test.support.warnings_helper.WarningsRecorder`
 :   Class used to record warnings for unit tests. See documentation of
     [`check_warnings()`](test.md#test.support.warnings_helper.check_warnings "test.support.warnings_helper.check_warnings") above for more details.

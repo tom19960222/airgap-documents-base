@@ -32,10 +32,10 @@ in the [`AbstractEventLoopPolicy`](asyncio-policy.md#asyncio.AbstractEventLoopPo
 The following functions can be used to get and set the policy
 for the current process:
 
-asyncio.get_event_loop_policy()
+`asyncio.get_event_loop_policy()`
 :   Return the current process-wide policy.
 
-asyncio.set_event_loop_policy(*policy*)
+`asyncio.set_event_loop_policy(policy)`
 :   Set the current process-wide policy to *policy*.
 
     If *policy* is set to `None`, the default policy is restored.
@@ -44,10 +44,10 @@ asyncio.set_event_loop_policy(*policy*)
 
 The abstract event loop policy base class is defined as follows:
 
-*class* asyncio.AbstractEventLoopPolicy
+`class asyncio.AbstractEventLoopPolicy`
 :   An abstract base class for asyncio policies.
 
-    get_event_loop()
+    `get_event_loop()`
     :   Get the event loop for the current context.
 
         Return an event loop object implementing the
@@ -57,15 +57,15 @@ The abstract event loop policy base class is defined as follows:
 
         Changed in version 3.6.
 
-    set_event_loop(*loop*)
+    `set_event_loop(loop)`
     :   Set the event loop for the current context to *loop*.
 
-    new_event_loop()
+    `new_event_loop()`
     :   Create and return a new event loop object.
 
         This method should never return `None`.
 
-    get_child_watcher()
+    `get_child_watcher()`
     :   Get a child process watcher object.
 
         Return a watcher object implementing the
@@ -75,7 +75,7 @@ The abstract event loop policy base class is defined as follows:
 
         Deprecated since version 3.12.
 
-    set_child_watcher(*watcher*)
+    `set_child_watcher(watcher)`
     :   Set the current child process watcher to *watcher*.
 
         This function is Unix specific.
@@ -84,7 +84,7 @@ The abstract event loop policy base class is defined as follows:
 
 asyncio ships with the following built-in policies:
 
-*class* asyncio.DefaultEventLoopPolicy
+`class asyncio.DefaultEventLoopPolicy`
 :   The default asyncio policy. Uses [`SelectorEventLoop`](asyncio-eventloop.md#asyncio.SelectorEventLoop "asyncio.SelectorEventLoop")
     on Unix and [`ProactorEventLoop`](asyncio-eventloop.md#asyncio.ProactorEventLoop "asyncio.ProactorEventLoop") on Windows.
 
@@ -98,13 +98,13 @@ asyncio ships with the following built-in policies:
     decides to create one.
     In some future Python release this will become an error.
 
-*class* asyncio.WindowsSelectorEventLoopPolicy
+`class asyncio.WindowsSelectorEventLoopPolicy`
 :   An alternative event loop policy that uses the
     [`SelectorEventLoop`](asyncio-eventloop.md#asyncio.SelectorEventLoop "asyncio.SelectorEventLoop") event loop implementation.
 
     [Availability](intro.md#availability): Windows.
 
-*class* asyncio.WindowsProactorEventLoopPolicy
+`class asyncio.WindowsProactorEventLoopPolicy`
 :   An alternative event loop policy that uses the
     [`ProactorEventLoop`](asyncio-eventloop.md#asyncio.ProactorEventLoop "asyncio.ProactorEventLoop") event loop implementation.
 
@@ -132,12 +132,12 @@ section.
 The following two functions can be used to customize the child process watcher
 implementation used by the asyncio event loop:
 
-asyncio.get_child_watcher()
+`asyncio.get_child_watcher()`
 :   Return the current child watcher for the current policy.
 
     Deprecated since version 3.12.
 
-asyncio.set_child_watcher(*watcher*)
+`asyncio.set_child_watcher(watcher)`
 :   Set the current child watcher to *watcher* for the current
     policy. *watcher* must implement methods defined in the
     [`AbstractChildWatcher`](asyncio-policy.md#asyncio.AbstractChildWatcher "asyncio.AbstractChildWatcher") base class.
@@ -150,8 +150,8 @@ asyncio.set_child_watcher(*watcher*)
 > custom child watchers. For such event loops, using
 > [`set_child_watcher()`](asyncio-policy.md#asyncio.set_child_watcher "asyncio.set_child_watcher") might be prohibited or have no effect.
 
-*class* asyncio.AbstractChildWatcher
-:   add_child_handler(*pid*, *callback*, *\*args*)
+`class asyncio.AbstractChildWatcher`
+:   `add_child_handler(pid, callback, *args)`
     :   Register a new child handler.
 
         Arrange for `callback(pid, returncode, *args)` to be called
@@ -161,13 +161,13 @@ asyncio.set_child_watcher(*watcher*)
 
         The *callback* callable must be thread-safe.
 
-    remove_child_handler(*pid*)
+    `remove_child_handler(pid)`
     :   Removes the handler for process with PID equal to *pid*.
 
         The function returns `True` if the handler was successfully
         removed, `False` if there was nothing to remove.
 
-    attach_loop(*loop*)
+    `attach_loop(loop)`
     :   Attach the watcher to an event loop.
 
         If the watcher was previously attached to an event loop, then
@@ -175,7 +175,7 @@ asyncio.set_child_watcher(*watcher*)
 
         Note: loop may be `None`.
 
-    is_active()
+    `is_active()`
     :   Return `True` if the watcher is ready to use.
 
         Spawning a subprocess with *inactive* current child watcher raises
@@ -183,7 +183,7 @@ asyncio.set_child_watcher(*watcher*)
 
         Added in version 3.8.
 
-    close()
+    `close()`
     :   Close the watcher.
 
         This method has to be called to ensure that underlying
@@ -191,7 +191,7 @@ asyncio.set_child_watcher(*watcher*)
 
     Deprecated since version 3.12.
 
-*class* asyncio.ThreadedChildWatcher
+`class asyncio.ThreadedChildWatcher`
 :   This implementation starts a new waiting thread for every subprocess spawn.
 
     It works reliably even when the asyncio event loop is run in a non-main OS thread.
@@ -203,7 +203,7 @@ asyncio.set_child_watcher(*watcher*)
 
     Added in version 3.8.
 
-*class* asyncio.MultiLoopChildWatcher
+`class asyncio.MultiLoopChildWatcher`
 :   This implementation registers a `SIGCHLD` signal handler on
     instantiation. That can break third-party code that installs a custom handler for
     `SIGCHLD` signal.
@@ -222,7 +222,7 @@ asyncio.set_child_watcher(*watcher*)
 
     Deprecated since version 3.12.
 
-*class* asyncio.SafeChildWatcher
+`class asyncio.SafeChildWatcher`
 :   This implementation uses active event loop from the main thread to handle
     `SIGCHLD` signal. If the main thread has no running event loop another
     thread cannot spawn a subprocess ([`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is raised).
@@ -235,7 +235,7 @@ asyncio.set_child_watcher(*watcher*)
 
     Deprecated since version 3.12.
 
-*class* asyncio.FastChildWatcher
+`class asyncio.FastChildWatcher`
 :   This implementation reaps every terminated processes by calling
     `os.waitpid(-1)` directly, possibly breaking other code spawning
     processes and waiting for their termination.
@@ -248,7 +248,7 @@ asyncio.set_child_watcher(*watcher*)
 
     Deprecated since version 3.12.
 
-*class* asyncio.PidfdChildWatcher
+`class asyncio.PidfdChildWatcher`
 :   This implementation polls process file descriptors (pidfds) to await child
     process termination. In some respects, [`PidfdChildWatcher`](asyncio-policy.md#asyncio.PidfdChildWatcher "asyncio.PidfdChildWatcher") is a
     “Goldilocks” child watcher implementation. It doesn’t require signals or

@@ -79,11 +79,11 @@ The transport classes are [not thread safe](asyncio-dev.md#asyncio-multithreadin
 
 ### Transports Hierarchy
 
-*class* asyncio.BaseTransport
+`class asyncio.BaseTransport`
 :   Base class for all transports. Contains methods that all
     asyncio transports share.
 
-*class* asyncio.WriteTransport(*BaseTransport*)
+`class asyncio.WriteTransport(BaseTransport)`
 :   A base transport for write-only connections.
 
     Instances of the *WriteTransport* class are returned from
@@ -91,7 +91,7 @@ The transport classes are [not thread safe](asyncio-dev.md#asyncio-multithreadin
     are also used by subprocess-related methods like
     [`loop.subprocess_exec()`](asyncio-eventloop.md#asyncio.loop.subprocess_exec "asyncio.loop.subprocess_exec").
 
-*class* asyncio.ReadTransport(*BaseTransport*)
+`class asyncio.ReadTransport(BaseTransport)`
 :   A base transport for read-only connections.
 
     Instances of the *ReadTransport* class are returned from
@@ -99,7 +99,7 @@ The transport classes are [not thread safe](asyncio-dev.md#asyncio-multithreadin
     are also used by subprocess-related methods like
     [`loop.subprocess_exec()`](asyncio-eventloop.md#asyncio.loop.subprocess_exec "asyncio.loop.subprocess_exec").
 
-*class* asyncio.Transport(*WriteTransport*, *ReadTransport*)
+`class asyncio.Transport(WriteTransport, ReadTransport)`
 :   Interface representing a bidirectional transport, such as a
     TCP connection.
 
@@ -112,13 +112,13 @@ The transport classes are [not thread safe](asyncio-dev.md#asyncio-multithreadin
     [`loop.create_unix_connection()`](asyncio-eventloop.md#asyncio.loop.create_unix_connection "asyncio.loop.create_unix_connection"),
     [`loop.create_server()`](asyncio-eventloop.md#asyncio.loop.create_server "asyncio.loop.create_server"), [`loop.sendfile()`](asyncio-eventloop.md#asyncio.loop.sendfile "asyncio.loop.sendfile"), etc.
 
-*class* asyncio.DatagramTransport(*BaseTransport*)
+`class asyncio.DatagramTransport(BaseTransport)`
 :   A transport for datagram (UDP) connections.
 
     Instances of the *DatagramTransport* class are returned from
     the [`loop.create_datagram_endpoint()`](asyncio-eventloop.md#asyncio.loop.create_datagram_endpoint "asyncio.loop.create_datagram_endpoint") event loop method.
 
-*class* asyncio.SubprocessTransport(*BaseTransport*)
+`class asyncio.SubprocessTransport(BaseTransport)`
 :   An abstraction to represent a connection between a parent and its
     child OS process.
 
@@ -128,7 +128,7 @@ The transport classes are [not thread safe](asyncio-dev.md#asyncio-multithreadin
 
 ### Base Transport
 
-BaseTransport.close()
+`BaseTransport.close()`
 :   Close the transport.
 
     If the transport has a buffer for outgoing
@@ -138,10 +138,10 @@ BaseTransport.close()
     [`None`](constants.md#None "None") as its argument. The transport should not be
     used once it is closed.
 
-BaseTransport.is_closing()
+`BaseTransport.is_closing()`
 :   Return `True` if the transport is closing or is closed.
 
-BaseTransport.get_extra_info(*name*, *default=None*)
+`BaseTransport.get_extra_info(name, default=None)`
 :   Return information about the transport or underlying resources
     it uses.
 
@@ -193,23 +193,23 @@ BaseTransport.get_extra_info(*name*, *default=None*)
 
       - `'subprocess'`: [`subprocess.Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") instance
 
-BaseTransport.set_protocol(*protocol*)
+`BaseTransport.set_protocol(protocol)`
 :   Set a new protocol.
 
     Switching protocol should only be done when both
     protocols are documented to support the switch.
 
-BaseTransport.get_protocol()
+`BaseTransport.get_protocol()`
 :   Return the current protocol.
 
 ### Read-only Transports
 
-ReadTransport.is_reading()
+`ReadTransport.is_reading()`
 :   Return `True` if the transport is receiving new data.
 
     Added in version 3.7.
 
-ReadTransport.pause_reading()
+`ReadTransport.pause_reading()`
 :   Pause the receiving end of the transport. No data will be passed to
     the protocol’s [`protocol.data_received()`](asyncio-protocol.md#asyncio.Protocol.data_received "asyncio.Protocol.data_received")
     method until [`resume_reading()`](asyncio-protocol.md#asyncio.ReadTransport.resume_reading "asyncio.ReadTransport.resume_reading") is called.
@@ -217,7 +217,7 @@ ReadTransport.pause_reading()
     Changed in version 3.7: The method is idempotent, i.e. it can be called when the
     transport is already paused or closed.
 
-ReadTransport.resume_reading()
+`ReadTransport.resume_reading()`
 :   Resume the receiving end. The protocol’s
     [`protocol.data_received()`](asyncio-protocol.md#asyncio.Protocol.data_received "asyncio.Protocol.data_received") method
     will be called once again if some data is available for reading.
@@ -227,20 +227,20 @@ ReadTransport.resume_reading()
 
 ### Write-only Transports
 
-WriteTransport.abort()
+`WriteTransport.abort()`
 :   Close the transport immediately, without waiting for pending operations
     to complete. Buffered data will be lost. No more data will be received.
     The protocol’s [`protocol.connection_lost()`](asyncio-protocol.md#asyncio.BaseProtocol.connection_lost "asyncio.BaseProtocol.connection_lost") method will eventually be
     called with [`None`](constants.md#None "None") as its argument.
 
-WriteTransport.can_write_eof()
+`WriteTransport.can_write_eof()`
 :   Return [`True`](constants.md#True "True") if the transport supports
     [`write_eof()`](asyncio-protocol.md#asyncio.WriteTransport.write_eof "asyncio.WriteTransport.write_eof"), [`False`](constants.md#False "False") if not.
 
-WriteTransport.get_write_buffer_size()
+`WriteTransport.get_write_buffer_size()`
 :   Return the current size of the output buffer used by the transport.
 
-WriteTransport.get_write_buffer_limits()
+`WriteTransport.get_write_buffer_limits()`
 :   Get the *high* and *low* watermarks for write flow control. Return a
     tuple `(low, high)` where *low* and *high* are positive number of
     bytes.
@@ -249,7 +249,7 @@ WriteTransport.get_write_buffer_limits()
 
     Added in version 3.4.2.
 
-WriteTransport.set_write_buffer_limits(*high=None*, *low=None*)
+`WriteTransport.set_write_buffer_limits(high=None, low=None)`
 :   Set the *high* and *low* watermarks for write flow control.
 
     These two values (measured in number of
@@ -279,19 +279,19 @@ WriteTransport.set_write_buffer_limits(*high=None*, *low=None*)
     Use [`get_write_buffer_limits()`](asyncio-protocol.md#asyncio.WriteTransport.get_write_buffer_limits "asyncio.WriteTransport.get_write_buffer_limits")
     to get the limits.
 
-WriteTransport.write(*data*)
+`WriteTransport.write(data)`
 :   Write some *data* bytes to the transport.
 
     This method does not block; it buffers the data and arranges for it
     to be sent out asynchronously.
 
-WriteTransport.writelines(*list_of_data*)
+`WriteTransport.writelines(list_of_data)`
 :   Write a list (or any iterable) of data bytes to the transport.
     This is functionally equivalent to calling [`write()`](asyncio-protocol.md#asyncio.WriteTransport.write "asyncio.WriteTransport.write") on each
     element yielded by the iterable, but may be implemented more
     efficiently.
 
-WriteTransport.write_eof()
+`WriteTransport.write_eof()`
 :   Close the write end of the transport after flushing all buffered data.
     Data may still be received.
 
@@ -300,7 +300,7 @@ WriteTransport.write_eof()
 
 ### Datagram Transports
 
-DatagramTransport.sendto(*data*, *addr=None*)
+`DatagramTransport.sendto(data, addr=None)`
 :   Send the *data* bytes to the remote peer given by *addr* (a
     transport-dependent target address). If *addr* is [`None`](constants.md#None "None"),
     the data is sent to the target address given on transport
@@ -309,7 +309,7 @@ DatagramTransport.sendto(*data*, *addr=None*)
     This method does not block; it buffers the data and arranges
     for it to be sent out asynchronously.
 
-DatagramTransport.abort()
+`DatagramTransport.abort()`
 :   Close the transport immediately, without waiting for pending
     operations to complete. Buffered data will be lost.
     No more data will be received. The protocol’s
@@ -318,10 +318,10 @@ DatagramTransport.abort()
 
 ### Subprocess Transports
 
-SubprocessTransport.get_pid()
+`SubprocessTransport.get_pid()`
 :   Return the subprocess process id as an integer.
 
-SubprocessTransport.get_pipe_transport(*fd*)
+`SubprocessTransport.get_pipe_transport(fd)`
 :   Return the transport for the communication pipe corresponding to the
     integer file descriptor *fd*:
 
@@ -333,12 +333,12 @@ SubprocessTransport.get_pipe_transport(*fd*)
       or [`None`](constants.md#None "None") if the subprocess was not created with `stderr=PIPE`
     - other *fd*: [`None`](constants.md#None "None")
 
-SubprocessTransport.get_returncode()
+`SubprocessTransport.get_returncode()`
 :   Return the subprocess return code as an integer or [`None`](constants.md#None "None")
     if it hasn’t returned, which is similar to the
     [`subprocess.Popen.returncode`](subprocess.md#subprocess.Popen.returncode "subprocess.Popen.returncode") attribute.
 
-SubprocessTransport.kill()
+`SubprocessTransport.kill()`
 :   Kill the subprocess.
 
     On POSIX systems, the function sends SIGKILL to the subprocess.
@@ -346,11 +346,11 @@ SubprocessTransport.kill()
 
     See also [`subprocess.Popen.kill()`](subprocess.md#subprocess.Popen.kill "subprocess.Popen.kill").
 
-SubprocessTransport.send_signal(*signal*)
+`SubprocessTransport.send_signal(signal)`
 :   Send the *signal* number to the subprocess, as in
     [`subprocess.Popen.send_signal()`](subprocess.md#subprocess.Popen.send_signal "subprocess.Popen.send_signal").
 
-SubprocessTransport.terminate()
+`SubprocessTransport.terminate()`
 :   Stop the subprocess.
 
     On POSIX systems, this method sends [`SIGTERM`](signal.md#signal.SIGTERM "signal.SIGTERM") to the subprocess.
@@ -359,7 +359,7 @@ SubprocessTransport.terminate()
 
     See also [`subprocess.Popen.terminate()`](subprocess.md#subprocess.Popen.terminate "subprocess.Popen.terminate").
 
-SubprocessTransport.close()
+`SubprocessTransport.close()`
 :   Kill the subprocess by calling the [`kill()`](asyncio-protocol.md#asyncio.SubprocessTransport.kill "asyncio.SubprocessTransport.kill") method.
 
     If the subprocess hasn’t returned yet, and close transports of
@@ -382,21 +382,21 @@ A base protocol method should be called by the corresponding transport.
 
 ### Base Protocols
 
-*class* asyncio.BaseProtocol
+`class asyncio.BaseProtocol`
 :   Base protocol with methods that all protocols share.
 
-*class* asyncio.Protocol(*BaseProtocol*)
+`class asyncio.Protocol(BaseProtocol)`
 :   The base class for implementing streaming protocols
     (TCP, Unix sockets, etc).
 
-*class* asyncio.BufferedProtocol(*BaseProtocol*)
+`class asyncio.BufferedProtocol(BaseProtocol)`
 :   A base class for implementing streaming protocols with manual
     control of the receive buffer.
 
-*class* asyncio.DatagramProtocol(*BaseProtocol*)
+`class asyncio.DatagramProtocol(BaseProtocol)`
 :   The base class for implementing datagram (UDP) protocols.
 
-*class* asyncio.SubprocessProtocol(*BaseProtocol*)
+`class asyncio.SubprocessProtocol(BaseProtocol)`
 :   The base class for implementing protocols communicating with child
     processes (unidirectional pipes).
 
@@ -410,14 +410,14 @@ Connection callbacks are called on all protocols, exactly once per
 a successful connection. All other protocol callbacks can only be
 called between those two methods.
 
-BaseProtocol.connection_made(*transport*)
+`BaseProtocol.connection_made(transport)`
 :   Called when a connection is made.
 
     The *transport* argument is the transport representing the
     connection. The protocol is responsible for storing the reference
     to its transport.
 
-BaseProtocol.connection_lost(*exc*)
+`BaseProtocol.connection_lost(exc)`
 :   Called when the connection is lost or closed.
 
     The argument is either an exception object or [`None`](constants.md#None "None").
@@ -432,10 +432,10 @@ resume writing performed by the protocol.
 See the documentation of the [`set_write_buffer_limits()`](asyncio-protocol.md#asyncio.WriteTransport.set_write_buffer_limits "asyncio.WriteTransport.set_write_buffer_limits")
 method for more details.
 
-BaseProtocol.pause_writing()
+`BaseProtocol.pause_writing()`
 :   Called when the transport’s buffer goes over the high watermark.
 
-BaseProtocol.resume_writing()
+`BaseProtocol.resume_writing()`
 :   Called when the transport’s buffer drains below the low watermark.
 
 If the buffer size equals the high watermark,
@@ -455,7 +455,7 @@ Event methods, such as [`loop.create_server()`](asyncio-eventloop.md#asyncio.loo
 [`loop.connect_read_pipe()`](asyncio-eventloop.md#asyncio.loop.connect_read_pipe "asyncio.loop.connect_read_pipe"), and [`loop.connect_write_pipe()`](asyncio-eventloop.md#asyncio.loop.connect_write_pipe "asyncio.loop.connect_write_pipe")
 accept factories that return streaming protocols.
 
-Protocol.data_received(*data*)
+`Protocol.data_received(data)`
 :   Called when some data is received. *data* is a non-empty bytes
     object containing the incoming data.
 
@@ -471,7 +471,7 @@ Protocol.data_received(*data*)
     is called at most once. Once `eof_received()` is called,
     `data_received()` is not called anymore.
 
-Protocol.eof_received()
+`Protocol.eof_received()`
 :   Called when the other end signals it won’t send any more data
     (for example by calling [`transport.write_eof()`](asyncio-protocol.md#asyncio.WriteTransport.write_eof "asyncio.WriteTransport.write_eof"), if the other end also uses
     asyncio).
@@ -512,7 +512,7 @@ can significantly reduce the number of buffer allocations.
 The following callbacks are called on [`BufferedProtocol`](asyncio-protocol.md#asyncio.BufferedProtocol "asyncio.BufferedProtocol")
 instances:
 
-BufferedProtocol.get_buffer(*sizehint*)
+`BufferedProtocol.get_buffer(sizehint)`
 :   Called to allocate a new receive buffer.
 
     *sizehint* is the recommended minimum size for the returned
@@ -523,12 +523,12 @@ BufferedProtocol.get_buffer(*sizehint*)
     `get_buffer()` must return an object implementing the
     [buffer protocol](https://docs.python.org/3.12/c-api/buffer.html#bufferobjects).
 
-BufferedProtocol.buffer_updated(*nbytes*)
+`BufferedProtocol.buffer_updated(nbytes)`
 :   Called when the buffer was updated with the received data.
 
     *nbytes* is the total number of bytes that were written to the buffer.
 
-BufferedProtocol.eof_received()
+`BufferedProtocol.eof_received()`
 :   See the documentation of the [`protocol.eof_received()`](asyncio-protocol.md#asyncio.Protocol.eof_received "asyncio.Protocol.eof_received") method.
 
 [`get_buffer()`](asyncio-protocol.md#asyncio.BufferedProtocol.get_buffer "asyncio.BufferedProtocol.get_buffer") can be called an arbitrary number
@@ -552,12 +552,12 @@ start -> connection_made
 Datagram Protocol instances should be constructed by protocol
 factories passed to the [`loop.create_datagram_endpoint()`](asyncio-eventloop.md#asyncio.loop.create_datagram_endpoint "asyncio.loop.create_datagram_endpoint") method.
 
-DatagramProtocol.datagram_received(*data*, *addr*)
+`DatagramProtocol.datagram_received(data, addr)`
 :   Called when a datagram is received. *data* is a bytes object containing
     the incoming data. *addr* is the address of the peer sending the data;
     the exact format depends on the transport.
 
-DatagramProtocol.error_received(*exc*)
+`DatagramProtocol.error_received(exc)`
 :   Called when a previous send or receive operation raises an
     [`OSError`](exceptions.md#OSError "OSError"). *exc* is the [`OSError`](exceptions.md#OSError "OSError") instance.
 
@@ -583,7 +583,7 @@ Subprocess Protocol instances should be constructed by protocol
 factories passed to the [`loop.subprocess_exec()`](asyncio-eventloop.md#asyncio.loop.subprocess_exec "asyncio.loop.subprocess_exec") and
 [`loop.subprocess_shell()`](asyncio-eventloop.md#asyncio.loop.subprocess_shell "asyncio.loop.subprocess_shell") methods.
 
-SubprocessProtocol.pipe_data_received(*fd*, *data*)
+`SubprocessProtocol.pipe_data_received(fd, data)`
 :   Called when the child process writes data into its stdout or stderr
     pipe.
 
@@ -591,13 +591,13 @@ SubprocessProtocol.pipe_data_received(*fd*, *data*)
 
     *data* is a non-empty bytes object containing the received data.
 
-SubprocessProtocol.pipe_connection_lost(*fd*, *exc*)
+`SubprocessProtocol.pipe_connection_lost(fd, exc)`
 :   Called when one of the pipes communicating with the child process
     is closed.
 
     *fd* is the integer file descriptor that was closed.
 
-SubprocessProtocol.process_exited()
+`SubprocessProtocol.process_exited()`
 :   Called when the child process has exited.
 
     It can be called before [`pipe_data_received()`](asyncio-protocol.md#asyncio.SubprocessProtocol.pipe_data_received "asyncio.SubprocessProtocol.pipe_data_received") and

@@ -446,7 +446,7 @@ preceded by a tag name.
 
 ### Functions
 
-xml.etree.ElementTree.canonicalize(*xml_data=None*, *\**, *out=None*, *from_file=None*, *\*\*options*)
+`xml.etree.ElementTree.canonicalize(xml_data=None, *, out=None, from_file=None, **options)`
 :   [C14N 2.0](https://www.w3.org/TR/xml-c14n2/) transformation function.
 
     Canonicalization is a way to normalise XML output in a way that allows
@@ -494,7 +494,7 @@ xml.etree.ElementTree.canonicalize(*xml_data=None*, *\**, *out=None*, *from_file
 
     Added in version 3.8.
 
-xml.etree.ElementTree.Comment(*text=None*)
+`xml.etree.ElementTree.Comment(text=None)`
 :   Comment element factory. This factory function creates a special element
     that will be serialized as an XML comment by the standard serializer. The
     comment string can be either a bytestring or a Unicode string. *text* is a
@@ -506,7 +506,7 @@ xml.etree.ElementTree.Comment(*text=None*)
     only contain comment nodes if they have been inserted into to
     the tree using one of the [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") methods.
 
-xml.etree.ElementTree.dump(*elem*)
+`xml.etree.ElementTree.dump(elem)`
 :   Writes an element tree or element structure to sys.stdout. This function
     should be used for debugging only.
 
@@ -518,13 +518,13 @@ xml.etree.ElementTree.dump(*elem*)
     Changed in version 3.8: The [`dump()`](xml.etree.elementtree.md#xml.etree.ElementTree.dump "xml.etree.ElementTree.dump") function now preserves the attribute order specified
     by the user.
 
-xml.etree.ElementTree.fromstring(*text*, *parser=None*)
+`xml.etree.ElementTree.fromstring(text, parser=None)`
 :   Parses an XML section from a string constant. Same as [`XML()`](xml.etree.elementtree.md#xml.etree.ElementTree.XML "xml.etree.ElementTree.XML"). *text*
     is a string containing XML data. *parser* is an optional parser instance.
     If not given, the standard [`XMLParser`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser "xml.etree.ElementTree.XMLParser") parser is used.
     Returns an [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") instance.
 
-xml.etree.ElementTree.fromstringlist(*sequence*, *parser=None*)
+`xml.etree.ElementTree.fromstringlist(sequence, parser=None)`
 :   Parses an XML document from a sequence of string fragments. *sequence* is a
     list or other sequence containing XML data fragments. *parser* is an
     optional parser instance. If not given, the standard [`XMLParser`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser "xml.etree.ElementTree.XMLParser")
@@ -532,7 +532,7 @@ xml.etree.ElementTree.fromstringlist(*sequence*, *parser=None*)
 
     Added in version 3.2.
 
-xml.etree.ElementTree.indent(*tree*, *space='  '*, *level=0*)
+`xml.etree.ElementTree.indent(tree, space=' ', level=0)`
 :   Appends whitespace to the subtree to indent the tree visually.
     This can be used to generate pretty-printed XML output.
     *tree* can be an Element or ElementTree. *space* is the whitespace
@@ -542,11 +542,11 @@ xml.etree.ElementTree.indent(*tree*, *space='  '*, *level=0*)
 
     Added in version 3.9.
 
-xml.etree.ElementTree.iselement(*element*)
+`xml.etree.ElementTree.iselement(element)`
 :   Check if an object appears to be a valid element object. *element* is an
     element instance. Return `True` if this is an element object.
 
-xml.etree.ElementTree.iterparse(*source*, *events=None*, *parser=None*)
+`xml.etree.ElementTree.iterparse(source, events=None, parser=None)`
 :   Parses an XML section into an element tree incrementally, and reports what’s
     going on to the user. *source* is a filename or [file object](https://docs.python.org/3.12/glossary.html#term-file-object)
     containing XML data. *events* is a sequence of events to report back. The
@@ -580,13 +580,13 @@ xml.etree.ElementTree.iterparse(*source*, *events=None*, *parser=None*)
 
     Changed in version 3.8: The `comment` and `pi` events were added.
 
-xml.etree.ElementTree.parse(*source*, *parser=None*)
+`xml.etree.ElementTree.parse(source, parser=None)`
 :   Parses an XML section into an element tree. *source* is a filename or file
     object containing XML data. *parser* is an optional parser instance. If
     not given, the standard [`XMLParser`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser "xml.etree.ElementTree.XMLParser") parser is used. Returns an
     [`ElementTree`](xml.etree.elementtree.md#xml.etree.ElementTree.ElementTree "xml.etree.ElementTree.ElementTree") instance.
 
-xml.etree.ElementTree.ProcessingInstruction(*target*, *text=None*)
+`xml.etree.ElementTree.ProcessingInstruction(target, text=None)`
 :   PI element factory. This factory function creates a special element that
     will be serialized as an XML processing instruction. *target* is a string
     containing the PI target. *text* is a string containing the PI contents, if
@@ -598,7 +598,7 @@ xml.etree.ElementTree.ProcessingInstruction(*target*, *text=None*)
     they have been inserted into to the tree using one of the
     [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") methods.
 
-xml.etree.ElementTree.register_namespace(*prefix*, *uri*)
+`xml.etree.ElementTree.register_namespace(prefix, uri)`
 :   Registers a namespace prefix. The registry is global, and any existing
     mapping for either the given prefix or the namespace URI will be removed.
     *prefix* is a namespace prefix. *uri* is a namespace uri. Tags and
@@ -607,7 +607,7 @@ xml.etree.ElementTree.register_namespace(*prefix*, *uri*)
 
     Added in version 3.2.
 
-xml.etree.ElementTree.SubElement(*parent*, *tag*, *attrib={}*, *\*\*extra*)
+`xml.etree.ElementTree.SubElement(parent, tag, attrib={}, **extra)`
 :   Subelement factory. This function creates an element instance, and appends
     it to an existing element.
 
@@ -617,7 +617,7 @@ xml.etree.ElementTree.SubElement(*parent*, *tag*, *attrib={}*, *\*\*extra*)
     attributes. *extra* contains additional attributes, given as keyword
     arguments. Returns an element instance.
 
-xml.etree.ElementTree.tostring(*element*, *encoding='us-ascii'*, *method='xml'*, *\**, *xml_declaration=None*, *default_namespace=None*, *short_empty_elements=True*)
+`xml.etree.ElementTree.tostring(element, encoding='us-ascii', method='xml', *, xml_declaration=None, default_namespace=None, short_empty_elements=True)`
 :   Generates a string representation of an XML element, including all
     subelements. *element* is an [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") instance. *encoding* [[1]](xml.etree.elementtree.md#id9) is
     the output encoding (default is US-ASCII). Use `encoding="unicode"` to
@@ -634,7 +634,7 @@ xml.etree.ElementTree.tostring(*element*, *encoding='us-ascii'*, *method='xml'*,
     Changed in version 3.8: The [`tostring()`](xml.etree.elementtree.md#xml.etree.ElementTree.tostring "xml.etree.ElementTree.tostring") function now preserves the attribute order
     specified by the user.
 
-xml.etree.ElementTree.tostringlist(*element*, *encoding='us-ascii'*, *method='xml'*, *\**, *xml_declaration=None*, *default_namespace=None*, *short_empty_elements=True*)
+`xml.etree.ElementTree.tostringlist(element, encoding='us-ascii', method='xml', *, xml_declaration=None, default_namespace=None, short_empty_elements=True)`
 :   Generates a string representation of an XML element, including all
     subelements. *element* is an [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") instance. *encoding* [[1]](xml.etree.elementtree.md#id9) is
     the output encoding (default is US-ASCII). Use `encoding="unicode"` to
@@ -654,13 +654,13 @@ xml.etree.ElementTree.tostringlist(*element*, *encoding='us-ascii'*, *method='xm
     Changed in version 3.8: The [`tostringlist()`](xml.etree.elementtree.md#xml.etree.ElementTree.tostringlist "xml.etree.ElementTree.tostringlist") function now preserves the attribute order
     specified by the user.
 
-xml.etree.ElementTree.XML(*text*, *parser=None*)
+`xml.etree.ElementTree.XML(text, parser=None)`
 :   Parses an XML section from a string constant. This function can be used to
     embed “XML literals” in Python code. *text* is a string containing XML
     data. *parser* is an optional parser instance. If not given, the standard
     [`XMLParser`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser "xml.etree.ElementTree.XMLParser") parser is used. Returns an [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") instance.
 
-xml.etree.ElementTree.XMLID(*text*, *parser=None*)
+`xml.etree.ElementTree.XMLID(text, parser=None)`
 :   Parses an XML section from a string constant, and also returns a dictionary
     which maps from element id:s to elements. *text* is a string containing XML
     data. *parser* is an optional parser instance. If not given, the standard
@@ -727,7 +727,7 @@ The result might look something like:
 
 ### Functions
 
-xml.etree.ElementInclude.default_loader(*href*, *parse*, *encoding=None*)
+`xml.etree.ElementInclude.default_loader(href, parse, encoding=None)`
 :   Default loader. This default loader reads an included resource from disk.
     *href* is a URL. *parse* is for parse mode either “xml” or “text”.
     *encoding* is an optional text encoding. If not given, encoding is `utf-8`.
@@ -736,7 +736,7 @@ xml.etree.ElementInclude.default_loader(*href*, *parse*, *encoding=None*)
     If the parse mode is `"text"`, this is a string.
     If the loader fails, it can return `None` or raise an exception.
 
-xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_depth=6*)
+`xml.etree.ElementInclude.include(elem, loader=None, base_url=None, max_depth=6)`
 :   This function expands XInclude directives in-place in tree pointed by *elem*.
     *elem* is either the root [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") or an
     [`ElementTree`](xml.etree.elementtree.md#xml.etree.ElementTree.ElementTree "xml.etree.ElementTree.ElementTree") instance to find such element.
@@ -751,7 +751,7 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
 
 ### Element Objects
 
-*class* xml.etree.ElementTree.Element(*tag*, *attrib={}*, *\*\*extra*)
+`class xml.etree.ElementTree.Element(tag, attrib={}, **extra)`
 :   Element class. This class defines the Element interface, and provides a
     reference implementation of this interface.
 
@@ -760,13 +760,13 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
     an optional dictionary, containing element attributes. *extra* contains
     additional attributes, given as keyword arguments.
 
-    tag
+    `tag`
     :   A string identifying what kind of data this element represents (the
         element type, in other words).
 
-    text
+    `text`
 
-    tail
+    `tail`
     :   These attributes can be used to hold additional data associated with
         the element. Their values are usually strings but may be any
         application-specific object. If the element is created from
@@ -789,7 +789,7 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
 
         Applications may store arbitrary objects in these attributes.
 
-    attrib
+    `attrib`
     :   A dictionary containing the element’s attributes. Note that while the
         *attrib* value is always a real mutable Python dictionary, an ElementTree
         implementation may choose to use another internal representation, and
@@ -798,54 +798,54 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
 
     The following dictionary-like methods work on the element attributes.
 
-    clear()
+    `clear()`
     :   Resets an element. This function removes all subelements, clears all
         attributes, and sets the text and tail attributes to `None`.
 
-    get(*key*, *default=None*)
+    `get(key, default=None)`
     :   Gets the element attribute named *key*.
 
         Returns the attribute value, or *default* if the attribute was not found.
 
-    items()
+    `items()`
     :   Returns the element attributes as a sequence of (name, value) pairs. The
         attributes are returned in an arbitrary order.
 
-    keys()
+    `keys()`
     :   Returns the elements attribute names as a list. The names are returned
         in an arbitrary order.
 
-    set(*key*, *value*)
+    `set(key, value)`
     :   Set the attribute *key* on the element to *value*.
 
     The following methods work on the element’s children (subelements).
 
-    append(*subelement*)
+    `append(subelement)`
     :   Adds the element *subelement* to the end of this element’s internal list
         of subelements. Raises [`TypeError`](exceptions.md#TypeError "TypeError") if *subelement* is not an
         [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element").
 
-    extend(*subelements*)
+    `extend(subelements)`
     :   Appends *subelements* from an iterable of elements.
         Raises [`TypeError`](exceptions.md#TypeError "TypeError") if a subelement is not an [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element").
 
         Added in version 3.2.
 
-    find(*match*, *namespaces=None*)
+    `find(match, namespaces=None)`
     :   Finds the first subelement matching *match*. *match* may be a tag name
         or a [path](xml.etree.elementtree.md#elementtree-xpath). Returns an element instance
         or `None`. *namespaces* is an optional mapping from namespace prefix
         to full name. Pass `''` as prefix to move all unprefixed tag names
         in the expression into the given namespace.
 
-    findall(*match*, *namespaces=None*)
+    `findall(match, namespaces=None)`
     :   Finds all matching subelements, by tag name or
         [path](xml.etree.elementtree.md#elementtree-xpath). Returns a list containing all matching
         elements in document order. *namespaces* is an optional mapping from
         namespace prefix to full name. Pass `''` as prefix to move all
         unprefixed tag names in the expression into the given namespace.
 
-    findtext(*match*, *default=None*, *namespaces=None*)
+    `findtext(match, default=None, namespaces=None)`
     :   Finds text for the first subelement matching *match*. *match* may be
         a tag name or a [path](xml.etree.elementtree.md#elementtree-xpath). Returns the text content
         of the first matching element, or *default* if no element was found.
@@ -854,11 +854,11 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
         to full name. Pass `''` as prefix to move all unprefixed tag names
         in the expression into the given namespace.
 
-    insert(*index*, *subelement*)
+    `insert(index, subelement)`
     :   Inserts *subelement* at the given position in this element. Raises
         [`TypeError`](exceptions.md#TypeError "TypeError") if *subelement* is not an [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element").
 
-    iter(*tag=None*)
+    `iter(tag=None)`
     :   Creates a tree [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) with the current element as the root.
         The iterator iterates over this element and all elements below it, in
         document (depth first) order. If *tag* is not `None` or `'*'`, only
@@ -867,7 +867,7 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
 
         Added in version 3.2.
 
-    iterfind(*match*, *namespaces=None*)
+    `iterfind(match, namespaces=None)`
     :   Finds all matching subelements, by tag name or
         [path](xml.etree.elementtree.md#elementtree-xpath). Returns an iterable yielding all
         matching elements in document order. *namespaces* is an optional mapping
@@ -875,17 +875,17 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
 
         Added in version 3.2.
 
-    itertext()
+    `itertext()`
     :   Creates a text iterator. The iterator loops over this element and all
         subelements, in document order, and returns all inner text.
 
         Added in version 3.2.
 
-    makeelement(*tag*, *attrib*)
+    `makeelement(tag, attrib)`
     :   Creates a new element object of the same type as this element. Do not
         call this method, use the [`SubElement()`](xml.etree.elementtree.md#xml.etree.ElementTree.SubElement "xml.etree.ElementTree.SubElement") factory function instead.
 
-    remove(*subelement*)
+    `remove(subelement)`
     :   Removes *subelement* from the element. Unlike the find\* methods this
         method compares elements based on the instance identity, not on tag value
         or contents.
@@ -945,7 +945,7 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
 
 ### ElementTree Objects
 
-*class* xml.etree.ElementTree.ElementTree(*element=None*, *file=None*)
+`class xml.etree.ElementTree.ElementTree(element=None, file=None)`
 :   ElementTree wrapper class. This class represents an entire element
     hierarchy, and adds some extra support for serialization to and from
     standard XML.
@@ -953,40 +953,40 @@ xml.etree.ElementInclude.include(*elem*, *loader=None*, *base_url=None*, *max_de
     *element* is the root element. The tree is initialized with the contents
     of the XML *file* if given.
 
-    _setroot(*element*)
+    `_setroot(element)`
     :   Replaces the root element for this tree. This discards the current
         contents of the tree, and replaces it with the given element. Use with
         care. *element* is an element instance.
 
-    find(*match*, *namespaces=None*)
+    `find(match, namespaces=None)`
     :   Same as [`Element.find()`](xml.etree.elementtree.md#xml.etree.ElementTree.Element.find "xml.etree.ElementTree.Element.find"), starting at the root of the tree.
 
-    findall(*match*, *namespaces=None*)
+    `findall(match, namespaces=None)`
     :   Same as [`Element.findall()`](xml.etree.elementtree.md#xml.etree.ElementTree.Element.findall "xml.etree.ElementTree.Element.findall"), starting at the root of the tree.
 
-    findtext(*match*, *default=None*, *namespaces=None*)
+    `findtext(match, default=None, namespaces=None)`
     :   Same as [`Element.findtext()`](xml.etree.elementtree.md#xml.etree.ElementTree.Element.findtext "xml.etree.ElementTree.Element.findtext"), starting at the root of the tree.
 
-    getroot()
+    `getroot()`
     :   Returns the root element for this tree.
 
-    iter(*tag=None*)
+    `iter(tag=None)`
     :   Creates and returns a tree iterator for the root element. The iterator
         loops over all elements in this tree, in section order. *tag* is the tag
         to look for (default is to return all elements).
 
-    iterfind(*match*, *namespaces=None*)
+    `iterfind(match, namespaces=None)`
     :   Same as [`Element.iterfind()`](xml.etree.elementtree.md#xml.etree.ElementTree.Element.iterfind "xml.etree.ElementTree.Element.iterfind"), starting at the root of the tree.
 
         Added in version 3.2.
 
-    parse(*source*, *parser=None*)
+    `parse(source, parser=None)`
     :   Loads an external XML section into this element tree. *source* is a file
         name or [file object](https://docs.python.org/3.12/glossary.html#term-file-object). *parser* is an optional parser instance.
         If not given, the standard [`XMLParser`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser "xml.etree.ElementTree.XMLParser") parser is used. Returns the
         section root element.
 
-    write(*file*, *encoding='us-ascii'*, *xml_declaration=None*, *default_namespace=None*, *method='xml'*, *\**, *short_empty_elements=True*)
+    `write(file, encoding='us-ascii', xml_declaration=None, default_namespace=None, method='xml', *, short_empty_elements=True)`
     :   Writes the element tree to a file, as XML. *file* is a file name, or a
         [file object](https://docs.python.org/3.12/glossary.html#term-file-object) opened for writing. *encoding* [[1]](xml.etree.elementtree.md#id9) is the output
         encoding (default is US-ASCII).
@@ -1048,7 +1048,7 @@ Example of changing the attribute “target” of every link in first paragraph:
 
 ### QName Objects
 
-*class* xml.etree.ElementTree.QName(*text_or_uri*, *tag=None*)
+`class xml.etree.ElementTree.QName(text_or_uri, tag=None)`
 :   QName wrapper. This can be used to wrap a QName attribute value, in order
     to get proper namespace handling on output. *text_or_uri* is a string
     containing the QName value, in the form {uri}local, or, if the tag argument
@@ -1058,7 +1058,7 @@ Example of changing the attribute “target” of every link in first paragraph:
 
 ### TreeBuilder Objects
 
-*class* xml.etree.ElementTree.TreeBuilder(*element_factory=None*, *\**, *comment_factory=None*, *pi_factory=None*, *insert_comments=False*, *insert_pis=False*)
+`class xml.etree.ElementTree.TreeBuilder(element_factory=None, *, comment_factory=None, pi_factory=None, insert_comments=False, insert_pis=False)`
 :   Generic element structure builder. This builder converts a sequence of
     start, data, end, comment and pi method calls to a well-formed element
     structure. You can use this class to build an element structure using
@@ -1075,29 +1075,29 @@ Example of changing the attribute “target” of every link in first paragraph:
     comments/pis will be inserted into the tree if they appear within the root
     element (but not outside of it).
 
-    close()
+    `close()`
     :   Flushes the builder buffers, and returns the toplevel document
         element. Returns an [`Element`](xml.etree.elementtree.md#xml.etree.ElementTree.Element "xml.etree.ElementTree.Element") instance.
 
-    data(*data*)
+    `data(data)`
     :   Adds text to the current element. *data* is a string. This should be
         either a bytestring, or a Unicode string.
 
-    end(*tag*)
+    `end(tag)`
     :   Closes the current element. *tag* is the element name. Returns the
         closed element.
 
-    start(*tag*, *attrs*)
+    `start(tag, attrs)`
     :   Opens a new element. *tag* is the element name. *attrs* is a dictionary
         containing element attributes. Returns the opened element.
 
-    comment(*text*)
+    `comment(text)`
     :   Creates a comment with the given *text*. If `insert_comments` is true,
         this will also add it to the tree.
 
         Added in version 3.8.
 
-    pi(*target*, *text*)
+    `pi(target, text)`
     :   Creates a process instruction with the given *target* name and *text*.
         If `insert_pis` is true, this will also add it to the tree.
 
@@ -1106,14 +1106,14 @@ Example of changing the attribute “target” of every link in first paragraph:
     In addition, a custom [`TreeBuilder`](xml.etree.elementtree.md#xml.etree.ElementTree.TreeBuilder "xml.etree.ElementTree.TreeBuilder") object can provide the
     following methods:
 
-    doctype(*name*, *pubid*, *system*)
+    `doctype(name, pubid, system)`
     :   Handles a doctype declaration. *name* is the doctype name. *pubid* is
         the public identifier. *system* is the system identifier. This method
         does not exist on the default [`TreeBuilder`](xml.etree.elementtree.md#xml.etree.ElementTree.TreeBuilder "xml.etree.ElementTree.TreeBuilder") class.
 
         Added in version 3.2.
 
-    start_ns(*prefix*, *uri*)
+    `start_ns(prefix, uri)`
     :   Is called whenever the parser encounters a new namespace declaration,
         before the `start()` callback for the opening element that defines it.
         *prefix* is `''` for the default namespace and the declared
@@ -1121,14 +1121,14 @@ Example of changing the attribute “target” of every link in first paragraph:
 
         Added in version 3.8.
 
-    end_ns(*prefix*)
+    `end_ns(prefix)`
     :   Is called after the `end()` callback of an element that declared
         a namespace prefix mapping, with the name of the *prefix* that went
         out of scope.
 
         Added in version 3.8.
 
-*class* xml.etree.ElementTree.C14NWriterTarget(*write*, *\**, *with_comments=False*, *strip_text=False*, *rewrite_prefixes=False*, *qname_aware_tags=None*, *qname_aware_attrs=None*, *exclude_attrs=None*, *exclude_tags=None*)
+`class xml.etree.ElementTree.C14NWriterTarget(write, *, with_comments=False, strip_text=False, rewrite_prefixes=False, qname_aware_tags=None, qname_aware_attrs=None, exclude_attrs=None, exclude_tags=None)`
 :   A [C14N 2.0](https://www.w3.org/TR/xml-c14n2/) writer. Arguments are the
     same as for the [`canonicalize()`](xml.etree.elementtree.md#xml.etree.ElementTree.canonicalize "xml.etree.ElementTree.canonicalize") function. This class does not build a
     tree but translates the callback events directly into a serialised form
@@ -1138,7 +1138,7 @@ Example of changing the attribute “target” of every link in first paragraph:
 
 ### XMLParser Objects
 
-*class* xml.etree.ElementTree.XMLParser(*\**, *target=None*, *encoding=None*)
+`class xml.etree.ElementTree.XMLParser(*, target=None, encoding=None)`
 :   This class is the low-level building block of the module. It uses
     [`xml.parsers.expat`](pyexpat.md#module-xml.parsers.expat "xml.parsers.expat: An interface to the Expat non-validating XML parser.") for efficient, event-based parsing of XML. It can
     be fed XML data incrementally with the [`feed()`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser.feed "xml.etree.ElementTree.XMLParser.feed") method, and parsing
@@ -1150,15 +1150,15 @@ Example of changing the attribute “target” of every link in first paragraph:
     Changed in version 3.8: Parameters are now [keyword-only](https://docs.python.org/3.12/glossary.html#keyword-only-parameter).
     The *html* argument is no longer supported.
 
-    close()
+    `close()`
     :   Finishes feeding data to the parser. Returns the result of calling the
         `close()` method of the *target* passed during construction; by default,
         this is the toplevel document element.
 
-    feed(*data*)
+    `feed(data)`
     :   Feeds data to the parser. *data* is encoded data.
 
-    flush()
+    `flush()`
     :   Triggers parsing of any previously fed unparsed data, which can be
         used to ensure more immediate feedback, in particular with Expat >=2.6.0.
         The implementation of [`flush()`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser.flush "xml.etree.ElementTree.XMLParser.flush") temporarily disables reparse deferral
@@ -1217,7 +1217,7 @@ Example of changing the attribute “target” of every link in first paragraph:
 
 ### XMLPullParser Objects
 
-*class* xml.etree.ElementTree.XMLPullParser(*events=None*)
+`class xml.etree.ElementTree.XMLPullParser(events=None)`
 :   A pull parser suitable for non-blocking applications. Its input-side API is
     similar to that of [`XMLParser`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser "xml.etree.ElementTree.XMLParser"), but instead of pushing calls to a
     callback target, [`XMLPullParser`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLPullParser "xml.etree.ElementTree.XMLPullParser") collects an internal list of parsing
@@ -1227,10 +1227,10 @@ Example of changing the attribute “target” of every link in first paragraph:
     are used to get detailed namespace information). If *events* is omitted,
     only `"end"` events are reported.
 
-    feed(*data*)
+    `feed(data)`
     :   Feed the given bytes data to the parser.
 
-    flush()
+    `flush()`
     :   Triggers parsing of any previously fed unparsed data, which can be
         used to ensure more immediate feedback, in particular with Expat >=2.6.0.
         The implementation of [`flush()`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLPullParser.flush "xml.etree.ElementTree.XMLPullParser.flush") temporarily disables reparse deferral
@@ -1245,13 +1245,13 @@ Example of changing the attribute “target” of every link in first paragraph:
 
         Added in version 3.12.3.
 
-    close()
+    `close()`
     :   Signal the parser that the data stream is terminated. Unlike
         [`XMLParser.close()`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLParser.close "xml.etree.ElementTree.XMLParser.close"), this method always returns [`None`](constants.md#None "None").
         Any events not yet retrieved when the parser is closed can still be
         read with [`read_events()`](xml.etree.elementtree.md#xml.etree.ElementTree.XMLPullParser.read_events "xml.etree.ElementTree.XMLPullParser.read_events").
 
-    read_events()
+    `read_events()`
     :   Return an iterator over the events which have been encountered in the
         data fed to the
         parser. The iterator yields `(event, elem)` pairs, where *event* is a
@@ -1286,17 +1286,17 @@ Example of changing the attribute “target” of every link in first paragraph:
 
 ### Exceptions
 
-*class* xml.etree.ElementTree.ParseError
+`class xml.etree.ElementTree.ParseError`
 :   XML parse error, raised by the various parsing methods in this module when
     parsing fails. The string representation of an instance of this exception
     will contain a user-friendly error message. In addition, it will have
     the following attributes available:
 
-    code
+    `code`
     :   A numeric error code from the expat parser. See the documentation of
         [`xml.parsers.expat`](pyexpat.md#module-xml.parsers.expat "xml.parsers.expat: An interface to the Expat non-validating XML parser.") for the list of error codes and their meanings.
 
-    position
+    `position`
     :   A tuple of *line*, *column* numbers, specifying where the error occurred.
 
 Footnotes

@@ -22,11 +22,11 @@ The [`xdrlib`](xdrlib.md#module-xdrlib "xdrlib: Encoders and decoders for the Ex
 representation, and another for unpacking from XDR representation. There are
 also two exception classes.
 
-*class* xdrlib.Packer
+`class xdrlib.Packer`
 :   [`Packer`](xdrlib.md#xdrlib.Packer "xdrlib.Packer") is the class for packing data into XDR representation. The
     [`Packer`](xdrlib.md#xdrlib.Packer "xdrlib.Packer") class is instantiated with no arguments.
 
-*class* xdrlib.Unpacker(*data*)
+`class xdrlib.Unpacker(data)`
 :   `Unpacker` is the complementary class which unpacks XDR data values from a
     string buffer. The input buffer is given as *data*.
 
@@ -43,10 +43,10 @@ also two exception classes.
 
 [`Packer`](xdrlib.md#xdrlib.Packer "xdrlib.Packer") instances have the following methods:
 
-Packer.get_buffer()
+`Packer.get_buffer()`
 :   Returns the current pack buffer as a string.
 
-Packer.reset()
+`Packer.reset()`
 :   Resets the pack buffer to the empty string.
 
 In general, you can pack any of the most common XDR data types by calling the
@@ -55,36 +55,36 @@ value to pack. The following simple data type packing methods are supported:
 `pack_uint()`, `pack_int()`, `pack_enum()`, `pack_bool()`,
 `pack_uhyper()`, and `pack_hyper()`.
 
-Packer.pack_float(*value*)
+`Packer.pack_float(value)`
 :   Packs the single-precision floating point number *value*.
 
-Packer.pack_double(*value*)
+`Packer.pack_double(value)`
 :   Packs the double-precision floating point number *value*.
 
 The following methods support packing strings, bytes, and opaque data:
 
-Packer.pack_fstring(*n*, *s*)
+`Packer.pack_fstring(n, s)`
 :   Packs a fixed length string, *s*. *n* is the length of the string but it is
     *not* packed into the data buffer. The string is padded with null bytes if
     necessary to guaranteed 4 byte alignment.
 
-Packer.pack_fopaque(*n*, *data*)
+`Packer.pack_fopaque(n, data)`
 :   Packs a fixed length opaque data stream, similarly to [`pack_fstring()`](xdrlib.md#xdrlib.Packer.pack_fstring "xdrlib.Packer.pack_fstring").
 
-Packer.pack_string(*s*)
+`Packer.pack_string(s)`
 :   Packs a variable length string, *s*. The length of the string is first packed
     as an unsigned integer, then the string data is packed with
     [`pack_fstring()`](xdrlib.md#xdrlib.Packer.pack_fstring "xdrlib.Packer.pack_fstring").
 
-Packer.pack_opaque(*data*)
+`Packer.pack_opaque(data)`
 :   Packs a variable length opaque data string, similarly to [`pack_string()`](xdrlib.md#xdrlib.Packer.pack_string "xdrlib.Packer.pack_string").
 
-Packer.pack_bytes(*bytes*)
+`Packer.pack_bytes(bytes)`
 :   Packs a variable length byte stream, similarly to [`pack_string()`](xdrlib.md#xdrlib.Packer.pack_string "xdrlib.Packer.pack_string").
 
 The following methods support packing arrays and lists:
 
-Packer.pack_list(*list*, *pack_item*)
+`Packer.pack_list(list, pack_item)`
 :   Packs a *list* of homogeneous items. This method is useful for lists with an
     indeterminate size; i.e. the size is not available until the entire list has
     been walked. For each item in the list, an unsigned integer `1` is packed
@@ -100,13 +100,13 @@ Packer.pack_list(*list*, *pack_item*)
     p.pack_list([1, 2, 3], p.pack_int)
     ```
 
-Packer.pack_farray(*n*, *array*, *pack_item*)
+`Packer.pack_farray(n, array, pack_item)`
 :   Packs a fixed length list (*array*) of homogeneous items. *n* is the length of
     the list; it is *not* packed into the buffer, but a [`ValueError`](exceptions.md#ValueError "ValueError") exception
     is raised if `len(array)` is not equal to *n*. As above, *pack_item* is the
     function used to pack each element.
 
-Packer.pack_array(*list*, *pack_item*)
+`Packer.pack_array(list, pack_item)`
 :   Packs a variable length *list* of homogeneous items. First, the length of the
     list is packed as an unsigned integer, then each element is packed as in
     [`pack_farray()`](xdrlib.md#xdrlib.Packer.pack_farray "xdrlib.Packer.pack_farray") above.
@@ -115,20 +115,20 @@ Packer.pack_array(*list*, *pack_item*)
 
 The [`Unpacker`](xdrlib.md#xdrlib.Unpacker "xdrlib.Unpacker") class offers the following methods:
 
-Unpacker.reset(*data*)
+`Unpacker.reset(data)`
 :   Resets the string buffer with the given *data*.
 
-Unpacker.get_position()
+`Unpacker.get_position()`
 :   Returns the current unpack position in the data buffer.
 
-Unpacker.set_position(*position*)
+`Unpacker.set_position(position)`
 :   Sets the data buffer unpack position to *position*. You should be careful about
     using [`get_position()`](xdrlib.md#xdrlib.Unpacker.get_position "xdrlib.Unpacker.get_position") and [`set_position()`](xdrlib.md#xdrlib.Unpacker.set_position "xdrlib.Unpacker.set_position").
 
-Unpacker.get_buffer()
+`Unpacker.get_buffer()`
 :   Returns the current unpack data buffer as a string.
 
-Unpacker.done()
+`Unpacker.done()`
 :   Indicates unpack completion. Raises an [`Error`](xdrlib.md#xdrlib.Error "xdrlib.Error") exception if all of the
     data has not been unpacked.
 
@@ -136,51 +136,51 @@ In addition, every data type that can be packed with a [`Packer`](xdrlib.md#xdrl
 unpacked with an [`Unpacker`](xdrlib.md#xdrlib.Unpacker "xdrlib.Unpacker"). Unpacking methods are of the form
 `unpack_type()`, and take no arguments. They return the unpacked object.
 
-Unpacker.unpack_float()
+`Unpacker.unpack_float()`
 :   Unpacks a single-precision floating point number.
 
-Unpacker.unpack_double()
+`Unpacker.unpack_double()`
 :   Unpacks a double-precision floating point number, similarly to
     [`unpack_float()`](xdrlib.md#xdrlib.Unpacker.unpack_float "xdrlib.Unpacker.unpack_float").
 
 In addition, the following methods unpack strings, bytes, and opaque data:
 
-Unpacker.unpack_fstring(*n*)
+`Unpacker.unpack_fstring(n)`
 :   Unpacks and returns a fixed length string. *n* is the number of characters
     expected. Padding with null bytes to guaranteed 4 byte alignment is assumed.
 
-Unpacker.unpack_fopaque(*n*)
+`Unpacker.unpack_fopaque(n)`
 :   Unpacks and returns a fixed length opaque data stream, similarly to
     [`unpack_fstring()`](xdrlib.md#xdrlib.Unpacker.unpack_fstring "xdrlib.Unpacker.unpack_fstring").
 
-Unpacker.unpack_string()
+`Unpacker.unpack_string()`
 :   Unpacks and returns a variable length string. The length of the string is first
     unpacked as an unsigned integer, then the string data is unpacked with
     [`unpack_fstring()`](xdrlib.md#xdrlib.Unpacker.unpack_fstring "xdrlib.Unpacker.unpack_fstring").
 
-Unpacker.unpack_opaque()
+`Unpacker.unpack_opaque()`
 :   Unpacks and returns a variable length opaque data string, similarly to
     [`unpack_string()`](xdrlib.md#xdrlib.Unpacker.unpack_string "xdrlib.Unpacker.unpack_string").
 
-Unpacker.unpack_bytes()
+`Unpacker.unpack_bytes()`
 :   Unpacks and returns a variable length byte stream, similarly to
     [`unpack_string()`](xdrlib.md#xdrlib.Unpacker.unpack_string "xdrlib.Unpacker.unpack_string").
 
 The following methods support unpacking arrays and lists:
 
-Unpacker.unpack_list(*unpack_item*)
+`Unpacker.unpack_list(unpack_item)`
 :   Unpacks and returns a list of homogeneous items. The list is unpacked one
     element at a time by first unpacking an unsigned integer flag. If the flag is
     `1`, then the item is unpacked and appended to the list. A flag of `0`
     indicates the end of the list. *unpack_item* is the function that is called to
     unpack the items.
 
-Unpacker.unpack_farray(*n*, *unpack_item*)
+`Unpacker.unpack_farray(n, unpack_item)`
 :   Unpacks and returns (as a list) a fixed length array of homogeneous items. *n*
     is number of list elements to expect in the buffer. As above, *unpack_item* is
     the function used to unpack each element.
 
-Unpacker.unpack_array(*unpack_item*)
+`Unpacker.unpack_array(unpack_item)`
 :   Unpacks and returns a variable length *list* of homogeneous items. First, the
     length of the list is unpacked as an unsigned integer, then each element is
     unpacked as in [`unpack_farray()`](xdrlib.md#xdrlib.Unpacker.unpack_farray "xdrlib.Unpacker.unpack_farray") above.
@@ -189,11 +189,11 @@ Unpacker.unpack_array(*unpack_item*)
 
 Exceptions in this module are coded as class instances:
 
-*exception* xdrlib.Error
+`exception xdrlib.Error`
 :   The base exception class. [`Error`](xdrlib.md#xdrlib.Error "xdrlib.Error") has a single public attribute
     `msg` containing the description of the error.
 
-*exception* xdrlib.ConversionError
+`exception xdrlib.ConversionError`
 :   Class derived from [`Error`](xdrlib.md#xdrlib.Error "xdrlib.Error"). Contains no additional instance variables.
 
 Here is an example of how you would catch one of these exceptions:

@@ -30,7 +30,7 @@ Added in version 3.3.
 The [`ipaddress`](ipaddress.md#module-ipaddress "ipaddress: IPv4/IPv6 manipulation library.") module provides factory functions to conveniently create
 IP addresses, networks and interfaces:
 
-ipaddress.ip_address(*address*)
+`ipaddress.ip_address(address)`
 :   Return an [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address") or [`IPv6Address`](ipaddress.md#ipaddress.IPv6Address "ipaddress.IPv6Address") object depending on
     the IP address passed as argument. Either IPv4 or IPv6 addresses may be
     supplied; integers less than `2**32` will be considered to be IPv4 by default.
@@ -44,7 +44,7 @@ ipaddress.ip_address(*address*)
     IPv6Address('2001:db8::')
     ```
 
-ipaddress.ip_network(*address*, *strict=True*)
+`ipaddress.ip_network(address, strict=True)`
 :   Return an [`IPv4Network`](ipaddress.md#ipaddress.IPv4Network "ipaddress.IPv4Network") or [`IPv6Network`](ipaddress.md#ipaddress.IPv6Network "ipaddress.IPv6Network") object depending on
     the IP address passed as argument. *address* is a string or integer
     representing the IP network. Either IPv4 or IPv6 networks may be supplied;
@@ -58,7 +58,7 @@ ipaddress.ip_network(*address*, *strict=True*)
     IPv4Network('192.168.0.0/28')
     ```
 
-ipaddress.ip_interface(*address*)
+`ipaddress.ip_interface(address)`
 :   Return an [`IPv4Interface`](ipaddress.md#ipaddress.IPv4Interface "ipaddress.IPv4Interface") or [`IPv6Interface`](ipaddress.md#ipaddress.IPv6Interface "ipaddress.IPv6Interface") object depending
     on the IP address passed as argument. *address* is a string or integer
     representing the IP address. Either IPv4 or IPv6 addresses may be supplied;
@@ -83,7 +83,7 @@ also implemented by [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddres
 write code that handles both IP versions correctly. Address objects are
 [hashable](https://docs.python.org/3.12/glossary.html#term-hashable), so they can be used as keys in dictionaries.
 
-*class* ipaddress.IPv4Address(*address*)
+`class ipaddress.IPv4Address(address)`
 :   Construct an IPv4 address. An [`AddressValueError`](ipaddress.md#ipaddress.AddressValueError "ipaddress.AddressValueError") is raised if
     *address* is not a valid IPv4 address.
 
@@ -113,10 +113,10 @@ write code that handles both IP versions correctly. Address objects are
     IPv4 address strings are now parsed as strict as glibc
     [`inet_pton()`](socket.md#socket.inet_pton "socket.inet_pton").
 
-    version
+    `version`
     :   The appropriate version number: `4` for IPv4, `6` for IPv6.
 
-    max_prefixlen
+    `max_prefixlen`
     :   The total number of bits in the address representation for this
         version: `32` for IPv4, `128` for IPv6.
 
@@ -124,9 +124,9 @@ write code that handles both IP versions correctly. Address objects are
         are compared to determine whether or not an address is part of a
         network.
 
-    compressed
+    `compressed`
 
-    exploded
+    `exploded`
     :   The string representation in dotted decimal notation. Leading zeroes
         are never included in the representation.
 
@@ -135,12 +135,12 @@ write code that handles both IP versions correctly. Address objects are
         for IPv4 addresses. Exposing these attributes makes it easier to
         write display code that can handle both IPv4 and IPv6 addresses.
 
-    packed
+    `packed`
     :   The binary representation of this address - a [`bytes`](stdtypes.md#bytes "bytes") object of
         the appropriate length (most significant octet first). This is 4 bytes
         for IPv4 and 16 bytes for IPv6.
 
-    reverse_pointer
+    `reverse_pointer`
     :   The name of the reverse DNS PTR record for the IP address, e.g.:
 
         ```python3
@@ -155,11 +155,11 @@ write code that handles both IP versions correctly. Address objects are
 
         Added in version 3.5.
 
-    is_multicast
+    `is_multicast`
     :   `True` if the address is reserved for multicast use. See
         [**RFC 3171**](https://datatracker.ietf.org/doc/html/rfc3171.html) (for IPv4) or [**RFC 2373**](https://datatracker.ietf.org/doc/html/rfc2373.html) (for IPv6).
 
-    is_private
+    `is_private`
     :   `True` if the address is defined as not globally reachable by
         [iana-ipv4-special-registry](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml) (for IPv4) or [iana-ipv6-special-registry](https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml)
         (for IPv6) with the following exceptions:
@@ -186,7 +186,7 @@ write code that handles both IP versions correctly. Address objects are
           `2001:1::2/128`, `2001:3::/32`, `2001:4:112::/48`, `2001:20::/28`, `2001:30::/28`.
           The exceptions are not considered private.
 
-    is_global
+    `is_global`
     :   `True` if the address is defined as globally reachable by
         [iana-ipv4-special-registry](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml) (for IPv4) or [iana-ipv6-special-registry](https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml)
         (for IPv6) with the following exception:
@@ -206,22 +206,22 @@ write code that handles both IP versions correctly. Address objects are
 
         Changed in version 3.12.4: Fixed some false positives and false negatives, see [`is_private`](ipaddress.md#ipaddress.IPv4Address.is_private "ipaddress.IPv4Address.is_private") for details.
 
-    is_unspecified
+    `is_unspecified`
     :   `True` if the address is unspecified. See [**RFC 5735**](https://datatracker.ietf.org/doc/html/rfc5735.html) (for IPv4)
         or [**RFC 2373**](https://datatracker.ietf.org/doc/html/rfc2373.html) (for IPv6).
 
-    is_reserved
+    `is_reserved`
     :   `True` if the address is otherwise IETF reserved.
 
-    is_loopback
+    `is_loopback`
     :   `True` if this is a loopback address. See [**RFC 3330**](https://datatracker.ietf.org/doc/html/rfc3330.html) (for IPv4)
         or [**RFC 2373**](https://datatracker.ietf.org/doc/html/rfc2373.html) (for IPv6).
 
-    is_link_local
+    `is_link_local`
     :   `True` if the address is reserved for link-local usage. See
         [**RFC 3927**](https://datatracker.ietf.org/doc/html/rfc3927.html).
 
-IPv4Address.__format__(*fmt*)
+`IPv4Address.__format__(fmt)`
 :   Returns a string representation of the IP address, controlled by
     an explicit format string.
     *fmt* can be one of the following: `'s'`, the default option,
@@ -248,7 +248,7 @@ IPv4Address.__format__(*fmt*)
 
     Added in version 3.9.
 
-*class* ipaddress.IPv6Address(*address*)
+`class ipaddress.IPv6Address(address)`
 :   Construct an IPv6 address. An [`AddressValueError`](ipaddress.md#ipaddress.AddressValueError "ipaddress.AddressValueError") is raised if
     *address* is not a valid IPv6 address.
 
@@ -277,7 +277,7 @@ IPv4Address.__format__(*fmt*)
     IPv6Address('ff02::5678%1')
     ```
 
-    compressed
+    `compressed`
 
     The short form of the address representation, with leading zeroes in
     groups omitted and the longest sequence of groups consisting entirely of
@@ -285,7 +285,7 @@ IPv4Address.__format__(*fmt*)
 
     This is also the value returned by `str(addr)` for IPv6 addresses.
 
-    exploded
+    `exploded`
 
     The long form of the address representation, with all leading zeroes and
     groups consisting entirely of zeroes included.
@@ -293,58 +293,58 @@ IPv4Address.__format__(*fmt*)
     For the following attributes and methods, see the corresponding
     documentation of the [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address") class:
 
-    packed
+    `packed`
 
-    reverse_pointer
+    `reverse_pointer`
 
-    version
+    `version`
 
-    max_prefixlen
+    `max_prefixlen`
 
-    is_multicast
+    `is_multicast`
 
-    is_private
+    `is_private`
 
-    is_global
+    `is_global`
     :   Added in version 3.4.
 
-    is_unspecified
+    `is_unspecified`
 
-    is_reserved
+    `is_reserved`
 
-    is_loopback
+    `is_loopback`
 
-    is_link_local
+    `is_link_local`
 
-    is_site_local
+    `is_site_local`
     :   `True` if the address is reserved for site-local usage. Note that
         the site-local address space has been deprecated by [**RFC 3879**](https://datatracker.ietf.org/doc/html/rfc3879.html). Use
         [`is_private`](ipaddress.md#ipaddress.IPv4Address.is_private "ipaddress.IPv4Address.is_private") to test if this address is in the
         space of unique local addresses as defined by [**RFC 4193**](https://datatracker.ietf.org/doc/html/rfc4193.html).
 
-    ipv4_mapped
+    `ipv4_mapped`
     :   For addresses that appear to be IPv4 mapped addresses (starting with
         `::FFFF/96`), this property will report the embedded IPv4 address.
         For any other address, this property will be `None`.
 
-    scope_id
+    `scope_id`
     :   For scoped addresses as defined by [**RFC 4007**](https://datatracker.ietf.org/doc/html/rfc4007.html), this property identifies
         the particular zone of the address’s scope that the address belongs to,
         as a string. When no scope zone is specified, this property will be `None`.
 
-    sixtofour
+    `sixtofour`
     :   For addresses that appear to be 6to4 addresses (starting with
         `2002::/16`) as defined by [**RFC 3056**](https://datatracker.ietf.org/doc/html/rfc3056.html), this property will report
         the embedded IPv4 address. For any other address, this property will
         be `None`.
 
-    teredo
+    `teredo`
     :   For addresses that appear to be Teredo addresses (starting with
         `2001::/32`) as defined by [**RFC 4380**](https://datatracker.ietf.org/doc/html/rfc4380.html), this property will report
         the embedded `(server, client)` IP address pair. For any other
         address, this property will be `None`.
 
-IPv6Address.__format__(*fmt*)
+`IPv6Address.__format__(fmt)`
 :   Refer to the corresponding method documentation in
     [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address").
 
@@ -439,7 +439,7 @@ so to avoid duplication they are only documented for [`IPv4Network`](ipaddress.m
 Network objects are [hashable](https://docs.python.org/3.12/glossary.html#term-hashable), so they can be used as keys in
 dictionaries.
 
-*class* ipaddress.IPv4Network(*address*, *strict=True*)
+`class ipaddress.IPv4Network(address, strict=True)`
 :   Construct an IPv4 network definition. *address* can be one of the following:
 
     1. A string consisting of an IP address and an optional mask, separated by
@@ -479,45 +479,45 @@ dictionaries.
 
     Changed in version 3.5: Added the two-tuple form for the *address* constructor parameter.
 
-    version
+    `version`
 
-    max_prefixlen
+    `max_prefixlen`
     :   Refer to the corresponding attribute documentation in
         [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address").
 
-    is_multicast
+    `is_multicast`
 
-    is_private
+    `is_private`
 
-    is_unspecified
+    `is_unspecified`
 
-    is_reserved
+    `is_reserved`
 
-    is_loopback
+    `is_loopback`
 
-    is_link_local
+    `is_link_local`
     :   These attributes are true for the network as a whole if they are true
         for both the network address and the broadcast address.
 
-    network_address
+    `network_address`
     :   The network address for the network. The network address and the
         prefix length together uniquely define a network.
 
-    broadcast_address
+    `broadcast_address`
     :   The broadcast address for the network. Packets sent to the broadcast
         address should be received by every host on the network.
 
-    hostmask
+    `hostmask`
     :   The host mask, as an [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address") object.
 
-    netmask
+    `netmask`
     :   The net mask, as an [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address") object.
 
-    with_prefixlen
+    `with_prefixlen`
 
-    compressed
+    `compressed`
 
-    exploded
+    `exploded`
     :   A string representation of the network, with the mask in prefix
         notation.
 
@@ -525,21 +525,21 @@ dictionaries.
         `str(network)`.
         `exploded` uses the exploded form the network address.
 
-    with_netmask
+    `with_netmask`
     :   A string representation of the network, with the mask in net mask
         notation.
 
-    with_hostmask
+    `with_hostmask`
     :   A string representation of the network, with the mask in host mask
         notation.
 
-    num_addresses
+    `num_addresses`
     :   The total number of addresses in the network.
 
-    prefixlen
+    `prefixlen`
     :   Length of the network prefix, in bits.
 
-    hosts()
+    `hosts()`
     :   Returns an iterator over the usable hosts in the network. The usable
         hosts are all the IP addresses that belong to the network, except the
         network address itself and the network broadcast address. For networks
@@ -558,11 +558,11 @@ dictionaries.
         [IPv4Address('192.0.2.1')]
         ```
 
-    overlaps(*other*)
+    `overlaps(other)`
     :   `True` if this network is partly or wholly contained in *other* or
         *other* is wholly contained in this network.
 
-    address_exclude(*network*)
+    `address_exclude(network)`
     :   Computes the network definitions resulting from removing the given
         *network* from this one. Returns an iterator of network objects.
         Raises [`ValueError`](exceptions.md#ValueError "ValueError") if *network* is not completely contained in
@@ -576,7 +576,7 @@ dictionaries.
          IPv4Network('192.0.2.2/31'), IPv4Network('192.0.2.0/32')]
         ```
 
-    subnets(*prefixlen_diff=1*, *new_prefix=None*)
+    `subnets(prefixlen_diff=1, new_prefix=None)`
     :   The subnets that join to make the current network definition, depending
         on the argument values. *prefixlen_diff* is the amount our prefix
         length should be increased by. *new_prefix* is the desired new
@@ -602,7 +602,7 @@ dictionaries.
         [IPv4Network('192.0.2.0/25'), IPv4Network('192.0.2.128/25')]
         ```
 
-    supernet(*prefixlen_diff=1*, *new_prefix=None*)
+    `supernet(prefixlen_diff=1, new_prefix=None)`
     :   The supernet containing this network definition, depending on the
         argument values. *prefixlen_diff* is the amount our prefix length
         should be decreased by. *new_prefix* is the desired new prefix of
@@ -619,7 +619,7 @@ dictionaries.
         IPv4Network('192.0.0.0/20')
         ```
 
-    subnet_of(*other*)
+    `subnet_of(other)`
     :   Return `True` if this network is a subnet of *other*.
 
         ```
@@ -631,7 +631,7 @@ dictionaries.
 
         Added in version 3.7.
 
-    supernet_of(*other*)
+    `supernet_of(other)`
     :   Return `True` if this network is a supernet of *other*.
 
         ```
@@ -643,7 +643,7 @@ dictionaries.
 
         Added in version 3.7.
 
-    compare_networks(*other*)
+    `compare_networks(other)`
     :   Compare this network to *other*. In this comparison only the network
         addresses are considered; host bits aren’t. Returns either `-1`,
         `0` or `1`.
@@ -659,7 +659,7 @@ dictionaries.
 
         Deprecated since version 3.7: It uses the same ordering and comparison algorithm as “<”, “==”, and “>”
 
-*class* ipaddress.IPv6Network(*address*, *strict=True*)
+`class ipaddress.IPv6Network(address, strict=True)`
 :   Construct an IPv6 network definition. *address* can be one of the following:
 
     1. A string consisting of an IP address and an optional prefix length,
@@ -690,45 +690,45 @@ dictionaries.
 
     Changed in version 3.5: Added the two-tuple form for the *address* constructor parameter.
 
-    version
+    `version`
 
-    max_prefixlen
+    `max_prefixlen`
 
-    is_multicast
+    `is_multicast`
 
-    is_private
+    `is_private`
 
-    is_unspecified
+    `is_unspecified`
 
-    is_reserved
+    `is_reserved`
 
-    is_loopback
+    `is_loopback`
 
-    is_link_local
+    `is_link_local`
 
-    network_address
+    `network_address`
 
-    broadcast_address
+    `broadcast_address`
 
-    hostmask
+    `hostmask`
 
-    netmask
+    `netmask`
 
-    with_prefixlen
+    `with_prefixlen`
 
-    compressed
+    `compressed`
 
-    exploded
+    `exploded`
 
-    with_netmask
+    `with_netmask`
 
-    with_hostmask
+    `with_hostmask`
 
-    num_addresses
+    `num_addresses`
 
-    prefixlen
+    `prefixlen`
 
-    hosts()
+    `hosts()`
     :   Returns an iterator over the usable hosts in the network. The usable
         hosts are all the IP addresses that belong to the network, except the
         Subnet-Router anycast address. For networks with a mask length of 127,
@@ -736,23 +736,23 @@ dictionaries.
         Networks with a mask of 128 will return a list containing the
         single host address.
 
-    overlaps(*other*)
+    `overlaps(other)`
 
-    address_exclude(*network*)
+    `address_exclude(network)`
 
-    subnets(*prefixlen_diff=1*, *new_prefix=None*)
+    `subnets(prefixlen_diff=1, new_prefix=None)`
 
-    supernet(*prefixlen_diff=1*, *new_prefix=None*)
+    `supernet(prefixlen_diff=1, new_prefix=None)`
 
-    subnet_of(*other*)
+    `subnet_of(other)`
 
-    supernet_of(*other*)
+    `supernet_of(other)`
 
-    compare_networks(*other*)
+    `compare_networks(other)`
     :   Refer to the corresponding attribute documentation in
         [`IPv4Network`](ipaddress.md#ipaddress.IPv4Network "ipaddress.IPv4Network").
 
-    is_site_local
+    `is_site_local`
     :   These attribute is true for the network as a whole if it is true
         for both the network address and the broadcast address.
 
@@ -816,7 +816,7 @@ False
 Interface objects are [hashable](https://docs.python.org/3.12/glossary.html#term-hashable), so they can be used as keys in
 dictionaries.
 
-*class* ipaddress.IPv4Interface(*address*)
+`class ipaddress.IPv4Interface(address)`
 :   Construct an IPv4 interface. The meaning of *address* is as in the
     constructor of [`IPv4Network`](ipaddress.md#ipaddress.IPv4Network "ipaddress.IPv4Network"), except that arbitrary host addresses
     are always accepted.
@@ -825,7 +825,7 @@ dictionaries.
     all the attributes from that class. In addition, the following attributes
     are available:
 
-    ip
+    `ip`
     :   The address ([`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address")) without network information.
 
         ```
@@ -834,7 +834,7 @@ dictionaries.
         IPv4Address('192.0.2.5')
         ```
 
-    network
+    `network`
     :   The network ([`IPv4Network`](ipaddress.md#ipaddress.IPv4Network "ipaddress.IPv4Network")) this interface belongs to.
 
         ```
@@ -843,7 +843,7 @@ dictionaries.
         IPv4Network('192.0.2.0/24')
         ```
 
-    with_prefixlen
+    `with_prefixlen`
     :   A string representation of the interface with the mask in prefix notation.
 
         ```
@@ -852,7 +852,7 @@ dictionaries.
         '192.0.2.5/24'
         ```
 
-    with_netmask
+    `with_netmask`
     :   A string representation of the interface with the network as a net mask.
 
         ```
@@ -861,7 +861,7 @@ dictionaries.
         '192.0.2.5/255.255.255.0'
         ```
 
-    with_hostmask
+    `with_hostmask`
     :   A string representation of the interface with the network as a host mask.
 
         ```
@@ -870,7 +870,7 @@ dictionaries.
         '192.0.2.5/0.0.0.255'
         ```
 
-*class* ipaddress.IPv6Interface(*address*)
+`class ipaddress.IPv6Interface(address)`
 :   Construct an IPv6 interface. The meaning of *address* is as in the
     constructor of [`IPv6Network`](ipaddress.md#ipaddress.IPv6Network "ipaddress.IPv6Network"), except that arbitrary host addresses
     are always accepted.
@@ -879,15 +879,15 @@ dictionaries.
     all the attributes from that class. In addition, the following attributes
     are available:
 
-    ip
+    `ip`
 
-    network
+    `network`
 
-    with_prefixlen
+    `with_prefixlen`
 
-    with_netmask
+    `with_netmask`
 
-    with_hostmask
+    `with_hostmask`
     :   Refer to the corresponding attribute documentation in
         [`IPv4Interface`](ipaddress.md#ipaddress.IPv4Interface "ipaddress.IPv4Interface").
 
@@ -915,7 +915,7 @@ IP addresses.
 
 The module also provides the following module level functions:
 
-ipaddress.v4_int_to_packed(*address*)
+`ipaddress.v4_int_to_packed(address)`
 :   Represent an address as 4 packed bytes in network (big-endian) order.
     *address* is an integer representation of an IPv4 IP address. A
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised if the integer is negative or too large to be an
@@ -928,13 +928,13 @@ ipaddress.v4_int_to_packed(*address*)
     b'\xc0\x00\x02\x01'
     ```
 
-ipaddress.v6_int_to_packed(*address*)
+`ipaddress.v6_int_to_packed(address)`
 :   Represent an address as 16 packed bytes in network (big-endian) order.
     *address* is an integer representation of an IPv6 IP address. A
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised if the integer is negative or too large to be an
     IPv6 IP address.
 
-ipaddress.summarize_address_range(*first*, *last*)
+`ipaddress.summarize_address_range(first, last)`
 :   Return an iterator of the summarized network range given the first and last
     IP addresses. *first* is the first [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address") or
     [`IPv6Address`](ipaddress.md#ipaddress.IPv6Address "ipaddress.IPv6Address") in the range and *last* is the last [`IPv4Address`](ipaddress.md#ipaddress.IPv4Address "ipaddress.IPv4Address")
@@ -950,7 +950,7 @@ ipaddress.summarize_address_range(*first*, *last*)
     [IPv4Network('192.0.2.0/25'), IPv4Network('192.0.2.128/31'), IPv4Network('192.0.2.130/32')]
     ```
 
-ipaddress.collapse_addresses(*addresses*)
+`ipaddress.collapse_addresses(addresses)`
 :   Return an iterator of the collapsed [`IPv4Network`](ipaddress.md#ipaddress.IPv4Network "ipaddress.IPv4Network") or
     [`IPv6Network`](ipaddress.md#ipaddress.IPv6Network "ipaddress.IPv6Network") objects. *addresses* is an [iterable](https://docs.python.org/3.12/glossary.html#term-iterable) of
     [`IPv4Network`](ipaddress.md#ipaddress.IPv4Network "ipaddress.IPv4Network") or [`IPv6Network`](ipaddress.md#ipaddress.IPv6Network "ipaddress.IPv6Network") objects. A [`TypeError`](exceptions.md#TypeError "TypeError") is
@@ -963,7 +963,7 @@ ipaddress.collapse_addresses(*addresses*)
     [IPv4Network('192.0.2.0/24')]
     ```
 
-ipaddress.get_mixed_type_key(*obj*)
+`ipaddress.get_mixed_type_key(obj)`
 :   Return a key suitable for sorting between networks and addresses. Address
     and Network objects are not sortable by default; they’re fundamentally
     different, so the expression:
@@ -983,8 +983,8 @@ ipaddress.get_mixed_type_key(*obj*)
 To support more specific error reporting from class constructors, the
 module defines the following exceptions:
 
-*exception* ipaddress.AddressValueError(*ValueError*)
+`exception ipaddress.AddressValueError(ValueError)`
 :   Any value error related to the address.
 
-*exception* ipaddress.NetmaskValueError(*ValueError*)
+`exception ipaddress.NetmaskValueError(ValueError)`
 :   Any value error related to the net mask.

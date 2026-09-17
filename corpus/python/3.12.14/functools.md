@@ -17,7 +17,7 @@ function for the purposes of this module.
 
 The [`functools`](functools.md#module-functools "functools: Higher-order functions and operations on callable objects.") module defines the following functions:
 
-@functools.cache(*user_function*)
+`@functools.cache(user_function)`
 :   Simple lightweight unbounded function cache. Sometimes called
     [“memoize”](https://en.wikipedia.org/wiki/Memoization).
 
@@ -51,7 +51,7 @@ The [`functools`](functools.md#module-functools "functools: Higher-order functio
 
     Added in version 3.9.
 
-@functools.cached_property(*func*)
+`@functools.cached_property(func)`
 :   Transform a method of a class into a property whose value is computed once
     and then cached as a normal attribute for the life of the instance. Similar
     to [`property()`](functions.md#property "property"), with the addition of caching. Useful for expensive
@@ -115,7 +115,7 @@ The [`functools`](functools.md#module-functools "functools: Higher-order functio
     per-instance, which could result in unacceptably high lock contention. In
     Python 3.12+ this locking is removed.
 
-functools.cmp_to_key(*func*)
+`functools.cmp_to_key(func)`
 :   Transform an old-style comparison function to a [key function](https://docs.python.org/3.12/glossary.html#term-key-function). Used
     with tools that accept key functions (such as [`sorted()`](functions.md#sorted "sorted"), [`min()`](functions.md#min "min"),
     [`max()`](functions.md#max "max"), [`heapq.nlargest()`](heapq.md#heapq.nlargest "heapq.nlargest"), [`heapq.nsmallest()`](heapq.md#heapq.nsmallest "heapq.nsmallest"),
@@ -138,9 +138,9 @@ functools.cmp_to_key(*func*)
 
     Added in version 3.2.
 
-@functools.lru_cache(*user_function*)
+`@functools.lru_cache(user_function)`
 
-@functools.lru_cache(*maxsize=128*, *typed=False*)
+`@functools.lru_cache(maxsize=128, typed=False)`
 :   Decorator to wrap a function with a memoizing callable that saves up to the
     *maxsize* most recent calls. It can save time when an expensive or I/O bound
     function is periodically called with the same arguments.
@@ -270,7 +270,7 @@ functools.cmp_to_key(*func*)
 
     Changed in version 3.9: Added the function `cache_parameters()`
 
-@functools.total_ordering
+`@functools.total_ordering`
 :   Given a class defining one or more rich comparison ordering methods, this
     class decorator supplies the rest. This simplifies the effort involved
     in specifying all of the possible rich comparison operations:
@@ -320,7 +320,7 @@ functools.cmp_to_key(*func*)
     Changed in version 3.4: Returning `NotImplemented` from the underlying comparison function for
     unrecognised types is now supported.
 
-functools.partial(*func*, */*, *\*args*, *\*\*keywords*)
+`functools.partial(func, /, *args, **keywords)`
 :   Return a new [partial object](functools.md#partial-objects) which when called
     will behave like *func* called with the positional arguments *args*
     and keyword arguments *keywords*. If more arguments are supplied to the
@@ -353,7 +353,7 @@ functools.partial(*func*, */*, *\*args*, *\*\*keywords*)
     18
     ```
 
-*class* functools.partialmethod(*func*, */*, *\*args*, *\*\*keywords*)
+`class functools.partialmethod(func, /, *args, **keywords)`
 :   Return a new [`partialmethod`](functools.md#functools.partialmethod "functools.partialmethod") descriptor which behaves
     like [`partial`](functools.md#functools.partial "functools.partial") except that it is designed to be used as a method
     definition rather than being directly callable.
@@ -397,7 +397,7 @@ functools.partial(*func*, */*, *\*args*, *\*\*keywords*)
 
     Added in version 3.4.
 
-functools.reduce(*function*, *iterable*[, *initializer*])
+`functools.reduce(function, iterable[, initializer])`
 :   Apply *function* of two arguments cumulatively to the items of *iterable*, from
     left to right, so as to reduce the iterable to a single value. For example,
     `reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])` calculates `((((1+2)+3)+4)+5)`.
@@ -424,7 +424,7 @@ functools.reduce(*function*, *iterable*[, *initializer*])
     See [`itertools.accumulate()`](itertools.md#itertools.accumulate "itertools.accumulate") for an iterator that yields all intermediate
     values.
 
-@functools.singledispatch
+`@functools.singledispatch`
 :   Transform a function into a [single-dispatch](https://docs.python.org/3.12/glossary.html#term-single-dispatch) [generic function](https://docs.python.org/3.12/glossary.html#term-generic-function).
 
     To define a generic function, decorate it with the `@singledispatch`
@@ -615,7 +615,7 @@ functools.reduce(*function*, *iterable*[, *initializer*])
     Changed in version 3.11: The `register()` attribute now supports [`types.UnionType`](types.md#types.UnionType "types.UnionType")
     and [`typing.Union`](typing.md#typing.Union "typing.Union") as type annotations.
 
-*class* functools.singledispatchmethod(*func*)
+`class functools.singledispatchmethod(func)`
 :   Transform a method into a [single-dispatch](https://docs.python.org/3.12/glossary.html#term-single-dispatch) [generic function](https://docs.python.org/3.12/glossary.html#term-generic-function).
 
     To define a generic method, decorate it with the `@singledispatchmethod`
@@ -668,7 +668,7 @@ functools.reduce(*function*, *iterable*[, *initializer*])
 
     Added in version 3.8.
 
-functools.update_wrapper(*wrapper*, *wrapped*, *assigned=WRAPPER_ASSIGNMENTS*, *updated=WRAPPER_UPDATES*)
+`functools.update_wrapper(wrapper, wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)`
 :   Update a *wrapper* function to look like the *wrapped* function. The optional
     arguments are tuples to specify which attributes of the original function are
     assigned directly to the matching attributes on the wrapper function and which
@@ -708,7 +708,7 @@ functools.update_wrapper(*wrapper*, *wrapped*, *assigned=WRAPPER_ASSIGNMENTS*, *
 
     Changed in version 3.12: The [`__type_params__`](https://docs.python.org/3.12/reference/datamodel.html#function.__type_params__ "function.__type_params__") attribute is now copied by default.
 
-@functools.wraps(*wrapped*, *assigned=WRAPPER_ASSIGNMENTS*, *updated=WRAPPER_UPDATES*)
+`@functools.wraps(wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)`
 :   This is a convenience function for invoking [`update_wrapper()`](functools.md#functools.update_wrapper "functools.update_wrapper") as a
     function decorator when defining a wrapper function. It is equivalent to
     `partial(update_wrapper, wrapped=wrapped, assigned=assigned, updated=updated)`.
@@ -746,15 +746,15 @@ functools.update_wrapper(*wrapper*, *wrapped*, *assigned=WRAPPER_ASSIGNMENTS*, *
 [`partial`](functools.md#functools.partial "functools.partial") objects are callable objects created by [`partial()`](functools.md#functools.partial "functools.partial"). They
 have three read-only attributes:
 
-partial.func
+`partial.func`
 :   A callable object or function. Calls to the [`partial`](functools.md#functools.partial "functools.partial") object will be
     forwarded to [`func`](functools.md#functools.partial.func "functools.partial.func") with new arguments and keywords.
 
-partial.args
+`partial.args`
 :   The leftmost positional arguments that will be prepended to the positional
     arguments provided to a [`partial`](functools.md#functools.partial "functools.partial") object call.
 
-partial.keywords
+`partial.keywords`
 :   The keyword arguments that will be supplied when the [`partial`](functools.md#functools.partial "functools.partial") object is
     called.
 

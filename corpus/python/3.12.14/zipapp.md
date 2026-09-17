@@ -45,7 +45,7 @@ displayed if the –info option is specified).
 
 The following options are understood:
 
--o <output>, --output=<output>
+`-o <output>, --output=<output>`
 :   Write the output to a file named *output*. If this option is not specified,
     the output filename will be the same as the input *source*, with the
     extension `.pyz` added. If an explicit filename is given, it is used as
@@ -54,12 +54,12 @@ The following options are understood:
     An output filename must be specified if the *source* is an archive (and in
     that case, *output* must not be the same as *source*).
 
--p <interpreter>, --python=<interpreter>
+`-p <interpreter>, --python=<interpreter>`
 :   Add a `#!` line to the archive specifying *interpreter* as the command
     to run. Also, on POSIX, make the archive executable. The default is to
     write no `#!` line, and not make the file executable.
 
--m <mainfn>, --main=<mainfn>
+`-m <mainfn>, --main=<mainfn>`
 :   Write a `__main__.py` file to the archive that executes *mainfn*. The
     *mainfn* argument should have the form “pkg.mod:fn”, where “pkg.mod” is a
     package/module in the archive, and “fn” is a callable in the given module.
@@ -67,7 +67,7 @@ The following options are understood:
 
     [`--main`](zipapp.md#cmdoption-zipapp-m) cannot be specified when copying an archive.
 
--c, --compress
+`-c, --compress`
 :   Compress files with the deflate method, reducing the size of the output
     file. By default, files are stored uncompressed in the archive.
 
@@ -75,19 +75,19 @@ The following options are understood:
 
     Added in version 3.7.
 
---info
+`--info`
 :   Display the interpreter embedded in the archive, for diagnostic purposes. In
     this case, any other options are ignored and SOURCE must be an archive, not a
     directory.
 
--h, --help
+`-h, --help`
 :   Print a short usage message and exit.
 
 ## Python API
 
 The module defines two convenience functions:
 
-zipapp.create_archive(*source*, *target=None*, *interpreter=None*, *main=None*, *filter=None*, *compressed=False*)
+`zipapp.create_archive(source, target=None, interpreter=None, main=None, filter=None, compressed=False)`
 :   Create an application archive from *source*. The source can be any
     of the following:
 
@@ -152,7 +152,7 @@ zipapp.create_archive(*source*, *target=None*, *interpreter=None*, *main=None*, 
 
     Changed in version 3.7: Added the *filter* and *compressed* parameters.
 
-zipapp.get_interpreter(*archive*)
+`zipapp.get_interpreter(archive)`
 :   Return the interpreter specified in the `#!` line at the start of the
     archive. If there is no `#!` line, return [`None`](constants.md#None "None").
     The *archive* argument can be a filename or a file-like object open

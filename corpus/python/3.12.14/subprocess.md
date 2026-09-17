@@ -39,7 +39,7 @@ The recommended approach to invoking subprocesses is to use the [`run()`](subpro
 function for all use cases it can handle. For more advanced use cases, the
 underlying [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") interface can be used directly.
 
-subprocess.run(*args*, *\**, *stdin=None*, *input=None*, *stdout=None*, *stderr=None*, *capture_output=False*, *shell=False*, *cwd=None*, *timeout=None*, *check=False*, *encoding=None*, *errors=None*, *text=None*, *env=None*, *universal_newlines=None*, *\*\*other_popen_kwargs*)
+`subprocess.run(args, *, stdin=None, input=None, stdout=None, stderr=None, capture_output=False, shell=False, cwd=None, timeout=None, check=False, encoding=None, errors=None, text=None, env=None, universal_newlines=None, **other_popen_kwargs)`
 :   Run the command described by *args*. Wait for command to complete, then
     return a [`CompletedProcess`](subprocess.md#subprocess.CompletedProcess "subprocess.CompletedProcess") instance.
 
@@ -121,20 +121,20 @@ subprocess.run(*args*, *\**, *stdin=None*, *input=None*, *stdout=None*, *stderr=
     malicious program named `cmd.exe` into a current directory no
     longer works.
 
-*class* subprocess.CompletedProcess
+`class subprocess.CompletedProcess`
 :   The return value from [`run()`](subprocess.md#subprocess.run "subprocess.run"), representing a process that has finished.
 
-    args
+    `args`
     :   The arguments used to launch the process. This may be a list or a string.
 
-    returncode
+    `returncode`
     :   Exit status of the child process. Typically, an exit status of 0 indicates
         that it ran successfully.
 
         A negative value `-N` indicates that the child was terminated by signal
         `N` (POSIX only).
 
-    stdout
+    `stdout`
     :   Captured stdout from the child process. A bytes sequence, or a string if
         [`run()`](subprocess.md#subprocess.run "subprocess.run") was called with an encoding, errors, or text=True.
         `None` if stdout was not captured.
@@ -143,59 +143,59 @@ subprocess.run(*args*, *\**, *stdin=None*, *input=None*, *stdout=None*, *stderr=
         stderr will be combined in this attribute, and [`stderr`](subprocess.md#subprocess.CompletedProcess.stderr "subprocess.CompletedProcess.stderr") will be
         `None`.
 
-    stderr
+    `stderr`
     :   Captured stderr from the child process. A bytes sequence, or a string if
         [`run()`](subprocess.md#subprocess.run "subprocess.run") was called with an encoding, errors, or text=True.
         `None` if stderr was not captured.
 
-    check_returncode()
+    `check_returncode()`
     :   If [`returncode`](subprocess.md#subprocess.CompletedProcess.returncode "subprocess.CompletedProcess.returncode") is non-zero, raise a [`CalledProcessError`](subprocess.md#subprocess.CalledProcessError "subprocess.CalledProcessError").
 
     Added in version 3.5.
 
-subprocess.DEVNULL
+`subprocess.DEVNULL`
 :   Special value that can be used as the *stdin*, *stdout* or *stderr* argument
     to [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") and indicates that the special file [`os.devnull`](os.md#os.devnull "os.devnull")
     will be used.
 
     Added in version 3.3.
 
-subprocess.PIPE
+`subprocess.PIPE`
 :   Special value that can be used as the *stdin*, *stdout* or *stderr* argument
     to [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") and indicates that a pipe to the standard stream should be
     opened. Most useful with [`Popen.communicate()`](subprocess.md#subprocess.Popen.communicate "subprocess.Popen.communicate").
 
-subprocess.STDOUT
+`subprocess.STDOUT`
 :   Special value that can be used as the *stderr* argument to [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") and
     indicates that standard error should go into the same handle as standard
     output.
 
-*exception* subprocess.SubprocessError
+`exception subprocess.SubprocessError`
 :   Base class for all other exceptions from this module.
 
     Added in version 3.3.
 
-*exception* subprocess.TimeoutExpired
+`exception subprocess.TimeoutExpired`
 :   Subclass of [`SubprocessError`](subprocess.md#subprocess.SubprocessError "subprocess.SubprocessError"), raised when a timeout expires
     while waiting for a child process.
 
-    cmd
+    `cmd`
     :   Command that was used to spawn the child process.
 
-    timeout
+    `timeout`
     :   Timeout in seconds.
 
-    output
+    `output`
     :   Output of the child process if it was captured by [`run()`](subprocess.md#subprocess.run "subprocess.run") or
         [`check_output()`](subprocess.md#subprocess.check_output "subprocess.check_output"). Otherwise, `None`. This is always
         [`bytes`](stdtypes.md#bytes "bytes") when any output was captured regardless of the
         `text=True` setting. It may remain `None` instead of `b''`
         when no output was observed.
 
-    stdout
+    `stdout`
     :   Alias for output, for symmetry with [`stderr`](subprocess.md#subprocess.TimeoutExpired.stderr "subprocess.TimeoutExpired.stderr").
 
-    stderr
+    `stderr`
     :   Stderr output of the child process if it was captured by [`run()`](subprocess.md#subprocess.run "subprocess.run").
         Otherwise, `None`. This is always [`bytes`](stdtypes.md#bytes "bytes") when stderr output
         was captured regardless of the `text=True` setting. It may remain
@@ -205,26 +205,26 @@ subprocess.STDOUT
 
     Changed in version 3.5: *stdout* and *stderr* attributes added
 
-*exception* subprocess.CalledProcessError
+`exception subprocess.CalledProcessError`
 :   Subclass of [`SubprocessError`](subprocess.md#subprocess.SubprocessError "subprocess.SubprocessError"), raised when a process run by
     [`check_call()`](subprocess.md#subprocess.check_call "subprocess.check_call"), [`check_output()`](subprocess.md#subprocess.check_output "subprocess.check_output"), or [`run()`](subprocess.md#subprocess.run "subprocess.run") (with `check=True`)
     returns a non-zero exit status.
 
-    returncode
+    `returncode`
     :   Exit status of the child process. If the process exited due to a
         signal, this will be the negative signal number.
 
-    cmd
+    `cmd`
     :   Command that was used to spawn the child process.
 
-    output
+    `output`
     :   Output of the child process if it was captured by [`run()`](subprocess.md#subprocess.run "subprocess.run") or
         [`check_output()`](subprocess.md#subprocess.check_output "subprocess.check_output"). Otherwise, `None`.
 
-    stdout
+    `stdout`
     :   Alias for output, for symmetry with [`stderr`](subprocess.md#subprocess.CalledProcessError.stderr "subprocess.CalledProcessError.stderr").
 
-    stderr
+    `stderr`
     :   Stderr output of the child process if it was captured by [`run()`](subprocess.md#subprocess.run "subprocess.run").
         Otherwise, `None`.
 
@@ -310,7 +310,7 @@ the [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") class. It offer
 are able to handle the less common cases not covered by the convenience
 functions.
 
-*class* subprocess.Popen(*args*, *bufsize=-1*, *executable=None*, *stdin=None*, *stdout=None*, *stderr=None*, *preexec_fn=None*, *close_fds=True*, *shell=False*, *cwd=None*, *env=None*, *universal_newlines=None*, *startupinfo=None*, *creationflags=0*, *restore_signals=True*, *start_new_session=False*, *pass_fds=()*, *\**, *group=None*, *extra_groups=None*, *user=None*, *umask=-1*, *encoding=None*, *errors=None*, *text=None*, *pipesize=-1*, *process_group=None*)
+`class subprocess.Popen(args, bufsize=-1, executable=None, stdin=None, stdout=None, stderr=None, preexec_fn=None, close_fds=True, shell=False, cwd=None, env=None, universal_newlines=None, startupinfo=None, creationflags=0, restore_signals=True, start_new_session=False, pass_fds=(), *, group=None, extra_groups=None, user=None, umask=-1, encoding=None, errors=None, text=None, pipesize=-1, process_group=None)`
 :   Execute a child program in a new process. On POSIX, the class uses
     [`os.execvpe()`](os.md#os.execvpe "os.execvpe")-like behavior to execute the child program. On Windows,
     the class uses the Windows `CreateProcess()` function. The arguments to
@@ -707,11 +707,11 @@ for additional discussion.
 
 Instances of the [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") class have the following methods:
 
-Popen.poll()
+`Popen.poll()`
 :   Check if child process has terminated. Set and return
     [`returncode`](subprocess.md#subprocess.Popen.returncode "subprocess.Popen.returncode") attribute. Otherwise, returns `None`.
 
-Popen.wait(*timeout=None*)
+`Popen.wait(timeout=None)`
 :   Wait for child process to terminate. Set and return
     [`returncode`](subprocess.md#subprocess.Popen.returncode "subprocess.Popen.returncode") attribute.
 
@@ -735,7 +735,7 @@ Popen.wait(*timeout=None*)
 
     Changed in version 3.3: *timeout* was added.
 
-Popen.communicate(*input=None*, *timeout=None*)
+`Popen.communicate(input=None, timeout=None)`
 :   Interact with process: Send data to stdin. Read data from stdout and stderr,
     until end-of-file is reached. Wait for process to terminate and set the
     [`returncode`](subprocess.md#subprocess.Popen.returncode "subprocess.Popen.returncode") attribute. The optional *input* argument should be
@@ -776,7 +776,7 @@ Popen.communicate(*input=None*, *timeout=None*)
 
     Changed in version 3.3: *timeout* was added.
 
-Popen.send_signal(*signal*)
+`Popen.send_signal(signal)`
 :   Sends the signal *signal* to the child.
 
     Do nothing if the process completed.
@@ -787,32 +787,32 @@ Popen.send_signal(*signal*)
     > CTRL_BREAK_EVENT can be sent to processes started with a *creationflags*
     > parameter which includes `CREATE_NEW_PROCESS_GROUP`.
 
-Popen.terminate()
+`Popen.terminate()`
 :   Stop the child. On POSIX OSs the method sends [`SIGTERM`](signal.md#signal.SIGTERM "signal.SIGTERM") to the
     child. On Windows the Win32 API function `TerminateProcess()` is called
     to stop the child.
 
-Popen.kill()
+`Popen.kill()`
 :   Kills the child. On POSIX OSs the function sends SIGKILL to the child.
     On Windows [`kill()`](subprocess.md#subprocess.Popen.kill "subprocess.Popen.kill") is an alias for [`terminate()`](subprocess.md#subprocess.Popen.terminate "subprocess.Popen.terminate").
 
 The following attributes are also set by the class for you to access.
 Reassigning them to new values is unsupported:
 
-Popen.args
+`Popen.args`
 :   The *args* argument as it was passed to [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") – a
     sequence of program arguments or else a single string.
 
     Added in version 3.3.
 
-Popen.stdin
+`Popen.stdin`
 :   If the *stdin* argument was [`PIPE`](subprocess.md#subprocess.PIPE "subprocess.PIPE"), this attribute is a writeable
     stream object as returned by [`open()`](functions.md#open "open"). If the *encoding* or *errors*
     arguments were specified or the *text* or *universal_newlines* argument
     was `True`, the stream is a text stream, otherwise it is a byte stream.
     If the *stdin* argument was not [`PIPE`](subprocess.md#subprocess.PIPE "subprocess.PIPE"), this attribute is `None`.
 
-Popen.stdout
+`Popen.stdout`
 :   If the *stdout* argument was [`PIPE`](subprocess.md#subprocess.PIPE "subprocess.PIPE"), this attribute is a readable
     stream object as returned by [`open()`](functions.md#open "open"). Reading from the stream provides
     output from the child process. If the *encoding* or *errors* arguments were
@@ -820,7 +820,7 @@ Popen.stdout
     stream is a text stream, otherwise it is a byte stream. If the *stdout*
     argument was not [`PIPE`](subprocess.md#subprocess.PIPE "subprocess.PIPE"), this attribute is `None`.
 
-Popen.stderr
+`Popen.stderr`
 :   If the *stderr* argument was [`PIPE`](subprocess.md#subprocess.PIPE "subprocess.PIPE"), this attribute is a readable
     stream object as returned by [`open()`](functions.md#open "open"). Reading from the stream provides
     error output from the child process. If the *encoding* or *errors* arguments
@@ -835,13 +835,13 @@ Popen.stderr
 > deadlocks due to any of the other OS pipe buffers filling up and blocking the
 > child process.
 
-Popen.pid
+`Popen.pid`
 :   The process ID of the child process.
 
     Note that if you set the *shell* argument to `True`, this is the process ID
     of the spawned shell.
 
-Popen.returncode
+`Popen.returncode`
 :   The child return code. Initially `None`, [`returncode`](subprocess.md#subprocess.Popen.returncode "subprocess.Popen.returncode") is set by
     a call to the [`poll()`](subprocess.md#subprocess.Popen.poll "subprocess.Popen.poll"), [`wait()`](subprocess.md#subprocess.Popen.wait "subprocess.Popen.wait"), or [`communicate()`](subprocess.md#subprocess.Popen.communicate "subprocess.Popen.communicate") methods
     if they detect that the process has terminated.
@@ -857,7 +857,7 @@ Popen.returncode
 The [`STARTUPINFO`](subprocess.md#subprocess.STARTUPINFO "subprocess.STARTUPINFO") class and following constants are only available
 on Windows.
 
-*class* subprocess.STARTUPINFO(*\**, *dwFlags=0*, *hStdInput=None*, *hStdOutput=None*, *hStdError=None*, *wShowWindow=0*, *lpAttributeList=None*)
+`class subprocess.STARTUPINFO(*, dwFlags=0, hStdInput=None, hStdOutput=None, hStdError=None, wShowWindow=0, lpAttributeList=None)`
 :   Partial support of the Windows
     [STARTUPINFO](https://msdn.microsoft.com/en-us/library/ms686331(v=vs.85).aspx)
     structure is used for [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") creation. The following attributes can
@@ -865,7 +865,7 @@ on Windows.
 
     Changed in version 3.7: Keyword-only argument support was added.
 
-    dwFlags
+    `dwFlags`
     :   A bit field that determines whether certain [`STARTUPINFO`](subprocess.md#subprocess.STARTUPINFO "subprocess.STARTUPINFO")
         attributes are used when the process creates a window.
 
@@ -874,24 +874,24 @@ on Windows.
         si.dwFlags = subprocess.STARTF_USESTDHANDLES | subprocess.STARTF_USESHOWWINDOW
         ```
 
-    hStdInput
+    `hStdInput`
     :   If [`dwFlags`](subprocess.md#subprocess.STARTUPINFO.dwFlags "subprocess.STARTUPINFO.dwFlags") specifies [`STARTF_USESTDHANDLES`](subprocess.md#subprocess.STARTF_USESTDHANDLES "subprocess.STARTF_USESTDHANDLES"), this attribute
         is the standard input handle for the process. If
         [`STARTF_USESTDHANDLES`](subprocess.md#subprocess.STARTF_USESTDHANDLES "subprocess.STARTF_USESTDHANDLES") is not specified, the default for standard
         input is the keyboard buffer.
 
-    hStdOutput
+    `hStdOutput`
     :   If [`dwFlags`](subprocess.md#subprocess.STARTUPINFO.dwFlags "subprocess.STARTUPINFO.dwFlags") specifies [`STARTF_USESTDHANDLES`](subprocess.md#subprocess.STARTF_USESTDHANDLES "subprocess.STARTF_USESTDHANDLES"), this attribute
         is the standard output handle for the process. Otherwise, this attribute
         is ignored and the default for standard output is the console window’s
         buffer.
 
-    hStdError
+    `hStdError`
     :   If [`dwFlags`](subprocess.md#subprocess.STARTUPINFO.dwFlags "subprocess.STARTUPINFO.dwFlags") specifies [`STARTF_USESTDHANDLES`](subprocess.md#subprocess.STARTF_USESTDHANDLES "subprocess.STARTF_USESTDHANDLES"), this attribute
         is the standard error handle for the process. Otherwise, this attribute is
         ignored and the default for standard error is the console window’s buffer.
 
-    wShowWindow
+    `wShowWindow`
     :   If [`dwFlags`](subprocess.md#subprocess.STARTUPINFO.dwFlags "subprocess.STARTUPINFO.dwFlags") specifies [`STARTF_USESHOWWINDOW`](subprocess.md#subprocess.STARTF_USESHOWWINDOW "subprocess.STARTF_USESHOWWINDOW"), this attribute
         can be any of the values that can be specified in the `nCmdShow`
         parameter for the
@@ -902,7 +902,7 @@ on Windows.
         [`SW_HIDE`](subprocess.md#subprocess.SW_HIDE "subprocess.SW_HIDE") is provided for this attribute. It is used when
         [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") is called with `shell=True`.
 
-    lpAttributeList
+    `lpAttributeList`
     :   A dictionary of additional attributes for process creation as given in
         `STARTUPINFOEX`, see
         [UpdateProcThreadAttribute](https://msdn.microsoft.com/en-us/library/windows/desktop/ms686880(v=vs.85).aspx).
@@ -933,72 +933,72 @@ on Windows.
 
 The [`subprocess`](subprocess.md#module-subprocess "subprocess: Subprocess management.") module exposes the following constants.
 
-subprocess.STD_INPUT_HANDLE
+`subprocess.STD_INPUT_HANDLE`
 :   The standard input device. Initially, this is the console input buffer,
     `CONIN$`.
 
-subprocess.STD_OUTPUT_HANDLE
+`subprocess.STD_OUTPUT_HANDLE`
 :   The standard output device. Initially, this is the active console screen
     buffer, `CONOUT$`.
 
-subprocess.STD_ERROR_HANDLE
+`subprocess.STD_ERROR_HANDLE`
 :   The standard error device. Initially, this is the active console screen
     buffer, `CONOUT$`.
 
-subprocess.SW_HIDE
+`subprocess.SW_HIDE`
 :   Hides the window. Another window will be activated.
 
-subprocess.STARTF_USESTDHANDLES
+`subprocess.STARTF_USESTDHANDLES`
 :   Specifies that the [`STARTUPINFO.hStdInput`](subprocess.md#subprocess.STARTUPINFO.hStdInput "subprocess.STARTUPINFO.hStdInput"),
     [`STARTUPINFO.hStdOutput`](subprocess.md#subprocess.STARTUPINFO.hStdOutput "subprocess.STARTUPINFO.hStdOutput"), and [`STARTUPINFO.hStdError`](subprocess.md#subprocess.STARTUPINFO.hStdError "subprocess.STARTUPINFO.hStdError") attributes
     contain additional information.
 
-subprocess.STARTF_USESHOWWINDOW
+`subprocess.STARTF_USESHOWWINDOW`
 :   Specifies that the [`STARTUPINFO.wShowWindow`](subprocess.md#subprocess.STARTUPINFO.wShowWindow "subprocess.STARTUPINFO.wShowWindow") attribute contains
     additional information.
 
-subprocess.CREATE_NEW_CONSOLE
+`subprocess.CREATE_NEW_CONSOLE`
 :   The new process has a new console, instead of inheriting its parent’s
     console (the default).
 
-subprocess.CREATE_NEW_PROCESS_GROUP
+`subprocess.CREATE_NEW_PROCESS_GROUP`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     group will be created. This flag is necessary for using [`os.kill()`](os.md#os.kill "os.kill")
     on the subprocess.
 
     This flag is ignored if [`CREATE_NEW_CONSOLE`](subprocess.md#subprocess.CREATE_NEW_CONSOLE "subprocess.CREATE_NEW_CONSOLE") is specified.
 
-subprocess.ABOVE_NORMAL_PRIORITY_CLASS
+`subprocess.ABOVE_NORMAL_PRIORITY_CLASS`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will have an above average priority.
 
     Added in version 3.7.
 
-subprocess.BELOW_NORMAL_PRIORITY_CLASS
+`subprocess.BELOW_NORMAL_PRIORITY_CLASS`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will have a below average priority.
 
     Added in version 3.7.
 
-subprocess.HIGH_PRIORITY_CLASS
+`subprocess.HIGH_PRIORITY_CLASS`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will have a high priority.
 
     Added in version 3.7.
 
-subprocess.IDLE_PRIORITY_CLASS
+`subprocess.IDLE_PRIORITY_CLASS`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will have an idle (lowest) priority.
 
     Added in version 3.7.
 
-subprocess.NORMAL_PRIORITY_CLASS
+`subprocess.NORMAL_PRIORITY_CLASS`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will have a normal priority. (default)
 
     Added in version 3.7.
 
-subprocess.REALTIME_PRIORITY_CLASS
+`subprocess.REALTIME_PRIORITY_CLASS`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will have realtime priority.
     You should almost never use REALTIME_PRIORITY_CLASS, because this interrupts
@@ -1008,20 +1008,20 @@ subprocess.REALTIME_PRIORITY_CLASS
 
     Added in version 3.7.
 
-subprocess.CREATE_NO_WINDOW
+`subprocess.CREATE_NO_WINDOW`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will not create a window.
 
     Added in version 3.7.
 
-subprocess.DETACHED_PROCESS
+`subprocess.DETACHED_PROCESS`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     will not inherit its parent’s console.
     This value cannot be used with CREATE_NEW_CONSOLE.
 
     Added in version 3.7.
 
-subprocess.CREATE_DEFAULT_ERROR_MODE
+`subprocess.CREATE_DEFAULT_ERROR_MODE`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     does not inherit the error mode of the calling process. Instead, the new
     process gets the default error mode.
@@ -1030,7 +1030,7 @@ subprocess.CREATE_DEFAULT_ERROR_MODE
 
     Added in version 3.7.
 
-subprocess.CREATE_BREAKAWAY_FROM_JOB
+`subprocess.CREATE_BREAKAWAY_FROM_JOB`
 :   A [`Popen`](subprocess.md#subprocess.Popen "subprocess.Popen") `creationflags` parameter to specify that a new process
     is not associated with the job.
 
@@ -1042,7 +1042,7 @@ Prior to Python 3.5, these three functions comprised the high level API to
 subprocess. You can now use [`run()`](subprocess.md#subprocess.run "subprocess.run") in many cases, but lots of existing code
 calls these functions.
 
-subprocess.call(*args*, *\**, *stdin=None*, *stdout=None*, *stderr=None*, *shell=False*, *cwd=None*, *timeout=None*, *\*\*other_popen_kwargs*)
+`subprocess.call(args, *, stdin=None, stdout=None, stderr=None, shell=False, cwd=None, timeout=None, **other_popen_kwargs)`
 :   Run the command described by *args*. Wait for command to complete, then
     return the [`returncode`](subprocess.md#subprocess.Popen.returncode "subprocess.Popen.returncode") attribute.
 
@@ -1074,7 +1074,7 @@ subprocess.call(*args*, *\**, *stdin=None*, *stdout=None*, *stderr=None*, *shell
     malicious program named `cmd.exe` into a current directory no
     longer works.
 
-subprocess.check_call(*args*, *\**, *stdin=None*, *stdout=None*, *stderr=None*, *shell=False*, *cwd=None*, *timeout=None*, *\*\*other_popen_kwargs*)
+`subprocess.check_call(args, *, stdin=None, stdout=None, stderr=None, shell=False, cwd=None, timeout=None, **other_popen_kwargs)`
 :   Run command with arguments. Wait for command to complete. If the return
     code was zero then return, otherwise raise [`CalledProcessError`](subprocess.md#subprocess.CalledProcessError "subprocess.CalledProcessError"). The
     [`CalledProcessError`](subprocess.md#subprocess.CalledProcessError "subprocess.CalledProcessError") object will have the return code in the
@@ -1110,7 +1110,7 @@ subprocess.check_call(*args*, *\**, *stdin=None*, *stdout=None*, *stderr=None*, 
     malicious program named `cmd.exe` into a current directory no
     longer works.
 
-subprocess.check_output(*args*, *\**, *stdin=None*, *stderr=None*, *shell=False*, *cwd=None*, *encoding=None*, *errors=None*, *universal_newlines=None*, *timeout=None*, *text=None*, *\*\*other_popen_kwargs*)
+`subprocess.check_output(args, *, stdin=None, stderr=None, shell=False, cwd=None, encoding=None, errors=None, universal_newlines=None, timeout=None, text=None, **other_popen_kwargs)`
 :   Run command with arguments and return its output.
 
     If the return code was non-zero it raises a [`CalledProcessError`](subprocess.md#subprocess.CalledProcessError "subprocess.CalledProcessError"). The
@@ -1377,7 +1377,7 @@ This module also provides the following legacy functions from the 2.x
 none of the guarantees described above regarding security and exception
 handling consistency are valid for these functions.
 
-subprocess.getstatusoutput(*cmd*, *\**, *encoding=None*, *errors=None*)
+`subprocess.getstatusoutput(cmd, *, encoding=None, errors=None)`
 :   Return `(exitcode, output)` of executing *cmd* in a shell.
 
     Execute the string *cmd* in a shell with `Popen.check_output()` and
@@ -1410,7 +1410,7 @@ subprocess.getstatusoutput(*cmd*, *\**, *encoding=None*, *errors=None*)
 
     Changed in version 3.11: Added the *encoding* and *errors* parameters.
 
-subprocess.getoutput(*cmd*, *\**, *encoding=None*, *errors=None*)
+`subprocess.getoutput(cmd, *, encoding=None, errors=None)`
 :   Return output (stdout and stderr) of executing *cmd* in a shell.
 
     Like [`getstatusoutput()`](subprocess.md#subprocess.getstatusoutput "subprocess.getstatusoutput"), except the exit code is ignored and the return

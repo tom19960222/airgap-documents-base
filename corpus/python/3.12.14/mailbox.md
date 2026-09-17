@@ -25,7 +25,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
 ## `Mailbox` objects
 
-*class* mailbox.Mailbox
+`class mailbox.Mailbox`
 :   A mailbox, which may be inspected and modified.
 
     The `Mailbox` class defines an interface and is not intended to be
@@ -74,7 +74,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
     `Mailbox` instances have the following methods:
 
-    add(*message*)
+    `add(message)`
     :   Add *message* to the mailbox and return the key that has been assigned to
         it.
 
@@ -89,11 +89,11 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
         Changed in version 3.2: Support for binary input was added.
 
-    remove(*key*)
+    `remove(key)`
 
-    __delitem__(*key*)
+    `__delitem__(key)`
 
-    discard(*key*)
+    `discard(key)`
     :   Delete the message corresponding to *key* from the mailbox.
 
         If no such message exists, a [`KeyError`](exceptions.md#KeyError "KeyError") exception is raised if the
@@ -102,7 +102,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         behavior of [`discard()`](mailbox.md#mailbox.Mailbox.discard "mailbox.Mailbox.discard") may be preferred if the underlying mailbox
         format supports concurrent modification by other processes.
 
-    __setitem__(*key*, *message*)
+    `__setitem__(key, message)`
     :   Replace the message corresponding to *key* with *message*. Raise a
         [`KeyError`](exceptions.md#KeyError "KeyError") exception if no message already corresponds to *key*.
 
@@ -116,16 +116,16 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         used. Otherwise, the format-specific information of the message that
         currently corresponds to *key* is left unchanged.
 
-    iterkeys()
+    `iterkeys()`
     :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) over all keys
 
-    keys()
+    `keys()`
     :   The same as [`iterkeys()`](mailbox.md#mailbox.Mailbox.iterkeys "mailbox.Mailbox.iterkeys"), except that a [`list`](stdtypes.md#list "list") is returned
         rather than an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator)
 
-    itervalues()
+    `itervalues()`
 
-    __iter__()
+    `__iter__()`
     :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) over representations of all messages.
         The messages are represented
         as instances of the appropriate format-specific [`Message`](mailbox.md#mailbox.Message "mailbox.Message") subclass
@@ -137,24 +137,24 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         > The behavior of [`__iter__()`](mailbox.md#mailbox.Mailbox.__iter__ "mailbox.Mailbox.__iter__") is unlike that of dictionaries, which
         > iterate over keys.
 
-    values()
+    `values()`
     :   The same as [`itervalues()`](mailbox.md#mailbox.Mailbox.itervalues "mailbox.Mailbox.itervalues"), except that a [`list`](stdtypes.md#list "list") is returned
         rather than an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator)
 
-    iteritems()
+    `iteritems()`
     :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) over (*key*, *message*) pairs, where *key* is
         a key and *message* is a message representation. The messages are
         represented as instances of the appropriate format-specific
         [`Message`](mailbox.md#mailbox.Message "mailbox.Message") subclass unless a custom message factory was specified
         when the `Mailbox` instance was initialized.
 
-    items()
+    `items()`
     :   The same as [`iteritems()`](mailbox.md#mailbox.Mailbox.iteritems "mailbox.Mailbox.iteritems"), except that a [`list`](stdtypes.md#list "list") of pairs is
         returned rather than an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) of pairs.
 
-    get(*key*, *default=None*)
+    `get(key, default=None)`
 
-    __getitem__(*key*)
+    `__getitem__(key)`
     :   Return a representation of the message corresponding to *key*. If no such
         message exists, *default* is returned if the method was called as
         [`get()`](mailbox.md#mailbox.Mailbox.get "mailbox.Mailbox.get") and a [`KeyError`](exceptions.md#KeyError "KeyError") exception is raised if the method was
@@ -163,24 +163,24 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         custom message factory was specified when the `Mailbox` instance
         was initialized.
 
-    get_message(*key*)
+    `get_message(key)`
     :   Return a representation of the message corresponding to *key* as an
         instance of the appropriate format-specific [`Message`](mailbox.md#mailbox.Message "mailbox.Message") subclass, or
         raise a [`KeyError`](exceptions.md#KeyError "KeyError") exception if no such message exists.
 
-    get_bytes(*key*)
+    `get_bytes(key)`
     :   Return a byte representation of the message corresponding to *key*, or
         raise a [`KeyError`](exceptions.md#KeyError "KeyError") exception if no such message exists.
 
         Added in version 3.2.
 
-    get_string(*key*)
+    `get_string(key)`
     :   Return a string representation of the message corresponding to *key*, or
         raise a [`KeyError`](exceptions.md#KeyError "KeyError") exception if no such message exists. The
         message is processed through [`email.message.Message`](email.compat32-message.md#email.message.Message "email.message.Message") to
         convert it to a 7bit clean representation.
 
-    get_file(*key*)
+    `get_file(key)`
     :   Return a [file-like](https://docs.python.org/3.12/glossary.html#term-file-like-object) representation of the
         message corresponding to *key*,
         or raise a [`KeyError`](exceptions.md#KeyError "KeyError") exception if no such message exists. The
@@ -200,23 +200,23 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         > created them or of the underlying mailbox. More specific documentation
         > is provided by each subclass.
 
-    __contains__(*key*)
+    `__contains__(key)`
     :   Return `True` if *key* corresponds to a message, `False` otherwise.
 
-    __len__()
+    `__len__()`
     :   Return a count of messages in the mailbox.
 
-    clear()
+    `clear()`
     :   Delete all messages from the mailbox.
 
-    pop(*key*, *default=None*)
+    `pop(key, default=None)`
     :   Return a representation of the message corresponding to *key* and delete
         the message. If no such message exists, return *default*. The message is
         represented as an instance of the appropriate format-specific
         [`Message`](mailbox.md#mailbox.Message "mailbox.Message") subclass unless a custom message factory was specified
         when the `Mailbox` instance was initialized.
 
-    popitem()
+    `popitem()`
     :   Return an arbitrary (*key*, *message*) pair, where *key* is a key and
         *message* is a message representation, and delete the corresponding
         message. If the mailbox is empty, raise a [`KeyError`](exceptions.md#KeyError "KeyError") exception. The
@@ -224,7 +224,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         [`Message`](mailbox.md#mailbox.Message "mailbox.Message") subclass unless a custom message factory was specified
         when the `Mailbox` instance was initialized.
 
-    update(*arg*)
+    `update(arg)`
     :   Parameter *arg* should be a *key*-to-*message* mapping or an iterable of
         (*key*, *message*) pairs. Updates the mailbox so that, for each given
         *key* and *message*, the message corresponding to *key* is set to
@@ -237,28 +237,28 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         >
         > Unlike with dictionaries, keyword arguments are not supported.
 
-    flush()
+    `flush()`
     :   Write any pending changes to the filesystem. For some [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox")
         subclasses, changes are always written immediately and `flush()` does
         nothing, but you should still make a habit of calling this method.
 
-    lock()
+    `lock()`
     :   Acquire an exclusive advisory lock on the mailbox so that other processes
         know not to modify it. An [`ExternalClashError`](mailbox.md#mailbox.ExternalClashError "mailbox.ExternalClashError") is raised if the lock
         is not available. The particular locking mechanisms used depend upon the
         mailbox format. You should *always* lock the mailbox before making any
         modifications to its contents.
 
-    unlock()
+    `unlock()`
     :   Release the lock on the mailbox, if any.
 
-    close()
+    `close()`
     :   Flush the mailbox, unlock it if necessary, and close any open files. For
         some `Mailbox` subclasses, this method does nothing.
 
 ### `Maildir` objects
 
-*class* mailbox.Maildir(*dirname*, *factory=None*, *create=True*)
+`class mailbox.Maildir(dirname, factory=None, create=True)`
 :   A subclass of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") for mailboxes in Maildir format. Parameter
     *factory* is a callable object that accepts a file-like message representation
     (which behaves as if opened in binary mode) and returns a custom representation.
@@ -292,7 +292,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     mailbox but should not contain other folders. Instead, a logical nesting is
     indicated using `'.'` to delimit levels, e.g., “Archived.2005.07”.
 
-    colon
+    `colon`
     :   The Maildir specification requires the use of a colon (`':'`) in certain
         message file names. However, some operating systems do not permit this
         character in file names, If you wish to use a Maildir-like format on such
@@ -310,24 +310,24 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     `Maildir` instances have all of the methods of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") in
     addition to the following:
 
-    list_folders()
+    `list_folders()`
     :   Return a list of the names of all folders.
 
-    get_folder(*folder*)
+    `get_folder(folder)`
     :   Return a `Maildir` instance representing the folder whose name is
         *folder*. A [`NoSuchMailboxError`](mailbox.md#mailbox.NoSuchMailboxError "mailbox.NoSuchMailboxError") exception is raised if the folder
         does not exist.
 
-    add_folder(*folder*)
+    `add_folder(folder)`
     :   Create a folder whose name is *folder* and return a `Maildir`
         instance representing it.
 
-    remove_folder(*folder*)
+    `remove_folder(folder)`
     :   Delete the folder whose name is *folder*. If the folder contains any
         messages, a [`NotEmptyError`](mailbox.md#mailbox.NotEmptyError "mailbox.NotEmptyError") exception will be raised and the folder
         will not be deleted.
 
-    clean()
+    `clean()`
     :   Delete temporary files from the mailbox that have not been accessed in the
         last 36 hours. The Maildir specification says that mail-reading programs
         should do this occasionally.
@@ -335,11 +335,11 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     Some [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") methods implemented by `Maildir` deserve special
     remarks:
 
-    add(*message*)
+    `add(message)`
 
-    __setitem__(*key*, *message*)
+    `__setitem__(key, message)`
 
-    update(*arg*)
+    `update(arg)`
     :   > **Warning:**
         >
         > These methods generate unique file names based upon the current process
@@ -347,21 +347,21 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         > cause corruption of the mailbox unless threads are coordinated to avoid
         > using these methods to manipulate the same mailbox simultaneously.
 
-    flush()
+    `flush()`
     :   All changes to Maildir mailboxes are immediately applied, so this method
         does nothing.
 
-    lock()
+    `lock()`
 
-    unlock()
+    `unlock()`
     :   Maildir mailboxes do not support (or require) locking, so these methods do
         nothing.
 
-    close()
+    `close()`
     :   `Maildir` instances do not keep any open files and the underlying
         mailboxes do not support locking, so this method does nothing.
 
-    get_file(*key*)
+    `get_file(key)`
     :   Depending upon the host platform, it may not be possible to modify or
         remove the underlying message while the returned file remains open.
 
@@ -377,7 +377,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
 ### `mbox` objects
 
-*class* mailbox.mbox(*path*, *factory=None*, *create=True*)
+`class mailbox.mbox(path, factory=None, create=True)`
 :   A subclass of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") for mailboxes in mbox format. Parameter *factory*
     is a callable object that accepts a file-like message representation (which
     behaves as if opened in binary mode) and returns a custom representation. If
@@ -400,12 +400,12 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     Some [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") methods implemented by `mbox` deserve special
     remarks:
 
-    get_bytes(*key*, *from_=False*)
+    `get_bytes(key, from_=False)`
     :   Note: This method has an extra parameter (*from_*) compared with other classes.
         The first line of an mbox file entry is the Unix “From “ line.
         If *from_* is False, the first line of the file is dropped.
 
-    get_file(*key*, *from_=False*)
+    `get_file(key, from_=False)`
     :   Using the file after calling [`flush()`](mailbox.md#mailbox.Mailbox.flush "mailbox.Mailbox.flush") or
         [`close()`](mailbox.md#mailbox.Mailbox.close "mailbox.Mailbox.close") on the `mbox` instance may yield
         unpredictable results or raise an exception.
@@ -414,14 +414,14 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         The first line of an mbox file entry is the Unix “From “ line.
         If *from_* is False, the first line of the file is dropped.
 
-    get_string(*key*, *from_=False*)
+    `get_string(key, from_=False)`
     :   Note: This method has an extra parameter (*from_*) compared with other classes.
         The first line of an mbox file entry is the Unix “From “ line.
         If *from_* is False, the first line of the file is dropped.
 
-    lock()
+    `lock()`
 
-    unlock()
+    `unlock()`
     :   Three locking mechanisms are used—dot locking and, if available, the
         `flock()` and `lockf()` system calls.
 
@@ -438,7 +438,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
 ### `MH` objects
 
-*class* mailbox.MH(*path*, *factory=None*, *create=True*)
+`class mailbox.MH(path, factory=None, create=True)`
 :   A subclass of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") for mailboxes in MH format. Parameter *factory*
     is a callable object that accepts a file-like message representation (which
     behaves as if opened in binary mode) and returns a custom representation. If
@@ -462,33 +462,33 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     `MH` instances have all of the methods of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") in addition
     to the following:
 
-    list_folders()
+    `list_folders()`
     :   Return a list of the names of all folders.
 
-    get_folder(*folder*)
+    `get_folder(folder)`
     :   Return an `MH` instance representing the folder whose name is
         *folder*. A [`NoSuchMailboxError`](mailbox.md#mailbox.NoSuchMailboxError "mailbox.NoSuchMailboxError") exception is raised if the folder
         does not exist.
 
-    add_folder(*folder*)
+    `add_folder(folder)`
     :   Create a folder whose name is *folder* and return an `MH` instance
         representing it.
 
-    remove_folder(*folder*)
+    `remove_folder(folder)`
     :   Delete the folder whose name is *folder*. If the folder contains any
         messages, a [`NotEmptyError`](mailbox.md#mailbox.NotEmptyError "mailbox.NotEmptyError") exception will be raised and the folder
         will not be deleted.
 
-    get_sequences()
+    `get_sequences()`
     :   Return a dictionary of sequence names mapped to key lists. If there are no
         sequences, the empty dictionary is returned.
 
-    set_sequences(*sequences*)
+    `set_sequences(sequences)`
     :   Re-define the sequences that exist in the mailbox based upon *sequences*,
         a dictionary of names mapped to key lists, like returned by
         [`get_sequences()`](mailbox.md#mailbox.MH.get_sequences "mailbox.MH.get_sequences").
 
-    pack()
+    `pack()`
     :   Rename messages in the mailbox as necessary to eliminate gaps in
         numbering. Entries in the sequences list are updated correspondingly.
 
@@ -500,32 +500,32 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     Some [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") methods implemented by `MH` deserve special
     remarks:
 
-    remove(*key*)
+    `remove(key)`
 
-    __delitem__(*key*)
+    `__delitem__(key)`
 
-    discard(*key*)
+    `discard(key)`
     :   These methods immediately delete the message. The MH convention of marking
         a message for deletion by prepending a comma to its name is not used.
 
-    lock()
+    `lock()`
 
-    unlock()
+    `unlock()`
     :   Three locking mechanisms are used—dot locking and, if available, the
         `flock()` and `lockf()` system calls. For MH mailboxes, locking
         the mailbox means locking the `.mh_sequences` file and, only for the
         duration of any operations that affect them, locking individual message
         files.
 
-    get_file(*key*)
+    `get_file(key)`
     :   Depending upon the host platform, it may not be possible to remove the
         underlying message while the returned file remains open.
 
-    flush()
+    `flush()`
     :   All changes to MH mailboxes are immediately applied, so this method does
         nothing.
 
-    close()
+    `close()`
     :   `MH` instances do not keep any open files, so this method is
         equivalent to [`unlock()`](mailbox.md#mailbox.MH.unlock "mailbox.MH.unlock").
 
@@ -540,7 +540,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
 ### `Babyl` objects
 
-*class* mailbox.Babyl(*path*, *factory=None*, *create=True*)
+`class mailbox.Babyl(path, factory=None, create=True)`
 :   A subclass of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") for mailboxes in Babyl format. Parameter
     *factory* is a callable object that accepts a file-like message representation
     (which behaves as if opened in binary mode) and returns a custom representation.
@@ -566,7 +566,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     `Babyl` instances have all of the methods of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") in
     addition to the following:
 
-    get_labels()
+    `get_labels()`
     :   Return a list of the names of all user-defined labels used in the mailbox.
 
         > **Note:**
@@ -579,7 +579,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     Some [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") methods implemented by `Babyl` deserve special
     remarks:
 
-    get_file(*key*)
+    `get_file(key)`
     :   In Babyl mailboxes, the headers of a message are not stored contiguously
         with the body of the message. To generate a file-like representation, the
         headers and body are copied together into an [`io.BytesIO`](io.md#io.BytesIO "io.BytesIO") instance,
@@ -588,9 +588,9 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         underlying mailbox but does not save memory compared to a string
         representation.
 
-    lock()
+    `lock()`
 
-    unlock()
+    `unlock()`
     :   Three locking mechanisms are used—dot locking and, if available, the
         `flock()` and `lockf()` system calls.
 
@@ -604,7 +604,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
 ### `MMDF` objects
 
-*class* mailbox.MMDF(*path*, *factory=None*, *create=True*)
+`class mailbox.MMDF(path, factory=None, create=True)`
 :   A subclass of [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") for mailboxes in MMDF format. Parameter *factory*
     is a callable object that accepts a file-like message representation (which
     behaves as if opened in binary mode) and returns a custom representation. If
@@ -624,12 +624,12 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
     Some [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") methods implemented by `MMDF` deserve special
     remarks:
 
-    get_bytes(*key*, *from_=False*)
+    `get_bytes(key, from_=False)`
     :   Note: This method has an extra parameter (*from_*) compared with other classes.
         The first line of an mbox file entry is the Unix “From “ line.
         If *from_* is False, the first line of the file is dropped.
 
-    get_file(*key*, *from_=False*)
+    `get_file(key, from_=False)`
     :   Using the file after calling [`flush()`](mailbox.md#mailbox.Mailbox.flush "mailbox.Mailbox.flush") or
         [`close()`](mailbox.md#mailbox.Mailbox.close "mailbox.Mailbox.close") on the `MMDF` instance may yield
         unpredictable results or raise an exception.
@@ -638,9 +638,9 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         The first line of an mbox file entry is the Unix “From “ line.
         If *from_* is False, the first line of the file is dropped.
 
-    lock()
+    `lock()`
 
-    unlock()
+    `unlock()`
     :   Three locking mechanisms are used—dot locking and, if available, the
         `flock()` and `lockf()` system calls.
 
@@ -655,7 +655,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
 ## `Message` objects
 
-*class* mailbox.Message(*message=None*)
+`class mailbox.Message(message=None)`
 :   A subclass of the [`email.message`](email.message.md#module-email.message "email.message: The base class representing email messages.") module’s
     [`Message`](email.compat32-message.md#email.message.Message "email.message.Message"). Subclasses of `mailbox.Message` add
     mailbox-format-specific state and behavior.
@@ -687,7 +687,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
 ### `MaildirMessage` objects
 
-*class* mailbox.MaildirMessage(*message=None*)
+`class mailbox.MaildirMessage(message=None)`
 :   A message with Maildir-specific behaviors. Parameter *message* has the same
     meaning as with the [`Message`](mailbox.md#mailbox.Message "mailbox.Message") constructor.
 
@@ -713,7 +713,7 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
 
     `MaildirMessage` instances offer the following methods:
 
-    get_subdir()
+    `get_subdir()`
     :   Return either “new” (if the message should be stored in the `new`
         subdirectory) or “cur” (if the message should be stored in the `cur`
         subdirectory).
@@ -725,11 +725,11 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         > read. A message `msg` has been read if `"S" in msg.get_flags()` is
         > `True`.
 
-    set_subdir(*subdir*)
+    `set_subdir(subdir)`
     :   Set the subdirectory the message should be stored in. Parameter *subdir*
         must be either “new” or “cur”.
 
-    get_flags()
+    `get_flags()`
     :   Return a string specifying the flags that are currently set. If the
         message complies with the standard Maildir format, the result is the
         concatenation in alphabetical order of zero or one occurrence of each of
@@ -737,35 +737,35 @@ Supported mailbox formats are Maildir, mbox, MH, Babyl, and MMDF.
         is returned if no flags are set or if “info” contains experimental
         semantics.
 
-    set_flags(*flags*)
+    `set_flags(flags)`
     :   Set the flags specified by *flags* and unset all others.
 
-    add_flag(*flag*)
+    `add_flag(flag)`
     :   Set the flag(s) specified by *flag* without changing other flags. To add
         more than one flag at a time, *flag* may be a string of more than one
         character. The current “info” is overwritten whether or not it contains
         experimental information rather than flags.
 
-    remove_flag(*flag*)
+    `remove_flag(flag)`
     :   Unset the flag(s) specified by *flag* without changing other flags. To
         remove more than one flag at a time, *flag* maybe a string of more than
         one character. If “info” contains experimental information rather than
         flags, the current “info” is not modified.
 
-    get_date()
+    `get_date()`
     :   Return the delivery date of the message as a floating-point number
         representing seconds since the epoch.
 
-    set_date(*date*)
+    `set_date(date)`
     :   Set the delivery date of the message to *date*, a floating-point number
         representing seconds since the epoch.
 
-    get_info()
+    `get_info()`
     :   Return a string containing the “info” for a message. This is useful for
         accessing and modifying “info” that is experimental (i.e., not a list of
         flags).
 
-    set_info(*info*)
+    `set_info(info)`
     :   Set “info” to *info*, which should be a string.
 
 When a `MaildirMessage` instance is created based upon an
@@ -804,7 +804,7 @@ When a `MaildirMessage` instance is created based upon a
 
 ### `mboxMessage` objects
 
-*class* mailbox.mboxMessage(*message=None*)
+`class mailbox.mboxMessage(message=None)`
 :   A message with mbox-specific behaviors. Parameter *message* has the same meaning
     as with the [`Message`](mailbox.md#mailbox.Message "mailbox.Message") constructor.
 
@@ -832,12 +832,12 @@ When a `MaildirMessage` instance is created based upon a
 
     `mboxMessage` instances offer the following methods:
 
-    get_from()
+    `get_from()`
     :   Return a string representing the “From “ line that marks the start of the
         message in an mbox mailbox. The leading “From “ and the trailing newline
         are excluded.
 
-    set_from(*from_*, *time_=None*)
+    `set_from(from_, time_=None)`
     :   Set the “From “ line to *from_*, which should be specified without a
         leading “From “ or trailing newline. For convenience, *time_* may be
         specified and will be formatted appropriately and appended to *from_*. If
@@ -845,23 +845,23 @@ When a `MaildirMessage` instance is created based upon a
         tuple suitable for passing to [`time.strftime()`](time.md#time.strftime "time.strftime"), or `True` (to use
         [`time.gmtime()`](time.md#time.gmtime "time.gmtime")).
 
-    get_flags()
+    `get_flags()`
     :   Return a string specifying the flags that are currently set. If the
         message complies with the conventional format, the result is the
         concatenation in the following order of zero or one occurrence of each of
         `'R'`, `'O'`, `'D'`, `'F'`, and `'A'`.
 
-    set_flags(*flags*)
+    `set_flags(flags)`
     :   Set the flags specified by *flags* and unset all others. Parameter *flags*
         should be the concatenation in any order of zero or more occurrences of
         each of `'R'`, `'O'`, `'D'`, `'F'`, and `'A'`.
 
-    add_flag(*flag*)
+    `add_flag(flag)`
     :   Set the flag(s) specified by *flag* without changing other flags. To add
         more than one flag at a time, *flag* may be a string of more than one
         character.
 
-    remove_flag(*flag*)
+    `remove_flag(flag)`
     :   Unset the flag(s) specified by *flag* without changing other flags. To
         remove more than one flag at a time, *flag* maybe a string of more than
         one character.
@@ -913,7 +913,7 @@ instance, the “From “ line is copied and all flags directly correspond:
 
 ### `MHMessage` objects
 
-*class* mailbox.MHMessage(*message=None*)
+`class mailbox.MHMessage(message=None)`
 :   A message with MH-specific behaviors. Parameter *message* has the same meaning
     as with the [`Message`](mailbox.md#mailbox.Message "mailbox.Message") constructor.
 
@@ -931,16 +931,16 @@ instance, the “From “ line is copied and all flags directly correspond:
 
     `MHMessage` instances offer the following methods:
 
-    get_sequences()
+    `get_sequences()`
     :   Return a list of the names of sequences that include this message.
 
-    set_sequences(*sequences*)
+    `set_sequences(sequences)`
     :   Set the list of sequences that include this message.
 
-    add_sequence(*sequence*)
+    `add_sequence(sequence)`
     :   Add *sequence* to the list of sequences that include this message.
 
-    remove_sequence(*sequence*)
+    `remove_sequence(sequence)`
     :   Remove *sequence* from the list of sequences that include this message.
 
 When an `MHMessage` instance is created based upon a
@@ -973,7 +973,7 @@ When an `MHMessage` instance is created based upon a
 
 ### `BabylMessage` objects
 
-*class* mailbox.BabylMessage(*message=None*)
+`class mailbox.BabylMessage(message=None)`
 :   A message with Babyl-specific behaviors. Parameter *message* has the same
     meaning as with the [`Message`](mailbox.md#mailbox.Message "mailbox.Message") constructor.
 
@@ -996,29 +996,29 @@ When an `MHMessage` instance is created based upon a
 
     `BabylMessage` instances offer the following methods:
 
-    get_labels()
+    `get_labels()`
     :   Return a list of labels on the message.
 
-    set_labels(*labels*)
+    `set_labels(labels)`
     :   Set the list of labels on the message to *labels*.
 
-    add_label(*label*)
+    `add_label(label)`
     :   Add *label* to the list of labels on the message.
 
-    remove_label(*label*)
+    `remove_label(label)`
     :   Remove *label* from the list of labels on the message.
 
-    get_visible()
+    `get_visible()`
     :   Return a [`Message`](mailbox.md#mailbox.Message "mailbox.Message") instance whose headers are the message’s
         visible headers and whose body is empty.
 
-    set_visible(*visible*)
+    `set_visible(visible)`
     :   Set the message’s visible headers to be the same as the headers in
         *message*. Parameter *visible* should be a [`Message`](mailbox.md#mailbox.Message "mailbox.Message") instance, an
         [`email.message.Message`](email.compat32-message.md#email.message.Message "email.message.Message") instance, a string, or a file-like object
         (which should be open in text mode).
 
-    update_visible()
+    `update_visible()`
     :   When a `BabylMessage` instance’s original headers are modified, the
         visible headers are not automatically modified to correspond. This method
         updates the visible headers as follows: each visible header with a
@@ -1060,7 +1060,7 @@ When a `BabylMessage` instance is created based upon an
 
 ### `MMDFMessage` objects
 
-*class* mailbox.MMDFMessage(*message=None*)
+`class mailbox.MMDFMessage(message=None)`
 :   A message with MMDF-specific behaviors. Parameter *message* has the same meaning
     as with the [`Message`](mailbox.md#mailbox.Message "mailbox.Message") constructor.
 
@@ -1087,12 +1087,12 @@ When a `BabylMessage` instance is created based upon an
     `MMDFMessage` instances offer the following methods, which are
     identical to those offered by [`mboxMessage`](mailbox.md#mailbox.mboxMessage "mailbox.mboxMessage"):
 
-    get_from()
+    `get_from()`
     :   Return a string representing the “From “ line that marks the start of the
         message in an mbox mailbox. The leading “From “ and the trailing newline
         are excluded.
 
-    set_from(*from_*, *time_=None*)
+    `set_from(from_, time_=None)`
     :   Set the “From “ line to *from_*, which should be specified without a
         leading “From “ or trailing newline. For convenience, *time_* may be
         specified and will be formatted appropriately and appended to *from_*. If
@@ -1100,23 +1100,23 @@ When a `BabylMessage` instance is created based upon an
         tuple suitable for passing to [`time.strftime()`](time.md#time.strftime "time.strftime"), or `True` (to use
         [`time.gmtime()`](time.md#time.gmtime "time.gmtime")).
 
-    get_flags()
+    `get_flags()`
     :   Return a string specifying the flags that are currently set. If the
         message complies with the conventional format, the result is the
         concatenation in the following order of zero or one occurrence of each of
         `'R'`, `'O'`, `'D'`, `'F'`, and `'A'`.
 
-    set_flags(*flags*)
+    `set_flags(flags)`
     :   Set the flags specified by *flags* and unset all others. Parameter *flags*
         should be the concatenation in any order of zero or more occurrences of
         each of `'R'`, `'O'`, `'D'`, `'F'`, and `'A'`.
 
-    add_flag(*flag*)
+    `add_flag(flag)`
     :   Set the flag(s) specified by *flag* without changing other flags. To add
         more than one flag at a time, *flag* may be a string of more than one
         character.
 
-    remove_flag(*flag*)
+    `remove_flag(flag)`
     :   Unset the flag(s) specified by *flag* without changing other flags. To
         remove more than one flag at a time, *flag* maybe a string of more than
         one character.
@@ -1170,25 +1170,25 @@ correspond:
 
 The following exception classes are defined in the `mailbox` module:
 
-*exception* mailbox.Error
+`exception mailbox.Error`
 :   The based class for all other module-specific exceptions.
 
-*exception* mailbox.NoSuchMailboxError
+`exception mailbox.NoSuchMailboxError`
 :   Raised when a mailbox is expected but is not found, such as when instantiating a
     [`Mailbox`](mailbox.md#mailbox.Mailbox "mailbox.Mailbox") subclass with a path that does not exist (and with the *create*
     parameter set to `False`), or when opening a folder that does not exist.
 
-*exception* mailbox.NotEmptyError
+`exception mailbox.NotEmptyError`
 :   Raised when a mailbox is not empty but is expected to be, such as when deleting
     a folder that contains messages.
 
-*exception* mailbox.ExternalClashError
+`exception mailbox.ExternalClashError`
 :   Raised when some mailbox-related condition beyond the control of the program
     causes it to be unable to proceed, such as when failing to acquire a lock that
     another program already holds a lock, or when a uniquely generated file name
     already exists.
 
-*exception* mailbox.FormatError
+`exception mailbox.FormatError`
 :   Raised when the data in a file cannot be parsed, such as when an [`MH`](mailbox.md#mailbox.MH "mailbox.MH")
     instance attempts to read a corrupted `.mh_sequences` file.
 

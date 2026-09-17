@@ -43,7 +43,7 @@ To accommodate reproducible processing of SMIME-signed messages
 [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator") disables header folding for message parts of type
 `multipart/signed` and all subparts.
 
-*class* email.generator.BytesGenerator(*outfp*, *mangle_from_=None*, *maxheaderlen=None*, *\**, *policy=None*)
+`class email.generator.BytesGenerator(outfp, mangle_from_=None, maxheaderlen=None, *, policy=None)`
 :   Return a [`BytesGenerator`](email.generator.md#email.generator.BytesGenerator "email.generator.BytesGenerator") object that will write any message provided
     to the [`flatten()`](email.generator.md#email.generator.BytesGenerator.flatten "email.generator.BytesGenerator.flatten") method, or any surrogateescape encoded text provided
     to the [`write()`](email.generator.md#email.generator.BytesGenerator.write "email.generator.BytesGenerator.write") method, to the [file-like object](https://docs.python.org/3.12/glossary.html#term-file-like-object) *outfp*.
@@ -76,7 +76,7 @@ To accommodate reproducible processing of SMIME-signed messages
     Changed in version 3.6: The default behavior of the *mangle_from_*
     and *maxheaderlen* parameters is to follow the policy.
 
-    flatten(*msg*, *unixfrom=False*, *linesep=None*)
+    `flatten(msg, unixfrom=False, linesep=None)`
     :   Print the textual representation of the message object structure rooted
         at *msg* to the output file specified when the [`BytesGenerator`](email.generator.md#email.generator.BytesGenerator "email.generator.BytesGenerator")
         instance was created.
@@ -105,11 +105,11 @@ To accommodate reproducible processing of SMIME-signed messages
         all the lines of the flattened message. If *linesep* is `None` (the
         default), use the value specified in the *policy*.
 
-    clone(*fp*)
+    `clone(fp)`
     :   Return an independent clone of this [`BytesGenerator`](email.generator.md#email.generator.BytesGenerator "email.generator.BytesGenerator") instance with
         the exact same option settings, and *fp* as the new *outfp*.
 
-    write(*s*)
+    `write(s)`
     :   Encode *s* using the `ASCII` codec and the `surrogateescape` error
         handler, and pass it to the *write* method of the *outfp* passed to the
         [`BytesGenerator`](email.generator.md#email.generator.BytesGenerator "email.generator.BytesGenerator")’s constructor.
@@ -128,7 +128,7 @@ RFCs, you can think of this as [`Generator`](email.generator.md#email.generator.
 that is not “8 bit clean”. In other words, most applications will want
 to be using [`BytesGenerator`](email.generator.md#email.generator.BytesGenerator "email.generator.BytesGenerator"), and not [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator").
 
-*class* email.generator.Generator(*outfp*, *mangle_from_=None*, *maxheaderlen=None*, *\**, *policy=None*)
+`class email.generator.Generator(outfp, mangle_from_=None, maxheaderlen=None, *, policy=None)`
 :   Return a [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator") object that will write any message provided
     to the [`flatten()`](email.generator.md#email.generator.Generator.flatten "email.generator.Generator.flatten") method, or any text provided to the [`write()`](email.generator.md#email.generator.Generator.write "email.generator.Generator.write")
     method, to the [file-like object](https://docs.python.org/3.12/glossary.html#term-file-like-object) *outfp*. *outfp* must support a
@@ -159,7 +159,7 @@ to be using [`BytesGenerator`](email.generator.md#email.generator.BytesGenerator
     Changed in version 3.6: The default behavior of the *mangle_from_*
     and *maxheaderlen* parameters is to follow the policy.
 
-    flatten(*msg*, *unixfrom=False*, *linesep=None*)
+    `flatten(msg, unixfrom=False, linesep=None)`
     :   Print the textual representation of the message object structure rooted
         at *msg* to the output file specified when the [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator")
         instance was created.
@@ -188,11 +188,11 @@ to be using [`BytesGenerator`](email.generator.md#email.generator.BytesGenerator
         Changed in version 3.2: Added support for re-encoding `8bit` message bodies, and the
         *linesep* argument.
 
-    clone(*fp*)
+    `clone(fp)`
     :   Return an independent clone of this [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator") instance with the
         exact same options, and *fp* as the new *outfp*.
 
-    write(*s*)
+    `write(s)`
     :   Write *s* to the *write* method of the *outfp* passed to the
         [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator")’s constructor. This provides just enough file-like
         API for [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator") instances to be used in the [`print()`](functions.md#print "print")
@@ -210,7 +210,7 @@ except that non-*text* parts are not serialized, but are instead
 represented in the output stream by a string derived from a template filled
 in with information about the part.
 
-*class* email.generator.DecodedGenerator(*outfp*, *mangle_from_=None*, *maxheaderlen=None*, *fmt=None*, *\**, *policy=None*)
+`class email.generator.DecodedGenerator(outfp, mangle_from_=None, maxheaderlen=None, fmt=None, *, policy=None)`
 :   Act like [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator"), except that for any subpart of the message
     passed to [`Generator.flatten()`](email.generator.md#email.generator.Generator.flatten "email.generator.Generator.flatten"), if the subpart is of main type
     *text*, print the decoded payload of the subpart, and if the main

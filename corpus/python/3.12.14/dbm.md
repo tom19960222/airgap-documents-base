@@ -17,12 +17,12 @@ slow-but-simple implementation in module [`dbm.dumb`](dbm.md#module-dbm.dumb "db
 is a [third party interface](https://www.jcea.es/programacion/pybsddb.htm) to
 the Oracle Berkeley DB.
 
-*exception* dbm.error
+`exception dbm.error`
 :   A tuple containing the exceptions that can be raised by each of the supported
     modules, with a unique exception also named [`dbm.error`](dbm.md#dbm.error "dbm.error") as the first
     item — the latter is used when [`dbm.error`](dbm.md#dbm.error "dbm.error") is raised.
 
-dbm.whichdb(*filename*)
+`dbm.whichdb(filename)`
 :   This function attempts to guess which of the several simple database modules
     available — [`dbm.gnu`](dbm.md#module-dbm.gnu "dbm.gnu: GNU database manager (Unix)"), [`dbm.ndbm`](dbm.md#module-dbm.ndbm "dbm.ndbm: The New Database Manager (Unix)") or [`dbm.dumb`](dbm.md#module-dbm.dumb "dbm.dumb: Portable implementation of the simple DBM interface.") — should
     be used to open a given file.
@@ -35,7 +35,7 @@ dbm.whichdb(*filename*)
 
     Changed in version 3.11: *filename* accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-dbm.open(*file*, *flag='r'*, *mode=0o666*)
+`dbm.open(file, flag='r', mode=0o666)`
 :   Open a database and return the corresponding database object.
 
     Parameters:
@@ -129,11 +129,11 @@ functionality like crash tolerance.
 > The file formats created by [`dbm.gnu`](dbm.md#module-dbm.gnu "dbm.gnu: GNU database manager (Unix)") and [`dbm.ndbm`](dbm.md#module-dbm.ndbm "dbm.ndbm: The New Database Manager (Unix)") are incompatible
 > and can not be used interchangeably.
 
-*exception* dbm.gnu.error
+`exception dbm.gnu.error`
 :   Raised on [`dbm.gnu`](dbm.md#module-dbm.gnu "dbm.gnu: GNU database manager (Unix)")-specific errors, such as I/O errors. [`KeyError`](exceptions.md#KeyError "KeyError") is
     raised for general mapping errors like specifying an incorrect key.
 
-dbm.gnu.open(*filename*, *flag='r'*, *mode=0o666*, */*)
+`dbm.gnu.open(filename, flag='r', mode=0o666, /)`
 :   Open a GDBM database and return a `gdbm` object.
 
     Parameters:
@@ -164,20 +164,20 @@ dbm.gnu.open(*filename*, *flag='r'*, *mode=0o666*, */*)
 
     Changed in version 3.11: *filename* accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-    dbm.gnu.open_flags
+    `dbm.gnu.open_flags`
     :   A string of characters the *flag* parameter of [`open()`](dbm.md#dbm.gnu.open "dbm.gnu.open") supports.
 
     `gdbm` objects behave similar to [mappings](https://docs.python.org/3.12/glossary.html#term-mapping),
     but `items()` and `values()` methods are not supported.
     The following methods are also provided:
 
-    gdbm.firstkey()
+    `gdbm.firstkey()`
     :   It’s possible to loop over every key in the database using this method and the
         [`nextkey()`](dbm.md#dbm.gnu.gdbm.nextkey "dbm.gnu.gdbm.nextkey") method. The traversal is ordered by GDBM’s internal
         hash values, and won’t be sorted by the key values. This method returns
         the starting key.
 
-    gdbm.nextkey(*key*)
+    `gdbm.nextkey(key)`
     :   Returns the key that follows *key* in the traversal. The following code prints
         every key in the database `db`, without having to create a list in memory that
         contains them all:
@@ -189,18 +189,18 @@ dbm.gnu.open(*filename*, *flag='r'*, *mode=0o666*, */*)
             k = db.nextkey(k)
         ```
 
-    gdbm.reorganize()
+    `gdbm.reorganize()`
     :   If you have carried out a lot of deletions and would like to shrink the space
         used by the GDBM file, this routine will reorganize the database. `gdbm`
         objects will not shorten the length of a database file except by using this
         reorganization; otherwise, deleted file space will be kept and reused as new
         (key, value) pairs are added.
 
-    gdbm.sync()
+    `gdbm.sync()`
     :   When the database has been opened in fast mode, this method forces any
         unwritten data to be written to the disk.
 
-    gdbm.close()
+    `gdbm.close()`
     :   Close the GDBM database.
 
 ## `dbm.ndbm` — New Database Manager
@@ -226,14 +226,14 @@ GDBM compatibility interface.
 > when storing values larger than this limit. Reading such corrupted files can
 > result in a hard crash (segmentation fault).
 
-*exception* dbm.ndbm.error
+`exception dbm.ndbm.error`
 :   Raised on [`dbm.ndbm`](dbm.md#module-dbm.ndbm "dbm.ndbm: The New Database Manager (Unix)")-specific errors, such as I/O errors. [`KeyError`](exceptions.md#KeyError "KeyError") is raised
     for general mapping errors like specifying an incorrect key.
 
-dbm.ndbm.library
+`dbm.ndbm.library`
 :   Name of the NDBM implementation library used.
 
-dbm.ndbm.open(*filename*, *flag='r'*, *mode=0o666*, */*)
+`dbm.ndbm.open(filename, flag='r', mode=0o666, /)`
 :   Open an NDBM database and return an `ndbm` object.
 
     Parameters:
@@ -254,7 +254,7 @@ dbm.ndbm.open(*filename*, *flag='r'*, *mode=0o666*, */*)
 
     Changed in version 3.11: Accepts [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for filename.
 
-    ndbm.close()
+    `ndbm.close()`
     :   Close the NDBM database.
 
 ## `dbm.dumb` — Portable DBM implementation
@@ -277,11 +277,11 @@ external library is required.
 
 The `dbm.dumb` module defines the following:
 
-*exception* dbm.dumb.error
+`exception dbm.dumb.error`
 :   Raised on [`dbm.dumb`](dbm.md#module-dbm.dumb "dbm.dumb: Portable implementation of the simple DBM interface.")-specific errors, such as I/O errors. [`KeyError`](exceptions.md#KeyError "KeyError") is
     raised for general mapping errors like specifying an incorrect key.
 
-dbm.dumb.open(*filename*, *flag='c'*, *mode=0o666*)
+`dbm.dumb.open(filename, flag='c', mode=0o666)`
 :   Open a `dbm.dumb` database.
     The returned database object behaves similar to a [mapping](https://docs.python.org/3.12/glossary.html#term-mapping),
     in addition to providing [`sync()`](dbm.md#dbm.dumb.dumbdbm.sync "dbm.dumb.dumbdbm.sync") and [`close()`](dbm.md#dbm.dumb.dumbdbm.close "dbm.dumb.dumbdbm.close")
@@ -321,9 +321,9 @@ dbm.dumb.open(*filename*, *flag='c'*, *mode=0o666*)
     [`collections.abc.MutableMapping`](collections.abc.md#collections.abc.MutableMapping "collections.abc.MutableMapping") class,
     the following methods are provided:
 
-    dumbdbm.sync()
+    `dumbdbm.sync()`
     :   Synchronize the on-disk directory and data files. This method is called
         by the [`shelve.Shelf.sync()`](shelve.md#shelve.Shelf.sync "shelve.Shelf.sync") method.
 
-    dumbdbm.close()
+    `dumbdbm.close()`
     :   Close the database.

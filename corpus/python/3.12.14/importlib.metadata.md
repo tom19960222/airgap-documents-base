@@ -96,7 +96,7 @@ You can also get a [distribution’s version number](importlib.metadata.md#versi
 [constituent files](importlib.metadata.md#files), and get a list of the distribution’s
 [Distribution requirements](importlib.metadata.md#requirements).
 
-*exception* importlib.metadata.PackageNotFoundError
+`exception importlib.metadata.PackageNotFoundError`
 :   Subclass of [`ModuleNotFoundError`](exceptions.md#ModuleNotFoundError "ModuleNotFoundError") raised by several functions in this
     module when queried for a distribution package which is not installed in the
     current Python environment.
@@ -107,7 +107,7 @@ This package provides the following functionality via its public API.
 
 ### Entry points
 
-importlib.metadata.entry_points(*\*\*select_params*)
+`importlib.metadata.entry_points(**select_params)`
 :   Returns a [`EntryPoints`](importlib.metadata.md#importlib.metadata.EntryPoints "importlib.metadata.EntryPoints") instance describing entry points for the
     current environment. Any given keyword parameters are passed to the
     `select()` method for comparison to the attributes of
@@ -117,14 +117,14 @@ importlib.metadata.entry_points(*\*\*select_params*)
     their `EntryPoint.dist` attribute (as different `Distribution`
     instances do not currently compare equal, even if they have the same attributes)
 
-*class* importlib.metadata.EntryPoints
+`class importlib.metadata.EntryPoints`
 :   Details of a collection of installed entry points.
 
     Also provides a `.groups` attribute that reports all identified entry
     point groups, and a `.names` attribute that reports all identified entry
     point names.
 
-*class* importlib.metadata.EntryPoint
+`class importlib.metadata.EntryPoint`
 :   Details of an installed entry point.
 
     Each `EntryPoint` instance has `.name`, `.group`, and `.value`
@@ -211,14 +211,14 @@ for compatibility options.
 
 ### Distribution metadata
 
-importlib.metadata.metadata(*distribution_name*)
+`importlib.metadata.metadata(distribution_name)`
 :   Return the distribution metadata corresponding to the named
     distribution package as a [`PackageMetadata`](importlib.metadata.md#importlib.metadata.PackageMetadata "importlib.metadata.PackageMetadata") instance.
 
     Raises [`PackageNotFoundError`](importlib.metadata.md#importlib.metadata.PackageNotFoundError "importlib.metadata.PackageNotFoundError") if the named distribution
     package is not installed in the current Python environment.
 
-*class* importlib.metadata.PackageMetadata
+`class importlib.metadata.PackageMetadata`
 :   A concrete implementation of the
     [PackageMetadata protocol](https://importlib-metadata.readthedocs.io/en/latest/api.html#importlib_metadata.PackageMetadata).
 
@@ -258,7 +258,7 @@ The `json` attribute was added.
 
 ### Distribution versions
 
-importlib.metadata.version(*distribution_name*)
+`importlib.metadata.version(distribution_name)`
 :   Return the installed distribution package
     [version](https://packaging.python.org/en/latest/specifications/core-metadata/#version)
     for the named distribution package.
@@ -277,7 +277,7 @@ number, as a string:
 
 ### Distribution files
 
-importlib.metadata.files(*distribution_name*)
+`importlib.metadata.files(distribution_name)`
 :   Return the full set of files contained within the named
     distribution package.
 
@@ -288,7 +288,7 @@ importlib.metadata.files(*distribution_name*)
     database records reporting the files associated with the distribuion package
     are missing.
 
-*class* importlib.metadata.PackagePath
+`class importlib.metadata.PackagePath`
 :   A [`pathlib.PurePath`](pathlib.md#pathlib.PurePath "pathlib.PurePath") derived object with additional `dist`,
     `size`, and `hash` properties corresponding to the distribution
     package’s installation metadata for that file.
@@ -340,7 +340,7 @@ distribution is not known to have the metadata present.
 
 ### Distribution requirements
 
-importlib.metadata.requires(*distribution_name*)
+`importlib.metadata.requires(distribution_name)`
 :   Return the declared dependency specifiers for the named
     distribution package.
 
@@ -358,7 +358,7 @@ function:
 
 ### Mapping import to distribution packages
 
-importlib.metadata.packages_distributions()
+`importlib.metadata.packages_distributions()`
 :   Return a mapping from the top level module and import package
     names found via [`sys.meta_path`](sys.md#sys.meta_path "sys.meta_path") to the names of the distribution
     packages (if any) that provide the corresponding files.
@@ -384,14 +384,14 @@ Added in version 3.10.
 
 ## Distributions
 
-importlib.metadata.distribution(*distribution_name*)
+`importlib.metadata.distribution(distribution_name)`
 :   Return a [`Distribution`](importlib.metadata.md#importlib.metadata.Distribution "importlib.metadata.Distribution") instance describing the named
     distribution package.
 
     Raises [`PackageNotFoundError`](importlib.metadata.md#importlib.metadata.PackageNotFoundError "importlib.metadata.PackageNotFoundError") if the named distribution
     package is not installed in the current Python environment.
 
-*class* importlib.metadata.Distribution
+`class importlib.metadata.Distribution`
 :   Details of an installed distribution package.
 
     Note: different `Distribution` instances do not currently compare

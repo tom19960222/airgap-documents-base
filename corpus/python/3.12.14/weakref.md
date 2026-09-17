@@ -87,7 +87,7 @@ disabled unless a `'__weakref__'` string is also present in the sequence of
 strings in the `__slots__` declaration.
 See [__slots__ documentation](https://docs.python.org/3.12/reference/datamodel.html#slots) for details.
 
-*class* weakref.ref(*object*[, *callback*])
+`class weakref.ref(object[, callback])`
 :   Return a weak reference to *object*. The original object can be retrieved by
     calling the reference object if the referent is still alive; if the referent is
     no longer alive, calling the reference object will cause [`None`](constants.md#None "None") to be
@@ -116,14 +116,14 @@ See [__slots__ documentation](https://docs.python.org/3.12/reference/datamodel.h
 
     This is a subclassable type rather than a factory function.
 
-    __callback__
+    `__callback__`
     :   This read-only attribute returns the callback currently associated to the
         weakref. If there is no callback or if the referent of the weakref is
         no longer alive then this attribute will have value `None`.
 
     Changed in version 3.4: Added the [`__callback__`](weakref.md#weakref.ref.__callback__ "weakref.ref.__callback__") attribute.
 
-weakref.proxy(*object*[, *callback*])
+`weakref.proxy(object[, callback])`
 :   Return a proxy to *object* which uses a weak reference. This supports use of
     the proxy in most contexts instead of requiring the explicit dereferencing used
     with weak reference objects. The returned object will have a type of either
@@ -139,13 +139,13 @@ weakref.proxy(*object*[, *callback*])
     Changed in version 3.8: Extended the operator support on proxy objects to include the matrix
     multiplication operators `@` and `@=`.
 
-weakref.getweakrefcount(*object*)
+`weakref.getweakrefcount(object)`
 :   Return the number of weak references and proxies which refer to *object*.
 
-weakref.getweakrefs(*object*)
+`weakref.getweakrefs(object)`
 :   Return a list of all weak reference and proxy objects which refer to *object*.
 
-*class* weakref.WeakKeyDictionary([*dict*])
+`class weakref.WeakKeyDictionary([dict])`
 :   Mapping class that references keys weakly. Entries in the dictionary will be
     discarded when there is no longer a strong reference to the key. This can be
     used to associate additional data with an object owned by other parts of an
@@ -189,10 +189,10 @@ needs to be checked before being used. This can be used to avoid creating
 references that will cause the garbage collector to keep the keys around longer
 than needed.
 
-WeakKeyDictionary.keyrefs()
+`WeakKeyDictionary.keyrefs()`
 :   Return an iterable of the weak references to the keys.
 
-*class* weakref.WeakValueDictionary([*dict*])
+`class weakref.WeakValueDictionary([dict])`
 :   Mapping class that references values weakly. Entries in the dictionary will be
     discarded when no strong reference to the value exists any more.
 
@@ -201,14 +201,14 @@ WeakKeyDictionary.keyrefs()
 [`WeakValueDictionary`](weakref.md#weakref.WeakValueDictionary "weakref.WeakValueDictionary") objects have an additional method that has the
 same issues as the [`WeakKeyDictionary.keyrefs()`](weakref.md#weakref.WeakKeyDictionary.keyrefs "weakref.WeakKeyDictionary.keyrefs") method.
 
-WeakValueDictionary.valuerefs()
+`WeakValueDictionary.valuerefs()`
 :   Return an iterable of the weak references to the values.
 
-*class* weakref.WeakSet([*elements*])
+`class weakref.WeakSet([elements])`
 :   Set class that keeps weak references to its elements. An element will be
     discarded when no strong reference to it exists any more.
 
-*class* weakref.WeakMethod(*method*[, *callback*])
+`class weakref.WeakMethod(method[, callback])`
 :   A custom [`ref`](weakref.md#weakref.ref "weakref.ref") subclass which simulates a weak reference to a bound
     method (i.e., a method defined on a class and looked up on an instance).
     Since a bound method is ephemeral, a standard weak reference cannot keep
@@ -239,7 +239,7 @@ WeakValueDictionary.valuerefs()
 
     Added in version 3.4.
 
-*class* weakref.finalize(*obj*, *func*, */*, *\*args*, *\*\*kwargs*)
+`class weakref.finalize(obj, func, /, *args, **kwargs)`
 :   Return a callable finalizer object which will be called when *obj*
     is garbage collected. Unlike an ordinary weak reference, a finalizer
     will always survive until the reference object is collected, greatly
@@ -264,24 +264,24 @@ WeakValueDictionary.valuerefs()
     the [interpreter shutdown](https://docs.python.org/3.12/glossary.html#term-interpreter-shutdown) when module globals are liable to have
     been replaced by [`None`](constants.md#None "None").
 
-    __call__()
+    `__call__()`
     :   If *self* is alive then mark it as dead and return the result of
         calling `func(*args, **kwargs)`. If *self* is dead then return
         [`None`](constants.md#None "None").
 
-    detach()
+    `detach()`
     :   If *self* is alive then mark it as dead and return the tuple
         `(obj, func, args, kwargs)`. If *self* is dead then return
         [`None`](constants.md#None "None").
 
-    peek()
+    `peek()`
     :   If *self* is alive then return the tuple `(obj, func, args,
         kwargs)`. If *self* is dead then return [`None`](constants.md#None "None").
 
-    alive
+    `alive`
     :   Property which is true if the finalizer is alive, false otherwise.
 
-    atexit
+    `atexit`
     :   A writable boolean property which by default is true. When the
         program exits, it calls all remaining live finalizers for which
         [`atexit`](weakref.md#weakref.finalize.atexit "weakref.finalize.atexit") is true. They are called in reverse order of
@@ -296,16 +296,16 @@ WeakValueDictionary.valuerefs()
 
     Added in version 3.4.
 
-weakref.ReferenceType
+`weakref.ReferenceType`
 :   The type object for weak references objects.
 
-weakref.ProxyType
+`weakref.ProxyType`
 :   The type object for proxies of objects which are not callable.
 
-weakref.CallableProxyType
+`weakref.CallableProxyType`
 :   The type object for proxies of callable objects.
 
-weakref.ProxyTypes
+`weakref.ProxyTypes`
 :   Sequence containing all the type objects for proxies. This can make it simpler
     to test if an object is a proxy without being dependent on naming both proxy
     types.

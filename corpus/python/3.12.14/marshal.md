@@ -49,7 +49,7 @@ bytes-like objects.
 
 The module defines these functions:
 
-marshal.dump(*value*, *file*[, *version*])
+`marshal.dump(value, file[, version])`
 :   Write the value on the open file. The value must be a supported type. The
     file must be a writeable [binary file](https://docs.python.org/3.12/glossary.html#term-binary-file).
 
@@ -62,7 +62,7 @@ marshal.dump(*value*, *file*[, *version*])
 
     Raises an [auditing event](sys.md#auditing) `marshal.dumps` with arguments `value`, `version`.
 
-marshal.load(*file*)
+`marshal.load(file)`
 :   Read one value from the open file and return it. If no valid value is read
     (e.g. because the data has a different Python version’s incompatible marshal
     format), raise [`EOFError`](exceptions.md#EOFError "EOFError"), [`ValueError`](exceptions.md#ValueError "ValueError") or [`TypeError`](exceptions.md#TypeError "TypeError"). The
@@ -78,7 +78,7 @@ marshal.load(*file*)
     Changed in version 3.10: This call used to raise a `code.__new__` audit event for each code object. Now
     it raises a single `marshal.load` event for the entire load operation.
 
-marshal.dumps(*value*[, *version*])
+`marshal.dumps(value[, version])`
 :   Return the bytes object that would be written to a file by `dump(value, file)`. The
     value must be a supported type. Raise a [`ValueError`](exceptions.md#ValueError "ValueError") exception if value
     has (or contains an object that has) an unsupported type.
@@ -88,7 +88,7 @@ marshal.dumps(*value*[, *version*])
 
     Raises an [auditing event](sys.md#auditing) `marshal.dumps` with arguments `value`, `version`.
 
-marshal.loads(*bytes*)
+`marshal.loads(bytes)`
 :   Convert the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) to a value. If no valid value is found, raise
     [`EOFError`](exceptions.md#EOFError "EOFError"), [`ValueError`](exceptions.md#ValueError "ValueError") or [`TypeError`](exceptions.md#TypeError "TypeError"). Extra bytes in the
     input are ignored.
@@ -100,7 +100,7 @@ marshal.loads(*bytes*)
 
 In addition, the following constants are defined:
 
-marshal.version
+`marshal.version`
 :   Indicates the format that the module uses. Version 0 is the historical
     format, version 1 shares interned strings and version 2 uses a binary format
     for floating-point numbers.

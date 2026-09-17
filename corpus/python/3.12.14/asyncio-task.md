@@ -254,7 +254,7 @@ is [`loop.run_in_executor()`](asyncio-eventloop.md#asyncio.loop.run_in_executor 
 
 ---
 
-asyncio.create_task(*coro*, *\**, *name=None*, *context=None*)
+`asyncio.create_task(coro, *, name=None, context=None)`
 :   Wrap the *coro* [coroutine](asyncio-task.md#coroutine) into a [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task")
     and schedule its execution. Return the Task object.
 
@@ -331,7 +331,7 @@ remove the cancellation state.
 Task groups combine a task creation API with a convenient
 and reliable way to wait for all tasks in the group to finish.
 
-*class* asyncio.TaskGroup
+`class asyncio.TaskGroup`
 :   An [asynchronous context manager](https://docs.python.org/3.12/reference/datamodel.html#async-context-managers)
     holding a group of tasks.
     Tasks can be added to the group using [`create_task()`](asyncio-task.md#asyncio.create_task "asyncio.create_task").
@@ -339,7 +339,7 @@ and reliable way to wait for all tasks in the group to finish.
 
     Added in version 3.11.
 
-    create_task(*coro*, *\**, *name=None*, *context=None*)
+    `create_task(coro, *, name=None, context=None)`
     :   Create a task in this task group.
         The signature matches that of [`asyncio.create_task()`](asyncio-task.md#asyncio.create_task "asyncio.create_task").
 
@@ -443,7 +443,7 @@ Task 1: done
 
 ## Sleeping
 
-*async* asyncio.sleep(*delay*, *result=None*)
+`async asyncio.sleep(delay, result=None)`
 :   Block for *delay* seconds.
 
     If *result* is provided, it is returned to the caller
@@ -479,7 +479,7 @@ Task 1: done
 
 ## Running Tasks Concurrently
 
-*awaitable* asyncio.gather(*\*aws*, *return_exceptions=False*)
+`awaitable asyncio.gather(*aws, return_exceptions=False)`
 :   Run [awaitable objects](asyncio-task.md#asyncio-awaitables) in the *aws*
     sequence *concurrently*.
 
@@ -575,7 +575,7 @@ Task 1: done
 
 ## Eager Task Factory
 
-asyncio.eager_task_factory(*loop*, *coro*, *\**, *name=None*, *context=None*)
+`asyncio.eager_task_factory(loop, coro, *, name=None, context=None)`
 :   A task factory for eager task execution.
 
     When using this factory (via [`loop.set_task_factory(asyncio.eager_task_factory)`](asyncio-eventloop.md#asyncio.loop.set_task_factory "asyncio.loop.set_task_factory")),
@@ -598,7 +598,7 @@ asyncio.eager_task_factory(*loop*, *coro*, *\**, *name=None*, *context=None*)
 
     Added in version 3.12.
 
-asyncio.create_eager_task_factory(*custom_task_constructor*)
+`asyncio.create_eager_task_factory(custom_task_constructor)`
 :   Create an eager task factory, similar to [`eager_task_factory()`](asyncio-task.md#asyncio.eager_task_factory "asyncio.eager_task_factory"),
     using the provided *custom_task_constructor* when creating a new task instead
     of the default [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task").
@@ -614,7 +614,7 @@ asyncio.create_eager_task_factory(*custom_task_constructor*)
 
 ## Shielding From Cancellation
 
-*awaitable* asyncio.shield(*aw*)
+`awaitable asyncio.shield(aw)`
 :   Protect an [awaitable object](asyncio-task.md#asyncio-awaitables)
     from being [`cancelled`](asyncio-task.md#asyncio.Task.cancel "asyncio.Task.cancel").
 
@@ -668,7 +668,7 @@ asyncio.create_eager_task_factory(*custom_task_constructor*)
 
 ## Timeouts
 
-asyncio.timeout(*delay*)
+`asyncio.timeout(delay)`
 :   Return an [asynchronous context manager](https://docs.python.org/3.12/reference/datamodel.html#async-context-managers)
     that can be used to limit the amount of time spent waiting on
     something.
@@ -717,7 +717,7 @@ asyncio.timeout(*delay*)
     The context manager produced by [`asyncio.timeout()`](asyncio-task.md#asyncio.timeout "asyncio.timeout") can be
     rescheduled to a different deadline and inspected.
 
-    *class* asyncio.Timeout(*when*)
+    `class asyncio.Timeout(when)`
     :   An [asynchronous context manager](https://docs.python.org/3.12/reference/datamodel.html#async-context-managers)
         for cancelling overdue coroutines.
 
@@ -728,14 +728,14 @@ asyncio.timeout(*delay*)
         - If `when < loop.time()`, the timeout will trigger on the next
           iteration of the event loop.
 
-        > when() → [float](functions.md#float "float") | [None](constants.md#None "None")
+        > `when() → float | None`
         > :   Return the current deadline, or `None` if the current
         >     deadline is not set.
         >
-        > reschedule(*when: [float](functions.md#float "float") | [None](constants.md#None "None")*)
+        > `reschedule(when: float | None)`
         > :   Reschedule the timeout.
         >
-        > expired() → [bool](functions.md#bool "bool")
+        > `expired() → bool`
         > :   Return whether the context manager has exceeded its deadline
         >     (expired).
 
@@ -762,7 +762,7 @@ asyncio.timeout(*delay*)
 
     Added in version 3.11.
 
-asyncio.timeout_at(*when*)
+`asyncio.timeout_at(when)`
 :   Similar to [`asyncio.timeout()`](asyncio-task.md#asyncio.timeout "asyncio.timeout"), except *when* is the absolute time
     to stop waiting, or `None`.
 
@@ -783,7 +783,7 @@ asyncio.timeout_at(*when*)
 
     Added in version 3.11.
 
-*async* asyncio.wait_for(*aw*, *timeout*)
+`async asyncio.wait_for(aw, timeout)`
 :   Wait for the *aw* [awaitable](asyncio-task.md#asyncio-awaitables)
     to complete with a timeout.
 
@@ -837,7 +837,7 @@ asyncio.timeout_at(*when*)
 
 ## Waiting Primitives
 
-*async* asyncio.wait(*aws*, *\**, *timeout=None*, *return_when=ALL_COMPLETED*)
+`async asyncio.wait(aws, *, timeout=None, return_when=ALL_COMPLETED)`
 :   Run [`Future`](asyncio-future.md#asyncio.Future "asyncio.Future") and [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task") instances in the *aws*
     iterable concurrently and block until the condition specified
     by *return_when*.
@@ -864,9 +864,9 @@ asyncio.timeout_at(*when*)
 
     | Constant | Description |
     | --- | --- |
-    | asyncio.FIRST_COMPLETED | The function will return when any future finishes or is cancelled. |
-    | asyncio.FIRST_EXCEPTION | The function will return when any future finishes by raising an exception. If no future raises an exception then it is equivalent to [`ALL_COMPLETED`](asyncio-task.md#asyncio.ALL_COMPLETED "asyncio.ALL_COMPLETED"). |
-    | asyncio.ALL_COMPLETED | The function will return when all futures finish or are cancelled. |
+    | `asyncio.FIRST_COMPLETED` | The function will return when any future finishes or is cancelled. |
+    | `asyncio.FIRST_EXCEPTION` | The function will return when any future finishes by raising an exception. If no future raises an exception then it is equivalent to [`ALL_COMPLETED`](asyncio-task.md#asyncio.ALL_COMPLETED "asyncio.ALL_COMPLETED"). |
+    | `asyncio.ALL_COMPLETED` | The function will return when all futures finish or are cancelled. |
 
     Unlike [`wait_for()`](asyncio-task.md#asyncio.wait_for "asyncio.wait_for"), `wait()` does not cancel the
     futures when a timeout occurs.
@@ -877,7 +877,7 @@ asyncio.timeout_at(*when*)
 
     Changed in version 3.12: Added support for generators yielding tasks.
 
-asyncio.as_completed(*aws*, *\**, *timeout=None*)
+`asyncio.as_completed(aws, *, timeout=None)`
 :   Run [awaitable objects](asyncio-task.md#asyncio-awaitables) in the *aws*
     iterable concurrently. Return an iterator of coroutines.
     Each coroutine returned can be awaited to get the earliest next
@@ -903,7 +903,7 @@ asyncio.as_completed(*aws*, *\**, *timeout=None*)
 
 ## Running in Threads
 
-*async* asyncio.to_thread(*func*, */*, *\*args*, *\*\*kwargs*)
+`async asyncio.to_thread(func, /, *args, **kwargs)`
 :   Asynchronously run function *func* in a separate thread.
 
     Any \*args and \*\*kwargs supplied for this function are directly passed
@@ -960,7 +960,7 @@ asyncio.as_completed(*aws*, *\**, *timeout=None*)
 
 ## Scheduling From Other Threads
 
-asyncio.run_coroutine_threadsafe(*coro*, *loop*)
+`asyncio.run_coroutine_threadsafe(coro, loop)`
 :   Submit a coroutine to the given event loop. Thread-safe.
 
     Return a [`concurrent.futures.Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") to wait for the result
@@ -1006,7 +1006,7 @@ asyncio.run_coroutine_threadsafe(*coro*, *loop*)
 
 ## Introspection
 
-asyncio.current_task(*loop=None*)
+`asyncio.current_task(loop=None)`
 :   Return the currently running [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task") instance, or `None` if
     no task is running.
 
@@ -1015,7 +1015,7 @@ asyncio.current_task(*loop=None*)
 
     Added in version 3.7.
 
-asyncio.all_tasks(*loop=None*)
+`asyncio.all_tasks(loop=None)`
 :   Return a set of not yet finished [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task") objects run by
     the loop.
 
@@ -1024,14 +1024,14 @@ asyncio.all_tasks(*loop=None*)
 
     Added in version 3.7.
 
-asyncio.iscoroutine(*obj*)
+`asyncio.iscoroutine(obj)`
 :   Return `True` if *obj* is a coroutine object.
 
     Added in version 3.4.
 
 ## Task Object
 
-*class* asyncio.Task(*coro*, *\**, *loop=None*, *name=None*, *context=None*, *eager_start=False*)
+`class asyncio.Task(coro, *, loop=None, name=None, context=None, eager_start=False)`
 :   A [`Future-like`](asyncio-future.md#asyncio.Future "asyncio.Future") object that runs a Python
     [coroutine](asyncio-task.md#coroutine). Not thread-safe.
 
@@ -1088,13 +1088,13 @@ asyncio.iscoroutine(*obj*)
 
     Changed in version 3.12: Added the *eager_start* parameter.
 
-    done()
+    `done()`
     :   Return `True` if the Task is *done*.
 
         A Task is *done* when the wrapped coroutine either returned
         a value, raised an exception, or the Task was cancelled.
 
-    result()
+    `result()`
     :   Return the result of the Task.
 
         If the Task is *done*, the result of the wrapped coroutine
@@ -1107,7 +1107,7 @@ asyncio.iscoroutine(*obj*)
         If the Task’s result isn’t yet available, this method raises
         an [`InvalidStateError`](asyncio-exceptions.md#asyncio.InvalidStateError "asyncio.InvalidStateError") exception.
 
-    exception()
+    `exception()`
     :   Return the exception of the Task.
 
         If the wrapped coroutine raised an exception that exception
@@ -1120,7 +1120,7 @@ asyncio.iscoroutine(*obj*)
         If the Task isn’t *done* yet, this method raises an
         [`InvalidStateError`](asyncio-exceptions.md#asyncio.InvalidStateError "asyncio.InvalidStateError") exception.
 
-    add_done_callback(*callback*, *\**, *context=None*)
+    `add_done_callback(callback, *, context=None)`
     :   Add a callback to be run when the Task is *done*.
 
         This method should only be used in low-level callback-based code.
@@ -1128,7 +1128,7 @@ asyncio.iscoroutine(*obj*)
         See the documentation of [`Future.add_done_callback()`](asyncio-future.md#asyncio.Future.add_done_callback "asyncio.Future.add_done_callback")
         for more details.
 
-    remove_done_callback(*callback*)
+    `remove_done_callback(callback)`
     :   Remove *callback* from the callbacks list.
 
         This method should only be used in low-level callback-based code.
@@ -1136,7 +1136,7 @@ asyncio.iscoroutine(*obj*)
         See the documentation of [`Future.remove_done_callback()`](asyncio-future.md#asyncio.Future.remove_done_callback "asyncio.Future.remove_done_callback")
         for more details.
 
-    get_stack(*\**, *limit=None*)
+    `get_stack(*, limit=None)`
     :   Return the list of stack frames for this Task.
 
         If the wrapped coroutine is not done, this returns the stack
@@ -1156,7 +1156,7 @@ asyncio.iscoroutine(*obj*)
         stack are returned, but the oldest frames of a traceback are
         returned. (This matches the behavior of the traceback module.)
 
-    print_stack(*\**, *limit=None*, *file=None*)
+    `print_stack(*, limit=None, file=None)`
     :   Print the stack or traceback for this Task.
 
         This produces output similar to that of the traceback module
@@ -1167,7 +1167,7 @@ asyncio.iscoroutine(*obj*)
         The *file* argument is an I/O stream to which the output
         is written; by default output is written to [`sys.stdout`](sys.md#sys.stdout "sys.stdout").
 
-    get_coro()
+    `get_coro()`
     :   Return the coroutine object wrapped by the [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task").
 
         > **Note:**
@@ -1179,13 +1179,13 @@ asyncio.iscoroutine(*obj*)
 
         Changed in version 3.12: Newly added eager task execution means result may be `None`.
 
-    get_context()
+    `get_context()`
     :   Return the [`contextvars.Context`](contextvars.md#contextvars.Context "contextvars.Context") object
         associated with the task.
 
         Added in version 3.12.
 
-    get_name()
+    `get_name()`
     :   Return the name of the Task.
 
         If no name has been explicitly assigned to the Task, the default
@@ -1194,7 +1194,7 @@ asyncio.iscoroutine(*obj*)
 
         Added in version 3.8.
 
-    set_name(*value*)
+    `set_name(value)`
     :   Set the name of the Task.
 
         The *value* argument can be any object, which is then
@@ -1205,7 +1205,7 @@ asyncio.iscoroutine(*obj*)
 
         Added in version 3.8.
 
-    cancel(*msg=None*)
+    `cancel(msg=None)`
     :   Request the Task to be cancelled.
 
         This arranges for a [`CancelledError`](asyncio-exceptions.md#asyncio.CancelledError "asyncio.CancelledError") exception to be thrown
@@ -1264,14 +1264,14 @@ asyncio.iscoroutine(*obj*)
         #     main(): cancel_me is cancelled now
         ```
 
-    cancelled()
+    `cancelled()`
     :   Return `True` if the Task is *cancelled*.
 
         The Task is *cancelled* when the cancellation was requested with
         [`cancel()`](asyncio-task.md#asyncio.Task.cancel "asyncio.Task.cancel") and the wrapped coroutine propagated the
         [`CancelledError`](asyncio-exceptions.md#asyncio.CancelledError "asyncio.CancelledError") exception thrown into it.
 
-    uncancel()
+    `uncancel()`
     :   Decrement the count of cancellation requests to this Task.
 
         Returns the remaining number of cancellation requests.
@@ -1311,7 +1311,7 @@ asyncio.iscoroutine(*obj*)
         catching [`CancelledError`](asyncio-exceptions.md#asyncio.CancelledError "asyncio.CancelledError"), it needs to call this method to remove
         the cancellation state.
 
-    cancelling()
+    `cancelling()`
     :   Return the number of pending cancellation requests to this Task, i.e.,
         the number of calls to [`cancel()`](asyncio-task.md#asyncio.Task.cancel "asyncio.Task.cancel") less the number of
         [`uncancel()`](asyncio-task.md#asyncio.Task.uncancel "asyncio.Task.uncancel") calls.

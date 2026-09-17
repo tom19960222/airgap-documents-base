@@ -22,7 +22,7 @@ This module does not work or is not available on WebAssembly platforms
 `wasm32-emscripten` and `wasm32-wasi`. See
 [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-*class* smtplib.SMTP(*host=''*, *port=0*, *local_hostname=None*, [*timeout*, ]*source_address=None*)
+`class smtplib.SMTP(host='', port=0, local_hostname=None, [timeout, ]source_address=None)`
 :   An [`SMTP`](smtplib.md#smtplib.SMTP "smtplib.SMTP") instance encapsulates an SMTP connection. It has methods
     that support a full repertoire of SMTP and ESMTP operations. If the optional
     *host* and *port* parameters are given, the SMTP [`connect()`](smtplib.md#smtplib.SMTP.connect "smtplib.SMTP.connect") method is
@@ -71,7 +71,7 @@ This module does not work or is not available on WebAssembly platforms
     Changed in version 3.9: If the *timeout* parameter is set to be zero, it will raise a
     [`ValueError`](exceptions.md#ValueError "ValueError") to prevent the creation of a non-blocking socket.
 
-*class* smtplib.SMTP_SSL(*host=''*, *port=0*, *local_hostname=None*, *\**, [*timeout*, ]*context=None*, *source_address=None*)
+`class smtplib.SMTP_SSL(host='', port=0, local_hostname=None, *, [timeout, ]context=None, source_address=None)`
 :   An [`SMTP_SSL`](smtplib.md#smtplib.SMTP_SSL "smtplib.SMTP_SSL") instance behaves exactly the same as instances of
     [`SMTP`](smtplib.md#smtplib.SMTP "smtplib.SMTP"). [`SMTP_SSL`](smtplib.md#smtplib.SMTP_SSL "smtplib.SMTP_SSL") should be used for situations where SSL is
     required from the beginning of the connection and using `starttls()` is
@@ -96,7 +96,7 @@ This module does not work or is not available on WebAssembly platforms
 
     Changed in version 3.12: The deprecated *keyfile* and *certfile* parameters have been removed.
 
-*class* smtplib.LMTP(*host=''*, *port=LMTP_PORT*, *local_hostname=None*, *source_address=None*[, *timeout*])
+`class smtplib.LMTP(host='', port=LMTP_PORT, local_hostname=None, source_address=None[, timeout])`
 :   The LMTP protocol, which is very similar to ESMTP, is heavily based on the
     standard SMTP client. It’s common to use Unix sockets for LMTP, so our
     `connect()` method must support that as well as a regular host:port
@@ -112,48 +112,48 @@ This module does not work or is not available on WebAssembly platforms
 
 A nice selection of exceptions is defined as well:
 
-*exception* smtplib.SMTPException
+`exception smtplib.SMTPException`
 :   Subclass of [`OSError`](exceptions.md#OSError "OSError") that is the base exception class for all
     the other exceptions provided by this module.
 
     Changed in version 3.4: SMTPException became subclass of [`OSError`](exceptions.md#OSError "OSError")
 
-*exception* smtplib.SMTPServerDisconnected
+`exception smtplib.SMTPServerDisconnected`
 :   This exception is raised when the server unexpectedly disconnects, or when an
     attempt is made to use the [`SMTP`](smtplib.md#smtplib.SMTP "smtplib.SMTP") instance before connecting it to a
     server.
 
-*exception* smtplib.SMTPResponseException
+`exception smtplib.SMTPResponseException`
 :   Base class for all exceptions that include an SMTP error code. These exceptions
     are generated in some instances when the SMTP server returns an error code. The
     error code is stored in the `smtp_code` attribute of the error, and the
     `smtp_error` attribute is set to the error message.
 
-*exception* smtplib.SMTPSenderRefused
+`exception smtplib.SMTPSenderRefused`
 :   Sender address refused. In addition to the attributes set by on all
     [`SMTPResponseException`](smtplib.md#smtplib.SMTPResponseException "smtplib.SMTPResponseException") exceptions, this sets ‘sender’ to the string that
     the SMTP server refused.
 
-*exception* smtplib.SMTPRecipientsRefused
+`exception smtplib.SMTPRecipientsRefused`
 :   All recipient addresses refused. The errors for each recipient are accessible
     through the attribute `recipients`, which is a dictionary of exactly the
     same sort as [`SMTP.sendmail()`](smtplib.md#smtplib.SMTP.sendmail "smtplib.SMTP.sendmail") returns.
 
-*exception* smtplib.SMTPDataError
+`exception smtplib.SMTPDataError`
 :   The SMTP server refused to accept the message data.
 
-*exception* smtplib.SMTPConnectError
+`exception smtplib.SMTPConnectError`
 :   Error occurred during establishment of a connection with the server.
 
-*exception* smtplib.SMTPHeloError
+`exception smtplib.SMTPHeloError`
 :   The server refused our `HELO` message.
 
-*exception* smtplib.SMTPNotSupportedError
+`exception smtplib.SMTPNotSupportedError`
 :   The command or option attempted is not supported by the server.
 
     Added in version 3.5.
 
-*exception* smtplib.SMTPAuthenticationError
+`exception smtplib.SMTPAuthenticationError`
 :   SMTP authentication went wrong. Most probably the server didn’t accept the
     username/password combination provided.
 
@@ -172,7 +172,7 @@ A nice selection of exceptions is defined as well:
 
 An [`SMTP`](smtplib.md#smtplib.SMTP "smtplib.SMTP") instance has the following methods:
 
-SMTP.set_debuglevel(*level*)
+`SMTP.set_debuglevel(level)`
 :   Set the debug output level. A value of 1 or `True` for *level* results in
     debug messages for connection and for all messages sent to and received from
     the server. A value of 2 for *level* results in these messages being
@@ -180,7 +180,7 @@ SMTP.set_debuglevel(*level*)
 
     Changed in version 3.5: Added debuglevel 2.
 
-SMTP.docmd(*cmd*, *args=''*)
+`SMTP.docmd(cmd, args='')`
 :   Send a command *cmd* to the server. The optional argument *args* is simply
     concatenated to the command, separated by a space.
 
@@ -194,7 +194,7 @@ SMTP.docmd(*cmd*, *args=''*)
     If the connection to the server is lost while waiting for the reply,
     [`SMTPServerDisconnected`](smtplib.md#smtplib.SMTPServerDisconnected "smtplib.SMTPServerDisconnected") will be raised.
 
-SMTP.connect(*host='localhost'*, *port=0*)
+`SMTP.connect(host='localhost', port=0)`
 :   Connect to a host on a given port. The defaults are to connect to the local
     host at the standard SMTP port (25). If the hostname ends with a colon (`':'`)
     followed by a number, that suffix will be stripped off and the number
@@ -205,7 +205,7 @@ SMTP.connect(*host='localhost'*, *port=0*)
 
     Raises an [auditing event](sys.md#auditing) `smtplib.connect` with arguments `self`, `host`, `port`.
 
-SMTP.helo(*name=''*)
+`SMTP.helo(name='')`
 :   Identify yourself to the SMTP server using `HELO`. The hostname argument
     defaults to the fully qualified domain name of the local host.
     The message returned by the server is stored as the `helo_resp` attribute
@@ -214,7 +214,7 @@ SMTP.helo(*name=''*)
     In normal operation it should not be necessary to call this method explicitly.
     It will be implicitly called by the [`sendmail()`](smtplib.md#smtplib.SMTP.sendmail "smtplib.SMTP.sendmail") when necessary.
 
-SMTP.ehlo(*name=''*)
+`SMTP.ehlo(name='')`
 :   Identify yourself to an ESMTP server using `EHLO`. The hostname argument
     defaults to the fully qualified domain name of the local host. Examine the
     response for ESMTP option and store them for use by [`has_extn()`](smtplib.md#smtplib.SMTP.has_extn "smtplib.SMTP.has_extn").
@@ -229,7 +229,7 @@ SMTP.ehlo(*name=''*)
     necessary to call this method explicitly. It will be implicitly called by
     [`sendmail()`](smtplib.md#smtplib.SMTP.sendmail "smtplib.SMTP.sendmail") when necessary.
 
-SMTP.ehlo_or_helo_if_needed()
+`SMTP.ehlo_or_helo_if_needed()`
 :   This method calls [`ehlo()`](smtplib.md#smtplib.SMTP.ehlo "smtplib.SMTP.ehlo") and/or [`helo()`](smtplib.md#smtplib.SMTP.helo "smtplib.SMTP.helo") if there has been no
     previous `EHLO` or `HELO` command this session. It tries ESMTP `EHLO`
     first.
@@ -237,11 +237,11 @@ SMTP.ehlo_or_helo_if_needed()
     [`SMTPHeloError`](smtplib.md#smtplib.SMTPHeloError "smtplib.SMTPHeloError")
     :   The server didn’t reply properly to the `HELO` greeting.
 
-SMTP.has_extn(*name*)
+`SMTP.has_extn(name)`
 :   Return [`True`](constants.md#True "True") if *name* is in the set of SMTP service extensions returned
     by the server, [`False`](constants.md#False "False") otherwise. Case is ignored.
 
-SMTP.verify(*address*)
+`SMTP.verify(address)`
 :   Check the validity of an address on this server using SMTP `VRFY`. Returns a
     tuple consisting of code 250 and a full [**RFC 822**](https://datatracker.ietf.org/doc/html/rfc822.html) address (including human
     name) if the user address is valid. Otherwise returns an SMTP error code of 400
@@ -251,7 +251,7 @@ SMTP.verify(*address*)
     >
     > Many sites disable SMTP `VRFY` in order to foil spammers.
 
-SMTP.login(*user*, *password*, *\**, *initial_response_ok=True*)
+`SMTP.login(user, password, *, initial_response_ok=True)`
 :   Log in on an SMTP server that requires authentication. The arguments are the
     username and the password to authenticate with. If there has been no previous
     `EHLO` or `HELO` command this session, this method tries ESMTP `EHLO`
@@ -283,7 +283,7 @@ SMTP.login(*user*, *password*, *\**, *initial_response_ok=True*)
     Changed in version 3.5: [`SMTPNotSupportedError`](smtplib.md#smtplib.SMTPNotSupportedError "smtplib.SMTPNotSupportedError") may be raised, and the
     *initial_response_ok* parameter was added.
 
-SMTP.auth(*mechanism*, *authobject*, *\**, *initial_response_ok=True*)
+`SMTP.auth(mechanism, authobject, *, initial_response_ok=True)`
 :   Issue an `SMTP` `AUTH` command for the specified authentication
     *mechanism*, and handle the challenge response via *authobject*.
 
@@ -325,7 +325,7 @@ SMTP.auth(*mechanism*, *authobject*, *\**, *initial_response_ok=True*)
 
     Added in version 3.5.
 
-SMTP.starttls(*\**, *context=None*)
+`SMTP.starttls(*, context=None)`
 :   Put the SMTP connection in TLS (Transport Layer Security) mode. All SMTP
     commands that follow will be encrypted. You should then call [`ehlo()`](smtplib.md#smtplib.SMTP.ehlo "smtplib.SMTP.ehlo")
     again.
@@ -361,7 +361,7 @@ SMTP.starttls(*\**, *context=None*)
     [`SMTPNotSupportedError`](smtplib.md#smtplib.SMTPNotSupportedError "smtplib.SMTPNotSupportedError") subclass instead of the base
     [`SMTPException`](smtplib.md#smtplib.SMTPException "smtplib.SMTPException").
 
-SMTP.sendmail(*from_addr*, *to_addrs*, *msg*, *mail_options=()*, *rcpt_options=()*)
+`SMTP.sendmail(from_addr, to_addrs, msg, mail_options=(), rcpt_options=())`
 :   Send mail. The required arguments are an [**RFC 822**](https://datatracker.ietf.org/doc/html/rfc822.html) from-address string, a list
     of [**RFC 822**](https://datatracker.ietf.org/doc/html/rfc822.html) to-address strings (a bare string will be treated as a list with 1
     address), and a message string. The caller may pass a list of ESMTP options
@@ -428,7 +428,7 @@ SMTP.sendmail(*from_addr*, *to_addrs*, *msg*, *mail_options=()*, *rcpt_options=(
     Changed in version 3.5: `SMTPUTF8` support added, and [`SMTPNotSupportedError`](smtplib.md#smtplib.SMTPNotSupportedError "smtplib.SMTPNotSupportedError") may be
     raised if `SMTPUTF8` is specified but the server does not support it.
 
-SMTP.send_message(*msg*, *from_addr=None*, *to_addrs=None*, *mail_options=()*, *rcpt_options=()*)
+`SMTP.send_message(msg, from_addr=None, to_addrs=None, mail_options=(), rcpt_options=())`
 :   This is a convenience method for calling [`sendmail()`](smtplib.md#smtplib.SMTP.sendmail "smtplib.SMTP.sendmail") with the message
     represented by an [`email.message.Message`](email.compat32-message.md#email.message.Message "email.message.Message") object. The arguments have
     the same meaning as for [`sendmail()`](smtplib.md#smtplib.SMTP.sendmail "smtplib.SMTP.sendmail"), except that *msg* is a `Message`
@@ -462,7 +462,7 @@ SMTP.send_message(*msg*, *from_addr=None*, *to_addrs=None*, *mail_options=()*, *
 
     Added in version 3.5: Support for internationalized addresses (`SMTPUTF8`).
 
-SMTP.quit()
+`SMTP.quit()`
 :   Terminate the SMTP session and close the connection. Return the result of
     the SMTP `QUIT` command.
 

@@ -28,7 +28,7 @@ The mailcap format is documented in [**RFC 1524**](https://datatracker.ietf.org/
 Mechanism For Multimedia Mail Format Information”, but is not an internet
 standard. However, mailcap files are supported on most Unix systems.
 
-mailcap.findmatch(*caps*, *MIMEtype*, *key='view'*, *filename='/dev/null'*, *plist=[]*)
+`mailcap.findmatch(caps, MIMEtype, key='view', filename='/dev/null', plist=[])`
 :   Return a 2-tuple; the first element is a string containing the command line to
     be executed (which can be passed to [`os.system()`](os.md#os.system "os.system")), and the second element
     is the mailcap entry for a given MIME type. If no matching MIME type can be
@@ -70,7 +70,7 @@ mailcap.findmatch(*caps*, *MIMEtype*, *key='view'*, *filename='/dev/null'*, *pli
     `findmatch` will ignore all mailcap entries which use that value.
     A [`warning`](warnings.md#module-warnings "warnings: Issue warning messages and control their disposition.") will be raised in either case.
 
-mailcap.getcaps()
+`mailcap.getcaps()`
 :   Returns a dictionary mapping MIME types to a list of mailcap file entries. This
     dictionary must be passed to the [`findmatch()`](mailcap.md#mailcap.findmatch "mailcap.findmatch") function. An entry is stored
     as a list of dictionaries, but it shouldn’t be necessary to know the details of

@@ -584,33 +584,33 @@ python -m idlelib [options] [file ...]
 
 The following options are available:
 
--c <command>
+`-c <command>`
 :   Run the specified Python command in the shell window.
     For example, pass `-c "print('Hello, World!')"`.
     On Windows, the outer quotes must be double quotes as shown.
 
--d
+`-d`
 :   Enable the debugger and open the shell window.
 
--e
+`-e`
 :   Open an editor window.
 
--h
+`-h`
 :   Print a help message with legal combinations of options and exit.
 
--i
+`-i`
 :   Open a shell window.
 
--r <file>
+`-r <file>`
 :   Run the specified file in the shell window.
 
--s
+`-s`
 :   Run the startup file (as defined by the environment variables `IDLESTARTUP` or [`PYTHONSTARTUP`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONSTARTUP)) before opening the shell window.
 
--t <title>
+`-t <title>`
 :   Set the title of the shell window.
 
--
+`-`
 :   Read and execute standard input in the shell window. This option must be the last one before any arguments.
 
 If arguments are provided:

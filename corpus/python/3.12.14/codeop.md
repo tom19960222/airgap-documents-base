@@ -29,7 +29,7 @@ of doing them both.
 
 To do just the former:
 
-codeop.compile_command(*source*, *filename='<input>'*, *symbol='single'*)
+`codeop.compile_command(source, filename='<input>', symbol='single')`
 :   Tries to compile *source*, which should be a string of Python code and return a
     code object if *source* is valid Python code. In that case, the filename
     attribute of the code object will be *filename*, which defaults to
@@ -53,14 +53,14 @@ codeop.compile_command(*source*, *filename='<input>'*, *symbol='single'*)
     > a backslash followed by two newlines may be followed by arbitrary garbage.
     > This will be fixed once the API for the parser is better.
 
-*class* codeop.Compile
+`class codeop.Compile`
 :   Instances of this class have [`__call__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__call__ "object.__call__") methods identical in signature to
     the built-in function [`compile()`](functions.md#compile "compile"), but with the difference that if the
     instance compiles program text containing a [`__future__`](__future__.md#module-__future__ "__future__: Future statement definitions") statement, the
     instance ‘remembers’ and compiles all subsequent program texts with the
     statement in force.
 
-*class* codeop.CommandCompiler
+`class codeop.CommandCompiler`
 :   Instances of this class have [`__call__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__call__ "object.__call__") methods identical in signature to
     [`compile_command()`](codeop.md#codeop.compile_command "codeop.compile_command"); the difference is that if the instance compiles program
     text containing a [`__future__`](__future__.md#module-__future__ "__future__: Future statement definitions") statement, the instance ‘remembers’ and

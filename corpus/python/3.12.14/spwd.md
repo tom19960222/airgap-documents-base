@@ -45,13 +45,13 @@ The sp_namp and sp_pwdp items are strings, all others are integers.
 
 The following functions are defined:
 
-spwd.getspnam(*name*)
+`spwd.getspnam(name)`
 :   Return the shadow password database entry for the given user name.
 
     Changed in version 3.6: Raises a [`PermissionError`](exceptions.md#PermissionError "PermissionError") instead of [`KeyError`](exceptions.md#KeyError "KeyError") if the user
     doesn’t have privileges.
 
-spwd.getspall()
+`spwd.getspall()`
 :   Return a list of all available shadow password database entries, in arbitrary
     order.
 

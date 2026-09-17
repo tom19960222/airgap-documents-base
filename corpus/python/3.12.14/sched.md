@@ -14,7 +14,7 @@ fetched_at: 2026-09-17T15:33:34+00:00
 The [`sched`](sched.md#module-sched "sched: General purpose event scheduler.") module defines a class which implements a general purpose event
 scheduler:
 
-*class* sched.scheduler(*timefunc=time.monotonic*, *delayfunc=time.sleep*)
+`class sched.scheduler(timefunc=time.monotonic, delayfunc=time.sleep)`
 :   The [`scheduler`](sched.md#sched.scheduler "sched.scheduler") class defines a generic interface to scheduling events.
     It needs two functions to actually deal with the “outside world” — *timefunc*
     should be callable without arguments, and return a number (the “time”, in any
@@ -62,7 +62,7 @@ From print_time 1652342840.369612 default
 
 [`scheduler`](sched.md#sched.scheduler "sched.scheduler") instances have the following methods and attributes:
 
-scheduler.enterabs(*time*, *priority*, *action*, *argument=()*, *kwargs={}*)
+`scheduler.enterabs(time, priority, action, argument=(), kwargs={})`
 :   Schedule a new event. The *time* argument should be a numeric type compatible
     with the return value of the *timefunc* function passed to the constructor.
     Events scheduled for the same *time* will be executed in the order of their
@@ -79,7 +79,7 @@ scheduler.enterabs(*time*, *priority*, *action*, *argument=()*, *kwargs={}*)
 
     Changed in version 3.3: *kwargs* parameter was added.
 
-scheduler.enter(*delay*, *priority*, *action*, *argument=()*, *kwargs={}*)
+`scheduler.enter(delay, priority, action, argument=(), kwargs={})`
 :   Schedule an event for *delay* more time units. Other than the relative time, the
     other arguments, the effect and the return value are the same as those for
     [`enterabs()`](sched.md#sched.scheduler.enterabs "sched.scheduler.enterabs").
@@ -88,14 +88,14 @@ scheduler.enter(*delay*, *priority*, *action*, *argument=()*, *kwargs={}*)
 
     Changed in version 3.3: *kwargs* parameter was added.
 
-scheduler.cancel(*event*)
+`scheduler.cancel(event)`
 :   Remove the event from the queue. If *event* is not an event currently in the
     queue, this method will raise a [`ValueError`](exceptions.md#ValueError "ValueError").
 
-scheduler.empty()
+`scheduler.empty()`
 :   Return `True` if the event queue is empty.
 
-scheduler.run(*blocking=True*)
+`scheduler.run(blocking=True)`
 :   Run all scheduled events. This method will wait (using the *delayfunc*
     function passed to the constructor) for the next event, then execute it and so
     on until there are no more scheduled events.
@@ -116,7 +116,7 @@ scheduler.run(*blocking=True*)
 
     Changed in version 3.3: *blocking* parameter was added.
 
-scheduler.queue
+`scheduler.queue`
 :   Read-only attribute returning a list of upcoming events in the order they
     will be run. Each event is shown as a [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) with the
     following fields: time, priority, action, argument, kwargs.

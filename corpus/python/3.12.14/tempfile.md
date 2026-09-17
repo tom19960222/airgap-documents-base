@@ -28,7 +28,7 @@ is recommended to use keyword arguments for clarity.
 
 The module defines the following user-callable items:
 
-tempfile.TemporaryFile(*mode='w+b'*, *buffering=-1*, *encoding=None*, *newline=None*, *suffix=None*, *prefix=None*, *dir=None*, *\**, *errors=None*)
+`tempfile.TemporaryFile(mode='w+b', buffering=-1, encoding=None, newline=None, suffix=None, prefix=None, dir=None, *, errors=None)`
 :   Return a [file-like object](https://docs.python.org/3.12/glossary.html#term-file-like-object) that can be used as a temporary storage area.
     The file is created securely, using the same rules as [`mkstemp()`](tempfile.md#tempfile.mkstemp "tempfile.mkstemp"). It will be destroyed as soon
     as it is closed (including an implicit close when the object is garbage
@@ -67,7 +67,7 @@ tempfile.TemporaryFile(*mode='w+b'*, *buffering=-1*, *encoding=None*, *newline=N
 
     Changed in version 3.8: Added *errors* parameter.
 
-tempfile.NamedTemporaryFile(*mode='w+b'*, *buffering=-1*, *encoding=None*, *newline=None*, *suffix=None*, *prefix=None*, *dir=None*, *delete=True*, *\**, *errors=None*, *delete_on_close=True*)
+`tempfile.NamedTemporaryFile(mode='w+b', buffering=-1, encoding=None, newline=None, suffix=None, prefix=None, dir=None, delete=True, *, errors=None, delete_on_close=True)`
 :   This function operates exactly as [`TemporaryFile()`](tempfile.md#tempfile.TemporaryFile "tempfile.TemporaryFile") does, except the
     following differences:
 
@@ -131,14 +131,14 @@ tempfile.NamedTemporaryFile(*mode='w+b'*, *buffering=-1*, *encoding=None*, *newl
 
     Changed in version 3.12: Added *delete_on_close* parameter.
 
-*class* tempfile.SpooledTemporaryFile(*max_size=0*, *mode='w+b'*, *buffering=-1*, *encoding=None*, *newline=None*, *suffix=None*, *prefix=None*, *dir=None*, *\**, *errors=None*)
+`class tempfile.SpooledTemporaryFile(max_size=0, mode='w+b', buffering=-1, encoding=None, newline=None, suffix=None, prefix=None, dir=None, *, errors=None)`
 :   This class operates exactly as [`TemporaryFile()`](tempfile.md#tempfile.TemporaryFile "tempfile.TemporaryFile") does, except that
     data is spooled in memory until the file size exceeds *max_size*, or
     until the file’s [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method is called, at which point the
     contents are written to disk and operation proceeds as with
     [`TemporaryFile()`](tempfile.md#tempfile.TemporaryFile "tempfile.TemporaryFile").
 
-    rollover()
+    `rollover()`
     :   The resulting file has one additional method, `rollover()`, which
         causes the file to roll over to an on-disk file regardless of its size.
 
@@ -157,20 +157,20 @@ tempfile.NamedTemporaryFile(*mode='w+b'*, *buffering=-1*, *encoding=None*, *newl
     [`io.TextIOBase`](io.md#io.TextIOBase "io.TextIOBase") abstract base classes (depending on whether binary
     or text *mode* was specified).
 
-*class* tempfile.TemporaryDirectory(*suffix=None*, *prefix=None*, *dir=None*, *ignore_cleanup_errors=False*, *\**, *delete=True*)
+`class tempfile.TemporaryDirectory(suffix=None, prefix=None, dir=None, ignore_cleanup_errors=False, *, delete=True)`
 :   This class securely creates a temporary directory using the same rules as [`mkdtemp()`](tempfile.md#tempfile.mkdtemp "tempfile.mkdtemp").
     The resulting object can be used as a [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager) (see
     [Examples](tempfile.md#tempfile-examples)). On completion of the context or destruction
     of the temporary directory object, the newly created temporary directory
     and all its contents are removed from the filesystem.
 
-    name
+    `name`
     :   The directory name can be retrieved from the `name` attribute of the
         returned object. When the returned object is used as a [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager), the
         `name` will be assigned to the target of the `as` clause in
         the [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement, if there is one.
 
-    cleanup()
+    `cleanup()`
     :   The directory can be explicitly cleaned up by calling the
         `cleanup()` method. If *ignore_cleanup_errors* is true, any unhandled
         exceptions during explicit or implicit cleanup (such as a
@@ -194,7 +194,7 @@ tempfile.NamedTemporaryFile(*mode='w+b'*, *buffering=-1*, *encoding=None*, *newl
 
     Changed in version 3.12: Added the *delete* parameter.
 
-tempfile.mkstemp(*suffix=None*, *prefix=None*, *dir=None*, *text=False*)
+`tempfile.mkstemp(suffix=None, prefix=None, dir=None, text=False)`
 :   Creates a temporary file in the most secure manner possible. There are
     no race conditions in the file’s creation, assuming that the platform
     properly implements the [`os.O_EXCL`](os.md#os.O_EXCL "os.O_EXCL") flag for [`os.open()`](os.md#os.open "os.open"). The
@@ -245,7 +245,7 @@ tempfile.mkstemp(*suffix=None*, *prefix=None*, *dir=None*, *text=False*)
 
     Changed in version 3.6: The *dir* parameter now accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-tempfile.mkdtemp(*suffix=None*, *prefix=None*, *dir=None*)
+`tempfile.mkdtemp(suffix=None, prefix=None, dir=None)`
 :   Creates a temporary directory in the most secure manner possible. There
     are no race conditions in the directory’s creation. The directory is
     readable, writable, and searchable only by the creating user ID.
@@ -269,7 +269,7 @@ tempfile.mkdtemp(*suffix=None*, *prefix=None*, *dir=None*)
 
     Changed in version 3.12: [`mkdtemp()`](tempfile.md#tempfile.mkdtemp "tempfile.mkdtemp") now always returns an absolute path, even if *dir* is relative.
 
-tempfile.gettempdir()
+`tempfile.gettempdir()`
 :   Return the name of the directory used for temporary files. This
     defines the default value for the *dir* argument to all functions
     in this module.
@@ -294,16 +294,16 @@ tempfile.gettempdir()
     Changed in version 3.10: Always returns a str. Previously it would return any [`tempdir`](tempfile.md#tempfile.tempdir "tempfile.tempdir")
     value regardless of type so long as it was not `None`.
 
-tempfile.gettempdirb()
+`tempfile.gettempdirb()`
 :   Same as [`gettempdir()`](tempfile.md#tempfile.gettempdir "tempfile.gettempdir") but the return value is in bytes.
 
     Added in version 3.5.
 
-tempfile.gettempprefix()
+`tempfile.gettempprefix()`
 :   Return the filename prefix used to create temporary files. This does not
     contain the directory component.
 
-tempfile.gettempprefixb()
+`tempfile.gettempprefixb()`
 :   Same as [`gettempprefix()`](tempfile.md#tempfile.gettempprefix "tempfile.gettempprefix") but the return value is in bytes.
 
     Added in version 3.5.
@@ -315,7 +315,7 @@ All functions in this module take a *dir* argument which can be used
 to specify the directory. This is the recommended approach that does
 not surprise other unsuspecting code by changing global API behavior.
 
-tempfile.tempdir
+`tempfile.tempdir`
 :   When set to a value other than `None`, this variable defines the
     default value for the *dir* argument to the functions defined in this
     module, including its type, bytes or str. It cannot be a
@@ -392,7 +392,7 @@ first process. The solution is to combine the two steps and create the
 file immediately. This approach is used by [`mkstemp()`](tempfile.md#tempfile.mkstemp "tempfile.mkstemp") and the
 other functions described above.
 
-tempfile.mktemp(*suffix=''*, *prefix='tmp'*, *dir=None*)
+`tempfile.mktemp(suffix='', prefix='tmp', dir=None)`
 :   Deprecated since version 2.3: Use [`mkstemp()`](tempfile.md#tempfile.mkstemp "tempfile.mkstemp") instead.
 
     Return an absolute pathname of a file that did not exist at the time the

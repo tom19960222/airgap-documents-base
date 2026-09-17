@@ -50,14 +50,14 @@ Changed in version 3.8: [`exists()`](os.path.md#os.path.exists "os.path.exists")
 raising an exception for paths that contain characters or bytes
 unrepresentable at the OS level.
 
-os.path.abspath(*path*)
+`os.path.abspath(path)`
 :   Return a normalized absolutized version of the pathname *path*. On most
     platforms, this is equivalent to calling the function [`normpath()`](os.path.md#os.path.normpath "os.path.normpath") as
     follows: `normpath(join(os.getcwd(), path))`.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.basename(*path*)
+`os.path.basename(path)`
 :   Return the base name of pathname *path*. This is the second element of the
     pair returned by passing *path* to the function [`split()`](os.path.md#os.path.split "os.path.split"). Note that
     the result of this function is different
@@ -67,7 +67,7 @@ os.path.basename(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.commonpath(*paths*)
+`os.path.commonpath(paths)`
 :   Return the longest common sub-path of each pathname in the sequence
     *paths*. Raise [`ValueError`](exceptions.md#ValueError "ValueError") if *paths* contain both absolute
     and relative pathnames, if *paths* are on different drives, or
@@ -78,7 +78,7 @@ os.path.commonpath(*paths*)
 
     Changed in version 3.6: Accepts a sequence of [path-like objects](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.commonprefix(*list*)
+`os.path.commonprefix(list)`
 :   Return the longest string prefix (taken character-by-character) that is a
     prefix of all strings in *list*. If *list* is empty, return the empty string
     (`''`).
@@ -101,13 +101,13 @@ os.path.commonprefix(*list*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.dirname(*path*)
+`os.path.dirname(path)`
 :   Return the directory name of pathname *path*. This is the first element of
     the pair returned by passing *path* to the function [`split()`](os.path.md#os.path.split "os.path.split").
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.exists(*path*)
+`os.path.exists(path)`
 :   Return `True` if *path* refers to an existing path or an open
     file descriptor. Returns `False` for broken symbolic links. On
     some platforms, this function may return `False` if permission is
@@ -119,14 +119,14 @@ os.path.exists(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.lexists(*path*)
+`os.path.lexists(path)`
 :   Return `True` if *path* refers to an existing path, including
     broken symbolic links. Equivalent to [`exists()`](os.path.md#os.path.exists "os.path.exists") on platforms lacking
     [`os.lstat()`](os.md#os.lstat "os.lstat").
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.expanduser(*path*)
+`os.path.expanduser(path)`
 :   On Unix and Windows, return the argument with an initial component of `~` or
     `~user` replaced by that *user*’s home directory.
 
@@ -147,7 +147,7 @@ os.path.expanduser(*path*)
 
     Changed in version 3.8: No longer uses `HOME` on Windows.
 
-os.path.expandvars(*path*)
+`os.path.expandvars(path)`
 :   Return the argument with environment variables expanded. Substrings of the form
     `$name` or `${name}` are replaced by the value of environment variable
     *name*. Malformed variable names and references to non-existing variables are
@@ -158,19 +158,19 @@ os.path.expandvars(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.getatime(*path*)
+`os.path.getatime(path)`
 :   Return the time of last access of *path*. The return value is a floating-point number giving
     the number of seconds since the epoch (see the [`time`](time.md#module-time "time: Time access and conversions.") module). Raise
     [`OSError`](exceptions.md#OSError "OSError") if the file does not exist or is inaccessible.
 
-os.path.getmtime(*path*)
+`os.path.getmtime(path)`
 :   Return the time of last modification of *path*. The return value is a floating-point number
     giving the number of seconds since the epoch (see the [`time`](time.md#module-time "time: Time access and conversions.") module).
     Raise [`OSError`](exceptions.md#OSError "OSError") if the file does not exist or is inaccessible.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.getctime(*path*)
+`os.path.getctime(path)`
 :   Return the system’s ctime which, on some systems (like Unix) is the time of the
     last metadata change, and, on others (like Windows), is the creation time for *path*.
     The return value is a number giving the number of seconds since the epoch (see
@@ -179,48 +179,48 @@ os.path.getctime(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.getsize(*path*)
+`os.path.getsize(path)`
 :   Return the size, in bytes, of *path*. Raise [`OSError`](exceptions.md#OSError "OSError") if the file does
     not exist or is inaccessible.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.isabs(*path*)
+`os.path.isabs(path)`
 :   Return `True` if *path* is an absolute pathname. On Unix, that means it
     begins with a slash, on Windows that it begins with a (back)slash after chopping
     off a potential drive letter.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.isfile(*path*)
+`os.path.isfile(path)`
 :   Return `True` if *path* is an [`existing`](os.path.md#os.path.exists "os.path.exists") regular file.
     This follows symbolic links, so both [`islink()`](os.path.md#os.path.islink "os.path.islink") and [`isfile()`](os.path.md#os.path.isfile "os.path.isfile") can
     be true for the same path.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.isdir(*path*)
+`os.path.isdir(path)`
 :   Return `True` if *path* is an [`existing`](os.path.md#os.path.exists "os.path.exists") directory. This
     follows symbolic links, so both [`islink()`](os.path.md#os.path.islink "os.path.islink") and [`isdir()`](os.path.md#os.path.isdir "os.path.isdir") can be true
     for the same path.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.isjunction(*path*)
+`os.path.isjunction(path)`
 :   Return `True` if *path* refers to an [`existing`](os.path.md#os.path.lexists "os.path.lexists") directory
     entry that is a junction. Always return `False` if junctions are not
     supported on the current platform.
 
     Added in version 3.12.
 
-os.path.islink(*path*)
+`os.path.islink(path)`
 :   Return `True` if *path* refers to an [`existing`](os.path.md#os.path.exists "os.path.exists") directory
     entry that is a symbolic link. Always `False` if symbolic links are not
     supported by the Python runtime.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.ismount(*path*)
+`os.path.ismount(path)`
 :   Return `True` if pathname *path* is a *mount point*: a point in a
     file system where a different file system has been mounted. On POSIX, the
     function checks whether *path*’s parent, `path/..`, is on a different
@@ -235,7 +235,7 @@ os.path.ismount(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.isdevdrive(*path*)
+`os.path.isdevdrive(path)`
 :   Return `True` if pathname *path* is located on a Windows Dev Drive.
     A Dev Drive is optimized for developer scenarios, and offers faster
     performance for reading and writing files. It is recommended for use for
@@ -251,7 +251,7 @@ os.path.isdevdrive(*path*)
 
     Added in version 3.12.
 
-os.path.join(*path*, *\*paths*)
+`os.path.join(path, *paths)`
 :   Join one or more path segments intelligently. The return value is the
     concatenation of *path* and all members of *\*paths*, with exactly one
     directory separator following each non-empty part, except the last. That is,
@@ -269,14 +269,14 @@ os.path.join(*path*, *\*paths*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object) for *path* and *paths*.
 
-os.path.normcase(*path*)
+`os.path.normcase(path)`
 :   Normalize the case of a pathname. On Windows, convert all characters in the
     pathname to lowercase, and also convert forward slashes to backward slashes.
     On other operating systems, return the path unchanged.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.normpath(*path*)
+`os.path.normpath(path)`
 :   Normalize a pathname by collapsing redundant separators and up-level
     references so that `A//B`, `A/B/`, `A/./B` and `A/foo/../B` all
     become `A/B`. This string manipulation may change the meaning of a path
@@ -294,7 +294,7 @@ os.path.normpath(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.realpath(*path*, *\**, *strict=False*)
+`os.path.realpath(path, *, strict=False)`
 :   Return the canonical path of the specified filename, eliminating any symbolic
     links encountered in the path (if they are supported by the operating
     system).
@@ -338,12 +338,12 @@ os.path.realpath(*path*, *\**, *strict=False*)
     Changed in version 3.12.11: The [`ALLOW_MISSING`](os.path.md#os.path.ALLOW_MISSING "os.path.ALLOW_MISSING") value for the *strict* parameter
     was added.
 
-os.path.ALLOW_MISSING
+`os.path.ALLOW_MISSING`
 :   Special value used for the *strict* argument in [`realpath()`](os.path.md#os.path.realpath "os.path.realpath").
 
     Added in version 3.12.11.
 
-os.path.relpath(*path*, *start=os.curdir*)
+`os.path.relpath(path, start=os.curdir)`
 :   Return a relative filepath to *path* either from the current directory or
     from an optional *start* directory. This is a path computation: the
     filesystem is not accessed to confirm the existence or nature of *path* or
@@ -354,7 +354,7 @@ os.path.relpath(*path*, *start=os.curdir*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.samefile(*path1*, *path2*)
+`os.path.samefile(path1, path2)`
 :   Return `True` if both pathname arguments refer to the same file or directory.
     This is determined by the device number and i-node number and raises an
     exception if an [`os.stat()`](os.md#os.stat "os.stat") call on either pathname fails.
@@ -365,14 +365,14 @@ os.path.samefile(*path1*, *path2*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.sameopenfile(*fp1*, *fp2*)
+`os.path.sameopenfile(fp1, fp2)`
 :   Return `True` if the file descriptors *fp1* and *fp2* refer to the same file.
 
     Changed in version 3.2: Added Windows support.
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.samestat(*stat1*, *stat2*)
+`os.path.samestat(stat1, stat2)`
 :   Return `True` if the stat tuples *stat1* and *stat2* refer to the same file.
     These structures may have been returned by [`os.fstat()`](os.md#os.fstat "os.fstat"),
     [`os.lstat()`](os.md#os.lstat "os.lstat"), or [`os.stat()`](os.md#os.stat "os.stat"). This function implements the
@@ -382,7 +382,7 @@ os.path.samestat(*stat1*, *stat2*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.split(*path*)
+`os.path.split(path)`
 :   Split the pathname *path* into a pair, `(head, tail)` where *tail* is the
     last pathname component and *head* is everything leading up to that. The
     *tail* part will never contain a slash; if *path* ends in a slash, *tail*
@@ -395,7 +395,7 @@ os.path.split(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.splitdrive(*path*)
+`os.path.splitdrive(path)`
 :   Split the pathname *path* into a pair `(drive, tail)` where *drive* is either
     a mount point or the empty string. On systems which do not use drive
     specifications, *drive* will always be the empty string. In all cases, `drive
@@ -421,7 +421,7 @@ os.path.splitdrive(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.splitroot(*path*)
+`os.path.splitroot(path)`
 :   Split the pathname *path* into a 3-item tuple `(drive, root, tail)` where
     *drive* is a device name or mount point, *root* is a string of separators
     after the drive, and *tail* is everything after the root. Any of these
@@ -455,7 +455,7 @@ os.path.splitroot(*path*)
 
     Added in version 3.12.
 
-os.path.splitext(*path*)
+`os.path.splitext(path)`
 :   Split the pathname *path* into a pair `(root, ext)` such that `root + ext ==
     path`, and the extension, *ext*, is empty or begins with a period and contains at
     most one period.
@@ -489,6 +489,6 @@ os.path.splitext(*path*)
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-os.path.supports_unicode_filenames
+`os.path.supports_unicode_filenames`
 :   `True` if arbitrary Unicode strings can be used as file names (within limitations
     imposed by the file system).

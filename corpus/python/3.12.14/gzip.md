@@ -28,7 +28,7 @@ Note that additional file formats which can be decompressed by the
 
 The module defines the following items:
 
-gzip.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=None*, *newline=None*)
+`gzip.open(filename, mode='rb', compresslevel=9, encoding=None, errors=None, newline=None)`
 :   Open a gzip-compressed file in binary or text mode, returning a [file
     object](https://docs.python.org/3.12/glossary.html#term-file-object).
 
@@ -57,14 +57,14 @@ gzip.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=N
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-*exception* gzip.BadGzipFile
+`exception gzip.BadGzipFile`
 :   An exception raised for invalid gzip files. It inherits from [`OSError`](exceptions.md#OSError "OSError").
     [`EOFError`](exceptions.md#EOFError "EOFError") and [`zlib.error`](zlib.md#zlib.error "zlib.error") can also be raised for invalid gzip
     files.
 
     Added in version 3.8.
 
-*class* gzip.GzipFile(*filename=None*, *mode=None*, *compresslevel=9*, *fileobj=None*, *mtime=None*)
+`class gzip.GzipFile(filename=None, mode=None, compresslevel=9, fileobj=None, mtime=None)`
 :   Constructor for the [`GzipFile`](gzip.md#gzip.GzipFile "gzip.GzipFile") class, which simulates most of the
     methods of a [file object](https://docs.python.org/3.12/glossary.html#term-file-object), with the exception of the [`truncate()`](io.md#io.IOBase.truncate "io.IOBase.truncate")
     method. At least one of *fileobj* and *filename* must be given a non-trivial
@@ -113,7 +113,7 @@ gzip.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=N
 
     [`GzipFile`](gzip.md#gzip.GzipFile "gzip.GzipFile") also provides the following method and attribute:
 
-    peek(*n*)
+    `peek(n)`
     :   Read *n* uncompressed bytes without advancing the file position.
         At most one single read on the compressed stream is done to satisfy
         the call. The number of bytes returned may be more or less than
@@ -128,7 +128,7 @@ gzip.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=N
 
         Added in version 3.2.
 
-    mtime
+    `mtime`
     :   When decompressing, the value of the last modification time field in
         the most recently read header may be read from this attribute, as an
         integer. The initial value before reading any headers is `None`.
@@ -139,7 +139,7 @@ gzip.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=N
         [`time.time()`](time.md#time.time "time.time") and the [`st_mtime`](os.md#os.stat_result.st_mtime "os.stat_result.st_mtime") attribute of
         the object returned by [`os.stat()`](os.md#os.stat "os.stat").
 
-    name
+    `name`
     :   The path to the gzip file on disk, as a [`str`](stdtypes.md#str "str") or [`bytes`](stdtypes.md#bytes "bytes").
         Equivalent to the output of [`os.fspath()`](os.md#os.fspath "os.fspath") on the original input path,
         with no other normalization, resolution or expansion.
@@ -166,7 +166,7 @@ gzip.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=N
     Deprecated since version 3.9: Opening [`GzipFile`](gzip.md#gzip.GzipFile "gzip.GzipFile") for writing without specifying the *mode*
     argument is deprecated.
 
-gzip.compress(*data*, *compresslevel=9*, *\**, *mtime=None*)
+`gzip.compress(data, compresslevel=9, *, mtime=None)`
 :   Compress the *data*, returning a [`bytes`](stdtypes.md#bytes "bytes") object containing
     the compressed data. *compresslevel* and *mtime* have the same meaning as in
     the [`GzipFile`](gzip.md#gzip.GzipFile "gzip.GzipFile") constructor above. When *mtime* is set to `0`, this
@@ -183,7 +183,7 @@ gzip.compress(*data*, *compresslevel=9*, *\**, *mtime=None*)
     output may contain a gzip header “OS” byte value other than 255
     “unknown” as supplied by the underlying zlib implementation.
 
-gzip.decompress(*data*)
+`gzip.decompress(data)`
 :   Decompress the *data*, returning a [`bytes`](stdtypes.md#bytes "bytes") object containing the
     uncompressed data. This function is capable of decompressing multi-member
     gzip data (multiple gzip blocks concatenated together). When the data is
@@ -250,17 +250,17 @@ By default, when you will execute the CLI, the default compression level is 6.
 
 ### Command line options
 
-file
+`file`
 :   If *file* is not specified, read from [`sys.stdin`](sys.md#sys.stdin "sys.stdin").
 
---fast
+`--fast`
 :   Indicates the fastest compression method (less compression).
 
---best
+`--best`
 :   Indicates the slowest compression method (best compression).
 
--d, --decompress
+`-d, --decompress`
 :   Decompress the given file.
 
--h, --help
+`-h, --help`
 :   Show the help message.

@@ -49,7 +49,7 @@ Added in version 3.7.
 
 ## Module contents
 
-@dataclasses.dataclass(*\**, *init=True*, *repr=True*, *eq=True*, *order=False*, *unsafe_hash=False*, *frozen=False*, *match_args=True*, *kw_only=False*, *slots=False*, *weakref_slot=False*)
+`@dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True, kw_only=False, slots=False, weakref_slot=False)`
 :   This function is a [decorator](https://docs.python.org/3.12/glossary.html#term-decorator) that is used to add generated
     [special methods](https://docs.python.org/3.12/glossary.html#term-special-method) to classes, as described below.
 
@@ -241,7 +241,7 @@ Added in version 3.7.
     follows a field with a default value. This is true whether this
     occurs in a single class, or as a result of class inheritance.
 
-dataclasses.field(*\**, *default=MISSING*, *default_factory=MISSING*, *init=True*, *repr=True*, *hash=None*, *compare=True*, *metadata=None*, *kw_only=MISSING*)
+`dataclasses.field(*, default=MISSING, default_factory=MISSING, init=True, repr=True, hash=None, compare=True, metadata=None, kw_only=MISSING)`
 :   For common and simple use cases, no other functionality is
     required. There are, however, some dataclass features that
     require additional per-field information. To satisfy this need for
@@ -329,7 +329,7 @@ dataclasses.field(*\**, *default=MISSING*, *default_factory=MISSING*, *init=True
     `C.t` will be `20`, and the class attributes `C.x` and
     `C.y` will not be set.
 
-*class* dataclasses.Field
+`class dataclasses.Field`
 :   `Field` objects describe each defined field. These objects
     are created internally, and are returned by the [`fields()`](dataclasses.md#dataclasses.fields "dataclasses.fields")
     module-level method (see below). Users should never instantiate a
@@ -344,13 +344,13 @@ dataclasses.field(*\**, *default=MISSING*, *default_factory=MISSING*, *init=True
     Other attributes may exist, but they are private and must not be
     inspected or relied on.
 
-dataclasses.fields(*class_or_instance*)
+`dataclasses.fields(class_or_instance)`
 :   Returns a tuple of [`Field`](dataclasses.md#dataclasses.Field "dataclasses.Field") objects that define the fields for this
     dataclass. Accepts either a dataclass, or an instance of a dataclass.
     Raises [`TypeError`](exceptions.md#TypeError "TypeError") if not passed a dataclass or instance of one.
     Does not return pseudo-fields which are `ClassVar` or `InitVar`.
 
-dataclasses.asdict(*obj*, *\**, *dict_factory=dict*)
+`dataclasses.asdict(obj, *, dict_factory=dict)`
 :   Converts the dataclass *obj* to a dict (by using the
     factory function *dict_factory*). Each dataclass is converted
     to a dict of its fields, as `name: value` pairs. dataclasses, dicts,
@@ -385,7 +385,7 @@ dataclasses.asdict(*obj*, *\**, *dict_factory=dict*)
     `asdict()` raises [`TypeError`](exceptions.md#TypeError "TypeError") if *obj* is not a dataclass
     instance.
 
-dataclasses.astuple(*obj*, *\**, *tuple_factory=tuple*)
+`dataclasses.astuple(obj, *, tuple_factory=tuple)`
 :   Converts the dataclass *obj* to a tuple (by using the
     factory function *tuple_factory*). Each dataclass is converted
     to a tuple of its field values. dataclasses, dicts, lists, and
@@ -408,7 +408,7 @@ dataclasses.astuple(*obj*, *\**, *tuple_factory=tuple*)
     `astuple()` raises [`TypeError`](exceptions.md#TypeError "TypeError") if *obj* is not a dataclass
     instance.
 
-dataclasses.make_dataclass(*cls_name*, *fields*, *\**, *bases=()*, *namespace=None*, *init=True*, *repr=True*, *eq=True*, *order=False*, *unsafe_hash=False*, *frozen=False*, *match_args=True*, *kw_only=False*, *slots=False*, *weakref_slot=False*, *module=None*)
+`dataclasses.make_dataclass(cls_name, fields, *, bases=(), namespace=None, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True, kw_only=False, slots=False, weakref_slot=False, module=None)`
 :   Creates a new dataclass with name *cls_name*, fields as defined
     in *fields*, base classes as given in *bases*, and initialized
     with a namespace as given in *namespace*. *fields* is an
@@ -450,7 +450,7 @@ dataclasses.make_dataclass(*cls_name*, *fields*, *\**, *bases=()*, *namespace=No
             return self.x + 1
     ```
 
-dataclasses.replace(*obj*, */*, *\*\*changes*)
+`dataclasses.replace(obj, /, **changes)`
 :   Creates a new object of the same type as *obj*, replacing
     fields with values from *changes*. If *obj* is not a Data
     Class, raises [`TypeError`](exceptions.md#TypeError "TypeError"). If keys in *changes* are not
@@ -477,7 +477,7 @@ dataclasses.replace(*obj*, */*, *\*\*changes*)
     `replace()` (or similarly named) method which handles instance
     copying.
 
-dataclasses.is_dataclass(*obj*)
+`dataclasses.is_dataclass(obj)`
 :   Return `True` if its parameter is a dataclass (including subclasses of a
     dataclass) or an instance of one, otherwise return `False`.
 
@@ -490,10 +490,10 @@ dataclasses.is_dataclass(*obj*)
         return is_dataclass(obj) and not isinstance(obj, type)
     ```
 
-dataclasses.MISSING
+`dataclasses.MISSING`
 :   A sentinel value signifying a missing default or default_factory.
 
-dataclasses.KW_ONLY
+`dataclasses.KW_ONLY`
 :   A sentinel value used as a type annotation. Any fields after a
     pseudo-field with the type of `KW_ONLY` are marked as
     keyword-only fields. Note that a pseudo-field of type
@@ -521,14 +521,14 @@ dataclasses.KW_ONLY
 
     Added in version 3.10.
 
-*exception* dataclasses.FrozenInstanceError
+`exception dataclasses.FrozenInstanceError`
 :   Raised when an implicitly defined [`__setattr__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__setattr__ "object.__setattr__") or
     [`__delattr__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__delattr__ "object.__delattr__") is called on a dataclass which was defined with
     `frozen=True`. It is a subclass of [`AttributeError`](exceptions.md#AttributeError "AttributeError").
 
 ## Post-init processing
 
-dataclasses.__post_init__()
+`dataclasses.__post_init__()`
 :   When defined on the class, it will be called by the generated
     [`__init__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__init__ "object.__init__"), normally as `self.__post_init__()`.
     However, if any `InitVar` fields are defined, they will also be

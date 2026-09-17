@@ -32,7 +32,7 @@ This module does not work or is not available on WebAssembly platforms
 `wasm32-emscripten` and `wasm32-wasi`. See
 [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-*class* xmlrpc.client.ServerProxy(*uri*, *transport=None*, *encoding=None*, *verbose=False*, *allow_none=False*, *use_datetime=False*, *use_builtin_types=False*, *\**, *headers=()*, *context=None*)
+`class xmlrpc.client.ServerProxy(uri, transport=None, encoding=None, verbose=False, allow_none=False, use_datetime=False, use_builtin_types=False, *, headers=(), context=None)`
 :   A [`ServerProxy`](xmlrpc.client.md#xmlrpc.client.ServerProxy "xmlrpc.client.ServerProxy") instance is an object that manages communication with a
     remote XML-RPC server. The required first argument is a URI (Uniform Resource
     Indicator), and will normally be the URL of the server. The optional second
@@ -145,11 +145,11 @@ returning a value, which may be either returned data in a conformant type or a
 Servers that support the XML introspection API support some common methods
 grouped under the reserved `system` attribute:
 
-ServerProxy.system.listMethods()
+`ServerProxy.system.listMethods()`
 :   This method returns a list of strings, one for each (non-system) method
     supported by the XML-RPC server.
 
-ServerProxy.system.methodSignature(*name*)
+`ServerProxy.system.methodSignature(name)`
 :   This method takes one parameter, the name of a method implemented by the XML-RPC
     server. It returns an array of possible signatures for this method. A signature
     is an array of types. The first of these types is the return type of the method,
@@ -167,7 +167,7 @@ ServerProxy.system.methodSignature(*name*)
     Python this means that the type of the returned value will be something other
     than list.
 
-ServerProxy.system.methodHelp(*name*)
+`ServerProxy.system.methodHelp(name)`
 :   This method takes one parameter, the name of a method implemented by the XML-RPC
     server. It returns a documentation string describing the use of that method. If
     no such string is available, an empty string is returned. The documentation
@@ -202,16 +202,16 @@ with xmlrpc.client.ServerProxy("http://localhost:8000/") as proxy:
 
 ## DateTime Objects
 
-*class* xmlrpc.client.DateTime
+`class xmlrpc.client.DateTime`
 :   This class may be initialized with seconds since the epoch, a time
     tuple, an ISO 8601 time/date string, or a [`datetime.datetime`](datetime.md#datetime.datetime "datetime.datetime")
     instance. It has the following methods, supported mainly for internal
     use by the marshalling/unmarshalling code:
 
-    decode(*string*)
+    `decode(string)`
     :   Accept a string as the instance’s new time value.
 
-    encode(*out*)
+    `encode(out)`
     :   Write the XML-RPC encoding of this [`DateTime`](xmlrpc.client.md#xmlrpc.client.DateTime "xmlrpc.client.DateTime") item to the *out* stream
         object.
 
@@ -252,22 +252,22 @@ print("Today: %s" % converted.strftime("%d.%m.%Y, %H:%M"))
 
 ## Binary Objects
 
-*class* xmlrpc.client.Binary
+`class xmlrpc.client.Binary`
 :   This class may be initialized from bytes data (which may include NULs). The
     primary access to the content of a [`Binary`](xmlrpc.client.md#xmlrpc.client.Binary "xmlrpc.client.Binary") object is provided by an
     attribute:
 
-    data
+    `data`
     :   The binary data encapsulated by the [`Binary`](xmlrpc.client.md#xmlrpc.client.Binary "xmlrpc.client.Binary") instance. The data is
         provided as a [`bytes`](stdtypes.md#bytes "bytes") object.
 
     [`Binary`](xmlrpc.client.md#xmlrpc.client.Binary "xmlrpc.client.Binary") objects have the following methods, supported mainly for
     internal use by the marshalling/unmarshalling code:
 
-    decode(*bytes*)
+    `decode(bytes)`
     :   Accept a base64 [`bytes`](stdtypes.md#bytes "bytes") object and decode it as the instance’s new data.
 
-    encode(*out*)
+    `encode(out)`
     :   Write the XML-RPC base 64 encoding of this binary item to the *out* stream object.
 
         The encoded data will have newlines every 76 characters as per
@@ -308,14 +308,14 @@ with open("fetched_python_logo.jpg", "wb") as handle:
 
 ## Fault Objects
 
-*class* xmlrpc.client.Fault
+`class xmlrpc.client.Fault`
 :   A [`Fault`](xmlrpc.client.md#xmlrpc.client.Fault "xmlrpc.client.Fault") object encapsulates the content of an XML-RPC fault tag. Fault
     objects have the following attributes:
 
-    faultCode
+    `faultCode`
     :   An int indicating the fault type.
 
-    faultString
+    `faultString`
     :   A string containing a diagnostic message associated with the fault.
 
 In the following example we’re going to intentionally cause a [`Fault`](xmlrpc.client.md#xmlrpc.client.Fault "xmlrpc.client.Fault") by
@@ -352,21 +352,21 @@ except xmlrpc.client.Fault as err:
 
 ## ProtocolError Objects
 
-*class* xmlrpc.client.ProtocolError
+`class xmlrpc.client.ProtocolError`
 :   A [`ProtocolError`](xmlrpc.client.md#xmlrpc.client.ProtocolError "xmlrpc.client.ProtocolError") object describes a protocol error in the underlying
     transport layer (such as a 404 ‘not found’ error if the server named by the URI
     does not exist). It has the following attributes:
 
-    url
+    `url`
     :   The URI or URL that triggered the error.
 
-    errcode
+    `errcode`
     :   The error code.
 
-    errmsg
+    `errmsg`
     :   The error message or diagnostic string.
 
-    headers
+    `headers`
     :   A dict containing the headers of the HTTP/HTTPS request that triggered the
         error.
 
@@ -394,7 +394,7 @@ except xmlrpc.client.ProtocolError as err:
 The [`MultiCall`](xmlrpc.client.md#xmlrpc.client.MultiCall "xmlrpc.client.MultiCall") object provides a way to encapsulate multiple calls to a
 remote server into a single request [[1]](xmlrpc.client.md#id6).
 
-*class* xmlrpc.client.MultiCall(*server*)
+`class xmlrpc.client.MultiCall(server)`
 :   Create an object used to boxcar method calls. *server* is the eventual target of
     the call. Calls can be made to the result object, but they will immediately
     return `None`, and only store the call name and parameters in the
@@ -449,7 +449,7 @@ print("7+3=%d, 7-3=%d, 7*3=%d, 7//3=%d" % tuple(result))
 
 ## Convenience Functions
 
-xmlrpc.client.dumps(*params*, *methodname=None*, *methodresponse=None*, *encoding=None*, *allow_none=False*)
+`xmlrpc.client.dumps(params, methodname=None, methodresponse=None, encoding=None, allow_none=False)`
 :   Convert *params* into an XML-RPC request. or into a response if *methodresponse*
     is true. *params* can be either a tuple of arguments or an instance of the
     [`Fault`](xmlrpc.client.md#xmlrpc.client.Fault "xmlrpc.client.Fault") exception class. If *methodresponse* is true, only a single value
@@ -458,7 +458,7 @@ xmlrpc.client.dumps(*params*, *methodname=None*, *methodresponse=None*, *encodin
     Python’s [`None`](constants.md#None "None") value cannot be used in standard XML-RPC; to allow using
     it via an extension, provide a true value for *allow_none*.
 
-xmlrpc.client.loads(*data*, *use_datetime=False*, *use_builtin_types=False*)
+`xmlrpc.client.loads(data, use_datetime=False, use_builtin_types=False)`
 :   Convert an XML-RPC request or response into Python objects, a `(params,
     methodname)`. *params* is a tuple of argument; *methodname* is a string, or
     `None` if no method name is present in the packet. If the XML-RPC packet

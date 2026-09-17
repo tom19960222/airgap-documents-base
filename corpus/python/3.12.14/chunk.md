@@ -39,7 +39,7 @@ of each chunk and read from the instance until it reaches the end, after which a
 new instance can be instantiated. At the end of the file, creating a new
 instance will fail with an [`EOFError`](exceptions.md#EOFError "EOFError") exception.
 
-*class* chunk.Chunk(*file*, *align=True*, *bigendian=True*, *inclheader=False*)
+`class chunk.Chunk(file, align=True, bigendian=True, inclheader=False)`
 :   Class which represents a chunk. The *file* argument is expected to be a
     file-like object. An instance of this class is specifically allowed. The
     only method that is needed is `read()`. If the methods
@@ -56,14 +56,14 @@ instance will fail with an [`EOFError`](exceptions.md#EOFError "EOFError") excep
 
     A [`Chunk`](chunk.md#chunk.Chunk "chunk.Chunk") object supports the following methods:
 
-    getname()
+    `getname()`
     :   Returns the name (ID) of the chunk. This is the first 4 bytes of the
         chunk.
 
-    getsize()
+    `getsize()`
     :   Returns the size of the chunk.
 
-    close()
+    `close()`
     :   Close and skip to the end of the chunk. This does not close the
         underlying file.
 
@@ -71,27 +71,27 @@ instance will fail with an [`EOFError`](exceptions.md#EOFError "EOFError") excep
     [`close()`](chunk.md#chunk.Chunk.close "chunk.Chunk.close") method has been called. Before Python 3.3, they used to
     raise [`IOError`](exceptions.md#IOError "IOError"), now an alias of [`OSError`](exceptions.md#OSError "OSError").
 
-    isatty()
+    `isatty()`
     :   Returns `False`.
 
-    seek(*pos*, *whence=0*)
+    `seek(pos, whence=0)`
     :   Set the chunk’s current position. The *whence* argument is optional and
         defaults to `0` (absolute file positioning); other values are `1`
         (seek relative to the current position) and `2` (seek relative to the
         file’s end). There is no return value. If the underlying file does not
         allow seek, only forward seeks are allowed.
 
-    tell()
+    `tell()`
     :   Return the current position into the chunk.
 
-    read(*size=-1*)
+    `read(size=-1)`
     :   Read at most *size* bytes from the chunk (less if the read hits the end of
         the chunk before obtaining *size* bytes). If the *size* argument is
         negative or omitted, read all data until the end of the chunk. An empty
         bytes object is returned when the end of the chunk is encountered
         immediately.
 
-    skip()
+    `skip()`
     :   Skip to the end of the chunk. All further calls to [`read()`](chunk.md#chunk.Chunk.read "chunk.Chunk.read") for the
         chunk will return `b''`. If you are not interested in the contents of
         the chunk, this method should be called so that the file points to the

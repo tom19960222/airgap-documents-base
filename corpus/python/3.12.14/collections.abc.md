@@ -151,22 +151,22 @@ whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-
 
 ## Collections Abstract Base Classes – Detailed Descriptions
 
-*class* collections.abc.Container
+`class collections.abc.Container`
 :   ABC for classes that provide the [`__contains__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__contains__ "object.__contains__") method.
 
-*class* collections.abc.Hashable
+`class collections.abc.Hashable`
 :   ABC for classes that provide the [`__hash__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__hash__ "object.__hash__") method.
 
-*class* collections.abc.Sized
+`class collections.abc.Sized`
 :   ABC for classes that provide the [`__len__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__len__ "object.__len__") method.
 
-*class* collections.abc.Callable
+`class collections.abc.Callable`
 :   ABC for classes that provide the [`__call__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__call__ "object.__call__") method.
 
     See [Annotating callable objects](typing.md#annotating-callables) for details on how to use
     `Callable` in type annotations.
 
-*class* collections.abc.Iterable
+`class collections.abc.Iterable`
 :   ABC for classes that provide the [`__iter__()`](stdtypes.md#container.__iter__ "container.__iter__") method.
 
     Checking `isinstance(obj, Iterable)` detects classes that are registered
@@ -176,23 +176,23 @@ whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-
     The only reliable way to determine whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-iterable)
     is to call `iter(obj)`.
 
-*class* collections.abc.Collection
+`class collections.abc.Collection`
 :   ABC for sized iterable container classes.
 
     Added in version 3.6.
 
-*class* collections.abc.Iterator
+`class collections.abc.Iterator`
 :   ABC for classes that provide the [`__iter__()`](stdtypes.md#iterator.__iter__ "iterator.__iter__") and
     [`__next__()`](stdtypes.md#iterator.__next__ "iterator.__next__") methods. See also the definition of
     [iterator](https://docs.python.org/3.12/glossary.html#term-iterator).
 
-*class* collections.abc.Reversible
+`class collections.abc.Reversible`
 :   ABC for iterable classes that also provide the [`__reversed__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__reversed__ "object.__reversed__")
     method.
 
     Added in version 3.6.
 
-*class* collections.abc.Generator
+`class collections.abc.Generator`
 :   ABC for [generator](https://docs.python.org/3.12/glossary.html#term-generator) classes that implement the protocol defined in
     [**PEP 342**](https://peps.python.org/pep-0342/) that extends [iterators](https://docs.python.org/3.12/glossary.html#term-iterator) with the
     [`send()`](https://docs.python.org/3.12/reference/expressions.html#generator.send "generator.send"),
@@ -203,11 +203,11 @@ whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-
 
     Added in version 3.5.
 
-*class* collections.abc.Sequence
+`class collections.abc.Sequence`
 
-*class* collections.abc.MutableSequence
+`class collections.abc.MutableSequence`
 
-*class* collections.abc.ByteString
+`class collections.abc.ByteString`
 :   ABCs for read-only and mutable [sequences](https://docs.python.org/3.12/glossary.html#term-sequence).
 
     Implementation note: Some of the mixin methods, such as
@@ -227,26 +227,26 @@ whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-
     [`collections.abc.Buffer`](collections.abc.md#collections.abc.Buffer "collections.abc.Buffer").
     For use as an ABC, prefer [`Sequence`](collections.abc.md#collections.abc.Sequence "collections.abc.Sequence") or [`collections.abc.Buffer`](collections.abc.md#collections.abc.Buffer "collections.abc.Buffer").
 
-*class* collections.abc.Set
+`class collections.abc.Set`
 
-*class* collections.abc.MutableSet
+`class collections.abc.MutableSet`
 :   ABCs for read-only and mutable [sets](stdtypes.md#types-set).
 
-*class* collections.abc.Mapping
+`class collections.abc.Mapping`
 
-*class* collections.abc.MutableMapping
+`class collections.abc.MutableMapping`
 :   ABCs for read-only and mutable [mappings](https://docs.python.org/3.12/glossary.html#term-mapping).
 
-*class* collections.abc.MappingView
+`class collections.abc.MappingView`
 
-*class* collections.abc.ItemsView
+`class collections.abc.ItemsView`
 
-*class* collections.abc.KeysView
+`class collections.abc.KeysView`
 
-*class* collections.abc.ValuesView
+`class collections.abc.ValuesView`
 :   ABCs for mapping, items, keys, and values [views](https://docs.python.org/3.12/glossary.html#term-dictionary-view).
 
-*class* collections.abc.Awaitable
+`class collections.abc.Awaitable`
 :   ABC for [awaitable](https://docs.python.org/3.12/glossary.html#term-awaitable) objects, which can be used in [`await`](https://docs.python.org/3.12/reference/expressions.html#await)
     expressions. Custom implementations must provide the
     [`__await__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__await__ "object.__await__") method.
@@ -264,7 +264,7 @@ whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-
 
     Added in version 3.5.
 
-*class* collections.abc.Coroutine
+`class collections.abc.Coroutine`
 :   ABC for [coroutine](https://docs.python.org/3.12/glossary.html#term-coroutine) compatible classes. These implement the
     following methods, defined in [Coroutine Objects](https://docs.python.org/3.12/reference/datamodel.html#coroutine-objects):
     [`send()`](https://docs.python.org/3.12/reference/datamodel.html#coroutine.send "coroutine.send"), [`throw()`](https://docs.python.org/3.12/reference/datamodel.html#coroutine.throw "coroutine.throw"), and
@@ -287,19 +287,19 @@ whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-
 
     Added in version 3.5.
 
-*class* collections.abc.AsyncIterable
+`class collections.abc.AsyncIterable`
 :   ABC for classes that provide an `__aiter__` method. See also the
     definition of [asynchronous iterable](https://docs.python.org/3.12/glossary.html#term-asynchronous-iterable).
 
     Added in version 3.5.
 
-*class* collections.abc.AsyncIterator
+`class collections.abc.AsyncIterator`
 :   ABC for classes that provide `__aiter__` and `__anext__`
     methods. See also the definition of [asynchronous iterator](https://docs.python.org/3.12/glossary.html#term-asynchronous-iterator).
 
     Added in version 3.5.
 
-*class* collections.abc.AsyncGenerator
+`class collections.abc.AsyncGenerator`
 :   ABC for [asynchronous generator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator) classes that implement the protocol
     defined in [**PEP 525**](https://peps.python.org/pep-0525/) and [**PEP 492**](https://peps.python.org/pep-0492/).
 
@@ -308,7 +308,7 @@ whether an object is [iterable](https://docs.python.org/3.12/glossary.html#term-
 
     Added in version 3.6.
 
-*class* collections.abc.Buffer
+`class collections.abc.Buffer`
 :   ABC for classes that provide the [`__buffer__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__buffer__ "object.__buffer__") method,
     implementing the [buffer protocol](https://docs.python.org/3.12/c-api/buffer.html#bufferobjects). See [**PEP 688**](https://peps.python.org/pep-0688/).
 

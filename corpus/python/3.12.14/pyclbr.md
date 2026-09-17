@@ -20,7 +20,7 @@ This restriction makes it impossible to use this module with modules not
 implemented in Python, including all standard and optional extension
 modules.
 
-pyclbr.readmodule(*module*, *path=None*)
+`pyclbr.readmodule(module, path=None)`
 :   Return a dictionary mapping module-level class names to class
     descriptors. If possible, descriptors for imported base classes are
     included. Parameter *module* is a string with the name of the module
@@ -31,7 +31,7 @@ pyclbr.readmodule(*module*, *path=None*)
     This function is the original interface and is only kept for back
     compatibility. It returns a filtered version of the following.
 
-pyclbr.readmodule_ex(*module*, *path=None*)
+`pyclbr.readmodule_ex(module, path=None)`
 :   Return a dictionary-based tree containing a function or class
     descriptors for each function and class defined in the module with a
     `def` or `class` statement. The returned dictionary maps
@@ -51,34 +51,34 @@ of these classes.
 
 ## Function Objects
 
-*class* pyclbr.Function
+`class pyclbr.Function`
 :   Class `Function` instances describe functions defined by def
     statements. They have the following attributes:
 
-    file
+    `file`
     :   Name of the file in which the function is defined.
 
-    module
+    `module`
     :   The name of the module defining the function described.
 
-    name
+    `name`
     :   The name of the function.
 
-    lineno
+    `lineno`
     :   The line number in the file where the definition starts.
 
-    parent
+    `parent`
     :   For top-level functions, `None`. For nested functions, the parent.
 
         Added in version 3.7.
 
-    children
+    `children`
     :   A [`dictionary`](stdtypes.md#dict "dict") mapping names to descriptors for nested functions and
         classes.
 
         Added in version 3.7.
 
-    is_async
+    `is_async`
     :   `True` for functions that are defined with the
         [`async`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def) prefix, `False` otherwise.
 
@@ -86,42 +86,42 @@ of these classes.
 
 ## Class Objects
 
-*class* pyclbr.Class
+`class pyclbr.Class`
 :   Class `Class` instances describe classes defined by class
     statements. They have the same attributes as [`Functions`](pyclbr.md#pyclbr.Function "pyclbr.Function")
     and two more.
 
-    file
+    `file`
     :   Name of the file in which the class is defined.
 
-    module
+    `module`
     :   The name of the module defining the class described.
 
-    name
+    `name`
     :   The name of the class.
 
-    lineno
+    `lineno`
     :   The line number in the file where the definition starts.
 
-    parent
+    `parent`
     :   For top-level classes, `None`. For nested classes, the parent.
 
         Added in version 3.7.
 
-    children
+    `children`
     :   A dictionary mapping names to descriptors for nested functions and
         classes.
 
         Added in version 3.7.
 
-    super
+    `super`
     :   A list of `Class` objects which describe the immediate base
         classes of the class being described. Classes which are named as
         superclasses but which are not discoverable by [`readmodule_ex()`](pyclbr.md#pyclbr.readmodule_ex "pyclbr.readmodule_ex")
         are listed as a string with the class name instead of as
         `Class` objects.
 
-    methods
+    `methods`
     :   A [`dictionary`](stdtypes.md#dict "dict") mapping method names to line numbers.
         This can be derived from the newer [`children`](pyclbr.md#pyclbr.Class.children "pyclbr.Class.children") dictionary,
         but remains for

@@ -44,12 +44,12 @@ Identifiers are integers in the range 0 to 5 inclusive.
 
 ### Registering and using tools
 
-sys.monitoring.use_tool_id(*tool_id: [int](functions.md#int "int")*, *name: [str](stdtypes.md#str "str")*, */*) → [None](constants.md#None "None")
+`sys.monitoring.use_tool_id(tool_id: int, name: str, /) → None`
 :   Must be called before *tool_id* can be used.
     *tool_id* must be in the range 0 to 5 inclusive.
     Raises a [`ValueError`](exceptions.md#ValueError "ValueError") if *tool_id* is in use.
 
-sys.monitoring.free_tool_id(*tool_id: [int](functions.md#int "int")*, */*) → [None](constants.md#None "None")
+`sys.monitoring.free_tool_id(tool_id: int, /) → None`
 :   Should be called once a tool no longer requires *tool_id*.
 
 > **Note:**
@@ -59,7 +59,7 @@ sys.monitoring.free_tool_id(*tool_id: [int](functions.md#int "int")*, */*) → [
 > function is only intended to be used to notify the VM that the
 > particular *tool_id* is no longer in use.
 
-sys.monitoring.get_tool(*tool_id: [int](functions.md#int "int")*, */*) → [str](stdtypes.md#str "str") | [None](constants.md#None "None")
+`sys.monitoring.get_tool(tool_id: int, /) → str | None`
 :   Returns the name of the tool if *tool_id* is in use,
     otherwise it returns `None`.
     *tool_id* must be in the range 0 to 5 inclusive.
@@ -82,55 +82,55 @@ However, tools are encouraged to use a unique ID and respect other tools.
 
 The following events are supported:
 
-sys.monitoring.events.BRANCH
+`sys.monitoring.events.BRANCH`
 :   A conditional branch is taken (or not).
 
-sys.monitoring.events.CALL
+`sys.monitoring.events.CALL`
 :   A call in Python code (event occurs before the call).
 
-sys.monitoring.events.C_RAISE
+`sys.monitoring.events.C_RAISE`
 :   An exception raised from any callable, except for Python functions (event occurs after the exit).
 
-sys.monitoring.events.C_RETURN
+`sys.monitoring.events.C_RETURN`
 :   Return from any callable, except for Python functions (event occurs after the return).
 
-sys.monitoring.events.EXCEPTION_HANDLED
+`sys.monitoring.events.EXCEPTION_HANDLED`
 :   An exception is handled.
 
-sys.monitoring.events.INSTRUCTION
+`sys.monitoring.events.INSTRUCTION`
 :   A VM instruction is about to be executed.
 
-sys.monitoring.events.JUMP
+`sys.monitoring.events.JUMP`
 :   An unconditional jump in the control flow graph is made.
 
-sys.monitoring.events.LINE
+`sys.monitoring.events.LINE`
 :   An instruction is about to be executed that has a different line number from the preceding instruction.
 
-sys.monitoring.events.PY_RESUME
+`sys.monitoring.events.PY_RESUME`
 :   Resumption of a Python function (for generator and coroutine functions), except for `throw()` calls.
 
-sys.monitoring.events.PY_RETURN
+`sys.monitoring.events.PY_RETURN`
 :   Return from a Python function (occurs immediately before the return, the callee’s frame will be on the stack).
 
-sys.monitoring.events.PY_START
+`sys.monitoring.events.PY_START`
 :   Start of a Python function (occurs immediately after the call, the callee’s frame will be on the stack)
 
-sys.monitoring.events.PY_THROW
+`sys.monitoring.events.PY_THROW`
 :   A Python function is resumed by a `throw()` call.
 
-sys.monitoring.events.PY_UNWIND
+`sys.monitoring.events.PY_UNWIND`
 :   Exit from a Python function during exception unwinding.
 
-sys.monitoring.events.PY_YIELD
+`sys.monitoring.events.PY_YIELD`
 :   Yield from a Python function (occurs immediately before the yield, the callee’s frame will be on the stack).
 
-sys.monitoring.events.RAISE
+`sys.monitoring.events.RAISE`
 :   An exception is raised, except those that cause a [`STOP_ITERATION`](sys.monitoring.md#monitoring-event-STOP_ITERATION) event.
 
-sys.monitoring.events.RERAISE
+`sys.monitoring.events.RERAISE`
 :   An exception is re-raised, for example at the end of a [`finally`](https://docs.python.org/3.12/reference/compound_stmts.html#finally) block.
 
-sys.monitoring.events.STOP_ITERATION
+`sys.monitoring.events.STOP_ITERATION`
 :   An artificial [`StopIteration`](exceptions.md#StopIteration "StopIteration") is raised; see [the STOP_ITERATION event](sys.monitoring.md#the-stop-iteration-event).
 
 More events may be added in the future.
@@ -141,7 +141,7 @@ To define a set of events, simply bitwise or the individual events together.
 For example, to specify both [`PY_RETURN`](sys.monitoring.md#monitoring-event-PY_RETURN) and [`PY_START`](sys.monitoring.md#monitoring-event-PY_START)
 events, use the expression `PY_RETURN | PY_START`.
 
-sys.monitoring.events.NO_EVENTS
+`sys.monitoring.events.NO_EVENTS`
 :   An alias for `0` so users can do explicit comparisons like:
 
     ```python3
@@ -216,10 +216,10 @@ for a particular code object.
 
 Events can be controlled globally by modifying the set of events being monitored.
 
-sys.monitoring.get_events(*tool_id: [int](functions.md#int "int")*, */*) → [int](functions.md#int "int")
+`sys.monitoring.get_events(tool_id: int, /) → int`
 :   Returns the `int` representing all the active events.
 
-sys.monitoring.set_events(*tool_id: [int](functions.md#int "int")*, *event_set: [int](functions.md#int "int")*, */*) → [None](constants.md#None "None")
+`sys.monitoring.set_events(tool_id: int, event_set: int, /) → None`
 :   Activates all events which are set in *event_set*.
     Raises a [`ValueError`](exceptions.md#ValueError "ValueError") if *tool_id* is not in use.
 
@@ -229,10 +229,10 @@ No events are active by default.
 
 Events can also be controlled on a per code object basis.
 
-sys.monitoring.get_local_events(*tool_id: [int](functions.md#int "int")*, *code: [CodeType](types.md#types.CodeType "types.CodeType")*, */*) → [int](functions.md#int "int")
+`sys.monitoring.get_local_events(tool_id: int, code: CodeType, /) → int`
 :   Returns all the local events for *code*
 
-sys.monitoring.set_local_events(*tool_id: [int](functions.md#int "int")*, *code: [CodeType](types.md#types.CodeType "types.CodeType")*, *event_set: [int](functions.md#int "int")*, */*) → [None](constants.md#None "None")
+`sys.monitoring.set_local_events(tool_id: int, code: CodeType, event_set: int, /) → None`
 :   Activates all the local events for *code* which are set in *event_set*.
     Raises a [`ValueError`](exceptions.md#ValueError "ValueError") if *tool_id* is not in use.
 
@@ -242,7 +242,7 @@ regardless of the local events.
 
 ### Disabling events
 
-sys.monitoring.DISABLE
+`sys.monitoring.DISABLE`
 :   A special value that can be returned from a callback function to disable
     events for the current code location.
 
@@ -255,7 +255,7 @@ performance monitoring. For example, a program can be run under a
 debugger with no overhead if the debugger disables all monitoring
 except for a few breakpoints.
 
-sys.monitoring.restart_events() → [None](constants.md#None "None")
+`sys.monitoring.restart_events() → None`
 :   Enable all the events that were disabled by [`sys.monitoring.DISABLE`](sys.monitoring.md#sys.monitoring.DISABLE "sys.monitoring.DISABLE")
     for all tools.
 
@@ -263,7 +263,7 @@ sys.monitoring.restart_events() → [None](constants.md#None "None")
 
 To register a callable for events call
 
-sys.monitoring.register_callback(*tool_id: [int](functions.md#int "int")*, *event: [int](functions.md#int "int")*, *func: [Callable](collections.abc.md#collections.abc.Callable "collections.abc.Callable") | [None](constants.md#None "None")*, */*) → [Callable](collections.abc.md#collections.abc.Callable "collections.abc.Callable") | [None](constants.md#None "None")
+`sys.monitoring.register_callback(tool_id: int, event: int, func: Callable | None, /) → Callable | None`
 :   Registers the callable *func* for the *event* with the given *tool_id*
 
     If another callback was registered for the given *tool_id* and *event*,
@@ -279,7 +279,7 @@ Registering or unregistering a callback function will generate a [`sys.audit()`]
 
 ### Callback function arguments
 
-sys.monitoring.MISSING
+`sys.monitoring.MISSING`
 :   A special value that is passed to a callback function to indicate
     that there are no arguments to the call.
 

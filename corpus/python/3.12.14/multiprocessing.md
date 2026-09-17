@@ -508,7 +508,7 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
 
 ### `Process` and exceptions
 
-*class* multiprocessing.Process(*group=None*, *target=None*, *name=None*, *args=()*, *kwargs={}*, *\**, *daemon=None*)
+`class multiprocessing.Process(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None)`
 :   Process objects represent activity that is run in a separate process. The
     [`Process`](multiprocessing.md#multiprocessing.Process "multiprocessing.Process") class has equivalents of all the methods of
     [`threading.Thread`](threading.md#threading.Thread "threading.Thread").
@@ -534,7 +534,7 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
 
     Changed in version 3.3: Added the *daemon* parameter.
 
-    run()
+    `run()`
     :   Method representing the process’s activity.
 
         You may override this method in a subclass. The standard [`run()`](multiprocessing.md#multiprocessing.Process.run "multiprocessing.Process.run")
@@ -557,13 +557,13 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
         1
         ```
 
-    start()
+    `start()`
     :   Start the process’s activity.
 
         This must be called at most once per process object. It arranges for the
         object’s [`run()`](multiprocessing.md#multiprocessing.Process.run "multiprocessing.Process.run") method to be invoked in a separate process.
 
-    join([*timeout*])
+    `join([timeout])`
     :   If the optional argument *timeout* is `None` (the default), the method
         blocks until the process whose [`join()`](multiprocessing.md#multiprocessing.Process.join "multiprocessing.Process.join") method is called terminates.
         If *timeout* is a positive number, it blocks at most *timeout* seconds.
@@ -576,7 +576,7 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
         A process cannot join itself because this would cause a deadlock. It is
         an error to attempt to join a process before it has been started.
 
-    name
+    `name`
     :   The process’s name. The name is a string used for identification purposes
         only. It has no semantics. Multiple processes may be given the same
         name.
@@ -586,13 +586,13 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
         ‘Process-N1:N2:…:Nk’ is constructed, where
         each Nk is the N-th child of its parent.
 
-    is_alive()
+    `is_alive()`
     :   Return whether the process is alive.
 
         Roughly, a process object is alive from the moment the [`start()`](multiprocessing.md#multiprocessing.Process.start "multiprocessing.Process.start")
         method returns until the child process terminates.
 
-    daemon
+    `daemon`
     :   The process’s daemon flag, a Boolean value. This must be set before
         [`start()`](multiprocessing.md#multiprocessing.Process.start "multiprocessing.Process.start") is called.
 
@@ -610,11 +610,11 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
     In addition to the [`threading.Thread`](threading.md#threading.Thread "threading.Thread") API, [`Process`](multiprocessing.md#multiprocessing.Process "multiprocessing.Process") objects
     also support the following attributes and methods:
 
-    pid
+    `pid`
     :   Return the process ID. Before the process is spawned, this will be
         `None`.
 
-    exitcode
+    `exitcode`
     :   The child’s exit code. This will be `None` if the process has not yet
         terminated.
 
@@ -626,7 +626,7 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
         [`run()`](multiprocessing.md#multiprocessing.Process.run "multiprocessing.Process.run"), the exit code will be 1. If it was terminated by
         signal *N*, the exit code will be the negative value *-N*.
 
-    authkey
+    `authkey`
     :   The process’s authentication key (a byte string).
 
         When [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessing: Process-based parallelism.") is initialized the main process is assigned a
@@ -638,7 +638,7 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
 
         See [Authentication keys](multiprocessing.md#multiprocessing-auth-keys).
 
-    sentinel
+    `sentinel`
     :   A numeric handle of a system object which will become “ready” when
         the process ends.
 
@@ -652,7 +652,7 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
 
         Added in version 3.3.
 
-    terminate()
+    `terminate()`
     :   Terminate the process. On POSIX this is done using the [`SIGTERM`](signal.md#signal.SIGTERM "signal.SIGTERM") signal;
         on Windows `TerminateProcess()` is used. Note that exit handlers and
         finally clauses, etc., will not be executed.
@@ -668,12 +668,12 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
         > acquired a lock or semaphore etc. then terminating it is liable to
         > cause other processes to deadlock.
 
-    kill()
+    `kill()`
     :   Same as [`terminate()`](multiprocessing.md#multiprocessing.Process.terminate "multiprocessing.Process.terminate") but using the `SIGKILL` signal on POSIX.
 
         Added in version 3.7.
 
-    close()
+    `close()`
     :   Close the [`Process`](multiprocessing.md#multiprocessing.Process "multiprocessing.Process") object, releasing all resources associated
         with it. [`ValueError`](exceptions.md#ValueError "ValueError") is raised if the underlying process
         is still running. Once [`close()`](multiprocessing.md#multiprocessing.Process.close "multiprocessing.Process.close") returns successfully, most
@@ -705,20 +705,20 @@ The [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessi
     True
     ```
 
-*exception* multiprocessing.ProcessError
+`exception multiprocessing.ProcessError`
 :   The base class of all [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessing: Process-based parallelism.") exceptions.
 
-*exception* multiprocessing.BufferTooShort
+`exception multiprocessing.BufferTooShort`
 :   Exception raised by `Connection.recv_bytes_into()` when the supplied
     buffer object is too small for the message read.
 
     If `e` is an instance of [`BufferTooShort`](multiprocessing.md#multiprocessing.BufferTooShort "multiprocessing.BufferTooShort") then `e.args[0]` will give
     the message as a byte string.
 
-*exception* multiprocessing.AuthenticationError
+`exception multiprocessing.AuthenticationError`
 :   Raised when there is an authentication error.
 
-*exception* multiprocessing.TimeoutError
+`exception multiprocessing.TimeoutError`
 :   Raised by methods with a timeout when the timeout expires.
 
 ### Pipes and Queues
@@ -799,7 +799,7 @@ Note that one can also create a shared queue by using a manager object – see
 For an example of the usage of queues for interprocess communication see
 [Examples](multiprocessing.md#multiprocessing-examples).
 
-multiprocessing.Pipe([*duplex*])
+`multiprocessing.Pipe([duplex])`
 :   Returns a pair `(conn1, conn2)` of
     [`Connection`](multiprocessing.md#multiprocessing.connection.Connection "multiprocessing.connection.Connection") objects representing the
     ends of a pipe.
@@ -812,7 +812,7 @@ multiprocessing.Pipe([*duplex*])
     The `send()` method serializes the object using
     [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to streams of bytes and back.") and the `recv()` re-creates the object.
 
-*class* multiprocessing.Queue([*maxsize*])
+`class multiprocessing.Queue([maxsize])`
 :   Returns a process shared queue implemented using a pipe and a few
     locks/semaphores. When a process first puts an item on the queue a feeder
     thread is started which transfers objects from a buffer into the pipe.
@@ -823,24 +823,24 @@ multiprocessing.Pipe([*duplex*])
     [`Queue`](multiprocessing.md#multiprocessing.Queue "multiprocessing.Queue") implements all the methods of [`queue.Queue`](queue.md#queue.Queue "queue.Queue") except for
     [`task_done()`](queue.md#queue.Queue.task_done "queue.Queue.task_done") and [`join()`](queue.md#queue.Queue.join "queue.Queue.join").
 
-    qsize()
+    `qsize()`
     :   Return the approximate size of the queue. Because of
         multithreading/multiprocessing semantics, this number is not reliable.
 
         Note that this may raise [`NotImplementedError`](exceptions.md#NotImplementedError "NotImplementedError") on platforms like
         macOS where `sem_getvalue()` is not implemented.
 
-    empty()
+    `empty()`
     :   Return `True` if the queue is empty, `False` otherwise. Because of
         multithreading/multiprocessing semantics, this is not reliable.
 
         May raise an [`OSError`](exceptions.md#OSError "OSError") on closed queues. (not guaranteed)
 
-    full()
+    `full()`
     :   Return `True` if the queue is full, `False` otherwise. Because of
         multithreading/multiprocessing semantics, this is not reliable.
 
-    put(*obj*[, *block*[, *timeout*]])
+    `put(obj[, block[, timeout]])`
     :   Put obj into the queue. If the optional argument *block* is `True`
         (the default) and *timeout* is `None` (the default), block if necessary until
         a free slot is available. If *timeout* is a positive number, it blocks at
@@ -853,10 +853,10 @@ multiprocessing.Pipe([*duplex*])
         Changed in version 3.8: If the queue is closed, [`ValueError`](exceptions.md#ValueError "ValueError") is raised instead of
         [`AssertionError`](exceptions.md#AssertionError "AssertionError").
 
-    put_nowait(*obj*)
+    `put_nowait(obj)`
     :   Equivalent to `put(obj, False)`.
 
-    get([*block*[, *timeout*]])
+    `get([block[, timeout]])`
     :   Remove and return an item from the queue. If optional args *block* is
         `True` (the default) and *timeout* is `None` (the default), block if
         necessary until an item is available. If *timeout* is a positive number,
@@ -868,20 +868,20 @@ multiprocessing.Pipe([*duplex*])
         Changed in version 3.8: If the queue is closed, [`ValueError`](exceptions.md#ValueError "ValueError") is raised instead of
         [`OSError`](exceptions.md#OSError "OSError").
 
-    get_nowait()
+    `get_nowait()`
     :   Equivalent to `get(False)`.
 
     [`multiprocessing.Queue`](multiprocessing.md#multiprocessing.Queue "multiprocessing.Queue") has a few additional methods not found in
     [`queue.Queue`](queue.md#queue.Queue "queue.Queue"). These methods are usually unnecessary for most
     code:
 
-    close()
+    `close()`
     :   Indicate that no more data will be put on this queue by the current
         process. The background thread will quit once it has flushed all buffered
         data to the pipe. This is called automatically when the queue is garbage
         collected.
 
-    join_thread()
+    `join_thread()`
     :   Join the background thread. This can only be used after [`close()`](multiprocessing.md#multiprocessing.Queue.close "multiprocessing.Queue.close") has
         been called. It blocks until the background thread exits, ensuring that
         all data in the buffer has been flushed to the pipe.
@@ -890,7 +890,7 @@ multiprocessing.Pipe([*duplex*])
         will attempt to join the queue’s background thread. The process can call
         [`cancel_join_thread()`](multiprocessing.md#multiprocessing.Queue.cancel_join_thread "multiprocessing.Queue.cancel_join_thread") to make [`join_thread()`](multiprocessing.md#multiprocessing.Queue.join_thread "multiprocessing.Queue.join_thread") do nothing.
 
-    cancel_join_thread()
+    `cancel_join_thread()`
     :   Prevent [`join_thread()`](multiprocessing.md#multiprocessing.Queue.join_thread "multiprocessing.Queue.join_thread") from blocking. In particular, this prevents
         the background thread from being joined automatically when the process
         exits – see [`join_thread()`](multiprocessing.md#multiprocessing.Queue.join_thread "multiprocessing.Queue.join_thread").
@@ -911,10 +911,10 @@ multiprocessing.Pipe([*duplex*])
     > [bpo-3770](https://bugs.python.org/issue?@action=redirect&bpo=3770) for additional information. The same holds true for any
     > of the specialized queue types listed below.
 
-*class* multiprocessing.SimpleQueue
+`class multiprocessing.SimpleQueue`
 :   It is a simplified [`Queue`](multiprocessing.md#multiprocessing.Queue "multiprocessing.Queue") type, very close to a locked [`Pipe`](multiprocessing.md#multiprocessing.Pipe "multiprocessing.Pipe").
 
-    close()
+    `close()`
     :   Close the queue: release internal resources.
 
         A queue must not be used anymore after it is closed. For example,
@@ -923,22 +923,22 @@ multiprocessing.Pipe([*duplex*])
 
         Added in version 3.9.
 
-    empty()
+    `empty()`
     :   Return `True` if the queue is empty, `False` otherwise.
 
         Always raises an [`OSError`](exceptions.md#OSError "OSError") if the SimpleQueue is closed.
 
-    get()
+    `get()`
     :   Remove and return an item from the queue.
 
-    put(*item*)
+    `put(item)`
     :   Put *item* into the queue.
 
-*class* multiprocessing.JoinableQueue([*maxsize*])
+`class multiprocessing.JoinableQueue([maxsize])`
 :   [`JoinableQueue`](multiprocessing.md#multiprocessing.JoinableQueue "multiprocessing.JoinableQueue"), a [`Queue`](multiprocessing.md#multiprocessing.Queue "multiprocessing.Queue") subclass, is a queue which
     additionally has [`task_done()`](multiprocessing.md#multiprocessing.JoinableQueue.task_done "multiprocessing.JoinableQueue.task_done") and [`join()`](multiprocessing.md#multiprocessing.JoinableQueue.join "multiprocessing.JoinableQueue.join") methods.
 
-    task_done()
+    `task_done()`
     :   Indicate that a formerly enqueued task is complete. Used by queue
         consumers. For each [`get()`](multiprocessing.md#multiprocessing.Queue.get "multiprocessing.Queue.get") used to fetch a task, a subsequent
         call to [`task_done()`](multiprocessing.md#multiprocessing.JoinableQueue.task_done "multiprocessing.JoinableQueue.task_done") tells the queue that the processing on the task
@@ -951,7 +951,7 @@ multiprocessing.Pipe([*duplex*])
         Raises a [`ValueError`](exceptions.md#ValueError "ValueError") if called more times than there were items
         placed in the queue.
 
-    join()
+    `join()`
     :   Block until all items in the queue have been gotten and processed.
 
         The count of unfinished tasks goes up whenever an item is added to the
@@ -962,13 +962,13 @@ multiprocessing.Pipe([*duplex*])
 
 ### Miscellaneous
 
-multiprocessing.active_children()
+`multiprocessing.active_children()`
 :   Return list of all live children of the current process.
 
     Calling this has the side effect of “joining” any processes which have
     already finished.
 
-multiprocessing.cpu_count()
+`multiprocessing.cpu_count()`
 :   Return the number of CPUs in the system.
 
     This number is not equivalent to the number of CPUs the current process can
@@ -982,19 +982,19 @@ multiprocessing.cpu_count()
     >
     > [`os.cpu_count()`](os.md#os.cpu_count "os.cpu_count")
 
-multiprocessing.current_process()
+`multiprocessing.current_process()`
 :   Return the [`Process`](multiprocessing.md#multiprocessing.Process "multiprocessing.Process") object corresponding to the current process.
 
     An analogue of [`threading.current_thread()`](threading.md#threading.current_thread "threading.current_thread").
 
-multiprocessing.parent_process()
+`multiprocessing.parent_process()`
 :   Return the [`Process`](multiprocessing.md#multiprocessing.Process "multiprocessing.Process") object corresponding to the parent process of
     the [`current_process()`](multiprocessing.md#multiprocessing.current_process "multiprocessing.current_process"). For the main process, `parent_process` will
     be `None`.
 
     Added in version 3.8.
 
-multiprocessing.freeze_support()
+`multiprocessing.freeze_support()`
 :   Add support for when a program which uses [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessing: Process-based parallelism.") has been
     frozen to produce a Windows executable. (Has been tested with **py2exe**,
     **PyInstaller** and **cx_Freeze**.)
@@ -1021,7 +1021,7 @@ multiprocessing.freeze_support()
     normally by the Python interpreter on Windows (the program has not been
     frozen), then `freeze_support()` has no effect.
 
-multiprocessing.get_all_start_methods()
+`multiprocessing.get_all_start_methods()`
 :   Returns a list of the supported start methods, the first of which
     is the default. The possible start methods are `'fork'`,
     `'spawn'` and `'forkserver'`. Not all platforms support all
@@ -1029,7 +1029,7 @@ multiprocessing.get_all_start_methods()
 
     Added in version 3.4.
 
-multiprocessing.get_context(*method=None*)
+`multiprocessing.get_context(method=None)`
 :   Return a context object which has the same attributes as the
     [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessing: Process-based parallelism.") module.
 
@@ -1040,7 +1040,7 @@ multiprocessing.get_context(*method=None*)
 
     Added in version 3.4.
 
-multiprocessing.get_start_method(*allow_none=False*)
+`multiprocessing.get_start_method(allow_none=False)`
 :   Return the name of start method used for starting processes.
 
     If the start method has not been fixed and *allow_none* is false,
@@ -1057,7 +1057,7 @@ multiprocessing.get_start_method(*allow_none=False*)
     method should be considered unsafe as it can lead to crashes of the
     subprocess. See [bpo-33725](https://bugs.python.org/issue?@action=redirect&bpo=33725).
 
-multiprocessing.set_executable(*executable*)
+`multiprocessing.set_executable(executable)`
 :   Set the path of the Python interpreter to use when starting a child process.
     (By default [`sys.executable`](sys.md#sys.executable "sys.executable") is used). Embedders will probably need to
     do some thing like
@@ -1072,7 +1072,7 @@ multiprocessing.set_executable(*executable*)
 
     Changed in version 3.11: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-multiprocessing.set_forkserver_preload(*module_names*)
+`multiprocessing.set_forkserver_preload(module_names)`
 :   Set a list of module names for the forkserver main process to attempt to
     import so that their already imported state is inherited by forked
     processes. Any [`ImportError`](exceptions.md#ImportError "ImportError") when doing so is silently ignored.
@@ -1087,7 +1087,7 @@ multiprocessing.set_forkserver_preload(*module_names*)
 
     Added in version 3.4.
 
-multiprocessing.set_start_method(*method*, *force=False*)
+`multiprocessing.set_start_method(method, force=False)`
 :   Set the method which should be used to start child processes.
     The *method* argument can be `'fork'`, `'spawn'` or `'forkserver'`.
     Raises [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") if the start method has already been set and *force*
@@ -1119,29 +1119,29 @@ Connection objects are usually created using
 [`Pipe`](multiprocessing.md#multiprocessing.Pipe "multiprocessing.Pipe") – see also
 [Listeners and Clients](multiprocessing.md#multiprocessing-listeners-clients).
 
-*class* multiprocessing.connection.Connection
-:   send(*obj*)
+`class multiprocessing.connection.Connection`
+:   `send(obj)`
     :   Send an object to the other end of the connection which should be read
         using [`recv()`](multiprocessing.md#multiprocessing.connection.Connection.recv "multiprocessing.connection.Connection.recv").
 
         The object must be picklable. Very large pickles (approximately 32 MiB+,
         though it depends on the OS) may raise a [`ValueError`](exceptions.md#ValueError "ValueError") exception.
 
-    recv()
+    `recv()`
     :   Return an object sent from the other end of the connection using
         [`send()`](multiprocessing.md#multiprocessing.connection.Connection.send "multiprocessing.connection.Connection.send"). Blocks until there is something to receive. Raises
         [`EOFError`](exceptions.md#EOFError "EOFError") if there is nothing left to receive
         and the other end was closed.
 
-    fileno()
+    `fileno()`
     :   Return the file descriptor or handle used by the connection.
 
-    close()
+    `close()`
     :   Close the connection.
 
         This is called automatically when the connection is garbage collected.
 
-    poll([*timeout*])
+    `poll([timeout])`
     :   Return whether there is any data available to be read.
 
         If *timeout* is not specified then it will return immediately. If
@@ -1151,7 +1151,7 @@ Connection objects are usually created using
         Note that multiple connection objects may be polled at once by
         using [`multiprocessing.connection.wait()`](multiprocessing.md#multiprocessing.connection.wait "multiprocessing.connection.wait").
 
-    send_bytes(*buffer*[, *offset*[, *size*]])
+    `send_bytes(buffer[, offset[, size]])`
     :   Send byte data from a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) as a complete message.
 
         If *offset* is given then data is read from that position in *buffer*. If
@@ -1159,7 +1159,7 @@ Connection objects are usually created using
         buffers (approximately 32 MiB+, though it depends on the OS) may raise a
         [`ValueError`](exceptions.md#ValueError "ValueError") exception
 
-    recv_bytes([*maxlength*])
+    `recv_bytes([maxlength])`
     :   Return a complete message of byte data sent from the other end of the
         connection as a string. Blocks until there is something to receive.
         Raises [`EOFError`](exceptions.md#EOFError "EOFError") if there is nothing left
@@ -1172,7 +1172,7 @@ Connection objects are usually created using
         Changed in version 3.3: This function used to raise [`IOError`](exceptions.md#IOError "IOError"), which is now an
         alias of [`OSError`](exceptions.md#OSError "OSError").
 
-    recv_bytes_into(*buffer*[, *offset*])
+    `recv_bytes_into(buffer[, offset])`
     :   Read into *buffer* a complete message of byte data sent from the other end
         of the connection and return the number of bytes in the message. Blocks
         until there is something to receive. Raises
@@ -1242,12 +1242,12 @@ program as they are in a multithreaded program. See the documentation for
 Note that one can also create synchronization primitives by using a manager
 object – see [Managers](multiprocessing.md#multiprocessing-managers).
 
-*class* multiprocessing.Barrier(*parties*[, *action*[, *timeout*]])
+`class multiprocessing.Barrier(parties[, action[, timeout]])`
 :   A barrier object: a clone of [`threading.Barrier`](threading.md#threading.Barrier "threading.Barrier").
 
     Added in version 3.3.
 
-*class* multiprocessing.BoundedSemaphore([*value*])
+`class multiprocessing.BoundedSemaphore([value])`
 :   A bounded semaphore object: a close analog of
     [`threading.BoundedSemaphore`](threading.md#threading.BoundedSemaphore "threading.BoundedSemaphore").
 
@@ -1259,7 +1259,7 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
     > On macOS, this is indistinguishable from [`Semaphore`](multiprocessing.md#multiprocessing.Semaphore "multiprocessing.Semaphore") because
     > `sem_getvalue()` is not implemented on that platform.
 
-*class* multiprocessing.Condition([*lock*])
+`class multiprocessing.Condition([lock])`
 :   A condition variable: an alias for [`threading.Condition`](threading.md#threading.Condition "threading.Condition").
 
     If *lock* is specified then it should be a [`Lock`](multiprocessing.md#multiprocessing.Lock "multiprocessing.Lock") or [`RLock`](multiprocessing.md#multiprocessing.RLock "multiprocessing.RLock")
@@ -1267,10 +1267,10 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
 
     Changed in version 3.3: The [`wait_for()`](threading.md#threading.Condition.wait_for "threading.Condition.wait_for") method was added.
 
-*class* multiprocessing.Event
+`class multiprocessing.Event`
 :   A clone of [`threading.Event`](threading.md#threading.Event "threading.Event").
 
-*class* multiprocessing.Lock
+`class multiprocessing.Lock`
 :   A non-recursive lock object: a close analog of [`threading.Lock`](threading.md#threading.Lock "threading.Lock").
     Once a process or thread has acquired a lock, subsequent attempts to
     acquire it from any process or thread will block until it is released;
@@ -1286,7 +1286,7 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
     [`Lock`](multiprocessing.md#multiprocessing.Lock "multiprocessing.Lock") supports the [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager) protocol and thus may be
     used in [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statements.
 
-    acquire(*block=True*, *timeout=None*)
+    `acquire(block=True, timeout=None)`
     :   Acquire a lock, blocking or non-blocking.
 
         With the *block* argument set to `True` (the default), the method call
@@ -1310,14 +1310,14 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
         ignored. Returns `True` if the lock has been acquired or `False` if
         the timeout period has elapsed.
 
-    release()
+    `release()`
     :   Release a lock. This can be called from any process or thread, not only
         the process or thread which originally acquired the lock.
 
         Behavior is the same as in [`threading.Lock.release()`](threading.md#threading.Lock.release "threading.Lock.release") except that
         when invoked on an unlocked lock, a [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
 
-*class* multiprocessing.RLock
+`class multiprocessing.RLock`
 :   A recursive lock object: a close analog of [`threading.RLock`](threading.md#threading.RLock "threading.RLock"). A
     recursive lock must be released by the process or thread that acquired it.
     Once a process or thread has acquired a recursive lock, the same process
@@ -1331,7 +1331,7 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
     [`RLock`](multiprocessing.md#multiprocessing.RLock "multiprocessing.RLock") supports the [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager) protocol and thus may be
     used in [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statements.
 
-    acquire(*block=True*, *timeout=None*)
+    `acquire(block=True, timeout=None)`
     :   Acquire a lock, blocking or non-blocking.
 
         When invoked with the *block* argument set to `True`, block until the
@@ -1356,7 +1356,7 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
         [`Lock.acquire()`](multiprocessing.md#multiprocessing.Lock.acquire "multiprocessing.Lock.acquire"). Note that some of these behaviors of *timeout*
         differ from the implemented behaviors in [`threading.RLock.acquire()`](threading.md#threading.RLock.acquire "threading.RLock.acquire").
 
-    release()
+    `release()`
     :   Release a lock, decrementing the recursion level. If after the
         decrement the recursion level is zero, reset the lock to unlocked (not
         owned by any process or thread) and if any other processes or threads
@@ -1371,7 +1371,7 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
         state. Note that the type of exception raised in this situation
         differs from the implemented behavior in [`threading.RLock.release()`](threading.md#threading.RLock.release "threading.RLock.release").
 
-*class* multiprocessing.Semaphore([*value*])
+`class multiprocessing.Semaphore([value])`
 :   A semaphore object: a close analog of [`threading.Semaphore`](threading.md#threading.Semaphore "threading.Semaphore").
 
     A solitary difference from its close analog exists: its `acquire` method’s
@@ -1395,7 +1395,7 @@ object – see [Managers](multiprocessing.md#multiprocessing-managers).
 It is possible to create shared objects using shared memory which can be
 inherited by child processes.
 
-multiprocessing.Value(*typecode_or_type*, *\*args*, *lock=True*)
+`multiprocessing.Value(typecode_or_type, *args, lock=True)`
 :   Return a [`ctypes`](ctypes.md#module-ctypes "ctypes: A foreign function library for Python.") object allocated from shared memory. By default the
     return value is actually a synchronized wrapper for the object. The object
     itself can be accessed via the *value* attribute of a [`Value`](multiprocessing.md#multiprocessing.Value "multiprocessing.Value").
@@ -1429,7 +1429,7 @@ multiprocessing.Value(*typecode_or_type*, *\*args*, *lock=True*)
 
     Note that *lock* is a keyword-only argument.
 
-multiprocessing.Array(*typecode_or_type*, *size_or_initializer*, *\**, *lock=True*)
+`multiprocessing.Array(typecode_or_type, size_or_initializer, *, lock=True)`
 :   Return a ctypes array allocated from shared memory. By default the return
     value is actually a synchronized wrapper for the array.
 
@@ -1466,7 +1466,7 @@ processes.
 > process and trying to dereference the pointer from the second process may
 > cause a crash.
 
-multiprocessing.sharedctypes.RawArray(*typecode_or_type*, *size_or_initializer*)
+`multiprocessing.sharedctypes.RawArray(typecode_or_type, size_or_initializer)`
 :   Return a ctypes array allocated from shared memory.
 
     *typecode_or_type* determines the type of the elements of the returned array:
@@ -1480,7 +1480,7 @@ multiprocessing.sharedctypes.RawArray(*typecode_or_type*, *size_or_initializer*)
     [`Array()`](multiprocessing.md#multiprocessing.sharedctypes.Array "multiprocessing.sharedctypes.Array") instead to make sure that access is automatically synchronized
     using a lock.
 
-multiprocessing.sharedctypes.RawValue(*typecode_or_type*, *\*args*)
+`multiprocessing.sharedctypes.RawValue(typecode_or_type, *args)`
 :   Return a ctypes object allocated from shared memory.
 
     *typecode_or_type* determines the type of the returned object: it is either a
@@ -1495,7 +1495,7 @@ multiprocessing.sharedctypes.RawValue(*typecode_or_type*, *\*args*)
     attributes which allow one to use it to store and retrieve strings – see
     documentation for [`ctypes`](ctypes.md#module-ctypes "ctypes: A foreign function library for Python.").
 
-multiprocessing.sharedctypes.Array(*typecode_or_type*, *size_or_initializer*, *\**, *lock=True*)
+`multiprocessing.sharedctypes.Array(typecode_or_type, size_or_initializer, *, lock=True)`
 :   The same as [`RawArray()`](multiprocessing.md#multiprocessing.sharedctypes.RawArray "multiprocessing.sharedctypes.RawArray") except that depending on the value of *lock* a
     process-safe synchronization wrapper may be returned instead of a raw ctypes
     array.
@@ -1510,7 +1510,7 @@ multiprocessing.sharedctypes.Array(*typecode_or_type*, *size_or_initializer*, *\
 
     Note that *lock* is a keyword-only argument.
 
-multiprocessing.sharedctypes.Value(*typecode_or_type*, *\*args*, *lock=True*)
+`multiprocessing.sharedctypes.Value(typecode_or_type, *args, lock=True)`
 :   The same as [`RawValue()`](multiprocessing.md#multiprocessing.sharedctypes.RawValue "multiprocessing.sharedctypes.RawValue") except that depending on the value of *lock* a
     process-safe synchronization wrapper may be returned instead of a raw ctypes
     object.
@@ -1524,11 +1524,11 @@ multiprocessing.sharedctypes.Value(*typecode_or_type*, *\*args*, *lock=True*)
 
     Note that *lock* is a keyword-only argument.
 
-multiprocessing.sharedctypes.copy(*obj*)
+`multiprocessing.sharedctypes.copy(obj)`
 :   Return a ctypes object allocated from shared memory which is a copy of the
     ctypes object *obj*.
 
-multiprocessing.sharedctypes.synchronized(*obj*[, *lock*])
+`multiprocessing.sharedctypes.synchronized(obj[, lock])`
 :   Return a process-safe wrapper object for a ctypes object which uses *lock* to
     synchronize access. If *lock* is `None` (the default) then a
     [`multiprocessing.RLock`](multiprocessing.md#multiprocessing.RLock "multiprocessing.RLock") object is created automatically.
@@ -1607,7 +1607,7 @@ different machines. A manager object controls a server process which manages
 *shared objects*. Other processes can access the shared objects by using
 proxies.
 
-multiprocessing.Manager()
+`multiprocessing.Manager()`
 :   Returns a started [`SyncManager`](multiprocessing.md#multiprocessing.managers.SyncManager "multiprocessing.managers.SyncManager") object which
     can be used for sharing objects between processes. The returned manager
     object corresponds to a spawned child process and has methods which will
@@ -1617,7 +1617,7 @@ Manager processes will be shutdown as soon as they are garbage collected or
 their parent process exits. The manager classes are defined in the
 [`multiprocessing.managers`](multiprocessing.md#module-multiprocessing.managers "multiprocessing.managers: Share data between process with shared objects.") module:
 
-*class* multiprocessing.managers.BaseManager(*address=None*, *authkey=None*, *serializer='pickle'*, *ctx=None*, *\**, *shutdown_timeout=1.0*)
+`class multiprocessing.managers.BaseManager(address=None, authkey=None, serializer='pickle', ctx=None, *, shutdown_timeout=1.0)`
 :   Create a BaseManager object.
 
     Once created one should call [`start()`](multiprocessing.md#multiprocessing.managers.BaseManager.start "multiprocessing.managers.BaseManager.start") or `get_server().serve_forever()` to ensure
@@ -1644,11 +1644,11 @@ their parent process exits. The manager classes are defined in the
 
     Changed in version 3.11: Added the *shutdown_timeout* parameter.
 
-    start([*initializer*[, *initargs*]])
+    `start([initializer[, initargs]])`
     :   Start a subprocess to start the manager. If *initializer* is not `None`
         then the subprocess will call `initializer(*initargs)` when it starts.
 
-    get_server()
+    `get_server()`
     :   Returns a `Server` object which represents the actual server under
         the control of the Manager. The `Server` object supports the
         `serve_forever()` method:
@@ -1662,7 +1662,7 @@ their parent process exits. The manager classes are defined in the
 
         `Server` additionally has an [`address`](multiprocessing.md#multiprocessing.managers.BaseManager.address "multiprocessing.managers.BaseManager.address") attribute.
 
-    connect()
+    `connect()`
     :   Connect a local manager object to a remote manager process:
 
         ```python3
@@ -1671,13 +1671,13 @@ their parent process exits. The manager classes are defined in the
         >>> m.connect()
         ```
 
-    shutdown()
+    `shutdown()`
     :   Stop the process used by the manager. This is only available if
         [`start()`](multiprocessing.md#multiprocessing.managers.BaseManager.start "multiprocessing.managers.BaseManager.start") has been used to start the server process.
 
         This can be called multiple times.
 
-    register(*typeid*[, *callable*[, *proxytype*[, *exposed*[, *method_to_typeid*[, *create_method*]]]]])
+    `register(typeid[, callable[, proxytype[, exposed[, method_to_typeid[, create_method]]]]])`
     :   A classmethod which can be used for registering a type or callable with
         the manager class.
 
@@ -1716,7 +1716,7 @@ their parent process exits. The manager classes are defined in the
 
     [`BaseManager`](multiprocessing.md#multiprocessing.managers.BaseManager "multiprocessing.managers.BaseManager") instances also have one read-only property:
 
-    address
+    `address`
     :   The address used by the manager.
 
     Changed in version 3.3: Manager objects support the context management protocol – see
@@ -1727,7 +1727,7 @@ their parent process exits. The manager classes are defined in the
     In previous versions [`__enter__()`](stdtypes.md#contextmanager.__enter__ "contextmanager.__enter__") did not start the
     manager’s server process if it was not already started.
 
-*class* multiprocessing.managers.SyncManager
+`class multiprocessing.managers.SyncManager`
 :   A subclass of [`BaseManager`](multiprocessing.md#multiprocessing.managers.BaseManager "multiprocessing.managers.BaseManager") which can be used for the synchronization
     of processes. Objects of this type are returned by
     [`multiprocessing.Manager()`](multiprocessing.md#multiprocessing.Manager "multiprocessing.Manager").
@@ -1736,17 +1736,17 @@ their parent process exits. The manager classes are defined in the
     number of commonly used data types to be synchronized across processes.
     This notably includes shared lists and dictionaries.
 
-    Barrier(*parties*[, *action*[, *timeout*]])
+    `Barrier(parties[, action[, timeout]])`
     :   Create a shared [`threading.Barrier`](threading.md#threading.Barrier "threading.Barrier") object and return a
         proxy for it.
 
         Added in version 3.3.
 
-    BoundedSemaphore([*value*])
+    `BoundedSemaphore([value])`
     :   Create a shared [`threading.BoundedSemaphore`](threading.md#threading.BoundedSemaphore "threading.BoundedSemaphore") object and return a
         proxy for it.
 
-    Condition([*lock*])
+    `Condition([lock])`
     :   Create a shared [`threading.Condition`](threading.md#threading.Condition "threading.Condition") object and return a proxy for
         it.
 
@@ -1755,49 +1755,49 @@ their parent process exits. The manager classes are defined in the
 
         Changed in version 3.3: The [`wait_for()`](threading.md#threading.Condition.wait_for "threading.Condition.wait_for") method was added.
 
-    Event()
+    `Event()`
     :   Create a shared [`threading.Event`](threading.md#threading.Event "threading.Event") object and return a proxy for it.
 
-    Lock()
+    `Lock()`
     :   Create a shared [`threading.Lock`](threading.md#threading.Lock "threading.Lock") object and return a proxy for it.
 
-    Namespace()
+    `Namespace()`
     :   Create a shared [`Namespace`](multiprocessing.md#multiprocessing.managers.Namespace "multiprocessing.managers.Namespace") object and return a proxy for it.
 
-    Queue([*maxsize*])
+    `Queue([maxsize])`
     :   Create a shared [`queue.Queue`](queue.md#queue.Queue "queue.Queue") object and return a proxy for it.
 
-    RLock()
+    `RLock()`
     :   Create a shared [`threading.RLock`](threading.md#threading.RLock "threading.RLock") object and return a proxy for it.
 
-    Semaphore([*value*])
+    `Semaphore([value])`
     :   Create a shared [`threading.Semaphore`](threading.md#threading.Semaphore "threading.Semaphore") object and return a proxy for
         it.
 
-    Array(*typecode*, *sequence*)
+    `Array(typecode, sequence)`
     :   Create an array and return a proxy for it.
 
-    Value(*typecode*, *value*)
+    `Value(typecode, value)`
     :   Create an object with a writable `value` attribute and return a proxy
         for it.
 
-    dict()
+    `dict()`
 
-    dict(*mapping*)
+    `dict(mapping)`
 
-    dict(*sequence*)
+    `dict(sequence)`
     :   Create a shared [`dict`](stdtypes.md#dict "dict") object and return a proxy for it.
 
-    list()
+    `list()`
 
-    list(*sequence*)
+    `list(sequence)`
     :   Create a shared [`list`](stdtypes.md#list "list") object and return a proxy for it.
 
     Changed in version 3.6: Shared objects are capable of being nested. For example, a shared
     container object such as a shared list can contain other shared objects
     which will all be managed and synchronized by the [`SyncManager`](multiprocessing.md#multiprocessing.managers.SyncManager "multiprocessing.managers.SyncManager").
 
-*class* multiprocessing.managers.Namespace
+`class multiprocessing.managers.Namespace`
 :   A type that can register with [`SyncManager`](multiprocessing.md#multiprocessing.managers.SyncManager "multiprocessing.managers.SyncManager").
 
     A namespace object has no public methods, but does have writable attributes.
@@ -2009,10 +2009,10 @@ demonstrates a level of control over the synchronization.
 >
 > One should just use a copy of the referent instead when making comparisons.
 
-*class* multiprocessing.managers.BaseProxy
+`class multiprocessing.managers.BaseProxy`
 :   Proxy objects are instances of subclasses of [`BaseProxy`](multiprocessing.md#multiprocessing.managers.BaseProxy "multiprocessing.managers.BaseProxy").
 
-    _callmethod(*methodname*[, *args*[, *kwds*]])
+    `_callmethod(methodname[, args[, kwds]])`
     :   Call and return the result of a method of the proxy’s referent.
 
         If `proxy` is a proxy whose referent is `obj` then the expression
@@ -2055,15 +2055,15 @@ demonstrates a level of control over the synchronization.
         IndexError: list index out of range
         ```
 
-    _getvalue()
+    `_getvalue()`
     :   Return a copy of the referent.
 
         If the referent is unpicklable then this will raise an exception.
 
-    __repr__()
+    `__repr__()`
     :   Return a representation of the proxy object.
 
-    __str__()
+    `__str__()`
     :   Return the representation of the referent.
 
 #### Cleanup
@@ -2079,7 +2079,7 @@ any proxies referring to it.
 One can create a pool of processes which will carry out tasks submitted to it
 with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.pool.Pool") class.
 
-*class* multiprocessing.pool.Pool([*processes*[, *initializer*[, *initargs*[, *maxtasksperchild*[, *context*]]]]])
+`class multiprocessing.pool.Pool([processes[, initializer[, initargs[, maxtasksperchild[, context]]]]])`
 :   A process pool object which controls a pool of worker processes to which jobs
     can be submitted. It supports asynchronous results with timeouts and
     callbacks and has a parallel map implementation.
@@ -2129,13 +2129,13 @@ with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.
     > process spawned to replace the old one. The *maxtasksperchild*
     > argument to the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.pool.Pool") exposes this ability to the end user.
 
-    apply(*func*[, *args*[, *kwds*]])
+    `apply(func[, args[, kwds]])`
     :   Call *func* with arguments *args* and keyword arguments *kwds*. It blocks
         until the result is ready. Given this blocks, [`apply_async()`](multiprocessing.md#multiprocessing.pool.Pool.apply_async "multiprocessing.pool.Pool.apply_async") is
         better suited for performing work in parallel. Additionally, *func*
         is only executed in one of the workers of the pool.
 
-    apply_async(*func*[, *args*[, *kwds*[, *callback*[, *error_callback*]]]])
+    `apply_async(func[, args[, kwds[, callback[, error_callback]]]])`
     :   A variant of the [`apply()`](multiprocessing.md#multiprocessing.pool.Pool.apply "multiprocessing.pool.Pool.apply") method which returns a
         [`AsyncResult`](multiprocessing.md#multiprocessing.pool.AsyncResult "multiprocessing.pool.AsyncResult") object.
 
@@ -2151,7 +2151,7 @@ with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.
         Callbacks should complete immediately since otherwise the thread which
         handles the results will get blocked.
 
-    map(*func*, *iterable*[, *chunksize*])
+    `map(func, iterable[, chunksize])`
     :   A parallel equivalent of the [`map()`](functions.md#map "map") built-in function (it supports only
         one *iterable* argument though, for multiple iterables see [`starmap()`](multiprocessing.md#multiprocessing.pool.Pool.starmap "multiprocessing.pool.Pool.starmap")).
         It blocks until the result is ready.
@@ -2164,7 +2164,7 @@ with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.
         using [`imap()`](multiprocessing.md#multiprocessing.pool.Pool.imap "multiprocessing.pool.Pool.imap") or [`imap_unordered()`](multiprocessing.md#multiprocessing.pool.Pool.imap_unordered "multiprocessing.pool.Pool.imap_unordered") with explicit *chunksize*
         option for better efficiency.
 
-    map_async(*func*, *iterable*[, *chunksize*[, *callback*[, *error_callback*]]])
+    `map_async(func, iterable[, chunksize[, callback[, error_callback]]])`
     :   A variant of the [`map()`](multiprocessing.md#multiprocessing.pool.Pool.map "multiprocessing.pool.Pool.map") method which returns a
         [`AsyncResult`](multiprocessing.md#multiprocessing.pool.AsyncResult "multiprocessing.pool.AsyncResult") object.
 
@@ -2180,7 +2180,7 @@ with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.
         Callbacks should complete immediately since otherwise the thread which
         handles the results will get blocked.
 
-    imap(*func*, *iterable*[, *chunksize*])
+    `imap(func, iterable[, chunksize])`
     :   A lazier version of [`map()`](multiprocessing.md#multiprocessing.pool.Pool.map "multiprocessing.pool.Pool.map").
 
         The *chunksize* argument is the same as the one used by the [`map()`](multiprocessing.md#multiprocessing.pool.Pool.map "multiprocessing.pool.Pool.map")
@@ -2193,12 +2193,12 @@ with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.
         `next(timeout)` will raise [`multiprocessing.TimeoutError`](multiprocessing.md#multiprocessing.TimeoutError "multiprocessing.TimeoutError") if the
         result cannot be returned within *timeout* seconds.
 
-    imap_unordered(*func*, *iterable*[, *chunksize*])
+    `imap_unordered(func, iterable[, chunksize])`
     :   The same as [`imap()`](multiprocessing.md#multiprocessing.pool.Pool.imap "multiprocessing.pool.Pool.imap") except that the ordering of the results from the
         returned iterator should be considered arbitrary. (Only when there is
         only one worker process is the order guaranteed to be “correct”.)
 
-    starmap(*func*, *iterable*[, *chunksize*])
+    `starmap(func, iterable[, chunksize])`
     :   Like [`map()`](multiprocessing.md#multiprocessing.pool.Pool.map "multiprocessing.pool.Pool.map") except that the
         elements of the *iterable* are expected to be iterables that are
         unpacked as arguments.
@@ -2208,23 +2208,23 @@ with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.
 
         Added in version 3.3.
 
-    starmap_async(*func*, *iterable*[, *chunksize*[, *callback*[, *error_callback*]]])
+    `starmap_async(func, iterable[, chunksize[, callback[, error_callback]]])`
     :   A combination of [`starmap()`](multiprocessing.md#multiprocessing.pool.Pool.starmap "multiprocessing.pool.Pool.starmap") and [`map_async()`](multiprocessing.md#multiprocessing.pool.Pool.map_async "multiprocessing.pool.Pool.map_async") that iterates over
         *iterable* of iterables and calls *func* with the iterables unpacked.
         Returns a result object.
 
         Added in version 3.3.
 
-    close()
+    `close()`
     :   Prevents any more tasks from being submitted to the pool. Once all the
         tasks have been completed the worker processes will exit.
 
-    terminate()
+    `terminate()`
     :   Stops the worker processes immediately without completing outstanding
         work. When the pool object is garbage collected [`terminate()`](multiprocessing.md#multiprocessing.pool.Pool.terminate "multiprocessing.pool.Pool.terminate") will be
         called immediately.
 
-    join()
+    `join()`
     :   Wait for the worker processes to exit. One must call [`close()`](multiprocessing.md#multiprocessing.pool.Pool.close "multiprocessing.pool.Pool.close") or
         [`terminate()`](multiprocessing.md#multiprocessing.pool.Pool.terminate "multiprocessing.pool.Pool.terminate") before using [`join()`](multiprocessing.md#multiprocessing.pool.Pool.join "multiprocessing.pool.Pool.join").
 
@@ -2232,23 +2232,23 @@ with the [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.
     [Context Manager Types](stdtypes.md#typecontextmanager). [`__enter__()`](stdtypes.md#contextmanager.__enter__ "contextmanager.__enter__") returns the
     pool object, and [`__exit__()`](stdtypes.md#contextmanager.__exit__ "contextmanager.__exit__") calls [`terminate()`](multiprocessing.md#multiprocessing.pool.Pool.terminate "multiprocessing.pool.Pool.terminate").
 
-*class* multiprocessing.pool.AsyncResult
+`class multiprocessing.pool.AsyncResult`
 :   The class of the result returned by [`Pool.apply_async()`](multiprocessing.md#multiprocessing.pool.Pool.apply_async "multiprocessing.pool.Pool.apply_async") and
     [`Pool.map_async()`](multiprocessing.md#multiprocessing.pool.Pool.map_async "multiprocessing.pool.Pool.map_async").
 
-    get([*timeout*])
+    `get([timeout])`
     :   Return the result when it arrives. If *timeout* is not `None` and the
         result does not arrive within *timeout* seconds then
         [`multiprocessing.TimeoutError`](multiprocessing.md#multiprocessing.TimeoutError "multiprocessing.TimeoutError") is raised. If the remote call raised
         an exception then that exception will be reraised by [`get()`](multiprocessing.md#multiprocessing.pool.AsyncResult.get "multiprocessing.pool.AsyncResult.get").
 
-    wait([*timeout*])
+    `wait([timeout])`
     :   Wait until the result is available or until *timeout* seconds pass.
 
-    ready()
+    `ready()`
     :   Return whether the call has completed.
 
-    successful()
+    `successful()`
     :   Return whether the call completed without raising an exception. Will
         raise [`ValueError`](exceptions.md#ValueError "ValueError") if the result is not ready.
 
@@ -2292,7 +2292,7 @@ with sockets or Windows named pipes. It also has support for *digest
 authentication* using the [`hmac`](hmac.md#module-hmac "hmac: Keyed-Hashing for Message Authentication (HMAC) implementation") module, and for polling
 multiple connections at the same time.
 
-multiprocessing.connection.deliver_challenge(*connection*, *authkey*)
+`multiprocessing.connection.deliver_challenge(connection, authkey)`
 :   Send a randomly generated message to the other end of the connection and wait
     for a reply.
 
@@ -2300,14 +2300,14 @@ multiprocessing.connection.deliver_challenge(*connection*, *authkey*)
     then a welcome message is sent to the other end of the connection. Otherwise
     [`AuthenticationError`](multiprocessing.md#multiprocessing.AuthenticationError "multiprocessing.AuthenticationError") is raised.
 
-multiprocessing.connection.answer_challenge(*connection*, *authkey*)
+`multiprocessing.connection.answer_challenge(connection, authkey)`
 :   Receive a message, calculate the digest of the message using *authkey* as the
     key, and then send the digest back.
 
     If a welcome message is not received, then
     [`AuthenticationError`](multiprocessing.md#multiprocessing.AuthenticationError "multiprocessing.AuthenticationError") is raised.
 
-multiprocessing.connection.Client(*address*[, *family*[, *authkey*]])
+`multiprocessing.connection.Client(address[, family[, authkey]])`
 :   Attempt to set up a connection to the listener which is using address
     *address*, returning a [`Connection`](multiprocessing.md#multiprocessing.connection.Connection "multiprocessing.connection.Connection").
 
@@ -2321,7 +2321,7 @@ multiprocessing.connection.Client(*address*[, *family*[, *authkey*]])
     [`AuthenticationError`](multiprocessing.md#multiprocessing.AuthenticationError "multiprocessing.AuthenticationError") is raised if authentication fails.
     See [Authentication keys](multiprocessing.md#multiprocessing-auth-keys).
 
-*class* multiprocessing.connection.Listener([*address*[, *family*[, *backlog*[, *authkey*]]]])
+`class multiprocessing.connection.Listener([address[, family[, backlog[, authkey]]]])`
 :   A wrapper for a bound socket or Windows named pipe which is ‘listening’ for
     connections.
 
@@ -2355,23 +2355,23 @@ multiprocessing.connection.Client(*address*[, *family*[, *authkey*]])
     [`AuthenticationError`](multiprocessing.md#multiprocessing.AuthenticationError "multiprocessing.AuthenticationError") is raised if authentication fails.
     See [Authentication keys](multiprocessing.md#multiprocessing-auth-keys).
 
-    accept()
+    `accept()`
     :   Accept a connection on the bound socket or named pipe of the listener
         object and return a [`Connection`](multiprocessing.md#multiprocessing.connection.Connection "multiprocessing.connection.Connection") object.
         If authentication is attempted and fails, then
         [`AuthenticationError`](multiprocessing.md#multiprocessing.AuthenticationError "multiprocessing.AuthenticationError") is raised.
 
-    close()
+    `close()`
     :   Close the bound socket or named pipe of the listener object. This is
         called automatically when the listener is garbage collected. However it
         is advisable to call it explicitly.
 
     Listener objects have the following read-only properties:
 
-    address
+    `address`
     :   The address which is being used by the Listener object.
 
-    last_accepted
+    `last_accepted`
     :   The address from which the last accepted connection came. If this is
         unavailable then it is `None`.
 
@@ -2379,7 +2379,7 @@ multiprocessing.connection.Client(*address*[, *family*[, *authkey*]])
     [Context Manager Types](stdtypes.md#typecontextmanager). [`__enter__()`](stdtypes.md#contextmanager.__enter__ "contextmanager.__enter__") returns the
     listener object, and [`__exit__()`](stdtypes.md#contextmanager.__exit__ "contextmanager.__exit__") calls [`close()`](multiprocessing.md#multiprocessing.connection.Listener.close "multiprocessing.connection.Listener.close").
 
-multiprocessing.connection.wait(*object_list*, *timeout=None*)
+`multiprocessing.connection.wait(object_list, timeout=None)`
 :   Wait till an object in *object_list* is ready. Returns the list of
     those objects in *object_list* which are ready. If *timeout* is a
     float then the call blocks for at most that many seconds. If
@@ -2535,7 +2535,7 @@ Some support for logging is available. Note, however, that the [`logging`](loggi
 package does not use process shared locks so it is possible (depending on the
 handler type) for messages from different processes to get mixed up.
 
-multiprocessing.get_logger()
+`multiprocessing.get_logger()`
 :   Returns the logger used by [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessing: Process-based parallelism."). If necessary, a new one
     will be created.
 
@@ -2547,7 +2547,7 @@ multiprocessing.get_logger()
     parent process’s logger – any other customization of the logger will not be
     inherited.
 
-multiprocessing.log_to_stderr(*level=None*)
+`multiprocessing.log_to_stderr(level=None)`
 :   This function performs a call to [`get_logger()`](multiprocessing.md#multiprocessing.get_logger "multiprocessing.get_logger") but in addition to
     returning the logger created by get_logger, it adds a handler which sends
     output to [`sys.stderr`](sys.md#sys.stderr "sys.stderr") using format
@@ -2583,7 +2583,7 @@ returns an instance of [`ThreadPool`](multiprocessing.md#multiprocessing.pool.Th
 [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.pool.Pool") that supports all the same method calls but uses a pool of
 worker threads rather than worker processes.
 
-*class* multiprocessing.pool.ThreadPool([*processes*[, *initializer*[, *initargs*]]])
+`class multiprocessing.pool.ThreadPool([processes[, initializer[, initargs]]])`
 :   A thread pool object which controls a pool of worker threads to which jobs
     can be submitted. [`ThreadPool`](multiprocessing.md#multiprocessing.pool.ThreadPool "multiprocessing.pool.ThreadPool") instances are fully interface
     compatible with [`Pool`](multiprocessing.md#multiprocessing.pool.Pool "multiprocessing.pool.Pool") instances, and their resources must also be

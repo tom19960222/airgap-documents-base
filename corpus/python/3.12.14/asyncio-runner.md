@@ -20,7 +20,7 @@ to simplify async code usage for common wide-spread scenarios.
 
 ## Running an asyncio Program
 
-asyncio.run(*coro*, *\**, *debug=None*, *loop_factory=None*)
+`asyncio.run(coro, *, debug=None, loop_factory=None)`
 :   Execute the [coroutine](https://docs.python.org/3.12/glossary.html#term-coroutine) *coro* and return the result.
 
     This function runs the passed coroutine, taking care of
@@ -64,7 +64,7 @@ asyncio.run(*coro*, *\**, *debug=None*, *loop_factory=None*)
 
 ## Runner context manager
 
-*class* asyncio.Runner(*\**, *debug=None*, *loop_factory=None*)
+`class asyncio.Runner(*, debug=None, loop_factory=None)`
 :   A context manager that simplifies *multiple* async function calls in the same
     context.
 
@@ -93,7 +93,7 @@ asyncio.run(*coro*, *\**, *debug=None*, *loop_factory=None*)
 
     Added in version 3.11.
 
-    run(*coro*, *\**, *context=None*)
+    `run(coro, *, context=None)`
     :   Run a [coroutine](https://docs.python.org/3.12/glossary.html#term-coroutine) *coro* in the embedded loop.
 
         Return the coroutine’s result or raise its exception.
@@ -105,13 +105,13 @@ asyncio.run(*coro*, *\**, *debug=None*, *loop_factory=None*)
         This function cannot be called when another asyncio event loop is
         running in the same thread.
 
-    close()
+    `close()`
     :   Close the runner.
 
         Finalize asynchronous generators, shutdown default executor, close the event loop
         and release embedded [`contextvars.Context`](contextvars.md#contextvars.Context "contextvars.Context").
 
-    get_loop()
+    `get_loop()`
     :   Return the event loop associated with the runner instance.
 
     > **Note:**

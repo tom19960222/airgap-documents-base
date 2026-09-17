@@ -16,15 +16,15 @@ The [`fractions`](fractions.md#module-fractions "fractions: Rational numbers.") 
 A Fraction instance can be constructed from a pair of integers, from
 another rational number, or from a string.
 
-*class* fractions.Fraction(*numerator=0*, *denominator=1*)
+`class fractions.Fraction(numerator=0, denominator=1)`
 
-*class* fractions.Fraction(*other_fraction*)
+`class fractions.Fraction(other_fraction)`
 
-*class* fractions.Fraction(*float*)
+`class fractions.Fraction(float)`
 
-*class* fractions.Fraction(*decimal*)
+`class fractions.Fraction(decimal)`
 
-*class* fractions.Fraction(*string*)
+`class fractions.Fraction(string)`
 :   The first version requires that *numerator* and *denominator* are instances
     of [`numbers.Rational`](numbers.md#numbers.Rational "numbers.Rational") and returns a new [`Fraction`](fractions.md#fractions.Fraction "fractions.Fraction") instance
     with value `numerator/denominator`. If *denominator* is `0`, it
@@ -105,25 +105,25 @@ another rational number, or from a string.
     presentation types `"e"`, `"E"`, `"f"`, `"F"`, `"g"`, `"G"`
     and `"%""`.
 
-    numerator
+    `numerator`
     :   Numerator of the Fraction in lowest term.
 
-    denominator
+    `denominator`
     :   Denominator of the Fraction in lowest term.
 
-    as_integer_ratio()
+    `as_integer_ratio()`
     :   Return a tuple of two integers, whose ratio is equal
         to the original Fraction. The ratio is in lowest terms
         and has a positive denominator.
 
         Added in version 3.8.
 
-    is_integer()
+    `is_integer()`
     :   Return `True` if the Fraction is an integer.
 
         Added in version 3.12.
 
-    *classmethod* from_float(*flt*)
+    `classmethod from_float(flt)`
     :   Alternative constructor which only accepts instances of
         [`float`](functions.md#float "float") or [`numbers.Integral`](numbers.md#numbers.Integral "numbers.Integral"). Beware that
         `Fraction.from_float(0.3)` is not the same value as `Fraction(3, 10)`.
@@ -133,7 +133,7 @@ another rational number, or from a string.
         > From Python 3.2 onwards, you can also construct a
         > [`Fraction`](fractions.md#fractions.Fraction "fractions.Fraction") instance directly from a [`float`](functions.md#float "float").
 
-    *classmethod* from_decimal(*dec*)
+    `classmethod from_decimal(dec)`
     :   Alternative constructor which only accepts instances of
         [`decimal.Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") or [`numbers.Integral`](numbers.md#numbers.Integral "numbers.Integral").
 
@@ -143,7 +143,7 @@ another rational number, or from a string.
         > [`Fraction`](fractions.md#fractions.Fraction "fractions.Fraction") instance directly from a [`decimal.Decimal`](decimal.md#decimal.Decimal "decimal.Decimal")
         > instance.
 
-    limit_denominator(*max_denominator=1000000*)
+    `limit_denominator(max_denominator=1000000)`
     :   Finds and returns the closest [`Fraction`](fractions.md#fractions.Fraction "fractions.Fraction") to `self` that has
         denominator at most max_denominator. This method is useful for finding
         rational approximations to a given floating-point number:
@@ -166,7 +166,7 @@ another rational number, or from a string.
         Fraction(11, 10)
         ```
 
-    __floor__()
+    `__floor__()`
     :   Returns the greatest [`int`](functions.md#int "int") `<= self`. This method can
         also be accessed through the [`math.floor()`](math.md#math.floor "math.floor") function:
 
@@ -176,20 +176,20 @@ another rational number, or from a string.
         3
         ```
 
-    __ceil__()
+    `__ceil__()`
     :   Returns the least [`int`](functions.md#int "int") `>= self`. This method can
         also be accessed through the [`math.ceil()`](math.md#math.ceil "math.ceil") function.
 
-    __round__()
+    `__round__()`
 
-    __round__(*ndigits*)
+    `__round__(ndigits)`
     :   The first version returns the nearest [`int`](functions.md#int "int") to `self`,
         rounding half to even. The second version rounds `self` to the
         nearest multiple of `Fraction(1, 10**ndigits)` (logically, if
         `ndigits` is negative), again rounding half toward even. This
         method can also be accessed through the [`round()`](functions.md#round "round") function.
 
-    __format__(*format_spec*, */*)
+    `__format__(format_spec, /)`
     :   Provides support for float-style formatting of [`Fraction`](fractions.md#fractions.Fraction "fractions.Fraction")
         instances via the [`str.format()`](stdtypes.md#str.format "str.format") method, the [`format()`](functions.md#format "format") built-in
         function, or [Formatted string literals](https://docs.python.org/3.12/reference/lexical_analysis.html#f-strings). The

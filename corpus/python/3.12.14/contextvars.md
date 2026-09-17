@@ -25,7 +25,7 @@ Added in version 3.7.
 
 ## Context Variables
 
-*class* contextvars.ContextVar(*name*[, *\**, *default*])
+`class contextvars.ContextVar(name[, *, default])`
 :   This class is used to declare a new Context Variable, e.g.:
 
     ```python3
@@ -44,12 +44,12 @@ Added in version 3.7.
     references to context variables which prevents context variables
     from being properly garbage collected.
 
-    name
+    `name`
     :   The name of the variable. This is a read-only property.
 
         Added in version 3.7.1.
 
-    get([*default*])
+    `get([default])`
     :   Return a value for the context variable for the current context.
 
         If there is no value for the variable in the current context,
@@ -61,7 +61,7 @@ Added in version 3.7.
           if it was created with one; or
         - raise a [`LookupError`](exceptions.md#LookupError "LookupError").
 
-    set(*value*)
+    `set(value)`
     :   Call to set a new value for the context variable in the current
         context.
 
@@ -72,7 +72,7 @@ Added in version 3.7.
         to restore the variable to its previous value via the
         [`ContextVar.reset()`](contextvars.md#contextvars.ContextVar.reset "contextvars.ContextVar.reset") method.
 
-    reset(*token*)
+    `reset(token)`
     :   Reset the context variable to the value it had before the
         [`ContextVar.set()`](contextvars.md#contextvars.ContextVar.set "contextvars.ContextVar.set") that created the *token* was used.
 
@@ -89,28 +89,28 @@ Added in version 3.7.
         # var.get() would raise a LookupError.
         ```
 
-*class* contextvars.Token
+`class contextvars.Token`
 :   *Token* objects are returned by the [`ContextVar.set()`](contextvars.md#contextvars.ContextVar.set "contextvars.ContextVar.set") method.
     They can be passed to the [`ContextVar.reset()`](contextvars.md#contextvars.ContextVar.reset "contextvars.ContextVar.reset") method to revert
     the value of the variable to what it was before the corresponding
     *set*.
 
-    var
+    `var`
     :   A read-only property. Points to the [`ContextVar`](contextvars.md#contextvars.ContextVar "contextvars.ContextVar") object
         that created the token.
 
-    old_value
+    `old_value`
     :   A read-only property. Set to the value the variable had before
         the [`ContextVar.set()`](contextvars.md#contextvars.ContextVar.set "contextvars.ContextVar.set") method call that created the token.
         It points to [`Token.MISSING`](contextvars.md#contextvars.Token.MISSING "contextvars.Token.MISSING") if the variable was not set
         before the call.
 
-    MISSING
+    `MISSING`
     :   A marker object used by [`Token.old_value`](contextvars.md#contextvars.Token.old_value "contextvars.Token.old_value").
 
 ## Manual Context Management
 
-contextvars.copy_context()
+`contextvars.copy_context()`
 :   Returns a copy of the current [`Context`](contextvars.md#contextvars.Context "contextvars.Context") object.
 
     The following snippet gets a copy of the current context and prints
@@ -125,7 +125,7 @@ contextvars.copy_context()
     contexts with a few context variables and for contexts that have
     a lot of them.
 
-*class* contextvars.Context
+`class contextvars.Context`
 :   A mapping of [`ContextVars`](contextvars.md#contextvars.ContextVar "contextvars.ContextVar") to their values.
 
     `Context()` creates an empty context with no values in it.
@@ -139,7 +139,7 @@ contextvars.copy_context()
 
     Context implements the [`collections.abc.Mapping`](collections.abc.md#collections.abc.Mapping "collections.abc.Mapping") interface.
 
-    run(*callable*, *\*args*, *\*\*kwargs*)
+    `run(callable, *args, **kwargs)`
     :   Execute `callable(*args, **kwargs)` code in the context object
         the *run* method is called on. Return the result of the execution
         or propagate an exception if one occurred.
@@ -179,37 +179,37 @@ contextvars.copy_context()
         context object from more than one OS thread, or when called
         recursively.
 
-    copy()
+    `copy()`
     :   Return a shallow copy of the context object.
 
-    var in context
+    `var in context`
     :   Return `True` if the *context* has a value for *var* set;
         return `False` otherwise.
 
-    context[var]
+    `context[var]`
     :   Return the value of the *var* [`ContextVar`](contextvars.md#contextvars.ContextVar "contextvars.ContextVar") variable.
         If the variable is not set in the context object, a
         [`KeyError`](exceptions.md#KeyError "KeyError") is raised.
 
-    get(*var*[, *default*])
+    `get(var[, default])`
     :   Return the value for *var* if *var* has the value in the context
         object. Return *default* otherwise. If *default* is not given,
         return `None`.
 
-    iter(context)
+    `iter(context)`
     :   Return an iterator over the variables stored in the context
         object.
 
-    len(proxy)
+    `len(proxy)`
     :   Return the number of variables set in the context object.
 
-    keys()
+    `keys()`
     :   Return a list of all variables in the context object.
 
-    values()
+    `values()`
     :   Return a list of all variables’ values in the context object.
 
-    items()
+    `items()`
     :   Return a list of 2-tuples containing all variables and their
         values in the context object.
 

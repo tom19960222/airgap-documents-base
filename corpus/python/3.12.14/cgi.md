@@ -262,7 +262,7 @@ values. That’s annoying and leads to less readable scripts.
 A more convenient approach is to use the methods [`getfirst()`](cgi.md#cgi.FieldStorage.getfirst "cgi.FieldStorage.getfirst")
 and [`getlist()`](cgi.md#cgi.FieldStorage.getlist "cgi.FieldStorage.getlist") provided by this higher level interface.
 
-FieldStorage.getfirst(*name*, *default=None*)
+`FieldStorage.getfirst(name, default=None)`
 :   This method always returns only one value associated with form field *name*.
     The method returns only the first value in case that more values were posted
     under such name. Please note that the order in which the values are received
@@ -271,7 +271,7 @@ FieldStorage.getfirst(*name*, *default=None*)
     optional parameter *default*. This parameter defaults to `None` if not
     specified.
 
-FieldStorage.getlist(*name*)
+`FieldStorage.getlist(name)`
 :   This method always returns a list of values associated with form field *name*.
     The method returns an empty list if no such form field or value exists for
     *name*. It returns a list consisting of one item if only one such value exists.
@@ -291,7 +291,7 @@ for item in form.getlist("item"):
 These are useful if you want more control, or if you want to employ some of the
 algorithms implemented in this module in other circumstances.
 
-cgi.parse(*fp=None*, *environ=os.environ*, *keep_blank_values=False*, *strict_parsing=False*, *separator='&'*)
+`cgi.parse(fp=None, environ=os.environ, keep_blank_values=False, strict_parsing=False, separator='&')`
 :   Parse a query in the environment or from a file (the file defaults to
     `sys.stdin`). The *keep_blank_values*, *strict_parsing* and *separator* parameters are
     passed to [`urllib.parse.parse_qs()`](urllib.parse.md#urllib.parse.parse_qs "urllib.parse.parse_qs") unchanged.
@@ -301,7 +301,7 @@ cgi.parse(*fp=None*, *environ=os.environ*, *keep_blank_values=False*, *strict_pa
     on the desired query string (except for `multipart/form-data` input,
     which can be handled as described for [`parse_multipart()`](cgi.md#cgi.parse_multipart "cgi.parse_multipart")).
 
-cgi.parse_multipart(*fp*, *pdict*, *encoding='utf-8'*, *errors='replace'*, *separator='&'*)
+`cgi.parse_multipart(fp, pdict, encoding='utf-8', errors='replace', separator='&')`
 :   Parse input of type *multipart/form-data* (for file uploads).
     Arguments are *fp* for the input file, *pdict* for a dictionary containing
     other parameters in the *Content-Type* header, and *encoding*,
@@ -326,7 +326,7 @@ cgi.parse_multipart(*fp*, *pdict*, *encoding='utf-8'*, *errors='replace'*, *sepa
     which implements the same MIME RFCs, or with the
     [multipart](https://pypi.org/project/multipart/) PyPI project.
 
-cgi.parse_header(*string*)
+`cgi.parse_header(string)`
 :   Parse a MIME header (such as *Content-Type*) into a main value and a
     dictionary of parameters.
 
@@ -343,20 +343,20 @@ cgi.parse_header(*string*)
     main, params = msg.get_content_type(), msg['content-type'].params
     ```
 
-cgi.test()
+`cgi.test()`
 :   Robust test CGI script, usable as main program. Writes minimal HTTP headers and
     formats all information provided to the script in HTML format.
 
-cgi.print_environ()
+`cgi.print_environ()`
 :   Format the shell environment in HTML.
 
-cgi.print_form(*form*)
+`cgi.print_form(form)`
 :   Format a form in HTML.
 
-cgi.print_directory()
+`cgi.print_directory()`
 :   Format the current directory in HTML.
 
-cgi.print_environ_usage()
+`cgi.print_environ_usage()`
 :   Print a list of useful (used by CGI) environment variables in HTML.
 
 ## Caring about security

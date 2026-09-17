@@ -39,7 +39,7 @@ dom3 = parseString('<myxml>Some data<empty/> some more data</myxml>')
 
 The [`parse()`](xml.dom.minidom.md#xml.dom.minidom.parse "xml.dom.minidom.parse") function can take either a filename or an open file object.
 
-xml.dom.minidom.parse(*filename_or_file*, *parser=None*, *bufsize=None*)
+`xml.dom.minidom.parse(filename_or_file, parser=None, bufsize=None)`
 :   Return a `Document` from the given input. *filename_or_file* may be
     either a file name, or a file-like object. *parser*, if given, must be a SAX2
     parser object. This function will change the document handler of the parser and
@@ -49,7 +49,7 @@ xml.dom.minidom.parse(*filename_or_file*, *parser=None*, *bufsize=None*)
 If you have XML in a string, you can use the [`parseString()`](xml.dom.minidom.md#xml.dom.minidom.parseString "xml.dom.minidom.parseString") function
 instead:
 
-xml.dom.minidom.parseString(*string*, *parser=None*)
+`xml.dom.minidom.parseString(string, parser=None)`
 :   Return a `Document` that represents the *string*. This method creates an
     [`io.StringIO`](io.md#io.StringIO "io.StringIO") object for the string and passes that on to [`parse()`](xml.dom.minidom.md#xml.dom.minidom.parse "xml.dom.minidom.parse").
 
@@ -109,7 +109,7 @@ The definition of the DOM API for Python is given as part of the [`xml.dom`](xml
 module documentation. This section lists the differences between the API and
 [`xml.dom.minidom`](xml.dom.minidom.md#module-xml.dom.minidom "xml.dom.minidom: Minimal Document Object Model (DOM) implementation.").
 
-Node.unlink()
+`Node.unlink()`
 :   Break internal references within the DOM so that it will be garbage collected on
     versions of Python without cyclic GC. Even when cyclic GC is available, using
     this can make large amounts of memory available sooner, so calling this on DOM
@@ -126,7 +126,7 @@ Node.unlink()
         ... # Work with dom.
     ```
 
-Node.writexml(*writer*, *indent=''*, *addindent=''*, *newl=''*, *encoding=None*, *standalone=None*)
+`Node.writexml(writer, indent='', addindent='', newl='', encoding=None, standalone=None)`
 :   Write XML to the writer object. The writer receives texts but not bytes as input,
     it should have a `write()` method which matches that of the file object
     interface. The *indent* parameter is the indentation of the current node.
@@ -149,7 +149,7 @@ Node.writexml(*writer*, *indent=''*, *addindent=''*, *newl=''*, *encoding=None*,
 
     Changed in version 3.9: The *standalone* parameter was added.
 
-Node.toxml(*encoding=None*, *standalone=None*)
+`Node.toxml(encoding=None, standalone=None)`
 :   Return a string or byte string containing the XML represented by
     the DOM node.
 
@@ -167,7 +167,7 @@ Node.toxml(*encoding=None*, *standalone=None*)
 
     Changed in version 3.9: The *standalone* parameter was added.
 
-Node.toprettyxml(*indent='\t'*, *newl='\n'*, *encoding=None*, *standalone=None*)
+`Node.toprettyxml(indent='\t', newl='\n', encoding=None, standalone=None)`
 :   Return a pretty-printed version of the document. *indent* specifies the
     indentation string and defaults to a tabulator; *newl* specifies the string
     emitted at the end of each line and defaults to `\n`.

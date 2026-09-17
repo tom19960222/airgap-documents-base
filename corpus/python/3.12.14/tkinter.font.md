@@ -16,15 +16,15 @@ and using named fonts.
 
 The different font weights and slants are:
 
-tkinter.font.NORMAL
+`tkinter.font.NORMAL`
 
-tkinter.font.BOLD
+`tkinter.font.BOLD`
 
-tkinter.font.ITALIC
+`tkinter.font.ITALIC`
 
-tkinter.font.ROMAN
+`tkinter.font.ROMAN`
 
-*class* tkinter.font.Font(*root=None*, *font=None*, *name=None*, *exists=False*, *\*\*options*)
+`class tkinter.font.Font(root=None, font=None, name=None, exists=False, **options)`
 :   The [`Font`](tkinter.font.md#tkinter.font.Font "tkinter.font.Font") class represents a named font. *Font* instances are given
     unique names and can be specified by their family, size, and style
     configuration. Named fonts are Tk’s method of creating and identifying
@@ -59,24 +59,24 @@ tkinter.font.ROMAN
     > >
     > > *overstrike* - font strikeout (0 - none, 1 - strikeout)
 
-    actual(*option=None*, *displayof=None*)
+    `actual(option=None, displayof=None)`
     :   Return the attributes of the font.
 
-    cget(*option*)
+    `cget(option)`
     :   Retrieve an attribute of the font.
 
-    config(*\*\*options*)
+    `config(**options)`
     :   Modify attributes of the font.
 
-    copy()
+    `copy()`
     :   Return new instance of the current font.
 
-    measure(*text*, *displayof=None*)
+    `measure(text, displayof=None)`
     :   Return amount of space the text would occupy on the specified display
         when formatted in the current font. If no display is specified then the
         main application window is assumed.
 
-    metrics(*\*options*, *\*\*kw*)
+    `metrics(*options, **kw)`
     :   Return font-specific data.
         Options include:
 
@@ -91,13 +91,13 @@ tkinter.font.ROMAN
 
         *fixed* - 1 if font is fixed-width else 0
 
-tkinter.font.families(*root=None*, *displayof=None*)
+`tkinter.font.families(root=None, displayof=None)`
 :   Return the different font families.
 
-tkinter.font.names(*root=None*)
+`tkinter.font.names(root=None)`
 :   Return the names of defined fonts.
 
-tkinter.font.nametofont(*name*, *root=None*)
+`tkinter.font.nametofont(name, root=None)`
 :   Return a [`Font`](tkinter.font.md#tkinter.font.Font "tkinter.font.Font") representation of a tk named font.
 
     Changed in version 3.10: The *root* parameter was added.

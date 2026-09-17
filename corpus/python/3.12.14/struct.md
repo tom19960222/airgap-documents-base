@@ -42,33 +42,33 @@ they can be read/filled without additional copying from a [`bytes`](stdtypes.md#
 
 The module defines the following exception and functions:
 
-*exception* struct.error
+`exception struct.error`
 :   Exception raised on various occasions; argument is a string describing what
     is wrong.
 
-struct.pack(*format*, *v1*, *v2*, *...*)
+`struct.pack(format, v1, v2, ...)`
 :   Return a bytes object containing the values *v1*, *v2*, … packed according
     to the format string *format*. The arguments must match the values required by
     the format exactly.
 
-struct.pack_into(*format*, *buffer*, *offset*, *v1*, *v2*, *...*)
+`struct.pack_into(format, buffer, offset, v1, v2, ...)`
 :   Pack the values *v1*, *v2*, … according to the format string *format* and
     write the packed bytes into the writable buffer *buffer* starting at
     position *offset*. Note that *offset* is a required argument.
 
-struct.unpack(*format*, *buffer*)
+`struct.unpack(format, buffer)`
 :   Unpack from the buffer *buffer* (presumably packed by `pack(format, ...)`)
     according to the format string *format*. The result is a tuple even if it
     contains exactly one item. The buffer’s size in bytes must match the
     size required by the format, as reflected by [`calcsize()`](struct.md#struct.calcsize "struct.calcsize").
 
-struct.unpack_from(*format*, */*, *buffer*, *offset=0*)
+`struct.unpack_from(format, /, buffer, offset=0)`
 :   Unpack from *buffer* starting at position *offset*, according to the format
     string *format*. The result is a tuple even if it contains exactly one
     item. The buffer’s size in bytes, starting at position *offset*, must be at
     least the size required by the format, as reflected by [`calcsize()`](struct.md#struct.calcsize "struct.calcsize").
 
-struct.iter_unpack(*format*, *buffer*)
+`struct.iter_unpack(format, buffer)`
 :   Iteratively unpack from the buffer *buffer* according to the format
     string *format*. This function returns an iterator which will read
     equally sized chunks from the buffer until all its contents have been
@@ -79,7 +79,7 @@ struct.iter_unpack(*format*, *buffer*)
 
     Added in version 3.4.
 
-struct.calcsize(*format*)
+`struct.calcsize(format)`
 :   Return the size of the struct (and hence of the bytes object produced by
     `pack(format, ...)`) corresponding to the format string *format*.
 
@@ -460,7 +460,7 @@ False
 
 The [`struct`](struct.md#module-struct "struct: Interpret bytes as packed binary data.") module also defines the following type:
 
-*class* struct.Struct(*format*)
+`class struct.Struct(format)`
 :   Return a new Struct object which writes and reads binary data according to
     the format string *format*. Creating a `Struct` object once and calling its
     methods is more efficient than calling module-level functions with the
@@ -475,33 +475,33 @@ The [`struct`](struct.md#module-struct "struct: Interpret bytes as packed binary
 
     Compiled Struct objects support the following methods and attributes:
 
-    pack(*v1*, *v2*, *...*)
+    `pack(v1, v2, ...)`
     :   Identical to the [`pack()`](struct.md#struct.pack "struct.pack") function, using the compiled format.
         (`len(result)` will equal [`size`](struct.md#struct.Struct.size "struct.Struct.size").)
 
-    pack_into(*buffer*, *offset*, *v1*, *v2*, *...*)
+    `pack_into(buffer, offset, v1, v2, ...)`
     :   Identical to the [`pack_into()`](struct.md#struct.pack_into "struct.pack_into") function, using the compiled format.
 
-    unpack(*buffer*)
+    `unpack(buffer)`
     :   Identical to the [`unpack()`](struct.md#struct.unpack "struct.unpack") function, using the compiled format.
         The buffer’s size in bytes must equal [`size`](struct.md#struct.Struct.size "struct.Struct.size").
 
-    unpack_from(*buffer*, *offset=0*)
+    `unpack_from(buffer, offset=0)`
     :   Identical to the [`unpack_from()`](struct.md#struct.unpack_from "struct.unpack_from") function, using the compiled format.
         The buffer’s size in bytes, starting at position *offset*, must be at least
         [`size`](struct.md#struct.Struct.size "struct.Struct.size").
 
-    iter_unpack(*buffer*)
+    `iter_unpack(buffer)`
     :   Identical to the [`iter_unpack()`](struct.md#struct.iter_unpack "struct.iter_unpack") function, using the compiled format.
         The buffer’s size in bytes must be a multiple of [`size`](struct.md#struct.Struct.size "struct.Struct.size").
 
         Added in version 3.4.
 
-    format
+    `format`
     :   The format string used to construct this Struct object.
 
         Changed in version 3.7: The format string type is now [`str`](stdtypes.md#str "str") instead of [`bytes`](stdtypes.md#bytes "bytes").
 
-    size
+    `size`
     :   The calculated size of the struct (and hence of the bytes object produced
         by the [`pack()`](struct.md#struct.pack "struct.pack") method) corresponding to [`format`](functions.md#format "format").

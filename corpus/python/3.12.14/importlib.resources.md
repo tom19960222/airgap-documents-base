@@ -49,11 +49,11 @@ for example, a package and its resources can be imported from a zip file using
 `get_resource_reader(fullname)` method as specified by
 [`importlib.resources.abc.ResourceReader`](importlib.resources.abc.md#importlib.resources.abc.ResourceReader "importlib.resources.abc.ResourceReader").
 
-*class* importlib.resources.Anchor
+`class importlib.resources.Anchor`
 :   Represents an anchor for resources, either a [`module object`](types.md#types.ModuleType "types.ModuleType") or a module name as a string. Defined as
     `Union[str, ModuleType]`.
 
-importlib.resources.files(*anchor: [Anchor](importlib.resources.md#importlib.resources.Anchor "importlib.resources.Anchor") | [None](constants.md#None "None") = None*)
+`importlib.resources.files(anchor: Anchor | None = None)`
 :   Returns a [`Traversable`](importlib.resources.abc.md#importlib.resources.abc.Traversable "importlib.resources.abc.Traversable") object
     representing the resource container (think directory) and its resources
     (think files). A Traversable may contain other containers (think
@@ -74,7 +74,7 @@ importlib.resources.files(*anchor: [Anchor](importlib.resources.md#importlib.res
     using `importlib_resources >= 5.10` for a compatible interface
     on older Pythons.
 
-importlib.resources.as_file(*traversable*)
+`importlib.resources.as_file(traversable)`
 :   Given a [`Traversable`](importlib.resources.abc.md#importlib.resources.abc.Traversable "importlib.resources.abc.Traversable") object representing
     a file or directory, typically from [`importlib.resources.files()`](importlib.resources.md#importlib.resources.files "importlib.resources.files"),
     return a context manager for use in a [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement.
@@ -97,7 +97,7 @@ An older, previously deprecated set of functions is still available.
 The main drawback of these functions is that they do not support
 directories: they assume all resources are located directly within a *package*.
 
-importlib.resources.Package
+`importlib.resources.Package`
 :   Whenever a function accepts a `Package` argument, you can pass in
     either a [`module object`](types.md#types.ModuleType "types.ModuleType") or a module name
     as a string. You can only pass module objects whose
@@ -105,14 +105,14 @@ importlib.resources.Package
 
     The `Package` type is defined as `Union[str, ModuleType]`.
 
-importlib.resources.Resource
+`importlib.resources.Resource`
 :   For *resource* arguments of the functions below, you can pass in
     the name of a resource as a string or
     a [`path-like object`](os.md#os.PathLike "os.PathLike").
 
     The `Resource` type is defined as `Union[str, os.PathLike]`.
 
-importlib.resources.open_binary(*package*, *resource*)
+`importlib.resources.open_binary(package, resource)`
 :   Open for binary reading the *resource* within *package*.
 
     *package* is either a name or a module object which conforms to the
@@ -127,7 +127,7 @@ importlib.resources.open_binary(*package*, *resource*)
     files(package).joinpath(resource).open('rb')
     ```
 
-importlib.resources.open_text(*package*, *resource*, *encoding='utf-8'*, *errors='strict'*)
+`importlib.resources.open_text(package, resource, encoding='utf-8', errors='strict')`
 :   Open for text reading the *resource* within *package*. By default, the
     resource is opened for reading as UTF-8.
 
@@ -146,7 +146,7 @@ importlib.resources.open_text(*package*, *resource*, *encoding='utf-8'*, *errors
     files(package).joinpath(resource).open('r', encoding=encoding)
     ```
 
-importlib.resources.read_binary(*package*, *resource*)
+`importlib.resources.read_binary(package, resource)`
 :   Read and return the contents of the *resource* within *package* as
     `bytes`.
 
@@ -162,7 +162,7 @@ importlib.resources.read_binary(*package*, *resource*)
     files(package).joinpath(resource).read_bytes()
     ```
 
-importlib.resources.read_text(*package*, *resource*, *encoding='utf-8'*, *errors='strict'*)
+`importlib.resources.read_text(package, resource, encoding='utf-8', errors='strict')`
 :   Read and return the contents of *resource* within *package* as a `str`.
     By default, the contents are read as strict UTF-8.
 
@@ -179,7 +179,7 @@ importlib.resources.read_text(*package*, *resource*, *encoding='utf-8'*, *errors
     files(package).joinpath(resource).read_text(encoding=encoding)
     ```
 
-importlib.resources.path(*package*, *resource*)
+`importlib.resources.path(package, resource)`
 :   Return the path to the *resource* as an actual file system path. This
     function returns a context manager for use in a [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement.
     The context manager provides a [`pathlib.Path`](pathlib.md#pathlib.Path "pathlib.Path") object.
@@ -198,7 +198,7 @@ importlib.resources.path(*package*, *resource*)
     as_file(files(package).joinpath(resource))
     ```
 
-importlib.resources.is_resource(*package*, *name*)
+`importlib.resources.is_resource(package, name)`
 :   Return `True` if there is a resource named *name* in the package,
     otherwise `False`.
     This function does not consider directories to be resources.
@@ -211,7 +211,7 @@ importlib.resources.is_resource(*package*, *name*)
     files(package).joinpath(resource).is_file()
     ```
 
-importlib.resources.contents(*package*)
+`importlib.resources.contents(package)`
 :   Return an iterable over the named items within the package. The iterable
     returns [`str`](stdtypes.md#str "str") resources (e.g. files) and non-resources
     (e.g. directories). The iterable does not recurse into subdirectories.

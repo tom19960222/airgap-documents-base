@@ -17,11 +17,11 @@ when pickling/copying those objects. The module provides configuration
 information about object constructors which are not classes.
 Such constructors may be factory functions or class instances.
 
-copyreg.constructor(*object*)
+`copyreg.constructor(object)`
 :   Declares *object* to be a valid constructor. If *object* is not callable (and
     hence not valid as a constructor), raises [`TypeError`](exceptions.md#TypeError "TypeError").
 
-copyreg.pickle(*type*, *function*, *constructor_ob=None*)
+`copyreg.pickle(type, function, constructor_ob=None)`
 :   Declares that *function* should be used as a “reduction” function for objects
     of type *type*. *function* must return either a string or a tuple
     containing between two and six elements. See the [`dispatch_table`](pickle.md#pickle.Pickler.dispatch_table "pickle.Pickler.dispatch_table")

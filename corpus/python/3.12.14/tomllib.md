@@ -33,7 +33,7 @@ support writing TOML.
 
 This module defines the following functions:
 
-tomllib.load(*fp*, */*, *\**, *parse_float=float*)
+`tomllib.load(fp, /, *, parse_float=float)`
 :   Read a TOML file. The first argument should be a readable and binary file object.
     Return a [`dict`](stdtypes.md#dict "dict"). Convert TOML types to Python using this
     [conversion table](tomllib.md#toml-to-py-table).
@@ -46,7 +46,7 @@ tomllib.load(*fp*, */*, *\**, *parse_float=float*)
 
     A [`TOMLDecodeError`](tomllib.md#tomllib.TOMLDecodeError "tomllib.TOMLDecodeError") will be raised on an invalid TOML document.
 
-tomllib.loads(*s*, */*, *\**, *parse_float=float*)
+`tomllib.loads(s, /, *, parse_float=float)`
 :   Load TOML from a [`str`](stdtypes.md#str "str") object. Return a [`dict`](stdtypes.md#dict "dict"). Convert TOML
     types to Python using this [conversion table](tomllib.md#toml-to-py-table). The
     *parse_float* argument has the same meaning as in [`load()`](tomllib.md#tomllib.load "tomllib.load").
@@ -55,7 +55,7 @@ tomllib.loads(*s*, */*, *\**, *parse_float=float*)
 
 The following exceptions are available:
 
-*exception* tomllib.TOMLDecodeError
+`exception tomllib.TOMLDecodeError`
 :   Subclass of [`ValueError`](exceptions.md#ValueError "ValueError").
 
 ## Examples

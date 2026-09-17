@@ -21,9 +21,9 @@ library that can speak to a syslog server is available in the
 
 The module defines the following functions:
 
-syslog.syslog(*message*)
+`syslog.syslog(message)`
 
-syslog.syslog(*priority*, *message*)
+`syslog.syslog(priority, message)`
 :   Send the string *message* to the system logger. A trailing newline is added
     if necessary. Each message is tagged with a priority composed of a
     *facility* and a *level*. The optional *priority* argument, which defaults
@@ -46,7 +46,7 @@ syslog.syslog(*priority*, *message*)
     [`openlog()`](syslog.md#syslog.openlog "syslog.openlog") must be called in the main interpreter before [`syslog()`](syslog.md#module-syslog "syslog: An interface to the Unix syslog library routines. (Unix)") may be used
     in a subinterpreter. Otherwise it will raise [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError").
 
-syslog.openlog([*ident*[, *logoption*[, *facility*]]])
+`syslog.openlog([ident[, logoption[, facility]]])`
 :   Logging options of subsequent [`syslog()`](syslog.md#module-syslog "syslog: An interface to the Unix syslog library routines. (Unix)") calls can be set by calling
     [`openlog()`](syslog.md#syslog.openlog "syslog.openlog"). [`syslog()`](syslog.md#module-syslog "syslog: An interface to the Unix syslog library routines. (Unix)") will call [`openlog()`](syslog.md#syslog.openlog "syslog.openlog") with no arguments
     if the log is not currently open.
@@ -69,7 +69,7 @@ syslog.openlog([*ident*[, *logoption*[, *facility*]]])
     This may only be called in the main interpreter.
     It will raise [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") if called in a subinterpreter.
 
-syslog.closelog()
+`syslog.closelog()`
 :   Reset the syslog module values and call the system library `closelog()`.
 
     This causes the module to behave as it does when initially imported. For
@@ -85,7 +85,7 @@ syslog.closelog()
     This may only be called in the main interpreter.
     It will raise [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") if called in a subinterpreter.
 
-syslog.setlogmask(*maskpri*)
+`syslog.setlogmask(maskpri)`
 :   Set the priority mask to *maskpri* and return the previous mask value. Calls
     to [`syslog()`](syslog.md#module-syslog "syslog: An interface to the Unix syslog library routines. (Unix)") with a priority level not set in *maskpri* are ignored.
     The default is to log all priorities. The function `LOG_MASK(pri)`

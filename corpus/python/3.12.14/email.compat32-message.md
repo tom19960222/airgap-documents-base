@@ -49,7 +49,7 @@ string or bytes, in the case of simple message objects, or a list of
 
 Here are the methods of the [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") class:
 
-*class* email.message.Message(*policy=compat32*)
+`class email.message.Message(policy=compat32)`
 :   If *policy* is specified (it must be an instance of a [`policy`](email.policy.md#module-email.policy "email.policy: Controlling the parsing and generating of messages")
     class) use the rules it specifies to update and serialize the representation
     of the message. If *policy* is not set, use the [`compat32`](email.policy.md#email.policy.Compat32 "email.policy.Compat32") policy, which maintains backward compatibility with
@@ -58,7 +58,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
 
     Changed in version 3.3: The *policy* keyword argument was added.
 
-    as_string(*unixfrom=False*, *maxheaderlen=0*, *policy=None*)
+    `as_string(unixfrom=False, maxheaderlen=0, policy=None)`
     :   Return the entire message flattened as a string. When optional *unixfrom*
         is true, the envelope header is included in the returned string.
         *unixfrom* defaults to `False`. For backward compatibility reasons,
@@ -96,11 +96,11 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
 
         Changed in version 3.4: the *policy* keyword argument was added.
 
-    __str__()
+    `__str__()`
     :   Equivalent to [`as_string()`](email.compat32-message.md#email.message.Message.as_string "email.message.Message.as_string"). Allows `str(msg)` to produce a
         string containing the formatted message.
 
-    as_bytes(*unixfrom=False*, *policy=None*)
+    `as_bytes(unixfrom=False, policy=None)`
     :   Return the entire message flattened as a bytes object. When optional
         *unixfrom* is true, the envelope header is included in the returned
         string. *unixfrom* defaults to `False`. The *policy* argument may be
@@ -132,13 +132,13 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
 
         Added in version 3.4.
 
-    __bytes__()
+    `__bytes__()`
     :   Equivalent to [`as_bytes()`](email.compat32-message.md#email.message.Message.as_bytes "email.message.Message.as_bytes"). Allows `bytes(msg)` to produce a
         bytes object containing the formatted message.
 
         Added in version 3.4.
 
-    is_multipart()
+    `is_multipart()`
     :   Return `True` if the message’s payload is a list of
         sub-[`Message`](email.compat32-message.md#email.message.Message "email.message.Message") objects, otherwise return `False`. When
         [`is_multipart()`](email.compat32-message.md#email.message.Message.is_multipart "email.message.Message.is_multipart") returns `False`, the payload should be a string
@@ -148,14 +148,14 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         For example, `is_multipart` will return `True` when the
         [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") is of type `message/rfc822`.)
 
-    set_unixfrom(*unixfrom*)
+    `set_unixfrom(unixfrom)`
     :   Set the message’s envelope header to *unixfrom*, which should be a string.
 
-    get_unixfrom()
+    `get_unixfrom()`
     :   Return the message’s envelope header. Defaults to `None` if the
         envelope header was never set.
 
-    attach(*payload*)
+    `attach(payload)`
     :   Add the given *payload* to the current payload, which must be `None` or
         a list of [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") objects before the call. After the call, the
         payload will always be a list of [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") objects. If you want to
@@ -167,7 +167,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         replaced by [`set_content()`](email.message.md#email.message.EmailMessage.set_content "email.message.EmailMessage.set_content") and the
         related `make` and `add` methods.
 
-    get_payload(*i=None*, *decode=False*)
+    `get_payload(i=None, decode=False)`
     :   Return the current payload, which will be a list of
         [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") objects when [`is_multipart()`](email.compat32-message.md#email.message.Message.is_multipart "email.message.Message.is_multipart") is `True`, or a
         string when [`is_multipart()`](email.compat32-message.md#email.message.Message.is_multipart "email.message.Message.is_multipart") is `False`. If the payload is a list
@@ -208,7 +208,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         replaced by [`get_content()`](email.message.md#email.message.EmailMessage.get_content "email.message.EmailMessage.get_content") and
         [`iter_parts()`](email.message.md#email.message.EmailMessage.iter_parts "email.message.EmailMessage.iter_parts").
 
-    set_payload(*payload*, *charset=None*)
+    `set_payload(payload, charset=None)`
     :   Set the entire message object’s payload to *payload*. It is the client’s
         responsibility to ensure the payload invariants. Optional *charset* sets
         the message’s default character set; see [`set_charset()`](email.compat32-message.md#email.message.Message.set_charset "email.message.Message.set_charset") for details.
@@ -217,7 +217,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         `EmailMessage` class its functionality is
         replaced by [`set_content()`](email.message.md#email.message.EmailMessage.set_content "email.message.EmailMessage.set_content").
 
-    set_charset(*charset*)
+    `set_charset(charset)`
     :   Set the character set of the payload to *charset*, which can either be a
         [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") instance (see [`email.charset`](email.charset.md#module-email.charset "email.charset: Character Sets")), a
         string naming a character set, or `None`. If it is a string, it will
@@ -245,7 +245,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         replaced by the *charset* parameter of the
         `email.emailmessage.EmailMessage.set_content()` method.
 
-    get_charset()
+    `get_charset()`
     :   Return the [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") instance associated with the
         message’s payload.
 
@@ -274,10 +274,10 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
     interface, be represented as [`Header`](email.header.md#email.header.Header "email.header.Header") objects with
     a charset of `unknown-8bit`.
 
-    __len__()
+    `__len__()`
     :   Return the total number of headers, including duplicates.
 
-    __contains__(*name*)
+    `__contains__(name)`
     :   Return `True` if the message object has a field named *name*. Matching is
         done case-insensitively and *name* should not include the trailing colon.
         Used for the `in` operator, e.g.:
@@ -287,7 +287,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
            print('Message-ID:', myMessage['message-id'])
         ```
 
-    __getitem__(*name*)
+    `__getitem__(name)`
     :   Return the value of the named header field. *name* should not include the
         colon field separator. If the header is missing, `None` is returned; a
         [`KeyError`](exceptions.md#KeyError "KeyError") is never raised.
@@ -297,7 +297,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         undefined. Use the [`get_all()`](email.compat32-message.md#email.message.Message.get_all "email.message.Message.get_all") method to get the values of all the
         extant named headers.
 
-    __setitem__(*name*, *val*)
+    `__setitem__(name, val)`
     :   Add a header to the message with field name *name* and value *val*. The
         field is appended to the end of the message’s existing fields.
 
@@ -310,34 +310,34 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         msg['subject'] = 'Python roolz!'
         ```
 
-    __delitem__(*name*)
+    `__delitem__(name)`
     :   Delete all occurrences of the field with name *name* from the message’s
         headers. No exception is raised if the named field isn’t present in the
         headers.
 
-    keys()
+    `keys()`
     :   Return a list of all the message’s header field names.
 
-    values()
+    `values()`
     :   Return a list of all the message’s field values.
 
-    items()
+    `items()`
     :   Return a list of 2-tuples containing all the message’s field headers and
         values.
 
-    get(*name*, *failobj=None*)
+    `get(name, failobj=None)`
     :   Return the value of the named header field. This is identical to
         [`__getitem__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getitem__ "object.__getitem__") except that optional *failobj* is returned if the
         named header is missing (defaults to `None`).
 
     Here are some additional useful methods:
 
-    get_all(*name*, *failobj=None*)
+    `get_all(name, failobj=None)`
     :   Return a list of all the values for the field named *name*. If there are
         no such named headers in the message, *failobj* is returned (defaults to
         `None`).
 
-    add_header(*_name*, *_value*, *\*\*_params*)
+    `add_header(_name, _value, **_params)`
     :   Extended header setting. This method is similar to [`__setitem__()`](email.compat32-message.md#email.message.Message.__setitem__ "email.message.Message.__setitem__")
         except that additional header parameters can be provided as keyword
         arguments. *_name* is the header field to add and *_value* is the
@@ -382,12 +382,12 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         Content-Disposition: attachment; filename*="iso-8859-1''Fu%DFballer.ppt"
         ```
 
-    replace_header(*_name*, *_value*)
+    `replace_header(_name, _value)`
     :   Replace a header. Replace the first header found in the message that
         matches *_name*, retaining header order and field name case. If no
         matching header was found, a [`KeyError`](exceptions.md#KeyError "KeyError") is raised.
 
-    get_content_type()
+    `get_content_type()`
     :   Return the message’s content type. The returned string is coerced to
         lower case of the form *maintype/subtype*. If there was no
         *Content-Type* header in the message the default type as given
@@ -401,27 +401,27 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         *Content-Type* header has an invalid type specification,
         [**RFC 2045**](https://datatracker.ietf.org/doc/html/rfc2045.html) mandates that the default type be *text/plain*.
 
-    get_content_maintype()
+    `get_content_maintype()`
     :   Return the message’s main content type. This is the *maintype*
         part of the string returned by [`get_content_type()`](email.compat32-message.md#email.message.Message.get_content_type "email.message.Message.get_content_type").
 
-    get_content_subtype()
+    `get_content_subtype()`
     :   Return the message’s sub-content type. This is the *subtype*
         part of the string returned by [`get_content_type()`](email.compat32-message.md#email.message.Message.get_content_type "email.message.Message.get_content_type").
 
-    get_default_type()
+    `get_default_type()`
     :   Return the default content type. Most messages have a default content
         type of *text/plain*, except for messages that are subparts of
         *multipart/digest* containers. Such subparts have a default
         content type of *message/rfc822*.
 
-    set_default_type(*ctype*)
+    `set_default_type(ctype)`
     :   Set the default content type. *ctype* should either be
         *text/plain* or *message/rfc822*, although this is not
         enforced. The default content type is not stored in the
         *Content-Type* header.
 
-    get_params(*failobj=None*, *header='content-type'*, *unquote=True*)
+    `get_params(failobj=None, header='content-type', unquote=True)`
     :   Return the message’s *Content-Type* parameters, as a list.
         The elements of the returned list are 2-tuples of key/value pairs, as
         split on the `'='` sign. The left hand side of the `'='` is the key,
@@ -439,7 +439,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         replaced by the *params* property of the individual header objects
         returned by the header access methods.
 
-    get_param(*param*, *failobj=None*, *header='content-type'*, *unquote=True*)
+    `get_param(param, failobj=None, header='content-type', unquote=True)`
     :   Return the value of the *Content-Type* header’s parameter
         *param* as a string. If the message has no *Content-Type*
         header or if there is no such parameter, then *failobj* is returned
@@ -477,7 +477,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         replaced by the *params* property of the individual header objects
         returned by the header access methods.
 
-    set_param(*param*, *value*, *header='Content-Type'*, *requote=True*, *charset=None*, *language=''*, *replace=False*)
+    `set_param(param, value, header='Content-Type', requote=True, charset=None, language='', replace=False)`
     :   Set a parameter in the *Content-Type* header. If the
         parameter already exists in the header, its value will be replaced with
         *value*. If the *Content-Type* header as not yet been defined
@@ -499,14 +499,14 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
 
         Changed in version 3.4: `replace` keyword was added.
 
-    del_param(*param*, *header='content-type'*, *requote=True*)
+    `del_param(param, header='content-type', requote=True)`
     :   Remove the given parameter completely from the *Content-Type*
         header. The header will be re-written in place without the parameter or
         its value. All values will be quoted as necessary unless *requote* is
         `False` (the default is `True`). Optional *header* specifies an
         alternative to *Content-Type*.
 
-    set_type(*type*, *header='Content-Type'*, *requote=True*)
+    `set_type(type, header='Content-Type', requote=True)`
     :   Set the main type and subtype for the *Content-Type*
         header. *type* must be a string in the form *maintype/subtype*,
         otherwise a [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
@@ -524,7 +524,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         `EmailMessage` class its functionality is
         replaced by the `make_` and `add_` methods.
 
-    get_filename(*failobj=None*)
+    `get_filename(failobj=None)`
     :   Return the value of the `filename` parameter of the
         *Content-Disposition* header of the message. If the header
         does not have a `filename` parameter, this method falls back to looking
@@ -533,13 +533,13 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         The returned string will always be unquoted as per
         [`email.utils.unquote()`](email.utils.md#email.utils.unquote "email.utils.unquote").
 
-    get_boundary(*failobj=None*)
+    `get_boundary(failobj=None)`
     :   Return the value of the `boundary` parameter of the
         *Content-Type* header of the message, or *failobj* if either
         the header is missing, or has no `boundary` parameter. The returned
         string will always be unquoted as per [`email.utils.unquote()`](email.utils.md#email.utils.unquote "email.utils.unquote").
 
-    set_boundary(*boundary*)
+    `set_boundary(boundary)`
     :   Set the `boundary` parameter of the *Content-Type* header to
         *boundary*. [`set_boundary()`](email.compat32-message.md#email.message.Message.set_boundary "email.message.Message.set_boundary") will always quote *boundary* if
         necessary. A [`HeaderParseError`](email.errors.md#email.errors.HeaderParseError "email.errors.HeaderParseError") is raised if the
@@ -552,7 +552,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         headers. However, it does *not* preserve any continuation lines which may
         have been present in the original *Content-Type* header.
 
-    get_content_charset(*failobj=None*)
+    `get_content_charset(failobj=None)`
     :   Return the `charset` parameter of the *Content-Type* header,
         coerced to lower case. If there is no *Content-Type* header, or if
         that header has no `charset` parameter, *failobj* is returned.
@@ -560,7 +560,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         Note that this method differs from [`get_charset()`](email.compat32-message.md#email.message.Message.get_charset "email.message.Message.get_charset") which returns the
         [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") instance for the default encoding of the message body.
 
-    get_charsets(*failobj=None*)
+    `get_charsets(failobj=None)`
     :   Return a list containing the character set names in the message. If the
         message is a *multipart*, then the list will contain one element
         for each subpart in the payload, otherwise, it will be a list of length 1.
@@ -572,7 +572,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         the *text* main MIME type, then that item in the returned list
         will be *failobj*.
 
-    get_content_disposition()
+    `get_content_disposition()`
     :   Return the lowercased value (without parameters) of the message’s
         *Content-Disposition* header if it has one, or `None`. The
         possible values for this method are *inline*, *attachment* or `None`
@@ -580,7 +580,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
 
         Added in version 3.5.
 
-    walk()
+    `walk()`
     :   The [`walk()`](email.compat32-message.md#email.message.Message.walk "email.message.Message.walk") method is an all-purpose generator which can be used to
         iterate over all the parts and subparts of a message object tree, in
         depth-first traversal order. You will typically use [`walk()`](email.compat32-message.md#email.message.Message.walk "email.message.Message.walk") as the
@@ -635,7 +635,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
     [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") objects can also optionally contain two instance attributes,
     which can be used when generating the plain text of a MIME message.
 
-    preamble
+    `preamble`
     :   The format of a MIME document allows for some text between the blank line
         following the headers, and the first multipart boundary string. Normally,
         this text is never visible in a MIME-aware mail reader because it falls
@@ -656,7 +656,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         Note that if the message object has no preamble, the *preamble* attribute
         will be `None`.
 
-    epilogue
+    `epilogue`
     :   The *epilogue* attribute acts the same way as the *preamble* attribute,
         except that it contains text that appears between the last boundary and
         the end of the message.
@@ -665,7 +665,7 @@ Here are the methods of the [`Message`](email.compat32-message.md#email.message.
         [`Generator`](email.generator.md#email.generator.Generator "email.generator.Generator") to print a newline at the end of the
         file.
 
-    defects
+    `defects`
     :   The *defects* attribute contains a list of all the problems found when
         parsing this message. See [`email.errors`](email.errors.md#module-email.errors "email.errors: The exception classes used by the email package.") for a detailed description
         of the possible parsing defects.

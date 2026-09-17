@@ -24,29 +24,29 @@ operations, mathematical operations and sequence operations.
 The object comparison functions are useful for all objects, and are named after
 the rich comparison operators they support:
 
-operator.lt(*a*, *b*)
+`operator.lt(a, b)`
 
-operator.le(*a*, *b*)
+`operator.le(a, b)`
 
-operator.eq(*a*, *b*)
+`operator.eq(a, b)`
 
-operator.ne(*a*, *b*)
+`operator.ne(a, b)`
 
-operator.ge(*a*, *b*)
+`operator.ge(a, b)`
 
-operator.gt(*a*, *b*)
+`operator.gt(a, b)`
 
-operator.__lt__(*a*, *b*)
+`operator.__lt__(a, b)`
 
-operator.__le__(*a*, *b*)
+`operator.__le__(a, b)`
 
-operator.__eq__(*a*, *b*)
+`operator.__eq__(a, b)`
 
-operator.__ne__(*a*, *b*)
+`operator.__ne__(a, b)`
 
-operator.__ge__(*a*, *b*)
+`operator.__ge__(a, b)`
 
-operator.__gt__(*a*, *b*)
+`operator.__gt__(a, b)`
 :   Perform “rich comparisons” between *a* and *b*. Specifically, `lt(a, b)` is
     equivalent to `a < b`, `le(a, b)` is equivalent to `a <= b`, `eq(a,
     b)` is equivalent to `a == b`, `ne(a, b)` is equivalent to `a != b`,
@@ -58,160 +58,160 @@ operator.__gt__(*a*, *b*)
 The logical operations are also generally applicable to all objects, and support
 truth tests, identity tests, and boolean operations:
 
-operator.not_(*obj*)
+`operator.not_(obj)`
 
-operator.__not__(*obj*)
+`operator.__not__(obj)`
 :   Return the outcome of [`not`](https://docs.python.org/3.12/reference/expressions.html#not) *obj*. (Note that there is no
     `__not__()` method for object instances; only the interpreter core defines
     this operation. The result is affected by the [`__bool__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__bool__ "object.__bool__") and
     [`__len__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__len__ "object.__len__") methods.)
 
-operator.truth(*obj*)
+`operator.truth(obj)`
 :   Return [`True`](constants.md#True "True") if *obj* is true, and [`False`](constants.md#False "False") otherwise. This is
     equivalent to using the [`bool`](functions.md#bool "bool") constructor.
 
-operator.is_(*a*, *b*)
+`operator.is_(a, b)`
 :   Return `a is b`. Tests object identity.
 
-operator.is_not(*a*, *b*)
+`operator.is_not(a, b)`
 :   Return `a is not b`. Tests object identity.
 
 The mathematical and bitwise operations are the most numerous:
 
-operator.abs(*obj*)
+`operator.abs(obj)`
 
-operator.__abs__(*obj*)
+`operator.__abs__(obj)`
 :   Return the absolute value of *obj*.
 
-operator.add(*a*, *b*)
+`operator.add(a, b)`
 
-operator.__add__(*a*, *b*)
+`operator.__add__(a, b)`
 :   Return `a + b`, for *a* and *b* numbers.
 
-operator.and_(*a*, *b*)
+`operator.and_(a, b)`
 
-operator.__and__(*a*, *b*)
+`operator.__and__(a, b)`
 :   Return the bitwise and of *a* and *b*.
 
-operator.floordiv(*a*, *b*)
+`operator.floordiv(a, b)`
 
-operator.__floordiv__(*a*, *b*)
+`operator.__floordiv__(a, b)`
 :   Return `a // b`.
 
-operator.index(*a*)
+`operator.index(a)`
 
-operator.__index__(*a*)
+`operator.__index__(a)`
 :   Return *a* converted to an integer. Equivalent to `a.__index__()`.
 
     Changed in version 3.10: The result always has exact type [`int`](functions.md#int "int"). Previously, the result
     could have been an instance of a subclass of `int`.
 
-operator.inv(*obj*)
+`operator.inv(obj)`
 
-operator.invert(*obj*)
+`operator.invert(obj)`
 
-operator.__inv__(*obj*)
+`operator.__inv__(obj)`
 
-operator.__invert__(*obj*)
+`operator.__invert__(obj)`
 :   Return the bitwise inverse of the number *obj*. This is equivalent to `~obj`.
 
-operator.lshift(*a*, *b*)
+`operator.lshift(a, b)`
 
-operator.__lshift__(*a*, *b*)
+`operator.__lshift__(a, b)`
 :   Return *a* shifted left by *b*.
 
-operator.mod(*a*, *b*)
+`operator.mod(a, b)`
 
-operator.__mod__(*a*, *b*)
+`operator.__mod__(a, b)`
 :   Return `a % b`.
 
-operator.mul(*a*, *b*)
+`operator.mul(a, b)`
 
-operator.__mul__(*a*, *b*)
+`operator.__mul__(a, b)`
 :   Return `a * b`, for *a* and *b* numbers.
 
-operator.matmul(*a*, *b*)
+`operator.matmul(a, b)`
 
-operator.__matmul__(*a*, *b*)
+`operator.__matmul__(a, b)`
 :   Return `a @ b`.
 
     Added in version 3.5.
 
-operator.neg(*obj*)
+`operator.neg(obj)`
 
-operator.__neg__(*obj*)
+`operator.__neg__(obj)`
 :   Return *obj* negated (`-obj`).
 
-operator.or_(*a*, *b*)
+`operator.or_(a, b)`
 
-operator.__or__(*a*, *b*)
+`operator.__or__(a, b)`
 :   Return the bitwise or of *a* and *b*.
 
-operator.pos(*obj*)
+`operator.pos(obj)`
 
-operator.__pos__(*obj*)
+`operator.__pos__(obj)`
 :   Return *obj* positive (`+obj`).
 
-operator.pow(*a*, *b*)
+`operator.pow(a, b)`
 
-operator.__pow__(*a*, *b*)
+`operator.__pow__(a, b)`
 :   Return `a ** b`, for *a* and *b* numbers.
 
-operator.rshift(*a*, *b*)
+`operator.rshift(a, b)`
 
-operator.__rshift__(*a*, *b*)
+`operator.__rshift__(a, b)`
 :   Return *a* shifted right by *b*.
 
-operator.sub(*a*, *b*)
+`operator.sub(a, b)`
 
-operator.__sub__(*a*, *b*)
+`operator.__sub__(a, b)`
 :   Return `a - b`.
 
-operator.truediv(*a*, *b*)
+`operator.truediv(a, b)`
 
-operator.__truediv__(*a*, *b*)
+`operator.__truediv__(a, b)`
 :   Return `a / b` where 2/3 is .66 rather than 0. This is also known as
     “true” division.
 
-operator.xor(*a*, *b*)
+`operator.xor(a, b)`
 
-operator.__xor__(*a*, *b*)
+`operator.__xor__(a, b)`
 :   Return the bitwise exclusive or of *a* and *b*.
 
 Operations which work with sequences (some of them with mappings too) include:
 
-operator.concat(*a*, *b*)
+`operator.concat(a, b)`
 
-operator.__concat__(*a*, *b*)
+`operator.__concat__(a, b)`
 :   Return `a + b` for *a* and *b* sequences.
 
-operator.contains(*a*, *b*)
+`operator.contains(a, b)`
 
-operator.__contains__(*a*, *b*)
+`operator.__contains__(a, b)`
 :   Return the outcome of the test `b in a`. Note the reversed operands.
 
-operator.countOf(*a*, *b*)
+`operator.countOf(a, b)`
 :   Return the number of occurrences of *b* in *a*.
 
-operator.delitem(*a*, *b*)
+`operator.delitem(a, b)`
 
-operator.__delitem__(*a*, *b*)
+`operator.__delitem__(a, b)`
 :   Remove the value of *a* at index *b*.
 
-operator.getitem(*a*, *b*)
+`operator.getitem(a, b)`
 
-operator.__getitem__(*a*, *b*)
+`operator.__getitem__(a, b)`
 :   Return the value of *a* at index *b*.
 
-operator.indexOf(*a*, *b*)
+`operator.indexOf(a, b)`
 :   Return the index of the first of occurrence of *b* in *a*.
 
-operator.setitem(*a*, *b*, *c*)
+`operator.setitem(a, b, c)`
 
-operator.__setitem__(*a*, *b*, *c*)
+`operator.__setitem__(a, b, c)`
 :   Set the value of *a* at index *b* to *c*.
 
-operator.length_hint(*obj*, *default=0*)
+`operator.length_hint(obj, default=0)`
 :   Return an estimated length for the object *obj*. First try to return its
     actual length, then an estimate using [`object.__length_hint__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__length_hint__ "object.__length_hint__"), and
     finally return the default value.
@@ -220,9 +220,9 @@ operator.length_hint(*obj*, *default=0*)
 
 The following operation works with callables:
 
-operator.call(*obj*, */*, *\*args*, *\*\*kwargs*)
+`operator.call(obj, /, *args, **kwargs)`
 
-operator.__call__(*obj*, */*, *\*args*, *\*\*kwargs*)
+`operator.__call__(obj, /, *args, **kwargs)`
 :   Return `obj(*args, **kwargs)`.
 
     Added in version 3.11.
@@ -232,9 +232,9 @@ lookups. These are useful for making fast field extractors as arguments for
 [`map()`](functions.md#map "map"), [`sorted()`](functions.md#sorted "sorted"), [`itertools.groupby()`](itertools.md#itertools.groupby "itertools.groupby"), or other functions that
 expect a function argument.
 
-operator.attrgetter(*attr*)
+`operator.attrgetter(attr)`
 
-operator.attrgetter(*\*attrs*)
+`operator.attrgetter(*attrs)`
 :   Return a callable object that fetches *attr* from its operand.
     If more than one attribute is requested, returns a tuple of attributes.
     The attribute names can also contain dots. For example:
@@ -266,9 +266,9 @@ operator.attrgetter(*\*attrs*)
         return obj
     ```
 
-operator.itemgetter(*item*)
+`operator.itemgetter(item)`
 
-operator.itemgetter(*\*items*)
+`operator.itemgetter(*items)`
 :   Return a callable object that fetches *item* from its operand using the
     operand’s [`__getitem__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getitem__ "object.__getitem__") method. If multiple items are specified,
     returns a tuple of lookup values. For example:
@@ -319,7 +319,7 @@ operator.itemgetter(*\*items*)
     [('orange', 1), ('banana', 2), ('apple', 3), ('pear', 5)]
     ```
 
-operator.methodcaller(*name*, */*, *\*args*, *\*\*kwargs*)
+`operator.methodcaller(name, /, *args, **kwargs)`
 :   Return a callable object that calls the method *name* on its operand. If
     additional arguments and/or keyword arguments are given, they will be given
     to the method as well. For example:
@@ -416,74 +416,74 @@ will perform the update, so no subsequent assignment is necessary:
 ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
 ```
 
-operator.iadd(*a*, *b*)
+`operator.iadd(a, b)`
 
-operator.__iadd__(*a*, *b*)
+`operator.__iadd__(a, b)`
 :   `a = iadd(a, b)` is equivalent to `a += b`.
 
-operator.iand(*a*, *b*)
+`operator.iand(a, b)`
 
-operator.__iand__(*a*, *b*)
+`operator.__iand__(a, b)`
 :   `a = iand(a, b)` is equivalent to `a &= b`.
 
-operator.iconcat(*a*, *b*)
+`operator.iconcat(a, b)`
 
-operator.__iconcat__(*a*, *b*)
+`operator.__iconcat__(a, b)`
 :   `a = iconcat(a, b)` is equivalent to `a += b` for *a* and *b* sequences.
 
-operator.ifloordiv(*a*, *b*)
+`operator.ifloordiv(a, b)`
 
-operator.__ifloordiv__(*a*, *b*)
+`operator.__ifloordiv__(a, b)`
 :   `a = ifloordiv(a, b)` is equivalent to `a //= b`.
 
-operator.ilshift(*a*, *b*)
+`operator.ilshift(a, b)`
 
-operator.__ilshift__(*a*, *b*)
+`operator.__ilshift__(a, b)`
 :   `a = ilshift(a, b)` is equivalent to `a <<= b`.
 
-operator.imod(*a*, *b*)
+`operator.imod(a, b)`
 
-operator.__imod__(*a*, *b*)
+`operator.__imod__(a, b)`
 :   `a = imod(a, b)` is equivalent to `a %= b`.
 
-operator.imul(*a*, *b*)
+`operator.imul(a, b)`
 
-operator.__imul__(*a*, *b*)
+`operator.__imul__(a, b)`
 :   `a = imul(a, b)` is equivalent to `a *= b`.
 
-operator.imatmul(*a*, *b*)
+`operator.imatmul(a, b)`
 
-operator.__imatmul__(*a*, *b*)
+`operator.__imatmul__(a, b)`
 :   `a = imatmul(a, b)` is equivalent to `a @= b`.
 
     Added in version 3.5.
 
-operator.ior(*a*, *b*)
+`operator.ior(a, b)`
 
-operator.__ior__(*a*, *b*)
+`operator.__ior__(a, b)`
 :   `a = ior(a, b)` is equivalent to `a |= b`.
 
-operator.ipow(*a*, *b*)
+`operator.ipow(a, b)`
 
-operator.__ipow__(*a*, *b*)
+`operator.__ipow__(a, b)`
 :   `a = ipow(a, b)` is equivalent to `a **= b`.
 
-operator.irshift(*a*, *b*)
+`operator.irshift(a, b)`
 
-operator.__irshift__(*a*, *b*)
+`operator.__irshift__(a, b)`
 :   `a = irshift(a, b)` is equivalent to `a >>= b`.
 
-operator.isub(*a*, *b*)
+`operator.isub(a, b)`
 
-operator.__isub__(*a*, *b*)
+`operator.__isub__(a, b)`
 :   `a = isub(a, b)` is equivalent to `a -= b`.
 
-operator.itruediv(*a*, *b*)
+`operator.itruediv(a, b)`
 
-operator.__itruediv__(*a*, *b*)
+`operator.__itruediv__(a, b)`
 :   `a = itruediv(a, b)` is equivalent to `a /= b`.
 
-operator.ixor(*a*, *b*)
+`operator.ixor(a, b)`
 
-operator.__ixor__(*a*, *b*)
+`operator.__ixor__(a, b)`
 :   `a = ixor(a, b)` is equivalent to `a ^= b`.

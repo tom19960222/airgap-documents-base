@@ -14,7 +14,7 @@ fetched_at: 2026-09-17T15:33:50+00:00
 This module defines a class [`HTMLParser`](html.parser.md#html.parser.HTMLParser "html.parser.HTMLParser") which serves as the basis for
 parsing text files formatted in HTML (HyperText Mark-up Language) and XHTML.
 
-*class* html.parser.HTMLParser(*\**, *convert_charrefs=True*, *scripting=False*)
+`class html.parser.HTMLParser(*, convert_charrefs=True, scripting=False)`
 :   Create a parser instance able to parse invalid markup.
 
     If *convert_charrefs* is true (the default), all character
@@ -84,25 +84,25 @@ Encountered an end tag : html
 
 [`HTMLParser`](html.parser.md#html.parser.HTMLParser "html.parser.HTMLParser") instances have the following methods:
 
-HTMLParser.feed(*data*)
+`HTMLParser.feed(data)`
 :   Feed some text to the parser. It is processed insofar as it consists of
     complete elements; incomplete data is buffered until more data is fed or
     [`close()`](html.parser.md#html.parser.HTMLParser.close "html.parser.HTMLParser.close") is called. *data* must be [`str`](stdtypes.md#str "str").
 
-HTMLParser.close()
+`HTMLParser.close()`
 :   Force processing of all buffered data as if it were followed by an end-of-file
     mark. This method may be redefined by a derived class to define additional
     processing at the end of the input, but the redefined version should always call
     the [`HTMLParser`](html.parser.md#html.parser.HTMLParser "html.parser.HTMLParser") base class method [`close()`](html.parser.md#html.parser.HTMLParser.close "html.parser.HTMLParser.close").
 
-HTMLParser.reset()
+`HTMLParser.reset()`
 :   Reset the instance. Loses all unprocessed data. This is called implicitly at
     instantiation time.
 
-HTMLParser.getpos()
+`HTMLParser.getpos()`
 :   Return current line number and offset.
 
-HTMLParser.get_starttag_text()
+`HTMLParser.get_starttag_text()`
 :   Return the text of the most recently opened start tag. This should not normally
     be needed for structured processing, but may be useful in dealing with HTML “as
     deployed” or for re-generating input with minimal changes (whitespace between
@@ -112,7 +112,7 @@ The following methods are called when data or markup elements are encountered
 and they are meant to be overridden in a subclass. The base class
 implementations do nothing (except for [`handle_startendtag()`](html.parser.md#html.parser.HTMLParser.handle_startendtag "html.parser.HTMLParser.handle_startendtag")):
 
-HTMLParser.handle_starttag(*tag*, *attrs*)
+`HTMLParser.handle_starttag(tag, attrs)`
 :   This method is called to handle the start tag of an element (e.g. `<div id="main">`).
 
     The *tag* argument is the name of the tag converted to lower case. The *attrs*
@@ -127,35 +127,35 @@ HTMLParser.handle_starttag(*tag*, *attrs*)
     All entity references from [`html.entities`](html.entities.md#module-html.entities "html.entities: Definitions of HTML general entities.") are replaced in the attribute
     values.
 
-HTMLParser.handle_endtag(*tag*)
+`HTMLParser.handle_endtag(tag)`
 :   This method is called to handle the end tag of an element (e.g. `</div>`).
 
     The *tag* argument is the name of the tag converted to lower case.
 
-HTMLParser.handle_startendtag(*tag*, *attrs*)
+`HTMLParser.handle_startendtag(tag, attrs)`
 :   Similar to [`handle_starttag()`](html.parser.md#html.parser.HTMLParser.handle_starttag "html.parser.HTMLParser.handle_starttag"), but called when the parser encounters an
     XHTML-style empty tag (`<img ... />`). This method may be overridden by
     subclasses which require this particular lexical information; the default
     implementation simply calls [`handle_starttag()`](html.parser.md#html.parser.HTMLParser.handle_starttag "html.parser.HTMLParser.handle_starttag") and [`handle_endtag()`](html.parser.md#html.parser.HTMLParser.handle_endtag "html.parser.HTMLParser.handle_endtag").
 
-HTMLParser.handle_data(*data*)
+`HTMLParser.handle_data(data)`
 :   This method is called to process arbitrary data (e.g. text nodes and the
     content of elements like `script` and `style`).
 
-HTMLParser.handle_entityref(*name*)
+`HTMLParser.handle_entityref(name)`
 :   This method is called to process a named character reference of the form
     `&name;` (e.g. `&gt;`), where *name* is a general entity reference
     (e.g. `'gt'`).
     This method is only called if *convert_charrefs* is false.
 
-HTMLParser.handle_charref(*name*)
+`HTMLParser.handle_charref(name)`
 :   This method is called to process decimal and hexadecimal numeric character
     references of the form `&#NNN;` and `&#xNNN;`. For example, the decimal
     equivalent for `&gt;` is `&#62;`, whereas the hexadecimal is `&#x3E;`;
     in this case the method will receive `'62'` or `'x3E'`.
     This method is only called if *convert_charrefs* is false.
 
-HTMLParser.handle_comment(*data*)
+`HTMLParser.handle_comment(data)`
 :   This method is called when a comment is encountered (e.g. `<!--comment-->`).
 
     For example, the comment `<!-- comment -->` will cause this method to be
@@ -165,14 +165,14 @@ HTMLParser.handle_comment(*data*)
     sent to this method, so, for `<!--[if IE 9]>IE9-specific content<![endif]-->`,
     this method will receive `'[if IE 9]>IE9-specific content<![endif]'`.
 
-HTMLParser.handle_decl(*decl*)
+`HTMLParser.handle_decl(decl)`
 :   This method is called to handle an HTML doctype declaration (e.g.
     `<!DOCTYPE html>`).
 
     The *decl* parameter will be the entire contents of the declaration inside
     the `<!...>` markup (e.g. `'DOCTYPE html'`).
 
-HTMLParser.handle_pi(*data*)
+`HTMLParser.handle_pi(data)`
 :   Method called when a processing instruction is encountered. The *data*
     parameter will contain the entire processing instruction. For example, for the
     processing instruction `<?proc color='red'>`, this method would be called as
@@ -185,7 +185,7 @@ HTMLParser.handle_pi(*data*)
     > instructions. An XHTML processing instruction using the trailing `'?'` will
     > cause the `'?'` to be included in *data*.
 
-HTMLParser.unknown_decl(*data*)
+`HTMLParser.unknown_decl(data)`
 :   This method is called when an unrecognized declaration is read by the parser.
 
     The *data* parameter will be the entire contents of the declaration inside

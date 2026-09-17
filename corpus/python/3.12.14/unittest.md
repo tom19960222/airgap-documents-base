@@ -204,22 +204,22 @@ not modules or classes.
 
 **unittest** supports these command-line options:
 
--b, --buffer
+`-b, --buffer`
 :   The standard output and standard error streams are buffered during the test
     run. Output during a passing test is discarded. Output is echoed normally
     on test fail or error and is added to the failure messages.
 
--c, --catch
+`-c, --catch`
 :   `Control`-`C` during the test run waits for the current test to end and then
     reports all the results so far. A second `Control`-`C` raises the normal
     [`KeyboardInterrupt`](exceptions.md#KeyboardInterrupt "KeyboardInterrupt") exception.
 
     See [Signal Handling](unittest.md#signal-handling) for the functions that provide this functionality.
 
--f, --failfast
+`-f, --failfast`
 :   Stop the test run on the first error or failure.
 
--k
+`-k`
 :   Only run test methods and classes that match the pattern or substring.
     This option may be used multiple times, in which case all test cases that
     match any of the given patterns are included.
@@ -234,10 +234,10 @@ not modules or classes.
     For example, `-k foo` matches `foo_tests.SomeTest.test_something`,
     `bar_tests.SomeTest.test_foo`, but not `bar_tests.FooTest.test_something`.
 
---locals
+`--locals`
 :   Show local variables in tracebacks.
 
---durations N
+`--durations N`
 :   Show the N slowest test cases (N=0 for all).
 
 Added in version 3.2: The command-line options `-b`, `-c` and `-f` were added.
@@ -276,16 +276,16 @@ python -m unittest discover
 
 The `discover` sub-command has the following options:
 
--v, --verbose
+`-v, --verbose`
 :   Verbose output
 
--s, --start-directory directory
+`-s, --start-directory directory`
 :   Directory to start discovery (`.` default)
 
--p, --pattern pattern
+`-p, --pattern pattern`
 :   Pattern to match test files (`test*.py` default)
 
--t, --top-level-directory directory
+`-t, --top-level-directory directory`
 :   Top level directory of project (defaults to start directory)
 
 The [`-s`](unittest.md#cmdoption-unittest-discover-s), [`-p`](unittest.md#cmdoption-unittest-discover-p), and [`-t`](unittest.md#cmdoption-unittest-discover-t) options can be passed in
@@ -596,23 +596,23 @@ def skipUnlessHasattr(obj, attr):
 
 The following decorators and exception implement test skipping and expected failures:
 
-@unittest.skip(*reason*)
+`@unittest.skip(reason)`
 :   Unconditionally skip the decorated test. *reason* should describe why the
     test is being skipped.
 
-@unittest.skipIf(*condition*, *reason*)
+`@unittest.skipIf(condition, reason)`
 :   Skip the decorated test if *condition* is true.
 
-@unittest.skipUnless(*condition*, *reason*)
+`@unittest.skipUnless(condition, reason)`
 :   Skip the decorated test unless *condition* is true.
 
-@unittest.expectedFailure
+`@unittest.expectedFailure`
 :   Mark the test as an expected failure or error. If the test fails or errors
     in the test function itself (rather than in one of the *test fixture*
     methods) then it will be considered a success. If the test passes, it will
     be considered a failure.
 
-*exception* unittest.SkipTest(*reason*)
+`exception unittest.SkipTest(reason)`
 :   This exception is raised to skip a test.
 
     Usually you can use [`TestCase.skipTest()`](unittest.md#unittest.TestCase.skipTest "unittest.TestCase.skipTest") or one of the skipping
@@ -698,7 +698,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
 ### Test cases
 
-*class* unittest.TestCase(*methodName='runTest'*)
+`class unittest.TestCase(methodName='runTest')`
 :   Instances of the [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") class represent the logical test units
     in the [`unittest`](unittest.md#module-unittest "unittest: Unit testing framework for Python.") universe. This class is intended to be used as a base
     class, with specific tests being implemented by concrete subclasses. This class
@@ -722,13 +722,13 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
     Methods in the first group (running the test) are:
 
-    setUp()
+    `setUp()`
     :   Method called to prepare the test fixture. This is called immediately
         before calling the test method; other than [`AssertionError`](exceptions.md#AssertionError "AssertionError") or [`SkipTest`](unittest.md#unittest.SkipTest "unittest.SkipTest"),
         any exception raised by this method will be considered an error rather than
         a test failure. The default implementation does nothing.
 
-    tearDown()
+    `tearDown()`
     :   Method called immediately after the test method has been called and the
         result recorded. This is called even if the test method raised an
         exception, so the implementation in subclasses may need to be particularly
@@ -739,7 +739,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         the [`setUp()`](unittest.md#unittest.TestCase.setUp "unittest.TestCase.setUp") succeeds, regardless of the outcome of the test method.
         The default implementation does nothing.
 
-    setUpClass()
+    `setUpClass()`
     :   A class method called before tests in an individual class are run.
         `setUpClass` is called with the class as the only argument
         and must be decorated as a [`classmethod()`](functions.md#classmethod "classmethod"):
@@ -754,7 +754,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.2.
 
-    tearDownClass()
+    `tearDownClass()`
     :   A class method called after tests in an individual class have run.
         `tearDownClass` is called with the class as the only argument
         and must be decorated as a [`classmethod()`](functions.md#classmethod "classmethod"):
@@ -769,7 +769,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.2.
 
-    run(*result=None*)
+    `run(result=None)`
     :   Run the test, collecting the result into the [`TestResult`](unittest.md#unittest.TestResult "unittest.TestResult") object
         passed as *result*. If *result* is omitted or `None`, a temporary
         result object is created (by calling the [`defaultTestResult()`](unittest.md#unittest.TestCase.defaultTestResult "unittest.TestCase.defaultTestResult")
@@ -782,13 +782,13 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         Changed in version 3.3: Previous versions of `run` did not return the result. Neither did
         calling an instance.
 
-    skipTest(*reason*)
+    `skipTest(reason)`
     :   Calling this during a test method or [`setUp()`](unittest.md#unittest.TestCase.setUp "unittest.TestCase.setUp") skips the current
         test. See [Skipping tests and expected failures](unittest.md#unittest-skipping) for more information.
 
         Added in version 3.1.
 
-    subTest(*msg=None*, *\*\*params*)
+    `subTest(msg=None, **params)`
     :   Return a context manager which executes the enclosed code block as a
         subtest. *msg* and *params* are optional, arbitrary values which are
         displayed whenever a subtest fails, allowing you to identify them
@@ -801,7 +801,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.4.
 
-    debug()
+    `debug()`
     :   Run the test without collecting the result. This allows exceptions raised
         by the test to be propagated to the caller, and can be used to support
         running tests under a debugger.
@@ -831,7 +831,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     [`assertRaisesRegex()`](unittest.md#unittest.TestCase.assertRaisesRegex "unittest.TestCase.assertRaisesRegex"), [`assertWarns()`](unittest.md#unittest.TestCase.assertWarns "unittest.TestCase.assertWarns"), [`assertWarnsRegex()`](unittest.md#unittest.TestCase.assertWarnsRegex "unittest.TestCase.assertWarnsRegex")
     only when they are used as a context manager.
 
-    assertEqual(*first*, *second*, *msg=None*)
+    `assertEqual(first, second, msg=None)`
     :   Test that *first* and *second* are equal. If the values do not
         compare equal, the test will fail.
 
@@ -846,13 +846,13 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         Changed in version 3.2: [`assertMultiLineEqual()`](unittest.md#unittest.TestCase.assertMultiLineEqual "unittest.TestCase.assertMultiLineEqual") added as the default type equality
         function for comparing strings.
 
-    assertNotEqual(*first*, *second*, *msg=None*)
+    `assertNotEqual(first, second, msg=None)`
     :   Test that *first* and *second* are not equal. If the values do
         compare equal, the test will fail.
 
-    assertTrue(*expr*, *msg=None*)
+    `assertTrue(expr, msg=None)`
 
-    assertFalse(*expr*, *msg=None*)
+    `assertFalse(expr, msg=None)`
     :   Test that *expr* is true (or false).
 
         Note that this is equivalent to `bool(expr) is True` and not to `expr
@@ -861,30 +861,30 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         `assertEqual(a, b)` instead of `assertTrue(a == b)`), because they
         provide a better error message in case of failure.
 
-    assertIs(*first*, *second*, *msg=None*)
+    `assertIs(first, second, msg=None)`
 
-    assertIsNot(*first*, *second*, *msg=None*)
+    `assertIsNot(first, second, msg=None)`
     :   Test that *first* and *second* are (or are not) the same object.
 
         Added in version 3.1.
 
-    assertIsNone(*expr*, *msg=None*)
+    `assertIsNone(expr, msg=None)`
 
-    assertIsNotNone(*expr*, *msg=None*)
+    `assertIsNotNone(expr, msg=None)`
     :   Test that *expr* is (or is not) `None`.
 
         Added in version 3.1.
 
-    assertIn(*member*, *container*, *msg=None*)
+    `assertIn(member, container, msg=None)`
 
-    assertNotIn(*member*, *container*, *msg=None*)
+    `assertNotIn(member, container, msg=None)`
     :   Test that *member* is (or is not) in *container*.
 
         Added in version 3.1.
 
-    assertIsInstance(*obj*, *cls*, *msg=None*)
+    `assertIsInstance(obj, cls, msg=None)`
 
-    assertNotIsInstance(*obj*, *cls*, *msg=None*)
+    `assertNotIsInstance(obj, cls, msg=None)`
     :   Test that *obj* is (or is not) an instance of *cls* (which can be a
         class or a tuple of classes, as supported by [`isinstance()`](functions.md#isinstance "isinstance")).
         To check for the exact type, use [`assertIs(type(obj), cls)`](unittest.md#unittest.TestCase.assertIs "unittest.TestCase.assertIs").
@@ -903,9 +903,9 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     | [`assertLogs(logger, level)`](unittest.md#unittest.TestCase.assertLogs "unittest.TestCase.assertLogs") | The `with` block logs on *logger* with minimum *level* | 3.4 |
     | [`assertNoLogs(logger, level)`](unittest.md#unittest.TestCase.assertNoLogs "unittest.TestCase.assertNoLogs") | The `with` block does not log on  *logger* with minimum *level* | 3.10 |
 
-    assertRaises(*exception*, *callable*, *\*args*, *\*\*kwds*)
+    `assertRaises(exception, callable, *args, **kwds)`
 
-    assertRaises(*exception*, *\**, *msg=None*)
+    `assertRaises(exception, *, msg=None)`
     :   Test that an exception is raised when *callable* is called with any
         positional or keyword arguments that are also passed to
         [`assertRaises()`](unittest.md#unittest.TestCase.assertRaises "unittest.TestCase.assertRaises"). The test passes if *exception* is raised, is an
@@ -943,9 +943,9 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Changed in version 3.3: Added the *msg* keyword argument when used as a context manager.
 
-    assertRaisesRegex(*exception*, *regex*, *callable*, *\*args*, *\*\*kwds*)
+    `assertRaisesRegex(exception, regex, callable, *args, **kwds)`
 
-    assertRaisesRegex(*exception*, *regex*, *\**, *msg=None*)
+    `assertRaisesRegex(exception, regex, *, msg=None)`
     :   Like [`assertRaises()`](unittest.md#unittest.TestCase.assertRaises "unittest.TestCase.assertRaises") but also tests that *regex* matches
         on the string representation of the raised exception. *regex* may be
         a regular expression object or a string containing a regular expression
@@ -969,9 +969,9 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Changed in version 3.3: Added the *msg* keyword argument when used as a context manager.
 
-    assertWarns(*warning*, *callable*, *\*args*, *\*\*kwds*)
+    `assertWarns(warning, callable, *args, **kwds)`
 
-    assertWarns(*warning*, *\**, *msg=None*)
+    `assertWarns(warning, *, msg=None)`
     :   Test that a warning is triggered when *callable* is called with any
         positional or keyword arguments that are also passed to
         [`assertWarns()`](unittest.md#unittest.TestCase.assertWarns "unittest.TestCase.assertWarns"). The test passes if *warning* is triggered and
@@ -1012,9 +1012,9 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Changed in version 3.3: Added the *msg* keyword argument when used as a context manager.
 
-    assertWarnsRegex(*warning*, *regex*, *callable*, *\*args*, *\*\*kwds*)
+    `assertWarnsRegex(warning, regex, callable, *args, **kwds)`
 
-    assertWarnsRegex(*warning*, *regex*, *\**, *msg=None*)
+    `assertWarnsRegex(warning, regex, *, msg=None)`
     :   Like [`assertWarns()`](unittest.md#unittest.TestCase.assertWarns "unittest.TestCase.assertWarns") but also tests that *regex* matches on the
         message of the triggered warning. *regex* may be a regular expression
         object or a string containing a regular expression suitable for use
@@ -1037,7 +1037,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Changed in version 3.3: Added the *msg* keyword argument when used as a context manager.
 
-    assertLogs(*logger=None*, *level=None*)
+    `assertLogs(logger=None, level=None)`
     :   A context manager to test that at least one message is logged on
         the *logger* or one of its children, with at least the given
         *level*.
@@ -1058,11 +1058,11 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         which keeps tracks of the matching log messages. It has two
         attributes:
 
-        records
+        `records`
         :   A list of [`logging.LogRecord`](logging.md#logging.LogRecord "logging.LogRecord") objects of the matching
             log messages.
 
-        output
+        `output`
         :   A list of [`str`](stdtypes.md#str "str") objects with the formatted output of
             matching messages.
 
@@ -1078,7 +1078,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.4.
 
-    assertNoLogs(*logger=None*, *level=None*)
+    `assertNoLogs(logger=None, level=None)`
     :   A context manager to test that no messages are logged on
         the *logger* or one of its children, with at least the given
         *level*.
@@ -1110,9 +1110,9 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     | [`assertNotRegex(s, r)`](unittest.md#unittest.TestCase.assertNotRegex "unittest.TestCase.assertNotRegex") | `not r.search(s)` | 3.2 |
     | [`assertCountEqual(a, b)`](unittest.md#unittest.TestCase.assertCountEqual "unittest.TestCase.assertCountEqual") | *a* and *b* have the same elements in the same number, regardless of their order. | 3.2 |
 
-    assertAlmostEqual(*first*, *second*, *places=7*, *msg=None*, *delta=None*)
+    `assertAlmostEqual(first, second, places=7, msg=None, delta=None)`
 
-    assertNotAlmostEqual(*first*, *second*, *places=7*, *msg=None*, *delta=None*)
+    `assertNotAlmostEqual(first, second, places=7, msg=None, delta=None)`
     :   Test that *first* and *second* are approximately (or not approximately)
         equal by computing the difference, rounding to the given number of
         decimal *places* (default 7), and comparing to zero. Note that these
@@ -1128,13 +1128,13 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         that compare equal. [`assertNotAlmostEqual()`](unittest.md#unittest.TestCase.assertNotAlmostEqual "unittest.TestCase.assertNotAlmostEqual") automatically fails
         if the objects compare equal. Added the *delta* keyword argument.
 
-    assertGreater(*first*, *second*, *msg=None*)
+    `assertGreater(first, second, msg=None)`
 
-    assertGreaterEqual(*first*, *second*, *msg=None*)
+    `assertGreaterEqual(first, second, msg=None)`
 
-    assertLess(*first*, *second*, *msg=None*)
+    `assertLess(first, second, msg=None)`
 
-    assertLessEqual(*first*, *second*, *msg=None*)
+    `assertLessEqual(first, second, msg=None)`
     :   Test that *first* is respectively >, >=, < or <= than *second* depending
         on the method name. If not, the test will fail:
 
@@ -1145,9 +1145,9 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    assertRegex(*text*, *regex*, *msg=None*)
+    `assertRegex(text, regex, msg=None)`
 
-    assertNotRegex(*text*, *regex*, *msg=None*)
+    `assertNotRegex(text, regex, msg=None)`
     :   Test that a *regex* search matches (or does not match) *text*. In case
         of failure, the error message will include the pattern and the *text* (or
         the pattern and the part of *text* that unexpectedly matched). *regex*
@@ -1161,7 +1161,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.2: [`assertNotRegex()`](unittest.md#unittest.TestCase.assertNotRegex "unittest.TestCase.assertNotRegex").
 
-    assertCountEqual(*first*, *second*, *msg=None*)
+    `assertCountEqual(first, second, msg=None)`
     :   Test that sequence *first* contains the same elements as *second*,
         regardless of their order. When they don’t, an error message listing the
         differences between the sequences will be generated.
@@ -1179,7 +1179,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     implemented for most of the built-in types, but it’s also possible to
     register new methods using [`addTypeEqualityFunc()`](unittest.md#unittest.TestCase.addTypeEqualityFunc "unittest.TestCase.addTypeEqualityFunc"):
 
-    addTypeEqualityFunc(*typeobj*, *function*)
+    `addTypeEqualityFunc(typeobj, function)`
     :   Registers a type-specific method called by [`assertEqual()`](unittest.md#unittest.TestCase.assertEqual "unittest.TestCase.assertEqual") to check
         if two objects of exactly the same *typeobj* (not subclasses) compare
         equal. *function* must take two positional arguments and a third msg=None
@@ -1204,7 +1204,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     | [`assertSetEqual(a, b)`](unittest.md#unittest.TestCase.assertSetEqual "unittest.TestCase.assertSetEqual") | sets or frozensets | 3.1 |
     | [`assertDictEqual(a, b)`](unittest.md#unittest.TestCase.assertDictEqual "unittest.TestCase.assertDictEqual") | dicts | 3.1 |
 
-    assertMultiLineEqual(*first*, *second*, *msg=None*)
+    `assertMultiLineEqual(first, second, msg=None)`
     :   Test that the multiline string *first* is equal to the string *second*.
         When not equal a diff of the two strings highlighting the differences
         will be included in the error message. This method is used by default
@@ -1212,7 +1212,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    assertSequenceEqual(*first*, *second*, *msg=None*, *seq_type=None*)
+    `assertSequenceEqual(first, second, msg=None, seq_type=None)`
     :   Tests that two sequences are equal. If a *seq_type* is supplied, both
         *first* and *second* must be instances of *seq_type* or a failure will
         be raised. If the sequences are different an error message is
@@ -1224,9 +1224,9 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    assertListEqual(*first*, *second*, *msg=None*)
+    `assertListEqual(first, second, msg=None)`
 
-    assertTupleEqual(*first*, *second*, *msg=None*)
+    `assertTupleEqual(first, second, msg=None)`
     :   Tests that two lists or tuples are equal. If not, an error message is
         constructed that shows only the differences between the two. An error
         is also raised if either of the parameters are of the wrong type.
@@ -1235,7 +1235,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    assertSetEqual(*first*, *second*, *msg=None*)
+    `assertSetEqual(first, second, msg=None)`
     :   Tests that two sets are equal. If not, an error message is constructed
         that lists the differences between the sets. This method is used by
         default when comparing sets or frozensets with [`assertEqual()`](unittest.md#unittest.TestCase.assertEqual "unittest.TestCase.assertEqual").
@@ -1245,7 +1245,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    assertDictEqual(*first*, *second*, *msg=None*)
+    `assertDictEqual(first, second, msg=None)`
     :   Test that two dictionaries are equal. If not, an error message is
         constructed that shows the differences in the dictionaries. This
         method will be used by default to compare dictionaries in
@@ -1255,18 +1255,18 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
     Finally the [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") provides the following methods and attributes:
 
-    fail(*msg=None*)
+    `fail(msg=None)`
     :   Signals a test failure unconditionally, with *msg* or `None` for
         the error message.
 
-    failureException
+    `failureException`
     :   This class attribute gives the exception raised by the test method. If a
         test framework needs to use a specialized exception, possibly to carry
         additional information, it must subclass this exception in order to “play
         fair” with the framework. The initial value of this attribute is
         [`AssertionError`](exceptions.md#AssertionError "AssertionError").
 
-    longMessage
+    `longMessage`
     :   This class attribute determines what happens when a custom failure message
         is passed as the msg argument to an assertXYY call that fails.
         `True` is the default value. In this case, the custom message is appended
@@ -1281,7 +1281,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    maxDiff
+    `maxDiff`
     :   This attribute controls the maximum length of diffs output by assert
         methods that report diffs on failure. It defaults to 80\*8 characters.
         Assert methods affected by this attribute are
@@ -1297,11 +1297,11 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     Testing frameworks can use the following methods to collect information on
     the test:
 
-    countTestCases()
+    `countTestCases()`
     :   Return the number of tests represented by this test object. For
         [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instances, this will always be `1`.
 
-    defaultTestResult()
+    `defaultTestResult()`
     :   Return an instance of the test result class that should be used for this
         test case class (if no other result instance is provided to the
         [`run()`](unittest.md#unittest.TestCase.run "unittest.TestCase.run") method).
@@ -1310,11 +1310,11 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         [`TestResult`](unittest.md#unittest.TestResult "unittest.TestResult"); subclasses of [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") should override this
         as necessary.
 
-    id()
+    `id()`
     :   Return a string identifying the specific test case. This is usually the
         full name of the test method, including the module and class name.
 
-    shortDescription()
+    `shortDescription()`
     :   Returns a description of the test, or `None` if no description
         has been provided. The default implementation of this method
         returns the first line of the test method’s docstring, if available,
@@ -1325,7 +1325,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         with unittest extensions and adding the test name was moved to the
         [`TextTestResult`](unittest.md#unittest.TextTestResult "unittest.TextTestResult") in Python 3.2.
 
-    addCleanup(*function*, */*, *\*args*, *\*\*kwargs*)
+    `addCleanup(function, /, *args, **kwargs)`
     :   Add a function to be called after [`tearDown()`](unittest.md#unittest.TestCase.tearDown "unittest.TestCase.tearDown") to cleanup resources
         used during the test. Functions will be called in reverse order to the
         order they are added (LIFO). They
@@ -1337,7 +1337,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    enterContext(*cm*)
+    `enterContext(cm)`
     :   Enter the supplied [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager). If successful, also
         add its [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") method as a cleanup function by
         [`addCleanup()`](unittest.md#unittest.TestCase.addCleanup "unittest.TestCase.addCleanup") and return the result of the
@@ -1345,7 +1345,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.11.
 
-    doCleanups()
+    `doCleanups()`
     :   This method is called unconditionally after [`tearDown()`](unittest.md#unittest.TestCase.tearDown "unittest.TestCase.tearDown"), or
         after [`setUp()`](unittest.md#unittest.TestCase.setUp "unittest.TestCase.setUp") if [`setUp()`](unittest.md#unittest.TestCase.setUp "unittest.TestCase.setUp") raises an exception.
 
@@ -1359,7 +1359,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.1.
 
-    *classmethod* addClassCleanup(*function*, */*, *\*args*, *\*\*kwargs*)
+    `classmethod addClassCleanup(function, /, *args, **kwargs)`
     :   Add a function to be called after [`tearDownClass()`](unittest.md#unittest.TestCase.tearDownClass "unittest.TestCase.tearDownClass") to cleanup
         resources used during the test class. Functions will be called in reverse
         order to the order they are added (LIFO).
@@ -1371,7 +1371,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.8.
 
-    *classmethod* enterClassContext(*cm*)
+    `classmethod enterClassContext(cm)`
     :   Enter the supplied [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager). If successful, also
         add its [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") method as a cleanup function by
         [`addClassCleanup()`](unittest.md#unittest.TestCase.addClassCleanup "unittest.TestCase.addClassCleanup") and return the result of the
@@ -1379,7 +1379,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.11.
 
-    *classmethod* doClassCleanups()
+    `classmethod doClassCleanups()`
     :   This method is called unconditionally after [`tearDownClass()`](unittest.md#unittest.TestCase.tearDownClass "unittest.TestCase.tearDownClass"), or
         after [`setUpClass()`](unittest.md#unittest.TestCase.setUpClass "unittest.TestCase.setUpClass") if [`setUpClass()`](unittest.md#unittest.TestCase.setUpClass "unittest.TestCase.setUpClass") raises an exception.
 
@@ -1393,20 +1393,20 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.8.
 
-*class* unittest.IsolatedAsyncioTestCase(*methodName='runTest'*)
+`class unittest.IsolatedAsyncioTestCase(methodName='runTest')`
 :   This class provides an API similar to [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") and also accepts
     coroutines as test functions.
 
     Added in version 3.8.
 
-    *async* asyncSetUp()
+    `async asyncSetUp()`
     :   Method called to prepare the test fixture. This is called after `setUp()`.
         This is called immediately before calling the test method; other than
         [`AssertionError`](exceptions.md#AssertionError "AssertionError") or [`SkipTest`](unittest.md#unittest.SkipTest "unittest.SkipTest"), any exception raised by this method
         will be considered an error rather than a test failure. The default implementation
         does nothing.
 
-    *async* asyncTearDown()
+    `async asyncTearDown()`
     :   Method called immediately after the test method has been called and the
         result recorded. This is called before `tearDown()`. This is called even if
         the test method raised an exception, so the implementation in subclasses may need
@@ -1417,10 +1417,10 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         the [`asyncSetUp()`](unittest.md#unittest.IsolatedAsyncioTestCase.asyncSetUp "unittest.IsolatedAsyncioTestCase.asyncSetUp") succeeds, regardless of the outcome of the test method.
         The default implementation does nothing.
 
-    addAsyncCleanup(*function*, */*, *\*args*, *\*\*kwargs*)
+    `addAsyncCleanup(function, /, *args, **kwargs)`
     :   This method accepts a coroutine that can be used as a cleanup function.
 
-    *async* enterAsyncContext(*cm*)
+    `async enterAsyncContext(cm)`
     :   Enter the supplied [asynchronous context manager](https://docs.python.org/3.12/glossary.html#term-asynchronous-context-manager). If successful,
         also add its [`__aexit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__aexit__ "object.__aexit__") method as a cleanup function by
         [`addAsyncCleanup()`](unittest.md#unittest.IsolatedAsyncioTestCase.addAsyncCleanup "unittest.IsolatedAsyncioTestCase.addAsyncCleanup") and return the result of the
@@ -1428,7 +1428,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.11.
 
-    run(*result=None*)
+    `run(result=None)`
     :   Sets up a new event loop to run the test, collecting the result into
         the [`TestResult`](unittest.md#unittest.TestResult "unittest.TestResult") object passed as *result*. If *result* is
         omitted or `None`, a temporary result object is created (by calling
@@ -1474,7 +1474,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
     After running the test, `events` would contain `["setUp", "asyncSetUp", "test_response", "asyncTearDown", "tearDown", "cleanup"]`.
 
-*class* unittest.FunctionTestCase(*testFunc*, *setUp=None*, *tearDown=None*, *description=None*)
+`class unittest.FunctionTestCase(testFunc, setUp=None, tearDown=None, description=None)`
 :   This class implements the portion of the [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") interface which
     allows the test runner to drive the test, but does not provide the methods
     which test code can use to check and report errors. This is used to create
@@ -1483,7 +1483,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
 ### Grouping tests
 
-*class* unittest.TestSuite(*tests=()*)
+`class unittest.TestSuite(tests=())`
 :   This class represents an aggregation of individual test cases and test suites.
     The class presents the interface needed by the test runner to allow it to be run
     as any other test case. Running a [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") instance is the same as
@@ -1498,10 +1498,10 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     tests into groups of tests that should be run together. Some additional
     methods are available to add tests to [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") instances:
 
-    addTest(*test*)
+    `addTest(test)`
     :   Add a [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") or [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") to the suite.
 
-    addTests(*tests*)
+    `addTests(tests)`
     :   Add all the tests from an iterable of [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") and [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite")
         instances to this test suite.
 
@@ -1510,22 +1510,22 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
     [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") shares the following methods with [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase"):
 
-    run(*result*)
+    `run(result)`
     :   Run the tests associated with this suite, collecting the result into the
         test result object passed as *result*. Note that unlike
         [`TestCase.run()`](unittest.md#unittest.TestCase.run "unittest.TestCase.run"), [`TestSuite.run()`](unittest.md#unittest.TestSuite.run "unittest.TestSuite.run") requires the result object to
         be passed in.
 
-    debug()
+    `debug()`
     :   Run the tests associated with this suite without collecting the
         result. This allows exceptions raised by the test to be propagated to the
         caller and can be used to support running tests under a debugger.
 
-    countTestCases()
+    `countTestCases()`
     :   Return the number of tests represented by this test object, including all
         individual tests and sub-suites.
 
-    __iter__()
+    `__iter__()`
     :   Tests grouped by a [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") are always accessed by iteration.
         Subclasses can lazily provide tests by overriding `__iter__()`. Note
         that this method may be called several times on a single suite (for
@@ -1549,7 +1549,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
 ### Loading and running tests
 
-*class* unittest.TestLoader
+`class unittest.TestLoader`
 :   The [`TestLoader`](unittest.md#unittest.TestLoader "unittest.TestLoader") class is used to create test suites from classes and
     modules. Normally, there is no need to create an instance of this class; the
     [`unittest`](unittest.md#module-unittest "unittest: Unit testing framework for Python.") module provides an instance that can be shared as
@@ -1558,7 +1558,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
     [`TestLoader`](unittest.md#unittest.TestLoader "unittest.TestLoader") objects have the following attributes:
 
-    errors
+    `errors`
     :   A list of the non-fatal errors encountered while loading tests. Not reset
         by the loader at any point. Fatal errors are signalled by the relevant
         method raising an exception to the caller. Non-fatal errors are also
@@ -1569,7 +1569,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
     [`TestLoader`](unittest.md#unittest.TestLoader "unittest.TestLoader") objects have the following methods:
 
-    loadTestsFromTestCase(*testCaseClass*)
+    `loadTestsFromTestCase(testCaseClass)`
     :   Return a suite of all test cases contained in the [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase")-derived
         `testCaseClass`.
 
@@ -1579,7 +1579,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         methods, but the `runTest()` method is implemented, a single test
         case is created for that method instead.
 
-    loadTestsFromModule(*module*, *\**, *pattern=None*)
+    `loadTestsFromModule(module, *, pattern=None)`
     :   Return a suite of all test cases contained in the given module. This
         method searches *module* for classes derived from [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") and
         creates an instance of the class for each test method defined for the
@@ -1605,7 +1605,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         Changed in version 3.12: The undocumented and unofficial *use_load_tests* parameter has been
         removed.
 
-    loadTestsFromName(*name*, *module=None*)
+    `loadTestsFromName(name, module=None)`
     :   Return a suite of all test cases given a string specifier.
 
         The specifier *name* is a “dotted name” that may resolve either to a
@@ -1633,16 +1633,16 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         returned. These errors are included in the errors accumulated by
         self.errors.
 
-    loadTestsFromNames(*names*, *module=None*)
+    `loadTestsFromNames(names, module=None)`
     :   Similar to [`loadTestsFromName()`](unittest.md#unittest.TestLoader.loadTestsFromName "unittest.TestLoader.loadTestsFromName"), but takes a sequence of names rather
         than a single name. The return value is a test suite which supports all
         the tests defined for each name.
 
-    getTestCaseNames(*testCaseClass*)
+    `getTestCaseNames(testCaseClass)`
     :   Return a sorted sequence of method names found within *testCaseClass*;
         this should be a subclass of [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase").
 
-    discover(*start_dir*, *pattern='test\*.py'*, *top_level_dir=None*)
+    `discover(start_dir, pattern='test*.py', top_level_dir=None)`
     :   Find all the test modules by recursing into subdirectories from the
         specified start directory, and return a TestSuite object containing them.
         Only test files that match *pattern* will be loaded. (Using shell style
@@ -1702,25 +1702,25 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     The following attributes of a [`TestLoader`](unittest.md#unittest.TestLoader "unittest.TestLoader") can be configured either by
     subclassing or assignment on an instance:
 
-    testMethodPrefix
+    `testMethodPrefix`
     :   String giving the prefix of method names which will be interpreted as test
         methods. The default value is `'test'`.
 
         This affects [`getTestCaseNames()`](unittest.md#unittest.TestLoader.getTestCaseNames "unittest.TestLoader.getTestCaseNames") and all the `loadTestsFrom*`
         methods.
 
-    sortTestMethodsUsing
+    `sortTestMethodsUsing`
     :   Function to be used to compare method names when sorting them in
         [`getTestCaseNames()`](unittest.md#unittest.TestLoader.getTestCaseNames "unittest.TestLoader.getTestCaseNames") and all the `loadTestsFrom*` methods.
 
-    suiteClass
+    `suiteClass`
     :   Callable object that constructs a test suite from a list of tests. No
         methods on the resulting object are needed. The default value is the
         [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") class.
 
         This affects all the `loadTestsFrom*` methods.
 
-    testNamePatterns
+    `testNamePatterns`
     :   List of Unix shell-style wildcard test name patterns that test methods
         have to match to be included in test suites (see `-k` option).
 
@@ -1734,7 +1734,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.7.
 
-*class* unittest.TestResult
+`class unittest.TestResult`
 :   This class is used to compile information about which tests have succeeded
     and which have failed.
 
@@ -1751,44 +1751,44 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     [`TestResult`](unittest.md#unittest.TestResult "unittest.TestResult") instances have the following attributes that will be of
     interest when inspecting the results of running a set of tests:
 
-    errors
+    `errors`
     :   A list containing 2-tuples of [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instances and strings
         holding formatted tracebacks. Each tuple represents a test which raised an
         unexpected exception.
 
-    failures
+    `failures`
     :   A list containing 2-tuples of [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instances and strings
         holding formatted tracebacks. Each tuple represents a test where a failure
         was explicitly signalled using the [assert\* methods](unittest.md#assert-methods).
 
-    skipped
+    `skipped`
     :   A list containing 2-tuples of [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instances and strings
         holding the reason for skipping the test.
 
         Added in version 3.1.
 
-    expectedFailures
+    `expectedFailures`
     :   A list containing 2-tuples of [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instances and strings
         holding formatted tracebacks. Each tuple represents an expected failure
         or error of the test case.
 
-    unexpectedSuccesses
+    `unexpectedSuccesses`
     :   A list containing [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instances that were marked as expected
         failures, but succeeded.
 
-    collectedDurations
+    `collectedDurations`
     :   A list containing 2-tuples of test case names and floats
         representing the elapsed time of each test which was run.
 
         Added in version 3.12.
 
-    shouldStop
+    `shouldStop`
     :   Set to `True` when the execution of tests should stop by [`stop()`](unittest.md#unittest.TestResult.stop "unittest.TestResult.stop").
 
-    testsRun
+    `testsRun`
     :   The total number of tests run so far.
 
-    buffer
+    `buffer`
     :   If set to true, `sys.stdout` and `sys.stderr` will be buffered in between
         [`startTest()`](unittest.md#unittest.TestResult.startTest "unittest.TestResult.startTest") and [`stopTest()`](unittest.md#unittest.TestResult.stopTest "unittest.TestResult.stopTest") being called. Collected output will
         only be echoed onto the real `sys.stdout` and `sys.stderr` if the test
@@ -1796,25 +1796,25 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.2.
 
-    failfast
+    `failfast`
     :   If set to true [`stop()`](unittest.md#unittest.TestResult.stop "unittest.TestResult.stop") will be called on the first failure or error,
         halting the test run.
 
         Added in version 3.2.
 
-    tb_locals
+    `tb_locals`
     :   If set to true then local variables will be shown in tracebacks.
 
         Added in version 3.5.
 
-    wasSuccessful()
+    `wasSuccessful()`
     :   Return `True` if all tests run so far have passed, otherwise returns
         `False`.
 
         Changed in version 3.4: Returns `False` if there were any [`unexpectedSuccesses`](unittest.md#unittest.TestResult.unexpectedSuccesses "unittest.TestResult.unexpectedSuccesses")
         from tests marked with the [`expectedFailure()`](unittest.md#unittest.expectedFailure "unittest.expectedFailure") decorator.
 
-    stop()
+    `stop()`
     :   This method can be called to signal that the set of tests being run should
         be aborted by setting the [`shouldStop`](unittest.md#unittest.TestResult.shouldStop "unittest.TestResult.shouldStop") attribute to `True`.
         `TestRunner` objects should respect this flag and return without
@@ -1830,24 +1830,24 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
     additional reporting requirements. This is particularly useful in building
     tools which support interactive reporting while tests are being run.
 
-    startTest(*test*)
+    `startTest(test)`
     :   Called when the test case *test* is about to be run.
 
-    stopTest(*test*)
+    `stopTest(test)`
     :   Called after the test case *test* has been executed, regardless of the
         outcome.
 
-    startTestRun()
+    `startTestRun()`
     :   Called once before any tests are executed.
 
         Added in version 3.1.
 
-    stopTestRun()
+    `stopTestRun()`
     :   Called once after all tests are executed.
 
         Added in version 3.1.
 
-    addError(*test*, *err*)
+    `addError(test, err)`
     :   Called when the test case *test* raises an unexpected exception. *err* is a
         tuple of the form returned by [`sys.exc_info()`](sys.md#sys.exc_info "sys.exc_info"): `(type, value,
         traceback)`.
@@ -1856,7 +1856,7 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         the instance’s [`errors`](unittest.md#unittest.TestResult.errors "unittest.TestResult.errors") attribute, where *formatted_err* is a
         formatted traceback derived from *err*.
 
-    addFailure(*test*, *err*)
+    `addFailure(test, err)`
     :   Called when the test case *test* signals a failure. *err* is a tuple of
         the form returned by [`sys.exc_info()`](sys.md#sys.exc_info "sys.exc_info"): `(type, value, traceback)`.
 
@@ -1864,19 +1864,19 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         the instance’s [`failures`](unittest.md#unittest.TestResult.failures "unittest.TestResult.failures") attribute, where *formatted_err* is a
         formatted traceback derived from *err*.
 
-    addSuccess(*test*)
+    `addSuccess(test)`
     :   Called when the test case *test* succeeds.
 
         The default implementation does nothing.
 
-    addSkip(*test*, *reason*)
+    `addSkip(test, reason)`
     :   Called when the test case *test* is skipped. *reason* is the reason the
         test gave for skipping.
 
         The default implementation appends a tuple `(test, reason)` to the
         instance’s [`skipped`](unittest.md#unittest.TestResult.skipped "unittest.TestResult.skipped") attribute.
 
-    addExpectedFailure(*test*, *err*)
+    `addExpectedFailure(test, err)`
     :   Called when the test case *test* fails or errors, but was marked with
         the [`expectedFailure()`](unittest.md#unittest.expectedFailure "unittest.expectedFailure") decorator.
 
@@ -1884,14 +1884,14 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
         the instance’s [`expectedFailures`](unittest.md#unittest.TestResult.expectedFailures "unittest.TestResult.expectedFailures") attribute, where *formatted_err*
         is a formatted traceback derived from *err*.
 
-    addUnexpectedSuccess(*test*)
+    `addUnexpectedSuccess(test)`
     :   Called when the test case *test* was marked with the
         [`expectedFailure()`](unittest.md#unittest.expectedFailure "unittest.expectedFailure") decorator, but succeeded.
 
         The default implementation appends the test to the instance’s
         [`unexpectedSuccesses`](unittest.md#unittest.TestResult.unexpectedSuccesses "unittest.TestResult.unexpectedSuccesses") attribute.
 
-    addSubTest(*test*, *subtest*, *outcome*)
+    `addSubTest(test, subtest, outcome)`
     :   Called when a subtest finishes. *test* is the test case
         corresponding to the test method. *subtest* is a custom
         [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instance describing the subtest.
@@ -1905,13 +1905,13 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
         Added in version 3.4.
 
-    addDuration(*test*, *elapsed*)
+    `addDuration(test, elapsed)`
     :   Called when the test case finishes. *elapsed* is the time represented in
         seconds, and it includes the execution of cleanup functions.
 
         Added in version 3.12.
 
-*class* unittest.TextTestResult(*stream*, *descriptions*, *verbosity*, *\**, *durations=None*)
+`class unittest.TextTestResult(stream, descriptions, verbosity, *, durations=None)`
 :   A concrete implementation of [`TestResult`](unittest.md#unittest.TestResult "unittest.TestResult") used by the
     [`TextTestRunner`](unittest.md#unittest.TextTestRunner "unittest.TextTestRunner"). Subclasses should accept `**kwargs` to ensure
     compatibility as the interface changes.
@@ -1920,12 +1920,12 @@ This section describes in depth the API of [`unittest`](unittest.md#module-unitt
 
     Changed in version 3.12: Added the *durations* keyword parameter.
 
-unittest.defaultTestLoader
+`unittest.defaultTestLoader`
 :   Instance of the [`TestLoader`](unittest.md#unittest.TestLoader "unittest.TestLoader") class intended to be shared. If no
     customization of the [`TestLoader`](unittest.md#unittest.TestLoader "unittest.TestLoader") is needed, this instance can be used
     instead of repeatedly creating new instances.
 
-*class* unittest.TextTestRunner(*stream=None*, *descriptions=True*, *verbosity=1*, *failfast=False*, *buffer=False*, *resultclass=None*, *warnings=None*, *\**, *tb_locals=False*, *durations=None*)
+`class unittest.TextTestRunner(stream=None, descriptions=True, verbosity=1, failfast=False, buffer=False, resultclass=None, warnings=None, *, tb_locals=False, durations=None)`
 :   A basic test runner implementation that outputs results to a stream. If *stream*
     is `None`, the default, [`sys.stderr`](sys.md#sys.stderr "sys.stderr") is used as the output stream. This class
     has a few configurable parameters, but is essentially very simple. Graphical
@@ -1949,7 +1949,7 @@ unittest.defaultTestLoader
 
     Changed in version 3.12: Added the *durations* parameter.
 
-    _makeResult()
+    `_makeResult()`
     :   This method returns the instance of `TestResult` used by [`run()`](unittest.md#unittest.TextTestRunner.run "unittest.TextTestRunner.run").
         It is not intended to be called directly, but can be overridden in
         subclasses to provide a custom `TestResult`.
@@ -1963,14 +1963,14 @@ unittest.defaultTestLoader
         stream, descriptions, verbosity
         ```
 
-    run(*test*)
+    `run(test)`
     :   This method is the main public interface to the `TextTestRunner`. This
         method takes a [`TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") or [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase") instance. A
         [`TestResult`](unittest.md#unittest.TestResult "unittest.TestResult") is created by calling
         [`_makeResult()`](unittest.md#unittest.TextTestRunner._makeResult "unittest.TextTestRunner._makeResult") and the test(s) are run and the
         results printed to stdout.
 
-unittest.main(*module='__main__'*, *defaultTest=None*, *argv=None*, *testRunner=None*, *testLoader=unittest.defaultTestLoader*, *exit=True*, *verbosity=1*, *failfast=None*, *catchbreak=None*, *buffer=None*, *warnings=None*)
+`unittest.main(module='__main__', defaultTest=None, argv=None, testRunner=None, testLoader=unittest.defaultTestLoader, exit=True, verbosity=1, failfast=None, catchbreak=None, buffer=None, warnings=None)`
 :   A command-line program that loads a set of tests from *module* and runs them;
     this is primarily for making test modules conveniently executable.
     The simplest use for this function is to include the following line at the
@@ -2187,7 +2187,7 @@ instead of as an error.
 To add cleanup code that must be run even in the case of an exception, use
 `addModuleCleanup`:
 
-unittest.addModuleCleanup(*function*, */*, *\*args*, *\*\*kwargs*)
+`unittest.addModuleCleanup(function, /, *args, **kwargs)`
 :   Add a function to be called after `tearDownModule()` to cleanup
     resources used during the test class. Functions will be called in reverse
     order to the order they are added (LIFO).
@@ -2199,7 +2199,7 @@ unittest.addModuleCleanup(*function*, */*, *\*args*, *\*\*kwargs*)
 
     Added in version 3.8.
 
-*classmethod* unittest.enterModuleContext(*cm*)
+`classmethod unittest.enterModuleContext(cm)`
 :   Enter the supplied [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager). If successful, also
     add its [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") method as a cleanup function by
     [`addModuleCleanup()`](unittest.md#unittest.addModuleCleanup "unittest.addModuleCleanup") and return the result of the
@@ -2207,7 +2207,7 @@ unittest.addModuleCleanup(*function*, */*, *\*args*, *\*\*kwargs*)
 
     Added in version 3.11.
 
-unittest.doModuleCleanups()
+`unittest.doModuleCleanups()`
 :   This function is called unconditionally after `tearDownModule()`, or
     after `setUpModule()` if `setUpModule()` raises an exception.
 
@@ -2244,12 +2244,12 @@ decorator can be used.
 There are a few utility functions for framework authors to enable control-c
 handling functionality within test frameworks.
 
-unittest.installHandler()
+`unittest.installHandler()`
 :   Install the control-c handler. When a [`signal.SIGINT`](signal.md#signal.SIGINT "signal.SIGINT") is received
     (usually in response to the user pressing control-c) all registered results
     have [`stop()`](unittest.md#unittest.TestResult.stop "unittest.TestResult.stop") called.
 
-unittest.registerResult(*result*)
+`unittest.registerResult(result)`
 :   Register a [`TestResult`](unittest.md#unittest.TestResult "unittest.TestResult") object for control-c handling. Registering a
     result stores a weak reference to it, so it doesn’t prevent the result from
     being garbage collected.
@@ -2258,12 +2258,12 @@ unittest.registerResult(*result*)
     handling is not enabled, so test frameworks can unconditionally register
     all results they create independently of whether or not handling is enabled.
 
-unittest.removeResult(*result*)
+`unittest.removeResult(result)`
 :   Remove a registered result. Once a result has been removed then
     [`stop()`](unittest.md#unittest.TestResult.stop "unittest.TestResult.stop") will no longer be called on that result object in
     response to a control-c.
 
-unittest.removeHandler(*function=None*)
+`unittest.removeHandler(function=None)`
 :   When called without arguments this function removes the control-c handler
     if it has been installed. This function can also be used as a test decorator
     to temporarily remove the handler while the test is being executed:

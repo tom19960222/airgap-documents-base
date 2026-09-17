@@ -11,13 +11,13 @@ fetched_at: 2026-09-17T15:35:57+00:00
 
 ---
 
-*exception* asyncio.TimeoutError
+`exception asyncio.TimeoutError`
 :   A deprecated alias of [`TimeoutError`](exceptions.md#TimeoutError "TimeoutError"),
     raised when the operation has exceeded the given deadline.
 
     Changed in version 3.11: This class was made an alias of [`TimeoutError`](exceptions.md#TimeoutError "TimeoutError").
 
-*exception* asyncio.CancelledError
+`exception asyncio.CancelledError`
 :   The operation has been cancelled.
 
     This exception can be caught to perform custom operations
@@ -26,35 +26,35 @@ fetched_at: 2026-09-17T15:35:57+00:00
 
     Changed in version 3.8: [`CancelledError`](asyncio-exceptions.md#asyncio.CancelledError "asyncio.CancelledError") is now a subclass of [`BaseException`](exceptions.md#BaseException "BaseException") rather than [`Exception`](exceptions.md#Exception "Exception").
 
-*exception* asyncio.InvalidStateError
+`exception asyncio.InvalidStateError`
 :   Invalid internal state of [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task") or [`Future`](asyncio-future.md#asyncio.Future "asyncio.Future").
 
     Can be raised in situations like setting a result value for a
     *Future* object that already has a result value set.
 
-*exception* asyncio.SendfileNotAvailableError
+`exception asyncio.SendfileNotAvailableError`
 :   The “sendfile” syscall is not available for the given
     socket or file type.
 
     A subclass of [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError").
 
-*exception* asyncio.IncompleteReadError
+`exception asyncio.IncompleteReadError`
 :   The requested read operation did not complete fully.
 
     Raised by the [asyncio stream APIs](asyncio-stream.md#asyncio-streams).
 
     This exception is a subclass of [`EOFError`](exceptions.md#EOFError "EOFError").
 
-    expected
+    `expected`
     :   The total number ([`int`](functions.md#int "int")) of expected bytes.
 
-    partial
+    `partial`
     :   A string of [`bytes`](stdtypes.md#bytes "bytes") read before the end of stream was reached.
 
-*exception* asyncio.LimitOverrunError
+`exception asyncio.LimitOverrunError`
 :   Reached the buffer size limit while looking for a separator.
 
     Raised by the [asyncio stream APIs](asyncio-stream.md#asyncio-streams).
 
-    consumed
+    `consumed`
     :   The total number of to be consumed bytes.

@@ -106,7 +106,7 @@ These functions calculate statistics regarding relations between two inputs.
 Note: The functions do not require the data given to them to be sorted.
 However, for reading convenience, most of the examples show sorted sequences.
 
-statistics.mean(*data*)
+`statistics.mean(data)`
 :   Return the sample arithmetic mean of *data* which can be a sequence or iterable.
 
     The arithmetic mean is the sum of the data divided by the number of data
@@ -145,7 +145,7 @@ statistics.mean(*data*)
     > *data* represents the entire population rather than a sample, then
     > `mean(data)` is equivalent to calculating the true population mean μ.
 
-statistics.fmean(*data*, *weights=None*)
+`statistics.fmean(data, weights=None)`
 :   Convert *data* to floats and compute the arithmetic mean.
 
     This runs faster than the [`mean()`](statistics.md#statistics.mean "statistics.mean") function and it always returns a
@@ -175,7 +175,7 @@ statistics.fmean(*data*, *weights=None*)
 
     Changed in version 3.11: Added support for *weights*.
 
-statistics.geometric_mean(*data*)
+`statistics.geometric_mean(data)`
 :   Convert *data* to floats and compute the geometric mean.
 
     The geometric mean indicates the central tendency or typical value of the
@@ -196,7 +196,7 @@ statistics.geometric_mean(*data*)
 
     Added in version 3.8.
 
-statistics.harmonic_mean(*data*, *weights=None*)
+`statistics.harmonic_mean(data, weights=None)`
 :   Return the harmonic mean of *data*, a sequence or iterable of
     real-valued numbers. If *weights* is omitted or `None`, then
     equal weighting is assumed.
@@ -238,7 +238,7 @@ statistics.harmonic_mean(*data*, *weights=None*)
 
     Changed in version 3.10: Added support for *weights*.
 
-statistics.median(*data*)
+`statistics.median(data)`
 :   Return the median (middle value) of numeric data, using the common “mean of
     middle two” method. If *data* is empty, [`StatisticsError`](statistics.md#statistics.StatisticsError "statistics.StatisticsError") is raised.
     *data* can be a sequence or iterable.
@@ -267,7 +267,7 @@ statistics.median(*data*)
     support addition), consider using [`median_low()`](statistics.md#statistics.median_low "statistics.median_low") or [`median_high()`](statistics.md#statistics.median_high "statistics.median_high")
     instead.
 
-statistics.median_low(*data*)
+`statistics.median_low(data)`
 :   Return the low median of numeric data. If *data* is empty,
     [`StatisticsError`](statistics.md#statistics.StatisticsError "statistics.StatisticsError") is raised. *data* can be a sequence or iterable.
 
@@ -285,7 +285,7 @@ statistics.median_low(*data*)
     Use the low median when your data are discrete and you prefer the median to
     be an actual data point rather than interpolated.
 
-statistics.median_high(*data*)
+`statistics.median_high(data)`
 :   Return the high median of data. If *data* is empty, [`StatisticsError`](statistics.md#statistics.StatisticsError "statistics.StatisticsError")
     is raised. *data* can be a sequence or iterable.
 
@@ -303,7 +303,7 @@ statistics.median_high(*data*)
     Use the high median when your data are discrete and you prefer the median to
     be an actual data point rather than interpolated.
 
-statistics.median_grouped(*data*, *interval=1.0*)
+`statistics.median_grouped(data, interval=1.0)`
 :   Estimates the median for numeric data that has been [grouped or binned](https://en.wikipedia.org/wiki/Data_binning) around the midpoints
     of consecutive, fixed-width intervals.
 
@@ -352,7 +352,7 @@ statistics.median_grouped(*data*, *interval=1.0*)
     Inputs may be any numeric type that can be coerced to a float during
     the interpolation step.
 
-statistics.mode(*data*)
+`statistics.mode(data)`
 :   Return the single most common data point from discrete or nominal *data*.
     The mode (when it exists) is the most typical value and serves as a
     measure of central location.
@@ -388,7 +388,7 @@ statistics.mode(*data*)
     Formerly, it raised [`StatisticsError`](statistics.md#statistics.StatisticsError "statistics.StatisticsError") when more than one mode was
     found.
 
-statistics.multimode(*data*)
+`statistics.multimode(data)`
 :   Return a list of the most frequently occurring values in the order they
     were first encountered in the *data*. Will return more than one result if
     there are multiple modes or an empty list if the *data* is empty:
@@ -402,7 +402,7 @@ statistics.multimode(*data*)
 
     Added in version 3.8.
 
-statistics.pstdev(*data*, *mu=None*)
+`statistics.pstdev(data, mu=None)`
 :   Return the population standard deviation (the square root of the population
     variance). See [`pvariance()`](statistics.md#statistics.pvariance "statistics.pvariance") for arguments and other details.
 
@@ -411,7 +411,7 @@ statistics.pstdev(*data*, *mu=None*)
     0.986893273527251
     ```
 
-statistics.pvariance(*data*, *mu=None*)
+`statistics.pvariance(data, mu=None)`
 :   Return the population variance of *data*, a non-empty sequence or iterable
     of real-valued numbers. Variance, or second moment about the mean, is a
     measure of the variability (spread or dispersion) of data. A large
@@ -470,7 +470,7 @@ statistics.pvariance(*data*, *mu=None*)
     > random sample of the population, the result will be an unbiased estimate
     > of the population variance.
 
-statistics.stdev(*data*, *xbar=None*)
+`statistics.stdev(data, xbar=None)`
 :   Return the sample standard deviation (the square root of the sample
     variance). See [`variance()`](statistics.md#statistics.variance "statistics.variance") for arguments and other details.
 
@@ -479,7 +479,7 @@ statistics.stdev(*data*, *xbar=None*)
     1.0810874155219827
     ```
 
-statistics.variance(*data*, *xbar=None*)
+`statistics.variance(data, xbar=None)`
 :   Return the sample variance of *data*, an iterable of at least two real-valued
     numbers. Variance, or second moment about the mean, is a measure of the
     variability (spread or dispersion) of data. A large variance indicates that
@@ -539,7 +539,7 @@ statistics.variance(*data*, *xbar=None*)
     > [`pvariance()`](statistics.md#statistics.pvariance "statistics.pvariance") function as the *mu* parameter to get the variance of a
     > sample.
 
-statistics.quantiles(*data*, *\**, *n=4*, *method='exclusive'*)
+`statistics.quantiles(data, *, n=4, method='exclusive')`
 :   Divide *data* into *n* continuous intervals with equal probability.
     Returns a list of `n - 1` cut points separating the intervals.
 
@@ -590,7 +590,7 @@ statistics.quantiles(*data*, *\**, *n=4*, *method='exclusive'*)
 
     Added in version 3.8.
 
-statistics.covariance(*x*, *y*, */*)
+`statistics.covariance(x, y, /)`
 :   Return the sample covariance of two inputs *x* and *y*. Covariance
     is a measure of the joint variability of two inputs.
 
@@ -613,7 +613,7 @@ statistics.covariance(*x*, *y*, */*)
 
     Added in version 3.10.
 
-statistics.correlation(*x*, *y*, */*, *\**, *method='linear'*)
+`statistics.correlation(x, y, /, *, method='linear')`
 :   Return the [Pearson’s correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient)
     for two inputs. Pearson’s correlation coefficient *r* takes values
     between -1 and +1. It measures the strength and direction of a linear
@@ -659,7 +659,7 @@ statistics.correlation(*x*, *y*, */*, *\**, *method='linear'*)
 
     Changed in version 3.12: Added support for Spearman’s rank correlation coefficient.
 
-statistics.linear_regression(*x*, *y*, */*, *\**, *proportional=False*)
+`statistics.linear_regression(x, y, /, *, proportional=False)`
 :   Return the slope and intercept of [simple linear regression](https://en.wikipedia.org/wiki/Simple_linear_regression)
     parameters estimated using ordinary least squares. Simple linear
     regression describes the relationship between an independent variable *x* and
@@ -725,7 +725,7 @@ statistics.linear_regression(*x*, *y*, */*, *\**, *proportional=False*)
 
 A single exception is defined:
 
-*exception* statistics.StatisticsError
+`exception statistics.StatisticsError`
 :   Subclass of [`ValueError`](exceptions.md#ValueError "ValueError") for statistics-related exceptions.
 
 ## `NormalDist` objects
@@ -738,34 +738,34 @@ measurements as a single entity.
 Normal distributions arise from the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem) and have a wide range
 of applications in statistics.
 
-*class* statistics.NormalDist(*mu=0.0*, *sigma=1.0*)
+`class statistics.NormalDist(mu=0.0, sigma=1.0)`
 :   Returns a new *NormalDist* object where *mu* represents the [arithmetic
     mean](https://en.wikipedia.org/wiki/Arithmetic_mean) and *sigma*
     represents the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation).
 
     If *sigma* is negative, raises [`StatisticsError`](statistics.md#statistics.StatisticsError "statistics.StatisticsError").
 
-    mean
+    `mean`
     :   A read-only property for the [arithmetic mean](https://en.wikipedia.org/wiki/Arithmetic_mean) of a normal
         distribution.
 
-    median
+    `median`
     :   A read-only property for the [median](https://en.wikipedia.org/wiki/Median) of a normal
         distribution.
 
-    mode
+    `mode`
     :   A read-only property for the [mode](https://en.wikipedia.org/wiki/Mode_(statistics)) of a normal
         distribution.
 
-    stdev
+    `stdev`
     :   A read-only property for the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) of a normal
         distribution.
 
-    variance
+    `variance`
     :   A read-only property for the [variance](https://en.wikipedia.org/wiki/Variance) of a normal
         distribution. Equal to the square of the standard deviation.
 
-    *classmethod* from_samples(*data*)
+    `classmethod from_samples(data)`
     :   Makes a normal distribution instance with *mu* and *sigma* parameters
         estimated from the *data* using [`fmean()`](statistics.md#statistics.fmean "statistics.fmean") and [`stdev()`](statistics.md#statistics.stdev "statistics.stdev").
 
@@ -775,7 +775,7 @@ of applications in statistics.
         takes at least one point to estimate a central value and at least two
         points to estimate dispersion.
 
-    samples(*n*, *\**, *seed=None*)
+    `samples(n, *, seed=None)`
     :   Generates *n* random samples for a given mean and standard deviation.
         Returns a [`list`](stdtypes.md#list "list") of [`float`](functions.md#float "float") values.
 
@@ -783,7 +783,7 @@ of applications in statistics.
         number generator. This is useful for creating reproducible results,
         even in a multi-threading context.
 
-    pdf(*x*)
+    `pdf(x)`
     :   Using a [probability density function (pdf)](https://en.wikipedia.org/wiki/Probability_density_function), compute
         the relative likelihood that a random variable *X* will be near the
         given value *x*. Mathematically, it is the limit of the ratio `P(x <=
@@ -794,12 +794,12 @@ of applications in statistics.
         the word “density”). Since the likelihood is relative to other points,
         its value can be greater than `1.0`.
 
-    cdf(*x*)
+    `cdf(x)`
     :   Using a [cumulative distribution function (cdf)](https://en.wikipedia.org/wiki/Cumulative_distribution_function),
         compute the probability that a random variable *X* will be less than or
         equal to *x*. Mathematically, it is written `P(X <= x)`.
 
-    inv_cdf(*p*)
+    `inv_cdf(p)`
     :   Compute the inverse cumulative distribution function, also known as the
         [quantile function](https://en.wikipedia.org/wiki/Quantile_function)
         or the [percent-point](https://web.archive.org/web/20190203145224/https://www.statisticshowto.datasciencecentral.com/inverse-distribution-function/)
@@ -809,12 +809,12 @@ of applications in statistics.
         probability of the variable being less than or equal to that value
         equals the given probability *p*.
 
-    overlap(*other*)
+    `overlap(other)`
     :   Measures the agreement between two normal probability distributions.
         Returns a value between 0.0 and 1.0 giving [the overlapping area for
         the two probability density functions](https://www.rasch.org/rmt/rmt101r.htm).
 
-    quantiles(*n=4*)
+    `quantiles(n=4)`
     :   Divide the normal distribution into *n* continuous intervals with
         equal probability. Returns a list of (n - 1) cut points separating
         the intervals.
@@ -823,7 +823,7 @@ of applications in statistics.
         Set *n* to 100 for percentiles which gives the 99 cuts points that
         separate the normal distribution into 100 equal sized groups.
 
-    zscore(*x*)
+    `zscore(x)`
     :   Compute the
         [Standard Score](https://www.statisticshowto.com/probability-and-statistics/z-score/)
         describing *x* in terms of the number of standard deviations

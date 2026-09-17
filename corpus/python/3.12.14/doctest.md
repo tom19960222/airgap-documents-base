@@ -249,7 +249,7 @@ The [`doctest`](doctest.md#module-doctest "doctest: Test pieces of code within d
 python -m doctest [-v] [-o OPTION] [-f] file [file ...]
 ```
 
--v, --verbose
+`-v, --verbose`
 :   Detailed report of all examples tried is printed to standard output,
     along with assorted summaries at the end:
 
@@ -268,13 +268,13 @@ python -m doctest [-v] [-o OPTION] [-f] file [file ...]
     python -m doctest -v example.txt
     ```
 
--o, --option <option>
+`-o, --option <option>`
 :   Option flags control various aspects of doctest’s behavior, see section
     [Option Flags](doctest.md#doctest-options).
 
     Added in version 3.4.
 
--f, --fail-fast
+`-f, --fail-fast`
 :   This is shorthand for `-o FAIL_FAST`.
 
     Added in version 3.4.
@@ -543,7 +543,7 @@ and may be passed to the doctest command line interface via the `-o` option.
 The first group of options define test semantics, controlling aspects of how
 doctest decides whether actual output matches an example’s expected output:
 
-doctest.DONT_ACCEPT_TRUE_FOR_1
+`doctest.DONT_ACCEPT_TRUE_FOR_1`
 :   By default, if an expected output block contains just `1`, an actual output
     block containing just `1` or just `True` is considered to be a match, and
     similarly for `0` versus `False`. When [`DONT_ACCEPT_TRUE_FOR_1`](doctest.md#doctest.DONT_ACCEPT_TRUE_FOR_1 "doctest.DONT_ACCEPT_TRUE_FOR_1") is
@@ -552,14 +552,14 @@ doctest.DONT_ACCEPT_TRUE_FOR_1
     doctests expecting “little integer” output still work in these cases. This
     option will probably go away, but not for several years.
 
-doctest.DONT_ACCEPT_BLANKLINE
+`doctest.DONT_ACCEPT_BLANKLINE`
 :   By default, if an expected output block contains a line containing only the
     string `<BLANKLINE>`, then that line will match a blank line in the actual
     output. Because a genuinely blank line delimits the expected output, this is
     the only way to communicate that a blank line is expected. When
     [`DONT_ACCEPT_BLANKLINE`](doctest.md#doctest.DONT_ACCEPT_BLANKLINE "doctest.DONT_ACCEPT_BLANKLINE") is specified, this substitution is not allowed.
 
-doctest.NORMALIZE_WHITESPACE
+`doctest.NORMALIZE_WHITESPACE`
 :   When specified, all sequences of whitespace (blanks and newlines) are treated as
     equal. Any sequence of whitespace within the expected output will match any
     sequence of whitespace within the actual output. By default, whitespace must
@@ -567,14 +567,14 @@ doctest.NORMALIZE_WHITESPACE
     expected output is very long, and you want to wrap it across multiple lines in
     your source.
 
-doctest.ELLIPSIS
+`doctest.ELLIPSIS`
 :   When specified, an ellipsis marker (`...`) in the expected output can match
     any substring in the actual output. This includes substrings that span line
     boundaries, and empty substrings, so it’s best to keep usage of this simple.
     Complicated uses can lead to the same kinds of “oops, it matched too much!”
     surprises that `.*` is prone to in regular expressions.
 
-doctest.IGNORE_EXCEPTION_DETAIL
+`doctest.IGNORE_EXCEPTION_DETAIL`
 :   When specified, doctests expecting exceptions pass so long as an exception
     of the expected type is raised, even if the details
     (message and fully qualified exception name) don’t match.
@@ -608,7 +608,7 @@ doctest.IGNORE_EXCEPTION_DETAIL
     Changed in version 3.2: [`IGNORE_EXCEPTION_DETAIL`](doctest.md#doctest.IGNORE_EXCEPTION_DETAIL "doctest.IGNORE_EXCEPTION_DETAIL") now also ignores any information relating
     to the module containing the exception under test.
 
-doctest.SKIP
+`doctest.SKIP`
 :   When specified, do not run the example at all. This can be useful in contexts
     where doctest examples serve as both documentation and test cases, and an
     example should be included for documentation purposes, but should not be
@@ -617,27 +617,27 @@ doctest.SKIP
 
     The SKIP flag can also be used for temporarily “commenting out” examples.
 
-doctest.COMPARISON_FLAGS
+`doctest.COMPARISON_FLAGS`
 :   A bitmask or’ing together all the comparison flags above.
 
 The second group of options controls how test failures are reported:
 
-doctest.REPORT_UDIFF
+`doctest.REPORT_UDIFF`
 :   When specified, failures that involve multi-line expected and actual outputs are
     displayed using a unified diff.
 
-doctest.REPORT_CDIFF
+`doctest.REPORT_CDIFF`
 :   When specified, failures that involve multi-line expected and actual outputs
     will be displayed using a context diff.
 
-doctest.REPORT_NDIFF
+`doctest.REPORT_NDIFF`
 :   When specified, differences are computed by `difflib.Differ`, using the same
     algorithm as the popular `ndiff.py` utility. This is the only method that
     marks differences within lines as well as across lines. For example, if a line
     of expected output contains digit `1` where actual output contains letter
     `l`, a line is inserted with a caret marking the mismatching column positions.
 
-doctest.REPORT_ONLY_FIRST_FAILURE
+`doctest.REPORT_ONLY_FIRST_FAILURE`
 :   When specified, display the first failing example in each doctest, but suppress
     output for all remaining examples. This will prevent doctest from reporting
     correct examples that break because of earlier failures; but it might also hide
@@ -646,19 +646,19 @@ doctest.REPORT_ONLY_FIRST_FAILURE
     still run, and still count towards the total number of failures reported; only
     the output is suppressed.
 
-doctest.FAIL_FAST
+`doctest.FAIL_FAST`
 :   When specified, exit after the first failing example and don’t attempt to run
     the remaining examples. Thus, the number of failures reported will be at most
     1. This flag may be useful during debugging, since examples after the first
     failure won’t even produce debugging output.
 
-doctest.REPORTING_FLAGS
+`doctest.REPORTING_FLAGS`
 :   A bitmask or’ing together all the reporting flags above.
 
 There is also a way to register new option flag names, though this isn’t
 useful unless you intend to extend [`doctest`](doctest.md#module-doctest "doctest: Test pieces of code within docstrings.") internals via subclassing:
 
-doctest.register_optionflag(*name*)
+`doctest.register_optionflag(name)`
 :   Create a new option flag with a given name, and return the new flag’s integer
     value. [`register_optionflag()`](doctest.md#doctest.register_optionflag "doctest.register_optionflag") can be used when subclassing
     [`OutputChecker`](doctest.md#doctest.OutputChecker "doctest.OutputChecker") or [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") to create new options that are
@@ -818,7 +818,7 @@ doctest that should be sufficient for most basic uses. For a less formal
 introduction to these two functions, see sections [Simple Usage: Checking Examples in Docstrings](doctest.md#doctest-simple-testmod)
 and [Simple Usage: Checking Examples in a Text File](doctest.md#doctest-simple-testfile).
 
-doctest.testfile(*filename*, *module_relative=True*, *name=None*, *package=None*, *globs=None*, *verbose=None*, *report=True*, *optionflags=0*, *extraglobs=None*, *raise_on_error=False*, *parser=DocTestParser()*, *encoding=None*)
+`doctest.testfile(filename, module_relative=True, name=None, package=None, globs=None, verbose=None, report=True, optionflags=0, extraglobs=None, raise_on_error=False, parser=DocTestParser(), encoding=None)`
 :   All arguments except *filename* are optional, and should be specified in keyword
     form.
 
@@ -885,7 +885,7 @@ doctest.testfile(*filename*, *module_relative=True*, *name=None*, *package=None*
     Optional argument *encoding* specifies an encoding that should be used to
     convert the file to unicode.
 
-doctest.testmod(*m=None*, *name=None*, *globs=None*, *verbose=None*, *report=True*, *optionflags=0*, *extraglobs=None*, *raise_on_error=False*, *exclude_empty=False*)
+`doctest.testmod(m=None, name=None, globs=None, verbose=None, report=True, optionflags=0, extraglobs=None, raise_on_error=False, exclude_empty=False)`
 :   All arguments are optional, and all except for *m* should be specified in
     keyword form.
 
@@ -917,7 +917,7 @@ doctest.testmod(*m=None*, *name=None*, *globs=None*, *verbose=None*, *report=Tru
     *raise_on_error*, and *globs* are the same as for function [`testfile()`](doctest.md#doctest.testfile "doctest.testfile")
     above, except that *globs* defaults to `m.__dict__`.
 
-doctest.run_docstring_examples(*f*, *globs*, *verbose=False*, *name='NoName'*, *compileflags=None*, *optionflags=0*)
+`doctest.run_docstring_examples(f, globs, verbose=False, name='NoName', compileflags=None, optionflags=0)`
 :   Test examples associated with object *f*; for example, *f* may be a string,
     a module, a function, or a class object.
 
@@ -956,7 +956,7 @@ def load_tests(loader, tests, ignore):
 There are two main functions for creating [`unittest.TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") instances
 from text files and modules with doctests:
 
-doctest.DocFileSuite(*\*paths*, *module_relative=True*, *package=None*, *setUp=None*, *tearDown=None*, *globs=None*, *optionflags=0*, *parser=DocTestParser()*, *encoding=None*)
+`doctest.DocFileSuite(*paths, module_relative=True, package=None, setUp=None, tearDown=None, globs=None, optionflags=0, parser=DocTestParser(), encoding=None)`
 :   Convert doctest tests from one or more text files to a
     [`unittest.TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite").
 
@@ -1020,7 +1020,7 @@ doctest.DocFileSuite(*\*paths*, *module_relative=True*, *package=None*, *setUp=N
     The global `__file__` is added to the globals provided to doctests loaded
     from a text file using [`DocFileSuite()`](doctest.md#doctest.DocFileSuite "doctest.DocFileSuite").
 
-doctest.DocTestSuite(*module=None*, *globs=None*, *extraglobs=None*, *test_finder=None*, *setUp=None*, *tearDown=None*, *optionflags=0*, *checker=None*)
+`doctest.DocTestSuite(module=None, globs=None, extraglobs=None, test_finder=None, setUp=None, tearDown=None, optionflags=0, checker=None)`
 :   Convert doctest tests for a module to a [`unittest.TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite").
 
     The returned [`unittest.TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") is to be run by the unittest framework
@@ -1051,7 +1051,7 @@ doctest.DocTestSuite(*module=None*, *globs=None*, *extraglobs=None*, *test_finde
     Changed in version 3.5: [`DocTestSuite()`](doctest.md#doctest.DocTestSuite "doctest.DocTestSuite") returns an empty [`unittest.TestSuite`](unittest.md#unittest.TestSuite "unittest.TestSuite") if *module*
     contains no docstrings instead of raising [`ValueError`](exceptions.md#ValueError "ValueError").
 
-*exception* doctest.failureException
+`exception doctest.failureException`
 :   When doctests which have been converted to unit tests by [`DocFileSuite()`](doctest.md#doctest.DocFileSuite "doctest.DocFileSuite")
     or [`DocTestSuite()`](doctest.md#doctest.DocTestSuite "doctest.DocTestSuite") fail, this exception is raised showing the name of
     the file containing the test and a (sometimes approximate) line number.
@@ -1079,7 +1079,7 @@ options), but there’s no way to pass options through [`unittest`](unittest.md#
 For this reason, [`doctest`](doctest.md#module-doctest "doctest: Test pieces of code within docstrings.") also supports a notion of [`doctest`](doctest.md#module-doctest "doctest: Test pieces of code within docstrings.")
 reporting flags specific to [`unittest`](unittest.md#module-unittest "unittest: Unit testing framework for Python.") support, via this function:
 
-doctest.set_unittest_reportflags(*flags*)
+`doctest.set_unittest_reportflags(flags)`
 :   Set the [`doctest`](doctest.md#module-doctest "doctest: Test pieces of code within docstrings.") reporting flags to use.
 
     Argument *flags* takes the [bitwise OR](https://docs.python.org/3.12/reference/expressions.html#bitwise) of option flags. See
@@ -1143,44 +1143,44 @@ diagram:
 
 ### DocTest Objects
 
-*class* doctest.DocTest(*examples*, *globs*, *name*, *filename*, *lineno*, *docstring*)
+`class doctest.DocTest(examples, globs, name, filename, lineno, docstring)`
 :   A collection of doctest examples that should be run in a single namespace. The
     constructor arguments are used to initialize the attributes of the same names.
 
     [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") defines the following attributes. They are initialized by
     the constructor, and should not be modified directly.
 
-    examples
+    `examples`
     :   A list of [`Example`](doctest.md#doctest.Example "doctest.Example") objects encoding the individual interactive Python
         examples that should be run by this test.
 
-    globs
+    `globs`
     :   The namespace (aka globals) that the examples should be run in. This is a
         dictionary mapping names to values. Any changes to the namespace made by the
         examples (such as binding new variables) will be reflected in [`globs`](doctest.md#doctest.DocTest.globs "doctest.DocTest.globs")
         after the test is run.
 
-    name
+    `name`
     :   A string name identifying the [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest"). Typically, this is the name
         of the object or file that the test was extracted from.
 
-    filename
+    `filename`
     :   The name of the file that this [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") was extracted from; or
         `None` if the filename is unknown, or if the [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") was not
         extracted from a file.
 
-    lineno
+    `lineno`
     :   The line number within [`filename`](doctest.md#doctest.DocTest.filename "doctest.DocTest.filename") where this [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") begins, or
         `None` if the line number is unavailable. This line number is zero-based
         with respect to the beginning of the file.
 
-    docstring
+    `docstring`
     :   The string that the test was extracted from, or `None` if the string is
         unavailable, or if the test was not extracted from a string.
 
 ### Example Objects
 
-*class* doctest.Example(*source*, *want*, *exc_msg=None*, *lineno=0*, *indent=0*, *options=None*)
+`class doctest.Example(source, want, exc_msg=None, lineno=0, indent=0, options=None)`
 :   A single interactive example, consisting of a Python statement and its expected
     output. The constructor arguments are used to initialize the attributes of
     the same names.
@@ -1188,34 +1188,34 @@ diagram:
     [`Example`](doctest.md#doctest.Example "doctest.Example") defines the following attributes. They are initialized by
     the constructor, and should not be modified directly.
 
-    source
+    `source`
     :   A string containing the example’s source code. This source code consists of a
         single Python statement, and always ends with a newline; the constructor adds
         a newline when necessary.
 
-    want
+    `want`
     :   The expected output from running the example’s source code (either from
         stdout, or a traceback in case of exception). [`want`](doctest.md#doctest.Example.want "doctest.Example.want") ends with a
         newline unless no output is expected, in which case it’s an empty string. The
         constructor adds a newline when necessary.
 
-    exc_msg
+    `exc_msg`
     :   The exception message generated by the example, if the example is expected to
         generate an exception; or `None` if it is not expected to generate an
         exception. This exception message is compared against the return value of
         [`traceback.format_exception_only()`](traceback.md#traceback.format_exception_only "traceback.format_exception_only"). [`exc_msg`](doctest.md#doctest.Example.exc_msg "doctest.Example.exc_msg") ends with a newline
         unless it’s `None`. The constructor adds a newline if needed.
 
-    lineno
+    `lineno`
     :   The line number within the string containing this example where the example
         begins. This line number is zero-based with respect to the beginning of the
         containing string.
 
-    indent
+    `indent`
     :   The example’s indentation in the containing string, i.e., the number of space
         characters that precede the example’s first prompt.
 
-    options
+    `options`
     :   A dictionary mapping from option flags to `True` or `False`, which is used
         to override default options for this example. Any option flags not contained
         in this dictionary are left at their default value (as specified by the
@@ -1224,7 +1224,7 @@ diagram:
 
 ### DocTestFinder objects
 
-*class* doctest.DocTestFinder(*verbose=False*, *parser=DocTestParser()*, *recurse=True*, *exclude_empty=True*)
+`class doctest.DocTestFinder(verbose=False, parser=DocTestParser(), recurse=True, exclude_empty=True)`
 :   A processing class used to extract the [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest")s that are relevant to
     a given object, from its docstring and the docstrings of its contained objects.
     [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest")s can be extracted from modules, classes, functions,
@@ -1244,7 +1244,7 @@ diagram:
 
     [`DocTestFinder`](doctest.md#doctest.DocTestFinder "doctest.DocTestFinder") defines the following method:
 
-    find(*obj[, name][, module][, globs][, extraglobs]*)
+    `find(obj[, name][, module][, globs][, extraglobs])`
     :   Return a list of the [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest")s that are defined by *obj*’s
         docstring, or by any of its contained objects’ docstrings.
 
@@ -1278,13 +1278,13 @@ diagram:
 
 ### DocTestParser objects
 
-*class* doctest.DocTestParser
+`class doctest.DocTestParser`
 :   A processing class used to extract interactive examples from a string, and use
     them to create a [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") object.
 
     [`DocTestParser`](doctest.md#doctest.DocTestParser "doctest.DocTestParser") defines the following methods:
 
-    get_doctest(*string*, *globs*, *name*, *filename*, *lineno*)
+    `get_doctest(string, globs, name, filename, lineno)`
     :   Extract all doctest examples from the given string, and collect them into a
         [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") object.
 
@@ -1292,12 +1292,12 @@ diagram:
         [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") object. See the documentation for [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") for more
         information.
 
-    get_examples(*string*, *name='<string>'*)
+    `get_examples(string, name='<string>')`
     :   Extract all doctest examples from the given string, and return them as a list
         of [`Example`](doctest.md#doctest.Example "doctest.Example") objects. Line numbers are 0-based. The optional argument
         *name* is a name identifying this string, and is only used for error messages.
 
-    parse(*string*, *name='<string>'*)
+    `parse(string, name='<string>')`
     :   Divide the given string into examples and intervening text, and return them as
         a list of alternating [`Example`](doctest.md#doctest.Example "doctest.Example")s and strings. Line numbers for the
         [`Example`](doctest.md#doctest.Example "doctest.Example")s are 0-based. The optional argument *name* is a name
@@ -1305,7 +1305,7 @@ diagram:
 
 ### DocTestRunner objects
 
-*class* doctest.DocTestRunner(*checker=None*, *verbose=None*, *optionflags=0*)
+`class doctest.DocTestRunner(checker=None, verbose=None, optionflags=0)`
 :   A processing class used to execute and verify the interactive examples in a
     [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest").
 
@@ -1339,7 +1339,7 @@ diagram:
 
     [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") defines the following methods:
 
-    report_start(*out*, *test*, *example*)
+    `report_start(out, test, example)`
     :   Report that the test runner is about to process the given example. This method
         is provided to allow subclasses of [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") to customize their
         output; it should not be called directly.
@@ -1348,7 +1348,7 @@ diagram:
         *containing example*. *out* is the output function that was passed to
         [`DocTestRunner.run()`](doctest.md#doctest.DocTestRunner.run "doctest.DocTestRunner.run").
 
-    report_success(*out*, *test*, *example*, *got*)
+    `report_success(out, test, example, got)`
     :   Report that the given example ran successfully. This method is provided to
         allow subclasses of [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") to customize their output; it
         should not be called directly.
@@ -1357,7 +1357,7 @@ diagram:
         from the example. *test* is the test containing *example*. *out* is the
         output function that was passed to [`DocTestRunner.run()`](doctest.md#doctest.DocTestRunner.run "doctest.DocTestRunner.run").
 
-    report_failure(*out*, *test*, *example*, *got*)
+    `report_failure(out, test, example, got)`
     :   Report that the given example failed. This method is provided to allow
         subclasses of [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") to customize their output; it should not
         be called directly.
@@ -1366,7 +1366,7 @@ diagram:
         from the example. *test* is the test containing *example*. *out* is the
         output function that was passed to [`DocTestRunner.run()`](doctest.md#doctest.DocTestRunner.run "doctest.DocTestRunner.run").
 
-    report_unexpected_exception(*out*, *test*, *example*, *exc_info*)
+    `report_unexpected_exception(out, test, example, exc_info)`
     :   Report that the given example raised an unexpected exception. This method is
         provided to allow subclasses of [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") to customize their
         output; it should not be called directly.
@@ -1376,7 +1376,7 @@ diagram:
         [`sys.exc_info()`](sys.md#sys.exc_info "sys.exc_info")). *test* is the test containing *example*. *out* is the
         output function that was passed to [`DocTestRunner.run()`](doctest.md#doctest.DocTestRunner.run "doctest.DocTestRunner.run").
 
-    run(*test*, *compileflags=None*, *out=None*, *clear_globs=True*)
+    `run(test, compileflags=None, out=None, clear_globs=True)`
     :   Run the examples in *test* (a [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") object), and display the
         results using the writer function *out*.
 
@@ -1393,7 +1393,7 @@ diagram:
         output checker, and the results are formatted by the
         `DocTestRunner.report_*()` methods.
 
-    summarize(*verbose=None*)
+    `summarize(verbose=None)`
     :   Print a summary of all the test cases that have been run by this DocTestRunner,
         and return a [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) `TestResults(failed, attempted)`.
 
@@ -1403,7 +1403,7 @@ diagram:
 
 ### OutputChecker objects
 
-*class* doctest.OutputChecker
+`class doctest.OutputChecker`
 :   A class used to check the whether the actual output from a doctest example
     matches the expected output. [`OutputChecker`](doctest.md#doctest.OutputChecker "doctest.OutputChecker") defines two methods:
     [`check_output()`](doctest.md#doctest.OutputChecker.check_output "doctest.OutputChecker.check_output"), which compares a given pair of outputs, and returns `True`
@@ -1412,14 +1412,14 @@ diagram:
 
     [`OutputChecker`](doctest.md#doctest.OutputChecker "doctest.OutputChecker") defines the following methods:
 
-    check_output(*want*, *got*, *optionflags*)
+    `check_output(want, got, optionflags)`
     :   Return `True` iff the actual output from an example (*got*) matches the
         expected output (*want*). These strings are always considered to match if
         they are identical; but depending on what option flags the test runner is
         using, several non-exact match types are also possible. See section
         [Option Flags](doctest.md#doctest-options) for more information about option flags.
 
-    output_difference(*example*, *got*, *optionflags*)
+    `output_difference(example, got, optionflags)`
     :   Return a string describing the differences between the expected output for a
         given example (*example*) and the actual output (*got*). *optionflags* is the
         set of option flags used to compare *want* and *got*.
@@ -1490,7 +1490,7 @@ Doctest provides several mechanisms for debugging doctest examples:
 Functions that convert doctests to Python code, and possibly run the synthesized
 code under the debugger:
 
-doctest.script_from_examples(*s*)
+`doctest.script_from_examples(s)`
 :   Convert text with examples to a script.
 
     Argument *s* is a string containing doctest examples. The string is converted
@@ -1526,7 +1526,7 @@ doctest.script_from_examples(*s*)
     useful when you want to transform an interactive Python session into a Python
     script.
 
-doctest.testsource(*module*, *name*)
+`doctest.testsource(module, name)`
 :   Convert the doctest for an object to a script.
 
     Argument *module* is a module object, or dotted name of a module, containing the
@@ -1544,7 +1544,7 @@ doctest.testsource(*module*, *name*)
     prints a script version of function `f()`’s docstring, with doctests
     converted to code, and the rest placed in comments.
 
-doctest.debug(*module*, *name*, *pm=False*)
+`doctest.debug(module, name, pm=False)`
 :   Debug the doctests for an object.
 
     The *module* and *name* arguments are the same as for function
@@ -1563,7 +1563,7 @@ doctest.debug(*module*, *name*, *pm=False*)
     specified, or is false, the script is run under the debugger from the start, via
     passing an appropriate [`exec()`](functions.md#exec "exec") call to [`pdb.run()`](pdb.md#pdb.run "pdb.run").
 
-doctest.debug_src(*src*, *pm=False*, *globs=None*)
+`doctest.debug_src(src, pm=False, globs=None)`
 :   Debug the doctests in a string.
 
     This is like function [`debug()`](doctest.md#doctest.debug "doctest.debug") above, except that a string containing
@@ -1580,7 +1580,7 @@ most interest to testing framework authors, and will only be sketched here. See
 the source code, and especially [`DebugRunner`](doctest.md#doctest.DebugRunner "doctest.DebugRunner")’s docstring (which is a
 doctest!) for more details:
 
-*class* doctest.DebugRunner(*checker=None*, *verbose=None*, *optionflags=0*)
+`class doctest.DebugRunner(checker=None, verbose=None, optionflags=0)`
 :   A subclass of [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") that raises an exception as soon as a
     failure is encountered. If an unexpected exception occurs, an
     [`UnexpectedException`](doctest.md#doctest.UnexpectedException "doctest.UnexpectedException") exception is raised, containing the test, the
@@ -1593,36 +1593,36 @@ doctest!) for more details:
 
 There are two exceptions that may be raised by [`DebugRunner`](doctest.md#doctest.DebugRunner "doctest.DebugRunner") instances:
 
-*exception* doctest.DocTestFailure(*test*, *example*, *got*)
+`exception doctest.DocTestFailure(test, example, got)`
 :   An exception raised by [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") to signal that a doctest example’s
     actual output did not match its expected output. The constructor arguments are
     used to initialize the attributes of the same names.
 
 [`DocTestFailure`](doctest.md#doctest.DocTestFailure "doctest.DocTestFailure") defines the following attributes:
 
-DocTestFailure.test
+`DocTestFailure.test`
 :   The [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") object that was being run when the example failed.
 
-DocTestFailure.example
+`DocTestFailure.example`
 :   The [`Example`](doctest.md#doctest.Example "doctest.Example") that failed.
 
-DocTestFailure.got
+`DocTestFailure.got`
 :   The example’s actual output.
 
-*exception* doctest.UnexpectedException(*test*, *example*, *exc_info*)
+`exception doctest.UnexpectedException(test, example, exc_info)`
 :   An exception raised by [`DocTestRunner`](doctest.md#doctest.DocTestRunner "doctest.DocTestRunner") to signal that a doctest
     example raised an unexpected exception. The constructor arguments are used
     to initialize the attributes of the same names.
 
 [`UnexpectedException`](doctest.md#doctest.UnexpectedException "doctest.UnexpectedException") defines the following attributes:
 
-UnexpectedException.test
+`UnexpectedException.test`
 :   The [`DocTest`](doctest.md#doctest.DocTest "doctest.DocTest") object that was being run when the example failed.
 
-UnexpectedException.example
+`UnexpectedException.example`
 :   The [`Example`](doctest.md#doctest.Example "doctest.Example") that failed.
 
-UnexpectedException.exc_info
+`UnexpectedException.exc_info`
 :   A tuple containing information about the unexpected exception, as returned by
     [`sys.exc_info()`](sys.md#sys.exc_info "sys.exc_info").
 

@@ -14,13 +14,13 @@ are always available. They are listed here in alphabetical order.
 | --- | --- | --- | --- |
 | **A**  [`abs()`](functions.md#abs "abs")  [`aiter()`](functions.md#aiter "aiter")  [`all()`](functions.md#all "all")  [`anext()`](functions.md#anext "anext")  [`any()`](functions.md#any "any")  [`ascii()`](functions.md#ascii "ascii")    **B**  [`bin()`](functions.md#bin "bin")  [`bool()`](functions.md#bool "bool")  [`breakpoint()`](functions.md#breakpoint "breakpoint")  [`bytearray()`](functions.md#func-bytearray)  [`bytes()`](functions.md#func-bytes)    **C**  [`callable()`](functions.md#callable "callable")  [`chr()`](functions.md#chr "chr")  [`classmethod()`](functions.md#classmethod "classmethod")  [`compile()`](functions.md#compile "compile")  [`complex()`](functions.md#complex "complex")    **D**  [`delattr()`](functions.md#delattr "delattr")  [`dict()`](functions.md#func-dict)  [`dir()`](functions.md#dir "dir")  [`divmod()`](functions.md#divmod "divmod") | **E**  [`enumerate()`](functions.md#enumerate "enumerate")  [`eval()`](functions.md#eval "eval")  [`exec()`](functions.md#exec "exec")    **F**  [`filter()`](functions.md#filter "filter")  [`float()`](functions.md#float "float")  [`format()`](functions.md#format "format")  [`frozenset()`](functions.md#func-frozenset)    **G**  [`getattr()`](functions.md#getattr "getattr")  [`globals()`](functions.md#globals "globals")    **H**  [`hasattr()`](functions.md#hasattr "hasattr")  [`hash()`](functions.md#hash "hash")  [`help()`](functions.md#help "help")  [`hex()`](functions.md#hex "hex")    **I**  [`id()`](functions.md#id "id")  [`input()`](functions.md#input "input")  [`int()`](functions.md#int "int")  [`isinstance()`](functions.md#isinstance "isinstance")  [`issubclass()`](functions.md#issubclass "issubclass")  [`iter()`](functions.md#iter "iter") | **L**  [`len()`](functions.md#len "len")  [`list()`](functions.md#func-list)  [`locals()`](functions.md#locals "locals")    **M**  [`map()`](functions.md#map "map")  [`max()`](functions.md#max "max")  [`memoryview()`](functions.md#func-memoryview)  [`min()`](functions.md#min "min")    **N**  [`next()`](functions.md#next "next")    **O**  [`object()`](functions.md#object "object")  [`oct()`](functions.md#oct "oct")  [`open()`](functions.md#open "open")  [`ord()`](functions.md#ord "ord")    **P**  [`pow()`](functions.md#pow "pow")  [`print()`](functions.md#print "print")  [`property()`](functions.md#property "property") | **R**  [`range()`](functions.md#func-range)  [`repr()`](functions.md#repr "repr")  [`reversed()`](functions.md#reversed "reversed")  [`round()`](functions.md#round "round")    **S**  [`set()`](functions.md#func-set)  [`setattr()`](functions.md#setattr "setattr")  [`slice()`](functions.md#slice "slice")  [`sorted()`](functions.md#sorted "sorted")  [`staticmethod()`](functions.md#staticmethod "staticmethod")  [`str()`](functions.md#func-str)  [`sum()`](functions.md#sum "sum")  [`super()`](functions.md#super "super")    **T**  [`tuple()`](functions.md#func-tuple)  [`type()`](functions.md#type "type")    **V**  [`vars()`](functions.md#vars "vars")    **Z**  [`zip()`](functions.md#zip "zip")    **_**  [`__import__()`](functions.md#import__ "__import__") |
 
-abs(*x*)
+`abs(x)`
 :   Return the absolute value of a number. The argument may be an
     integer, a floating-point number, or an object implementing
     [`__abs__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__abs__ "object.__abs__").
     If the argument is a complex number, its magnitude is returned.
 
-aiter(*async_iterable*)
+`aiter(async_iterable)`
 :   Return an [asynchronous iterator](https://docs.python.org/3.12/glossary.html#term-asynchronous-iterator) for an [asynchronous iterable](https://docs.python.org/3.12/glossary.html#term-asynchronous-iterable).
     Equivalent to calling `x.__aiter__()`.
 
@@ -28,7 +28,7 @@ aiter(*async_iterable*)
 
     Added in version 3.10.
 
-all(*iterable*)
+`all(iterable)`
 :   Return `True` if all elements of the *iterable* are true (or if the iterable
     is empty). Equivalent to:
 
@@ -40,9 +40,9 @@ all(*iterable*)
         return True
     ```
 
-*awaitable* anext(*async_iterator*)
+`awaitable anext(async_iterator)`
 
-*awaitable* anext(*async_iterator*, *default*)
+`awaitable anext(async_iterator, default)`
 :   When awaited, return the next item from the given [asynchronous
     iterator](https://docs.python.org/3.12/glossary.html#term-asynchronous-iterator), or *default* if given and the iterator is exhausted.
 
@@ -56,7 +56,7 @@ all(*iterable*)
 
     Added in version 3.10.
 
-any(*iterable*)
+`any(iterable)`
 :   Return `True` if any element of the *iterable* is true. If the iterable
     is empty, return `False`. Equivalent to:
 
@@ -68,13 +68,13 @@ any(*iterable*)
         return False
     ```
 
-ascii(*object*)
+`ascii(object)`
 :   As [`repr()`](functions.md#repr "repr"), return a string containing a printable representation of an
     object, but escape the non-ASCII characters in the string returned by
     [`repr()`](functions.md#repr "repr") using `\x`, `\u`, or `\U` escapes. This generates a string
     similar to that returned by [`repr()`](functions.md#repr "repr") in Python 2.
 
-bin(*x*)
+`bin(x)`
 :   Convert an integer number to a binary string prefixed with “0b”. The result
     is a valid Python expression. If *x* is not a Python [`int`](functions.md#int "int") object, it
     has to define an [`__index__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__index__ "object.__index__") method that returns an integer. Some
@@ -98,7 +98,7 @@ bin(*x*)
 
     See also [`format()`](functions.md#format "format") for more information.
 
-*class* bool(*object=False*, */*)
+`class bool(object=False, /)`
 :   Return a Boolean value, i.e. one of `True` or `False`. The argument
     is converted using the standard [truth testing procedure](stdtypes.md#truth).
     If the argument is false
@@ -109,7 +109,7 @@ bin(*x*)
 
     Changed in version 3.7: The parameter is now positional-only.
 
-breakpoint(*\*args*, *\*\*kws*)
+`breakpoint(*args, **kws)`
 :   This function drops you into the debugger at the call site. Specifically,
     it calls [`sys.breakpointhook()`](sys.md#sys.breakpointhook "sys.breakpointhook"), passing `args` and `kws` straight
     through. By default, `sys.breakpointhook()` calls
@@ -133,11 +133,11 @@ breakpoint(*\*args*, *\*\*kws*)
 
     Added in version 3.7.
 
-*class* bytearray(*source=b''*)
+`class bytearray(source=b'')`
 
-*class* bytearray(*source*, *encoding*)
+`class bytearray(source, encoding)`
 
-*class* bytearray(*source*, *encoding*, *errors*)
+`class bytearray(source, encoding, errors)`
 :   Return a new array of bytes. The [`bytearray`](stdtypes.md#bytearray "bytearray") class is a mutable
     sequence of integers in the range 0 <= x < 256. It has most of the usual
     methods of mutable sequences, described in [Mutable Sequence Types](stdtypes.md#typesseq-mutable), as well
@@ -160,11 +160,11 @@ breakpoint(*\*args*, *\*\*kws*)
 
     See also [Binary Sequence Types — bytes, bytearray, memoryview](stdtypes.md#binaryseq) and [Bytearray Objects](stdtypes.md#typebytearray).
 
-*class* bytes(*source=b''*)
+`class bytes(source=b'')`
 
-*class* bytes(*source*, *encoding*)
+`class bytes(source, encoding)`
 
-*class* bytes(*source*, *encoding*, *errors*)
+`class bytes(source, encoding, errors)`
 :   Return a new “bytes” object which is an immutable sequence of integers in
     the range `0 <= x < 256`. [`bytes`](stdtypes.md#bytes "bytes") is an immutable version of
     [`bytearray`](stdtypes.md#bytearray "bytearray") – it has the same non-mutating methods and the same
@@ -176,7 +176,7 @@ breakpoint(*\*args*, *\*\*kws*)
 
     See also [Binary Sequence Types — bytes, bytearray, memoryview](stdtypes.md#binaryseq), [Bytes Objects](stdtypes.md#typebytes), and [Bytes and Bytearray Operations](stdtypes.md#bytes-methods).
 
-callable(*object*)
+`callable(object)`
 :   Return [`True`](constants.md#True "True") if the *object* argument appears callable,
     [`False`](constants.md#False "False") if not. If this returns `True`, it is still possible that a
     call fails, but if it is `False`, calling *object* will never succeed.
@@ -186,7 +186,7 @@ callable(*object*)
     Added in version 3.2: This function was first removed in Python 3.0 and then brought back
     in Python 3.2.
 
-chr(*i*)
+`chr(i)`
 :   Return the string representing a character whose Unicode code point is the
     integer *i*. For example, `chr(97)` returns the string `'a'`, while
     `chr(8364)` returns the string `'€'`. This is the inverse of [`ord()`](functions.md#ord "ord").
@@ -194,7 +194,7 @@ chr(*i*)
     The valid range for the argument is from 0 through 1,114,111 (0x10FFFF in
     base 16). [`ValueError`](exceptions.md#ValueError "ValueError") will be raised if *i* is outside that range.
 
-@classmethod
+`@classmethod`
 :   Transform a method into a class method.
 
     A class method receives the class as an implicit first argument, just like an
@@ -231,7 +231,7 @@ chr(*i*)
     Changed in version 3.11: Class methods can no longer wrap other [descriptors](https://docs.python.org/3.12/glossary.html#term-descriptor) such as
     [`property()`](functions.md#property "property").
 
-compile(*source*, *filename*, *mode*, *flags=0*, *dont_inherit=False*, *optimize=-1*)
+`compile(source, filename, mode, flags=0, dont_inherit=False, optimize=-1)`
 :   Compile the *source* into a code or AST object. Code objects can be executed
     by [`exec()`](functions.md#exec "exec") or [`eval()`](functions.md#eval "eval"). *source* can either be a normal string, a
     byte string, or an AST object. Refer to the [`ast`](ast.md#module-ast "ast: Abstract Syntax Tree classes and manipulation.") module documentation
@@ -304,11 +304,11 @@ compile(*source*, *filename*, *mode*, *flags=0*, *dont_inherit=False*, *optimize
     Added in version 3.8: `ast.PyCF_ALLOW_TOP_LEVEL_AWAIT` can now be passed in flags to enable
     support for top-level `await`, `async for`, and `async with`.
 
-*class* complex(*number=0*, */*)
+`class complex(number=0, /)`
 
-*class* complex(*string*, */*)
+`class complex(string, /)`
 
-*class* complex(*real=0*, *imag=0*)
+`class complex(real=0, imag=0)`
 :   Convert a single string or number to a complex number, or create a
     complex number from real and imaginary parts.
 
@@ -381,27 +381,27 @@ compile(*source*, *filename*, *mode*, *flags=0*, *dont_inherit=False*, *optimize
     Changed in version 3.8: Falls back to [`__index__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__index__ "object.__index__") if [`__complex__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__complex__ "object.__complex__") and
     [`__float__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__float__ "object.__float__") are not defined.
 
-delattr(*object*, *name*)
+`delattr(object, name)`
 :   This is a relative of [`setattr()`](functions.md#setattr "setattr"). The arguments are an object and a
     string. The string must be the name of one of the object’s attributes. The
     function deletes the named attribute, provided the object allows it. For
     example, `delattr(x, 'foobar')` is equivalent to `del x.foobar`.
     *name* need not be a Python identifier (see [`setattr()`](functions.md#setattr "setattr")).
 
-*class* dict(*\*\*kwarg*)
+`class dict(**kwarg)`
 
-*class* dict(*mapping*, *\*\*kwarg*)
+`class dict(mapping, **kwarg)`
 
-*class* dict(*iterable*, *\*\*kwarg*)
+`class dict(iterable, **kwarg)`
 :   Create a new dictionary. The [`dict`](stdtypes.md#dict "dict") object is the dictionary class.
     See [`dict`](stdtypes.md#dict "dict") and [Mapping Types — dict](stdtypes.md#typesmapping) for documentation about this class.
 
     For other containers see the built-in [`list`](stdtypes.md#list "list"), [`set`](stdtypes.md#set "set"), and
     [`tuple`](stdtypes.md#tuple "tuple") classes, as well as the [`collections`](collections.md#module-collections "collections: Container datatypes") module.
 
-dir()
+`dir()`
 
-dir(*object*)
+`dir(object)`
 :   Without arguments, return the list of names in the current local scope. With an
     argument, attempt to return a list of valid attributes for that object.
 
@@ -459,7 +459,7 @@ dir(*object*)
     > metaclass attributes are not in the result list when the argument is a
     > class.
 
-divmod(*a*, *b*)
+`divmod(a, b)`
 :   Take two (non-complex) numbers as arguments and return a pair of numbers
     consisting of their quotient and remainder when using integer division. With
     mixed operand types, the rules for binary arithmetic operators apply. For
@@ -469,7 +469,7 @@ divmod(*a*, *b*)
     close to *a*, if `a % b` is non-zero it has the same sign as *b*, and `0
     <= abs(a % b) < abs(b)`.
 
-enumerate(*iterable*, *start=0*)
+`enumerate(iterable, start=0)`
 :   Return an enumerate object. *iterable* must be a sequence, an
     [iterator](https://docs.python.org/3.12/glossary.html#term-iterator), or some other object which supports iteration.
     The [`__next__()`](stdtypes.md#iterator.__next__ "iterator.__next__") method of the iterator returned by
@@ -494,7 +494,7 @@ enumerate(*iterable*, *start=0*)
             n += 1
     ```
 
-eval(*expression*, *globals=None*, *locals=None*)
+`eval(expression, globals=None, locals=None)`
 :   Parameters:
     :   - **expression** ([`str`](stdtypes.md#str "str") | [code object](https://docs.python.org/3.12/reference/datamodel.html#code-objects)) – A Python expression.
         - **globals** ([`dict`](stdtypes.md#dict "dict") | `None`) – The global namespace (default: `None`).
@@ -553,7 +553,7 @@ eval(*expression*, *globals=None*, *locals=None*)
     Raises an [auditing event](sys.md#auditing) `exec` with the code object
     as the argument. Code compilation events may also be raised.
 
-exec(*object*, *globals=None*, *locals=None*, */*, *\**, *closure=None*)
+`exec(object, globals=None, locals=None, /, *, closure=None)`
 :   > **Warning:**
     >
     > This function executes arbitrary code. Calling it with
@@ -613,7 +613,7 @@ exec(*object*, *globals=None*, *locals=None*, */*, *\**, *closure=None*)
 
     Changed in version 3.11: Added the *closure* parameter.
 
-filter(*function*, *iterable*)
+`filter(function, iterable)`
 :   Construct an iterator from those elements of *iterable* for which *function*
     is true. *iterable* may be either a sequence, a container which
     supports iteration, or an iterator. If *function* is `None`, the identity
@@ -628,9 +628,9 @@ filter(*function*, *iterable*)
     See [`itertools.filterfalse()`](itertools.md#itertools.filterfalse "itertools.filterfalse") for the complementary function that returns
     elements of *iterable* for which *function* is false.
 
-*class* float(*number=0.0*, */*)
+`class float(number=0.0, /)`
 
-*class* float(*string*, */*)
+`class float(string, /)`
 :   Return a floating-point number constructed from a number or a string.
 
     Examples:
@@ -692,7 +692,7 @@ filter(*function*, *iterable*)
 
     Changed in version 3.8: Falls back to [`__index__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__index__ "object.__index__") if [`__float__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__float__ "object.__float__") is not defined.
 
-format(*value*, *format_spec=''*)
+`format(value, format_spec='')`
 :   Convert a *value* to a “formatted” representation, as controlled by
     *format_spec*. The interpretation of *format_spec* will depend on the type
     of the *value* argument; however, there is a standard formatting syntax that
@@ -711,7 +711,7 @@ format(*value*, *format_spec=''*)
     Changed in version 3.4: `object().__format__(format_spec)` raises [`TypeError`](exceptions.md#TypeError "TypeError")
     if *format_spec* is not an empty string.
 
-*class* frozenset(*iterable=set()*)
+`class frozenset(iterable=set())`
 :   Return a new [`frozenset`](stdtypes.md#frozenset "frozenset") object, optionally with elements taken from
     *iterable*. `frozenset` is a built-in class. See [`frozenset`](stdtypes.md#frozenset "frozenset") and
     [Set Types — set, frozenset](stdtypes.md#types-set) for documentation about this class.
@@ -720,9 +720,9 @@ format(*value*, *format_spec=''*)
     [`tuple`](stdtypes.md#tuple "tuple"), and [`dict`](stdtypes.md#dict "dict") classes, as well as the [`collections`](collections.md#module-collections "collections: Container datatypes")
     module.
 
-getattr(*object*, *name*)
+`getattr(object, name)`
 
-getattr(*object*, *name*, *default*)
+`getattr(object, name, default)`
 :   Return the value of the named attribute of *object*. *name* must be a string.
     If the string is the name of one of the object’s attributes, the result is the
     value of that attribute. For example, `getattr(x, 'foobar')` is equivalent to
@@ -737,18 +737,18 @@ getattr(*object*, *name*, *default*)
     > (attributes with two leading underscores) name in order to retrieve it with
     > [`getattr()`](functions.md#getattr "getattr").
 
-globals()
+`globals()`
 :   Return the dictionary implementing the current module namespace. For code within
     functions, this is set when the function is defined and remains the same
     regardless of where the function is called.
 
-hasattr(*object*, *name*)
+`hasattr(object, name)`
 :   The arguments are an object and a string. The result is `True` if the
     string is the name of one of the object’s attributes, `False` if not. (This
     is implemented by calling `getattr(object, name)` and seeing whether it
     raises an [`AttributeError`](exceptions.md#AttributeError "AttributeError") or not.)
 
-hash(*object*)
+`hash(object)`
 :   Return the hash value of the object (if it has one). Hash values are
     integers. They are used to quickly compare dictionary keys during a
     dictionary lookup. Numeric values that compare equal have the same hash
@@ -760,9 +760,9 @@ hash(*object*)
     > note that [`hash()`](functions.md#hash "hash")
     > truncates the return value based on the bit width of the host machine.
 
-help()
+`help()`
 
-help(*request*)
+`help(request)`
 :   Invoke the built-in help system. (This function is intended for interactive
     use.) If no argument is given, the interactive help system starts on the
     interpreter console. If the argument is a string, then the string is looked up
@@ -780,7 +780,7 @@ help(*request*)
     Changed in version 3.4: Changes to [`pydoc`](pydoc.md#module-pydoc "pydoc: Documentation generator and online help system.") and [`inspect`](inspect.md#module-inspect "inspect: Extract information and source code from live objects.") mean that the reported
     signatures for callables are now more comprehensive and consistent.
 
-hex(*x*)
+`hex(x)`
 :   Convert an integer number to a lowercase hexadecimal string prefixed with
     “0x”. If *x* is not a Python [`int`](functions.md#int "int") object, it has to define an
     [`__index__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__index__ "object.__index__") method that returns an integer. Some examples:
@@ -814,7 +814,7 @@ hex(*x*)
     > To obtain a hexadecimal string representation for a float, use the
     > [`float.hex()`](stdtypes.md#float.hex "float.hex") method.
 
-id(*object*)
+`id(object)`
 :   Return the “identity” of an object. This is an integer which
     is guaranteed to be unique and constant for this object during its lifetime.
     Two objects with non-overlapping lifetimes may have the same [`id()`](functions.md#id "id")
@@ -824,9 +824,9 @@ id(*object*)
 
     Raises an [auditing event](sys.md#auditing) `builtins.id` with argument `id`.
 
-input()
+`input()`
 
-input(*prompt*)
+`input(prompt)`
 :   If the *prompt* argument is present, it is written to standard output without
     a trailing newline. The function then reads a line from input, converts it
     to a string (stripping a trailing newline), and returns that. When EOF is
@@ -848,9 +848,9 @@ input(*prompt*)
     Raises an [auditing event](sys.md#auditing) `builtins.input/result`
     with the result after successfully reading input.
 
-*class* int(*number=0*, */*)
+`class int(number=0, /)`
 
-*class* int(*string*, */*, *base=10*)
+`class int(string, /, base=10)`
 :   Return an integer object constructed from a number or a string, or return
     `0` if no arguments are given.
 
@@ -915,7 +915,7 @@ input(*prompt*)
     when converting an [`int`](functions.md#int "int") into a string would exceed the limit.
     See the [integer string conversion length limitation](stdtypes.md#int-max-str-digits) documentation.
 
-isinstance(*object*, *classinfo*)
+`isinstance(object, classinfo)`
 :   Return `True` if the *object* argument is an instance of the *classinfo*
     argument, or of a (direct, indirect, or [virtual](https://docs.python.org/3.12/glossary.html#term-abstract-base-class)) subclass thereof. If *object* is not
     an object of the given type, the function always returns `False`.
@@ -928,7 +928,7 @@ isinstance(*object*, *classinfo*)
 
     Changed in version 3.10: *classinfo* can be a [Union Type](stdtypes.md#types-union).
 
-issubclass(*class*, *classinfo*)
+`issubclass(class, classinfo)`
 :   Return `True` if *class* is a subclass (direct, indirect, or [virtual](https://docs.python.org/3.12/glossary.html#term-abstract-base-class)) of *classinfo*. A
     class is considered a subclass of itself. *classinfo* may be a tuple of class
     objects (or recursively, other such tuples)
@@ -938,9 +938,9 @@ issubclass(*class*, *classinfo*)
 
     Changed in version 3.10: *classinfo* can be a [Union Type](stdtypes.md#types-union).
 
-iter(*object*)
+`iter(object)`
 
-iter(*object*, *sentinel*)
+`iter(object, sentinel)`
 :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) object. The first argument is interpreted very
     differently depending on the presence of the second argument. Without a
     second argument, *object* must be a collection object which supports the
@@ -968,7 +968,7 @@ iter(*object*, *sentinel*)
             process_block(block)
     ```
 
-len(*s*)
+`len(s)`
 :   Return the length (the number of items) of an object. The argument may be a
     sequence (such as a string, bytes, tuple, list, or range) or a collection
     (such as a dictionary, set, or frozen set).
@@ -976,13 +976,13 @@ len(*s*)
     **CPython implementation detail:** `len` raises [`OverflowError`](exceptions.md#OverflowError "OverflowError") on lengths larger than
     [`sys.maxsize`](sys.md#sys.maxsize "sys.maxsize"), such as [`range(2 ** 100)`](stdtypes.md#range "range").
 
-*class* list
+`class list`
 
-*class* list(*iterable*)
+`class list(iterable)`
 :   Rather than being a function, [`list`](stdtypes.md#list "list") is actually a mutable
     sequence type, as documented in [Lists](stdtypes.md#typesseq-list) and [Sequence Types — list, tuple, range](stdtypes.md#typesseq).
 
-locals()
+`locals()`
 :   Update and return a dictionary representing the current local symbol table.
     Free variables are returned by [`locals()`](functions.md#locals "locals") when it is called in function
     blocks, but not in class blocks. Note that at the module level, [`locals()`](functions.md#locals "locals")
@@ -993,7 +993,7 @@ locals()
     > The contents of this dictionary should not be modified; changes may not
     > affect the values of local and free variables used by the interpreter.
 
-map(*function*, *iterable*, *\*iterables*)
+`map(function, iterable, *iterables)`
 :   Return an iterator that applies *function* to every item of *iterable*,
     yielding the results. If additional *iterables* arguments are passed,
     *function* must take that many arguments and is applied to the items from all
@@ -1001,11 +1001,11 @@ map(*function*, *iterable*, *\*iterables*)
     shortest iterable is exhausted. For cases where the function inputs are
     already arranged into argument tuples, see [`itertools.starmap()`](itertools.md#itertools.starmap "itertools.starmap").
 
-max(*iterable*, *\**, *key=None*)
+`max(iterable, *, key=None)`
 
-max(*iterable*, *\**, *default*, *key=None*)
+`max(iterable, *, default, key=None)`
 
-max(*arg1*, *arg2*, *\*args*, *key=None*)
+`max(arg1, arg2, *args, key=None)`
 :   Return the largest item in an iterable or the largest of two or more
     arguments.
 
@@ -1029,15 +1029,15 @@ max(*arg1*, *arg2*, *\*args*, *key=None*)
 
     Changed in version 3.8: The *key* can be `None`.
 
-*class* memoryview(*object*)
+`class memoryview(object)`
 :   Return a “memory view” object created from the given argument. See
     [Memory Views](stdtypes.md#typememoryview) for more information.
 
-min(*iterable*, *\**, *key=None*)
+`min(iterable, *, key=None)`
 
-min(*iterable*, *\**, *default*, *key=None*)
+`min(iterable, *, default, key=None)`
 
-min(*arg1*, *arg2*, *\*args*, *key=None*)
+`min(arg1, arg2, *args, key=None)`
 :   Return the smallest item in an iterable or the smallest of two or more
     arguments.
 
@@ -1061,14 +1061,14 @@ min(*arg1*, *arg2*, *\*args*, *key=None*)
 
     Changed in version 3.8: The *key* can be `None`.
 
-next(*iterator*)
+`next(iterator)`
 
-next(*iterator*, *default*)
+`next(iterator, default)`
 :   Retrieve the next item from the [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) by calling its
     [`__next__()`](stdtypes.md#iterator.__next__ "iterator.__next__") method. If *default* is given, it is returned
     if the iterator is exhausted, otherwise [`StopIteration`](exceptions.md#StopIteration "StopIteration") is raised.
 
-*class* object
+`class object`
 :   This is the ultimate base class of all other classes. It has methods
     that are common to all instances of Python classes. When the constructor
     is called, it returns a new featureless object. The constructor does not
@@ -1080,7 +1080,7 @@ next(*iterator*, *default*)
     > attributes, so you can’t assign arbitrary attributes to an instance of
     > [`object`](functions.md#object "object").
 
-oct(*x*)
+`oct(x)`
 :   Convert an integer number to an octal string prefixed with “0o”. The result
     is a valid Python expression. If *x* is not a Python [`int`](functions.md#int "int") object, it
     has to define an [`__index__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__index__ "object.__index__") method that returns an integer. For
@@ -1107,7 +1107,7 @@ oct(*x*)
 
     See also [`format()`](functions.md#format "format") for more information.
 
-open(*file*, *mode='r'*, *buffering=-1*, *encoding=None*, *errors=None*, *newline=None*, *closefd=True*, *opener=None*)
+`open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)`
 :   Open *file* and return a corresponding [file object](https://docs.python.org/3.12/glossary.html#term-file-object). If the file
     cannot be opened, an [`OSError`](exceptions.md#OSError "OSError") is raised. See
     [Reading and Writing Files](https://docs.python.org/3.12/tutorial/inputoutput.html#tut-files) for more examples of how to use this function.
@@ -1303,13 +1303,13 @@ open(*file*, *mode='r'*, *buffering=-1*, *encoding=None*, *errors=None*, *newlin
 
     Changed in version 3.11: The `'U'` mode has been removed.
 
-ord(*c*)
+`ord(c)`
 :   Given a string representing one Unicode character, return an integer
     representing the Unicode code point of that character. For example,
     `ord('a')` returns the integer `97` and `ord('€')` (Euro sign)
     returns `8364`. This is the inverse of [`chr()`](functions.md#chr "chr").
 
-pow(*base*, *exp*, *mod=None*)
+`pow(base, exp, mod=None)`
 :   Return *base* to the power *exp*; if *mod* is present, return *base* to the
     power *exp*, modulo *mod* (computed more efficiently than
     `pow(base, exp) % mod`). The two-argument form `pow(base, exp)` is
@@ -1349,7 +1349,7 @@ pow(*base*, *exp*, *mod=None*)
     Changed in version 3.8: Allow keyword arguments. Formerly, only positional arguments were
     supported.
 
-print(*\*objects*, *sep=' '*, *end='\n'*, *file=None*, *flush=False*)
+`print(*objects, sep=' ', end='\n', file=None, flush=False)`
 :   Print *objects* to the text stream *file*, separated by *sep* and followed
     by *end*. *sep*, *end*, *file*, and *flush*, if present, must be given as keyword
     arguments.
@@ -1370,7 +1370,7 @@ print(*\*objects*, *sep=' '*, *end='\n'*, *file=None*, *flush=False*)
 
     Changed in version 3.3: Added the *flush* keyword argument.
 
-*class* property(*fget=None*, *fset=None*, *fdel=None*, *doc=None*)
+`class property(fget=None, fset=None, fdel=None, doc=None)`
 :   Return a property attribute.
 
     *fget* is a function for getting an attribute value. *fset* is a function
@@ -1418,11 +1418,11 @@ print(*\*objects*, *sep=' '*, *end='\n'*, *file=None*, *flush=False*)
     for a read-only attribute with the same name, and it sets the docstring for
     *voltage* to “Get the current voltage.”
 
-    @getter
+    `@getter`
 
-    @setter
+    `@setter`
 
-    @deleter
+    `@deleter`
     :   A property object has `getter`, `setter`,
         and `deleter` methods usable as decorators that create a
         copy of the property with the corresponding accessor function set to the
@@ -1456,13 +1456,13 @@ print(*\*objects*, *sep=' '*, *end='\n'*, *file=None*, *flush=False*)
 
     Changed in version 3.5: The docstrings of property objects are now writeable.
 
-*class* range(*stop*)
+`class range(stop)`
 
-*class* range(*start*, *stop*, *step=1*)
+`class range(start, stop, step=1)`
 :   Rather than being a function, [`range`](stdtypes.md#range "range") is actually an immutable
     sequence type, as documented in [Ranges](stdtypes.md#typesseq-range) and [Sequence Types — list, tuple, range](stdtypes.md#typesseq).
 
-repr(*object*)
+`repr(object)`
 :   Return a string containing a printable representation of an object. For many
     types, this function makes an attempt to return a string that would yield an
     object with the same value when passed to [`eval()`](functions.md#eval "eval"); otherwise, the
@@ -1486,13 +1486,13 @@ repr(*object*)
           return f"Person('{self.name}', {self.age})"
     ```
 
-reversed(*seq*)
+`reversed(seq)`
 :   Return a reverse [iterator](https://docs.python.org/3.12/glossary.html#term-iterator). *seq* must be an object which has
     a [`__reversed__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__reversed__ "object.__reversed__") method or supports the sequence protocol (the
     [`__len__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__len__ "object.__len__") method and the [`__getitem__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getitem__ "object.__getitem__") method
     with integer arguments starting at `0`).
 
-round(*number*, *ndigits=None*)
+`round(number, ndigits=None)`
 :   Return *number* rounded to *ndigits* precision after the decimal
     point. If *ndigits* is omitted or is `None`, it returns the
     nearest integer to its input.
@@ -1517,9 +1517,9 @@ round(*number*, *ndigits=None*)
     > can’t be represented exactly as a float. See [Floating-Point Arithmetic: Issues and Limitations](https://docs.python.org/3.12/tutorial/floatingpoint.html#tut-fp-issues) for
     > more information.
 
-*class* set
+`class set`
 
-*class* set(*iterable*)
+`class set(iterable)`
 :   Return a new [`set`](stdtypes.md#set "set") object, optionally with elements taken from
     *iterable*. `set` is a built-in class. See [`set`](stdtypes.md#set "set") and
     [Set Types — set, frozenset](stdtypes.md#types-set) for documentation about this class.
@@ -1528,7 +1528,7 @@ round(*number*, *ndigits=None*)
     [`tuple`](stdtypes.md#tuple "tuple"), and [`dict`](stdtypes.md#dict "dict") classes, as well as the [`collections`](collections.md#module-collections "collections: Container datatypes")
     module.
 
-setattr(*object*, *name*, *value*)
+`setattr(object, name, value)`
 :   This is the counterpart of [`getattr()`](functions.md#getattr "getattr"). The arguments are an object, a
     string, and an arbitrary value. The string may name an existing attribute or a
     new attribute. The function assigns the value to the attribute, provided the
@@ -1548,18 +1548,18 @@ setattr(*object*, *name*, *value*)
     > (attributes with two leading underscores) name in order to set it with
     > [`setattr()`](functions.md#setattr "setattr").
 
-*class* slice(*stop*)
+`class slice(stop)`
 
-*class* slice(*start*, *stop*, *step=None*)
+`class slice(start, stop, step=None)`
 :   Return a [slice](https://docs.python.org/3.12/glossary.html#term-slice) object representing the set of indices specified by
     `range(start, stop, step)`. The *start* and *step* arguments default to
     `None`.
 
-    start
+    `start`
 
-    stop
+    `stop`
 
-    step
+    `step`
     :   Slice objects have read-only data attributes `start`,
         `stop`, and `step` which merely return the argument
         values (or their default). They have no other explicit functionality;
@@ -1573,7 +1573,7 @@ setattr(*object*, *name*, *value*)
     Changed in version 3.12: Slice objects are now [hashable](https://docs.python.org/3.12/glossary.html#term-hashable) (provided [`start`](functions.md#slice.start "slice.start"),
     [`stop`](functions.md#slice.stop "slice.stop"), and [`step`](functions.md#slice.step "slice.step") are hashable).
 
-sorted(*iterable*, */*, *\**, *key=None*, *reverse=False*)
+`sorted(iterable, /, *, key=None, reverse=False)`
 :   Return a new sorted list from the items in *iterable*.
 
     Has two optional arguments which must be specified as keyword arguments.
@@ -1603,7 +1603,7 @@ sorted(*iterable*, */*, *\**, *key=None*, *reverse=False*)
 
     For sorting examples and a brief sorting tutorial, see [Sorting Techniques](https://docs.python.org/3.12/howto/sorting.html#sortinghowto).
 
-@staticmethod
+`@staticmethod`
 :   Transform a method into a static method.
 
     A static method does not receive an implicit first argument. To declare a static
@@ -1649,15 +1649,15 @@ sorted(*iterable*, */*, *\**, *key=None*, *reverse=False*)
     [`__annotations__`](https://docs.python.org/3.12/reference/datamodel.html#function.__annotations__ "function.__annotations__")), have a new `__wrapped__` attribute,
     and are now callable as regular functions.
 
-*class* str(*object=''*)
+`class str(object='')`
 
-*class* str(*object=b''*, *encoding='utf-8'*, *errors='strict'*)
+`class str(object=b'', encoding='utf-8', errors='strict')`
 :   Return a [`str`](stdtypes.md#str "str") version of *object*. See [`str()`](stdtypes.md#str "str") for details.
 
     `str` is the built-in string [class](https://docs.python.org/3.12/glossary.html#term-class). For general information
     about strings, see [Text Sequence Type — str](stdtypes.md#textseq).
 
-sum(*iterable*, */*, *start=0*)
+`sum(iterable, /, start=0)`
 :   Sums *start* and the items of an *iterable* from left to right and returns the
     total. The *iterable*’s items are normally numbers, and the start value is not
     allowed to be a string.
@@ -1673,9 +1673,9 @@ sum(*iterable*, */*, *start=0*)
     Changed in version 3.12: Summation of floats switched to an algorithm
     that gives higher accuracy on most builds.
 
-*class* super
+`class super`
 
-*class* super(*type*, *object_or_type=None*)
+`class super(type, object_or_type=None)`
 :   Return a proxy object that delegates method calls to a parent or sibling
     class of *type*. This is useful for accessing inherited methods that have
     been overridden in a class.
@@ -1744,15 +1744,15 @@ sum(*iterable*, */*, *start=0*)
     For practical suggestions on how to design cooperative classes using
     [`super()`](functions.md#super "super"), see [guide to using super()](https://rhettinger.wordpress.com/2011/05/26/super-considered-super/).
 
-*class* tuple
+`class tuple`
 
-*class* tuple(*iterable*)
+`class tuple(iterable)`
 :   Rather than being a function, [`tuple`](stdtypes.md#tuple "tuple") is actually an immutable
     sequence type, as documented in [Tuples](stdtypes.md#typesseq-tuple) and [Sequence Types — list, tuple, range](stdtypes.md#typesseq).
 
-*class* type(*object*)
+`class type(object)`
 
-*class* type(*name*, *bases*, *dict*, *\*\*kwds*)
+`class type(name, bases, dict, **kwds)`
 :   With one argument, return the type of an *object*. The return value is a
     type object and generally the same object as returned by
     [`object.__class__`](https://docs.python.org/3.12/reference/datamodel.html#object.__class__ "object.__class__").
@@ -1792,9 +1792,9 @@ sum(*iterable*, */*, *start=0*)
     Changed in version 3.6: Subclasses of `type` which don’t override `type.__new__` may no
     longer use the one-argument form to get the type of an object.
 
-vars()
+`vars()`
 
-vars(*object*)
+`vars(object)`
 :   Return the [`__dict__`](https://docs.python.org/3.12/reference/datamodel.html#object.__dict__ "object.__dict__") attribute for a module, class, instance,
     or any other object with a `__dict__` attribute.
 
@@ -1811,7 +1811,7 @@ vars(*object*)
     it doesn’t have a [`__dict__`](https://docs.python.org/3.12/reference/datamodel.html#object.__dict__ "object.__dict__") attribute (for example, if
     its class defines the [`__slots__`](https://docs.python.org/3.12/reference/datamodel.html#object.__slots__ "object.__slots__") attribute).
 
-zip(*\*iterables*, *strict=False*)
+`zip(*iterables, strict=False)`
 :   Iterate over several iterables in parallel, producing tuples with an item
     from each one.
 
@@ -1905,7 +1905,7 @@ zip(*\*iterables*, *strict=False*)
 
     Changed in version 3.10: Added the `strict` argument.
 
-__import__(*name*, *globals=None*, *locals=None*, *fromlist=()*, *level=0*)
+`__import__(name, globals=None, locals=None, fromlist=(), level=0)`
 :   > **Note:**
     >
     > This is an advanced function that is not needed in everyday Python

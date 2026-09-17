@@ -17,7 +17,7 @@ If you’re just wrapping or filling one or two text strings, the convenience
 functions should be good enough; otherwise, you should use an instance of
 [`TextWrapper`](textwrap.md#textwrap.TextWrapper "textwrap.TextWrapper") for efficiency.
 
-textwrap.wrap(*text*, *width=70*, *\**, *initial_indent=''*, *subsequent_indent=''*, *expand_tabs=True*, *replace_whitespace=True*, *fix_sentence_endings=False*, *break_long_words=True*, *drop_whitespace=True*, *break_on_hyphens=True*, *tabsize=8*, *max_lines=None*, *placeholder=' [...]'*)
+`textwrap.wrap(text, width=70, *, initial_indent='', subsequent_indent='', expand_tabs=True, replace_whitespace=True, fix_sentence_endings=False, break_long_words=True, drop_whitespace=True, break_on_hyphens=True, tabsize=8, max_lines=None, placeholder=' [...]')`
 :   Wraps the single paragraph in *text* (a string) so every line is at most
     *width* characters long. Returns a list of output lines, without final
     newlines.
@@ -28,7 +28,7 @@ textwrap.wrap(*text*, *width=70*, *\**, *initial_indent=''*, *subsequent_indent=
     See the [`TextWrapper.wrap()`](textwrap.md#textwrap.TextWrapper.wrap "textwrap.TextWrapper.wrap") method for additional details on how
     [`wrap()`](textwrap.md#textwrap.wrap "textwrap.wrap") behaves.
 
-textwrap.fill(*text*, *width=70*, *\**, *initial_indent=''*, *subsequent_indent=''*, *expand_tabs=True*, *replace_whitespace=True*, *fix_sentence_endings=False*, *break_long_words=True*, *drop_whitespace=True*, *break_on_hyphens=True*, *tabsize=8*, *max_lines=None*, *placeholder=' [...]'*)
+`textwrap.fill(text, width=70, *, initial_indent='', subsequent_indent='', expand_tabs=True, replace_whitespace=True, fix_sentence_endings=False, break_long_words=True, drop_whitespace=True, break_on_hyphens=True, tabsize=8, max_lines=None, placeholder=' [...]')`
 :   Wraps the single paragraph in *text*, and returns a single string containing the
     wrapped paragraph. [`fill()`](textwrap.md#textwrap.fill "textwrap.fill") is shorthand for
 
@@ -39,7 +39,7 @@ textwrap.fill(*text*, *width=70*, *\**, *initial_indent=''*, *subsequent_indent=
     In particular, [`fill()`](textwrap.md#textwrap.fill "textwrap.fill") accepts exactly the same keyword arguments as
     [`wrap()`](textwrap.md#textwrap.wrap "textwrap.wrap").
 
-textwrap.shorten(*text*, *width*, *\**, *fix_sentence_endings=False*, *break_long_words=True*, *break_on_hyphens=True*, *placeholder=' [...]'*)
+`textwrap.shorten(text, width, *, fix_sentence_endings=False, break_long_words=True, break_on_hyphens=True, placeholder=' [...]')`
 :   Collapse and truncate the given *text* to fit in the given *width*.
 
     First the whitespace in *text* is collapsed (all whitespace is replaced by
@@ -64,7 +64,7 @@ textwrap.shorten(*text*, *width*, *\**, *fix_sentence_endings=False*, *break_lon
 
     Added in version 3.4.
 
-textwrap.dedent(*text*)
+`textwrap.dedent(text)`
 :   Remove any common leading whitespace from every line in *text*.
 
     This can be used to make triple-quoted strings line up with the left edge of the
@@ -90,7 +90,7 @@ textwrap.dedent(*text*)
         print(repr(dedent(s)))  # prints 'hello\n  world\n'
     ```
 
-textwrap.indent(*text*, *prefix*, *predicate=None*)
+`textwrap.indent(text, prefix, predicate=None)`
 :   Add *prefix* to the beginning of selected lines in *text*.
 
     Lines are separated by calling `text.splitlines(True)`.
@@ -130,7 +130,7 @@ Text is preferably wrapped on whitespaces and right after the hyphens in
 hyphenated words; only then will long words be broken if necessary, unless
 [`TextWrapper.break_long_words`](textwrap.md#textwrap.TextWrapper.break_long_words "textwrap.TextWrapper.break_long_words") is set to false.
 
-*class* textwrap.TextWrapper(*\*\*kwargs*)
+`class textwrap.TextWrapper(**kwargs)`
 :   The [`TextWrapper`](textwrap.md#textwrap.TextWrapper "textwrap.TextWrapper") constructor accepts a number of optional keyword
     arguments. Each keyword argument corresponds to an instance attribute, so
     for example
@@ -153,24 +153,24 @@ hyphenated words; only then will long words be broken if necessary, unless
     The [`TextWrapper`](textwrap.md#textwrap.TextWrapper "textwrap.TextWrapper") instance attributes (and keyword arguments to the
     constructor) are as follows:
 
-    width
+    `width`
     :   (default: `70`) The maximum length of wrapped lines. As long as there
         are no individual words in the input text longer than [`width`](textwrap.md#textwrap.TextWrapper.width "textwrap.TextWrapper.width"),
         [`TextWrapper`](textwrap.md#textwrap.TextWrapper "textwrap.TextWrapper") guarantees that no output line will be longer than
         [`width`](textwrap.md#textwrap.TextWrapper.width "textwrap.TextWrapper.width") characters.
 
-    expand_tabs
+    `expand_tabs`
     :   (default: `True`) If true, then all tab characters in *text* will be
         expanded to spaces using the [`expandtabs()`](stdtypes.md#str.expandtabs "str.expandtabs") method of *text*.
 
-    tabsize
+    `tabsize`
     :   (default: `8`) If [`expand_tabs`](textwrap.md#textwrap.TextWrapper.expand_tabs "textwrap.TextWrapper.expand_tabs") is true, then all tab characters
         in *text* will be expanded to zero or more spaces, depending on the
         current column and the given tab size.
 
         Added in version 3.3.
 
-    replace_whitespace
+    `replace_whitespace`
     :   (default: `True`) If true, after tab expansion but before wrapping,
         the [`wrap()`](textwrap.md#textwrap.wrap "textwrap.wrap") method will replace each whitespace character
         with a single space. The whitespace characters replaced are
@@ -190,24 +190,24 @@ hyphenated words; only then will long words be broken if necessary, unless
         > be split into paragraphs (using [`str.splitlines()`](stdtypes.md#str.splitlines "str.splitlines") or similar)
         > which are wrapped separately.
 
-    drop_whitespace
+    `drop_whitespace`
     :   (default: `True`) If true, whitespace at the beginning and ending of
         every line (after wrapping but before indenting) is dropped.
         Whitespace at the beginning of the paragraph, however, is not dropped
         if non-whitespace follows it. If whitespace being dropped takes up an
         entire line, the whole line is dropped.
 
-    initial_indent
+    `initial_indent`
     :   (default: `''`) String that will be prepended to the first line of
         wrapped output. Counts towards the length of the first line. The empty
         string is not indented.
 
-    subsequent_indent
+    `subsequent_indent`
     :   (default: `''`) String that will be prepended to all lines of wrapped
         output except the first. Counts towards the length of each line except
         the first.
 
-    fix_sentence_endings
+    `fix_sentence_endings`
     :   (default: `False`) If true, [`TextWrapper`](textwrap.md#textwrap.TextWrapper "textwrap.TextWrapper") attempts to detect
         sentence endings and ensure that sentences are always separated by exactly
         two spaces. This is generally desired for text in a monospaced font.
@@ -234,14 +234,14 @@ hyphenated words; only then will long words be broken if necessary, unless
         after a period to separate sentences on the same line, it is specific to
         English-language texts.
 
-    break_long_words
+    `break_long_words`
     :   (default: `True`) If true, then words longer than [`width`](textwrap.md#textwrap.TextWrapper.width "textwrap.TextWrapper.width") will be
         broken in order to ensure that no lines are longer than [`width`](textwrap.md#textwrap.TextWrapper.width "textwrap.TextWrapper.width"). If
         it is false, long words will not be broken, and some lines may be longer
         than [`width`](textwrap.md#textwrap.TextWrapper.width "textwrap.TextWrapper.width"). (Long words will be put on a line by themselves, in
         order to minimize the amount by which [`width`](textwrap.md#textwrap.TextWrapper.width "textwrap.TextWrapper.width") is exceeded.)
 
-    break_on_hyphens
+    `break_on_hyphens`
     :   (default: `True`) If true, wrapping will occur preferably on whitespaces
         and right after hyphens in compound words, as it is customary in English.
         If false, only whitespaces will be considered as potentially good places
@@ -249,13 +249,13 @@ hyphenated words; only then will long words be broken if necessary, unless
         you want truly insecable words. Default behaviour in previous versions
         was to always allow breaking hyphenated words.
 
-    max_lines
+    `max_lines`
     :   (default: `None`) If not `None`, then the output will contain at most
         *max_lines* lines, with *placeholder* appearing at the end of the output.
 
         Added in version 3.4.
 
-    placeholder
+    `placeholder`
     :   (default: `' [...]'`) String that will appear at the end of the output
         text if it has been truncated.
 
@@ -264,13 +264,13 @@ hyphenated words; only then will long words be broken if necessary, unless
     [`TextWrapper`](textwrap.md#textwrap.TextWrapper "textwrap.TextWrapper") also provides some public methods, analogous to the
     module-level convenience functions:
 
-    wrap(*text*)
+    `wrap(text)`
     :   Wraps the single paragraph in *text* (a string) so every line is at most
         [`width`](textwrap.md#textwrap.TextWrapper.width "textwrap.TextWrapper.width") characters long. All wrapping options are taken from
         instance attributes of the [`TextWrapper`](textwrap.md#textwrap.TextWrapper "textwrap.TextWrapper") instance. Returns a list
         of output lines, without final newlines. If the wrapped output has no
         content, the returned list is empty.
 
-    fill(*text*)
+    `fill(text)`
     :   Wraps the single paragraph in *text*, and returns a single string
         containing the wrapped paragraph.

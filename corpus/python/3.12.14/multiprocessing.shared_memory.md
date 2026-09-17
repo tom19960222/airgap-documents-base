@@ -33,7 +33,7 @@ significant performance benefits compared to sharing data via disk or socket
 or other communications requiring the serialization/deserialization and
 copying of data.
 
-*class* multiprocessing.shared_memory.SharedMemory(*name=None*, *create=False*, *size=0*)
+`class multiprocessing.shared_memory.SharedMemory(name=None, create=False, size=0)`
 :   Create an instance of the `SharedMemory` class for either
     creating a new shared memory block or attaching to an existing shared
     memory block. Each shared memory block is assigned a unique name.
@@ -61,14 +61,14 @@ copying of data.
           When attaching to an existing shared memory block,
           the *size* parameter is ignored.
 
-    close()
+    `close()`
     :   Close access to the shared memory from this instance. In order to
         ensure proper cleanup of resources, all instances should call
         [`close()`](multiprocessing.shared_memory.md#multiprocessing.shared_memory.SharedMemory.close "multiprocessing.shared_memory.SharedMemory.close") once the instance is no longer needed. Note that calling
         `close()` does not cause the shared memory block itself to be
         destroyed.
 
-    unlink()
+    `unlink()`
     :   Request that the underlying shared memory block be destroyed. In
         order to ensure proper cleanup of resources, [`unlink()`](multiprocessing.shared_memory.md#multiprocessing.shared_memory.SharedMemory.unlink "multiprocessing.shared_memory.SharedMemory.unlink") should be
         called once (and only once) across all processes which have need
@@ -80,13 +80,13 @@ copying of data.
         its hold on a shared memory block may call `unlink()` and
         [`close()`](multiprocessing.shared_memory.md#multiprocessing.shared_memory.SharedMemory.close "multiprocessing.shared_memory.SharedMemory.close") in either order.
 
-    buf
+    `buf`
     :   A memoryview of contents of the shared memory block.
 
-    name
+    `name`
     :   Read-only access to the unique name of the shared memory block.
 
-    size
+    `size`
     :   Read-only access to size in bytes of the shared memory block.
 
 The following example demonstrates low-level use of [`SharedMemory`](multiprocessing.shared_memory.md#multiprocessing.shared_memory.SharedMemory "multiprocessing.shared_memory.SharedMemory")
@@ -164,7 +164,7 @@ array([  1,   1,   2,   3,   5, 888])
 >>> shm.unlink()  # Free and release the shared memory block at the very end
 ```
 
-*class* multiprocessing.managers.SharedMemoryManager([*address*[, *authkey*]])
+`class multiprocessing.managers.SharedMemoryManager([address[, authkey]])`
 :   A subclass of [`multiprocessing.managers.BaseManager`](multiprocessing.md#multiprocessing.managers.BaseManager "multiprocessing.managers.BaseManager") which can be
     used for the management of shared memory blocks across processes.
 
@@ -189,11 +189,11 @@ array([  1,   1,   2,   3,   5, 888])
     they may be used to connect to an existing `SharedMemoryManager` service
     from other processes.
 
-    SharedMemory(*size*)
+    `SharedMemory(size)`
     :   Create and return a new [`SharedMemory`](multiprocessing.shared_memory.md#multiprocessing.managers.SharedMemoryManager.SharedMemory "multiprocessing.managers.SharedMemoryManager.SharedMemory") object with the
         specified *size* in bytes.
 
-    ShareableList(*sequence*)
+    `ShareableList(sequence)`
     :   Create and return a new [`ShareableList`](multiprocessing.shared_memory.md#multiprocessing.managers.SharedMemoryManager.ShareableList "multiprocessing.managers.SharedMemoryManager.ShareableList") object, initialized
         by the values from the input *sequence*.
 
@@ -237,7 +237,7 @@ in a [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) s
 manager are all released when the `with` statement’s code block
 finishes execution.
 
-*class* multiprocessing.shared_memory.ShareableList(*sequence=None*, *\**, *name=None*)
+`class multiprocessing.shared_memory.ShareableList(sequence=None, *, name=None)`
 :   Provide a mutable list-like object where all values stored within are
     stored in a shared memory block.
     This constrains storable values to the following built-in data types:
@@ -293,18 +293,18 @@ finishes execution.
     >>> padded.shm.unlink()
     ```
 
-    count(*value*)
+    `count(value)`
     :   Return the number of occurrences of *value*.
 
-    index(*value*)
+    `index(value)`
     :   Return first index position of *value*.
         Raise [`ValueError`](exceptions.md#ValueError "ValueError") if *value* is not present.
 
-    format
+    `format`
     :   Read-only attribute containing the [`struct`](struct.md#module-struct "struct: Interpret bytes as packed binary data.") packing format used by
         all currently stored values.
 
-    shm
+    `shm`
     :   The [`SharedMemory`](multiprocessing.shared_memory.md#multiprocessing.shared_memory.SharedMemory "multiprocessing.shared_memory.SharedMemory") instance where the values are stored.
 
 The following example demonstrates basic use of a [`ShareableList`](multiprocessing.shared_memory.md#multiprocessing.shared_memory.ShareableList "multiprocessing.shared_memory.ShareableList")

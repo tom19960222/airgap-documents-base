@@ -64,7 +64,7 @@ See also the [Examples](asyncio-subprocess.md#examples) subsection.
 
 ## Creating Subprocesses
 
-*async* asyncio.create_subprocess_exec(*program*, *\*args*, *stdin=None*, *stdout=None*, *stderr=None*, *limit=None*, *\*\*kwds*)
+`async asyncio.create_subprocess_exec(program, *args, stdin=None, stdout=None, stderr=None, limit=None, **kwds)`
 :   Create a subprocess.
 
     The *limit* argument sets the buffer limit for [`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader")
@@ -78,7 +78,7 @@ See also the [Examples](asyncio-subprocess.md#examples) subsection.
 
     Changed in version 3.10: Removed the *loop* parameter.
 
-*async* asyncio.create_subprocess_shell(*cmd*, *stdin=None*, *stdout=None*, *stderr=None*, *limit=None*, *\*\*kwds*)
+`async asyncio.create_subprocess_shell(cmd, stdin=None, stdout=None, stderr=None, limit=None, **kwds)`
 :   Run the *cmd* shell command.
 
     The *limit* argument sets the buffer limit for [`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader")
@@ -116,7 +116,7 @@ See also the [Examples](asyncio-subprocess.md#examples) subsection.
 
 ## Constants
 
-asyncio.subprocess.PIPE
+`asyncio.subprocess.PIPE`
 :   Can be passed to the *stdin*, *stdout* or *stderr* parameters.
 
     If *PIPE* is passed to *stdin* argument, the
@@ -128,11 +128,11 @@ asyncio.subprocess.PIPE
     [`Process.stderr`](asyncio-subprocess.md#asyncio.subprocess.Process.stderr "asyncio.subprocess.Process.stderr")
     attributes will point to [`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader") instances.
 
-asyncio.subprocess.STDOUT
+`asyncio.subprocess.STDOUT`
 :   Special value that can be used as the *stderr* argument and indicates
     that standard error should be redirected into standard output.
 
-asyncio.subprocess.DEVNULL
+`asyncio.subprocess.DEVNULL`
 :   Special value that can be used as the *stdin*, *stdout* or *stderr* argument
     to process creation functions. It indicates that the special file
     [`os.devnull`](os.md#os.devnull "os.devnull") will be used for the corresponding subprocess stream.
@@ -144,7 +144,7 @@ functions return instances of the *Process* class. *Process* is a high-level
 wrapper that allows communicating with subprocesses and watching for
 their completion.
 
-*class* asyncio.subprocess.Process
+`class asyncio.subprocess.Process`
 :   An object that wraps OS processes created by the
     [`create_subprocess_exec()`](asyncio-subprocess.md#asyncio.create_subprocess_exec "asyncio.create_subprocess_exec") and [`create_subprocess_shell()`](asyncio-subprocess.md#asyncio.create_subprocess_shell "asyncio.create_subprocess_shell")
     functions.
@@ -168,7 +168,7 @@ their completion.
     See also the [Subprocess and Threads](asyncio-subprocess.md#asyncio-subprocess-threads)
     section.
 
-    *async* wait()
+    `async wait()`
     :   Wait for the child process to terminate.
 
         Set and return the [`returncode`](asyncio-subprocess.md#asyncio.subprocess.Process.returncode "asyncio.subprocess.Process.returncode") attribute.
@@ -181,7 +181,7 @@ their completion.
         > more data. Use the [`communicate()`](asyncio-subprocess.md#asyncio.subprocess.Process.communicate "asyncio.subprocess.Process.communicate") method when using pipes
         > to avoid this condition.
 
-    *async* communicate(*input=None*)
+    `async communicate(input=None)`
     :   Interact with process:
 
         1. send data to *stdin* (if *input* is not `None`);
@@ -210,7 +210,7 @@ their completion.
 
         Changed in version 3.12: *stdin* gets closed when `input=None` too.
 
-    send_signal(*signal*)
+    `send_signal(signal)`
     :   Sends the signal *signal* to the child process.
 
         > **Note:**
@@ -220,7 +220,7 @@ their completion.
         > started with a *creationflags* parameter which includes
         > `CREATE_NEW_PROCESS_GROUP`.
 
-    terminate()
+    `terminate()`
     :   Stop the child process.
 
         On POSIX systems this method sends [`SIGTERM`](signal.md#signal.SIGTERM "signal.SIGTERM") to the
@@ -229,7 +229,7 @@ their completion.
         On Windows the Win32 API function `TerminateProcess()` is
         called to stop the child process.
 
-    kill()
+    `kill()`
     :   Kill the child process.
 
         On POSIX systems this method sends [`SIGKILL`](signal.md#signal.SIGKILL "signal.SIGKILL") to the child
@@ -237,15 +237,15 @@ their completion.
 
         On Windows this method is an alias for [`terminate()`](asyncio-subprocess.md#asyncio.subprocess.Process.terminate "asyncio.subprocess.Process.terminate").
 
-    stdin
+    `stdin`
     :   Standard input stream ([`StreamWriter`](asyncio-stream.md#asyncio.StreamWriter "asyncio.StreamWriter")) or `None`
         if the process was created with `stdin=None`.
 
-    stdout
+    `stdout`
     :   Standard output stream ([`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader")) or `None`
         if the process was created with `stdout=None`.
 
-    stderr
+    `stderr`
     :   Standard error stream ([`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader")) or `None`
         if the process was created with `stderr=None`.
 
@@ -258,13 +258,13 @@ their completion.
     > This avoids deadlocks due to streams pausing reading or writing
     > and blocking the child process.
 
-    pid
+    `pid`
     :   Process identification number (PID).
 
         Note that for processes created by the [`create_subprocess_shell()`](asyncio-subprocess.md#asyncio.create_subprocess_shell "asyncio.create_subprocess_shell")
         function, this attribute is the PID of the spawned shell.
 
-    returncode
+    `returncode`
     :   Return code of the process when it exits.
 
         A `None` value indicates that the process has not terminated yet.

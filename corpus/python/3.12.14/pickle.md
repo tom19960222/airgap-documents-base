@@ -154,13 +154,13 @@ you can create a [`Pickler`](pickle.md#pickle.Pickler "pickle.Pickler") or an [`
 
 The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to streams of bytes and back.") module provides the following constants:
 
-pickle.HIGHEST_PROTOCOL
+`pickle.HIGHEST_PROTOCOL`
 :   An integer, the highest [protocol version](pickle.md#pickle-protocols)
     available. This value can be passed as a *protocol* value to functions
     [`dump()`](pickle.md#pickle.dump "pickle.dump") and [`dumps()`](pickle.md#pickle.dumps "pickle.dumps") as well as the [`Pickler`](pickle.md#pickle.Pickler "pickle.Pickler")
     constructor.
 
-pickle.DEFAULT_PROTOCOL
+`pickle.DEFAULT_PROTOCOL`
 :   An integer, the default [protocol version](pickle.md#pickle-protocols) used
     for pickling. May be less than [`HIGHEST_PROTOCOL`](pickle.md#pickle.HIGHEST_PROTOCOL "pickle.HIGHEST_PROTOCOL"). Currently the
     default protocol is 4, first introduced in Python 3.4 and incompatible
@@ -173,7 +173,7 @@ pickle.DEFAULT_PROTOCOL
 The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to streams of bytes and back.") module provides the following functions to make the pickling
 process more convenient:
 
-pickle.dump(*obj*, *file*, *protocol=None*, *\**, *fix_imports=True*, *buffer_callback=None*)
+`pickle.dump(obj, file, protocol=None, *, fix_imports=True, buffer_callback=None)`
 :   Write the pickled representation of the object *obj* to the open
     [file object](https://docs.python.org/3.12/glossary.html#term-file-object) *file*. This is equivalent to
     `Pickler(file, protocol).dump(obj)`.
@@ -183,7 +183,7 @@ pickle.dump(*obj*, *file*, *protocol=None*, *\**, *fix_imports=True*, *buffer_ca
 
     Changed in version 3.8: The *buffer_callback* argument was added.
 
-pickle.dumps(*obj*, *protocol=None*, *\**, *fix_imports=True*, *buffer_callback=None*)
+`pickle.dumps(obj, protocol=None, *, fix_imports=True, buffer_callback=None)`
 :   Return the pickled representation of the object *obj* as a [`bytes`](stdtypes.md#bytes "bytes") object,
     instead of writing it to a file.
 
@@ -192,7 +192,7 @@ pickle.dumps(*obj*, *protocol=None*, *\**, *fix_imports=True*, *buffer_callback=
 
     Changed in version 3.8: The *buffer_callback* argument was added.
 
-pickle.load(*file*, *\**, *fix_imports=True*, *encoding='ASCII'*, *errors='strict'*, *buffers=None*)
+`pickle.load(file, *, fix_imports=True, encoding='ASCII', errors='strict', buffers=None)`
 :   Read the pickled representation of an object from the open [file object](https://docs.python.org/3.12/glossary.html#term-file-object)
     *file* and return the reconstituted object hierarchy specified therein.
     This is equivalent to `Unpickler(file).load()`.
@@ -206,7 +206,7 @@ pickle.load(*file*, *\**, *fix_imports=True*, *encoding='ASCII'*, *errors='stric
 
     Changed in version 3.8: The *buffers* argument was added.
 
-pickle.loads(*data*, */*, *\**, *fix_imports=True*, *encoding='ASCII'*, *errors='strict'*, *buffers=None*)
+`pickle.loads(data, /, *, fix_imports=True, encoding='ASCII', errors='strict', buffers=None)`
 :   Return the reconstituted object hierarchy of the pickled representation
     *data* of an object. *data* must be a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
@@ -221,18 +221,18 @@ pickle.loads(*data*, */*, *\**, *fix_imports=True*, *encoding='ASCII'*, *errors=
 
 The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to streams of bytes and back.") module defines three exceptions:
 
-*exception* pickle.PickleError
+`exception pickle.PickleError`
 :   Common base class for the other pickling exceptions. It inherits from
     [`Exception`](exceptions.md#Exception "Exception").
 
-*exception* pickle.PicklingError
+`exception pickle.PicklingError`
 :   Error raised when an unpicklable object is encountered by [`Pickler`](pickle.md#pickle.Pickler "pickle.Pickler").
     It inherits from [`PickleError`](pickle.md#pickle.PickleError "pickle.PickleError").
 
     Refer to [What can be pickled and unpickled?](pickle.md#pickle-picklable) to learn what kinds of objects can be
     pickled.
 
-*exception* pickle.UnpicklingError
+`exception pickle.UnpicklingError`
 :   Error raised when there is a problem unpickling an object, such as a data
     corruption or a security violation. It inherits from [`PickleError`](pickle.md#pickle.PickleError "pickle.PickleError").
 
@@ -243,7 +243,7 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to streams of bytes and back.") module exports three classes, [`Pickler`](pickle.md#pickle.Pickler "pickle.Pickler"),
 [`Unpickler`](pickle.md#pickle.Unpickler "pickle.Unpickler") and [`PickleBuffer`](pickle.md#pickle.PickleBuffer "pickle.PickleBuffer"):
 
-*class* pickle.Pickler(*file*, *protocol=None*, *\**, *fix_imports=True*, *buffer_callback=None*)
+`class pickle.Pickler(file, protocol=None, *, fix_imports=True, buffer_callback=None)`
 :   This takes a binary file for writing a pickle data stream.
 
     The optional *protocol* argument, an integer, tells the pickler to use
@@ -273,11 +273,11 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
     Changed in version 3.8: The *buffer_callback* argument was added.
 
-    dump(*obj*)
+    `dump(obj)`
     :   Write the pickled representation of *obj* to the open file object given in
         the constructor.
 
-    persistent_id(*obj*)
+    `persistent_id(obj)`
     :   Do nothing by default. This exists so a subclass can override it.
 
         If [`persistent_id()`](pickle.md#pickle.Pickler.persistent_id "pickle.Pickler.persistent_id") returns `None`, *obj* is pickled as usual. Any
@@ -288,7 +288,7 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
         See [Persistence of External Objects](pickle.md#pickle-persistent) for details and examples of uses.
 
-    dispatch_table
+    `dispatch_table`
     :   A pickler object’s dispatch table is a registry of *reduction
         functions* of the kind which can be declared using
         [`copyreg.pickle()`](copyreg.md#copyreg.pickle "copyreg.pickle"). It is a mapping whose keys are classes
@@ -310,7 +310,7 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
         Added in version 3.3.
 
-    reducer_override(*obj*)
+    `reducer_override(obj)`
     :   Special reducer that can be defined in [`Pickler`](pickle.md#pickle.Pickler "pickle.Pickler") subclasses. This
         method has priority over any reducer in the [`dispatch_table`](pickle.md#pickle.Pickler.dispatch_table "pickle.Pickler.dispatch_table"). It
         should conform to the same interface as a [`__reduce__()`](pickle.md#object.__reduce__ "object.__reduce__") method, and
@@ -321,7 +321,7 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
         Added in version 3.8.
 
-    fast
+    `fast`
     :   Deprecated. Enable fast mode if set to a true value. The fast mode
         disables the usage of memo, therefore speeding the pickling process by not
         generating superfluous PUT opcodes. It should not be used with
@@ -330,7 +330,7 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
         Use [`pickletools.optimize()`](pickletools.md#pickletools.optimize "pickletools.optimize") if you need more compact pickles.
 
-*class* pickle.Unpickler(*file*, *\**, *fix_imports=True*, *encoding='ASCII'*, *errors='strict'*, *buffers=None*)
+`class pickle.Unpickler(file, *, fix_imports=True, encoding='ASCII', errors='strict', buffers=None)`
 :   This takes a binary file for reading a pickle data stream.
 
     The protocol version of the pickle is detected automatically, so no
@@ -366,13 +366,13 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
     Changed in version 3.8: The *buffers* argument was added.
 
-    load()
+    `load()`
     :   Read the pickled representation of an object from the open file object
         given in the constructor, and return the reconstituted object hierarchy
         specified therein. Bytes past the pickled representation of the object
         are ignored.
 
-    persistent_load(*pid*)
+    `persistent_load(pid)`
     :   Raise an [`UnpicklingError`](pickle.md#pickle.UnpicklingError "pickle.UnpicklingError") by default.
 
         If defined, [`persistent_load()`](pickle.md#pickle.Unpickler.persistent_load "pickle.Unpickler.persistent_load") should return the object specified by
@@ -381,7 +381,7 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
         See [Persistence of External Objects](pickle.md#pickle-persistent) for details and examples of uses.
 
-    find_class(*module*, *name*)
+    `find_class(module, name)`
     :   Import *module* if necessary and return the object called *name* from it,
         where the *module* and *name* arguments are [`str`](stdtypes.md#str "str") objects. Note,
         unlike its name suggests, [`find_class()`](pickle.md#pickle.Unpickler.find_class "pickle.Unpickler.find_class") is also used for finding
@@ -393,7 +393,7 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
         Raises an [auditing event](sys.md#auditing) `pickle.find_class` with arguments `module`, `name`.
 
-*class* pickle.PickleBuffer(*buffer*)
+`class pickle.PickleBuffer(buffer)`
 :   A wrapper for a buffer representing picklable data. *buffer* must be a
     [buffer-providing](https://docs.python.org/3.12/c-api/buffer.html#bufferobjects) object, such as a
     [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or a N-dimensional array.
@@ -408,13 +408,13 @@ The [`pickle`](pickle.md#module-pickle "pickle: Convert Python objects to stream
 
     Added in version 3.8.
 
-    raw()
+    `raw()`
     :   Return a [`memoryview`](stdtypes.md#memoryview "memoryview") of the memory area underlying this buffer.
         The returned object is a one-dimensional, C-contiguous memoryview
         with format `B` (unsigned bytes). [`BufferError`](exceptions.md#BufferError "BufferError") is raised if
         the buffer is neither C- nor Fortran-contiguous.
 
-    release()
+    `release()`
     :   Release the underlying buffer exposed by the PickleBuffer object.
 
 ## What can be pickled and unpickled?
@@ -494,7 +494,7 @@ def restore(cls, attributes):
 Classes can alter the default behaviour by providing one or several special
 methods:
 
-object.__getnewargs_ex__()
+`object.__getnewargs_ex__()`
 :   In protocols 2 and newer, classes that implements the
     [`__getnewargs_ex__()`](pickle.md#object.__getnewargs_ex__ "object.__getnewargs_ex__") method can dictate the values passed to the
     [`__new__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__new__ "object.__new__") method upon unpickling. The method must return a pair
@@ -509,7 +509,7 @@ object.__getnewargs_ex__()
 
     Changed in version 3.6: [`__getnewargs_ex__()`](pickle.md#object.__getnewargs_ex__ "object.__getnewargs_ex__") is now used in protocols 2 and 3.
 
-object.__getnewargs__()
+`object.__getnewargs__()`
 :   This method serves a similar purpose as [`__getnewargs_ex__()`](pickle.md#object.__getnewargs_ex__ "object.__getnewargs_ex__"), but
     supports only positional arguments. It must return a tuple of arguments
     `args` which will be passed to the [`__new__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__new__ "object.__new__") method upon unpickling.
@@ -520,7 +520,7 @@ object.__getnewargs__()
     Changed in version 3.6: Before Python 3.6, [`__getnewargs__()`](pickle.md#object.__getnewargs__ "object.__getnewargs__") was called instead of
     [`__getnewargs_ex__()`](pickle.md#object.__getnewargs_ex__ "object.__getnewargs_ex__") in protocols 2 and 3.
 
-object.__getstate__()
+`object.__getstate__()`
 :   Classes can further influence how their instances are pickled by overriding
     the method [`__getstate__()`](pickle.md#object.__getstate__ "object.__getstate__"). It is called and the returned object
     is pickled as the contents for the instance, instead of a default state.
@@ -543,7 +543,7 @@ object.__getstate__()
     Changed in version 3.11: Added the default implementation of the `__getstate__()` method in the
     [`object`](functions.md#object "object") class.
 
-object.__setstate__(*state*)
+`object.__setstate__(state)`
 :   Upon unpickling, if the class defines [`__setstate__()`](pickle.md#object.__setstate__ "object.__setstate__"), it is called with
     the unpickled state. In that case, there is no requirement for the state
     object to be a dictionary. Otherwise, the pickled state must be a dictionary
@@ -579,7 +579,7 @@ interface (i.e., [`__getnewargs_ex__()`](pickle.md#object.__getnewargs_ex__ "obj
 using `__reduce__()` is the only option or leads to more efficient pickling
 or both.
 
-object.__reduce__()
+`object.__reduce__()`
 :   The interface is currently defined as follows. The [`__reduce__()`](pickle.md#object.__reduce__ "object.__reduce__") method
     takes no argument and shall return either a string or preferably a tuple (the
     returned object is often referred to as the “reduce value”).
@@ -622,7 +622,7 @@ object.__reduce__()
 
       Added in version 3.8: The optional sixth tuple item, `(obj, state)`, was added.
 
-object.__reduce_ex__(*protocol*)
+`object.__reduce_ex__(protocol)`
 :   Alternatively, a [`__reduce_ex__()`](pickle.md#object.__reduce_ex__ "object.__reduce_ex__") method may be defined. The only
     difference is this method should take a single integer argument, the protocol
     version. When defined, pickle will prefer it over the [`__reduce__()`](pickle.md#object.__reduce__ "object.__reduce__")

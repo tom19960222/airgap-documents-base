@@ -71,14 +71,14 @@ implementations are free to support the strict mapping from IDL). See section
 
 The [`xml.dom`](xml.dom.md#module-xml.dom "xml.dom: Document Object Model API for Python.") contains the following functions:
 
-xml.dom.registerDOMImplementation(*name*, *factory*)
+`xml.dom.registerDOMImplementation(name, factory)`
 :   Register the *factory* function with the name *name*. The factory function
     should return an object which implements the `DOMImplementation`
     interface. The factory function can return the same object every time, or a new
     one for each call, as appropriate for the specific implementation (e.g. if that
     implementation supports some customization).
 
-xml.dom.getDOMImplementation(*name=None*, *features=()*)
+`xml.dom.getDOMImplementation(name=None, features=())`
 :   Return a suitable DOM implementation. The *name* is either well-known, the
     module name of a DOM implementation, or `None`. If it is not `None`, imports
     the corresponding module and returns a `DOMImplementation` object if the
@@ -93,20 +93,20 @@ xml.dom.getDOMImplementation(*name=None*, *features=()*)
 
 Some convenience constants are also provided:
 
-xml.dom.EMPTY_NAMESPACE
+`xml.dom.EMPTY_NAMESPACE`
 :   The value used to indicate that no namespace is associated with a node in the
     DOM. This is typically found as the `namespaceURI` of a node, or used as
     the *namespaceURI* parameter to a namespaces-specific method.
 
-xml.dom.XML_NAMESPACE
+`xml.dom.XML_NAMESPACE`
 :   The namespace URI associated with the reserved prefix `xml`, as defined by
     [Namespaces in XML](https://www.w3.org/TR/REC-xml-names/) (section 4).
 
-xml.dom.XMLNS_NAMESPACE
+`xml.dom.XMLNS_NAMESPACE`
 :   The namespace URI for namespace declarations, as defined by [Document Object
     Model (DOM) Level 2 Core Specification](https://www.w3.org/TR/DOM-Level-2-Core/core.html) (section 1.1.8).
 
-xml.dom.XHTML_NAMESPACE
+`xml.dom.XHTML_NAMESPACE`
 :   The URI of the XHTML namespace as defined by [XHTML 1.0: The Extensible
     HyperText Markup Language](https://www.w3.org/TR/xhtml1/) (section 3.1.1).
 
@@ -150,11 +150,11 @@ determine the availability of particular features in the DOM they are using.
 DOM Level 2 added the ability to create new `Document` and
 `DocumentType` objects using the `DOMImplementation` as well.
 
-DOMImplementation.hasFeature(*feature*, *version*)
+`DOMImplementation.hasFeature(feature, version)`
 :   Return `True` if the feature identified by the pair of strings *feature* and
     *version* is implemented.
 
-DOMImplementation.createDocument(*namespaceUri*, *qualifiedName*, *doctype*)
+`DOMImplementation.createDocument(namespaceUri, qualifiedName, doctype)`
 :   Return a new `Document` object (the root of the DOM), with a child
     `Element` object having the given *namespaceUri* and *qualifiedName*. The
     *doctype* must be a `DocumentType` object created by
@@ -162,7 +162,7 @@ DOMImplementation.createDocument(*namespaceUri*, *qualifiedName*, *doctype*)
     arguments can also be `None` in order to indicate that no `Element`
     child is to be created.
 
-DOMImplementation.createDocumentType(*qualifiedName*, *publicId*, *systemId*)
+`DOMImplementation.createDocumentType(qualifiedName, publicId, systemId)`
 :   Return a new `DocumentType` object that encapsulates the given
     *qualifiedName*, *publicId*, and *systemId* strings, representing the
     information contained in an XML document type declaration.
@@ -171,7 +171,7 @@ DOMImplementation.createDocumentType(*qualifiedName*, *publicId*, *systemId*)
 
 All of the components of an XML document are subclasses of `Node`.
 
-Node.nodeType
+`Node.nodeType`
 :   An integer representing the node type. Symbolic constants for the types are on
     the `Node` object: `ELEMENT_NODE`, `ATTRIBUTE_NODE`,
     `TEXT_NODE`, `CDATA_SECTION_NODE`, `ENTITY_NODE`,
@@ -179,19 +179,19 @@ Node.nodeType
     `DOCUMENT_NODE`, `DOCUMENT_TYPE_NODE`, `NOTATION_NODE`.
     This is a read-only attribute.
 
-Node.parentNode
+`Node.parentNode`
 :   The parent of the current node, or `None` for the document node. The value is
     always a `Node` object or `None`. For `Element` nodes, this
     will be the parent element, except for the root element, in which case it will
     be the `Document` object. For `Attr` nodes, this is always
     `None`. This is a read-only attribute.
 
-Node.attributes
+`Node.attributes`
 :   A `NamedNodeMap` of attribute objects. Only elements have actual values
     for this; others provide `None` for this attribute. This is a read-only
     attribute.
 
-Node.previousSibling
+`Node.previousSibling`
 :   The node that immediately precedes this one with the same parent. For
     instance the element with an end-tag that comes just before the *self*
     element’s start-tag. Of course, XML documents are made up of more than just
@@ -199,53 +199,53 @@ Node.previousSibling
     If this node is the first child of the parent, this attribute will be
     `None`. This is a read-only attribute.
 
-Node.nextSibling
+`Node.nextSibling`
 :   The node that immediately follows this one with the same parent. See also
     [`previousSibling`](xml.dom.md#xml.dom.Node.previousSibling "xml.dom.Node.previousSibling"). If this is the last child of the parent, this
     attribute will be `None`. This is a read-only attribute.
 
-Node.childNodes
+`Node.childNodes`
 :   A list of nodes contained within this node. This is a read-only attribute.
 
-Node.firstChild
+`Node.firstChild`
 :   The first child of the node, if there are any, or `None`. This is a read-only
     attribute.
 
-Node.lastChild
+`Node.lastChild`
 :   The last child of the node, if there are any, or `None`. This is a read-only
     attribute.
 
-Node.localName
+`Node.localName`
 :   The part of the `tagName` following the colon if there is one, else the
     entire `tagName`. The value is a string.
 
-Node.prefix
+`Node.prefix`
 :   The part of the `tagName` preceding the colon if there is one, else the
     empty string. The value is a string, or `None`.
 
-Node.namespaceURI
+`Node.namespaceURI`
 :   The namespace associated with the element name. This will be a string or
     `None`. This is a read-only attribute.
 
-Node.nodeName
+`Node.nodeName`
 :   This has a different meaning for each node type; see the DOM specification for
     details. You can always get the information you would get here from another
     property such as the `tagName` property for elements or the `name`
     property for attributes. For all node types, the value of this attribute will be
     either a string or `None`. This is a read-only attribute.
 
-Node.nodeValue
+`Node.nodeValue`
 :   This has a different meaning for each node type; see the DOM specification for
     details. The situation is similar to that with [`nodeName`](xml.dom.md#xml.dom.Node.nodeName "xml.dom.Node.nodeName"). The value is
     a string or `None`.
 
-Node.hasAttributes()
+`Node.hasAttributes()`
 :   Return `True` if the node has any attributes.
 
-Node.hasChildNodes()
+`Node.hasChildNodes()`
 :   Return `True` if the node has any child nodes.
 
-Node.isSameNode(*other*)
+`Node.isSameNode(other)`
 :   Return `True` if *other* refers to the same node as this node. This is especially
     useful for DOM implementations which use any sort of proxy architecture (because
     more than one object can refer to the same node).
@@ -257,32 +257,32 @@ Node.isSameNode(*other*)
     > from the W3C will not necessarily affect this method in the Python DOM interface
     > (though any new W3C API for this would also be supported).
 
-Node.appendChild(*newChild*)
+`Node.appendChild(newChild)`
 :   Add a new child node to this node at the end of the list of
     children, returning *newChild*. If the node was already in
     the tree, it is removed first.
 
-Node.insertBefore(*newChild*, *refChild*)
+`Node.insertBefore(newChild, refChild)`
 :   Insert a new child node before an existing child. It must be the case that
     *refChild* is a child of this node; if not, [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
     *newChild* is returned. If *refChild* is `None`, it inserts *newChild* at the
     end of the children’s list.
 
-Node.removeChild(*oldChild*)
+`Node.removeChild(oldChild)`
 :   Remove a child node. *oldChild* must be a child of this node; if not,
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised. *oldChild* is returned on success. If *oldChild*
     will not be used further, its `unlink()` method should be called.
 
-Node.replaceChild(*newChild*, *oldChild*)
+`Node.replaceChild(newChild, oldChild)`
 :   Replace an existing node with a new node. It must be the case that *oldChild*
     is a child of this node; if not, [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
 
-Node.normalize()
+`Node.normalize()`
 :   Join adjacent text nodes so that all stretches of text are stored as single
     `Text` instances. This simplifies processing text from a DOM tree for
     many applications.
 
-Node.cloneNode(*deep*)
+`Node.cloneNode(deep)`
 :   Clone this node. Setting *deep* means to clone all child nodes as well. This
     returns the clone.
 
@@ -297,12 +297,12 @@ interface to represent query results.
 The DOM Level 2 recommendation defines one method and one attribute for these
 objects:
 
-NodeList.item(*i*)
+`NodeList.item(i)`
 :   Return the *i*’th item from the sequence, if there is one, or `None`. The
     index *i* is not allowed to be less than zero or greater than or equal to the
     length of the sequence.
 
-NodeList.length
+`NodeList.length`
 :   The number of nodes in the sequence.
 
 In addition, the Python DOM interface requires that some additional support is
@@ -330,31 +330,31 @@ instance of this interface.
 `DocumentType` is a specialization of `Node`, and adds the
 following attributes:
 
-DocumentType.publicId
+`DocumentType.publicId`
 :   The public identifier for the external subset of the document type definition.
     This will be a string or `None`.
 
-DocumentType.systemId
+`DocumentType.systemId`
 :   The system identifier for the external subset of the document type definition.
     This will be a URI as a string, or `None`.
 
-DocumentType.internalSubset
+`DocumentType.internalSubset`
 :   A string giving the complete internal subset from the document. This does not
     include the brackets which enclose the subset. If the document has no internal
     subset, this should be `None`.
 
-DocumentType.name
+`DocumentType.name`
 :   The name of the root element as given in the `DOCTYPE` declaration, if
     present.
 
-DocumentType.entities
+`DocumentType.entities`
 :   This is a `NamedNodeMap` giving the definitions of external entities.
     For entity names defined more than once, only the first definition is provided
     (others are ignored as required by the XML recommendation). This may be
     `None` if the information is not provided by the parser, or if no entities are
     defined.
 
-DocumentType.notations
+`DocumentType.notations`
 :   This is a `NamedNodeMap` giving the definitions of notations. For
     notation names defined more than once, only the first definition is provided
     (others are ignored as required by the XML recommendation). This may be
@@ -367,52 +367,52 @@ A `Document` represents an entire XML document, including its constituent
 elements, attributes, processing instructions, comments etc. Remember that it
 inherits properties from `Node`.
 
-Document.documentElement
+`Document.documentElement`
 :   The one and only root element of the document.
 
-Document.createElement(*tagName*)
+`Document.createElement(tagName)`
 :   Create and return a new element node. The element is not inserted into the
     document when it is created. You need to explicitly insert it with one of the
     other methods such as `insertBefore()` or `appendChild()`.
 
-Document.createElementNS(*namespaceURI*, *tagName*)
+`Document.createElementNS(namespaceURI, tagName)`
 :   Create and return a new element with a namespace. The *tagName* may have a
     prefix. The element is not inserted into the document when it is created. You
     need to explicitly insert it with one of the other methods such as
     `insertBefore()` or `appendChild()`.
 
-Document.createTextNode(*data*)
+`Document.createTextNode(data)`
 :   Create and return a text node containing the data passed as a parameter. As
     with the other creation methods, this one does not insert the node into the
     tree.
 
-Document.createComment(*data*)
+`Document.createComment(data)`
 :   Create and return a comment node containing the data passed as a parameter. As
     with the other creation methods, this one does not insert the node into the
     tree.
 
-Document.createProcessingInstruction(*target*, *data*)
+`Document.createProcessingInstruction(target, data)`
 :   Create and return a processing instruction node containing the *target* and
     *data* passed as parameters. As with the other creation methods, this one does
     not insert the node into the tree.
 
-Document.createAttribute(*name*)
+`Document.createAttribute(name)`
 :   Create and return an attribute node. This method does not associate the
     attribute node with any particular element. You must use
     `setAttributeNode()` on the appropriate `Element` object to use the
     newly created attribute instance.
 
-Document.createAttributeNS(*namespaceURI*, *qualifiedName*)
+`Document.createAttributeNS(namespaceURI, qualifiedName)`
 :   Create and return an attribute node with a namespace. The *tagName* may have a
     prefix. This method does not associate the attribute node with any particular
     element. You must use `setAttributeNode()` on the appropriate
     `Element` object to use the newly created attribute instance.
 
-Document.getElementsByTagName(*tagName*)
+`Document.getElementsByTagName(tagName)`
 :   Search for all descendants (direct children, children’s children, etc.) with a
     particular element type name.
 
-Document.getElementsByTagNameNS(*namespaceURI*, *localName*)
+`Document.getElementsByTagNameNS(namespaceURI, localName)`
 :   Search for all descendants (direct children, children’s children, etc.) with a
     particular namespace URI and localname. The localname is the part of the
     namespace after the prefix.
@@ -422,66 +422,66 @@ Document.getElementsByTagNameNS(*namespaceURI*, *localName*)
 `Element` is a subclass of `Node`, so inherits all the attributes
 of that class.
 
-Element.tagName
+`Element.tagName`
 :   The element type name. In a namespace-using document it may have colons in it.
     The value is a string.
 
-Element.getElementsByTagName(*tagName*)
+`Element.getElementsByTagName(tagName)`
 :   Same as equivalent method in the `Document` class.
 
-Element.getElementsByTagNameNS(*namespaceURI*, *localName*)
+`Element.getElementsByTagNameNS(namespaceURI, localName)`
 :   Same as equivalent method in the `Document` class.
 
-Element.hasAttribute(*name*)
+`Element.hasAttribute(name)`
 :   Return `True` if the element has an attribute named by *name*.
 
-Element.hasAttributeNS(*namespaceURI*, *localName*)
+`Element.hasAttributeNS(namespaceURI, localName)`
 :   Return `True` if the element has an attribute named by *namespaceURI* and
     *localName*.
 
-Element.getAttribute(*name*)
+`Element.getAttribute(name)`
 :   Return the value of the attribute named by *name* as a string. If no such
     attribute exists, an empty string is returned, as if the attribute had no value.
 
-Element.getAttributeNode(*attrname*)
+`Element.getAttributeNode(attrname)`
 :   Return the `Attr` node for the attribute named by *attrname*.
 
-Element.getAttributeNS(*namespaceURI*, *localName*)
+`Element.getAttributeNS(namespaceURI, localName)`
 :   Return the value of the attribute named by *namespaceURI* and *localName* as a
     string. If no such attribute exists, an empty string is returned, as if the
     attribute had no value.
 
-Element.getAttributeNodeNS(*namespaceURI*, *localName*)
+`Element.getAttributeNodeNS(namespaceURI, localName)`
 :   Return an attribute value as a node, given a *namespaceURI* and *localName*.
 
-Element.removeAttribute(*name*)
+`Element.removeAttribute(name)`
 :   Remove an attribute by name. If there is no matching attribute, a
     [`NotFoundErr`](xml.dom.md#xml.dom.NotFoundErr "xml.dom.NotFoundErr") is raised.
 
-Element.removeAttributeNode(*oldAttr*)
+`Element.removeAttributeNode(oldAttr)`
 :   Remove and return *oldAttr* from the attribute list, if present. If *oldAttr* is
     not present, [`NotFoundErr`](xml.dom.md#xml.dom.NotFoundErr "xml.dom.NotFoundErr") is raised.
 
-Element.removeAttributeNS(*namespaceURI*, *localName*)
+`Element.removeAttributeNS(namespaceURI, localName)`
 :   Remove an attribute by name. Note that it uses a localName, not a qname. No
     exception is raised if there is no matching attribute.
 
-Element.setAttribute(*name*, *value*)
+`Element.setAttribute(name, value)`
 :   Set an attribute value from a string.
 
-Element.setAttributeNode(*newAttr*)
+`Element.setAttributeNode(newAttr)`
 :   Add a new attribute node to the element, replacing an existing attribute if
     necessary if the `name` attribute matches. If a replacement occurs, the
     old attribute node will be returned. If *newAttr* is already in use,
     [`InuseAttributeErr`](xml.dom.md#xml.dom.InuseAttributeErr "xml.dom.InuseAttributeErr") will be raised.
 
-Element.setAttributeNodeNS(*newAttr*)
+`Element.setAttributeNodeNS(newAttr)`
 :   Add a new attribute node to the element, replacing an existing attribute if
     necessary if the `namespaceURI` and `localName` attributes match.
     If a replacement occurs, the old attribute node will be returned. If *newAttr*
     is already in use, [`InuseAttributeErr`](xml.dom.md#xml.dom.InuseAttributeErr "xml.dom.InuseAttributeErr") will be raised.
 
-Element.setAttributeNS(*namespaceURI*, *qname*, *value*)
+`Element.setAttributeNS(namespaceURI, qname, value)`
 :   Set an attribute value from a string, given a *namespaceURI* and a *qname*.
     Note that a qname is the whole attribute name. This is different than above.
 
@@ -489,20 +489,20 @@ Element.setAttributeNS(*namespaceURI*, *qname*, *value*)
 
 `Attr` inherits from `Node`, so inherits all its attributes.
 
-Attr.name
+`Attr.name`
 :   The attribute name.
     In a namespace-using document it may include a colon.
 
-Attr.localName
+`Attr.localName`
 :   The part of the name following the colon if there is one, else the
     entire name.
     This is a read-only attribute.
 
-Attr.prefix
+`Attr.prefix`
 :   The part of the name preceding the colon if there is one, else the
     empty string.
 
-Attr.value
+`Attr.value`
 :   The text value of the attribute. This is a synonym for the
     `nodeValue` attribute.
 
@@ -510,10 +510,10 @@ Attr.value
 
 `NamedNodeMap` does *not* inherit from `Node`.
 
-NamedNodeMap.length
+`NamedNodeMap.length`
 :   The length of the attribute list.
 
-NamedNodeMap.item(*index*)
+`NamedNodeMap.item(index)`
 :   Return an attribute with a particular index. The order you get the attributes
     in is arbitrary but will be consistent for the life of a DOM. Each item is an
     attribute node. Get its value with the `value` attribute.
@@ -527,7 +527,7 @@ of methods on the `Element` objects.
 `Comment` represents a comment in the XML document. It is a subclass of
 `Node`, but cannot have child nodes.
 
-Comment.data
+`Comment.data`
 :   The content of the comment as a string. The attribute contains all characters
     between the leading `<!-``-` and trailing `-``->`, but does not
     include them.
@@ -543,7 +543,7 @@ These two interfaces are identical, but provide different values for the
 These interfaces extend the `Node` interface. They cannot have child
 nodes.
 
-Text.data
+`Text.data`
 :   The content of the text node as a string.
 
 > **Note:**
@@ -559,11 +559,11 @@ Text.data
 Represents a processing instruction in the XML document; this inherits from the
 `Node` interface and cannot have child nodes.
 
-ProcessingInstruction.target
+`ProcessingInstruction.target`
 :   The content of the processing instruction up to the first whitespace character.
     This is a read-only attribute.
 
-ProcessingInstruction.data
+`ProcessingInstruction.data`
 :   The content of the processing instruction following the first whitespace
     character.
 
@@ -580,68 +580,68 @@ defined by the DOM. The implementations must raise the appropriate specific
 exception, each of which carries the appropriate value for the [`code`](code.md#module-code "code: Facilities to implement read-eval-print loops.")
 attribute.
 
-*exception* xml.dom.DOMException
+`exception xml.dom.DOMException`
 :   Base exception class used for all specific DOM exceptions. This exception class
     cannot be directly instantiated.
 
-*exception* xml.dom.DomstringSizeErr
+`exception xml.dom.DomstringSizeErr`
 :   Raised when a specified range of text does not fit into a string. This is not
     known to be used in the Python DOM implementations, but may be received from DOM
     implementations not written in Python.
 
-*exception* xml.dom.HierarchyRequestErr
+`exception xml.dom.HierarchyRequestErr`
 :   Raised when an attempt is made to insert a node where the node type is not
     allowed.
 
-*exception* xml.dom.IndexSizeErr
+`exception xml.dom.IndexSizeErr`
 :   Raised when an index or size parameter to a method is negative or exceeds the
     allowed values.
 
-*exception* xml.dom.InuseAttributeErr
+`exception xml.dom.InuseAttributeErr`
 :   Raised when an attempt is made to insert an `Attr` node that is already
     present elsewhere in the document.
 
-*exception* xml.dom.InvalidAccessErr
+`exception xml.dom.InvalidAccessErr`
 :   Raised if a parameter or an operation is not supported on the underlying object.
 
-*exception* xml.dom.InvalidCharacterErr
+`exception xml.dom.InvalidCharacterErr`
 :   This exception is raised when a string parameter contains a character that is
     not permitted in the context it’s being used in by the XML 1.0 recommendation.
     For example, attempting to create an `Element` node with a space in the
     element type name will cause this error to be raised.
 
-*exception* xml.dom.InvalidModificationErr
+`exception xml.dom.InvalidModificationErr`
 :   Raised when an attempt is made to modify the type of a node.
 
-*exception* xml.dom.InvalidStateErr
+`exception xml.dom.InvalidStateErr`
 :   Raised when an attempt is made to use an object that is not defined or is no
     longer usable.
 
-*exception* xml.dom.NamespaceErr
+`exception xml.dom.NamespaceErr`
 :   If an attempt is made to change any object in a way that is not permitted with
     regard to the [Namespaces in XML](https://www.w3.org/TR/REC-xml-names/)
     recommendation, this exception is raised.
 
-*exception* xml.dom.NotFoundErr
+`exception xml.dom.NotFoundErr`
 :   Exception when a node does not exist in the referenced context. For example,
     `NamedNodeMap.removeNamedItem()` will raise this if the node passed in does
     not exist in the map.
 
-*exception* xml.dom.NotSupportedErr
+`exception xml.dom.NotSupportedErr`
 :   Raised when the implementation does not support the requested type of object or
     operation.
 
-*exception* xml.dom.NoDataAllowedErr
+`exception xml.dom.NoDataAllowedErr`
 :   This is raised if data is specified for a node which does not support data.
 
-*exception* xml.dom.NoModificationAllowedErr
+`exception xml.dom.NoModificationAllowedErr`
 :   Raised on attempts to modify an object where modifications are not allowed (such
     as for read-only nodes).
 
-*exception* xml.dom.SyntaxErr
+`exception xml.dom.SyntaxErr`
 :   Raised when an invalid or illegal string is specified.
 
-*exception* xml.dom.WrongDocumentErr
+`exception xml.dom.WrongDocumentErr`
 :   Raised when a node is inserted in a different document than it currently belongs
     to, and the implementation does not support migrating the node from one document
     to the other.

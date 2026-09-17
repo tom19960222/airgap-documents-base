@@ -15,30 +15,30 @@ The `numbers` module ([**PEP 3141**](https://peps.python.org/pep-3141/)) defines
 [abstract base classes](https://docs.python.org/3.12/glossary.html#term-abstract-base-class) which progressively define
 more operations. None of the types defined in this module are intended to be instantiated.
 
-*class* numbers.Number
+`class numbers.Number`
 :   The root of the numeric hierarchy. If you just want to check if an argument
     *x* is a number, without caring what kind, use `isinstance(x, Number)`.
 
 ## The numeric tower
 
-*class* numbers.Complex
+`class numbers.Complex`
 :   Subclasses of this type describe complex numbers and include the operations
     that work on the built-in [`complex`](functions.md#complex "complex") type. These are: conversions to
     [`complex`](functions.md#complex "complex") and [`bool`](functions.md#bool "bool"), [`real`](numbers.md#numbers.Complex.real "numbers.Complex.real"), [`imag`](numbers.md#numbers.Complex.imag "numbers.Complex.imag"), `+`,
     `-`, `*`, `/`, `**`, [`abs()`](functions.md#abs "abs"), [`conjugate()`](numbers.md#numbers.Complex.conjugate "numbers.Complex.conjugate"), `==`, and
     `!=`. All except `-` and `!=` are abstract.
 
-    real
+    `real`
     :   Abstract. Retrieves the real component of this number.
 
-    imag
+    `imag`
     :   Abstract. Retrieves the imaginary component of this number.
 
-    *abstractmethod* conjugate()
+    `abstractmethod conjugate()`
     :   Abstract. Returns the complex conjugate. For example, `(1+3j).conjugate()
         == (1-3j)`.
 
-*class* numbers.Real
+`class numbers.Real`
 :   To [`Complex`](numbers.md#numbers.Complex "numbers.Complex"), `Real` adds the operations that work on real
     numbers.
 
@@ -49,7 +49,7 @@ more operations. None of the types defined in this module are intended to be ins
     Real also provides defaults for [`complex()`](functions.md#complex "complex"), [`real`](numbers.md#numbers.Complex.real "numbers.Complex.real"),
     [`imag`](numbers.md#numbers.Complex.imag "numbers.Complex.imag"), and [`conjugate()`](numbers.md#numbers.Complex.conjugate "numbers.Complex.conjugate").
 
-*class* numbers.Rational
+`class numbers.Rational`
 :   Subtypes [`Real`](numbers.md#numbers.Real "numbers.Real") and adds [`numerator`](numbers.md#numbers.Rational.numerator "numbers.Rational.numerator") and
     [`denominator`](numbers.md#numbers.Rational.denominator "numbers.Rational.denominator") properties. It also provides a default for
     [`float()`](functions.md#float "float").
@@ -58,13 +58,13 @@ more operations. None of the types defined in this module are intended to be ins
     should be instances of [`Integral`](numbers.md#numbers.Integral "numbers.Integral") and should be in lowest terms with
     [`denominator`](numbers.md#numbers.Rational.denominator "numbers.Rational.denominator") positive.
 
-    numerator
+    `numerator`
     :   Abstract.
 
-    denominator
+    `denominator`
     :   Abstract.
 
-*class* numbers.Integral
+`class numbers.Integral`
 :   Subtypes [`Rational`](numbers.md#numbers.Rational "numbers.Rational") and adds a conversion to [`int`](functions.md#int "int"). Provides
     defaults for [`float()`](functions.md#float "float"), [`numerator`](numbers.md#numbers.Rational.numerator "numbers.Rational.numerator"), and
     [`denominator`](numbers.md#numbers.Rational.denominator "numbers.Rational.denominator"). Adds abstract methods for [`pow()`](functions.md#pow "pow") with

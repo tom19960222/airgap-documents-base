@@ -99,7 +99,7 @@ More condensed:
 
 ## Constructors
 
-hashlib.new(*name*, [*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.new(name, [data, ]*, usedforsecurity=True)`
 :   Is a generic constructor that takes the string *name* of the desired
     algorithm as its first parameter. It also exists to allow access to the
     above listed hashes as well as any other algorithms that your OpenSSL
@@ -114,25 +114,25 @@ Using [`new()`](hashlib.md#hashlib.new "hashlib.new") with an algorithm name:
 '031edd7d41651593c5fe5c006fa5752b37fddff7bc4e843aa6af0c950f4b9406'
 ```
 
-hashlib.md5([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.md5([data, ]*, usedforsecurity=True)`
 
-hashlib.sha1([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha1([data, ]*, usedforsecurity=True)`
 
-hashlib.sha224([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha224([data, ]*, usedforsecurity=True)`
 
-hashlib.sha256([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha256([data, ]*, usedforsecurity=True)`
 
-hashlib.sha384([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha384([data, ]*, usedforsecurity=True)`
 
-hashlib.sha512([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha512([data, ]*, usedforsecurity=True)`
 
-hashlib.sha3_224([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha3_224([data, ]*, usedforsecurity=True)`
 
-hashlib.sha3_256([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha3_256([data, ]*, usedforsecurity=True)`
 
-hashlib.sha3_384([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha3_384([data, ]*, usedforsecurity=True)`
 
-hashlib.sha3_512([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.sha3_512([data, ]*, usedforsecurity=True)`
 
 Named constructors such as these are faster than passing an algorithm name to
 [`new()`](hashlib.md#hashlib.new "hashlib.new").
@@ -141,7 +141,7 @@ Named constructors such as these are faster than passing an algorithm name to
 
 Hashlib provides the following constant module attributes:
 
-hashlib.algorithms_guaranteed
+`hashlib.algorithms_guaranteed`
 :   A set containing the names of the hash algorithms guaranteed to be supported
     by this module on all platforms. Note that ‘md5’ is in this list despite
     some upstream vendors offering an odd “FIPS compliant” Python build that
@@ -149,7 +149,7 @@ hashlib.algorithms_guaranteed
 
     Added in version 3.2.
 
-hashlib.algorithms_available
+`hashlib.algorithms_available`
 :   A set containing the names of the hash algorithms that are available in the
     running Python interpreter. These names will be recognized when passed to
     [`new()`](hashlib.md#hashlib.new "hashlib.new"). [`algorithms_guaranteed`](hashlib.md#hashlib.algorithms_guaranteed "hashlib.algorithms_guaranteed") will always be a subset. The
@@ -163,15 +163,15 @@ hashlib.algorithms_available
 The following values are provided as constant attributes of the hash objects
 returned by the constructors:
 
-hash.digest_size
+`hash.digest_size`
 :   The size of the resulting hash in bytes.
 
-hash.block_size
+`hash.block_size`
 :   The internal block size of the hash algorithm in bytes.
 
 A hash object has the following attributes:
 
-hash.name
+`hash.name`
 :   The canonical name of this hash, always lowercase and always suitable as a
     parameter to [`new()`](hashlib.md#hashlib.new "hashlib.new") to create another hash of this type.
 
@@ -181,43 +181,43 @@ hash.name
 
 A hash object has the following methods:
 
-hash.update(*data*)
+`hash.update(data)`
 :   Update the hash object with the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
     Repeated calls are equivalent to a single call with the
     concatenation of all the arguments: `m.update(a); m.update(b)` is
     equivalent to `m.update(a+b)`.
 
-hash.digest()
+`hash.digest()`
 :   Return the digest of the data passed to the [`update()`](hashlib.md#hashlib.hash.update "hashlib.hash.update") method so far.
     This is a bytes object of size [`digest_size`](hashlib.md#hashlib.hash.digest_size "hashlib.hash.digest_size") which may contain bytes in
     the whole range from 0 to 255.
 
-hash.hexdigest()
+`hash.hexdigest()`
 :   Like [`digest()`](hashlib.md#hashlib.hash.digest "hashlib.hash.digest") except the digest is returned as a string object of
     double length, containing only hexadecimal digits. This may be used to
     exchange the value safely in email or other non-binary environments.
 
-hash.copy()
+`hash.copy()`
 :   Return a copy (“clone”) of the hash object. This can be used to efficiently
     compute the digests of data sharing a common initial substring.
 
 ## SHAKE variable length digests
 
-hashlib.shake_128([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.shake_128([data, ]*, usedforsecurity=True)`
 
-hashlib.shake_256([*data*, ]*\**, *usedforsecurity=True*)
+`hashlib.shake_256([data, ]*, usedforsecurity=True)`
 
 The [`shake_128()`](hashlib.md#hashlib.shake_128 "hashlib.shake_128") and [`shake_256()`](hashlib.md#hashlib.shake_256 "hashlib.shake_256") algorithms provide variable
 length digests with length_in_bits//2 up to 128 or 256 bits of security.
 As such, their digest methods require a length. Maximum length is not limited
 by the SHAKE algorithm.
 
-shake.digest(*length*)
+`shake.digest(length)`
 :   Return the digest of the data passed to the [`update()`](hashlib.md#hashlib.hash.update "hashlib.hash.update") method so far.
     This is a bytes object of size *length* which may contain bytes in
     the whole range from 0 to 255.
 
-shake.hexdigest(*length*)
+`shake.hexdigest(length)`
 :   Like [`digest()`](hashlib.md#hashlib.shake.digest "hashlib.shake.digest") except the digest is returned as a string object of
     double length, containing only hexadecimal digits. This may be used to
     exchange the value in email or other non-binary environments.
@@ -235,7 +235,7 @@ Example use:
 The hashlib module provides a helper function for efficient hashing of
 a file or file-like object.
 
-hashlib.file_digest(*fileobj*, *digest*, */*)
+`hashlib.file_digest(fileobj, digest, /)`
 :   Return a digest object that has been updated with contents of file object.
 
     *fileobj* must be a file-like object opened for reading in binary mode.
@@ -283,7 +283,7 @@ hashing. Naive algorithms such as `sha1(password)` are not resistant against
 brute-force attacks. A good password hashing function must be tunable, slow, and
 include a [salt](https://en.wikipedia.org/wiki/Salt_%28cryptography%29).
 
-hashlib.pbkdf2_hmac(*hash_name*, *password*, *salt*, *iterations*, *dklen=None*)
+`hashlib.pbkdf2_hmac(hash_name, password, salt, iterations, dklen=None)`
 :   The function provides PKCS#5 password-based key derivation function 2. It
     uses HMAC as pseudorandom function.
 
@@ -317,7 +317,7 @@ hashlib.pbkdf2_hmac(*hash_name*, *password*, *salt*, *iterations*, *dklen=None*)
     Changed in version 3.12: Function now only available when Python is built with OpenSSL. The slow
     pure Python implementation has been removed.
 
-hashlib.scrypt(*password*, *\**, *salt*, *n*, *r*, *p*, *maxmem=0*, *dklen=64*)
+`hashlib.scrypt(password, *, salt, n, r, p, maxmem=0, dklen=64)`
 :   The function provides scrypt password-based key derivation function as
     defined in [**RFC 7914**](https://datatracker.ietf.org/doc/html/rfc7914.html).
 
@@ -351,9 +351,9 @@ Hash objects from this module follow the API of standard library’s
 
 New hash objects are created by calling constructor functions:
 
-hashlib.blake2b(*data=b''*, *\**, *digest_size=64*, *key=b''*, *salt=b''*, *person=b''*, *fanout=1*, *depth=1*, *leaf_size=0*, *node_offset=0*, *node_depth=0*, *inner_size=0*, *last_node=False*, *usedforsecurity=True*)
+`hashlib.blake2b(data=b'', *, digest_size=64, key=b'', salt=b'', person=b'', fanout=1, depth=1, leaf_size=0, node_offset=0, node_depth=0, inner_size=0, last_node=False, usedforsecurity=True)`
 
-hashlib.blake2s(*data=b''*, *\**, *digest_size=32*, *key=b''*, *salt=b''*, *person=b''*, *fanout=1*, *depth=1*, *leaf_size=0*, *node_offset=0*, *node_depth=0*, *inner_size=0*, *last_node=False*, *usedforsecurity=True*)
+`hashlib.blake2s(data=b'', *, digest_size=32, key=b'', salt=b'', person=b'', fanout=1, depth=1, leaf_size=0, node_offset=0, node_depth=0, inner_size=0, last_node=False, usedforsecurity=True)`
 
 These functions return the corresponding hash objects for calculating
 BLAKE2b or BLAKE2s. They optionally take these general parameters:
@@ -408,27 +408,27 @@ hashing.
 
 ### Constants
 
-blake2b.SALT_SIZE
+`blake2b.SALT_SIZE`
 
-blake2s.SALT_SIZE
+`blake2s.SALT_SIZE`
 
 Salt length (maximum length accepted by constructors).
 
-blake2b.PERSON_SIZE
+`blake2b.PERSON_SIZE`
 
-blake2s.PERSON_SIZE
+`blake2s.PERSON_SIZE`
 
 Personalization string length (maximum length accepted by constructors).
 
-blake2b.MAX_KEY_SIZE
+`blake2b.MAX_KEY_SIZE`
 
-blake2s.MAX_KEY_SIZE
+`blake2s.MAX_KEY_SIZE`
 
 Maximum key size.
 
-blake2b.MAX_DIGEST_SIZE
+`blake2b.MAX_DIGEST_SIZE`
 
-blake2s.MAX_DIGEST_SIZE
+`blake2s.MAX_DIGEST_SIZE`
 
 Maximum digest size that the hash function can output.
 

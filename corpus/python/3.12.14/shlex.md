@@ -18,7 +18,7 @@ applications) or for parsing quoted strings.
 
 The [`shlex`](shlex.md#module-shlex "shlex: Simple lexical analysis for Unix shell-like languages.") module defines the following functions:
 
-shlex.split(*s*, *comments=False*, *posix=True*)
+`shlex.split(s, comments=False, posix=True)`
 :   Split the string *s* using shell-like syntax. If *comments* is [`False`](constants.md#False "False")
     (the default), the parsing of comments in the given string will be disabled
     (setting the [`commenters`](shlex.md#shlex.shlex.commenters "shlex.shlex.commenters") attribute of the
@@ -29,7 +29,7 @@ shlex.split(*s*, *comments=False*, *posix=True*)
     Changed in version 3.12: Passing `None` for *s* argument now raises an exception, rather than
     reading [`sys.stdin`](sys.md#sys.stdin "sys.stdin").
 
-shlex.join(*split_command*)
+`shlex.join(split_command)`
 :   Concatenate the tokens of the list *split_command* and return a string.
     This function is the inverse of [`split()`](shlex.md#shlex.split "shlex.split").
 
@@ -44,7 +44,7 @@ shlex.join(*split_command*)
 
     Added in version 3.8.
 
-shlex.quote(*s*)
+`shlex.quote(s)`
 :   Return a shell-escaped version of the string *s*. The returned value is a
     string that can safely be used as one token in a shell command line, for
     cases where you cannot use a list.
@@ -98,7 +98,7 @@ shlex.quote(*s*)
 
 The [`shlex`](shlex.md#module-shlex "shlex: Simple lexical analysis for Unix shell-like languages.") module defines the following class:
 
-*class* shlex.shlex(*instream=None*, *infile=None*, *posix=False*, *punctuation_chars=False*)
+`class shlex.shlex(instream=None, infile=None, posix=False, punctuation_chars=False)`
 :   A [`shlex`](shlex.md#shlex.shlex "shlex.shlex") instance or subclass instance is a lexical analyzer
     object. The initialization argument, if present, specifies where to read
     characters from. It must be a file-/stream-like object with
@@ -135,21 +135,21 @@ The [`shlex`](shlex.md#module-shlex "shlex: Simple lexical analysis for Unix she
 
 A [`shlex`](shlex.md#shlex.shlex "shlex.shlex") instance has the following methods:
 
-shlex.get_token()
+`shlex.get_token()`
 :   Return a token. If tokens have been stacked using [`push_token()`](shlex.md#shlex.shlex.push_token "shlex.shlex.push_token"), pop a
     token off the stack. Otherwise, read one from the input stream. If reading
     encounters an immediate end-of-file, [`eof`](shlex.md#shlex.shlex.eof "shlex.shlex.eof") is returned (the empty
     string (`''`) in non-POSIX mode, and `None` in POSIX mode).
 
-shlex.push_token(*str*)
+`shlex.push_token(str)`
 :   Push the argument onto the token stack.
 
-shlex.read_token()
+`shlex.read_token()`
 :   Read a raw token. Ignore the pushback stack, and do not interpret source
     requests. (This is not ordinarily a useful entry point, and is documented here
     only for the sake of completeness.)
 
-shlex.sourcehook(*filename*)
+`shlex.sourcehook(filename)`
 :   When [`shlex`](shlex.md#shlex.shlex "shlex.shlex") detects a source request (see [`source`](shlex.md#shlex.shlex.source "shlex.shlex.source")
     below) this method is given the following token as argument, and expected
     to return a tuple consisting of a filename and an open file-like object.
@@ -176,16 +176,16 @@ shlex.sourcehook(*filename*)
     For more explicit control of source stacking, use the [`push_source()`](shlex.md#shlex.shlex.push_source "shlex.shlex.push_source") and
     [`pop_source()`](shlex.md#shlex.shlex.pop_source "shlex.shlex.pop_source") methods.
 
-shlex.push_source(*newstream*, *newfile=None*)
+`shlex.push_source(newstream, newfile=None)`
 :   Push an input source stream onto the input stack. If the filename argument is
     specified it will later be available for use in error messages. This is the
     same method used internally by the [`sourcehook()`](shlex.md#shlex.shlex.sourcehook "shlex.shlex.sourcehook") method.
 
-shlex.pop_source()
+`shlex.pop_source()`
 :   Pop the last-pushed input source from the input stack. This is the same method
     used internally when the lexer reaches EOF on a stacked input stream.
 
-shlex.error_leader(*infile=None*, *lineno=None*)
+`shlex.error_leader(infile=None, lineno=None)`
 :   This method generates an error message leader in the format of a Unix C compiler
     error label; the format is `'"%s", line %d: '`, where the `%s` is replaced
     with the name of the current source file and the `%d` with the current input
@@ -198,12 +198,12 @@ shlex.error_leader(*infile=None*, *lineno=None*)
 Instances of [`shlex`](shlex.md#shlex.shlex "shlex.shlex") subclasses have some public instance
 variables which either control lexical analysis or can be used for debugging:
 
-shlex.commenters
+`shlex.commenters`
 :   The string of characters that are recognized as comment beginners. All
     characters from the comment beginner to end of line are ignored. Includes just
     `'#'` by default.
 
-shlex.wordchars
+`shlex.wordchars`
 :   The string of characters that will accumulate into multi-character tokens. By
     default, includes all ASCII alphanumerics and underscore. In POSIX mode, the
     accented characters in the Latin-1 set are also included. If
@@ -214,25 +214,25 @@ shlex.wordchars
     there. If [`whitespace_split`](shlex.md#shlex.shlex.whitespace_split "shlex.shlex.whitespace_split") is set to `True`, this will have no
     effect.
 
-shlex.whitespace
+`shlex.whitespace`
 :   Characters that will be considered whitespace and skipped. Whitespace bounds
     tokens. By default, includes space, tab, linefeed and carriage-return.
 
-shlex.escape
+`shlex.escape`
 :   Characters that will be considered as escape. This will be only used in POSIX
     mode, and includes just `'\'` by default.
 
-shlex.quotes
+`shlex.quotes`
 :   Characters that will be considered string quotes. The token accumulates until
     the same quote is encountered again (thus, different quote types protect each
     other as in the shell.) By default, includes ASCII single and double quotes.
 
-shlex.escapedquotes
+`shlex.escapedquotes`
 :   Characters in [`quotes`](shlex.md#shlex.shlex.quotes "shlex.shlex.quotes") that will interpret escape characters defined in
     [`escape`](shlex.md#shlex.shlex.escape "shlex.shlex.escape"). This is only used in POSIX mode, and includes just `'"'` by
     default.
 
-shlex.whitespace_split
+`shlex.whitespace_split`
 :   If `True`, tokens will only be split in whitespaces. This is useful, for
     example, for parsing command lines with [`shlex`](shlex.md#shlex.shlex "shlex.shlex"), getting
     tokens in a similar way to shell arguments. When used in combination with
@@ -242,16 +242,16 @@ shlex.whitespace_split
     Changed in version 3.8: The [`punctuation_chars`](shlex.md#shlex.shlex.punctuation_chars "shlex.shlex.punctuation_chars") attribute was made compatible with the
     [`whitespace_split`](shlex.md#shlex.shlex.whitespace_split "shlex.shlex.whitespace_split") attribute.
 
-shlex.infile
+`shlex.infile`
 :   The name of the current input file, as initially set at class instantiation time
     or stacked by later source requests. It may be useful to examine this when
     constructing error messages.
 
-shlex.instream
+`shlex.instream`
 :   The input stream from which this [`shlex`](shlex.md#shlex.shlex "shlex.shlex") instance is reading
     characters.
 
-shlex.source
+`shlex.source`
 :   This attribute is `None` by default. If you assign a string to it, that
     string will be recognized as a lexical-level inclusion request similar to the
     `source` keyword in various shells. That is, the immediately following token
@@ -260,22 +260,22 @@ shlex.source
     called and the input source will again become the original input stream. Source
     requests may be stacked any number of levels deep.
 
-shlex.debug
+`shlex.debug`
 :   If this attribute is numeric and `1` or more, a [`shlex`](shlex.md#shlex.shlex "shlex.shlex")
     instance will print verbose progress output on its behavior. If you need
     to use this, you can read the module source code to learn the details.
 
-shlex.lineno
+`shlex.lineno`
 :   Source line number (count of newlines seen so far plus one).
 
-shlex.token
+`shlex.token`
 :   The token buffer. It may be useful to examine this when catching exceptions.
 
-shlex.eof
+`shlex.eof`
 :   Token used to determine end of file. This will be set to the empty string
     (`''`), in non-POSIX mode, and to `None` in POSIX mode.
 
-shlex.punctuation_chars
+`shlex.punctuation_chars`
 :   A read-only property. Characters that will be considered punctuation. Runs of
     punctuation characters will be returned as a single token. However, note that no
     semantic validity checking will be performed: for example, ‘>>>’ could be

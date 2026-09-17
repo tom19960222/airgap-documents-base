@@ -31,7 +31,7 @@ and argument [`feature_external_ges`](xml.sax.handler.md#xml.sax.handler.feature
 
 The convenience functions are:
 
-xml.sax.make_parser(*parser_list=[]*)
+`xml.sax.make_parser(parser_list=[])`
 :   Create and return a SAX [`XMLReader`](xml.sax.reader.md#xml.sax.xmlreader.XMLReader "xml.sax.xmlreader.XMLReader") object. The
     first parser found will
     be used. If *parser_list* is provided, it must be an iterable of strings which
@@ -40,7 +40,7 @@ xml.sax.make_parser(*parser_list=[]*)
 
     Changed in version 3.8: The *parser_list* argument can be any iterable, not just a list.
 
-xml.sax.parse(*filename_or_stream*, *handler*, *error_handler=handler.ErrorHandler()*)
+`xml.sax.parse(filename_or_stream, handler, error_handler=handler.ErrorHandler())`
 :   Create a SAX parser and use it to parse a document. The document, passed in as
     *filename_or_stream*, can be a filename or a file object. The *handler*
     parameter needs to be a SAX [`ContentHandler`](xml.sax.handler.md#xml.sax.handler.ContentHandler "xml.sax.handler.ContentHandler") instance. If
@@ -49,7 +49,7 @@ xml.sax.parse(*filename_or_stream*, *handler*, *error_handler=handler.ErrorHandl
     omitted, [`SAXParseException`](xml.sax.md#xml.sax.SAXParseException "xml.sax.SAXParseException") will be raised on all errors. There is no
     return value; all work must be done by the *handler* passed in.
 
-xml.sax.parseString(*string*, *handler*, *error_handler=handler.ErrorHandler()*)
+`xml.sax.parseString(string, handler, error_handler=handler.ErrorHandler())`
 :   Similar to [`parse()`](xml.sax.md#xml.sax.parse "xml.sax.parse"), but parses from a buffer *string* received as a
     parameter. *string* must be a [`str`](stdtypes.md#str "str") instance or a
     [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
@@ -83,7 +83,7 @@ instantiated directly) and the handler classes are also available from
 In addition to these classes, [`xml.sax`](xml.sax.md#module-xml.sax "xml.sax: Package containing SAX2 base classes and convenience functions.") provides the following exception
 classes.
 
-*exception* xml.sax.SAXException(*msg*, *exception=None*)
+`exception xml.sax.SAXException(msg, exception=None)`
 :   Encapsulate an XML error or warning. This class can contain basic error or
     warning information from either the XML parser or the application: it can be
     subclassed to provide additional functionality or to add localization. Note
@@ -98,7 +98,7 @@ classes.
 
     This is the base class for the other SAX exception classes.
 
-*exception* xml.sax.SAXParseException(*msg*, *exception*, *locator*)
+`exception xml.sax.SAXParseException(msg, exception, locator)`
 :   Subclass of [`SAXException`](xml.sax.md#xml.sax.SAXException "xml.sax.SAXException") raised on parse errors. Instances of this
     class are passed to the methods of the SAX
     [`ErrorHandler`](xml.sax.handler.md#xml.sax.handler.ErrorHandler "xml.sax.handler.ErrorHandler") interface to provide information
@@ -106,13 +106,13 @@ classes.
     [`Locator`](xml.sax.reader.md#xml.sax.xmlreader.Locator "xml.sax.xmlreader.Locator") interface as well as the
     [`SAXException`](xml.sax.md#xml.sax.SAXException "xml.sax.SAXException") interface.
 
-*exception* xml.sax.SAXNotRecognizedException(*msg*, *exception=None*)
+`exception xml.sax.SAXNotRecognizedException(msg, exception=None)`
 :   Subclass of [`SAXException`](xml.sax.md#xml.sax.SAXException "xml.sax.SAXException") raised when a SAX
     [`XMLReader`](xml.sax.reader.md#xml.sax.xmlreader.XMLReader "xml.sax.xmlreader.XMLReader") is
     confronted with an unrecognized feature or property. SAX applications and
     extensions may use this class for similar purposes.
 
-*exception* xml.sax.SAXNotSupportedException(*msg*, *exception=None*)
+`exception xml.sax.SAXNotSupportedException(msg, exception=None)`
 :   Subclass of [`SAXException`](xml.sax.md#xml.sax.SAXException "xml.sax.SAXException") raised when a SAX
     [`XMLReader`](xml.sax.reader.md#xml.sax.xmlreader.XMLReader "xml.sax.xmlreader.XMLReader") is asked to
     enable a feature that is not supported, or to set a property to a value that the
@@ -139,8 +139,8 @@ classes.
 
 The [`SAXException`](xml.sax.md#xml.sax.SAXException "xml.sax.SAXException") exception class supports the following methods:
 
-SAXException.getMessage()
+`SAXException.getMessage()`
 :   Return a human-readable message describing the error condition.
 
-SAXException.getException()
+`SAXException.getException()`
 :   Return an encapsulated exception object, or `None`.

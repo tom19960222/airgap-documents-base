@@ -116,7 +116,7 @@ from tkinter import *
 from tkinter import ttk
 ```
 
-*class* tkinter.Tk(*screenName=None*, *baseName=None*, *className='Tk'*, *useTk=True*, *sync=False*, *use=None*)
+`class tkinter.Tk(screenName=None, baseName=None, className='Tk', useTk=True, sync=False, use=None)`
 :   Construct a toplevel Tk widget, which is usually the main window of an
     application, and initialize a Tcl interpreter for this widget. Each
     instance has its own associated Tcl interpreter.
@@ -161,13 +161,13 @@ from tkinter import ttk
     profile files is the `HOME` environment variable or, if that
     isn’t defined, then [`os.curdir`](os.md#os.curdir "os.curdir").
 
-    tk
+    `tk`
     :   The Tk application object created by instantiating [`Tk`](tkinter.md#tkinter.Tk "tkinter.Tk"). This
         provides access to the Tcl interpreter. Each widget that is attached
         the same instance of [`Tk`](tkinter.md#tkinter.Tk "tkinter.Tk") has the same value for its [`tk`](tkinter.md#tkinter.Tk.tk "tkinter.Tk.tk")
         attribute.
 
-    master
+    `master`
     :   The widget object that contains this widget. For [`Tk`](tkinter.md#tkinter.Tk "tkinter.Tk"), the
         *master* is [`None`](constants.md#None "None") because it is the main window. The terms
         *master* and *parent* are similar and sometimes used interchangeably
@@ -176,12 +176,12 @@ from tkinter import ttk
         *parent*/*child* reflects the tree-like relationship while
         *master*/*slave* reflects the container structure.
 
-    children
+    `children`
     :   The immediate descendants of this widget as a [`dict`](stdtypes.md#dict "dict") with the
         child widget names as the keys and the child instance objects as the
         values.
 
-tkinter.Tcl(*screenName=None*, *baseName=None*, *className='Tk'*, *useTk=False*)
+`tkinter.Tcl(screenName=None, baseName=None, className='Tk', useTk=False)`
 :   The [`Tcl()`](tkinter.md#tkinter.Tcl "tkinter.Tcl") function is a factory function which creates an object much like
     that created by the [`Tk`](tkinter.md#tkinter.Tk "tkinter.Tk") class, except that it does not initialize the Tk
     subsystem. This is most often useful when driving the Tcl interpreter in an
@@ -942,7 +942,7 @@ For sockets, the [`recv()`](socket.md#socket.socket.recv "socket.socket.recv") o
 [`recvfrom()`](socket.md#socket.socket.recvfrom "socket.socket.recvfrom") methods will work fine; for other files,
 use raw reads or `os.read(file.fileno(), maxbytecount)`.
 
-Widget.tk.createfilehandler(*file*, *mask*, *func*)
+`Widget.tk.createfilehandler(file, mask, func)`
 :   Registers the file handler callback function *func*. The *file* argument
     may either be an object with a [`fileno()`](io.md#io.IOBase.fileno "io.IOBase.fileno") method (such as
     a file or socket object), or an integer file descriptor. The *mask*
@@ -953,12 +953,12 @@ Widget.tk.createfilehandler(*file*, *mask*, *func*)
     callback(file, mask)
     ```
 
-Widget.tk.deletefilehandler(*file*)
+`Widget.tk.deletefilehandler(file)`
 :   Unregisters a file handler.
 
-_tkinter.READABLE
+`_tkinter.READABLE`
 
-_tkinter.WRITABLE
+`_tkinter.WRITABLE`
 
-_tkinter.EXCEPTION
+`_tkinter.EXCEPTION`
 :   Constants used in the *mask* arguments.

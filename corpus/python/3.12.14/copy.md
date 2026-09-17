@@ -19,13 +19,13 @@ operations (explained below).
 
 Interface summary:
 
-copy.copy(*x*)
+`copy.copy(x)`
 :   Return a shallow copy of *x*.
 
-copy.deepcopy(*x*[, *memo*])
+`copy.deepcopy(x[, memo])`
 :   Return a deep copy of *x*.
 
-*exception* copy.Error
+`exception copy.Error`
 :   Raised for module specific errors.
 
 The difference between shallow and deep copying is only relevant for compound
@@ -68,11 +68,11 @@ pickle functions from the [`copyreg`](copyreg.md#module-copyreg "copyreg: Regist
 In order for a class to define its own copy implementation, it can define
 special methods [`__copy__()`](copy.md#copy.object.__copy__ "copy.object.__copy__") and [`__deepcopy__()`](copy.md#copy.object.__deepcopy__ "copy.object.__deepcopy__").
 
-object.__copy__(*self*)
+`object.__copy__(self)`
 :   Called to implement the shallow copy operation;
     no additional arguments are passed.
 
-object.__deepcopy__(*self*, *memo*)
+`object.__deepcopy__(self, memo)`
 :   Called to implement the deep copy operation; it is passed one
     argument, the *memo* dictionary. If the `__deepcopy__` implementation needs
     to make a deep copy of a component, it should call the [`deepcopy()`](copy.md#copy.deepcopy "copy.deepcopy") function

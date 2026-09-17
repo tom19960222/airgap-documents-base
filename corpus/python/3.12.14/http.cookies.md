@@ -35,18 +35,18 @@ Changed in version 3.3: Allowed ‘:’ as a valid cookie name character.
 > cookie data comes from a browser you should always prepare for invalid data
 > and catch [`CookieError`](http.cookies.md#http.cookies.CookieError "http.cookies.CookieError") on parsing.
 
-*exception* http.cookies.CookieError
+`exception http.cookies.CookieError`
 :   Exception failing because of [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) invalidity: incorrect attributes,
     incorrect *Set-Cookie* header, etc.
 
-*class* http.cookies.BaseCookie([*input*])
+`class http.cookies.BaseCookie([input])`
 :   This class is a dictionary-like object whose keys are strings and whose values
     are [`Morsel`](http.cookies.md#http.cookies.Morsel "http.cookies.Morsel") instances. Note that upon setting a key to a value, the
     value is first converted to a [`Morsel`](http.cookies.md#http.cookies.Morsel "http.cookies.Morsel") containing the key and the value.
 
     If *input* is given, it is passed to the [`load()`](http.cookies.md#http.cookies.BaseCookie.load "http.cookies.BaseCookie.load") method.
 
-*class* http.cookies.SimpleCookie([*input*])
+`class http.cookies.SimpleCookie([input])`
 :   This class derives from [`BaseCookie`](http.cookies.md#http.cookies.BaseCookie "http.cookies.BaseCookie") and overrides [`value_decode()`](http.cookies.md#http.cookies.BaseCookie.value_decode "http.cookies.BaseCookie.value_decode")
     and [`value_encode()`](http.cookies.md#http.cookies.BaseCookie.value_encode "http.cookies.BaseCookie.value_encode"). `SimpleCookie` supports
     strings as cookie values. When setting the value, `SimpleCookie`
@@ -64,12 +64,12 @@ Changed in version 3.3: Allowed ‘:’ as a valid cookie name character.
 
 ## Cookie Objects
 
-BaseCookie.value_decode(*val*)
+`BaseCookie.value_decode(val)`
 :   Return a tuple `(real_value, coded_value)` from a string representation.
     `real_value` can be any type. This method does no decoding in
     [`BaseCookie`](http.cookies.md#http.cookies.BaseCookie "http.cookies.BaseCookie") — it exists so it can be overridden.
 
-BaseCookie.value_encode(*val*)
+`BaseCookie.value_encode(val)`
 :   Return a tuple `(real_value, coded_value)`. *val* can be any type, but
     `coded_value` will always be converted to a string.
     This method does no encoding in [`BaseCookie`](http.cookies.md#http.cookies.BaseCookie "http.cookies.BaseCookie") — it exists so it can
@@ -78,19 +78,19 @@ BaseCookie.value_encode(*val*)
     In general, it should be the case that [`value_encode()`](http.cookies.md#http.cookies.BaseCookie.value_encode "http.cookies.BaseCookie.value_encode") and
     [`value_decode()`](http.cookies.md#http.cookies.BaseCookie.value_decode "http.cookies.BaseCookie.value_decode") are inverses on the range of *value_decode*.
 
-BaseCookie.output(*attrs=None*, *header='Set-Cookie:'*, *sep='\r\n'*)
+`BaseCookie.output(attrs=None, header='Set-Cookie:', sep='\r\n')`
 :   Return a string representation suitable to be sent as HTTP headers. *attrs* and
     *header* are sent to each [`Morsel`](http.cookies.md#http.cookies.Morsel "http.cookies.Morsel")’s [`output()`](http.cookies.md#http.cookies.Morsel.output "http.cookies.Morsel.output") method. *sep* is used
     to join the headers together, and is by default the combination `'\r\n'`
     (CRLF).
 
-BaseCookie.js_output(*attrs=None*)
+`BaseCookie.js_output(attrs=None)`
 :   Return an embeddable JavaScript snippet, which, if run on a browser which
     supports JavaScript, will act the same as if the HTTP headers was sent.
 
     The meaning for *attrs* is the same as in [`output()`](http.cookies.md#http.cookies.BaseCookie.output "http.cookies.BaseCookie.output").
 
-BaseCookie.load(*rawdata*)
+`BaseCookie.load(rawdata)`
 :   If *rawdata* is a string, parse it as an `HTTP_COOKIE` and add the values
     found there as [`Morsel`](http.cookies.md#http.cookies.Morsel "http.cookies.Morsel")s. If it is a dictionary, it is equivalent to:
 
@@ -101,29 +101,29 @@ BaseCookie.load(*rawdata*)
 
 ## Morsel Objects
 
-*class* http.cookies.Morsel
+`class http.cookies.Morsel`
 :   Abstract a key/value pair, which has some [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) attributes.
 
     Morsels are dictionary-like objects, whose set of keys is constant — the valid
     [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) attributes, which are:
 
-    > expires
+    > `expires`
     >
-    > path
+    > `path`
     >
-    > comment
+    > `comment`
     >
-    > domain
+    > `domain`
     >
-    > max-age
+    > `max-age`
     >
-    > secure
+    > `secure`
     >
-    > version
+    > `version`
     >
-    > httponly
+    > `httponly`
     >
-    > samesite
+    > `samesite`
 
     The attribute [`httponly`](http.cookies.md#http.cookies.Morsel.httponly "http.cookies.Morsel.httponly") specifies that the cookie is only transferred
     in HTTP requests, and is not accessible through JavaScript. This is intended
@@ -144,52 +144,52 @@ BaseCookie.load(*rawdata*)
 
     Changed in version 3.8: Added support for the [`samesite`](http.cookies.md#http.cookies.Morsel.samesite "http.cookies.Morsel.samesite") attribute.
 
-Morsel.value
+`Morsel.value`
 :   The value of the cookie.
 
-Morsel.coded_value
+`Morsel.coded_value`
 :   The encoded value of the cookie — this is what should be sent.
 
-Morsel.key
+`Morsel.key`
 :   The name of the cookie.
 
-Morsel.set(*key*, *value*, *coded_value*)
+`Morsel.set(key, value, coded_value)`
 :   Set the *key*, *value* and *coded_value* attributes.
 
-Morsel.isReservedKey(*K*)
+`Morsel.isReservedKey(K)`
 :   Whether *K* is a member of the set of keys of a [`Morsel`](http.cookies.md#http.cookies.Morsel "http.cookies.Morsel").
 
-Morsel.output(*attrs=None*, *header='Set-Cookie:'*)
+`Morsel.output(attrs=None, header='Set-Cookie:')`
 :   Return a string representation of the Morsel, suitable to be sent as an HTTP
     header. By default, all the attributes are included, unless *attrs* is given, in
     which case it should be a list of attributes to use. *header* is by default
     `"Set-Cookie:"`.
 
-Morsel.js_output(*attrs=None*)
+`Morsel.js_output(attrs=None)`
 :   Return an embeddable JavaScript snippet, which, if run on a browser which
     supports JavaScript, will act the same as if the HTTP header was sent.
 
     The meaning for *attrs* is the same as in [`output()`](http.cookies.md#http.cookies.Morsel.output "http.cookies.Morsel.output").
 
-Morsel.OutputString(*attrs=None*)
+`Morsel.OutputString(attrs=None)`
 :   Return a string representing the Morsel, without any surrounding HTTP or
     JavaScript.
 
     The meaning for *attrs* is the same as in [`output()`](http.cookies.md#http.cookies.Morsel.output "http.cookies.Morsel.output").
 
-Morsel.update(*values*)
+`Morsel.update(values)`
 :   Update the values in the Morsel dictionary with the values in the dictionary
     *values*. Raise an error if any of the keys in the *values* dict is not a
     valid [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) attribute.
 
     Changed in version 3.5: an error is raised for invalid keys.
 
-Morsel.copy(*value*)
+`Morsel.copy(value)`
 :   Return a shallow copy of the Morsel object.
 
     Changed in version 3.5: return a Morsel object instead of a dict.
 
-Morsel.setdefault(*key*, *value=None*)
+`Morsel.setdefault(key, value=None)`
 :   Raise an error if key is not a valid [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) attribute, otherwise
     behave the same as [`dict.setdefault()`](stdtypes.md#dict.setdefault "dict.setdefault").
 

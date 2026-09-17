@@ -59,7 +59,7 @@ header using the embedded ISO-8859-1 character.
 
 Here is the [`Header`](email.header.md#email.header.Header "email.header.Header") class description:
 
-*class* email.header.Header(*s=None*, *charset=None*, *maxlinelen=None*, *header_name=None*, *continuation_ws=' '*, *errors='strict'*)
+`class email.header.Header(s=None, charset=None, maxlinelen=None, header_name=None, continuation_ws=' ', errors='strict')`
 :   Create a MIME-compliant header that can contain strings in different character
     sets.
 
@@ -89,7 +89,7 @@ Here is the [`Header`](email.header.md#email.header.Header "email.header.Header"
 
     Optional *errors* is passed straight through to the [`append()`](email.header.md#email.header.Header.append "email.header.Header.append") method.
 
-    append(*s*, *charset=None*, *errors='strict'*)
+    `append(s, charset=None, errors='strict')`
     :   Append the string *s* to the MIME header.
 
         Optional *charset*, if given, should be a [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset")
@@ -114,7 +114,7 @@ Here is the [`Header`](email.header.md#email.header.Header "email.header.Header"
         Optional *errors* is passed as the errors argument to the decode call
         if *s* is a byte string.
 
-    encode(*splitchars=';, \t'*, *maxlinelen=None*, *linesep='\n'*)
+    `encode(splitchars=';, \t', maxlinelen=None, linesep='\n')`
     :   Encode a message header into an RFC-compliant format, possibly wrapping
         long lines and encapsulating non-ASCII parts in base64 or quoted-printable
         encodings.
@@ -142,7 +142,7 @@ Here is the [`Header`](email.header.md#email.header.Header "email.header.Header"
     The [`Header`](email.header.md#email.header.Header "email.header.Header") class also provides a number of methods to support
     standard operators and built-in functions.
 
-    __str__()
+    `__str__()`
     :   Returns an approximation of the [`Header`](email.header.md#email.header.Header "email.header.Header") as a string, using an
         unlimited line length. All pieces are converted to unicode using the
         specified encoding and joined together appropriately. Any pieces with a
@@ -151,17 +151,17 @@ Here is the [`Header`](email.header.md#email.header.Header "email.header.Header"
 
         Changed in version 3.2: Added handling for the `'unknown-8bit'` charset.
 
-    __eq__(*other*)
+    `__eq__(other)`
     :   This method allows you to compare two [`Header`](email.header.md#email.header.Header "email.header.Header") instances for
         equality.
 
-    __ne__(*other*)
+    `__ne__(other)`
     :   This method allows you to compare two [`Header`](email.header.md#email.header.Header "email.header.Header") instances for
         inequality.
 
 The [`email.header`](email.header.md#module-email.header "email.header: Representing non-ASCII headers") module also provides the following convenient functions.
 
-email.header.decode_header(*header*)
+`email.header.decode_header(header)`
 :   Decode a message header value without converting the character set. The header
     value is in *header*.
 
@@ -178,7 +178,7 @@ email.header.decode_header(*header*)
     [(b'p\xf6stal', 'iso-8859-1')]
     ```
 
-email.header.make_header(*decoded_seq*, *maxlinelen=None*, *header_name=None*, *continuation_ws=' '*)
+`email.header.make_header(decoded_seq, maxlinelen=None, header_name=None, continuation_ws=' ')`
 :   Create a [`Header`](email.header.md#email.header.Header "email.header.Header") instance from a sequence of pairs as returned by
     [`decode_header()`](email.header.md#email.header.decode_header "email.header.decode_header").
 

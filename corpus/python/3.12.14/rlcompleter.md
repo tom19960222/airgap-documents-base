@@ -41,10 +41,10 @@ The `rlcompleter` module is designed for use with Python’s
 On platforms without [`readline`](readline.md#module-readline "readline: GNU readline support for Python. (Unix)"), the [`Completer`](rlcompleter.md#rlcompleter.Completer "rlcompleter.Completer") class defined by
 this module can still be used for custom purposes.
 
-*class* rlcompleter.Completer
+`class rlcompleter.Completer`
 :   Completer objects have the following method:
 
-    complete(*text*, *state*)
+    `complete(text, state)`
     :   Return the next possible completion for *text*.
 
         When called by the [`readline`](readline.md#module-readline "readline: GNU readline support for Python. (Unix)") module, this method is called

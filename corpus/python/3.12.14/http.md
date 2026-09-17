@@ -22,7 +22,7 @@ HyperText Transfer Protocol:
 
 The [`http`](http.md#module-http "http: HTTP status codes and messages") module also defines the following enums that help you work with http related code:
 
-*class* http.HTTPStatus
+`class http.HTTPStatus`
 :   Added in version 3.5.
 
     A subclass of [`enum.IntEnum`](enum.md#enum.IntEnum "enum.IntEnum") that defines a set of HTTP status codes,
@@ -152,7 +152,7 @@ The enum values have several properties to indicate the HTTP status category:
 > False
 > ```
 
-*class* http.HTTPMethod
+`class http.HTTPMethod`
 :   Added in version 3.11.
 
     A subclass of [`enum.StrEnum`](enum.md#enum.StrEnum "enum.StrEnum") that defines a set of HTTP methods and descriptions written in English.

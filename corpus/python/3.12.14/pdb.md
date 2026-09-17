@@ -85,13 +85,13 @@ after normal exit of the program), pdb will restart the program. Automatic
 restarting preserves pdb’s state (such as breakpoints) and in most cases is more
 useful than quitting the debugger upon program’s exit.
 
--c, --command <command>
+`-c, --command <command>`
 :   To execute commands as if given in a `.pdbrc` file; see
     [Debugger Commands](pdb.md#debugger-commands).
 
     Changed in version 3.2: Added the `-c` option.
 
--m <module>
+`-m <module>`
 :   To execute modules similar to the way `python -m` does. As with a script,
     the debugger will pause execution just before the first line of the module.
 
@@ -132,7 +132,7 @@ ZeroDivisionError: division by zero
 The module defines the following functions; each enters the debugger in a
 slightly different way:
 
-pdb.run(*statement*, *globals=None*, *locals=None*)
+`pdb.run(statement, globals=None, locals=None)`
 :   Execute the *statement* (given as a string or a code object) under debugger
     control. The debugger prompt appears before any code is executed; you can
     set breakpoints and type [`continue`](pdb.md#pdbcommand-continue), or you can step through the
@@ -142,18 +142,18 @@ pdb.run(*statement*, *globals=None*, *locals=None*)
     module [`__main__`](__main__.md#module-__main__ "__main__: The environment where top-level code is run. Covers command-line interfaces, import-time behavior, and ``__name__ == '__main__'``.") is used. (See the explanation of the built-in
     [`exec()`](functions.md#exec "exec") or [`eval()`](functions.md#eval "eval") functions.)
 
-pdb.runeval(*expression*, *globals=None*, *locals=None*)
+`pdb.runeval(expression, globals=None, locals=None)`
 :   Evaluate the *expression* (given as a string or a code object) under debugger
     control. When [`runeval()`](pdb.md#pdb.runeval "pdb.runeval") returns, it returns the value of the
     *expression*. Otherwise this function is similar to [`run()`](pdb.md#pdb.run "pdb.run").
 
-pdb.runcall(*function*, *\*args*, *\*\*kwds*)
+`pdb.runcall(function, *args, **kwds)`
 :   Call the *function* (a function or method object, not a string) with the
     given arguments. When [`runcall()`](pdb.md#pdb.runcall "pdb.runcall") returns, it returns whatever the
     function call returned. The debugger prompt appears as soon as the function
     is entered.
 
-pdb.set_trace(*\**, *header=None*)
+`pdb.set_trace(*, header=None)`
 :   Enter the debugger at the calling stack frame. This is useful to hard-code
     a breakpoint at a given point in a program, even if the code is not
     otherwise being debugged (e.g. when an assertion fails). If given,
@@ -161,13 +161,13 @@ pdb.set_trace(*\**, *header=None*)
 
     Changed in version 3.7: The keyword-only argument *header*.
 
-pdb.post_mortem(*traceback=None*)
+`pdb.post_mortem(traceback=None)`
 :   Enter post-mortem debugging of the given *traceback* object. If no
     *traceback* is given, it uses the one of the exception that is currently
     being handled (an exception must be being handled if the default is to be
     used).
 
-pdb.pm()
+`pdb.pm()`
 :   Enter post-mortem debugging of the traceback found in
     [`sys.last_traceback`](sys.md#sys.last_traceback "sys.last_traceback").
 
@@ -175,7 +175,7 @@ The `run*` functions and [`set_trace()`](pdb.md#pdb.set_trace "pdb.set_trace") a
 [`Pdb`](pdb.md#pdb.Pdb "pdb.Pdb") class and calling the method of the same name. If you want to
 access further features, you have to do this yourself:
 
-*class* pdb.Pdb(*completekey='tab'*, *stdin=None*, *stdout=None*, *skip=None*, *nosigint=False*, *readrc=True*)
+`class pdb.Pdb(completekey='tab', stdin=None, stdout=None, skip=None, nosigint=False, readrc=True)`
 :   [`Pdb`](pdb.md#pdb.Pdb "pdb.Pdb") is the debugger class.
 
     The *completekey*, *stdin* and *stdout* arguments are passed to the
@@ -208,13 +208,13 @@ access further features, you have to do this yourself:
 
     Changed in version 3.6: The *readrc* argument.
 
-    run(*statement*, *globals=None*, *locals=None*)
+    `run(statement, globals=None, locals=None)`
 
-    runeval(*expression*, *globals=None*, *locals=None*)
+    `runeval(expression, globals=None, locals=None)`
 
-    runcall(*function*, *\*args*, *\*\*kwds*)
+    `runcall(function, *args, **kwds)`
 
-    set_trace()
+    `set_trace()`
     :   See the documentation for the functions explained above.
 
 ## Debugger Commands
@@ -279,26 +279,26 @@ effect.
 Changed in version 3.11: `.pdbrc` is now read with `'utf-8'` encoding. Previously, it was read
 with the system locale encoding.
 
-h(elp) [command]
+`h(elp) [command]`
 :   Without argument, print the list of available commands. With a *command* as
     argument, print help about that command. `help pdb` displays the full
     documentation (the docstring of the [`pdb`](pdb.md#module-pdb "pdb: The Python debugger for interactive interpreters.") module). Since the *command*
     argument must be an identifier, `help exec` must be entered to get help on
     the `!` command.
 
-w(here)
+`w(here)`
 :   Print a stack trace, with the most recent frame at the bottom. An arrow (`>`)
     indicates the current frame, which determines the context of most commands.
 
-d(own) [count]
+`d(own) [count]`
 :   Move the current frame *count* (default one) levels down in the stack trace
     (to a newer frame).
 
-u(p) [count]
+`u(p) [count]`
 :   Move the current frame *count* (default one) levels up in the stack trace (to
     an older frame).
 
-b(reak) [([filename:]lineno | function) [, condition]]
+`b(reak) [([filename:]lineno | function) [, condition]]`
 :   With a *lineno* argument, set a break there in the current file. With a
     *function* argument, set a break at the first executable statement within
     that function. The line number may be prefixed with a filename and a colon,
@@ -313,37 +313,37 @@ b(reak) [([filename:]lineno | function) [, condition]]
     of times that breakpoint has been hit, the current ignore count, and the
     associated condition if any.
 
-tbreak [([filename:]lineno | function) [, condition]]
+`tbreak [([filename:]lineno | function) [, condition]]`
 :   Temporary breakpoint, which is removed automatically when it is first hit.
     The arguments are the same as for [`break`](pdb.md#pdbcommand-break).
 
-cl(ear) [filename:lineno | bpnumber ...]
+`cl(ear) [filename:lineno | bpnumber ...]`
 :   With a *filename:lineno* argument, clear all the breakpoints at this line.
     With a space separated list of breakpoint numbers, clear those breakpoints.
     Without argument, clear all breaks (but first ask confirmation).
 
-disable bpnumber [bpnumber ...]
+`disable bpnumber [bpnumber ...]`
 :   Disable the breakpoints given as a space separated list of breakpoint
     numbers. Disabling a breakpoint means it cannot cause the program to stop
     execution, but unlike clearing a breakpoint, it remains in the list of
     breakpoints and can be (re-)enabled.
 
-enable bpnumber [bpnumber ...]
+`enable bpnumber [bpnumber ...]`
 :   Enable the breakpoints specified.
 
-ignore bpnumber [count]
+`ignore bpnumber [count]`
 :   Set the ignore count for the given breakpoint number. If *count* is omitted,
     the ignore count is set to 0. A breakpoint becomes active when the ignore
     count is zero. When non-zero, the *count* is decremented each time the
     breakpoint is reached and the breakpoint is not disabled and any associated
     condition evaluates to true.
 
-condition bpnumber [condition]
+`condition bpnumber [condition]`
 :   Set a new *condition* for the breakpoint, an expression which must evaluate
     to true before the breakpoint is honored. If *condition* is absent, any
     existing condition is removed; i.e., the breakpoint is made unconditional.
 
-commands [bpnumber]
+`commands [bpnumber]`
 :   Specify a list of commands for breakpoint number *bpnumber*. The commands
     themselves appear on the following lines. Type a line containing just
     `end` to terminate the commands. An example:
@@ -378,18 +378,18 @@ commands [bpnumber]
     that are to print a specific message and then continue. If none of the other
     commands print anything, you see no sign that the breakpoint was reached.
 
-s(tep)
+`s(tep)`
 :   Execute the current line, stop at the first possible occasion (either in a
     function that is called or on the next line in the current function).
 
-n(ext)
+`n(ext)`
 :   Continue execution until the next line in the current function is reached or
     it returns. (The difference between [`next`](pdb.md#pdbcommand-next) and [`step`](pdb.md#pdbcommand-step) is
     that [`step`](pdb.md#pdbcommand-step) stops inside a called function, while [`next`](pdb.md#pdbcommand-next)
     executes called functions at (nearly) full speed, only stopping at the next
     line in the current function.)
 
-unt(il) [lineno]
+`unt(il) [lineno]`
 :   Without argument, continue execution until the line with a number greater
     than the current one is reached.
 
@@ -399,13 +399,13 @@ unt(il) [lineno]
 
     Changed in version 3.2: Allow giving an explicit line number.
 
-r(eturn)
+`r(eturn)`
 :   Continue execution until the current function returns.
 
-c(ont(inue))
+`c(ont(inue))`
 :   Continue execution, only stop when a breakpoint is encountered.
 
-j(ump) lineno
+`j(ump) lineno`
 :   Set the next line that will be executed. Only available in the bottom-most
     frame. This lets you jump back and execute code again, or jump forward to
     skip code that you don’t want to run.
@@ -414,7 +414,7 @@ j(ump) lineno
     possible to jump into the middle of a [`for`](https://docs.python.org/3.12/reference/compound_stmts.html#for) loop or out of a
     [`finally`](https://docs.python.org/3.12/reference/compound_stmts.html#finally) clause.
 
-l(ist) [first[, last]]
+`l(ist) [first[, last]]`
 :   List source code for the current file. Without arguments, list 11 lines
     around the current line or continue the previous listing. With `.` as
     argument, list 11 lines around the current line. With one argument,
@@ -428,16 +428,16 @@ l(ist) [first[, last]]
 
     Changed in version 3.2: Added the `>>` marker.
 
-ll | longlist
+`ll | longlist`
 :   List all source code for the current function or frame. Interesting lines
     are marked as for [`list`](pdb.md#pdbcommand-list).
 
     Added in version 3.2.
 
-a(rgs)
+`a(rgs)`
 :   Print the arguments of the current function and their current values.
 
-p expression
+`p expression`
 :   Evaluate *expression* in the current context and print its value.
 
     > **Note:**
@@ -445,19 +445,19 @@ p expression
     > `print()` can also be used, but is not a debugger command — this executes the
     > Python [`print()`](functions.md#print "print") function.
 
-pp expression
+`pp expression`
 :   Like the [`p`](pdb.md#pdbcommand-p) command, except the value of *expression* is
     pretty-printed using the [`pprint`](pprint.md#module-pprint "pprint: Data pretty printer.") module.
 
-whatis expression
+`whatis expression`
 :   Print the type of *expression*.
 
-source expression
+`source expression`
 :   Try to get source code of *expression* and display it.
 
     Added in version 3.2.
 
-display [expression]
+`display [expression]`
 :   Display the value of *expression* if it changed, each time execution stops
     in the current frame.
 
@@ -515,20 +515,20 @@ display [expression]
 
     Added in version 3.2.
 
-undisplay [expression]
+`undisplay [expression]`
 :   Do not display *expression* anymore in the current frame. Without
     *expression*, clear all display expressions for the current frame.
 
     Added in version 3.2.
 
-interact
+`interact`
 :   Start an interactive interpreter (using the [`code`](code.md#module-code "code: Facilities to implement read-eval-print loops.") module) whose global
     namespace contains all the (global and local) names found in the current
     scope.
 
     Added in version 3.2.
 
-alias [name [command]]
+`alias [name [command]]`
 :   Create an alias called *name* that executes *command*. The *command* must
     *not* be enclosed in quotes. Replaceable parameters can be indicated by
     `%1`, `%2`, and so on, while `%*` is replaced by all the parameters.
@@ -551,10 +551,10 @@ alias [name [command]]
     alias ps pi self
     ```
 
-unalias name
+`unalias name`
 :   Delete the specified alias *name*.
 
-! statement
+`! statement`
 :   Execute the (one-line) *statement* in the context of the current stack frame.
     The exclamation point can be omitted unless the first word of the statement
     resembles a debugger command, e.g.:
@@ -572,23 +572,23 @@ unalias name
     (Pdb)
     ```
 
-run [args ...]
+`run [args ...]`
 
-restart [args ...]
+`restart [args ...]`
 :   Restart the debugged Python program. If *args* is supplied, it is split
     with [`shlex`](shlex.md#module-shlex "shlex: Simple lexical analysis for Unix shell-like languages.") and the result is used as the new [`sys.argv`](sys.md#sys.argv "sys.argv").
     History, breakpoints, actions and debugger options are preserved.
     [`restart`](pdb.md#pdbcommand-restart) is an alias for [`run`](pdb.md#pdbcommand-run).
 
-q(uit)
+`q(uit)`
 :   Quit from the debugger. The program being executed is aborted.
 
-debug code
+`debug code`
 :   Enter a recursive debugger that steps through *code*
     (which is an arbitrary expression or statement to be
     executed in the current environment).
 
-retval
+`retval`
 :   Print the return value for the last return of the current function.
 
 Footnotes

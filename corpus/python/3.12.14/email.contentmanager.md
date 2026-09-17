@@ -13,12 +13,12 @@ fetched_at: 2026-09-17T15:36:05+00:00
 
 Added in version 3.6: [[1]](email.contentmanager.md#id2)
 
-*class* email.contentmanager.ContentManager
+`class email.contentmanager.ContentManager`
 :   Base class for content managers. Provides the standard registry mechanisms
     to register converters between MIME content and other representations, as
     well as the `get_content` and `set_content` dispatch methods.
 
-    get_content(*msg*, *\*args*, *\*\*kw*)
+    `get_content(msg, *args, **kw)`
     :   Look up a handler function based on the `mimetype` of *msg* (see next
         paragraph), call it, passing through all arguments, and return the result
         of the call. The expectation is that the handler will extract the
@@ -35,7 +35,7 @@ Added in version 3.6: [[1]](email.contentmanager.md#id2)
         If none of these keys produce a handler, raise a [`KeyError`](exceptions.md#KeyError "KeyError") for the
         full MIME type.
 
-    set_content(*msg*, *obj*, *\*args*, *\*\*kw*)
+    `set_content(msg, obj, *args, **kw)`
     :   If the `maintype` is `multipart`, raise a [`TypeError`](exceptions.md#TypeError "TypeError"); otherwise
         look up a handler function based on the type of *obj* (see next
         paragraph), call [`clear_content()`](email.message.md#email.message.EmailMessage.clear_content "email.message.EmailMessage.clear_content") on the
@@ -65,11 +65,11 @@ Added in version 3.6: [[1]](email.contentmanager.md#id2)
         Also add a *MIME-Version* header if one is not present (see
         also [`MIMEPart`](email.message.md#email.message.MIMEPart "email.message.MIMEPart")).
 
-    add_get_handler(*key*, *handler*)
+    `add_get_handler(key, handler)`
     :   Record the function *handler* as the handler for *key*. For the possible
         values of *key*, see [`get_content()`](email.contentmanager.md#email.contentmanager.get_content "email.contentmanager.get_content").
 
-    add_set_handler(*typekey*, *handler*)
+    `add_set_handler(typekey, handler)`
     :   Record *handler* as the function to call when an object of a type
         matching *typekey* is passed to [`set_content()`](email.contentmanager.md#email.contentmanager.set_content "email.contentmanager.set_content"). For the possible
         values of *typekey*, see [`set_content()`](email.contentmanager.md#email.contentmanager.set_content "email.contentmanager.set_content").
@@ -82,7 +82,7 @@ Currently the email package provides only one concrete content manager,
 [`content_manager`](email.policy.md#email.policy.EmailPolicy.content_manager "email.policy.EmailPolicy.content_manager") provided by
 [`EmailPolicy`](email.policy.md#email.policy.EmailPolicy "email.policy.EmailPolicy") and its derivatives.
 
-email.contentmanager.raw_data_manager
+`email.contentmanager.raw_data_manager`
 :   This content manager provides only a minimum interface beyond that provided
     by [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") itself: it deals only with text, raw
     byte strings, and [`Message`](email.compat32-message.md#email.message.Message "email.message.Message") objects. Nevertheless, it
@@ -93,7 +93,7 @@ email.contentmanager.raw_data_manager
     encoding, and it enables the use of the various `add_` methods, thereby
     simplifying the creation of multipart messages.
 
-    email.contentmanager.get_content(*msg*, *errors='replace'*)
+    `email.contentmanager.get_content(msg, errors='replace')`
     :   Return the payload of the part as either a string (for `text` parts), an
         [`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage") object (for `message/rfc822`
         parts), or a `bytes` object (for all other non-multipart types). Raise
@@ -102,11 +102,11 @@ email.contentmanager.raw_data_manager
         decoding the payload to unicode. The default error handler is
         `replace`.
 
-    email.contentmanager.set_content(*msg*, *<'str'>*, *subtype="plain"*, *charset='utf-8'*, *cte=None*, *disposition=None*, *filename=None*, *cid=None*, *params=None*, *headers=None*)
+    `email.contentmanager.set_content(msg, <'str'>, subtype="plain", charset='utf-8', cte=None, disposition=None, filename=None, cid=None, params=None, headers=None)`
 
-    email.contentmanager.set_content(*msg*, *<'bytes'>*, *maintype*, *subtype*, *cte="base64"*, *disposition=None*, *filename=None*, *cid=None*, *params=None*, *headers=None*)
+    `email.contentmanager.set_content(msg, <'bytes'>, maintype, subtype, cte="base64", disposition=None, filename=None, cid=None, params=None, headers=None)`
 
-    email.contentmanager.set_content(*msg*, *<'EmailMessage'>*, *cte=None*, *disposition=None*, *filename=None*, *cid=None*, *params=None*, *headers=None*)
+    `email.contentmanager.set_content(msg, <'EmailMessage'>, cte=None, disposition=None, filename=None, cid=None, params=None, headers=None)`
     :   Add headers and payload to *msg*:
 
         Add a *Content-Type* header with a `maintype/subtype`

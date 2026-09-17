@@ -62,7 +62,7 @@ print(args.filename, args.count, args.verbose)
 
 ## ArgumentParser objects
 
-*class* argparse.ArgumentParser(*prog=None*, *usage=None*, *description=None*, *epilog=None*, *parents=[]*, *formatter_class=argparse.HelpFormatter*, *prefix_chars='-'*, *fromfile_prefix_chars=None*, *argument_default=None*, *conflict_handler='error'*, *add_help=True*, *allow_abbrev=True*, *exit_on_error=True*)
+`class argparse.ArgumentParser(prog=None, usage=None, description=None, epilog=None, parents=[], formatter_class=argparse.HelpFormatter, prefix_chars='-', fromfile_prefix_chars=None, argument_default=None, conflict_handler='error', add_help=True, allow_abbrev=True, exit_on_error=True)`
 :   Create a new [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser") object. All parameters should be passed
     as keyword arguments. Each parameter has its own more detailed description
     below, but in short they are:
@@ -241,13 +241,13 @@ and one in the child) and raise an error.
 specifying an alternate formatting class. Currently, there are four such
 classes:
 
-*class* argparse.RawDescriptionHelpFormatter
+`class argparse.RawDescriptionHelpFormatter`
 
-*class* argparse.RawTextHelpFormatter
+`class argparse.RawTextHelpFormatter`
 
-*class* argparse.ArgumentDefaultsHelpFormatter
+`class argparse.ArgumentDefaultsHelpFormatter`
 
-*class* argparse.MetavarTypeHelpFormatter
+`class argparse.MetavarTypeHelpFormatter`
 
 [`RawDescriptionHelpFormatter`](argparse.md#argparse.RawDescriptionHelpFormatter "argparse.RawDescriptionHelpFormatter") and [`RawTextHelpFormatter`](argparse.md#argparse.RawTextHelpFormatter "argparse.RawTextHelpFormatter") give
 more control over how textual descriptions are displayed.
@@ -545,7 +545,7 @@ Added in version 3.9.
 
 ## The add_argument() method
 
-ArgumentParser.add_argument(*name or flags...*, *\**[, *action*][, *nargs*][, *const*][, *default*][, *type*][, *choices*][, *required*][, *help*][, *metavar*][, *dest*])
+`ArgumentParser.add_argument(name or flags..., *[, action][, nargs][, const][, default][, type][, choices][, required][, help][, metavar][, dest])`
 :   Define how a single command-line argument should be parsed. Each parameter
     has its own more detailed description below, but in short they are:
 
@@ -710,7 +710,7 @@ how the command-line arguments should be handled. The supplied actions are:
 Only actions that consume command-line arguments (e.g. `'store'`,
 `'append'` or `'extend'`) can be used with positional arguments.
 
-*class* argparse.BooleanOptionalAction
+`class argparse.BooleanOptionalAction`
 :   You may also specify an arbitrary action by passing an [`Action`](argparse.md#argparse.Action "argparse.Action") subclass or
     other object that implements the same interface. The `BooleanOptionalAction`
     is available in `argparse` and adds support for boolean actions such as
@@ -1226,7 +1226,7 @@ which processes arguments from the command-line. Any object which follows
 this API may be passed as the `action` parameter to
 [`add_argument()`](argparse.md#argparse.ArgumentParser.add_argument "argparse.ArgumentParser.add_argument").
 
-*class* argparse.Action(*option_strings*, *dest*, *nargs=None*, *const=None*, *default=None*, *type=None*, *choices=None*, *required=False*, *help=None*, *metavar=None*)
+`class argparse.Action(option_strings, dest, nargs=None, const=None, default=None, type=None, choices=None, required=False, help=None, metavar=None)`
 :   `Action` objects are used by an [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser") to represent the information
     needed to parse a single argument from one or more strings from the
     command line. The `Action` class must accept the two positional arguments
@@ -1239,7 +1239,7 @@ this API may be passed as the `action` parameter to
     `help`, etc. defined. The easiest way to ensure these attributes
     are defined is to call `Action.__init__()`.
 
-    __call__(*parser*, *namespace*, *values*, *option_string=None*)
+    `__call__(parser, namespace, values, option_string=None)`
     :   `Action` instances should be callable, so subclasses must override the
         `__call__()` method, which should accept four parameters:
 
@@ -1257,14 +1257,14 @@ this API may be passed as the `action` parameter to
         The `__call__()` method may perform arbitrary actions, but will typically set
         attributes on the `namespace` based on `dest` and `values`.
 
-    format_usage()
+    `format_usage()`
     :   `Action` subclasses can define a `format_usage()` method that takes no argument
         and return a string which will be used when printing the usage of the program.
         If such method is not provided, a sensible default will be used.
 
 ## The parse_args() method
 
-ArgumentParser.parse_args(*args=None*, *namespace=None*)
+`ArgumentParser.parse_args(args=None, namespace=None)`
 :   Convert argument strings to objects and assign them as attributes of the
     namespace. Return the populated namespace.
 
@@ -1450,7 +1450,7 @@ Namespace(accumulate=<built-in function sum>, integers=[1, 2, 3, 4])
 
 ### The Namespace object
 
-*class* argparse.Namespace
+`class argparse.Namespace`
 :   Simple class used by default by [`parse_args()`](argparse.md#argparse.ArgumentParser.parse_args "argparse.ArgumentParser.parse_args") to create
     an object holding attributes and return it.
 
@@ -1486,7 +1486,7 @@ Namespace(accumulate=<built-in function sum>, integers=[1, 2, 3, 4])
 
 ### Sub-commands
 
-ArgumentParser.add_subparsers(*\**[, *title*][, *description*][, *prog*][, *parser_class*][, *action*][, *dest*][, *required*][, *help*][, *metavar*])
+`ArgumentParser.add_subparsers(*[, title][, description][, prog][, parser_class][, action][, dest][, required][, help][, metavar])`
 :   Many programs split up their functionality into a number of subcommands,
     for example, the `svn` program can invoke subcommands like `svn
     checkout`, `svn update`, and `svn commit`. Splitting up functionality
@@ -1684,7 +1684,7 @@ ArgumentParser.add_subparsers(*\**[, *title*][, *description*][, *prog*][, *pars
 
 ### FileType objects
 
-*class* argparse.FileType(*mode='r'*, *bufsize=-1*, *encoding=None*, *errors=None*)
+`class argparse.FileType(mode='r', bufsize=-1, encoding=None, errors=None)`
 :   The [`FileType`](argparse.md#argparse.FileType "argparse.FileType") factory creates objects that can be passed to the type
     argument of [`ArgumentParser.add_argument()`](argparse.md#argparse.ArgumentParser.add_argument "argparse.ArgumentParser.add_argument"). Arguments that have
     [`FileType`](argparse.md#argparse.FileType "argparse.FileType") objects as their type will open command-line arguments as
@@ -1714,7 +1714,7 @@ ArgumentParser.add_subparsers(*\**[, *title*][, *description*][, *prog*][, *pars
 
 ### Argument groups
 
-ArgumentParser.add_argument_group(*title=None*, *description=None*, *\**[, *argument_default*][, *conflict_handler*])
+`ArgumentParser.add_argument_group(title=None, description=None, *[, argument_default][, conflict_handler])`
 :   By default, [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser") groups command-line arguments into
     “positional arguments” and “options” when displaying help
     messages. When there is a better conceptual grouping of arguments than this
@@ -1777,7 +1777,7 @@ ArgumentParser.add_argument_group(*title=None*, *description=None*, *\**[, *argu
 
 ### Mutual exclusion
 
-ArgumentParser.add_mutually_exclusive_group(*required=False*)
+`ArgumentParser.add_mutually_exclusive_group(required=False)`
 :   Create a mutually exclusive group. `argparse` will make sure that only
     one of the arguments in the mutually exclusive group was present on the
     command line:
@@ -1842,7 +1842,7 @@ ArgumentParser.add_mutually_exclusive_group(*required=False*)
 
 ### Parser defaults
 
-ArgumentParser.set_defaults(*\*\*kwargs*)
+`ArgumentParser.set_defaults(**kwargs)`
 :   Most of the time, the attributes of the object returned by [`parse_args()`](argparse.md#argparse.ArgumentParser.parse_args "argparse.ArgumentParser.parse_args")
     will be fully determined by inspecting the command-line arguments and the argument
     actions. [`set_defaults()`](argparse.md#argparse.ArgumentParser.set_defaults "argparse.ArgumentParser.set_defaults") allows some additional
@@ -1871,7 +1871,7 @@ ArgumentParser.set_defaults(*\*\*kwargs*)
     parsers. See the [`add_subparsers()`](argparse.md#argparse.ArgumentParser.add_subparsers "argparse.ArgumentParser.add_subparsers") method for an
     example of this type.
 
-ArgumentParser.get_default(*dest*)
+`ArgumentParser.get_default(dest)`
 :   Get the default value for a namespace attribute, as set by either
     [`add_argument()`](argparse.md#argparse.ArgumentParser.add_argument "argparse.ArgumentParser.add_argument") or by
     [`set_defaults()`](argparse.md#argparse.ArgumentParser.set_defaults "argparse.ArgumentParser.set_defaults"):
@@ -1889,12 +1889,12 @@ In most typical applications, [`parse_args()`](argparse.md#argparse.ArgumentPars
 care of formatting and printing any usage or error messages. However, several
 formatting methods are available:
 
-ArgumentParser.print_usage(*file=None*)
+`ArgumentParser.print_usage(file=None)`
 :   Print a brief description of how the [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser") should be
     invoked on the command line. If *file* is `None`, [`sys.stdout`](sys.md#sys.stdout "sys.stdout") is
     assumed.
 
-ArgumentParser.print_help(*file=None*)
+`ArgumentParser.print_help(file=None)`
 :   Print a help message, including the program usage and information about the
     arguments registered with the [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser"). If *file* is
     `None`, [`sys.stdout`](sys.md#sys.stdout "sys.stdout") is assumed.
@@ -1902,17 +1902,17 @@ ArgumentParser.print_help(*file=None*)
 There are also variants of these methods that simply return a string instead of
 printing it:
 
-ArgumentParser.format_usage()
+`ArgumentParser.format_usage()`
 :   Return a string containing a brief description of how the
     [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser") should be invoked on the command line.
 
-ArgumentParser.format_help()
+`ArgumentParser.format_help()`
 :   Return a string containing a help message, including the program usage and
     information about the arguments registered with the [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser").
 
 ### Partial parsing
 
-ArgumentParser.parse_known_args(*args=None*, *namespace=None*)
+`ArgumentParser.parse_known_args(args=None, namespace=None)`
 :   Sometimes a script may only parse a few of the command-line arguments, passing
     the remaining arguments on to another script or program. In these cases, the
     [`parse_known_args()`](argparse.md#argparse.ArgumentParser.parse_known_args "argparse.ArgumentParser.parse_known_args") method can be useful. It works much like
@@ -1937,7 +1937,7 @@ ArgumentParser.parse_known_args(*args=None*, *namespace=None*)
 
 ### Customizing file parsing
 
-ArgumentParser.convert_arg_line_to_args(*arg_line*)
+`ArgumentParser.convert_arg_line_to_args(arg_line)`
 :   Arguments that are read from a file (see the *fromfile_prefix_chars*
     keyword argument to the [`ArgumentParser`](argparse.md#argparse.ArgumentParser "argparse.ArgumentParser") constructor) are read one
     argument per line. [`convert_arg_line_to_args()`](argparse.md#argparse.ArgumentParser.convert_arg_line_to_args "argparse.ArgumentParser.convert_arg_line_to_args") can be overridden for
@@ -1958,7 +1958,7 @@ ArgumentParser.convert_arg_line_to_args(*arg_line*)
 
 ### Exiting methods
 
-ArgumentParser.exit(*status=0*, *message=None*)
+`ArgumentParser.exit(status=0, message=None)`
 :   This method terminates the program, exiting with the specified *status*
     and, if given, it prints a *message* to [`sys.stderr`](sys.md#sys.stderr "sys.stderr") before that.
     The user can override this method to handle these steps differently:
@@ -1971,15 +1971,15 @@ ArgumentParser.exit(*status=0*, *message=None*)
             exit(status)
     ```
 
-ArgumentParser.error(*message*)
+`ArgumentParser.error(message)`
 :   This method prints a usage message, including the *message*, to
     [`sys.stderr`](sys.md#sys.stderr "sys.stderr") and terminates the program with a status code of 2.
 
 ### Intermixed parsing
 
-ArgumentParser.parse_intermixed_args(*args=None*, *namespace=None*)
+`ArgumentParser.parse_intermixed_args(args=None, namespace=None)`
 
-ArgumentParser.parse_known_intermixed_args(*args=None*, *namespace=None*)
+`ArgumentParser.parse_known_intermixed_args(args=None, namespace=None)`
 :   A number of Unix commands allow the user to intermix optional arguments with
     positional arguments. The [`parse_intermixed_args()`](argparse.md#argparse.ArgumentParser.parse_intermixed_args "argparse.ArgumentParser.parse_intermixed_args")
     and [`parse_known_intermixed_args()`](argparse.md#argparse.ArgumentParser.parse_known_intermixed_args "argparse.ArgumentParser.parse_known_intermixed_args") methods
@@ -2016,7 +2016,7 @@ ArgumentParser.parse_known_intermixed_args(*args=None*, *namespace=None*)
 
 ### Registering custom types or actions
 
-ArgumentParser.register(*registry_name*, *value*, *object*)
+`ArgumentParser.register(registry_name, value, object)`
 :   Sometimes it’s desirable to use a custom string in error messages to provide
     more user-friendly output. In these cases, `register()` can be used to
     register custom actions or types with a parser and allow you to reference the
@@ -2044,13 +2044,13 @@ ArgumentParser.register(*registry_name*, *value*, *object*)
 
 ## Exceptions
 
-*exception* argparse.ArgumentError
+`exception argparse.ArgumentError`
 :   An error from creating or using an argument (optional or positional).
 
     The string value of this exception is the message, augmented with
     information about the argument that caused it.
 
-*exception* argparse.ArgumentTypeError
+`exception argparse.ArgumentTypeError`
 :   Raised when something goes wrong converting a command line string to a type.
 
 Guides and Tutorials

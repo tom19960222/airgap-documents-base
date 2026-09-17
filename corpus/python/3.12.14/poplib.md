@@ -34,7 +34,7 @@ This module does not work or is not available on WebAssembly platforms
 
 The [`poplib`](poplib.md#module-poplib "poplib: POP3 protocol client (requires sockets).") module provides two classes:
 
-*class* poplib.POP3(*host*, *port=POP3_PORT*[, *timeout*])
+`class poplib.POP3(host, port=POP3_PORT[, timeout])`
 :   This class implements the actual POP3 protocol. The connection is created when
     the instance is initialized. If *port* is omitted, the standard POP3 port (110)
     is used. The optional *timeout* parameter specifies a timeout in seconds for the
@@ -50,7 +50,7 @@ The [`poplib`](poplib.md#module-poplib "poplib: POP3 protocol client (requires s
     Changed in version 3.9: If the *timeout* parameter is set to be zero, it will raise a
     [`ValueError`](exceptions.md#ValueError "ValueError") to prevent the creation of a non-blocking socket.
 
-*class* poplib.POP3_SSL(*host*, *port=POP3_SSL_PORT*, *\**, *timeout=None*, *context=None*)
+`class poplib.POP3_SSL(host, port=POP3_SSL_PORT, *, timeout=None, context=None)`
 :   This is a subclass of [`POP3`](poplib.md#poplib.POP3 "poplib.POP3") that connects to the server over an SSL
     encrypted socket. If *port* is not specified, 995, the standard POP3-over-SSL
     port is used. *timeout* works as in the [`POP3`](poplib.md#poplib.POP3 "poplib.POP3") constructor.
@@ -78,7 +78,7 @@ The [`poplib`](poplib.md#module-poplib "poplib: POP3 protocol client (requires s
 
 One exception is defined as an attribute of the [`poplib`](poplib.md#module-poplib "poplib: POP3 protocol client (requires sockets).") module:
 
-*exception* poplib.error_proto
+`exception poplib.error_proto`
 :   Exception raised on any errors from this module (errors from [`socket`](socket.md#module-socket "socket: Low-level networking interface.")
     module are not caught). The reason for the exception is passed to the
     constructor as a string.
@@ -100,62 +100,62 @@ most return the response text sent by the server.
 
 A [`POP3`](poplib.md#poplib.POP3 "poplib.POP3") instance has the following methods:
 
-POP3.set_debuglevel(*level*)
+`POP3.set_debuglevel(level)`
 :   Set the instance’s debugging level. This controls the amount of debugging
     output printed. The default, `0`, produces no debugging output. A value of
     `1` produces a moderate amount of debugging output, generally a single line
     per request. A value of `2` or higher produces the maximum amount of
     debugging output, logging each line sent and received on the control connection.
 
-POP3.getwelcome()
+`POP3.getwelcome()`
 :   Returns the greeting string sent by the POP3 server.
 
-POP3.capa()
+`POP3.capa()`
 :   Query the server’s capabilities as specified in [**RFC 2449**](https://datatracker.ietf.org/doc/html/rfc2449.html).
     Returns a dictionary in the form `{'name': ['param'...]}`.
 
     Added in version 3.4.
 
-POP3.user(*username*)
+`POP3.user(username)`
 :   Send user command, response should indicate that a password is required.
 
-POP3.pass_(*password*)
+`POP3.pass_(password)`
 :   Send password, response includes message count and mailbox size. Note: the
     mailbox on the server is locked until [`quit()`](poplib.md#poplib.POP3.quit "poplib.POP3.quit") is called.
 
-POP3.apop(*user*, *secret*)
+`POP3.apop(user, secret)`
 :   Use the more secure APOP authentication to log into the POP3 server.
 
-POP3.rpop(*user*)
+`POP3.rpop(user)`
 :   Use RPOP authentication (similar to UNIX r-commands) to log into POP3 server.
 
-POP3.stat()
+`POP3.stat()`
 :   Get mailbox status. The result is a tuple of 2 integers: `(message count,
     mailbox size)`.
 
-POP3.list([*which*])
+`POP3.list([which])`
 :   Request message list, result is in the form `(response, ['mesg_num octets',
     ...], octets)`. If *which* is set, it is the message to list.
 
-POP3.retr(*which*)
+`POP3.retr(which)`
 :   Retrieve whole message number *which*, and set its seen flag. Result is in form
     `(response, ['line', ...], octets)`.
 
-POP3.dele(*which*)
+`POP3.dele(which)`
 :   Flag message number *which* for deletion. On most servers deletions are not
     actually performed until QUIT (the major exception is Eudora QPOP, which
     deliberately violates the RFCs by doing pending deletes on any disconnect).
 
-POP3.rset()
+`POP3.rset()`
 :   Remove any deletion marks for the mailbox.
 
-POP3.noop()
+`POP3.noop()`
 :   Do nothing. Might be used as a keep-alive.
 
-POP3.quit()
+`POP3.quit()`
 :   Signoff: commit changes, unlock mailbox, drop connection.
 
-POP3.top(*which*, *howmuch*)
+`POP3.top(which, howmuch)`
 :   Retrieves the message header plus *howmuch* lines of the message after the
     header of message number *which*. Result is in form `(response, ['line', ...],
     octets)`.
@@ -165,18 +165,18 @@ POP3.top(*which*, *howmuch*)
     frequently broken in off-brand servers. Test this method by hand against the
     POP3 servers you will use before trusting it.
 
-POP3.uidl(*which=None*)
+`POP3.uidl(which=None)`
 :   Return message digest (unique id) list. If *which* is specified, result contains
     the unique id for that message in the form `'response mesgnum uid`, otherwise
     result is list `(response, ['mesgnum uid', ...], octets)`.
 
-POP3.utf8()
+`POP3.utf8()`
 :   Try to switch to UTF-8 mode. Returns the server response if successful,
     raises [`error_proto`](poplib.md#poplib.error_proto "poplib.error_proto") if not. Specified in [**RFC 6856**](https://datatracker.ietf.org/doc/html/rfc6856.html).
 
     Added in version 3.5.
 
-POP3.stls(*context=None*)
+`POP3.stls(context=None)`
 :   Start a TLS session on the active connection as specified in [**RFC 2595**](https://datatracker.ietf.org/doc/html/rfc2595.html).
     This is only allowed before user authentication
 

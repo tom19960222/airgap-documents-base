@@ -20,15 +20,15 @@ Changed in version 3.7: This module used to be optional, it is now always availa
 
 This module defines the following constants and functions:
 
-*exception* _thread.error
+`exception _thread.error`
 :   Raised on thread-specific errors.
 
     Changed in version 3.3: This is now a synonym of the built-in [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError").
 
-_thread.LockType
+`_thread.LockType`
 :   This is the type of lock objects.
 
-_thread.start_new_thread(*function*, *args*[, *kwargs*])
+`_thread.start_new_thread(function, args[, kwargs])`
 :   Start a new thread and return its identifier. The thread executes the
     function *function* with the argument list *args* (which must be a tuple).
     The optional *kwargs* argument specifies a dictionary of keyword arguments.
@@ -47,7 +47,7 @@ _thread.start_new_thread(*function*, *args*[, *kwargs*])
 
     Changed in version 3.8: [`sys.unraisablehook()`](sys.md#sys.unraisablehook "sys.unraisablehook") is now used to handle unhandled exceptions.
 
-_thread.interrupt_main(*signum=signal.SIGINT*, */*)
+`_thread.interrupt_main(signum=signal.SIGINT, /)`
 :   Simulate the effect of a signal arriving in the main thread.
     A thread can use this function to interrupt the main thread, though
     there is no guarantee that the interruption will happen immediately.
@@ -67,21 +67,21 @@ _thread.interrupt_main(*signum=signal.SIGINT*, */*)
     > the associated handler (if it exists).
     > If you want to truly emit the signal, use [`signal.raise_signal()`](signal.md#signal.raise_signal "signal.raise_signal").
 
-_thread.exit()
+`_thread.exit()`
 :   Raise the [`SystemExit`](exceptions.md#SystemExit "SystemExit") exception. When not caught, this will cause the
     thread to exit silently.
 
-_thread.allocate_lock()
+`_thread.allocate_lock()`
 :   Return a new lock object. Methods of locks are described below. The lock is
     initially unlocked.
 
-_thread.get_ident()
+`_thread.get_ident()`
 :   Return the ‘thread identifier’ of the current thread. This is a nonzero
     integer. Its value has no direct meaning; it is intended as a magic cookie to
     be used e.g. to index a dictionary of thread-specific data. Thread identifiers
     may be recycled when a thread exits and another thread is created.
 
-_thread.get_native_id()
+`_thread.get_native_id()`
 :   Return the native integral Thread ID of the current thread assigned by the kernel.
     This is a non-negative integer.
     Its value may be used to uniquely identify this particular thread system-wide
@@ -91,7 +91,7 @@ _thread.get_native_id()
 
     Added in version 3.8.
 
-_thread.stack_size([*size*])
+`_thread.stack_size([size])`
 :   Return the thread stack size used when creating new threads. The optional
     *size* argument specifies the stack size to be used for subsequently created
     threads, and must be 0 (use platform or configured default) or a positive
@@ -111,7 +111,7 @@ _thread.stack_size([*size*])
 
     Unix platforms with POSIX threads support.
 
-_thread.TIMEOUT_MAX
+`_thread.TIMEOUT_MAX`
 :   The maximum value allowed for the *timeout* parameter of
     [`Lock.acquire`](threading.md#threading.Lock.acquire "threading.Lock.acquire"). Specifying a timeout greater
     than this value will raise an [`OverflowError`](exceptions.md#OverflowError "OverflowError").
@@ -120,7 +120,7 @@ _thread.TIMEOUT_MAX
 
 Lock objects have the following methods:
 
-lock.acquire(*blocking=True*, *timeout=-1*)
+`lock.acquire(blocking=True, timeout=-1)`
 :   Without any optional argument, this method acquires the lock unconditionally, if
     necessary waiting until it is released by another thread (only one thread at a
     time can acquire a lock — that’s their reason for existence).
@@ -142,11 +142,11 @@ lock.acquire(*blocking=True*, *timeout=-1*)
 
     Changed in version 3.2: Lock acquires can now be interrupted by signals on POSIX.
 
-lock.release()
+`lock.release()`
 :   Releases the lock. The lock must have been acquired earlier, but not
     necessarily by the same thread.
 
-lock.locked()
+`lock.locked()`
 :   Return the status of the lock: `True` if it has been acquired by some thread,
     `False` if not.
 

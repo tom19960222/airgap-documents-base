@@ -16,12 +16,12 @@ or managing execution via the debugger.
 
 The following exception is defined:
 
-*exception* bdb.BdbQuit
+`exception bdb.BdbQuit`
 :   Exception raised by the [`Bdb`](bdb.md#bdb.Bdb "bdb.Bdb") class for quitting the debugger.
 
 The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines two classes:
 
-*class* bdb.Breakpoint(*self*, *file*, *line*, *temporary=False*, *cond=None*, *funcname=None*)
+`class bdb.Breakpoint(self, file, line, temporary=False, cond=None, funcname=None)`
 :   This class implements temporary breakpoints, ignore counts, disabling and
     (re-)enabling, and conditionals.
 
@@ -38,18 +38,18 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
 
     [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") instances have the following methods:
 
-    deleteMe()
+    `deleteMe()`
     :   Delete the breakpoint from the list associated to a file/line. If it is
         the last breakpoint in that position, it also deletes the entry for the
         file/line.
 
-    enable()
+    `enable()`
     :   Mark the breakpoint as enabled.
 
-    disable()
+    `disable()`
     :   Mark the breakpoint as disabled.
 
-    bpformat()
+    `bpformat()`
     :   Return a string with all the information about the breakpoint, nicely
         formatted:
 
@@ -62,45 +62,45 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
 
         Added in version 3.2.
 
-    bpprint(*out=None*)
+    `bpprint(out=None)`
     :   Print the output of [`bpformat()`](bdb.md#bdb.Breakpoint.bpformat "bdb.Breakpoint.bpformat") to the file *out*, or if it is
         `None`, to standard output.
 
     [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") instances have the following attributes:
 
-    file
+    `file`
     :   File name of the [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint").
 
-    line
+    `line`
     :   Line number of the [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") within [`file`](bdb.md#bdb.Breakpoint.file "bdb.Breakpoint.file").
 
-    temporary
+    `temporary`
     :   `True` if a [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") at (file, line) is temporary.
 
-    cond
+    `cond`
     :   Condition for evaluating a [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") at (file, line).
 
-    funcname
+    `funcname`
     :   Function name that defines whether a [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") is hit upon
         entering the function.
 
-    enabled
+    `enabled`
     :   `True` if [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") is enabled.
 
-    bpbynumber
+    `bpbynumber`
     :   Numeric index for a single instance of a [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint").
 
-    bplist
+    `bplist`
     :   Dictionary of [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") instances indexed by
         ([`file`](bdb.md#bdb.Breakpoint.file "bdb.Breakpoint.file"), [`line`](bdb.md#bdb.Breakpoint.line "bdb.Breakpoint.line")) tuples.
 
-    ignore
+    `ignore`
     :   Number of times to ignore a [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint").
 
-    hits
+    `hits`
     :   Count of the number of times a [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") has been hit.
 
-*class* bdb.Bdb(*skip=None*)
+`class bdb.Bdb(skip=None)`
 :   The [`Bdb`](bdb.md#bdb.Bdb "bdb.Bdb") class acts as a generic Python debugger base class.
 
     This class takes care of the details of the trace facility; a derived class
@@ -117,18 +117,18 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
 
     The following methods of [`Bdb`](bdb.md#bdb.Bdb "bdb.Bdb") normally don’t need to be overridden.
 
-    canonic(*filename*)
+    `canonic(filename)`
     :   Return canonical form of *filename*.
 
         For real file names, the canonical form is an operating-system-dependent,
         [`case-normalized`](os.path.md#os.path.normcase "os.path.normcase") [`absolute path`](os.path.md#os.path.abspath "os.path.abspath"). A *filename* with angle brackets, such as `"<stdin>"`
         generated in interactive mode, is returned unchanged.
 
-    reset()
+    `reset()`
     :   Set the `botframe`, `stopframe`, `returnframe` and
         [`quitting`](bdb.md#bdb.Bdb.set_quit "bdb.Bdb.set_quit") attributes with values ready to start debugging.
 
-    trace_dispatch(*frame*, *event*, *arg*)
+    `trace_dispatch(frame, event, arg)`
     :   This function is installed as the trace function of debugged frames. Its
         return value is the new trace function (in most cases, that is, itself).
 
@@ -154,28 +154,28 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
         trace function. For more information on code and frame objects, refer to
         [The standard type hierarchy](https://docs.python.org/3.12/reference/datamodel.html#types).
 
-    dispatch_line(*frame*)
+    `dispatch_line(frame)`
     :   If the debugger should stop on the current line, invoke the
         [`user_line()`](bdb.md#bdb.Bdb.user_line "bdb.Bdb.user_line") method (which should be overridden in subclasses).
         Raise a [`BdbQuit`](bdb.md#bdb.BdbQuit "bdb.BdbQuit") exception if the [`quitting`](bdb.md#bdb.Bdb.set_quit "bdb.Bdb.set_quit") flag is set
         (which can be set from [`user_line()`](bdb.md#bdb.Bdb.user_line "bdb.Bdb.user_line")). Return a reference to the
         [`trace_dispatch()`](bdb.md#bdb.Bdb.trace_dispatch "bdb.Bdb.trace_dispatch") method for further tracing in that scope.
 
-    dispatch_call(*frame*, *arg*)
+    `dispatch_call(frame, arg)`
     :   If the debugger should stop on this function call, invoke the
         [`user_call()`](bdb.md#bdb.Bdb.user_call "bdb.Bdb.user_call") method (which should be overridden in subclasses).
         Raise a [`BdbQuit`](bdb.md#bdb.BdbQuit "bdb.BdbQuit") exception if the [`quitting`](bdb.md#bdb.Bdb.set_quit "bdb.Bdb.set_quit") flag is set
         (which can be set from [`user_call()`](bdb.md#bdb.Bdb.user_call "bdb.Bdb.user_call")). Return a reference to the
         [`trace_dispatch()`](bdb.md#bdb.Bdb.trace_dispatch "bdb.Bdb.trace_dispatch") method for further tracing in that scope.
 
-    dispatch_return(*frame*, *arg*)
+    `dispatch_return(frame, arg)`
     :   If the debugger should stop on this function return, invoke the
         [`user_return()`](bdb.md#bdb.Bdb.user_return "bdb.Bdb.user_return") method (which should be overridden in subclasses).
         Raise a [`BdbQuit`](bdb.md#bdb.BdbQuit "bdb.BdbQuit") exception if the [`quitting`](bdb.md#bdb.Bdb.set_quit "bdb.Bdb.set_quit") flag is set
         (which can be set from [`user_return()`](bdb.md#bdb.Bdb.user_return "bdb.Bdb.user_return")). Return a reference to the
         [`trace_dispatch()`](bdb.md#bdb.Bdb.trace_dispatch "bdb.Bdb.trace_dispatch") method for further tracing in that scope.
 
-    dispatch_exception(*frame*, *arg*)
+    `dispatch_exception(frame, arg)`
     :   If the debugger should stop at this exception, invokes the
         [`user_exception()`](bdb.md#bdb.Bdb.user_exception "bdb.Bdb.user_exception") method (which should be overridden in subclasses).
         Raise a [`BdbQuit`](bdb.md#bdb.BdbQuit "bdb.BdbQuit") exception if the [`quitting`](bdb.md#bdb.Bdb.set_quit "bdb.Bdb.set_quit") flag is set
@@ -185,43 +185,43 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
     Normally derived classes don’t override the following methods, but they may
     if they want to redefine the definition of stopping and breakpoints.
 
-    is_skipped_line(*module_name*)
+    `is_skipped_line(module_name)`
     :   Return `True` if *module_name* matches any skip pattern.
 
-    stop_here(*frame*)
+    `stop_here(frame)`
     :   Return `True` if *frame* is below the starting frame in the stack.
 
-    break_here(*frame*)
+    `break_here(frame)`
     :   Return `True` if there is an effective breakpoint for this line.
 
         Check whether a line or function breakpoint exists and is in effect. Delete temporary
         breakpoints based on information from [`effective()`](bdb.md#bdb.effective "bdb.effective").
 
-    break_anywhere(*frame*)
+    `break_anywhere(frame)`
     :   Return `True` if any breakpoint exists for *frame*’s filename.
 
     Derived classes should override these methods to gain control over debugger
     operation.
 
-    user_call(*frame*, *argument_list*)
+    `user_call(frame, argument_list)`
     :   Called from [`dispatch_call()`](bdb.md#bdb.Bdb.dispatch_call "bdb.Bdb.dispatch_call") if a break might stop inside the
         called function.
 
         *argument_list* is not used anymore and will always be `None`.
         The argument is kept for backwards compatibility.
 
-    user_line(*frame*)
+    `user_line(frame)`
     :   Called from [`dispatch_line()`](bdb.md#bdb.Bdb.dispatch_line "bdb.Bdb.dispatch_line") when either [`stop_here()`](bdb.md#bdb.Bdb.stop_here "bdb.Bdb.stop_here") or
         [`break_here()`](bdb.md#bdb.Bdb.break_here "bdb.Bdb.break_here") returns `True`.
 
-    user_return(*frame*, *return_value*)
+    `user_return(frame, return_value)`
     :   Called from [`dispatch_return()`](bdb.md#bdb.Bdb.dispatch_return "bdb.Bdb.dispatch_return") when [`stop_here()`](bdb.md#bdb.Bdb.stop_here "bdb.Bdb.stop_here") returns `True`.
 
-    user_exception(*frame*, *exc_info*)
+    `user_exception(frame, exc_info)`
     :   Called from [`dispatch_exception()`](bdb.md#bdb.Bdb.dispatch_exception "bdb.Bdb.dispatch_exception") when [`stop_here()`](bdb.md#bdb.Bdb.stop_here "bdb.Bdb.stop_here")
         returns `True`.
 
-    do_clear(*arg*)
+    `do_clear(arg)`
     :   Handle how a breakpoint must be removed when it is a temporary one.
 
         This method must be implemented by derived classes.
@@ -229,28 +229,28 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
     Derived classes and clients can call the following methods to affect the
     stepping state.
 
-    set_step()
+    `set_step()`
     :   Stop after one line of code.
 
-    set_next(*frame*)
+    `set_next(frame)`
     :   Stop on the next line in or below the given frame.
 
-    set_return(*frame*)
+    `set_return(frame)`
     :   Stop when returning from the given frame.
 
-    set_until(*frame*, *lineno=None*)
+    `set_until(frame, lineno=None)`
     :   Stop when the line with the *lineno* greater than the current one is
         reached or when returning from current frame.
 
-    set_trace([*frame*])
+    `set_trace([frame])`
     :   Start debugging from *frame*. If *frame* is not specified, debugging
         starts from caller’s frame.
 
-    set_continue()
+    `set_continue()`
     :   Stop only at breakpoints or when finished. If there are no breakpoints,
         set the system trace function to `None`.
 
-    set_quit()
+    `set_quit()`
     :   Set the `quitting` attribute to `True`. This raises [`BdbQuit`](bdb.md#bdb.BdbQuit "bdb.BdbQuit") in
         the next call to one of the `dispatch_*()` methods.
 
@@ -258,29 +258,29 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
     breakpoints. These methods return a string containing an error message if
     something went wrong, or `None` if all is well.
 
-    set_break(*filename*, *lineno*, *temporary=False*, *cond=None*, *funcname=None*)
+    `set_break(filename, lineno, temporary=False, cond=None, funcname=None)`
     :   Set a new breakpoint. If the *lineno* line doesn’t exist for the
         *filename* passed as argument, return an error message. The *filename*
         should be in canonical form, as described in the [`canonic()`](bdb.md#bdb.Bdb.canonic "bdb.Bdb.canonic") method.
 
-    clear_break(*filename*, *lineno*)
+    `clear_break(filename, lineno)`
     :   Delete the breakpoints in *filename* and *lineno*. If none were set,
         return an error message.
 
-    clear_bpbynumber(*arg*)
+    `clear_bpbynumber(arg)`
     :   Delete the breakpoint which has the index *arg* in the
         [`Breakpoint.bpbynumber`](bdb.md#bdb.Breakpoint.bpbynumber "bdb.Breakpoint.bpbynumber"). If *arg* is not numeric or out of range,
         return an error message.
 
-    clear_all_file_breaks(*filename*)
+    `clear_all_file_breaks(filename)`
     :   Delete all breakpoints in *filename*. If none were set, return an error
         message.
 
-    clear_all_breaks()
+    `clear_all_breaks()`
     :   Delete all existing breakpoints. If none were set, return an error
         message.
 
-    get_bpbynumber(*arg*)
+    `get_bpbynumber(arg)`
     :   Return a breakpoint specified by the given number. If *arg* is a string,
         it will be converted to a number. If *arg* is a non-numeric string, if
         the given breakpoint never existed or has been deleted, a
@@ -288,29 +288,29 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
 
         Added in version 3.2.
 
-    get_break(*filename*, *lineno*)
+    `get_break(filename, lineno)`
     :   Return `True` if there is a breakpoint for *lineno* in *filename*.
 
-    get_breaks(*filename*, *lineno*)
+    `get_breaks(filename, lineno)`
     :   Return all breakpoints for *lineno* in *filename*, or an empty list if
         none are set.
 
-    get_file_breaks(*filename*)
+    `get_file_breaks(filename)`
     :   Return all breakpoints in *filename*, or an empty list if none are set.
 
-    get_all_breaks()
+    `get_all_breaks()`
     :   Return all breakpoints that are set.
 
     Derived classes and clients can call the following methods to get a data
     structure representing a stack trace.
 
-    get_stack(*f*, *t*)
+    `get_stack(f, t)`
     :   Return a list of (frame, lineno) tuples in a stack trace, and a size.
 
         The most recently called frame is last in the list. The size is the number
         of frames below the frame where the debugger was invoked.
 
-    format_stack_entry(*frame_lineno*, *lprefix=': '*)
+    `format_stack_entry(frame_lineno, lprefix=': ')`
     :   Return a string with information about a stack entry, which is a
         `(frame, lineno)` tuple. The return string contains:
 
@@ -323,23 +323,23 @@ The [`bdb`](bdb.md#module-bdb "bdb: Debugger framework.") module also defines tw
     The following two methods can be called by clients to use a debugger to debug
     a [statement](https://docs.python.org/3.12/glossary.html#term-statement), given as a string.
 
-    run(*cmd*, *globals=None*, *locals=None*)
+    `run(cmd, globals=None, locals=None)`
     :   Debug a statement executed via the [`exec()`](functions.md#exec "exec") function. *globals*
         defaults to `__main__.__dict__`, *locals* defaults to *globals*.
 
-    runeval(*expr*, *globals=None*, *locals=None*)
+    `runeval(expr, globals=None, locals=None)`
     :   Debug an expression executed via the [`eval()`](functions.md#eval "eval") function. *globals* and
         *locals* have the same meaning as in [`run()`](bdb.md#bdb.Bdb.run "bdb.Bdb.run").
 
-    runctx(*cmd*, *globals*, *locals*)
+    `runctx(cmd, globals, locals)`
     :   For backwards compatibility. Calls the [`run()`](bdb.md#bdb.Bdb.run "bdb.Bdb.run") method.
 
-    runcall(*func*, */*, *\*args*, *\*\*kwds*)
+    `runcall(func, /, *args, **kwds)`
     :   Debug a single function call, and return its result.
 
 Finally, the module defines the following functions:
 
-bdb.checkfuncname(*b*, *frame*)
+`bdb.checkfuncname(b, frame)`
 :   Return `True` if we should break here, depending on the way the
     [`Breakpoint`](bdb.md#bdb.Breakpoint "bdb.Breakpoint") *b* was set.
 
@@ -350,7 +350,7 @@ bdb.checkfuncname(*b*, *frame*)
     the right *frame* (the right function) and if we are on its first executable
     line.
 
-bdb.effective(*file*, *line*, *frame*)
+`bdb.effective(file, line, frame)`
 :   Return `(active breakpoint, delete temporary flag)` or `(None, None)` as the
     breakpoint to act upon.
 
@@ -367,5 +367,5 @@ bdb.effective(*file*, *line*, *frame*)
 
     If no such entry exists, then `(None, None)` is returned.
 
-bdb.set_trace()
+`bdb.set_trace()`
 :   Start debugging with a [`Bdb`](bdb.md#bdb.Bdb "bdb.Bdb") instance from caller’s frame.

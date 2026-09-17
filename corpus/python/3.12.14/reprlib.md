@@ -17,7 +17,7 @@ debugger and may be useful in other contexts as well.
 
 This module provides a class, an instance, and a function:
 
-*class* reprlib.Repr(*\**, *maxlevel=6*, *maxtuple=6*, *maxlist=6*, *maxarray=5*, *maxdict=4*, *maxset=6*, *maxfrozenset=6*, *maxdeque=6*, *maxstring=30*, *maxlong=40*, *maxother=30*, *fillvalue='...'*, *indent=None*)
+`class reprlib.Repr(*, maxlevel=6, maxtuple=6, maxlist=6, maxarray=5, maxdict=4, maxset=6, maxfrozenset=6, maxdeque=6, maxstring=30, maxlong=40, maxother=30, fillvalue='...', indent=None)`
 :   Class which provides formatting services useful in implementing functions
     similar to the built-in [`repr()`](functions.md#repr "repr"); size limits for different object types
     are added to avoid the generation of representations which are excessively long.
@@ -42,13 +42,13 @@ This module provides a class, an instance, and a function:
 
     Changed in version 3.12: Allow attributes to be set via keyword arguments.
 
-reprlib.aRepr
+`reprlib.aRepr`
 :   This is an instance of [`Repr`](reprlib.md#reprlib.Repr "reprlib.Repr") which is used to provide the
     [`repr()`](reprlib.md#reprlib.repr "reprlib.repr") function described below. Changing the attributes of this
     object will affect the size limits used by [`repr()`](reprlib.md#reprlib.repr "reprlib.repr") and the Python
     debugger.
 
-reprlib.repr(*obj*)
+`reprlib.repr(obj)`
 :   This is the [`repr()`](reprlib.md#reprlib.Repr.repr "reprlib.Repr.repr") method of `aRepr`. It returns a string
     similar to that returned by the built-in function of the same name, but with
     limits on most sizes.
@@ -57,7 +57,7 @@ In addition to size-limiting tools, the module also provides a decorator for
 detecting recursive calls to [`__repr__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__repr__ "object.__repr__") and substituting a
 placeholder string instead.
 
-@reprlib.recursive_repr(*fillvalue='...'*)
+`@reprlib.recursive_repr(fillvalue='...')`
 :   Decorator for [`__repr__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__repr__ "object.__repr__") methods to detect recursive calls within the
     same thread. If a recursive call is made, the *fillvalue* is returned,
     otherwise, the usual `__repr__()` call is made. For example:
@@ -84,48 +84,48 @@ placeholder string instead.
 size limits for the representations of different object types, and methods
 which format specific object types.
 
-Repr.fillvalue
+`Repr.fillvalue`
 :   This string is displayed for recursive references. It defaults to
     `...`.
 
     Added in version 3.11.
 
-Repr.maxlevel
+`Repr.maxlevel`
 :   Depth limit on the creation of recursive representations. The default is `6`.
 
-Repr.maxdict
+`Repr.maxdict`
 
-Repr.maxlist
+`Repr.maxlist`
 
-Repr.maxtuple
+`Repr.maxtuple`
 
-Repr.maxset
+`Repr.maxset`
 
-Repr.maxfrozenset
+`Repr.maxfrozenset`
 
-Repr.maxdeque
+`Repr.maxdeque`
 
-Repr.maxarray
+`Repr.maxarray`
 :   Limits on the number of entries represented for the named object type. The
     default is `4` for [`maxdict`](reprlib.md#reprlib.Repr.maxdict "reprlib.Repr.maxdict"), `5` for [`maxarray`](reprlib.md#reprlib.Repr.maxarray "reprlib.Repr.maxarray"), and `6` for
     the others.
 
-Repr.maxlong
+`Repr.maxlong`
 :   Maximum number of characters in the representation for an integer. Digits
     are dropped from the middle. The default is `40`.
 
-Repr.maxstring
+`Repr.maxstring`
 :   Limit on the number of characters in the representation of the string. Note
     that the “normal” representation of the string is used as the character source:
     if escape sequences are needed in the representation, these may be mangled when
     the representation is shortened. The default is `30`.
 
-Repr.maxother
+`Repr.maxother`
 :   This limit is used to control the size of object types for which no specific
     formatting method is available on the [`Repr`](reprlib.md#reprlib.Repr "reprlib.Repr") object. It is applied in a
     similar manner as [`maxstring`](reprlib.md#reprlib.Repr.maxstring "reprlib.Repr.maxstring"). The default is `20`.
 
-Repr.indent
+`Repr.indent`
 :   If this attribute is set to `None` (the default), the output is formatted
     with no line breaks or indentation, like the standard [`repr()`](functions.md#repr "repr").
     For example:
@@ -183,17 +183,17 @@ Repr.indent
 
     Added in version 3.12.
 
-Repr.repr(*obj*)
+`Repr.repr(obj)`
 :   The equivalent to the built-in [`repr()`](functions.md#repr "repr") that uses the formatting imposed by
     the instance.
 
-Repr.repr1(*obj*, *level*)
+`Repr.repr1(obj, level)`
 :   Recursive implementation used by [`repr()`](reprlib.md#reprlib.Repr.repr "reprlib.Repr.repr"). This uses the type of *obj* to
     determine which formatting method to call, passing it *obj* and *level*. The
     type-specific methods should call [`repr1()`](reprlib.md#reprlib.Repr.repr1 "reprlib.Repr.repr1") to perform recursive formatting,
     with `level - 1` for the value of *level* in the recursive call.
 
-Repr.repr_TYPE(*obj*, *level*)
+`Repr.repr_TYPE(obj, level)`
 :   Formatting methods for specific types are implemented as methods with a name
     based on the type name. In the method name, **TYPE** is replaced by
     `'_'.join(type(obj).__name__.split())`. Dispatch to these methods is

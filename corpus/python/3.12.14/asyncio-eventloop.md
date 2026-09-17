@@ -29,7 +29,7 @@ Obtaining the Event Loop
 The following low-level functions can be used to get, set, or create
 an event loop:
 
-asyncio.get_running_loop()
+`asyncio.get_running_loop()`
 :   Return the running event loop in the current OS thread.
 
     Raise a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") if there is no running event loop.
@@ -38,7 +38,7 @@ asyncio.get_running_loop()
 
     Added in version 3.7.
 
-asyncio.get_event_loop()
+`asyncio.get_event_loop()`
 :   Get the current event loop.
 
     When called from a coroutine or a callback (e.g. scheduled with
@@ -60,10 +60,10 @@ asyncio.get_event_loop()
     Deprecated since version 3.12: Deprecation warning is emitted if there is no current event loop.
     In some future Python release this will become an error.
 
-asyncio.set_event_loop(*loop*)
+`asyncio.set_event_loop(loop)`
 :   Set *loop* as the current event loop for the current OS thread.
 
-asyncio.new_event_loop()
+`asyncio.new_event_loop()`
 :   Create and return a new event loop object.
 
 Note that the behaviour of [`get_event_loop()`](asyncio-eventloop.md#asyncio.get_event_loop "asyncio.get_event_loop"), [`set_event_loop()`](asyncio-eventloop.md#asyncio.set_event_loop "asyncio.set_event_loop"),
@@ -110,7 +110,7 @@ Event loops have **low-level** APIs for the following:
 
 ### Running and stopping the loop
 
-loop.run_until_complete(*future*)
+`loop.run_until_complete(future)`
 :   Run until the *future* (an instance of [`Future`](asyncio-future.md#asyncio.Future "asyncio.Future")) has
     completed.
 
@@ -119,7 +119,7 @@ loop.run_until_complete(*future*)
 
     Return the Future’s result or raise its exception.
 
-loop.run_forever()
+`loop.run_forever()`
 :   Run the event loop until [`stop()`](asyncio-eventloop.md#asyncio.loop.stop "asyncio.loop.stop") is called.
 
     If [`stop()`](asyncio-eventloop.md#asyncio.loop.stop "asyncio.loop.stop") is called before [`run_forever()`](asyncio-eventloop.md#asyncio.loop.run_forever "asyncio.loop.run_forever") is called,
@@ -133,16 +133,16 @@ loop.run_forever()
     case; instead, they will run the next time [`run_forever()`](asyncio-eventloop.md#asyncio.loop.run_forever "asyncio.loop.run_forever") or
     [`run_until_complete()`](asyncio-eventloop.md#asyncio.loop.run_until_complete "asyncio.loop.run_until_complete") is called.
 
-loop.stop()
+`loop.stop()`
 :   Stop the event loop.
 
-loop.is_running()
+`loop.is_running()`
 :   Return `True` if the event loop is currently running.
 
-loop.is_closed()
+`loop.is_closed()`
 :   Return `True` if the event loop was closed.
 
-loop.close()
+`loop.close()`
 :   Close the event loop.
 
     The loop must not be running when this function is called.
@@ -154,7 +154,7 @@ loop.close()
     This method is idempotent and irreversible. No other methods
     should be called after the event loop is closed.
 
-*async* loop.shutdown_asyncgens()
+`async loop.shutdown_asyncgens()`
 :   Schedule all currently open [asynchronous generator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator) objects to
     close with an [`aclose()`](https://docs.python.org/3.12/reference/expressions.html#agen.aclose "agen.aclose") call. After calling this method,
     the event loop will issue a warning if a new asynchronous generator
@@ -176,7 +176,7 @@ loop.close()
 
     Added in version 3.6.
 
-*async* loop.shutdown_default_executor(*timeout=None*)
+`async loop.shutdown_default_executor(timeout=None)`
 :   Schedule the closure of the default executor and wait for it to join all of
     the threads in the [`ThreadPoolExecutor`](concurrent.futures.md#concurrent.futures.ThreadPoolExecutor "concurrent.futures.ThreadPoolExecutor").
     Once this method has been called,
@@ -203,7 +203,7 @@ loop.close()
 
 ### Scheduling callbacks
 
-loop.call_soon(*callback*, *\*args*, *context=None*)
+`loop.call_soon(callback, *args, context=None)`
 :   Schedule the *callback* [callback](https://docs.python.org/3.12/glossary.html#term-callback) to be called with
     *args* arguments at the next iteration of the event loop.
 
@@ -219,7 +219,7 @@ loop.call_soon(*callback*, *\*args*, *context=None*)
 
     Unlike [`call_soon_threadsafe()`](asyncio-eventloop.md#asyncio.loop.call_soon_threadsafe "asyncio.loop.call_soon_threadsafe"), this method is not thread-safe.
 
-loop.call_soon_threadsafe(*callback*, *\*args*, *context=None*)
+`loop.call_soon_threadsafe(callback, *args, context=None)`
 :   A thread-safe variant of [`call_soon()`](asyncio-eventloop.md#asyncio.loop.call_soon "asyncio.loop.call_soon"). When scheduling callbacks from
     another thread, this function *must* be used, since [`call_soon()`](asyncio-eventloop.md#asyncio.loop.call_soon "asyncio.loop.call_soon") is not
     thread-safe.
@@ -258,7 +258,7 @@ Event loop provides mechanisms to schedule callback functions
 to be called at some point in the future. Event loop uses monotonic
 clocks to track time.
 
-loop.call_later(*delay*, *callback*, *\*args*, *context=None*)
+`loop.call_later(delay, callback, *args, context=None)`
 :   Schedule *callback* to be called after the given *delay*
     number of seconds (can be either an int or a float).
 
@@ -284,7 +284,7 @@ loop.call_later(*delay*, *callback*, *\*args*, *context=None*)
     the *delay* could not exceed one day.
     This has been fixed in Python 3.8.
 
-loop.call_at(*when*, *callback*, *\*args*, *context=None*)
+`loop.call_at(when, callback, *args, context=None)`
 :   Schedule *callback* to be called at the given absolute timestamp
     *when* (an int or a float), using the same time reference as
     [`loop.time()`](asyncio-eventloop.md#asyncio.loop.time "asyncio.loop.time").
@@ -301,7 +301,7 @@ loop.call_at(*when*, *callback*, *\*args*, *context=None*)
     the difference between *when* and the current time could not exceed
     one day. This has been fixed in Python 3.8.
 
-loop.time()
+`loop.time()`
 :   Return the current time, as a [`float`](functions.md#float "float") value, according to
     the event loop’s internal monotonic clock.
 
@@ -316,7 +316,7 @@ loop.time()
 
 ### Creating Futures and Tasks
 
-loop.create_future()
+`loop.create_future()`
 :   Create an [`asyncio.Future`](asyncio-future.md#asyncio.Future "asyncio.Future") object attached to the event loop.
 
     This is the preferred way to create Futures in asyncio. This lets
@@ -325,7 +325,7 @@ loop.create_future()
 
     Added in version 3.5.2.
 
-loop.create_task(*coro*, *\**, *name=None*, *context=None*)
+`loop.create_task(coro, *, name=None, context=None)`
 :   Schedule the execution of [coroutine](asyncio-task.md#coroutine) *coro*.
     Return a [`Task`](asyncio-task.md#asyncio.Task "asyncio.Task") object.
 
@@ -344,7 +344,7 @@ loop.create_task(*coro*, *\**, *name=None*, *context=None*)
 
     Changed in version 3.11: Added the *context* parameter.
 
-loop.set_task_factory(*factory*)
+`loop.set_task_factory(factory)`
 :   Set a task factory that will be used by
     [`loop.create_task()`](asyncio-eventloop.md#asyncio.loop.create_task "asyncio.loop.create_task").
 
@@ -354,12 +354,12 @@ loop.set_task_factory(*factory*)
     event loop, and *coro* is a coroutine object. The callable
     must return a [`asyncio.Future`](asyncio-future.md#asyncio.Future "asyncio.Future")-compatible object.
 
-loop.get_task_factory()
+`loop.get_task_factory()`
 :   Return a task factory or `None` if the default one is in use.
 
 ### Opening network connections
 
-*async* loop.create_connection(*protocol_factory*, *host=None*, *port=None*, *\**, *ssl=None*, *family=0*, *proto=0*, *flags=0*, *sock=None*, *local_addr=None*, *server_hostname=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*, *happy_eyeballs_delay=None*, *interleave=None*, *all_errors=False*)
+`async loop.create_connection(protocol_factory, host=None, port=None, *, ssl=None, family=0, proto=0, flags=0, sock=None, local_addr=None, server_hostname=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None, happy_eyeballs_delay=None, interleave=None, all_errors=False)`
 :   Open a streaming transport connection to a given
     address specified by *host* and *port*.
 
@@ -482,7 +482,7 @@ loop.get_task_factory()
     > API. It returns a pair of ([`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader"), [`StreamWriter`](asyncio-stream.md#asyncio.StreamWriter "asyncio.StreamWriter"))
     > that can be used directly in async/await code.
 
-*async* loop.create_datagram_endpoint(*protocol_factory*, *local_addr=None*, *remote_addr=None*, *\**, *family=0*, *proto=0*, *flags=0*, *reuse_port=None*, *allow_broadcast=None*, *sock=None*)
+`async loop.create_datagram_endpoint(protocol_factory, local_addr=None, remote_addr=None, *, family=0, proto=0, flags=0, reuse_port=None, allow_broadcast=None, sock=None)`
 :   Create a datagram connection.
 
     The socket family can be either [`AF_INET`](socket.md#socket.AF_INET "socket.AF_INET"),
@@ -553,7 +553,7 @@ loop.get_task_factory()
     Changed in version 3.11: The *reuse_address* parameter, disabled since Python 3.8.1,
     3.7.6 and 3.6.10, has been entirely removed.
 
-*async* loop.create_unix_connection(*protocol_factory*, *path=None*, *\**, *ssl=None*, *sock=None*, *server_hostname=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*)
+`async loop.create_unix_connection(protocol_factory, path=None, *, ssl=None, sock=None, server_hostname=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None)`
 :   Create a Unix connection.
 
     The socket family will be [`AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX"); socket
@@ -578,7 +578,7 @@ loop.get_task_factory()
 
 ### Creating network servers
 
-*async* loop.create_server(*protocol_factory*, *host=None*, *port=None*, *\**, *family=socket.AF_UNSPEC*, *flags=socket.AI_PASSIVE*, *sock=None*, *backlog=100*, *ssl=None*, *reuse_address=None*, *reuse_port=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*, *start_serving=True*)
+`async loop.create_server(protocol_factory, host=None, port=None, *, family=socket.AF_UNSPEC, flags=socket.AI_PASSIVE, sock=None, backlog=100, ssl=None, reuse_address=None, reuse_port=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None, start_serving=True)`
 :   Create a TCP server (socket type [`SOCK_STREAM`](socket.md#socket.SOCK_STREAM "socket.SOCK_STREAM")) listening
     on *port* of the *host* address.
 
@@ -655,7 +655,7 @@ loop.get_task_factory()
     > that returns a pair of [`StreamReader`](asyncio-stream.md#asyncio.StreamReader "asyncio.StreamReader") and [`StreamWriter`](asyncio-stream.md#asyncio.StreamWriter "asyncio.StreamWriter")
     > that can be used in an async/await code.
 
-*async* loop.create_unix_server(*protocol_factory*, *path=None*, *\**, *sock=None*, *backlog=100*, *ssl=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*, *start_serving=True*)
+`async loop.create_unix_server(protocol_factory, path=None, *, sock=None, backlog=100, ssl=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None, start_serving=True)`
 :   Similar to [`loop.create_server()`](asyncio-eventloop.md#asyncio.loop.create_server "asyncio.loop.create_server") but works with the
     [`AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX") socket family.
 
@@ -674,7 +674,7 @@ loop.get_task_factory()
 
     Changed in version 3.11: Added the *ssl_shutdown_timeout* parameter.
 
-*async* loop.connect_accepted_socket(*protocol_factory*, *sock*, *\**, *ssl=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*)
+`async loop.connect_accepted_socket(protocol_factory, sock, *, ssl=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None)`
 :   Wrap an already accepted connection into a transport/protocol pair.
 
     This method can be used by servers that accept connections outside
@@ -711,7 +711,7 @@ loop.get_task_factory()
 
 ### Transferring files
 
-*async* loop.sendfile(*transport*, *file*, *offset=0*, *count=None*, *\**, *fallback=True*)
+`async loop.sendfile(transport, file, offset=0, count=None, *, fallback=True)`
 :   Send a *file* over a *transport*. Return the total number of bytes
     sent.
 
@@ -737,7 +737,7 @@ loop.get_task_factory()
 
 ### TLS Upgrade
 
-*async* loop.start_tls(*transport*, *protocol*, *sslcontext*, *\**, *server_side=False*, *server_hostname=None*, *ssl_handshake_timeout=None*, *ssl_shutdown_timeout=None*)
+`async loop.start_tls(transport, protocol, sslcontext, *, server_side=False, server_hostname=None, ssl_handshake_timeout=None, ssl_shutdown_timeout=None)`
 :   Upgrade an existing transport-based connection to TLS.
 
     Create a TLS coder/decoder instance and insert it between the *transport*
@@ -775,7 +775,7 @@ loop.get_task_factory()
 
 ### Watching file descriptors
 
-loop.add_reader(*fd*, *callback*, *\*args*)
+`loop.add_reader(fd, callback, *args)`
 :   Start monitoring the *fd* file descriptor for read availability and
     invoke *callback* with the specified arguments once *fd* is available for
     reading.
@@ -783,11 +783,11 @@ loop.add_reader(*fd*, *callback*, *\*args*)
     Any preexisting callback registered for *fd* is cancelled and replaced by
     *callback*.
 
-loop.remove_reader(*fd*)
+`loop.remove_reader(fd)`
 :   Stop monitoring the *fd* file descriptor for read availability. Returns
     `True` if *fd* was previously being monitored for reads.
 
-loop.add_writer(*fd*, *callback*, *\*args*)
+`loop.add_writer(fd, callback, *args)`
 :   Start monitoring the *fd* file descriptor for write availability and
     invoke *callback* with the specified arguments once *fd* is available for
     writing.
@@ -797,7 +797,7 @@ loop.add_writer(*fd*, *callback*, *\*args*)
 
     Use [`functools.partial()`](functools.md#functools.partial "functools.partial") [to pass keyword arguments](asyncio-eventloop.md#asyncio-pass-keywords) to *callback*.
 
-loop.remove_writer(*fd*)
+`loop.remove_writer(fd)`
 :   Stop monitoring the *fd* file descriptor for write availability. Returns
     `True` if *fd* was previously being monitored for writes.
 
@@ -813,7 +813,7 @@ However, there are some use cases when performance is not critical, and
 working with [`socket`](socket.md#socket.socket "socket.socket") objects directly is more
 convenient.
 
-*async* loop.sock_recv(*sock*, *nbytes*)
+`async loop.sock_recv(sock, nbytes)`
 :   Receive up to *nbytes* from *sock*. Asynchronous version of
     [`socket.recv()`](socket.md#socket.socket.recv "socket.socket.recv").
 
@@ -825,7 +825,7 @@ convenient.
     method, releases before Python 3.7 returned a [`Future`](asyncio-future.md#asyncio.Future "asyncio.Future").
     Since Python 3.7 this is an `async def` method.
 
-*async* loop.sock_recv_into(*sock*, *buf*)
+`async loop.sock_recv_into(sock, buf)`
 :   Receive data from *sock* into the *buf* buffer. Modeled after the blocking
     [`socket.recv_into()`](socket.md#socket.socket.recv_into "socket.socket.recv_into") method.
 
@@ -835,7 +835,7 @@ convenient.
 
     Added in version 3.7.
 
-*async* loop.sock_recvfrom(*sock*, *bufsize*)
+`async loop.sock_recvfrom(sock, bufsize)`
 :   Receive a datagram of up to *bufsize* from *sock*. Asynchronous version of
     [`socket.recvfrom()`](socket.md#socket.socket.recvfrom "socket.socket.recvfrom").
 
@@ -845,7 +845,7 @@ convenient.
 
     Added in version 3.11.
 
-*async* loop.sock_recvfrom_into(*sock*, *buf*, *nbytes=0*)
+`async loop.sock_recvfrom_into(sock, buf, nbytes=0)`
 :   Receive a datagram of up to *nbytes* from *sock* into *buf*.
     Asynchronous version of
     [`socket.recvfrom_into()`](socket.md#socket.socket.recvfrom_into "socket.socket.recvfrom_into").
@@ -856,7 +856,7 @@ convenient.
 
     Added in version 3.11.
 
-*async* loop.sock_sendall(*sock*, *data*)
+`async loop.sock_sendall(sock, data)`
 :   Send *data* to the *sock* socket. Asynchronous version of
     [`socket.sendall()`](socket.md#socket.socket.sendall "socket.socket.sendall").
 
@@ -872,7 +872,7 @@ convenient.
     method, before Python 3.7 it returned a [`Future`](asyncio-future.md#asyncio.Future "asyncio.Future").
     Since Python 3.7, this is an `async def` method.
 
-*async* loop.sock_sendto(*sock*, *data*, *address*)
+`async loop.sock_sendto(sock, data, address)`
 :   Send a datagram from *sock* to *address*.
     Asynchronous version of
     [`socket.sendto()`](socket.md#socket.socket.sendto "socket.socket.sendto").
@@ -883,7 +883,7 @@ convenient.
 
     Added in version 3.11.
 
-*async* loop.sock_connect(*sock*, *address*)
+`async loop.sock_connect(sock, address)`
 :   Connect *sock* to a remote socket at *address*.
 
     Asynchronous version of [`socket.connect()`](socket.md#socket.socket.connect "socket.socket.connect").
@@ -901,7 +901,7 @@ convenient.
     > [`loop.create_connection()`](asyncio-eventloop.md#asyncio.loop.create_connection "asyncio.loop.create_connection")
     > and [`asyncio.open_connection()`](asyncio-stream.md#asyncio.open_connection "asyncio.open_connection").
 
-*async* loop.sock_accept(*sock*)
+`async loop.sock_accept(sock)`
 :   Accept a connection. Modeled after the blocking
     [`socket.accept()`](socket.md#socket.socket.accept "socket.socket.accept") method.
 
@@ -921,7 +921,7 @@ convenient.
     >
     > [`loop.create_server()`](asyncio-eventloop.md#asyncio.loop.create_server "asyncio.loop.create_server") and [`start_server()`](asyncio-stream.md#asyncio.start_server "asyncio.start_server").
 
-*async* loop.sock_sendfile(*sock*, *file*, *offset=0*, *count=None*, *\**, *fallback=True*)
+`async loop.sock_sendfile(sock, file, offset=0, count=None, *, fallback=True)`
 :   Send a file using high-performance [`os.sendfile`](os.md#os.sendfile "os.sendfile") if possible.
     Return the total number of bytes sent.
 
@@ -952,10 +952,10 @@ convenient.
 
 ### DNS
 
-*async* loop.getaddrinfo(*host*, *port*, *\**, *family=0*, *type=0*, *proto=0*, *flags=0*)
+`async loop.getaddrinfo(host, port, *, family=0, type=0, proto=0, flags=0)`
 :   Asynchronous version of [`socket.getaddrinfo()`](socket.md#socket.getaddrinfo "socket.getaddrinfo").
 
-*async* loop.getnameinfo(*sockaddr*, *flags=0*)
+`async loop.getnameinfo(sockaddr, flags=0)`
 :   Asynchronous version of [`socket.getnameinfo()`](socket.md#socket.getnameinfo "socket.getnameinfo").
 
 > **Note:**
@@ -974,7 +974,7 @@ both methods are coroutines.
 
 ### Working with pipes
 
-*async* loop.connect_read_pipe(*protocol_factory*, *pipe*)
+`async loop.connect_read_pipe(protocol_factory, pipe)`
 :   Register the read end of *pipe* in the event loop.
 
     *protocol_factory* must be a callable returning an
@@ -989,7 +989,7 @@ both methods are coroutines.
     With [`SelectorEventLoop`](asyncio-eventloop.md#asyncio.SelectorEventLoop "asyncio.SelectorEventLoop") event loop, the *pipe* is set to
     non-blocking mode.
 
-*async* loop.connect_write_pipe(*protocol_factory*, *pipe*)
+`async loop.connect_write_pipe(protocol_factory, pipe)`
 :   Register the write end of *pipe* in the event loop.
 
     *protocol_factory* must be a callable returning an
@@ -1016,7 +1016,7 @@ both methods are coroutines.
 
 ### Unix signals
 
-loop.add_signal_handler(*signum*, *callback*, *\*args*)
+`loop.add_signal_handler(signum, callback, *args)`
 :   Set *callback* as the handler for the *signum* signal.
 
     The callback will be invoked by *loop*, along with other queued callbacks
@@ -1032,7 +1032,7 @@ loop.add_signal_handler(*signum*, *callback*, *\*args*)
     Like [`signal.signal()`](signal.md#signal.signal "signal.signal"), this function must be invoked in the main
     thread.
 
-loop.remove_signal_handler(*sig*)
+`loop.remove_signal_handler(sig)`
 :   Remove the handler for the *sig* signal.
 
     Return `True` if the signal handler was removed, or `False` if
@@ -1046,7 +1046,7 @@ loop.remove_signal_handler(*sig*)
 
 ### Executing code in thread or process pools
 
-*awaitable* loop.run_in_executor(*executor*, *func*, *\*args*)
+`awaitable loop.run_in_executor(executor, func, *args)`
 :   Arrange for *func* to be called in the specified executor.
 
     The *executor* argument should be an [`concurrent.futures.Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor")
@@ -1114,7 +1114,7 @@ loop.remove_signal_handler(*sig*)
     ([`ThreadPoolExecutor`](concurrent.futures.md#concurrent.futures.ThreadPoolExecutor "concurrent.futures.ThreadPoolExecutor")) to set the
     default.
 
-loop.set_default_executor(*executor*)
+`loop.set_default_executor(executor)`
 :   Set *executor* as the default executor used by [`run_in_executor()`](asyncio-eventloop.md#asyncio.loop.run_in_executor "asyncio.loop.run_in_executor").
     *executor* must be an instance of
     [`ThreadPoolExecutor`](concurrent.futures.md#concurrent.futures.ThreadPoolExecutor "concurrent.futures.ThreadPoolExecutor").
@@ -1126,7 +1126,7 @@ loop.set_default_executor(*executor*)
 
 Allows customizing how exceptions are handled in the event loop.
 
-loop.set_exception_handler(*handler*)
+`loop.set_exception_handler(handler)`
 :   Set *handler* as the new event loop exception handler.
 
     If *handler* is `None`, the default exception handler will
@@ -1144,13 +1144,13 @@ loop.set_exception_handler(*handler*)
     Changed in version 3.12: The handler may be called in the [`Context`](contextvars.md#contextvars.Context "contextvars.Context")
     of the task or handle where the exception originated.
 
-loop.get_exception_handler()
+`loop.get_exception_handler()`
 :   Return the current exception handler, or `None` if no custom
     exception handler was set.
 
     Added in version 3.5.2.
 
-loop.default_exception_handler(*context*)
+`loop.default_exception_handler(context)`
 :   Default exception handler.
 
     This is called when an exception occurs and no exception
@@ -1160,7 +1160,7 @@ loop.default_exception_handler(*context*)
     *context* parameter has the same meaning as in
     [`call_exception_handler()`](asyncio-eventloop.md#asyncio.loop.call_exception_handler "asyncio.loop.call_exception_handler").
 
-loop.call_exception_handler(*context*)
+`loop.call_exception_handler(context)`
 :   Call the current event loop exception handler.
 
     *context* is a `dict` object containing the following keys
@@ -1185,20 +1185,20 @@ loop.call_exception_handler(*context*)
 
 ### Enabling debug mode
 
-loop.get_debug()
+`loop.get_debug()`
 :   Get the debug mode ([`bool`](functions.md#bool "bool")) of the event loop.
 
     The default value is `True` if the environment variable
     [`PYTHONASYNCIODEBUG`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONASYNCIODEBUG) is set to a non-empty string, `False`
     otherwise.
 
-loop.set_debug(*enabled: [bool](functions.md#bool "bool")*)
+`loop.set_debug(enabled: bool)`
 :   Set the debug mode of the event loop.
 
     Changed in version 3.7: The new [Python Development Mode](devmode.md#devmode) can now also be used
     to enable the debug mode.
 
-loop.slow_callback_duration
+`loop.slow_callback_duration`
 :   This attribute can be used to set the
     minimum execution duration in seconds that is considered “slow”.
     When debug mode is enabled, “slow” callbacks are logged.
@@ -1223,7 +1223,7 @@ async/await code consider using the high-level
 > [Subprocess Support on Windows](asyncio-platforms.md#asyncio-windows-subprocess) for
 > details.
 
-*async* loop.subprocess_exec(*protocol_factory*, *\*args*, *stdin=subprocess.PIPE*, *stdout=subprocess.PIPE*, *stderr=subprocess.PIPE*, *\*\*kwargs*)
+`async loop.subprocess_exec(protocol_factory, *args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)`
 :   Create a subprocess from one or more string arguments specified by
     *args*.
 
@@ -1299,7 +1299,7 @@ async/await code consider using the high-level
     conforms to the [`asyncio.SubprocessTransport`](asyncio-protocol.md#asyncio.SubprocessTransport "asyncio.SubprocessTransport") base class and
     *protocol* is an object instantiated by the *protocol_factory*.
 
-*async* loop.subprocess_shell(*protocol_factory*, *cmd*, *\**, *stdin=subprocess.PIPE*, *stdout=subprocess.PIPE*, *stderr=subprocess.PIPE*, *\*\*kwargs*)
+`async loop.subprocess_shell(protocol_factory, cmd, *, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)`
 :   Create a subprocess from *cmd*, which can be a [`str`](stdtypes.md#str "str") or a
     [`bytes`](stdtypes.md#bytes "bytes") string encoded to the
     [filesystem encoding](os.md#filesystem-encoding),
@@ -1328,32 +1328,32 @@ async/await code consider using the high-level
 
 ## Callback Handles
 
-*class* asyncio.Handle
+`class asyncio.Handle`
 :   A callback wrapper object returned by [`loop.call_soon()`](asyncio-eventloop.md#asyncio.loop.call_soon "asyncio.loop.call_soon"),
     [`loop.call_soon_threadsafe()`](asyncio-eventloop.md#asyncio.loop.call_soon_threadsafe "asyncio.loop.call_soon_threadsafe").
 
-    get_context()
+    `get_context()`
     :   Return the [`contextvars.Context`](contextvars.md#contextvars.Context "contextvars.Context") object
         associated with the handle.
 
         Added in version 3.12.
 
-    cancel()
+    `cancel()`
     :   Cancel the callback. If the callback has already been canceled
         or executed, this method has no effect.
 
-    cancelled()
+    `cancelled()`
     :   Return `True` if the callback was cancelled.
 
         Added in version 3.7.
 
-*class* asyncio.TimerHandle
+`class asyncio.TimerHandle`
 :   A callback wrapper object returned by [`loop.call_later()`](asyncio-eventloop.md#asyncio.loop.call_later "asyncio.loop.call_later"),
     and [`loop.call_at()`](asyncio-eventloop.md#asyncio.loop.call_at "asyncio.loop.call_at").
 
     This class is a subclass of [`Handle`](asyncio-eventloop.md#asyncio.Handle "asyncio.Handle").
 
-    when()
+    `when()`
     :   Return a scheduled callback time as [`float`](functions.md#float "float") seconds.
 
         The time is an absolute timestamp, using the same time
@@ -1369,7 +1369,7 @@ and [`start_unix_server()`](asyncio-stream.md#asyncio.start_unix_server "asyncio
 
 Do not instantiate the [`Server`](asyncio-eventloop.md#asyncio.Server "asyncio.Server") class directly.
 
-*class* asyncio.Server
+`class asyncio.Server`
 :   *Server* objects are asynchronous context managers. When used in an
     `async with` statement, it’s guaranteed that the Server object is
     closed and not accepting new connections when the `async with`
@@ -1388,7 +1388,7 @@ Do not instantiate the [`Server`](asyncio-eventloop.md#asyncio.Server "asyncio.S
 
     Changed in version 3.11: This class was exposed publicly as `asyncio.Server` in Python 3.9.11, 3.10.3 and 3.11.
 
-    close()
+    `close()`
     :   Stop serving: close listening sockets and set the [`sockets`](asyncio-eventloop.md#asyncio.Server.sockets "asyncio.Server.sockets")
         attribute to `None`.
 
@@ -1399,12 +1399,12 @@ Do not instantiate the [`Server`](asyncio-eventloop.md#asyncio.Server "asyncio.S
         coroutine to wait until the server is closed (and no more
         connections are active).
 
-    get_loop()
+    `get_loop()`
     :   Return the event loop associated with the server object.
 
         Added in version 3.7.
 
-    *async* start_serving()
+    `async start_serving()`
     :   Start accepting connections.
 
         This method is idempotent, so it can be called when
@@ -1419,7 +1419,7 @@ Do not instantiate the [`Server`](asyncio-eventloop.md#asyncio.Server "asyncio.S
 
         Added in version 3.7.
 
-    *async* serve_forever()
+    `async serve_forever()`
     :   Start accepting connections until the coroutine is cancelled.
         Cancellation of `serve_forever` task causes the server
         to be closed.
@@ -1446,16 +1446,16 @@ Do not instantiate the [`Server`](asyncio-eventloop.md#asyncio.Server "asyncio.S
 
         Added in version 3.7.
 
-    is_serving()
+    `is_serving()`
     :   Return `True` if the server is accepting new connections.
 
         Added in version 3.7.
 
-    *async* wait_closed()
+    `async wait_closed()`
     :   Wait until the [`close()`](asyncio-eventloop.md#asyncio.Server.close "asyncio.Server.close") method completes and all active
         connections have finished.
 
-    sockets
+    `sockets`
     :   List of socket-like objects, `asyncio.trsock.TransportSocket`, which
         the server is listening on.
 
@@ -1471,7 +1471,7 @@ asyncio ships with two different event loop implementations:
 By default asyncio is configured to use [`SelectorEventLoop`](asyncio-eventloop.md#asyncio.SelectorEventLoop "asyncio.SelectorEventLoop")
 on Unix and [`ProactorEventLoop`](asyncio-eventloop.md#asyncio.ProactorEventLoop "asyncio.ProactorEventLoop") on Windows.
 
-*class* asyncio.SelectorEventLoop
+`class asyncio.SelectorEventLoop`
 :   An event loop based on the [`selectors`](selectors.md#module-selectors "selectors: High-level I/O multiplexing.") module.
 
     Uses the most efficient *selector* available for the given
@@ -1492,7 +1492,7 @@ on Unix and [`ProactorEventLoop`](asyncio-eventloop.md#asyncio.ProactorEventLoop
 
     [Availability](intro.md#availability): Unix, Windows.
 
-*class* asyncio.ProactorEventLoop
+`class asyncio.ProactorEventLoop`
 :   An event loop for Windows that uses “I/O Completion Ports” (IOCP).
 
     [Availability](intro.md#availability): Windows.
@@ -1501,7 +1501,7 @@ on Unix and [`ProactorEventLoop`](asyncio-eventloop.md#asyncio.ProactorEventLoop
     >
     > [MSDN documentation on I/O Completion Ports](https://learn.microsoft.com/windows/win32/fileio/i-o-completion-ports).
 
-*class* asyncio.AbstractEventLoop
+`class asyncio.AbstractEventLoop`
 :   Abstract base class for asyncio-compliant event loops.
 
     The [Event Loop Methods](asyncio-eventloop.md#asyncio-event-loop-methods) section lists all

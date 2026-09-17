@@ -35,7 +35,7 @@ The options to the [`enable()`](cgitb.md#cgitb.enable "cgitb.enable") function c
 displayed in the browser and whether the report is logged to a file for later
 analysis.
 
-cgitb.enable(*display=1*, *logdir=None*, *context=5*, *format='html'*)
+`cgitb.enable(display=1, logdir=None, context=5, format='html')`
 :   This function causes the [`cgitb`](cgitb.md#module-cgitb "cgitb: Configurable traceback handler for CGI scripts. (deprecated)") module to take over the interpreter’s
     default handling for exceptions by setting the value of [`sys.excepthook`](sys.md#sys.excepthook "sys.excepthook").
 
@@ -48,21 +48,21 @@ cgitb.enable(*display=1*, *logdir=None*, *context=5*, *format='html'*)
     argument *format* is `"html"`, the output is formatted as HTML. Any other
     value forces plain text output. The default value is `"html"`.
 
-cgitb.text(*info*, *context=5*)
+`cgitb.text(info, context=5)`
 :   This function handles the exception described by *info* (a 3-tuple containing
     the result of [`sys.exc_info()`](sys.md#sys.exc_info "sys.exc_info")), formatting its traceback as text and
     returning the result as a string. The optional argument *context* is the
     number of lines of context to display around the current line of source code
     in the traceback; this defaults to `5`.
 
-cgitb.html(*info*, *context=5*)
+`cgitb.html(info, context=5)`
 :   This function handles the exception described by *info* (a 3-tuple containing
     the result of [`sys.exc_info()`](sys.md#sys.exc_info "sys.exc_info")), formatting its traceback as HTML and
     returning the result as a string. The optional argument *context* is the
     number of lines of context to display around the current line of source code
     in the traceback; this defaults to `5`.
 
-cgitb.handler(*info=None*)
+`cgitb.handler(info=None)`
 :   This function handles an exception using the default settings (that is, show a
     report in the browser, but don’t log to a file). This can be used when you’ve
     caught an exception and want to report it using [`cgitb`](cgitb.md#module-cgitb "cgitb: Configurable traceback handler for CGI scripts. (deprecated)"). The optional

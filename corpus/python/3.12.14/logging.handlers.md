@@ -32,23 +32,23 @@ sends logging output to streams such as *sys.stdout*, *sys.stderr* or any
 file-like object (or, more precisely, any object which supports `write()`
 and `flush()` methods).
 
-*class* logging.StreamHandler(*stream=None*)
+`class logging.StreamHandler(stream=None)`
 :   Returns a new instance of the [`StreamHandler`](logging.handlers.md#logging.StreamHandler "logging.StreamHandler") class. If *stream* is
     specified, the instance will use it for logging output; otherwise, *sys.stderr*
     will be used.
 
-    emit(*record*)
+    `emit(record)`
     :   If a formatter is specified, it is used to format the record. The record
         is then written to the stream followed by [`terminator`](logging.handlers.md#logging.StreamHandler.terminator "logging.StreamHandler.terminator"). If exception information
         is present, it is formatted using [`traceback.print_exception()`](traceback.md#traceback.print_exception "traceback.print_exception") and
         appended to the stream.
 
-    flush()
+    `flush()`
     :   Flushes the stream by calling its [`flush()`](logging.handlers.md#logging.StreamHandler.flush "logging.StreamHandler.flush") method. Note that the
         `close()` method is inherited from [`Handler`](logging.md#logging.Handler "logging.Handler") and so
         does no output, so an explicit [`flush()`](logging.handlers.md#logging.StreamHandler.flush "logging.StreamHandler.flush") call may be needed at times.
 
-    setStream(*stream*)
+    `setStream(stream)`
     :   Sets the instance’s stream to the specified value, if it is different.
         The old stream is flushed before the new stream is set.
 
@@ -60,7 +60,7 @@ and `flush()` methods).
 
         Added in version 3.7.
 
-    terminator
+    `terminator`
     :   String used as the terminator when writing a formatted record to a stream.
         Default value is `'\n'`.
 
@@ -77,7 +77,7 @@ The [`FileHandler`](logging.handlers.md#logging.FileHandler "logging.FileHandler
 sends logging output to a disk file. It inherits the output functionality from
 [`StreamHandler`](logging.handlers.md#logging.StreamHandler "logging.StreamHandler").
 
-*class* logging.FileHandler(*filename*, *mode='a'*, *encoding=None*, *delay=False*, *errors=None*)
+`class logging.FileHandler(filename, mode='a', encoding=None, delay=False, errors=None)`
 :   Returns a new instance of the [`FileHandler`](logging.handlers.md#logging.FileHandler "logging.FileHandler") class. The specified file is
     opened and used as the stream for logging. If *mode* is not specified,
     `'a'` is used. If *encoding* is not `None`, it is used to open the file
@@ -90,10 +90,10 @@ sends logging output to a disk file. It inherits the output functionality from
 
     Changed in version 3.9: The *errors* parameter was added.
 
-    close()
+    `close()`
     :   Closes the file.
 
-    emit(*record*)
+    `emit(record)`
     :   Outputs the record to the file.
 
         Note that if the file was closed due to logging shutdown at exit and the file
@@ -107,16 +107,16 @@ The [`NullHandler`](logging.handlers.md#logging.NullHandler "logging.NullHandler
 does not do any formatting or output. It is essentially a ‘no-op’ handler
 for use by library developers.
 
-*class* logging.NullHandler
+`class logging.NullHandler`
 :   Returns a new instance of the [`NullHandler`](logging.handlers.md#logging.NullHandler "logging.NullHandler") class.
 
-    emit(*record*)
+    `emit(record)`
     :   This method does nothing.
 
-    handle(*record*)
+    `handle(record)`
     :   This method does nothing.
 
-    createLock()
+    `createLock()`
     :   This method returns `None` for the lock, since there is no
         underlying I/O to which access needs to be serialized.
 
@@ -142,7 +142,7 @@ exclusive locks - and so there is no need for such a handler. Furthermore,
 *ST_INO* is not supported under Windows; [`stat()`](os.md#os.stat "os.stat") always returns zero
 for this value.
 
-*class* logging.handlers.WatchedFileHandler(*filename*, *mode='a'*, *encoding=None*, *delay=False*, *errors=None*)
+`class logging.handlers.WatchedFileHandler(filename, mode='a', encoding=None, delay=False, errors=None)`
 :   Returns a new instance of the [`WatchedFileHandler`](logging.handlers.md#logging.handlers.WatchedFileHandler "logging.handlers.WatchedFileHandler") class. The specified
     file is opened and used as the stream for logging. If *mode* is not specified,
     `'a'` is used. If *encoding* is not `None`, it is used to open the file
@@ -155,14 +155,14 @@ for this value.
 
     Changed in version 3.9: The *errors* parameter was added.
 
-    reopenIfNeeded()
+    `reopenIfNeeded()`
     :   Checks to see if the file has changed. If it has, the existing stream is
         flushed and closed and the file opened again, typically as a precursor to
         outputting the record to the file.
 
         Added in version 3.6.
 
-    emit(*record*)
+    `emit(record)`
     :   Outputs the record to the file, but first calls [`reopenIfNeeded()`](logging.handlers.md#logging.handlers.WatchedFileHandler.reopenIfNeeded "logging.handlers.WatchedFileHandler.reopenIfNeeded") to
         reopen the file if it has changed.
 
@@ -174,10 +174,10 @@ module, is the base class for the rotating file handlers,
 not need to instantiate this class, but it has attributes and methods you may
 need to override.
 
-*class* logging.handlers.BaseRotatingHandler(*filename*, *mode*, *encoding=None*, *delay=False*, *errors=None*)
+`class logging.handlers.BaseRotatingHandler(filename, mode, encoding=None, delay=False, errors=None)`
 :   The parameters are as for `FileHandler`. The attributes are:
 
-    namer
+    `namer`
     :   If this attribute is set to a callable, the [`rotation_filename()`](logging.handlers.md#logging.handlers.BaseRotatingHandler.rotation_filename "logging.handlers.BaseRotatingHandler.rotation_filename")
         method delegates to this callable. The parameters passed to the callable
         are those passed to [`rotation_filename()`](logging.handlers.md#logging.handlers.BaseRotatingHandler.rotation_filename "logging.handlers.BaseRotatingHandler.rotation_filename").
@@ -204,14 +204,14 @@ need to override.
 
         Added in version 3.3.
 
-    rotator
+    `rotator`
     :   If this attribute is set to a callable, the [`rotate()`](logging.handlers.md#logging.handlers.BaseRotatingHandler.rotate "logging.handlers.BaseRotatingHandler.rotate") method
         delegates to this callable. The parameters passed to the callable are
         those passed to [`rotate()`](logging.handlers.md#logging.handlers.BaseRotatingHandler.rotate "logging.handlers.BaseRotatingHandler.rotate").
 
         Added in version 3.3.
 
-    rotation_filename(*default_name*)
+    `rotation_filename(default_name)`
     :   Modify the filename of a log file when rotating.
 
         This is provided so that a custom filename can be provided.
@@ -225,7 +225,7 @@ need to override.
 
         Added in version 3.3.
 
-    rotate(*source*, *dest*)
+    `rotate(source, dest)`
     :   When rotating, rotate the current log.
 
         The default implementation calls the ‘rotator’ attribute of the handler,
@@ -258,7 +258,7 @@ For an example, see [Using a rotator and namer to customize log rotation process
 The [`RotatingFileHandler`](logging.handlers.md#logging.handlers.RotatingFileHandler "logging.handlers.RotatingFileHandler") class, located in the [`logging.handlers`](logging.handlers.md#module-logging.handlers "logging.handlers: Handlers for the logging module.")
 module, supports rotation of disk log files.
 
-*class* logging.handlers.RotatingFileHandler(*filename*, *mode='a'*, *maxBytes=0*, *backupCount=0*, *encoding=None*, *delay=False*, *errors=None*)
+`class logging.handlers.RotatingFileHandler(filename, mode='a', maxBytes=0, backupCount=0, encoding=None, delay=False, errors=None)`
 :   Returns a new instance of the [`RotatingFileHandler`](logging.handlers.md#logging.handlers.RotatingFileHandler "logging.handlers.RotatingFileHandler") class. The specified
     file is opened and used as the stream for logging. If *mode* is not specified,
     `'a'` is used. If *encoding* is not `None`, it is used to open the file
@@ -286,10 +286,10 @@ module, supports rotation of disk log files.
 
     Changed in version 3.9: The *errors* parameter was added.
 
-    doRollover()
+    `doRollover()`
     :   Does a rollover, as described above.
 
-    emit(*record*)
+    `emit(record)`
     :   Outputs the record to the file, catering for rollover as described
         previously.
 
@@ -299,7 +299,7 @@ The [`TimedRotatingFileHandler`](logging.handlers.md#logging.handlers.TimedRotat
 [`logging.handlers`](logging.handlers.md#module-logging.handlers "logging.handlers: Handlers for the logging module.") module, supports rotation of disk log files at certain
 timed intervals.
 
-*class* logging.handlers.TimedRotatingFileHandler(*filename*, *when='h'*, *interval=1*, *backupCount=0*, *encoding=None*, *delay=False*, *utc=False*, *atTime=None*, *errors=None*)
+`class logging.handlers.TimedRotatingFileHandler(filename, when='h', interval=1, backupCount=0, encoding=None, delay=False, utc=False, atTime=None, errors=None)`
 :   Returns a new instance of the [`TimedRotatingFileHandler`](logging.handlers.md#logging.handlers.TimedRotatingFileHandler "logging.handlers.TimedRotatingFileHandler") class. The
     specified file is opened and used as the stream for logging. On rotating it also
     sets the filename suffix. Rotating happens based on the product of *when* and
@@ -373,13 +373,13 @@ timed intervals.
 
     Changed in version 3.9: The *errors* parameter was added.
 
-    doRollover()
+    `doRollover()`
     :   Does a rollover, as described above.
 
-    emit(*record*)
+    `emit(record)`
     :   Outputs the record to the file, catering for rollover as described above.
 
-    getFilesToDelete()
+    `getFilesToDelete()`
     :   Returns a list of filenames which should be deleted as part of rollover. These
         are the absolute paths of the oldest backup log files written by the handler.
 
@@ -388,17 +388,17 @@ timed intervals.
 The [`SocketHandler`](logging.handlers.md#logging.handlers.SocketHandler "logging.handlers.SocketHandler") class, located in the [`logging.handlers`](logging.handlers.md#module-logging.handlers "logging.handlers: Handlers for the logging module.") module,
 sends logging output to a network socket. The base class uses a TCP socket.
 
-*class* logging.handlers.SocketHandler(*host*, *port*)
+`class logging.handlers.SocketHandler(host, port)`
 :   Returns a new instance of the [`SocketHandler`](logging.handlers.md#logging.handlers.SocketHandler "logging.handlers.SocketHandler") class intended to
     communicate with a remote machine whose address is given by *host* and *port*.
 
     Changed in version 3.4: If `port` is specified as `None`, a Unix domain socket is created
     using the value in `host` - otherwise, a TCP socket is created.
 
-    close()
+    `close()`
     :   Closes the socket.
 
-    emit()
+    `emit()`
     :   Pickles the record’s attribute dictionary and writes it to the socket in
         binary format. If there is an error with the socket, silently drops the
         packet. If the connection was previously lost, re-establishes the
@@ -406,17 +406,17 @@ sends logging output to a network socket. The base class uses a TCP socket.
         [`LogRecord`](logging.md#logging.LogRecord "logging.LogRecord"), use the [`makeLogRecord()`](logging.md#logging.makeLogRecord "logging.makeLogRecord")
         function.
 
-    handleError()
+    `handleError()`
     :   Handles an error which has occurred during [`emit()`](logging.handlers.md#logging.handlers.SocketHandler.emit "logging.handlers.SocketHandler.emit"). The most likely
         cause is a lost connection. Closes the socket so that we can retry on the
         next event.
 
-    makeSocket()
+    `makeSocket()`
     :   This is a factory method which allows subclasses to define the precise
         type of socket they want. The default implementation creates a TCP socket
         ([`socket.SOCK_STREAM`](socket.md#socket.SOCK_STREAM "socket.SOCK_STREAM")).
 
-    makePickle(*record*)
+    `makePickle(record)`
     :   Pickles the record’s attribute dictionary in binary format with a length
         prefix, and returns it ready for transmission across the socket. The
         details of this operation are equivalent to:
@@ -433,7 +433,7 @@ sends logging output to a network socket. The base class uses a TCP socket.
         them on the receiving end, or alternatively you can disable unpickling of
         global objects on the receiving end.
 
-    send(*packet*)
+    `send(packet)`
     :   Send a pickled byte-string *packet* to the socket. The format of the sent
         byte-string is as described in the documentation for
         [`makePickle()`](logging.handlers.md#logging.handlers.SocketHandler.makePickle "logging.handlers.SocketHandler.makePickle").
@@ -441,7 +441,7 @@ sends logging output to a network socket. The base class uses a TCP socket.
         This function allows for partial sends, which can happen when the network
         is busy.
 
-    createSocket()
+    `createSocket()`
     :   Tries to create a socket; on failure, uses an exponential back-off
         algorithm. On initial failure, the handler will drop the message it was
         trying to send. When subsequent messages are handled by the same
@@ -467,7 +467,7 @@ The [`DatagramHandler`](logging.handlers.md#logging.handlers.DatagramHandler "lo
 module, inherits from [`SocketHandler`](logging.handlers.md#logging.handlers.SocketHandler "logging.handlers.SocketHandler") to support sending logging messages
 over UDP sockets.
 
-*class* logging.handlers.DatagramHandler(*host*, *port*)
+`class logging.handlers.DatagramHandler(host, port)`
 :   Returns a new instance of the [`DatagramHandler`](logging.handlers.md#logging.handlers.DatagramHandler "logging.handlers.DatagramHandler") class intended to
     communicate with a remote machine whose address is given by *host* and *port*.
 
@@ -483,18 +483,18 @@ over UDP sockets.
     Changed in version 3.4: If `port` is specified as `None`, a Unix domain socket is created
     using the value in `host` - otherwise, a UDP socket is created.
 
-    emit()
+    `emit()`
     :   Pickles the record’s attribute dictionary and writes it to the socket in
         binary format. If there is an error with the socket, silently drops the
         packet. To unpickle the record at the receiving end into a
         [`LogRecord`](logging.md#logging.LogRecord "logging.LogRecord"), use the [`makeLogRecord()`](logging.md#logging.makeLogRecord "logging.makeLogRecord")
         function.
 
-    makeSocket()
+    `makeSocket()`
     :   The factory method of [`SocketHandler`](logging.handlers.md#logging.handlers.SocketHandler "logging.handlers.SocketHandler") is here overridden to create
         a UDP socket ([`socket.SOCK_DGRAM`](socket.md#socket.SOCK_DGRAM "socket.SOCK_DGRAM")).
 
-    send(*s*)
+    `send(s)`
     :   Send a pickled byte-string to a socket. The format of the sent byte-string
         is as described in the documentation for [`SocketHandler.makePickle()`](logging.handlers.md#logging.handlers.SocketHandler.makePickle "logging.handlers.SocketHandler.makePickle").
 
@@ -503,7 +503,7 @@ over UDP sockets.
 The [`SysLogHandler`](logging.handlers.md#logging.handlers.SysLogHandler "logging.handlers.SysLogHandler") class, located in the [`logging.handlers`](logging.handlers.md#module-logging.handlers "logging.handlers: Handlers for the logging module.") module,
 supports sending logging messages to a remote or local Unix syslog.
 
-*class* logging.handlers.SysLogHandler(*address=('localhost', SYSLOG_UDP_PORT)*, *facility=LOG_USER*, *socktype=socket.SOCK_DGRAM*)
+`class logging.handlers.SysLogHandler(address=('localhost', SYSLOG_UDP_PORT), facility=LOG_USER, socktype=socket.SOCK_DGRAM)`
 :   Returns a new instance of the [`SysLogHandler`](logging.handlers.md#logging.handlers.SysLogHandler "logging.handlers.SysLogHandler") class intended to
     communicate with a remote Unix machine whose address is given by *address* in
     the form of a `(host, port)` tuple. If *address* is not specified,
@@ -535,10 +535,10 @@ supports sending logging messages to a remote or local Unix syslog.
 
     Changed in version 3.2: *socktype* was added.
 
-    close()
+    `close()`
     :   Closes the socket to the remote host.
 
-    createSocket()
+    `createSocket()`
     :   Tries to create a socket and, if it’s not a datagram socket, connect it
         to the other end. This method is called during handler initialization,
         but it’s not regarded as an error if the other end isn’t listening at
@@ -547,7 +547,7 @@ supports sending logging messages to a remote or local Unix syslog.
 
         Added in version 3.11.
 
-    emit(*record*)
+    `emit(record)`
     :   The record is formatted, and then sent to the syslog server. If exception
         information is present, it is *not* sent to the server.
 
@@ -574,7 +574,7 @@ supports sending logging messages to a remote or local Unix syslog.
         the ident to every message handled. Note that the provided ident must
         be text, not bytes, and is prepended to the message exactly as is.
 
-    encodePriority(*facility*, *priority*)
+    `encodePriority(facility, priority)`
     :   Encodes the facility and priority into an integer. You can pass in strings
         or integers - if strings are passed, internal mapping dictionaries are
         used to convert them to integers.
@@ -620,7 +620,7 @@ supports sending logging messages to a remote or local Unix syslog.
         | `local6` | LOG_LOCAL6 |
         | `local7` | LOG_LOCAL7 |
 
-    mapPriority(*levelname*)
+    `mapPriority(levelname)`
     :   Maps a logging level name to a syslog priority name.
         You may need to override this if you are using custom levels, or
         if the default algorithm is not suitable for your needs. The
@@ -635,7 +635,7 @@ module, supports sending logging messages to a local Windows NT, Windows 2000 or
 Windows XP event log. Before you can use it, you need Mark Hammond’s Win32
 extensions for Python installed.
 
-*class* logging.handlers.NTEventLogHandler(*appname*, *dllname=None*, *logtype='Application'*)
+`class logging.handlers.NTEventLogHandler(appname, dllname=None, logtype='Application')`
 :   Returns a new instance of the [`NTEventLogHandler`](logging.handlers.md#logging.handlers.NTEventLogHandler "logging.handlers.NTEventLogHandler") class. The *appname* is
     used to define the application name as it appears in the event log. An
     appropriate registry entry is created using this name. The *dllname* should give
@@ -649,22 +649,22 @@ extensions for Python installed.
     *logtype* is one of `'Application'`, `'System'` or `'Security'`, and
     defaults to `'Application'`.
 
-    close()
+    `close()`
     :   At this point, you can remove the application name from the registry as a
         source of event log entries. However, if you do this, you will not be able
         to see the events as you intended in the Event Log Viewer - it needs to be
         able to access the registry to get the .dll name. The current version does
         not do this.
 
-    emit(*record*)
+    `emit(record)`
     :   Determines the message ID, event category and event type, and then logs
         the message in the NT event log.
 
-    getEventCategory(*record*)
+    `getEventCategory(record)`
     :   Returns the event category for the record. Override this if you want to
         specify your own categories. This version returns 0.
 
-    getEventType(*record*)
+    `getEventType(record)`
     :   Returns the event type for the record. Override this if you want to
         specify your own types. This version does a mapping using the handler’s
         typemap attribute, which is set up in `__init__()` to a dictionary
@@ -673,7 +673,7 @@ extensions for Python installed.
         your own levels, you will either need to override this method or place a
         suitable dictionary in the handler’s *typemap* attribute.
 
-    getMessageID(*record*)
+    `getMessageID(record)`
     :   Returns the message ID for the record. If you are using your own messages,
         you could do this by having the *msg* passed to the logger being an ID
         rather than a format string. Then, in here, you could use a dictionary
@@ -685,7 +685,7 @@ extensions for Python installed.
 The [`SMTPHandler`](logging.handlers.md#logging.handlers.SMTPHandler "logging.handlers.SMTPHandler") class, located in the [`logging.handlers`](logging.handlers.md#module-logging.handlers "logging.handlers: Handlers for the logging module.") module,
 supports sending logging messages to an email address via SMTP.
 
-*class* logging.handlers.SMTPHandler(*mailhost*, *fromaddr*, *toaddrs*, *subject*, *credentials=None*, *secure=None*, *timeout=1.0*)
+`class logging.handlers.SMTPHandler(mailhost, fromaddr, toaddrs, subject, credentials=None, secure=None, timeout=1.0)`
 :   Returns a new instance of the [`SMTPHandler`](logging.handlers.md#logging.handlers.SMTPHandler "logging.handlers.SMTPHandler") class. The instance is
     initialized with the from and to addresses and subject line of the email. The
     *toaddrs* should be a list of strings. To specify a non-standard SMTP port, use
@@ -705,10 +705,10 @@ supports sending logging messages to an email address via SMTP.
 
     Changed in version 3.3: Added the *timeout* parameter.
 
-    emit(*record*)
+    `emit(record)`
     :   Formats the record and sends it to the specified addressees.
 
-    getSubject(*record*)
+    `getSubject(record)`
     :   If you want to specify a subject line which is record-dependent, override
         this method.
 
@@ -725,24 +725,24 @@ records in memory. Whenever each record is added to the buffer, a check is made
 by calling `shouldFlush()` to see if the buffer should be flushed. If it
 should, then `flush()` is expected to do the flushing.
 
-*class* logging.handlers.BufferingHandler(*capacity*)
+`class logging.handlers.BufferingHandler(capacity)`
 :   Initializes the handler with a buffer of the specified capacity. Here,
     *capacity* means the number of logging records buffered.
 
-    emit(*record*)
+    `emit(record)`
     :   Append the record to the buffer. If [`shouldFlush()`](logging.handlers.md#logging.handlers.BufferingHandler.shouldFlush "logging.handlers.BufferingHandler.shouldFlush") returns true,
         call [`flush()`](logging.handlers.md#logging.handlers.BufferingHandler.flush "logging.handlers.BufferingHandler.flush") to process the buffer.
 
-    flush()
+    `flush()`
     :   For a [`BufferingHandler`](logging.handlers.md#logging.handlers.BufferingHandler "logging.handlers.BufferingHandler") instance, flushing means that it sets the
         buffer to an empty list. This method can be overwritten to implement more useful
         flushing behavior.
 
-    shouldFlush(*record*)
+    `shouldFlush(record)`
     :   Return `True` if the buffer is up to capacity. This method can be
         overridden to implement custom flushing strategies.
 
-*class* logging.handlers.MemoryHandler(*capacity*, *flushLevel=ERROR*, *target=None*, *flushOnClose=True*)
+`class logging.handlers.MemoryHandler(capacity, flushLevel=ERROR, target=None, flushOnClose=True)`
 :   Returns a new instance of the [`MemoryHandler`](logging.handlers.md#logging.handlers.MemoryHandler "logging.handlers.MemoryHandler") class. The instance is
     initialized with a buffer size of *capacity* (number of records buffered).
     If *flushLevel* is not specified, `ERROR` is used. If no *target* is
@@ -754,19 +754,19 @@ should, then `flush()` is expected to do the flushing.
 
     Changed in version 3.6: The *flushOnClose* parameter was added.
 
-    close()
+    `close()`
     :   Calls [`flush()`](logging.handlers.md#logging.handlers.MemoryHandler.flush "logging.handlers.MemoryHandler.flush"), sets the target to `None` and clears the
         buffer.
 
-    flush()
+    `flush()`
     :   For a [`MemoryHandler`](logging.handlers.md#logging.handlers.MemoryHandler "logging.handlers.MemoryHandler") instance, flushing means just sending the buffered
         records to the target, if there is one. The buffer is also cleared when
         buffered records are sent to the target. Override if you want different behavior.
 
-    setTarget(*target*)
+    `setTarget(target)`
     :   Sets the target handler for this handler.
 
-    shouldFlush(*record*)
+    `shouldFlush(record)`
     :   Checks for buffer full or a record at the *flushLevel* or higher.
 
 ## HTTPHandler
@@ -775,7 +775,7 @@ The [`HTTPHandler`](logging.handlers.md#logging.handlers.HTTPHandler "logging.ha
 supports sending logging messages to a web server, using either `GET` or
 `POST` semantics.
 
-*class* logging.handlers.HTTPHandler(*host*, *url*, *method='GET'*, *secure=False*, *credentials=None*, *context=None*)
+`class logging.handlers.HTTPHandler(host, url, method='GET', secure=False, credentials=None, context=None)`
 :   Returns a new instance of the [`HTTPHandler`](logging.handlers.md#logging.handlers.HTTPHandler "logging.handlers.HTTPHandler") class. The *host* can be
     of the form `host:port`, should you need to use a specific port number. If
     no *method* is specified, `GET` is used. If *secure* is true, a HTTPS
@@ -789,14 +789,14 @@ supports sending logging messages to a web server, using either `GET` or
 
     Changed in version 3.5: The *context* parameter was added.
 
-    mapLogRecord(*record*)
+    `mapLogRecord(record)`
     :   Provides a dictionary, based on `record`, which is to be URL-encoded
         and sent to the web server. The default implementation just returns
         `record.__dict__`. This method can be overridden if e.g. only a
         subset of [`LogRecord`](logging.md#logging.LogRecord "logging.LogRecord") is to be sent to the web server, or
         if more specific customization of what’s sent to the server is required.
 
-    emit(*record*)
+    `emit(record)`
     :   Sends the record to the web server as a URL-encoded dictionary. The
         [`mapLogRecord()`](logging.handlers.md#logging.handlers.HTTPHandler.mapLogRecord "logging.handlers.HTTPHandler.mapLogRecord") method is used to convert the record to the
         dictionary to be sent.
@@ -826,7 +826,7 @@ applications where threads servicing clients need to respond as quickly as
 possible, while any potentially slow operations (such as sending an email via
 [`SMTPHandler`](logging.handlers.md#logging.handlers.SMTPHandler "logging.handlers.SMTPHandler")) are done on a separate thread.
 
-*class* logging.handlers.QueueHandler(*queue*)
+`class logging.handlers.QueueHandler(queue)`
 :   Returns a new instance of the [`QueueHandler`](logging.handlers.md#logging.handlers.QueueHandler "logging.handlers.QueueHandler") class. The instance is
     initialized with the queue to send messages to. The *queue* can be any
     queue-like object; it’s used as-is by the [`enqueue()`](logging.handlers.md#logging.handlers.QueueHandler.enqueue "logging.handlers.QueueHandler.enqueue") method, which
@@ -839,7 +839,7 @@ possible, while any potentially slow operations (such as sending an email via
     > If you are using [`multiprocessing`](multiprocessing.md#module-multiprocessing "multiprocessing: Process-based parallelism."), you should avoid using
     > [`SimpleQueue`](queue.md#queue.SimpleQueue "queue.SimpleQueue") and instead use [`multiprocessing.Queue`](multiprocessing.md#multiprocessing.Queue "multiprocessing.Queue").
 
-    emit(*record*)
+    `emit(record)`
     :   Enqueues the result of preparing the LogRecord. Should an exception
         occur (e.g. because a bounded queue has filled up), the
         [`handleError()`](logging.md#logging.Handler.handleError "logging.Handler.handleError") method is called to handle the
@@ -847,7 +847,7 @@ possible, while any potentially slow operations (such as sending an email via
         [`logging.raiseExceptions`](logging.md#logging.raiseExceptions "logging.raiseExceptions") is `False`) or a message printed to
         `sys.stderr` (if [`logging.raiseExceptions`](logging.md#logging.raiseExceptions "logging.raiseExceptions") is `True`).
 
-    prepare(*record*)
+    `prepare(record)`
     :   Prepares a record for queuing. The object returned by this
         method is enqueued.
 
@@ -879,12 +879,12 @@ possible, while any potentially slow operations (such as sending an email via
         > consider not only your own code but also code in any libraries that
         > you use.)
 
-    enqueue(*record*)
+    `enqueue(record)`
     :   Enqueues the record on the queue using `put_nowait()`; you may
         want to override this if you want to use blocking behaviour, or a
         timeout, or a customized queue implementation.
 
-    listener
+    `listener`
     :   When created via configuration using [`dictConfig()`](logging.config.md#logging.config.dictConfig "logging.config.dictConfig"), this
         attribute will contain a [`QueueListener`](logging.handlers.md#logging.handlers.QueueListener "logging.handlers.QueueListener") instance for use with this
         handler. Otherwise, it will be `None`.
@@ -910,7 +910,7 @@ applications where threads servicing clients need to respond as quickly as
 possible, while any potentially slow operations (such as sending an email via
 [`SMTPHandler`](logging.handlers.md#logging.handlers.SMTPHandler "logging.handlers.SMTPHandler")) are done on a separate thread.
 
-*class* logging.handlers.QueueListener(*queue*, *\*handlers*, *respect_handler_level=False*)
+`class logging.handlers.QueueListener(queue, *handlers, respect_handler_level=False)`
 :   Returns a new instance of the [`QueueListener`](logging.handlers.md#logging.handlers.QueueListener "logging.handlers.QueueListener") class. The instance is
     initialized with the queue to send messages to and a list of handlers which
     will handle entries placed on the queue. The queue can be any queue-like
@@ -931,41 +931,41 @@ possible, while any potentially slow operations (such as sending an email via
 
     Changed in version 3.5: The `respect_handler_level` argument was added.
 
-    dequeue(*block*)
+    `dequeue(block)`
     :   Dequeues a record and return it, optionally blocking.
 
         The base implementation uses `get()`. You may want to override this
         method if you want to use timeouts or work with custom queue
         implementations.
 
-    prepare(*record*)
+    `prepare(record)`
     :   Prepare a record for handling.
 
         This implementation just returns the passed-in record. You may want to
         override this method if you need to do any custom marshalling or
         manipulation of the record before passing it to the handlers.
 
-    handle(*record*)
+    `handle(record)`
     :   Handle a record.
 
         This just loops through the handlers offering them the record
         to handle. The actual object passed to the handlers is that which
         is returned from [`prepare()`](logging.handlers.md#logging.handlers.QueueListener.prepare "logging.handlers.QueueListener.prepare").
 
-    start()
+    `start()`
     :   Starts the listener.
 
         This starts up a background thread to monitor the queue for
         LogRecords to process.
 
-    stop()
+    `stop()`
     :   Stops the listener.
 
         This asks the thread to terminate, and then waits for it to do so.
         Note that if you don’t call this before your application exits, there
         may be some records still left on the queue, which won’t be processed.
 
-    enqueue_sentinel()
+    `enqueue_sentinel()`
     :   Writes a sentinel to the queue to tell the listener to quit. This
         implementation uses `put_nowait()`. You may want to override this
         method if you want to use timeouts or work with custom queue

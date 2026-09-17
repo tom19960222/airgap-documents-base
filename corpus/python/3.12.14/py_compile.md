@@ -19,10 +19,10 @@ Though not often needed, this function can be useful when installing modules for
 shared use, especially if some of the users may not have permission to write the
 byte-code cache files in the directory containing the source code.
 
-*exception* py_compile.PyCompileError
+`exception py_compile.PyCompileError`
 :   Exception raised when an error occurs while attempting to compile the file.
 
-py_compile.compile(*file*, *cfile=None*, *dfile=None*, *doraise=False*, *optimize=-1*, *invalidation_mode=PycInvalidationMode.TIMESTAMP*, *quiet=0*)
+`py_compile.compile(file, cfile=None, dfile=None, doraise=False, optimize=-1, invalidation_mode=PycInvalidationMode.TIMESTAMP, quiet=0)`
 :   Compile a source file to byte-code and write out the byte-code cache file.
     The source code is loaded from the file named *file*. The byte-code is
     written to *cfile*, which defaults to the [**PEP 3147**](https://peps.python.org/pep-3147/)/[**PEP 488**](https://peps.python.org/pep-0488/) path, ending
@@ -82,7 +82,7 @@ py_compile.compile(*file*, *cfile=None*, *dfile=None*, *doraise=False*, *optimiz
 
     Changed in version 3.8: The *quiet* parameter was added.
 
-*class* py_compile.PycInvalidationMode
+`class py_compile.PycInvalidationMode`
 :   An enumeration of possible methods the interpreter can use to determine
     whether a bytecode file is up to date with a source file. The `.pyc` file
     indicates the desired invalidation mode in its header. See
@@ -91,17 +91,17 @@ py_compile.compile(*file*, *cfile=None*, *dfile=None*, *doraise=False*, *optimiz
 
     Added in version 3.7.
 
-    TIMESTAMP
+    `TIMESTAMP`
     :   The `.pyc` file includes the timestamp and size of the source file,
         which Python will compare against the metadata of the source file at
         runtime to determine if the `.pyc` file needs to be regenerated.
 
-    CHECKED_HASH
+    `CHECKED_HASH`
     :   The `.pyc` file includes a hash of the source file content, which Python
         will compare against the source at runtime to determine if the `.pyc`
         file needs to be regenerated.
 
-    UNCHECKED_HASH
+    `UNCHECKED_HASH`
     :   Like [`CHECKED_HASH`](py_compile.md#py_compile.PycInvalidationMode.CHECKED_HASH "py_compile.PycInvalidationMode.CHECKED_HASH"), the `.pyc` file includes a hash of the source
         file content. However, Python will at runtime assume the `.pyc` file is
         up to date and not validate the `.pyc` against the source file at all.
@@ -118,13 +118,13 @@ a directory structure to locate source files; it only compiles files
 named explicitly. The exit status is nonzero if one of the files could
 not be compiled.
 
-<file> ... <fileN>
+`<file> ... <fileN>`
 
--
+`-`
 :   Positional arguments are files to compile. If `-` is the only
     parameter, the list of files is taken from standard input.
 
--q, --quiet
+`-q, --quiet`
 :   Suppress errors output.
 
 Changed in version 3.2: Added support for `-`.

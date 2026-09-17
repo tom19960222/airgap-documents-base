@@ -29,7 +29,7 @@ was raised.
 
 [`ossaudiodev`](ossaudiodev.md#module-ossaudiodev "ossaudiodev: Access to OSS-compatible audio devices. (deprecated) (Linux, FreeBSD)") defines the following variables and functions:
 
-*exception* ossaudiodev.OSSAudioError
+`exception ossaudiodev.OSSAudioError`
 :   This exception is raised on certain errors. The argument is a string describing
     what went wrong.
 
@@ -40,9 +40,9 @@ was raised.
     (For backwards compatibility, the exception class is also available as
     `ossaudiodev.error`.)
 
-ossaudiodev.open(*mode*)
+`ossaudiodev.open(mode)`
 
-ossaudiodev.open(*device*, *mode*)
+`ossaudiodev.open(device, mode)`
 :   Open an audio device and return an OSS audio device object. This object
     supports many file-like methods, such as `read()`, `write()`, and
     `fileno()` (although there are subtle differences between conventional Unix
@@ -64,7 +64,7 @@ ossaudiodev.open(*device*, *mode*)
     second is required. This is a historical artifact for compatibility with the
     older `linuxaudiodev` module which [`ossaudiodev`](ossaudiodev.md#module-ossaudiodev "ossaudiodev: Access to OSS-compatible audio devices. (deprecated) (Linux, FreeBSD)") supersedes.
 
-ossaudiodev.openmixer([*device*])
+`ossaudiodev.openmixer([device])`
 :   Open a mixer device and return an OSS mixer device object. *device* is the
     mixer device filename to use. If it is not specified, this module first looks
     in the environment variable `MIXERDEV` for a device to use. If not
@@ -86,21 +86,21 @@ cases.
 The audio device objects returned by [`open()`](ossaudiodev.md#ossaudiodev.open "ossaudiodev.open") define the following methods
 and (read-only) attributes:
 
-oss_audio_device.close()
+`oss_audio_device.close()`
 :   Explicitly close the audio device. When you are done writing to or reading from
     an audio device, you should explicitly close it. A closed device cannot be used
     again.
 
-oss_audio_device.fileno()
+`oss_audio_device.fileno()`
 :   Return the file descriptor associated with the device.
 
-oss_audio_device.read(*size*)
+`oss_audio_device.read(size)`
 :   Read *size* bytes from the audio input and return them as a Python string.
     Unlike most Unix device drivers, OSS audio devices in blocking mode (the
     default) will block [`read()`](ossaudiodev.md#ossaudiodev.oss_audio_device.read "ossaudiodev.oss_audio_device.read") until the entire requested amount of data is
     available.
 
-oss_audio_device.write(*data*)
+`oss_audio_device.write(data)`
 :   Write a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *data* to the audio device and return the
     number of bytes written. If the audio device is in blocking mode (the
     default), the entire data is always written (again, this is different from
@@ -109,7 +109,7 @@ oss_audio_device.write(*data*)
 
     Changed in version 3.5: Writable [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-oss_audio_device.writeall(*data*)
+`oss_audio_device.writeall(data)`
 :   Write a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *data* to the audio device: waits until
     the audio device is able to accept data, writes as much data as it will
     accept, and repeats until *data* has been completely written. If the device
@@ -129,11 +129,11 @@ correspondence is obvious: for example, `setfmt()` corresponds to the
 be useful when consulting the OSS documentation). If the underlying
 `ioctl()` fails, they all raise [`OSError`](exceptions.md#OSError "OSError").
 
-oss_audio_device.nonblock()
+`oss_audio_device.nonblock()`
 :   Put the device into non-blocking mode. Once in non-blocking mode, there is no
     way to return it to blocking mode.
 
-oss_audio_device.getfmts()
+`oss_audio_device.getfmts()`
 :   Return a bitmask of the audio output formats supported by the soundcard. Some
     of the formats supported by OSS are:
 
@@ -154,19 +154,19 @@ oss_audio_device.getfmts()
     support `AFMT_U8`; the most common format used today is
     `AFMT_S16_LE`.
 
-oss_audio_device.setfmt(*format*)
+`oss_audio_device.setfmt(format)`
 :   Try to set the current audio format to *format*—see [`getfmts()`](ossaudiodev.md#ossaudiodev.oss_audio_device.getfmts "ossaudiodev.oss_audio_device.getfmts") for a
     list. Returns the audio format that the device was set to, which may not be the
     requested format. May also be used to return the current audio format—do this
     by passing an “audio format” of `AFMT_QUERY`.
 
-oss_audio_device.channels(*nchannels*)
+`oss_audio_device.channels(nchannels)`
 :   Set the number of output channels to *nchannels*. A value of 1 indicates
     monophonic sound, 2 stereophonic. Some devices may have more than 2 channels,
     and some high-end devices may not support mono. Returns the number of channels
     the device was set to.
 
-oss_audio_device.speed(*samplerate*)
+`oss_audio_device.speed(samplerate)`
 :   Try to set the audio sampling rate to *samplerate* samples per second. Returns
     the rate actually set. Most sound devices don’t support arbitrary sampling
     rates. Common rates are:
@@ -179,17 +179,17 @@ oss_audio_device.speed(*samplerate*)
     | 44100 | CD quality audio (at 16 bits/sample and 2 channels) |
     | 96000 | DVD quality audio (at 24 bits/sample) |
 
-oss_audio_device.sync()
+`oss_audio_device.sync()`
 :   Wait until the sound device has played every byte in its buffer. (This happens
     implicitly when the device is closed.) The OSS documentation recommends closing
     and re-opening the device rather than using [`sync()`](ossaudiodev.md#ossaudiodev.oss_audio_device.sync "ossaudiodev.oss_audio_device.sync").
 
-oss_audio_device.reset()
+`oss_audio_device.reset()`
 :   Immediately stop playing or recording and return the device to a state where it
     can accept commands. The OSS documentation recommends closing and re-opening
     the device after calling [`reset()`](ossaudiodev.md#ossaudiodev.oss_audio_device.reset "ossaudiodev.oss_audio_device.reset").
 
-oss_audio_device.post()
+`oss_audio_device.post()`
 :   Tell the driver that there is likely to be a pause in the output, making it
     possible for the device to handle the pause more intelligently. You might use
     this after playing a spot sound effect, before waiting for user input, or before
@@ -198,7 +198,7 @@ oss_audio_device.post()
 The following convenience methods combine several ioctls, or one ioctl and some
 simple calculations.
 
-oss_audio_device.setparameters(*format*, *nchannels*, *samplerate*[, *strict=False*])
+`oss_audio_device.setparameters(format, nchannels, samplerate[, strict=False])`
 :   Set the key audio sampling parameters—sample format, number of channels, and
     sampling rate—in one method call. *format*, *nchannels*, and *samplerate*
     should be as specified in the [`setfmt()`](ossaudiodev.md#ossaudiodev.oss_audio_device.setfmt "ossaudiodev.oss_audio_device.setfmt"), [`channels()`](ossaudiodev.md#ossaudiodev.oss_audio_device.channels "ossaudiodev.oss_audio_device.channels"), and
@@ -223,43 +223,43 @@ oss_audio_device.setparameters(*format*, *nchannels*, *samplerate*[, *strict=Fal
     rate = dsp.rate(rate)
     ```
 
-oss_audio_device.bufsize()
+`oss_audio_device.bufsize()`
 :   Returns the size of the hardware buffer, in samples.
 
-oss_audio_device.obufcount()
+`oss_audio_device.obufcount()`
 :   Returns the number of samples that are in the hardware buffer yet to be played.
 
-oss_audio_device.obuffree()
+`oss_audio_device.obuffree()`
 :   Returns the number of samples that could be queued into the hardware buffer to
     be played without blocking.
 
 Audio device objects also support several read-only attributes:
 
-oss_audio_device.closed
+`oss_audio_device.closed`
 :   Boolean indicating whether the device has been closed.
 
-oss_audio_device.name
+`oss_audio_device.name`
 :   String containing the name of the device file.
 
-oss_audio_device.mode
+`oss_audio_device.mode`
 :   The I/O mode for the file, either `"r"`, `"rw"`, or `"w"`.
 
 ## Mixer Device Objects
 
 The mixer object provides two file-like methods:
 
-oss_mixer_device.close()
+`oss_mixer_device.close()`
 :   This method closes the open mixer device file. Any further attempts to use the
     mixer after this file is closed will raise an [`OSError`](exceptions.md#OSError "OSError").
 
-oss_mixer_device.fileno()
+`oss_mixer_device.fileno()`
 :   Returns the file handle number of the open mixer device file.
 
 Changed in version 3.2: Mixer objects also support the context management protocol.
 
 The remaining methods are specific to audio mixing:
 
-oss_mixer_device.controls()
+`oss_mixer_device.controls()`
 :   This method returns a bitmask specifying the available mixer controls (“Control”
     being a specific mixable “channel”, such as `SOUND_MIXER_PCM` or
     `SOUND_MIXER_SYNTH`). This bitmask indicates a subset of all available
@@ -279,7 +279,7 @@ oss_mixer_device.controls()
     should be flexible when it comes to choosing mixer controls. On the Gravis
     Ultrasound, for example, `SOUND_MIXER_VOLUME` does not exist.
 
-oss_mixer_device.stereocontrols()
+`oss_mixer_device.stereocontrols()`
 :   Returns a bitmask indicating stereo mixer controls. If a bit is set, the
     corresponding control is stereo; if it is unset, the control is either
     monophonic or not supported by the mixer (use in combination with
@@ -288,11 +288,11 @@ oss_mixer_device.stereocontrols()
     See the code example for the [`controls()`](ossaudiodev.md#ossaudiodev.oss_mixer_device.controls "ossaudiodev.oss_mixer_device.controls") function for an example of getting
     data from a bitmask.
 
-oss_mixer_device.reccontrols()
+`oss_mixer_device.reccontrols()`
 :   Returns a bitmask specifying the mixer controls that may be used to record. See
     the code example for [`controls()`](ossaudiodev.md#ossaudiodev.oss_mixer_device.controls "ossaudiodev.oss_mixer_device.controls") for an example of reading from a bitmask.
 
-oss_mixer_device.get(*control*)
+`oss_mixer_device.get(control)`
 :   Returns the volume of a given mixer control. The returned volume is a 2-tuple
     `(left_volume,right_volume)`. Volumes are specified as numbers from 0
     (silent) to 100 (full volume). If the control is monophonic, a 2-tuple is still
@@ -301,7 +301,7 @@ oss_mixer_device.get(*control*)
     Raises [`OSSAudioError`](ossaudiodev.md#ossaudiodev.OSSAudioError "ossaudiodev.OSSAudioError") if an invalid control is specified, or
     [`OSError`](exceptions.md#OSError "OSError") if an unsupported control is specified.
 
-oss_mixer_device.set(*control*, *(left*, *right)*)
+`oss_mixer_device.set(control, (left, right))`
 :   Sets the volume for a given mixer control to `(left,right)`. `left` and
     `right` must be ints and between 0 (silent) and 100 (full volume). On
     success, the new volume is returned as a 2-tuple. Note that this may not be
@@ -311,11 +311,11 @@ oss_mixer_device.set(*control*, *(left*, *right)*)
     Raises [`OSSAudioError`](ossaudiodev.md#ossaudiodev.OSSAudioError "ossaudiodev.OSSAudioError") if an invalid mixer control was specified, or if the
     specified volumes were out-of-range.
 
-oss_mixer_device.get_recsrc()
+`oss_mixer_device.get_recsrc()`
 :   This method returns a bitmask indicating which control(s) are currently being
     used as a recording source.
 
-oss_mixer_device.set_recsrc(*bitmask*)
+`oss_mixer_device.set_recsrc(bitmask)`
 :   Call this function to specify a recording source. Returns a bitmask indicating
     the new recording source (or sources) if successful; raises [`OSError`](exceptions.md#OSError "OSError") if an
     invalid source was specified. To set the current recording source to the

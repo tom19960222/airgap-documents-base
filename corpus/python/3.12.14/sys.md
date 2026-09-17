@@ -13,7 +13,7 @@ This module provides access to some variables used or maintained by the
 interpreter and to functions that interact strongly with the interpreter. It is
 always available. Unless explicitly noted otherwise, all variables are read-only.
 
-sys.abiflags
+`sys.abiflags`
 :   On POSIX systems where Python was built with the standard `configure`
     script, this contains the ABI flags as specified by [**PEP 3149**](https://peps.python.org/pep-3149/).
 
@@ -24,7 +24,7 @@ sys.abiflags
 
     [Availability](intro.md#availability): Unix.
 
-sys.addaudithook(*hook*)
+`sys.addaudithook(hook)`
 :   Append the callable *hook* to the list of active auditing hooks for the
     current (sub)interpreter.
 
@@ -63,7 +63,7 @@ sys.addaudithook(*hook*)
     traced if the callable has a `__cantrace__` member that is set to a
     true value. Otherwise, trace functions will skip the hook.
 
-sys.argv
+`sys.argv`
 :   The list of command line arguments passed to a Python script. `argv[0]` is the
     script name (it is operating system dependent whether this is a full pathname or
     not). If the command was executed using the [`-c`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-c) command line option to
@@ -82,7 +82,7 @@ sys.argv
     > When you need original bytes, you can get it by
     > `[os.fsencode(arg) for arg in sys.argv]`.
 
-sys.audit(*event*, *\*args*)
+`sys.audit(event, *args)`
 :   Raise an auditing event and trigger any active auditing hooks.
     *event* is a string identifying the event, and *args* may contain
     optional arguments with more information about the event. The
@@ -112,7 +112,7 @@ sys.audit(*event*, *\*args*)
 
     Added in version 3.8.
 
-sys.base_exec_prefix
+`sys.base_exec_prefix`
 :   Set during Python startup, before `site.py` is run, to the same value as
     [`exec_prefix`](sys.md#sys.exec_prefix "sys.exec_prefix"). If not running in a
     [virtual environment](venv.md#venv-def), the values will stay the same; if
@@ -124,7 +124,7 @@ sys.base_exec_prefix
 
     Added in version 3.3.
 
-sys.base_prefix
+`sys.base_prefix`
 :   Set during Python startup, before `site.py` is run, to the same value as
     [`prefix`](sys.md#sys.prefix "sys.prefix"). If not running in a [virtual environment](venv.md#venv-def), the values
     will stay the same; if `site.py` finds that a virtual environment is in
@@ -135,19 +135,19 @@ sys.base_prefix
 
     Added in version 3.3.
 
-sys.byteorder
+`sys.byteorder`
 :   An indicator of the native byte order. This will have the value `'big'` on
     big-endian (most-significant byte first) platforms, and `'little'` on
     little-endian (least-significant byte first) platforms.
 
-sys.builtin_module_names
+`sys.builtin_module_names`
 :   A tuple of strings containing the names of all modules that are compiled into this
     Python interpreter. (This information is not available in any other way —
     `modules.keys()` only lists the imported modules.)
 
     See also the [`sys.stdlib_module_names`](sys.md#sys.stdlib_module_names "sys.stdlib_module_names") list.
 
-sys.call_tracing(*func*, *args*)
+`sys.call_tracing(func, args)`
 :   Call `func(*args)`, while tracing is enabled. The tracing state is saved,
     and restored afterwards. This is intended to be called from a debugger from
     a checkpoint, to recursively debug or profile some other code.
@@ -156,17 +156,17 @@ sys.call_tracing(*func*, *args*)
     [`settrace()`](sys.md#sys.settrace "sys.settrace") or [`setprofile()`](sys.md#sys.setprofile "sys.setprofile") to avoid infinite recursion.
     `call_tracing()` enables explicit recursion of the tracing function.
 
-sys.copyright
+`sys.copyright`
 :   A string containing the copyright pertaining to the Python interpreter.
 
-sys._clear_type_cache()
+`sys._clear_type_cache()`
 :   Clear the internal type cache. The type cache is used to speed up attribute
     and method lookups. Use the function *only* to drop unnecessary references
     during reference leak debugging.
 
     This function should be used for internal and specialized purposes only.
 
-sys._current_frames()
+`sys._current_frames()`
 :   Return a dictionary mapping each thread’s identifier to the topmost stack frame
     currently active in that thread at the time the function is called. Note that
     functions in the [`traceback`](traceback.md#module-traceback "traceback: Print or retrieve a stack traceback.") module can build the call stack given such a
@@ -182,7 +182,7 @@ sys._current_frames()
 
     Raises an [auditing event](sys.md#auditing) `sys._current_frames` with no arguments.
 
-sys._current_exceptions()
+`sys._current_exceptions()`
 :   Return a dictionary mapping each thread’s identifier to the topmost exception
     currently active in that thread at the time the function is called.
     If a thread is not currently handling an exception, it is not included in
@@ -197,7 +197,7 @@ sys._current_exceptions()
     Changed in version 3.12: Each value in the dictionary is now a single exception instance, rather
     than a 3-tuple as returned from `sys.exc_info()`.
 
-sys.breakpointhook()
+`sys.breakpointhook()`
 :   This hook function is called by built-in [`breakpoint()`](functions.md#breakpoint "breakpoint"). By default,
     it drops you into the [`pdb`](pdb.md#module-pdb "pdb: The Python debugger for interactive interpreters.") debugger, but it can be set to any other
     function so that you can choose which debugger gets used.
@@ -230,7 +230,7 @@ sys.breakpointhook()
 
     Added in version 3.7.
 
-sys._debugmallocstats()
+`sys._debugmallocstats()`
 :   Print low-level information to stderr about the state of CPython’s memory
     allocator.
 
@@ -243,12 +243,12 @@ sys._debugmallocstats()
     **CPython implementation detail:** This function is specific to CPython. The exact output format is not
     defined here, and may change.
 
-sys.dllhandle
+`sys.dllhandle`
 :   Integer specifying the handle of the Python DLL.
 
     [Availability](intro.md#availability): Windows.
 
-sys.displayhook(*value*)
+`sys.displayhook(value)`
 :   If *value* is not `None`, this function prints `repr(value)` to
     `sys.stdout`, and saves *value* in `builtins._`. If `repr(value)` is
     not encodable to `sys.stdout.encoding` with `sys.stdout.errors` error
@@ -283,35 +283,35 @@ sys.displayhook(*value*)
 
     Changed in version 3.2: Use `'backslashreplace'` error handler on [`UnicodeEncodeError`](exceptions.md#UnicodeEncodeError "UnicodeEncodeError").
 
-sys.dont_write_bytecode
+`sys.dont_write_bytecode`
 :   If this is true, Python won’t try to write `.pyc` files on the
     import of source modules. This value is initially set to `True` or
     `False` depending on the [`-B`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-B) command line option and the
     [`PYTHONDONTWRITEBYTECODE`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE) environment variable, but you can set it
     yourself to control bytecode file generation.
 
-sys._emscripten_info
+`sys._emscripten_info`
 :   A [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) holding information about the environment on the
     *wasm32-emscripten* platform. The named tuple is provisional and may change
     in the future.
 
-    _emscripten_info.emscripten_version
+    `_emscripten_info.emscripten_version`
     :   Emscripten version as tuple of ints (major, minor, micro), e.g. `(3, 1, 8)`.
 
-    _emscripten_info.runtime
+    `_emscripten_info.runtime`
     :   Runtime string, e.g. browser user agent, `'Node.js v14.18.2'`, or `'UNKNOWN'`.
 
-    _emscripten_info.pthreads
+    `_emscripten_info.pthreads`
     :   `True` if Python is compiled with Emscripten pthreads support.
 
-    _emscripten_info.shared_memory
+    `_emscripten_info.shared_memory`
     :   `True` if Python is compiled with shared memory support.
 
     [Availability](intro.md#availability): Emscripten.
 
     Added in version 3.11.
 
-sys.pycache_prefix
+`sys.pycache_prefix`
 :   If this is set (not `None`), Python will write bytecode-cache `.pyc`
     files to (and read them from) a parallel directory tree rooted at this
     directory, rather than from `__pycache__` directories in the source code
@@ -329,7 +329,7 @@ sys.pycache_prefix
 
     Added in version 3.8.
 
-sys.excepthook(*type*, *value*, *traceback*)
+`sys.excepthook(type, value, traceback)`
 :   This function prints out a given traceback and exception to `sys.stderr`.
 
     When an exception other than [`SystemExit`](exceptions.md#SystemExit "SystemExit") is raised and uncaught, the interpreter calls
@@ -352,13 +352,13 @@ sys.excepthook(*type*, *value*, *traceback*)
     > and the [`threading.excepthook()`](threading.md#threading.excepthook "threading.excepthook") function handles exception raised
     > by [`threading.Thread.run()`](threading.md#threading.Thread.run "threading.Thread.run").
 
-sys.__breakpointhook__
+`sys.__breakpointhook__`
 
-sys.__displayhook__
+`sys.__displayhook__`
 
-sys.__excepthook__
+`sys.__excepthook__`
 
-sys.__unraisablehook__
+`sys.__unraisablehook__`
 :   These objects contain the original values of `breakpointhook`,
     `displayhook`, `excepthook`, and `unraisablehook` at the start of the
     program. They are saved so that `breakpointhook`, `displayhook` and
@@ -369,7 +369,7 @@ sys.__unraisablehook__
 
     Added in version 3.8: __unraisablehook__
 
-sys.exception()
+`sys.exception()`
 :   This function, when called while an exception handler is executing (such as
     an `except` or `except*` clause), returns the exception instance that
     was caught by this handler. When exception handlers are nested within one
@@ -379,7 +379,7 @@ sys.exception()
 
     Added in version 3.11.
 
-sys.exc_info()
+`sys.exc_info()`
 :   This function returns the old-style representation of the handled
     exception. If an exception `e` is currently handled (so
     [`exception()`](sys.md#sys.exception "sys.exception") would return `e`), [`exc_info()`](sys.md#sys.exc_info "sys.exc_info") returns the
@@ -397,7 +397,7 @@ sys.exc_info()
     being handled, the changes are reflected in the results of subsequent
     calls to [`exc_info()`](sys.md#sys.exc_info "sys.exc_info").
 
-sys.exec_prefix
+`sys.exec_prefix`
 :   A string giving the site-specific directory prefix where the platform-dependent
     Python files are installed; by default, this is also `'/usr/local'`. This can
     be set at build time with the `--exec-prefix` argument to the
@@ -414,13 +414,13 @@ sys.exec_prefix
     > The value for the Python installation will still be available, via
     > [`base_exec_prefix`](sys.md#sys.base_exec_prefix "sys.base_exec_prefix").
 
-sys.executable
+`sys.executable`
 :   A string giving the absolute path of the executable binary for the Python
     interpreter, on systems where this makes sense. If Python is unable to retrieve
     the real path to its executable, [`sys.executable`](sys.md#sys.executable "sys.executable") will be an empty string
     or `None`.
 
-sys.exit([*arg*])
+`sys.exit([arg])`
 :   Raise a [`SystemExit`](exceptions.md#SystemExit "SystemExit") exception, signaling an intention to exit the interpreter.
 
     The optional argument *arg* can be an integer giving the exit status
@@ -445,30 +445,30 @@ sys.exit([*arg*])
     has caught [`SystemExit`](exceptions.md#SystemExit "SystemExit") (such as an error flushing buffered data
     in the standard streams), the exit status is changed to 120.
 
-sys.flags
+`sys.flags`
 :   The [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) *flags* exposes the status of command line
     flags. The attributes are read only.
 
     |  |  |
     | --- | --- |
-    | flags.debug | [`-d`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-d) |
-    | flags.inspect | [`-i`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-i) |
-    | flags.interactive | [`-i`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-i) |
-    | flags.isolated | [`-I`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-I) |
-    | flags.optimize | [`-O`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-O) or [`-OO`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-OO) |
-    | flags.dont_write_bytecode | [`-B`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-B) |
-    | flags.no_user_site | [`-s`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-s) |
-    | flags.no_site | [`-S`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-S) |
-    | flags.ignore_environment | [`-E`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-E) |
-    | flags.verbose | [`-v`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-v) |
-    | flags.bytes_warning | [`-b`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-b) |
-    | flags.quiet | [`-q`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-q) |
-    | flags.hash_randomization | [`-R`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-R) |
-    | flags.dev_mode | [`-X dev`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) ([Python Development Mode](devmode.md#devmode)) |
-    | flags.utf8_mode | [`-X utf8`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) |
-    | flags.safe_path | [`-P`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-P) |
-    | flags.int_max_str_digits | [`-X int_max_str_digits`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) ([integer string conversion length limitation](stdtypes.md#int-max-str-digits)) |
-    | flags.warn_default_encoding | [`-X warn_default_encoding`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) |
+    | `flags.debug` | [`-d`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-d) |
+    | `flags.inspect` | [`-i`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-i) |
+    | `flags.interactive` | [`-i`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-i) |
+    | `flags.isolated` | [`-I`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-I) |
+    | `flags.optimize` | [`-O`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-O) or [`-OO`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-OO) |
+    | `flags.dont_write_bytecode` | [`-B`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-B) |
+    | `flags.no_user_site` | [`-s`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-s) |
+    | `flags.no_site` | [`-S`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-S) |
+    | `flags.ignore_environment` | [`-E`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-E) |
+    | `flags.verbose` | [`-v`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-v) |
+    | `flags.bytes_warning` | [`-b`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-b) |
+    | `flags.quiet` | [`-q`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-q) |
+    | `flags.hash_randomization` | [`-R`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-R) |
+    | `flags.dev_mode` | [`-X dev`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) ([Python Development Mode](devmode.md#devmode)) |
+    | `flags.utf8_mode` | [`-X utf8`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) |
+    | `flags.safe_path` | [`-P`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-P) |
+    | `flags.int_max_str_digits` | [`-X int_max_str_digits`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) ([integer string conversion length limitation](stdtypes.md#int-max-str-digits)) |
+    | `flags.warn_default_encoding` | [`-X warn_default_encoding`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) |
 
     Changed in version 3.2: Added `quiet` attribute for the new [`-q`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-q) flag.
 
@@ -488,7 +488,7 @@ sys.flags
 
     Changed in version 3.11: Added the `int_max_str_digits` attribute.
 
-sys.float_info
+`sys.float_info`
 :   A [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) holding information about the float type. It
     contains low level information about the precision and internal
     representation. The values correspond to the various floating-point
@@ -500,17 +500,17 @@ sys.float_info
 
     | attribute | float.h macro | explanation |
     | --- | --- | --- |
-    | float_info.epsilon | `DBL_EPSILON` | difference between 1.0 and the least value greater than 1.0 that is representable as a float.  See also [`math.ulp()`](math.md#math.ulp "math.ulp"). |
-    | float_info.dig | `DBL_DIG` | The maximum number of decimal digits that can be faithfully represented in a float; see below. |
-    | float_info.mant_dig | `DBL_MANT_DIG` | Float precision: the number of base-`radix` digits in the significand of a float. |
-    | float_info.max | `DBL_MAX` | The maximum representable positive finite float. |
-    | float_info.max_exp | `DBL_MAX_EXP` | The maximum integer *e* such that `radix**(e-1)` is a representable finite float. |
-    | float_info.max_10_exp | `DBL_MAX_10_EXP` | The maximum integer *e* such that `10**e` is in the range of representable finite floats. |
-    | float_info.min | `DBL_MIN` | The minimum representable positive *normalized* float.  Use [`math.ulp(0.0)`](math.md#math.ulp "math.ulp") to get the smallest positive *denormalized* representable float. |
-    | float_info.min_exp | `DBL_MIN_EXP` | The minimum integer *e* such that `radix**(e-1)` is a normalized float. |
-    | float_info.min_10_exp | `DBL_MIN_10_EXP` | The minimum integer *e* such that `10**e` is a normalized float. |
-    | float_info.radix | `FLT_RADIX` | The radix of exponent representation. |
-    | float_info.rounds | `FLT_ROUNDS` | An integer representing the rounding mode for floating-point arithmetic. This reflects the value of the system `FLT_ROUNDS` macro at interpreter startup time:   - `-1`: indeterminable - `0`: toward zero - `1`: to nearest - `2`: toward positive infinity - `3`: toward negative infinity   All other values for `FLT_ROUNDS` characterize implementation-defined rounding behavior. |
+    | `float_info.epsilon` | `DBL_EPSILON` | difference between 1.0 and the least value greater than 1.0 that is representable as a float.  See also [`math.ulp()`](math.md#math.ulp "math.ulp"). |
+    | `float_info.dig` | `DBL_DIG` | The maximum number of decimal digits that can be faithfully represented in a float; see below. |
+    | `float_info.mant_dig` | `DBL_MANT_DIG` | Float precision: the number of base-`radix` digits in the significand of a float. |
+    | `float_info.max` | `DBL_MAX` | The maximum representable positive finite float. |
+    | `float_info.max_exp` | `DBL_MAX_EXP` | The maximum integer *e* such that `radix**(e-1)` is a representable finite float. |
+    | `float_info.max_10_exp` | `DBL_MAX_10_EXP` | The maximum integer *e* such that `10**e` is in the range of representable finite floats. |
+    | `float_info.min` | `DBL_MIN` | The minimum representable positive *normalized* float.  Use [`math.ulp(0.0)`](math.md#math.ulp "math.ulp") to get the smallest positive *denormalized* representable float. |
+    | `float_info.min_exp` | `DBL_MIN_EXP` | The minimum integer *e* such that `radix**(e-1)` is a normalized float. |
+    | `float_info.min_10_exp` | `DBL_MIN_10_EXP` | The minimum integer *e* such that `10**e` is a normalized float. |
+    | `float_info.radix` | `FLT_RADIX` | The radix of exponent representation. |
+    | `float_info.rounds` | `FLT_ROUNDS` | An integer representing the rounding mode for floating-point arithmetic. This reflects the value of the system `FLT_ROUNDS` macro at interpreter startup time:   - `-1`: indeterminable - `0`: toward zero - `1`: to nearest - `2`: toward positive infinity - `3`: toward negative infinity   All other values for `FLT_ROUNDS` characterize implementation-defined rounding behavior. |
 
     The attribute [`sys.float_info.dig`](sys.md#sys.float_info.dig "sys.float_info.dig") needs further explanation. If
     `s` is any string representing a decimal number with at most
@@ -536,7 +536,7 @@ sys.float_info
     '9876543211234568'
     ```
 
-sys.float_repr_style
+`sys.float_repr_style`
 :   A string indicating how the [`repr()`](functions.md#repr "repr") function behaves for
     floats. If the string has value `'short'` then for a finite
     float `x`, `repr(x)` aims to produce a short string with the
@@ -547,7 +547,7 @@ sys.float_repr_style
 
     Added in version 3.1.
 
-sys.getallocatedblocks()
+`sys.getallocatedblocks()`
 :   Return the number of memory blocks currently allocated by the interpreter,
     regardless of their size. This function is mainly useful for tracking
     and debugging memory leaks. Because of the interpreter’s internal
@@ -560,23 +560,23 @@ sys.getallocatedblocks()
 
     Added in version 3.4.
 
-sys.getunicodeinternedsize()
+`sys.getunicodeinternedsize()`
 :   Return the number of unicode objects that have been interned.
 
     Added in version 3.12.
 
-sys.getandroidapilevel()
+`sys.getandroidapilevel()`
 :   Return the build time API version of Android as an integer.
 
     [Availability](intro.md#availability): Android.
 
     Added in version 3.7.
 
-sys.getdefaultencoding()
+`sys.getdefaultencoding()`
 :   Return `'utf-8'`. This is the name of the default string encoding, used
     in methods like [`str.encode()`](stdtypes.md#str.encode "str.encode").
 
-sys.getdlopenflags()
+`sys.getdlopenflags()`
 :   Return the current value of the flags that are used for
     `dlopen()` calls. Symbolic names for the flag values can be
     found in the [`os`](os.md#module-os "os: Miscellaneous operating system interfaces.") module (`RTLD_xxx` constants, e.g.
@@ -584,7 +584,7 @@ sys.getdlopenflags()
 
     [Availability](intro.md#availability): Unix.
 
-sys.getfilesystemencoding()
+`sys.getfilesystemencoding()`
 :   Get the [filesystem encoding](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler):
     the encoding used with the [filesystem error handler](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler) to convert between Unicode filenames and bytes
     filenames. The filesystem error handler is returned from
@@ -611,7 +611,7 @@ sys.getfilesystemencoding()
     Changed in version 3.7: Return `'utf-8'` if the [Python UTF-8 Mode](os.md#utf8-mode) is
     enabled.
 
-sys.getfilesystemencodeerrors()
+`sys.getfilesystemencodeerrors()`
 :   Get the [filesystem error handler](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler): the error handler used with the [filesystem encoding](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler) to convert between Unicode
     filenames and bytes filenames. The filesystem encoding is returned from
     [`getfilesystemencoding()`](sys.md#sys.getfilesystemencoding "sys.getfilesystemencoding").
@@ -626,13 +626,13 @@ sys.getfilesystemencodeerrors()
 
     Added in version 3.6.
 
-sys.get_int_max_str_digits()
+`sys.get_int_max_str_digits()`
 :   Returns the current value for the [integer string conversion length
     limitation](stdtypes.md#int-max-str-digits). See also [`set_int_max_str_digits()`](sys.md#sys.set_int_max_str_digits "sys.set_int_max_str_digits").
 
     Added in version 3.11.
 
-sys.getrefcount(*object*)
+`sys.getrefcount(object)`
 :   Return the reference count of the *object*. The count returned is generally one
     higher than you might expect, because it includes the (temporary) reference as
     an argument to [`getrefcount()`](sys.md#sys.getrefcount "sys.getrefcount").
@@ -646,13 +646,13 @@ sys.getrefcount(*object*)
     Changed in version 3.12: Immortal objects have very large refcounts that do not match
     the actual number of references to the object.
 
-sys.getrecursionlimit()
+`sys.getrecursionlimit()`
 :   Return the current value of the recursion limit, the maximum depth of the Python
     interpreter stack. This limit prevents infinite recursion from causing an
     overflow of the C stack and crashing Python. It can be set by
     [`setrecursionlimit()`](sys.md#sys.setrecursionlimit "sys.setrecursionlimit").
 
-sys.getsizeof(*object*[, *default*])
+`sys.getsizeof(object[, default])`
 :   Return the size of an object in bytes. The object can be any type of
     object. All built-in objects will return correct results, but this
     does not have to hold true for third-party extensions as it is implementation
@@ -672,13 +672,13 @@ sys.getsizeof(*object*[, *default*])
     for an example of using [`getsizeof()`](sys.md#sys.getsizeof "sys.getsizeof") recursively to find the size of
     containers and all their contents.
 
-sys.getswitchinterval()
+`sys.getswitchinterval()`
 :   Return the interpreter’s “thread switch interval” in seconds; see
     [`setswitchinterval()`](sys.md#sys.setswitchinterval "sys.setswitchinterval").
 
     Added in version 3.2.
 
-sys._getframe([*depth*])
+`sys._getframe([depth])`
 :   Return a frame object from the call stack. If optional integer *depth* is
     given, return the frame object that many calls below the top of the stack. If
     that is deeper than the call stack, [`ValueError`](exceptions.md#ValueError "ValueError") is raised. The default
@@ -689,7 +689,7 @@ sys._getframe([*depth*])
     **CPython implementation detail:** This function should be used for internal and specialized purposes only.
     It is not guaranteed to exist in all implementations of Python.
 
-sys._getframemodulename([*depth*])
+`sys._getframemodulename([depth])`
 :   Return the name of a module from the call stack. If optional integer *depth*
     is given, return the module that many calls below the top of the stack. If
     that is deeper than the call stack, or if the module is unidentifiable,
@@ -701,7 +701,7 @@ sys._getframemodulename([*depth*])
     **CPython implementation detail:** This function should be used for internal and specialized purposes only.
     It is not guaranteed to exist in all implementations of Python.
 
-sys.getobjects(*limit*[, *type*])
+`sys.getobjects(limit[, type])`
 :   This function only exists if CPython was built using the
     specialized configure option [`--with-trace-refs`](https://docs.python.org/3.12/using/configure.html#cmdoption-with-trace-refs).
     It is intended only for debugging garbage-collection issues.
@@ -724,10 +724,10 @@ sys.getobjects(*limit*[, *type*])
 
     Changed in version 3.12.8: The result may include objects from other interpreters.
 
-sys.getprofile()
+`sys.getprofile()`
 :   Get the profiler function as set by [`setprofile()`](sys.md#sys.setprofile "sys.setprofile").
 
-sys.gettrace()
+`sys.gettrace()`
 :   Get the trace function as set by [`settrace()`](sys.md#sys.settrace "sys.settrace").
 
     **CPython implementation detail:** The [`gettrace()`](sys.md#sys.gettrace "sys.gettrace") function is intended only for implementing debuggers,
@@ -735,7 +735,7 @@ sys.gettrace()
     implementation platform, rather than part of the language definition, and
     thus may not be available in all Python implementations.
 
-sys.getwindowsversion()
+`sys.getwindowsversion()`
 :   Return a named tuple describing the Windows version
     currently running. The named elements are *major*, *minor*,
     *build*, *platform*, *service_pack*, *service_pack_minor*,
@@ -779,7 +779,7 @@ sys.getwindowsversion()
 
     Changed in version 3.6: Added *platform_version*
 
-sys.get_asyncgen_hooks()
+`sys.get_asyncgen_hooks()`
 :   Returns an *asyncgen_hooks* object, which is similar to a
     [`namedtuple`](collections.md#collections.namedtuple "collections.namedtuple") of the form `(firstiter, finalizer)`,
     where *firstiter* and *finalizer* are expected to be either `None` or
@@ -794,7 +794,7 @@ sys.get_asyncgen_hooks()
     > This function has been added on a provisional basis (see [**PEP 411**](https://peps.python.org/pep-0411/)
     > for details.)
 
-sys.get_coroutine_origin_tracking_depth()
+`sys.get_coroutine_origin_tracking_depth()`
 :   Get the current coroutine origin tracking depth, as set by
     [`set_coroutine_origin_tracking_depth()`](sys.md#sys.set_coroutine_origin_tracking_depth "sys.set_coroutine_origin_tracking_depth").
 
@@ -805,40 +805,40 @@ sys.get_coroutine_origin_tracking_depth()
     > This function has been added on a provisional basis (see [**PEP 411**](https://peps.python.org/pep-0411/)
     > for details.) Use it only for debugging purposes.
 
-sys.hash_info
+`sys.hash_info`
 :   A [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) giving parameters of the numeric hash
     implementation. For more details about hashing of numeric types, see
     [Hashing of numeric types](stdtypes.md#numeric-hash).
 
-    hash_info.width
+    `hash_info.width`
     :   The width in bits used for hash values
 
-    hash_info.modulus
+    `hash_info.modulus`
     :   The prime modulus P used for numeric hash scheme
 
-    hash_info.inf
+    `hash_info.inf`
     :   The hash value returned for a positive infinity
 
-    hash_info.nan
+    `hash_info.nan`
     :   (This attribute is no longer used)
 
-    hash_info.imag
+    `hash_info.imag`
     :   The multiplier used for the imaginary part of a complex number
 
-    hash_info.algorithm
+    `hash_info.algorithm`
     :   The name of the algorithm for hashing of str, bytes, and memoryview
 
-    hash_info.hash_bits
+    `hash_info.hash_bits`
     :   The internal output size of the hash algorithm
 
-    hash_info.seed_bits
+    `hash_info.seed_bits`
     :   The size of the seed key of the hash algorithm
 
     Added in version 3.2.
 
     Changed in version 3.4: Added *algorithm*, *hash_bits* and *seed_bits*
 
-sys.hexversion
+`sys.hexversion`
 :   The version number encoded as a single integer. This is guaranteed to increase
     with each version, including proper support for non-production releases. For
     example, to test that the Python interpreter is at least version 1.5.2, use:
@@ -859,7 +859,7 @@ sys.hexversion
 
     More details of `hexversion` can be found at [API and ABI Versioning](https://docs.python.org/3.12/c-api/apiabiversion.html#apiabiversion).
 
-sys.implementation
+`sys.implementation`
 :   An object containing information about the implementation of the
     currently running Python interpreter. The following attributes are
     required to exist in all Python implementations.
@@ -902,22 +902,22 @@ sys.implementation
     > The addition of new required attributes must go through the normal PEP
     > process. See [**PEP 421**](https://peps.python.org/pep-0421/) for more information.
 
-sys.int_info
+`sys.int_info`
 :   A [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) that holds information about Python’s internal
     representation of integers. The attributes are read only.
 
-    int_info.bits_per_digit
+    `int_info.bits_per_digit`
     :   The number of bits held in each digit.
         Python integers are stored internally in base `2**int_info.bits_per_digit`.
 
-    int_info.sizeof_digit
+    `int_info.sizeof_digit`
     :   The size in bytes of the C type used to represent a digit.
 
-    int_info.default_max_str_digits
+    `int_info.default_max_str_digits`
     :   The default value for [`sys.get_int_max_str_digits()`](sys.md#sys.get_int_max_str_digits "sys.get_int_max_str_digits")
         when it is not otherwise explicitly configured.
 
-    int_info.str_digits_check_threshold
+    `int_info.str_digits_check_threshold`
     :   The minimum non-zero value for [`sys.set_int_max_str_digits()`](sys.md#sys.set_int_max_str_digits "sys.set_int_max_str_digits"),
         [`PYTHONINTMAXSTRDIGITS`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONINTMAXSTRDIGITS), or [`-X int_max_str_digits`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X).
 
@@ -926,7 +926,7 @@ sys.int_info
     Changed in version 3.11: Added [`default_max_str_digits`](sys.md#sys.int_info.default_max_str_digits "sys.int_info.default_max_str_digits") and
     [`str_digits_check_threshold`](sys.md#sys.int_info.str_digits_check_threshold "sys.int_info.str_digits_check_threshold").
 
-sys.__interactivehook__
+`sys.__interactivehook__`
 :   When this attribute exists, its value is automatically called (with no
     arguments) when the interpreter is launched in [interactive mode](https://docs.python.org/3.12/tutorial/interpreter.html#tut-interactive). This is done after the [`PYTHONSTARTUP`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONSTARTUP) file is
     read, so that you can set this hook there. The [`site`](site.md#module-site "site: Module responsible for site-specific configuration.") module
@@ -938,7 +938,7 @@ sys.__interactivehook__
 
     Added in version 3.4.
 
-sys.intern(*string*)
+`sys.intern(string)`
 :   Enter *string* in the table of “interned” strings and return the interned string
     – which is *string* itself or a copy. Interning strings is useful to gain a
     little performance on dictionary lookup – if the keys in a dictionary are
@@ -950,13 +950,13 @@ sys.intern(*string*)
     Interned strings are not immortal; you must keep a reference to the return
     value of [`intern()`](sys.md#sys.intern "sys.intern") around to benefit from it.
 
-sys.is_finalizing()
+`sys.is_finalizing()`
 :   Return [`True`](constants.md#True "True") if the Python interpreter is
     [shutting down](https://docs.python.org/3.12/glossary.html#term-interpreter-shutdown), [`False`](constants.md#False "False") otherwise.
 
     Added in version 3.5.
 
-sys.last_exc
+`sys.last_exc`
 :   This variable is not always defined; it is set to the exception instance
     when an exception is not handled and the interpreter prints an error message
     and a stack traceback. Its intended use is to allow an interactive user to
@@ -967,21 +967,21 @@ sys.last_exc
 
     Added in version 3.12.
 
-sys.last_type
+`sys.last_type`
 
-sys.last_value
+`sys.last_value`
 
-sys.last_traceback
+`sys.last_traceback`
 :   These three variables are deprecated; use [`sys.last_exc`](sys.md#sys.last_exc "sys.last_exc") instead.
     They hold the legacy representation of `sys.last_exc`, as returned
     from [`exc_info()`](sys.md#sys.exc_info "sys.exc_info") above.
 
-sys.maxsize
+`sys.maxsize`
 :   An integer giving the maximum value a variable of type [`Py_ssize_t`](https://docs.python.org/3.12/c-api/intro.html#c.Py_ssize_t "Py_ssize_t") can
     take. It’s usually `2**31 - 1` on a 32-bit platform and `2**63 - 1` on a
     64-bit platform.
 
-sys.maxunicode
+`sys.maxunicode`
 :   An integer giving the value of the largest Unicode code point,
     i.e. `1114111` (`0x10FFFF` in hexadecimal).
 
@@ -989,7 +989,7 @@ sys.maxunicode
     or `0x10FFFF`, depending on the configuration option that specified
     whether Unicode characters were stored as UCS-2 or UCS-4.
 
-sys.meta_path
+`sys.meta_path`
 :   A list of [meta path finder](https://docs.python.org/3.12/glossary.html#term-meta-path-finder) objects that have their
     [`find_spec()`](importlib.md#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec") methods called to see if one
     of the objects can find the module to be imported. By default, it holds entries
@@ -1019,7 +1019,7 @@ sys.meta_path
     if a [`meta_path`](sys.md#sys.meta_path "sys.meta_path") entry didn’t have a
     [`find_spec()`](importlib.md#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec") method.
 
-sys.modules
+`sys.modules`
 :   This is a dictionary that maps module names to modules which have already been
     loaded. This can be manipulated to force reloading of modules and other tricks.
     However, replacing the dictionary will not necessarily work as expected and
@@ -1029,7 +1029,7 @@ sys.modules
     size may change during iteration as a side effect of code or activity in
     other threads.
 
-sys.orig_argv
+`sys.orig_argv`
 :   The list of the original command line arguments passed to the Python
     executable.
 
@@ -1040,7 +1040,7 @@ sys.orig_argv
 
     Added in version 3.10.
 
-sys.path
+`sys.path`
 :   A list of strings that specifies the search path for modules. Initialized from
     the environment variable [`PYTHONPATH`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONPATH), plus an installation-dependent
     default.
@@ -1068,14 +1068,14 @@ sys.path
     > - Module [`site`](site.md#module-site "site: Module responsible for site-specific configuration.") This describes how to use .pth files to
     >   extend [`sys.path`](sys.md#sys.path "sys.path").
 
-sys.path_hooks
+`sys.path_hooks`
 :   A list of callables that take a path argument to try to create a
     [finder](https://docs.python.org/3.12/glossary.html#term-finder) for the path. If a finder can be created, it is to be
     returned by the callable, else raise [`ImportError`](exceptions.md#ImportError "ImportError").
 
     Originally specified in [**PEP 302**](https://peps.python.org/pep-0302/).
 
-sys.path_importer_cache
+`sys.path_importer_cache`
 :   A dictionary acting as a cache for [finder](https://docs.python.org/3.12/glossary.html#term-finder) objects. The keys are
     paths that have been passed to [`sys.path_hooks`](sys.md#sys.path_hooks "sys.path_hooks") and the values are
     the finders that are found. If a path is a valid file system path but no
@@ -1084,7 +1084,7 @@ sys.path_importer_cache
 
     Originally specified in [**PEP 302**](https://peps.python.org/pep-0302/).
 
-sys.platform
+`sys.platform`
 :   This string contains a platform identifier that can be used to append
     platform-specific components to [`sys.path`](sys.md#sys.path "sys.path"), for instance.
 
@@ -1133,7 +1133,7 @@ sys.platform
     > The [`platform`](platform.md#module-platform "platform: Retrieves as much platform identifying data as possible.") module provides detailed checks for the
     > system’s identity.
 
-sys.platlibdir
+`sys.platlibdir`
 :   Name of the platform-specific library directory. It is used to build the
     path of standard library and the paths of installed extension modules.
 
@@ -1153,7 +1153,7 @@ sys.platlibdir
 
     Added in version 3.9.
 
-sys.prefix
+`sys.prefix`
 :   A string giving the site-specific directory prefix where the platform
     independent Python files are installed; on Unix, the default is
     `/usr/local`. This can be set at build time with the [`--prefix`](https://docs.python.org/3.12/using/configure.html#cmdoption-prefix)
@@ -1167,9 +1167,9 @@ sys.prefix
     > environment. The value for the Python installation will still be
     > available, via [`base_prefix`](sys.md#sys.base_prefix "sys.base_prefix").
 
-sys.ps1
+`sys.ps1`
 
-sys.ps2
+`sys.ps2`
 :   Strings specifying the primary and secondary prompt of the interpreter. These
     are only defined if the interpreter is in interactive mode. Their initial
     values in this case are `'>>> '` and `'... '`. If a non-string object is
@@ -1177,7 +1177,7 @@ sys.ps2
     interpreter prepares to read a new interactive command; this can be used to
     implement a dynamic prompt.
 
-sys.setdlopenflags(*n*)
+`sys.setdlopenflags(n)`
 :   Set the flags used by the interpreter for `dlopen()` calls, such as when
     the interpreter loads extension modules. Among other things, this will enable a
     lazy resolving of symbols when importing a module, if called as
@@ -1188,13 +1188,13 @@ sys.setdlopenflags(*n*)
 
     [Availability](intro.md#availability): Unix.
 
-sys.set_int_max_str_digits(*maxdigits*)
+`sys.set_int_max_str_digits(maxdigits)`
 :   Set the [integer string conversion length limitation](stdtypes.md#int-max-str-digits) used by this interpreter. See also
     [`get_int_max_str_digits()`](sys.md#sys.get_int_max_str_digits "sys.get_int_max_str_digits").
 
     Added in version 3.11.
 
-sys.setprofile(*profilefunc*)
+`sys.setprofile(profilefunc)`
 :   Set the system’s profile function, which allows you to implement a Python source
     code profiler in Python. See chapter [The Python Profilers](profile.md#profile) for more information on the
     Python profiler. The system’s profile function is called similarly to the
@@ -1240,7 +1240,7 @@ sys.setprofile(*profilefunc*)
 
     Raises an [auditing event](sys.md#auditing) `sys.setprofile` with no arguments.
 
-sys.setrecursionlimit(*limit*)
+`sys.setrecursionlimit(limit)`
 :   Set the maximum depth of the Python interpreter stack to *limit*. This limit
     prevents infinite recursion from causing an overflow of the C stack and crashing
     Python.
@@ -1256,7 +1256,7 @@ sys.setrecursionlimit(*limit*)
     Changed in version 3.5.1: A [`RecursionError`](exceptions.md#RecursionError "RecursionError") exception is now raised if the new limit is too
     low at the current recursion depth.
 
-sys.setswitchinterval(*interval*)
+`sys.setswitchinterval(interval)`
 :   Set the interpreter’s thread switch interval (in seconds). This floating-point
     value determines the ideal duration of the “timeslices” allocated to
     concurrently running Python threads. Please note that the actual value
@@ -1267,7 +1267,7 @@ sys.setswitchinterval(*interval*)
 
     Added in version 3.2.
 
-sys.settrace(*tracefunc*)
+`sys.settrace(tracefunc)`
 :   Set the system’s trace function, which allows you to implement a Python
     source code debugger in Python. The function is thread-specific; for a
     debugger to support multiple threads, it must register a trace function using
@@ -1361,7 +1361,7 @@ sys.settrace(*tracefunc*)
     is called. This behavior will be changed back in 3.13 to be consistent with
     previous versions.
 
-sys.set_asyncgen_hooks(*[firstiter] [, finalizer]*)
+`sys.set_asyncgen_hooks([firstiter] [, finalizer])`
 :   Accepts two optional keyword arguments which are callables that accept an
     [asynchronous generator iterator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator-iterator) as an argument. The *firstiter*
     callable will be called when an asynchronous generator is iterated for the
@@ -1385,7 +1385,7 @@ sys.set_asyncgen_hooks(*[firstiter] [, finalizer]*)
     > This function has been added on a provisional basis (see [**PEP 411**](https://peps.python.org/pep-0411/)
     > for details.)
 
-sys.set_coroutine_origin_tracking_depth(*depth*)
+`sys.set_coroutine_origin_tracking_depth(depth)`
 :   Allows enabling or disabling coroutine origin tracking. When
     enabled, the `cr_origin` attribute on coroutine objects will
     contain a tuple of (filename, line number, function name) tuples
@@ -1406,7 +1406,7 @@ sys.set_coroutine_origin_tracking_depth(*depth*)
     > This function has been added on a provisional basis (see [**PEP 411**](https://peps.python.org/pep-0411/)
     > for details.) Use it only for debugging purposes.
 
-sys.activate_stack_trampoline(*backend*, */*)
+`sys.activate_stack_trampoline(backend, /)`
 :   Activate the stack profiler trampoline *backend*.
     The only supported backend is `"perf"`.
 
@@ -1419,7 +1419,7 @@ sys.activate_stack_trampoline(*backend*, */*)
     > - [Python support for the Linux perf profiler](https://docs.python.org/3.12/howto/perf_profiling.html#perf-profiling)
     > - <https://perf.wiki.kernel.org>
 
-sys.deactivate_stack_trampoline()
+`sys.deactivate_stack_trampoline()`
 :   Deactivate the current stack profiler trampoline backend.
 
     If no stack profiler is activated, this function has no effect.
@@ -1428,14 +1428,14 @@ sys.deactivate_stack_trampoline()
 
     Added in version 3.12.
 
-sys.is_stack_trampoline_active()
+`sys.is_stack_trampoline_active()`
 :   Return `True` if a stack profiler trampoline is active.
 
     [Availability](intro.md#availability): Linux.
 
     Added in version 3.12.
 
-sys._enablelegacywindowsfsencoding()
+`sys._enablelegacywindowsfsencoding()`
 :   Changes the [filesystem encoding and error handler](https://docs.python.org/3.12/glossary.html#term-filesystem-encoding-and-error-handler) to ‘mbcs’ and
     ‘replace’ respectively, for consistency with versions of Python prior to
     3.6.
@@ -1450,11 +1450,11 @@ sys._enablelegacywindowsfsencoding()
 
     Added in version 3.6: See [**PEP 529**](https://peps.python.org/pep-0529/) for more details.
 
-sys.stdin
+`sys.stdin`
 
-sys.stdout
+`sys.stdout`
 
-sys.stderr
+`sys.stderr`
 :   [File objects](https://docs.python.org/3.12/glossary.html#term-file-object) used by the interpreter for standard
     input, output and errors:
 
@@ -1511,11 +1511,11 @@ sys.stderr
     > may be replaced with file-like objects like [`io.StringIO`](io.md#io.StringIO "io.StringIO") which
     > do not support the `buffer` attribute.
 
-sys.__stdin__
+`sys.__stdin__`
 
-sys.__stdout__
+`sys.__stdout__`
 
-sys.__stderr__
+`sys.__stderr__`
 :   These objects contain the original values of `stdin`, `stderr` and
     `stdout` at the start of the program. They are used during finalization,
     and could be useful to print to the actual standard stream no matter if the
@@ -1533,7 +1533,7 @@ sys.__stderr__
     > `None`. It is usually the case for Windows GUI apps that aren’t connected
     > to a console and Python apps started with **pythonw**.
 
-sys.stdlib_module_names
+`sys.stdlib_module_names`
 :   A frozenset of strings containing the names of standard library modules.
 
     It is the same on all platforms. Modules which are not available on
@@ -1550,11 +1550,11 @@ sys.stdlib_module_names
 
     Added in version 3.10.
 
-sys.thread_info
+`sys.thread_info`
 :   A [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) holding information about the thread
     implementation.
 
-    thread_info.name
+    `thread_info.name`
     :   The name of the thread implementation:
 
         - `"nt"`: Windows threads
@@ -1563,26 +1563,26 @@ sys.thread_info
           (on WebAssembly platforms without threading support)
         - `"solaris"`: Solaris threads
 
-    thread_info.lock
+    `thread_info.lock`
     :   The name of the lock implementation:
 
         - `"semaphore"`: a lock uses a semaphore
         - `"mutex+cond"`: a lock uses a mutex and a condition variable
         - `None` if this information is unknown
 
-    thread_info.version
+    `thread_info.version`
     :   The name and version of the thread library.
         It is a string, or `None` if this information is unknown.
 
     Added in version 3.3.
 
-sys.tracebacklimit
+`sys.tracebacklimit`
 :   When this variable is set to an integer value, it determines the maximum number
     of levels of traceback information printed when an unhandled exception occurs.
     The default is `1000`. When set to `0` or less, all traceback information
     is suppressed and only the exception type and value are printed.
 
-sys.unraisablehook(*unraisable*, */*)
+`sys.unraisablehook(unraisable, /)`
 :   Handle an unraisable exception.
 
     Called when an exception has occurred but there is no way for Python to
@@ -1625,18 +1625,18 @@ sys.unraisablehook(*unraisable*, */*)
 
     Added in version 3.8.
 
-sys.version
+`sys.version`
 :   A string containing the version number of the Python interpreter plus additional
     information on the build number and compiler used. This string is displayed
     when the interactive interpreter is started. Do not extract version information
     out of it, rather, use [`version_info`](sys.md#sys.version_info "sys.version_info") and the functions provided by the
     [`platform`](platform.md#module-platform "platform: Retrieves as much platform identifying data as possible.") module.
 
-sys.api_version
+`sys.api_version`
 :   The C API version for this interpreter. Programmers may find this useful when
     debugging version conflicts between Python and extension modules.
 
-sys.version_info
+`sys.version_info`
 :   A tuple containing the five components of the version number: *major*, *minor*,
     *micro*, *releaselevel*, and *serial*. All values except *releaselevel* are
     integers; the release level is `'alpha'`, `'beta'`, `'candidate'`, or
@@ -1647,12 +1647,12 @@ sys.version_info
 
     Changed in version 3.1: Added named component attributes.
 
-sys.warnoptions
+`sys.warnoptions`
 :   This is an implementation detail of the warnings framework; do not modify this
     value. Refer to the [`warnings`](warnings.md#module-warnings "warnings: Issue warning messages and control their disposition.") module for more information on the warnings
     framework.
 
-sys.winver
+`sys.winver`
 :   The version number used to form registry keys on Windows platforms. This is
     stored as string resource 1000 in the Python DLL. The value is normally the
     major and minor versions of the running Python interpreter. It is provided in the [`sys`](sys.md#module-sys "sys: Access system-specific parameters and functions.")
@@ -1661,12 +1661,12 @@ sys.winver
 
     [Availability](intro.md#availability): Windows.
 
-sys.monitoring
+`sys.monitoring`
 :   Namespace containing functions and constants for register callbacks
     and controlling monitoring events.
     See [`sys.monitoring`](sys.monitoring.md#module-sys.monitoring "sys.monitoring: Access and control event monitoring") for details.
 
-sys._xoptions
+`sys._xoptions`
 :   A dictionary of the various implementation-specific flags passed through
     the [`-X`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-X) command-line option. Option names are either mapped to
     their values, if given explicitly, or to [`True`](constants.md#True "True"). Example:

@@ -33,7 +33,7 @@ This module does not work or is not available on WebAssembly platforms
 `wasm32-emscripten` and `wasm32-wasi`. See
 [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-*class* telnetlib.Telnet(*host=None*, *port=0*[, *timeout*])
+`class telnetlib.Telnet(host=None, port=0[, timeout])`
 :   [`Telnet`](telnetlib.md#telnetlib.Telnet "telnetlib.Telnet") represents a connection to a Telnet server. The instance is
     initially not connected by default; the [`open()`](telnetlib.md#telnetlib.Telnet.open "telnetlib.Telnet.open") method must be used to
     establish a connection. Alternatively, the host name and optional port
@@ -71,7 +71,7 @@ This module does not work or is not available on WebAssembly platforms
 
 [`Telnet`](telnetlib.md#telnetlib.Telnet "telnetlib.Telnet") instances have the following methods:
 
-Telnet.read_until(*expected*, *timeout=None*)
+`Telnet.read_until(expected, timeout=None)`
 :   Read until a given byte string, *expected*, is encountered or until *timeout*
     seconds have passed.
 
@@ -79,46 +79,46 @@ Telnet.read_until(*expected*, *timeout=None*)
     bytes. Raise [`EOFError`](exceptions.md#EOFError "EOFError") if the connection is closed and no cooked data
     is available.
 
-Telnet.read_all()
+`Telnet.read_all()`
 :   Read all data until EOF as bytes; block until connection closed.
 
-Telnet.read_some()
+`Telnet.read_some()`
 :   Read at least one byte of cooked data unless EOF is hit. Return `b''` if
     EOF is hit. Block if no data is immediately available.
 
-Telnet.read_very_eager()
+`Telnet.read_very_eager()`
 :   Read everything that can be without blocking in I/O (eager).
 
     Raise [`EOFError`](exceptions.md#EOFError "EOFError") if connection closed and no cooked data available.
     Return `b''` if no cooked data available otherwise. Do not block unless in
     the midst of an IAC sequence.
 
-Telnet.read_eager()
+`Telnet.read_eager()`
 :   Read readily available data.
 
     Raise [`EOFError`](exceptions.md#EOFError "EOFError") if connection closed and no cooked data available.
     Return `b''` if no cooked data available otherwise. Do not block unless in
     the midst of an IAC sequence.
 
-Telnet.read_lazy()
+`Telnet.read_lazy()`
 :   Process and return data already in the queues (lazy).
 
     Raise [`EOFError`](exceptions.md#EOFError "EOFError") if connection closed and no data available. Return
     `b''` if no cooked data available otherwise. Do not block unless in the
     midst of an IAC sequence.
 
-Telnet.read_very_lazy()
+`Telnet.read_very_lazy()`
 :   Return any data available in the cooked queue (very lazy).
 
     Raise [`EOFError`](exceptions.md#EOFError "EOFError") if connection closed and no data available. Return
     `b''` if no cooked data available otherwise. This method never blocks.
 
-Telnet.read_sb_data()
+`Telnet.read_sb_data()`
 :   Return the data collected between a SB/SE pair (suboption begin/end). The
     callback should access these data when it was invoked with a `SE` command.
     This method never blocks.
 
-Telnet.open(*host*, *port=0*[, *timeout*])
+`Telnet.open(host, port=0[, timeout])`
 :   Connect to a host. The optional second argument is the port number, which
     defaults to the standard Telnet port (23). The optional *timeout* parameter
     specifies a timeout in seconds for blocking operations like the connection
@@ -128,25 +128,25 @@ Telnet.open(*host*, *port=0*[, *timeout*])
 
     Raises an [auditing event](sys.md#auditing) `telnetlib.Telnet.open` with arguments `self`, `host`, `port`.
 
-Telnet.msg(*msg*, *\*args*)
+`Telnet.msg(msg, *args)`
 :   Print a debug message when the debug level is `>` 0. If extra arguments are
     present, they are substituted in the message using the standard string
     formatting operator.
 
-Telnet.set_debuglevel(*debuglevel*)
+`Telnet.set_debuglevel(debuglevel)`
 :   Set the debug level. The higher the value of *debuglevel*, the more debug
     output you get (on `sys.stdout`).
 
-Telnet.close()
+`Telnet.close()`
 :   Close the connection.
 
-Telnet.get_socket()
+`Telnet.get_socket()`
 :   Return the socket object used internally.
 
-Telnet.fileno()
+`Telnet.fileno()`
 :   Return the file descriptor of the socket object used internally.
 
-Telnet.write(*buffer*)
+`Telnet.write(buffer)`
 :   Write a byte string to the socket, doubling any IAC characters. This can
     block if the connection is blocked. May raise [`OSError`](exceptions.md#OSError "OSError") if the
     connection is closed.
@@ -156,13 +156,13 @@ Telnet.write(*buffer*)
     Changed in version 3.3: This method used to raise [`socket.error`](socket.md#socket.error "socket.error"), which is now an alias
     of [`OSError`](exceptions.md#OSError "OSError").
 
-Telnet.interact()
+`Telnet.interact()`
 :   Interaction function, emulates a very dumb Telnet client.
 
-Telnet.mt_interact()
+`Telnet.mt_interact()`
 :   Multithreaded version of [`interact()`](telnetlib.md#telnetlib.Telnet.interact "telnetlib.Telnet.interact").
 
-Telnet.expect(*list*, *timeout=None*)
+`Telnet.expect(list, timeout=None)`
 :   Read until one from a list of a regular expressions matches.
 
     The first argument is a list of regular expressions, either compiled
@@ -182,7 +182,7 @@ Telnet.expect(*list*, *timeout=None*)
     than one expression can match the same input, the results are
     non-deterministic, and may depend on the I/O timing.
 
-Telnet.set_option_negotiation_callback(*callback*)
+`Telnet.set_option_negotiation_callback(callback)`
 :   Each time a telnet option is read on the input flow, this *callback* (if set) is
     called with the following parameters: callback(telnet socket, command
     (DO/DONT/WILL/WONT), option). No other action is done afterwards by telnetlib.

@@ -18,7 +18,7 @@ fetched_at: 2026-09-17T15:33:24+00:00
 
 ## Cross Platform
 
-platform.architecture(*executable=sys.executable*, *bits=''*, *linkage=''*)
+`platform.architecture(executable=sys.executable, bits='', linkage='')`
 :   Queries the given executable (defaults to the Python interpreter binary) for
     various architecture information.
 
@@ -48,15 +48,15 @@ platform.architecture(*executable=sys.executable*, *bits=''*, *linkage=''*)
     > is_64bits = sys.maxsize > 2**32
     > ```
 
-platform.machine()
+`platform.machine()`
 :   Returns the machine type, e.g. `'AMD64'`. An empty string is returned if the
     value cannot be determined.
 
-platform.node()
+`platform.node()`
 :   Returns the computer’s network name (may not be fully qualified!). An empty
     string is returned if the value cannot be determined.
 
-platform.platform(*aliased=False*, *terse=False*)
+`platform.platform(aliased=False, terse=False)`
 :   Returns a single string identifying the underlying platform with as much useful
     information as possible.
 
@@ -75,60 +75,60 @@ platform.platform(*aliased=False*, *terse=False*)
     non-empty release string, to get the macOS version rather than the darwin
     version.
 
-platform.processor()
+`platform.processor()`
 :   Returns the (real) processor name, e.g. `'amdk6'`.
 
     An empty string is returned if the value cannot be determined. Note that many
     platforms do not provide this information or simply return the same value as for
     [`machine()`](platform.md#platform.machine "platform.machine"). NetBSD does this.
 
-platform.python_build()
+`platform.python_build()`
 :   Returns a tuple `(buildno, builddate)` stating the Python build number and
     date as strings.
 
-platform.python_compiler()
+`platform.python_compiler()`
 :   Returns a string identifying the compiler used for compiling Python.
 
-platform.python_branch()
+`platform.python_branch()`
 :   Returns a string identifying the Python implementation SCM branch.
 
-platform.python_implementation()
+`platform.python_implementation()`
 :   Returns a string identifying the Python implementation. Possible return values
     are: ‘CPython’, ‘IronPython’, ‘Jython’, ‘PyPy’.
 
-platform.python_revision()
+`platform.python_revision()`
 :   Returns a string identifying the Python implementation SCM revision.
 
-platform.python_version()
+`platform.python_version()`
 :   Returns the Python version as string `'major.minor.patchlevel'`.
 
     Note that unlike the Python `sys.version`, the returned value will always
     include the patchlevel (it defaults to 0).
 
-platform.python_version_tuple()
+`platform.python_version_tuple()`
 :   Returns the Python version as tuple `(major, minor, patchlevel)` of strings.
 
     Note that unlike the Python `sys.version`, the returned value will always
     include the patchlevel (it defaults to `'0'`).
 
-platform.release()
+`platform.release()`
 :   Returns the system’s release, e.g. `'2.2.0'` or `'NT'`. An empty string is
     returned if the value cannot be determined.
 
-platform.system()
+`platform.system()`
 :   Returns the system/OS name, such as `'Linux'`, `'Darwin'`, `'Java'`,
     `'Windows'`. An empty string is returned if the value cannot be determined.
 
-platform.system_alias(*system*, *release*, *version*)
+`platform.system_alias(system, release, version)`
 :   Returns `(system, release, version)` aliased to common marketing names used
     for some systems. It also does some reordering of the information in some cases
     where it would otherwise cause confusion.
 
-platform.version()
+`platform.version()`
 :   Returns the system’s release version, e.g. `'#3 on degas'`. An empty string is
     returned if the value cannot be determined.
 
-platform.uname()
+`platform.uname()`
 :   Fairly portable uname interface. Returns a [`namedtuple()`](collections.md#collections.namedtuple "collections.namedtuple")
     containing six attributes: [`system`](platform.md#platform.system "platform.system"), [`node`](platform.md#platform.node "platform.node"), [`release`](platform.md#platform.release "platform.release"),
     [`version`](platform.md#platform.version "platform.version"), [`machine`](platform.md#platform.machine "platform.machine"), and [`processor`](platform.md#platform.processor "platform.processor").
@@ -147,7 +147,7 @@ platform.uname()
 
 ## Java Platform
 
-platform.java_ver(*release=''*, *vendor=''*, *vminfo=('', '', '')*, *osinfo=('', '', '')*)
+`platform.java_ver(release='', vendor='', vminfo=('', '', ''), osinfo=('', '', ''))`
 :   Version interface for Jython.
 
     Returns a tuple `(release, vendor, vminfo, osinfo)` with *vminfo* being a
@@ -157,7 +157,7 @@ platform.java_ver(*release=''*, *vendor=''*, *vminfo=('', '', '')*, *osinfo=('',
 
 ## Windows Platform
 
-platform.win32_ver(*release=''*, *version=''*, *csd=''*, *ptype=''*)
+`platform.win32_ver(release='', version='', csd='', ptype='')`
 :   Get additional version information from the Windows Registry and return a tuple
     `(release, version, csd, ptype)` referring to OS release, version number,
     CSD level (service pack) and OS type (multi/single processor). Values which
@@ -170,14 +170,14 @@ platform.win32_ver(*release=''*, *version=''*, *csd=''*, *ptype=''*)
     which means the OS version uses debugging code, i.e. code that checks arguments,
     ranges, etc.
 
-platform.win32_edition()
+`platform.win32_edition()`
 :   Returns a string representing the current Windows edition, or `None` if the
     value cannot be determined. Possible values include but are not limited to
     `'Enterprise'`, `'IoTUAP'`, `'ServerStandard'`, and `'nanoserver'`.
 
     Added in version 3.8.
 
-platform.win32_is_iot()
+`platform.win32_is_iot()`
 :   Return `True` if the Windows edition returned by [`win32_edition()`](platform.md#platform.win32_edition "platform.win32_edition")
     is recognized as an IoT edition.
 
@@ -185,7 +185,7 @@ platform.win32_is_iot()
 
 ## macOS Platform
 
-platform.mac_ver(*release=''*, *versioninfo=('', '', '')*, *machine=''*)
+`platform.mac_ver(release='', versioninfo=('', '', ''), machine='')`
 :   Get macOS version information and return it as tuple `(release, versioninfo,
     machine)` with *versioninfo* being a tuple `(version, dev_stage,
     non_release_version)`.
@@ -195,7 +195,7 @@ platform.mac_ver(*release=''*, *versioninfo=('', '', '')*, *machine=''*)
 
 ## Unix Platforms
 
-platform.libc_ver(*executable=sys.executable*, *lib=''*, *version=''*, *chunksize=16384*)
+`platform.libc_ver(executable=sys.executable, lib='', version='', chunksize=16384)`
 :   Tries to determine the libc version against which the file executable (defaults
     to the Python interpreter) is linked. Returns a tuple of strings `(lib,
     version)` which default to the given parameters in case the lookup fails.
@@ -208,7 +208,7 @@ platform.libc_ver(*executable=sys.executable*, *lib=''*, *version=''*, *chunksiz
 
 ## Linux Platforms
 
-platform.freedesktop_os_release()
+`platform.freedesktop_os_release()`
 :   Get operating system identification from `os-release` file and return
     it as a dict. The `os-release` file is a [freedesktop.org standard](https://www.freedesktop.org/software/systemd/man/os-release.html) and
     is available in most Linux distributions. A noticeable exception is

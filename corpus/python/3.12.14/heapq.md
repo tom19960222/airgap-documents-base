@@ -39,23 +39,23 @@ populated list into a heap via function [`heapify()`](heapq.md#heapq.heapify "he
 
 The following functions are provided:
 
-heapq.heappush(*heap*, *item*)
+`heapq.heappush(heap, item)`
 :   Push the value *item* onto the *heap*, maintaining the heap invariant.
 
-heapq.heappop(*heap*)
+`heapq.heappop(heap)`
 :   Pop and return the smallest item from the *heap*, maintaining the heap
     invariant. If the heap is empty, [`IndexError`](exceptions.md#IndexError "IndexError") is raised. To access the
     smallest item without popping it, use `heap[0]`.
 
-heapq.heappushpop(*heap*, *item*)
+`heapq.heappushpop(heap, item)`
 :   Push *item* on the heap, then pop and return the smallest item from the
     *heap*. The combined action runs more efficiently than [`heappush()`](heapq.md#heapq.heappush "heapq.heappush")
     followed by a separate call to [`heappop()`](heapq.md#heapq.heappop "heapq.heappop").
 
-heapq.heapify(*x*)
+`heapq.heapify(x)`
 :   Transform list *x* into a heap, in-place, in linear time.
 
-heapq.heapreplace(*heap*, *item*)
+`heapq.heapreplace(heap, item)`
 :   Pop and return the smallest item from the *heap*, and also push the new *item*.
     The heap size doesn’t change. If the heap is empty, [`IndexError`](exceptions.md#IndexError "IndexError") is raised.
 
@@ -71,7 +71,7 @@ heapq.heapreplace(*heap*, *item*)
 
 The module also offers three general purpose functions based on heaps.
 
-heapq.merge(*\*iterables*, *key=None*, *reverse=False*)
+`heapq.merge(*iterables, key=None, reverse=False)`
 :   Merge multiple sorted inputs into a single sorted output (for example, merge
     timestamped entries from multiple log files). Returns an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator)
     over the sorted values.
@@ -93,14 +93,14 @@ heapq.merge(*\*iterables*, *key=None*, *reverse=False*)
 
     Changed in version 3.5: Added the optional *key* and *reverse* parameters.
 
-heapq.nlargest(*n*, *iterable*, *key=None*)
+`heapq.nlargest(n, iterable, key=None)`
 :   Return a list with the *n* largest elements from the dataset defined by
     *iterable*. *key*, if provided, specifies a function of one argument that is
     used to extract a comparison key from each element in *iterable* (for example,
     `key=str.lower`). Equivalent to: `sorted(iterable, key=key,
     reverse=True)[:n]`.
 
-heapq.nsmallest(*n*, *iterable*, *key=None*)
+`heapq.nsmallest(n, iterable, key=None)`
 :   Return a list with the *n* smallest elements from the dataset defined by
     *iterable*. *key*, if provided, specifies a function of one argument that is
     used to extract a comparison key from each element in *iterable* (for example,

@@ -30,7 +30,7 @@ logging module using these functions or by making calls to the main API (defined
 in [`logging`](logging.md#module-logging "logging: Flexible event logging system for applications.") itself) and defining handlers which are declared either in
 [`logging`](logging.md#module-logging "logging: Flexible event logging system for applications.") or [`logging.handlers`](logging.handlers.md#module-logging.handlers "logging.handlers: Handlers for the logging module.").
 
-logging.config.dictConfig(*config*)
+`logging.config.dictConfig(config)`
 :   Takes the logging configuration from a dictionary. The contents of
     this dictionary are described in [Configuration dictionary schema](logging.config.md#logging-config-dictschema)
     below.
@@ -75,7 +75,7 @@ logging.config.dictConfig(*config*)
 
     Added in version 3.2.
 
-logging.config.fileConfig(*fname*, *defaults=None*, *disable_existing_loggers=True*, *encoding=None*)
+`logging.config.fileConfig(fname, defaults=None, disable_existing_loggers=True, encoding=None)`
 :   Reads the logging configuration from a [`configparser`](configparser.md#module-configparser "configparser: Configuration file parser.")-format file. The
     format of the file should be as described in
     [Configuration file format](logging.config.md#logging-config-fileformat).
@@ -125,7 +125,7 @@ logging.config.fileConfig(*fname*, *defaults=None*, *disable_existing_loggers=Tr
     Changed in version 3.12: An exception will be thrown if the provided file
     doesn’t exist or is invalid or empty.
 
-logging.config.listen(*port=DEFAULT_LOGGING_CONFIG_PORT*, *verify=None*)
+`logging.config.listen(port=DEFAULT_LOGGING_CONFIG_PORT, verify=None)`
 :   Starts up a socket server on the specified port, and listens for new
     configurations. If no port is specified, the module’s default
     `DEFAULT_LOGGING_CONFIG_PORT` is used. Logging configurations will be
@@ -178,7 +178,7 @@ logging.config.listen(*port=DEFAULT_LOGGING_CONFIG_PORT*, *verify=None*)
     > This method allows you to specify `disable_existing_loggers` as
     > `False` in the configuration you send.
 
-logging.config.stopListening()
+`logging.config.stopListening()`
 :   Stops the listening server which was created with a call to [`listen()`](logging.config.md#logging.config.listen "logging.config.listen").
     This is typically called before calling `join()` on the return value from
     [`listen()`](logging.config.md#logging.config.listen "logging.config.listen").

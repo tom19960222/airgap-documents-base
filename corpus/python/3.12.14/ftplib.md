@@ -53,7 +53,7 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
 
 ### FTP objects
 
-*class* ftplib.FTP(*host=''*, *user=''*, *passwd=''*, *acct=''*, *timeout=None*, *source_address=None*, *\**, *encoding='utf-8'*)
+`class ftplib.FTP(host='', user='', passwd='', acct='', timeout=None, source_address=None, *, encoding='utf-8')`
 :   Return a new instance of the [`FTP`](ftplib.md#ftplib.FTP "ftplib.FTP") class.
 
     Parameters:
@@ -107,7 +107,7 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
 
     [`FTP`](ftplib.md#ftplib.FTP "ftplib.FTP") instances have the following methods:
 
-    set_debuglevel(*level*)
+    `set_debuglevel(level)`
     :   Set the instance’s debugging level as an [`int`](functions.md#int "int").
         This controls the amount of debugging output printed.
         The debug levels are:
@@ -118,7 +118,7 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
         - `2` or higher: Produce the maximum amount of debugging output,
           logging each line sent and received on the control connection.
 
-    connect(*host=''*, *port=0*, *timeout=None*, *source_address=None*)
+    `connect(host='', port=0, timeout=None, source_address=None)`
     :   Connect to the given host and port.
         This function should be called only once for each instance;
         it should not be called if a *host* argument was given
@@ -140,12 +140,12 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
 
         Changed in version 3.3: *source_address* parameter was added.
 
-    getwelcome()
+    `getwelcome()`
     :   Return the welcome message sent by the server in reply to the initial
         connection. (This message sometimes contains disclaimers or help information
         that may be relevant to the user.)
 
-    login(*user='anonymous'*, *passwd=''*, *acct=''*)
+    `login(user='anonymous', passwd='', acct='')`
     :   Log on to the connected FTP server.
         This function should be called only once for each instance,
         after a connection has been established;
@@ -163,23 +163,23 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
               See [RFC-959](https://datatracker.ietf.org/doc/html/rfc959.html)
               for more details.
 
-    abort()
+    `abort()`
     :   Abort a file transfer that is in progress. Using this does not always work, but
         it’s worth a try.
 
-    sendcmd(*cmd*)
+    `sendcmd(cmd)`
     :   Send a simple command string to the server and return the response string.
 
         Raises an [auditing event](sys.md#auditing) `ftplib.sendcmd` with arguments `self`, `cmd`.
 
-    voidcmd(*cmd*)
+    `voidcmd(cmd)`
     :   Send a simple command string to the server and handle the response. Return
         the response string if the response code corresponds to success (codes in
         the range 200–299). Raise [`error_reply`](ftplib.md#ftplib.error_reply "ftplib.error_reply") otherwise.
 
         Raises an [auditing event](sys.md#auditing) `ftplib.sendcmd` with arguments `self`, `cmd`.
 
-    retrbinary(*cmd*, *callback*, *blocksize=8192*, *rest=None*)
+    `retrbinary(cmd, callback, blocksize=8192, rest=None)`
     :   Retrieve a file in binary transfer mode.
 
         Parameters:
@@ -195,7 +195,7 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
             - **rest** ([*int*](functions.md#int "int")) – A `REST` command to be sent to the server.
               See the documentation for the *rest* parameter of the [`transfercmd()`](ftplib.md#ftplib.FTP.transfercmd "ftplib.FTP.transfercmd") method.
 
-    retrlines(*cmd*, *callback=None*)
+    `retrlines(cmd, callback=None)`
     :   Retrieve a file or directory listing in the encoding specified by the
         *encoding* parameter at initialization.
         *cmd* should be an appropriate `RETR` command (see [`retrbinary()`](ftplib.md#ftplib.FTP.retrbinary "ftplib.FTP.retrbinary")) or
@@ -206,11 +206,11 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
         containing the line with the trailing CRLF stripped. The default *callback*
         prints the line to [`sys.stdout`](sys.md#sys.stdout "sys.stdout").
 
-    set_pasv(*val*)
+    `set_pasv(val)`
     :   Enable “passive” mode if *val* is true, otherwise disable passive mode.
         Passive mode is on by default.
 
-    storbinary(*cmd*, *fp*, *blocksize=8192*, *callback=None*, *rest=None*)
+    `storbinary(cmd, fp, blocksize=8192, callback=None, rest=None)`
     :   Store a file in binary transfer mode.
 
         Parameters:
@@ -228,14 +228,14 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
 
         Changed in version 3.2: The *rest* parameter was added.
 
-    storlines(*cmd*, *fp*, *callback=None*)
+    `storlines(cmd, fp, callback=None)`
     :   Store a file in line mode. *cmd* should be an appropriate
         `STOR` command (see [`storbinary()`](ftplib.md#ftplib.FTP.storbinary "ftplib.FTP.storbinary")). Lines are read until EOF from the
         [file object](https://docs.python.org/3.12/glossary.html#term-file-object) *fp* (opened in binary mode) using its [`readline()`](io.md#io.IOBase.readline "io.IOBase.readline")
         method to provide the data to be stored. *callback* is an optional single
         parameter callable that is called on each line after it is sent.
 
-    transfercmd(*cmd*, *rest=None*)
+    `transfercmd(cmd, rest=None)`
     :   Initiate a transfer over the data connection. If the transfer is active, send an
         `EPRT` or `PORT` command and the transfer command specified by *cmd*, and
         accept the connection. If the server is passive, send an `EPSV` or `PASV`
@@ -252,13 +252,13 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
         will be raised. If this happens, simply call [`transfercmd()`](ftplib.md#ftplib.FTP.transfercmd "ftplib.FTP.transfercmd") without a
         *rest* argument.
 
-    ntransfercmd(*cmd*, *rest=None*)
+    `ntransfercmd(cmd, rest=None)`
     :   Like [`transfercmd()`](ftplib.md#ftplib.FTP.transfercmd "ftplib.FTP.transfercmd"), but returns a tuple of the data connection and the
         expected size of the data. If the expected size could not be computed, `None`
         will be returned as the expected size. *cmd* and *rest* means the same thing as
         in [`transfercmd()`](ftplib.md#ftplib.FTP.transfercmd "ftplib.FTP.transfercmd").
 
-    mlsd(*path=''*, *facts=[]*)
+    `mlsd(path='', facts=[])`
     :   List a directory in a standardized format by using `MLSD` command
         ([**RFC 3659**](https://datatracker.ietf.org/doc/html/rfc3659.html)). If *path* is omitted the current directory is assumed.
         *facts* is a list of strings representing the type of information desired
@@ -270,7 +270,7 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
 
         Added in version 3.3.
 
-    nlst(*argument*[, *...*])
+    `nlst(argument[, ...])`
     :   Return a list of file names as returned by the `NLST` command. The
         optional *argument* is a directory to list (default is the current server
         directory). Multiple arguments can be used to pass non-standard options to
@@ -280,7 +280,7 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
         >
         > If your server supports the command, [`mlsd()`](ftplib.md#ftplib.FTP.mlsd "ftplib.FTP.mlsd") offers a better API.
 
-    dir(*argument*[, *...*])
+    `dir(argument[, ...])`
     :   Produce a directory listing as returned by the `LIST` command, printing it to
         standard output. The optional *argument* is a directory to list (default is the
         current server directory). Multiple arguments can be used to pass non-standard
@@ -292,40 +292,40 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
         >
         > If your server supports the command, [`mlsd()`](ftplib.md#ftplib.FTP.mlsd "ftplib.FTP.mlsd") offers a better API.
 
-    rename(*fromname*, *toname*)
+    `rename(fromname, toname)`
     :   Rename file *fromname* on the server to *toname*.
 
-    delete(*filename*)
+    `delete(filename)`
     :   Remove the file named *filename* from the server. If successful, returns the
         text of the response, otherwise raises [`error_perm`](ftplib.md#ftplib.error_perm "ftplib.error_perm") on permission errors or
         [`error_reply`](ftplib.md#ftplib.error_reply "ftplib.error_reply") on other errors.
 
-    cwd(*pathname*)
+    `cwd(pathname)`
     :   Set the current directory on the server.
 
-    mkd(*pathname*)
+    `mkd(pathname)`
     :   Create a new directory on the server.
 
-    pwd()
+    `pwd()`
     :   Return the pathname of the current directory on the server.
 
-    rmd(*dirname*)
+    `rmd(dirname)`
     :   Remove the directory named *dirname* on the server.
 
-    size(*filename*)
+    `size(filename)`
     :   Request the size of the file named *filename* on the server. On success, the
         size of the file is returned as an integer, otherwise `None` is returned.
         Note that the `SIZE` command is not standardized, but is supported by many
         common server implementations.
 
-    quit()
+    `quit()`
     :   Send a `QUIT` command to the server and close the connection. This is the
         “polite” way to close a connection, but it may raise an exception if the server
         responds with an error to the `QUIT` command. This implies a call to the
         [`close()`](ftplib.md#ftplib.FTP.close "ftplib.FTP.close") method which renders the [`FTP`](ftplib.md#ftplib.FTP "ftplib.FTP") instance useless for
         subsequent calls (see below).
 
-    close()
+    `close()`
     :   Close the connection unilaterally. This should not be applied to an already
         closed connection such as after a successful call to [`quit()`](ftplib.md#ftplib.FTP.quit "ftplib.FTP.quit").
         After this call the [`FTP`](ftplib.md#ftplib.FTP "ftplib.FTP") instance should not be used any more (after
@@ -334,7 +334,7 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
 
 ### FTP_TLS objects
 
-*class* ftplib.FTP_TLS(*host=''*, *user=''*, *passwd=''*, *acct=''*, *\**, *context=None*, *timeout=None*, *source_address=None*, *encoding='utf-8'*)
+`class ftplib.FTP_TLS(host='', user='', passwd='', acct='', *, context=None, timeout=None, source_address=None, encoding='utf-8')`
 :   An [`FTP`](ftplib.md#ftplib.FTP "ftplib.FTP") subclass which adds TLS support to FTP as described in
     [**RFC 4217**](https://datatracker.ietf.org/doc/html/rfc4217.html).
     Connect to port 21 implicitly securing the FTP control connection
@@ -398,10 +398,10 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
     `FTP_TLS` class inherits from [`FTP`](ftplib.md#ftplib.FTP "ftplib.FTP"),
     defining these additional methods and attributes:
 
-    ssl_version
+    `ssl_version`
     :   The SSL version to use (defaults to [`ssl.PROTOCOL_SSLv23`](ssl.md#ssl.PROTOCOL_SSLv23 "ssl.PROTOCOL_SSLv23")).
 
-    auth()
+    `auth()`
     :   Set up a secure control connection by using TLS or SSL, depending on what
         is specified in the [`ssl_version`](ftplib.md#ftplib.FTP_TLS.ssl_version "ftplib.FTP_TLS.ssl_version") attribute.
 
@@ -409,38 +409,38 @@ drwxr-xr-x    3 1176     1176         4096 Oct 10  2012 tools
         [`ssl.SSLContext.check_hostname`](ssl.md#ssl.SSLContext.check_hostname "ssl.SSLContext.check_hostname") and *Server Name Indication* (see
         [`ssl.HAS_SNI`](ssl.md#ssl.HAS_SNI "ssl.HAS_SNI")).
 
-    ccc()
+    `ccc()`
     :   Revert control channel back to plaintext. This can be useful to take
         advantage of firewalls that know how to handle NAT with non-secure FTP
         without opening fixed ports.
 
         Added in version 3.3.
 
-    prot_p()
+    `prot_p()`
     :   Set up secure data connection.
 
-    prot_c()
+    `prot_c()`
     :   Set up clear text data connection.
 
 ### Module variables
 
-*exception* ftplib.error_reply
+`exception ftplib.error_reply`
 :   Exception raised when an unexpected reply is received from the server.
 
-*exception* ftplib.error_temp
+`exception ftplib.error_temp`
 :   Exception raised when an error code signifying a temporary error (response
     codes in the range 400–499) is received.
 
-*exception* ftplib.error_perm
+`exception ftplib.error_perm`
 :   Exception raised when an error code signifying a permanent error (response
     codes in the range 500–599) is received.
 
-*exception* ftplib.error_proto
+`exception ftplib.error_proto`
 :   Exception raised when a reply is received from the server that does not fit
     the response specifications of the File Transfer Protocol, i.e. begin with a
     digit in the range 1–5.
 
-ftplib.all_errors
+`ftplib.all_errors`
 :   The set of all exceptions (as a tuple) that methods of [`FTP`](ftplib.md#ftplib.FTP "ftplib.FTP")
     instances may raise as a result of problems with the FTP connection (as
     opposed to programming errors made by the caller). This set includes the

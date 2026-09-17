@@ -23,7 +23,7 @@ See also the [Examples](asyncio-queue.md#examples) section below.
 
 ## Queue
 
-*class* asyncio.Queue(*maxsize=0*)
+`class asyncio.Queue(maxsize=0)`
 :   A first in, first out (FIFO) queue.
 
     If *maxsize* is less than or equal to zero, the queue size is
@@ -39,27 +39,27 @@ See also the [Examples](asyncio-queue.md#examples) section below.
 
     This class is [not thread safe](asyncio-dev.md#asyncio-multithreading).
 
-    maxsize
+    `maxsize`
     :   Number of items allowed in the queue.
 
-    empty()
+    `empty()`
     :   Return `True` if the queue is empty, `False` otherwise.
 
-    full()
+    `full()`
     :   Return `True` if there are [`maxsize`](asyncio-queue.md#asyncio.Queue.maxsize "asyncio.Queue.maxsize") items in the queue.
 
         If the queue was initialized with `maxsize=0` (the default),
         then [`full()`](asyncio-queue.md#asyncio.Queue.full "asyncio.Queue.full") never returns `True`.
 
-    *async* get()
+    `async get()`
     :   Remove and return an item from the queue. If queue is empty,
         wait until an item is available.
 
-    get_nowait()
+    `get_nowait()`
     :   Return an item if one is immediately available, else raise
         [`QueueEmpty`](asyncio-queue.md#asyncio.QueueEmpty "asyncio.QueueEmpty").
 
-    *async* join()
+    `async join()`
     :   Block until all items in the queue have been received and processed.
 
         The count of unfinished tasks goes up whenever an item is added
@@ -68,19 +68,19 @@ See also the [Examples](asyncio-queue.md#examples) section below.
         work on it is complete. When the count of unfinished tasks drops
         to zero, [`join()`](asyncio-queue.md#asyncio.Queue.join "asyncio.Queue.join") unblocks.
 
-    *async* put(*item*)
+    `async put(item)`
     :   Put an item into the queue. If the queue is full, wait until a
         free slot is available before adding the item.
 
-    put_nowait(*item*)
+    `put_nowait(item)`
     :   Put an item into the queue without blocking.
 
         If no free slot is immediately available, raise [`QueueFull`](asyncio-queue.md#asyncio.QueueFull "asyncio.QueueFull").
 
-    qsize()
+    `qsize()`
     :   Return the number of items in the queue.
 
-    task_done()
+    `task_done()`
     :   Indicate that a formerly enqueued work item is complete.
 
         Used by queue consumers. For each [`get()`](asyncio-queue.md#asyncio.Queue.get "asyncio.Queue.get") used to
@@ -97,7 +97,7 @@ See also the [Examples](asyncio-queue.md#examples) section below.
 
 ## Priority Queue
 
-*class* asyncio.PriorityQueue
+`class asyncio.PriorityQueue`
 :   A variant of [`Queue`](asyncio-queue.md#asyncio.Queue "asyncio.Queue"); retrieves entries in priority order
     (lowest first).
 
@@ -106,17 +106,17 @@ See also the [Examples](asyncio-queue.md#examples) section below.
 
 ## LIFO Queue
 
-*class* asyncio.LifoQueue
+`class asyncio.LifoQueue`
 :   A variant of [`Queue`](asyncio-queue.md#asyncio.Queue "asyncio.Queue") that retrieves most recently added
     entries first (last in, first out).
 
 ## Exceptions
 
-*exception* asyncio.QueueEmpty
+`exception asyncio.QueueEmpty`
 :   This exception is raised when the [`get_nowait()`](asyncio-queue.md#asyncio.Queue.get_nowait "asyncio.Queue.get_nowait") method
     is called on an empty queue.
 
-*exception* asyncio.QueueFull
+`exception asyncio.QueueFull`
 :   Exception raised when the [`put_nowait()`](asyncio-queue.md#asyncio.Queue.put_nowait "asyncio.Queue.put_nowait") method is called
     on a queue that has reached its *maxsize*.
 

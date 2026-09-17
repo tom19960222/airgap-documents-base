@@ -37,23 +37,23 @@ Selection of a target object occurs as follows:
 4. Call to *<target>.dnd_commit(source, event)* to notify of drop
 5. Call to *<source>.dnd_end(target, event)* to signal end of drag-and-drop
 
-*class* tkinter.dnd.DndHandler(*source*, *event*)
+`class tkinter.dnd.DndHandler(source, event)`
 :   The *DndHandler* class handles drag-and-drop events tracking Motion and
     ButtonRelease events on the root of the event widget.
 
-    cancel(*event=None*)
+    `cancel(event=None)`
     :   Cancel the drag-and-drop process.
 
-    finish(*event*, *commit=0*)
+    `finish(event, commit=0)`
     :   Execute end of drag-and-drop functions.
 
-    on_motion(*event*)
+    `on_motion(event)`
     :   Inspect area below mouse for target objects while drag is performed.
 
-    on_release(*event*)
+    `on_release(event)`
     :   Signal end of drag when the release pattern is triggered.
 
-tkinter.dnd.dnd_start(*source*, *event*)
+`tkinter.dnd.dnd_start(source, event)`
 :   Factory function for drag-and-drop process.
 
 > **See also:**

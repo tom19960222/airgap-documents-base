@@ -158,7 +158,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
 ## Data Types
 
-*class* enum.EnumType
+`class enum.EnumType`
 :   *EnumType* is the [metaclass](https://docs.python.org/3.12/glossary.html#term-metaclass) for *enum* enumerations. It is possible
     to subclass *EnumType* – see [Subclassing EnumType](https://docs.python.org/3.12/howto/enum.html#enumtype-examples)
     for details.
@@ -168,7 +168,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
     final *enum*, as well as creating the enum members, properly handling
     duplicates, providing iteration over the enum class, etc.
 
-    __call__(*cls*, *value*, *names=None*, *\**, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)
+    `__call__(cls, value, names=None, *, module=None, qualname=None, type=None, start=1, boundary=None)`
     :   This method is called in two different ways:
 
         - to look up an existing member:
@@ -205,7 +205,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
           > boundary:
           > :   How to handle out-of-range values from bit operations ([`Flag`](enum.md#enum.Flag "enum.Flag") only).
 
-    __contains__(*cls*, *member*)
+    `__contains__(cls, member)`
     :   Returns `True` if member belongs to the `cls`:
 
         ```python3
@@ -219,7 +219,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
     Changed in version 3.12: Before Python 3.12, a `TypeError` is raised if a
     non-Enum-member is used in a containment check.
 
-    __dir__(*cls*)
+    `__dir__(cls)`
     :   Returns `['__class__', '__doc__', '__members__', '__module__']` and the
         names of the members in *cls*:
 
@@ -228,7 +228,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         ['BLUE', 'GREEN', 'RED', '__class__', '__contains__', '__doc__', '__getitem__', '__init_subclass__', '__iter__', '__len__', '__members__', '__module__', '__name__', '__qualname__']
         ```
 
-    __getitem__(*cls*, *name*)
+    `__getitem__(cls, name)`
     :   Returns the Enum member in *cls* matching *name*, or raises a [`KeyError`](exceptions.md#KeyError "KeyError"):
 
         ```python3
@@ -236,7 +236,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         <Color.BLUE: 3>
         ```
 
-    __iter__(*cls*)
+    `__iter__(cls)`
     :   Returns each member in *cls* in definition order:
 
         ```python3
@@ -244,7 +244,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         [<Color.RED: 1>, <Color.GREEN: 2>, <Color.BLUE: 3>]
         ```
 
-    __len__(*cls*)
+    `__len__(cls)`
     :   Returns the number of member in *cls*:
 
         ```python3
@@ -252,10 +252,10 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         3
         ```
 
-    __members__
+    `__members__`
     :   Returns a mapping of every enum name to its member, including aliases
 
-    __reversed__(*cls*)
+    `__reversed__(cls)`
     :   Returns each member in *cls* in reverse definition order:
 
         ```python3
@@ -265,10 +265,10 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
     Added in version 3.11: Before 3.11 `enum` used `EnumMeta` type, which is kept as an alias.
 
-*class* enum.Enum
+`class enum.Enum`
 :   *Enum* is the base class for all *enum* enumerations.
 
-    name
+    `name`
     :   The name used to define the `Enum` member:
 
         ```python3
@@ -276,7 +276,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         'BLUE'
         ```
 
-    value
+    `value`
     :   The value given to the `Enum` member:
 
         ```python3
@@ -300,17 +300,17 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         > quadratic performance impact during creation relative to the
         > total number of mutable/unhashable values in the enum.
 
-    _name_
+    `_name_`
     :   Name of the member.
 
-    _value_
+    `_value_`
     :   Value of the member, can be set in [`__new__()`](enum.md#enum.Enum.__new__ "enum.Enum.__new__").
 
-    _order_
+    `_order_`
     :   No longer used, kept for backward compatibility.
         (class attribute, removed during class creation).
 
-    _ignore_
+    `_ignore_`
     :   `_ignore_` is only used during creation and is removed from the
         enumeration once creation is complete.
 
@@ -318,7 +318,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         names will also be removed from the completed enumeration. See
         [TimePeriod](https://docs.python.org/3.12/howto/enum.html#enum-time-period) for an example.
 
-    __dir__(*self*)
+    `__dir__(self)`
     :   Returns `['__class__', '__doc__', '__module__', 'name', 'value']` and
         any public methods defined on *self.__class__*:
 
@@ -340,7 +340,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         ['__class__', '__doc__', '__eq__', '__hash__', '__module__', 'name', 'today', 'value']
         ```
 
-    _generate_next_value_(*name*, *start*, *count*, *last_values*)
+    `_generate_next_value_(name, start, count, last_values)`
     :   > name:
         > :   The name of the member being defined (e.g. ‘RED’).
         >
@@ -369,7 +369,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         9
         ```
 
-    __init__(*self*, *\*args*, *\*\*kwds*)
+    `__init__(self, *args, **kwds)`
     :   By default, does nothing. If multiple values are given in the member
         assignment, those values become separate arguments to `__init__`; e.g.
 
@@ -381,11 +381,11 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
         `Weekday.__init__()` would be called as `Weekday.__init__(self, 1, 'Mon')`
 
-    __init_subclass__(*cls*, *\*\*kwds*)
+    `__init_subclass__(cls, **kwds)`
     :   A *classmethod* that is used to further configure subsequent subclasses.
         By default, does nothing.
 
-    _missing_(*cls*, *value*)
+    `_missing_(cls, value)`
     :   A *classmethod* for looking up values not found in *cls*. By default it
         does nothing, but can be overridden to implement custom search behavior:
 
@@ -408,7 +408,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         <Build.DEBUG: 'debug'>
         ```
 
-    __new__(*cls*, *\*args*, *\*\*kwds*)
+    `__new__(cls, *args, **kwds)`
     :   By default, doesn’t exist. If specified, either in the enum class
         definition or in a mixin class (such as `int`), all values given
         in the member assignment will be passed; e.g.
@@ -426,7 +426,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         > When writing a custom `__new__`, do not use `super().__new__` –
         > call the appropriate `__new__` instead.
 
-    __repr__(*self*)
+    `__repr__(self)`
     :   Returns the string used for *repr()* calls. By default, returns the
         *Enum* name, member name, and value, but can be overridden:
 
@@ -443,7 +443,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         (OtherStyle.ALTERNATE, 'OtherStyle.ALTERNATE', 'OtherStyle.ALTERNATE')
         ```
 
-    __str__(*self*)
+    `__str__(self)`
     :   Returns the string used for *str()* calls. By default, returns the
         *Enum* name and member name, but can be overridden:
 
@@ -459,7 +459,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         (<OtherStyle.ALTERNATE: 1>, 'ALTERNATE', 'ALTERNATE')
         ```
 
-    __format__(*self*)
+    `__format__(self)`
     :   Returns the string used for *format()* and *f-string* calls. By default,
         returns [`__str__()`](enum.md#enum.Enum.__str__ "enum.Enum.__str__") return value, but can be overridden:
 
@@ -482,7 +482,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
     Changed in version 3.12: Added [Dataclass support](https://docs.python.org/3.12/howto/enum.html#enum-dataclass-support)
 
-*class* enum.IntEnum
+`class enum.IntEnum`
 :   *IntEnum* is the same as *Enum*, but its members are also integers and can be
     used anywhere that an integer can be used. If any integer operation is performed
     with an *IntEnum* member, the resulting value loses its enumeration status.
@@ -513,7 +513,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
     better support the *replacement of existing constants* use-case.
     [`__format__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__format__ "object.__format__") was already `int.__format__()` for that same reason.
 
-*class* enum.StrEnum
+`class enum.StrEnum`
 :   *StrEnum* is the same as *Enum*, but its members are also strings and can be used
     in most of the same places that a string can be used. The result of any string
     operation performed on or with a *StrEnum* member is not part of the enumeration.
@@ -538,12 +538,12 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
     Added in version 3.11.
 
-*class* enum.Flag
+`class enum.Flag`
 :   `Flag` is the same as [`Enum`](enum.md#enum.Enum "enum.Enum"), but its members support the bitwise
     operators `&` (*AND*), `|` (*OR*), `^` (*XOR*), and `~` (*INVERT*);
     the results of those operations are (aliases of) members of the enumeration.
 
-    __contains__(*self*, *value*)
+    `__contains__(self, value)`
     :   Returns *True* if value is in self:
 
         ```python3
@@ -565,7 +565,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         False
         ```
 
-    __iter__(self):
+    `__iter__(self):`
     :   Returns all contained non-alias members:
 
         ```python3
@@ -577,7 +577,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
         Added in version 3.11.
 
-    __len__(self):
+    `__len__(self):`
     :   Returns number of members in flag:
 
         ```python3
@@ -589,7 +589,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
         Added in version 3.11.
 
-    __bool__(self):
+    `__bool__(self):`
     :   Returns *True* if any members in flag, *False* otherwise:
 
         ```python3
@@ -602,7 +602,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         False
         ```
 
-    __or__(*self*, *other*)
+    `__or__(self, other)`
     :   Returns current flag binary or’ed with other:
 
         ```python3
@@ -610,7 +610,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         <Color.RED|GREEN: 3>
         ```
 
-    __and__(*self*, *other*)
+    `__and__(self, other)`
     :   Returns current flag binary and’ed with other:
 
         ```python3
@@ -620,7 +620,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         <Color: 0>
         ```
 
-    __xor__(*self*, *other*)
+    `__xor__(self, other)`
     :   Returns current flag binary xor’ed with other:
 
         ```python3
@@ -630,7 +630,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         <Color.RED|GREEN|BLUE: 7>
         ```
 
-    __invert__(self):
+    `__invert__(self):`
     :   Returns all the flags in *type(self)* that are not in self:
 
         ```python3
@@ -642,7 +642,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         <Color.GREEN|BLUE: 6>
         ```
 
-    _numeric_repr_()
+    `_numeric_repr_()`
     :   Function used to format any remaining unnamed numeric values. Default is
         the value’s repr; common choices are [`hex()`](functions.md#hex "hex") and [`oct()`](functions.md#oct "oct").
 
@@ -659,7 +659,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
     <Color: 0>
     ```
 
-*class* enum.IntFlag
+`class enum.IntFlag`
 :   *IntFlag* is the same as *Flag*, but its members are also integers and can be
     used anywhere that an integer can be used.
 
@@ -709,7 +709,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
     union of all flags not in the given flag, rather than a negative value.
     This matches the existing [`Flag`](enum.md#enum.Flag "enum.Flag") behavior.
 
-*class* enum.ReprEnum
+`class enum.ReprEnum`
 :   `ReprEnum` uses the [`repr()`](enum.md#enum.Enum.__repr__ "enum.Enum.__repr__") of [`Enum`](enum.md#enum.Enum "enum.Enum"),
     but the [`str()`](stdtypes.md#str "str") of the mixed-in data type:
 
@@ -722,11 +722,11 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
     Added in version 3.11.
 
-*class* enum.EnumCheck
+`class enum.EnumCheck`
 :   *EnumCheck* contains the options used by the [`verify()`](enum.md#enum.verify "enum.verify") decorator to ensure
     various constraints; failed constraints result in a [`ValueError`](exceptions.md#ValueError "ValueError").
 
-    UNIQUE
+    `UNIQUE`
     :   Ensure that each value has only one name:
 
         ```python3
@@ -742,7 +742,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         ValueError: aliases found in <enum 'Color'>: CRIMSON -> RED
         ```
 
-    CONTINUOUS
+    `CONTINUOUS`
     :   Ensure that there are no missing values between the lowest-valued member
         and the highest-valued member:
 
@@ -758,7 +758,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         ValueError: invalid enum 'Color': missing values 3, 4
         ```
 
-    NAMED_FLAGS
+    `NAMED_FLAGS`
     :   Ensure that any flag groups/masks contain only named flags – useful when
         values are specified instead of being generated by [`auto()`](enum.md#enum.auto "enum.auto"):
 
@@ -782,11 +782,11 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
 
     Added in version 3.11.
 
-*class* enum.FlagBoundary
+`class enum.FlagBoundary`
 :   *FlagBoundary* controls how out-of-range values are handled in *Flag* and its
     subclasses.
 
-    STRICT
+    `STRICT`
     :   Out-of-range values cause a [`ValueError`](exceptions.md#ValueError "ValueError") to be raised. This is the
         default for [`Flag`](enum.md#enum.Flag "enum.Flag"):
 
@@ -805,7 +805,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
           allowed 0b0 00111
         ```
 
-    CONFORM
+    `CONFORM`
     :   Out-of-range values have invalid values removed, leaving a valid *Flag*
         value:
 
@@ -820,7 +820,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         <ConformFlag.BLUE: 4>
         ```
 
-    EJECT
+    `EJECT`
     :   Out-of-range values lose their *Flag* membership and revert to [`int`](functions.md#int "int").
 
         ```
@@ -834,7 +834,7 @@ Added in version 3.11: `StrEnum`, `EnumCheck`, `ReprEnum`, `FlagBoundary`, `prop
         20
         ```
 
-    KEEP
+    `KEEP`
     :   Out-of-range values are kept, and the *Flag* membership is kept.
         This is the default for [`IntFlag`](enum.md#enum.IntFlag "enum.IntFlag"):
 
@@ -892,7 +892,7 @@ Added in version 3.7: `_ignore_`
 
 ## Utilities and Decorators
 
-*class* enum.auto
+`class enum.auto`
 :   *auto* can be used in place of a value. If used, the *Enum* machinery will
     call an *Enum*’s [`_generate_next_value_()`](enum.md#enum.Enum._generate_next_value_ "enum.Enum._generate_next_value_") to get an appropriate value.
     For *Enum* and *IntEnum* that appropriate value will be the last value plus
@@ -921,7 +921,7 @@ Added in version 3.7: `_ignore_`
     > the highest member value incremented by 1, and will fail if any
     > member is an incompatible type.
 
-@enum.property
+`@enum.property`
 :   A decorator similar to the built-in *property*, but specifically for
     enumerations. It allows member attributes to have the same names as members
     themselves.
@@ -935,7 +935,7 @@ Added in version 3.7: `_ignore_`
 
     Added in version 3.11.
 
-@enum.unique
+`@enum.unique`
 :   A [`class`](https://docs.python.org/3.12/reference/compound_stmts.html#class) decorator specifically for enumerations. It searches an
     enumeration’s [`__members__`](enum.md#enum.EnumType.__members__ "enum.EnumType.__members__"), gathering any aliases it finds; if any are
     found [`ValueError`](exceptions.md#ValueError "ValueError") is raised with the details:
@@ -954,24 +954,24 @@ Added in version 3.7: `_ignore_`
     ValueError: duplicate values found in <enum 'Mistake'>: FOUR -> THREE
     ```
 
-@enum.verify
+`@enum.verify`
 :   A [`class`](https://docs.python.org/3.12/reference/compound_stmts.html#class) decorator specifically for enumerations. Members from
     [`EnumCheck`](enum.md#enum.EnumCheck "enum.EnumCheck") are used to specify which constraints should be checked
     on the decorated enumeration.
 
     Added in version 3.11.
 
-@enum.member
+`@enum.member`
 :   A decorator for use in enums: its target will become a member.
 
     Added in version 3.11.
 
-@enum.nonmember
+`@enum.nonmember`
 :   A decorator for use in enums: its target will not become a member.
 
     Added in version 3.11.
 
-@enum.global_enum
+`@enum.global_enum`
 :   A decorator to change the [`str()`](stdtypes.md#str "str") and [`repr()`](functions.md#repr "repr") of an enum
     to show its members as belonging to the module instead of its class.
     Should only be used when the enum members are exported
@@ -979,7 +979,7 @@ Added in version 3.7: `_ignore_`
 
     Added in version 3.11.
 
-enum.show_flag_values(*value*)
+`enum.show_flag_values(value)`
 :   Return a list of all power-of-two integers contained in a flag *value*.
 
     Added in version 3.11.

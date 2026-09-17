@@ -15,7 +15,7 @@ The `code` module provides facilities to implement read-eval-print loops in
 Python. Two classes and convenience functions are included which can be used to
 build applications which provide an interactive interpreter prompt.
 
-*class* code.InteractiveInterpreter(*locals=None*)
+`class code.InteractiveInterpreter(locals=None)`
 :   This class deals with parsing and interpreter state (the user’s namespace); it
     does not deal with input buffering or prompting or input file naming (the
     filename is always passed in explicitly). The optional *locals* argument
@@ -23,12 +23,12 @@ build applications which provide an interactive interpreter prompt.
     created dictionary with key `'__name__'` set to `'__console__'` and key
     `'__doc__'` set to `None`.
 
-*class* code.InteractiveConsole(*locals=None*, *filename='<console>'*)
+`class code.InteractiveConsole(locals=None, filename='<console>')`
 :   Closely emulate the behavior of the interactive Python interpreter. This class
     builds on [`InteractiveInterpreter`](code.md#code.InteractiveInterpreter "code.InteractiveInterpreter") and adds prompting using the familiar
     `sys.ps1` and `sys.ps2`, and input buffering.
 
-code.interact(*banner=None*, *readfunc=None*, *local=None*, *exitmsg=None*)
+`code.interact(banner=None, readfunc=None, local=None, exitmsg=None)`
 :   Convenience function to run a read-eval-print loop. This creates a new
     instance of [`InteractiveConsole`](code.md#code.InteractiveConsole "code.InteractiveConsole") and sets *readfunc* to be used as
     the [`InteractiveConsole.raw_input()`](code.md#code.InteractiveConsole.raw_input "code.InteractiveConsole.raw_input") method, if provided. If *local* is
@@ -40,7 +40,7 @@ code.interact(*banner=None*, *readfunc=None*, *local=None*, *exitmsg=None*)
 
     Changed in version 3.6: Added *exitmsg* parameter.
 
-code.compile_command(*source*, *filename='<input>'*, *symbol='single'*)
+`code.compile_command(source, filename='<input>', symbol='single')`
 :   This function is useful for programs that want to emulate Python’s interpreter
     main loop (a.k.a. the read-eval-print loop). The tricky part is to determine
     when the user has entered an incomplete command that can be completed by
@@ -61,7 +61,7 @@ code.compile_command(*source*, *filename='<input>'*, *symbol='single'*)
 
 ## Interactive Interpreter Objects
 
-InteractiveInterpreter.runsource(*source*, *filename='<input>'*, *symbol='single'*)
+`InteractiveInterpreter.runsource(source, filename='<input>', symbol='single')`
 :   Compile and run some source in the interpreter. Arguments are the same as for
     [`compile_command()`](code.md#code.compile_command "code.compile_command"); the default for *filename* is `'<input>'`, and for
     *symbol* is `'single'`. One of several things can happen:
@@ -79,7 +79,7 @@ InteractiveInterpreter.runsource(*source*, *filename='<input>'*, *symbol='single
     The return value can be used to decide whether to use `sys.ps1` or `sys.ps2`
     to prompt the next line.
 
-InteractiveInterpreter.runcode(*code*)
+`InteractiveInterpreter.runcode(code)`
 :   Execute a code object. When an exception occurs, [`showtraceback()`](code.md#code.InteractiveInterpreter.showtraceback "code.InteractiveInterpreter.showtraceback") is called
     to display a traceback. All exceptions are caught except [`SystemExit`](exceptions.md#SystemExit "SystemExit"),
     which is allowed to propagate.
@@ -88,14 +88,14 @@ InteractiveInterpreter.runcode(*code*)
     this code, and may not always be caught. The caller should be prepared to deal
     with it.
 
-InteractiveInterpreter.showsyntaxerror(*filename=None*)
+`InteractiveInterpreter.showsyntaxerror(filename=None)`
 :   Display the syntax error that just occurred. This does not display a stack
     trace because there isn’t one for syntax errors. If *filename* is given, it is
     stuffed into the exception instead of the default filename provided by Python’s
     parser, because it always uses `'<string>'` when reading from a string. The
     output is written by the [`write()`](code.md#code.InteractiveInterpreter.write "code.InteractiveInterpreter.write") method.
 
-InteractiveInterpreter.showtraceback()
+`InteractiveInterpreter.showtraceback()`
 :   Display the exception that just occurred. We remove the first stack item
     because it is within the interpreter object implementation. The output is
     written by the [`write()`](code.md#code.InteractiveInterpreter.write "code.InteractiveInterpreter.write") method.
@@ -103,7 +103,7 @@ InteractiveInterpreter.showtraceback()
     Changed in version 3.5: The full chained traceback is displayed instead
     of just the primary traceback.
 
-InteractiveInterpreter.write(*data*)
+`InteractiveInterpreter.write(data)`
 :   Write a string to the standard error stream (`sys.stderr`). Derived classes
     should override this to provide the appropriate output handling as needed.
 
@@ -113,7 +113,7 @@ The [`InteractiveConsole`](code.md#code.InteractiveConsole "code.InteractiveCons
 [`InteractiveInterpreter`](code.md#code.InteractiveInterpreter "code.InteractiveInterpreter"), and so offers all the methods of the
 interpreter objects as well as the following additions.
 
-InteractiveConsole.interact(*banner=None*, *exitmsg=None*)
+`InteractiveConsole.interact(banner=None, exitmsg=None)`
 :   Closely emulate the interactive Python console. The optional *banner* argument
     specify the banner to print before the first interaction; by default it prints a
     banner similar to the one printed by the standard Python interpreter, followed
@@ -128,7 +128,7 @@ InteractiveConsole.interact(*banner=None*, *exitmsg=None*)
 
     Changed in version 3.6: Print an exit message when exiting.
 
-InteractiveConsole.push(*line*)
+`InteractiveConsole.push(line)`
 :   Push a line of source text to the interpreter. The line should not have a
     trailing newline; it may have internal newlines. The line is appended to a
     buffer and the interpreter’s [`runsource()`](code.md#code.InteractiveInterpreter.runsource "code.InteractiveInterpreter.runsource") method is called with the
@@ -138,10 +138,10 @@ InteractiveConsole.push(*line*)
     return value is `True` if more input is required, `False` if the line was
     dealt with in some way (this is the same as `runsource()`).
 
-InteractiveConsole.resetbuffer()
+`InteractiveConsole.resetbuffer()`
 :   Remove any unhandled source text from the input buffer.
 
-InteractiveConsole.raw_input(*prompt=''*)
+`InteractiveConsole.raw_input(prompt='')`
 :   Write a prompt and read a line. The returned line does not include the trailing
     newline. When the user enters the EOF key sequence, [`EOFError`](exceptions.md#EOFError "EOFError") is raised.
     The base implementation reads from `sys.stdin`; a subclass may replace this

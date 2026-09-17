@@ -57,7 +57,7 @@ at Python startup.
 
 ## Dumping the traceback
 
-faulthandler.dump_traceback(*file=sys.stderr*, *all_threads=True*)
+`faulthandler.dump_traceback(file=sys.stderr, all_threads=True)`
 :   Dump the tracebacks of all threads into *file*. If *all_threads* is
     `False`, dump only the current thread.
 
@@ -69,7 +69,7 @@ faulthandler.dump_traceback(*file=sys.stderr*, *all_threads=True*)
 
 ## Fault handler state
 
-faulthandler.enable(*file=sys.stderr*, *all_threads=True*)
+`faulthandler.enable(file=sys.stderr, all_threads=True)`
 :   Enable the fault handler: install handlers for the [`SIGSEGV`](signal.md#signal.SIGSEGV "signal.SIGSEGV"),
     [`SIGFPE`](signal.md#signal.SIGFPE "signal.SIGFPE"), [`SIGABRT`](signal.md#signal.SIGABRT "signal.SIGABRT"), [`SIGBUS`](signal.md#signal.SIGBUS "signal.SIGBUS")
     and [`SIGILL`](signal.md#signal.SIGILL "signal.SIGILL")
@@ -87,16 +87,16 @@ faulthandler.enable(*file=sys.stderr*, *all_threads=True*)
     Changed in version 3.10: The dump now mentions if a garbage collector collection is running
     if *all_threads* is true.
 
-faulthandler.disable()
+`faulthandler.disable()`
 :   Disable the fault handler: uninstall the signal handlers installed by
     [`enable()`](faulthandler.md#faulthandler.enable "faulthandler.enable").
 
-faulthandler.is_enabled()
+`faulthandler.is_enabled()`
 :   Check if the fault handler is enabled.
 
 ## Dumping the tracebacks after a timeout
 
-faulthandler.dump_traceback_later(*timeout*, *repeat=False*, *file=sys.stderr*, *exit=False*)
+`faulthandler.dump_traceback_later(timeout, repeat=False, file=sys.stderr, exit=False)`
 :   Dump the tracebacks of all threads, after a timeout of *timeout* seconds, or
     every *timeout* seconds if *repeat* is `True`. If *exit* is `True`, call
     `_exit()` with status=1 after dumping the tracebacks. (Note
@@ -115,12 +115,12 @@ faulthandler.dump_traceback_later(*timeout*, *repeat=False*, *file=sys.stderr*, 
 
     Changed in version 3.7: This function is now always available.
 
-faulthandler.cancel_dump_traceback_later()
+`faulthandler.cancel_dump_traceback_later()`
 :   Cancel the last call to [`dump_traceback_later()`](faulthandler.md#faulthandler.dump_traceback_later "faulthandler.dump_traceback_later").
 
 ## Dumping the traceback on a user signal
 
-faulthandler.register(*signum*, *file=sys.stderr*, *all_threads=True*, *chain=False*)
+`faulthandler.register(signum, file=sys.stderr, all_threads=True, chain=False)`
 :   Register a user signal: install a handler for the *signum* signal to dump
     the traceback of all threads, or of the current thread if *all_threads* is
     `False`, into *file*. Call the previous handler if chain is `True`.
@@ -132,7 +132,7 @@ faulthandler.register(*signum*, *file=sys.stderr*, *all_threads=True*, *chain=Fa
 
     Changed in version 3.5: Added support for passing file descriptor to this function.
 
-faulthandler.unregister(*signum*)
+`faulthandler.unregister(signum)`
 :   Unregister a user signal: uninstall the handler of the *signum* signal
     installed by [`register()`](faulthandler.md#faulthandler.register "faulthandler.register"). Return `True` if the signal was registered,
     `False` otherwise.

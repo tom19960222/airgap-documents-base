@@ -17,59 +17,59 @@ The module uses the same names and symbols as defined by Unicode
 Standard Annex #44, [“Unicode Character Database”](https://www.unicode.org/reports/tr44/). It defines the
 following functions:
 
-unicodedata.lookup(*name*)
+`unicodedata.lookup(name)`
 :   Look up character by name. If a character with the given name is found, return
     the corresponding character. If not found, [`KeyError`](exceptions.md#KeyError "KeyError") is raised.
 
     Changed in version 3.3: Support for name aliases [[1]](unicodedata.md#id3) and named sequences [[2]](unicodedata.md#id4) has been added.
 
-unicodedata.name(*chr*[, *default*])
+`unicodedata.name(chr[, default])`
 :   Returns the name assigned to the character *chr* as a string. If no
     name is defined, *default* is returned, or, if not given, [`ValueError`](exceptions.md#ValueError "ValueError") is
     raised.
 
-unicodedata.decimal(*chr*[, *default*])
+`unicodedata.decimal(chr[, default])`
 :   Returns the decimal value assigned to the character *chr* as integer.
     If no such value is defined, *default* is returned, or, if not given,
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
 
-unicodedata.digit(*chr*[, *default*])
+`unicodedata.digit(chr[, default])`
 :   Returns the digit value assigned to the character *chr* as integer.
     If no such value is defined, *default* is returned, or, if not given,
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
 
-unicodedata.numeric(*chr*[, *default*])
+`unicodedata.numeric(chr[, default])`
 :   Returns the numeric value assigned to the character *chr* as float.
     If no such value is defined, *default* is returned, or, if not given,
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
 
-unicodedata.category(*chr*)
+`unicodedata.category(chr)`
 :   Returns the general category assigned to the character *chr* as
     string.
 
-unicodedata.bidirectional(*chr*)
+`unicodedata.bidirectional(chr)`
 :   Returns the bidirectional class assigned to the character *chr* as
     string. If no such value is defined, an empty string is returned.
 
-unicodedata.combining(*chr*)
+`unicodedata.combining(chr)`
 :   Returns the canonical combining class assigned to the character *chr*
     as integer. Returns `0` if no combining class is defined.
 
-unicodedata.east_asian_width(*chr*)
+`unicodedata.east_asian_width(chr)`
 :   Returns the east asian width assigned to the character *chr* as
     string.
 
-unicodedata.mirrored(*chr*)
+`unicodedata.mirrored(chr)`
 :   Returns the mirrored property assigned to the character *chr* as
     integer. Returns `1` if the character has been identified as a “mirrored”
     character in bidirectional text, `0` otherwise.
 
-unicodedata.decomposition(*chr*)
+`unicodedata.decomposition(chr)`
 :   Returns the character decomposition mapping assigned to the character
     *chr* as string. An empty string is returned in case no such mapping is
     defined.
 
-unicodedata.normalize(*form*, *unistr*)
+`unicodedata.normalize(form, unistr)`
 :   Return the normal form *form* for the Unicode string *unistr*. Valid values for
     *form* are ‘NFC’, ‘NFKC’, ‘NFD’, and ‘NFKD’.
 
@@ -100,7 +100,7 @@ unicodedata.normalize(*form*, *unistr*)
     a human reader, if one has combining characters and the other
     doesn’t, they may not compare equal.
 
-unicodedata.is_normalized(*form*, *unistr*)
+`unicodedata.is_normalized(form, unistr)`
 :   Return whether the Unicode string *unistr* is in the normal form *form*. Valid
     values for *form* are ‘NFC’, ‘NFKC’, ‘NFD’, and ‘NFKD’.
 
@@ -108,10 +108,10 @@ unicodedata.is_normalized(*form*, *unistr*)
 
 In addition, the module exposes the following constant:
 
-unicodedata.unidata_version
+`unicodedata.unidata_version`
 :   The version of the Unicode database used in this module.
 
-unicodedata.ucd_3_2_0
+`unicodedata.ucd_3_2_0`
 :   This is an object that has the same methods as the entire module, but uses the
     Unicode database version 3.2 instead, for applications that require this
     specific version of the Unicode database (such as IDNA).

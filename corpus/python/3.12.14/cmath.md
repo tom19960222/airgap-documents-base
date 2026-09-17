@@ -99,7 +99,7 @@ segment that joins the origin to *z*.
 The following functions can be used to convert from the native
 rectangular coordinates to polar coordinates and back.
 
-cmath.phase(*z*)
+`cmath.phase(z)`
 :   Return the phase of *z* (also known as the *argument* of *z*), as a float.
     `phase(z)` is equivalent to `math.atan2(z.imag, z.real)`. The result
     lies in the range [-*π*, *π*], and the branch cut for this operation lies
@@ -119,100 +119,100 @@ cmath.phase(*z*)
 > computed using the built-in [`abs()`](functions.md#abs "abs") function. There is no
 > separate [`cmath`](cmath.md#module-cmath "cmath: Mathematical functions for complex numbers.") module function for this operation.
 
-cmath.polar(*z*)
+`cmath.polar(z)`
 :   Return the representation of *z* in polar coordinates. Returns a
     pair `(r, phi)` where *r* is the modulus of *z* and *phi* is the
     phase of *z*. `polar(z)` is equivalent to `(abs(z),
     phase(z))`.
 
-cmath.rect(*r*, *phi*)
+`cmath.rect(r, phi)`
 :   Return the complex number *z* with polar coordinates *r* and *phi*.
     Equivalent to `complex(r * math.cos(phi), r * math.sin(phi))`.
 
 ## Power and logarithmic functions
 
-cmath.exp(*z*)
+`cmath.exp(z)`
 :   Return *e* raised to the power *z*, where *e* is the base of natural
     logarithms.
 
-cmath.log(*z*[, *base*])
+`cmath.log(z[, base])`
 :   Return the logarithm of *z* to the given *base*. If the *base* is not
     specified, returns the natural logarithm of *z*. There is one branch cut,
     from 0 along the negative real axis to -∞.
 
-cmath.log10(*z*)
+`cmath.log10(z)`
 :   Return the base-10 logarithm of *z*. This has the same branch cut as
     [`log()`](cmath.md#cmath.log "cmath.log").
 
-cmath.sqrt(*z*)
+`cmath.sqrt(z)`
 :   Return the square root of *z*. This has the same branch cut as [`log()`](cmath.md#cmath.log "cmath.log").
 
 ## Trigonometric functions
 
-cmath.acos(*z*)
+`cmath.acos(z)`
 :   Return the arc cosine of *z*. There are two branch cuts: One extends right
     from 1 along the real axis to ∞. The other extends left from -1 along the
     real axis to -∞.
 
-cmath.asin(*z*)
+`cmath.asin(z)`
 :   Return the arc sine of *z*. This has the same branch cuts as [`acos()`](cmath.md#cmath.acos "cmath.acos").
 
-cmath.atan(*z*)
+`cmath.atan(z)`
 :   Return the arc tangent of *z*. There are two branch cuts: One extends from
     `1j` along the imaginary axis to `∞j`. The other extends from `-1j`
     along the imaginary axis to `-∞j`.
 
-cmath.cos(*z*)
+`cmath.cos(z)`
 :   Return the cosine of *z*.
 
-cmath.sin(*z*)
+`cmath.sin(z)`
 :   Return the sine of *z*.
 
-cmath.tan(*z*)
+`cmath.tan(z)`
 :   Return the tangent of *z*.
 
 ## Hyperbolic functions
 
-cmath.acosh(*z*)
+`cmath.acosh(z)`
 :   Return the inverse hyperbolic cosine of *z*. There is one branch cut,
     extending left from 1 along the real axis to -∞.
 
-cmath.asinh(*z*)
+`cmath.asinh(z)`
 :   Return the inverse hyperbolic sine of *z*. There are two branch cuts:
     One extends from `1j` along the imaginary axis to `∞j`. The other
     extends from `-1j` along the imaginary axis to `-∞j`.
 
-cmath.atanh(*z*)
+`cmath.atanh(z)`
 :   Return the inverse hyperbolic tangent of *z*. There are two branch cuts: One
     extends from `1` along the real axis to `∞`. The other extends from
     `-1` along the real axis to `-∞`.
 
-cmath.cosh(*z*)
+`cmath.cosh(z)`
 :   Return the hyperbolic cosine of *z*.
 
-cmath.sinh(*z*)
+`cmath.sinh(z)`
 :   Return the hyperbolic sine of *z*.
 
-cmath.tanh(*z*)
+`cmath.tanh(z)`
 :   Return the hyperbolic tangent of *z*.
 
 ## Classification functions
 
-cmath.isfinite(*z*)
+`cmath.isfinite(z)`
 :   Return `True` if both the real and imaginary parts of *z* are finite, and
     `False` otherwise.
 
     Added in version 3.2.
 
-cmath.isinf(*z*)
+`cmath.isinf(z)`
 :   Return `True` if either the real or the imaginary part of *z* is an
     infinity, and `False` otherwise.
 
-cmath.isnan(*z*)
+`cmath.isnan(z)`
 :   Return `True` if either the real or the imaginary part of *z* is a NaN,
     and `False` otherwise.
 
-cmath.isclose(*a*, *b*, *\**, *rel_tol=1e-09*, *abs_tol=0.0*)
+`cmath.isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)`
 :   Return `True` if the values *a* and *b* are close to each other and
     `False` otherwise.
 
@@ -246,35 +246,35 @@ cmath.isclose(*a*, *b*, *\**, *rel_tol=1e-09*, *abs_tol=0.0*)
 
 ## Constants
 
-cmath.pi
+`cmath.pi`
 :   The mathematical constant *π*, as a float.
 
-cmath.e
+`cmath.e`
 :   The mathematical constant *e*, as a float.
 
-cmath.tau
+`cmath.tau`
 :   The mathematical constant *τ*, as a float.
 
     Added in version 3.6.
 
-cmath.inf
+`cmath.inf`
 :   Floating-point positive infinity. Equivalent to `float('inf')`.
 
     Added in version 3.6.
 
-cmath.infj
+`cmath.infj`
 :   Complex number with zero real part and positive infinity imaginary
     part. Equivalent to `complex(0.0, float('inf'))`.
 
     Added in version 3.6.
 
-cmath.nan
+`cmath.nan`
 :   A floating-point “not a number” (NaN) value. Equivalent to
     `float('nan')`.
 
     Added in version 3.6.
 
-cmath.nanj
+`cmath.nanj`
 :   Complex number with zero real part and NaN imaginary part. Equivalent to
     `complex(0.0, float('nan'))`.
 

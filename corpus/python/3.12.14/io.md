@@ -145,19 +145,19 @@ new APIs.
 
 ## High-level Module Interface
 
-io.DEFAULT_BUFFER_SIZE
+`io.DEFAULT_BUFFER_SIZE`
 :   An int containing the default buffer size used by the module’s buffered I/O
     classes. [`open()`](functions.md#open "open") uses the file’s blksize (as obtained by
     [`os.stat()`](os.md#os.stat "os.stat")) if possible.
 
-io.open(*file*, *mode='r'*, *buffering=-1*, *encoding=None*, *errors=None*, *newline=None*, *closefd=True*, *opener=None*)
+`io.open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)`
 :   This is an alias for the builtin [`open()`](functions.md#open "open") function.
 
     This function raises an [auditing event](sys.md#auditing) `open` with
     arguments *path*, *mode* and *flags*. The *mode* and *flags*
     arguments may have been modified or inferred from the original call.
 
-io.open_code(*path*)
+`io.open_code(path)`
 :   Opens the provided file with mode `'rb'`. This function should be used
     when the intent is to treat the contents as executable code.
 
@@ -171,7 +171,7 @@ io.open_code(*path*)
 
     Added in version 3.8.
 
-io.text_encoding(*encoding*, *stacklevel=2*, */*)
+`io.text_encoding(encoding, stacklevel=2, /)`
 :   This is a helper function for callables that use [`open()`](functions.md#open "open") or
     [`TextIOWrapper`](io.md#io.TextIOWrapper "io.TextIOWrapper") and have an `encoding=None` parameter.
 
@@ -201,11 +201,11 @@ io.text_encoding(*encoding*, *stacklevel=2*, */*)
     Changed in version 3.11: [`text_encoding()`](io.md#io.text_encoding "io.text_encoding") returns “utf-8” when UTF-8 mode is enabled and
     *encoding* is `None`.
 
-*exception* io.BlockingIOError
+`exception io.BlockingIOError`
 :   This is a compatibility alias for the builtin [`BlockingIOError`](exceptions.md#BlockingIOError "BlockingIOError")
     exception.
 
-*exception* io.UnsupportedOperation
+`exception io.UnsupportedOperation`
 :   An exception inheriting [`OSError`](exceptions.md#OSError "OSError") and [`ValueError`](exceptions.md#ValueError "ValueError") that is raised
     when an unsupported operation is called on a stream.
 
@@ -266,7 +266,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
 
 ### I/O Base Classes
 
-*class* io.IOBase
+`class io.IOBase`
 :   The abstract base class for all I/O classes.
 
     This class provides empty abstract implementations for many methods
@@ -304,7 +304,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
 
     [`IOBase`](io.md#io.IOBase "io.IOBase") provides these data attributes and methods:
 
-    close()
+    `close()`
     :   Flush and close this stream. This method has no effect if the file is
         already closed. Once the file is closed, any operation on the file
         (e.g. reading or writing) will raise a [`ValueError`](exceptions.md#ValueError "ValueError").
@@ -312,27 +312,27 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         As a convenience, it is allowed to call this method more than once;
         only the first call, however, will have an effect.
 
-    closed
+    `closed`
     :   `True` if the stream is closed.
 
-    fileno()
+    `fileno()`
     :   Return the underlying file descriptor (an integer) of the stream if it
         exists. An [`OSError`](exceptions.md#OSError "OSError") is raised if the IO object does not use a file
         descriptor.
 
-    flush()
+    `flush()`
     :   Flush the write buffers of the stream if applicable. This does nothing
         for read-only and non-blocking streams.
 
-    isatty()
+    `isatty()`
     :   Return `True` if the stream is interactive (i.e., connected to
         a terminal/tty device).
 
-    readable()
+    `readable()`
     :   Return `True` if the stream can be read from.
         If `False`, `read()` will raise [`OSError`](exceptions.md#OSError "OSError").
 
-    readline(*size=-1*, */*)
+    `readline(size=-1, /)`
     :   Read and return one line from the stream. If *size* is specified, at
         most *size* bytes will be read.
 
@@ -340,7 +340,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         the *newline* argument to [`open()`](functions.md#open "open") can be used to select the line
         terminator(s) recognized.
 
-    readlines(*hint=-1*, */*)
+    `readlines(hint=-1, /)`
     :   Read and return a list of lines from the stream. *hint* can be specified
         to control the number of lines read: no more lines will be read if the
         total size (in bytes/characters) of all lines so far exceeds *hint*.
@@ -351,7 +351,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         Note that it’s already possible to iterate on file objects using `for
         line in file: ...` without calling `file.readlines()`.
 
-    seek(*offset*, *whence=os.SEEK_SET*, */*)
+    `seek(offset, whence=os.SEEK_SET, /)`
     :   Change the stream position to the given byte *offset*,
         interpreted relative to the position indicated by *whence*,
         and return the new absolute position.
@@ -370,14 +370,14 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         [`os.SEEK_HOLE`](os.md#os.SEEK_HOLE "os.SEEK_HOLE") or [`os.SEEK_DATA`](os.md#os.SEEK_DATA "os.SEEK_DATA"). The valid values
         for a file could depend on it being open in text or binary mode.
 
-    seekable()
+    `seekable()`
     :   Return `True` if the stream supports random access. If `False`,
         [`seek()`](io.md#io.IOBase.seek "io.IOBase.seek"), [`tell()`](io.md#io.IOBase.tell "io.IOBase.tell") and [`truncate()`](io.md#io.IOBase.truncate "io.IOBase.truncate") will raise [`OSError`](exceptions.md#OSError "OSError").
 
-    tell()
+    `tell()`
     :   Return the current stream position.
 
-    truncate(*size=None*, */*)
+    `truncate(size=None, /)`
     :   Resize the stream to the given *size* in bytes (or the current position
         if *size* is not specified). The current stream position isn’t changed.
         This resizing can extend or reduce the current file size. In case of
@@ -387,21 +387,21 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
 
         Changed in version 3.5: Windows will now zero-fill files when extending.
 
-    writable()
+    `writable()`
     :   Return `True` if the stream supports writing. If `False`,
         `write()` and [`truncate()`](io.md#io.IOBase.truncate "io.IOBase.truncate") will raise [`OSError`](exceptions.md#OSError "OSError").
 
-    writelines(*lines*, */*)
+    `writelines(lines, /)`
     :   Write a list of lines to the stream. Line separators are not added, so it
         is usual for each of the lines provided to have a line separator at the
         end.
 
-    __del__()
+    `__del__()`
     :   Prepare for object destruction. [`IOBase`](io.md#io.IOBase "io.IOBase") provides a default
         implementation of this method that calls the instance’s
         [`close()`](io.md#io.IOBase.close "io.IOBase.close") method.
 
-*class* io.RawIOBase
+`class io.RawIOBase`
 :   Base class for raw binary streams. It inherits from [`IOBase`](io.md#io.IOBase "io.IOBase").
 
     Raw binary streams typically provide low-level access to an underlying OS
@@ -412,7 +412,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
     [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase") provides these methods in addition to those from
     [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    read(*size=-1*, */*)
+    `read(size=-1, /)`
     :   Read up to *size* bytes from the object and return them. As a convenience,
         if *size* is unspecified or -1, all bytes until EOF are returned.
         Otherwise, only one system call is ever made. Fewer than *size* bytes may
@@ -425,18 +425,18 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         The default implementation defers to [`readall()`](io.md#io.RawIOBase.readall "io.RawIOBase.readall") and
         [`readinto()`](io.md#io.RawIOBase.readinto "io.RawIOBase.readinto").
 
-    readall()
+    `readall()`
     :   Read and return all the bytes from the stream until EOF, using multiple
         calls to the stream if necessary.
 
-    readinto(*b*, */*)
+    `readinto(b, /)`
     :   Read bytes into a pre-allocated, writable
         [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *b*, and return the
         number of bytes read. For example, *b* might be a [`bytearray`](stdtypes.md#bytearray "bytearray").
         If the object is in non-blocking mode and no bytes
         are available, `None` is returned.
 
-    write(*b*, */*)
+    `write(b, /)`
     :   Write the given [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object), *b*, to the
         underlying raw stream, and return the number of
         bytes written. This can be less than the length of *b* in
@@ -447,7 +447,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         this method returns, so the implementation should only access *b*
         during the method call.
 
-*class* io.BufferedIOBase
+`class io.BufferedIOBase`
 :   Base class for binary streams that support some kind of buffering.
     It inherits from [`IOBase`](io.md#io.IOBase "io.IOBase").
 
@@ -471,12 +471,12 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
     [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") provides or overrides these data attributes and
     methods in addition to those from [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    raw
+    `raw`
     :   The underlying raw stream (a [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase") instance) that
         [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") deals with. This is not part of the
         [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") API and may not exist on some implementations.
 
-    detach()
+    `detach()`
     :   Separate the underlying raw stream from the buffer and return it.
 
         After the raw stream has been detached, the buffer is in an unusable
@@ -488,7 +488,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
 
         Added in version 3.1.
 
-    read(*size=-1*, */*)
+    `read(size=-1, /)`
     :   Read and return up to *size* bytes. If the argument is omitted, `None`,
         or negative, data is read and returned until EOF is reached. An empty
         [`bytes`](stdtypes.md#bytes "bytes") object is returned if the stream is already at EOF.
@@ -502,7 +502,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         A [`BlockingIOError`](exceptions.md#BlockingIOError "BlockingIOError") is raised if the underlying raw stream is in
         non blocking-mode, and has no data available at the moment.
 
-    read1(*size=-1*, */*)
+    `read1(size=-1, /)`
     :   Read and return up to *size* bytes, with at most one call to the
         underlying raw stream’s [`read()`](io.md#io.RawIOBase.read "io.RawIOBase.read") (or
         [`readinto()`](io.md#io.RawIOBase.readinto "io.RawIOBase.readinto")) method. This can be useful if you are
@@ -512,7 +512,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         If *size* is `-1` (the default), an arbitrary number of bytes are
         returned (more than zero unless EOF is reached).
 
-    readinto(*b*, */*)
+    `readinto(b, /)`
     :   Read bytes into a pre-allocated, writable
         [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *b* and return the number of bytes read.
         For example, *b* might be a [`bytearray`](stdtypes.md#bytearray "bytearray").
@@ -523,7 +523,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
         A [`BlockingIOError`](exceptions.md#BlockingIOError "BlockingIOError") is raised if the underlying raw stream is in non
         blocking-mode, and has no data available at the moment.
 
-    readinto1(*b*, */*)
+    `readinto1(b, /)`
     :   Read bytes into a pre-allocated, writable
         [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *b*, using at most one call to
         the underlying raw stream’s [`read()`](io.md#io.RawIOBase.read "io.RawIOBase.read") (or
@@ -534,7 +534,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
 
         Added in version 3.5.
 
-    write(*b*, */*)
+    `write(b, /)`
     :   Write the given [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object), *b*, and return the number
         of bytes written (always equal to the length of *b* in bytes, since if
         the write fails an [`OSError`](exceptions.md#OSError "OSError") will be raised). Depending on the
@@ -551,7 +551,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
 
 ### Raw File I/O
 
-*class* io.FileIO(*name*, *mode='r'*, *closefd=True*, *opener=None*)
+`class io.FileIO(name, mode='r', closefd=True, opener=None)`
 :   A raw binary stream representing an OS-level file containing bytes data. It
     inherits from [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase").
 
@@ -596,10 +596,10 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
     [`FileIO`](io.md#io.FileIO "io.FileIO") provides these data attributes in addition to those from
     [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase") and [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    mode
+    `mode`
     :   The mode as given in the constructor.
 
-    name
+    `name`
     :   The file name. This is the file descriptor of the file when no name is
         given in the constructor.
 
@@ -608,7 +608,7 @@ The following table summarizes the ABCs provided by the [`io`](io.md#module-io "
 Buffered I/O streams provide a higher-level interface to an I/O device
 than raw I/O does.
 
-*class* io.BytesIO(*initial_bytes=b''*)
+`class io.BytesIO(initial_bytes=b'')`
 :   A binary stream using an in-memory bytes buffer. It inherits from
     [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase"). The buffer is discarded when the
     [`close()`](io.md#io.IOBase.close "io.IOBase.close") method is called.
@@ -619,7 +619,7 @@ than raw I/O does.
     [`BytesIO`](io.md#io.BytesIO "io.BytesIO") provides or overrides these methods in addition to those
     from [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") and [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    getbuffer()
+    `getbuffer()`
     :   Return a readable and writable view over the contents of the buffer
         without copying them. Also, mutating the view will transparently
         update the contents of the buffer:
@@ -639,20 +639,20 @@ than raw I/O does.
 
         Added in version 3.2.
 
-    getvalue()
+    `getvalue()`
     :   Return [`bytes`](stdtypes.md#bytes "bytes") containing the entire contents of the buffer.
 
-    read1(*size=-1*, */*)
+    `read1(size=-1, /)`
     :   In [`BytesIO`](io.md#io.BytesIO "io.BytesIO"), this is the same as [`read()`](io.md#io.BufferedIOBase.read "io.BufferedIOBase.read").
 
         Changed in version 3.7: The *size* argument is now optional.
 
-    readinto1(*b*, */*)
+    `readinto1(b, /)`
     :   In [`BytesIO`](io.md#io.BytesIO "io.BytesIO"), this is the same as [`readinto()`](io.md#io.BufferedIOBase.readinto "io.BufferedIOBase.readinto").
 
         Added in version 3.5.
 
-*class* io.BufferedReader(*raw*, *buffer_size=DEFAULT_BUFFER_SIZE*)
+`class io.BufferedReader(raw, buffer_size=DEFAULT_BUFFER_SIZE)`
 :   A buffered binary stream providing higher-level access to a readable, non
     seekable [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase") raw binary stream. It inherits from
     [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase").
@@ -668,23 +668,23 @@ than raw I/O does.
     [`BufferedReader`](io.md#io.BufferedReader "io.BufferedReader") provides or overrides these methods in addition to
     those from [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") and [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    peek(*size=0*, */*)
+    `peek(size=0, /)`
     :   Return bytes from the stream without advancing the position. At most one
         single read on the raw stream is done to satisfy the call. The number of
         bytes returned may be less or more than requested.
 
-    read(*size=-1*, */*)
+    `read(size=-1, /)`
     :   Read and return *size* bytes, or if *size* is not given or negative, until
         EOF or if the read call would block in non-blocking mode.
 
-    read1(*size=-1*, */*)
+    `read1(size=-1, /)`
     :   Read and return up to *size* bytes with only one call on the raw stream.
         If at least one byte is buffered, only buffered bytes are returned.
         Otherwise, one raw stream read call is made.
 
         Changed in version 3.7: The *size* argument is now optional.
 
-*class* io.BufferedWriter(*raw*, *buffer_size=DEFAULT_BUFFER_SIZE*)
+`class io.BufferedWriter(raw, buffer_size=DEFAULT_BUFFER_SIZE)`
 :   A buffered binary stream providing higher-level access to a writeable, non
     seekable [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase") raw binary stream. It inherits from
     [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase").
@@ -705,17 +705,17 @@ than raw I/O does.
     [`BufferedWriter`](io.md#io.BufferedWriter "io.BufferedWriter") provides or overrides these methods in addition to
     those from [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") and [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    flush()
+    `flush()`
     :   Force bytes held in the buffer into the raw stream. A
         [`BlockingIOError`](exceptions.md#BlockingIOError "BlockingIOError") should be raised if the raw stream blocks.
 
-    write(*b*, */*)
+    `write(b, /)`
     :   Write the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object), *b*, and return the
         number of bytes written. When in non-blocking mode, a
         [`BlockingIOError`](exceptions.md#BlockingIOError "BlockingIOError") is raised if the buffer needs to be written out but
         the raw stream blocks.
 
-*class* io.BufferedRandom(*raw*, *buffer_size=DEFAULT_BUFFER_SIZE*)
+`class io.BufferedRandom(raw, buffer_size=DEFAULT_BUFFER_SIZE)`
 :   A buffered binary stream providing higher-level access to a seekable
     [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase") raw binary stream. It inherits from [`BufferedReader`](io.md#io.BufferedReader "io.BufferedReader")
     and [`BufferedWriter`](io.md#io.BufferedWriter "io.BufferedWriter").
@@ -728,7 +728,7 @@ than raw I/O does.
     [`BufferedWriter`](io.md#io.BufferedWriter "io.BufferedWriter") can do. In addition, [`seek()`](io.md#io.IOBase.seek "io.IOBase.seek") and
     [`tell()`](io.md#io.IOBase.tell "io.IOBase.tell") are guaranteed to be implemented.
 
-*class* io.BufferedRWPair(*reader*, *writer*, *buffer_size=DEFAULT_BUFFER_SIZE*, */*)
+`class io.BufferedRWPair(reader, writer, buffer_size=DEFAULT_BUFFER_SIZE, /)`
 :   A buffered binary stream providing higher-level access to two non seekable
     [`RawIOBase`](io.md#io.RawIOBase "io.RawIOBase") raw binary streams—one readable, the other writeable.
     It inherits from [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase").
@@ -749,31 +749,31 @@ than raw I/O does.
 
 ### Text I/O
 
-*class* io.TextIOBase
+`class io.TextIOBase`
 :   Base class for text streams. This class provides a character and line based
     interface to stream I/O. It inherits from [`IOBase`](io.md#io.IOBase "io.IOBase").
 
     [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase") provides or overrides these data attributes and
     methods in addition to those from [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    encoding
+    `encoding`
     :   The name of the encoding used to decode the stream’s bytes into
         strings, and to encode strings into bytes.
 
-    errors
+    `errors`
     :   The error setting of the decoder or encoder.
 
-    newlines
+    `newlines`
     :   A string, a tuple of strings, or `None`, indicating the newlines
         translated so far. Depending on the implementation and the initial
         constructor flags, this may not be available.
 
-    buffer
+    `buffer`
     :   The underlying binary buffer (a [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") instance) that
         [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase") deals with. This is not part of the
         [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase") API and may not exist in some implementations.
 
-    detach()
+    `detach()`
     :   Separate the underlying binary buffer from the [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase") and
         return it.
 
@@ -786,17 +786,17 @@ than raw I/O does.
 
         Added in version 3.1.
 
-    read(*size=-1*, */*)
+    `read(size=-1, /)`
     :   Read and return at most *size* characters from the stream as a single
         [`str`](stdtypes.md#str "str"). If *size* is negative or `None`, reads until EOF.
 
-    readline(*size=-1*, */*)
+    `readline(size=-1, /)`
     :   Read until newline or EOF and return a single [`str`](stdtypes.md#str "str"). If the stream is
         already at EOF, an empty string is returned.
 
         If *size* is specified, at most *size* characters will be read.
 
-    seek(*offset*, *whence=SEEK_SET*, */*)
+    `seek(offset, whence=SEEK_SET, /)`
     :   Change the stream position to the given *offset*. Behaviour depends on
         the *whence* parameter. The default value for *whence* is
         `SEEK_SET`.
@@ -815,16 +815,16 @@ than raw I/O does.
 
         Added in version 3.1: The `SEEK_*` constants.
 
-    tell()
+    `tell()`
     :   Return the current stream position as an opaque number. The number
         does not usually represent a number of bytes in the underlying
         binary storage.
 
-    write(*s*, */*)
+    `write(s, /)`
     :   Write the string *s* to the stream and return the number of characters
         written.
 
-*class* io.TextIOWrapper(*buffer*, *encoding=None*, *errors=None*, *newline=None*, *line_buffering=False*, *write_through=False*)
+`class io.TextIOWrapper(buffer, encoding=None, errors=None, newline=None, line_buffering=False, write_through=False)`
 :   A buffered text stream providing higher-level access to a
     [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") buffered binary stream. It inherits from
     [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase").
@@ -883,16 +883,16 @@ than raw I/O does.
     [`TextIOWrapper`](io.md#io.TextIOWrapper "io.TextIOWrapper") provides these data attributes and methods in
     addition to those from [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase") and [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    line_buffering
+    `line_buffering`
     :   Whether line buffering is enabled.
 
-    write_through
+    `write_through`
     :   Whether writes are passed immediately to the underlying binary
         buffer.
 
         Added in version 3.7.
 
-    reconfigure(*\**, *encoding=None*, *errors=None*, *newline=None*, *line_buffering=None*, *write_through=None*)
+    `reconfigure(*, encoding=None, errors=None, newline=None, line_buffering=None, write_through=None)`
     :   Reconfigure this text stream using new settings for *encoding*,
         *errors*, *newline*, *line_buffering* and *write_through*.
 
@@ -911,7 +911,7 @@ than raw I/O does.
 
         Changed in version 3.11: The method supports `encoding="locale"` option.
 
-    seek(*cookie*, *whence=os.SEEK_SET*, */*)
+    `seek(cookie, whence=os.SEEK_SET, /)`
     :   Set the stream position.
         Return the new stream position as an [`int`](functions.md#int "int").
 
@@ -931,12 +931,12 @@ than raw I/O does.
         >
         > [`os.SEEK_SET`](os.md#os.SEEK_SET "os.SEEK_SET"), [`os.SEEK_CUR`](os.md#os.SEEK_CUR "os.SEEK_CUR"), and [`os.SEEK_END`](os.md#os.SEEK_END "os.SEEK_END").
 
-    tell()
+    `tell()`
     :   Return the stream position as an opaque number.
         The return value of `tell()` can be given as input to [`seek()`](io.md#io.TextIOWrapper.seek "io.TextIOWrapper.seek"),
         to restore a previous stream position.
 
-*class* io.StringIO(*initial_value=''*, *newline='\n'*)
+`class io.StringIO(initial_value='', newline='\n')`
 :   A text stream using an in-memory text buffer. It inherits from
     [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase").
 
@@ -959,7 +959,7 @@ than raw I/O does.
     [`StringIO`](io.md#io.StringIO "io.StringIO") provides this method in addition to those from
     [`TextIOBase`](io.md#io.TextIOBase "io.TextIOBase") and [`IOBase`](io.md#io.IOBase "io.IOBase"):
 
-    getvalue()
+    `getvalue()`
     :   Return a [`str`](stdtypes.md#str "str") containing the entire contents of the buffer.
         Newlines are decoded as if by [`read()`](io.md#io.TextIOBase.read "io.TextIOBase.read"), although
         the stream position is not changed.
@@ -982,7 +982,7 @@ than raw I/O does.
     output.close()
     ```
 
-*class* io.IncrementalNewlineDecoder
+`class io.IncrementalNewlineDecoder`
 :   A helper codec that decodes newlines for [universal newlines](https://docs.python.org/3.12/glossary.html#term-universal-newlines) mode.
     It inherits from [`codecs.IncrementalDecoder`](codecs.md#codecs.IncrementalDecoder "codecs.IncrementalDecoder").
 

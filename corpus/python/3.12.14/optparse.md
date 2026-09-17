@@ -558,7 +558,7 @@ each of which can contain several options.
 
 An option group is obtained using the class [`OptionGroup`](optparse.md#optparse.OptionGroup "optparse.OptionGroup"):
 
-*class* optparse.OptionGroup(*parser*, *title*, *description=None*)
+`class optparse.OptionGroup(parser, title, description=None)`
 :   where
 
     - parser is the [`OptionParser`](optparse.md#optparse.OptionParser "optparse.OptionParser") instance the group will be inserted in
@@ -653,7 +653,7 @@ Options:
 Another interesting method, in particular when working programmatically with
 option groups is:
 
-OptionParser.get_option_group(*opt_str*)
+`OptionParser.get_option_group(opt_str)`
 :   Return the [`OptionGroup`](optparse.md#optparse.OptionGroup "optparse.OptionGroup") to which the short or long option
     string *opt_str* (e.g. `'-o'` or `'--option'`) belongs. If
     there’s no such [`OptionGroup`](optparse.md#optparse.OptionGroup "optparse.OptionGroup"), return `None`.
@@ -683,13 +683,13 @@ foo 1.0
 
 The following two methods can be used to print and get the `version` string:
 
-OptionParser.print_version(*file=None*)
+`OptionParser.print_version(file=None)`
 :   Print the version message for the current program (`self.version`) to
     *file* (default stdout). As with [`print_usage()`](optparse.md#optparse.OptionParser.print_usage "optparse.OptionParser.print_usage"), any occurrence
     of `%prog` in `self.version` is replaced with the name of the current
     program. Does nothing if `self.version` is empty or undefined.
 
-OptionParser.get_version()
+`OptionParser.get_version()`
 :   Same as [`print_version()`](optparse.md#optparse.OptionParser.print_version "optparse.OptionParser.print_version") but returns the version string instead of
     printing it.
 
@@ -782,7 +782,7 @@ if __name__ == "__main__":
 
 The first step in using [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)") is to create an OptionParser instance.
 
-*class* optparse.OptionParser(*...*)
+`class optparse.OptionParser(...)`
 :   The OptionParser constructor has no required arguments, but a number of
     optional keyword arguments. You should always pass them as keyword
     arguments, i.e. do not rely on the order in which the arguments are declared.
@@ -875,9 +875,9 @@ long option strings, but you must specify at least one overall option string.
 The canonical way to create an [`Option`](optparse.md#optparse.Option "optparse.Option") instance is with the
 `add_option()` method of [`OptionParser`](optparse.md#optparse.OptionParser "optparse.OptionParser").
 
-OptionParser.add_option(*option*)
+`OptionParser.add_option(option)`
 
-OptionParser.add_option(*\*opt_str*, *attr=value*, *...*)
+`OptionParser.add_option(*opt_str, attr=value, ...)`
 :   To define an option with only a short option string:
 
     ```python3
@@ -935,7 +935,7 @@ As you can see, most actions involve storing or updating a value somewhere.
 [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)") always creates a special object for this, conventionally called
 `options`, which is an instance of [`optparse.Values`](optparse.md#optparse.Values "optparse.Values").
 
-*class* optparse.Values
+`class optparse.Values`
 :   An object holding parsed argument names and values as attributes.
     Normally created by calling when calling [`OptionParser.parse_args()`](optparse.md#optparse.OptionParser.parse_args "optparse.OptionParser.parse_args"),
     and can be overridden by a custom subclass passed to the *values* argument of
@@ -984,7 +984,7 @@ one that makes sense for *all* options.
 
 ### Option attributes
 
-*class* optparse.Option
+`class optparse.Option`
 :   A single command line argument,
     with various attributes passed by keyword to the constructor.
     Normally created with [`OptionParser.add_option()`](optparse.md#optparse.OptionParser.add_option "optparse.OptionParser.add_option") rather than directly,
@@ -996,19 +996,19 @@ The following option attributes may be passed as keyword arguments to
 relevant to a particular option, or fail to pass a required option attribute,
 [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)") raises [`OptionError`](optparse.md#optparse.OptionError "optparse.OptionError").
 
-Option.action
+`Option.action`
 :   (default: `"store"`)
 
     Determines [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)")’s behaviour when this option is seen on the
     command line; the available options are documented [here](optparse.md#optparse-standard-option-actions).
 
-Option.type
+`Option.type`
 :   (default: `"string"`)
 
     The argument type expected by this option (e.g., `"string"` or `"int"`);
     the available option types are documented [here](optparse.md#optparse-standard-option-types).
 
-Option.dest
+`Option.dest`
 :   (default: derived from option strings)
 
     If the option’s action implies writing or modifying a value somewhere, this
@@ -1016,42 +1016,42 @@ Option.dest
     attribute of the `options` object that [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)") builds as it parses
     the command line.
 
-Option.default
+`Option.default`
 :   The value to use for this option’s destination if the option is not seen on
     the command line. See also [`OptionParser.set_defaults()`](optparse.md#optparse.OptionParser.set_defaults "optparse.OptionParser.set_defaults").
 
-Option.nargs
+`Option.nargs`
 :   (default: 1)
 
     How many arguments of type [`type`](optparse.md#optparse.Option.type "optparse.Option.type") should be consumed when this
     option is seen. If > 1, [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)") will store a tuple of values to
     [`dest`](optparse.md#optparse.Option.dest "optparse.Option.dest").
 
-Option.const
+`Option.const`
 :   For actions that store a constant value, the constant value to store.
 
-Option.choices
+`Option.choices`
 :   For options of type `"choice"`, the list of strings the user may choose
     from.
 
-Option.callback
+`Option.callback`
 :   For options with action `"callback"`, the callable to call when this option
     is seen. See section [Option Callbacks](optparse.md#optparse-option-callbacks) for detail on the
     arguments passed to the callable.
 
-Option.callback_args
+`Option.callback_args`
 
-Option.callback_kwargs
+`Option.callback_kwargs`
 :   Additional positional and keyword arguments to pass to `callback` after the
     four standard callback arguments.
 
-Option.help
+`Option.help`
 :   Help text to print for this option when listing all available options after
     the user supplies a [`help`](optparse.md#optparse.Option.help "optparse.Option.help") option (such as `--help`). If
     no help text is supplied, the option will be listed without help text. To
     hide this option, use the special value `optparse.SUPPRESS_HELP`.
 
-Option.metavar
+`Option.metavar`
 :   (default: derived from option strings)
 
     Stand-in for the option argument(s) to use when printing help text. See
@@ -1316,7 +1316,7 @@ user-supplied option arguments against this master list and raises
 The whole point of creating and populating an OptionParser is to call its
 [`parse_args()`](optparse.md#optparse.OptionParser.parse_args "optparse.OptionParser.parse_args") method.
 
-OptionParser.parse_args(*args=None*, *values=None*)
+`OptionParser.parse_args(args=None, values=None)`
 :   Parse the command-line options found in *args*.
 
     The input parameters are
@@ -1354,7 +1354,7 @@ The default behavior of the option parser can be customized slightly, and you
 can also poke around your option parser and see what’s there. OptionParser
 provides several methods to help you out:
 
-OptionParser.disable_interspersed_args()
+`OptionParser.disable_interspersed_args()`
 :   Set parsing to stop on the first non-option. For example, if `-a` and
     `-b` are both simple options that take no arguments, [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)")
     normally accepts this syntax:
@@ -1377,19 +1377,19 @@ OptionParser.disable_interspersed_args()
     options of its own and you want to make sure these options don’t get
     confused. For example, each command might have a different set of options.
 
-OptionParser.enable_interspersed_args()
+`OptionParser.enable_interspersed_args()`
 :   Set parsing to not stop on the first non-option, allowing interspersing
     switches with command arguments. This is the default behavior.
 
-OptionParser.get_option(*opt_str*)
+`OptionParser.get_option(opt_str)`
 :   Returns the Option instance with the option string *opt_str*, or `None` if
     no options have that option string.
 
-OptionParser.has_option(*opt_str*)
+`OptionParser.has_option(opt_str)`
 :   Return `True` if the OptionParser has an option with option string *opt_str*
     (e.g., `-q` or `--verbose`).
 
-OptionParser.remove_option(*opt_str*)
+`OptionParser.remove_option(opt_str)`
 :   If the [`OptionParser`](optparse.md#optparse.OptionParser "optparse.OptionParser") has an option corresponding to *opt_str*, that
     option is removed. If that option provided any other option strings, all of
     those option strings become invalid. If *opt_str* does not occur in any
@@ -1487,22 +1487,22 @@ OptionParser.
 
 OptionParser supports several other public methods:
 
-OptionParser.set_usage(*usage*)
+`OptionParser.set_usage(usage)`
 :   Set the usage string according to the rules described above for the `usage`
     constructor keyword argument. Passing `None` sets the default usage
     string; use `optparse.SUPPRESS_USAGE` to suppress a usage message.
 
-OptionParser.print_usage(*file=None*)
+`OptionParser.print_usage(file=None)`
 :   Print the usage message for the current program (`self.usage`) to *file*
     (default stdout). Any occurrence of the string `%prog` in `self.usage`
     is replaced with the name of the current program. Does nothing if
     `self.usage` is empty or not defined.
 
-OptionParser.get_usage()
+`OptionParser.get_usage()`
 :   Same as [`print_usage()`](optparse.md#optparse.OptionParser.print_usage "optparse.OptionParser.print_usage") but returns the usage string instead of
     printing it.
 
-OptionParser.set_defaults(*dest=value*, *...*)
+`OptionParser.set_defaults(dest=value, ...)`
 :   Set default values for several option destinations at once. Using
     [`set_defaults()`](optparse.md#optparse.OptionParser.set_defaults "optparse.OptionParser.set_defaults") is the preferred way to set default values for options,
     since multiple options can share the same destination. For example, if
@@ -1812,11 +1812,11 @@ To add new types, you need to define your own subclass of [`optparse`](optparse.
 [`Option`](optparse.md#optparse.Option "optparse.Option") class. This class has a couple of attributes that define
 [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)")’s types: [`TYPES`](optparse.md#optparse.Option.TYPES "optparse.Option.TYPES") and [`TYPE_CHECKER`](optparse.md#optparse.Option.TYPE_CHECKER "optparse.Option.TYPE_CHECKER").
 
-Option.TYPES
+`Option.TYPES`
 :   A tuple of type names; in your subclass, simply define a new tuple
     [`TYPES`](optparse.md#optparse.Option.TYPES "optparse.Option.TYPES") that builds on the standard one.
 
-Option.TYPE_CHECKER
+`Option.TYPE_CHECKER`
 :   A dictionary mapping type names to type-checking functions. A type-checking
     function has the following signature:
 
@@ -1917,16 +1917,16 @@ actions are `"store"`, `"append"`, and `"callback"`.
 When you add an action, you need to categorize it by listing it in at least one
 of the following class attributes of Option (all are lists of strings):
 
-Option.ACTIONS
+`Option.ACTIONS`
 :   All actions must be listed in ACTIONS.
 
-Option.STORE_ACTIONS
+`Option.STORE_ACTIONS`
 :   “store” actions are additionally listed here.
 
-Option.TYPED_ACTIONS
+`Option.TYPED_ACTIONS`
 :   “typed” actions are additionally listed here.
 
-Option.ALWAYS_TYPED_ACTIONS
+`Option.ALWAYS_TYPED_ACTIONS`
 :   Actions that always take a type (i.e. whose options always take a value) are
     additionally listed here. The only effect of this is that [`optparse`](optparse.md#module-optparse "optparse: Command-line option parsing library. (deprecated)")
     assigns the default type, `"string"`, to options with no explicit type
@@ -2002,18 +2002,18 @@ Features of note:
 
 ## Exceptions
 
-*exception* optparse.OptionError
+`exception optparse.OptionError`
 :   Raised if an [`Option`](optparse.md#optparse.Option "optparse.Option") instance is created with invalid or
     inconsistent arguments.
 
-*exception* optparse.OptionConflictError
+`exception optparse.OptionConflictError`
 :   Raised if conflicting options are added to an [`OptionParser`](optparse.md#optparse.OptionParser "optparse.OptionParser").
 
-*exception* optparse.OptionValueError
+`exception optparse.OptionValueError`
 :   Raised if an invalid option value is encountered on the command line.
 
-*exception* optparse.BadOptionError
+`exception optparse.BadOptionError`
 :   Raised if an invalid option is passed on the command line.
 
-*exception* optparse.AmbiguousOptionError
+`exception optparse.AmbiguousOptionError`
 :   Raised if an ambiguous option is passed on the command line.

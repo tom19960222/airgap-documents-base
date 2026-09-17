@@ -16,7 +16,7 @@ can be used for example, for comparing files, and can produce information
 about file differences in various formats, including HTML and context and unified
 diffs. For comparing directories and files, see also, the [`filecmp`](filecmp.md#module-filecmp "filecmp: Compare files efficiently.") module.
 
-*class* difflib.SequenceMatcher
+`class difflib.SequenceMatcher`
 :   This is a flexible class for comparing pairs of sequences of any type, so long
     as the sequence elements are [hashable](https://docs.python.org/3.12/glossary.html#term-hashable). The basic algorithm predates, and is a
     little fancier than, an algorithm published in the late 1980’s by Ratcliff and
@@ -45,7 +45,7 @@ diffs. For comparing directories and files, see also, the [`filecmp`](filecmp.md
 
     Changed in version 3.2: Added the *autojunk* parameter.
 
-*class* difflib.Differ
+`class difflib.Differ`
 :   This is a class for comparing sequences of lines of text, and producing
     human-readable differences or deltas. Differ uses [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatcher")
     both to compare sequences of lines, and to compare sequences of characters
@@ -64,7 +64,7 @@ diffs. For comparing directories and files, see also, the [`filecmp`](filecmp.md
     and were not present in either input sequence. These lines can be confusing if
     the sequences contain whitespace characters, such as spaces, tabs or line breaks.
 
-*class* difflib.HtmlDiff
+`class difflib.HtmlDiff`
 :   This class can be used to create an HTML table (or a complete HTML file
     containing the table) showing a side by side, line by line comparison of text
     with inter-line and intra-line change highlights. The table can be generated in
@@ -72,7 +72,7 @@ diffs. For comparing directories and files, see also, the [`filecmp`](filecmp.md
 
     The constructor for this class is:
 
-    __init__(*tabsize=8*, *wrapcolumn=None*, *linejunk=None*, *charjunk=IS_CHARACTER_JUNK*)
+    `__init__(tabsize=8, wrapcolumn=None, linejunk=None, charjunk=IS_CHARACTER_JUNK)`
     :   Initializes instance of [`HtmlDiff`](difflib.md#difflib.HtmlDiff "difflib.HtmlDiff").
 
         *tabsize* is an optional keyword argument to specify tab stop spacing and
@@ -87,7 +87,7 @@ diffs. For comparing directories and files, see also, the [`filecmp`](filecmp.md
 
     The following methods are public:
 
-    make_file(*fromlines*, *tolines*, *fromdesc=''*, *todesc=''*, *context=False*, *numlines=5*, *\**, *charset='utf-8'*)
+    `make_file(fromlines, tolines, fromdesc='', todesc='', context=False, numlines=5, *, charset='utf-8')`
     :   Compares *fromlines* and *tolines* (lists of strings) and returns a string which
         is a complete HTML file containing a table showing line by line differences with
         inter-line and intra-line changes highlighted.
@@ -113,7 +113,7 @@ diffs. For comparing directories and files, see also, the [`filecmp`](filecmp.md
         Changed in version 3.5: *charset* keyword-only argument was added. The default charset of
         HTML document changed from `'ISO-8859-1'` to `'utf-8'`.
 
-    make_table(*fromlines*, *tolines*, *fromdesc=''*, *todesc=''*, *context=False*, *numlines=5*)
+    `make_table(fromlines, tolines, fromdesc='', todesc='', context=False, numlines=5)`
     :   Compares *fromlines* and *tolines* (lists of strings) and returns a string which
         is a complete HTML table showing line by line differences with inter-line and
         intra-line changes highlighted.
@@ -121,7 +121,7 @@ diffs. For comparing directories and files, see also, the [`filecmp`](filecmp.md
         The arguments for this method are the same as those for the [`make_file()`](difflib.md#difflib.HtmlDiff.make_file "difflib.HtmlDiff.make_file")
         method.
 
-difflib.context_diff(*a*, *b*, *fromfile=''*, *tofile=''*, *fromfiledate=''*, *tofiledate=''*, *n=3*, *lineterm='\n'*)
+`difflib.context_diff(a, b, fromfile='', tofile='', fromfiledate='', tofiledate='', n=3, lineterm='\n')`
 :   Compare *a* and *b* (lists of strings); return a delta (a [generator](https://docs.python.org/3.12/glossary.html#term-generator)
     generating the delta lines) in context diff format.
 
@@ -168,7 +168,7 @@ difflib.context_diff(*a*, *b*, *fromfile=''*, *tofile=''*, *fromfiledate=''*, *t
 
     See [A command-line interface to difflib](difflib.md#difflib-interface) for a more detailed example.
 
-difflib.get_close_matches(*word*, *possibilities*, *n=3*, *cutoff=0.6*)
+`difflib.get_close_matches(word, possibilities, n=3, cutoff=0.6)`
 :   Return a list of the best “good enough” matches. *word* is a sequence for which
     close matches are desired (typically a string), and *possibilities* is a list of
     sequences against which to match *word* (typically a list of strings).
@@ -194,7 +194,7 @@ difflib.get_close_matches(*word*, *possibilities*, *n=3*, *cutoff=0.6*)
     ['except']
     ```
 
-difflib.ndiff(*a*, *b*, *linejunk=None*, *charjunk=IS_CHARACTER_JUNK*)
+`difflib.ndiff(a, b, linejunk=None, charjunk=IS_CHARACTER_JUNK)`
 :   Compare *a* and *b* (lists of strings); return a [`Differ`](difflib.md#difflib.Differ "difflib.Differ")-style
     delta (a [generator](https://docs.python.org/3.12/glossary.html#term-generator) generating the delta lines).
 
@@ -229,7 +229,7 @@ difflib.ndiff(*a*, *b*, *linejunk=None*, *charjunk=IS_CHARACTER_JUNK*)
     + emu
     ```
 
-difflib.restore(*sequence*, *which*)
+`difflib.restore(sequence, which)`
 :   Return one of the two sequences that generated a delta.
 
     Given a *sequence* produced by [`Differ.compare()`](difflib.md#difflib.Differ.compare "difflib.Differ.compare") or [`ndiff()`](difflib.md#difflib.ndiff "difflib.ndiff"), extract
@@ -252,7 +252,7 @@ difflib.restore(*sequence*, *which*)
     emu
     ```
 
-difflib.unified_diff(*a*, *b*, *fromfile=''*, *tofile=''*, *fromfiledate=''*, *tofiledate=''*, *n=3*, *lineterm='\n'*)
+`difflib.unified_diff(a, b, fromfile='', tofile='', fromfiledate='', tofiledate='', n=3, lineterm='\n')`
 :   Compare *a* and *b* (lists of strings); return a delta (a [generator](https://docs.python.org/3.12/glossary.html#term-generator)
     generating the delta lines) in unified diff format.
 
@@ -294,7 +294,7 @@ difflib.unified_diff(*a*, *b*, *fromfile=''*, *tofile=''*, *fromfiledate=''*, *t
 
     See [A command-line interface to difflib](difflib.md#difflib-interface) for a more detailed example.
 
-difflib.diff_bytes(*dfunc*, *a*, *b*, *fromfile=b''*, *tofile=b''*, *fromfiledate=b''*, *tofiledate=b''*, *n=3*, *lineterm=b'\n'*)
+`difflib.diff_bytes(dfunc, a, b, fromfile=b'', tofile=b'', fromfiledate=b'', tofiledate=b'', n=3, lineterm=b'\n')`
 :   Compare *a* and *b* (lists of bytes objects) using *dfunc*; yield a
     sequence of delta lines (also bytes) in the format returned by *dfunc*.
     *dfunc* must be a callable, typically either [`unified_diff()`](difflib.md#difflib.unified_diff "difflib.unified_diff") or
@@ -309,12 +309,12 @@ difflib.diff_bytes(*dfunc*, *a*, *b*, *fromfile=b''*, *tofile=b''*, *fromfiledat
 
     Added in version 3.5.
 
-difflib.IS_LINE_JUNK(*line*)
+`difflib.IS_LINE_JUNK(line)`
 :   Return `True` for ignorable lines. The line *line* is ignorable if *line* is
     blank or contains a single `'#'`, otherwise it is not ignorable. Used as a
     default for parameter *linejunk* in [`ndiff()`](difflib.md#difflib.ndiff "difflib.ndiff") in older versions.
 
-difflib.IS_CHARACTER_JUNK(*ch*)
+`difflib.IS_CHARACTER_JUNK(ch)`
 :   Return `True` for ignorable characters. The character *ch* is ignorable if *ch*
     is a space or tab, otherwise it is not ignorable. Used as a default for
     parameter *charjunk* in [`ndiff()`](difflib.md#difflib.ndiff "difflib.ndiff").
@@ -329,7 +329,7 @@ difflib.IS_CHARACTER_JUNK(*ch*)
 
 The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatcher") class has this constructor:
 
-*class* difflib.SequenceMatcher(*isjunk=None*, *a=''*, *b=''*, *autojunk=True*)
+`class difflib.SequenceMatcher(isjunk=None, a='', b='', autojunk=True)`
 :   Optional argument *isjunk* must be `None` (the default) or a one-argument
     function that takes a sequence element and returns true if and only if the
     element is “junk” and should be ignored. Passing `None` for *isjunk* is
@@ -362,7 +362,7 @@ The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatc
 
     [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatcher") objects have the following methods:
 
-    set_seqs(*a*, *b*)
+    `set_seqs(a, b)`
     :   Set the two sequences to be compared.
 
     [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatcher") computes and caches detailed information about the
@@ -370,15 +370,15 @@ The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatc
     sequences, use [`set_seq2()`](difflib.md#difflib.SequenceMatcher.set_seq2 "difflib.SequenceMatcher.set_seq2") to set the commonly used sequence once and
     call [`set_seq1()`](difflib.md#difflib.SequenceMatcher.set_seq1 "difflib.SequenceMatcher.set_seq1") repeatedly, once for each of the other sequences.
 
-    set_seq1(*a*)
+    `set_seq1(a)`
     :   Set the first sequence to be compared. The second sequence to be compared
         is not changed.
 
-    set_seq2(*b*)
+    `set_seq2(b)`
     :   Set the second sequence to be compared. The first sequence to be compared
         is not changed.
 
-    find_longest_match(*alo=0*, *ahi=None*, *blo=0*, *bhi=None*)
+    `find_longest_match(alo=0, ahi=None, blo=0, bhi=None)`
     :   Find longest matching block in `a[alo:ahi]` and `b[blo:bhi]`.
 
         If *isjunk* was omitted or `None`, [`find_longest_match()`](difflib.md#difflib.SequenceMatcher.find_longest_match "difflib.SequenceMatcher.find_longest_match") returns
@@ -420,7 +420,7 @@ The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatc
 
         Changed in version 3.9: Added default arguments.
 
-    get_matching_blocks()
+    `get_matching_blocks()`
     :   Return list of triples describing non-overlapping matching subsequences.
         Each triple is of the form `(i, j, n)`,
         and means that `a[i:i+n] == b[j:j+n]`. The
@@ -438,7 +438,7 @@ The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatc
         [Match(a=0, b=0, size=2), Match(a=3, b=2, size=2), Match(a=5, b=4, size=0)]
         ```
 
-    get_opcodes()
+    `get_opcodes()`
     :   Return list of 5-tuples describing how to turn *a* into *b*. Each tuple is
         of the form `(tag, i1, i2, j1, j2)`. The first tuple has `i1 == j1 ==
         0`, and remaining tuples have *i1* equal to the *i2* from the preceding
@@ -469,7 +469,7 @@ The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatc
         insert    a[6:6] --> b[5:6]       '' --> 'f'
         ```
 
-    get_grouped_opcodes(*n=3*)
+    `get_grouped_opcodes(n=3)`
     :   Return a [generator](https://docs.python.org/3.12/glossary.html#term-generator) of groups with up to *n* lines of context.
 
         Starting with the groups returned by [`get_opcodes()`](difflib.md#difflib.SequenceMatcher.get_opcodes "difflib.SequenceMatcher.get_opcodes"), this method
@@ -478,7 +478,7 @@ The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatc
 
         The groups are returned in the same format as [`get_opcodes()`](difflib.md#difflib.SequenceMatcher.get_opcodes "difflib.SequenceMatcher.get_opcodes").
 
-    ratio()
+    `ratio()`
     :   Return a measure of the sequences’ similarity as a float in the range [0,
         1].
 
@@ -503,10 +503,10 @@ The [`SequenceMatcher`](difflib.md#difflib.SequenceMatcher "difflib.SequenceMatc
         > 0.5
         > ```
 
-    quick_ratio()
+    `quick_ratio()`
     :   Return an upper bound on [`ratio()`](difflib.md#difflib.SequenceMatcher.ratio "difflib.SequenceMatcher.ratio") relatively quickly.
 
-    real_quick_ratio()
+    `real_quick_ratio()`
     :   Return an upper bound on [`ratio()`](difflib.md#difflib.SequenceMatcher.ratio "difflib.SequenceMatcher.ratio") very quickly.
 
 The three methods that return the ratio of matching to total characters can give
@@ -587,7 +587,7 @@ locality, at the occasional cost of producing a longer diff.
 
 The [`Differ`](difflib.md#difflib.Differ "difflib.Differ") class has this constructor:
 
-*class* difflib.Differ(*linejunk=None*, *charjunk=None*)
+`class difflib.Differ(linejunk=None, charjunk=None)`
 :   Optional keyword parameters *linejunk* and *charjunk* are for filter functions
     (or `None`):
 
@@ -607,7 +607,7 @@ The [`Differ`](difflib.md#difflib.Differ "difflib.Differ") class has this constr
 
     [`Differ`](difflib.md#difflib.Differ "difflib.Differ") objects are used (deltas generated) via a single method:
 
-    compare(*a*, *b*)
+    `compare(a, b)`
     :   Compare two sequences of lines, and generate the delta (a sequence of lines).
 
         Each sequence must contain individual single-line strings ending with

@@ -21,11 +21,11 @@ which in turn uses an ANSI C locale implementation if available.
 
 The [`locale`](locale.md#module-locale "locale: Internationalization services.") module defines the following exception and functions:
 
-*exception* locale.Error
+`exception locale.Error`
 :   Exception raised when the locale passed to [`setlocale()`](locale.md#locale.setlocale "locale.setlocale") is not
     recognized.
 
-locale.setlocale(*category*, *locale=None*)
+`locale.setlocale(category, locale=None)`
 :   If *locale* is given and not `None`, [`setlocale()`](locale.md#locale.setlocale "locale.setlocale") modifies the locale
     setting for the *category*. The available categories are listed in the data
     description below. *locale* may be a string, or an iterable of two strings
@@ -49,7 +49,7 @@ locale.setlocale(*category*, *locale=None*)
     specified in the `LANG` environment variable). If the locale is not
     changed thereafter, using multithreading should not cause problems.
 
-locale.localeconv()
+`locale.localeconv()`
 :   Returns the database of the local conventions as a dictionary. This dictionary
     has the following strings as keys:
 
@@ -92,7 +92,7 @@ locale.localeconv()
     Changed in version 3.7: The function now temporarily sets the `LC_CTYPE` locale to the
     `LC_NUMERIC` locale in some cases.
 
-locale.nl_langinfo(*option*)
+`locale.nl_langinfo(option)`
 :   Return some locale-specific information as a string. This function is not
     available on all systems, and the set of possible options might also vary
     across platforms. The possible argument values are numbers, for which
@@ -102,39 +102,39 @@ locale.nl_langinfo(*option*)
     descriptions are taken from the corresponding description in the GNU C
     library.
 
-    locale.CODESET
+    `locale.CODESET`
     :   Get a string with the name of the character encoding used in the
         selected locale.
 
-    locale.D_T_FMT
+    `locale.D_T_FMT`
     :   Get a string that can be used as a format string for [`time.strftime()`](time.md#time.strftime "time.strftime") to
         represent date and time in a locale-specific way.
 
-    locale.D_FMT
+    `locale.D_FMT`
     :   Get a string that can be used as a format string for [`time.strftime()`](time.md#time.strftime "time.strftime") to
         represent a date in a locale-specific way.
 
-    locale.T_FMT
+    `locale.T_FMT`
     :   Get a string that can be used as a format string for [`time.strftime()`](time.md#time.strftime "time.strftime") to
         represent a time in a locale-specific way.
 
-    locale.T_FMT_AMPM
+    `locale.T_FMT_AMPM`
     :   Get a format string for [`time.strftime()`](time.md#time.strftime "time.strftime") to represent time in the am/pm
         format.
 
-    locale.DAY_1
+    `locale.DAY_1`
 
-    locale.DAY_2
+    `locale.DAY_2`
 
-    locale.DAY_3
+    `locale.DAY_3`
 
-    locale.DAY_4
+    `locale.DAY_4`
 
-    locale.DAY_5
+    `locale.DAY_5`
 
-    locale.DAY_6
+    `locale.DAY_6`
 
-    locale.DAY_7
+    `locale.DAY_7`
     :   Get the name of the n-th day of the week.
 
         > **Note:**
@@ -143,82 +143,82 @@ locale.nl_langinfo(*option*)
         > international convention (ISO 8601) that Monday is the first day of the
         > week.
 
-    locale.ABDAY_1
+    `locale.ABDAY_1`
 
-    locale.ABDAY_2
+    `locale.ABDAY_2`
 
-    locale.ABDAY_3
+    `locale.ABDAY_3`
 
-    locale.ABDAY_4
+    `locale.ABDAY_4`
 
-    locale.ABDAY_5
+    `locale.ABDAY_5`
 
-    locale.ABDAY_6
+    `locale.ABDAY_6`
 
-    locale.ABDAY_7
+    `locale.ABDAY_7`
     :   Get the abbreviated name of the n-th day of the week.
 
-    locale.MON_1
+    `locale.MON_1`
 
-    locale.MON_2
+    `locale.MON_2`
 
-    locale.MON_3
+    `locale.MON_3`
 
-    locale.MON_4
+    `locale.MON_4`
 
-    locale.MON_5
+    `locale.MON_5`
 
-    locale.MON_6
+    `locale.MON_6`
 
-    locale.MON_7
+    `locale.MON_7`
 
-    locale.MON_8
+    `locale.MON_8`
 
-    locale.MON_9
+    `locale.MON_9`
 
-    locale.MON_10
+    `locale.MON_10`
 
-    locale.MON_11
+    `locale.MON_11`
 
-    locale.MON_12
+    `locale.MON_12`
     :   Get the name of the n-th month.
 
-    locale.ABMON_1
+    `locale.ABMON_1`
 
-    locale.ABMON_2
+    `locale.ABMON_2`
 
-    locale.ABMON_3
+    `locale.ABMON_3`
 
-    locale.ABMON_4
+    `locale.ABMON_4`
 
-    locale.ABMON_5
+    `locale.ABMON_5`
 
-    locale.ABMON_6
+    `locale.ABMON_6`
 
-    locale.ABMON_7
+    `locale.ABMON_7`
 
-    locale.ABMON_8
+    `locale.ABMON_8`
 
-    locale.ABMON_9
+    `locale.ABMON_9`
 
-    locale.ABMON_10
+    `locale.ABMON_10`
 
-    locale.ABMON_11
+    `locale.ABMON_11`
 
-    locale.ABMON_12
+    `locale.ABMON_12`
     :   Get the abbreviated name of the n-th month.
 
-    locale.RADIXCHAR
+    `locale.RADIXCHAR`
     :   Get the radix character (decimal dot, decimal comma, etc.).
 
-    locale.THOUSEP
+    `locale.THOUSEP`
     :   Get the separator character for thousands (groups of three digits).
 
-    locale.YESEXPR
+    `locale.YESEXPR`
     :   Get a regular expression that can be used with the regex function to
         recognize a positive response to a yes/no question.
 
-    locale.NOEXPR
+    `locale.NOEXPR`
     :   Get a regular expression that can be used with the `regex(3)` function to
         recognize a negative response to a yes/no question.
 
@@ -229,12 +229,12 @@ locale.nl_langinfo(*option*)
         > `regex` function from the C library, which might
         > differ from the syntax used in [`re`](re.md#module-re "re: Regular expression operations.").
 
-    locale.CRNCYSTR
+    `locale.CRNCYSTR`
     :   Get the currency symbol, preceded by “-” if the symbol should appear before
         the value, “+” if the symbol should appear after the value, or “.” if the
         symbol should replace the radix character.
 
-    locale.ERA
+    `locale.ERA`
     :   Get a string which describes how years are counted and displayed for
         each era in a locale.
 
@@ -249,24 +249,24 @@ locale.nl_langinfo(*option*)
         The format of the returned string is specified in *The Open Group Base
         Specifications Issue 8*, paragraph [7.3.5.2 LC_TIME C-Language Access](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap07.html#tag_07_03_05_02).
 
-    locale.ERA_D_T_FMT
+    `locale.ERA_D_T_FMT`
     :   Get a format string for [`time.strftime()`](time.md#time.strftime "time.strftime") to represent date and time in a
         locale-specific era-based way.
 
-    locale.ERA_D_FMT
+    `locale.ERA_D_FMT`
     :   Get a format string for [`time.strftime()`](time.md#time.strftime "time.strftime") to represent a date in a
         locale-specific era-based way.
 
-    locale.ERA_T_FMT
+    `locale.ERA_T_FMT`
     :   Get a format string for [`time.strftime()`](time.md#time.strftime "time.strftime") to represent a time in a
         locale-specific era-based way.
 
-    locale.ALT_DIGITS
+    `locale.ALT_DIGITS`
     :   Get a string consisting of up to 100 semicolon-separated symbols used
         to represent the values 0 to 99 in a locale-specific way.
         In most locales this is an empty string.
 
-locale.getdefaultlocale([*envvars*])
+`locale.getdefaultlocale([envvars])`
 :   Tries to determine the default locale settings and returns them as a tuple of
     the form `(language code, encoding)`.
 
@@ -289,7 +289,7 @@ locale.getdefaultlocale([*envvars*])
 
     Deprecated since version 3.11, will be removed in version 3.15.
 
-locale.getlocale(*category=LC_CTYPE*)
+`locale.getlocale(category=LC_CTYPE)`
 :   Returns the current setting for the given locale category as sequence containing
     *language code*, *encoding*. *category* may be one of the `LC_*` values
     except [`LC_ALL`](locale.md#locale.LC_ALL "locale.LC_ALL"). It defaults to [`LC_CTYPE`](locale.md#locale.LC_CTYPE "locale.LC_CTYPE").
@@ -298,7 +298,7 @@ locale.getlocale(*category=LC_CTYPE*)
     *language code* and *encoding* may be `None` if their values cannot be
     determined.
 
-locale.getpreferredencoding(*do_setlocale=True*)
+`locale.getpreferredencoding(do_setlocale=True)`
 :   Return the [locale encoding](https://docs.python.org/3.12/glossary.html#term-locale-encoding) used for text data, according to user
     preferences. User preferences are expressed differently on different
     systems, and might not be available programmatically on some systems, so
@@ -318,7 +318,7 @@ locale.getpreferredencoding(*do_setlocale=True*)
     Changed in version 3.7: The function now always returns `"utf-8"` on Android or if the
     [Python UTF-8 Mode](os.md#utf8-mode) is enabled.
 
-locale.getencoding()
+`locale.getencoding()`
 :   Get the current [locale encoding](https://docs.python.org/3.12/glossary.html#term-locale-encoding):
 
     - On Android and VxWorks, return `"utf-8"`.
@@ -336,7 +336,7 @@ locale.getencoding()
 
     Added in version 3.11.
 
-locale.normalize(*localename*)
+`locale.normalize(localename)`
 :   Returns a normalized locale code for the given locale name. The returned locale
     code is formatted for use with [`setlocale()`](locale.md#locale.setlocale "locale.setlocale"). If normalization fails, the
     original name is returned unchanged.
@@ -344,7 +344,7 @@ locale.normalize(*localename*)
     If the given encoding is not known, the function defaults to the default
     encoding for the locale code just like [`setlocale()`](locale.md#locale.setlocale "locale.setlocale").
 
-locale.resetlocale(*category=LC_ALL*)
+`locale.resetlocale(category=LC_ALL)`
 :   Sets the locale for *category* to the default setting.
 
     The default setting is determined by calling [`getdefaultlocale()`](locale.md#locale.getdefaultlocale "locale.getdefaultlocale").
@@ -352,20 +352,20 @@ locale.resetlocale(*category=LC_ALL*)
 
     Deprecated since version 3.11, will be removed in version 3.13.
 
-locale.strcoll(*string1*, *string2*)
+`locale.strcoll(string1, string2)`
 :   Compares two strings according to the current [`LC_COLLATE`](locale.md#locale.LC_COLLATE "locale.LC_COLLATE") setting. As
     any other compare function, returns a negative, or a positive value, or `0`,
     depending on whether *string1* collates before or after *string2* or is equal to
     it.
 
-locale.strxfrm(*string*)
+`locale.strxfrm(string)`
 :   Transforms a string to one that can be used in locale-aware
     comparisons. For example, `strxfrm(s1) < strxfrm(s2)` is
     equivalent to `strcoll(s1, s2) < 0`. This function can be used
     when the same string is compared repeatedly, e.g. when collating a
     sequence of strings.
 
-locale.format_string(*format*, *val*, *grouping=False*, *monetary=False*)
+`locale.format_string(format, val, grouping=False, monetary=False)`
 :   Formats a number *val* according to the current [`LC_NUMERIC`](locale.md#locale.LC_NUMERIC "locale.LC_NUMERIC") setting.
     The format follows the conventions of the `%` operator. For floating-point
     values, the decimal point is modified if appropriate. If *grouping* is `True`,
@@ -379,7 +379,7 @@ locale.format_string(*format*, *val*, *grouping=False*, *monetary=False*)
 
     Changed in version 3.7: The *monetary* keyword parameter was added.
 
-locale.currency(*val*, *symbol=True*, *grouping=False*, *international=False*)
+`locale.currency(val, symbol=True, grouping=False, international=False)`
 :   Formats a number *val* according to the current [`LC_MONETARY`](locale.md#locale.LC_MONETARY "locale.LC_MONETARY") settings.
 
     The returned string includes the currency symbol if *symbol* is true, which is
@@ -392,30 +392,30 @@ locale.currency(*val*, *symbol=True*, *grouping=False*, *international=False*)
     > This function will not work with the ‘C’ locale, so you have to set a
     > locale via [`setlocale()`](locale.md#locale.setlocale "locale.setlocale") first.
 
-locale.str(*float*)
+`locale.str(float)`
 :   Formats a floating-point number using the same format as the built-in function
     `str(float)`, but takes the decimal point into account.
 
-locale.delocalize(*string*)
+`locale.delocalize(string)`
 :   Converts a string into a normalized number string, following the
     [`LC_NUMERIC`](locale.md#locale.LC_NUMERIC "locale.LC_NUMERIC") settings.
 
     Added in version 3.5.
 
-locale.localize(*string*, *grouping=False*, *monetary=False*)
+`locale.localize(string, grouping=False, monetary=False)`
 :   Converts a normalized number string into a formatted string following the
     [`LC_NUMERIC`](locale.md#locale.LC_NUMERIC "locale.LC_NUMERIC") settings.
 
     Added in version 3.10.
 
-locale.atof(*string*, *func=float*)
+`locale.atof(string, func=float)`
 :   Converts a string to a number, following the [`LC_NUMERIC`](locale.md#locale.LC_NUMERIC "locale.LC_NUMERIC") settings,
     by calling *func* on the result of calling [`delocalize()`](locale.md#locale.delocalize "locale.delocalize") on *string*.
 
-locale.atoi(*string*)
+`locale.atoi(string)`
 :   Converts a string to an integer, following the [`LC_NUMERIC`](locale.md#locale.LC_NUMERIC "locale.LC_NUMERIC") conventions.
 
-locale.LC_CTYPE
+`locale.LC_CTYPE`
 :   Locale category for the character type functions. Most importantly, this
     category defines the text encoding, i.e. how bytes are interpreted as
     Unicode codepoints. See [**PEP 538**](https://peps.python.org/pep-0538/) and [**PEP 540**](https://peps.python.org/pep-0540/) for how this variable
@@ -427,19 +427,19 @@ locale.LC_CTYPE
     from `ctype.h`. Instead, an internal `pyctype.h` provides locale-independent
     equivalents like `Py_TOLOWER`.
 
-locale.LC_COLLATE
+`locale.LC_COLLATE`
 :   Locale category for sorting strings. The functions [`strcoll()`](locale.md#locale.strcoll "locale.strcoll") and
     [`strxfrm()`](locale.md#locale.strxfrm "locale.strxfrm") of the [`locale`](locale.md#module-locale "locale: Internationalization services.") module are affected.
 
-locale.LC_TIME
+`locale.LC_TIME`
 :   Locale category for the formatting of time. The function [`time.strftime()`](time.md#time.strftime "time.strftime")
     follows these conventions.
 
-locale.LC_MONETARY
+`locale.LC_MONETARY`
 :   Locale category for formatting of monetary values. The available options are
     available from the [`localeconv()`](locale.md#locale.localeconv "locale.localeconv") function.
 
-locale.LC_MESSAGES
+`locale.LC_MESSAGES`
 :   Locale category for message display. Python currently does not support
     application specific locale-aware messages. Messages displayed by the operating
     system, like those returned by [`os.strerror()`](os.md#os.strerror "os.strerror") might be affected by this
@@ -448,20 +448,20 @@ locale.LC_MESSAGES
     This value may not be available on operating systems not conforming to the
     POSIX standard, most notably Windows.
 
-locale.LC_NUMERIC
+`locale.LC_NUMERIC`
 :   Locale category for formatting numbers. The functions [`format_string()`](locale.md#locale.format_string "locale.format_string"),
     [`atoi()`](locale.md#locale.atoi "locale.atoi"), [`atof()`](locale.md#locale.atof "locale.atof") and [`str()`](locale.md#locale.str "locale.str") of the [`locale`](locale.md#module-locale "locale: Internationalization services.") module are
     affected by that category. All other numeric formatting operations are not
     affected.
 
-locale.LC_ALL
+`locale.LC_ALL`
 :   Combination of all locale settings. If this flag is used when the locale is
     changed, setting the locale for all categories is attempted. If that fails for
     any category, no category is changed at all. When the locale is retrieved using
     this flag, a string indicating the setting for all categories is returned. This
     string can be later used to restore the settings.
 
-locale.CHAR_MAX
+`locale.CHAR_MAX`
 :   This is a symbolic constant used for different values returned by
     [`localeconv()`](locale.md#locale.localeconv "locale.localeconv").
 
@@ -531,17 +531,17 @@ library.
 
 ## Access to message catalogs
 
-locale.gettext(*msg*)
+`locale.gettext(msg)`
 
-locale.dgettext(*domain*, *msg*)
+`locale.dgettext(domain, msg)`
 
-locale.dcgettext(*domain*, *msg*, *category*)
+`locale.dcgettext(domain, msg, category)`
 
-locale.textdomain(*domain*)
+`locale.textdomain(domain)`
 
-locale.bindtextdomain(*domain*, *dir*)
+`locale.bindtextdomain(domain, dir)`
 
-locale.bind_textdomain_codeset(*domain*, *codeset*)
+`locale.bind_textdomain_codeset(domain, codeset)`
 
 The locale module exposes the C library’s gettext interface on systems that
 provide this interface. It consists of the functions [`gettext()`](gettext.md#module-gettext "gettext: Multilingual internationalization services."),

@@ -332,7 +332,7 @@ possible.
 
 ## Available Functions
 
-warnings.warn(*message*, *category=None*, *stacklevel=1*, *source=None*, *\**, *skip_file_prefixes=()*)
+`warnings.warn(message, category=None, stacklevel=1, source=None, *, skip_file_prefixes=())`
 :   Issue a warning, or maybe ignore it or raise an exception. The *category*
     argument, if given, must be a [warning category class](warnings.md#warning-categories); it
     defaults to [`UserWarning`](exceptions.md#UserWarning "UserWarning"). Alternatively, *message* can be a [`Warning`](exceptions.md#Warning "Warning") instance,
@@ -387,7 +387,7 @@ warnings.warn(*message*, *category=None*, *stacklevel=1*, *source=None*, *\**, *
 
     Changed in version 3.12: Added *skip_file_prefixes*.
 
-warnings.warn_explicit(*message*, *category*, *filename*, *lineno*, *module=None*, *registry=None*, *module_globals=None*, *source=None*)
+`warnings.warn_explicit(message, category, filename, lineno, module=None, registry=None, module_globals=None, source=None)`
 :   This is a low-level interface to the functionality of [`warn()`](warnings.md#warnings.warn "warnings.warn"), passing in
     explicitly the message, category, filename and line number, and optionally the
     module name and the registry (which should be the `__warningregistry__`
@@ -407,7 +407,7 @@ warnings.warn_explicit(*message*, *category*, *filename*, *lineno*, *module=None
 
     Changed in version 3.6: Add the *source* parameter.
 
-warnings.showwarning(*message*, *category*, *filename*, *lineno*, *file=None*, *line=None*)
+`warnings.showwarning(message, category, filename, lineno, file=None, line=None)`
 :   Write a warning to a file. The default implementation calls
     `formatwarning(message, category, filename, lineno, line)` and writes the
     resulting string to *file*, which defaults to [`sys.stderr`](sys.md#sys.stderr "sys.stderr"). You may replace
@@ -416,14 +416,14 @@ warnings.showwarning(*message*, *category*, *filename*, *lineno*, *file=None*, *
     message; if *line* is not supplied, [`showwarning()`](warnings.md#warnings.showwarning "warnings.showwarning") will
     try to read the line specified by *filename* and *lineno*.
 
-warnings.formatwarning(*message*, *category*, *filename*, *lineno*, *line=None*)
+`warnings.formatwarning(message, category, filename, lineno, line=None)`
 :   Format a warning the standard way. This returns a string which may contain
     embedded newlines and ends in a newline. *line* is a line of source code to
     be included in the warning message; if *line* is not supplied,
     [`formatwarning()`](warnings.md#warnings.formatwarning "warnings.formatwarning") will try to read the line specified by *filename* and
     *lineno*.
 
-warnings.filterwarnings(*action*, *message=''*, *category=Warning*, *module=''*, *lineno=0*, *append=False*)
+`warnings.filterwarnings(action, message='', category=Warning, module='', lineno=0, append=False)`
 :   Insert an entry into the list of [warnings filter specifications](warnings.md#warning-filter). The entry is inserted at the front by default; if
     *append* is true, it is inserted at the end. This checks the types of the
     arguments, compiles the *message* and *module* regular expressions, and
@@ -432,20 +432,20 @@ warnings.filterwarnings(*action*, *message=''*, *category=Warning*, *module=''*,
     particular warning. Omitted arguments default to a value that matches
     everything.
 
-warnings.simplefilter(*action*, *category=Warning*, *lineno=0*, *append=False*)
+`warnings.simplefilter(action, category=Warning, lineno=0, append=False)`
 :   Insert a simple entry into the list of [warnings filter specifications](warnings.md#warning-filter). The meaning of the function parameters is as for
     [`filterwarnings()`](warnings.md#warnings.filterwarnings "warnings.filterwarnings"), but regular expressions are not needed as the filter
     inserted always matches any message in any module as long as the category and
     line number match.
 
-warnings.resetwarnings()
+`warnings.resetwarnings()`
 :   Reset the warnings filter. This discards the effect of all previous calls to
     [`filterwarnings()`](warnings.md#warnings.filterwarnings "warnings.filterwarnings"), including that of the [`-W`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-W) command line options
     and calls to [`simplefilter()`](warnings.md#warnings.simplefilter "warnings.simplefilter").
 
 ## Available Context Managers
 
-*class* warnings.catch_warnings(*\**, *record=False*, *module=None*, *action=None*, *category=Warning*, *lineno=0*, *append=False*)
+`class warnings.catch_warnings(*, record=False, module=None, action=None, category=Warning, lineno=0, append=False)`
 :   A context manager that copies and, upon exit, restores the warnings filter
     and the [`showwarning()`](warnings.md#warnings.showwarning "warnings.showwarning") function.
     If the *record* argument is [`False`](constants.md#False "False") (the default) the context manager

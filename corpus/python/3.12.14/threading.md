@@ -51,13 +51,13 @@ This module does not work or is not available on WebAssembly platforms
 
 This module defines the following functions:
 
-threading.active_count()
+`threading.active_count()`
 :   Return the number of [`Thread`](threading.md#threading.Thread "threading.Thread") objects currently alive. The returned
     count is equal to the length of the list returned by [`enumerate()`](threading.md#threading.enumerate "threading.enumerate").
 
     The function `activeCount` is a deprecated alias for this function.
 
-threading.current_thread()
+`threading.current_thread()`
 :   Return the current [`Thread`](threading.md#threading.Thread "threading.Thread") object, corresponding to the caller’s thread
     of control. If the caller’s thread of control was not created through the
     [`threading`](threading.md#module-threading "threading: Thread-based parallelism.") module, a dummy thread object with limited functionality is
@@ -65,7 +65,7 @@ threading.current_thread()
 
     The function `currentThread` is a deprecated alias for this function.
 
-threading.excepthook(*args*, */*)
+`threading.excepthook(args, /)`
 :   Handle uncaught exception raised by [`Thread.run()`](threading.md#threading.Thread.run "threading.Thread.run").
 
     The *args* argument has the following attributes:
@@ -98,14 +98,14 @@ threading.excepthook(*args*, */*)
 
     Added in version 3.8.
 
-threading.__excepthook__
+`threading.__excepthook__`
 :   Holds the original value of [`threading.excepthook()`](threading.md#threading.excepthook "threading.excepthook"). It is saved so that the
     original value can be restored in case they happen to get replaced with
     broken or alternative objects.
 
     Added in version 3.10.
 
-threading.get_ident()
+`threading.get_ident()`
 :   Return the ‘thread identifier’ of the current thread. This is a nonzero
     integer. Its value has no direct meaning; it is intended as a magic cookie
     to be used e.g. to index a dictionary of thread-specific data. Thread
@@ -114,7 +114,7 @@ threading.get_ident()
 
     Added in version 3.3.
 
-threading.get_native_id()
+`threading.get_native_id()`
 :   Return the native integral Thread ID of the current thread assigned by the kernel.
     This is a non-negative integer.
     Its value may be used to uniquely identify this particular thread system-wide
@@ -124,26 +124,26 @@ threading.get_native_id()
 
     Added in version 3.8.
 
-threading.enumerate()
+`threading.enumerate()`
 :   Return a list of all [`Thread`](threading.md#threading.Thread "threading.Thread") objects currently active. The list
     includes daemonic threads and dummy thread objects created by
     [`current_thread()`](threading.md#threading.current_thread "threading.current_thread"). It excludes terminated threads and threads
     that have not yet been started. However, the main thread is always part
     of the result, even when terminated.
 
-threading.main_thread()
+`threading.main_thread()`
 :   Return the main [`Thread`](threading.md#threading.Thread "threading.Thread") object. In normal conditions, the
     main thread is the thread from which the Python interpreter was
     started.
 
     Added in version 3.4.
 
-threading.settrace(*func*)
+`threading.settrace(func)`
 :   Set a trace function for all threads started from the [`threading`](threading.md#module-threading "threading: Thread-based parallelism.") module.
     The *func* will be passed to [`sys.settrace()`](sys.md#sys.settrace "sys.settrace") for each thread, before its
     [`run()`](threading.md#threading.Thread.run "threading.Thread.run") method is called.
 
-threading.settrace_all_threads(*func*)
+`threading.settrace_all_threads(func)`
 :   Set a trace function for all threads started from the [`threading`](threading.md#module-threading "threading: Thread-based parallelism.") module
     and all Python threads that are currently executing.
 
@@ -152,17 +152,17 @@ threading.settrace_all_threads(*func*)
 
     Added in version 3.12.
 
-threading.gettrace()
+`threading.gettrace()`
 :   Get the trace function as set by [`settrace()`](threading.md#threading.settrace "threading.settrace").
 
     Added in version 3.10.
 
-threading.setprofile(*func*)
+`threading.setprofile(func)`
 :   Set a profile function for all threads started from the [`threading`](threading.md#module-threading "threading: Thread-based parallelism.") module.
     The *func* will be passed to [`sys.setprofile()`](sys.md#sys.setprofile "sys.setprofile") for each thread, before its
     [`run()`](threading.md#threading.Thread.run "threading.Thread.run") method is called.
 
-threading.setprofile_all_threads(*func*)
+`threading.setprofile_all_threads(func)`
 :   Set a profile function for all threads started from the [`threading`](threading.md#module-threading "threading: Thread-based parallelism.") module
     and all Python threads that are currently executing.
 
@@ -171,12 +171,12 @@ threading.setprofile_all_threads(*func*)
 
     Added in version 3.12.
 
-threading.getprofile()
+`threading.getprofile()`
 :   Get the profiler function as set by [`setprofile()`](threading.md#threading.setprofile "threading.setprofile").
 
     Added in version 3.10.
 
-threading.stack_size([*size*])
+`threading.stack_size([size])`
 :   Return the thread stack size used when creating new threads. The optional
     *size* argument specifies the stack size to be used for subsequently created
     threads, and must be 0 (use platform or configured default) or a positive
@@ -198,7 +198,7 @@ threading.stack_size([*size*])
 
 This module also defines the following constant:
 
-threading.TIMEOUT_MAX
+`threading.TIMEOUT_MAX`
 :   The maximum value allowed for the *timeout* parameter of blocking functions
     ([`Lock.acquire()`](threading.md#threading.Lock.acquire "threading.Lock.acquire"), [`RLock.acquire()`](threading.md#threading.RLock.acquire "threading.RLock.acquire"), [`Condition.wait()`](threading.md#threading.Condition.wait "threading.Condition.wait"), etc.).
     Specifying a timeout greater than this value will raise an
@@ -232,7 +232,7 @@ mydata.x = 1
 
 The instance’s values will be different for separate threads.
 
-*class* threading.local
+`class threading.local`
 :   A class that represents thread-local data.
 
     For more details and extensive examples, see the documentation string of the
@@ -290,7 +290,7 @@ thread objects have limited functionality; they are always considered alive and
 daemonic, and cannot be [joined](threading.md#meth-thread-join). They are never deleted,
 since it is impossible to detect the termination of alien threads.
 
-*class* threading.Thread(*group=None*, *target=None*, *name=None*, *args=()*, *kwargs={}*, *\**, *daemon=None*)
+`class threading.Thread(group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None)`
 :   This constructor should always be called with keyword arguments. Arguments
     are:
 
@@ -322,7 +322,7 @@ since it is impossible to detect the termination of alien threads.
 
     Changed in version 3.10: Use the *target* name if *name* argument is omitted.
 
-    start()
+    `start()`
     :   Start the thread’s activity.
 
         It must be called at most once per thread object. It arranges for the
@@ -332,7 +332,7 @@ since it is impossible to detect the termination of alien threads.
         This method will raise a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") if called more than once
         on the same thread object.
 
-    run()
+    `run()`
     :   Method representing the thread’s activity.
 
         You may override this method in a subclass. The standard [`run()`](threading.md#threading.Thread.run "threading.Thread.run")
@@ -355,7 +355,7 @@ since it is impossible to detect the termination of alien threads.
         1
         ```
 
-    join(*timeout=None*)
+    `join(timeout=None)`
     :   Wait until the thread terminates. This blocks the calling thread until
         the thread whose [`join()`](threading.md#threading.Thread.join "threading.Thread.join") method is called terminates – either
         normally or through an unhandled exception – or until the optional
@@ -378,27 +378,27 @@ since it is impossible to detect the termination of alien threads.
         an error to [`join()`](threading.md#threading.Thread.join "threading.Thread.join") a thread before it has been started
         and attempts to do so raise the same exception.
 
-    name
+    `name`
     :   A string used for identification purposes only. It has no semantics.
         Multiple threads may be given the same name. The initial name is set by
         the constructor.
 
-    getName()
+    `getName()`
 
-    setName()
+    `setName()`
     :   Deprecated getter/setter API for [`name`](threading.md#threading.Thread.name "threading.Thread.name"); use it directly as a
         property instead.
 
         Deprecated since version 3.10.
 
-    ident
+    `ident`
     :   The ‘thread identifier’ of this thread or `None` if the thread has not
         been started. This is a nonzero integer. See the [`get_ident()`](threading.md#threading.get_ident "threading.get_ident")
         function. Thread identifiers may be recycled when a thread exits and
         another thread is created. The identifier is available even after the
         thread has exited.
 
-    native_id
+    `native_id`
     :   The Thread ID (`TID`) of this thread, as assigned by the OS (kernel).
         This is a non-negative integer, or `None` if the thread has not
         been started. See the [`get_native_id()`](threading.md#threading.get_native_id "threading.get_native_id") function.
@@ -416,14 +416,14 @@ since it is impossible to detect the termination of alien threads.
 
         Added in version 3.8.
 
-    is_alive()
+    `is_alive()`
     :   Return whether the thread is alive.
 
         This method returns `True` just before the [`run()`](threading.md#threading.Thread.run "threading.Thread.run") method
         starts until just after the [`run()`](threading.md#threading.Thread.run "threading.Thread.run") method terminates. The
         module function [`enumerate()`](threading.md#threading.enumerate "threading.enumerate") returns a list of all alive threads.
 
-    daemon
+    `daemon`
     :   A boolean value indicating whether this thread is a daemon thread (`True`)
         or not (`False`). This must be set before [`start()`](threading.md#threading.Thread.start "threading.Thread.start") is called,
         otherwise [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is raised. Its initial value is inherited
@@ -433,9 +433,9 @@ since it is impossible to detect the termination of alien threads.
 
         The entire Python program exits when no alive non-daemon threads are left.
 
-    isDaemon()
+    `isDaemon()`
 
-    setDaemon()
+    `setDaemon()`
     :   Deprecated getter/setter API for [`daemon`](threading.md#threading.Thread.daemon "threading.Thread.daemon"); use it directly as a
         property instead.
 
@@ -468,7 +468,7 @@ is not defined, and may vary across implementations.
 
 All methods are executed atomically.
 
-*class* threading.Lock
+`class threading.Lock`
 :   The class implementing primitive lock objects. Once a thread has acquired a
     lock, subsequent attempts to acquire it block, until it is released; any
     thread may release it.
@@ -477,7 +477,7 @@ All methods are executed atomically.
     of the most efficient version of the concrete Lock class that is supported
     by the platform.
 
-    acquire(*blocking=True*, *timeout=-1*)
+    `acquire(blocking=True, timeout=-1)`
     :   Acquire a lock, blocking or non-blocking.
 
         When invoked with the *blocking* argument set to `True` (the default),
@@ -501,7 +501,7 @@ All methods are executed atomically.
         Changed in version 3.2: Lock acquisition can now be interrupted by signals on POSIX if the
         underlying threading implementation supports it.
 
-    release()
+    `release()`
     :   Release a lock. This can be called from any thread, not only the thread
         which has acquired the lock.
 
@@ -513,7 +513,7 @@ All methods are executed atomically.
 
         There is no return value.
 
-    locked()
+    `locked()`
     :   Return `True` if the lock is acquired.
 
 ## RLock Objects
@@ -544,7 +544,7 @@ the lock to an unlocked state and allows another thread blocked in
 must have a release in the thread that has acquired the lock. Failing to
 call release as many times the lock has been acquired can lead to deadlock.
 
-*class* threading.RLock
+`class threading.RLock`
 :   This class implements reentrant lock objects. A reentrant lock must be
     released by the thread that acquired it. Once a thread has acquired a
     reentrant lock, the same thread may acquire it again without blocking; the
@@ -554,7 +554,7 @@ call release as many times the lock has been acquired can lead to deadlock.
     of the most efficient version of the concrete RLock class that is supported
     by the platform.
 
-    acquire(*blocking=True*, *timeout=-1*)
+    `acquire(blocking=True, timeout=-1)`
     :   Acquire a lock, blocking or non-blocking.
 
         > **See also:**
@@ -590,7 +590,7 @@ call release as many times the lock has been acquired can lead to deadlock.
 
         Changed in version 3.2: The *timeout* parameter is new.
 
-    release()
+    `release()`
     :   Release a lock, decrementing the recursion level. If after the decrement it is
         zero, reset the lock to unlocked (not owned by any thread), and if any other
         threads are blocked waiting for the lock to become unlocked, allow exactly one
@@ -673,7 +673,7 @@ consider whether one state change can be interesting for only one or several
 waiting threads. E.g. in a typical producer-consumer situation, adding one
 item to the buffer only needs to wake up one consumer thread.
 
-*class* threading.Condition(*lock=None*)
+`class threading.Condition(lock=None)`
 :   This class implements condition variable objects. A condition variable
     allows one or more threads to wait until they are notified by another thread.
 
@@ -683,15 +683,15 @@ item to the buffer only needs to wake up one consumer thread.
 
     Changed in version 3.3: changed from a factory function to a class.
 
-    acquire(*\*args*)
+    `acquire(*args)`
     :   Acquire the underlying lock. This method calls the corresponding method on
         the underlying lock; the return value is whatever that method returns.
 
-    release()
+    `release()`
     :   Release the underlying lock. This method calls the corresponding method on
         the underlying lock; there is no return value.
 
-    wait(*timeout=None*)
+    `wait(timeout=None)`
     :   Wait until notified or until a timeout occurs. If the calling thread has
         not acquired the lock when this method is called, a [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is
         raised.
@@ -718,7 +718,7 @@ item to the buffer only needs to wake up one consumer thread.
 
         Changed in version 3.2: Previously, the method always returned `None`.
 
-    wait_for(*predicate*, *timeout=None*)
+    `wait_for(predicate, timeout=None)`
     :   Wait until a condition evaluates to true. *predicate* should be a
         callable which result will be interpreted as a boolean value.
         A *timeout* may be provided giving the maximum time to wait.
@@ -742,7 +742,7 @@ item to the buffer only needs to wake up one consumer thread.
 
         Added in version 3.2.
 
-    notify(*n=1*)
+    `notify(n=1)`
     :   By default, wake up one thread waiting on this condition, if any. If the
         calling thread has not acquired the lock when this method is called, a
         [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is raised.
@@ -759,7 +759,7 @@ item to the buffer only needs to wake up one consumer thread.
         call until it can reacquire the lock. Since [`notify()`](threading.md#threading.Condition.notify "threading.Condition.notify") does not
         release the lock, its caller should.
 
-    notify_all()
+    `notify_all()`
     :   Wake up all threads waiting on this condition. This method acts like
         [`notify()`](threading.md#threading.Condition.notify "threading.Condition.notify"), but wakes up all waiting threads instead of one. If the
         calling thread has not acquired the lock when this method is called, a
@@ -782,7 +782,7 @@ finds that it is zero, it blocks, waiting until some other thread calls
 
 Semaphores also support the [context management protocol](threading.md#with-locks).
 
-*class* threading.Semaphore(*value=1*)
+`class threading.Semaphore(value=1)`
 :   This class implements semaphore objects. A semaphore manages an atomic
     counter representing the number of [`release()`](threading.md#threading.Semaphore.release "threading.Semaphore.release") calls minus the number of
     [`acquire()`](threading.md#threading.Semaphore.acquire "threading.Semaphore.acquire") calls, plus an initial value. The [`acquire()`](threading.md#threading.Semaphore.acquire "threading.Semaphore.acquire") method
@@ -795,7 +795,7 @@ Semaphores also support the [context management protocol](threading.md#with-lock
 
     Changed in version 3.3: changed from a factory function to a class.
 
-    acquire(*blocking=True*, *timeout=None*)
+    `acquire(blocking=True, timeout=None)`
     :   Acquire a semaphore.
 
         When invoked without arguments:
@@ -818,14 +818,14 @@ Semaphores also support the [context management protocol](threading.md#with-lock
 
         Changed in version 3.2: The *timeout* parameter is new.
 
-    release(*n=1*)
+    `release(n=1)`
     :   Release a semaphore, incrementing the internal counter by *n*. When it
         was zero on entry and other threads are waiting for it to become larger
         than zero again, wake up *n* of those threads.
 
         Changed in version 3.9: Added the *n* parameter to release multiple waiting threads at once.
 
-*class* threading.BoundedSemaphore(*value=1*)
+`class threading.BoundedSemaphore(value=1)`
 :   Class implementing bounded semaphore objects. A bounded semaphore checks to
     make sure its current value doesn’t exceed its initial value. If it does,
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised. In most situations semaphores are used to guard
@@ -871,7 +871,7 @@ An event object manages an internal flag that can be set to true with the
 [`set()`](threading.md#threading.Event.set "threading.Event.set") method and reset to false with the [`clear()`](threading.md#threading.Event.clear "threading.Event.clear")
 method. The [`wait()`](threading.md#threading.Event.wait "threading.Event.wait") method blocks until the flag is true.
 
-*class* threading.Event
+`class threading.Event`
 :   Class implementing event objects. An event manages a flag that can be set to
     true with the [`set()`](threading.md#threading.Event.set "threading.Event.set") method and reset to false with the
     [`clear()`](threading.md#threading.Event.clear "threading.Event.clear") method. The [`wait()`](threading.md#threading.Event.wait "threading.Event.wait") method blocks until the flag is true.
@@ -879,22 +879,22 @@ method. The [`wait()`](threading.md#threading.Event.wait "threading.Event.wait")
 
     Changed in version 3.3: changed from a factory function to a class.
 
-    is_set()
+    `is_set()`
     :   Return `True` if and only if the internal flag is true.
 
         The method `isSet` is a deprecated alias for this method.
 
-    set()
+    `set()`
     :   Set the internal flag to true. All threads waiting for it to become true
         are awakened. Threads that call [`wait()`](threading.md#threading.Event.wait "threading.Event.wait") once the flag is true will
         not block at all.
 
-    clear()
+    `clear()`
     :   Reset the internal flag to false. Subsequently, threads calling
         [`wait()`](threading.md#threading.Event.wait "threading.Event.wait") will block until [`set()`](threading.md#threading.Event.set "threading.Event.set") is called to set the internal
         flag to true again.
 
-    wait(*timeout=None*)
+    `wait(timeout=None)`
     :   Block as long as the internal flag is false and the timeout, if given,
         has not expired. The return value represents the
         reason that this blocking method returned; `True` if returning because
@@ -929,7 +929,7 @@ t = Timer(30.0, hello)
 t.start()  # after 30 seconds, "hello, world" will be printed
 ```
 
-*class* threading.Timer(*interval*, *function*, *args=None*, *kwargs=None*)
+`class threading.Timer(interval, function, args=None, kwargs=None)`
 :   Create a timer that will run *function* with arguments *args* and keyword
     arguments *kwargs*, after *interval* seconds have passed.
     If *args* is `None` (the default) then an empty list will be used.
@@ -937,7 +937,7 @@ t.start()  # after 30 seconds, "hello, world" will be printed
 
     Changed in version 3.3: changed from a factory function to a class.
 
-    cancel()
+    `cancel()`
     :   Stop the timer, and cancel the execution of the timer’s action. This will
         only work if the timer is still in its waiting stage.
 
@@ -972,13 +972,13 @@ def client():
         process_client_connection(connection)
 ```
 
-*class* threading.Barrier(*parties*, *action=None*, *timeout=None*)
+`class threading.Barrier(parties, action=None, timeout=None)`
 :   Create a barrier object for *parties* number of threads. An *action*, when
     provided, is a callable to be called by one of the threads when they are
     released. *timeout* is the default timeout value if none is specified for
     the [`wait()`](threading.md#threading.Barrier.wait "threading.Barrier.wait") method.
 
-    wait(*timeout=None*)
+    `wait(timeout=None)`
     :   Pass the barrier. When all the threads party to the barrier have called
         this function, they are all released simultaneously. If a *timeout* is
         provided, it is used in preference to any that was supplied to the class
@@ -1004,7 +1004,7 @@ def client():
         This method may raise a [`BrokenBarrierError`](threading.md#threading.BrokenBarrierError "threading.BrokenBarrierError") exception if the
         barrier is broken or reset while a thread is waiting.
 
-    reset()
+    `reset()`
     :   Return the barrier to the default, empty state. Any threads waiting on it
         will receive the [`BrokenBarrierError`](threading.md#threading.BrokenBarrierError "threading.BrokenBarrierError") exception.
 
@@ -1012,7 +1012,7 @@ def client():
         synchronization if there are other threads whose state is unknown. If a
         barrier is broken it may be better to just leave it and create a new one.
 
-    abort()
+    `abort()`
     :   Put the barrier into a broken state. This causes any active or future
         calls to [`wait()`](threading.md#threading.Barrier.wait "threading.Barrier.wait") to fail with the [`BrokenBarrierError`](threading.md#threading.BrokenBarrierError "threading.BrokenBarrierError"). Use
         this for example if one of the threads needs to abort, to avoid deadlocking the
@@ -1022,16 +1022,16 @@ def client():
         *timeout* value to automatically guard against one of the threads going
         awry.
 
-    parties
+    `parties`
     :   The number of threads required to pass the barrier.
 
-    n_waiting
+    `n_waiting`
     :   The number of threads currently waiting in the barrier.
 
-    broken
+    `broken`
     :   A boolean that is `True` if the barrier is in the broken state.
 
-*exception* threading.BrokenBarrierError
+`exception threading.BrokenBarrierError`
 :   This exception, a subclass of [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError"), is raised when the
     [`Barrier`](threading.md#threading.Barrier "threading.Barrier") object is reset or broken.
 

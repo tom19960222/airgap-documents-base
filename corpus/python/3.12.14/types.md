@@ -23,7 +23,7 @@ that are not fundamental enough to be builtins.
 
 ## Dynamic Type Creation
 
-types.new_class(*name*, *bases=()*, *kwds=None*, *exec_body=None*)
+`types.new_class(name, bases=(), kwds=None, exec_body=None)`
 :   Creates a class object dynamically using the appropriate metaclass.
 
     The first three arguments are the components that make up a class
@@ -38,7 +38,7 @@ types.new_class(*name*, *bases=()*, *kwds=None*, *exec_body=None*)
 
     Added in version 3.3.
 
-types.prepare_class(*name*, *bases=()*, *kwds=None*)
+`types.prepare_class(name, bases=(), kwds=None)`
 :   Calculates the appropriate metaclass and creates the class namespace.
 
     The arguments are the components that make up a class definition header:
@@ -66,7 +66,7 @@ types.prepare_class(*name*, *bases=()*, *kwds=None*)
 > [**PEP 3115**](https://peps.python.org/pep-3115/) - Metaclasses in Python 3000
 > :   Introduced the `__prepare__` namespace hook
 
-types.resolve_bases(*bases*)
+`types.resolve_bases(bases)`
 :   Resolve MRO entries dynamically as specified by [**PEP 560**](https://peps.python.org/pep-0560/).
 
     This function looks for items in *bases* that are not instances of
@@ -78,7 +78,7 @@ types.resolve_bases(*bases*)
 
     Added in version 3.7.
 
-types.get_original_bases(*cls*, */*)
+`types.get_original_bases(cls, /)`
 :   Return the tuple of objects originally given as the bases of *cls* before
     the [`__mro_entries__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__mro_entries__ "object.__mro_entries__") method has been called on any bases
     (following the mechanisms laid out in [**PEP 560**](https://peps.python.org/pep-0560/)). This is useful for
@@ -137,14 +137,14 @@ If you instantiate any of these types, note that signatures may vary between Pyt
 
 Standard names are defined for the following types:
 
-types.NoneType
+`types.NoneType`
 :   The type of [`None`](constants.md#None "None").
 
     Added in version 3.10.
 
-types.FunctionType
+`types.FunctionType`
 
-types.LambdaType
+`types.LambdaType`
 :   The type of user-defined functions and functions created by
     [`lambda`](https://docs.python.org/3.12/reference/expressions.html#lambda) expressions.
 
@@ -153,23 +153,23 @@ types.LambdaType
     The audit event only occurs for direct instantiation of function objects,
     and is not raised for normal compilation.
 
-types.GeneratorType
+`types.GeneratorType`
 :   The type of [generator](https://docs.python.org/3.12/glossary.html#term-generator)-iterator objects, created by
     generator functions.
 
-types.CoroutineType
+`types.CoroutineType`
 :   The type of [coroutine](https://docs.python.org/3.12/glossary.html#term-coroutine) objects, created by
     [`async def`](https://docs.python.org/3.12/reference/compound_stmts.html#async-def) functions.
 
     Added in version 3.5.
 
-types.AsyncGeneratorType
+`types.AsyncGeneratorType`
 :   The type of [asynchronous generator](https://docs.python.org/3.12/glossary.html#term-asynchronous-generator)-iterator objects, created by
     asynchronous generator functions.
 
     Added in version 3.6.
 
-*class* types.CodeType(*\*\*kwargs*)
+`class types.CodeType(**kwargs)`
 :   The type of [code objects](https://docs.python.org/3.12/reference/datamodel.html#code-objects) such as returned by [`compile()`](functions.md#compile "compile").
 
     Raises an [auditing event](sys.md#auditing) `code.__new__` with arguments `code`, `filename`, `name`, `argcount`, `posonlyargcount`, `kwonlyargcount`, `nlocals`, `stacksize`, `flags`.
@@ -178,51 +178,51 @@ types.AsyncGeneratorType
     required by the initializer. The audit event only occurs for direct
     instantiation of code objects, and is not raised for normal compilation.
 
-types.CellType
+`types.CellType`
 :   The type for cell objects: such objects are used as containers for
     a function’s free variables.
 
     Added in version 3.8.
 
-types.MethodType
+`types.MethodType`
 :   The type of methods of user-defined class instances.
 
-types.BuiltinFunctionType
+`types.BuiltinFunctionType`
 
-types.BuiltinMethodType
+`types.BuiltinMethodType`
 :   The type of built-in functions like [`len()`](functions.md#len "len") or [`sys.exit()`](sys.md#sys.exit "sys.exit"), and
     methods of built-in classes. (Here, the term “built-in” means “written in
     C”.)
 
-types.WrapperDescriptorType
+`types.WrapperDescriptorType`
 :   The type of methods of some built-in data types and base classes such as
     [`object.__init__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__init__ "object.__init__") or [`object.__lt__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__lt__ "object.__lt__").
 
     Added in version 3.7.
 
-types.MethodWrapperType
+`types.MethodWrapperType`
 :   The type of *bound* methods of some built-in data types and base classes.
     For example it is the type of `object().__str__`.
 
     Added in version 3.7.
 
-types.NotImplementedType
+`types.NotImplementedType`
 :   The type of [`NotImplemented`](constants.md#NotImplemented "NotImplemented").
 
     Added in version 3.10.
 
-types.MethodDescriptorType
+`types.MethodDescriptorType`
 :   The type of methods of some built-in data types such as [`str.join()`](stdtypes.md#str.join "str.join").
 
     Added in version 3.7.
 
-types.ClassMethodDescriptorType
+`types.ClassMethodDescriptorType`
 :   The type of *unbound* class methods of some built-in data types such as
     `dict.__dict__['fromkeys']`.
 
     Added in version 3.7.
 
-*class* types.ModuleType(*name*, *doc=None*)
+`class types.ModuleType(name, doc=None)`
 :   The type of [modules](https://docs.python.org/3.12/glossary.html#term-module). The constructor takes the name of the
     module to be created and optionally its [docstring](https://docs.python.org/3.12/glossary.html#term-docstring).
 
@@ -239,12 +239,12 @@ types.ClassMethodDescriptorType
     >     creating `ModuleType` instances which ensures the various
     >     attributes are set appropriately.
 
-types.EllipsisType
+`types.EllipsisType`
 :   The type of [`Ellipsis`](constants.md#Ellipsis "Ellipsis").
 
     Added in version 3.10.
 
-*class* types.GenericAlias(*t_origin*, *t_args*)
+`class types.GenericAlias(t_origin, t_args)`
 :   The type of [parameterized generics](stdtypes.md#types-genericalias) such as
     `list[int]`.
 
@@ -273,30 +273,30 @@ types.EllipsisType
     > [**PEP 585**](https://peps.python.org/pep-0585/) - Type Hinting Generics In Standard Collections
     > :   Introducing the `types.GenericAlias` class
 
-*class* types.UnionType
+`class types.UnionType`
 :   The type of [union type expressions](stdtypes.md#types-union).
 
     Added in version 3.10.
 
-*class* types.TracebackType(*tb_next*, *tb_frame*, *tb_lasti*, *tb_lineno*)
+`class types.TracebackType(tb_next, tb_frame, tb_lasti, tb_lineno)`
 :   The type of traceback objects such as found in `sys.exception().__traceback__`.
 
     See [the language reference](https://docs.python.org/3.12/reference/datamodel.html#traceback-objects) for details of the
     available attributes and operations, and guidance on creating tracebacks
     dynamically.
 
-types.FrameType
+`types.FrameType`
 :   The type of [frame objects](https://docs.python.org/3.12/reference/datamodel.html#frame-objects) such as found in
     [`tb.tb_frame`](https://docs.python.org/3.12/reference/datamodel.html#traceback.tb_frame "traceback.tb_frame") if `tb` is a traceback object.
 
-types.GetSetDescriptorType
+`types.GetSetDescriptorType`
 :   The type of objects defined in extension modules with `PyGetSetDef`, such
     as [`FrameType.f_locals`](https://docs.python.org/3.12/reference/datamodel.html#frame.f_locals "frame.f_locals") or `array.array.typecode`.
     This type is used as
     descriptor for object attributes; it has the same purpose as the
     [`property`](functions.md#property "property") type, but for classes defined in extension modules.
 
-types.MemberDescriptorType
+`types.MemberDescriptorType`
 :   The type of objects defined in extension modules with `PyMemberDef`, such
     as `datetime.timedelta.days`. This type is used as descriptor for simple C
     data members which use standard conversion functions; it has the same purpose
@@ -309,7 +309,7 @@ types.MemberDescriptorType
     **CPython implementation detail:** In other implementations of Python, this type may be identical to
     `GetSetDescriptorType`.
 
-*class* types.MappingProxyType(*mapping*)
+`class types.MappingProxyType(mapping)`
 :   Read-only proxy of a mapping. It provides a dynamic view on the mapping’s
     entries, which means that when the mapping changes, the view reflects these
     changes.
@@ -319,52 +319,52 @@ types.MemberDescriptorType
     Changed in version 3.9: Updated to support the new union (`|`) operator from [**PEP 584**](https://peps.python.org/pep-0584/), which
     simply delegates to the underlying mapping.
 
-    key in proxy
+    `key in proxy`
     :   Return `True` if the underlying mapping has a key *key*, else
         `False`.
 
-    proxy[key]
+    `proxy[key]`
     :   Return the item of the underlying mapping with key *key*. Raises a
         [`KeyError`](exceptions.md#KeyError "KeyError") if *key* is not in the underlying mapping.
 
-    iter(proxy)
+    `iter(proxy)`
     :   Return an iterator over the keys of the underlying mapping. This is a
         shortcut for `iter(proxy.keys())`.
 
-    len(proxy)
+    `len(proxy)`
     :   Return the number of items in the underlying mapping.
 
-    copy()
+    `copy()`
     :   Return a shallow copy of the underlying mapping.
 
-    get(*key*[, *default*])
+    `get(key[, default])`
     :   Return the value for *key* if *key* is in the underlying mapping, else
         *default*. If *default* is not given, it defaults to `None`, so that
         this method never raises a [`KeyError`](exceptions.md#KeyError "KeyError").
 
-    items()
+    `items()`
     :   Return a new view of the underlying mapping’s items (`(key, value)`
         pairs).
 
-    keys()
+    `keys()`
     :   Return a new view of the underlying mapping’s keys.
 
-    values()
+    `values()`
     :   Return a new view of the underlying mapping’s values.
 
-    reversed(proxy)
+    `reversed(proxy)`
     :   Return a reverse iterator over the keys of the underlying mapping.
 
         Added in version 3.9.
 
-    hash(proxy)
+    `hash(proxy)`
     :   Return a hash of the underlying mapping.
 
         Added in version 3.12.
 
 ## Additional Utility Classes and Functions
 
-*class* types.SimpleNamespace
+`class types.SimpleNamespace`
 :   A simple [`object`](functions.md#object "object") subclass that provides attribute access to its
     namespace, as well as a meaningful repr.
 
@@ -398,7 +398,7 @@ types.MemberDescriptorType
     Changed in version 3.9: Attribute order in the repr changed from alphabetical to insertion (like
     `dict`).
 
-types.DynamicClassAttribute(*fget=None*, *fset=None*, *fdel=None*, *doc=None*)
+`types.DynamicClassAttribute(fget=None, fset=None, fdel=None, doc=None)`
 :   Route attribute access on a class to __getattr__.
 
     This is a descriptor, used to define attributes that act differently when
@@ -413,7 +413,7 @@ types.DynamicClassAttribute(*fget=None*, *fset=None*, *fdel=None*, *doc=None*)
 
 ## Coroutine Utility Functions
 
-types.coroutine(*gen_func*)
+`types.coroutine(gen_func)`
 :   This function transforms a [generator](https://docs.python.org/3.12/glossary.html#term-generator) function into a
     [coroutine function](https://docs.python.org/3.12/glossary.html#term-coroutine-function) which returns a generator-based coroutine.
     The generator-based coroutine is still a [generator iterator](https://docs.python.org/3.12/glossary.html#term-generator-iterator),

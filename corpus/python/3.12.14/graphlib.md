@@ -11,7 +11,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
 
 ---
 
-*class* graphlib.TopologicalSorter(*graph=None*)
+`class graphlib.TopologicalSorter(graph=None)`
 :   Provides functionality to topologically sort a graph of [hashable](https://docs.python.org/3.12/glossary.html#term-hashable) nodes.
 
     A topological order is a linear ordering of the vertices in a graph such that
@@ -79,7 +79,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
         topological_sorter.done(node)
     ```
 
-    add(*node*, *\*predecessors*)
+    `add(node, *predecessors)`
     :   Add a new node and its predecessors to the graph. Both the *node* and all
         elements in *predecessors* must be [hashable](https://docs.python.org/3.12/glossary.html#term-hashable).
 
@@ -93,7 +93,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
 
         Raises [`ValueError`](exceptions.md#ValueError "ValueError") if called after [`prepare()`](graphlib.md#graphlib.TopologicalSorter.prepare "graphlib.TopologicalSorter.prepare").
 
-    prepare()
+    `prepare()`
     :   Mark the graph as finished and check for cycles in the graph. If any cycle
         is detected, [`CycleError`](graphlib.md#graphlib.CycleError "graphlib.CycleError") will be raised, but
         [`get_ready()`](graphlib.md#graphlib.TopologicalSorter.get_ready "graphlib.TopologicalSorter.get_ready") can still be used to obtain as many
@@ -101,7 +101,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
         function, the graph cannot be modified, and therefore no more nodes can be
         added using [`add()`](graphlib.md#graphlib.TopologicalSorter.add "graphlib.TopologicalSorter.add").
 
-    is_active()
+    `is_active()`
     :   Returns `True` if more progress can be made and `False` otherwise.
         Progress can be made if cycles do not block the resolution and either
         there are still nodes ready that haven’t yet been returned by
@@ -127,7 +127,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
         Raises [`ValueError`](exceptions.md#ValueError "ValueError") if called without calling
         [`prepare()`](graphlib.md#graphlib.TopologicalSorter.prepare "graphlib.TopologicalSorter.prepare") previously.
 
-    done(*\*nodes*)
+    `done(*nodes)`
     :   Marks a set of nodes returned by [`TopologicalSorter.get_ready()`](graphlib.md#graphlib.TopologicalSorter.get_ready "graphlib.TopologicalSorter.get_ready") as
         processed, unblocking any successor of each node in *nodes* for being
         returned in the future by a call to [`TopologicalSorter.get_ready()`](graphlib.md#graphlib.TopologicalSorter.get_ready "graphlib.TopologicalSorter.get_ready").
@@ -138,7 +138,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
         calling [`prepare()`](graphlib.md#graphlib.TopologicalSorter.prepare "graphlib.TopologicalSorter.prepare") or if node has not yet been
         returned by [`get_ready()`](graphlib.md#graphlib.TopologicalSorter.get_ready "graphlib.TopologicalSorter.get_ready").
 
-    get_ready()
+    `get_ready()`
     :   Returns a `tuple` with all the nodes that are ready. Initially it
         returns all nodes with no predecessors, and once those are marked as
         processed by calling [`TopologicalSorter.done()`](graphlib.md#graphlib.TopologicalSorter.done "graphlib.TopologicalSorter.done"), further calls will
@@ -148,7 +148,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
         Raises [`ValueError`](exceptions.md#ValueError "ValueError") if called without calling
         [`prepare()`](graphlib.md#graphlib.TopologicalSorter.prepare "graphlib.TopologicalSorter.prepare") previously.
 
-    static_order()
+    `static_order()`
     :   Returns an iterator object which will iterate over nodes in a topological
         order. When using this method, [`prepare()`](graphlib.md#graphlib.TopologicalSorter.prepare "graphlib.TopologicalSorter.prepare") and
         [`done()`](graphlib.md#graphlib.TopologicalSorter.done "graphlib.TopologicalSorter.done") should not be called. This method is
@@ -193,7 +193,7 @@ fetched_at: 2026-09-17T15:32:32+00:00
 
 The [`graphlib`](graphlib.md#module-graphlib "graphlib: Functionality to operate with graph-like structures") module defines the following exception classes:
 
-*exception* graphlib.CycleError
+`exception graphlib.CycleError`
 :   Subclass of [`ValueError`](exceptions.md#ValueError "ValueError") raised by [`TopologicalSorter.prepare()`](graphlib.md#graphlib.TopologicalSorter.prepare "graphlib.TopologicalSorter.prepare") if cycles exist
     in the working graph. If multiple cycles exist, only one undefined choice among them will
     be reported and included in the exception.

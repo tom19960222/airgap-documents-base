@@ -30,11 +30,11 @@ This module does not work or is not available on WebAssembly platforms
 
 ## Executor Objects
 
-*class* concurrent.futures.Executor
+`class concurrent.futures.Executor`
 :   An abstract class that provides methods to execute calls asynchronously. It
     should not be used directly, but through its concrete subclasses.
 
-    submit(*fn*, */*, *\*args*, *\*\*kwargs*)
+    `submit(fn, /, *args, **kwargs)`
     :   Schedules the callable, *fn*, to be executed as `fn(*args, **kwargs)`
         and returns a [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") object representing the execution of the
         callable.
@@ -45,7 +45,7 @@ This module does not work or is not available on WebAssembly platforms
             print(future.result())
         ```
 
-    map(*fn*, *\*iterables*, *timeout=None*, *chunksize=1*)
+    `map(fn, *iterables, timeout=None, chunksize=1)`
     :   Similar to [`map(fn, *iterables)`](functions.md#map "map") except:
 
         - the *iterables* are collected immediately rather than lazily;
@@ -71,7 +71,7 @@ This module does not work or is not available on WebAssembly platforms
 
         Changed in version 3.5: Added the *chunksize* argument.
 
-    shutdown(*wait=True*, *\**, *cancel_futures=False*)
+    `shutdown(wait=True, *, cancel_futures=False)`
     :   Signal the executor that it should free any resources that it is using
         when the currently pending futures are done executing. Calls to
         [`Executor.submit()`](concurrent.futures.md#concurrent.futures.Executor.submit "concurrent.futures.Executor.submit") and [`Executor.map()`](concurrent.futures.md#concurrent.futures.Executor.map "concurrent.futures.Executor.map") made after shutdown will
@@ -148,7 +148,7 @@ executor = ThreadPoolExecutor(max_workers=1)
 executor.submit(wait_on_future)
 ```
 
-*class* concurrent.futures.ThreadPoolExecutor(*max_workers=None*, *thread_name_prefix=''*, *initializer=None*, *initargs=()*)
+`class concurrent.futures.ThreadPoolExecutor(max_workers=None, thread_name_prefix='', initializer=None, initargs=())`
 :   An [`Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor") subclass that uses a pool of at most *max_workers*
     threads to execute calls asynchronously.
 
@@ -231,7 +231,7 @@ that [`ProcessPoolExecutor`](concurrent.futures.md#concurrent.futures.ProcessPoo
 Calling [`Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor") or [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") methods from a callable submitted
 to a [`ProcessPoolExecutor`](concurrent.futures.md#concurrent.futures.ProcessPoolExecutor "concurrent.futures.ProcessPoolExecutor") will result in deadlock.
 
-*class* concurrent.futures.ProcessPoolExecutor(*max_workers=None*, *mp_context=None*, *initializer=None*, *initargs=()*, *max_tasks_per_child=None*)
+`class concurrent.futures.ProcessPoolExecutor(max_workers=None, mp_context=None, initializer=None, initargs=(), max_tasks_per_child=None)`
 :   An [`Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor") subclass that executes calls asynchronously using a pool
     of at most *max_workers* processes. If *max_workers* is `None` or not
     given, it will default to the number of processors on the machine.
@@ -332,29 +332,29 @@ if __name__ == '__main__':
 The [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") class encapsulates the asynchronous execution of a callable.
 [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") instances are created by [`Executor.submit()`](concurrent.futures.md#concurrent.futures.Executor.submit "concurrent.futures.Executor.submit").
 
-*class* concurrent.futures.Future
+`class concurrent.futures.Future`
 :   Encapsulates the asynchronous execution of a callable. [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future")
     instances are created by [`Executor.submit()`](concurrent.futures.md#concurrent.futures.Executor.submit "concurrent.futures.Executor.submit") and should not be created
     directly except for testing.
 
-    cancel()
+    `cancel()`
     :   Attempt to cancel the call. If the call is currently being executed or
         finished running and cannot be cancelled then the method will return
         `False`, otherwise the call will be cancelled and the method will
         return `True`.
 
-    cancelled()
+    `cancelled()`
     :   Return `True` if the call was successfully cancelled.
 
-    running()
+    `running()`
     :   Return `True` if the call is currently being executed and cannot be
         cancelled.
 
-    done()
+    `done()`
     :   Return `True` if the call was successfully cancelled or finished
         running.
 
-    result(*timeout=None*)
+    `result(timeout=None)`
     :   Return the value returned by the call. If the call hasn’t yet completed
         then this method will wait up to *timeout* seconds. If the call hasn’t
         completed in *timeout* seconds, then a
@@ -367,7 +367,7 @@ The [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futur
 
         If the call raised an exception, this method will raise the same exception.
 
-    exception(*timeout=None*)
+    `exception(timeout=None)`
     :   Return the exception raised by the call. If the call hasn’t yet
         completed then this method will wait up to *timeout* seconds. If the
         call hasn’t completed in *timeout* seconds, then a
@@ -380,7 +380,7 @@ The [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futur
 
         If the call completed without raising, `None` is returned.
 
-    add_done_callback(*fn*)
+    `add_done_callback(fn)`
     :   Attaches the callable *fn* to the future. *fn* will be called, with the
         future as its only argument, when the future is cancelled or finishes
         running.
@@ -397,7 +397,7 @@ The [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futur
     The following [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") methods are meant for use in unit tests and
     [`Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor") implementations.
 
-    set_running_or_notify_cancel()
+    `set_running_or_notify_cancel()`
     :   This method should only be called by [`Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor") implementations
         before executing the work associated with the [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") and by unit
         tests.
@@ -415,7 +415,7 @@ The [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futur
         [`Future.set_result()`](concurrent.futures.md#concurrent.futures.Future.set_result "concurrent.futures.Future.set_result") or [`Future.set_exception()`](concurrent.futures.md#concurrent.futures.Future.set_exception "concurrent.futures.Future.set_exception") have been
         called.
 
-    set_result(*result*)
+    `set_result(result)`
     :   Sets the result of the work associated with the [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") to
         *result*.
 
@@ -426,7 +426,7 @@ The [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futur
         [`concurrent.futures.InvalidStateError`](concurrent.futures.md#concurrent.futures.InvalidStateError "concurrent.futures.InvalidStateError") if the [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") is
         already done.
 
-    set_exception(*exception*)
+    `set_exception(exception)`
     :   Sets the result of the work associated with the [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") to the
         [`Exception`](exceptions.md#Exception "Exception") *exception*.
 
@@ -439,7 +439,7 @@ The [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futur
 
 ## Module Functions
 
-concurrent.futures.wait(*fs*, *timeout=None*, *return_when=ALL_COMPLETED*)
+`concurrent.futures.wait(fs, timeout=None, return_when=ALL_COMPLETED)`
 :   Wait for the [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") instances (possibly created by different
     [`Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor") instances) given by *fs* to complete. Duplicate futures
     given to *fs* are removed and will be returned only once. Returns a named
@@ -457,11 +457,11 @@ concurrent.futures.wait(*fs*, *timeout=None*, *return_when=ALL_COMPLETED*)
 
     | Constant | Description |
     | --- | --- |
-    | concurrent.futures.FIRST_COMPLETED | The function will return when any future finishes or is cancelled. |
-    | concurrent.futures.FIRST_EXCEPTION | The function will return when any future finishes by raising an exception. If no future raises an exception then it is equivalent to [`ALL_COMPLETED`](concurrent.futures.md#concurrent.futures.ALL_COMPLETED "concurrent.futures.ALL_COMPLETED"). |
-    | concurrent.futures.ALL_COMPLETED | The function will return when all futures finish or are cancelled. |
+    | `concurrent.futures.FIRST_COMPLETED` | The function will return when any future finishes or is cancelled. |
+    | `concurrent.futures.FIRST_EXCEPTION` | The function will return when any future finishes by raising an exception. If no future raises an exception then it is equivalent to [`ALL_COMPLETED`](concurrent.futures.md#concurrent.futures.ALL_COMPLETED "concurrent.futures.ALL_COMPLETED"). |
+    | `concurrent.futures.ALL_COMPLETED` | The function will return when all futures finish or are cancelled. |
 
-concurrent.futures.as_completed(*fs*, *timeout=None*)
+`concurrent.futures.as_completed(fs, timeout=None)`
 :   Returns an iterator over the [`Future`](concurrent.futures.md#concurrent.futures.Future "concurrent.futures.Future") instances (possibly created by
     different [`Executor`](concurrent.futures.md#concurrent.futures.Executor "concurrent.futures.Executor") instances) given by *fs* that yields futures as
     they complete (finished or cancelled futures). Any futures given by *fs* that
@@ -480,29 +480,29 @@ concurrent.futures.as_completed(*fs*, *timeout=None*)
 
 ## Exception classes
 
-*exception* concurrent.futures.CancelledError
+`exception concurrent.futures.CancelledError`
 :   Raised when a future is cancelled.
 
-*exception* concurrent.futures.TimeoutError
+`exception concurrent.futures.TimeoutError`
 :   A deprecated alias of [`TimeoutError`](exceptions.md#TimeoutError "TimeoutError"),
     raised when a future operation exceeds the given timeout.
 
     Changed in version 3.11: This class was made an alias of [`TimeoutError`](exceptions.md#TimeoutError "TimeoutError").
 
-*exception* concurrent.futures.BrokenExecutor
+`exception concurrent.futures.BrokenExecutor`
 :   Derived from [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError"), this exception class is raised
     when an executor is broken for some reason, and cannot be used
     to submit or execute new tasks.
 
     Added in version 3.7.
 
-*exception* concurrent.futures.InvalidStateError
+`exception concurrent.futures.InvalidStateError`
 :   Raised when an operation is performed on a future that is not allowed
     in the current state.
 
     Added in version 3.8.
 
-*exception* concurrent.futures.thread.BrokenThreadPool
+`exception concurrent.futures.thread.BrokenThreadPool`
 :   Derived from [`BrokenExecutor`](concurrent.futures.md#concurrent.futures.BrokenExecutor "concurrent.futures.BrokenExecutor"), this exception
     class is raised when one of the workers
     of a [`ThreadPoolExecutor`](concurrent.futures.md#concurrent.futures.ThreadPoolExecutor "concurrent.futures.ThreadPoolExecutor")
@@ -510,7 +510,7 @@ concurrent.futures.as_completed(*fs*, *timeout=None*)
 
     Added in version 3.7.
 
-*exception* concurrent.futures.process.BrokenProcessPool
+`exception concurrent.futures.process.BrokenProcessPool`
 :   Derived from [`BrokenExecutor`](concurrent.futures.md#concurrent.futures.BrokenExecutor "concurrent.futures.BrokenExecutor") (formerly
     [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError")), this exception class is raised when one of the
     workers of a [`ProcessPoolExecutor`](concurrent.futures.md#concurrent.futures.ProcessPoolExecutor "concurrent.futures.ProcessPoolExecutor")

@@ -28,7 +28,7 @@ can be accessed using [`get_config_vars()`](sysconfig.md#sysconfig.get_config_va
 
 Notice that on Windows, it’s a much smaller set.
 
-sysconfig.get_config_vars(*\*args*)
+`sysconfig.get_config_vars(*args)`
 :   With no arguments, return a dictionary of all configuration variables
     relevant for the current platform.
 
@@ -37,7 +37,7 @@ sysconfig.get_config_vars(*\*args*)
 
     For each argument, if the value is not found, return `None`.
 
-sysconfig.get_config_var(*name*)
+`sysconfig.get_config_var(name)`
 :   Return the value of a single variable *name*. Equivalent to
     `get_config_vars().get(name)`.
 
@@ -218,11 +218,11 @@ be installed to, say, `/mnt/@server/export/lib/python2.X`.
 
 [`sysconfig`](sysconfig.md#module-sysconfig "sysconfig: Python's configuration information") provides some functions to determine these installation paths.
 
-sysconfig.get_scheme_names()
+`sysconfig.get_scheme_names()`
 :   Return a tuple containing all schemes currently supported in
     [`sysconfig`](sysconfig.md#module-sysconfig "sysconfig: Python's configuration information").
 
-sysconfig.get_default_scheme()
+`sysconfig.get_default_scheme()`
 :   Return the default scheme name for the current platform.
 
     Added in version 3.10: This function was previously named `_get_default_scheme()` and
@@ -231,7 +231,7 @@ sysconfig.get_default_scheme()
     Changed in version 3.11: When Python runs from a virtual environment,
     the *venv* scheme is returned.
 
-sysconfig.get_preferred_scheme(*key*)
+`sysconfig.get_preferred_scheme(key)`
 :   Return a preferred scheme name for an installation layout specified by *key*.
 
     *key* must be either `"prefix"`, `"home"`, or `"user"`.
@@ -245,7 +245,7 @@ sysconfig.get_preferred_scheme(*key*)
     Changed in version 3.11: When Python runs from a virtual environment and `key="prefix"`,
     the *venv* scheme is returned.
 
-sysconfig._get_preferred_schemes()
+`sysconfig._get_preferred_schemes()`
 :   Return a dict containing preferred scheme names on the current platform.
     Python implementers and redistributors may add their preferred schemes to
     the `_INSTALL_SCHEMES` module-level global value, and modify this function
@@ -258,11 +258,11 @@ sysconfig._get_preferred_schemes()
 
     Added in version 3.10.
 
-sysconfig.get_path_names()
+`sysconfig.get_path_names()`
 :   Return a tuple containing all path names currently supported in
     [`sysconfig`](sysconfig.md#module-sysconfig "sysconfig: Python's configuration information").
 
-sysconfig.get_path(*name*[, *scheme*[, *vars*[, *expand*]]])
+`sysconfig.get_path(name[, scheme[, vars[, expand]]])`
 :   Return an installation path corresponding to the path *name*, from the
     install scheme named *scheme*.
 
@@ -288,7 +288,7 @@ sysconfig.get_path(*name*[, *scheme*[, *vars*[, *expand*]]])
 
     If *name* is not found, raise a [`KeyError`](exceptions.md#KeyError "KeyError").
 
-sysconfig.get_paths([*scheme*[, *vars*[, *expand*]]])
+`sysconfig.get_paths([scheme[, vars[, expand]]])`
 :   Return a dictionary containing all installation paths corresponding to an
     installation scheme. See [`get_path()`](sysconfig.md#sysconfig.get_path "sysconfig.get_path") for more information.
 
@@ -305,11 +305,11 @@ sysconfig.get_paths([*scheme*[, *vars*[, *expand*]]])
 
 ## Other functions
 
-sysconfig.get_python_version()
+`sysconfig.get_python_version()`
 :   Return the `MAJOR.MINOR` Python version number as a string. Similar to
     `'%d.%d' % sys.version_info[:2]`.
 
-sysconfig.get_platform()
+`sysconfig.get_platform()`
 :   Return a string that identifies the current platform.
 
     This is used mainly to distinguish platform-specific build directories and
@@ -339,12 +339,12 @@ sysconfig.get_platform()
 
     For other non-POSIX platforms, currently just returns [`sys.platform`](sys.md#sys.platform "sys.platform").
 
-sysconfig.is_python_build()
+`sysconfig.is_python_build()`
 :   Return `True` if the running Python interpreter was built from source and
     is being run from its built location, and not from a location resulting from
     e.g. running `make install` or installing via a binary installer.
 
-sysconfig.parse_config_h(*fp*[, *vars*])
+`sysconfig.parse_config_h(fp[, vars])`
 :   Parse a `config.h`-style file.
 
     *fp* is a file-like object pointing to the `config.h`-like file.
@@ -353,10 +353,10 @@ sysconfig.parse_config_h(*fp*[, *vars*])
     dictionary is passed in as the second argument, it is used instead of a new
     dictionary, and updated with the values read in the file.
 
-sysconfig.get_config_h_filename()
+`sysconfig.get_config_h_filename()`
 :   Return the path of `pyconfig.h`.
 
-sysconfig.get_makefile_filename()
+`sysconfig.get_makefile_filename()`
 :   Return the path of `Makefile`.
 
 ## Using `sysconfig` as a script

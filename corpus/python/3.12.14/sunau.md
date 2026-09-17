@@ -36,7 +36,7 @@ Apart from the info field, all header fields are 4 bytes in size. They are all
 
 The [`sunau`](sunau.md#module-sunau "sunau: Provide an interface to the Sun AU sound format. (deprecated)") module defines the following functions:
 
-sunau.open(*file*, *mode*)
+`sunau.open(file, mode)`
 :   If *file* is a string, open the file by that name, otherwise treat it as a
     seekable file-like object. *mode* can be any of
 
@@ -53,41 +53,41 @@ sunau.open(*file*, *mode*)
 
 The [`sunau`](sunau.md#module-sunau "sunau: Provide an interface to the Sun AU sound format. (deprecated)") module defines the following exception:
 
-*exception* sunau.Error
+`exception sunau.Error`
 :   An error raised when something is impossible because of Sun AU specs or
     implementation deficiency.
 
 The [`sunau`](sunau.md#module-sunau "sunau: Provide an interface to the Sun AU sound format. (deprecated)") module defines the following data items:
 
-sunau.AUDIO_FILE_MAGIC
+`sunau.AUDIO_FILE_MAGIC`
 :   An integer every valid Sun AU file begins with, stored in big-endian form. This
     is the string `.snd` interpreted as an integer.
 
-sunau.AUDIO_FILE_ENCODING_MULAW_8
+`sunau.AUDIO_FILE_ENCODING_MULAW_8`
 
-sunau.AUDIO_FILE_ENCODING_LINEAR_8
+`sunau.AUDIO_FILE_ENCODING_LINEAR_8`
 
-sunau.AUDIO_FILE_ENCODING_LINEAR_16
+`sunau.AUDIO_FILE_ENCODING_LINEAR_16`
 
-sunau.AUDIO_FILE_ENCODING_LINEAR_24
+`sunau.AUDIO_FILE_ENCODING_LINEAR_24`
 
-sunau.AUDIO_FILE_ENCODING_LINEAR_32
+`sunau.AUDIO_FILE_ENCODING_LINEAR_32`
 
-sunau.AUDIO_FILE_ENCODING_ALAW_8
+`sunau.AUDIO_FILE_ENCODING_ALAW_8`
 :   Values of the encoding field from the AU header which are supported by this
     module.
 
-sunau.AUDIO_FILE_ENCODING_FLOAT
+`sunau.AUDIO_FILE_ENCODING_FLOAT`
 
-sunau.AUDIO_FILE_ENCODING_DOUBLE
+`sunau.AUDIO_FILE_ENCODING_DOUBLE`
 
-sunau.AUDIO_FILE_ENCODING_ADPCM_G721
+`sunau.AUDIO_FILE_ENCODING_ADPCM_G721`
 
-sunau.AUDIO_FILE_ENCODING_ADPCM_G722
+`sunau.AUDIO_FILE_ENCODING_ADPCM_G722`
 
-sunau.AUDIO_FILE_ENCODING_ADPCM_G723_3
+`sunau.AUDIO_FILE_ENCODING_ADPCM_G723_3`
 
-sunau.AUDIO_FILE_ENCODING_ADPCM_G723_5
+`sunau.AUDIO_FILE_ENCODING_ADPCM_G723_5`
 :   Additional known values of the encoding field from the AU header, but which are
     not supported by this module.
 
@@ -95,107 +95,107 @@ sunau.AUDIO_FILE_ENCODING_ADPCM_G723_5
 
 AU_read objects, as returned by [`open()`](sunau.md#sunau.open "sunau.open") above, have the following methods:
 
-AU_read.close()
+`AU_read.close()`
 :   Close the stream, and make the instance unusable. (This is called automatically
     on deletion.)
 
-AU_read.getnchannels()
+`AU_read.getnchannels()`
 :   Returns number of audio channels (1 for mono, 2 for stereo).
 
-AU_read.getsampwidth()
+`AU_read.getsampwidth()`
 :   Returns sample width in bytes.
 
-AU_read.getframerate()
+`AU_read.getframerate()`
 :   Returns sampling frequency.
 
-AU_read.getnframes()
+`AU_read.getnframes()`
 :   Returns number of audio frames.
 
-AU_read.getcomptype()
+`AU_read.getcomptype()`
 :   Returns compression type. Supported compression types are `'ULAW'`, `'ALAW'`
     and `'NONE'`.
 
-AU_read.getcompname()
+`AU_read.getcompname()`
 :   Human-readable version of [`getcomptype()`](sunau.md#sunau.AU_read.getcomptype "sunau.AU_read.getcomptype"). The supported types have the
     respective names `'CCITT G.711 u-law'`, `'CCITT G.711 A-law'` and `'not
     compressed'`.
 
-AU_read.getparams()
+`AU_read.getparams()`
 :   Returns a [`namedtuple()`](collections.md#collections.namedtuple "collections.namedtuple") `(nchannels, sampwidth,
     framerate, nframes, comptype, compname)`, equivalent to output of the
     `get*()` methods.
 
-AU_read.readframes(*n*)
+`AU_read.readframes(n)`
 :   Reads and returns at most *n* frames of audio, as a [`bytes`](stdtypes.md#bytes "bytes") object. The data
     will be returned in linear format. If the original data is in u-LAW format, it
     will be converted.
 
-AU_read.rewind()
+`AU_read.rewind()`
 :   Rewind the file pointer to the beginning of the audio stream.
 
 The following two methods define a term “position” which is compatible between
 them, and is otherwise implementation dependent.
 
-AU_read.setpos(*pos*)
+`AU_read.setpos(pos)`
 :   Set the file pointer to the specified position. Only values returned from
     [`tell()`](sunau.md#sunau.AU_read.tell "sunau.AU_read.tell") should be used for *pos*.
 
-AU_read.tell()
+`AU_read.tell()`
 :   Return current file pointer position. Note that the returned value has nothing
     to do with the actual position in the file.
 
 The following two functions are defined for compatibility with the [`aifc`](aifc.md#module-aifc "aifc: Read and write audio files in AIFF or AIFC format. (deprecated)"),
 and don’t do anything interesting.
 
-AU_read.getmarkers()
+`AU_read.getmarkers()`
 :   Returns `None`.
 
-AU_read.getmark(*id*)
+`AU_read.getmark(id)`
 :   Raise an error.
 
 ## AU_write Objects
 
 AU_write objects, as returned by [`open()`](sunau.md#sunau.open "sunau.open") above, have the following methods:
 
-AU_write.setnchannels(*n*)
+`AU_write.setnchannels(n)`
 :   Set the number of channels.
 
-AU_write.setsampwidth(*n*)
+`AU_write.setsampwidth(n)`
 :   Set the sample width (in bytes.)
 
     Changed in version 3.4: Added support for 24-bit samples.
 
-AU_write.setframerate(*n*)
+`AU_write.setframerate(n)`
 :   Set the frame rate.
 
-AU_write.setnframes(*n*)
+`AU_write.setnframes(n)`
 :   Set the number of frames. This can be later changed, when and if more frames
     are written.
 
-AU_write.setcomptype(*type*, *name*)
+`AU_write.setcomptype(type, name)`
 :   Set the compression type and description. Only `'NONE'` and `'ULAW'` are
     supported on output.
 
-AU_write.setparams(*tuple*)
+`AU_write.setparams(tuple)`
 :   The *tuple* should be `(nchannels, sampwidth, framerate, nframes, comptype,
     compname)`, with values valid for the `set*()` methods. Set all
     parameters.
 
-AU_write.tell()
+`AU_write.tell()`
 :   Return current position in the file, with the same disclaimer for the
     [`AU_read.tell()`](sunau.md#sunau.AU_read.tell "sunau.AU_read.tell") and [`AU_read.setpos()`](sunau.md#sunau.AU_read.setpos "sunau.AU_read.setpos") methods.
 
-AU_write.writeframesraw(*data*)
+`AU_write.writeframesraw(data)`
 :   Write audio frames, without correcting *nframes*.
 
     Changed in version 3.4: Any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-AU_write.writeframes(*data*)
+`AU_write.writeframes(data)`
 :   Write audio frames and make sure *nframes* is correct.
 
     Changed in version 3.4: Any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is now accepted.
 
-AU_write.close()
+`AU_write.close()`
 :   Make sure *nframes* is correct, and close the file.
 
     This method is called upon deletion.

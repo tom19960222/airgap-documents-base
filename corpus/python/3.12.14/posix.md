@@ -59,7 +59,7 @@ CFLAGS='-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64' OPT="-g -O2 $CFLAGS" \
 In addition to many functions described in the [`os`](os.md#module-os "os: Miscellaneous operating system interfaces.") module documentation,
 [`posix`](posix.md#module-posix "posix: The most common POSIX system calls (normally used via module os). (Unix)") defines the following data item:
 
-posix.environ
+`posix.environ`
 :   A dictionary representing the string environment at the time the interpreter
     was started. Keys and values are bytes on Unix and str on Windows. For
     example, `environ[b'HOME']` (`environ['HOME']` on Windows) is the

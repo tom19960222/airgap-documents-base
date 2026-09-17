@@ -62,7 +62,7 @@ from sources provided by the operating system.
 
 ## Bookkeeping functions
 
-random.seed(*a=None*, *version=2*)
+`random.seed(a=None, version=2)`
 :   Initialize the random number generator.
 
     If *a* is omitted or `None`, the current system time is used. If
@@ -85,18 +85,18 @@ random.seed(*a=None*, *version=2*)
     `None`, [`int`](functions.md#int "int"), [`float`](functions.md#float "float"), [`str`](stdtypes.md#str "str"),
     [`bytes`](stdtypes.md#bytes "bytes"), or [`bytearray`](stdtypes.md#bytearray "bytearray").
 
-random.getstate()
+`random.getstate()`
 :   Return an object capturing the current internal state of the generator. This
     object can be passed to [`setstate()`](random.md#random.setstate "random.setstate") to restore the state.
 
-random.setstate(*state*)
+`random.setstate(state)`
 :   *state* should have been obtained from a previous call to [`getstate()`](random.md#random.getstate "random.getstate"), and
     [`setstate()`](random.md#random.setstate "random.setstate") restores the internal state of the generator to what it was at
     the time [`getstate()`](random.md#random.getstate "random.getstate") was called.
 
 ## Functions for bytes
 
-random.randbytes(*n*)
+`random.randbytes(n)`
 :   Generate *n* random bytes.
 
     This method should not be used for generating security tokens.
@@ -106,9 +106,9 @@ random.randbytes(*n*)
 
 ## Functions for integers
 
-random.randrange(*stop*)
+`random.randrange(stop)`
 
-random.randrange(*start*, *stop*[, *step*])
+`random.randrange(start, stop[, step])`
 :   Return a randomly selected element from `range(start, stop, step)`.
 
     This is roughly equivalent to `choice(range(start, stop, step))` but
@@ -128,11 +128,11 @@ random.randrange(*start*, *stop*[, *step*])
     Calls such as `randrange(10.0)` and `randrange(Fraction(10, 1))`
     now raise a [`TypeError`](exceptions.md#TypeError "TypeError").
 
-random.randint(*a*, *b*)
+`random.randint(a, b)`
 :   Return a random integer *N* such that `a <= N <= b`. Alias for
     `randrange(a, b+1)`.
 
-random.getrandbits(*k*)
+`random.getrandbits(k)`
 :   Returns a non-negative Python integer with *k* random bits. This method
     is supplied with the Mersenne Twister generator and some other generators
     may also provide it as an optional part of the API. When available,
@@ -143,11 +143,11 @@ random.getrandbits(*k*)
 
 ## Functions for sequences
 
-random.choice(*seq*)
+`random.choice(seq)`
 :   Return a random element from the non-empty sequence *seq*. If *seq* is empty,
     raises [`IndexError`](exceptions.md#IndexError "IndexError").
 
-random.choices(*population*, *weights=None*, *\**, *cum_weights=None*, *k=1*)
+`random.choices(population, weights=None, *, cum_weights=None, k=1)`
 :   Return a *k* sized list of elements chosen from the *population* with replacement.
     If the *population* is empty, raises [`IndexError`](exceptions.md#IndexError "IndexError").
 
@@ -182,7 +182,7 @@ random.choices(*population*, *weights=None*, *\**, *cum_weights=None*, *k=1*)
 
     Changed in version 3.9: Raises a [`ValueError`](exceptions.md#ValueError "ValueError") if all weights are zero.
 
-random.shuffle(*x*)
+`random.shuffle(x)`
 :   Shuffle the sequence *x* in place.
 
     To shuffle an immutable sequence and return a new shuffled list, use
@@ -196,7 +196,7 @@ random.shuffle(*x*)
 
     Changed in version 3.11: Removed the optional parameter *random*.
 
-random.sample(*population*, *k*, *\**, *counts=None*)
+`random.sample(population, k, *, counts=None)`
 :   Return a *k* length list of unique elements chosen from the population
     sequence. Used for random sampling without replacement.
 
@@ -230,7 +230,7 @@ random.sample(*population*, *k*, *\**, *counts=None*)
 
 The following function generates a discrete distribution.
 
-random.binomialvariate(*n=1*, *p=0.5*)
+`random.binomialvariate(n=1, p=0.5)`
 :   [Binomial distribution](https://mathworld.wolfram.com/BinomialDistribution.html).
     Return the number of successes for *n* independent trials with the
     probability of success in each trial being *p*:
@@ -254,10 +254,10 @@ parameters are named after the corresponding variables in the distribution’s
 equation, as used in common mathematical practice; most of these equations can
 be found in any statistics text.
 
-random.random()
+`random.random()`
 :   Return the next random floating-point number in the range `0.0 <= X < 1.0`
 
-random.uniform(*a*, *b*)
+`random.uniform(a, b)`
 :   Return a random floating-point number *N* such that `a <= N <= b` for
     `a <= b` and `b <= N <= a` for `b < a`.
 
@@ -265,17 +265,17 @@ random.uniform(*a*, *b*)
     depending on floating-point rounding in the expression
     `a + (b-a) * random()`.
 
-random.triangular(*low*, *high*, *mode*)
+`random.triangular(low, high, mode)`
 :   Return a random floating-point number *N* such that `low <= N <= high` and
     with the specified *mode* between those bounds. The *low* and *high* bounds
     default to zero and one. The *mode* argument defaults to the midpoint
     between the bounds, giving a symmetric distribution.
 
-random.betavariate(*alpha*, *beta*)
+`random.betavariate(alpha, beta)`
 :   Beta distribution. Conditions on the parameters are `alpha > 0` and
     `beta > 0`. Returned values range between 0 and 1.
 
-random.expovariate(*lambd=1.0*)
+`random.expovariate(lambd=1.0)`
 :   Exponential distribution. *lambd* is 1.0 divided by the desired
     mean. It should be nonzero. (The parameter would be called
     “lambda”, but that is a reserved word in Python.) Returned values
@@ -284,7 +284,7 @@ random.expovariate(*lambd=1.0*)
 
     Changed in version 3.12: Added the default value for `lambd`.
 
-random.gammavariate(*alpha*, *beta*)
+`random.gammavariate(alpha, beta)`
 :   Gamma distribution. (*Not* the gamma function!) The shape and
     scale parameters, *alpha* and *beta*, must have positive values.
     (Calling conventions vary and some sources define ‘beta’
@@ -298,7 +298,7 @@ random.gammavariate(*alpha*, *beta*)
                 math.gamma(alpha) * beta ** alpha
     ```
 
-random.gauss(*mu=0.0*, *sigma=1.0*)
+`random.gauss(mu=0.0, sigma=1.0)`
 :   Normal distribution, also called the Gaussian distribution.
     *mu* is the mean,
     and *sigma* is the standard deviation. This is slightly faster than
@@ -313,33 +313,33 @@ random.gauss(*mu=0.0*, *sigma=1.0*)
 
     Changed in version 3.11: *mu* and *sigma* now have default arguments.
 
-random.lognormvariate(*mu*, *sigma*)
+`random.lognormvariate(mu, sigma)`
 :   Log normal distribution. If you take the natural logarithm of this
     distribution, you’ll get a normal distribution with mean *mu* and standard
     deviation *sigma*. *mu* can have any value, and *sigma* must be greater than
     zero.
 
-random.normalvariate(*mu=0.0*, *sigma=1.0*)
+`random.normalvariate(mu=0.0, sigma=1.0)`
 :   Normal distribution. *mu* is the mean, and *sigma* is the standard deviation.
 
     Changed in version 3.11: *mu* and *sigma* now have default arguments.
 
-random.vonmisesvariate(*mu*, *kappa*)
+`random.vonmisesvariate(mu, kappa)`
 :   *mu* is the mean angle, expressed in radians between 0 and 2\**pi*, and *kappa*
     is the concentration parameter, which must be greater than or equal to zero. If
     *kappa* is equal to zero, this distribution reduces to a uniform random angle
     over the range 0 to 2\**pi*.
 
-random.paretovariate(*alpha*)
+`random.paretovariate(alpha)`
 :   Pareto distribution. *alpha* is the shape parameter.
 
-random.weibullvariate(*alpha*, *beta*)
+`random.weibullvariate(alpha, beta)`
 :   Weibull distribution. *alpha* is the scale parameter and *beta* is the shape
     parameter.
 
 ## Alternative Generator
 
-*class* random.Random([*seed*])
+`class random.Random([seed])`
 :   Class that implements the default pseudo-random number generator used by the
     [`random`](random.md#module-random "random: Generate pseudo-random numbers with various common distributions.") module.
 
@@ -350,29 +350,29 @@ random.weibullvariate(*alpha*, *beta*)
     Subclasses of `Random` should override the following methods if they
     wish to make use of a different basic generator:
 
-    seed(*a=None*, *version=2*)
+    `seed(a=None, version=2)`
     :   Override this method in subclasses to customise the [`seed()`](random.md#random.seed "random.seed")
         behaviour of `Random` instances.
 
-    getstate()
+    `getstate()`
     :   Override this method in subclasses to customise the [`getstate()`](random.md#random.getstate "random.getstate")
         behaviour of `Random` instances.
 
-    setstate(*state*)
+    `setstate(state)`
     :   Override this method in subclasses to customise the [`setstate()`](random.md#random.setstate "random.setstate")
         behaviour of `Random` instances.
 
-    random()
+    `random()`
     :   Override this method in subclasses to customise the [`random()`](random.md#random.random "random.random")
         behaviour of `Random` instances.
 
     Optionally, a custom generator subclass can also supply the following method:
 
-    getrandbits(*k*)
+    `getrandbits(k)`
     :   Override this method in subclasses to customise the
         [`getrandbits()`](random.md#random.getrandbits "random.getrandbits") behaviour of `Random` instances.
 
-*class* random.SystemRandom([*seed*])
+`class random.SystemRandom([seed])`
 :   Class that uses the [`os.urandom()`](os.md#os.urandom "os.urandom") function for generating random numbers
     from sources provided by the operating system. Not available on all systems.
     Does not rely on software state, and sequences are not reproducible. Accordingly,

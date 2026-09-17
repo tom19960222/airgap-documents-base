@@ -66,29 +66,29 @@ constants below:
 
 > | Constant | Meaning |
 > | --- | --- |
-> | selectors.EVENT_READ | Available for read |
-> | selectors.EVENT_WRITE | Available for write |
+> | `selectors.EVENT_READ` | Available for read |
+> | `selectors.EVENT_WRITE` | Available for write |
 
-*class* selectors.SelectorKey
+`class selectors.SelectorKey`
 :   A [`SelectorKey`](selectors.md#selectors.SelectorKey "selectors.SelectorKey") is a [`namedtuple`](collections.md#collections.namedtuple "collections.namedtuple") used to
     associate a file object to its underlying file descriptor, selected event
     mask and attached data. It is returned by several [`BaseSelector`](selectors.md#selectors.BaseSelector "selectors.BaseSelector")
     methods.
 
-    fileobj
+    `fileobj`
     :   File object registered.
 
-    fd
+    `fd`
     :   Underlying file descriptor.
 
-    events
+    `events`
     :   Events that must be waited for on this file object.
 
-    data
+    `data`
     :   Optional opaque data associated to this file object: for example, this
         could be used to store a per-client session ID.
 
-*class* selectors.BaseSelector
+`class selectors.BaseSelector`
 :   A [`BaseSelector`](selectors.md#selectors.BaseSelector "selectors.BaseSelector") is used to wait for I/O event readiness on multiple
     file objects. It supports file stream registration, unregistration, and a
     method to wait for I/O events on those streams, with an optional timeout.
@@ -99,7 +99,7 @@ constants below:
     [`BaseSelector`](selectors.md#selectors.BaseSelector "selectors.BaseSelector") and its concrete implementations support the
     [context manager](https://docs.python.org/3.12/glossary.html#term-context-manager) protocol.
 
-    *abstractmethod* register(*fileobj*, *events*, *data=None*)
+    `abstractmethod register(fileobj, events, data=None)`
     :   Register a file object for selection, monitoring it for I/O events.
 
         *fileobj* is the file object to monitor. It may either be an integer
@@ -111,7 +111,7 @@ constants below:
         [`ValueError`](exceptions.md#ValueError "ValueError") in case of invalid event mask or file descriptor, or
         [`KeyError`](exceptions.md#KeyError "KeyError") if the file object is already registered.
 
-    *abstractmethod* unregister(*fileobj*)
+    `abstractmethod unregister(fileobj)`
     :   Unregister a file object from selection, removing it from monitoring. A
         file object shall be unregistered prior to being closed.
 
@@ -122,7 +122,7 @@ constants below:
         [`ValueError`](exceptions.md#ValueError "ValueError") if *fileobj* is invalid (e.g. it has no `fileno()`
         method or its `fileno()` method has an invalid return value).
 
-    modify(*fileobj*, *events*, *data=None*)
+    `modify(fileobj, events, data=None)`
     :   Change a registered file object’s monitored events or attached data.
 
         This is equivalent to `BaseSelector.unregister(fileobj)` followed
@@ -133,7 +133,7 @@ constants below:
         [`ValueError`](exceptions.md#ValueError "ValueError") in case of invalid event mask or file descriptor, or
         [`KeyError`](exceptions.md#KeyError "KeyError") if the file object is not registered.
 
-    *abstractmethod* select(*timeout=None*)
+    `abstractmethod select(timeout=None)`
     :   Wait until some registered file objects become ready, or the timeout
         expires.
 
@@ -161,56 +161,56 @@ constants below:
         [**PEP 475**](https://peps.python.org/pep-0475/) for the rationale), instead of returning an empty list
         of events before the timeout.
 
-    close()
+    `close()`
     :   Close the selector.
 
         This must be called to make sure that any underlying resource is freed.
         The selector shall not be used once it has been closed.
 
-    get_key(*fileobj*)
+    `get_key(fileobj)`
     :   Return the key associated with a registered file object.
 
         This returns the [`SelectorKey`](selectors.md#selectors.SelectorKey "selectors.SelectorKey") instance associated to this file
         object, or raises [`KeyError`](exceptions.md#KeyError "KeyError") if the file object is not registered.
 
-    *abstractmethod* get_map()
+    `abstractmethod get_map()`
     :   Return a mapping of file objects to selector keys.
 
         This returns a [`Mapping`](collections.abc.md#collections.abc.Mapping "collections.abc.Mapping") instance mapping
         registered file objects to their associated [`SelectorKey`](selectors.md#selectors.SelectorKey "selectors.SelectorKey")
         instance.
 
-*class* selectors.DefaultSelector
+`class selectors.DefaultSelector`
 :   The default selector class, using the most efficient implementation
     available on the current platform. This should be the default choice for
     most users.
 
-*class* selectors.SelectSelector
+`class selectors.SelectSelector`
 :   [`select.select()`](select.md#select.select "select.select")-based selector.
 
-*class* selectors.PollSelector
+`class selectors.PollSelector`
 :   [`select.poll()`](select.md#select.poll "select.poll")-based selector.
 
-*class* selectors.EpollSelector
+`class selectors.EpollSelector`
 :   [`select.epoll()`](select.md#select.epoll "select.epoll")-based selector.
 
-    fileno()
+    `fileno()`
     :   This returns the file descriptor used by the underlying
         [`select.epoll()`](select.md#select.epoll "select.epoll") object.
 
-*class* selectors.DevpollSelector
+`class selectors.DevpollSelector`
 :   [`select.devpoll()`](select.md#select.devpoll "select.devpoll")-based selector.
 
-    fileno()
+    `fileno()`
     :   This returns the file descriptor used by the underlying
         [`select.devpoll()`](select.md#select.devpoll "select.devpoll") object.
 
     Added in version 3.5.
 
-*class* selectors.KqueueSelector
+`class selectors.KqueueSelector`
 :   [`select.kqueue()`](select.md#select.kqueue "select.kqueue")-based selector.
 
-    fileno()
+    `fileno()`
     :   This returns the file descriptor used by the underlying
         [`select.kqueue()`](select.md#select.kqueue "select.kqueue") object.
 

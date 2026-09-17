@@ -28,14 +28,14 @@ value is difficult to decode. The value for *frames* will be either the number
 of frames or `-1`. The last item in the tuple, *bits_per_sample*, will either
 be the sample size in bits or `'A'` for A-LAW or `'U'` for u-LAW.
 
-sndhdr.what(*filename*)
+`sndhdr.what(filename)`
 :   Determines the type of sound data stored in the file *filename* using
     [`whathdr()`](sndhdr.md#sndhdr.whathdr "sndhdr.whathdr"). If it succeeds, returns a namedtuple as described above, otherwise
     `None` is returned.
 
     Changed in version 3.5: Result changed from a tuple to a namedtuple.
 
-sndhdr.whathdr(*filename*)
+`sndhdr.whathdr(filename)`
 :   Determines the type of sound data stored in a file based on the file header.
     The name of the file is given by *filename*. This function returns a namedtuple as
     described above on success, or `None`.
@@ -59,7 +59,7 @@ from [`whathdr()`](sndhdr.md#sndhdr.whathdr "sndhdr.whathdr"): and [`what()`](sn
 | `'ub'` | UB Files |
 | `'ul'` | uLAW Audio Files |
 
-sndhdr.tests
+`sndhdr.tests`
 :   A list of functions performing the individual tests. Each function takes two
     arguments: the byte-stream and an open file-like object. When [`what()`](sndhdr.md#sndhdr.what "sndhdr.what") is
     called with a byte-stream, the file-like object will be `None`.

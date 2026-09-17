@@ -15,7 +15,7 @@ The module [`xml.sax.saxutils`](xml.sax.utils.md#module-xml.sax.saxutils "xml.sa
 that are commonly useful when creating SAX applications, either in direct use,
 or as base classes.
 
-xml.sax.saxutils.escape(*data*, *entities={}*)
+`xml.sax.saxutils.escape(data, entities={})`
 :   Escape `'&'`, `'<'`, and `'>'` in a string of data.
 
     You can escape other strings of data by passing a dictionary as the optional
@@ -29,7 +29,7 @@ xml.sax.saxutils.escape(*data*, *entities={}*)
     > can’t be used directly in XML. Do not use this function as a general
     > string translation function.
 
-xml.sax.saxutils.unescape(*data*, *entities={}*)
+`xml.sax.saxutils.unescape(data, entities={})`
 :   Unescape `'&amp;'`, `'&lt;'`, and `'&gt;'` in a string of data.
 
     You can unescape other strings of data by passing a dictionary as the optional
@@ -37,7 +37,7 @@ xml.sax.saxutils.unescape(*data*, *entities={}*)
     replaced with its corresponding value. `'&amp'`, `'&lt;'`, and `'&gt;'`
     are always unescaped, even if *entities* is provided.
 
-xml.sax.saxutils.quoteattr(*data*, *entities={}*)
+`xml.sax.saxutils.quoteattr(data, entities={})`
 :   Similar to [`escape()`](xml.sax.utils.md#xml.sax.saxutils.escape "xml.sax.saxutils.escape"), but also prepares *data* to be used as an
     attribute value. The return value is a quoted version of *data* with any
     additional required replacements. [`quoteattr()`](xml.sax.utils.md#xml.sax.saxutils.quoteattr "xml.sax.saxutils.quoteattr") will select a quote
@@ -55,7 +55,7 @@ xml.sax.saxutils.quoteattr(*data*, *entities={}*)
     This function is useful when generating attribute values for HTML or any SGML
     using the reference concrete syntax.
 
-*class* xml.sax.saxutils.XMLGenerator(*out=None*, *encoding='iso-8859-1'*, *short_empty_elements=False*)
+`class xml.sax.saxutils.XMLGenerator(out=None, encoding='iso-8859-1', short_empty_elements=False)`
 :   This class implements the [`ContentHandler`](xml.sax.handler.md#xml.sax.handler.ContentHandler "xml.sax.handler.ContentHandler") interface
     by writing SAX
     events back into an XML document. In other words, using an [`XMLGenerator`](xml.sax.utils.md#xml.sax.saxutils.XMLGenerator "xml.sax.saxutils.XMLGenerator")
@@ -68,7 +68,7 @@ xml.sax.saxutils.quoteattr(*data*, *entities={}*)
 
     Changed in version 3.2: Added the *short_empty_elements* parameter.
 
-*class* xml.sax.saxutils.XMLFilterBase(*base*)
+`class xml.sax.saxutils.XMLFilterBase(base)`
 :   This class is designed to sit between an
     [`XMLReader`](xml.sax.reader.md#xml.sax.xmlreader.XMLReader "xml.sax.xmlreader.XMLReader") and the client
     application’s event handlers. By default, it does nothing but pass requests up
@@ -76,7 +76,7 @@ xml.sax.saxutils.quoteattr(*data*, *entities={}*)
     override specific methods to modify the event stream or the configuration
     requests as they pass through.
 
-xml.sax.saxutils.prepare_input_source(*source*, *base=''*)
+`xml.sax.saxutils.prepare_input_source(source, base='')`
 :   This function takes an input source and an optional base URL and returns a
     fully resolved [`InputSource`](xml.sax.reader.md#xml.sax.xmlreader.InputSource "xml.sax.xmlreader.InputSource") object ready for
     reading. The input source can be given as a string, a file-like object, or

@@ -42,25 +42,25 @@ Added in version 3.3.
 The [`crypt`](crypt.md#module-crypt "crypt: The crypt() function used to check Unix passwords. (deprecated) (Unix)") module defines the list of hashing methods (not all methods
 are available on all platforms):
 
-crypt.METHOD_SHA512
+`crypt.METHOD_SHA512`
 :   A Modular Crypt Format method with 16 character salt and 86 character
     hash based on the SHA-512 hash function. This is the strongest method.
 
-crypt.METHOD_SHA256
+`crypt.METHOD_SHA256`
 :   Another Modular Crypt Format method with 16 character salt and 43
     character hash based on the SHA-256 hash function.
 
-crypt.METHOD_BLOWFISH
+`crypt.METHOD_BLOWFISH`
 :   Another Modular Crypt Format method with 22 character salt and 31
     character hash based on the Blowfish cipher.
 
     Added in version 3.7.
 
-crypt.METHOD_MD5
+`crypt.METHOD_MD5`
 :   Another Modular Crypt Format method with 8 character salt and 22
     character hash based on the MD5 hash function.
 
-crypt.METHOD_CRYPT
+`crypt.METHOD_CRYPT`
 :   The traditional method with a 2 character salt and 13 characters of
     hash. This is the weakest method.
 
@@ -68,7 +68,7 @@ crypt.METHOD_CRYPT
 
 Added in version 3.3.
 
-crypt.methods
+`crypt.methods`
 :   A list of available password hashing algorithms, as
     `crypt.METHOD_*` objects. This list is sorted from strongest to
     weakest.
@@ -77,7 +77,7 @@ crypt.methods
 
 The [`crypt`](crypt.md#module-crypt "crypt: The crypt() function used to check Unix passwords. (deprecated) (Unix)") module defines the following functions:
 
-crypt.crypt(*word*, *salt=None*)
+`crypt.crypt(word, salt=None)`
 :   *word* will usually be a user’s password as typed at a prompt or in a graphical
     interface. The optional *salt* is either a string as returned from
     [`mksalt()`](crypt.md#crypt.mksalt "crypt.mksalt"), one of the `crypt.METHOD_*` values (though not all
@@ -104,7 +104,7 @@ crypt.crypt(*word*, *salt=None*)
 
     Changed in version 3.3: Accept `crypt.METHOD_*` values in addition to strings for *salt*.
 
-crypt.mksalt(*method=None*, *\**, *rounds=None*)
+`crypt.mksalt(method=None, *, rounds=None)`
 :   Return a randomly generated salt of the specified method. If no
     *method* is given, the strongest method available in [`methods`](crypt.md#crypt.methods "crypt.methods") is
     used.

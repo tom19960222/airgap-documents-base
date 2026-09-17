@@ -21,38 +21,38 @@ Changed in version 3.4: The stat module is backed by a C implementation.
 The [`stat`](stat.md#module-stat "stat: Utilities for interpreting the results of os.stat(), os.lstat() and os.fstat().") module defines the following functions to test for specific file
 types:
 
-stat.S_ISDIR(*mode*)
+`stat.S_ISDIR(mode)`
 :   Return non-zero if the mode is from a directory.
 
-stat.S_ISCHR(*mode*)
+`stat.S_ISCHR(mode)`
 :   Return non-zero if the mode is from a character special device file.
 
-stat.S_ISBLK(*mode*)
+`stat.S_ISBLK(mode)`
 :   Return non-zero if the mode is from a block special device file.
 
-stat.S_ISREG(*mode*)
+`stat.S_ISREG(mode)`
 :   Return non-zero if the mode is from a regular file.
 
-stat.S_ISFIFO(*mode*)
+`stat.S_ISFIFO(mode)`
 :   Return non-zero if the mode is from a FIFO (named pipe).
 
-stat.S_ISLNK(*mode*)
+`stat.S_ISLNK(mode)`
 :   Return non-zero if the mode is from a symbolic link.
 
-stat.S_ISSOCK(*mode*)
+`stat.S_ISSOCK(mode)`
 :   Return non-zero if the mode is from a socket.
 
-stat.S_ISDOOR(*mode*)
+`stat.S_ISDOOR(mode)`
 :   Return non-zero if the mode is from a door.
 
     Added in version 3.4.
 
-stat.S_ISPORT(*mode*)
+`stat.S_ISPORT(mode)`
 :   Return non-zero if the mode is from an event port.
 
     Added in version 3.4.
 
-stat.S_ISWHT(*mode*)
+`stat.S_ISWHT(mode)`
 :   Return non-zero if the mode is from a whiteout.
 
     Added in version 3.4.
@@ -60,12 +60,12 @@ stat.S_ISWHT(*mode*)
 Two additional functions are defined for more general manipulation of the file’s
 mode:
 
-stat.S_IMODE(*mode*)
+`stat.S_IMODE(mode)`
 :   Return the portion of the file’s mode that can be set by
     [`os.chmod()`](os.md#os.chmod "os.chmod")—that is, the file’s permission bits, plus the sticky
     bit, set-group-id, and set-user-id bits (on systems that support them).
 
-stat.S_IFMT(*mode*)
+`stat.S_IFMT(mode)`
 :   Return the portion of the file’s mode that describes the file type (used by the
     `S_IS*()` functions above).
 
@@ -109,7 +109,7 @@ if __name__ == '__main__':
 An additional utility function is provided to convert a file’s mode in a human
 readable string:
 
-stat.filemode(*mode*)
+`stat.filemode(mode)`
 :   Convert a file’s mode to a string of the form ‘-rwxrwxrwx’.
 
     Added in version 3.3.
@@ -120,34 +120,34 @@ stat.filemode(*mode*)
 All the variables below are simply symbolic indexes into the 10-tuple returned
 by [`os.stat()`](os.md#os.stat "os.stat"), [`os.fstat()`](os.md#os.fstat "os.fstat") or [`os.lstat()`](os.md#os.lstat "os.lstat").
 
-stat.ST_MODE
+`stat.ST_MODE`
 :   Inode protection mode.
 
-stat.ST_INO
+`stat.ST_INO`
 :   Inode number.
 
-stat.ST_DEV
+`stat.ST_DEV`
 :   Device inode resides on.
 
-stat.ST_NLINK
+`stat.ST_NLINK`
 :   Number of links to the inode.
 
-stat.ST_UID
+`stat.ST_UID`
 :   User id of the owner.
 
-stat.ST_GID
+`stat.ST_GID`
 :   Group id of the owner.
 
-stat.ST_SIZE
+`stat.ST_SIZE`
 :   Size in bytes of a plain file; amount of data waiting on some special files.
 
-stat.ST_ATIME
+`stat.ST_ATIME`
 :   Time of last access.
 
-stat.ST_MTIME
+`stat.ST_MTIME`
 :   Time of last modification.
 
-stat.ST_CTIME
+`stat.ST_CTIME`
 :   The “ctime” as reported by the operating system. On some systems (like Unix) is
     the time of the last metadata change, and, on others (like Windows), is the
     creation time (see platform documentation for details).
@@ -165,38 +165,38 @@ The variables below define the flags used in the [`ST_MODE`](stat.md#stat.ST_MOD
 
 Use of the functions above is more portable than use of the first set of flags:
 
-stat.S_IFSOCK
+`stat.S_IFSOCK`
 :   Socket.
 
-stat.S_IFLNK
+`stat.S_IFLNK`
 :   Symbolic link.
 
-stat.S_IFREG
+`stat.S_IFREG`
 :   Regular file.
 
-stat.S_IFBLK
+`stat.S_IFBLK`
 :   Block device.
 
-stat.S_IFDIR
+`stat.S_IFDIR`
 :   Directory.
 
-stat.S_IFCHR
+`stat.S_IFCHR`
 :   Character device.
 
-stat.S_IFIFO
+`stat.S_IFIFO`
 :   FIFO.
 
-stat.S_IFDOOR
+`stat.S_IFDOOR`
 :   Door.
 
     Added in version 3.4.
 
-stat.S_IFPORT
+`stat.S_IFPORT`
 :   Event port.
 
     Added in version 3.4.
 
-stat.S_IFWHT
+`stat.S_IFWHT`
 :   Whiteout.
 
     Added in version 3.4.
@@ -208,10 +208,10 @@ stat.S_IFWHT
 
 The following flags can also be used in the *mode* argument of [`os.chmod()`](os.md#os.chmod "os.chmod"):
 
-stat.S_ISUID
+`stat.S_ISUID`
 :   Set UID bit.
 
-stat.S_ISGID
+`stat.S_ISGID`
 :   Set-group-ID bit. This bit has several special uses. For a directory
     it indicates that BSD semantics is to be used for that directory:
     files created there inherit their group ID from the directory, not
@@ -221,97 +221,97 @@ stat.S_ISGID
     set, the set-group-ID bit indicates mandatory file/record locking
     (see also [`S_ENFMT`](stat.md#stat.S_ENFMT "stat.S_ENFMT")).
 
-stat.S_ISVTX
+`stat.S_ISVTX`
 :   Sticky bit. When this bit is set on a directory it means that a file
     in that directory can be renamed or deleted only by the owner of the
     file, by the owner of the directory, or by a privileged process.
 
-stat.S_IRWXU
+`stat.S_IRWXU`
 :   Mask for file owner permissions.
 
-stat.S_IRUSR
+`stat.S_IRUSR`
 :   Owner has read permission.
 
-stat.S_IWUSR
+`stat.S_IWUSR`
 :   Owner has write permission.
 
-stat.S_IXUSR
+`stat.S_IXUSR`
 :   Owner has execute permission.
 
-stat.S_IRWXG
+`stat.S_IRWXG`
 :   Mask for group permissions.
 
-stat.S_IRGRP
+`stat.S_IRGRP`
 :   Group has read permission.
 
-stat.S_IWGRP
+`stat.S_IWGRP`
 :   Group has write permission.
 
-stat.S_IXGRP
+`stat.S_IXGRP`
 :   Group has execute permission.
 
-stat.S_IRWXO
+`stat.S_IRWXO`
 :   Mask for permissions for others (not in group).
 
-stat.S_IROTH
+`stat.S_IROTH`
 :   Others have read permission.
 
-stat.S_IWOTH
+`stat.S_IWOTH`
 :   Others have write permission.
 
-stat.S_IXOTH
+`stat.S_IXOTH`
 :   Others have execute permission.
 
-stat.S_ENFMT
+`stat.S_ENFMT`
 :   System V file locking enforcement. This flag is shared with [`S_ISGID`](stat.md#stat.S_ISGID "stat.S_ISGID"):
     file/record locking is enforced on files that do not have the group
     execution bit ([`S_IXGRP`](stat.md#stat.S_IXGRP "stat.S_IXGRP")) set.
 
-stat.S_IREAD
+`stat.S_IREAD`
 :   Unix V7 synonym for [`S_IRUSR`](stat.md#stat.S_IRUSR "stat.S_IRUSR").
 
-stat.S_IWRITE
+`stat.S_IWRITE`
 :   Unix V7 synonym for [`S_IWUSR`](stat.md#stat.S_IWUSR "stat.S_IWUSR").
 
-stat.S_IEXEC
+`stat.S_IEXEC`
 :   Unix V7 synonym for [`S_IXUSR`](stat.md#stat.S_IXUSR "stat.S_IXUSR").
 
 The following flags can be used in the *flags* argument of [`os.chflags()`](os.md#os.chflags "os.chflags"):
 
-stat.UF_NODUMP
+`stat.UF_NODUMP`
 :   Do not dump the file.
 
-stat.UF_IMMUTABLE
+`stat.UF_IMMUTABLE`
 :   The file may not be changed.
 
-stat.UF_APPEND
+`stat.UF_APPEND`
 :   The file may only be appended to.
 
-stat.UF_OPAQUE
+`stat.UF_OPAQUE`
 :   The directory is opaque when viewed through a union stack.
 
-stat.UF_NOUNLINK
+`stat.UF_NOUNLINK`
 :   The file may not be renamed or deleted.
 
-stat.UF_COMPRESSED
+`stat.UF_COMPRESSED`
 :   The file is stored compressed (macOS 10.6+).
 
-stat.UF_HIDDEN
+`stat.UF_HIDDEN`
 :   The file should not be displayed in a GUI (macOS 10.5+).
 
-stat.SF_ARCHIVED
+`stat.SF_ARCHIVED`
 :   The file may be archived.
 
-stat.SF_IMMUTABLE
+`stat.SF_IMMUTABLE`
 :   The file may not be changed.
 
-stat.SF_APPEND
+`stat.SF_APPEND`
 :   The file may only be appended to.
 
-stat.SF_NOUNLINK
+`stat.SF_NOUNLINK`
 :   The file may not be renamed or deleted.
 
-stat.SF_SNAPSHOT
+`stat.SF_SNAPSHOT`
 :   The file is a snapshot file.
 
 See the \*BSD or macOS systems man page *[chflags(2)](https://manpages.debian.org/chflags(2))* for more information.
@@ -321,48 +321,48 @@ testing bits in the `st_file_attributes` member returned by [`os.stat()`](os.md#
 See the [Windows API documentation](https://msdn.microsoft.com/en-us/library/windows/desktop/gg258117.aspx)
 for more detail on the meaning of these constants.
 
-stat.FILE_ATTRIBUTE_ARCHIVE
+`stat.FILE_ATTRIBUTE_ARCHIVE`
 
-stat.FILE_ATTRIBUTE_COMPRESSED
+`stat.FILE_ATTRIBUTE_COMPRESSED`
 
-stat.FILE_ATTRIBUTE_DEVICE
+`stat.FILE_ATTRIBUTE_DEVICE`
 
-stat.FILE_ATTRIBUTE_DIRECTORY
+`stat.FILE_ATTRIBUTE_DIRECTORY`
 
-stat.FILE_ATTRIBUTE_ENCRYPTED
+`stat.FILE_ATTRIBUTE_ENCRYPTED`
 
-stat.FILE_ATTRIBUTE_HIDDEN
+`stat.FILE_ATTRIBUTE_HIDDEN`
 
-stat.FILE_ATTRIBUTE_INTEGRITY_STREAM
+`stat.FILE_ATTRIBUTE_INTEGRITY_STREAM`
 
-stat.FILE_ATTRIBUTE_NORMAL
+`stat.FILE_ATTRIBUTE_NORMAL`
 
-stat.FILE_ATTRIBUTE_NOT_CONTENT_INDEXED
+`stat.FILE_ATTRIBUTE_NOT_CONTENT_INDEXED`
 
-stat.FILE_ATTRIBUTE_NO_SCRUB_DATA
+`stat.FILE_ATTRIBUTE_NO_SCRUB_DATA`
 
-stat.FILE_ATTRIBUTE_OFFLINE
+`stat.FILE_ATTRIBUTE_OFFLINE`
 
-stat.FILE_ATTRIBUTE_READONLY
+`stat.FILE_ATTRIBUTE_READONLY`
 
-stat.FILE_ATTRIBUTE_REPARSE_POINT
+`stat.FILE_ATTRIBUTE_REPARSE_POINT`
 
-stat.FILE_ATTRIBUTE_SPARSE_FILE
+`stat.FILE_ATTRIBUTE_SPARSE_FILE`
 
-stat.FILE_ATTRIBUTE_SYSTEM
+`stat.FILE_ATTRIBUTE_SYSTEM`
 
-stat.FILE_ATTRIBUTE_TEMPORARY
+`stat.FILE_ATTRIBUTE_TEMPORARY`
 
-stat.FILE_ATTRIBUTE_VIRTUAL
+`stat.FILE_ATTRIBUTE_VIRTUAL`
 :   Added in version 3.5.
 
 On Windows, the following constants are available for comparing against the
 `st_reparse_tag` member returned by [`os.lstat()`](os.md#os.lstat "os.lstat"). These are well-known
 constants, but are not an exhaustive list.
 
-stat.IO_REPARSE_TAG_SYMLINK
+`stat.IO_REPARSE_TAG_SYMLINK`
 
-stat.IO_REPARSE_TAG_MOUNT_POINT
+`stat.IO_REPARSE_TAG_MOUNT_POINT`
 
-stat.IO_REPARSE_TAG_APPEXECLINK
+`stat.IO_REPARSE_TAG_APPEXECLINK`
 :   Added in version 3.8.

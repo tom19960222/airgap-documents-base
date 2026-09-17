@@ -144,7 +144,7 @@ See [Command Line Interface](json.md#json-commandline) for detailed documentatio
 
 ## Basic Usage
 
-json.dump(*obj*, *fp*, *\**, *skipkeys=False*, *ensure_ascii=True*, *check_circular=True*, *allow_nan=True*, *cls=None*, *indent=None*, *separators=None*, *default=None*, *sort_keys=False*, *\*\*kw*)
+`json.dump(obj, fp, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw)`
 :   Serialize *obj* as a JSON formatted stream to *fp* (a `.write()`-supporting
     [file-like object](https://docs.python.org/3.12/glossary.html#term-file-like-object)) using this [Python-to-JSON conversion table](json.md#py-to-json-table).
 
@@ -205,7 +205,7 @@ json.dump(*obj*, *fp*, *\**, *skipkeys=False*, *ensure_ascii=True*, *check_circu
 
     Changed in version 3.6: All optional parameters are now [keyword-only](https://docs.python.org/3.12/glossary.html#keyword-only-parameter).
 
-json.dumps(*obj*, *\**, *skipkeys=False*, *ensure_ascii=True*, *check_circular=True*, *allow_nan=True*, *cls=None*, *indent=None*, *separators=None*, *default=None*, *sort_keys=False*, *\*\*kw*)
+`json.dumps(obj, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw)`
 :   Serialize *obj* to a JSON formatted [`str`](stdtypes.md#str "str") using this [conversion
     table](json.md#py-to-json-table). The arguments have the same meaning as in
     [`dump()`](json.md#json.dump "json.dump").
@@ -219,7 +219,7 @@ json.dumps(*obj*, *\**, *skipkeys=False*, *ensure_ascii=True*, *check_circular=T
     > the original one. That is, `loads(dumps(x)) != x` if x has non-string
     > keys.
 
-json.load(*fp*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse_int=None*, *parse_constant=None*, *object_pairs_hook=None*, *\*\*kw*)
+`json.load(fp, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw)`
 :   Deserialize *fp* to a Python object
     using the [JSON-to-Python conversion table](json.md#json-to-py-table).
 
@@ -281,7 +281,7 @@ json.load(*fp*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
     conversion length limitation](stdtypes.md#int-max-str-digits) to help avoid denial
     of service attacks.
 
-json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse_int=None*, *parse_constant=None*, *object_pairs_hook=None*, *\*\*kw*)
+`json.loads(s, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw)`
 :   Identical to [`load()`](json.md#json.load "json.load"), but instead of a file-like object,
     deserialize *s* (a [`str`](stdtypes.md#str "str"), [`bytes`](stdtypes.md#bytes "bytes") or [`bytearray`](stdtypes.md#bytearray "bytearray")
     instance containing a JSON document) to a Python object using this
@@ -294,7 +294,7 @@ json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
 
 ## Encoders and Decoders
 
-*class* json.JSONDecoder(*\**, *object_hook=None*, *parse_float=None*, *parse_int=None*, *parse_constant=None*, *strict=True*, *object_pairs_hook=None*)
+`class json.JSONDecoder(*, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, strict=True, object_pairs_hook=None)`
 :   Simple JSON decoder.
 
     Performs the following translations in decoding by default:
@@ -350,14 +350,14 @@ json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
 
     Changed in version 3.6: All parameters are now [keyword-only](https://docs.python.org/3.12/glossary.html#keyword-only-parameter).
 
-    decode(*s*)
+    `decode(s)`
     :   Return the Python representation of *s* (a [`str`](stdtypes.md#str "str") instance
         containing a JSON document).
 
         [`JSONDecodeError`](json.md#json.JSONDecodeError "json.JSONDecodeError") will be raised if the given JSON document is not
         valid.
 
-    raw_decode(*s*)
+    `raw_decode(s)`
     :   Decode a JSON document from *s* (a [`str`](stdtypes.md#str "str") beginning with a
         JSON document) and return a 2-tuple of the Python representation
         and the index in *s* where the document ended.
@@ -365,7 +365,7 @@ json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
         This can be used to decode a JSON document from a string that may have
         extraneous data at the end.
 
-*class* json.JSONEncoder(*\**, *skipkeys=False*, *ensure_ascii=True*, *check_circular=True*, *allow_nan=True*, *sort_keys=False*, *indent=None*, *separators=None*, *default=None*)
+`class json.JSONEncoder(*, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, sort_keys=False, indent=None, separators=None, default=None)`
 :   Extensible JSON encoder for Python data structures.
 
     Supports the following objects and types by default:
@@ -433,7 +433,7 @@ json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
 
     Changed in version 3.6: All parameters are now [keyword-only](https://docs.python.org/3.12/glossary.html#keyword-only-parameter).
 
-    default(*o*)
+    `default(o)`
     :   Implement this method in a subclass such that it returns a serializable
         object for *o*, or calls the base implementation (to raise a
         [`TypeError`](exceptions.md#TypeError "TypeError")).
@@ -453,7 +453,7 @@ json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
            return super().default(o)
         ```
 
-    encode(*o*)
+    `encode(o)`
     :   Return a JSON string representation of a Python data structure, *o*. For
         example:
 
@@ -462,7 +462,7 @@ json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
         '{"foo": ["bar", "baz"]}'
         ```
 
-    iterencode(*o*)
+    `iterencode(o)`
     :   Encode the given object, *o*, and yield each string representation as
         available. For example:
 
@@ -473,22 +473,22 @@ json.loads(*s*, *\**, *cls=None*, *object_hook=None*, *parse_float=None*, *parse
 
 ## Exceptions
 
-*exception* json.JSONDecodeError(*msg*, *doc*, *pos*)
+`exception json.JSONDecodeError(msg, doc, pos)`
 :   Subclass of [`ValueError`](exceptions.md#ValueError "ValueError") with the following additional attributes:
 
-    msg
+    `msg`
     :   The unformatted error message.
 
-    doc
+    `doc`
     :   The JSON document being parsed.
 
-    pos
+    `pos`
     :   The start index of *doc* where parsing failed.
 
-    lineno
+    `lineno`
     :   The line corresponding to *pos*.
 
-    colno
+    `colno`
     :   The column corresponding to *pos*.
 
     Added in version 3.5.
@@ -635,7 +635,7 @@ alphabetically by key.
 
 ### Command line options
 
-infile
+`infile`
 :   The JSON file to be validated or pretty-printed:
 
     ```shell-session
@@ -654,31 +654,31 @@ infile
 
     If *infile* is not specified, read from [`sys.stdin`](sys.md#sys.stdin "sys.stdin").
 
-outfile
+`outfile`
 :   Write the output of the *infile* to the given *outfile*. Otherwise, write it
     to [`sys.stdout`](sys.md#sys.stdout "sys.stdout").
 
---sort-keys
+`--sort-keys`
 :   Sort the output of dictionaries alphabetically by key.
 
     Added in version 3.5.
 
---no-ensure-ascii
+`--no-ensure-ascii`
 :   Disable escaping of non-ascii characters, see [`json.dumps()`](json.md#json.dumps "json.dumps") for more information.
 
     Added in version 3.9.
 
---json-lines
+`--json-lines`
 :   Parse every input line as separate JSON object.
 
     Added in version 3.8.
 
---indent, --tab, --no-indent, --compact
+`--indent, --tab, --no-indent, --compact`
 :   Mutually exclusive options for whitespace control.
 
     Added in version 3.9.
 
--h, --help
+`-h, --help`
 :   Show the help message.
 
 Footnotes

@@ -20,13 +20,13 @@ Because it requires the [`termios`](termios.md#module-termios "termios: POSIX st
 
 The [`tty`](tty.md#module-tty "tty: Utility functions that perform common terminal control operations. (Unix)") module defines the following functions:
 
-tty.cfmakeraw(*mode*)
+`tty.cfmakeraw(mode)`
 :   Convert the tty attribute list *mode*, which is a list like the one returned
     by [`termios.tcgetattr()`](termios.md#termios.tcgetattr "termios.tcgetattr"), to that of a tty in raw mode.
 
     Added in version 3.12.
 
-tty.cfmakecbreak(*mode*)
+`tty.cfmakecbreak(mode)`
 :   Convert the tty attribute list *mode*, which is a list like the one returned
     by [`termios.tcgetattr()`](termios.md#termios.tcgetattr "termios.tcgetattr"), to that of a tty in cbreak mode.
 
@@ -38,7 +38,7 @@ tty.cfmakecbreak(*mode*)
     Changed in version 3.12.2: The `ICRNL` flag is no longer cleared. This matches Linux and macOS
     `stty cbreak` behavior and what [`setcbreak()`](tty.md#tty.setcbreak "tty.setcbreak") historically did.
 
-tty.setraw(*fd*, *when=termios.TCSAFLUSH*)
+`tty.setraw(fd, when=termios.TCSAFLUSH)`
 :   Change the mode of the file descriptor *fd* to raw. If *when* is omitted, it
     defaults to [`termios.TCSAFLUSH`](termios.md#termios.TCSAFLUSH "termios.TCSAFLUSH"), and is passed to
     [`termios.tcsetattr()`](termios.md#termios.tcsetattr "termios.tcsetattr"). The return value of [`termios.tcgetattr()`](termios.md#termios.tcgetattr "termios.tcgetattr")
@@ -46,7 +46,7 @@ tty.setraw(*fd*, *when=termios.TCSAFLUSH*)
 
     Changed in version 3.12: The return value is now the original tty attributes, instead of `None`.
 
-tty.setcbreak(*fd*, *when=termios.TCSAFLUSH*)
+`tty.setcbreak(fd, when=termios.TCSAFLUSH)`
 :   Change the mode of file descriptor *fd* to cbreak. If *when* is omitted, it
     defaults to [`termios.TCSAFLUSH`](termios.md#termios.TCSAFLUSH "termios.TCSAFLUSH"), and is passed to
     [`termios.tcsetattr()`](termios.md#termios.tcsetattr "termios.tcsetattr"). The return value of [`termios.tcgetattr()`](termios.md#termios.tcgetattr "termios.tcgetattr")

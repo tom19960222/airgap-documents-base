@@ -21,32 +21,32 @@ fetched_at: 2026-09-17T15:32:12+00:00
 
 The constants defined in this module are:
 
-string.ascii_letters
+`string.ascii_letters`
 :   The concatenation of the [`ascii_lowercase`](string.md#string.ascii_lowercase "string.ascii_lowercase") and [`ascii_uppercase`](string.md#string.ascii_uppercase "string.ascii_uppercase")
     constants described below. This value is not locale-dependent.
 
-string.ascii_lowercase
+`string.ascii_lowercase`
 :   The lowercase letters `'abcdefghijklmnopqrstuvwxyz'`. This value is not
     locale-dependent and will not change.
 
-string.ascii_uppercase
+`string.ascii_uppercase`
 :   The uppercase letters `'ABCDEFGHIJKLMNOPQRSTUVWXYZ'`. This value is not
     locale-dependent and will not change.
 
-string.digits
+`string.digits`
 :   The string `'0123456789'`.
 
-string.hexdigits
+`string.hexdigits`
 :   The string `'0123456789abcdefABCDEF'`.
 
-string.octdigits
+`string.octdigits`
 :   The string `'01234567'`.
 
-string.punctuation
+`string.punctuation`
 :   String of ASCII characters which are considered punctuation characters
     in the `C` locale: `` !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ``.
 
-string.printable
+`string.printable`
 :   String of ASCII characters which are considered printable by Python.
     This is a combination of [`digits`](string.md#string.digits "string.digits"), [`ascii_letters`](string.md#string.ascii_letters "string.ascii_letters"),
     [`punctuation`](string.md#string.punctuation "string.punctuation"), and [`whitespace`](string.md#string.whitespace "string.whitespace").
@@ -57,7 +57,7 @@ string.printable
     > returns [`False`](constants.md#False "False"). In particular, `string.printable` is not
     > printable in the POSIX sense (see *[LC_CTYPE](https://manpages.debian.org/locale(5))*).
 
-string.whitespace
+`string.whitespace`
 :   A string containing all ASCII characters that are considered whitespace.
     This includes the characters space, tab, linefeed, return, formfeed, and
     vertical tab.
@@ -70,17 +70,17 @@ substitutions and value formatting via the [`format()`](stdtypes.md#str.format "
 you to create and customize your own string formatting behaviors using the same
 implementation as the built-in [`format()`](stdtypes.md#str.format "str.format") method.
 
-*class* string.Formatter
+`class string.Formatter`
 :   The [`Formatter`](string.md#string.Formatter "string.Formatter") class has the following public methods:
 
-    format(*format_string*, */*, *\*args*, *\*\*kwargs*)
+    `format(format_string, /, *args, **kwargs)`
     :   The primary API method. It takes a format string and
         an arbitrary set of positional and keyword arguments.
         It is just a wrapper that calls [`vformat()`](string.md#string.Formatter.vformat "string.Formatter.vformat").
 
         Changed in version 3.7: A format string argument is now [positional-only](https://docs.python.org/3.12/glossary.html#positional-only-parameter).
 
-    vformat(*format_string*, *args*, *kwargs*)
+    `vformat(format_string, args, kwargs)`
     :   This function does the actual work of formatting. It is exposed as a
         separate function for cases where you want to pass in a predefined
         dictionary of arguments, rather than unpacking and repacking the
@@ -92,7 +92,7 @@ implementation as the built-in [`format()`](stdtypes.md#str.format "str.format")
     In addition, the [`Formatter`](string.md#string.Formatter "string.Formatter") defines a number of methods that are
     intended to be replaced by subclasses:
 
-    parse(*format_string*)
+    `parse(format_string)`
     :   Loop over the format_string and return an iterable of tuples
         (*literal_text*, *field_name*, *format_spec*, *conversion*). This is used
         by [`vformat()`](string.md#string.Formatter.vformat "string.Formatter.vformat") to break the string into either literal text, or
@@ -105,7 +105,7 @@ implementation as the built-in [`format()`](stdtypes.md#str.format "str.format")
         field, then the values of *field_name*, *format_spec* and *conversion*
         will be `None`.
 
-    get_field(*field_name*, *args*, *kwargs*)
+    `get_field(field_name, args, kwargs)`
     :   Given *field_name* as returned by [`parse()`](string.md#string.Formatter.parse "string.Formatter.parse") (see above), convert it to
         an object to be formatted. Returns a tuple (obj, used_key). The default
         version takes strings of the form defined in [**PEP 3101**](https://peps.python.org/pep-3101/), such as
@@ -113,7 +113,7 @@ implementation as the built-in [`format()`](stdtypes.md#str.format "str.format")
         [`vformat()`](string.md#string.Formatter.vformat "string.Formatter.vformat"). The return value *used_key* has the same meaning as the
         *key* parameter to [`get_value()`](string.md#string.Formatter.get_value "string.Formatter.get_value").
 
-    get_value(*key*, *args*, *kwargs*)
+    `get_value(key, args, kwargs)`
     :   Retrieve a given field value. The *key* argument will be either an
         integer or a string. If it is an integer, it represents the index of the
         positional argument in *args*; if it is a string, then it represents a
@@ -135,7 +135,7 @@ implementation as the built-in [`format()`](stdtypes.md#str.format "str.format")
         If the index or keyword refers to an item that does not exist, then an
         [`IndexError`](exceptions.md#IndexError "IndexError") or [`KeyError`](exceptions.md#KeyError "KeyError") should be raised.
 
-    check_unused_args(*used_args*, *args*, *kwargs*)
+    `check_unused_args(used_args, args, kwargs)`
     :   Implement checking for unused arguments if desired. The arguments to this
         function is the set of all argument keys that were actually referred to in
         the format string (integers for positional arguments, and strings for
@@ -144,11 +144,11 @@ implementation as the built-in [`format()`](stdtypes.md#str.format "str.format")
         parameters. [`check_unused_args()`](string.md#string.Formatter.check_unused_args "string.Formatter.check_unused_args") is assumed to raise an exception if
         the check fails.
 
-    format_field(*value*, *format_spec*)
+    `format_field(value, format_spec)`
     :   [`format_field()`](string.md#string.Formatter.format_field "string.Formatter.format_field") simply calls the global [`format()`](functions.md#format "format") built-in. The
         method is provided so that subclasses can override it.
 
-    convert_field(*value*, *conversion*)
+    `convert_field(value, conversion)`
     :   Converts the value (returned by [`get_field()`](string.md#string.Formatter.get_field "string.Formatter.get_field")) given a conversion type
         (as in the tuple returned by the [`parse()`](string.md#string.Formatter.parse "string.Formatter.parse") method). The default
         version understands ‘s’ (str), ‘r’ (repr) and ‘a’ (ascii) conversion
@@ -620,17 +620,17 @@ being raised.
 The [`string`](string.md#module-string "string: Common string operations.") module provides a [`Template`](string.md#string.Template "string.Template") class that implements
 these rules. The methods of [`Template`](string.md#string.Template "string.Template") are:
 
-*class* string.Template(*template*)
+`class string.Template(template)`
 :   The constructor takes a single argument which is the template string.
 
-    substitute(*mapping={}*, */*, *\*\*kwds*)
+    `substitute(mapping={}, /, **kwds)`
     :   Performs the template substitution, returning a new string. *mapping* is
         any dictionary-like object with keys that match the placeholders in the
         template. Alternatively, you can provide keyword arguments, where the
         keywords are the placeholders. When both *mapping* and *kwds* are given
         and there are duplicates, the placeholders from *kwds* take precedence.
 
-    safe_substitute(*mapping={}*, */*, *\*\*kwds*)
+    `safe_substitute(mapping={}, /, **kwds)`
     :   Like [`substitute()`](string.md#string.Template.substitute "string.Template.substitute"), except that if placeholders are missing from
         *mapping* and *kwds*, instead of raising a [`KeyError`](exceptions.md#KeyError "KeyError") exception, the
         original placeholder will appear in the resulting string intact. Also,
@@ -644,13 +644,13 @@ these rules. The methods of [`Template`](string.md#string.Template "string.Templ
         templates containing dangling delimiters, unmatched braces, or
         placeholders that are not valid Python identifiers.
 
-    is_valid()
+    `is_valid()`
     :   Returns false if the template has invalid placeholders that will cause
         [`substitute()`](string.md#string.Template.substitute "string.Template.substitute") to raise [`ValueError`](exceptions.md#ValueError "ValueError").
 
         Added in version 3.11.
 
-    get_identifiers()
+    `get_identifiers()`
     :   Returns a list of the valid identifiers in the template, in the order
         they first appear, ignoring any invalid identifiers.
 
@@ -658,7 +658,7 @@ these rules. The methods of [`Template`](string.md#string.Template "string.Templ
 
     [`Template`](string.md#string.Template "string.Template") instances also provide one public data attribute:
 
-    template
+    `template`
     :   This is the object passed to the constructor’s *template* argument. In
         general, you shouldn’t change it, but read-only access is not enforced.
 
@@ -741,7 +741,7 @@ the template without one of these named groups matching.
 
 ## Helper functions
 
-string.capwords(*s*, *sep=None*)
+`string.capwords(s, sep=None)`
 :   Split the argument into words using [`str.split()`](stdtypes.md#str.split "str.split"), capitalize each word
     using [`str.capitalize()`](stdtypes.md#str.capitalize "str.capitalize"), and join the capitalized words using
     [`str.join()`](stdtypes.md#str.join "str.join"). If the optional second argument *sep* is absent

@@ -33,7 +33,7 @@ This module does not work or is not available on WebAssembly platforms
 
 The module provides the following classes:
 
-*class* http.client.HTTPConnection(*host*, *port=None*, [*timeout*, ]*source_address=None*, *blocksize=8192*)
+`class http.client.HTTPConnection(host, port=None, [timeout, ]source_address=None, blocksize=8192)`
 :   An [`HTTPConnection`](http.client.md#http.client.HTTPConnection "http.client.HTTPConnection") instance represents one transaction with an HTTP
     server. It should be instantiated by passing it a host and optional port
     number. If no port number is passed, the port is extracted from the host
@@ -63,7 +63,7 @@ The module provides the following classes:
 
     Changed in version 3.7: *blocksize* parameter was added.
 
-*class* http.client.HTTPSConnection(*host*, *port=None*, *\**, [*timeout*, ]*source_address=None*, *context=None*, *blocksize=8192*)
+`class http.client.HTTPSConnection(host, port=None, *, [timeout, ]source_address=None, context=None, blocksize=8192)`
 :   A subclass of [`HTTPConnection`](http.client.md#http.client.HTTPConnection "http.client.HTTPConnection") that uses SSL for communication with
     secure servers. Default port is `443`. If *context* is specified, it
     must be a [`ssl.SSLContext`](ssl.md#ssl.SSLContext "ssl.SSLContext") instance describing the various SSL
@@ -95,7 +95,7 @@ The module provides the following classes:
     Changed in version 3.12: The deprecated *key_file*, *cert_file* and *check_hostname* parameters
     have been removed.
 
-*class* http.client.HTTPResponse(*sock*, *debuglevel=0*, *method=None*, *url=None*)
+`class http.client.HTTPResponse(sock, debuglevel=0, method=None, url=None)`
 :   Class whose instances are returned upon successful connection. Not
     instantiated directly by user.
 
@@ -104,7 +104,7 @@ The module provides the following classes:
 
 This module provides the following function:
 
-http.client.parse_headers(*fp*)
+`http.client.parse_headers(fp)`
 :   Parse the headers from a file pointer *fp* representing a HTTP
     request/response. The file has to be a [`BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") reader
     (i.e. not text) and must provide a valid [**RFC 2822**](https://datatracker.ietf.org/doc/html/rfc2822.html) style header.
@@ -124,50 +124,50 @@ http.client.parse_headers(*fp*)
 
 The following exceptions are raised as appropriate:
 
-*exception* http.client.HTTPException
+`exception http.client.HTTPException`
 :   The base class of the other exceptions in this module. It is a subclass of
     [`Exception`](exceptions.md#Exception "Exception").
 
-*exception* http.client.NotConnected
+`exception http.client.NotConnected`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException").
 
-*exception* http.client.InvalidURL
+`exception http.client.InvalidURL`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException"), raised if a port is given and is either
     non-numeric or empty.
 
-*exception* http.client.UnknownProtocol
+`exception http.client.UnknownProtocol`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException").
 
-*exception* http.client.UnknownTransferEncoding
+`exception http.client.UnknownTransferEncoding`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException").
 
-*exception* http.client.UnimplementedFileMode
+`exception http.client.UnimplementedFileMode`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException").
 
-*exception* http.client.IncompleteRead
+`exception http.client.IncompleteRead`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException").
 
-*exception* http.client.ImproperConnectionState
+`exception http.client.ImproperConnectionState`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException").
 
-*exception* http.client.CannotSendRequest
+`exception http.client.CannotSendRequest`
 :   A subclass of [`ImproperConnectionState`](http.client.md#http.client.ImproperConnectionState "http.client.ImproperConnectionState").
 
-*exception* http.client.CannotSendHeader
+`exception http.client.CannotSendHeader`
 :   A subclass of [`ImproperConnectionState`](http.client.md#http.client.ImproperConnectionState "http.client.ImproperConnectionState").
 
-*exception* http.client.ResponseNotReady
+`exception http.client.ResponseNotReady`
 :   A subclass of [`ImproperConnectionState`](http.client.md#http.client.ImproperConnectionState "http.client.ImproperConnectionState").
 
-*exception* http.client.BadStatusLine
+`exception http.client.BadStatusLine`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException"). Raised if a server responds with a HTTP
     status code that we don’t understand.
 
-*exception* http.client.LineTooLong
+`exception http.client.LineTooLong`
 :   A subclass of [`HTTPException`](http.client.md#http.client.HTTPException "http.client.HTTPException"). Raised if an excessively long line
     is received in the HTTP protocol from the server.
 
-*exception* http.client.RemoteDisconnected
+`exception http.client.RemoteDisconnected`
 :   A subclass of [`ConnectionResetError`](exceptions.md#ConnectionResetError "ConnectionResetError") and [`BadStatusLine`](http.client.md#http.client.BadStatusLine "http.client.BadStatusLine"). Raised
     by [`HTTPConnection.getresponse()`](http.client.md#http.client.HTTPConnection.getresponse "http.client.HTTPConnection.getresponse") when the attempt to read the response
     results in no data read from the connection, indicating that the remote end
@@ -177,13 +177,13 @@ The following exceptions are raised as appropriate:
 
 The constants defined in this module are:
 
-http.client.HTTP_PORT
+`http.client.HTTP_PORT`
 :   The default port for the HTTP protocol (always `80`).
 
-http.client.HTTPS_PORT
+`http.client.HTTPS_PORT`
 :   The default port for the HTTPS protocol (always `443`).
 
-http.client.responses
+`http.client.responses`
 :   This dictionary maps the HTTP 1.1 status codes to the W3C names.
 
     Example: `http.client.responses[http.client.NOT_FOUND]` is `'Not Found'`.
@@ -195,7 +195,7 @@ available in this module as constants.
 
 [`HTTPConnection`](http.client.md#http.client.HTTPConnection "http.client.HTTPConnection") instances have the following methods:
 
-HTTPConnection.request(*method*, *url*, *body=None*, *headers={}*, *\**, *encode_chunked=False*)
+`HTTPConnection.request(method, url, body=None, headers={}, *, encode_chunked=False)`
 :   This will send a request to the server using the HTTP request
     method *method* and the request URI *url*. The provided *url* must be
     an absolute path to conform with [**RFC 2616 §5.1.2**](https://datatracker.ietf.org/doc/html/rfc2616.html#section-5.1.2)
@@ -265,7 +265,7 @@ HTTPConnection.request(*method*, *url*, *body=None*, *headers={}*, *\**, *encode
     No attempt is made to determine the Content-Length for file
     objects.
 
-HTTPConnection.getresponse()
+`HTTPConnection.getresponse()`
 :   Should be called after a request is sent to get the response from the server.
     Returns an [`HTTPResponse`](http.client.md#http.client.HTTPResponse "http.client.HTTPResponse") instance.
 
@@ -278,7 +278,7 @@ HTTPConnection.getresponse()
     [`HTTPConnection`](http.client.md#http.client.HTTPConnection "http.client.HTTPConnection") object will be ready to reconnect when
     a new request is sent.
 
-HTTPConnection.set_debuglevel(*level*)
+`HTTPConnection.set_debuglevel(level)`
 :   Set the debugging level. The default debug level is `0`, meaning no
     debugging output is printed. Any value greater than `0` will cause all
     currently defined debug output to be printed to stdout. The `debuglevel`
@@ -286,7 +286,7 @@ HTTPConnection.set_debuglevel(*level*)
 
     Added in version 3.1.
 
-HTTPConnection.set_tunnel(*host*, *port=None*, *headers=None*)
+`HTTPConnection.set_tunnel(host, port=None, headers=None)`
 :   Set the host and the port for HTTP Connect Tunnelling. This allows running
     the connection through a proxy server.
 
@@ -322,7 +322,7 @@ HTTPConnection.set_tunnel(*host*, *port=None*, *headers=None*)
     one will be automatically generated and transmitted if not provided in
     the headers argument.
 
-HTTPConnection.get_proxy_response_headers()
+`HTTPConnection.get_proxy_response_headers()`
 :   Returns a dictionary with the headers of the response received from
     the proxy server to the CONNECT request.
 
@@ -330,17 +330,17 @@ HTTPConnection.get_proxy_response_headers()
 
     Added in version 3.12.
 
-HTTPConnection.connect()
+`HTTPConnection.connect()`
 :   Connect to the server specified when the object was created. By default,
     this is called automatically when making a request if the client does not
     already have a connection.
 
     Raises an [auditing event](sys.md#auditing) `http.client.connect` with arguments `self`, `host`, `port`.
 
-HTTPConnection.close()
+`HTTPConnection.close()`
 :   Close the connection to the server.
 
-HTTPConnection.blocksize
+`HTTPConnection.blocksize`
 :   Buffer size in bytes for sending a file-like message body.
 
     Added in version 3.7.
@@ -348,7 +348,7 @@ HTTPConnection.blocksize
 As an alternative to using the [`request()`](http.client.md#http.client.HTTPConnection.request "http.client.HTTPConnection.request") method described above, you can
 also send your request step by step, by using the four functions below.
 
-HTTPConnection.putrequest(*method*, *url*, *skip_host=False*, *skip_accept_encoding=False*)
+`HTTPConnection.putrequest(method, url, skip_host=False, skip_accept_encoding=False)`
 :   This should be the first call after the connection to the server has been
     made. It sends a line to the server consisting of the *method* string,
     the *url* string, and the HTTP version (`HTTP/1.1`). To disable automatic
@@ -356,13 +356,13 @@ HTTPConnection.putrequest(*method*, *url*, *skip_host=False*, *skip_accept_encod
     additional content encodings), specify *skip_host* or *skip_accept_encoding*
     with non-False values.
 
-HTTPConnection.putheader(*header*, *argument*[, *...*])
+`HTTPConnection.putheader(header, argument[, ...])`
 :   Send an [**RFC 822**](https://datatracker.ietf.org/doc/html/rfc822.html)-style header to the server. It sends a line to the server
     consisting of the header, a colon and a space, and the first argument. If more
     arguments are given, continuation lines are sent, each consisting of a tab and
     an argument.
 
-HTTPConnection.endheaders(*message_body=None*, *\**, *encode_chunked=False*)
+`HTTPConnection.endheaders(message_body=None, *, encode_chunked=False)`
 :   Send a blank line to the server, signalling the end of the headers. The
     optional *message_body* argument can be used to pass a message body
     associated with the request.
@@ -386,7 +386,7 @@ HTTPConnection.endheaders(*message_body=None*, *\**, *encode_chunked=False*)
 
     Changed in version 3.6: Added chunked encoding support and the *encode_chunked* parameter.
 
-HTTPConnection.send(*data*)
+`HTTPConnection.send(data)`
 :   Send data to the server. This should be used directly only after the
     [`endheaders()`](http.client.md#http.client.HTTPConnection.endheaders "http.client.HTTPConnection.endheaders") method has been called and before [`getresponse()`](http.client.md#http.client.HTTPConnection.getresponse "http.client.HTTPConnection.getresponse") is
     called.
@@ -403,61 +403,61 @@ statement.
 Changed in version 3.5: The [`io.BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") interface is now implemented and
 all of its reader operations are supported.
 
-HTTPResponse.read([*amt*])
+`HTTPResponse.read([amt])`
 :   Reads and returns the response body, or up to the next *amt* bytes.
 
-HTTPResponse.readinto(*b*)
+`HTTPResponse.readinto(b)`
 :   Reads up to the next len(b) bytes of the response body into the buffer *b*.
     Returns the number of bytes read.
 
     Added in version 3.3.
 
-HTTPResponse.getheader(*name*, *default=None*)
+`HTTPResponse.getheader(name, default=None)`
 :   Return the value of the header *name*, or *default* if there is no header
     matching *name*. If there is more than one header with the name *name*,
     return all of the values joined by ‘, ‘. If *default* is any iterable other
     than a single string, its elements are similarly returned joined by commas.
 
-HTTPResponse.getheaders()
+`HTTPResponse.getheaders()`
 :   Return a list of (header, value) tuples.
 
-HTTPResponse.fileno()
+`HTTPResponse.fileno()`
 :   Return the `fileno` of the underlying socket.
 
-HTTPResponse.msg
+`HTTPResponse.msg`
 :   A [`http.client.HTTPMessage`](http.client.md#http.client.HTTPMessage "http.client.HTTPMessage") instance containing the response
     headers. [`http.client.HTTPMessage`](http.client.md#http.client.HTTPMessage "http.client.HTTPMessage") is a subclass of
     [`email.message.Message`](email.compat32-message.md#email.message.Message "email.message.Message").
 
-HTTPResponse.version
+`HTTPResponse.version`
 :   HTTP protocol version used by server. 10 for HTTP/1.0, 11 for HTTP/1.1.
 
-HTTPResponse.url
+`HTTPResponse.url`
 :   URL of the resource retrieved, commonly used to determine if a redirect was followed.
 
-HTTPResponse.headers
+`HTTPResponse.headers`
 :   Headers of the response in the form of an [`email.message.EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage") instance.
 
-HTTPResponse.status
+`HTTPResponse.status`
 :   Status code returned by server.
 
-HTTPResponse.reason
+`HTTPResponse.reason`
 :   Reason phrase returned by server.
 
-HTTPResponse.debuglevel
+`HTTPResponse.debuglevel`
 :   A debugging hook. If [`debuglevel`](http.client.md#http.client.HTTPResponse.debuglevel "http.client.HTTPResponse.debuglevel") is greater than zero, messages
     will be printed to stdout as the response is read and parsed.
 
-HTTPResponse.closed
+`HTTPResponse.closed`
 :   Is `True` if the stream is closed.
 
-HTTPResponse.geturl()
+`HTTPResponse.geturl()`
 :   Deprecated since version 3.9: Deprecated in favor of [`url`](http.client.md#http.client.HTTPResponse.url "http.client.HTTPResponse.url").
 
-HTTPResponse.info()
+`HTTPResponse.info()`
 :   Deprecated since version 3.9: Deprecated in favor of [`headers`](http.client.md#http.client.HTTPResponse.headers "http.client.HTTPResponse.headers").
 
-HTTPResponse.getcode()
+`HTTPResponse.getcode()`
 :   Deprecated since version 3.9: Deprecated in favor of [`status`](http.client.md#http.client.HTTPResponse.status "http.client.HTTPResponse.status").
 
 ## Examples
@@ -546,7 +546,7 @@ method attribute. Here is an example session that uses the `PUT` method:
 
 ## HTTPMessage Objects
 
-*class* http.client.HTTPMessage(*email.message.Message*)
+`class http.client.HTTPMessage(email.message.Message)`
 
 An [`http.client.HTTPMessage`](http.client.md#http.client.HTTPMessage "http.client.HTTPMessage") instance holds the headers from an HTTP
 response. It is implemented using the [`email.message.Message`](email.compat32-message.md#email.message.Message "email.message.Message") class.

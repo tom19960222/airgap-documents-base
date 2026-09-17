@@ -31,7 +31,7 @@ locale of your user. If you are localizing a Python module, or if your
 application needs to switch languages on the fly, you probably want to use the
 class-based API instead.
 
-gettext.bindtextdomain(*domain*, *localedir=None*)
+`gettext.bindtextdomain(domain, localedir=None)`
 :   Bind the *domain* to the locale directory *localedir*. More concretely,
     [`gettext`](gettext.md#module-gettext "gettext: Multilingual internationalization services.") will look for binary `.mo` files for the given domain using
     the path (on Unix): `localedir/language/LC_MESSAGES/domain.mo`, where
@@ -41,20 +41,20 @@ gettext.bindtextdomain(*domain*, *localedir=None*)
     If *localedir* is omitted or `None`, then the current binding for *domain* is
     returned. [[1]](gettext.md#id3)
 
-gettext.textdomain(*domain=None*)
+`gettext.textdomain(domain=None)`
 :   Change or query the current global domain. If *domain* is `None`, then the
     current global domain is returned, otherwise the global domain is set to
     *domain*, which is returned.
 
-gettext.gettext(*message*)
+`gettext.gettext(message)`
 :   Return the localized translation of *message*, based on the current global
     domain, language, and locale directory. This function is usually aliased as
     `_()` in the local namespace (see examples below).
 
-gettext.dgettext(*domain*, *message*)
+`gettext.dgettext(domain, message)`
 :   Like [`gettext()`](gettext.md#gettext.gettext "gettext.gettext"), but look the message up in the specified *domain*.
 
-gettext.ngettext(*singular*, *plural*, *n*)
+`gettext.ngettext(singular, plural, n)`
 :   Like [`gettext()`](gettext.md#gettext.gettext "gettext.gettext"), but consider plural forms. If a translation is found,
     apply the plural formula to *n*, and return the resulting message (some
     languages have more than two plural forms). If no translation is found, return
@@ -67,16 +67,16 @@ gettext.ngettext(*singular*, *plural*, *n*)
     for the precise syntax to be used in `.po` files and the
     formulas for a variety of languages.
 
-gettext.dngettext(*domain*, *singular*, *plural*, *n*)
+`gettext.dngettext(domain, singular, plural, n)`
 :   Like [`ngettext()`](gettext.md#gettext.ngettext "gettext.ngettext"), but look the message up in the specified *domain*.
 
-gettext.pgettext(*context*, *message*)
+`gettext.pgettext(context, message)`
 
-gettext.dpgettext(*domain*, *context*, *message*)
+`gettext.dpgettext(domain, context, message)`
 
-gettext.npgettext(*context*, *singular*, *plural*, *n*)
+`gettext.npgettext(context, singular, plural, n)`
 
-gettext.dnpgettext(*domain*, *context*, *singular*, *plural*, *n*)
+`gettext.dnpgettext(domain, context, singular, plural, n)`
 :   Similar to the corresponding functions without the `p` in the prefix (that
     is, [`gettext()`](gettext.md#module-gettext "gettext: Multilingual internationalization services."), [`dgettext()`](gettext.md#gettext.dgettext "gettext.dgettext"), [`ngettext()`](gettext.md#gettext.ngettext "gettext.ngettext"), [`dngettext()`](gettext.md#gettext.dngettext "gettext.dngettext")),
     but the translation is restricted to the given message *context*.
@@ -106,7 +106,7 @@ a [`GNUTranslations`](gettext.md#gettext.GNUTranslations "gettext.GNUTranslation
 files, and has methods for returning strings. Instances of this class can also
 install themselves in the built-in namespace as the function `_()`.
 
-gettext.find(*domain*, *localedir=None*, *languages=None*, *all=False*)
+`gettext.find(domain, localedir=None, languages=None, all=False)`
 :   This function implements the standard `.mo` file search algorithm. It
     takes a *domain*, identical to what [`textdomain()`](gettext.md#gettext.textdomain "gettext.textdomain") takes. Optional
     *localedir* is as in [`bindtextdomain()`](gettext.md#gettext.bindtextdomain "gettext.bindtextdomain"). Optional *languages* is a list of
@@ -130,7 +130,7 @@ gettext.find(*domain*, *localedir=None*, *languages=None*, *all=False*)
     of all file names, in the order in which they appear in the languages list or
     the environment variables.
 
-gettext.translation(*domain*, *localedir=None*, *languages=None*, *class_=None*, *fallback=False*)
+`gettext.translation(domain, localedir=None, languages=None, class_=None, fallback=False)`
 :   Return a `*Translations` instance based on the *domain*, *localedir*,
     and *languages*, which are first passed to [`find()`](gettext.md#gettext.find "gettext.find") to get a list of the
     associated `.mo` file paths. Instances with identical `.mo` file
@@ -151,7 +151,7 @@ gettext.translation(*domain*, *localedir=None*, *languages=None*, *class_=None*,
 
     Changed in version 3.11: *codeset* parameter is removed.
 
-gettext.install(*domain*, *localedir=None*, *\**, *names=None*)
+`gettext.install(domain, localedir=None, *, names=None)`
 :   This installs the function `_()` in Python’s builtins namespace, based on
     *domain* and *localedir* which are passed to the function [`translation()`](gettext.md#gettext.translation "gettext.translation").
 
@@ -180,53 +180,53 @@ by all translation classes is [`NullTranslations`](gettext.md#gettext.NullTransl
 interface you can use to write your own specialized translation classes. Here
 are the methods of `NullTranslations`:
 
-*class* gettext.NullTranslations(*fp=None*)
+`class gettext.NullTranslations(fp=None)`
 :   Takes an optional [file object](https://docs.python.org/3.12/glossary.html#term-file-object) *fp*, which is ignored by the base class.
     Initializes “protected” instance variables *_info* and *_charset* which are set
     by derived classes, as well as *_fallback*, which is set through
     [`add_fallback()`](gettext.md#gettext.NullTranslations.add_fallback "gettext.NullTranslations.add_fallback"). It then calls `self._parse(fp)` if *fp* is not
     `None`.
 
-    _parse(*fp*)
+    `_parse(fp)`
     :   No-op in the base class, this method takes file object *fp*, and reads
         the data from the file, initializing its message catalog. If you have an
         unsupported message catalog file format, you should override this method
         to parse your format.
 
-    add_fallback(*fallback*)
+    `add_fallback(fallback)`
     :   Add *fallback* as the fallback object for the current translation object.
         A translation object should consult the fallback if it cannot provide a
         translation for a given message.
 
-    gettext(*message*)
+    `gettext(message)`
     :   If a fallback has been set, forward `gettext()` to the fallback.
         Otherwise, return *message*. Overridden in derived classes.
 
-    ngettext(*singular*, *plural*, *n*)
+    `ngettext(singular, plural, n)`
     :   If a fallback has been set, forward `ngettext()` to the fallback.
         Otherwise, return *singular* if *n* is 1; return *plural* otherwise.
         Overridden in derived classes.
 
-    pgettext(*context*, *message*)
+    `pgettext(context, message)`
     :   If a fallback has been set, forward [`pgettext()`](gettext.md#gettext.pgettext "gettext.pgettext") to the fallback.
         Otherwise, return the translated message. Overridden in derived classes.
 
         Added in version 3.8.
 
-    npgettext(*context*, *singular*, *plural*, *n*)
+    `npgettext(context, singular, plural, n)`
     :   If a fallback has been set, forward [`npgettext()`](gettext.md#gettext.npgettext "gettext.npgettext") to the fallback.
         Otherwise, return the translated message. Overridden in derived classes.
 
         Added in version 3.8.
 
-    info()
+    `info()`
     :   Return a dictionary containing
         the metadata found in the message catalog file.
 
-    charset()
+    `charset()`
     :   Return the encoding of the message catalog file.
 
-    install(*names=None*)
+    `install(names=None)`
     :   This method installs [`gettext()`](gettext.md#gettext.NullTranslations.gettext "gettext.NullTranslations.gettext") into the built-in namespace,
         binding it to `_`.
 
@@ -279,17 +279,17 @@ If the `.mo` file’s magic number is invalid, the major version number is
 unexpected, or if other problems occur while reading the file, instantiating a
 [`GNUTranslations`](gettext.md#gettext.GNUTranslations "gettext.GNUTranslations") class can raise [`OSError`](exceptions.md#OSError "OSError").
 
-*class* gettext.GNUTranslations
+`class gettext.GNUTranslations`
 :   The following methods are overridden from the base class implementation:
 
-    gettext(*message*)
+    `gettext(message)`
     :   Look up the *message* id in the catalog and return the corresponding message
         string, as a Unicode string. If there is no entry in the catalog for the
         *message* id, and a fallback has been set, the look up is forwarded to the
         fallback’s [`gettext()`](gettext.md#gettext.NullTranslations.gettext "gettext.NullTranslations.gettext") method. Otherwise, the
         *message* id is returned.
 
-    ngettext(*singular*, *plural*, *n*)
+    `ngettext(singular, plural, n)`
     :   Do a plural-forms lookup of a message id. *singular* is used as the message id
         for purposes of lookup in the catalog, while *n* is used to determine which
         plural form to use. The returned message string is a Unicode string.
@@ -310,7 +310,7 @@ unexpected, or if other problems occur while reading the file, instantiating a
             n) % {'num': n}
         ```
 
-    pgettext(*context*, *message*)
+    `pgettext(context, message)`
     :   Look up the *context* and *message* id in the catalog and return the
         corresponding message string, as a Unicode string. If there is no
         entry in the catalog for the *message* id and *context*, and a fallback
@@ -319,7 +319,7 @@ unexpected, or if other problems occur while reading the file, instantiating a
 
         Added in version 3.8.
 
-    npgettext(*context*, *singular*, *plural*, *n*)
+    `npgettext(context, singular, plural, n)`
     :   Do a plural-forms lookup of a message id. *singular* is used as the
         message id for purposes of lookup in the catalog, while *n* is used to
         determine which plural form to use.

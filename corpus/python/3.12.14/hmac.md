@@ -13,7 +13,7 @@ fetched_at: 2026-09-17T15:33:08+00:00
 
 This module implements the HMAC algorithm as described by [**RFC 2104**](https://datatracker.ietf.org/doc/html/rfc2104.html).
 
-hmac.new(*key*, *msg=None*, *digestmod*)
+`hmac.new(key, msg=None, digestmod)`
 :   Return a new hmac object. *key* is a bytes or bytearray object giving the
     secret key. If *msg* is present, the method call `update(msg)` is made.
     *digestmod* is the digest name, digest constructor or module for the HMAC
@@ -27,7 +27,7 @@ hmac.new(*key*, *msg=None*, *digestmod*)
     Changed in version 3.8: The *digestmod* argument is now required. Pass it as a keyword
     argument to avoid awkwardness when you do not have an initial *msg*.
 
-hmac.digest(*key*, *msg*, *digest*)
+`hmac.digest(key, msg, digest)`
 :   Return digest of *msg* for given secret *key* and *digest*. The
     function is equivalent to `HMAC(key, msg, digest).digest()`, but
     uses an optimized C or inline implementation, which is faster for messages
@@ -42,14 +42,14 @@ hmac.digest(*key*, *msg*, *digest*)
 
 An HMAC object has the following methods:
 
-HMAC.update(*msg*)
+`HMAC.update(msg)`
 :   Update the hmac object with *msg*. Repeated calls are equivalent to a
     single call with the concatenation of all the arguments:
     `m.update(a); m.update(b)` is equivalent to `m.update(a + b)`.
 
     Changed in version 3.4: Parameter *msg* can be of any type supported by [`hashlib`](hashlib.md#module-hashlib "hashlib: Secure hash and message digest algorithms.").
 
-HMAC.digest()
+`HMAC.digest()`
 :   Return the digest of the bytes passed to the [`update()`](hmac.md#hmac.HMAC.update "hmac.HMAC.update") method so far.
     This bytes object will be the same length as the *digest_size* of the digest
     given to the constructor. It may contain non-ASCII bytes, including NUL
@@ -62,7 +62,7 @@ HMAC.digest()
     > [`compare_digest()`](hmac.md#hmac.compare_digest "hmac.compare_digest") function instead of the `==` operator
     > to reduce the vulnerability to timing attacks.
 
-HMAC.hexdigest()
+`HMAC.hexdigest()`
 :   Like [`digest()`](hmac.md#hmac.digest "hmac.digest") except the digest is returned as a string twice the
     length containing only hexadecimal digits. This may be used to exchange the
     value safely in email or other non-binary environments.
@@ -74,21 +74,21 @@ HMAC.hexdigest()
     > [`compare_digest()`](hmac.md#hmac.compare_digest "hmac.compare_digest") function instead of the `==` operator
     > to reduce the vulnerability to timing attacks.
 
-HMAC.copy()
+`HMAC.copy()`
 :   Return a copy (“clone”) of the hmac object. This can be used to efficiently
     compute the digests of strings that share a common initial substring.
 
 A hash object has the following attributes:
 
-HMAC.digest_size
+`HMAC.digest_size`
 :   The size of the resulting HMAC digest in bytes.
 
-HMAC.block_size
+`HMAC.block_size`
 :   The internal block size of the hash algorithm in bytes.
 
     Added in version 3.4.
 
-HMAC.name
+`HMAC.name`
 :   The canonical name of this HMAC, always lowercase, e.g. `hmac-md5`.
 
     Added in version 3.4.
@@ -98,7 +98,7 @@ and `HMAC.outer`.
 
 This module also provides the following helper function:
 
-hmac.compare_digest(*a*, *b*)
+`hmac.compare_digest(a, b)`
 :   Return `a == b`. This function uses an approach designed to prevent
     timing analysis by avoiding content-based short circuiting behaviour,
     making it appropriate for cryptography. *a* and *b* must both be of the

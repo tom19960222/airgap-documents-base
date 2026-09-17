@@ -70,12 +70,12 @@ By default, `pip` is installed into the current virtual environment
 active virtual environment). The installation location can be controlled
 through two additional command line options:
 
---root <dir>
+`--root <dir>`
 :   Installs `pip` relative to the given root directory rather than the root
     of the currently active virtual environment (if any) or the default root
     for the current Python installation.
 
---user
+`--user`
 :   Installs `pip` into the user site packages directory rather than globally
     for the current Python installation (this option is not permitted inside an
     active virtual environment).
@@ -85,11 +85,11 @@ X.Y stands for the version of Python used to invoke `ensurepip`). The
 scripts installed can be controlled through two additional command line
 options:
 
---altinstall
+`--altinstall`
 :   If an alternate installation is requested, the `pipX` script will *not* be
     installed.
 
---default-pip
+`--default-pip`
 :   If a “default pip” installation is requested, the `pip` script will be
     installed in addition to the two regular scripts.
 
@@ -99,11 +99,11 @@ Providing both of the script selection options will trigger an exception.
 
 [`ensurepip`](ensurepip.md#module-ensurepip "ensurepip: Bootstrapping the \"pip\" installer into an existing Python installation or virtual environment.") exposes two functions for programmatic use:
 
-ensurepip.version()
+`ensurepip.version()`
 :   Returns a string specifying the available version of pip that will be
     installed when bootstrapping an environment.
 
-ensurepip.bootstrap(*root=None*, *upgrade=False*, *user=False*, *altinstall=False*, *default_pip=False*, *verbosity=0*)
+`ensurepip.bootstrap(root=None, upgrade=False, user=False, altinstall=False, default_pip=False, verbosity=0)`
 :   Bootstraps `pip` into the current or designated environment.
 
     *root* specifies an alternative root directory to install relative to.

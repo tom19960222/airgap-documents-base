@@ -125,15 +125,15 @@ profile another script. For example:
 python -m cProfile [-o output_file] [-s sort_order] (-m module | myscript.py)
 ```
 
--o <output_file>
+`-o <output_file>`
 :   Writes the profile results to a file instead of to stdout.
 
--s <sort_order>
+`-s <sort_order>`
 :   Specifies one of the [`sort_stats()`](profile.md#pstats.Stats.sort_stats "pstats.Stats.sort_stats") sort values
     to sort the output by.
     This only applies when [`-o`](profile.md#cmdoption-cProfile-o) is not supplied.
 
--m <module>
+`-m <module>`
 :   Specifies that a module is being profiled instead of a script.
 
     Added in version 3.7: Added the `-m` option to [`cProfile`](profile.md#module-cProfile "cProfile").
@@ -228,7 +228,7 @@ reading and examining profile dumps. It has a simple line-oriented interface
 Both the [`profile`](profile.md#module-profile "profile: Python source profiler.") and [`cProfile`](profile.md#module-cProfile "cProfile") modules provide the following
 functions:
 
-profile.run(*command*, *filename=None*, *sort=-1*)
+`profile.run(command, filename=None, sort=-1)`
 :   This function takes a single argument that can be passed to the [`exec()`](functions.md#exec "exec")
     function, and an optional file name. In all cases this routine executes:
 
@@ -242,7 +242,7 @@ profile.run(*command*, *filename=None*, *sort=-1*)
     it is passed to this [`Stats`](profile.md#pstats.Stats "pstats.Stats") instance to control how the
     results are sorted.
 
-profile.runctx(*command*, *globals*, *locals*, *filename=None*, *sort=-1*)
+`profile.runctx(command, globals, locals, filename=None, sort=-1)`
 :   This function is similar to [`run()`](profile.md#profile.run "profile.run"), with added arguments to supply the
     globals and locals dictionaries for the *command* string. This routine
     executes:
@@ -253,7 +253,7 @@ profile.runctx(*command*, *globals*, *locals*, *filename=None*, *sort=-1*)
 
     and gathers profiling statistics as in the [`run()`](profile.md#profile.run "profile.run") function above.
 
-*class* profile.Profile(*timer=None*, *timeunit=0.0*, *subcalls=True*, *builtins=True*)
+`class profile.Profile(timer=None, timeunit=0.0, subcalls=True, builtins=True)`
 :   This class is normally only used if more precise control over profiling is
     needed than what the `cProfile.run()` function provides.
 
@@ -295,31 +295,31 @@ profile.runctx(*command*, *globals*, *locals*, *filename=None*, *sort=-1*)
 
     Changed in version 3.8: Added context manager support.
 
-    enable()
+    `enable()`
     :   Start collecting profiling data. Only in [`cProfile`](profile.md#module-cProfile "cProfile").
 
-    disable()
+    `disable()`
     :   Stop collecting profiling data. Only in [`cProfile`](profile.md#module-cProfile "cProfile").
 
-    create_stats()
+    `create_stats()`
     :   Stop collecting profiling data and record the results internally
         as the current profile.
 
-    print_stats(*sort=-1*)
+    `print_stats(sort=-1)`
     :   Create a [`Stats`](profile.md#pstats.Stats "pstats.Stats") object based on the current
         profile and print the results to stdout.
 
-    dump_stats(*filename*)
+    `dump_stats(filename)`
     :   Write the results of the current profile to *filename*.
 
-    run(*cmd*)
+    `run(cmd)`
     :   Profile the cmd via [`exec()`](functions.md#exec "exec").
 
-    runctx(*cmd*, *globals*, *locals*)
+    `runctx(cmd, globals, locals)`
     :   Profile the cmd via [`exec()`](functions.md#exec "exec") with the specified global and
         local environment.
 
-    runcall(*func*, */*, *\*args*, *\*\*kwargs*)
+    `runcall(func, /, *args, **kwargs)`
     :   Profile `func(*args, **kwargs)`
 
 Note that profiling will only work if the called command/function actually
@@ -331,7 +331,7 @@ printed.
 
 Analysis of the profiler data is done using the [`Stats`](profile.md#pstats.Stats "pstats.Stats") class.
 
-*class* pstats.Stats(*\*filenames or profile*, *stream=sys.stdout*)
+`class pstats.Stats(*filenames or profile, stream=sys.stdout)`
 :   This class constructor creates an instance of a “statistics object” from a
     *filename* (or list of filenames) or from a `Profile` instance. Output
     will be printed to the stream specified by *stream*.
@@ -352,7 +352,7 @@ Analysis of the profiler data is done using the [`Stats`](profile.md#pstats.Stat
 
     [`Stats`](profile.md#pstats.Stats "pstats.Stats") objects have the following methods:
 
-    strip_dirs()
+    `strip_dirs()`
     :   This method for the [`Stats`](profile.md#pstats.Stats "pstats.Stats") class removes all leading path
         information from file names. It is very useful in reducing the size of
         the printout to fit within (close to) 80 columns. This method modifies
@@ -364,7 +364,7 @@ Analysis of the profiler data is done using the [`Stats`](profile.md#pstats.Stat
         have the same function name), then the statistics for these two entries
         are accumulated into a single entry.
 
-    add(*\*filenames*)
+    `add(*filenames)`
     :   This method of the [`Stats`](profile.md#pstats.Stats "pstats.Stats") class accumulates additional profiling
         information into the current profiling object. Its arguments should refer
         to filenames created by the corresponding version of [`profile.run()`](profile.md#profile.run "profile.run")
@@ -372,13 +372,13 @@ Analysis of the profiler data is done using the [`Stats`](profile.md#pstats.Stat
         name) functions are automatically accumulated into single function
         statistics.
 
-    dump_stats(*filename*)
+    `dump_stats(filename)`
     :   Save the data loaded into the [`Stats`](profile.md#pstats.Stats "pstats.Stats") object to a file named
         *filename*. The file is created if it does not exist, and is overwritten
         if it already exists. This is equivalent to the method of the same name
         on the [`profile.Profile`](profile.md#profile.Profile "profile.Profile") and `cProfile.Profile` classes.
 
-    sort_stats(*\*keys*)
+    `sort_stats(*keys)`
     :   This method modifies the [`Stats`](profile.md#pstats.Stats "pstats.Stats") object by sorting it according to
         the supplied criteria. The argument can be either a string or a SortKey
         enum identifying the basis of a sort (example: `'time'`, `'name'`,
@@ -433,12 +433,12 @@ Analysis of the profiler data is done using the [`Stats`](profile.md#pstats.Stat
 
         Added in version 3.7: Added the SortKey enum.
 
-    reverse_order()
+    `reverse_order()`
     :   This method for the [`Stats`](profile.md#pstats.Stats "pstats.Stats") class reverses the ordering of the
         basic list within the object. Note that by default ascending vs
         descending order is properly selected based on the sort key of choice.
 
-    print_stats(*\*restrictions*)
+    `print_stats(*restrictions)`
     :   This method for the [`Stats`](profile.md#pstats.Stats "pstats.Stats") class prints out a report as described
         in the [`profile.run()`](profile.md#profile.run "profile.run") definition.
 
@@ -471,7 +471,7 @@ Analysis of the profiler data is done using the [`Stats`](profile.md#pstats.Stat
         would limit the list to all functions having file names `.*foo:`,
         and then proceed to only print the first 10% of them.
 
-    print_callers(*\*restrictions*)
+    `print_callers(*restrictions)`
     :   This method for the [`Stats`](profile.md#pstats.Stats "pstats.Stats") class prints a list of all functions
         that called each function in the profiled database. The ordering is
         identical to that provided by [`print_stats()`](profile.md#pstats.Stats.print_stats "pstats.Stats.print_stats"), and the
@@ -488,13 +488,13 @@ Analysis of the profiler data is done using the [`Stats`](profile.md#pstats.Stat
           cumulative times spent in the current function while it was invoked by
           this specific caller.
 
-    print_callees(*\*restrictions*)
+    `print_callees(*restrictions)`
     :   This method for the [`Stats`](profile.md#pstats.Stats "pstats.Stats") class prints a list of all function
         that were called by the indicated function. Aside from this reversal of
         direction of calls (re: called vs was called by), the arguments and
         ordering are identical to the [`print_callers()`](profile.md#pstats.Stats.print_callers "pstats.Stats.print_callers") method.
 
-    get_stats_profile()
+    `get_stats_profile()`
     :   This method returns an instance of StatsProfile, which contains a mapping
         of function names to instances of FunctionProfile. Each FunctionProfile
         instance holds information related to the function’s profile such as how

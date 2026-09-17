@@ -40,7 +40,7 @@ Finally, note that [`functools.lru_cache()`](functools.md#functools.lru_cache "f
 is used to cache the (typed) compiled regex patterns in the following
 functions: [`fnmatch()`](fnmatch.md#module-fnmatch "fnmatch: Unix shell style filename pattern matching."), [`fnmatchcase()`](fnmatch.md#fnmatch.fnmatchcase "fnmatch.fnmatchcase"), [`filter()`](fnmatch.md#fnmatch.filter "fnmatch.filter").
 
-fnmatch.fnmatch(*name*, *pat*)
+`fnmatch.fnmatch(name, pat)`
 :   Test whether the filename string *name* matches the pattern string *pat*,
     returning `True` or `False`. Both parameters are case-normalized
     using [`os.path.normcase()`](os.path.md#os.path.normcase "os.path.normcase"). [`fnmatchcase()`](fnmatch.md#fnmatch.fnmatchcase "fnmatch.fnmatchcase") can be used to perform a
@@ -59,18 +59,18 @@ fnmatch.fnmatch(*name*, *pat*)
             print(file)
     ```
 
-fnmatch.fnmatchcase(*name*, *pat*)
+`fnmatch.fnmatchcase(name, pat)`
 :   Test whether the filename string *name* matches the pattern string *pat*,
     returning `True` or `False`;
     the comparison is case-sensitive and does not apply [`os.path.normcase()`](os.path.md#os.path.normcase "os.path.normcase").
 
-fnmatch.filter(*names*, *pat*)
+`fnmatch.filter(names, pat)`
 :   Construct a list from those elements of the [iterable](https://docs.python.org/3.12/glossary.html#term-iterable) of filename
     strings *names* that match the pattern string *pat*.
     It is the same as `[n for n in names if fnmatch(n, pat)]`,
     but implemented more efficiently.
 
-fnmatch.translate(*pat*)
+`fnmatch.translate(pat)`
 :   Return the shell-style pattern *pat* converted to a regular expression for
     using with [`re.match()`](re.md#re.match "re.match"). The pattern is expected to be a [`str`](stdtypes.md#str "str").
 

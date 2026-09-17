@@ -215,7 +215,7 @@ inserted data and retrieved values from it in multiple ways.
 
 ### Module functions
 
-sqlite3.connect(*database*, *timeout=5.0*, *detect_types=0*, *isolation_level='DEFERRED'*, *check_same_thread=True*, *factory=sqlite3.Connection*, *cached_statements=128*, *uri=False*, *\**, *autocommit=sqlite3.LEGACY_TRANSACTION_CONTROL*)
+`sqlite3.connect(database, timeout=5.0, detect_types=0, isolation_level='DEFERRED', check_same_thread=True, factory=sqlite3.Connection, cached_statements=128, uri=False, *, autocommit=sqlite3.LEGACY_TRANSACTION_CONTROL)`
 :   Open a connection to an SQLite database.
 
     Parameters:
@@ -285,7 +285,7 @@ sqlite3.connect(*database*, *timeout=5.0*, *detect_types=0*, *isolation_level='D
 
     Changed in version 3.12: Added the *autocommit* parameter.
 
-sqlite3.complete_statement(*statement*)
+`sqlite3.complete_statement(statement)`
 :   Return `True` if the string *statement* appears to contain
     one or more complete SQL statements.
     No syntactic verification or parsing of any kind is performed,
@@ -308,7 +308,7 @@ sqlite3.complete_statement(*statement*)
     See `runsource()` in [Lib/sqlite3/__main__.py](https://github.com/python/cpython/tree/3.12/Lib/sqlite3/__main__.py)
     for real-world use.
 
-sqlite3.enable_callback_tracebacks(*flag*, */*)
+`sqlite3.enable_callback_tracebacks(flag, /)`
 :   Enable or disable callback tracebacks.
     By default you will not get any tracebacks in user-defined functions,
     aggregates, converters, authorizer callbacks etc. If you want to debug them,
@@ -322,14 +322,14 @@ sqlite3.enable_callback_tracebacks(*flag*, */*)
     > Use an [`unraisable hook handler`](sys.md#sys.unraisablehook "sys.unraisablehook") for
     > introspection of the failed callback.
 
-sqlite3.register_adapter(*type*, *adapter*, */*)
+`sqlite3.register_adapter(type, adapter, /)`
 :   Register an *adapter* [callable](https://docs.python.org/3.12/glossary.html#term-callable) to adapt the Python type *type*
     into an SQLite type.
     The adapter is called with a Python object of type *type* as its sole
     argument, and must return a value of a
     [type that SQLite natively understands](sqlite3.md#sqlite3-types).
 
-sqlite3.register_converter(*typename*, *converter*, */*)
+`sqlite3.register_converter(typename, converter, /)`
 :   Register the *converter* [callable](https://docs.python.org/3.12/glossary.html#term-callable) to convert SQLite objects of type
     *typename* into a Python object of a specific type.
     The converter is invoked for all SQLite values of type *typename*;
@@ -343,12 +343,12 @@ sqlite3.register_converter(*typename*, *converter*, */*)
 
 ### Module constants
 
-sqlite3.LEGACY_TRANSACTION_CONTROL
+`sqlite3.LEGACY_TRANSACTION_CONTROL`
 :   Set [`autocommit`](sqlite3.md#sqlite3.Connection.autocommit "sqlite3.Connection.autocommit") to this constant to select
     old style (pre-Python 3.12) transaction control behaviour.
     See [Transaction control via the isolation_level attribute](sqlite3.md#sqlite3-transaction-control-isolation-level) for more information.
 
-sqlite3.PARSE_DECLTYPES
+`sqlite3.PARSE_DECLTYPES`
 :   Pass this flag value to the *detect_types* parameter of
     [`connect()`](sqlite3.md#sqlite3.connect "sqlite3.connect") to look up a converter function using
     the declared types for each column.
@@ -373,7 +373,7 @@ sqlite3.PARSE_DECLTYPES
     > Generated fields (for example `MAX(p)`) are returned as [`str`](stdtypes.md#str "str").
     > Use `PARSE_COLNAMES` to enforce types for such queries.
 
-sqlite3.PARSE_COLNAMES
+`sqlite3.PARSE_COLNAMES`
 :   Pass this flag value to the *detect_types* parameter of
     [`connect()`](sqlite3.md#sqlite3.connect "sqlite3.connect") to look up a converter function by
     using the type name, parsed from the query column name,
@@ -388,11 +388,11 @@ sqlite3.PARSE_COLNAMES
     This flag may be combined with [`PARSE_DECLTYPES`](sqlite3.md#sqlite3.PARSE_DECLTYPES "sqlite3.PARSE_DECLTYPES") using the `|`
     (bitwise or) operator.
 
-sqlite3.SQLITE_OK
+`sqlite3.SQLITE_OK`
 
-sqlite3.SQLITE_DENY
+`sqlite3.SQLITE_DENY`
 
-sqlite3.SQLITE_IGNORE
+`sqlite3.SQLITE_IGNORE`
 :   Flags that should be returned by the *authorizer_callback* [callable](https://docs.python.org/3.12/glossary.html#term-callable)
     passed to [`Connection.set_authorizer()`](sqlite3.md#sqlite3.Connection.set_authorizer "sqlite3.Connection.set_authorizer"), to indicate whether:
 
@@ -400,11 +400,11 @@ sqlite3.SQLITE_IGNORE
     - The SQL statement should be aborted with an error (`SQLITE_DENY`)
     - The column should be treated as a `NULL` value (`SQLITE_IGNORE`)
 
-sqlite3.apilevel
+`sqlite3.apilevel`
 :   String constant stating the supported DB-API level. Required by the DB-API.
     Hard-coded to `"2.0"`.
 
-sqlite3.paramstyle
+`sqlite3.paramstyle`
 :   String constant stating the type of parameter marker formatting expected by
     the `sqlite3` module. Required by the DB-API. Hard-coded to
     `"qmark"`.
@@ -413,14 +413,14 @@ sqlite3.paramstyle
     >
     > The `named` DB-API parameter style is also supported.
 
-sqlite3.sqlite_version
+`sqlite3.sqlite_version`
 :   Version number of the runtime SQLite library as a [`string`](stdtypes.md#str "str").
 
-sqlite3.sqlite_version_info
+`sqlite3.sqlite_version_info`
 :   Version number of the runtime SQLite library as a [`tuple`](stdtypes.md#tuple "tuple") of
     [`integers`](functions.md#int "int").
 
-sqlite3.threadsafety
+`sqlite3.threadsafety`
 :   Integer constant required by the DB-API 2.0, stating the level of thread
     safety the `sqlite3` module supports. This attribute is set based on
     the default [threading mode](https://sqlite.org/threadsafe.html) the
@@ -445,7 +445,7 @@ sqlite3.threadsafety
 
     Changed in version 3.11: Set *threadsafety* dynamically instead of hard-coding it to `1`.
 
-sqlite3.version
+`sqlite3.version`
 :   Version number of this module as a [`string`](stdtypes.md#str "str").
     This is not the version of the SQLite library.
 
@@ -453,7 +453,7 @@ sqlite3.version
     package, a third-party library which used to upstream changes to
     `sqlite3`. Today, it carries no meaning or practical value.
 
-sqlite3.version_info
+`sqlite3.version_info`
 :   Version number of this module as a [`tuple`](stdtypes.md#tuple "tuple") of [`integers`](functions.md#int "int").
     This is not the version of the SQLite library.
 
@@ -461,37 +461,37 @@ sqlite3.version_info
     package, a third-party library which used to upstream changes to
     `sqlite3`. Today, it carries no meaning or practical value.
 
-sqlite3.SQLITE_DBCONFIG_DEFENSIVE
+`sqlite3.SQLITE_DBCONFIG_DEFENSIVE`
 
-sqlite3.SQLITE_DBCONFIG_DQS_DDL
+`sqlite3.SQLITE_DBCONFIG_DQS_DDL`
 
-sqlite3.SQLITE_DBCONFIG_DQS_DML
+`sqlite3.SQLITE_DBCONFIG_DQS_DML`
 
-sqlite3.SQLITE_DBCONFIG_ENABLE_FKEY
+`sqlite3.SQLITE_DBCONFIG_ENABLE_FKEY`
 
-sqlite3.SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER
+`sqlite3.SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER`
 
-sqlite3.SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION
+`sqlite3.SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION`
 
-sqlite3.SQLITE_DBCONFIG_ENABLE_QPSG
+`sqlite3.SQLITE_DBCONFIG_ENABLE_QPSG`
 
-sqlite3.SQLITE_DBCONFIG_ENABLE_TRIGGER
+`sqlite3.SQLITE_DBCONFIG_ENABLE_TRIGGER`
 
-sqlite3.SQLITE_DBCONFIG_ENABLE_VIEW
+`sqlite3.SQLITE_DBCONFIG_ENABLE_VIEW`
 
-sqlite3.SQLITE_DBCONFIG_LEGACY_ALTER_TABLE
+`sqlite3.SQLITE_DBCONFIG_LEGACY_ALTER_TABLE`
 
-sqlite3.SQLITE_DBCONFIG_LEGACY_FILE_FORMAT
+`sqlite3.SQLITE_DBCONFIG_LEGACY_FILE_FORMAT`
 
-sqlite3.SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE
+`sqlite3.SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE`
 
-sqlite3.SQLITE_DBCONFIG_RESET_DATABASE
+`sqlite3.SQLITE_DBCONFIG_RESET_DATABASE`
 
-sqlite3.SQLITE_DBCONFIG_TRIGGER_EQP
+`sqlite3.SQLITE_DBCONFIG_TRIGGER_EQP`
 
-sqlite3.SQLITE_DBCONFIG_TRUSTED_SCHEMA
+`sqlite3.SQLITE_DBCONFIG_TRUSTED_SCHEMA`
 
-sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
+`sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA`
 :   These constants are used for the [`Connection.setconfig()`](sqlite3.md#sqlite3.Connection.setconfig "sqlite3.Connection.setconfig")
     and [`getconfig()`](sqlite3.md#sqlite3.Connection.getconfig "sqlite3.Connection.getconfig") methods.
 
@@ -507,7 +507,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
 ### Connection objects
 
-*class* sqlite3.Connection
+`class sqlite3.Connection`
 :   Each open SQLite database is represented by a `Connection` object,
     which is created using [`sqlite3.connect()`](sqlite3.md#sqlite3.connect "sqlite3.connect").
     Their main purpose is creating [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") objects,
@@ -520,13 +520,13 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
     An SQLite database connection has the following attributes and methods:
 
-    cursor(*factory=Cursor*)
+    `cursor(factory=Cursor)`
     :   Create and return a [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") object.
         The cursor method accepts a single optional parameter *factory*. If
         supplied, this must be a [callable](https://docs.python.org/3.12/glossary.html#term-callable) returning
         an instance of [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") or its subclasses.
 
-    blobopen(*table*, *column*, *row*, */*, *\**, *readonly=False*, *name='main'*)
+    `blobopen(table, column, row, /, *, readonly=False, name='main')`
     :   Open a [`Blob`](sqlite3.md#sqlite3.Blob "sqlite3.Blob") handle to an existing
         BLOB.
 
@@ -553,21 +553,21 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.11.
 
-    commit()
+    `commit()`
     :   Commit any pending transaction to the database.
         If [`autocommit`](sqlite3.md#sqlite3.Connection.autocommit "sqlite3.Connection.autocommit") is `True`, or there is no open transaction,
         this method does nothing.
         If `autocommit` is `False`, a new transaction is implicitly
         opened if a pending transaction was committed by this method.
 
-    rollback()
+    `rollback()`
     :   Roll back to the start of any pending transaction.
         If [`autocommit`](sqlite3.md#sqlite3.Connection.autocommit "sqlite3.Connection.autocommit") is `True`, or there is no open transaction,
         this method does nothing.
         If `autocommit` is `False`, a new transaction is implicitly
         opened if a pending transaction was rolled back by this method.
 
-    close()
+    `close()`
     :   Close the database connection.
         If [`autocommit`](sqlite3.md#sqlite3.Connection.autocommit "sqlite3.Connection.autocommit") is `False`,
         any pending transaction is implicitly rolled back.
@@ -576,22 +576,22 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         Make sure to [`commit()`](sqlite3.md#sqlite3.Connection.commit "sqlite3.Connection.commit") before closing
         to avoid losing pending changes.
 
-    execute(*sql*, *parameters=()*, */*)
+    `execute(sql, parameters=(), /)`
     :   Create a new [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") object and call
         [`execute()`](sqlite3.md#sqlite3.Cursor.execute "sqlite3.Cursor.execute") on it with the given *sql* and *parameters*.
         Return the new cursor object.
 
-    executemany(*sql*, *parameters*, */*)
+    `executemany(sql, parameters, /)`
     :   Create a new [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") object and call
         [`executemany()`](sqlite3.md#sqlite3.Cursor.executemany "sqlite3.Cursor.executemany") on it with the given *sql* and *parameters*.
         Return the new cursor object.
 
-    executescript(*sql_script*, */*)
+    `executescript(sql_script, /)`
     :   Create a new [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") object and call
         [`executescript()`](sqlite3.md#sqlite3.Cursor.executescript "sqlite3.Cursor.executescript") on it with the given *sql_script*.
         Return the new cursor object.
 
-    create_function(*name*, *narg*, *func*, *\**, *deterministic=False*)
+    `create_function(name, narg, func, *, deterministic=False)`
     :   Create or remove a user-defined SQL function.
 
         Parameters:
@@ -624,7 +624,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         >>> con.close()
         ```
 
-    create_aggregate(*name*, *n_arg*, *aggregate_class*)
+    `create_aggregate(name, n_arg, aggregate_class)`
     :   Create or remove a user-defined SQL aggregate function.
 
         Parameters:
@@ -668,7 +668,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         con.close()
         ```
 
-    create_window_function(*name*, *num_params*, *aggregate_class*, */*)
+    `create_window_function(name, num_params, aggregate_class, /)`
     :   Create or remove a user-defined aggregate window function.
 
         Parameters:
@@ -744,7 +744,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         con.close()
         ```
 
-    create_collation(*name*, *callable*, */*)
+    `create_collation(name, callable, /)`
     :   Create a collation named *name* using the collating function *callable*.
         *callable* is passed two [`string`](stdtypes.md#str "str") arguments,
         and it should return an [`integer`](functions.md#int "int"):
@@ -780,12 +780,12 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         Changed in version 3.11: The collation name can contain any Unicode character. Earlier, only
         ASCII characters were allowed.
 
-    interrupt()
+    `interrupt()`
     :   Call this method from a different thread to abort any queries that might
         be executing on the connection.
         Aborted queries will raise an [`OperationalError`](sqlite3.md#sqlite3.OperationalError "sqlite3.OperationalError").
 
-    set_authorizer(*authorizer_callback*)
+    `set_authorizer(authorizer_callback)`
     :   Register [callable](https://docs.python.org/3.12/glossary.html#term-callable) *authorizer_callback* to be invoked
         for each attempt to access a column of a table in the database.
         The callback should return one of [`SQLITE_OK`](sqlite3.md#sqlite3.SQLITE_OK "sqlite3.SQLITE_OK"),
@@ -808,7 +808,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Changed in version 3.11: Added support for disabling the authorizer using `None`.
 
-    set_progress_handler(*progress_handler*, *n*)
+    `set_progress_handler(progress_handler, n)`
     :   Register [callable](https://docs.python.org/3.12/glossary.html#term-callable) *progress_handler* to be invoked for every *n*
         instructions of the SQLite virtual machine. This is useful if you want to
         get called from SQLite during long-running operations, for example to update
@@ -821,7 +821,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         currently executing query and cause it to raise a [`DatabaseError`](sqlite3.md#sqlite3.DatabaseError "sqlite3.DatabaseError")
         exception.
 
-    set_trace_callback(*trace_callback*)
+    `set_trace_callback(trace_callback)`
     :   Register [callable](https://docs.python.org/3.12/glossary.html#term-callable) *trace_callback* to be invoked
         for each SQL statement that is actually executed by the SQLite backend.
 
@@ -844,7 +844,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.3.
 
-    enable_load_extension(*enabled*, */*)
+    `enable_load_extension(enabled, /)`
     :   Enable the SQLite engine to load SQLite extensions from shared libraries
         if *enabled* is `True`;
         else, disallow loading SQLite extensions.
@@ -891,7 +891,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
             print(row)
         ```
 
-    load_extension(*path*, */*, *\**, *entrypoint=None*)
+    `load_extension(path, /, *, entrypoint=None)`
     :   Load an SQLite extension from a shared library.
         Enable extension loading with [`enable_load_extension()`](sqlite3.md#sqlite3.Connection.enable_load_extension "sqlite3.Connection.enable_load_extension") before
         calling this method.
@@ -911,7 +911,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Changed in version 3.12: Added the *entrypoint* parameter.
 
-    iterdump()
+    `iterdump()`
     :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) to dump the database as SQL source code.
         Useful when saving an in-memory database for later restoration.
         Similar to the `.dump` command in the **sqlite3** shell.
@@ -931,7 +931,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         >
         > [How to handle non-UTF-8 text encodings](sqlite3.md#sqlite3-howto-encoding)
 
-    backup(*target*, *\**, *pages=-1*, *progress=None*, *name='main'*, *sleep=0.250*)
+    `backup(target, *, pages=-1, progress=None, name='main', sleep=0.250)`
     :   Create a backup of an SQLite database.
 
         Works even if the database is being accessed by other clients
@@ -987,7 +987,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         >
         > [How to handle non-UTF-8 text encodings](sqlite3.md#sqlite3-howto-encoding)
 
-    getlimit(*category*, */*)
+    `getlimit(category, /)`
     :   Get a connection runtime limit.
 
         Parameters:
@@ -1009,7 +1009,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.11.
 
-    setlimit(*category*, *limit*, */*)
+    `setlimit(category, limit, /)`
     :   Set a connection runtime limit.
         Attempts to increase a limit above its hard upper bound are silently
         truncated to the hard upper bound. Regardless of whether or not the limit
@@ -1038,7 +1038,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.11.
 
-    getconfig(*op*, */*)
+    `getconfig(op, /)`
     :   Query a boolean connection configuration option.
 
         Parameters:
@@ -1049,7 +1049,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.12.
 
-    setconfig(*op*, *enable=True*, */*)
+    `setconfig(op, enable=True, /)`
     :   Set a boolean connection configuration option.
 
         Parameters:
@@ -1059,7 +1059,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.12.
 
-    serialize(*\**, *name='main'*)
+    `serialize(*, name='main')`
     :   Serialize a database into a [`bytes`](stdtypes.md#bytes "bytes") object. For an
         ordinary on-disk database file, the serialization is just a copy of the
         disk file. For an in-memory database or a “temp” database, the
@@ -1080,7 +1080,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.11.
 
-    deserialize(*data*, */*, *\**, *name='main'*)
+    `deserialize(data, /, *, name='main')`
     :   Deserialize a [`serialized`](sqlite3.md#sqlite3.Connection.serialize "sqlite3.Connection.serialize") database into a
         [`Connection`](sqlite3.md#sqlite3.Connection "sqlite3.Connection").
         This method causes the database connection to disconnect from database
@@ -1105,7 +1105,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.11.
 
-    autocommit
+    `autocommit`
     :   This attribute controls [**PEP 249**](https://peps.python.org/pep-0249/)-compliant transaction behaviour.
         `autocommit` has three allowed values:
 
@@ -1134,7 +1134,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.12.
 
-    in_transaction
+    `in_transaction`
     :   This read-only attribute corresponds to the low-level SQLite
         [autocommit mode](https://www.sqlite.org/lang_transaction.html#implicit_versus_explicit_transactions).
 
@@ -1143,7 +1143,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Added in version 3.2.
 
-    isolation_level
+    `isolation_level`
     :   Controls the [legacy transaction handling mode](sqlite3.md#sqlite3-transaction-control-isolation-level) of `sqlite3`.
         If set to `None`, transactions are never implicitly opened.
         If set to one of `"DEFERRED"`, `"IMMEDIATE"`, or `"EXCLUSIVE"`,
@@ -1160,7 +1160,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         > `isolation_level` has no effect unless [`autocommit`](sqlite3.md#sqlite3.Connection.autocommit "sqlite3.Connection.autocommit") is
         > set to [`LEGACY_TRANSACTION_CONTROL`](sqlite3.md#sqlite3.LEGACY_TRANSACTION_CONTROL "sqlite3.LEGACY_TRANSACTION_CONTROL") (the default).
 
-    row_factory
+    `row_factory`
     :   The initial [`row_factory`](sqlite3.md#sqlite3.Cursor.row_factory "sqlite3.Cursor.row_factory")
         for [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") objects created from this connection.
         Assigning to this attribute does not affect the `row_factory`
@@ -1170,7 +1170,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         See [How to create and use row factories](sqlite3.md#sqlite3-howto-row-factory) for more details.
 
-    text_factory
+    `text_factory`
     :   A [callable](https://docs.python.org/3.12/glossary.html#term-callable) that accepts a [`bytes`](stdtypes.md#bytes "bytes") parameter
         and returns a text representation of it.
         The callable is invoked for SQLite values with the `TEXT` data type.
@@ -1178,7 +1178,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         See [How to handle non-UTF-8 text encodings](sqlite3.md#sqlite3-howto-encoding) for more details.
 
-    total_changes
+    `total_changes`
     :   Return the total number of database rows that have been modified, inserted, or
         deleted since the database connection was opened.
 
@@ -1199,10 +1199,10 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 >     print(row)
 > ```
 
-*class* sqlite3.Cursor
+`class sqlite3.Cursor`
 :   A [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") instance has the following attributes and methods.
 
-    execute(*sql*, *parameters=()*, */*)
+    `execute(sql, parameters=(), /)`
     :   Execute a single SQL statement,
         optionally binding Python values using
         [placeholders](sqlite3.md#sqlite3-placeholders).
@@ -1232,7 +1232,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Use [`executescript()`](sqlite3.md#sqlite3.Cursor.executescript "sqlite3.Cursor.executescript") to execute multiple SQL statements.
 
-    executemany(*sql*, *parameters*, */*)
+    `executemany(sql, parameters, /)`
     :   For every item in *parameters*,
         repeatedly execute the [parameterized](sqlite3.md#sqlite3-placeholders)
         DML SQL statement *sql*.
@@ -1272,7 +1272,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         Starting with Python 3.14, [`ProgrammingError`](sqlite3.md#sqlite3.ProgrammingError "sqlite3.ProgrammingError") will
         be raised instead.
 
-    executescript(*sql_script*, */*)
+    `executescript(sql_script, /)`
     :   Execute the SQL statements in *sql_script*.
         If the [`autocommit`](sqlite3.md#sqlite3.Connection.autocommit "sqlite3.Connection.autocommit") is
         [`LEGACY_TRANSACTION_CONTROL`](sqlite3.md#sqlite3.LEGACY_TRANSACTION_CONTROL "sqlite3.LEGACY_TRANSACTION_CONTROL")
@@ -1296,13 +1296,13 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         """)
         ```
 
-    fetchone()
+    `fetchone()`
     :   If [`row_factory`](sqlite3.md#sqlite3.Cursor.row_factory "sqlite3.Cursor.row_factory") is `None`,
         return the next row query result set as a [`tuple`](stdtypes.md#tuple "tuple").
         Else, pass it to the row factory and return its result.
         Return `None` if no more data is available.
 
-    fetchmany(*size=cursor.arraysize*)
+    `fetchmany(size=cursor.arraysize)`
     :   Return the next set of rows of a query result as a [`list`](stdtypes.md#list "list").
         Return an empty list if no more rows are available.
 
@@ -1317,29 +1317,29 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         If the *size* parameter is used, then it is best for it to retain the same
         value from one [`fetchmany()`](sqlite3.md#sqlite3.Cursor.fetchmany "sqlite3.Cursor.fetchmany") call to the next.
 
-    fetchall()
+    `fetchall()`
     :   Return all (remaining) rows of a query result as a [`list`](stdtypes.md#list "list").
         Return an empty list if no rows are available.
         Note that the [`arraysize`](sqlite3.md#sqlite3.Cursor.arraysize "sqlite3.Cursor.arraysize") attribute can affect the performance of
         this operation.
 
-    close()
+    `close()`
     :   Close the cursor now (rather than whenever `__del__` is called).
 
         The cursor will be unusable from this point forward; a [`ProgrammingError`](sqlite3.md#sqlite3.ProgrammingError "sqlite3.ProgrammingError")
         exception will be raised if any operation is attempted with the cursor.
 
-    setinputsizes(*sizes*, */*)
+    `setinputsizes(sizes, /)`
     :   Required by the DB-API. Does nothing in `sqlite3`.
 
-    setoutputsize(*size*, *column=None*, */*)
+    `setoutputsize(size, column=None, /)`
     :   Required by the DB-API. Does nothing in `sqlite3`.
 
-    arraysize
+    `arraysize`
     :   Read/write attribute that controls the number of rows returned by [`fetchmany()`](sqlite3.md#sqlite3.Cursor.fetchmany "sqlite3.Cursor.fetchmany").
         The default value is 1 which means a single row would be fetched per call.
 
-    connection
+    `connection`
     :   Read-only attribute that provides the SQLite database [`Connection`](sqlite3.md#sqlite3.Connection "sqlite3.Connection")
         belonging to the cursor. A [`Cursor`](sqlite3.md#sqlite3.Cursor "sqlite3.Cursor") object created by
         calling [`con.cursor()`](sqlite3.md#sqlite3.Connection.cursor "sqlite3.Connection.cursor") will have a
@@ -1353,14 +1353,14 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         >>> con.close()
         ```
 
-    description
+    `description`
     :   Read-only attribute that provides the column names of the last query. To
         remain compatible with the Python DB API, it returns a 7-tuple for each
         column where the last six items of each tuple are `None`.
 
         It is set for `SELECT` statements without any matching rows as well.
 
-    lastrowid
+    `lastrowid`
     :   Read-only attribute that provides the row id of the last inserted row. It
         is only updated after successful `INSERT` or `REPLACE` statements
         using the [`execute()`](sqlite3.md#sqlite3.Cursor.execute "sqlite3.Cursor.execute") method. For other statements, after
@@ -1374,7 +1374,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
         Changed in version 3.6: Added support for the `REPLACE` statement.
 
-    rowcount
+    `rowcount`
     :   Read-only attribute that provides the number of modified rows for
         `INSERT`, `UPDATE`, `DELETE`, and `REPLACE` statements;
         is `-1` for other statements,
@@ -1384,7 +1384,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
         This means that any resulting rows must be fetched in order for
         `rowcount` to be updated.
 
-    row_factory
+    `row_factory`
     :   Control how a row fetched from this `Cursor` is represented.
         If `None`, a row is represented as a [`tuple`](stdtypes.md#tuple "tuple").
         Can be set to the included [`sqlite3.Row`](sqlite3.md#sqlite3.Row "sqlite3.Row");
@@ -1401,7 +1401,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
 ### Row objects
 
-*class* sqlite3.Row
+`class sqlite3.Row`
 :   A `Row` instance serves as a highly optimized
     [`row_factory`](sqlite3.md#sqlite3.Connection.row_factory "sqlite3.Connection.row_factory") for [`Connection`](sqlite3.md#sqlite3.Connection "sqlite3.Connection") objects.
     It supports iteration, equality testing, [`len()`](functions.md#len "len"),
@@ -1412,7 +1412,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
     See [How to create and use row factories](sqlite3.md#sqlite3-howto-row-factory) for more details.
 
-    keys()
+    `keys()`
     :   Return a [`list`](stdtypes.md#list "list") of column names as [`strings`](stdtypes.md#str "str").
         Immediately after a query,
         it is the first member of each tuple in [`Cursor.description`](sqlite3.md#sqlite3.Cursor.description "sqlite3.Cursor.description").
@@ -1421,7 +1421,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
 ### Blob objects
 
-*class* sqlite3.Blob
+`class sqlite3.Blob`
 :   Added in version 3.11.
 
     A [`Blob`](sqlite3.md#sqlite3.Blob "sqlite3.Blob") instance is a [file-like object](https://docs.python.org/3.12/glossary.html#term-file-like-object)
@@ -1453,29 +1453,29 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
     con.close()
     ```
 
-    close()
+    `close()`
     :   Close the blob.
 
         The blob will be unusable from this point onward. An
         [`Error`](sqlite3.md#sqlite3.Error "sqlite3.Error") (or subclass) exception will be raised if any
         further operation is attempted with the blob.
 
-    read(*length=-1*, */*)
+    `read(length=-1, /)`
     :   Read *length* bytes of data from the blob at the current offset position.
         If the end of the blob is reached, the data up to
         EOF will be returned. When *length* is not
         specified, or is negative, [`read()`](sqlite3.md#sqlite3.Blob.read "sqlite3.Blob.read") will read until the end of
         the blob.
 
-    write(*data*, */*)
+    `write(data, /)`
     :   Write *data* to the blob at the current offset. This function cannot
         change the blob length. Writing beyond the end of the blob will raise
         [`ValueError`](exceptions.md#ValueError "ValueError").
 
-    tell()
+    `tell()`
     :   Return the current access position of the blob.
 
-    seek(*offset*, *origin=os.SEEK_SET*, */*)
+    `seek(offset, origin=os.SEEK_SET, /)`
     :   Set the current access position of the blob to *offset*. The *origin*
         argument defaults to [`os.SEEK_SET`](os.md#os.SEEK_SET "os.SEEK_SET") (absolute blob positioning).
         Other values for *origin* are [`os.SEEK_CUR`](os.md#os.SEEK_CUR "os.SEEK_CUR") (seek relative to the
@@ -1484,7 +1484,7 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
 ### PrepareProtocol objects
 
-*class* sqlite3.PrepareProtocol
+`class sqlite3.PrepareProtocol`
 :   The PrepareProtocol type’s single purpose is to act as a [**PEP 246**](https://peps.python.org/pep-0246/) style
     adaption protocol for objects that can [adapt themselves](sqlite3.md#sqlite3-conform) to [native SQLite types](sqlite3.md#sqlite3-types).
 
@@ -1492,13 +1492,13 @@ sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
 
 The exception hierarchy is defined by the DB-API 2.0 ([**PEP 249**](https://peps.python.org/pep-0249/)).
 
-*exception* sqlite3.Warning
+`exception sqlite3.Warning`
 :   This exception is not currently raised by the `sqlite3` module,
     but may be raised by applications using `sqlite3`,
     for example if a user-defined function truncates data while inserting.
     `Warning` is a subclass of [`Exception`](exceptions.md#Exception "Exception").
 
-*exception* sqlite3.Error
+`exception sqlite3.Error`
 :   The base class of the other exceptions in this module.
     Use this to catch all errors with one single [`except`](https://docs.python.org/3.12/reference/compound_stmts.html#except) statement.
     `Error` is a subclass of [`Exception`](exceptions.md#Exception "Exception").
@@ -1506,59 +1506,59 @@ The exception hierarchy is defined by the DB-API 2.0 ([**PEP 249**](https://peps
     If the exception originated from within the SQLite library,
     the following two attributes are added to the exception:
 
-    sqlite_errorcode
+    `sqlite_errorcode`
     :   The numeric error code from the
         [SQLite API](https://sqlite.org/rescode.html)
 
         Added in version 3.11.
 
-    sqlite_errorname
+    `sqlite_errorname`
     :   The symbolic name of the numeric error code
         from the [SQLite API](https://sqlite.org/rescode.html)
 
         Added in version 3.11.
 
-*exception* sqlite3.InterfaceError
+`exception sqlite3.InterfaceError`
 :   Exception raised for misuse of the low-level SQLite C API.
     In other words, if this exception is raised, it probably indicates a bug in the
     `sqlite3` module.
     `InterfaceError` is a subclass of [`Error`](sqlite3.md#sqlite3.Error "sqlite3.Error").
 
-*exception* sqlite3.DatabaseError
+`exception sqlite3.DatabaseError`
 :   Exception raised for errors that are related to the database.
     This serves as the base exception for several types of database errors.
     It is only raised implicitly through the specialised subclasses.
     `DatabaseError` is a subclass of [`Error`](sqlite3.md#sqlite3.Error "sqlite3.Error").
 
-*exception* sqlite3.DataError
+`exception sqlite3.DataError`
 :   Exception raised for errors caused by problems with the processed data,
     like numeric values out of range, and strings which are too long.
     `DataError` is a subclass of [`DatabaseError`](sqlite3.md#sqlite3.DatabaseError "sqlite3.DatabaseError").
 
-*exception* sqlite3.OperationalError
+`exception sqlite3.OperationalError`
 :   Exception raised for errors that are related to the database’s operation,
     and not necessarily under the control of the programmer.
     For example, the database path is not found,
     or a transaction could not be processed.
     `OperationalError` is a subclass of [`DatabaseError`](sqlite3.md#sqlite3.DatabaseError "sqlite3.DatabaseError").
 
-*exception* sqlite3.IntegrityError
+`exception sqlite3.IntegrityError`
 :   Exception raised when the relational integrity of the database is affected,
     e.g. a foreign key check fails. It is a subclass of [`DatabaseError`](sqlite3.md#sqlite3.DatabaseError "sqlite3.DatabaseError").
 
-*exception* sqlite3.InternalError
+`exception sqlite3.InternalError`
 :   Exception raised when SQLite encounters an internal error.
     If this is raised, it may indicate that there is a problem with the runtime
     SQLite library.
     `InternalError` is a subclass of [`DatabaseError`](sqlite3.md#sqlite3.DatabaseError "sqlite3.DatabaseError").
 
-*exception* sqlite3.ProgrammingError
+`exception sqlite3.ProgrammingError`
 :   Exception raised for `sqlite3` API programming errors,
     for example supplying the wrong number of bindings to a query,
     or trying to operate on a closed [`Connection`](sqlite3.md#sqlite3.Connection "sqlite3.Connection").
     `ProgrammingError` is a subclass of [`DatabaseError`](sqlite3.md#sqlite3.DatabaseError "sqlite3.DatabaseError").
 
-*exception* sqlite3.NotSupportedError
+`exception sqlite3.NotSupportedError`
 :   Exception raised in case a method or database API is not supported by the
     underlying SQLite library. For example, setting *deterministic* to
     `True` in [`create_function()`](sqlite3.md#sqlite3.Connection.create_function "sqlite3.Connection.create_function"), if the underlying SQLite library
@@ -1638,10 +1638,10 @@ python -m sqlite3 [-h] [-v] [filename] [sql]
 
 Type `.quit` or CTRL-D to exit the shell.
 
--h, --help
+`-h, --help`
 :   Print CLI help.
 
--v, --version
+`-v, --version`
 :   Print underlying SQLite library version.
 
 Added in version 3.12.

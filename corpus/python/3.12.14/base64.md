@@ -42,7 +42,7 @@ encoding and decoding functions in this module. Ascii85/Base85 support added.
 
 The modern interface provides:
 
-base64.b64encode(*s*, *altchars=None*)
+`base64.b64encode(s, altchars=None)`
 :   Encode the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *s* using Base64 and return the encoded
     [`bytes`](stdtypes.md#bytes "bytes").
 
@@ -54,7 +54,7 @@ base64.b64encode(*s*, *altchars=None*)
     May assert or raise a [`ValueError`](exceptions.md#ValueError "ValueError") if the length of *altchars* is not 2. Raises a
     [`TypeError`](exceptions.md#TypeError "TypeError") if *altchars* is not a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
-base64.b64decode(*s*, *altchars=None*, *validate=False*)
+`base64.b64decode(s, altchars=None, validate=False)`
 :   Decode the Base64 encoded [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or ASCII string
     *s* and return the decoded [`bytes`](stdtypes.md#bytes "bytes").
 
@@ -75,33 +75,33 @@ base64.b64decode(*s*, *altchars=None*, *validate=False*)
 
     May assert or raise a [`ValueError`](exceptions.md#ValueError "ValueError") if the length of *altchars* is not 2.
 
-base64.standard_b64encode(*s*)
+`base64.standard_b64encode(s)`
 :   Encode [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *s* using the standard Base64 alphabet
     and return the encoded [`bytes`](stdtypes.md#bytes "bytes").
 
-base64.standard_b64decode(*s*)
+`base64.standard_b64decode(s)`
 :   Decode [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or ASCII string *s* using the standard
     Base64 alphabet and return the decoded [`bytes`](stdtypes.md#bytes "bytes").
 
-base64.urlsafe_b64encode(*s*)
+`base64.urlsafe_b64encode(s)`
 :   Encode [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *s* using the
     URL- and filesystem-safe alphabet, which
     substitutes `-` instead of `+` and `_` instead of `/` in the
     standard Base64 alphabet, and return the encoded [`bytes`](stdtypes.md#bytes "bytes"). The result
     can still contain `=`.
 
-base64.urlsafe_b64decode(*s*)
+`base64.urlsafe_b64decode(s)`
 :   Decode [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or ASCII string *s*
     using the URL- and filesystem-safe
     alphabet, which substitutes `-` instead of `+` and `_` instead of
     `/` in the standard Base64 alphabet, and return the decoded
     [`bytes`](stdtypes.md#bytes "bytes").
 
-base64.b32encode(*s*)
+`base64.b32encode(s)`
 :   Encode the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *s* using Base32 and return the
     encoded [`bytes`](stdtypes.md#bytes "bytes").
 
-base64.b32decode(*s*, *casefold=False*, *map01=None*)
+`base64.b32decode(s, casefold=False, map01=None)`
 :   Decode the Base32 encoded [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or ASCII string *s* and
     return the decoded [`bytes`](stdtypes.md#bytes "bytes").
 
@@ -120,13 +120,13 @@ base64.b32decode(*s*, *casefold=False*, *map01=None*)
     incorrectly padded or if there are non-alphabet characters present in the
     input.
 
-base64.b32hexencode(*s*)
+`base64.b32hexencode(s)`
 :   Similar to [`b32encode()`](base64.md#base64.b32encode "base64.b32encode") but uses the Extended Hex Alphabet, as defined in
     [**RFC 4648**](https://datatracker.ietf.org/doc/html/rfc4648.html).
 
     Added in version 3.10.
 
-base64.b32hexdecode(*s*, *casefold=False*)
+`base64.b32hexdecode(s, casefold=False)`
 :   Similar to [`b32decode()`](base64.md#base64.b32decode "base64.b32decode") but uses the Extended Hex Alphabet, as defined in
     [**RFC 4648**](https://datatracker.ietf.org/doc/html/rfc4648.html).
 
@@ -137,11 +137,11 @@ base64.b32hexdecode(*s*, *casefold=False*)
 
     Added in version 3.10.
 
-base64.b16encode(*s*)
+`base64.b16encode(s)`
 :   Encode the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *s* using Base16 and return the
     encoded [`bytes`](stdtypes.md#bytes "bytes").
 
-base64.b16decode(*s*, *casefold=False*)
+`base64.b16decode(s, casefold=False)`
 :   Decode the Base16 encoded [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or ASCII string *s* and
     return the decoded [`bytes`](stdtypes.md#bytes "bytes").
 
@@ -153,7 +153,7 @@ base64.b16decode(*s*, *casefold=False*)
     incorrectly padded or if there are non-alphabet characters present in the
     input.
 
-base64.a85encode(*b*, *\**, *foldspaces=False*, *wrapcol=0*, *pad=False*, *adobe=False*)
+`base64.a85encode(b, *, foldspaces=False, wrapcol=0, pad=False, adobe=False)`
 :   Encode the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *b* using Ascii85 and return the
     encoded [`bytes`](stdtypes.md#bytes "bytes").
 
@@ -173,7 +173,7 @@ base64.a85encode(*b*, *\**, *foldspaces=False*, *wrapcol=0*, *pad=False*, *adobe
 
     Added in version 3.4.
 
-base64.a85decode(*b*, *\**, *foldspaces=False*, *adobe=False*, *ignorechars=b' \t\n\r\x0b'*)
+`base64.a85decode(b, *, foldspaces=False, adobe=False, ignorechars=b' \t\n\r\x0b')`
 :   Decode the Ascii85 encoded [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or ASCII string *b* and
     return the decoded [`bytes`](stdtypes.md#bytes "bytes").
 
@@ -191,7 +191,7 @@ base64.a85decode(*b*, *\**, *foldspaces=False*, *adobe=False*, *ignorechars=b' \
 
     Added in version 3.4.
 
-base64.b85encode(*b*, *pad=False*)
+`base64.b85encode(b, pad=False)`
 :   Encode the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *b* using base85 (as used in e.g.
     git-style binary diffs) and return the encoded [`bytes`](stdtypes.md#bytes "bytes").
 
@@ -200,7 +200,7 @@ base64.b85encode(*b*, *pad=False*)
 
     Added in version 3.4.
 
-base64.b85decode(*b*)
+`base64.b85decode(b)`
 :   Decode the base85-encoded [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) or ASCII string *b* and
     return the decoded [`bytes`](stdtypes.md#bytes "bytes"). Padding is implicitly removed, if
     necessary.
@@ -209,18 +209,18 @@ base64.b85decode(*b*)
 
 The legacy interface:
 
-base64.decode(*input*, *output*)
+`base64.decode(input, output)`
 :   Decode the contents of the binary *input* file and write the resulting binary
     data to the *output* file. *input* and *output* must be [file objects](https://docs.python.org/3.12/glossary.html#term-file-object). *input* will be read until `input.readline()` returns an
     empty bytes object.
 
-base64.decodebytes(*s*)
+`base64.decodebytes(s)`
 :   Decode the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *s*, which must contain one or more
     lines of base64 encoded data, and return the decoded [`bytes`](stdtypes.md#bytes "bytes").
 
     Added in version 3.1.
 
-base64.encode(*input*, *output*)
+`base64.encode(input, output)`
 :   Encode the contents of the binary *input* file and write the resulting base64
     encoded data to the *output* file. *input* and *output* must be [file
     objects](https://docs.python.org/3.12/glossary.html#term-file-object). *input* will be read until `input.read()` returns
@@ -228,7 +228,7 @@ base64.encode(*input*, *output*)
     after every 76 bytes of the output, as well as ensuring that the output
     always ends with a newline, as per [**RFC 2045**](https://datatracker.ietf.org/doc/html/rfc2045.html) (MIME).
 
-base64.encodebytes(*s*)
+`base64.encodebytes(s)`
 :   Encode the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) *s*, which can contain arbitrary binary
     data, and return [`bytes`](stdtypes.md#bytes "bytes") containing the base64-encoded data, with newlines
     (`b'\n'`) inserted after every 76 bytes of output, and ensuring that

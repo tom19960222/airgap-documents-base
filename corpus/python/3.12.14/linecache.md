@@ -22,7 +22,7 @@ file; in the absence of an encoding token, the file encoding defaults to UTF-8.
 
 The [`linecache`](linecache.md#module-linecache "linecache: Provides random access to individual lines from text files.") module defines the following functions:
 
-linecache.getline(*filename*, *lineno*, *module_globals=None*)
+`linecache.getline(filename, lineno, module_globals=None)`
 :   Get line *lineno* from file named *filename*. This function will never raise an
     exception — it will return `''` on errors (the terminating newline character
     will be included for lines that are found).
@@ -35,16 +35,16 @@ linecache.getline(*filename*, *lineno*, *module_globals=None*)
     Finally, if *filename* is a relative filename,
     it is looked up relative to the entries in the module search path, `sys.path`.
 
-linecache.clearcache()
+`linecache.clearcache()`
 :   Clear the cache. Use this function if you no longer need lines from files
     previously read using [`getline()`](linecache.md#linecache.getline "linecache.getline").
 
-linecache.checkcache(*filename=None*)
+`linecache.checkcache(filename=None)`
 :   Check the cache for validity. Use this function if files in the cache may have
     changed on disk, and you require the updated version. If *filename* is omitted,
     it will check all the entries in the cache.
 
-linecache.lazycache(*filename*, *module_globals*)
+`linecache.lazycache(filename, module_globals)`
 :   Capture enough detail about a non-file-based module to permit getting its
     lines later via [`getline()`](linecache.md#linecache.getline "linecache.getline") even if *module_globals* is `None` in the later
     call. This avoids doing I/O until a line is actually needed, without having

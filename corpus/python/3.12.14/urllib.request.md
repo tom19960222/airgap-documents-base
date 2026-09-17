@@ -36,7 +36,7 @@ This module does not work or is not available on WebAssembly platforms
 
 The [`urllib.request`](urllib.request.md#module-urllib.request "urllib.request: Extensible library for opening URLs.") module defines the following functions:
 
-urllib.request.urlopen(*url*, *data=None*, [*timeout*, ]*\**, *cafile=None*, *capath=None*, *cadefault=False*, *context=None*)
+`urllib.request.urlopen(url, data=None, [timeout, ]*, cafile=None, capath=None, cadefault=False, context=None)`
 :   Open *url*, which can be either a string containing a valid, properly
     encoded URL, or a [`Request`](urllib.request.md#urllib.request.Request "urllib.request.Request") object.
 
@@ -121,7 +121,7 @@ urllib.request.urlopen(*url*, *data=None*, [*timeout*, ]*\**, *cafile=None*, *ca
     [`ssl.create_default_context()`](ssl.md#ssl.create_default_context "ssl.create_default_context") select the system’s trusted CA
     certificates for you.
 
-urllib.request.install_opener(*opener*)
+`urllib.request.install_opener(opener)`
 :   Install an [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector") instance as the default global opener.
     Installing an opener is only necessary if you want urlopen to use that
     opener; otherwise, simply call [`OpenerDirector.open()`](urllib.request.md#urllib.request.OpenerDirector.open "urllib.request.OpenerDirector.open") instead of
@@ -129,7 +129,7 @@ urllib.request.install_opener(*opener*)
     [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector"), and any class with the appropriate interface will
     work.
 
-urllib.request.build_opener([*handler*, *...*])
+`urllib.request.build_opener([handler, ...])`
 :   Return an [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector") instance, which chains the handlers in the
     order given. *handler*s can be either instances of [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), or
     subclasses of [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler") (in which case it must be possible to call
@@ -146,7 +146,7 @@ urllib.request.build_opener([*handler*, *...*])
     A [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler") subclass may also change its `handler_order`
     attribute to modify its position in the handlers list.
 
-urllib.request.pathname2url(*path*)
+`urllib.request.pathname2url(path)`
 :   Convert the given local path to a `file:` URL. This function uses
     [`quote()`](urllib.parse.md#urllib.parse.quote "urllib.parse.quote") function to encode the path. For historical
     reasons, the return value omits the `file:` scheme prefix. This example
@@ -159,7 +159,7 @@ urllib.request.pathname2url(*path*)
     'file:///C:/Program%20Files'
     ```
 
-urllib.request.url2pathname(*url*)
+`urllib.request.url2pathname(url)`
 :   Convert the given `file:` URL to a local path. This function uses
     [`unquote()`](urllib.parse.md#urllib.parse.unquote "urllib.parse.unquote") to decode the URL. For historical reasons,
     the given value *must* omit the `file:` scheme prefix. This example shows
@@ -172,7 +172,7 @@ urllib.request.url2pathname(*url*)
     'C:\\Program Files'
     ```
 
-urllib.request.getproxies()
+`urllib.request.getproxies()`
 :   This helper function returns a dictionary of scheme to proxy server URL
     mappings. It scans the environment for variables named `<scheme>_proxy`,
     in a case insensitive approach, for all operating systems first, and when it
@@ -193,7 +193,7 @@ urllib.request.getproxies()
 
 The following classes are provided:
 
-*class* urllib.request.Request(*url*, *data=None*, *headers={}*, *origin_req_host=None*, *unverifiable=False*, *method=None*)
+`class urllib.request.Request(url, data=None, headers={}, origin_req_host=None, unverifiable=False, method=None)`
 :   This class is an abstraction of a URL request.
 
     *url* should be a string containing a valid, properly encoded URL.
@@ -272,25 +272,25 @@ The following classes are provided:
     provided and *data* is neither `None` nor a bytes object.
     Fall back to use chunked transfer encoding instead.
 
-*class* urllib.request.OpenerDirector
+`class urllib.request.OpenerDirector`
 :   The [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector") class opens URLs via [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler")s chained
     together. It manages the chaining of handlers, and recovery from errors.
 
-*class* urllib.request.BaseHandler
+`class urllib.request.BaseHandler`
 :   This is the base class for all registered handlers — and handles only the
     simple mechanics of registration.
 
-*class* urllib.request.HTTPDefaultErrorHandler
+`class urllib.request.HTTPDefaultErrorHandler`
 :   A class which defines a default handler for HTTP error responses; all responses
     are turned into [`HTTPError`](urllib.error.md#urllib.error.HTTPError "urllib.error.HTTPError") exceptions.
 
-*class* urllib.request.HTTPRedirectHandler
+`class urllib.request.HTTPRedirectHandler`
 :   A class to handle redirections.
 
-*class* urllib.request.HTTPCookieProcessor(*cookiejar=None*)
+`class urllib.request.HTTPCookieProcessor(cookiejar=None)`
 :   A class to handle HTTP Cookies.
 
-*class* urllib.request.ProxyHandler(*proxies=None*)
+`class urllib.request.ProxyHandler(proxies=None)`
 :   Cause requests to go through a proxy. If *proxies* is given, it must be a
     dictionary mapping protocol names to URLs of proxies. The default is to read
     the list of proxies from the environment variables
@@ -311,15 +311,15 @@ The following classes are provided:
     > `HTTP_PROXY` will be ignored if a variable `REQUEST_METHOD` is set;
     > see the documentation on [`getproxies()`](urllib.request.md#urllib.request.getproxies "urllib.request.getproxies").
 
-*class* urllib.request.HTTPPasswordMgr
+`class urllib.request.HTTPPasswordMgr`
 :   Keep a database of `(realm, uri) -> (user, password)` mappings.
 
-*class* urllib.request.HTTPPasswordMgrWithDefaultRealm
+`class urllib.request.HTTPPasswordMgrWithDefaultRealm`
 :   Keep a database of `(realm, uri) -> (user, password)` mappings. A realm of
     `None` is considered a catch-all realm, which is searched if no other realm
     fits.
 
-*class* urllib.request.HTTPPasswordMgrWithPriorAuth
+`class urllib.request.HTTPPasswordMgrWithPriorAuth`
 :   A variant of [`HTTPPasswordMgrWithDefaultRealm`](urllib.request.md#urllib.request.HTTPPasswordMgrWithDefaultRealm "urllib.request.HTTPPasswordMgrWithDefaultRealm") that also has a
     database of `uri -> is_authenticated` mappings. Can be used by a
     BasicAuth handler to determine when to send authentication credentials
@@ -327,7 +327,7 @@ The following classes are provided:
 
     Added in version 3.5.
 
-*class* urllib.request.AbstractBasicAuthHandler(*password_mgr=None*)
+`class urllib.request.AbstractBasicAuthHandler(password_mgr=None)`
 :   This is a mixin class that helps with HTTP authentication, both to the remote
     host and to a proxy. *password_mgr*, if given, should be something that is
     compatible with [`HTTPPasswordMgr`](urllib.request.md#urllib.request.HTTPPasswordMgr "urllib.request.HTTPPasswordMgr"); refer to section
@@ -347,27 +347,27 @@ The following classes are provided:
 
     Added in version 3.5: Added `is_authenticated` support.
 
-*class* urllib.request.HTTPBasicAuthHandler(*password_mgr=None*)
+`class urllib.request.HTTPBasicAuthHandler(password_mgr=None)`
 :   Handle authentication with the remote host. *password_mgr*, if given, should
     be something that is compatible with [`HTTPPasswordMgr`](urllib.request.md#urllib.request.HTTPPasswordMgr "urllib.request.HTTPPasswordMgr"); refer to
     section [HTTPPasswordMgr Objects](urllib.request.md#http-password-mgr) for information on the interface that must
     be supported. HTTPBasicAuthHandler will raise a [`ValueError`](exceptions.md#ValueError "ValueError") when
     presented with a wrong Authentication scheme.
 
-*class* urllib.request.ProxyBasicAuthHandler(*password_mgr=None*)
+`class urllib.request.ProxyBasicAuthHandler(password_mgr=None)`
 :   Handle authentication with the proxy. *password_mgr*, if given, should be
     something that is compatible with [`HTTPPasswordMgr`](urllib.request.md#urllib.request.HTTPPasswordMgr "urllib.request.HTTPPasswordMgr"); refer to section
     [HTTPPasswordMgr Objects](urllib.request.md#http-password-mgr) for information on the interface that must be
     supported.
 
-*class* urllib.request.AbstractDigestAuthHandler(*password_mgr=None*)
+`class urllib.request.AbstractDigestAuthHandler(password_mgr=None)`
 :   This is a mixin class that helps with HTTP authentication, both to the remote
     host and to a proxy. *password_mgr*, if given, should be something that is
     compatible with [`HTTPPasswordMgr`](urllib.request.md#urllib.request.HTTPPasswordMgr "urllib.request.HTTPPasswordMgr"); refer to section
     [HTTPPasswordMgr Objects](urllib.request.md#http-password-mgr) for information on the interface that must be
     supported.
 
-*class* urllib.request.HTTPDigestAuthHandler(*password_mgr=None*)
+`class urllib.request.HTTPDigestAuthHandler(password_mgr=None)`
 :   Handle authentication with the remote host. *password_mgr*, if given, should
     be something that is compatible with [`HTTPPasswordMgr`](urllib.request.md#urllib.request.HTTPPasswordMgr "urllib.request.HTTPPasswordMgr"); refer to
     section [HTTPPasswordMgr Objects](urllib.request.md#http-password-mgr) for information on the interface that must
@@ -380,39 +380,39 @@ The following classes are provided:
 
     Changed in version 3.3: Raise [`ValueError`](exceptions.md#ValueError "ValueError") on unsupported Authentication Scheme.
 
-*class* urllib.request.ProxyDigestAuthHandler(*password_mgr=None*)
+`class urllib.request.ProxyDigestAuthHandler(password_mgr=None)`
 :   Handle authentication with the proxy. *password_mgr*, if given, should be
     something that is compatible with [`HTTPPasswordMgr`](urllib.request.md#urllib.request.HTTPPasswordMgr "urllib.request.HTTPPasswordMgr"); refer to section
     [HTTPPasswordMgr Objects](urllib.request.md#http-password-mgr) for information on the interface that must be
     supported.
 
-*class* urllib.request.HTTPHandler
+`class urllib.request.HTTPHandler`
 :   A class to handle opening of HTTP URLs.
 
-*class* urllib.request.HTTPSHandler(*debuglevel=0*, *context=None*, *check_hostname=None*)
+`class urllib.request.HTTPSHandler(debuglevel=0, context=None, check_hostname=None)`
 :   A class to handle opening of HTTPS URLs. *context* and *check_hostname*
     have the same meaning as in [`http.client.HTTPSConnection`](http.client.md#http.client.HTTPSConnection "http.client.HTTPSConnection").
 
     Changed in version 3.2: *context* and *check_hostname* were added.
 
-*class* urllib.request.FileHandler
+`class urllib.request.FileHandler`
 :   Open local files.
 
-*class* urllib.request.DataHandler
+`class urllib.request.DataHandler`
 :   Open data URLs.
 
     Added in version 3.4.
 
-*class* urllib.request.FTPHandler
+`class urllib.request.FTPHandler`
 :   Open FTP URLs.
 
-*class* urllib.request.CacheFTPHandler
+`class urllib.request.CacheFTPHandler`
 :   Open FTP URLs, keeping a cache of open FTP connections to minimize delays.
 
-*class* urllib.request.UnknownHandler
+`class urllib.request.UnknownHandler`
 :   A catch-all class to handle unknown URLs.
 
-*class* urllib.request.HTTPErrorProcessor
+`class urllib.request.HTTPErrorProcessor`
 :   Process HTTP error responses.
 
 ## Request Objects
@@ -422,7 +422,7 @@ and so all may be overridden in subclasses. It also defines several
 public attributes that can be used by clients to inspect the parsed
 request.
 
-Request.full_url
+`Request.full_url`
 :   The original URL passed to the constructor.
 
     Changed in version 3.4.
@@ -431,31 +431,31 @@ Request.full_url
     [`full_url`](urllib.request.md#urllib.request.Request.full_url "urllib.request.Request.full_url") returns the original request URL with the
     fragment, if it was present.
 
-Request.type
+`Request.type`
 :   The URI scheme.
 
-Request.host
+`Request.host`
 :   The URI authority, typically a host, but may also contain a port
     separated by a colon.
 
-Request.origin_req_host
+`Request.origin_req_host`
 :   The original host for the request, without port.
 
-Request.selector
+`Request.selector`
 :   The URI path. If the [`Request`](urllib.request.md#urllib.request.Request "urllib.request.Request") uses a proxy, then selector
     will be the full URL that is passed to the proxy.
 
-Request.data
+`Request.data`
 :   The entity body for the request, or `None` if not specified.
 
     Changed in version 3.4: Changing value of [`Request.data`](urllib.request.md#urllib.request.Request.data "urllib.request.Request.data") now deletes “Content-Length”
     header if it was previously set or calculated.
 
-Request.unverifiable
+`Request.unverifiable`
 :   boolean, indicates whether the request is unverifiable as defined
     by [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html).
 
-Request.method
+`Request.method`
 :   The HTTP request method to use. By default its value is [`None`](constants.md#None "None"),
     which means that [`get_method()`](urllib.request.md#urllib.request.Request.get_method "urllib.request.Request.get_method") will do its normal computation
     of the method to be used. Its value can be set (thus overriding the default
@@ -469,7 +469,7 @@ Request.method
     Changed in version 3.4: A default value can now be set in subclasses; previously it could only
     be set via the constructor argument.
 
-Request.get_method()
+`Request.get_method()`
 :   Return a string indicating the HTTP request method. If
     [`Request.method`](urllib.request.md#urllib.request.Request.method "urllib.request.Request.method") is not `None`, return its value, otherwise return
     `'GET'` if [`Request.data`](urllib.request.md#urllib.request.Request.data "urllib.request.Request.data") is `None`, or `'POST'` if it’s not.
@@ -477,7 +477,7 @@ Request.get_method()
 
     Changed in version 3.3: get_method now looks at the value of [`Request.method`](urllib.request.md#urllib.request.Request.method "urllib.request.Request.method").
 
-Request.add_header(*key*, *val*)
+`Request.add_header(key, val)`
 :   Add another header to the request. Headers are currently ignored by all
     handlers except HTTP handlers, where they are added to the list of headers sent
     to the server. Note that there cannot be more than one header with the same
@@ -487,36 +487,36 @@ Request.add_header(*key*, *val*)
     same functionality using only one header. Note that headers added using
     this method are also added to redirected requests.
 
-Request.add_unredirected_header(*key*, *header*)
+`Request.add_unredirected_header(key, header)`
 :   Add a header that will not be added to a redirected request.
 
-Request.has_header(*header*)
+`Request.has_header(header)`
 :   Return whether the instance has the named header (checks both regular and
     unredirected).
 
-Request.remove_header(*header*)
+`Request.remove_header(header)`
 :   Remove named header from the request instance (both from regular and
     unredirected headers).
 
     Added in version 3.4.
 
-Request.get_full_url()
+`Request.get_full_url()`
 :   Return the URL given in the constructor.
 
     Changed in version 3.4.
 
     Returns [`Request.full_url`](urllib.request.md#urllib.request.Request.full_url "urllib.request.Request.full_url")
 
-Request.set_proxy(*host*, *type*)
+`Request.set_proxy(host, type)`
 :   Prepare the request by connecting to a proxy server. The *host* and *type* will
     replace those of the instance, and the instance’s selector will be the original
     URL given in the constructor.
 
-Request.get_header(*header_name*, *default=None*)
+`Request.get_header(header_name, default=None)`
 :   Return the value of the given header. If the header is not present, return
     the default value.
 
-Request.header_items()
+`Request.header_items()`
 :   Return a list of tuples (header_name, header_value) of the Request headers.
 
 Changed in version 3.4: The request methods add_data, has_data, get_data, get_type, get_host,
@@ -527,7 +527,7 @@ since 3.3 have been removed.
 
 [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector") instances have the following methods:
 
-OpenerDirector.add_handler(*handler*)
+`OpenerDirector.add_handler(handler)`
 :   *handler* should be an instance of [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"). The following methods
     are searched, and added to the possible chains (note that HTTP errors are a
     special case). Note that, in the following, *protocol* should be replaced
@@ -555,7 +555,7 @@ OpenerDirector.add_handler(*handler*)
 
       See [`BaseHandler.<protocol>_response()`](urllib.request.md#protocol-response) for more information.
 
-OpenerDirector.open(*url*, *data=None*[, *timeout*])
+`OpenerDirector.open(url, data=None[, timeout])`
 :   Open the given *url* (which can be a request object or a string), optionally
     passing the given *data*. Arguments, return values and exceptions raised are
     the same as those of [`urlopen()`](urllib.request.md#urllib.request.urlopen "urllib.request.urlopen") (which simply calls the [`open()`](functions.md#open "open")
@@ -565,7 +565,7 @@ OpenerDirector.open(*url*, *data=None*[, *timeout*])
     timeout setting will be used). The timeout feature actually works only for
     HTTP, HTTPS and FTP connections.
 
-OpenerDirector.error(*proto*, *\*args*)
+`OpenerDirector.error(proto, *args)`
 :   Handle an error of the given protocol. This will call the registered error
     handlers for the given protocol with the given arguments (which are protocol
     specific). The HTTP protocol is a special case which uses the HTTP response
@@ -604,10 +604,10 @@ sorting the handler instances.
 useful, and others that are meant to be used by derived classes. These are
 intended for direct use:
 
-BaseHandler.add_parent(*director*)
+`BaseHandler.add_parent(director)`
 :   Add a director as parent.
 
-BaseHandler.close()
+`BaseHandler.close()`
 :   Remove any parents.
 
 The following attribute and methods should only be used by classes derived from
@@ -619,11 +619,11 @@ The following attribute and methods should only be used by classes derived from
 > `<protocol>_request()` or `<protocol>_response()` methods are named
 > `*Processor`; all others are named `*Handler`.
 
-BaseHandler.parent
+`BaseHandler.parent`
 :   A valid [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector"), which can be used to open using a different
     protocol, or handle errors.
 
-BaseHandler.default_open(*req*)
+`BaseHandler.default_open(req)`
 :   This method is *not* defined in [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), but subclasses should
     define it if they want to catch all URLs.
 
@@ -636,14 +636,14 @@ BaseHandler.default_open(*req*)
 
     This method will be called before any protocol-specific open method.
 
-BaseHandler.<protocol>_open(req)
+`BaseHandler.<protocol>_open(req)`
 :   This method is *not* defined in [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), but subclasses should
     define it if they want to handle URLs with the given protocol.
 
     This method, if defined, will be called by the parent [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector").
     Return values should be the same as for [`default_open()`](urllib.request.md#urllib.request.BaseHandler.default_open "urllib.request.BaseHandler.default_open").
 
-BaseHandler.unknown_open(*req*)
+`BaseHandler.unknown_open(req)`
 :   This method is *not* defined in [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), but subclasses should
     define it if they want to catch all URLs with no specific registered handler to
     open it.
@@ -652,7 +652,7 @@ BaseHandler.unknown_open(*req*)
     [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector"). Return values should be the same as for
     [`default_open()`](urllib.request.md#urllib.request.BaseHandler.default_open "urllib.request.BaseHandler.default_open").
 
-BaseHandler.http_error_default(*req*, *fp*, *code*, *msg*, *hdrs*)
+`BaseHandler.http_error_default(req, fp, code, msg, hdrs)`
 :   This method is *not* defined in [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), but subclasses should
     override it if they intend to provide a catch-all for otherwise unhandled HTTP
     errors. It will be called automatically by the [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector") getting
@@ -666,7 +666,7 @@ BaseHandler.http_error_default(*req*, *fp*, *code*, *msg*, *hdrs*)
     Return values and exceptions raised should be the same as those of
     [`urlopen()`](urllib.request.md#urllib.request.urlopen "urllib.request.urlopen").
 
-BaseHandler.http_error_<nnn>(req, fp, code, msg, hdrs)
+`BaseHandler.http_error_<nnn>(req, fp, code, msg, hdrs)`
 :   *nnn* should be a three-digit HTTP error code. This method is also not defined
     in [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), but will be called, if it exists, on an instance of a
     subclass, when an HTTP error with code *nnn* occurs.
@@ -676,7 +676,7 @@ BaseHandler.http_error_<nnn>(req, fp, code, msg, hdrs)
     Arguments, return values and exceptions raised should be the same as for
     [`http_error_default()`](urllib.request.md#urllib.request.BaseHandler.http_error_default "urllib.request.BaseHandler.http_error_default").
 
-BaseHandler.<protocol>_request(req)
+`BaseHandler.<protocol>_request(req)`
 :   This method is *not* defined in [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), but subclasses should
     define it if they want to pre-process requests of the given protocol.
 
@@ -684,7 +684,7 @@ BaseHandler.<protocol>_request(req)
     *req* will be a [`Request`](urllib.request.md#urllib.request.Request "urllib.request.Request") object. The return value should be a
     [`Request`](urllib.request.md#urllib.request.Request "urllib.request.Request") object.
 
-BaseHandler.<protocol>_response(req, response)
+`BaseHandler.<protocol>_response(req, response)`
 :   This method is *not* defined in [`BaseHandler`](urllib.request.md#urllib.request.BaseHandler "urllib.request.BaseHandler"), but subclasses should
     define it if they want to post-process responses of the given protocol.
 
@@ -706,7 +706,7 @@ BaseHandler.<protocol>_response(req, response)
 > HTTPRedirectHandler is presented with a redirected URL which is not an HTTP,
 > HTTPS or FTP URL.
 
-HTTPRedirectHandler.redirect_request(*req*, *fp*, *code*, *msg*, *hdrs*, *newurl*)
+`HTTPRedirectHandler.redirect_request(req, fp, code, msg, hdrs, newurl)`
 :   Return a [`Request`](urllib.request.md#urllib.request.Request "urllib.request.Request") or `None` in response to a redirect. This is called
     by the default implementations of the `http_error_30*()` methods when a
     redirection is received from the server. If a redirection should take place,
@@ -723,22 +723,22 @@ HTTPRedirectHandler.redirect_request(*req*, *fp*, *code*, *msg*, *hdrs*, *newurl
     > do allow automatic redirection of these responses, changing the POST to a
     > `GET`, and the default implementation reproduces this behavior.
 
-HTTPRedirectHandler.http_error_301(*req*, *fp*, *code*, *msg*, *hdrs*)
+`HTTPRedirectHandler.http_error_301(req, fp, code, msg, hdrs)`
 :   Redirect to the `Location:` or `URI:` URL. This method is called by the
     parent [`OpenerDirector`](urllib.request.md#urllib.request.OpenerDirector "urllib.request.OpenerDirector") when getting an HTTP ‘moved permanently’ response.
 
-HTTPRedirectHandler.http_error_302(*req*, *fp*, *code*, *msg*, *hdrs*)
+`HTTPRedirectHandler.http_error_302(req, fp, code, msg, hdrs)`
 :   The same as [`http_error_301()`](urllib.request.md#urllib.request.HTTPRedirectHandler.http_error_301 "urllib.request.HTTPRedirectHandler.http_error_301"), but called for the ‘found’ response.
 
-HTTPRedirectHandler.http_error_303(*req*, *fp*, *code*, *msg*, *hdrs*)
+`HTTPRedirectHandler.http_error_303(req, fp, code, msg, hdrs)`
 :   The same as [`http_error_301()`](urllib.request.md#urllib.request.HTTPRedirectHandler.http_error_301 "urllib.request.HTTPRedirectHandler.http_error_301"), but called for the ‘see other’ response.
 
-HTTPRedirectHandler.http_error_307(*req*, *fp*, *code*, *msg*, *hdrs*)
+`HTTPRedirectHandler.http_error_307(req, fp, code, msg, hdrs)`
 :   The same as [`http_error_301()`](urllib.request.md#urllib.request.HTTPRedirectHandler.http_error_301 "urllib.request.HTTPRedirectHandler.http_error_301"), but called for the ‘temporary redirect’
     response. It does not allow changing the request method from `POST`
     to `GET`.
 
-HTTPRedirectHandler.http_error_308(*req*, *fp*, *code*, *msg*, *hdrs*)
+`HTTPRedirectHandler.http_error_308(req, fp, code, msg, hdrs)`
 :   The same as [`http_error_301()`](urllib.request.md#urllib.request.HTTPRedirectHandler.http_error_301 "urllib.request.HTTPRedirectHandler.http_error_301"), but called for the ‘permanent redirect’
     response. It does not allow changing the request method from `POST`
     to `GET`.
@@ -749,12 +749,12 @@ HTTPRedirectHandler.http_error_308(*req*, *fp*, *code*, *msg*, *hdrs*)
 
 [`HTTPCookieProcessor`](urllib.request.md#urllib.request.HTTPCookieProcessor "urllib.request.HTTPCookieProcessor") instances have one attribute:
 
-HTTPCookieProcessor.cookiejar
+`HTTPCookieProcessor.cookiejar`
 :   The [`http.cookiejar.CookieJar`](http.cookiejar.md#http.cookiejar.CookieJar "http.cookiejar.CookieJar") in which cookies are stored.
 
 ## ProxyHandler Objects
 
-ProxyHandler.<protocol>_open(request)
+`ProxyHandler.<protocol>_open(request)`
 :   The [`ProxyHandler`](urllib.request.md#urllib.request.ProxyHandler "urllib.request.ProxyHandler") will have a method `<protocol>_open()` for every
     *protocol* which has a proxy in the *proxies* dictionary given in the
     constructor. The method will modify requests to go through the proxy, by
@@ -766,7 +766,7 @@ ProxyHandler.<protocol>_open(request)
 These methods are available on [`HTTPPasswordMgr`](urllib.request.md#urllib.request.HTTPPasswordMgr "urllib.request.HTTPPasswordMgr") and
 [`HTTPPasswordMgrWithDefaultRealm`](urllib.request.md#urllib.request.HTTPPasswordMgrWithDefaultRealm "urllib.request.HTTPPasswordMgrWithDefaultRealm") objects.
 
-HTTPPasswordMgr.add_password(*realm*, *uri*, *user*, *passwd*)
+`HTTPPasswordMgr.add_password(realm, uri, user, passwd)`
 :   *uri* can be either a single URI, or a sequence of URIs. *realm*, *user* and
     *passwd* must be strings. This causes `(user, passwd)` to be used as
     authentication tokens when authentication for *realm* and a super-URI of any
@@ -777,7 +777,7 @@ HTTPPasswordMgr.add_password(*realm*, *uri*, *user*, *passwd*)
     Changed in version 3.12.14 (unreleased): Authentication credentials for URIs with a scheme are now scoped by
     that scheme.
 
-HTTPPasswordMgr.find_user_password(*realm*, *authuri*)
+`HTTPPasswordMgr.find_user_password(realm, authuri)`
 :   Get user/password for given realm and URI, if any. This method will return
     `(None, None)` if there is no matching user/password.
 
@@ -789,26 +789,26 @@ HTTPPasswordMgr.find_user_password(*realm*, *authuri*)
 This password manager extends [`HTTPPasswordMgrWithDefaultRealm`](urllib.request.md#urllib.request.HTTPPasswordMgrWithDefaultRealm "urllib.request.HTTPPasswordMgrWithDefaultRealm") to support
 tracking URIs for which authentication credentials should always be sent.
 
-HTTPPasswordMgrWithPriorAuth.add_password(*realm*, *uri*, *user*, *passwd*, *is_authenticated=False*)
+`HTTPPasswordMgrWithPriorAuth.add_password(realm, uri, user, passwd, is_authenticated=False)`
 :   *realm*, *uri*, *user*, *passwd* are as for
     [`HTTPPasswordMgr.add_password()`](urllib.request.md#urllib.request.HTTPPasswordMgr.add_password "urllib.request.HTTPPasswordMgr.add_password"). *is_authenticated* sets the initial
     value of the `is_authenticated` flag for the given URI or list of URIs.
     If *is_authenticated* is specified as `True`, *realm* is ignored.
 
-HTTPPasswordMgrWithPriorAuth.find_user_password(*realm*, *authuri*)
+`HTTPPasswordMgrWithPriorAuth.find_user_password(realm, authuri)`
 :   Same as for [`HTTPPasswordMgrWithDefaultRealm`](urllib.request.md#urllib.request.HTTPPasswordMgrWithDefaultRealm "urllib.request.HTTPPasswordMgrWithDefaultRealm") objects
 
-HTTPPasswordMgrWithPriorAuth.update_authenticated(*self*, *uri*, *is_authenticated=False*)
+`HTTPPasswordMgrWithPriorAuth.update_authenticated(self, uri, is_authenticated=False)`
 :   Update the `is_authenticated` flag for the given *uri* or list
     of URIs.
 
-HTTPPasswordMgrWithPriorAuth.is_authenticated(*self*, *authuri*)
+`HTTPPasswordMgrWithPriorAuth.is_authenticated(self, authuri)`
 :   Returns the current state of the `is_authenticated` flag for
     the given URI.
 
 ## AbstractBasicAuthHandler Objects
 
-AbstractBasicAuthHandler.http_error_auth_reqed(*authreq*, *host*, *req*, *headers*)
+`AbstractBasicAuthHandler.http_error_auth_reqed(authreq, host, req, headers)`
 :   Handle an authentication request by getting a user/password pair, and re-trying
     the request. *authreq* should be the name of the header where the information
     about the realm is included in the request, *host* specifies the URL and path to
@@ -822,17 +822,17 @@ AbstractBasicAuthHandler.http_error_auth_reqed(*authreq*, *host*, *req*, *header
 
 ## HTTPBasicAuthHandler Objects
 
-HTTPBasicAuthHandler.http_error_401(*req*, *fp*, *code*, *msg*, *hdrs*)
+`HTTPBasicAuthHandler.http_error_401(req, fp, code, msg, hdrs)`
 :   Retry the request with authentication information, if available.
 
 ## ProxyBasicAuthHandler Objects
 
-ProxyBasicAuthHandler.http_error_407(*req*, *fp*, *code*, *msg*, *hdrs*)
+`ProxyBasicAuthHandler.http_error_407(req, fp, code, msg, hdrs)`
 :   Retry the request with authentication information, if available.
 
 ## AbstractDigestAuthHandler Objects
 
-AbstractDigestAuthHandler.http_error_auth_reqed(*authreq*, *host*, *req*, *headers*)
+`AbstractDigestAuthHandler.http_error_auth_reqed(authreq, host, req, headers)`
 :   *authreq* should be the name of the header where the information about the realm
     is included in the request, *host* should be the host to authenticate to, *req*
     should be the (failed) [`Request`](urllib.request.md#urllib.request.Request "urllib.request.Request") object, and *headers* should be the
@@ -840,29 +840,29 @@ AbstractDigestAuthHandler.http_error_auth_reqed(*authreq*, *host*, *req*, *heade
 
 ## HTTPDigestAuthHandler Objects
 
-HTTPDigestAuthHandler.http_error_401(*req*, *fp*, *code*, *msg*, *hdrs*)
+`HTTPDigestAuthHandler.http_error_401(req, fp, code, msg, hdrs)`
 :   Retry the request with authentication information, if available.
 
 ## ProxyDigestAuthHandler Objects
 
-ProxyDigestAuthHandler.http_error_407(*req*, *fp*, *code*, *msg*, *hdrs*)
+`ProxyDigestAuthHandler.http_error_407(req, fp, code, msg, hdrs)`
 :   Retry the request with authentication information, if available.
 
 ## HTTPHandler Objects
 
-HTTPHandler.http_open(*req*)
+`HTTPHandler.http_open(req)`
 :   Send an HTTP request, which can be either GET or POST, depending on
     `req.has_data()`.
 
 ## HTTPSHandler Objects
 
-HTTPSHandler.https_open(*req*)
+`HTTPSHandler.https_open(req)`
 :   Send an HTTPS request, which can be either GET or POST, depending on
     `req.has_data()`.
 
 ## FileHandler Objects
 
-FileHandler.file_open(*req*)
+`FileHandler.file_open(req)`
 :   Open the file locally, if there is no host name, or the host name is
     `'localhost'`.
 
@@ -871,7 +871,7 @@ FileHandler.file_open(*req*)
 
 ## DataHandler Objects
 
-DataHandler.data_open(*req*)
+`DataHandler.data_open(req)`
 :   Read a data URL. This kind of URL contains the content encoded in the URL
     itself. The data URL syntax is specified in [**RFC 2397**](https://datatracker.ietf.org/doc/html/rfc2397.html). This implementation
     ignores white spaces in base64 encoded data URLs so the URL may be wrapped
@@ -881,7 +881,7 @@ DataHandler.data_open(*req*)
 
 ## FTPHandler Objects
 
-FTPHandler.ftp_open(*req*)
+`FTPHandler.ftp_open(req)`
 :   Open the FTP file indicated by *req*. The login is always done with empty
     username and password.
 
@@ -890,20 +890,20 @@ FTPHandler.ftp_open(*req*)
 [`CacheFTPHandler`](urllib.request.md#urllib.request.CacheFTPHandler "urllib.request.CacheFTPHandler") objects are [`FTPHandler`](urllib.request.md#urllib.request.FTPHandler "urllib.request.FTPHandler") objects with the
 following additional methods:
 
-CacheFTPHandler.setTimeout(*t*)
+`CacheFTPHandler.setTimeout(t)`
 :   Set timeout of connections to *t* seconds.
 
-CacheFTPHandler.setMaxConns(*m*)
+`CacheFTPHandler.setMaxConns(m)`
 :   Set maximum number of cached connections to *m*.
 
 ## UnknownHandler Objects
 
-UnknownHandler.unknown_open()
+`UnknownHandler.unknown_open()`
 :   Raise a [`URLError`](urllib.error.md#urllib.error.URLError "urllib.error.URLError") exception.
 
 ## HTTPErrorProcessor Objects
 
-HTTPErrorProcessor.http_response(*request*, *response*)
+`HTTPErrorProcessor.http_response(request, response)`
 :   Process HTTP error responses.
 
     For 200 error codes, the response object is returned immediately.
@@ -913,7 +913,7 @@ HTTPErrorProcessor.http_response(*request*, *response*)
     Eventually, [`HTTPDefaultErrorHandler`](urllib.request.md#urllib.request.HTTPDefaultErrorHandler "urllib.request.HTTPDefaultErrorHandler") will raise an
     [`HTTPError`](urllib.error.md#urllib.error.HTTPError "urllib.error.HTTPError") if no other handler handles the error.
 
-HTTPErrorProcessor.https_response(*request*, *response*)
+`HTTPErrorProcessor.https_response(request, response)`
 :   Process HTTPS error responses.
 
     The behavior is same as [`http_response()`](urllib.request.md#urllib.request.HTTPErrorProcessor.http_response "urllib.request.HTTPErrorProcessor.http_response").
@@ -1131,7 +1131,7 @@ The following functions and classes are ported from the Python 2 module
 `urllib` (as opposed to `urllib2`). They might become deprecated at
 some point in the future.
 
-urllib.request.urlretrieve(*url*, *filename=None*, *reporthook=None*, *data=None*)
+`urllib.request.urlretrieve(url, filename=None, reporthook=None, data=None)`
 :   Copy a network object denoted by a URL to a local file. If the URL
     points to a local file, the object will not be copied unless filename is supplied.
     Return a tuple `(filename, headers)` where *filename* is the
@@ -1179,11 +1179,11 @@ urllib.request.urlretrieve(*url*, *filename=None*, *reporthook=None*, *data=None
     of the data it has downloaded, and just returns it. In this case you just have
     to assume that the download was successful.
 
-urllib.request.urlcleanup()
+`urllib.request.urlcleanup()`
 :   Cleans up temporary files that may have been left behind by previous
     calls to [`urlretrieve()`](urllib.request.md#urllib.request.urlretrieve "urllib.request.urlretrieve").
 
-*class* urllib.request.URLopener(*proxies=None*, *\*\*x509*)
+`class urllib.request.URLopener(proxies=None, **x509)`
 :   Deprecated since version 3.3.
 
     Base class for opening and reading URLs. Unless you need to support opening
@@ -1209,7 +1209,7 @@ urllib.request.urlcleanup()
     [`URLopener`](urllib.request.md#urllib.request.URLopener "urllib.request.URLopener") objects will raise an [`OSError`](exceptions.md#OSError "OSError") exception if the server
     returns an error code.
 
-    open(*fullurl*, *data=None*)
+    `open(fullurl, data=None)`
     :   Open *fullurl* using the appropriate protocol. This method sets up cache and
         proxy information, then calls the appropriate open method with its input
         arguments. If the scheme is not recognized, [`open_unknown()`](urllib.request.md#urllib.request.URLopener.open_unknown "urllib.request.URLopener.open_unknown") is called.
@@ -1218,10 +1218,10 @@ urllib.request.urlcleanup()
 
         This method always quotes *fullurl* using [`quote()`](urllib.parse.md#urllib.parse.quote "urllib.parse.quote").
 
-    open_unknown(*fullurl*, *data=None*)
+    `open_unknown(fullurl, data=None)`
     :   Overridable interface to open unknown URL types.
 
-    retrieve(*url*, *filename=None*, *reporthook=None*, *data=None*)
+    `retrieve(url, filename=None, reporthook=None, data=None)`
     :   Retrieves the contents of *url* and places it in *filename*. The return value
         is a tuple consisting of a local filename and either an
         [`email.message.Message`](email.compat32-message.md#email.message.Message "email.message.Message") object containing the response headers (for remote
@@ -1241,13 +1241,13 @@ urllib.request.urlcleanup()
         *application/x-www-form-urlencoded* format; see the
         [`urllib.parse.urlencode()`](urllib.parse.md#urllib.parse.urlencode "urllib.parse.urlencode") function.
 
-    version
+    `version`
     :   Variable that specifies the user agent of the opener object. To get
         [`urllib`](urllib.md#module-urllib "urllib") to tell servers that it is a particular user agent, set this in a
         subclass as a class variable or in the constructor before calling the base
         constructor.
 
-*class* urllib.request.FancyURLopener(*...*)
+`class urllib.request.FancyURLopener(...)`
 :   Deprecated since version 3.3.
 
     [`FancyURLopener`](urllib.request.md#urllib.request.FancyURLopener "urllib.request.FancyURLopener") subclasses [`URLopener`](urllib.request.md#urllib.request.URLopener "urllib.request.URLopener") providing default handling
@@ -1279,7 +1279,7 @@ urllib.request.urlcleanup()
     The [`FancyURLopener`](urllib.request.md#urllib.request.FancyURLopener "urllib.request.FancyURLopener") class offers one additional method that should be
     overloaded to provide the appropriate behavior:
 
-    prompt_user_passwd(*host*, *realm*)
+    `prompt_user_passwd(host, realm)`
     :   Return information needed to authenticate the user at the given host in the
         specified security realm. The return value should be a tuple, `(user,
         password)`, which can be used for basic authentication.
@@ -1331,26 +1331,26 @@ minimal file-like interface, including `read()` and `readline()`.
 Functions defined by this module are used internally by the [`urllib.request`](urllib.request.md#module-urllib.request "urllib.request: Extensible library for opening URLs.") module.
 The typical response object is a [`urllib.response.addinfourl`](urllib.request.md#urllib.response.addinfourl "urllib.response.addinfourl") instance:
 
-*class* urllib.response.addinfourl
-:   url
+`class urllib.response.addinfourl`
+:   `url`
     :   URL of the resource retrieved, commonly used to determine if a redirect was followed.
 
-    headers
+    `headers`
     :   Returns the headers of the response in the form of an [`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage") instance.
 
-    status
+    `status`
     :   Added in version 3.9.
 
         Status code returned by server.
 
-    geturl()
+    `geturl()`
     :   Deprecated since version 3.9: Deprecated in favor of [`url`](urllib.request.md#urllib.response.addinfourl.url "urllib.response.addinfourl.url").
 
-    info()
+    `info()`
     :   Deprecated since version 3.9: Deprecated in favor of [`headers`](urllib.request.md#urllib.response.addinfourl.headers "urllib.response.addinfourl.headers").
 
-    code
+    `code`
     :   Deprecated since version 3.9: Deprecated in favor of [`status`](urllib.request.md#urllib.response.addinfourl.status "urllib.response.addinfourl.status").
 
-    getcode()
+    `getcode()`
     :   Deprecated since version 3.9: Deprecated in favor of [`status`](urllib.request.md#urllib.response.addinfourl.status "urllib.response.addinfourl.status").

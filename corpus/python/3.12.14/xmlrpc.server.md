@@ -28,7 +28,7 @@ This module does not work or is not available on WebAssembly platforms
 `wasm32-emscripten` and `wasm32-wasi`. See
 [WebAssembly platforms](intro.md#wasm-availability) for more information.
 
-*class* xmlrpc.server.SimpleXMLRPCServer(*addr*, *requestHandler=SimpleXMLRPCRequestHandler*, *logRequests=True*, *allow_none=False*, *encoding=None*, *bind_and_activate=True*, *use_builtin_types=False*)
+`class xmlrpc.server.SimpleXMLRPCServer(addr, requestHandler=SimpleXMLRPCRequestHandler, logRequests=True, allow_none=False, encoding=None, bind_and_activate=True, use_builtin_types=False)`
 :   Create a new server instance. This class provides methods for registration of
     functions that can be called by the XML-RPC protocol. The *requestHandler*
     parameter should be a factory for request handler instances; it defaults to
@@ -47,7 +47,7 @@ This module does not work or is not available on WebAssembly platforms
 
     Changed in version 3.3: The *use_builtin_types* flag was added.
 
-*class* xmlrpc.server.CGIXMLRPCRequestHandler(*allow_none=False*, *encoding=None*, *use_builtin_types=False*)
+`class xmlrpc.server.CGIXMLRPCRequestHandler(allow_none=False, encoding=None, use_builtin_types=False)`
 :   Create a new instance to handle XML-RPC requests in a CGI environment. The
     *allow_none* and *encoding* parameters are passed on to [`xmlrpc.client`](xmlrpc.client.md#module-xmlrpc.client "xmlrpc.client: XML-RPC client access.")
     and control the XML-RPC responses that will be returned from the server.
@@ -57,7 +57,7 @@ This module does not work or is not available on WebAssembly platforms
 
     Changed in version 3.3: The *use_builtin_types* flag was added.
 
-*class* xmlrpc.server.SimpleXMLRPCRequestHandler
+`class xmlrpc.server.SimpleXMLRPCRequestHandler`
 :   Create a new request handler instance. This request handler supports `POST`
     requests and modifies logging so that the *logRequests* parameter to the
     [`SimpleXMLRPCServer`](xmlrpc.server.md#xmlrpc.server.SimpleXMLRPCServer "xmlrpc.server.SimpleXMLRPCServer") constructor parameter is honored.
@@ -68,7 +68,7 @@ The [`SimpleXMLRPCServer`](xmlrpc.server.md#xmlrpc.server.SimpleXMLRPCServer "xm
 [`socketserver.TCPServer`](socketserver.md#socketserver.TCPServer "socketserver.TCPServer") and provides a means of creating simple, stand
 alone XML-RPC servers.
 
-SimpleXMLRPCServer.register_function(*function=None*, *name=None*)
+`SimpleXMLRPCServer.register_function(function=None, name=None)`
 :   Register a function that can respond to XML-RPC requests. If *name* is given,
     it will be the method name associated with *function*, otherwise
     [`function.__name__`](https://docs.python.org/3.12/reference/datamodel.html#function.__name__ "function.__name__") will be used. *name* is a string, and may contain
@@ -80,7 +80,7 @@ SimpleXMLRPCServer.register_function(*function=None*, *name=None*)
 
     Changed in version 3.7: [`register_function()`](xmlrpc.server.md#xmlrpc.server.SimpleXMLRPCServer.register_function "xmlrpc.server.SimpleXMLRPCServer.register_function") can be used as a decorator.
 
-SimpleXMLRPCServer.register_instance(*instance*, *allow_dotted_names=False*)
+`SimpleXMLRPCServer.register_instance(instance, allow_dotted_names=False)`
 :   Register an object which is used to expose method names which have not been
     registered using [`register_function()`](xmlrpc.server.md#xmlrpc.server.SimpleXMLRPCServer.register_function "xmlrpc.server.SimpleXMLRPCServer.register_function"). If *instance* contains a
     `_dispatch()` method, it is called with the requested method name and the
@@ -105,14 +105,14 @@ SimpleXMLRPCServer.register_instance(*instance*, *allow_dotted_names=False*)
     > module’s global variables and may allow intruders to execute arbitrary code on
     > your machine. Only use this option on a secure, closed network.
 
-SimpleXMLRPCServer.register_introspection_functions()
+`SimpleXMLRPCServer.register_introspection_functions()`
 :   Registers the XML-RPC introspection functions `system.listMethods`,
     `system.methodHelp` and `system.methodSignature`.
 
-SimpleXMLRPCServer.register_multicall_functions()
+`SimpleXMLRPCServer.register_multicall_functions()`
 :   Registers the XML-RPC multicall function system.multicall.
 
-SimpleXMLRPCRequestHandler.rpc_paths
+`SimpleXMLRPCRequestHandler.rpc_paths`
 :   An attribute value that must be a tuple listing valid path portions of the URL
     for receiving XML-RPC requests. Requests posted to other paths will result in a
     404 “no such page” HTTP error. If this tuple is empty, all paths will be
@@ -277,7 +277,7 @@ python -m xmlrpc.client
 The [`CGIXMLRPCRequestHandler`](xmlrpc.server.md#xmlrpc.server.CGIXMLRPCRequestHandler "xmlrpc.server.CGIXMLRPCRequestHandler") class can be used to handle XML-RPC
 requests sent to Python CGI scripts.
 
-CGIXMLRPCRequestHandler.register_function(*function=None*, *name=None*)
+`CGIXMLRPCRequestHandler.register_function(function=None, name=None)`
 :   Register a function that can respond to XML-RPC requests. If *name* is given,
     it will be the method name associated with *function*, otherwise
     [`function.__name__`](https://docs.python.org/3.12/reference/datamodel.html#function.__name__ "function.__name__") will be used. *name* is a string, and may contain
@@ -289,7 +289,7 @@ CGIXMLRPCRequestHandler.register_function(*function=None*, *name=None*)
 
     Changed in version 3.7: [`register_function()`](xmlrpc.server.md#xmlrpc.server.CGIXMLRPCRequestHandler.register_function "xmlrpc.server.CGIXMLRPCRequestHandler.register_function") can be used as a decorator.
 
-CGIXMLRPCRequestHandler.register_instance(*instance*)
+`CGIXMLRPCRequestHandler.register_instance(instance)`
 :   Register an object which is used to expose method names which have not been
     registered using [`register_function()`](xmlrpc.server.md#xmlrpc.server.CGIXMLRPCRequestHandler.register_function "xmlrpc.server.CGIXMLRPCRequestHandler.register_function"). If instance contains a
     `_dispatch()` method, it is called with the requested method name and the
@@ -301,14 +301,14 @@ CGIXMLRPCRequestHandler.register_instance(*instance*)
     The value found from this search is then called with the parameters from the
     request, and the return value is passed back to the client.
 
-CGIXMLRPCRequestHandler.register_introspection_functions()
+`CGIXMLRPCRequestHandler.register_introspection_functions()`
 :   Register the XML-RPC introspection functions `system.listMethods`,
     `system.methodHelp` and `system.methodSignature`.
 
-CGIXMLRPCRequestHandler.register_multicall_functions()
+`CGIXMLRPCRequestHandler.register_multicall_functions()`
 :   Register the XML-RPC multicall function `system.multicall`.
 
-CGIXMLRPCRequestHandler.handle_request(*request_text=None*)
+`CGIXMLRPCRequestHandler.handle_request(request_text=None)`
 :   Handle an XML-RPC request. If *request_text* is given, it should be the POST
     data provided by the HTTP server, otherwise the contents of stdin will be used.
 
@@ -334,17 +334,17 @@ to HTTP GET requests. Servers can either be free standing, using
 [`DocXMLRPCServer`](xmlrpc.server.md#xmlrpc.server.DocXMLRPCServer "xmlrpc.server.DocXMLRPCServer"), or embedded in a CGI environment, using
 [`DocCGIXMLRPCRequestHandler`](xmlrpc.server.md#xmlrpc.server.DocCGIXMLRPCRequestHandler "xmlrpc.server.DocCGIXMLRPCRequestHandler").
 
-*class* xmlrpc.server.DocXMLRPCServer(*addr*, *requestHandler=DocXMLRPCRequestHandler*, *logRequests=True*, *allow_none=False*, *encoding=None*, *bind_and_activate=True*, *use_builtin_types=True*)
+`class xmlrpc.server.DocXMLRPCServer(addr, requestHandler=DocXMLRPCRequestHandler, logRequests=True, allow_none=False, encoding=None, bind_and_activate=True, use_builtin_types=True)`
 :   Create a new server instance. All parameters have the same meaning as for
     [`SimpleXMLRPCServer`](xmlrpc.server.md#xmlrpc.server.SimpleXMLRPCServer "xmlrpc.server.SimpleXMLRPCServer"); *requestHandler* defaults to
     [`DocXMLRPCRequestHandler`](xmlrpc.server.md#xmlrpc.server.DocXMLRPCRequestHandler "xmlrpc.server.DocXMLRPCRequestHandler").
 
     Changed in version 3.3: The *use_builtin_types* flag was added.
 
-*class* xmlrpc.server.DocCGIXMLRPCRequestHandler
+`class xmlrpc.server.DocCGIXMLRPCRequestHandler`
 :   Create a new instance to handle XML-RPC requests in a CGI environment.
 
-*class* xmlrpc.server.DocXMLRPCRequestHandler
+`class xmlrpc.server.DocXMLRPCRequestHandler`
 :   Create a new request handler instance. This request handler supports XML-RPC
     POST requests, documentation GET requests, and modifies logging so that the
     *logRequests* parameter to the [`DocXMLRPCServer`](xmlrpc.server.md#xmlrpc.server.DocXMLRPCServer "xmlrpc.server.DocXMLRPCServer") constructor parameter is
@@ -358,15 +358,15 @@ servers. HTTP POST requests are handled as XML-RPC method calls. HTTP GET
 requests are handled by generating pydoc-style HTML documentation. This allows a
 server to provide its own web-based documentation.
 
-DocXMLRPCServer.set_server_title(*server_title*)
+`DocXMLRPCServer.set_server_title(server_title)`
 :   Set the title used in the generated HTML documentation. This title will be used
     inside the HTML “title” element.
 
-DocXMLRPCServer.set_server_name(*server_name*)
+`DocXMLRPCServer.set_server_name(server_name)`
 :   Set the name used in the generated HTML documentation. This name will appear at
     the top of the generated documentation inside a “h1” element.
 
-DocXMLRPCServer.set_server_documentation(*server_documentation*)
+`DocXMLRPCServer.set_server_documentation(server_documentation)`
 :   Set the description used in the generated HTML documentation. This description
     will appear as a paragraph, below the server name, in the documentation.
 
@@ -378,14 +378,14 @@ self-documenting, XML-RPC CGI scripts. HTTP POST requests are handled as XML-RPC
 method calls. HTTP GET requests are handled by generating pydoc-style HTML
 documentation. This allows a server to provide its own web-based documentation.
 
-DocCGIXMLRPCRequestHandler.set_server_title(*server_title*)
+`DocCGIXMLRPCRequestHandler.set_server_title(server_title)`
 :   Set the title used in the generated HTML documentation. This title will be used
     inside the HTML “title” element.
 
-DocCGIXMLRPCRequestHandler.set_server_name(*server_name*)
+`DocCGIXMLRPCRequestHandler.set_server_name(server_name)`
 :   Set the name used in the generated HTML documentation. This name will appear at
     the top of the generated documentation inside a “h1” element.
 
-DocCGIXMLRPCRequestHandler.set_server_documentation(*server_documentation*)
+`DocCGIXMLRPCRequestHandler.set_server_documentation(server_documentation)`
 :   Set the description used in the generated HTML documentation. This description
     will appear as a paragraph, below the server name, in the documentation.

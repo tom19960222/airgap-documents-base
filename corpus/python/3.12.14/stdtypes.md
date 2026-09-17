@@ -235,7 +235,7 @@ Notes:
 The int type implements the [`numbers.Integral`](numbers.md#numbers.Integral "numbers.Integral") [abstract base
 class](https://docs.python.org/3.12/glossary.html#term-abstract-base-class). In addition, it provides a few more methods:
 
-int.bit_length()
+`int.bit_length()`
 :   Return the number of bits necessary to represent an integer in binary,
     excluding the sign and leading zeros:
 
@@ -264,7 +264,7 @@ int.bit_length()
 
     Added in version 3.1.
 
-int.bit_count()
+`int.bit_count()`
 :   Return the number of ones in the binary representation of the absolute
     value of the integer. This is also known as the population count.
     Example:
@@ -288,7 +288,7 @@ int.bit_count()
 
     Added in version 3.10.
 
-int.to_bytes(*length=1*, *byteorder='big'*, *\**, *signed=False*)
+`int.to_bytes(length=1, byteorder='big', *, signed=False)`
 :   Return an array of bytes representing an integer.
 
     ```
@@ -347,7 +347,7 @@ int.to_bytes(*length=1*, *byteorder='big'*, *\**, *signed=False*)
 
     Changed in version 3.11: Added default argument values for `length` and `byteorder`.
 
-*classmethod* int.from_bytes(*bytes*, *byteorder='big'*, *\**, *signed=False*)
+`classmethod int.from_bytes(bytes, byteorder='big', *, signed=False)`
 :   Return the integer represented by the given array of bytes.
 
     ```
@@ -398,7 +398,7 @@ int.to_bytes(*length=1*, *byteorder='big'*, *\**, *signed=False*)
 
     Changed in version 3.11: Added default argument value for `byteorder`.
 
-int.as_integer_ratio()
+`int.as_integer_ratio()`
 :   Return a pair of integers whose ratio is equal to the original
     integer and has a positive denominator. The integer ratio of integers
     (whole numbers) is always the integer as the numerator and `1` as the
@@ -406,7 +406,7 @@ int.as_integer_ratio()
 
     Added in version 3.8.
 
-int.is_integer()
+`int.is_integer()`
 :   Returns `True`. Exists for duck type compatibility with [`float.is_integer()`](stdtypes.md#float.is_integer "float.is_integer").
 
     Added in version 3.12.
@@ -416,13 +416,13 @@ int.is_integer()
 The float type implements the [`numbers.Real`](numbers.md#numbers.Real "numbers.Real") [abstract base
 class](https://docs.python.org/3.12/glossary.html#term-abstract-base-class). float also has the following additional methods.
 
-float.as_integer_ratio()
+`float.as_integer_ratio()`
 :   Return a pair of integers whose ratio is exactly equal to the
     original float. The ratio is in lowest terms and has a positive denominator. Raises
     [`OverflowError`](exceptions.md#OverflowError "OverflowError") on infinities and a [`ValueError`](exceptions.md#ValueError "ValueError") on
     NaNs.
 
-float.is_integer()
+`float.is_integer()`
 :   Return `True` if the float instance is finite with integral
     value, and `False` otherwise:
 
@@ -441,13 +441,13 @@ contrast, hexadecimal strings allow exact representation and
 specification of floating-point numbers. This can be useful when
 debugging, and in numerical work.
 
-float.hex()
+`float.hex()`
 :   Return a representation of a floating-point number as a hexadecimal
     string. For finite floating-point numbers, this representation
     will always include a leading `0x` and a trailing `p` and
     exponent.
 
-*classmethod* float.fromhex(*s*)
+`classmethod float.fromhex(s)`
 :   Class method to return the float represented by a hexadecimal
     string *s*. The string *s* may have leading and trailing
     whitespace.
@@ -618,7 +618,7 @@ the iteration methods.
 One method needs to be defined for container objects to provide [iterable](https://docs.python.org/3.12/glossary.html#term-iterable)
 support:
 
-container.__iter__()
+`container.__iter__()`
 :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) object. The object is required to support the
     iterator protocol described below. If a container supports different types
     of iteration, additional methods can be provided to specifically request
@@ -631,14 +631,14 @@ container.__iter__()
 The iterator objects themselves are required to support the following two
 methods, which together form the *iterator protocol*:
 
-iterator.__iter__()
+`iterator.__iter__()`
 :   Return the [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) object itself. This is required to allow both
     containers and iterators to be used with the [`for`](https://docs.python.org/3.12/reference/compound_stmts.html#for) and
     [`in`](https://docs.python.org/3.12/reference/expressions.html#in) statements. This method corresponds to the
     [`tp_iter`](https://docs.python.org/3.12/c-api/typeobj.html#c.PyTypeObject.tp_iter "PyTypeObject.tp_iter") slot of the type structure for Python
     objects in the Python/C API.
 
-iterator.__next__()
+`iterator.__next__()`
 :   Return the next item from the [iterator](https://docs.python.org/3.12/glossary.html#term-iterator). If there are no further
     items, raise the [`StopIteration`](exceptions.md#StopIteration "StopIteration") exception. This method corresponds to
     the [`tp_iternext`](https://docs.python.org/3.12/c-api/typeobj.html#c.PyTypeObject.tp_iternext "PyTypeObject.tp_iternext") slot of the type structure for
@@ -863,7 +863,7 @@ Lists are mutable sequences, typically used to store collections of
 homogeneous items (where the precise degree of similarity will vary by
 application).
 
-*class* list([*iterable*])
+`class list([iterable])`
 :   Lists may be constructed in several ways:
 
     - Using a pair of square brackets to denote the empty list: `[]`
@@ -886,7 +886,7 @@ application).
     [mutable](stdtypes.md#typesseq-mutable) sequence operations. Lists also provide the
     following additional method:
 
-    sort(*\**, *key=None*, *reverse=False*)
+    `sort(*, key=None, reverse=False)`
     :   This method sorts the list in place, using only `<` comparisons
         between items. Exceptions are not suppressed - if any comparison operations
         fail, the entire sort operation will fail (and the list will likely be left
@@ -933,7 +933,7 @@ built-in). Tuples are also used for cases where an immutable sequence of
 homogeneous data is needed (such as allowing storage in a [`set`](stdtypes.md#set "set") or
 [`dict`](stdtypes.md#dict "dict") instance).
 
-*class* tuple([*iterable*])
+`class tuple([iterable])`
 :   Tuples may be constructed in a number of ways:
 
     - Using a pair of parentheses to denote the empty tuple: `()`
@@ -968,9 +968,9 @@ The [`range`](stdtypes.md#range "range") type represents an immutable sequence o
 commonly used for looping a specific number of times in [`for`](https://docs.python.org/3.12/reference/compound_stmts.html#for)
 loops.
 
-*class* range(*stop*)
+`class range(stop)`
 
-*class* range(*start*, *stop*[, *step*])
+`class range(start, stop[, step])`
 :   The arguments to the range constructor must be integers (either built-in
     [`int`](functions.md#int "int") or any object that implements the [`__index__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__index__ "object.__index__") special
     method). If the *step* argument is omitted, it defaults to `1`.
@@ -1018,14 +1018,14 @@ loops.
     only represent sequences that follow a strict pattern and repetition and
     concatenation will usually violate that pattern).
 
-    start
+    `start`
     :   The value of the *start* parameter (or `0` if the parameter was
         not supplied)
 
-    stop
+    `stop`
     :   The value of the *stop* parameter
 
-    step
+    `step`
     :   The value of the *step* parameter (or `1` if the parameter was
         not supplied)
 
@@ -1118,9 +1118,9 @@ Changed in version 3.3: For backwards compatibility with the Python 2 series, th
 once again permitted on string literals. It has no effect on the meaning
 of string literals and cannot be combined with the `r` prefix.
 
-*class* str(*object=''*)
+`class str(object='')`
 
-*class* str(*object=b''*, *encoding='utf-8'*, *errors='strict'*)
+`class str(object=b'', encoding='utf-8', errors='strict')`
 :   Return a [string](stdtypes.md#textseq) version of *object*. If *object* is not
     provided, returns the empty string. Otherwise, the behavior of `str()`
     depends on whether *encoding* or *errors* is given, as follows.
@@ -1173,7 +1173,7 @@ The [Text Processing Services](text.md#textservices) section of the standard lib
 other modules that provide various text related utilities (including regular
 expression support in the [`re`](re.md#module-re "re: Regular expression operations.") module).
 
-str.capitalize()
+`str.capitalize()`
 :   Return a copy of the string with its first character capitalized and the
     rest lowercased.
 
@@ -1181,7 +1181,7 @@ str.capitalize()
     This means that characters like digraphs will only have their first
     letter capitalized, instead of the full character.
 
-str.casefold()
+`str.casefold()`
 :   Return a casefolded copy of the string. Casefolded strings may be used for
     caseless matching.
 
@@ -1196,12 +1196,12 @@ str.casefold()
 
     Added in version 3.3.
 
-str.center(*width*[, *fillchar*])
+`str.center(width[, fillchar])`
 :   Return centered in a string of length *width*. Padding is done using the
     specified *fillchar* (default is an ASCII space). The original string is
     returned if *width* is less than or equal to `len(s)`.
 
-str.count(*sub*[, *start*[, *end*]])
+`str.count(sub[, start[, end]])`
 :   Return the number of non-overlapping occurrences of substring *sub* in the
     range [*start*, *end*]. Optional arguments *start* and *end* are
     interpreted as in slice notation.
@@ -1209,7 +1209,7 @@ str.count(*sub*[, *start*[, *end*]])
     If *sub* is empty, returns the number of empty strings between characters
     which is the length of the string plus one.
 
-str.encode(*encoding='utf-8'*, *errors='strict'*)
+`str.encode(encoding='utf-8', errors='strict')`
 :   Return the string encoded to [`bytes`](stdtypes.md#bytes "bytes").
 
     *encoding* defaults to `'utf-8'`;
@@ -1232,13 +1232,13 @@ str.encode(*encoding='utf-8'*, *errors='strict'*)
     Changed in version 3.9: The value of the *errors* argument is now checked in [Python Development Mode](devmode.md#devmode) and
     in [debug mode](https://docs.python.org/3.12/using/configure.html#debug-build).
 
-str.endswith(*suffix*[, *start*[, *end*]])
+`str.endswith(suffix[, start[, end]])`
 :   Return `True` if the string ends with the specified *suffix*, otherwise return
     `False`. *suffix* can also be a tuple of suffixes to look for. With optional
     *start*, test beginning at that position. With optional *end*, stop comparing
     at that position.
 
-str.expandtabs(*tabsize=8*)
+`str.expandtabs(tabsize=8)`
 :   Return a copy of the string where all tab characters are replaced by one or
     more spaces, depending on the current column and the given tab size. Tab
     positions occur every *tabsize* characters (default is 8, giving tab
@@ -1259,7 +1259,7 @@ str.expandtabs(*tabsize=8*)
     '01  012 0123    01234'
     ```
 
-str.find(*sub*[, *start*[, *end*]])
+`str.find(sub[, start[, end]])`
 :   Return the lowest index in the string where substring *sub* is found within
     the slice `s[start:end]`. Optional arguments *start* and *end* are
     interpreted as in slice notation. Return `-1` if *sub* is not found.
@@ -1275,7 +1275,7 @@ str.find(*sub*[, *start*[, *end*]])
     > True
     > ```
 
-str.format(*\*args*, *\*\*kwargs*)
+`str.format(*args, **kwargs)`
 :   Perform a string formatting operation. The string on which this method is
     called can contain literal text or replacement fields delimited by braces
     `{}`. Each replacement field contains either the numeric index of a
@@ -1306,7 +1306,7 @@ str.format(*\*args*, *\*\*kwargs*)
     temporarily the `LC_CTYPE` locale to the `LC_NUMERIC` locale in some
     cases.
 
-str.format_map(*mapping*)
+`str.format_map(mapping)`
 :   Similar to `str.format(**mapping)`, except that `mapping` is
     used directly and not copied to a [`dict`](stdtypes.md#dict "dict"). This is useful
     if for example `mapping` is a dict subclass:
@@ -1322,17 +1322,17 @@ str.format_map(*mapping*)
 
     Added in version 3.2.
 
-str.index(*sub*[, *start*[, *end*]])
+`str.index(sub[, start[, end]])`
 :   Like [`find()`](stdtypes.md#str.find "str.find"), but raise [`ValueError`](exceptions.md#ValueError "ValueError") when the substring is
     not found.
 
-str.isalnum()
+`str.isalnum()`
 :   Return `True` if all characters in the string are alphanumeric and there is at
     least one character, `False` otherwise. A character `c` is alphanumeric if one
     of the following returns `True`: `c.isalpha()`, `c.isdecimal()`,
     `c.isdigit()`, or `c.isnumeric()`.
 
-str.isalpha()
+`str.isalpha()`
 :   Return `True` if all characters in the string are alphabetic and there is at least
     one character, `False` otherwise. Alphabetic characters are those characters defined
     in the Unicode character database as “Letter”, i.e., those with general category
@@ -1340,14 +1340,14 @@ str.isalpha()
     from the [Alphabetic property defined in the section 4.10 ‘Letters, Alphabetic, and
     Ideographic’ of the Unicode Standard](https://www.unicode.org/versions/Unicode15.0.0/ch04.pdf).
 
-str.isascii()
+`str.isascii()`
 :   Return `True` if the string is empty or all characters in the string are ASCII,
     `False` otherwise.
     ASCII characters have code points in the range U+0000-U+007F.
 
     Added in version 3.7.
 
-str.isdecimal()
+`str.isdecimal()`
 :   Return `True` if all characters in the string are decimal
     characters and there is at least one character, `False`
     otherwise. Decimal characters are those that can be used to form
@@ -1355,7 +1355,7 @@ str.isdecimal()
     ZERO. Formally a decimal character is a character in the Unicode
     General Category “Nd”.
 
-str.isdigit()
+`str.isdigit()`
 :   Return `True` if all characters in the string are digits and there is at least one
     character, `False` otherwise. Digits include decimal characters and digits that need
     special handling, such as the compatibility superscript digits.
@@ -1363,7 +1363,7 @@ str.isdigit()
     like the Kharosthi numbers. Formally, a digit is a character that has the
     property value Numeric_Type=Digit or Numeric_Type=Decimal.
 
-str.isidentifier()
+`str.isidentifier()`
 :   Return `True` if the string is a valid identifier according to the language
     definition, section [Identifiers and keywords](https://docs.python.org/3.12/reference/lexical_analysis.html#identifiers).
 
@@ -1381,11 +1381,11 @@ str.isidentifier()
     (True, True)
     ```
 
-str.islower()
+`str.islower()`
 :   Return `True` if all cased characters [[4]](stdtypes.md#id15) in the string are lowercase and
     there is at least one cased character, `False` otherwise.
 
-str.isnumeric()
+`str.isnumeric()`
 :   Return `True` if all characters in the string are numeric
     characters, and there is at least one character, `False`
     otherwise. Numeric characters include digit characters, and all characters
@@ -1393,7 +1393,7 @@ str.isnumeric()
     VULGAR FRACTION ONE FIFTH. Formally, numeric characters are those with the property
     value Numeric_Type=Digit, Numeric_Type=Decimal or Numeric_Type=Numeric.
 
-str.isprintable()
+`str.isprintable()`
 :   Return true if all characters in the string are printable, false if it
     contains at least one non-printable character.
 
@@ -1408,7 +1408,7 @@ str.isprintable()
     Nonprintable characters are those in group Separator or Other (Z or C),
     except the ASCII space.
 
-str.isspace()
+`str.isspace()`
 :   Return `True` if there are only whitespace characters in the string and there is
     at least one character, `False` otherwise.
 
@@ -1417,12 +1417,12 @@ str.isspace()
     (“Separator, space”), or its bidirectional class is one of `WS`,
     `B`, or `S`.
 
-str.istitle()
+`str.istitle()`
 :   Return `True` if the string is a titlecased string and there is at least one
     character, for example uppercase characters may only follow uncased characters
     and lowercase characters only cased ones. Return `False` otherwise.
 
-str.isupper()
+`str.isupper()`
 :   Return `True` if all cased characters [[4]](stdtypes.md#id15) in the string are uppercase and
     there is at least one cased character, `False` otherwise.
 
@@ -1437,25 +1437,25 @@ str.isupper()
     False
     ```
 
-str.join(*iterable*)
+`str.join(iterable)`
 :   Return a string which is the concatenation of the strings in *iterable*.
     A [`TypeError`](exceptions.md#TypeError "TypeError") will be raised if there are any non-string values in
     *iterable*, including [`bytes`](stdtypes.md#bytes "bytes") objects. The separator between
     elements is the string providing this method.
 
-str.ljust(*width*[, *fillchar*])
+`str.ljust(width[, fillchar])`
 :   Return the string left justified in a string of length *width*. Padding is
     done using the specified *fillchar* (default is an ASCII space). The
     original string is returned if *width* is less than or equal to `len(s)`.
 
-str.lower()
+`str.lower()`
 :   Return a copy of the string with all the cased characters [[4]](stdtypes.md#id15) converted to
     lowercase.
 
     The lowercasing algorithm used is
     [described in section 3.13 ‘Default Case Folding’ of the Unicode Standard](https://www.unicode.org/versions/Unicode15.0.0/ch03.pdf).
 
-str.lstrip([*chars*])
+`str.lstrip([chars])`
 :   Return a copy of the string with leading characters removed. The *chars*
     argument is a string specifying the set of characters to be removed. If omitted
     or `None`, the *chars* argument defaults to removing whitespace. The *chars*
@@ -1478,7 +1478,7 @@ str.lstrip([*chars*])
     'three!'
     ```
 
-*static* str.maketrans(*x*[, *y*[, *z*]])
+`static str.maketrans(x[, y[, z]])`
 :   This static method returns a translation table usable for [`str.translate()`](stdtypes.md#str.translate "str.translate").
 
     If there is only one argument, it must be a dictionary mapping Unicode
@@ -1491,13 +1491,13 @@ str.lstrip([*chars*])
     the same position in y. If there is a third argument, it must be a string,
     whose characters will be mapped to `None` in the result.
 
-str.partition(*sep*)
+`str.partition(sep)`
 :   Split the string at the first occurrence of *sep*, and return a 3-tuple
     containing the part before the separator, the separator itself, and the part
     after the separator. If the separator is not found, return a 3-tuple containing
     the string itself, followed by two empty strings.
 
-str.removeprefix(*prefix*, */*)
+`str.removeprefix(prefix, /)`
 :   If the string starts with the *prefix* string, return
     `string[len(prefix):]`. Otherwise, return a copy of the original
     string:
@@ -1511,7 +1511,7 @@ str.removeprefix(*prefix*, */*)
 
     Added in version 3.9.
 
-str.removesuffix(*suffix*, */*)
+`str.removesuffix(suffix, /)`
 :   If the string ends with the *suffix* string and that *suffix* is not empty,
     return `string[:-len(suffix)]`. Otherwise, return a copy of the
     original string:
@@ -1525,39 +1525,39 @@ str.removesuffix(*suffix*, */*)
 
     Added in version 3.9.
 
-str.replace(*old*, *new*[, *count*])
+`str.replace(old, new[, count])`
 :   Return a copy of the string with all occurrences of substring *old* replaced by
     *new*. If the optional argument *count* is given, only the first *count*
     occurrences are replaced.
 
-str.rfind(*sub*[, *start*[, *end*]])
+`str.rfind(sub[, start[, end]])`
 :   Return the highest index in the string where substring *sub* is found, such
     that *sub* is contained within `s[start:end]`. Optional arguments *start*
     and *end* are interpreted as in slice notation. Return `-1` on failure.
 
-str.rindex(*sub*[, *start*[, *end*]])
+`str.rindex(sub[, start[, end]])`
 :   Like [`rfind()`](stdtypes.md#str.rfind "str.rfind") but raises [`ValueError`](exceptions.md#ValueError "ValueError") when the substring *sub* is not
     found.
 
-str.rjust(*width*[, *fillchar*])
+`str.rjust(width[, fillchar])`
 :   Return the string right justified in a string of length *width*. Padding is
     done using the specified *fillchar* (default is an ASCII space). The
     original string is returned if *width* is less than or equal to `len(s)`.
 
-str.rpartition(*sep*)
+`str.rpartition(sep)`
 :   Split the string at the last occurrence of *sep*, and return a 3-tuple
     containing the part before the separator, the separator itself, and the part
     after the separator. If the separator is not found, return a 3-tuple containing
     two empty strings, followed by the string itself.
 
-str.rsplit(*sep=None*, *maxsplit=-1*)
+`str.rsplit(sep=None, maxsplit=-1)`
 :   Return a list of the words in the string, using *sep* as the delimiter string.
     If *maxsplit* is given, at most *maxsplit* splits are done, the *rightmost*
     ones. If *sep* is not specified or `None`, any whitespace string is a
     separator. Except for splitting from the right, [`rsplit()`](stdtypes.md#str.rsplit "str.rsplit") behaves like
     [`split()`](stdtypes.md#str.split "str.split") which is described in detail below.
 
-str.rstrip([*chars*])
+`str.rstrip([chars])`
 :   Return a copy of the string with trailing characters removed. The *chars*
     argument is a string specifying the set of characters to be removed. If omitted
     or `None`, the *chars* argument defaults to removing whitespace. The *chars*
@@ -1580,7 +1580,7 @@ str.rstrip([*chars*])
     'Monty'
     ```
 
-str.split(*sep=None*, *maxsplit=-1*)
+`str.split(sep=None, maxsplit=-1)`
 :   Return a list of the words in the string, using *sep* as the delimiter
     string. If *maxsplit* is given, at most *maxsplit* splits are done (thus,
     the list will have at most `maxsplit+1` elements). If *maxsplit* is not
@@ -1625,7 +1625,7 @@ str.split(*sep=None*, *maxsplit=-1*)
     ['1', '2', '3']
     ```
 
-str.splitlines(*keepends=False*)
+`str.splitlines(keepends=False)`
 :   Return a list of the lines in the string, breaking at line boundaries. Line
     breaks are not included in the resulting list unless *keepends* is given and
     true.
@@ -1678,13 +1678,13 @@ str.splitlines(*keepends=False*)
     ['Two lines', '']
     ```
 
-str.startswith(*prefix*[, *start*[, *end*]])
+`str.startswith(prefix[, start[, end]])`
 :   Return `True` if string starts with the *prefix*, otherwise return `False`.
     *prefix* can also be a tuple of prefixes to look for. With optional *start*,
     test string beginning at that position. With optional *end*, stop comparing
     string at that position.
 
-str.strip([*chars*])
+`str.strip([chars])`
 :   Return a copy of the string with the leading and trailing characters removed.
     The *chars* argument is a string specifying the set of characters to be removed.
     If omitted or `None`, the *chars* argument defaults to removing whitespace.
@@ -1710,12 +1710,12 @@ str.strip([*chars*])
     'Section 3.2.1 Issue #32'
     ```
 
-str.swapcase()
+`str.swapcase()`
 :   Return a copy of the string with uppercase characters converted to lowercase and
     vice versa. Note that it is not necessarily true that
     `s.swapcase().swapcase() == s`.
 
-str.title()
+`str.title()`
 :   Return a titlecased version of the string where words start with an uppercase
     character and the remaining characters are lowercase.
 
@@ -1753,7 +1753,7 @@ str.title()
     "They're Bill's Friends."
     ```
 
-str.translate(*table*)
+`str.translate(table)`
 :   Return a copy of the string in which each character has been mapped through
     the given translation table. The table must be an object that implements
     indexing via [`__getitem__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getitem__ "object.__getitem__"), typically a [mapping](https://docs.python.org/3.12/glossary.html#term-mapping) or
@@ -1769,7 +1769,7 @@ str.translate(*table*)
     See also the [`codecs`](codecs.md#module-codecs "codecs: Encode and decode data and streams.") module for a more flexible approach to custom
     character mappings.
 
-str.upper()
+`str.upper()`
 :   Return a copy of the string with all the cased characters [[4]](stdtypes.md#id15) converted to
     uppercase. Note that `s.upper().isupper()` might be `False` if `s`
     contains uncased characters or if the Unicode category of the resulting
@@ -1779,7 +1779,7 @@ str.upper()
     The uppercasing algorithm used is
     [described in section 3.13 ‘Default Case Folding’ of the Unicode Standard](https://www.unicode.org/versions/Unicode15.0.0/ch03.pdf).
 
-str.zfill(*width*)
+`str.zfill(width)`
 :   Return a copy of the string left filled with ASCII `'0'` digits to
     make a string of length *width*. A leading sign prefix (`'+'`/`'-'`)
     is handled by inserting the padding *after* the sign character rather
@@ -1925,7 +1925,7 @@ binary protocols are based on the ASCII text encoding, bytes objects offer
 several methods that are only valid when working with ASCII compatible
 data and are closely related to string objects in a variety of other ways.
 
-*class* bytes([*source*[, *encoding*[, *errors*]]])
+`class bytes([source[, encoding[, errors]]])`
 :   Firstly, the syntax for bytes literals is largely the same as that for string
     literals, except that a `b` prefix is added:
 
@@ -1964,7 +1964,7 @@ data and are closely related to string objects in a variety of other ways.
     numbers are a commonly used format for describing binary data. Accordingly,
     the bytes type has an additional class method to read data in that format:
 
-    *classmethod* fromhex(*string*)
+    `classmethod fromhex(string)`
     :   This [`bytes`](stdtypes.md#bytes "bytes") class method returns a bytes object, decoding the
         given string object. The string must contain two hexadecimal digits per
         byte, with ASCII whitespace being ignored.
@@ -1980,7 +1980,7 @@ data and are closely related to string objects in a variety of other ways.
     A reverse conversion function exists to transform a bytes object into its
     hexadecimal representation.
 
-    hex([*sep*[, *bytes_per_sep*]])
+    `hex([sep[, bytes_per_sep]])`
     :   Return a string object containing two hexadecimal digits for each
         byte in the instance.
 
@@ -2025,7 +2025,7 @@ always convert a bytes object into a list of integers using `list(b)`.
 [`bytearray`](stdtypes.md#bytearray "bytearray") objects are a mutable counterpart to [`bytes`](stdtypes.md#bytes "bytes")
 objects.
 
-*class* bytearray([*source*[, *encoding*[, *errors*]]])
+`class bytearray([source[, encoding[, errors]]])`
 :   There is no dedicated literal syntax for bytearray objects, instead
     they are always created by calling the constructor:
 
@@ -2044,7 +2044,7 @@ objects.
     numbers are a commonly used format for describing binary data. Accordingly,
     the bytearray type has an additional class method to read data in that format:
 
-    *classmethod* fromhex(*string*)
+    `classmethod fromhex(string)`
     :   This [`bytearray`](stdtypes.md#bytearray "bytearray") class method returns bytearray object, decoding
         the given string object. The string must contain two hexadecimal digits
         per byte, with ASCII whitespace being ignored.
@@ -2060,7 +2060,7 @@ objects.
     A reverse conversion function exists to transform a bytearray object into its
     hexadecimal representation.
 
-    hex([*sep*[, *bytes_per_sep*]])
+    `hex([sep[, bytes_per_sep]])`
     :   Return a string object containing two hexadecimal digits for each
         byte in the instance.
 
@@ -2123,9 +2123,9 @@ binary data. These restrictions are covered below.
 The following methods on bytes and bytearray objects can be used with
 arbitrary binary data.
 
-bytes.count(*sub*[, *start*[, *end*]])
+`bytes.count(sub[, start[, end]])`
 
-bytearray.count(*sub*[, *start*[, *end*]])
+`bytearray.count(sub[, start[, end]])`
 :   Return the number of non-overlapping occurrences of subsequence *sub* in
     the range [*start*, *end*]. Optional arguments *start* and *end* are
     interpreted as in slice notation.
@@ -2138,9 +2138,9 @@ bytearray.count(*sub*[, *start*[, *end*]])
 
     Changed in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.
 
-bytes.removeprefix(*prefix*, */*)
+`bytes.removeprefix(prefix, /)`
 
-bytearray.removeprefix(*prefix*, */*)
+`bytearray.removeprefix(prefix, /)`
 :   If the binary data starts with the *prefix* string, return
     `bytes[len(prefix):]`. Otherwise, return a copy of the original
     binary data:
@@ -2161,9 +2161,9 @@ bytearray.removeprefix(*prefix*, */*)
 
     Added in version 3.9.
 
-bytes.removesuffix(*suffix*, */*)
+`bytes.removesuffix(suffix, /)`
 
-bytearray.removesuffix(*suffix*, */*)
+`bytearray.removesuffix(suffix, /)`
 :   If the binary data ends with the *suffix* string and that *suffix* is
     not empty, return `bytes[:-len(suffix)]`. Otherwise, return a copy of
     the original binary data:
@@ -2184,9 +2184,9 @@ bytearray.removesuffix(*suffix*, */*)
 
     Added in version 3.9.
 
-bytes.decode(*encoding='utf-8'*, *errors='strict'*)
+`bytes.decode(encoding='utf-8', errors='strict')`
 
-bytearray.decode(*encoding='utf-8'*, *errors='strict'*)
+`bytearray.decode(encoding='utf-8', errors='strict')`
 :   Return the bytes decoded to a [`str`](stdtypes.md#str "str").
 
     *encoding* defaults to `'utf-8'`;
@@ -2213,9 +2213,9 @@ bytearray.decode(*encoding='utf-8'*, *errors='strict'*)
     Changed in version 3.9: The value of the *errors* argument is now checked in [Python Development Mode](devmode.md#devmode) and
     in [debug mode](https://docs.python.org/3.12/using/configure.html#debug-build).
 
-bytes.endswith(*suffix*[, *start*[, *end*]])
+`bytes.endswith(suffix[, start[, end]])`
 
-bytearray.endswith(*suffix*[, *start*[, *end*]])
+`bytearray.endswith(suffix[, start[, end]])`
 :   Return `True` if the binary data ends with the specified *suffix*,
     otherwise return `False`. *suffix* can also be a tuple of suffixes to
     look for. With optional *start*, test beginning at that position. With
@@ -2223,9 +2223,9 @@ bytearray.endswith(*suffix*[, *start*[, *end*]])
 
     The suffix(es) to search for may be any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
-bytes.find(*sub*[, *start*[, *end*]])
+`bytes.find(sub[, start[, end]])`
 
-bytearray.find(*sub*[, *start*[, *end*]])
+`bytearray.find(sub[, start[, end]])`
 :   Return the lowest index in the data where the subsequence *sub* is found,
     such that *sub* is contained in the slice `s[start:end]`. Optional
     arguments *start* and *end* are interpreted as in slice notation. Return
@@ -2247,9 +2247,9 @@ bytearray.find(*sub*[, *start*[, *end*]])
 
     Changed in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.
 
-bytes.index(*sub*[, *start*[, *end*]])
+`bytes.index(sub[, start[, end]])`
 
-bytearray.index(*sub*[, *start*[, *end*]])
+`bytearray.index(sub[, start[, end]])`
 :   Like [`find()`](stdtypes.md#bytes.find "bytes.find"), but raise [`ValueError`](exceptions.md#ValueError "ValueError") when the
     subsequence is not found.
 
@@ -2258,9 +2258,9 @@ bytearray.index(*sub*[, *start*[, *end*]])
 
     Changed in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.
 
-bytes.join(*iterable*)
+`bytes.join(iterable)`
 
-bytearray.join(*iterable*)
+`bytearray.join(iterable)`
 :   Return a bytes or bytearray object which is the concatenation of the
     binary data sequences in *iterable*. A [`TypeError`](exceptions.md#TypeError "TypeError") will be raised
     if there are any values in *iterable* that are not [bytes-like
@@ -2268,9 +2268,9 @@ bytearray.join(*iterable*)
     separator between elements is the contents of the bytes or
     bytearray object providing this method.
 
-*static* bytes.maketrans(*from*, *to*)
+`static bytes.maketrans(from, to)`
 
-*static* bytearray.maketrans(*from*, *to*)
+`static bytearray.maketrans(from, to)`
 :   This static method returns a translation table usable for
     [`bytes.translate()`](stdtypes.md#bytes.translate "bytes.translate") that will map each character in *from* into the
     character at the same position in *to*; *from* and *to* must both be
@@ -2278,9 +2278,9 @@ bytearray.join(*iterable*)
 
     Added in version 3.1.
 
-bytes.partition(*sep*)
+`bytes.partition(sep)`
 
-bytearray.partition(*sep*)
+`bytearray.partition(sep)`
 :   Split the sequence at the first occurrence of *sep*, and return a 3-tuple
     containing the part before the separator, the separator itself or its
     bytearray copy, and the part after the separator.
@@ -2290,9 +2290,9 @@ bytearray.partition(*sep*)
 
     The separator to search for may be any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
-bytes.replace(*old*, *new*[, *count*])
+`bytes.replace(old, new[, count])`
 
-bytearray.replace(*old*, *new*[, *count*])
+`bytearray.replace(old, new[, count])`
 :   Return a copy of the sequence with all occurrences of subsequence *old*
     replaced by *new*. If the optional argument *count* is given, only the
     first *count* occurrences are replaced.
@@ -2305,9 +2305,9 @@ bytearray.replace(*old*, *new*[, *count*])
     > The bytearray version of this method does *not* operate in place - it
     > always produces a new object, even if no changes were made.
 
-bytes.rfind(*sub*[, *start*[, *end*]])
+`bytes.rfind(sub[, start[, end]])`
 
-bytearray.rfind(*sub*[, *start*[, *end*]])
+`bytearray.rfind(sub[, start[, end]])`
 :   Return the highest index in the sequence where the subsequence *sub* is
     found, such that *sub* is contained within `s[start:end]`. Optional
     arguments *start* and *end* are interpreted as in slice notation. Return
@@ -2318,9 +2318,9 @@ bytearray.rfind(*sub*[, *start*[, *end*]])
 
     Changed in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.
 
-bytes.rindex(*sub*[, *start*[, *end*]])
+`bytes.rindex(sub[, start[, end]])`
 
-bytearray.rindex(*sub*[, *start*[, *end*]])
+`bytearray.rindex(sub[, start[, end]])`
 :   Like [`rfind()`](stdtypes.md#bytes.rfind "bytes.rfind") but raises [`ValueError`](exceptions.md#ValueError "ValueError") when the
     subsequence *sub* is not found.
 
@@ -2329,9 +2329,9 @@ bytearray.rindex(*sub*[, *start*[, *end*]])
 
     Changed in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.
 
-bytes.rpartition(*sep*)
+`bytes.rpartition(sep)`
 
-bytearray.rpartition(*sep*)
+`bytearray.rpartition(sep)`
 :   Split the sequence at the last occurrence of *sep*, and return a 3-tuple
     containing the part before the separator, the separator itself or its
     bytearray copy, and the part after the separator.
@@ -2341,9 +2341,9 @@ bytearray.rpartition(*sep*)
 
     The separator to search for may be any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
-bytes.startswith(*prefix*[, *start*[, *end*]])
+`bytes.startswith(prefix[, start[, end]])`
 
-bytearray.startswith(*prefix*[, *start*[, *end*]])
+`bytearray.startswith(prefix[, start[, end]])`
 :   Return `True` if the binary data starts with the specified *prefix*,
     otherwise return `False`. *prefix* can also be a tuple of prefixes to
     look for. With optional *start*, test beginning at that position. With
@@ -2351,9 +2351,9 @@ bytearray.startswith(*prefix*[, *start*[, *end*]])
 
     The prefix(es) to search for may be any [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
-bytes.translate(*table*, */*, *delete=b''*)
+`bytes.translate(table, /, delete=b'')`
 
-bytearray.translate(*table*, */*, *delete=b''*)
+`bytearray.translate(table, /, delete=b'')`
 :   Return a copy of the bytes or bytearray object where all bytes occurring in
     the optional argument *delete* are removed, and the remaining bytes have
     been mapped through the given translation table, which must be a bytes
@@ -2378,9 +2378,9 @@ with arbitrary binary data by passing appropriate arguments. Note that all of
 the bytearray methods in this section do *not* operate in place, and instead
 produce new objects.
 
-bytes.center(*width*[, *fillbyte*])
+`bytes.center(width[, fillbyte])`
 
-bytearray.center(*width*[, *fillbyte*])
+`bytearray.center(width[, fillbyte])`
 :   Return a copy of the object centered in a sequence of length *width*.
     Padding is done using the specified *fillbyte* (default is an ASCII
     space). For [`bytes`](stdtypes.md#bytes "bytes") objects, the original sequence is returned if
@@ -2391,9 +2391,9 @@ bytearray.center(*width*[, *fillbyte*])
     > The bytearray version of this method does *not* operate in place -
     > it always produces a new object, even if no changes were made.
 
-bytes.ljust(*width*[, *fillbyte*])
+`bytes.ljust(width[, fillbyte])`
 
-bytearray.ljust(*width*[, *fillbyte*])
+`bytearray.ljust(width[, fillbyte])`
 :   Return a copy of the object left justified in a sequence of length *width*.
     Padding is done using the specified *fillbyte* (default is an ASCII
     space). For [`bytes`](stdtypes.md#bytes "bytes") objects, the original sequence is returned if
@@ -2404,9 +2404,9 @@ bytearray.ljust(*width*[, *fillbyte*])
     > The bytearray version of this method does *not* operate in place -
     > it always produces a new object, even if no changes were made.
 
-bytes.lstrip([*chars*])
+`bytes.lstrip([chars])`
 
-bytearray.lstrip([*chars*])
+`bytearray.lstrip([chars])`
 :   Return a copy of the sequence with specified leading bytes removed. The
     *chars* argument is a binary sequence specifying the set of byte values to
     be removed - the name refers to the fact this method is usually used with
@@ -2438,9 +2438,9 @@ bytearray.lstrip([*chars*])
     > The bytearray version of this method does *not* operate in place -
     > it always produces a new object, even if no changes were made.
 
-bytes.rjust(*width*[, *fillbyte*])
+`bytes.rjust(width[, fillbyte])`
 
-bytearray.rjust(*width*[, *fillbyte*])
+`bytearray.rjust(width[, fillbyte])`
 :   Return a copy of the object right justified in a sequence of length *width*.
     Padding is done using the specified *fillbyte* (default is an ASCII
     space). For [`bytes`](stdtypes.md#bytes "bytes") objects, the original sequence is returned if
@@ -2451,9 +2451,9 @@ bytearray.rjust(*width*[, *fillbyte*])
     > The bytearray version of this method does *not* operate in place -
     > it always produces a new object, even if no changes were made.
 
-bytes.rsplit(*sep=None*, *maxsplit=-1*)
+`bytes.rsplit(sep=None, maxsplit=-1)`
 
-bytearray.rsplit(*sep=None*, *maxsplit=-1*)
+`bytearray.rsplit(sep=None, maxsplit=-1)`
 :   Split the binary sequence into subsequences of the same type, using *sep*
     as the delimiter string. If *maxsplit* is given, at most *maxsplit* splits
     are done, the *rightmost* ones. If *sep* is not specified or `None`,
@@ -2461,9 +2461,9 @@ bytearray.rsplit(*sep=None*, *maxsplit=-1*)
     Except for splitting from the right, [`rsplit()`](stdtypes.md#bytearray.rsplit "bytearray.rsplit") behaves like
     [`split()`](stdtypes.md#bytearray.split "bytearray.split") which is described in detail below.
 
-bytes.rstrip([*chars*])
+`bytes.rstrip([chars])`
 
-bytearray.rstrip([*chars*])
+`bytearray.rstrip([chars])`
 :   Return a copy of the sequence with specified trailing bytes removed. The
     *chars* argument is a binary sequence specifying the set of byte values to
     be removed - the name refers to the fact this method is usually used with
@@ -2495,9 +2495,9 @@ bytearray.rstrip([*chars*])
     > The bytearray version of this method does *not* operate in place -
     > it always produces a new object, even if no changes were made.
 
-bytes.split(*sep=None*, *maxsplit=-1*)
+`bytes.split(sep=None, maxsplit=-1)`
 
-bytearray.split(*sep=None*, *maxsplit=-1*)
+`bytearray.split(sep=None, maxsplit=-1)`
 :   Split the binary sequence into subsequences of the same type, using *sep*
     as the delimiter string. If *maxsplit* is given and non-negative, at most
     *maxsplit* splits are done (thus, the list will have at most `maxsplit+1`
@@ -2543,9 +2543,9 @@ bytearray.split(*sep=None*, *maxsplit=-1*)
     [b'1', b'2', b'3']
     ```
 
-bytes.strip([*chars*])
+`bytes.strip([chars])`
 
-bytearray.strip([*chars*])
+`bytearray.strip([chars])`
 :   Return a copy of the sequence with specified leading and trailing bytes
     removed. The *chars* argument is a binary sequence specifying the set of
     byte values to be removed - the name refers to the fact this method is
@@ -2574,9 +2574,9 @@ compatible binary formats and should not be applied to arbitrary binary data.
 Note that all of the bytearray methods in this section do *not* operate in
 place, and instead produce new objects.
 
-bytes.capitalize()
+`bytes.capitalize()`
 
-bytearray.capitalize()
+`bytearray.capitalize()`
 :   Return a copy of the sequence with each byte interpreted as an ASCII
     character, and the first byte capitalized and the rest lowercased.
     Non-ASCII byte values are passed through unchanged.
@@ -2586,9 +2586,9 @@ bytearray.capitalize()
     > The bytearray version of this method does *not* operate in place - it
     > always produces a new object, even if no changes were made.
 
-bytes.expandtabs(*tabsize=8*)
+`bytes.expandtabs(tabsize=8)`
 
-bytearray.expandtabs(*tabsize=8*)
+`bytearray.expandtabs(tabsize=8)`
 :   Return a copy of the sequence where all ASCII tab characters are replaced
     by one or more ASCII spaces, depending on the current column and the given
     tab size. Tab positions occur every *tabsize* bytes (default is 8,
@@ -2615,9 +2615,9 @@ bytearray.expandtabs(*tabsize=8*)
     > The bytearray version of this method does *not* operate in place - it
     > always produces a new object, even if no changes were made.
 
-bytes.isalnum()
+`bytes.isalnum()`
 
-bytearray.isalnum()
+`bytearray.isalnum()`
 :   Return `True` if all bytes in the sequence are alphabetical ASCII characters
     or ASCII decimal digits and the sequence is not empty, `False` otherwise.
     Alphabetic ASCII characters are those byte values in the sequence
@@ -2633,9 +2633,9 @@ bytearray.isalnum()
     False
     ```
 
-bytes.isalpha()
+`bytes.isalpha()`
 
-bytearray.isalpha()
+`bytearray.isalpha()`
 :   Return `True` if all bytes in the sequence are alphabetic ASCII characters
     and the sequence is not empty, `False` otherwise. Alphabetic ASCII
     characters are those byte values in the sequence
@@ -2650,18 +2650,18 @@ bytearray.isalpha()
     False
     ```
 
-bytes.isascii()
+`bytes.isascii()`
 
-bytearray.isascii()
+`bytearray.isascii()`
 :   Return `True` if the sequence is empty or all bytes in the sequence are ASCII,
     `False` otherwise.
     ASCII bytes are in the range 0-0x7F.
 
     Added in version 3.7.
 
-bytes.isdigit()
+`bytes.isdigit()`
 
-bytearray.isdigit()
+`bytearray.isdigit()`
 :   Return `True` if all bytes in the sequence are ASCII decimal digits
     and the sequence is not empty, `False` otherwise. ASCII decimal digits are
     those byte values in the sequence `b'0123456789'`.
@@ -2675,9 +2675,9 @@ bytearray.isdigit()
     False
     ```
 
-bytes.islower()
+`bytes.islower()`
 
-bytearray.islower()
+`bytearray.islower()`
 :   Return `True` if there is at least one lowercase ASCII character
     in the sequence and no uppercase ASCII characters, `False` otherwise.
 
@@ -2694,17 +2694,17 @@ bytearray.islower()
     `b'abcdefghijklmnopqrstuvwxyz'`. Uppercase ASCII characters
     are those byte values in the sequence `b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'`.
 
-bytes.isspace()
+`bytes.isspace()`
 
-bytearray.isspace()
+`bytearray.isspace()`
 :   Return `True` if all bytes in the sequence are ASCII whitespace and the
     sequence is not empty, `False` otherwise. ASCII whitespace characters are
     those byte values in the sequence `b' \t\n\r\x0b\f'` (space, tab, newline,
     carriage return, vertical tab, form feed).
 
-bytes.istitle()
+`bytes.istitle()`
 
-bytearray.istitle()
+`bytearray.istitle()`
 :   Return `True` if the sequence is ASCII titlecase and the sequence is not
     empty, `False` otherwise. See [`bytes.title()`](stdtypes.md#bytes.title "bytes.title") for more details on the
     definition of “titlecase”.
@@ -2718,9 +2718,9 @@ bytearray.istitle()
     False
     ```
 
-bytes.isupper()
+`bytes.isupper()`
 
-bytearray.isupper()
+`bytearray.isupper()`
 :   Return `True` if there is at least one uppercase alphabetic ASCII character
     in the sequence and no lowercase ASCII characters, `False` otherwise.
 
@@ -2737,9 +2737,9 @@ bytearray.isupper()
     `b'abcdefghijklmnopqrstuvwxyz'`. Uppercase ASCII characters
     are those byte values in the sequence `b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'`.
 
-bytes.lower()
+`bytes.lower()`
 
-bytearray.lower()
+`bytearray.lower()`
 :   Return a copy of the sequence with all the uppercase ASCII characters
     converted to their corresponding lowercase counterpart.
 
@@ -2759,9 +2759,9 @@ bytearray.lower()
     > The bytearray version of this method does *not* operate in place - it
     > always produces a new object, even if no changes were made.
 
-bytes.splitlines(*keepends=False*)
+`bytes.splitlines(keepends=False)`
 
-bytearray.splitlines(*keepends=False*)
+`bytearray.splitlines(keepends=False)`
 :   Return a list of the lines in the binary sequence, breaking at ASCII
     line boundaries. This method uses the [universal newlines](https://docs.python.org/3.12/glossary.html#term-universal-newlines) approach
     to splitting lines. Line breaks are not included in the resulting list
@@ -2787,9 +2787,9 @@ bytearray.splitlines(*keepends=False*)
     ([], [b'One line'])
     ```
 
-bytes.swapcase()
+`bytes.swapcase()`
 
-bytearray.swapcase()
+`bytearray.swapcase()`
 :   Return a copy of the sequence with all the lowercase ASCII characters
     converted to their corresponding uppercase counterpart and vice-versa.
 
@@ -2814,9 +2814,9 @@ bytearray.swapcase()
     > The bytearray version of this method does *not* operate in place - it
     > always produces a new object, even if no changes were made.
 
-bytes.title()
+`bytes.title()`
 
-bytearray.title()
+`bytearray.title()`
 :   Return a titlecased version of the binary sequence where words start with
     an uppercase ASCII character and the remaining characters are lowercase.
     Uncased byte values are left unmodified.
@@ -2862,9 +2862,9 @@ bytearray.title()
     > The bytearray version of this method does *not* operate in place - it
     > always produces a new object, even if no changes were made.
 
-bytes.upper()
+`bytes.upper()`
 
-bytearray.upper()
+`bytearray.upper()`
 :   Return a copy of the sequence with all the lowercase ASCII characters
     converted to their corresponding uppercase counterpart.
 
@@ -2884,9 +2884,9 @@ bytearray.upper()
     > The bytearray version of this method does *not* operate in place - it
     > always produces a new object, even if no changes were made.
 
-bytes.zfill(*width*)
+`bytes.zfill(width)`
 
-bytearray.zfill(*width*)
+`bytearray.zfill(width)`
 :   Return a copy of the sequence left filled with ASCII `b'0'` digits to
     make a sequence of length *width*. A leading sign prefix (`b'+'`/
     `b'-'`) is handled by inserting the padding *after* the sign character
@@ -3034,7 +3034,7 @@ Added in version 3.5.
 of an object that supports the [buffer protocol](https://docs.python.org/3.12/c-api/buffer.html#bufferobjects) without
 copying.
 
-*class* memoryview(*object*)
+`class memoryview(object)`
 :   Create a [`memoryview`](stdtypes.md#memoryview "memoryview") that references *object*. *object* must
     support the buffer protocol. Built-in objects that support the buffer
     protocol include [`bytes`](stdtypes.md#bytes "bytes") and [`bytearray`](stdtypes.md#bytearray "bytearray").
@@ -3138,7 +3138,7 @@ copying.
 
     [`memoryview`](stdtypes.md#memoryview "memoryview") has several methods:
 
-    __eq__(*exporter*)
+    `__eq__(exporter)`
     :   A memoryview and a [**PEP 3118**](https://peps.python.org/pep-3118/) exporter are equal if their shapes are
         equivalent and if all corresponding values are equal when the operands’
         respective format codes are interpreted using [`struct`](struct.md#module-struct "struct: Interpret bytes as packed binary data.") syntax.
@@ -3188,7 +3188,7 @@ copying.
         Changed in version 3.3: Previous versions compared the raw memory disregarding the item format
         and the logical array structure.
 
-    tobytes(*order='C'*)
+    `tobytes(order='C')`
     :   Return the data in the buffer as a bytestring. This is equivalent to
         calling the [`bytes`](stdtypes.md#bytes "bytes") constructor on the memoryview.
 
@@ -3211,7 +3211,7 @@ copying.
         in-memory Fortran order is preserved. For non-contiguous views, the
         data is converted to C first. *order=None* is the same as *order=’C’*.
 
-    hex([*sep*[, *bytes_per_sep*]])
+    `hex([sep[, bytes_per_sep]])`
     :   Return a string object containing two hexadecimal digits for each
         byte in the buffer.
 
@@ -3227,7 +3227,7 @@ copying.
         optional *sep* and *bytes_per_sep* parameters to insert separators
         between bytes in the hex output.
 
-    tolist()
+    `tolist()`
     :   Return the data in the buffer as a list of elements.
 
         ```python3
@@ -3244,7 +3244,7 @@ copying.
         [`struct`](struct.md#module-struct "struct: Interpret bytes as packed binary data.") module syntax as well as multi-dimensional
         representations.
 
-    toreadonly()
+    `toreadonly()`
     :   Return a readonly version of the memoryview object. The original
         memoryview object is unchanged.
 
@@ -3264,7 +3264,7 @@ copying.
 
         Added in version 3.8.
 
-    release()
+    `release()`
     :   Release the underlying buffer exposed by the memoryview object. Many
         objects take special actions when a view is held on them (for example,
         a [`bytearray`](stdtypes.md#bytearray "bytearray") would temporarily forbid resizing); therefore,
@@ -3300,7 +3300,7 @@ copying.
 
         Added in version 3.2.
 
-    cast(*format*[, *shape*])
+    `cast(format[, shape])`
     :   Cast a memoryview to a new format or shape. *shape* defaults to
         `[byte_length//new_itemsize]`, which means that the result view
         will be one-dimensional. The return value is a new memoryview, but
@@ -3401,7 +3401,7 @@ copying.
 
     There are also several readonly attributes available:
 
-    obj
+    `obj`
     :   The underlying object of the memoryview:
 
         ```python3
@@ -3413,7 +3413,7 @@ copying.
 
         Added in version 3.3.
 
-    nbytes
+    `nbytes`
     :   `nbytes == product(shape) * itemsize == len(m.tobytes())`. This is
         the amount of space in bytes that the array would use in a contiguous
         representation. It is not necessarily equal to `len(m)`:
@@ -3452,10 +3452,10 @@ copying.
 
         Added in version 3.3.
 
-    readonly
+    `readonly`
     :   A bool indicating whether the memory is read only.
 
-    format
+    `format`
     :   A string containing the format (in [`struct`](struct.md#module-struct "struct: Interpret bytes as packed binary data.") module style) for each
         element in the view. A memoryview can be created from exporters with
         arbitrary format strings, but some methods (e.g. [`tolist()`](stdtypes.md#memoryview.tolist "memoryview.tolist")) are
@@ -3464,7 +3464,7 @@ copying.
         Changed in version 3.3: format `'B'` is now handled according to the struct module syntax.
         This means that `memoryview(b'abc')[0] == b'abc'[0] == 97`.
 
-    itemsize
+    `itemsize`
     :   The size in bytes of each element of the memoryview:
 
         ```python3
@@ -3478,36 +3478,36 @@ copying.
         True
         ```
 
-    ndim
+    `ndim`
     :   An integer indicating how many dimensions of a multi-dimensional array the
         memory represents.
 
-    shape
+    `shape`
     :   A tuple of integers the length of [`ndim`](stdtypes.md#memoryview.ndim "memoryview.ndim") giving the shape of the
         memory as an N-dimensional array.
 
         Changed in version 3.3: An empty tuple instead of `None` when ndim = 0.
 
-    strides
+    `strides`
     :   A tuple of integers the length of [`ndim`](stdtypes.md#memoryview.ndim "memoryview.ndim") giving the size in bytes to
         access each element for each dimension of the array.
 
         Changed in version 3.3: An empty tuple instead of `None` when ndim = 0.
 
-    suboffsets
+    `suboffsets`
     :   Used internally for PIL-style arrays. The value is informational only.
 
-    c_contiguous
+    `c_contiguous`
     :   A bool indicating whether the memory is C-[contiguous](https://docs.python.org/3.12/glossary.html#term-contiguous).
 
         Added in version 3.3.
 
-    f_contiguous
+    `f_contiguous`
     :   A bool indicating whether the memory is Fortran [contiguous](https://docs.python.org/3.12/glossary.html#term-contiguous).
 
         Added in version 3.3.
 
-    contiguous
+    `contiguous`
     :   A bool indicating whether the memory is [contiguous](https://docs.python.org/3.12/glossary.html#term-contiguous).
 
         Added in version 3.3.
@@ -3540,9 +3540,9 @@ of elements within braces, for example: `{'jack', 'sjoerd'}`, in addition to the
 
 The constructors for both classes work the same:
 
-*class* set([*iterable*])
+`class set([iterable])`
 
-*class* frozenset([*iterable*])
+`class frozenset([iterable])`
 :   Return a new set or frozenset object whose elements are taken from
     *iterable*. The elements of a set must be [hashable](https://docs.python.org/3.12/glossary.html#term-hashable). To
     represent sets of sets, the inner sets must be [`frozenset`](stdtypes.md#frozenset "frozenset")
@@ -3558,58 +3558,58 @@ The constructors for both classes work the same:
     Instances of [`set`](stdtypes.md#set "set") and [`frozenset`](stdtypes.md#frozenset "frozenset") provide the following
     operations:
 
-    len(s)
+    `len(s)`
     :   Return the number of elements in set *s* (cardinality of *s*).
 
-    x in s
+    `x in s`
     :   Test *x* for membership in *s*.
 
-    x not in s
+    `x not in s`
     :   Test *x* for non-membership in *s*.
 
-    isdisjoint(*other*)
+    `isdisjoint(other)`
     :   Return `True` if the set has no elements in common with *other*. Sets are
         disjoint if and only if their intersection is the empty set.
 
-    issubset(*other*)
+    `issubset(other)`
 
-    set <= other
+    `set <= other`
     :   Test whether every element in the set is in *other*.
 
-    set < other
+    `set < other`
     :   Test whether the set is a proper subset of *other*, that is,
         `set <= other and set != other`.
 
-    issuperset(*other*)
+    `issuperset(other)`
 
-    set >= other
+    `set >= other`
     :   Test whether every element in *other* is in the set.
 
-    set > other
+    `set > other`
     :   Test whether the set is a proper superset of *other*, that is, `set >=
         other and set != other`.
 
-    union(*\*others*)
+    `union(*others)`
 
-    set | other | ...
+    `set | other | ...`
     :   Return a new set with elements from the set and all others.
 
-    intersection(*\*others*)
+    `intersection(*others)`
 
-    set & other & ...
+    `set & other & ...`
     :   Return a new set with elements common to the set and all others.
 
-    difference(*\*others*)
+    `difference(*others)`
 
-    set - other - ...
+    `set - other - ...`
     :   Return a new set with elements in the set that are not in the others.
 
-    symmetric_difference(*other*)
+    `symmetric_difference(other)`
 
-    set ^ other
+    `set ^ other`
     :   Return a new set with elements in either the set or *other* but not both.
 
-    copy()
+    `copy()`
     :   Return a shallow copy of the set.
 
     Note, the non-operator versions of [`union()`](stdtypes.md#frozenset.union "frozenset.union"), [`intersection()`](stdtypes.md#frozenset.intersection "frozenset.intersection"),
@@ -3647,41 +3647,41 @@ The constructors for both classes work the same:
     The following table lists operations available for [`set`](stdtypes.md#set "set") that do not
     apply to immutable instances of [`frozenset`](stdtypes.md#frozenset "frozenset"):
 
-    update(*\*others*)
+    `update(*others)`
 
-    set |= other | ...
+    `set |= other | ...`
     :   Update the set, adding elements from all others.
 
-    intersection_update(*\*others*)
+    `intersection_update(*others)`
 
-    set &= other & ...
+    `set &= other & ...`
     :   Update the set, keeping only elements found in it and all others.
 
-    difference_update(*\*others*)
+    `difference_update(*others)`
 
-    set -= other | ...
+    `set -= other | ...`
     :   Update the set, removing elements found in others.
 
-    symmetric_difference_update(*other*)
+    `symmetric_difference_update(other)`
 
-    set ^= other
+    `set ^= other`
     :   Update the set, keeping only elements found in either set, but not in both.
 
-    add(*elem*)
+    `add(elem)`
     :   Add element *elem* to the set.
 
-    remove(*elem*)
+    `remove(elem)`
     :   Remove element *elem* from the set. Raises [`KeyError`](exceptions.md#KeyError "KeyError") if *elem* is
         not contained in the set.
 
-    discard(*elem*)
+    `discard(elem)`
     :   Remove element *elem* from the set if it is present.
 
-    pop()
+    `pop()`
     :   Remove and return an arbitrary element from the set. Raises
         [`KeyError`](exceptions.md#KeyError "KeyError") if the set is empty.
 
-    clear()
+    `clear()`
     :   Remove all elements from the set.
 
     Note, the non-operator versions of the [`update()`](stdtypes.md#frozenset.update "frozenset.update"),
@@ -3709,11 +3709,11 @@ not be used as keys.
 Values that compare equal (such as `1`, `1.0`, and `True`)
 can be used interchangeably to index the same dictionary entry.
 
-*class* dict(*\*\*kwargs*)
+`class dict(**kwargs)`
 
-*class* dict(*mapping*, *\*\*kwargs*)
+`class dict(mapping, **kwargs)`
 
-*class* dict(*iterable*, *\*\*kwargs*)
+`class dict(iterable, **kwargs)`
 :   Return a new dictionary initialized from an optional positional argument
     and a possibly empty set of keyword arguments.
 
@@ -3760,13 +3760,13 @@ can be used interchangeably to index the same dictionary entry.
     These are the operations that dictionaries support (and therefore, custom
     mapping types should support too):
 
-    list(d)
+    `list(d)`
     :   Return a list of all the keys used in the dictionary *d*.
 
-    len(d)
+    `len(d)`
     :   Return the number of items in the dictionary *d*.
 
-    d[key]
+    `d[key]`
     :   Return the item of *d* with key *key*. Raises a [`KeyError`](exceptions.md#KeyError "KeyError") if *key* is
         not in the map.
 
@@ -3795,30 +3795,30 @@ can be used interchangeably to index the same dictionary entry.
         [`collections.Counter`](collections.md#collections.Counter "collections.Counter"). A different `__missing__` method is used
         by [`collections.defaultdict`](collections.md#collections.defaultdict "collections.defaultdict").
 
-    d[key] = value
+    `d[key] = value`
     :   Set `d[key]` to *value*.
 
-    del d[key]
+    `del d[key]`
     :   Remove `d[key]` from *d*. Raises a [`KeyError`](exceptions.md#KeyError "KeyError") if *key* is not in the
         map.
 
-    key in d
+    `key in d`
     :   Return `True` if *d* has a key *key*, else `False`.
 
-    key not in d
+    `key not in d`
     :   Equivalent to `not key in d`.
 
-    iter(d)
+    `iter(d)`
     :   Return an iterator over the keys of the dictionary. This is a shortcut
         for `iter(d.keys())`.
 
-    clear()
+    `clear()`
     :   Remove all items from the dictionary.
 
-    copy()
+    `copy()`
     :   Return a shallow copy of the dictionary.
 
-    *classmethod* fromkeys(*iterable*, *value=None*, */*)
+    `classmethod fromkeys(iterable, value=None, /)`
     :   Create a new dictionary with keys from *iterable* and values set to *value*.
 
         [`fromkeys()`](stdtypes.md#dict.fromkeys "dict.fromkeys") is a class method that returns a new dictionary. *value*
@@ -3827,25 +3827,25 @@ can be used interchangeably to index the same dictionary entry.
         such as an empty list. To get distinct values, use a [dict
         comprehension](https://docs.python.org/3.12/reference/expressions.html#dict) instead.
 
-    get(*key*, *default=None*, */*)
+    `get(key, default=None, /)`
     :   Return the value for *key* if *key* is in the dictionary, else *default*.
         If *default* is not given, it defaults to `None`, so that this method
         never raises a [`KeyError`](exceptions.md#KeyError "KeyError").
 
-    items()
+    `items()`
     :   Return a new view of the dictionary’s items (`(key, value)` pairs).
         See the [documentation of view objects](stdtypes.md#dict-views).
 
-    keys()
+    `keys()`
     :   Return a new view of the dictionary’s keys. See the [documentation
         of view objects](stdtypes.md#dict-views).
 
-    pop(*key*[, *default*])
+    `pop(key[, default])`
     :   If *key* is in the dictionary, remove it and return its value, else return
         *default*. If *default* is not given and *key* is not in the dictionary,
         a [`KeyError`](exceptions.md#KeyError "KeyError") is raised.
 
-    popitem()
+    `popitem()`
     :   Remove and return a `(key, value)` pair from the dictionary.
         Pairs are returned in LIFO order.
 
@@ -3856,18 +3856,18 @@ can be used interchangeably to index the same dictionary entry.
         Changed in version 3.7: LIFO order is now guaranteed. In prior versions, [`popitem()`](stdtypes.md#dict.popitem "dict.popitem") would
         return an arbitrary key/value pair.
 
-    reversed(d)
+    `reversed(d)`
     :   Return a reverse iterator over the keys of the dictionary. This is a
         shortcut for `reversed(d.keys())`.
 
         Added in version 3.8.
 
-    setdefault(*key*, *default=None*, */*)
+    `setdefault(key, default=None, /)`
     :   If *key* is in the dictionary, return its value. If not, insert *key*
         with a value of *default* and return *default*. *default* defaults to
         `None`.
 
-    update([*other*])
+    `update([other])`
     :   Update the dictionary with the key/value pairs from *other*, overwriting
         existing keys. Return `None`.
 
@@ -3877,7 +3877,7 @@ can be used interchangeably to index the same dictionary entry.
         of length two). If keyword arguments are specified, the dictionary is then
         updated with those key/value pairs: `d.update(red=1, blue=2)`.
 
-    values()
+    `values()`
     :   Return a new view of the dictionary’s values. See the
         [documentation of view objects](stdtypes.md#dict-views).
 
@@ -3891,14 +3891,14 @@ can be used interchangeably to index the same dictionary entry.
         False
         ```
 
-    d | other
+    `d | other`
     :   Create a new dictionary with the merged keys and values of *d* and
         *other*, which must both be dictionaries. The values of *other* take
         priority when *d* and *other* share keys.
 
         Added in version 3.9.
 
-    d |= other
+    `d |= other`
     :   Update the dictionary *d* with keys and values from *other*, which may be
         either a [mapping](https://docs.python.org/3.12/glossary.html#term-mapping) or an [iterable](https://docs.python.org/3.12/glossary.html#term-iterable) of key/value pairs. The
         values of *other* take priority when *d* and *other* share keys.
@@ -3963,10 +3963,10 @@ reflects these changes.
 Dictionary views can be iterated over to yield their respective data, and
 support membership tests:
 
-len(dictview)
+`len(dictview)`
 :   Return the number of entries in the dictionary.
 
-iter(dictview)
+`iter(dictview)`
 :   Return an iterator over the keys, values or items (represented as tuples of
     `(key, value)`) in the dictionary.
 
@@ -3980,17 +3980,17 @@ iter(dictview)
 
     Changed in version 3.7: Dictionary order is guaranteed to be insertion order.
 
-x in dictview
+`x in dictview`
 :   Return `True` if *x* is in the underlying dictionary’s keys, values or
     items (in the latter case, *x* should be a `(key, value)` tuple).
 
-reversed(dictview)
+`reversed(dictview)`
 :   Return a reverse iterator over the keys, values or items of the dictionary.
     The view will be iterated in reverse order of the insertion.
 
     Changed in version 3.8: Dictionary views are now reversible.
 
-dictview.mapping
+`dictview.mapping`
 :   Return a [`types.MappingProxyType`](types.md#types.MappingProxyType "types.MappingProxyType") that wraps the original
     dictionary to which the view refers.
 
@@ -4057,7 +4057,7 @@ defined by a context manager. This is implemented using a pair of methods
 that allow user-defined classes to define a runtime context that is entered
 before the statement body is executed and exited when the statement ends:
 
-contextmanager.__enter__()
+`contextmanager.__enter__()`
 :   Enter the runtime context and return either this object or another object
     related to the runtime context. The value returned by this method is bound to
     the identifier in the `as` clause of [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statements using
@@ -4074,7 +4074,7 @@ contextmanager.__enter__()
     of the [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement without affecting code outside the
     `with` statement.
 
-contextmanager.__exit__(*exc_type*, *exc_val*, *exc_tb*)
+`contextmanager.__exit__(exc_type, exc_val, exc_tb)`
 :   Exit the runtime context and return a Boolean flag indicating if any exception
     that occurred should be suppressed. If an exception occurred while executing the
     body of the [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement, the arguments contain the exception type,
@@ -4162,7 +4162,7 @@ type and the [`bytes`](stdtypes.md#bytes "bytes") data type:
 [`types.GenericAlias`](types.md#types.GenericAlias "types.GenericAlias"), which can also be used to create `GenericAlias`
 objects directly.
 
-T[X, Y, ...]
+`T[X, Y, ...]`
 :   Creates a `GenericAlias` representing a type `T` parameterized by types
     *X*, *Y*, and more depending on the `T` used.
     For example, a function expecting a [`list`](stdtypes.md#list "list") containing
@@ -4315,7 +4315,7 @@ list is non-exhaustive.
 
 All parameterized generics implement special read-only attributes.
 
-genericalias.__origin__
+`genericalias.__origin__`
 :   This attribute points at the non-parameterized generic class:
 
     ```python3
@@ -4323,7 +4323,7 @@ genericalias.__origin__
     <class 'list'>
     ```
 
-genericalias.__args__
+`genericalias.__args__`
 :   This attribute is a [`tuple`](stdtypes.md#tuple "tuple") (possibly of length 1) of generic
     types passed to the original [`__class_getitem__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__class_getitem__ "object.__class_getitem__") of the
     generic class:
@@ -4333,7 +4333,7 @@ genericalias.__args__
     (<class 'str'>, list[int])
     ```
 
-genericalias.__parameters__
+`genericalias.__parameters__`
 :   This attribute is a lazily computed tuple (possibly empty) of unique type
     variables found in `__args__`:
 
@@ -4351,7 +4351,7 @@ genericalias.__parameters__
     > have correct `__parameters__` after substitution because
     > [`typing.ParamSpec`](typing.md#typing.ParamSpec "typing.ParamSpec") is intended primarily for static type checking.
 
-genericalias.__unpacked__
+`genericalias.__unpacked__`
 :   A boolean that is true if the alias has been unpacked using the
     `*` operator (see [`TypeVarTuple`](typing.md#typing.TypeVarTuple "typing.TypeVarTuple")).
 
@@ -4380,7 +4380,7 @@ multiple [type objects](stdtypes.md#bltin-type-objects). These types are intende
 primarily for [type annotations](https://docs.python.org/3.12/glossary.html#term-annotation). The union type expression
 enables cleaner type hinting syntax compared to [`typing.Union`](typing.md#typing.Union "typing.Union").
 
-X | Y | ...
+`X | Y | ...`
 :   Defines a union object which holds types *X*, *Y*, and so forth. `X | Y`
     means either X or Y. It is equivalent to `typing.Union[X, Y]`.
     For example, the following function expects an argument of type
@@ -4399,7 +4399,7 @@ X | Y | ...
     > runtime. For unions which include forward references, present the
     > whole expression as a string, e.g. `"int | Foo"`.
 
-union_object == other
+`union_object == other`
 :   Union objects can be tested for equality with other union objects. Details:
 
     - Unions of unions are flattened:
@@ -4428,9 +4428,9 @@ union_object == other
       str | None == typing.Optional[str]
       ```
 
-isinstance(obj, union_object)
+`isinstance(obj, union_object)`
 
-issubclass(obj, union_object)
+`issubclass(obj, union_object)`
 :   Calls to [`isinstance()`](functions.md#isinstance "isinstance") and [`issubclass()`](functions.md#issubclass "issubclass") are also supported with a
     union object:
 
@@ -4639,23 +4639,23 @@ The implementation adds a few special read-only attributes to several object
 types, where they are relevant. Some of these are not reported by the
 [`dir()`](functions.md#dir "dir") built-in function.
 
-definition.__name__
+`definition.__name__`
 :   The name of the class, function, method, descriptor, or
     generator instance.
 
-definition.__qualname__
+`definition.__qualname__`
 :   The [qualified name](https://docs.python.org/3.12/glossary.html#term-qualified-name) of the class, function, method, descriptor,
     or generator instance.
 
     Added in version 3.3.
 
-definition.__module__
+`definition.__module__`
 :   The name of the module in which a class or function was defined.
 
-definition.__doc__
+`definition.__doc__`
 :   The documentation string of a class or function, or `None` if undefined.
 
-definition.__type_params__
+`definition.__type_params__`
 :   The [type parameters](https://docs.python.org/3.12/reference/compound_stmts.html#type-params) of generic classes, functions,
     and [type aliases](typing.md#type-aliases). For classes and functions that
     are not generic, this will be an empty tuple.

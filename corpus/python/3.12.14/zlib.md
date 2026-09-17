@@ -25,10 +25,10 @@ For reading and writing `.gz` files see the [`gzip`](gzip.md#module-gzip "gzip: 
 
 The available exception and functions in this module are:
 
-*exception* zlib.error
+`exception zlib.error`
 :   Exception raised on compression and decompression errors.
 
-zlib.adler32(*data*[, *value*])
+`zlib.adler32(data[, value])`
 :   Computes an Adler-32 checksum of *data*. (An Adler-32 checksum is almost as
     reliable as a CRC32 but can be computed much more quickly.) The result
     is an unsigned 32-bit integer. If *value* is present, it is used as
@@ -41,7 +41,7 @@ zlib.adler32(*data*[, *value*])
 
     Changed in version 3.0: The result is always unsigned.
 
-zlib.compress(*data*, */*, *level=-1*, *wbits=MAX_WBITS*)
+`zlib.compress(data, /, level=-1, wbits=MAX_WBITS)`
 :   Compresses the bytes in *data*, returning a bytes object containing compressed data.
     *level* is an integer from `0` to `9` or `-1` controlling the level of compression;
     `1` (Z_BEST_SPEED) is fastest and produces the least compression, `9` (Z_BEST_COMPRESSION)
@@ -72,7 +72,7 @@ zlib.compress(*data*, */*, *level=-1*, *wbits=MAX_WBITS*)
     Changed in version 3.11: The *wbits* parameter is now available to set window bits and
     compression type.
 
-zlib.compressobj(*level=-1*, *method=DEFLATED*, *wbits=MAX_WBITS*, *memLevel=DEF_MEM_LEVEL*, *strategy=Z_DEFAULT_STRATEGY*[, *zdict*])
+`zlib.compressobj(level=-1, method=DEFLATED, wbits=MAX_WBITS, memLevel=DEF_MEM_LEVEL, strategy=Z_DEFAULT_STRATEGY[, zdict])`
 :   Returns a compression object, to be used for compressing data streams that won’t
     fit into memory at once.
 
@@ -105,7 +105,7 @@ zlib.compressobj(*level=-1*, *method=DEFLATED*, *wbits=MAX_WBITS*, *memLevel=DEF
 
     Changed in version 3.3: Added the *zdict* parameter and keyword argument support.
 
-zlib.crc32(*data*[, *value*])
+`zlib.crc32(data[, value])`
 :   Computes a CRC (Cyclic Redundancy Check) checksum of *data*. The
     result is an unsigned 32-bit integer. If *value* is present, it is used
     as the starting value of the checksum; otherwise, a default value of 0
@@ -117,7 +117,7 @@ zlib.crc32(*data*[, *value*])
 
     Changed in version 3.0: The result is always unsigned.
 
-zlib.decompress(*data*, */*, *wbits=MAX_WBITS*, *bufsize=DEF_BUF_SIZE*)
+`zlib.decompress(data, /, wbits=MAX_WBITS, bufsize=DEF_BUF_SIZE)`
 :   Decompresses the bytes in *data*, returning a bytes object containing the
     uncompressed data. The *wbits* parameter depends on
     the format of *data*, and is discussed further below.
@@ -155,7 +155,7 @@ zlib.decompress(*data*, */*, *wbits=MAX_WBITS*, *bufsize=DEF_BUF_SIZE*)
 
     Changed in version 3.6: *wbits* and *bufsize* can be used as keyword arguments.
 
-zlib.decompressobj(*wbits=MAX_WBITS*[, *zdict*])
+`zlib.decompressobj(wbits=MAX_WBITS[, zdict])`
 :   Returns a decompression object, to be used for decompressing data streams that
     won’t fit into memory at once.
 
@@ -177,13 +177,13 @@ zlib.decompressobj(*wbits=MAX_WBITS*[, *zdict*])
 
 Compression objects support the following methods:
 
-Compress.compress(*data*)
+`Compress.compress(data)`
 :   Compress *data*, returning a bytes object containing compressed data for at least
     part of the data in *data*. This data should be concatenated to the output
     produced by any preceding calls to the [`compress()`](zlib.md#zlib.compress "zlib.compress") method. Some input may
     be kept in internal buffers for later processing.
 
-Compress.flush([*mode*])
+`Compress.flush([mode])`
 :   All pending input is processed, and a bytes object containing the remaining compressed
     output is returned. *mode* can be selected from the constants
     `Z_NO_FLUSH`, `Z_PARTIAL_FLUSH`, `Z_SYNC_FLUSH`,
@@ -194,7 +194,7 @@ Compress.flush([*mode*])
     with *mode* set to `Z_FINISH`, the [`compress()`](zlib.md#zlib.compress "zlib.compress") method cannot be called again;
     the only realistic action is to delete the object.
 
-Compress.copy()
+`Compress.copy()`
 :   Returns a copy of the compression object. This can be used to efficiently
     compress a set of data that share a common initial prefix.
 
@@ -203,20 +203,20 @@ objects.
 
 Decompression objects support the following methods and attributes:
 
-Decompress.unused_data
+`Decompress.unused_data`
 :   A bytes object which contains any bytes past the end of the compressed data. That is,
     this remains `b""` until the last byte that contains compression data is
     available. If the whole bytestring turned out to contain compressed data, this is
     `b""`, an empty bytes object.
 
-Decompress.unconsumed_tail
+`Decompress.unconsumed_tail`
 :   A bytes object that contains any data that was not consumed by the last
     [`decompress()`](zlib.md#zlib.decompress "zlib.decompress") call because it exceeded the limit for the uncompressed data
     buffer. This data has not yet been seen by the zlib machinery, so you must feed
     it (possibly with further data concatenated to it) back to a subsequent
     [`decompress()`](zlib.md#zlib.decompress "zlib.decompress") method call in order to get correct output.
 
-Decompress.eof
+`Decompress.eof`
 :   A boolean indicating whether the end of the compressed data stream has been
     reached.
 
@@ -225,7 +225,7 @@ Decompress.eof
 
     Added in version 3.3.
 
-Decompress.decompress(*data*, *max_length=0*)
+`Decompress.decompress(data, max_length=0)`
 :   Decompress *data*, returning a bytes object containing the uncompressed data
     corresponding to at least part of the data in *string*. This data should be
     concatenated to the output produced by any preceding calls to the
@@ -241,7 +241,7 @@ Decompress.decompress(*data*, *max_length=0*)
 
     Changed in version 3.6: *max_length* can be used as a keyword argument.
 
-Decompress.flush([*length*])
+`Decompress.flush([length])`
 :   All pending input is processed, and a bytes object containing the remaining
     uncompressed output is returned. After calling [`flush()`](zlib.md#zlib.Decompress.flush "zlib.Decompress.flush"), the
     [`decompress()`](zlib.md#zlib.decompress "zlib.decompress") method cannot be called again; the only realistic action is
@@ -249,7 +249,7 @@ Decompress.flush([*length*])
 
     The optional parameter *length* sets the initial size of the output buffer.
 
-Decompress.copy()
+`Decompress.copy()`
 :   Returns a copy of the decompression object. This can be used to save the state
     of the decompressor midway through the data stream in order to speed up random
     seeks into the stream at a future point.
@@ -260,12 +260,12 @@ objects.
 Information about the version of the zlib library in use is available through
 the following constants:
 
-zlib.ZLIB_VERSION
+`zlib.ZLIB_VERSION`
 :   The version string of the zlib library that was used for building the module.
     This may be different from the zlib library actually used at runtime, which
     is available as [`ZLIB_RUNTIME_VERSION`](zlib.md#zlib.ZLIB_RUNTIME_VERSION "zlib.ZLIB_RUNTIME_VERSION").
 
-zlib.ZLIB_RUNTIME_VERSION
+`zlib.ZLIB_RUNTIME_VERSION`
 :   The version string of the zlib library actually loaded by the interpreter.
 
     Added in version 3.3.

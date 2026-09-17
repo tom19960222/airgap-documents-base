@@ -240,7 +240,7 @@ The high-level method described above makes use of a simple API which provides
 mechanisms for third-party virtual environment creators to customize environment
 creation according to their needs, the [`EnvBuilder`](venv.md#venv.EnvBuilder "venv.EnvBuilder") class.
 
-*class* venv.EnvBuilder(*system_site_packages=False*, *clear=False*, *symlinks=False*, *upgrade=False*, *with_pip=False*, *prompt=None*, *upgrade_deps=False*)
+`class venv.EnvBuilder(system_site_packages=False, clear=False, symlinks=False, upgrade=False, with_pip=False, prompt=None, upgrade_deps=False)`
 :   The [`EnvBuilder`](venv.md#venv.EnvBuilder "venv.EnvBuilder") class accepts the following keyword arguments on
     instantiation:
 
@@ -270,7 +270,7 @@ creation according to their needs, the [`EnvBuilder`](venv.md#venv.EnvBuilder "v
 
     [`EnvBuilder`](venv.md#venv.EnvBuilder "venv.EnvBuilder") may be used as a base class.
 
-    create(*env_dir*)
+    `create(env_dir)`
     :   Create a virtual environment by specifying the target directory
         (absolute or relative to the current directory) which is to contain the
         virtual environment. The `create` method will either create the
@@ -298,7 +298,7 @@ creation according to their needs, the [`EnvBuilder`](venv.md#venv.EnvBuilder "v
         [`create_configuration()`](venv.md#venv.EnvBuilder.create_configuration "venv.EnvBuilder.create_configuration"), [`setup_python()`](venv.md#venv.EnvBuilder.setup_python "venv.EnvBuilder.setup_python"),
         [`setup_scripts()`](venv.md#venv.EnvBuilder.setup_scripts "venv.EnvBuilder.setup_scripts") and [`post_setup()`](venv.md#venv.EnvBuilder.post_setup "venv.EnvBuilder.post_setup") can be overridden.
 
-    ensure_directories(*env_dir*)
+    `ensure_directories(env_dir)`
     :   Creates the environment directory and all necessary subdirectories that
         don’t already exist, and returns a context object. This context object
         is just a holder for attributes (such as paths) for use by the other
@@ -338,20 +338,20 @@ creation according to their needs, the [`EnvBuilder`](venv.md#venv.EnvBuilder "v
         Changed in version 3.12: The attribute `lib_path` was added to the context, and the context
         object was documented.
 
-    create_configuration(*context*)
+    `create_configuration(context)`
     :   Creates the `pyvenv.cfg` configuration file in the environment.
 
-    setup_python(*context*)
+    `setup_python(context)`
     :   Creates a copy or symlink to the Python executable in the environment.
         On POSIX systems, if a specific executable `python3.x` was used,
         symlinks to `python` and `python3` will be created pointing to that
         executable, unless files with those names already exist.
 
-    setup_scripts(*context*)
+    `setup_scripts(context)`
     :   Installs activation scripts appropriate to the platform into the virtual
         environment.
 
-    upgrade_dependencies(*context*)
+    `upgrade_dependencies(context)`
     :   Upgrades the core venv dependency packages (currently [pip](https://pypi.org/project/pip/))
         in the environment. This is done by shelling out to the
         `pip` executable in the environment.
@@ -360,12 +360,12 @@ creation according to their needs, the [`EnvBuilder`](venv.md#venv.EnvBuilder "v
 
         Changed in version 3.12: [setuptools](https://pypi.org/project/setuptools/) is no longer a core venv dependency.
 
-    post_setup(*context*)
+    `post_setup(context)`
     :   A placeholder method which can be overridden in third party
         implementations to pre-install packages in the virtual environment or
         perform other post-creation steps.
 
-    install_scripts(*context*, *path*)
+    `install_scripts(context, path)`
     :   This method can be
         called from [`setup_scripts()`](venv.md#venv.EnvBuilder.setup_scripts "venv.EnvBuilder.setup_scripts") or [`post_setup()`](venv.md#venv.EnvBuilder.post_setup "venv.EnvBuilder.post_setup") in subclasses to
         assist in installing custom scripts into the virtual environment.
@@ -400,7 +400,7 @@ creation according to their needs, the [`EnvBuilder`](venv.md#venv.EnvBuilder "v
 
 There is also a module-level convenience function:
 
-venv.create(*env_dir*, *system_site_packages=False*, *clear=False*, *symlinks=False*, *with_pip=False*, *prompt=None*, *upgrade_deps=False*)
+`venv.create(env_dir, system_site_packages=False, clear=False, symlinks=False, with_pip=False, prompt=None, upgrade_deps=False)`
 :   Create an [`EnvBuilder`](venv.md#venv.EnvBuilder "venv.EnvBuilder") with the given keyword arguments, and call its
     [`create()`](venv.md#venv.EnvBuilder.create "venv.EnvBuilder.create") method with the *env_dir* argument.
 

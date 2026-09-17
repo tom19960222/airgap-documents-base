@@ -22,16 +22,16 @@ gc.garbage for inspection.
 
 The [`gc`](gc.md#module-gc "gc: Interface to the cycle-detecting garbage collector.") module provides the following functions:
 
-gc.enable()
+`gc.enable()`
 :   Enable automatic garbage collection.
 
-gc.disable()
+`gc.disable()`
 :   Disable automatic garbage collection.
 
-gc.isenabled()
+`gc.isenabled()`
 :   Return `True` if automatic collection is enabled.
 
-gc.collect(*generation=2*)
+`gc.collect(generation=2)`
 :   With no arguments, run a full collection. The optional argument *generation*
     may be an integer specifying which generation to collect (from 0 to 2). A
     [`ValueError`](exceptions.md#ValueError "ValueError") is raised if the generation number is invalid. The number of
@@ -45,15 +45,15 @@ gc.collect(*generation=2*)
     The effect of calling `gc.collect()` while the interpreter is already
     performing a collection is undefined.
 
-gc.set_debug(*flags*)
+`gc.set_debug(flags)`
 :   Set the garbage collection debugging flags. Debugging information will be
     written to `sys.stderr`. See below for a list of debugging flags which can be
     combined using bit operations to control debugging.
 
-gc.get_debug()
+`gc.get_debug()`
 :   Return the debugging flags currently set.
 
-gc.get_objects(*generation=None*)
+`gc.get_objects(generation=None)`
 :   Returns a list of all objects tracked by the collector, excluding the list
     returned. If *generation* is not `None`, return only the objects tracked by
     the collector that are in that generation.
@@ -62,7 +62,7 @@ gc.get_objects(*generation=None*)
 
     Raises an [auditing event](sys.md#auditing) `gc.get_objects` with argument `generation`.
 
-gc.get_stats()
+`gc.get_stats()`
 :   Return a list of three per-generation dictionaries containing collection
     statistics since interpreter start. The number of keys may change
     in the future, but currently each dictionary will contain the following
@@ -77,7 +77,7 @@ gc.get_stats()
 
     Added in version 3.4.
 
-gc.set_threshold(*threshold0*[, *threshold1*[, *threshold2*]])
+`gc.set_threshold(threshold0[, threshold1[, threshold2]])`
 :   Set the garbage collection thresholds (the collection frequency). Setting
     *threshold0* to zero disables collection.
 
@@ -95,15 +95,15 @@ gc.set_threshold(*threshold0*[, *threshold1*[, *threshold2*]])
     With the third generation, things are a bit more complicated,
     see [Collecting the oldest generation](https://devguide.python.org/garbage_collector/#collecting-the-oldest-generation) for more information.
 
-gc.get_count()
+`gc.get_count()`
 :   Return the current collection counts as a tuple of `(count0, count1,
     count2)`.
 
-gc.get_threshold()
+`gc.get_threshold()`
 :   Return the current collection thresholds as a tuple of `(threshold0,
     threshold1, threshold2)`.
 
-gc.get_referrers(*\*objs*)
+`gc.get_referrers(*objs)`
 :   Return the list of objects that directly refer to any of objs. This function
     will only locate those containers which support garbage collection; extension
     types which do refer to other objects but do not support garbage collection will
@@ -123,7 +123,7 @@ gc.get_referrers(*\*objs*)
 
     Raises an [auditing event](sys.md#auditing) `gc.get_referrers` with argument `objs`.
 
-gc.get_referents(*\*objs*)
+`gc.get_referents(*objs)`
 :   Return a list of objects directly referred to by any of the arguments. The
     referents returned are those objects visited by the arguments’ C-level
     [`tp_traverse`](https://docs.python.org/3.12/c-api/typeobj.html#c.PyTypeObject.tp_traverse "PyTypeObject.tp_traverse") methods (if any), and may not be all objects actually
@@ -134,7 +134,7 @@ gc.get_referents(*\*objs*)
 
     Raises an [auditing event](sys.md#auditing) `gc.get_referents` with argument `objs`.
 
-gc.is_tracked(*obj*)
+`gc.is_tracked(obj)`
 :   Returns `True` if the object is currently tracked by the garbage collector,
     `False` otherwise. As a general rule, instances of atomic types aren’t
     tracked and instances of non-atomic types (containers, user-defined
@@ -159,7 +159,7 @@ gc.is_tracked(*obj*)
 
     Added in version 3.1.
 
-gc.is_finalized(*obj*)
+`gc.is_finalized(obj)`
 :   Returns `True` if the given object has been finalized by the
     garbage collector, `False` otherwise.
 
@@ -180,7 +180,7 @@ gc.is_finalized(*obj*)
 
     Added in version 3.9.
 
-gc.freeze()
+`gc.freeze()`
 :   Freeze all the objects tracked by the garbage collector; move them to a
     permanent generation and ignore them in all the future collections.
 
@@ -195,13 +195,13 @@ gc.freeze()
 
     Added in version 3.7.
 
-gc.unfreeze()
+`gc.unfreeze()`
 :   Unfreeze the objects in the permanent generation, put them back into the
     oldest generation.
 
     Added in version 3.7.
 
-gc.get_freeze_count()
+`gc.get_freeze_count()`
 :   Return the number of objects in the permanent generation.
 
     Added in version 3.7.
@@ -209,7 +209,7 @@ gc.get_freeze_count()
 The following variables are provided for read-only access (you can mutate the
 values but should not rebind them):
 
-gc.garbage
+`gc.garbage`
 :   A list of objects which the collector found to be unreachable but could
     not be freed (uncollectable objects). Starting with Python 3.4, this
     list should be empty most of the time, except when using instances of
@@ -226,7 +226,7 @@ gc.garbage
     Changed in version 3.4: Following [**PEP 442**](https://peps.python.org/pep-0442/), objects with a [`__del__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__del__ "object.__del__") method don’t end
     up in [`gc.garbage`](gc.md#gc.garbage "gc.garbage") anymore.
 
-gc.callbacks
+`gc.callbacks`
 :   A list of callbacks that will be invoked by the garbage collector before and
     after collection. The callbacks will be called with two arguments,
     *phase* and *info*.
@@ -262,14 +262,14 @@ gc.callbacks
 
 The following constants are provided for use with [`set_debug()`](gc.md#gc.set_debug "gc.set_debug"):
 
-gc.DEBUG_STATS
+`gc.DEBUG_STATS`
 :   Print statistics during collection. This information can be useful when tuning
     the collection frequency.
 
-gc.DEBUG_COLLECTABLE
+`gc.DEBUG_COLLECTABLE`
 :   Print information on collectable objects found.
 
-gc.DEBUG_UNCOLLECTABLE
+`gc.DEBUG_UNCOLLECTABLE`
 :   Print information of uncollectable objects found (objects which are not
     reachable but cannot be freed by the collector). These objects will be added
     to the `garbage` list.
@@ -277,11 +277,11 @@ gc.DEBUG_UNCOLLECTABLE
     Changed in version 3.2: Also print the contents of the [`garbage`](gc.md#gc.garbage "gc.garbage") list at
     [interpreter shutdown](https://docs.python.org/3.12/glossary.html#term-interpreter-shutdown), if it isn’t empty.
 
-gc.DEBUG_SAVEALL
+`gc.DEBUG_SAVEALL`
 :   When set, all unreachable objects found will be appended to *garbage* rather
     than being freed. This can be useful for debugging a leaking program.
 
-gc.DEBUG_LEAK
+`gc.DEBUG_LEAK`
 :   The debugging flags necessary for the collector to print information about a
     leaking program (equal to `DEBUG_COLLECTABLE | DEBUG_UNCOLLECTABLE |
     DEBUG_SAVEALL`).

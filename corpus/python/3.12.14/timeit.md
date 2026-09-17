@@ -58,7 +58,7 @@ repetitions only when the command-line interface is used. In the
 
 The module defines three convenience functions and a public class:
 
-timeit.timeit(*stmt='pass'*, *setup='pass'*, *timer=<default timer>*, *number=1000000*, *globals=None*)
+`timeit.timeit(stmt='pass', setup='pass', timer=<default timer>, number=1000000, globals=None)`
 :   Create a [`Timer`](timeit.md#timeit.Timer "timeit.Timer") instance with the given statement, *setup* code and
     *timer* function and run its [`timeit()`](timeit.md#timeit.Timer.timeit "timeit.Timer.timeit") method with *number* executions.
     The optional *globals* argument specifies a namespace in which to execute the
@@ -66,7 +66,7 @@ timeit.timeit(*stmt='pass'*, *setup='pass'*, *timer=<default timer>*, *number=10
 
     Changed in version 3.5: The optional *globals* parameter was added.
 
-timeit.repeat(*stmt='pass'*, *setup='pass'*, *timer=<default timer>*, *repeat=5*, *number=1000000*, *globals=None*)
+`timeit.repeat(stmt='pass', setup='pass', timer=<default timer>, repeat=5, number=1000000, globals=None)`
 :   Create a [`Timer`](timeit.md#timeit.Timer "timeit.Timer") instance with the given statement, *setup* code and
     *timer* function and run its [`repeat()`](timeit.md#timeit.Timer.repeat "timeit.Timer.repeat") method with the given *repeat*
     count and *number* executions. The optional *globals* argument specifies a
@@ -76,13 +76,13 @@ timeit.repeat(*stmt='pass'*, *setup='pass'*, *timer=<default timer>*, *repeat=5*
 
     Changed in version 3.7: Default value of *repeat* changed from 3 to 5.
 
-timeit.default_timer()
+`timeit.default_timer()`
 :   The default timer, which is always time.perf_counter(), returns float seconds.
     An alternative, time.perf_counter_ns, returns integer nanoseconds.
 
     Changed in version 3.3: [`time.perf_counter()`](time.md#time.perf_counter "time.perf_counter") is now the default timer.
 
-*class* timeit.Timer(*stmt='pass'*, *setup='pass'*, *timer=<timer function>*, *globals=None*)
+`class timeit.Timer(stmt='pass', setup='pass', timer=<timer function>, globals=None)`
 :   Class for timing execution speed of small code snippets.
 
     The constructor takes a statement to be timed, an additional statement used
@@ -106,7 +106,7 @@ timeit.default_timer()
 
     Changed in version 3.5: The optional *globals* parameter was added.
 
-    timeit(*number=1000000*)
+    `timeit(number=1000000)`
     :   Time *number* executions of the main statement. This executes the setup
         statement once, and then returns the time it takes to execute the main
         statement a number of times. The default timer returns seconds as a float.
@@ -127,7 +127,7 @@ timeit.default_timer()
         > timeit.Timer('for i in range(10): oct(i)', 'gc.enable()').timeit()
         > ```
 
-    autorange(*callback=None*)
+    `autorange(callback=None)`
     :   Automatically determine how many times to call [`timeit()`](timeit.md#timeit.Timer.timeit "timeit.Timer.timeit").
 
         This is a convenience function that calls [`timeit()`](timeit.md#timeit.Timer.timeit "timeit.Timer.timeit") repeatedly
@@ -141,7 +141,7 @@ timeit.default_timer()
 
         Added in version 3.6.
 
-    repeat(*repeat=5*, *number=1000000*)
+    `repeat(repeat=5, number=1000000)`
     :   Call [`timeit()`](timeit.md#timeit.Timer.timeit "timeit.Timer.timeit") a few times.
 
         This is a convenience function that calls the [`timeit()`](timeit.md#timeit.Timer.timeit "timeit.Timer.timeit") repeatedly,
@@ -163,7 +163,7 @@ timeit.default_timer()
 
         Changed in version 3.7: Default value of *repeat* changed from 3 to 5.
 
-    print_exc(*file=None*)
+    `print_exc(file=None)`
     :   Helper to print a traceback from the timed code.
 
         Typical use:
@@ -190,30 +190,30 @@ python -m timeit [-n N] [-r N] [-u U] [-s S] [-p] [-v] [-h] [statement ...]
 
 Where the following options are understood:
 
--n N, --number=N
+`-n N, --number=N`
 :   how many times to execute ‘statement’
 
--r N, --repeat=N
+`-r N, --repeat=N`
 :   how many times to repeat the timer (default 5)
 
--s S, --setup=S
+`-s S, --setup=S`
 :   statement to be executed once initially (default `pass`)
 
--p, --process
+`-p, --process`
 :   measure process time, not wallclock time, using [`time.process_time()`](time.md#time.process_time "time.process_time")
     instead of [`time.perf_counter()`](time.md#time.perf_counter "time.perf_counter"), which is the default
 
     Added in version 3.3.
 
--u, --unit=U
+`-u, --unit=U`
 :   specify a time unit for timer output; can select `nsec`, `usec`, `msec`, or `sec`
 
     Added in version 3.5.
 
--v, --verbose
+`-v, --verbose`
 :   print raw timing results; repeat for more digits precision
 
--h, --help
+`-h, --help`
 :   print a short usage message and exit
 
 A multi-line statement may be given by specifying each line as a separate

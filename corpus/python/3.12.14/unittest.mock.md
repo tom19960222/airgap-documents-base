@@ -211,7 +211,7 @@ in a particular module with a [`Mock`](unittest.mock.md#unittest.mock.Mock "unit
 a [`MagicMock`](unittest.mock.md#unittest.mock.MagicMock "unittest.mock.MagicMock") for you. You can specify an alternative class of [`Mock`](unittest.mock.md#unittest.mock.Mock "unittest.mock.Mock") using
 the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch "unittest.mock.patch").
 
-*class* unittest.mock.Mock(*spec=None*, *side_effect=None*, *return_value=DEFAULT*, *wraps=None*, *name=None*, *spec_set=None*, *unsafe=False*, *\*\*kwargs*)
+`class unittest.mock.Mock(spec=None, side_effect=None, return_value=DEFAULT, wraps=None, name=None, spec_set=None, unsafe=False, **kwargs)`
 :   Create a new [`Mock`](unittest.mock.md#unittest.mock.Mock "unittest.mock.Mock") object. [`Mock`](unittest.mock.md#unittest.mock.Mock "unittest.mock.Mock") takes several optional arguments
     that specify the behaviour of the Mock object:
 
@@ -266,7 +266,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
     used to set attributes on the mock after it is created. See the
     [`configure_mock()`](unittest.mock.md#unittest.mock.Mock.configure_mock "unittest.mock.Mock.configure_mock") method for details.
 
-    assert_called()
+    `assert_called()`
     :   Assert that the mock was called at least once.
 
         ```
@@ -278,7 +278,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
 
         Added in version 3.6.
 
-    assert_called_once()
+    `assert_called_once()`
     :   Assert that the mock was called exactly once.
 
         ```
@@ -296,7 +296,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
 
         Added in version 3.6.
 
-    assert_called_with(*\*args*, *\*\*kwargs*)
+    `assert_called_with(*args, **kwargs)`
     :   This method is a convenient way of asserting that the last call has been
         made in a particular way:
 
@@ -307,7 +307,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         >>> mock.method.assert_called_with(1, 2, 3, test='wow')
         ```
 
-    assert_called_once_with(*\*args*, *\*\*kwargs*)
+    `assert_called_once_with(*args, **kwargs)`
     :   Assert that the mock was called exactly once and that call was with the
         specified arguments.
 
@@ -322,7 +322,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         AssertionError: Expected 'mock' to be called once. Called 2 times.
         ```
 
-    assert_any_call(*\*args*, *\*\*kwargs*)
+    `assert_any_call(*args, **kwargs)`
     :   assert the mock has been called with the specified arguments.
 
         The assert passes if the mock has *ever* been called, unlike
@@ -337,7 +337,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         >>> mock.assert_any_call(1, 2, arg='thing')
         ```
 
-    assert_has_calls(*calls*, *any_order=False*)
+    `assert_has_calls(calls, any_order=False)`
     :   assert the mock has been called with the specified calls.
         The [`mock_calls`](unittest.mock.md#unittest.mock.Mock.mock_calls "unittest.mock.Mock.mock_calls") list is checked for the calls.
 
@@ -360,7 +360,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         >>> mock.assert_has_calls(calls, any_order=True)
         ```
 
-    assert_not_called()
+    `assert_not_called()`
     :   Assert the mock was never called.
 
         ```
@@ -375,7 +375,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
 
         Added in version 3.5.
 
-    reset_mock(*\**, *return_value=False*, *side_effect=False*)
+    `reset_mock(*, return_value=False, side_effect=False)`
     :   The reset_mock method resets all the call attributes on a mock object:
 
         ```pycon
@@ -423,19 +423,19 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
 
         Changed in version 3.6: Added two keyword-only arguments to the reset_mock function.
 
-    mock_add_spec(*spec*, *spec_set=False*)
+    `mock_add_spec(spec, spec_set=False)`
     :   Add a spec to a mock. *spec* can either be an object or a
         list of strings. Only attributes on the *spec* can be fetched as
         attributes from the mock.
 
         If *spec_set* is true then only attributes on the spec can be set.
 
-    attach_mock(*mock*, *attribute*)
+    `attach_mock(mock, attribute)`
     :   Attach a mock as an attribute of this one, replacing its name and
         parent. Calls to the attached mock will be recorded in the
         [`method_calls`](unittest.mock.md#unittest.mock.Mock.method_calls "unittest.mock.Mock.method_calls") and [`mock_calls`](unittest.mock.md#unittest.mock.Mock.mock_calls "unittest.mock.Mock.mock_calls") attributes of this one.
 
-    configure_mock(*\*\*kwargs*)
+    `configure_mock(**kwargs)`
     :   Set attributes on the mock through keyword arguments.
 
         Attributes plus return values and side effects can be set on child
@@ -472,7 +472,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         [`configure_mock()`](unittest.mock.md#unittest.mock.Mock.configure_mock "unittest.mock.Mock.configure_mock") exists to make it easier to do configuration
         after the mock has been created.
 
-    __dir__()
+    `__dir__()`
     :   [`Mock`](unittest.mock.md#unittest.mock.Mock "unittest.mock.Mock") objects limit the results of `dir(some_mock)` to useful results.
         For mocks with a *spec* this includes all the permitted attributes
         for the mock.
@@ -480,7 +480,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         See [`FILTER_DIR`](unittest.mock.md#unittest.mock.FILTER_DIR "unittest.mock.FILTER_DIR") for what this filtering does, and how to
         switch it off.
 
-    _get_child_mock(*\*\*kw*)
+    `_get_child_mock(**kw)`
     :   Create the child mocks for attributes and return value.
         By default child mocks will be the same type as the parent.
         Subclasses of Mock may want to override this to customize the way
@@ -489,7 +489,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         For non-callable mocks the callable variant will be used (rather than
         any custom subclass).
 
-    called
+    `called`
     :   A boolean representing whether or not the mock object has been called:
 
         ```
@@ -501,7 +501,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         True
         ```
 
-    call_count
+    `call_count`
     :   An integer telling you how many times the mock object has been called:
 
         ```
@@ -514,7 +514,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         2
         ```
 
-    return_value
+    `return_value`
     :   Set this to configure the value returned by calling the mock:
 
         ```
@@ -545,7 +545,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         3
         ```
 
-    side_effect
+    `side_effect`
     :   This can either be a function to be called when the mock is called,
         an iterable or an exception (class or instance) to be raised.
 
@@ -618,7 +618,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         3
         ```
 
-    call_args
+    `call_args`
     :   This is either `None` (if the mock hasn’t been called), or the
         arguments that the mock was last called with. This will be in the
         form of a tuple: the first member, which can also be accessed through
@@ -662,7 +662,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
 
         Changed in version 3.8: Added `args` and `kwargs` properties.
 
-    call_args_list
+    `call_args_list`
     :   This is a list of all the calls made to the mock object in sequence
         (so the length of the list is the number of times it has been
         called). Before any calls have been made it is an empty list. The
@@ -685,7 +685,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         unpacked as tuples to get at the individual arguments. See
         [calls as tuples](unittest.mock.md#calls-as-tuples).
 
-    method_calls
+    `method_calls`
     :   As well as tracking calls to themselves, mocks also track calls to
         methods and attributes, and *their* methods and attributes:
 
@@ -703,7 +703,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         unpacked as tuples to get at the individual arguments. See
         [calls as tuples](unittest.mock.md#calls-as-tuples).
 
-    mock_calls
+    `mock_calls`
     :   [`mock_calls`](unittest.mock.md#unittest.mock.Mock.mock_calls "unittest.mock.Mock.mock_calls") records *all* calls to the mock object, its methods,
         magic methods *and* return value mocks.
 
@@ -744,7 +744,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         > True
         > ```
 
-    __class__
+    `__class__`
     :   Normally the `__class__` attribute of an object will return its type.
         For a mock object with a `spec`, `__class__` returns the spec class
         instead. This allows mock objects to pass [`isinstance()`](functions.md#isinstance "isinstance") tests for the
@@ -766,7 +766,7 @@ the *new_callable* argument to [`patch()`](unittest.mock.md#unittest.mock.patch 
         True
         ```
 
-*class* unittest.mock.NonCallableMock(*spec=None*, *wraps=None*, *name=None*, *spec_set=None*, *\*\*kwargs*)
+`class unittest.mock.NonCallableMock(spec=None, wraps=None, name=None, spec_set=None, **kwargs)`
 :   A non-callable version of [`Mock`](unittest.mock.md#unittest.mock.Mock "unittest.mock.Mock"). The constructor parameters have the same
     meaning of [`Mock`](unittest.mock.md#unittest.mock.Mock "unittest.mock.Mock"), with the exception of *return_value* and *side_effect*
     which have no meaning on a non-callable mock.
@@ -838,7 +838,7 @@ apply to method calls on the mock object.
 
 Changed in version 3.4: Added signature introspection on specced and autospecced mock objects.
 
-*class* unittest.mock.PropertyMock(*\*args*, *\*\*kwargs*)
+`class unittest.mock.PropertyMock(*args, **kwargs)`
 :   A mock intended to be used as a [`property`](functions.md#property "property"), or other
     [descriptor](https://docs.python.org/3.12/glossary.html#term-descriptor), on a class. [`PropertyMock`](unittest.mock.md#unittest.mock.PropertyMock "unittest.mock.PropertyMock") provides
     [`__get__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__get__ "object.__get__") and [`__set__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__set__ "object.__set__") methods
@@ -896,7 +896,7 @@ object:
 >
 > See [`__getattr__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getattr__ "object.__getattr__") for details.
 
-*class* unittest.mock.AsyncMock(*spec=None*, *side_effect=None*, *return_value=DEFAULT*, *wraps=None*, *name=None*, *spec_set=None*, *unsafe=False*, *\*\*kwargs*)
+`class unittest.mock.AsyncMock(spec=None, side_effect=None, return_value=DEFAULT, wraps=None, name=None, spec_set=None, unsafe=False, **kwargs)`
 :   An asynchronous version of [`MagicMock`](unittest.mock.md#unittest.mock.MagicMock "unittest.mock.MagicMock"). The [`AsyncMock`](unittest.mock.md#unittest.mock.AsyncMock "unittest.mock.AsyncMock") object will
     behave so the object is recognized as an async function, and the result of a
     call is an awaitable.
@@ -964,7 +964,7 @@ object:
 
     Added in version 3.8.
 
-    assert_awaited()
+    `assert_awaited()`
     :   Assert that the mock was awaited at least once. Note that this is separate
         from the object having been called, the `await` keyword must be used:
 
@@ -984,7 +984,7 @@ object:
         >>> mock.assert_awaited()
         ```
 
-    assert_awaited_once()
+    `assert_awaited_once()`
     :   Assert that the mock was awaited exactly once.
 
         ```
@@ -1001,7 +1001,7 @@ object:
         AssertionError: Expected mock to have been awaited once. Awaited 2 times.
         ```
 
-    assert_awaited_with(*\*args*, *\*\*kwargs*)
+    `assert_awaited_with(*args, **kwargs)`
     :   Assert that the last await was with the specified arguments.
 
         ```
@@ -1019,7 +1019,7 @@ object:
         Actual: mock('foo', bar='bar')
         ```
 
-    assert_awaited_once_with(*\*args*, *\*\*kwargs*)
+    `assert_awaited_once_with(*args, **kwargs)`
     :   Assert that the mock was awaited exactly once and with the specified
         arguments.
 
@@ -1037,7 +1037,7 @@ object:
         AssertionError: Expected mock to have been awaited once. Awaited 2 times.
         ```
 
-    assert_any_await(*\*args*, *\*\*kwargs*)
+    `assert_any_await(*args, **kwargs)`
     :   Assert the mock has ever been awaited with the specified arguments.
 
         ```
@@ -1054,7 +1054,7 @@ object:
         AssertionError: mock('other') await not found
         ```
 
-    assert_has_awaits(*calls*, *any_order=False*)
+    `assert_has_awaits(calls, any_order=False)`
     :   Assert the mock has been awaited with the specified calls.
         The [`await_args_list`](unittest.mock.md#unittest.mock.AsyncMock.await_args_list "unittest.mock.AsyncMock.await_args_list") list is checked for the awaits.
 
@@ -1082,7 +1082,7 @@ object:
         >>> mock.assert_has_awaits(calls)
         ```
 
-    assert_not_awaited()
+    `assert_not_awaited()`
     :   Assert that the mock was never awaited.
 
         ```
@@ -1090,11 +1090,11 @@ object:
         >>> mock.assert_not_awaited()
         ```
 
-    reset_mock(*\*args*, *\*\*kwargs*)
+    `reset_mock(*args, **kwargs)`
     :   See [`Mock.reset_mock()`](unittest.mock.md#unittest.mock.Mock.reset_mock "unittest.mock.Mock.reset_mock"). Also sets [`await_count`](unittest.mock.md#unittest.mock.AsyncMock.await_count "unittest.mock.AsyncMock.await_count") to 0,
         [`await_args`](unittest.mock.md#unittest.mock.AsyncMock.await_args "unittest.mock.AsyncMock.await_args") to None, and clears the [`await_args_list`](unittest.mock.md#unittest.mock.AsyncMock.await_args_list "unittest.mock.AsyncMock.await_args_list").
 
-    await_count
+    `await_count`
     :   An integer keeping track of how many times the mock object has been awaited.
 
         ```
@@ -1110,7 +1110,7 @@ object:
         2
         ```
 
-    await_args
+    `await_args`
     :   This is either `None` (if the mock hasn’t been awaited), or the arguments that
         the mock was last awaited with. Functions the same as [`Mock.call_args`](unittest.mock.md#unittest.mock.Mock.call_args "unittest.mock.Mock.call_args").
 
@@ -1128,7 +1128,7 @@ object:
         call('bar')
         ```
 
-    await_args_list
+    `await_args_list`
     :   This is a list of all the awaits made to the mock object in sequence (so the
         length of the list is the number of times it has been awaited). Before any
         awaits have been made it is an empty list.
@@ -1395,7 +1395,7 @@ statements or as class decorators.
 >
 > The key is to do the patching in the right namespace. See the section [where to patch](unittest.mock.md#id6).
 
-unittest.mock.patch(*target*, *new=DEFAULT*, *spec=None*, *create=False*, *spec_set=None*, *autospec=None*, *new_callable=None*, *\*\*kwargs*)
+`unittest.mock.patch(target, new=DEFAULT, spec=None, create=False, spec_set=None, autospec=None, new_callable=None, **kwargs)`
 :   [`patch()`](unittest.mock.md#unittest.mock.patch "unittest.mock.patch") acts as a function decorator, class decorator or a context
     manager. Inside the body of the function or with statement, the *target*
     is patched with a *new* object. When the function/with statement exits
@@ -1609,7 +1609,7 @@ Changed in version 3.8: [`patch()`](unittest.mock.md#unittest.mock.patch "unitte
 
 ### patch.object
 
-patch.object(*target*, *attribute*, *new=DEFAULT*, *spec=None*, *create=False*, *spec_set=None*, *autospec=None*, *new_callable=None*, *\*\*kwargs*)
+`patch.object(target, attribute, new=DEFAULT, spec=None, create=False, spec_set=None, autospec=None, new_callable=None, **kwargs)`
 :   patch the named member (*attribute*) on an object (*target*) with a mock
     object.
 
@@ -1644,7 +1644,7 @@ meaning as they do for [`patch()`](unittest.mock.md#unittest.mock.patch "unittes
 
 ### patch.dict
 
-patch.dict(*in_dict*, *values=()*, *clear=False*, *\*\*kwargs*)
+`patch.dict(in_dict, values=(), clear=False, **kwargs)`
 :   Patch a dictionary, or dictionary like object, and restore the dictionary
     to its original state after the test.
 
@@ -1766,7 +1766,7 @@ magic methods [`__getitem__()`](https://docs.python.org/3.12/reference/datamodel
 
 ### patch.multiple
 
-patch.multiple(*target*, *spec=None*, *create=False*, *spec_set=None*, *autospec=None*, *new_callable=None*, *\*\*kwargs*)
+`patch.multiple(target, spec=None, create=False, spec_set=None, autospec=None, new_callable=None, **kwargs)`
 :   Perform multiple patches in a single call. It takes the object to be
     patched (either as an object or a string to fetch the object by importing)
     and keyword arguments for the patches:
@@ -1903,7 +1903,7 @@ method of a [`TestCase`](unittest.md#unittest.TestCase "unittest.TestCase"):
 It is also possible to stop all patches which have been started by using
 [`patch.stopall()`](unittest.mock.md#unittest.mock.patch.stopall "unittest.mock.patch.stopall").
 
-patch.stopall()
+`patch.stopall()`
 :   Stop all active patches. Only stops patches started with `start`.
 
 ### patch builtins
@@ -2132,7 +2132,7 @@ by mock, can’t be set dynamically, or can cause problems:
 
 There are two `MagicMock` variants: [`MagicMock`](unittest.mock.md#unittest.mock.MagicMock "unittest.mock.MagicMock") and [`NonCallableMagicMock`](unittest.mock.md#unittest.mock.NonCallableMagicMock "unittest.mock.NonCallableMagicMock").
 
-*class* unittest.mock.MagicMock(*\*args*, *\*\*kw*)
+`class unittest.mock.MagicMock(*args, **kw)`
 :   `MagicMock` is a subclass of [`Mock`](unittest.mock.md#unittest.mock.Mock "unittest.mock.Mock") with default implementations
     of most of the [magic methods](https://docs.python.org/3.12/glossary.html#term-magic-method). You can use
     `MagicMock` without having to configure the magic methods yourself.
@@ -2142,7 +2142,7 @@ There are two `MagicMock` variants: [`MagicMock`](unittest.mock.md#unittest.mock
     If you use the *spec* or *spec_set* arguments then *only* magic methods
     that exist in the spec will be created.
 
-*class* unittest.mock.NonCallableMagicMock(*\*args*, *\*\*kw*)
+`class unittest.mock.NonCallableMagicMock(*args, **kw)`
 :   A non-callable version of [`MagicMock`](unittest.mock.md#unittest.mock.MagicMock "unittest.mock.MagicMock").
 
     The constructor parameters have the same meaning as for
@@ -2270,7 +2270,7 @@ instance is kept isolated from the others.
 
 ### sentinel
 
-unittest.mock.sentinel
+`unittest.mock.sentinel`
 :   The `sentinel` object provides a convenient way of providing unique
     objects for your tests.
 
@@ -2300,14 +2300,14 @@ sentinel.some_object
 
 ### DEFAULT
 
-unittest.mock.DEFAULT
+`unittest.mock.DEFAULT`
 :   The [`DEFAULT`](unittest.mock.md#unittest.mock.DEFAULT "unittest.mock.DEFAULT") object is a pre-created sentinel (actually
     `sentinel.DEFAULT`). It can be used by [`side_effect`](unittest.mock.md#unittest.mock.Mock.side_effect "unittest.mock.Mock.side_effect")
     functions to indicate that the normal return value should be used.
 
 ### call
 
-unittest.mock.call(*\*args*, *\*\*kwargs*)
+`unittest.mock.call(*args, **kwargs)`
 :   [`call()`](unittest.mock.md#unittest.mock.call "unittest.mock.call") is a helper object for making simpler assertions, for comparing with
     [`call_args`](unittest.mock.md#unittest.mock.Mock.call_args "unittest.mock.Mock.call_args"), [`call_args_list`](unittest.mock.md#unittest.mock.Mock.call_args_list "unittest.mock.Mock.call_args_list"),
     [`mock_calls`](unittest.mock.md#unittest.mock.Mock.mock_calls "unittest.mock.Mock.mock_calls") and [`method_calls`](unittest.mock.md#unittest.mock.Mock.method_calls "unittest.mock.Mock.method_calls"). [`call()`](unittest.mock.md#unittest.mock.call "unittest.mock.call") can also be
@@ -2321,7 +2321,7 @@ unittest.mock.call(*\*args*, *\*\*kwargs*)
     True
     ```
 
-call.call_list()
+`call.call_list()`
 :   For a call object that represents multiple calls, [`call_list()`](unittest.mock.md#unittest.mock.call.call_list "unittest.mock.call.call_list")
     returns a list of all the intermediate calls as well as the
     final call.
@@ -2397,7 +2397,7 @@ True
 
 ### create_autospec
 
-unittest.mock.create_autospec(*spec*, *spec_set=False*, *instance=False*, *\*\*kwargs*)
+`unittest.mock.create_autospec(spec, spec_set=False, instance=False, **kwargs)`
 :   Create a mock object using another object as a spec. Attributes on the
     mock will use the corresponding attribute on the *spec* object as their
     spec.
@@ -2424,7 +2424,7 @@ an async function.
 
 ### ANY
 
-unittest.mock.ANY
+`unittest.mock.ANY`
 
 Sometimes you may need to make assertions about *some* of the arguments in a
 call to mock, but either not care about some of the arguments or want to pull
@@ -2467,7 +2467,7 @@ class TestStringMethods(unittest.TestCase):
 
 ### FILTER_DIR
 
-unittest.mock.FILTER_DIR
+`unittest.mock.FILTER_DIR`
 
 [`FILTER_DIR`](unittest.mock.md#unittest.mock.FILTER_DIR "unittest.mock.FILTER_DIR") is a module level variable that controls the way mock objects
 respond to [`dir()`](functions.md#dir "dir"). The default is `True`,
@@ -2527,7 +2527,7 @@ Alternatively you can just use `vars(my_mock)` (instance members) and
 
 ### mock_open
 
-unittest.mock.mock_open(*mock=None*, *read_data=None*)
+`unittest.mock.mock_open(mock=None, read_data=None)`
 :   A helper function to create a mock to replace the use of [`open()`](functions.md#open "open"). It works
     for [`open()`](functions.md#open "open") called directly or used as a context manager.
 
@@ -2825,7 +2825,7 @@ It is only attribute lookups - along with calls to [`dir()`](functions.md#dir "d
 
 ### Sealing mocks
 
-unittest.mock.seal(*mock*)
+`unittest.mock.seal(mock)`
 :   Seal will disable the automatic creation of mocks when accessing an attribute of
     the mock being sealed or any of its attributes that are already mocks recursively.
 

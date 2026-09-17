@@ -49,7 +49,7 @@ objects, or a list of [`EmailMessage`](email.message.md#email.message.EmailMessa
 documents such as *multipart/\** and *message/rfc822*
 message objects.
 
-*class* email.message.EmailMessage(*policy=default*)
+`class email.message.EmailMessage(policy=default)`
 :   If *policy* is specified use the rules it specifies to update and serialize
     the representation of the message. If *policy* is not set, use the
     [`default`](email.policy.md#email.policy.default "email.policy.default") policy, which follows the rules of the email
@@ -57,7 +57,7 @@ message objects.
     the Python standard `\n` line endings). For more information see the
     [`policy`](email.policy.md#module-email.policy "email.policy: Controlling the parsing and generating of messages") documentation.
 
-    as_string(*unixfrom=False*, *maxheaderlen=None*, *policy=None*)
+    `as_string(unixfrom=False, maxheaderlen=None, policy=None)`
     :   Return the entire message flattened as a string. When optional
         *unixfrom* is true, the envelope header is included in the returned
         string. *unixfrom* defaults to `False`. For backward compatibility
@@ -86,7 +86,7 @@ message objects.
         is not specified was changed from defaulting to 0 to defaulting
         to the value of *max_line_length* from the policy.
 
-    __str__()
+    `__str__()`
     :   Equivalent to `as_string(policy=self.policy.clone(utf8=True))`. Allows
         `str(msg)` to produce a string containing the serialized message in a
         readable format.
@@ -95,7 +95,7 @@ message objects.
         thus producing an [**RFC 6531**](https://datatracker.ietf.org/doc/html/rfc6531.html)-like message representation, instead of
         being a direct alias for [`as_string()`](email.message.md#email.message.EmailMessage.as_string "email.message.EmailMessage.as_string").
 
-    as_bytes(*unixfrom=False*, *policy=None*)
+    `as_bytes(unixfrom=False, policy=None)`
     :   Return the entire message flattened as a bytes object. When optional
         *unixfrom* is true, the envelope header is included in the returned
         string. *unixfrom* defaults to `False`. The *policy* argument may be
@@ -114,11 +114,11 @@ message objects.
         [`email.generator.BytesGenerator`](email.generator.md#email.generator.BytesGenerator "email.generator.BytesGenerator") for a more flexible API for
         serializing messages.
 
-    __bytes__()
+    `__bytes__()`
     :   Equivalent to [`as_bytes()`](email.message.md#email.message.EmailMessage.as_bytes "email.message.EmailMessage.as_bytes"). Allows `bytes(msg)` to produce a
         bytes object containing the serialized message.
 
-    is_multipart()
+    `is_multipart()`
     :   Return `True` if the message’s payload is a list of
         sub-[`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage") objects, otherwise return `False`. When
         [`is_multipart()`](email.message.md#email.message.EmailMessage.is_multipart "email.message.EmailMessage.is_multipart") returns `False`, the payload should be a string
@@ -128,12 +128,12 @@ message objects.
         For example, `is_multipart` will return `True` when the
         [`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage") is of type `message/rfc822`.
 
-    set_unixfrom(*unixfrom*)
+    `set_unixfrom(unixfrom)`
     :   Set the message’s envelope header to *unixfrom*, which should be a
         string. (See [`mboxMessage`](mailbox.md#mailbox.mboxMessage "mailbox.mboxMessage") for a brief description of
         this header.)
 
-    get_unixfrom()
+    `get_unixfrom()`
     :   Return the message’s envelope header. Defaults to `None` if the
         envelope header was never set.
 
@@ -154,10 +154,10 @@ message objects.
     Note that in all cases, any envelope header present in the message is not
     included in the mapping interface.
 
-    __len__()
+    `__len__()`
     :   Return the total number of headers, including duplicates.
 
-    __contains__(*name*)
+    `__contains__(name)`
     :   Return `True` if the message object has a field named *name*. Matching is
         done without regard to case and *name* does not include the trailing
         colon. Used for the `in` operator. For example:
@@ -167,7 +167,7 @@ message objects.
            print('Message-ID:', myMessage['message-id'])
         ```
 
-    __getitem__(*name*)
+    `__getitem__(name)`
     :   Return the value of the named header field. *name* does not include the
         colon field separator. If the header is missing, `None` is returned; a
         [`KeyError`](exceptions.md#KeyError "KeyError") is never raised.
@@ -180,7 +180,7 @@ message objects.
         Using the standard (non-`compat32`) policies, the returned value is an
         instance of a subclass of [`email.headerregistry.BaseHeader`](email.headerregistry.md#email.headerregistry.BaseHeader "email.headerregistry.BaseHeader").
 
-    __setitem__(*name*, *val*)
+    `__setitem__(name, val)`
     :   Add a header to the message with field name *name* and value *val*. The
         field is appended to the end of the message’s existing headers.
 
@@ -200,34 +200,34 @@ message objects.
         as we may choose to make such assignments do an automatic deletion of the
         existing header in the future.
 
-    __delitem__(*name*)
+    `__delitem__(name)`
     :   Delete all occurrences of the field with name *name* from the message’s
         headers. No exception is raised if the named field isn’t present in the
         headers.
 
-    keys()
+    `keys()`
     :   Return a list of all the message’s header field names.
 
-    values()
+    `values()`
     :   Return a list of all the message’s field values.
 
-    items()
+    `items()`
     :   Return a list of 2-tuples containing all the message’s field headers and
         values.
 
-    get(*name*, *failobj=None*)
+    `get(name, failobj=None)`
     :   Return the value of the named header field. This is identical to
         [`__getitem__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__getitem__ "object.__getitem__") except that optional *failobj* is returned if the
         named header is missing (*failobj* defaults to `None`).
 
     Here are some additional useful header related methods:
 
-    get_all(*name*, *failobj=None*)
+    `get_all(name, failobj=None)`
     :   Return a list of all the values for the field named *name*. If there are
         no such named headers in the message, *failobj* is returned (defaults to
         `None`).
 
-    add_header(*_name*, *_value*, *\*\*_params*)
+    `add_header(_name, _value, **_params)`
     :   Extended header setting. This method is similar to [`__setitem__()`](email.message.md#email.message.EmailMessage.__setitem__ "email.message.EmailMessage.__setitem__")
         except that additional header parameters can be provided as keyword
         arguments. *_name* is the header field to add and *_value* is the
@@ -268,13 +268,13 @@ message objects.
                        filename=('iso-8859-1', '', 'Fußballer.ppt'))
         ```
 
-    replace_header(*_name*, *_value*)
+    `replace_header(_name, _value)`
     :   Replace a header. Replace the first header found in the message that
         matches *_name*, retaining header order and field name case of the
         original header. If no matching header is found, raise a
         [`KeyError`](exceptions.md#KeyError "KeyError").
 
-    get_content_type()
+    `get_content_type()`
     :   Return the message’s content type, coerced to lower case of the form
         *maintype/subtype*. If there is no *Content-Type*
         header in the message return the value returned by
@@ -289,21 +289,21 @@ message objects.
         has an invalid type specification, [**RFC 2045**](https://datatracker.ietf.org/doc/html/rfc2045.html) mandates that the default
         type be *text/plain*.)
 
-    get_content_maintype()
+    `get_content_maintype()`
     :   Return the message’s main content type. This is the *maintype*
         part of the string returned by [`get_content_type()`](email.message.md#email.message.EmailMessage.get_content_type "email.message.EmailMessage.get_content_type").
 
-    get_content_subtype()
+    `get_content_subtype()`
     :   Return the message’s sub-content type. This is the *subtype*
         part of the string returned by [`get_content_type()`](email.message.md#email.message.EmailMessage.get_content_type "email.message.EmailMessage.get_content_type").
 
-    get_default_type()
+    `get_default_type()`
     :   Return the default content type. Most messages have a default content
         type of *text/plain*, except for messages that are subparts of
         *multipart/digest* containers. Such subparts have a default
         content type of *message/rfc822*.
 
-    set_default_type(*ctype*)
+    `set_default_type(ctype)`
     :   Set the default content type. *ctype* should either be
         *text/plain* or *message/rfc822*, although this is
         not enforced. The default content type is not stored in the
@@ -311,7 +311,7 @@ message objects.
         the `get_content_type` methods when no *Content-Type*
         header is present in the message.
 
-    set_param(*param*, *value*, *header='Content-Type'*, *requote=True*, *charset=None*, *language=''*, *replace=False*)
+    `set_param(param, value, header='Content-Type', requote=True, charset=None, language='', replace=False)`
     :   Set a parameter in the *Content-Type* header. If the
         parameter already exists in the header, replace its value with *value*.
         When *header* is `Content-Type` (the default) and the header does not
@@ -339,7 +339,7 @@ message objects.
 
         Changed in version 3.4: `replace` keyword was added.
 
-    del_param(*param*, *header='content-type'*, *requote=True*)
+    `del_param(param, header='content-type', requote=True)`
     :   Remove the given parameter completely from the *Content-Type*
         header. The header will be re-written in place without the parameter or
         its value. Optional *header* specifies an alternative to
@@ -348,7 +348,7 @@ message objects.
         Use of the *requote* parameter with [`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage") objects is
         deprecated.
 
-    get_filename(*failobj=None*)
+    `get_filename(failobj=None)`
     :   Return the value of the `filename` parameter of the
         *Content-Disposition* header of the message. If the header
         does not have a `filename` parameter, this method falls back to looking
@@ -357,13 +357,13 @@ message objects.
         The returned string will always be unquoted as per
         [`email.utils.unquote()`](email.utils.md#email.utils.unquote "email.utils.unquote").
 
-    get_boundary(*failobj=None*)
+    `get_boundary(failobj=None)`
     :   Return the value of the `boundary` parameter of the
         *Content-Type* header of the message, or *failobj* if either
         the header is missing, or has no `boundary` parameter. The returned
         string will always be unquoted as per [`email.utils.unquote()`](email.utils.md#email.utils.unquote "email.utils.unquote").
 
-    set_boundary(*boundary*)
+    `set_boundary(boundary)`
     :   Set the `boundary` parameter of the *Content-Type* header to
         *boundary*. [`set_boundary()`](email.message.md#email.message.EmailMessage.set_boundary "email.message.EmailMessage.set_boundary") will always quote *boundary* if
         necessary. A [`HeaderParseError`](email.errors.md#email.errors.HeaderParseError "email.errors.HeaderParseError") is raised if the
@@ -375,12 +375,12 @@ message objects.
         the order of the *Content-Type* header in the list of
         headers.
 
-    get_content_charset(*failobj=None*)
+    `get_content_charset(failobj=None)`
     :   Return the `charset` parameter of the *Content-Type* header,
         coerced to lower case. If there is no *Content-Type* header, or if
         that header has no `charset` parameter, *failobj* is returned.
 
-    get_charsets(*failobj=None*)
+    `get_charsets(failobj=None)`
     :   Return a list containing the character set names in the message. If the
         message is a *multipart*, then the list will contain one element
         for each subpart in the payload, otherwise, it will be a list of length 1.
@@ -391,14 +391,14 @@ message objects.
         header, no `charset` parameter, or is not of the *text* main
         MIME type, then that item in the returned list will be *failobj*.
 
-    is_attachment()
+    `is_attachment()`
     :   Return `True` if there is a *Content-Disposition* header
         and its (case insensitive) value is `attachment`, `False` otherwise.
 
         Changed in version 3.4.2: is_attachment is now a method instead of a property, for consistency
         with [`is_multipart()`](email.compat32-message.md#email.message.Message.is_multipart "email.message.Message.is_multipart").
 
-    get_content_disposition()
+    `get_content_disposition()`
     :   Return the lowercased value (without parameters) of the message’s
         *Content-Disposition* header if it has one, or `None`. The
         possible values for this method are *inline*, *attachment* or `None`
@@ -409,7 +409,7 @@ message objects.
     The following methods relate to interrogating and manipulating the content
     (payload) of the message.
 
-    walk()
+    `walk()`
     :   The [`walk()`](email.message.md#email.message.EmailMessage.walk "email.message.EmailMessage.walk") method is an all-purpose generator which can be used to
         iterate over all the parts and subparts of a message object tree, in
         depth-first traversal order. You will typically use [`walk()`](email.message.md#email.message.EmailMessage.walk "email.message.EmailMessage.walk") as the
@@ -462,7 +462,7 @@ message objects.
         subparts. `is_multipart()` returns `True` and `walk` descends
         into the subparts.
 
-    get_body(*preferencelist=('related', 'html', 'plain')*)
+    `get_body(preferencelist=('related', 'html', 'plain'))`
     :   Return the MIME part that is the best candidate to be the “body” of the
         message.
 
@@ -499,7 +499,7 @@ message objects.
         are of type `text/plain`, which may occasionally cause `get_body` to
         return unexpected results.
 
-    iter_attachments()
+    `iter_attachments()`
     :   Return an iterator over all of the immediate sub-parts of the message
         that are not candidate “body” parts. That is, skip the first occurrence
         of each of `text/plain`, `text/html`, `multipart/related`, or
@@ -513,26 +513,26 @@ message objects.
         parts). When applied directly to a `multipart/alternative` or a
         non-`multipart`, return an empty iterator.
 
-    iter_parts()
+    `iter_parts()`
     :   Return an iterator over all of the immediate sub-parts of the message,
         which will be empty for a non-`multipart`. (See also
         [`walk()`](email.message.md#email.message.EmailMessage.walk "email.message.EmailMessage.walk").)
 
-    get_content(*\*args*, *content_manager=None*, *\*\*kw*)
+    `get_content(*args, content_manager=None, **kw)`
     :   Call the [`get_content()`](email.contentmanager.md#email.contentmanager.ContentManager.get_content "email.contentmanager.ContentManager.get_content") method
         of the *content_manager*, passing self as the message object, and passing
         along any other arguments or keywords as additional arguments. If
         *content_manager* is not specified, use the `content_manager` specified
         by the current [`policy`](email.policy.md#module-email.policy "email.policy: Controlling the parsing and generating of messages").
 
-    set_content(*\*args*, *content_manager=None*, *\*\*kw*)
+    `set_content(*args, content_manager=None, **kw)`
     :   Call the [`set_content()`](email.contentmanager.md#email.contentmanager.ContentManager.set_content "email.contentmanager.ContentManager.set_content") method
         of the *content_manager*, passing self as the message object, and passing
         along any other arguments or keywords as additional arguments. If
         *content_manager* is not specified, use the `content_manager` specified
         by the current [`policy`](email.policy.md#module-email.policy "email.policy: Controlling the parsing and generating of messages").
 
-    make_related(*boundary=None*)
+    `make_related(boundary=None)`
     :   Convert a non-`multipart` message into a `multipart/related` message,
         moving any existing *Content-* headers and payload into a
         (new) first part of the `multipart`. If *boundary* is specified, use
@@ -540,7 +540,7 @@ message objects.
         to be automatically created when it is needed (for example, when the
         message is serialized).
 
-    make_alternative(*boundary=None*)
+    `make_alternative(boundary=None)`
     :   Convert a non-`multipart` or a `multipart/related` into a
         `multipart/alternative`, moving any existing *Content-*
         headers and payload into a (new) first part of the `multipart`. If
@@ -548,7 +548,7 @@ message objects.
         otherwise leave the boundary to be automatically created when it is
         needed (for example, when the message is serialized).
 
-    make_mixed(*boundary=None*)
+    `make_mixed(boundary=None)`
     :   Convert a non-`multipart`, a `multipart/related`, or a
         `multipart-alternative` into a `multipart/mixed`, moving any existing
         *Content-* headers and payload into a (new) first part of the
@@ -556,7 +556,7 @@ message objects.
         in the multipart, otherwise leave the boundary to be automatically
         created when it is needed (for example, when the message is serialized).
 
-    add_related(*\*args*, *content_manager=None*, *\*\*kw*)
+    `add_related(*args, content_manager=None, **kw)`
     :   If the message is a `multipart/related`, create a new message
         object, pass all of the arguments to its [`set_content()`](email.message.md#email.message.EmailMessage.set_content "email.message.EmailMessage.set_content") method,
         and [`attach()`](email.compat32-message.md#email.message.Message.attach "email.message.Message.attach") it to the `multipart`. If
@@ -567,7 +567,7 @@ message objects.
         If the added part has no *Content-Disposition* header,
         add one with the value `inline`.
 
-    add_alternative(*\*args*, *content_manager=None*, *\*\*kw*)
+    `add_alternative(*args, content_manager=None, **kw)`
     :   If the message is a `multipart/alternative`, create a new message
         object, pass all of the arguments to its [`set_content()`](email.message.md#email.message.EmailMessage.set_content "email.message.EmailMessage.set_content") method, and
         [`attach()`](email.compat32-message.md#email.message.Message.attach "email.message.Message.attach") it to the `multipart`. If the
@@ -577,7 +577,7 @@ message objects.
         *content_manager* is not specified, use the `content_manager` specified
         by the current [`policy`](email.policy.md#module-email.policy "email.policy: Controlling the parsing and generating of messages").
 
-    add_attachment(*\*args*, *content_manager=None*, *\*\*kw*)
+    `add_attachment(*args, content_manager=None, **kw)`
     :   If the message is a `multipart/mixed`, create a new message object,
         pass all of the arguments to its [`set_content()`](email.message.md#email.message.EmailMessage.set_content "email.message.EmailMessage.set_content") method, and
         [`attach()`](email.compat32-message.md#email.message.Message.attach "email.message.Message.attach") it to the `multipart`. If the
@@ -591,16 +591,16 @@ message objects.
         (*Content-Disposition: inline*), by passing appropriate
         options to the `content_manager`.
 
-    clear()
+    `clear()`
     :   Remove the payload and all of the headers.
 
-    clear_content()
+    `clear_content()`
     :   Remove the payload and all of the *!Content-* headers, leaving
         all other headers intact and in their original order.
 
     [`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage") objects have the following instance attributes:
 
-    preamble
+    `preamble`
     :   The format of a MIME document allows for some text between the blank line
         following the headers, and the first multipart boundary string. Normally,
         this text is never visible in a MIME-aware mail reader because it falls
@@ -621,18 +621,18 @@ message objects.
         Note that if the message object has no preamble, the *preamble* attribute
         will be `None`.
 
-    epilogue
+    `epilogue`
     :   The *epilogue* attribute acts the same way as the *preamble* attribute,
         except that it contains text that appears between the last boundary and
         the end of the message. As with the [`preamble`](email.message.md#email.message.EmailMessage.preamble "email.message.EmailMessage.preamble"),
         if there is no epilog text this attribute will be `None`.
 
-    defects
+    `defects`
     :   The *defects* attribute contains a list of all the problems found when
         parsing this message. See [`email.errors`](email.errors.md#module-email.errors "email.errors: The exception classes used by the email package.") for a detailed description
         of the possible parsing defects.
 
-*class* email.message.MIMEPart(*policy=default*)
+`class email.message.MIMEPart(policy=default)`
 :   This class represents a subpart of a MIME message. It is identical to
     [`EmailMessage`](email.message.md#email.message.EmailMessage "email.message.EmailMessage"), except that no *MIME-Version* headers are
     added when [`set_content()`](email.message.md#email.message.EmailMessage.set_content "email.message.EmailMessage.set_content") is called, since sub-parts do

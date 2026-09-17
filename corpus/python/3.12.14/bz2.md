@@ -25,7 +25,7 @@ The [`bz2`](bz2.md#module-bz2 "bz2: Interfaces for bzip2 compression and decompr
 
 ## (De)compression of files
 
-bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=None*, *newline=None*)
+`bz2.open(filename, mode='rb', compresslevel=9, encoding=None, errors=None, newline=None)`
 :   Open a bzip2-compressed file in binary or text mode, returning a [file
     object](https://docs.python.org/3.12/glossary.html#term-file-object).
 
@@ -55,7 +55,7 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
 
     Changed in version 3.6: Accepts a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-*class* bz2.BZ2File(*filename*, *mode='r'*, *\**, *compresslevel=9*)
+`class bz2.BZ2File(filename, mode='r', *, compresslevel=9)`
 :   Open a bzip2-compressed file in binary mode.
 
     If *filename* is a [`str`](stdtypes.md#str "str") or [`bytes`](stdtypes.md#bytes "bytes") object, open the named file
@@ -84,7 +84,7 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
 
     [`BZ2File`](bz2.md#bz2.BZ2File "bz2.BZ2File") also provides the following methods:
 
-    peek([*n*])
+    `peek([n])`
     :   Return buffered data without advancing the file position. At least one
         byte of data will be returned (unless at EOF). The exact number of bytes
         returned is unspecified.
@@ -98,27 +98,27 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
 
         Added in version 3.3.
 
-    fileno()
+    `fileno()`
     :   Return the file descriptor for the underlying file.
 
         Added in version 3.3.
 
-    readable()
+    `readable()`
     :   Return whether the file was opened for reading.
 
         Added in version 3.3.
 
-    seekable()
+    `seekable()`
     :   Return whether the file supports seeking.
 
         Added in version 3.3.
 
-    writable()
+    `writable()`
     :   Return whether the file was opened for writing.
 
         Added in version 3.3.
 
-    read1(*size=-1*)
+    `read1(size=-1)`
     :   Read up to *size* uncompressed bytes, while trying to avoid
         making multiple reads from the underlying stream. Reads up to a
         buffer’s worth of data if size is negative.
@@ -127,7 +127,7 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
 
         Added in version 3.3.
 
-    readinto(*b*)
+    `readinto(b)`
     :   Read bytes into *b*.
 
         Returns the number of bytes read (0 for EOF).
@@ -161,7 +161,7 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
 
 ## Incremental (de)compression
 
-*class* bz2.BZ2Compressor(*compresslevel=9*)
+`class bz2.BZ2Compressor(compresslevel=9)`
 :   Create a new compressor object. This object may be used to compress data
     incrementally. For one-shot compression, use the [`compress()`](bz2.md#bz2.compress "bz2.compress") function
     instead.
@@ -169,20 +169,20 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
     *compresslevel*, if given, must be an integer between `1` and `9`. The
     default is `9`.
 
-    compress(*data*)
+    `compress(data)`
     :   Provide data to the compressor object. Returns a chunk of compressed data
         if possible, or an empty byte string otherwise.
 
         When you have finished providing data to the compressor, call the
         [`flush()`](bz2.md#bz2.BZ2Compressor.flush "bz2.BZ2Compressor.flush") method to finish the compression process.
 
-    flush()
+    `flush()`
     :   Finish the compression process. Returns the compressed data left in
         internal buffers.
 
         The compressor object may not be used after this method has been called.
 
-*class* bz2.BZ2Decompressor
+`class bz2.BZ2Decompressor`
 :   Create a new decompressor object. This object may be used to decompress data
     incrementally. For one-shot compression, use the [`decompress()`](bz2.md#bz2.decompress "bz2.decompress") function
     instead.
@@ -194,7 +194,7 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
     > you need to decompress a multi-stream input with [`BZ2Decompressor`](bz2.md#bz2.BZ2Decompressor "bz2.BZ2Decompressor"),
     > you must use a new decompressor for each stream.
 
-    decompress(*data*, *max_length=-1*)
+    `decompress(data, max_length=-1)`
     :   Decompress *data* (a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object)), returning
         uncompressed data as bytes. Some of *data* may be buffered
         internally, for use in later calls to [`decompress()`](bz2.md#bz2.decompress "bz2.decompress"). The
@@ -219,18 +219,18 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
 
         Changed in version 3.5: Added the *max_length* parameter.
 
-    eof
+    `eof`
     :   `True` if the end-of-stream marker has been reached.
 
         Added in version 3.3.
 
-    unused_data
+    `unused_data`
     :   Data found after the end of the compressed stream.
 
         If this attribute is accessed before the end of the stream has been
         reached, its value will be `b''`.
 
-    needs_input
+    `needs_input`
     :   `False` if the [`decompress()`](bz2.md#bz2.BZ2Decompressor.decompress "bz2.BZ2Decompressor.decompress") method can provide more
         decompressed data before requiring new uncompressed input.
 
@@ -238,7 +238,7 @@ bz2.open(*filename*, *mode='rb'*, *compresslevel=9*, *encoding=None*, *errors=No
 
 ## One-shot (de)compression
 
-bz2.compress(*data*, *compresslevel=9*)
+`bz2.compress(data, compresslevel=9)`
 :   Compress *data*, a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
     *compresslevel*, if given, must be an integer between `1` and `9`. The
@@ -246,7 +246,7 @@ bz2.compress(*data*, *compresslevel=9*)
 
     For incremental compression, use a [`BZ2Compressor`](bz2.md#bz2.BZ2Compressor "bz2.BZ2Compressor") instead.
 
-bz2.decompress(*data*)
+`bz2.decompress(data)`
 :   Decompress *data*, a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object).
 
     If *data* is the concatenation of multiple compressed streams, decompress

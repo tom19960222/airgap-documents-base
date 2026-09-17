@@ -14,7 +14,7 @@ fetched_at: 2026-09-17T15:36:10+00:00
 There are a couple of useful utilities provided in the [`email.utils`](email.utils.md#module-email.utils "email.utils: Miscellaneous email package utilities.")
 module:
 
-email.utils.localtime(*dt=None*)
+`email.utils.localtime(dt=None)`
 :   Return local time as an aware datetime object. If called without
     arguments, return current time. Otherwise *dt* argument should be a
     [`datetime`](datetime.md#datetime.datetime "datetime.datetime") instance, and it is converted to the local time
@@ -26,7 +26,7 @@ email.utils.localtime(*dt=None*)
 
     Deprecated since version 3.12, will be removed in version 3.14: The *isdst* parameter.
 
-email.utils.make_msgid(*idstring=None*, *domain=None*)
+`email.utils.make_msgid(idstring=None, domain=None)`
 :   Returns a string suitable for an [**RFC 2822**](https://datatracker.ietf.org/doc/html/rfc2822.html)-compliant
     *Message-ID* header. Optional *idstring* if given, is a string
     used to strengthen the uniqueness of the message id. Optional *domain* if
@@ -42,16 +42,16 @@ is no need to directly use these with the new API, since the parsing and
 formatting they provide is done automatically by the header parsing machinery
 of the new API.
 
-email.utils.quote(*str*)
+`email.utils.quote(str)`
 :   Return a new string with backslashes in *str* replaced by two backslashes, and
     double quotes replaced by backslash-double quote.
 
-email.utils.unquote(*str*)
+`email.utils.unquote(str)`
 :   Return a new string which is an *unquoted* version of *str*. If *str* ends and
     begins with double quotes, they are stripped off. Likewise if *str* ends and
     begins with angle brackets, they are stripped off.
 
-email.utils.parseaddr(*address*, *\**, *strict=True*)
+`email.utils.parseaddr(address, *, strict=True)`
 :   Parse address – which should be the value of some address-containing field such
     as *To* or *Cc* – into its constituent *realname* and
     *email address* parts. Returns a tuple of that information, unless the parse
@@ -61,7 +61,7 @@ email.utils.parseaddr(*address*, *\**, *strict=True*)
 
     Changed in version 3.12.6: Add *strict* optional parameter and reject malformed inputs by default.
 
-email.utils.formataddr(*pair*, *charset='utf-8'*)
+`email.utils.formataddr(pair, charset='utf-8')`
 :   The inverse of [`parseaddr()`](email.utils.md#email.utils.parseaddr "email.utils.parseaddr"), this takes a 2-tuple of the form `(realname,
     email_address)` and returns the string value suitable for a *To* or
     *Cc* header. If the first element of *pair* is false, then the
@@ -74,7 +74,7 @@ email.utils.formataddr(*pair*, *charset='utf-8'*)
 
     Changed in version 3.3: Added the *charset* option.
 
-email.utils.getaddresses(*fieldvalues*, *\**, *strict=True*)
+`email.utils.getaddresses(fieldvalues, *, strict=True)`
 :   This method returns a list of 2-tuples of the form returned by `parseaddr()`.
     *fieldvalues* is a sequence of header field values as might be returned by
     [`Message.get_all`](email.compat32-message.md#email.message.Message.get_all "email.message.Message.get_all").
@@ -95,7 +95,7 @@ email.utils.getaddresses(*fieldvalues*, *\**, *strict=True*)
 
     Changed in version 3.12.6: Add *strict* optional parameter and reject malformed inputs by default.
 
-email.utils.parsedate(*date*)
+`email.utils.parsedate(date)`
 :   Attempts to parse a date according to the rules in [**RFC 2822**](https://datatracker.ietf.org/doc/html/rfc2822.html). however, some
     mailers don’t follow that format as specified, so [`parsedate()`](email.utils.md#email.utils.parsedate "email.utils.parsedate") tries to
     guess correctly in such cases. *date* is a string containing an [**RFC 2822**](https://datatracker.ietf.org/doc/html/rfc2822.html)
@@ -104,7 +104,7 @@ email.utils.parsedate(*date*)
     [`time.mktime()`](time.md#time.mktime "time.mktime"); otherwise `None` will be returned. Note that indexes 6,
     7, and 8 of the result tuple are not usable.
 
-email.utils.parsedate_tz(*date*)
+`email.utils.parsedate_tz(date)`
 :   Performs the same function as [`parsedate()`](email.utils.md#email.utils.parsedate "email.utils.parsedate"), but returns either `None` or
     a 10-tuple; the first 9 elements make up a tuple that can be passed directly to
     [`time.mktime()`](time.md#time.mktime "time.mktime"), and the tenth is the offset of the date’s timezone from UTC
@@ -112,7 +112,7 @@ email.utils.parsedate_tz(*date*)
     has no timezone, the last element of the tuple returned is `0`, which represents
     UTC. Note that indexes 6, 7, and 8 of the result tuple are not usable.
 
-email.utils.parsedate_to_datetime(*date*)
+`email.utils.parsedate_to_datetime(date)`
 :   The inverse of [`format_datetime()`](email.utils.md#email.utils.format_datetime "email.utils.format_datetime"). Performs the same function as
     [`parsedate()`](email.utils.md#email.utils.parsedate "email.utils.parsedate"), but on success returns a [`datetime`](datetime.md#datetime.datetime "datetime.datetime");
     otherwise `ValueError` is raised if *date* contains an invalid value such
@@ -126,12 +126,12 @@ email.utils.parsedate_to_datetime(*date*)
 
     Added in version 3.3.
 
-email.utils.mktime_tz(*tuple*)
+`email.utils.mktime_tz(tuple)`
 :   Turn a 10-tuple as returned by [`parsedate_tz()`](email.utils.md#email.utils.parsedate_tz "email.utils.parsedate_tz") into a UTC
     timestamp (seconds since the Epoch). If the timezone item in the
     tuple is `None`, assume local time.
 
-email.utils.formatdate(*timeval=None*, *localtime=False*, *usegmt=False*)
+`email.utils.formatdate(timeval=None, localtime=False, usegmt=False)`
 :   Returns a date string as per [**RFC 2822**](https://datatracker.ietf.org/doc/html/rfc2822.html), e.g.:
 
     ```python3
@@ -152,7 +152,7 @@ email.utils.formatdate(*timeval=None*, *localtime=False*, *usegmt=False*)
     needed for some protocols (such as HTTP). This only applies when *localtime* is
     `False`. The default is `False`.
 
-email.utils.format_datetime(*dt*, *usegmt=False*)
+`email.utils.format_datetime(dt, usegmt=False)`
 :   Like `formatdate`, but the input is a [`datetime`](datetime.md#module-datetime "datetime: Basic date and time types.") instance. If it is
     a naive datetime, it is assumed to be “UTC with no information about the
     source timezone”, and the conventional `-0000` is used for the timezone.
@@ -164,16 +164,16 @@ email.utils.format_datetime(*dt*, *usegmt=False*)
 
     Added in version 3.3.
 
-email.utils.decode_rfc2231(*s*)
+`email.utils.decode_rfc2231(s)`
 :   Decode the string *s* according to [**RFC 2231**](https://datatracker.ietf.org/doc/html/rfc2231.html).
 
-email.utils.encode_rfc2231(*s*, *charset=None*, *language=None*)
+`email.utils.encode_rfc2231(s, charset=None, language=None)`
 :   Encode the string *s* according to [**RFC 2231**](https://datatracker.ietf.org/doc/html/rfc2231.html). Optional *charset* and
     *language*, if given is the character set name and language name to use. If
     neither is given, *s* is returned as-is. If *charset* is given but *language*
     is not, the string is encoded using the empty string for *language*.
 
-email.utils.collapse_rfc2231_value(*value*, *errors='replace'*, *fallback_charset='us-ascii'*)
+`email.utils.collapse_rfc2231_value(value, errors='replace', fallback_charset='us-ascii')`
 :   When a header parameter is encoded in [**RFC 2231**](https://datatracker.ietf.org/doc/html/rfc2231.html) format,
     [`Message.get_param`](email.compat32-message.md#email.message.Message.get_param "email.message.Message.get_param") may return a
     3-tuple containing the character set,
@@ -186,7 +186,7 @@ email.utils.collapse_rfc2231_value(*value*, *errors='replace'*, *fallback_charse
     For convenience, if the *value* passed to [`collapse_rfc2231_value()`](email.utils.md#email.utils.collapse_rfc2231_value "email.utils.collapse_rfc2231_value") is not
     a tuple, it should be a string and it is returned unquoted.
 
-email.utils.decode_params(*params*)
+`email.utils.decode_params(params)`
 :   Decode parameters list according to [**RFC 2231**](https://datatracker.ietf.org/doc/html/rfc2231.html). *params* is a sequence of
     2-tuples containing elements of the form `(content-type, string-value)`.
 

@@ -56,7 +56,7 @@ This module provides a [`hook_compressed()`](fileinput.md#fileinput.hook_compres
 
 The following function is the primary interface of this module:
 
-fileinput.input(*files=None*, *inplace=False*, *backup=''*, *\**, *mode='r'*, *openhook=None*, *encoding=None*, *errors=None*)
+`fileinput.input(files=None, inplace=False, backup='', *, mode='r', openhook=None, encoding=None, errors=None)`
 :   Create an instance of the [`FileInput`](fileinput.md#fileinput.FileInput "fileinput.FileInput") class. The instance will be used
     as global state for the functions of this module, and is also returned to use
     during iteration. The parameters to this function will be passed along to the
@@ -81,33 +81,33 @@ fileinput.input(*files=None*, *inplace=False*, *backup=''*, *\**, *mode='r'*, *o
 The following functions use the global state created by [`fileinput.input()`](fileinput.md#fileinput.input "fileinput.input");
 if there is no active state, [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is raised.
 
-fileinput.filename()
+`fileinput.filename()`
 :   Return the name of the file currently being read. Before the first line has
     been read, returns `None`.
 
-fileinput.fileno()
+`fileinput.fileno()`
 :   Return the integer “file descriptor” for the current file. When no file is
     opened (before the first line and between files), returns `-1`.
 
-fileinput.lineno()
+`fileinput.lineno()`
 :   Return the cumulative line number of the line that has just been read. Before
     the first line has been read, returns `0`. After the last line of the last
     file has been read, returns the line number of that line.
 
-fileinput.filelineno()
+`fileinput.filelineno()`
 :   Return the line number in the current file. Before the first line has been
     read, returns `0`. After the last line of the last file has been read,
     returns the line number of that line within the file.
 
-fileinput.isfirstline()
+`fileinput.isfirstline()`
 :   Return `True` if the line just read is the first line of its file, otherwise
     return `False`.
 
-fileinput.isstdin()
+`fileinput.isstdin()`
 :   Return `True` if the last line was read from `sys.stdin`, otherwise return
     `False`.
 
-fileinput.nextfile()
+`fileinput.nextfile()`
 :   Close the current file so that the next iteration will read the first line from
     the next file (if any); lines not read from the file will not count towards the
     cumulative line count. The filename is not changed until after the first line
@@ -115,13 +115,13 @@ fileinput.nextfile()
     function has no effect; it cannot be used to skip the first file. After the
     last line of the last file has been read, this function has no effect.
 
-fileinput.close()
+`fileinput.close()`
 :   Close the sequence.
 
 The class which implements the sequence behavior provided by the module is
 available for subclassing as well:
 
-*class* fileinput.FileInput(*files=None*, *inplace=False*, *backup=''*, *\**, *mode='r'*, *openhook=None*, *encoding=None*, *errors=None*)
+`class fileinput.FileInput(files=None, inplace=False, backup='', *, mode='r', openhook=None, encoding=None, errors=None)`
 :   Class [`FileInput`](fileinput.md#fileinput.FileInput "fileinput.FileInput") is the implementation; its methods [`filename()`](fileinput.md#fileinput.filename "fileinput.filename"),
     [`fileno()`](fileinput.md#fileinput.fileno "fileinput.fileno"), [`lineno()`](fileinput.md#fileinput.lineno "fileinput.lineno"), [`filelineno()`](fileinput.md#fileinput.filelineno "fileinput.filelineno"), [`isfirstline()`](fileinput.md#fileinput.isfirstline "fileinput.isfirstline"),
     [`isstdin()`](fileinput.md#fileinput.isstdin "fileinput.isstdin"), [`nextfile()`](fileinput.md#fileinput.nextfile "fileinput.nextfile") and [`close()`](fileinput.md#fileinput.close "fileinput.close") correspond to the
@@ -170,7 +170,7 @@ when standard input is read.
 
 The two following opening hooks are provided by this module:
 
-fileinput.hook_compressed(*filename*, *mode*, *\**, *encoding=None*, *errors=None*)
+`fileinput.hook_compressed(filename, mode, *, encoding=None, errors=None)`
 :   Transparently opens files compressed with gzip and bzip2 (recognized by the
     extensions `'.gz'` and `'.bz2'`) using the [`gzip`](gzip.md#module-gzip "gzip: Interfaces for gzip compression and decompression using file objects.") and [`bz2`](bz2.md#module-bz2 "bz2: Interfaces for bzip2 compression and decompression.")
     modules. If the filename extension is not `'.gz'` or `'.bz2'`, the file is
@@ -183,7 +183,7 @@ fileinput.hook_compressed(*filename*, *mode*, *\**, *encoding=None*, *errors=Non
 
     Changed in version 3.10: The keyword-only parameter *encoding* and *errors* are added.
 
-fileinput.hook_encoded(*encoding*, *errors=None*)
+`fileinput.hook_encoded(encoding, errors=None)`
 :   Returns a hook which opens each file with [`open()`](functions.md#open "open"), using the given
     *encoding* and *errors* to read the file.
 

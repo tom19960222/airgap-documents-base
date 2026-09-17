@@ -26,7 +26,7 @@ a cleanup function is undefined.
 Changed in version 3.7: When used with C-API subinterpreters, registered functions
 are local to the interpreter they were registered in.
 
-atexit.register(*func*, *\*args*, *\*\*kwargs*)
+`atexit.register(func, *args, **kwargs)`
 :   Register *func* as a function to be executed at termination. Any optional
     arguments that are to be passed to *func* must be passed as arguments to
     [`register()`](atexit.md#atexit.register "atexit.register"). It is possible to register the same function and arguments
@@ -57,7 +57,7 @@ atexit.register(*func*, *\*args*, *\*\*kwargs*)
     Changed in version 3.12: Attempts to start a new thread or [`os.fork()`](os.md#os.fork "os.fork") a new process
     in a registered function now leads to [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError").
 
-atexit.unregister(*func*)
+`atexit.unregister(func)`
 :   Remove *func* from the list of functions to be run at interpreter shutdown.
     [`unregister()`](atexit.md#atexit.unregister "atexit.unregister") silently does nothing if *func* was not previously
     registered. If *func* has been registered more than once, every occurrence

@@ -70,7 +70,7 @@ list of defects that it can find.
 
 Here is the API for the [`BytesFeedParser`](email.parser.md#email.parser.BytesFeedParser "email.parser.BytesFeedParser"):
 
-*class* email.parser.BytesFeedParser(*_factory=None*, *\**, *policy=policy.compat32*)
+`class email.parser.BytesFeedParser(_factory=None, *, policy=policy.compat32)`
 :   Create a [`BytesFeedParser`](email.parser.md#email.parser.BytesFeedParser "email.parser.BytesFeedParser") instance. Optional *_factory* is a
     no-argument callable; if not specified use the
     [`message_factory`](email.policy.md#email.policy.Policy.message_factory "email.policy.Policy.message_factory") from the *policy*. Call
@@ -94,19 +94,19 @@ Here is the API for the [`BytesFeedParser`](email.parser.md#email.parser.BytesFe
 
     Changed in version 3.6: *_factory* defaults to the policy `message_factory`.
 
-    feed(*data*)
+    `feed(data)`
     :   Feed the parser some more data. *data* should be a [bytes-like
         object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) containing one or more lines. The lines can be partial and the
         parser will stitch such partial lines together properly. The lines can
         have any of the three common line endings: carriage return, newline, or
         carriage return and newline (they can even be mixed).
 
-    close()
+    `close()`
     :   Complete the parsing of all previously fed data and return the root
         message object. It is undefined what happens if [`feed()`](email.parser.md#email.parser.BytesFeedParser.feed "email.parser.BytesFeedParser.feed") is called
         after this method has been called.
 
-*class* email.parser.FeedParser(*_factory=None*, *\**, *policy=policy.compat32*)
+`class email.parser.FeedParser(_factory=None, *, policy=policy.compat32)`
 :   Works like [`BytesFeedParser`](email.parser.md#email.parser.BytesFeedParser "email.parser.BytesFeedParser") except that the input to the
     [`feed()`](email.parser.md#email.parser.BytesFeedParser.feed "email.parser.BytesFeedParser.feed") method must be a string. This is of limited
     utility, since the only way for such a message to be valid is for it to
@@ -127,7 +127,7 @@ headers of the message. [`BytesHeaderParser`](email.parser.md#email.parser.Bytes
 can be much faster in these situations, since they do not attempt to parse the
 message body, instead setting the payload to the raw body.
 
-*class* email.parser.BytesParser(*_class=None*, *\**, *policy=policy.compat32*)
+`class email.parser.BytesParser(_class=None, *, policy=policy.compat32)`
 :   Create a [`BytesParser`](email.parser.md#email.parser.BytesParser "email.parser.BytesParser") instance. The *_class* and *policy*
     arguments have the same meaning and semantics as the *_factory*
     and *policy* arguments of [`BytesFeedParser`](email.parser.md#email.parser.BytesFeedParser "email.parser.BytesFeedParser").
@@ -140,7 +140,7 @@ message body, instead setting the payload to the raw body.
 
     Changed in version 3.6: *_class* defaults to the policy `message_factory`.
 
-    parse(*fp*, *headersonly=False*)
+    `parse(fp, headersonly=False)`
     :   Read all the data from the binary file-like object *fp*, parse the
         resulting bytes, and return the message object. *fp* must support
         both the [`readline()`](io.md#io.IOBase.readline "io.IOBase.readline") and the `read()`
@@ -158,7 +158,7 @@ message body, instead setting the payload to the raw body.
         reading the headers or not. The default is `False`, meaning it parses
         the entire contents of the file.
 
-    parsebytes(*bytes*, *headersonly=False*)
+    `parsebytes(bytes, headersonly=False)`
     :   Similar to the [`parse()`](email.parser.md#email.parser.BytesParser.parse "email.parser.BytesParser.parse") method, except it takes a [bytes-like
         object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) instead of a file-like object. Calling this method on a
         [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object) is equivalent to wrapping *bytes* in a
@@ -168,20 +168,20 @@ message body, instead setting the payload to the raw body.
 
     Added in version 3.2.
 
-*class* email.parser.BytesHeaderParser(*_class=None*, *\**, *policy=policy.compat32*)
+`class email.parser.BytesHeaderParser(_class=None, *, policy=policy.compat32)`
 :   Exactly like [`BytesParser`](email.parser.md#email.parser.BytesParser "email.parser.BytesParser"), except that *headersonly*
     defaults to `True`.
 
     Added in version 3.3.
 
-*class* email.parser.Parser(*_class=None*, *\**, *policy=policy.compat32*)
+`class email.parser.Parser(_class=None, *, policy=policy.compat32)`
 :   This class is parallel to [`BytesParser`](email.parser.md#email.parser.BytesParser "email.parser.BytesParser"), but handles string input.
 
     Changed in version 3.3: Removed the *strict* argument. Added the *policy* keyword.
 
     Changed in version 3.6: *_class* defaults to the policy `message_factory`.
 
-    parse(*fp*, *headersonly=False*)
+    `parse(fp, headersonly=False)`
     :   Read all the data from the text-mode file-like object *fp*, parse the
         resulting text, and return the root message object. *fp* must support
         both the [`readline()`](io.md#io.TextIOBase.readline "io.TextIOBase.readline") and the
@@ -190,7 +190,7 @@ message body, instead setting the payload to the raw body.
         Other than the text mode requirement, this method operates like
         [`BytesParser.parse()`](email.parser.md#email.parser.BytesParser.parse "email.parser.BytesParser.parse").
 
-    parsestr(*text*, *headersonly=False*)
+    `parsestr(text, headersonly=False)`
     :   Similar to the [`parse()`](email.parser.md#email.parser.Parser.parse "email.parser.Parser.parse") method, except it takes a string object
         instead of a file-like object. Calling this method on a string is
         equivalent to wrapping *text* in a [`StringIO`](io.md#io.StringIO "io.StringIO") instance first
@@ -198,7 +198,7 @@ message body, instead setting the payload to the raw body.
 
         Optional *headersonly* is as with the [`parse()`](email.parser.md#email.parser.Parser.parse "email.parser.Parser.parse") method.
 
-*class* email.parser.HeaderParser(*_class=None*, *\**, *policy=policy.compat32*)
+`class email.parser.HeaderParser(_class=None, *, policy=policy.compat32)`
 :   Exactly like [`Parser`](email.parser.md#email.parser.Parser "email.parser.Parser"), except that *headersonly*
     defaults to `True`.
 
@@ -206,7 +206,7 @@ Since creating a message object structure from a string or a file object is such
 a common task, four functions are provided as a convenience. They are available
 in the top-level [`email`](email.md#module-email "email: Package supporting the parsing, manipulating, and generating email messages.") package namespace.
 
-email.message_from_bytes(*s*, *_class=None*, *\**, *policy=policy.compat32*)
+`email.message_from_bytes(s, _class=None, *, policy=policy.compat32)`
 :   Return a message object structure from a [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object). This is
     equivalent to `BytesParser().parsebytes(s)`. Optional *_class* and
     *policy* are interpreted as with the [`BytesParser`](email.parser.md#email.parser.BytesParser "email.parser.BytesParser") class
@@ -216,7 +216,7 @@ email.message_from_bytes(*s*, *_class=None*, *\**, *policy=policy.compat32*)
 
     Changed in version 3.3: Removed the *strict* argument. Added the *policy* keyword.
 
-email.message_from_binary_file(*fp*, *_class=None*, *\**, *policy=policy.compat32*)
+`email.message_from_binary_file(fp, _class=None, *, policy=policy.compat32)`
 :   Return a message object structure tree from an open binary [file
     object](https://docs.python.org/3.12/glossary.html#term-file-object). This is equivalent to `BytesParser().parse(fp)`. *_class* and
     *policy* are interpreted as with the [`BytesParser`](email.parser.md#email.parser.BytesParser "email.parser.BytesParser") class
@@ -226,14 +226,14 @@ email.message_from_binary_file(*fp*, *_class=None*, *\**, *policy=policy.compat3
 
     Changed in version 3.3: Removed the *strict* argument. Added the *policy* keyword.
 
-email.message_from_string(*s*, *_class=None*, *\**, *policy=policy.compat32*)
+`email.message_from_string(s, _class=None, *, policy=policy.compat32)`
 :   Return a message object structure from a string. This is equivalent to
     `Parser().parsestr(s)`. *_class* and *policy* are interpreted as
     with the [`Parser`](email.parser.md#email.parser.Parser "email.parser.Parser") class constructor.
 
     Changed in version 3.3: Removed the *strict* argument. Added the *policy* keyword.
 
-email.message_from_file(*fp*, *_class=None*, *\**, *policy=policy.compat32*)
+`email.message_from_file(fp, _class=None, *, policy=policy.compat32)`
 :   Return a message object structure tree from an open [file object](https://docs.python.org/3.12/glossary.html#term-file-object).
     This is equivalent to `Parser().parse(fp)`. *_class* and *policy* are
     interpreted as with the [`Parser`](email.parser.md#email.parser.Parser "email.parser.Parser") class constructor.

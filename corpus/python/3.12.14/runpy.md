@@ -27,7 +27,7 @@ is likely to be a more suitable choice than this module.
 
 The [`runpy`](runpy.md#module-runpy "runpy: Locate and run Python modules without importing them first.") module provides two functions:
 
-runpy.run_module(*mod_name*, *init_globals=None*, *run_name=None*, *alter_sys=False*)
+`runpy.run_module(mod_name, init_globals=None, run_name=None, alter_sys=False)`
 :   Execute the code of the specified module and return the resulting module
     globals dictionary. The module’s code is first located using the standard
     import mechanism (refer to [**PEP 302**](https://peps.python.org/pep-0302/) for details) and then executed in a
@@ -91,7 +91,7 @@ runpy.run_module(*mod_name*, *init_globals=None*, *run_name=None*, *alter_sys=Fa
     `__package__` are deprecated. See
     [`ModuleSpec`](importlib.md#importlib.machinery.ModuleSpec "importlib.machinery.ModuleSpec") for alternatives.
 
-runpy.run_path(*path_name*, *init_globals=None*, *run_name=None*)
+`runpy.run_path(path_name, init_globals=None, run_name=None)`
 :   Execute the code at the named filesystem location and return the resulting
     module globals dictionary. As with a script name supplied to the CPython
     command line, the supplied path may refer to a Python source file, a

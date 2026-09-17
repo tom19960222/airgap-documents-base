@@ -36,7 +36,7 @@ introduced with RFC 2965.
 
 The module defines the following exception:
 
-*exception* http.cookiejar.LoadError
+`exception http.cookiejar.LoadError`
 :   Instances of [`FileCookieJar`](http.cookiejar.md#http.cookiejar.FileCookieJar "http.cookiejar.FileCookieJar") raise this exception on failure to load
     cookies from a file. [`LoadError`](http.cookiejar.md#http.cookiejar.LoadError "http.cookiejar.LoadError") is a subclass of [`OSError`](exceptions.md#OSError "OSError").
 
@@ -45,7 +45,7 @@ The module defines the following exception:
 
 The following classes are provided:
 
-*class* http.cookiejar.CookieJar(*policy=None*)
+`class http.cookiejar.CookieJar(policy=None)`
 :   *policy* is an object implementing the [`CookiePolicy`](http.cookiejar.md#http.cookiejar.CookiePolicy "http.cookiejar.CookiePolicy") interface.
 
     The [`CookieJar`](http.cookiejar.md#http.cookiejar.CookieJar "http.cookiejar.CookieJar") class stores HTTP cookies. It extracts cookies from HTTP
@@ -53,7 +53,7 @@ The following classes are provided:
     automatically expire contained cookies when necessary. Subclasses are also
     responsible for storing and retrieving cookies from a file or database.
 
-*class* http.cookiejar.FileCookieJar(*filename=None*, *delayload=None*, *policy=None*)
+`class http.cookiejar.FileCookieJar(filename=None, delayload=None, policy=None)`
 :   *policy* is an object implementing the [`CookiePolicy`](http.cookiejar.md#http.cookiejar.CookiePolicy "http.cookiejar.CookiePolicy") interface. For the
     other arguments, see the documentation for the corresponding attributes.
 
@@ -66,11 +66,11 @@ The following classes are provided:
 
     Changed in version 3.8: The filename parameter supports a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-*class* http.cookiejar.CookiePolicy
+`class http.cookiejar.CookiePolicy`
 :   This class is responsible for deciding whether each cookie should be accepted
     from / returned to the server.
 
-*class* http.cookiejar.DefaultCookiePolicy(*blocked_domains=None*, *allowed_domains=None*, *netscape=True*, *rfc2965=False*, *rfc2109_as_netscape=None*, *hide_cookie2=False*, *strict_domain=False*, *strict_rfc2965_unverifiable=True*, *strict_ns_unverifiable=False*, *strict_ns_domain=DefaultCookiePolicy.DomainLiberal*, *strict_ns_set_initial_dollar=False*, *strict_ns_set_path=False*, *secure_protocols=('https', 'wss')*)
+`class http.cookiejar.DefaultCookiePolicy(blocked_domains=None, allowed_domains=None, netscape=True, rfc2965=False, rfc2109_as_netscape=None, hide_cookie2=False, strict_domain=False, strict_rfc2965_unverifiable=True, strict_ns_unverifiable=False, strict_ns_domain=DefaultCookiePolicy.DomainLiberal, strict_ns_set_initial_dollar=False, strict_ns_set_path=False, secure_protocols=('https', 'wss'))`
 :   Constructor arguments should be passed as keyword arguments only.
     *blocked_domains* is a sequence of domain names that we never accept cookies
     from, nor return cookies to. *allowed_domains* if not [`None`](constants.md#None "None"), this is a
@@ -90,7 +90,7 @@ The following classes are provided:
     [`DefaultCookiePolicy`](http.cookiejar.md#http.cookiejar.DefaultCookiePolicy "http.cookiejar.DefaultCookiePolicy") also provides some parameters to allow some
     fine-tuning of policy.
 
-*class* http.cookiejar.Cookie
+`class http.cookiejar.Cookie`
 :   This class represents Netscape, [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) and [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) cookies. It is not
     expected that users of [`http.cookiejar`](http.cookiejar.md#module-http.cookiejar "http.cookiejar: Classes for automatic handling of HTTP cookies.") construct their own [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Cookie")
     instances. Instead, if necessary, call `make_cookies()` on a
@@ -131,7 +131,7 @@ contained [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Coo
 
 [`CookieJar`](http.cookiejar.md#http.cookiejar.CookieJar "http.cookiejar.CookieJar") has the following methods:
 
-CookieJar.add_cookie_header(*request*)
+`CookieJar.add_cookie_header(request)`
 :   Add correct *Cookie* header to *request*.
 
     If policy allows (ie. the `rfc2965` and `hide_cookie2` attributes of
@@ -147,7 +147,7 @@ CookieJar.add_cookie_header(*request*)
     Changed in version 3.3: *request* object needs `origin_req_host` attribute. Dependency on a
     deprecated method `get_origin_req_host()` has been removed.
 
-CookieJar.extract_cookies(*response*, *request*)
+`CookieJar.extract_cookies(response, request)`
 :   Extract cookies from HTTP *response* and store them in the [`CookieJar`](http.cookiejar.md#http.cookiejar.CookieJar "http.cookiejar.CookieJar"),
     where allowed by policy.
 
@@ -169,23 +169,23 @@ CookieJar.extract_cookies(*response*, *request*)
     Changed in version 3.3: *request* object needs `origin_req_host` attribute. Dependency on a
     deprecated method `get_origin_req_host()` has been removed.
 
-CookieJar.set_policy(*policy*)
+`CookieJar.set_policy(policy)`
 :   Set the [`CookiePolicy`](http.cookiejar.md#http.cookiejar.CookiePolicy "http.cookiejar.CookiePolicy") instance to be used.
 
-CookieJar.make_cookies(*response*, *request*)
+`CookieJar.make_cookies(response, request)`
 :   Return sequence of [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Cookie") objects extracted from *response* object.
 
     See the documentation for [`extract_cookies()`](http.cookiejar.md#http.cookiejar.CookieJar.extract_cookies "http.cookiejar.CookieJar.extract_cookies") for the interfaces required of
     the *response* and *request* arguments.
 
-CookieJar.set_cookie_if_ok(*cookie*, *request*)
+`CookieJar.set_cookie_if_ok(cookie, request)`
 :   Set a [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Cookie") if policy says it’s OK to do so.
 
-CookieJar.set_cookie(*cookie*)
+`CookieJar.set_cookie(cookie)`
 :   Set a [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Cookie"), without checking with policy to see whether or not it
     should be set.
 
-CookieJar.clear([*domain*[, *path*[, *name*]]])
+`CookieJar.clear([domain[, path[, name]]])`
 :   Clear some cookies.
 
     If invoked without arguments, clear all cookies. If given a single argument,
@@ -196,7 +196,7 @@ CookieJar.clear([*domain*[, *path*[, *name*]]])
 
     Raises [`KeyError`](exceptions.md#KeyError "KeyError") if no matching cookie exists.
 
-CookieJar.clear_session_cookies()
+`CookieJar.clear_session_cookies()`
 :   Discard all session cookies.
 
     Discards all contained cookies that have a true `discard` attribute
@@ -209,7 +209,7 @@ CookieJar.clear_session_cookies()
 
 [`FileCookieJar`](http.cookiejar.md#http.cookiejar.FileCookieJar "http.cookiejar.FileCookieJar") implements the following additional methods:
 
-FileCookieJar.save(*filename=None*, *ignore_discard=False*, *ignore_expires=False*)
+`FileCookieJar.save(filename=None, ignore_discard=False, ignore_expires=False)`
 :   Save cookies to a file.
 
     This base class raises [`NotImplementedError`](exceptions.md#NotImplementedError "NotImplementedError"). Subclasses may leave this
@@ -227,7 +227,7 @@ FileCookieJar.save(*filename=None*, *ignore_discard=False*, *ignore_expires=Fals
     contains. Saved cookies can be restored later using the [`load()`](http.cookiejar.md#http.cookiejar.FileCookieJar.load "http.cookiejar.FileCookieJar.load") or
     [`revert()`](http.cookiejar.md#http.cookiejar.FileCookieJar.revert "http.cookiejar.FileCookieJar.revert") methods.
 
-FileCookieJar.load(*filename=None*, *ignore_discard=False*, *ignore_expires=False*)
+`FileCookieJar.load(filename=None, ignore_discard=False, ignore_expires=False)`
 :   Load cookies from a file.
 
     Old cookies are kept unless overwritten by newly loaded ones.
@@ -240,7 +240,7 @@ FileCookieJar.load(*filename=None*, *ignore_discard=False*, *ignore_expires=Fals
 
     Changed in version 3.3: [`IOError`](exceptions.md#IOError "IOError") used to be raised, it is now an alias of [`OSError`](exceptions.md#OSError "OSError").
 
-FileCookieJar.revert(*filename=None*, *ignore_discard=False*, *ignore_expires=False*)
+`FileCookieJar.revert(filename=None, ignore_discard=False, ignore_expires=False)`
 :   Clear all cookies and reload cookies from a saved file.
 
     [`revert()`](http.cookiejar.md#http.cookiejar.FileCookieJar.revert "http.cookiejar.FileCookieJar.revert") can raise the same exceptions as [`load()`](http.cookiejar.md#http.cookiejar.FileCookieJar.load "http.cookiejar.FileCookieJar.load"). If there is a
@@ -248,11 +248,11 @@ FileCookieJar.revert(*filename=None*, *ignore_discard=False*, *ignore_expires=Fa
 
 [`FileCookieJar`](http.cookiejar.md#http.cookiejar.FileCookieJar "http.cookiejar.FileCookieJar") instances have the following public attributes:
 
-FileCookieJar.filename
+`FileCookieJar.filename`
 :   Filename of default file in which to keep cookies. This attribute may be
     assigned to.
 
-FileCookieJar.delayload
+`FileCookieJar.delayload`
 :   If true, load cookies lazily from disk. This attribute should not be assigned
     to. This is only a hint, since this only affects performance, not behaviour
     (unless the cookies on disk are changing). A [`CookieJar`](http.cookiejar.md#http.cookiejar.CookieJar "http.cookiejar.CookieJar") object may
@@ -264,7 +264,7 @@ FileCookieJar.delayload
 The following [`CookieJar`](http.cookiejar.md#http.cookiejar.CookieJar "http.cookiejar.CookieJar") subclasses are provided for reading and
 writing.
 
-*class* http.cookiejar.MozillaCookieJar(*filename=None*, *delayload=None*, *policy=None*)
+`class http.cookiejar.MozillaCookieJar(filename=None, delayload=None, policy=None)`
 :   A [`FileCookieJar`](http.cookiejar.md#http.cookiejar.FileCookieJar "http.cookiejar.FileCookieJar") that can load from and save cookies to disk in the
     Mozilla `cookies.txt` file format (which is also used by curl and the Lynx
     and Netscape browsers).
@@ -283,7 +283,7 @@ writing.
     Also note that cookies saved while Mozilla is running will get clobbered by
     Mozilla.
 
-*class* http.cookiejar.LWPCookieJar(*filename=None*, *delayload=None*, *policy=None*)
+`class http.cookiejar.LWPCookieJar(filename=None, delayload=None, policy=None)`
 :   A [`FileCookieJar`](http.cookiejar.md#http.cookiejar.FileCookieJar "http.cookiejar.FileCookieJar") that can load from and save cookies to disk in format
     compatible with the libwww-perl library’s `Set-Cookie3` file format. This is
     convenient if you want to store cookies in a human-readable file.
@@ -295,21 +295,21 @@ writing.
 Objects implementing the [`CookiePolicy`](http.cookiejar.md#http.cookiejar.CookiePolicy "http.cookiejar.CookiePolicy") interface have the following
 methods:
 
-CookiePolicy.set_ok(*cookie*, *request*)
+`CookiePolicy.set_ok(cookie, request)`
 :   Return boolean value indicating whether cookie should be accepted from server.
 
     *cookie* is a [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Cookie") instance. *request* is an object
     implementing the interface defined by the documentation for
     [`CookieJar.extract_cookies()`](http.cookiejar.md#http.cookiejar.CookieJar.extract_cookies "http.cookiejar.CookieJar.extract_cookies").
 
-CookiePolicy.return_ok(*cookie*, *request*)
+`CookiePolicy.return_ok(cookie, request)`
 :   Return boolean value indicating whether cookie should be returned to server.
 
     *cookie* is a [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Cookie") instance. *request* is an object
     implementing the interface defined by the documentation for
     [`CookieJar.add_cookie_header()`](http.cookiejar.md#http.cookiejar.CookieJar.add_cookie_header "http.cookiejar.CookieJar.add_cookie_header").
 
-CookiePolicy.domain_return_ok(*domain*, *request*)
+`CookiePolicy.domain_return_ok(domain, request)`
 :   Return `False` if cookies should not be returned, given cookie domain.
 
     This method is an optimization. It removes the need for checking every cookie
@@ -331,7 +331,7 @@ CookiePolicy.domain_return_ok(*domain*, *request*)
 
     The *request* argument is as documented for [`return_ok()`](http.cookiejar.md#http.cookiejar.CookiePolicy.return_ok "http.cookiejar.CookiePolicy.return_ok").
 
-CookiePolicy.path_return_ok(*path*, *request*)
+`CookiePolicy.path_return_ok(path, request)`
 :   Return `False` if cookies should not be returned, given cookie path.
 
     See the documentation for [`domain_return_ok()`](http.cookiejar.md#http.cookiejar.CookiePolicy.domain_return_ok "http.cookiejar.CookiePolicy.domain_return_ok").
@@ -341,13 +341,13 @@ In addition to implementing the methods above, implementations of the
 indicating which protocols should be used, and how. All of these attributes may
 be assigned to.
 
-CookiePolicy.netscape
+`CookiePolicy.netscape`
 :   Implement Netscape protocol.
 
-CookiePolicy.rfc2965
+`CookiePolicy.rfc2965`
 :   Implement [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) protocol.
 
-CookiePolicy.hide_cookie2
+`CookiePolicy.hide_cookie2`
 :   Don’t add *Cookie2* header to requests (the presence of this header
     indicates to the server that we understand [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) cookies).
 
@@ -403,23 +403,23 @@ and `".168.1.2"`, 192.168.1.2 is blocked, but 193.168.1.2 is not.
 
 [`DefaultCookiePolicy`](http.cookiejar.md#http.cookiejar.DefaultCookiePolicy "http.cookiejar.DefaultCookiePolicy") implements the following additional methods:
 
-DefaultCookiePolicy.blocked_domains()
+`DefaultCookiePolicy.blocked_domains()`
 :   Return the sequence of blocked domains (as a tuple).
 
-DefaultCookiePolicy.set_blocked_domains(*blocked_domains*)
+`DefaultCookiePolicy.set_blocked_domains(blocked_domains)`
 :   Set the sequence of blocked domains.
 
-DefaultCookiePolicy.is_blocked(*domain*)
+`DefaultCookiePolicy.is_blocked(domain)`
 :   Return `True` if *domain* is on the blocklist for setting or receiving
     cookies.
 
-DefaultCookiePolicy.allowed_domains()
+`DefaultCookiePolicy.allowed_domains()`
 :   Return [`None`](constants.md#None "None"), or the sequence of allowed domains (as a tuple).
 
-DefaultCookiePolicy.set_allowed_domains(*allowed_domains*)
+`DefaultCookiePolicy.set_allowed_domains(allowed_domains)`
 :   Set the sequence of allowed domains, or [`None`](constants.md#None "None").
 
-DefaultCookiePolicy.is_not_allowed(*domain*)
+`DefaultCookiePolicy.is_not_allowed(domain)`
 :   Return `True` if *domain* is not on the allowlist for setting or receiving
     cookies.
 
@@ -427,7 +427,7 @@ DefaultCookiePolicy.is_not_allowed(*domain*)
 all initialised from the constructor arguments of the same name, and which may
 all be assigned to.
 
-DefaultCookiePolicy.rfc2109_as_netscape
+`DefaultCookiePolicy.rfc2109_as_netscape`
 :   If true, request that the [`CookieJar`](http.cookiejar.md#http.cookiejar.CookieJar "http.cookiejar.CookieJar") instance downgrade [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) cookies
     (ie. cookies received in a *Set-Cookie* header with a version
     cookie-attribute of 1) to Netscape cookies by setting the version attribute of
@@ -437,14 +437,14 @@ DefaultCookiePolicy.rfc2109_as_netscape
 
 General strictness switches:
 
-DefaultCookiePolicy.strict_domain
+`DefaultCookiePolicy.strict_domain`
 :   Don’t allow sites to set two-component domains with country-code top-level
     domains like `.co.uk`, `.gov.uk`, `.co.nz`.etc. This is far from perfect
     and isn’t guaranteed to work!
 
 [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) protocol strictness switches:
 
-DefaultCookiePolicy.strict_rfc2965_unverifiable
+`DefaultCookiePolicy.strict_rfc2965_unverifiable`
 :   Follow [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) rules on unverifiable transactions (usually, an unverifiable
     transaction is one resulting from a redirect or a request for an image hosted on
     another site). If this is false, cookies are *never* blocked on the basis of
@@ -452,45 +452,45 @@ DefaultCookiePolicy.strict_rfc2965_unverifiable
 
 Netscape protocol strictness switches:
 
-DefaultCookiePolicy.strict_ns_unverifiable
+`DefaultCookiePolicy.strict_ns_unverifiable`
 :   Apply [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) rules on unverifiable transactions even to Netscape cookies.
 
-DefaultCookiePolicy.strict_ns_domain
+`DefaultCookiePolicy.strict_ns_domain`
 :   Flags indicating how strict to be with domain-matching rules for Netscape
     cookies. See below for acceptable values.
 
-DefaultCookiePolicy.strict_ns_set_initial_dollar
+`DefaultCookiePolicy.strict_ns_set_initial_dollar`
 :   Ignore cookies in Set-Cookie: headers that have names starting with `'$'`.
 
-DefaultCookiePolicy.strict_ns_set_path
+`DefaultCookiePolicy.strict_ns_set_path`
 :   Don’t allow setting cookies whose path doesn’t path-match request URI.
 
 `strict_ns_domain` is a collection of flags. Its value is constructed by
 or-ing together (for example, `DomainStrictNoDots|DomainStrictNonDomain` means
 both flags are set).
 
-DefaultCookiePolicy.DomainStrictNoDots
+`DefaultCookiePolicy.DomainStrictNoDots`
 :   When setting cookies, the ‘host prefix’ must not contain a dot (eg.
     `www.foo.bar.com` can’t set a cookie for `.bar.com`, because `www.foo`
     contains a dot).
 
-DefaultCookiePolicy.DomainStrictNonDomain
+`DefaultCookiePolicy.DomainStrictNonDomain`
 :   Cookies that did not explicitly specify a `domain` cookie-attribute can only
     be returned to a domain equal to the domain that set the cookie (eg.
     `spam.example.com` won’t be returned cookies from `example.com` that had no
     `domain` cookie-attribute).
 
-DefaultCookiePolicy.DomainRFC2965Match
+`DefaultCookiePolicy.DomainRFC2965Match`
 :   When setting cookies, require a full [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) domain-match.
 
 The following attributes are provided for convenience, and are the most useful
 combinations of the above flags:
 
-DefaultCookiePolicy.DomainLiberal
+`DefaultCookiePolicy.DomainLiberal`
 :   Equivalent to 0 (ie. all of the above Netscape domain strictness flags switched
     off).
 
-DefaultCookiePolicy.DomainStrict
+`DefaultCookiePolicy.DomainStrict`
 :   Equivalent to `DomainStrictNoDots|DomainStrictNonDomain`.
 
 ## Cookie Objects
@@ -507,80 +507,80 @@ Assignment to these attributes should not be necessary other than in rare
 circumstances in a [`CookiePolicy`](http.cookiejar.md#http.cookiejar.CookiePolicy "http.cookiejar.CookiePolicy") method. The class does not enforce
 internal consistency, so you should know what you’re doing if you do that.
 
-Cookie.version
+`Cookie.version`
 :   Integer or [`None`](constants.md#None "None"). Netscape cookies have [`version`](http.cookiejar.md#http.cookiejar.Cookie.version "http.cookiejar.Cookie.version") 0. [**RFC 2965**](https://datatracker.ietf.org/doc/html/rfc2965.html) and
     [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) cookies have a `version` cookie-attribute of 1. However, note that
     [`http.cookiejar`](http.cookiejar.md#module-http.cookiejar "http.cookiejar: Classes for automatic handling of HTTP cookies.") may ‘downgrade’ RFC 2109 cookies to Netscape cookies, in which
     case [`version`](http.cookiejar.md#http.cookiejar.Cookie.version "http.cookiejar.Cookie.version") is 0.
 
-Cookie.name
+`Cookie.name`
 :   Cookie name (a string).
 
-Cookie.value
+`Cookie.value`
 :   Cookie value (a string), or [`None`](constants.md#None "None").
 
-Cookie.port
+`Cookie.port`
 :   String representing a port or a set of ports (eg. ‘80’, or ‘80,8080’), or
     [`None`](constants.md#None "None").
 
-Cookie.domain
+`Cookie.domain`
 :   Cookie domain (a string).
 
-Cookie.path
+`Cookie.path`
 :   Cookie path (a string, eg. `'/acme/rocket_launchers'`).
 
-Cookie.secure
+`Cookie.secure`
 :   `True` if cookie should only be returned over a secure connection.
 
-Cookie.expires
+`Cookie.expires`
 :   Integer expiry date in seconds since epoch, or [`None`](constants.md#None "None"). See also the
     [`is_expired()`](http.cookiejar.md#http.cookiejar.Cookie.is_expired "http.cookiejar.Cookie.is_expired") method.
 
-Cookie.discard
+`Cookie.discard`
 :   `True` if this is a session cookie.
 
-Cookie.comment
+`Cookie.comment`
 :   String comment from the server explaining the function of this cookie, or
     [`None`](constants.md#None "None").
 
-Cookie.comment_url
+`Cookie.comment_url`
 :   URL linking to a comment from the server explaining the function of this cookie,
     or [`None`](constants.md#None "None").
 
-Cookie.rfc2109
+`Cookie.rfc2109`
 :   `True` if this cookie was received as an [**RFC 2109**](https://datatracker.ietf.org/doc/html/rfc2109.html) cookie (ie. the cookie
     arrived in a *Set-Cookie* header, and the value of the Version
     cookie-attribute in that header was 1). This attribute is provided because
     [`http.cookiejar`](http.cookiejar.md#module-http.cookiejar "http.cookiejar: Classes for automatic handling of HTTP cookies.") may ‘downgrade’ RFC 2109 cookies to Netscape cookies, in
     which case [`version`](http.cookiejar.md#http.cookiejar.Cookie.version "http.cookiejar.Cookie.version") is 0.
 
-Cookie.port_specified
+`Cookie.port_specified`
 :   `True` if a port or set of ports was explicitly specified by the server (in the
     *Set-Cookie* / *Set-Cookie2* header).
 
-Cookie.domain_specified
+`Cookie.domain_specified`
 :   `True` if a domain was explicitly specified by the server.
 
-Cookie.domain_initial_dot
+`Cookie.domain_initial_dot`
 :   `True` if the domain explicitly specified by the server began with a dot
     (`'.'`).
 
 Cookies may have additional non-standard cookie-attributes. These may be
 accessed using the following methods:
 
-Cookie.has_nonstandard_attr(*name*)
+`Cookie.has_nonstandard_attr(name)`
 :   Return `True` if cookie has the named cookie-attribute.
 
-Cookie.get_nonstandard_attr(*name*, *default=None*)
+`Cookie.get_nonstandard_attr(name, default=None)`
 :   If cookie has the named cookie-attribute, return its value. Otherwise, return
     *default*.
 
-Cookie.set_nonstandard_attr(*name*, *value*)
+`Cookie.set_nonstandard_attr(name, value)`
 :   Set the value of the named cookie-attribute.
 
 The [`Cookie`](http.cookiejar.md#http.cookiejar.Cookie "http.cookiejar.Cookie") class also defines the following method:
 
-Cookie.is_expired(*now=None*)
+`Cookie.is_expired(now=None)`
 :   `True` if cookie has passed the time at which the server requested it should
     expire. If *now* is given (in seconds since the epoch), return whether the
     cookie has expired at the specified time.

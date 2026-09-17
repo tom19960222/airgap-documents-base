@@ -21,7 +21,7 @@ This module does not work or is not available on WebAssembly platforms
 
 There are four basic concrete server classes:
 
-*class* socketserver.TCPServer(*server_address*, *RequestHandlerClass*, *bind_and_activate=True*)
+`class socketserver.TCPServer(server_address, RequestHandlerClass, bind_and_activate=True)`
 :   This uses the internet TCP protocol, which provides for
     continuous streams of data between the client and server.
     If *bind_and_activate* is true, the constructor automatically attempts to
@@ -29,14 +29,14 @@ There are four basic concrete server classes:
     [`server_activate()`](socketserver.md#socketserver.BaseServer.server_activate "socketserver.BaseServer.server_activate"). The other parameters are passed to
     the [`BaseServer`](socketserver.md#socketserver.BaseServer "socketserver.BaseServer") base class.
 
-*class* socketserver.UDPServer(*server_address*, *RequestHandlerClass*, *bind_and_activate=True*)
+`class socketserver.UDPServer(server_address, RequestHandlerClass, bind_and_activate=True)`
 :   This uses datagrams, which are discrete packets of information that may
     arrive out of order or be lost while in transit. The parameters are
     the same as for [`TCPServer`](socketserver.md#socketserver.TCPServer "socketserver.TCPServer").
 
-*class* socketserver.UnixStreamServer(*server_address*, *RequestHandlerClass*, *bind_and_activate=True*)
+`class socketserver.UnixStreamServer(server_address, RequestHandlerClass, bind_and_activate=True)`
 
-*class* socketserver.UnixDatagramServer(*server_address*, *RequestHandlerClass*, *bind_and_activate=True*)
+`class socketserver.UnixDatagramServer(server_address, RequestHandlerClass, bind_and_activate=True)`
 :   These more infrequently used classes are similar to the TCP and
     UDP classes, but use Unix domain sockets; they’re not available on
     non-Unix platforms. The parameters are the same as for
@@ -99,9 +99,9 @@ Note that [`UnixDatagramServer`](socketserver.md#socketserver.UnixDatagramServer
 [`UnixStreamServer`](socketserver.md#socketserver.UnixStreamServer "socketserver.UnixStreamServer") — the only difference between an IP and a Unix
 server is the address family.
 
-*class* socketserver.ForkingMixIn
+`class socketserver.ForkingMixIn`
 
-*class* socketserver.ThreadingMixIn
+`class socketserver.ThreadingMixIn`
 :   Forking and threading versions of each type of server can be created
     using these mix-in classes. For instance, [`ThreadingUDPServer`](socketserver.md#socketserver.ThreadingUDPServer "socketserver.ThreadingUDPServer")
     is created as follows:
@@ -118,7 +118,7 @@ server is the address family.
     [`ForkingMixIn`](socketserver.md#socketserver.ForkingMixIn "socketserver.ForkingMixIn") and the Forking classes mentioned below are
     only available on POSIX platforms that support [`fork()`](os.md#os.fork "os.fork").
 
-    block_on_close
+    `block_on_close`
     :   [`ForkingMixIn.server_close`](socketserver.md#socketserver.BaseServer.server_close "socketserver.BaseServer.server_close")
         waits until all child processes complete, except if
         [`block_on_close`](socketserver.md#socketserver.ThreadingMixIn.block_on_close "socketserver.ThreadingMixIn.block_on_close") attribute is `False`.
@@ -127,7 +127,7 @@ server is the address family.
         waits until all non-daemon threads complete, except if
         [`block_on_close`](socketserver.md#socketserver.ThreadingMixIn.block_on_close "socketserver.ThreadingMixIn.block_on_close") attribute is `False`.
 
-    daemon_threads
+    `daemon_threads`
     :   For [`ThreadingMixIn`](socketserver.md#socketserver.ThreadingMixIn "socketserver.ThreadingMixIn") use daemonic threads by setting
         [`ThreadingMixIn.daemon_threads`](socketserver.md#socketserver.ThreadingMixIn.daemon_threads "socketserver.ThreadingMixIn.daemon_threads")
         to `True` to not wait until threads complete.
@@ -138,21 +138,21 @@ server is the address family.
     Add a new [`ForkingMixIn.block_on_close`](socketserver.md#socketserver.ThreadingMixIn.block_on_close "socketserver.ThreadingMixIn.block_on_close") class
     attribute to opt-in for the pre-3.7 behaviour.
 
-*class* socketserver.ForkingTCPServer
+`class socketserver.ForkingTCPServer`
 
-*class* socketserver.ForkingUDPServer
+`class socketserver.ForkingUDPServer`
 
-*class* socketserver.ThreadingTCPServer
+`class socketserver.ThreadingTCPServer`
 
-*class* socketserver.ThreadingUDPServer
+`class socketserver.ThreadingUDPServer`
 
-*class* socketserver.ForkingUnixStreamServer
+`class socketserver.ForkingUnixStreamServer`
 
-*class* socketserver.ForkingUnixDatagramServer
+`class socketserver.ForkingUnixDatagramServer`
 
-*class* socketserver.ThreadingUnixStreamServer
+`class socketserver.ThreadingUnixStreamServer`
 
-*class* socketserver.ThreadingUnixDatagramServer
+`class socketserver.ThreadingUnixDatagramServer`
 :   These classes are pre-defined using the mix-in classes.
 
 Added in version 3.12: The `ForkingUnixStreamServer` and `ForkingUnixDatagramServer` classes
@@ -194,18 +194,18 @@ connected for a long time (if threads or subprocesses cannot be used).
 
 ## Server Objects
 
-*class* socketserver.BaseServer(*server_address*, *RequestHandlerClass*)
+`class socketserver.BaseServer(server_address, RequestHandlerClass)`
 :   This is the superclass of all Server objects in the module. It defines the
     interface, given below, but does not implement most of the methods, which is
     done in subclasses. The two parameters are stored in the respective
     [`server_address`](socketserver.md#socketserver.BaseServer.server_address "socketserver.BaseServer.server_address") and [`RequestHandlerClass`](socketserver.md#socketserver.BaseServer.RequestHandlerClass "socketserver.BaseServer.RequestHandlerClass") attributes.
 
-    fileno()
+    `fileno()`
     :   Return an integer file descriptor for the socket on which the server is
         listening. This function is most commonly passed to [`selectors`](selectors.md#module-selectors "selectors: High-level I/O multiplexing."), to
         allow monitoring multiple servers in the same process.
 
-    handle_request()
+    `handle_request()`
     :   Process a single request. This function calls the following methods in
         order: [`get_request()`](socketserver.md#socketserver.BaseServer.get_request "socketserver.BaseServer.get_request"), [`verify_request()`](socketserver.md#socketserver.BaseServer.verify_request "socketserver.BaseServer.verify_request"), and
         [`process_request()`](socketserver.md#socketserver.BaseServer.process_request "socketserver.BaseServer.process_request"). If the user-provided
@@ -215,7 +215,7 @@ connected for a long time (if threads or subprocesses cannot be used).
         seconds, [`handle_timeout()`](socketserver.md#socketserver.BaseServer.handle_timeout "socketserver.BaseServer.handle_timeout") will be called and [`handle_request()`](socketserver.md#socketserver.BaseServer.handle_request "socketserver.BaseServer.handle_request")
         will return.
 
-    serve_forever(*poll_interval=0.5*)
+    `serve_forever(poll_interval=0.5)`
     :   Handle requests until an explicit [`shutdown()`](socketserver.md#socketserver.BaseServer.shutdown "socketserver.BaseServer.shutdown") request. Poll for
         shutdown every *poll_interval* seconds.
         Ignores the [`timeout`](socketserver.md#socketserver.BaseServer.timeout "socketserver.BaseServer.timeout") attribute. It
@@ -226,60 +226,60 @@ connected for a long time (if threads or subprocesses cannot be used).
 
         Changed in version 3.3: Added `service_actions` call to the `serve_forever` method.
 
-    service_actions()
+    `service_actions()`
     :   This is called in the [`serve_forever()`](socketserver.md#socketserver.BaseServer.serve_forever "socketserver.BaseServer.serve_forever") loop. This method can be
         overridden by subclasses or mixin classes to perform actions specific to
         a given service, such as cleanup actions.
 
         Added in version 3.3.
 
-    shutdown()
+    `shutdown()`
     :   Tell the [`serve_forever()`](socketserver.md#socketserver.BaseServer.serve_forever "socketserver.BaseServer.serve_forever") loop to stop and wait until it does.
         [`shutdown()`](socketserver.md#socketserver.BaseServer.shutdown "socketserver.BaseServer.shutdown") must be called while [`serve_forever()`](socketserver.md#socketserver.BaseServer.serve_forever "socketserver.BaseServer.serve_forever") is running in a
         different thread otherwise it will deadlock.
 
-    server_close()
+    `server_close()`
     :   Clean up the server. May be overridden.
 
-    address_family
+    `address_family`
     :   The family of protocols to which the server’s socket belongs. Common
         examples are [`socket.AF_INET`](socket.md#socket.AF_INET "socket.AF_INET"), [`socket.AF_INET6`](socket.md#socket.AF_INET6 "socket.AF_INET6"), and
         [`socket.AF_UNIX`](socket.md#socket.AF_UNIX "socket.AF_UNIX"). Subclass the TCP or UDP server classes in this
         module with class attribute `address_family = AF_INET6` set if you
         want IPv6 server classes.
 
-    RequestHandlerClass
+    `RequestHandlerClass`
     :   The user-provided request handler class; an instance of this class is created
         for each request.
 
-    server_address
+    `server_address`
     :   The address on which the server is listening. The format of addresses varies
         depending on the protocol family;
         see the documentation for the [`socket`](socket.md#module-socket "socket: Low-level networking interface.") module
         for details. For internet protocols, this is a tuple containing a string giving
         the address, and an integer port number: `('127.0.0.1', 80)`, for example.
 
-    socket
+    `socket`
     :   The socket object on which the server will listen for incoming requests.
 
     The server classes support the following class variables:
 
-    allow_reuse_address
+    `allow_reuse_address`
     :   Whether the server will allow the reuse of an address. This defaults to
         [`False`](constants.md#False "False"), and can be set in subclasses to change the policy.
 
-    request_queue_size
+    `request_queue_size`
     :   The size of the request queue. If it takes a long time to process a single
         request, any requests that arrive while the server is busy are placed into a
         queue, up to [`request_queue_size`](socketserver.md#socketserver.BaseServer.request_queue_size "socketserver.BaseServer.request_queue_size") requests. Once the queue is full,
         further requests from clients will get a “Connection denied” error. The default
         value is usually 5, but this can be overridden by subclasses.
 
-    socket_type
+    `socket_type`
     :   The type of socket used by the server; [`socket.SOCK_STREAM`](socket.md#socket.SOCK_STREAM "socket.SOCK_STREAM") and
         [`socket.SOCK_DGRAM`](socket.md#socket.SOCK_DGRAM "socket.SOCK_DGRAM") are two common values.
 
-    timeout
+    `timeout`
     :   Timeout duration, measured in seconds, or [`None`](constants.md#None "None") if no timeout is
         desired. If [`handle_request()`](socketserver.md#socketserver.BaseServer.handle_request "socketserver.BaseServer.handle_request") receives no incoming requests within the
         timeout period, the [`handle_timeout()`](socketserver.md#socketserver.BaseServer.handle_timeout "socketserver.BaseServer.handle_timeout") method is called.
@@ -288,16 +288,16 @@ connected for a long time (if threads or subprocesses cannot be used).
     server classes like [`TCPServer`](socketserver.md#socketserver.TCPServer "socketserver.TCPServer"); these methods aren’t useful to external
     users of the server object.
 
-    finish_request(*request*, *client_address*)
+    `finish_request(request, client_address)`
     :   Actually processes the request by instantiating [`RequestHandlerClass`](socketserver.md#socketserver.BaseServer.RequestHandlerClass "socketserver.BaseServer.RequestHandlerClass") and
         calling its [`handle()`](socketserver.md#socketserver.BaseRequestHandler.handle "socketserver.BaseRequestHandler.handle") method.
 
-    get_request()
+    `get_request()`
     :   Must accept a request from the socket, and return a 2-tuple containing the *new*
         socket object to be used to communicate with the client, and the client’s
         address.
 
-    handle_error(*request*, *client_address*)
+    `handle_error(request, client_address)`
     :   This function is called if the [`handle()`](socketserver.md#socketserver.BaseRequestHandler.handle "socketserver.BaseRequestHandler.handle")
         method of a [`RequestHandlerClass`](socketserver.md#socketserver.BaseServer.RequestHandlerClass "socketserver.BaseServer.RequestHandlerClass") instance raises
         an exception. The default action is to print the traceback to
@@ -306,29 +306,29 @@ connected for a long time (if threads or subprocesses cannot be used).
         Changed in version 3.6: Now only called for exceptions derived from the [`Exception`](exceptions.md#Exception "Exception")
         class.
 
-    handle_timeout()
+    `handle_timeout()`
     :   This function is called when the [`timeout`](socketserver.md#socketserver.BaseServer.timeout "socketserver.BaseServer.timeout") attribute has been set to a
         value other than [`None`](constants.md#None "None") and the timeout period has passed with no
         requests being received. The default action for forking servers is
         to collect the status of any child processes that have exited, while
         in threading servers this method does nothing.
 
-    process_request(*request*, *client_address*)
+    `process_request(request, client_address)`
     :   Calls [`finish_request()`](socketserver.md#socketserver.BaseServer.finish_request "socketserver.BaseServer.finish_request") to create an instance of the
         [`RequestHandlerClass`](socketserver.md#socketserver.BaseServer.RequestHandlerClass "socketserver.BaseServer.RequestHandlerClass"). If desired, this function can create a new process
         or thread to handle the request; the [`ForkingMixIn`](socketserver.md#socketserver.ForkingMixIn "socketserver.ForkingMixIn") and
         [`ThreadingMixIn`](socketserver.md#socketserver.ThreadingMixIn "socketserver.ThreadingMixIn") classes do this.
 
-    server_activate()
+    `server_activate()`
     :   Called by the server’s constructor to activate the server. The default behavior
         for a TCP server just invokes [`listen()`](socket.md#socket.socket.listen "socket.socket.listen")
         on the server’s socket. May be overridden.
 
-    server_bind()
+    `server_bind()`
     :   Called by the server’s constructor to bind the socket to the desired address.
         May be overridden.
 
-    verify_request(*request*, *client_address*)
+    `verify_request(request, client_address)`
     :   Must return a Boolean value; if the value is [`True`](constants.md#True "True"), the request will
         be processed, and if it’s [`False`](constants.md#False "False"), the request will be denied. This
         function can be overridden to implement access controls for a server. The
@@ -339,18 +339,18 @@ connected for a long time (if threads or subprocesses cannot be used).
 
 ## Request Handler Objects
 
-*class* socketserver.BaseRequestHandler
+`class socketserver.BaseRequestHandler`
 :   This is the superclass of all request handler objects. It defines
     the interface, given below. A concrete request handler subclass must
     define a new [`handle()`](socketserver.md#socketserver.BaseRequestHandler.handle "socketserver.BaseRequestHandler.handle") method, and can override any of
     the other methods. A new instance of the subclass is created for each
     request.
 
-    setup()
+    `setup()`
     :   Called before the [`handle()`](socketserver.md#socketserver.BaseRequestHandler.handle "socketserver.BaseRequestHandler.handle") method to perform any initialization actions
         required. The default implementation does nothing.
 
-    handle()
+    `handle()`
     :   This function must do all the work required to service a request. The
         default implementation does nothing. Several instance attributes are
         available to it; the request is available as [`request`](socketserver.md#socketserver.BaseRequestHandler.request "socketserver.BaseRequestHandler.request"); the client
@@ -361,33 +361,33 @@ connected for a long time (if threads or subprocesses cannot be used).
         services. For stream services, [`request`](socketserver.md#socketserver.BaseRequestHandler.request "socketserver.BaseRequestHandler.request") is a socket object; for
         datagram services, [`request`](socketserver.md#socketserver.BaseRequestHandler.request "socketserver.BaseRequestHandler.request") is a pair of string and socket.
 
-    finish()
+    `finish()`
     :   Called after the [`handle()`](socketserver.md#socketserver.BaseRequestHandler.handle "socketserver.BaseRequestHandler.handle") method to perform any clean-up actions
         required. The default implementation does nothing. If [`setup()`](socketserver.md#socketserver.BaseRequestHandler.setup "socketserver.BaseRequestHandler.setup")
         raises an exception, this function will not be called.
 
-    request
+    `request`
     :   The *new* [`socket.socket`](socket.md#socket.socket "socket.socket") object
         to be used to communicate with the client.
 
-    client_address
+    `client_address`
     :   Client address returned by [`BaseServer.get_request()`](socketserver.md#socketserver.BaseServer.get_request "socketserver.BaseServer.get_request").
 
-    server
+    `server`
     :   [`BaseServer`](socketserver.md#socketserver.BaseServer "socketserver.BaseServer") object used for handling the request.
 
-*class* socketserver.StreamRequestHandler
+`class socketserver.StreamRequestHandler`
 
-*class* socketserver.DatagramRequestHandler
+`class socketserver.DatagramRequestHandler`
 :   These [`BaseRequestHandler`](socketserver.md#socketserver.BaseRequestHandler "socketserver.BaseRequestHandler") subclasses override the
     [`setup()`](socketserver.md#socketserver.BaseRequestHandler.setup "socketserver.BaseRequestHandler.setup") and [`finish()`](socketserver.md#socketserver.BaseRequestHandler.finish "socketserver.BaseRequestHandler.finish")
     methods, and provide [`rfile`](socketserver.md#socketserver.DatagramRequestHandler.rfile "socketserver.DatagramRequestHandler.rfile") and [`wfile`](socketserver.md#socketserver.DatagramRequestHandler.wfile "socketserver.DatagramRequestHandler.wfile") attributes.
 
-    rfile
+    `rfile`
     :   A file object from which receives the request is read.
         Support the [`io.BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") readable interface.
 
-    wfile
+    `wfile`
     :   A file object to which the reply is written.
         Support the [`io.BufferedIOBase`](io.md#io.BufferedIOBase "io.BufferedIOBase") writable interface
 

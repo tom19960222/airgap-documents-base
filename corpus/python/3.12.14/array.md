@@ -48,12 +48,12 @@ through the [`array.itemsize`](array.md#array.array.itemsize "array.array.itemsi
 
 The module defines the following item:
 
-array.typecodes
+`array.typecodes`
 :   A string with all available type codes.
 
 The module defines the following type:
 
-*class* array.array(*typecode*[, *initializer*])
+`class array.array(typecode[, initializer])`
 :   A new array whose items are restricted by *typecode*, and initialized
     from the optional *initializer* value, which must be a [`bytes`](stdtypes.md#bytes "bytes")
     or [`bytearray`](stdtypes.md#bytearray "bytearray") object, a Unicode string, or iterable over elements
@@ -74,16 +74,16 @@ The module defines the following type:
 
     Raises an [auditing event](sys.md#auditing) `array.__new__` with arguments `typecode`, `initializer`.
 
-    typecode
+    `typecode`
     :   The typecode character used to create the array.
 
-    itemsize
+    `itemsize`
     :   The length in bytes of one array item in the internal representation.
 
-    append(*x*)
+    `append(x)`
     :   Append a new item with value *x* to the end of the array.
 
-    buffer_info()
+    `buffer_info()`
     :   Return a tuple `(address, length)` giving the current memory address and the
         length in elements of the buffer used to hold array’s contents. The size of the
         memory buffer in bytes can be computed as `array.buffer_info()[1] *
@@ -100,45 +100,45 @@ The module defines the following type:
         > compatibility and should be avoided in new code. The buffer interface is
         > documented in [Buffer Protocol](https://docs.python.org/3.12/c-api/buffer.html#bufferobjects).
 
-    byteswap()
+    `byteswap()`
     :   “Byteswap” all items of the array. This is only supported for values which are
         1, 2, 4, or 8 bytes in size; for other types of values, [`RuntimeError`](exceptions.md#RuntimeError "RuntimeError") is
         raised. It is useful when reading data from a file written on a machine with a
         different byte order.
 
-    count(*x*)
+    `count(x)`
     :   Return the number of occurrences of *x* in the array.
 
-    extend(*iterable*)
+    `extend(iterable)`
     :   Append items from *iterable* to the end of the array. If *iterable* is another
         array, it must have *exactly* the same type code; if not, [`TypeError`](exceptions.md#TypeError "TypeError") will
         be raised. If *iterable* is not an array, it must be iterable and its elements
         must be the right type to be appended to the array.
 
-    frombytes(*buffer*)
+    `frombytes(buffer)`
     :   Appends items from the [bytes-like object](https://docs.python.org/3.12/glossary.html#term-bytes-like-object), interpreting
         its content as an array of machine values (as if it had been read
         from a file using the [`fromfile()`](array.md#array.array.fromfile "array.array.fromfile") method).
 
         Added in version 3.2: `fromstring()` is renamed to [`frombytes()`](array.md#array.array.frombytes "array.array.frombytes") for clarity.
 
-    fromfile(*f*, *n*)
+    `fromfile(f, n)`
     :   Read *n* items (as machine values) from the [file object](https://docs.python.org/3.12/glossary.html#term-file-object) *f* and append
         them to the end of the array. If less than *n* items are available,
         [`EOFError`](exceptions.md#EOFError "EOFError") is raised, but the items that were available are still
         inserted into the array.
 
-    fromlist(*list*)
+    `fromlist(list)`
     :   Append items from the list. This is equivalent to `for x in list:
         a.append(x)` except that if there is a type error, the array is unchanged.
 
-    fromunicode(*s*)
+    `fromunicode(s)`
     :   Extends this array with data from the given Unicode string.
         The array must have type code `'u'`; otherwise a [`ValueError`](exceptions.md#ValueError "ValueError") is raised.
         Use `array.frombytes(unicodestring.encode(enc))` to append Unicode data to an
         array of some other type.
 
-    index(*x*[, *start*[, *stop*]])
+    `index(x[, start[, stop]])`
     :   Return the smallest *i* such that *i* is the index of the first occurrence of
         *x* in the array. The optional arguments *start* and *stop* can be
         specified to search for *x* within a subsection of the array. Raise
@@ -146,35 +146,35 @@ The module defines the following type:
 
         Changed in version 3.10: Added optional *start* and *stop* parameters.
 
-    insert(*i*, *x*)
+    `insert(i, x)`
     :   Insert a new item with value *x* in the array before position *i*. Negative
         values are treated as being relative to the end of the array.
 
-    pop([*i*])
+    `pop([i])`
     :   Removes the item with the index *i* from the array and returns it. The optional
         argument defaults to `-1`, so that by default the last item is removed and
         returned.
 
-    remove(*x*)
+    `remove(x)`
     :   Remove the first occurrence of *x* from the array.
 
-    reverse()
+    `reverse()`
     :   Reverse the order of the items in the array.
 
-    tobytes()
+    `tobytes()`
     :   Convert the array to an array of machine values and return the bytes
         representation (the same sequence of bytes that would be written to a file by
         the [`tofile()`](array.md#array.array.tofile "array.array.tofile") method.)
 
         Added in version 3.2: `tostring()` is renamed to [`tobytes()`](array.md#array.array.tobytes "array.array.tobytes") for clarity.
 
-    tofile(*f*)
+    `tofile(f)`
     :   Write all items (as machine values) to the [file object](https://docs.python.org/3.12/glossary.html#term-file-object) *f*.
 
-    tolist()
+    `tolist()`
     :   Convert the array to an ordinary list with the same items.
 
-    tounicode()
+    `tounicode()`
     :   Convert the array to a Unicode string. The array must have a type `'u'`;
         otherwise a [`ValueError`](exceptions.md#ValueError "ValueError") is raised. Use `array.tobytes().decode(enc)` to
         obtain a Unicode string from an array of some other type.

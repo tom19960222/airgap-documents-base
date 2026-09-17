@@ -19,7 +19,7 @@ statement. For more information see also [Context Manager Types](stdtypes.md#typ
 
 Functions and classes provided:
 
-*class* contextlib.AbstractContextManager
+`class contextlib.AbstractContextManager`
 :   An [abstract base class](https://docs.python.org/3.12/glossary.html#term-abstract-base-class) for classes that implement
     [`object.__enter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__enter__ "object.__enter__") and [`object.__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__"). A default
     implementation for [`object.__enter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__enter__ "object.__enter__") is provided which returns
@@ -28,7 +28,7 @@ Functions and classes provided:
 
     Added in version 3.6.
 
-*class* contextlib.AbstractAsyncContextManager
+`class contextlib.AbstractAsyncContextManager`
 :   An [abstract base class](https://docs.python.org/3.12/glossary.html#term-abstract-base-class) for classes that implement
     [`object.__aenter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__aenter__ "object.__aenter__") and [`object.__aexit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__aexit__ "object.__aexit__"). A default
     implementation for [`object.__aenter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__aenter__ "object.__aenter__") is provided which returns
@@ -38,7 +38,7 @@ Functions and classes provided:
 
     Added in version 3.7.
 
-@contextlib.contextmanager
+`@contextlib.contextmanager`
 :   This function is a [decorator](https://docs.python.org/3.12/glossary.html#term-decorator) that can be used to define a factory
     function for [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement context managers, without needing to
     create a class or separate [`__enter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__enter__ "object.__enter__") and [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") methods.
@@ -97,7 +97,7 @@ Functions and classes provided:
 
     Changed in version 3.2: Use of [`ContextDecorator`](contextlib.md#contextlib.ContextDecorator "contextlib.ContextDecorator").
 
-@contextlib.asynccontextmanager
+`@contextlib.asynccontextmanager`
 :   Similar to [`contextmanager()`](contextlib.md#contextlib.contextmanager "contextlib.contextmanager"), but creates an
     [asynchronous context manager](https://docs.python.org/3.12/reference/datamodel.html#async-context-managers).
 
@@ -155,7 +155,7 @@ Functions and classes provided:
     Changed in version 3.10: Async context managers created with [`asynccontextmanager()`](contextlib.md#contextlib.asynccontextmanager "contextlib.asynccontextmanager") can
     be used as decorators.
 
-contextlib.closing(*thing*)
+`contextlib.closing(thing)`
 :   Return a context manager that closes *thing* upon completion of the block. This
     is basically equivalent to:
 
@@ -193,7 +193,7 @@ contextlib.closing(*thing*)
     > This example is purely for illustration purposes,
     > as [`urlopen()`](urllib.request.md#urllib.request.urlopen "urllib.request.urlopen") would normally be used in a context manager.
 
-contextlib.aclosing(*thing*)
+`contextlib.aclosing(thing)`
 :   Return an async context manager that calls the `aclose()` method of *thing*
     upon completion of the block. This is basically equivalent to:
 
@@ -228,7 +228,7 @@ contextlib.aclosing(*thing*)
 
     Added in version 3.10.
 
-contextlib.nullcontext(*enter_result=None*)
+`contextlib.nullcontext(enter_result=None)`
 :   Return a context manager that returns *enter_result* from `__enter__`, but
     otherwise does nothing. It is intended to be used as a stand-in for an
     optional context manager, for example:
@@ -280,7 +280,7 @@ contextlib.nullcontext(*enter_result=None*)
 
     Changed in version 3.10: [asynchronous context manager](https://docs.python.org/3.12/glossary.html#term-asynchronous-context-manager) support was added.
 
-contextlib.suppress(*\*exceptions*)
+`contextlib.suppress(*exceptions)`
 :   Return a context manager that suppresses any of the specified exceptions
     if they occur in the body of a `with` statement and then
     resumes execution with the first statement following the end of the
@@ -330,7 +330,7 @@ contextlib.suppress(*\*exceptions*)
     Changed in version 3.12: `suppress` now supports suppressing exceptions raised as
     part of a [`BaseExceptionGroup`](exceptions.md#BaseExceptionGroup "BaseExceptionGroup").
 
-contextlib.redirect_stdout(*new_target*)
+`contextlib.redirect_stdout(new_target)`
 :   Context manager for temporarily redirecting [`sys.stdout`](sys.md#sys.stdout "sys.stdout") to
     another file or file-like object.
 
@@ -374,7 +374,7 @@ contextlib.redirect_stdout(*new_target*)
 
     Added in version 3.4.
 
-contextlib.redirect_stderr(*new_target*)
+`contextlib.redirect_stderr(new_target)`
 :   Similar to [`redirect_stdout()`](contextlib.md#contextlib.redirect_stdout "contextlib.redirect_stdout") but redirecting
     [`sys.stderr`](sys.md#sys.stderr "sys.stderr") to another file or file-like object.
 
@@ -382,7 +382,7 @@ contextlib.redirect_stderr(*new_target*)
 
     Added in version 3.5.
 
-contextlib.chdir(*path*)
+`contextlib.chdir(path)`
 :   Non parallel-safe context manager to change the current working directory.
     As this changes a global state, the working directory, it is not suitable
     for use in most threaded or async contexts. It is also not suitable for most
@@ -397,7 +397,7 @@ contextlib.chdir(*path*)
 
     Added in version 3.11.
 
-*class* contextlib.ContextDecorator
+`class contextlib.ContextDecorator`
 :   A base class that enables a context manager to also be used as a decorator.
 
     Context managers inheriting from `ContextDecorator` have to implement
@@ -484,7 +484,7 @@ contextlib.chdir(*path*)
 
     Added in version 3.2.
 
-*class* contextlib.AsyncContextDecorator
+`class contextlib.AsyncContextDecorator`
 :   Similar to [`ContextDecorator`](contextlib.md#contextlib.ContextDecorator "contextlib.ContextDecorator") but only for asynchronous functions.
 
     Example of `AsyncContextDecorator`:
@@ -527,7 +527,7 @@ contextlib.chdir(*path*)
 
     Added in version 3.10.
 
-*class* contextlib.ExitStack
+`class contextlib.ExitStack`
 :   A context manager that is designed to make it easy to programmatically
     combine other context managers and cleanup functions, especially those
     that are optional or otherwise driven by input data.
@@ -569,7 +569,7 @@ contextlib.chdir(*path*)
 
     Added in version 3.3.
 
-    enter_context(*cm*)
+    `enter_context(cm)`
     :   Enters a new context manager and adds its [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") method to
         the callback stack. The return value is the result of the context
         manager’s own [`__enter__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__enter__ "object.__enter__") method.
@@ -580,7 +580,7 @@ contextlib.chdir(*path*)
         Changed in version 3.11: Raises [`TypeError`](exceptions.md#TypeError "TypeError") instead of [`AttributeError`](exceptions.md#AttributeError "AttributeError") if *cm*
         is not a context manager.
 
-    push(*exit*)
+    `push(exit)`
     :   Adds a context manager’s [`__exit__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__exit__ "object.__exit__") method to the callback stack.
 
         As `__enter__` is *not* invoked, this method can be used to cover
@@ -597,7 +597,7 @@ contextlib.chdir(*path*)
         The passed in object is returned from the function, allowing this
         method to be used as a function decorator.
 
-    callback(*callback*, */*, *\*args*, *\*\*kwds*)
+    `callback(callback, /, *args, **kwds)`
     :   Accepts an arbitrary callback function and arguments and adds it to
         the callback stack.
 
@@ -607,7 +607,7 @@ contextlib.chdir(*path*)
         The passed in callback is returned from the function, allowing this
         method to be used as a function decorator.
 
-    pop_all()
+    `pop_all()`
     :   Transfers the callback stack to a fresh [`ExitStack`](contextlib.md#contextlib.ExitStack "contextlib.ExitStack") instance
         and returns it. No callbacks are invoked by this operation - instead,
         they will now be invoked when the new stack is closed (either
@@ -627,13 +627,13 @@ contextlib.chdir(*path*)
             # close_files() can then be invoked explicitly to close them all.
         ```
 
-    close()
+    `close()`
     :   Immediately unwinds the callback stack, invoking callbacks in the
         reverse order of registration. For any context managers and exit
         callbacks registered, the arguments passed in will indicate that no
         exception occurred.
 
-*class* contextlib.AsyncExitStack
+`class contextlib.AsyncExitStack`
 :   An [asynchronous context manager](https://docs.python.org/3.12/reference/datamodel.html#async-context-managers), similar
     to [`ExitStack`](contextlib.md#contextlib.ExitStack "contextlib.ExitStack"), that supports combining both synchronous and
     asynchronous context managers, as well as having coroutines for
@@ -642,21 +642,21 @@ contextlib.chdir(*path*)
     The [`close()`](contextlib.md#contextlib.ExitStack.close "contextlib.ExitStack.close") method is not implemented; [`aclose()`](contextlib.md#contextlib.AsyncExitStack.aclose "contextlib.AsyncExitStack.aclose") must be used
     instead.
 
-    *async* enter_async_context(*cm*)
+    `async enter_async_context(cm)`
     :   Similar to [`ExitStack.enter_context()`](contextlib.md#contextlib.ExitStack.enter_context "contextlib.ExitStack.enter_context") but expects an asynchronous context
         manager.
 
         Changed in version 3.11: Raises [`TypeError`](exceptions.md#TypeError "TypeError") instead of [`AttributeError`](exceptions.md#AttributeError "AttributeError") if *cm*
         is not an asynchronous context manager.
 
-    push_async_exit(*exit*)
+    `push_async_exit(exit)`
     :   Similar to [`ExitStack.push()`](contextlib.md#contextlib.ExitStack.push "contextlib.ExitStack.push") but expects either an asynchronous context manager
         or a coroutine function.
 
-    push_async_callback(*callback*, */*, *\*args*, *\*\*kwds*)
+    `push_async_callback(callback, /, *args, **kwds)`
     :   Similar to [`ExitStack.callback()`](contextlib.md#contextlib.ExitStack.callback "contextlib.ExitStack.callback") but expects a coroutine function.
 
-    *async* aclose()
+    `async aclose()`
     :   Similar to [`ExitStack.close()`](contextlib.md#contextlib.ExitStack.close "contextlib.ExitStack.close") but properly handles awaitables.
 
     Continuing the example for [`asynccontextmanager()`](contextlib.md#contextlib.asynccontextmanager "contextlib.asynccontextmanager"):

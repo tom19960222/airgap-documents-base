@@ -144,10 +144,10 @@ Changed in version 3.4: Activation of rlcompleter and history was made automatic
 
 ## Module contents
 
-site.PREFIXES
+`site.PREFIXES`
 :   A list of prefixes for site-packages directories.
 
-site.ENABLE_USER_SITE
+`site.ENABLE_USER_SITE`
 :   Flag showing the status of the user site-packages directory. `True` means
     that it is enabled and was added to `sys.path`. `False` means that it
     was disabled by user request (with [`-s`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-s) or
@@ -155,7 +155,7 @@ site.ENABLE_USER_SITE
     reasons (mismatch between user or group id and effective id) or by an
     administrator.
 
-site.USER_SITE
+`site.USER_SITE`
 :   Path to the user site-packages for the running Python. Can be `None` if
     [`getusersitepackages()`](site.md#site.getusersitepackages "site.getusersitepackages") hasn’t been called yet. Default value is
     `~/.local/lib/pythonX.Y/site-packages` for UNIX and non-framework
@@ -164,7 +164,7 @@ site.USER_SITE
     on Windows. This directory is a site directory, which means that
     `.pth` files in it will be processed.
 
-site.USER_BASE
+`site.USER_BASE`
 :   Path to the base directory for the user site-packages. Can be `None` if
     [`getuserbase()`](site.md#site.getuserbase "site.getuserbase") hasn’t been called yet. Default value is
     `~/.local` for UNIX and macOS non-framework builds,
@@ -174,30 +174,30 @@ site.USER_BASE
     etc. for the [user installation scheme](sysconfig.md#sysconfig-user-scheme).
     See also [`PYTHONUSERBASE`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONUSERBASE).
 
-site.main()
+`site.main()`
 :   Adds all the standard site-specific directories to the module search
     path. This function is called automatically when this module is imported,
     unless the Python interpreter was started with the [`-S`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-S) flag.
 
     Changed in version 3.3: This function used to be called unconditionally.
 
-site.addsitedir(*sitedir*, *known_paths=None*)
+`site.addsitedir(sitedir, known_paths=None)`
 :   Add a directory to sys.path and process its `.pth` files. Typically
     used in [`sitecustomize`](site.md#module-sitecustomize "sitecustomize") or [`usercustomize`](site.md#module-usercustomize "usercustomize") (see above).
 
-site.getsitepackages()
+`site.getsitepackages()`
 :   Return a list containing all global site-packages directories.
 
     Added in version 3.2.
 
-site.getuserbase()
+`site.getuserbase()`
 :   Return the path of the user base directory, [`USER_BASE`](site.md#site.USER_BASE "site.USER_BASE"). If it is not
     initialized yet, this function will also set it, respecting
     [`PYTHONUSERBASE`](https://docs.python.org/3.12/using/cmdline.html#envvar-PYTHONUSERBASE).
 
     Added in version 3.2.
 
-site.getusersitepackages()
+`site.getusersitepackages()`
 :   Return the path of the user-specific site-packages directory,
     [`USER_SITE`](site.md#site.USER_SITE "site.USER_SITE"). If it is not initialized yet, this function will also set
     it, respecting [`USER_BASE`](site.md#site.USER_BASE "site.USER_BASE"). To determine if the user-specific
@@ -221,10 +221,10 @@ If it is called without arguments, it will print the contents of
 [`USER_BASE`](site.md#site.USER_BASE "site.USER_BASE") and whether the directory exists, then the same thing for
 [`USER_SITE`](site.md#site.USER_SITE "site.USER_SITE"), and finally the value of [`ENABLE_USER_SITE`](site.md#site.ENABLE_USER_SITE "site.ENABLE_USER_SITE").
 
---user-base
+`--user-base`
 :   Print the path to the user base directory.
 
---user-site
+`--user-site`
 :   Print the path to the user site-packages directory.
 
 If both options are given, user base and user site will be printed (always in

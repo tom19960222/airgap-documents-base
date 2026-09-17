@@ -14,20 +14,20 @@ fetched_at: 2026-09-17T15:35:20+00:00
 This module allows a Python program to determine if a string is a
 [keyword](https://docs.python.org/3.12/reference/lexical_analysis.html#keywords) or [soft keyword](https://docs.python.org/3.12/reference/lexical_analysis.html#soft-keywords).
 
-keyword.iskeyword(*s*)
+`keyword.iskeyword(s)`
 :   Return `True` if *s* is a Python [keyword](https://docs.python.org/3.12/reference/lexical_analysis.html#keywords).
 
-keyword.kwlist
+`keyword.kwlist`
 :   Sequence containing all the [keywords](https://docs.python.org/3.12/reference/lexical_analysis.html#keywords) defined for the
     interpreter. If any keywords are defined to only be active when particular
     [`__future__`](__future__.md#module-__future__ "__future__: Future statement definitions") statements are in effect, these will be included as well.
 
-keyword.issoftkeyword(*s*)
+`keyword.issoftkeyword(s)`
 :   Return `True` if *s* is a Python [soft keyword](https://docs.python.org/3.12/reference/lexical_analysis.html#soft-keywords).
 
     Added in version 3.9.
 
-keyword.softkwlist
+`keyword.softkwlist`
 :   Sequence containing all the [soft keywords](https://docs.python.org/3.12/reference/lexical_analysis.html#soft-keywords) defined for the
     interpreter. If any soft keywords are defined to only be active when particular
     [`__future__`](__future__.md#module-__future__ "__future__: Future statement definitions") statements are in effect, these will be included as well.

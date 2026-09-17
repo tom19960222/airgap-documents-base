@@ -24,7 +24,7 @@ Instances of [`Charset`](email.charset.md#email.charset.Charset "email.charset.C
 
 Import this class from the [`email.charset`](email.charset.md#module-email.charset "email.charset: Character Sets") module.
 
-*class* email.charset.Charset(*input_charset=DEFAULT_CHARSET*)
+`class email.charset.Charset(input_charset=DEFAULT_CHARSET)`
 :   Map character sets to their email properties.
 
     This class provides information about the requirements imposed on email for a
@@ -49,42 +49,42 @@ Import this class from the [`email.charset`](email.charset.md#module-email.chars
 
     [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") instances have the following data attributes:
 
-    input_charset
+    `input_charset`
     :   The initial character set specified. Common aliases are converted to
         their *official* email names (e.g. `latin_1` is converted to
         `iso-8859-1`). Defaults to 7-bit `us-ascii`.
 
-    header_encoding
+    `header_encoding`
     :   If the character set must be encoded before it can be used in an email
         header, this attribute will be set to `charset.QP` (for
         quoted-printable), `charset.BASE64` (for base64 encoding), or
         `charset.SHORTEST` for the shortest of QP or BASE64 encoding. Otherwise,
         it will be `None`.
 
-    body_encoding
+    `body_encoding`
     :   Same as *header_encoding*, but describes the encoding for the mail
         message’s body, which indeed may be different than the header encoding.
         `charset.SHORTEST` is not allowed for *body_encoding*.
 
-    output_charset
+    `output_charset`
     :   Some character sets must be converted before they can be used in email
         headers or bodies. If the *input_charset* is one of them, this attribute
         will contain the name of the character set output will be converted to.
         Otherwise, it will be `None`.
 
-    input_codec
+    `input_codec`
     :   The name of the Python codec used to convert the *input_charset* to
         Unicode. If no conversion codec is necessary, this attribute will be
         `None`.
 
-    output_codec
+    `output_codec`
     :   The name of the Python codec used to convert Unicode to the
         *output_charset*. If no conversion codec is necessary, this attribute
         will have the same value as the *input_codec*.
 
     [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") instances also have the following methods:
 
-    get_body_encoding()
+    `get_body_encoding()`
     :   Return the content transfer encoding used for body encoding.
 
         This is either the string `quoted-printable` or `base64` depending on
@@ -97,19 +97,19 @@ Import this class from the [`email.charset`](email.charset.md#module-email.chars
         returns the string `base64` if *body_encoding* is `BASE64`, and
         returns the string `7bit` otherwise.
 
-    get_output_charset()
+    `get_output_charset()`
     :   Return the output character set.
 
         This is the *output_charset* attribute if that is not `None`, otherwise
         it is *input_charset*.
 
-    header_encode(*string*)
+    `header_encode(string)`
     :   Header-encode the string *string*.
 
         The type of encoding (base64 or quoted-printable) will be based on the
         *header_encoding* attribute.
 
-    header_encode_lines(*string*, *maxlengths*)
+    `header_encode_lines(string, maxlengths)`
     :   Header-encode a *string* by converting it first to bytes.
 
         This is similar to [`header_encode()`](email.charset.md#email.charset.Charset.header_encode "email.charset.Charset.header_encode") except that the string is fit
@@ -117,7 +117,7 @@ Import this class from the [`email.charset`](email.charset.md#module-email.chars
         must be an iterator: each element returned from this iterator will provide
         the next maximum line length.
 
-    body_encode(*string*)
+    `body_encode(string)`
     :   Body-encode the string *string*.
 
         The type of encoding (base64 or quoted-printable) will be based on the
@@ -126,22 +126,22 @@ Import this class from the [`email.charset`](email.charset.md#module-email.chars
     The [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") class also provides a number of methods to support
     standard operations and built-in functions.
 
-    __str__()
+    `__str__()`
     :   Returns *input_charset* as a string coerced to lower
         case. `__repr__()` is an alias for `__str__()`.
 
-    __eq__(*other*)
+    `__eq__(other)`
     :   This method allows you to compare two [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") instances for
         equality.
 
-    __ne__(*other*)
+    `__ne__(other)`
     :   This method allows you to compare two [`Charset`](email.charset.md#email.charset.Charset "email.charset.Charset") instances for
         inequality.
 
 The [`email.charset`](email.charset.md#module-email.charset "email.charset: Character Sets") module also provides the following functions for adding
 new entries to the global character set, alias, and codec registries:
 
-email.charset.add_charset(*charset*, *header_enc=None*, *body_enc=None*, *output_charset=None*)
+`email.charset.add_charset(charset, header_enc=None, body_enc=None, output_charset=None)`
 :   Add character properties to the global registry.
 
     *charset* is the input character set, and must be the canonical name of a
@@ -166,14 +166,14 @@ email.charset.add_charset(*charset*, *header_enc=None*, *body_enc=None*, *output
     The global character set registry is kept in the module global dictionary
     `CHARSETS`.
 
-email.charset.add_alias(*alias*, *canonical*)
+`email.charset.add_alias(alias, canonical)`
 :   Add a character set alias. *alias* is the alias name, e.g. `latin-1`.
     *canonical* is the character set’s canonical name, e.g. `iso-8859-1`.
 
     The global charset alias registry is kept in the module global dictionary
     `ALIASES`.
 
-email.charset.add_codec(*charset*, *codecname*)
+`email.charset.add_codec(charset, codecname)`
 :   Add a codec that map characters in the given character set to and from Unicode.
 
     *charset* is the canonical name of a character set. *codecname* is the name of a

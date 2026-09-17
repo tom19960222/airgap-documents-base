@@ -318,7 +318,7 @@ types.
 
 ## Decimal objects
 
-*class* decimal.Decimal(*value='0'*, *context=None*)
+`class decimal.Decimal(value='0', context=None)`
 :   Construct a new [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") object based from *value*.
 
     *value* can be an integer, string, tuple, [`float`](functions.md#float "float"), or another [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal")
@@ -424,13 +424,13 @@ types.
     In addition to the standard numeric properties, decimal floating-point
     objects also have a number of specialized methods:
 
-    adjusted()
+    `adjusted()`
     :   Return the adjusted exponent after shifting out the coefficient’s
         rightmost digits until only the lead digit remains:
         `Decimal('321e+5').adjusted()` returns seven. Used for determining the
         position of the most significant digit with respect to the decimal point.
 
-    as_integer_ratio()
+    `as_integer_ratio()`
     :   Return a pair `(n, d)` of integers that represent the given
         [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") instance as a fraction, in lowest terms and
         with a positive denominator:
@@ -445,16 +445,16 @@ types.
 
     Added in version 3.6.
 
-    as_tuple()
+    `as_tuple()`
     :   Return a [named tuple](https://docs.python.org/3.12/glossary.html#term-named-tuple) representation of the number:
         `DecimalTuple(sign, digits, exponent)`.
 
-    canonical()
+    `canonical()`
     :   Return the canonical encoding of the argument. Currently, the encoding of
         a [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") instance is always canonical, so this operation returns
         its argument unchanged.
 
-    compare(*other*, *context=None*)
+    `compare(other, context=None)`
     :   Compare the values of two Decimal instances. [`compare()`](decimal.md#decimal.Decimal.compare "decimal.Decimal.compare") returns a
         Decimal instance, and if either operand is a NaN then the result is a
         NaN:
@@ -466,12 +466,12 @@ types.
         a > b            ==> Decimal('1')
         ```
 
-    compare_signal(*other*, *context=None*)
+    `compare_signal(other, context=None)`
     :   This operation is identical to the [`compare()`](decimal.md#decimal.Decimal.compare "decimal.Decimal.compare") method, except that all
         NaNs signal. That is, if neither operand is a signaling NaN then any
         quiet NaN operand is treated as though it were a signaling NaN.
 
-    compare_total(*other*, *context=None*)
+    `compare_total(other, context=None)`
     :   Compare two operands using their abstract representation rather than their
         numerical value. Similar to the [`compare()`](decimal.md#decimal.Decimal.compare "decimal.Decimal.compare") method, but the result
         gives a total ordering on [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") instances. Two
@@ -494,7 +494,7 @@ types.
         and no rounding is performed. As an exception, the C version may raise
         InvalidOperation if the second operand cannot be converted exactly.
 
-    compare_total_mag(*other*, *context=None*)
+    `compare_total_mag(other, context=None)`
     :   Compare two operands using their abstract representation rather than their
         value as in [`compare_total()`](decimal.md#decimal.Decimal.compare_total "decimal.Decimal.compare_total"), but ignoring the sign of each operand.
         `x.compare_total_mag(y)` is equivalent to
@@ -504,20 +504,20 @@ types.
         and no rounding is performed. As an exception, the C version may raise
         InvalidOperation if the second operand cannot be converted exactly.
 
-    conjugate()
+    `conjugate()`
     :   Just returns self, this method is only to comply with the Decimal
         Specification.
 
-    copy_abs()
+    `copy_abs()`
     :   Return the absolute value of the argument. This operation is unaffected
         by the context and is quiet: no flags are changed and no rounding is
         performed.
 
-    copy_negate()
+    `copy_negate()`
     :   Return the negation of the argument. This operation is unaffected by the
         context and is quiet: no flags are changed and no rounding is performed.
 
-    copy_sign(*other*, *context=None*)
+    `copy_sign(other, context=None)`
     :   Return a copy of the first operand with the sign set to be the same as the
         sign of the second operand. For example:
 
@@ -530,7 +530,7 @@ types.
         and no rounding is performed. As an exception, the C version may raise
         InvalidOperation if the second operand cannot be converted exactly.
 
-    exp(*context=None*)
+    `exp(context=None)`
     :   Return the value of the (natural) exponential function `e**x` at the
         given number. The result is correctly rounded using the
         [`ROUND_HALF_EVEN`](decimal.md#decimal.ROUND_HALF_EVEN "decimal.ROUND_HALF_EVEN") rounding mode.
@@ -542,7 +542,7 @@ types.
         Decimal('2.561702493119680037517373933E+139')
         ```
 
-    *classmethod* from_float(*f*)
+    `classmethod from_float(f)`
     :   Alternative constructor that only accepts instances of [`float`](functions.md#float "float") or
         [`int`](functions.md#int "int").
 
@@ -570,7 +570,7 @@ types.
 
         Added in version 3.1.
 
-    fma(*other*, *third*, *context=None*)
+    `fma(other, third, context=None)`
     :   Fused multiply-add. Return self\*other+third with no rounding of the
         intermediate product self\*other.
 
@@ -579,118 +579,118 @@ types.
         Decimal('11')
         ```
 
-    is_canonical()
+    `is_canonical()`
     :   Return [`True`](constants.md#True "True") if the argument is canonical and [`False`](constants.md#False "False")
         otherwise. Currently, a [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") instance is always canonical, so
         this operation always returns [`True`](constants.md#True "True").
 
-    is_finite()
+    `is_finite()`
     :   Return [`True`](constants.md#True "True") if the argument is a finite number, and
         [`False`](constants.md#False "False") if the argument is an infinity or a NaN.
 
-    is_infinite()
+    `is_infinite()`
     :   Return [`True`](constants.md#True "True") if the argument is either positive or negative
         infinity and [`False`](constants.md#False "False") otherwise.
 
-    is_nan()
+    `is_nan()`
     :   Return [`True`](constants.md#True "True") if the argument is a (quiet or signaling) NaN and
         [`False`](constants.md#False "False") otherwise.
 
-    is_normal(*context=None*)
+    `is_normal(context=None)`
     :   Return [`True`](constants.md#True "True") if the argument is a *normal* finite number. Return
         [`False`](constants.md#False "False") if the argument is zero, subnormal, infinite or a NaN.
 
-    is_qnan()
+    `is_qnan()`
     :   Return [`True`](constants.md#True "True") if the argument is a quiet NaN, and
         [`False`](constants.md#False "False") otherwise.
 
-    is_signed()
+    `is_signed()`
     :   Return [`True`](constants.md#True "True") if the argument has a negative sign and
         [`False`](constants.md#False "False") otherwise. Note that zeros and NaNs can both carry signs.
 
-    is_snan()
+    `is_snan()`
     :   Return [`True`](constants.md#True "True") if the argument is a signaling NaN and [`False`](constants.md#False "False")
         otherwise.
 
-    is_subnormal(*context=None*)
+    `is_subnormal(context=None)`
     :   Return [`True`](constants.md#True "True") if the argument is subnormal, and [`False`](constants.md#False "False")
         otherwise.
 
-    is_zero()
+    `is_zero()`
     :   Return [`True`](constants.md#True "True") if the argument is a (positive or negative) zero and
         [`False`](constants.md#False "False") otherwise.
 
-    ln(*context=None*)
+    `ln(context=None)`
     :   Return the natural (base e) logarithm of the operand. The result is
         correctly rounded using the [`ROUND_HALF_EVEN`](decimal.md#decimal.ROUND_HALF_EVEN "decimal.ROUND_HALF_EVEN") rounding mode.
 
-    log10(*context=None*)
+    `log10(context=None)`
     :   Return the base ten logarithm of the operand. The result is correctly
         rounded using the [`ROUND_HALF_EVEN`](decimal.md#decimal.ROUND_HALF_EVEN "decimal.ROUND_HALF_EVEN") rounding mode.
 
-    logb(*context=None*)
+    `logb(context=None)`
     :   For a nonzero number, return the adjusted exponent of its operand as a
         [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") instance. If the operand is a zero then
         `Decimal('-Infinity')` is returned and the [`DivisionByZero`](decimal.md#decimal.DivisionByZero "decimal.DivisionByZero") flag
         is raised. If the operand is an infinity then `Decimal('Infinity')` is
         returned.
 
-    logical_and(*other*, *context=None*)
+    `logical_and(other, context=None)`
     :   [`logical_and()`](decimal.md#decimal.Decimal.logical_and "decimal.Decimal.logical_and") is a logical operation which takes two *logical
         operands* (see [Logical operands](decimal.md#logical-operands-label)). The result is the
         digit-wise `and` of the two operands.
 
-    logical_invert(*context=None*)
+    `logical_invert(context=None)`
     :   [`logical_invert()`](decimal.md#decimal.Decimal.logical_invert "decimal.Decimal.logical_invert") is a logical operation. The
         result is the digit-wise inversion of the operand.
 
-    logical_or(*other*, *context=None*)
+    `logical_or(other, context=None)`
     :   [`logical_or()`](decimal.md#decimal.Decimal.logical_or "decimal.Decimal.logical_or") is a logical operation which takes two *logical
         operands* (see [Logical operands](decimal.md#logical-operands-label)). The result is the
         digit-wise `or` of the two operands.
 
-    logical_xor(*other*, *context=None*)
+    `logical_xor(other, context=None)`
     :   [`logical_xor()`](decimal.md#decimal.Decimal.logical_xor "decimal.Decimal.logical_xor") is a logical operation which takes two *logical
         operands* (see [Logical operands](decimal.md#logical-operands-label)). The result is the
         digit-wise exclusive or of the two operands.
 
-    max(*other*, *context=None*)
+    `max(other, context=None)`
     :   Like `max(self, other)` except that the context rounding rule is applied
         before returning and that `NaN` values are either signaled or
         ignored (depending on the context and whether they are signaling or
         quiet).
 
-    max_mag(*other*, *context=None*)
+    `max_mag(other, context=None)`
     :   Similar to the [`max()`](decimal.md#decimal.Decimal.max "decimal.Decimal.max") method, but the comparison is done using the
         absolute values of the operands.
 
-    min(*other*, *context=None*)
+    `min(other, context=None)`
     :   Like `min(self, other)` except that the context rounding rule is applied
         before returning and that `NaN` values are either signaled or
         ignored (depending on the context and whether they are signaling or
         quiet).
 
-    min_mag(*other*, *context=None*)
+    `min_mag(other, context=None)`
     :   Similar to the [`min()`](decimal.md#decimal.Decimal.min "decimal.Decimal.min") method, but the comparison is done using the
         absolute values of the operands.
 
-    next_minus(*context=None*)
+    `next_minus(context=None)`
     :   Return the largest number representable in the given context (or in the
         current thread’s context if no context is given) that is smaller than the
         given operand.
 
-    next_plus(*context=None*)
+    `next_plus(context=None)`
     :   Return the smallest number representable in the given context (or in the
         current thread’s context if no context is given) that is larger than the
         given operand.
 
-    next_toward(*other*, *context=None*)
+    `next_toward(other, context=None)`
     :   If the two operands are unequal, return the number closest to the first
         operand in the direction of the second operand. If both operands are
         numerically equal, return a copy of the first operand with the sign set to
         be the same as the sign of the second operand.
 
-    normalize(*context=None*)
+    `normalize(context=None)`
     :   Used for producing canonical values of an equivalence
         class within either the current context or the specified context.
 
@@ -709,7 +709,7 @@ types.
         In the latest versions of the specification, this operation is also known
         as `reduce`.
 
-    number_class(*context=None*)
+    `number_class(context=None)`
     :   Return a string describing the *class* of the operand. The returned value
         is one of the following ten strings.
 
@@ -724,7 +724,7 @@ types.
         - `"NaN"`, indicating that the operand is a quiet NaN (Not a Number).
         - `"sNaN"`, indicating that the operand is a signaling NaN.
 
-    quantize(*exp*, *rounding=None*, *context=None*)
+    `quantize(exp, rounding=None, context=None)`
     :   Return a value equal to the first operand after rounding and having the
         exponent of the second operand.
 
@@ -751,12 +751,12 @@ types.
         An error is returned whenever the resulting exponent is greater than
         `Emax` or less than [`Etiny()`](decimal.md#decimal.Context.Etiny "decimal.Context.Etiny").
 
-    radix()
+    `radix()`
     :   Return `Decimal(10)`, the radix (base) in which the [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal")
         class does all its arithmetic. Included for compatibility with the
         specification.
 
-    remainder_near(*other*, *context=None*)
+    `remainder_near(other, context=None)`
     :   Return the remainder from dividing *self* by *other*. This differs from
         `self % other` in that the sign of the remainder is chosen so as to
         minimize its absolute value. More precisely, the return value is
@@ -775,7 +775,7 @@ types.
         Decimal('-5')
         ```
 
-    rotate(*other*, *context=None*)
+    `rotate(other, context=None)`
     :   Return the result of rotating the digits of the first operand by an amount
         specified by the second operand. The second operand must be an integer in
         the range -precision through precision. The absolute value of the second
@@ -785,7 +785,7 @@ types.
         length precision if necessary. The sign and exponent of the first operand
         are unchanged.
 
-    same_quantum(*other*, *context=None*)
+    `same_quantum(other, context=None)`
     :   Test whether self and other have the same exponent or whether both are
         `NaN`.
 
@@ -793,12 +793,12 @@ types.
         and no rounding is performed. As an exception, the C version may raise
         InvalidOperation if the second operand cannot be converted exactly.
 
-    scaleb(*other*, *context=None*)
+    `scaleb(other, context=None)`
     :   Return the first operand with exponent adjusted by the second.
         Equivalently, return the first operand multiplied by `10**other`. The
         second operand must be an integer.
 
-    shift(*other*, *context=None*)
+    `shift(other, context=None)`
     :   Return the result of shifting the digits of the first operand by an amount
         specified by the second operand. The second operand must be an integer in
         the range -precision through precision. The absolute value of the second
@@ -807,10 +807,10 @@ types.
         right. Digits shifted into the coefficient are zeros. The sign and
         exponent of the first operand are unchanged.
 
-    sqrt(*context=None*)
+    `sqrt(context=None)`
     :   Return the square root of the argument to full precision.
 
-    to_eng_string(*context=None*)
+    `to_eng_string(context=None)`
     :   Convert to a string, using engineering notation if an exponent is needed.
 
         Engineering notation has an exponent which is a multiple of 3. This
@@ -819,27 +819,27 @@ types.
 
         For example, this converts `Decimal('123E+1')` to `Decimal('1.23E+3')`.
 
-    to_integral(*rounding=None*, *context=None*)
+    `to_integral(rounding=None, context=None)`
     :   Identical to the [`to_integral_value()`](decimal.md#decimal.Decimal.to_integral_value "decimal.Decimal.to_integral_value") method. The `to_integral`
         name has been kept for compatibility with older versions.
 
-    to_integral_exact(*rounding=None*, *context=None*)
+    `to_integral_exact(rounding=None, context=None)`
     :   Round to the nearest integer, signaling [`Inexact`](decimal.md#decimal.Inexact "decimal.Inexact") or
         [`Rounded`](decimal.md#decimal.Rounded "decimal.Rounded") as appropriate if rounding occurs. The rounding mode is
         determined by the `rounding` parameter if given, else by the given
         `context`. If neither parameter is given then the rounding mode of the
         current context is used.
 
-    to_integral_value(*rounding=None*, *context=None*)
+    `to_integral_value(rounding=None, context=None)`
     :   Round to the nearest integer without signaling [`Inexact`](decimal.md#decimal.Inexact "decimal.Inexact") or
         [`Rounded`](decimal.md#decimal.Rounded "decimal.Rounded"). If given, applies *rounding*; otherwise, uses the
         rounding method in either the supplied *context* or the current context.
 
     Decimal numbers can be rounded using the [`round()`](functions.md#round "round") function:
 
-    round(number)
+    `round(number)`
 
-    round(number, ndigits)
+    `round(number, ndigits)`
     :   If *ndigits* is not given or `None`,
         returns the nearest [`int`](functions.md#int "int") to *number*,
         rounding ties to even, and ignoring the rounding mode of the
@@ -896,16 +896,16 @@ the range for exponents.
 Each thread has its own current context which is accessed or changed using the
 [`getcontext()`](decimal.md#decimal.getcontext "decimal.getcontext") and [`setcontext()`](decimal.md#decimal.setcontext "decimal.setcontext") functions:
 
-decimal.getcontext()
+`decimal.getcontext()`
 :   Return the current context for the active thread.
 
-decimal.setcontext(*c*)
+`decimal.setcontext(c)`
 :   Set the current context for the active thread to *c*.
 
 You can also use the [`with`](https://docs.python.org/3.12/reference/compound_stmts.html#with) statement and the [`localcontext()`](decimal.md#decimal.localcontext "decimal.localcontext")
 function to temporarily change the active context.
 
-decimal.localcontext(*ctx=None*, *\*\*kwargs*)
+`decimal.localcontext(ctx=None, **kwargs)`
 :   Return a context manager that will set the current context for the active thread
     to a copy of *ctx* on entry to the with-statement and restore the previous context
     when exiting the with-statement. If no context is specified, a copy of the
@@ -943,7 +943,7 @@ decimal.localcontext(*ctx=None*, *\*\*kwargs*)
 New contexts can also be created using the [`Context`](decimal.md#decimal.Context "decimal.Context") constructor
 described below. In addition, the module provides three pre-made contexts:
 
-decimal.BasicContext
+`decimal.BasicContext`
 :   This is a standard context defined by the General Decimal Arithmetic
     Specification. Precision is set to nine. Rounding is set to
     [`ROUND_HALF_UP`](decimal.md#decimal.ROUND_HALF_UP "decimal.ROUND_HALF_UP"). All flags are cleared. All traps are enabled (treated
@@ -952,7 +952,7 @@ decimal.BasicContext
 
     Because many of the traps are enabled, this context is useful for debugging.
 
-decimal.ExtendedContext
+`decimal.ExtendedContext`
 :   This is a standard context defined by the General Decimal Arithmetic
     Specification. Precision is set to nine. Rounding is set to
     [`ROUND_HALF_EVEN`](decimal.md#decimal.ROUND_HALF_EVEN "decimal.ROUND_HALF_EVEN"). All flags are cleared. No traps are enabled (so that
@@ -963,7 +963,7 @@ decimal.ExtendedContext
     raising exceptions. This allows an application to complete a run in the
     presence of conditions that would otherwise halt the program.
 
-decimal.DefaultContext
+`decimal.DefaultContext`
 :   This context is used by the [`Context`](decimal.md#decimal.Context "decimal.Context") constructor as a prototype for new
     contexts. Changing a field (such a precision) has the effect of changing the
     default for new contexts created by the [`Context`](decimal.md#decimal.Context "decimal.Context") constructor.
@@ -984,7 +984,7 @@ decimal.DefaultContext
 In addition to the three supplied contexts, new contexts can be created with the
 [`Context`](decimal.md#decimal.Context "decimal.Context") constructor.
 
-*class* decimal.Context(*prec=None*, *rounding=None*, *Emin=None*, *Emax=None*, *capitals=None*, *clamp=None*, *flags=None*, *traps=None*)
+`class decimal.Context(prec=None, rounding=None, Emin=None, Emax=None, capitals=None, clamp=None, flags=None, traps=None)`
 :   Creates a new context. If a field is not specified or is [`None`](constants.md#None "None"), the
     default values are copied from the [`DefaultContext`](decimal.md#decimal.DefaultContext "decimal.DefaultContext"). If the *flags*
     field is not specified or is [`None`](constants.md#None "None"), all flags are cleared.
@@ -1036,21 +1036,21 @@ In addition to the three supplied contexts, new contexts can be created with the
     Python integer (an instance of [`int`](functions.md#int "int")) anywhere that a
     Decimal instance is accepted.
 
-    clear_flags()
+    `clear_flags()`
     :   Resets all of the flags to `0`.
 
-    clear_traps()
+    `clear_traps()`
     :   Resets all of the traps to `0`.
 
         Added in version 3.3.
 
-    copy()
+    `copy()`
     :   Return a duplicate of the context.
 
-    copy_decimal(*num*)
+    `copy_decimal(num)`
     :   Return a copy of the Decimal instance num.
 
-    create_decimal(*num*)
+    `create_decimal(num)`
     :   Creates a new Decimal instance from *num* but using *self* as
         context. Unlike the [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") constructor, the context precision,
         rounding method, flags, and traps are applied to the conversion.
@@ -1073,7 +1073,7 @@ In addition to the three supplied contexts, new contexts can be created with the
         If the argument is a string, no leading or trailing whitespace or
         underscores are permitted.
 
-    create_decimal_from_float(*f*)
+    `create_decimal_from_float(f)`
     :   Creates a new Decimal instance from a float *f* but rounding using *self*
         as the context. Unlike the [`Decimal.from_float()`](decimal.md#decimal.Decimal.from_float "decimal.Decimal.from_float") class method,
         the context precision, rounding method, flags, and traps are applied to
@@ -1092,12 +1092,12 @@ In addition to the three supplied contexts, new contexts can be created with the
 
         Added in version 3.1.
 
-    Etiny()
+    `Etiny()`
     :   Returns a value equal to `Emin - prec + 1` which is the minimum exponent
         value for subnormal results. When underflow occurs, the exponent is set
         to [`Etiny`](decimal.md#decimal.Context.Etiny "decimal.Context.Etiny").
 
-    Etop()
+    `Etop()`
     :   Returns a value equal to `Emax - prec + 1`.
 
     The usual approach to working with decimals is to create [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal")
@@ -1107,141 +1107,141 @@ In addition to the three supplied contexts, new contexts can be created with the
     similar to those for the [`Decimal`](decimal.md#decimal.Decimal "decimal.Decimal") class and are only briefly
     recounted here.
 
-    abs(*x*)
+    `abs(x)`
     :   Returns the absolute value of *x*.
 
-    add(*x*, *y*)
+    `add(x, y)`
     :   Return the sum of *x* and *y*.
 
-    canonical(*x*)
+    `canonical(x)`
     :   Returns the same Decimal object *x*.
 
-    compare(*x*, *y*)
+    `compare(x, y)`
     :   Compares *x* and *y* numerically.
 
-    compare_signal(*x*, *y*)
+    `compare_signal(x, y)`
     :   Compares the values of the two operands numerically.
 
-    compare_total(*x*, *y*)
+    `compare_total(x, y)`
     :   Compares two operands using their abstract representation.
 
-    compare_total_mag(*x*, *y*)
+    `compare_total_mag(x, y)`
     :   Compares two operands using their abstract representation, ignoring sign.
 
-    copy_abs(*x*)
+    `copy_abs(x)`
     :   Returns a copy of *x* with the sign set to 0.
 
-    copy_negate(*x*)
+    `copy_negate(x)`
     :   Returns a copy of *x* with the sign inverted.
 
-    copy_sign(*x*, *y*)
+    `copy_sign(x, y)`
     :   Copies the sign from *y* to *x*.
 
-    divide(*x*, *y*)
+    `divide(x, y)`
     :   Return *x* divided by *y*.
 
-    divide_int(*x*, *y*)
+    `divide_int(x, y)`
     :   Return *x* divided by *y*, truncated to an integer.
 
-    divmod(*x*, *y*)
+    `divmod(x, y)`
     :   Divides two numbers and returns the integer part of the result.
 
-    exp(*x*)
+    `exp(x)`
     :   Returns `e ** x`.
 
-    fma(*x*, *y*, *z*)
+    `fma(x, y, z)`
     :   Returns *x* multiplied by *y*, plus *z*.
 
-    is_canonical(*x*)
+    `is_canonical(x)`
     :   Returns `True` if *x* is canonical; otherwise returns `False`.
 
-    is_finite(*x*)
+    `is_finite(x)`
     :   Returns `True` if *x* is finite; otherwise returns `False`.
 
-    is_infinite(*x*)
+    `is_infinite(x)`
     :   Returns `True` if *x* is infinite; otherwise returns `False`.
 
-    is_nan(*x*)
+    `is_nan(x)`
     :   Returns `True` if *x* is a qNaN or sNaN; otherwise returns `False`.
 
-    is_normal(*x*)
+    `is_normal(x)`
     :   Returns `True` if *x* is a normal number; otherwise returns `False`.
 
-    is_qnan(*x*)
+    `is_qnan(x)`
     :   Returns `True` if *x* is a quiet NaN; otherwise returns `False`.
 
-    is_signed(*x*)
+    `is_signed(x)`
     :   Returns `True` if *x* is negative; otherwise returns `False`.
 
-    is_snan(*x*)
+    `is_snan(x)`
     :   Returns `True` if *x* is a signaling NaN; otherwise returns `False`.
 
-    is_subnormal(*x*)
+    `is_subnormal(x)`
     :   Returns `True` if *x* is subnormal; otherwise returns `False`.
 
-    is_zero(*x*)
+    `is_zero(x)`
     :   Returns `True` if *x* is a zero; otherwise returns `False`.
 
-    ln(*x*)
+    `ln(x)`
     :   Returns the natural (base e) logarithm of *x*.
 
-    log10(*x*)
+    `log10(x)`
     :   Returns the base 10 logarithm of *x*.
 
-    logb(*x*)
+    `logb(x)`
     :   Returns the exponent of the magnitude of the operand’s MSD.
 
-    logical_and(*x*, *y*)
+    `logical_and(x, y)`
     :   Applies the logical operation *and* between each operand’s digits.
 
-    logical_invert(*x*)
+    `logical_invert(x)`
     :   Invert all the digits in *x*.
 
-    logical_or(*x*, *y*)
+    `logical_or(x, y)`
     :   Applies the logical operation *or* between each operand’s digits.
 
-    logical_xor(*x*, *y*)
+    `logical_xor(x, y)`
     :   Applies the logical operation *xor* between each operand’s digits.
 
-    max(*x*, *y*)
+    `max(x, y)`
     :   Compares two values numerically and returns the maximum.
 
-    max_mag(*x*, *y*)
+    `max_mag(x, y)`
     :   Compares the values numerically with their sign ignored.
 
-    min(*x*, *y*)
+    `min(x, y)`
     :   Compares two values numerically and returns the minimum.
 
-    min_mag(*x*, *y*)
+    `min_mag(x, y)`
     :   Compares the values numerically with their sign ignored.
 
-    minus(*x*)
+    `minus(x)`
     :   Minus corresponds to the unary prefix minus operator in Python.
 
-    multiply(*x*, *y*)
+    `multiply(x, y)`
     :   Return the product of *x* and *y*.
 
-    next_minus(*x*)
+    `next_minus(x)`
     :   Returns the largest representable number smaller than *x*.
 
-    next_plus(*x*)
+    `next_plus(x)`
     :   Returns the smallest representable number larger than *x*.
 
-    next_toward(*x*, *y*)
+    `next_toward(x, y)`
     :   Returns the number closest to *x*, in direction towards *y*.
 
-    normalize(*x*)
+    `normalize(x)`
     :   Reduces *x* to its simplest form.
 
-    number_class(*x*)
+    `number_class(x)`
     :   Returns an indication of the class of *x*.
 
-    plus(*x*)
+    `plus(x)`
     :   Plus corresponds to the unary prefix plus operator in Python. This
         operation applies the context precision and rounding, so it is *not* an
         identity operation.
 
-    power(*x*, *y*, *modulo=None*)
+    `power(x, y, modulo=None)`
     :   Return `x` to the power of `y`, reduced modulo `modulo` if given.
 
         With two arguments, compute `x**y`. If `x` is negative then `y`
@@ -1272,51 +1272,51 @@ In addition to the three supplied contexts, new contexts can be created with the
         the exponents of `x`, `y` and `modulo`. The result is
         always exact.
 
-    quantize(*x*, *y*)
+    `quantize(x, y)`
     :   Returns a value equal to *x* (rounded), having the exponent of *y*.
 
-    radix()
+    `radix()`
     :   Just returns 10, as this is Decimal, :)
 
-    remainder(*x*, *y*)
+    `remainder(x, y)`
     :   Returns the remainder from integer division.
 
         The sign of the result, if non-zero, is the same as that of the original
         dividend.
 
-    remainder_near(*x*, *y*)
+    `remainder_near(x, y)`
     :   Returns `x - y * n`, where *n* is the integer nearest the exact value
         of `x / y` (if the result is 0 then its sign will be the sign of *x*).
 
-    rotate(*x*, *y*)
+    `rotate(x, y)`
     :   Returns a rotated copy of *x*, *y* times.
 
-    same_quantum(*x*, *y*)
+    `same_quantum(x, y)`
     :   Returns `True` if the two operands have the same exponent.
 
-    scaleb(*x*, *y*)
+    `scaleb(x, y)`
     :   Returns the first operand after adding the second value its exp.
 
-    shift(*x*, *y*)
+    `shift(x, y)`
     :   Returns a shifted copy of *x*, *y* times.
 
-    sqrt(*x*)
+    `sqrt(x)`
     :   Square root of a non-negative number to context precision.
 
-    subtract(*x*, *y*)
+    `subtract(x, y)`
     :   Return the difference between *x* and *y*.
 
-    to_eng_string(*x*)
+    `to_eng_string(x)`
     :   Convert to a string, using engineering notation if an exponent is needed.
 
         Engineering notation has an exponent which is a multiple of 3. This
         can leave up to 3 digits to the left of the decimal place and may
         require the addition of either one or two trailing zeros.
 
-    to_integral_exact(*x*)
+    `to_integral_exact(x)`
     :   Rounds to an integer.
 
-    to_sci_string(*x*)
+    `to_sci_string(x)`
     :   Converts a number to a string using scientific notation.
 
 ## Constants
@@ -1326,17 +1326,17 @@ are also included in the pure Python version for compatibility.
 
 |  | 32-bit | 64-bit |
 | --- | --- | --- |
-| decimal.MAX_PREC | `425000000` | `999999999999999999` |
-| decimal.MAX_EMAX | `425000000` | `999999999999999999` |
-| decimal.MIN_EMIN | `-425000000` | `-999999999999999999` |
-| decimal.MIN_ETINY | `-849999999` | `-1999999999999999997` |
+| `decimal.MAX_PREC` | `425000000` | `999999999999999999` |
+| `decimal.MAX_EMAX` | `425000000` | `999999999999999999` |
+| `decimal.MIN_EMIN` | `-425000000` | `-999999999999999999` |
+| `decimal.MIN_ETINY` | `-849999999` | `-1999999999999999997` |
 
-decimal.HAVE_THREADS
+`decimal.HAVE_THREADS`
 :   The value is `True`. Deprecated, because Python now always has threads.
 
 Deprecated since version 3.9.
 
-decimal.HAVE_CONTEXTVAR
+`decimal.HAVE_CONTEXTVAR`
 :   The default value is `True`. If Python is [`configured using
     the --without-decimal-contextvar option`](https://docs.python.org/3.12/using/configure.html#cmdoption-without-decimal-contextvar),
     the C version uses a thread-local rather than a coroutine-local context and the value
@@ -1346,28 +1346,28 @@ decimal.HAVE_CONTEXTVAR
 
 ## Rounding modes
 
-decimal.ROUND_CEILING
+`decimal.ROUND_CEILING`
 :   Round towards `Infinity`.
 
-decimal.ROUND_DOWN
+`decimal.ROUND_DOWN`
 :   Round towards zero.
 
-decimal.ROUND_FLOOR
+`decimal.ROUND_FLOOR`
 :   Round towards `-Infinity`.
 
-decimal.ROUND_HALF_DOWN
+`decimal.ROUND_HALF_DOWN`
 :   Round to nearest with ties going towards zero.
 
-decimal.ROUND_HALF_EVEN
+`decimal.ROUND_HALF_EVEN`
 :   Round to nearest with ties going to nearest even integer.
 
-decimal.ROUND_HALF_UP
+`decimal.ROUND_HALF_UP`
 :   Round to nearest with ties going away from zero.
 
-decimal.ROUND_UP
+`decimal.ROUND_UP`
 :   Round away from zero.
 
-decimal.ROUND_05UP
+`decimal.ROUND_05UP`
 :   Round away from zero if last digit after rounding towards zero would have
     been 0 or 5; otherwise round towards zero.
 
@@ -1386,31 +1386,31 @@ Python exception to be raised. For example, if the [`DivisionByZero`](decimal.md
 is set, then a [`DivisionByZero`](decimal.md#decimal.DivisionByZero "decimal.DivisionByZero") exception is raised upon encountering the
 condition.
 
-*class* decimal.Clamped
+`class decimal.Clamped`
 :   Altered an exponent to fit representation constraints.
 
     Typically, clamping occurs when an exponent falls outside the context’s
     `Emin` and `Emax` limits. If possible, the exponent is reduced to
     fit by adding zeros to the coefficient.
 
-*class* decimal.DecimalException
+`class decimal.DecimalException`
 :   Base class for other signals and a subclass of [`ArithmeticError`](exceptions.md#ArithmeticError "ArithmeticError").
 
-*class* decimal.DivisionByZero
+`class decimal.DivisionByZero`
 :   Signals the division of a non-infinite number by zero.
 
     Can occur with division, modulo division, or when raising a number to a negative
     power. If this signal is not trapped, returns `Infinity` or
     `-Infinity` with the sign determined by the inputs to the calculation.
 
-*class* decimal.Inexact
+`class decimal.Inexact`
 :   Indicates that rounding occurred and the result is not exact.
 
     Signals when non-zero digits were discarded during rounding. The rounded result
     is returned. The signal flag or trap is used to detect when results are
     inexact.
 
-*class* decimal.InvalidOperation
+`class decimal.InvalidOperation`
 :   An invalid operation was performed.
 
     Indicates that an operation was requested that does not make sense. If not
@@ -1428,7 +1428,7 @@ condition.
     x ** Infinity
     ```
 
-*class* decimal.Overflow
+`class decimal.Overflow`
 :   Numerical overflow.
 
     Indicates the exponent is larger than `Context.Emax` after rounding has
@@ -1437,7 +1437,7 @@ condition.
     to `Infinity`. In either case, [`Inexact`](decimal.md#decimal.Inexact "decimal.Inexact") and [`Rounded`](decimal.md#decimal.Rounded "decimal.Rounded")
     are also signaled.
 
-*class* decimal.Rounded
+`class decimal.Rounded`
 :   Rounding occurred though possibly no information was lost.
 
     Signaled whenever rounding discards digits; even if those digits are zero
@@ -1445,19 +1445,19 @@ condition.
     the result unchanged. This signal is used to detect loss of significant
     digits.
 
-*class* decimal.Subnormal
+`class decimal.Subnormal`
 :   Exponent was lower than `Emin` prior to rounding.
 
     Occurs when an operation result is subnormal (the exponent is too small). If
     not trapped, returns the result unchanged.
 
-*class* decimal.Underflow
+`class decimal.Underflow`
 :   Numerical underflow with result rounded to zero.
 
     Occurs when a subnormal result is pushed to zero by rounding. [`Inexact`](decimal.md#decimal.Inexact "decimal.Inexact")
     and [`Subnormal`](decimal.md#decimal.Subnormal "decimal.Subnormal") are also signaled.
 
-*class* decimal.FloatOperation
+`class decimal.FloatOperation`
 :   Enable stricter semantics for mixing floats and Decimals.
 
     If the signal is not trapped (default), mixing floats and Decimals is

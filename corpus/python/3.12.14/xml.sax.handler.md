@@ -18,35 +18,35 @@ they can implement the interfaces in a single object or in multiple objects.
 Handler implementations should inherit from the base classes provided in the
 module [`xml.sax.handler`](xml.sax.handler.md#module-xml.sax.handler "xml.sax.handler: Base classes for SAX event handlers."), so that all methods get default implementations.
 
-*class* xml.sax.handler.ContentHandler
+`class xml.sax.handler.ContentHandler`
 :   This is the main callback interface in SAX, and the one most important to
     applications. The order of events in this interface mirrors the order of the
     information in the document.
 
-*class* xml.sax.handler.DTDHandler
+`class xml.sax.handler.DTDHandler`
 :   Handle DTD events.
 
     This interface specifies only those DTD events required for basic parsing
     (unparsed entities and attributes).
 
-*class* xml.sax.handler.EntityResolver
+`class xml.sax.handler.EntityResolver`
 :   Basic interface for resolving entities. If you create an object implementing
     this interface, then register the object with your Parser, the parser will call
     the method in your object to resolve all external entities.
 
-*class* xml.sax.handler.ErrorHandler
+`class xml.sax.handler.ErrorHandler`
 :   Interface used by the parser to present error and warning messages to the
     application. The methods of this object control whether errors are immediately
     converted to exceptions or are handled in some other way.
 
-*class* xml.sax.handler.LexicalHandler
+`class xml.sax.handler.LexicalHandler`
 :   Interface used by the parser to represent low frequency events which may not
     be of interest to many applications.
 
 In addition to these classes, [`xml.sax.handler`](xml.sax.handler.md#module-xml.sax.handler "xml.sax.handler: Base classes for SAX event handlers.") provides symbolic constants
 for the feature and property names.
 
-xml.sax.handler.feature_namespaces
+`xml.sax.handler.feature_namespaces`
 :   value: `"http://xml.org/sax/features/namespaces"`
 
     true: Perform Namespace processing.
@@ -56,7 +56,7 @@ xml.sax.handler.feature_namespaces
 
     access: (parsing) read-only; (not parsing) read/write
 
-xml.sax.handler.feature_namespace_prefixes
+`xml.sax.handler.feature_namespace_prefixes`
 :   value: `"http://xml.org/sax/features/namespace-prefixes"`
 
     true: Report the original prefixed names and attributes used for Namespace
@@ -67,7 +67,7 @@ xml.sax.handler.feature_namespace_prefixes
 
     access: (parsing) read-only; (not parsing) read/write
 
-xml.sax.handler.feature_string_interning
+`xml.sax.handler.feature_string_interning`
 :   value: `"http://xml.org/sax/features/string-interning"`
 
     true: All element names, prefixes, attribute names, Namespace URIs, and
@@ -77,7 +77,7 @@ xml.sax.handler.feature_string_interning
 
     access: (parsing) read-only; (not parsing) read/write
 
-xml.sax.handler.feature_validation
+`xml.sax.handler.feature_validation`
 :   value: `"http://xml.org/sax/features/validation"`
 
     true: Report all validation errors (implies external-general-entities and
@@ -87,7 +87,7 @@ xml.sax.handler.feature_validation
 
     access: (parsing) read-only; (not parsing) read/write
 
-xml.sax.handler.feature_external_ges
+`xml.sax.handler.feature_external_ges`
 :   value: `"http://xml.org/sax/features/external-general-entities"`
 
     true: Include all external general (text) entities.
@@ -96,7 +96,7 @@ xml.sax.handler.feature_external_ges
 
     access: (parsing) read-only; (not parsing) read/write
 
-xml.sax.handler.feature_external_pes
+`xml.sax.handler.feature_external_pes`
 :   value: `"http://xml.org/sax/features/external-parameter-entities"`
 
     true: Include all external parameter entities, including the external DTD
@@ -107,10 +107,10 @@ xml.sax.handler.feature_external_pes
 
     access: (parsing) read-only; (not parsing) read/write
 
-xml.sax.handler.all_features
+`xml.sax.handler.all_features`
 :   List of all features.
 
-xml.sax.handler.property_lexical_handler
+`xml.sax.handler.property_lexical_handler`
 :   value: `"http://xml.org/sax/properties/lexical-handler"`
 
     data type: xml.sax.handler.LexicalHandler (not supported in Python 2)
@@ -120,7 +120,7 @@ xml.sax.handler.property_lexical_handler
 
     access: read/write
 
-xml.sax.handler.property_declaration_handler
+`xml.sax.handler.property_declaration_handler`
 :   value: `"http://xml.org/sax/properties/declaration-handler"`
 
     data type: xml.sax.sax2lib.DeclHandler (not supported in Python 2)
@@ -130,7 +130,7 @@ xml.sax.handler.property_declaration_handler
 
     access: read/write
 
-xml.sax.handler.property_dom_node
+`xml.sax.handler.property_dom_node`
 :   value: `"http://xml.org/sax/properties/dom-node"`
 
     data type: org.w3c.dom.Node (not supported in Python 2)
@@ -140,7 +140,7 @@ xml.sax.handler.property_dom_node
 
     access: (parsing) read-only; (not parsing) read/write
 
-xml.sax.handler.property_xml_string
+`xml.sax.handler.property_xml_string`
 :   value: `"http://xml.org/sax/properties/xml-string"`
 
     data type: Bytes
@@ -150,7 +150,7 @@ xml.sax.handler.property_xml_string
 
     access: read-only
 
-xml.sax.handler.all_properties
+`xml.sax.handler.all_properties`
 :   List of all known property names.
 
 ## ContentHandler Objects
@@ -159,7 +159,7 @@ Users are expected to subclass [`ContentHandler`](xml.sax.handler.md#xml.sax.han
 application. The following methods are called by the parser on the appropriate
 events in the input document:
 
-ContentHandler.setDocumentLocator(*locator*)
+`ContentHandler.setDocumentLocator(locator)`
 :   Called by the parser to give the application a locator for locating the origin
     of document events.
 
@@ -179,13 +179,13 @@ ContentHandler.setDocumentLocator(*locator*)
     of the events in this interface. The application should not attempt to use it at
     any other time.
 
-ContentHandler.startDocument()
+`ContentHandler.startDocument()`
 :   Receive notification of the beginning of a document.
 
     The SAX parser will invoke this method only once, before any other methods in
     this interface or in DTDHandler (except for [`setDocumentLocator()`](xml.sax.handler.md#xml.sax.handler.ContentHandler.setDocumentLocator "xml.sax.handler.ContentHandler.setDocumentLocator")).
 
-ContentHandler.endDocument()
+`ContentHandler.endDocument()`
 :   Receive notification of the end of a document.
 
     The SAX parser will invoke this method only once, and it will be the last method
@@ -193,7 +193,7 @@ ContentHandler.endDocument()
     either abandoned parsing (because of an unrecoverable error) or reached the end
     of input.
 
-ContentHandler.startPrefixMapping(*prefix*, *uri*)
+`ContentHandler.startPrefixMapping(prefix, uri)`
 :   Begin the scope of a prefix-URI Namespace mapping.
 
     The information from this event is not necessary for normal Namespace
@@ -214,14 +214,14 @@ ContentHandler.startPrefixMapping(*prefix*, *uri*)
     after the corresponding [`endElement()`](xml.sax.handler.md#xml.sax.handler.ContentHandler.endElement "xml.sax.handler.ContentHandler.endElement") event, but their order is not
     guaranteed.
 
-ContentHandler.endPrefixMapping(*prefix*)
+`ContentHandler.endPrefixMapping(prefix)`
 :   End the scope of a prefix-URI mapping.
 
     See [`startPrefixMapping()`](xml.sax.handler.md#xml.sax.handler.ContentHandler.startPrefixMapping "xml.sax.handler.ContentHandler.startPrefixMapping") for details. This event will always occur after
     the corresponding [`endElement()`](xml.sax.handler.md#xml.sax.handler.ContentHandler.endElement "xml.sax.handler.ContentHandler.endElement") event, but the order of
     [`endPrefixMapping()`](xml.sax.handler.md#xml.sax.handler.ContentHandler.endPrefixMapping "xml.sax.handler.ContentHandler.endPrefixMapping") events is not otherwise guaranteed.
 
-ContentHandler.startElement(*name*, *attrs*)
+`ContentHandler.startElement(name, attrs)`
 :   Signals the start of an element in non-namespace mode.
 
     The *name* parameter contains the raw XML 1.0 name of the element type as a
@@ -233,13 +233,13 @@ ContentHandler.startElement(*name*, *attrs*)
     To keep a copy of the attributes, use the [`copy()`](copy.md#module-copy "copy: Shallow and deep copy operations.") method of the *attrs*
     object.
 
-ContentHandler.endElement(*name*)
+`ContentHandler.endElement(name)`
 :   Signals the end of an element in non-namespace mode.
 
     The *name* parameter contains the name of the element type, just as with the
     [`startElement()`](xml.sax.handler.md#xml.sax.handler.ContentHandler.startElement "xml.sax.handler.ContentHandler.startElement") event.
 
-ContentHandler.startElementNS(*name*, *qname*, *attrs*)
+`ContentHandler.startElementNS(name, qname, attrs)`
 :   Signals the start of an element in namespace mode.
 
     The *name* parameter contains the name of the element type as a `(uri,
@@ -256,13 +256,13 @@ ContentHandler.startElementNS(*name*, *qname*, *attrs*)
     Parsers may set the *qname* parameter to `None`, unless the
     `feature_namespace_prefixes` feature is activated.
 
-ContentHandler.endElementNS(*name*, *qname*)
+`ContentHandler.endElementNS(name, qname)`
 :   Signals the end of an element in namespace mode.
 
     The *name* parameter contains the name of the element type, just as with the
     [`startElementNS()`](xml.sax.handler.md#xml.sax.handler.ContentHandler.startElementNS "xml.sax.handler.ContentHandler.startElementNS") method, likewise the *qname* parameter.
 
-ContentHandler.characters(*content*)
+`ContentHandler.characters(content)`
 :   Receive notification of character data.
 
     The Parser will call this method to report each chunk of character data. SAX
@@ -282,7 +282,7 @@ ContentHandler.characters(*content*)
     > chosen to replace it. To convert old code to the new interface, use *content*
     > instead of slicing content with the old *offset* and *length* parameters.
 
-ContentHandler.ignorableWhitespace(*whitespace*)
+`ContentHandler.ignorableWhitespace(whitespace)`
 :   Receive notification of ignorable whitespace in element content.
 
     Validating Parsers must use this method to report each chunk of ignorable
@@ -295,7 +295,7 @@ ContentHandler.ignorableWhitespace(*whitespace*)
     must come from the same external entity, so that the Locator provides useful
     information.
 
-ContentHandler.processingInstruction(*target*, *data*)
+`ContentHandler.processingInstruction(target, data)`
 :   Receive notification of a processing instruction.
 
     The Parser will invoke this method once for each processing instruction found:
@@ -305,7 +305,7 @@ ContentHandler.processingInstruction(*target*, *data*)
     A SAX parser should never report an XML declaration (XML 1.0, section 2.8) or a
     text declaration (XML 1.0, section 4.3.1) using this method.
 
-ContentHandler.skippedEntity(*name*)
+`ContentHandler.skippedEntity(name)`
 :   Receive notification of a skipped entity.
 
     The Parser will invoke this method once for each entity skipped. Non-validating
@@ -318,15 +318,15 @@ ContentHandler.skippedEntity(*name*)
 
 [`DTDHandler`](xml.sax.handler.md#xml.sax.handler.DTDHandler "xml.sax.handler.DTDHandler") instances provide the following methods:
 
-DTDHandler.notationDecl(*name*, *publicId*, *systemId*)
+`DTDHandler.notationDecl(name, publicId, systemId)`
 :   Handle a notation declaration event.
 
-DTDHandler.unparsedEntityDecl(*name*, *publicId*, *systemId*, *ndata*)
+`DTDHandler.unparsedEntityDecl(name, publicId, systemId, ndata)`
 :   Handle an unparsed entity declaration event.
 
 ## EntityResolver Objects
 
-EntityResolver.resolveEntity(*publicId*, *systemId*)
+`EntityResolver.resolveEntity(publicId, systemId)`
 :   Resolve the system identifier of an entity and return either the system
     identifier to read from as a string, or an InputSource to read from. The default
     implementation returns *systemId*.
@@ -343,17 +343,17 @@ and unrecoverable errors. All methods take a [`SAXParseException`](xml.sax.md#xm
 only parameter. Errors and warnings may be converted to an exception by raising
 the passed-in exception object.
 
-ErrorHandler.error(*exception*)
+`ErrorHandler.error(exception)`
 :   Called when the parser encounters a recoverable error. If this method does not
     raise an exception, parsing may continue, but further document information
     should not be expected by the application. Allowing the parser to continue may
     allow additional errors to be discovered in the input document.
 
-ErrorHandler.fatalError(*exception*)
+`ErrorHandler.fatalError(exception)`
 :   Called when the parser encounters an error it cannot recover from; parsing is
     expected to terminate when this method returns.
 
-ErrorHandler.warning(*exception*)
+`ErrorHandler.warning(exception)`
 :   Called when the parser presents minor warning information to the application.
     Parsing is expected to continue when this method returns, and document
     information will continue to be passed to the application. Raising an exception
@@ -373,22 +373,22 @@ Set the LexicalHandler of an XMLReader by using the setProperty method
 with the property identifier
 `'http://xml.org/sax/properties/lexical-handler'`.
 
-LexicalHandler.comment(*content*)
+`LexicalHandler.comment(content)`
 :   Reports a comment anywhere in the document (including the DTD and
     outside the document element).
 
-LexicalHandler.startDTD(*name*, *public_id*, *system_id*)
+`LexicalHandler.startDTD(name, public_id, system_id)`
 :   Reports the start of the DTD declarations if the document has an
     associated DTD.
 
-LexicalHandler.endDTD()
+`LexicalHandler.endDTD()`
 :   Reports the end of DTD declaration.
 
-LexicalHandler.startCDATA()
+`LexicalHandler.startCDATA()`
 :   Reports the start of a CDATA marked section.
 
     The contents of the CDATA marked section will be reported through
     the characters handler.
 
-LexicalHandler.endCDATA()
+`LexicalHandler.endCDATA()`
 :   Reports the end of a CDATA marked section.

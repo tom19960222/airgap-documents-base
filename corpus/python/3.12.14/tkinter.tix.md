@@ -48,7 +48,7 @@ special needs of your application and users.
 
 ## Using Tix
 
-*class* tkinter.tix.Tk(*screenName=None*, *baseName=None*, *className='Tix'*)
+`class tkinter.tix.Tk(screenName=None, baseName=None, className='Tix')`
 :   Toplevel widget of Tix which represents mostly the main window of an
     application. It has an associated Tcl interpreter.
 
@@ -81,105 +81,105 @@ introduces over 40 widget classes to the [`tkinter`](tkinter.md#module-tkinter "
 
 ### Basic Widgets
 
-*class* tkinter.tix.Balloon
+`class tkinter.tix.Balloon`
 :   A [Balloon](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixBalloon.htm) that
     pops up over a widget to provide help. When the user moves the cursor inside a
     widget to which a Balloon widget has been bound, a small pop-up window with a
     descriptive message will be shown on the screen.
 
-*class* tkinter.tix.ButtonBox
+`class tkinter.tix.ButtonBox`
 :   The [ButtonBox](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixButtonBox.htm)
     widget creates a box of buttons, such as is commonly used for `Ok Cancel`.
 
-*class* tkinter.tix.ComboBox
+`class tkinter.tix.ComboBox`
 :   The [ComboBox](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixComboBox.htm)
     widget is similar to the combo box control in MS Windows. The user can select a
     choice by either typing in the entry subwidget or selecting from the listbox
     subwidget.
 
-*class* tkinter.tix.Control
+`class tkinter.tix.Control`
 :   The [Control](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixControl.htm)
     widget is also known as the `SpinBox` widget. The user can adjust the
     value by pressing the two arrow buttons or by entering the value directly into
     the entry. The new value will be checked against the user-defined upper and
     lower limits.
 
-*class* tkinter.tix.LabelEntry
+`class tkinter.tix.LabelEntry`
 :   The [LabelEntry](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixLabelEntry.htm)
     widget packages an entry widget and a label into one mega widget. It can
     be used to simplify the creation of “entry-form” type of interface.
 
-*class* tkinter.tix.LabelFrame
+`class tkinter.tix.LabelFrame`
 :   The [LabelFrame](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixLabelFrame.htm)
     widget packages a frame widget and a label into one mega widget. To create
     widgets inside a LabelFrame widget, one creates the new widgets relative to the
     `frame` subwidget and manage them inside the `frame` subwidget.
 
-*class* tkinter.tix.Meter
+`class tkinter.tix.Meter`
 :   The [Meter](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixMeter.htm) widget
     can be used to show the progress of a background job which may take a long time
     to execute.
 
-*class* tkinter.tix.OptionMenu
+`class tkinter.tix.OptionMenu`
 :   The [OptionMenu](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixOptionMenu.htm)
     creates a menu button of options.
 
-*class* tkinter.tix.PopupMenu
+`class tkinter.tix.PopupMenu`
 :   The [PopupMenu](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixPopupMenu.htm)
     widget can be used as a replacement of the `tk_popup` command. The advantage
     of the `Tix` [`PopupMenu`](tkinter.tix.md#tkinter.tix.PopupMenu "tkinter.tix.PopupMenu") widget is it requires less application code
     to manipulate.
 
-*class* tkinter.tix.Select
+`class tkinter.tix.Select`
 :   The [Select](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixSelect.htm) widget
     is a container of button subwidgets. It can be used to provide radio-box or
     check-box style of selection options for the user.
 
-*class* tkinter.tix.StdButtonBox
+`class tkinter.tix.StdButtonBox`
 :   The [StdButtonBox](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixStdButtonBox.htm)
     widget is a group of standard buttons for Motif-like dialog boxes.
 
 ### File Selectors
 
-*class* tkinter.tix.DirList
+`class tkinter.tix.DirList`
 :   The [DirList](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixDirList.htm)
     widget displays a list view of a directory, its previous directories and its
     sub-directories. The user can choose one of the directories displayed in the
     list or change to another directory.
 
-*class* tkinter.tix.DirTree
+`class tkinter.tix.DirTree`
 :   The [DirTree](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixDirTree.htm)
     widget displays a tree view of a directory, its previous directories and its
     sub-directories. The user can choose one of the directories displayed in the
     list or change to another directory.
 
-*class* tkinter.tix.DirSelectDialog
+`class tkinter.tix.DirSelectDialog`
 :   The [DirSelectDialog](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixDirSelectDialog.htm)
     widget presents the directories in the file system in a dialog window. The user
     can use this dialog window to navigate through the file system to select the
     desired directory.
 
-*class* tkinter.tix.DirSelectBox
+`class tkinter.tix.DirSelectBox`
 :   The [`DirSelectBox`](tkinter.tix.md#tkinter.tix.DirSelectBox "tkinter.tix.DirSelectBox") is similar to the standard Motif(TM)
     directory-selection box. It is generally used for the user to choose a
     directory. DirSelectBox stores the directories mostly recently selected into
     a ComboBox widget so that they can be quickly selected again.
 
-*class* tkinter.tix.ExFileSelectBox
+`class tkinter.tix.ExFileSelectBox`
 :   The [ExFileSelectBox](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixExFileSelectBox.htm)
     widget is usually embedded in a tixExFileSelectDialog widget. It provides a
     convenient method for the user to select files. The style of the
     [`ExFileSelectBox`](tkinter.tix.md#tkinter.tix.ExFileSelectBox "tkinter.tix.ExFileSelectBox") widget is very similar to the standard file dialog on
     MS Windows 3.1.
 
-*class* tkinter.tix.FileSelectBox
+`class tkinter.tix.FileSelectBox`
 :   The [FileSelectBox](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixFileSelectBox.htm)
     is similar to the standard Motif(TM) file-selection box. It is generally used
     for the user to choose a file. FileSelectBox stores the files mostly recently
     selected into a [`ComboBox`](tkinter.tix.md#tkinter.tix.ComboBox "tkinter.tix.ComboBox") widget so that they can be quickly selected
     again.
 
-*class* tkinter.tix.FileEntry
+`class tkinter.tix.FileEntry`
 :   The [FileEntry](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixFileEntry.htm)
     widget can be used to input a filename. The user can type in the filename
     manually. Alternatively, the user can press the button widget that sits next to
@@ -187,26 +187,26 @@ introduces over 40 widget classes to the [`tkinter`](tkinter.md#module-tkinter "
 
 ### Hierarchical ListBox
 
-*class* tkinter.tix.HList
+`class tkinter.tix.HList`
 :   The [HList](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixHList.htm) widget
     can be used to display any data that have a hierarchical structure, for example,
     file system directory trees. The list entries are indented and connected by
     branch lines according to their places in the hierarchy.
 
-*class* tkinter.tix.CheckList
+`class tkinter.tix.CheckList`
 :   The [CheckList](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixCheckList.htm)
     widget displays a list of items to be selected by the user. CheckList acts
     similarly to the Tk checkbutton or radiobutton widgets, except it is capable of
     handling many more items than checkbuttons or radiobuttons.
 
-*class* tkinter.tix.Tree
+`class tkinter.tix.Tree`
 :   The [Tree](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixTree.htm) widget
     can be used to display hierarchical data in a tree form. The user can adjust the
     view of the tree by opening or closing parts of the tree.
 
 ### Tabular ListBox
 
-*class* tkinter.tix.TList
+`class tkinter.tix.TList`
 :   The [TList](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixTList.htm) widget
     can be used to display data in a tabular format. The list entries of a
     [`TList`](tkinter.tix.md#tkinter.tix.TList "tkinter.tix.TList") widget are similar to the entries in the Tk listbox widget. The
@@ -216,13 +216,13 @@ introduces over 40 widget classes to the [`tkinter`](tkinter.md#module-tkinter "
 
 ### Manager Widgets
 
-*class* tkinter.tix.PanedWindow
+`class tkinter.tix.PanedWindow`
 :   The [PanedWindow](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixPanedWindow.htm)
     widget allows the user to interactively manipulate the sizes of several panes.
     The panes can be arranged either vertically or horizontally. The user changes
     the sizes of the panes by dragging the resize handle between two panes.
 
-*class* tkinter.tix.ListNoteBook
+`class tkinter.tix.ListNoteBook`
 :   The [ListNoteBook](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixListNoteBook.htm)
     widget is very similar to the `TixNoteBook` widget: it can be used to
     display many windows in a limited space using a notebook metaphor. The notebook
@@ -230,7 +230,7 @@ introduces over 40 widget classes to the [`tkinter`](tkinter.md#module-tkinter "
     can be shown. The user can navigate through these pages by choosing the name of
     the desired page in the `hlist` subwidget.
 
-*class* tkinter.tix.NoteBook
+`class tkinter.tix.NoteBook`
 :   The [NoteBook](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixNoteBook.htm)
     widget can be used to display many windows in a limited space using a notebook
     metaphor. The notebook is divided into a stack of pages. At one time only one of
@@ -253,7 +253,7 @@ The [`tkinter.tix`](tkinter.tix.md#module-tkinter.tix "tkinter.tix: Tk Extension
 
 ### Miscellaneous Widgets
 
-*class* tkinter.tix.InputOnly
+`class tkinter.tix.InputOnly`
 :   The [InputOnly](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixInputOnly.htm)
     widgets are to accept inputs from the user, which can be done with the `bind`
     command (Unix only).
@@ -262,13 +262,13 @@ The [`tkinter.tix`](tkinter.tix.md#module-tkinter.tix "tkinter.tix: Tk Extension
 
 In addition, [`tkinter.tix`](tkinter.tix.md#module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter") augments [`tkinter`](tkinter.md#module-tkinter "tkinter: Interface to Tcl/Tk for graphical user interfaces") by providing:
 
-*class* tkinter.tix.Form
+`class tkinter.tix.Form`
 :   The [Form](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tixForm.htm) geometry
     manager based on attachment rules for all Tk widgets.
 
 ## Tix Commands
 
-*class* tkinter.tix.tixCommand
+`class tkinter.tix.tixCommand`
 :   The [tix commands](https://tix.sourceforge.net/dist/current/man/html/TixCmd/tix.htm) provide
     access to miscellaneous elements of `Tix`’s internal state and the
     `Tix` application context. Most of the information manipulated by these
@@ -283,7 +283,7 @@ In addition, [`tkinter.tix`](tkinter.tix.md#module-tkinter.tix "tkinter.tix: Tk 
     print(root.tix_configure())
     ```
 
-tixCommand.tix_configure(*cnf=None*, *\*\*kw*)
+`tixCommand.tix_configure(cnf=None, **kw)`
 :   Query or modify the configuration options of the Tix application context. If no
     option is specified, returns a dictionary all of the available options. If
     option is specified with no value, then the method returns a list describing the
@@ -293,11 +293,11 @@ tixCommand.tix_configure(*cnf=None*, *\*\*kw*)
     given value(s); in this case the method returns an empty string. Option may be
     any of the configuration options.
 
-tixCommand.tix_cget(*option*)
+`tixCommand.tix_cget(option)`
 :   Returns the current value of the configuration option given by *option*. Option
     may be any of the configuration options.
 
-tixCommand.tix_getbitmap(*name*)
+`tixCommand.tix_getbitmap(name)`
 :   Locates a bitmap file of the name `name.xpm` or `name` in one of the bitmap
     directories (see the [`tix_addbitmapdir()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_addbitmapdir "tkinter.tix.tixCommand.tix_addbitmapdir") method). By using
     [`tix_getbitmap()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_getbitmap "tkinter.tix.tixCommand.tix_getbitmap"), you can avoid hard coding the pathnames of the bitmap
@@ -305,7 +305,7 @@ tixCommand.tix_getbitmap(*name*)
     the bitmap file, prefixed with the character `@`. The returned value can be
     used to configure the `bitmap` option of the Tk and Tix widgets.
 
-tixCommand.tix_addbitmapdir(*directory*)
+`tixCommand.tix_addbitmapdir(directory)`
 :   Tix maintains a list of directories under which the [`tix_getimage()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_getimage "tkinter.tix.tixCommand.tix_getimage") and
     [`tix_getbitmap()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_getbitmap "tkinter.tix.tixCommand.tix_getbitmap") methods will search for image files. The standard bitmap
     directory is `$TIX_LIBRARY/bitmaps`. The [`tix_addbitmapdir()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_addbitmapdir "tkinter.tix.tixCommand.tix_addbitmapdir") method
@@ -313,7 +313,7 @@ tixCommand.tix_addbitmapdir(*directory*)
     applications can also be located using the [`tix_getimage()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_getimage "tkinter.tix.tixCommand.tix_getimage") or
     [`tix_getbitmap()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_getbitmap "tkinter.tix.tixCommand.tix_getbitmap") method.
 
-tixCommand.tix_filedialog([*dlgclass*])
+`tixCommand.tix_filedialog([dlgclass])`
 :   Returns the file selection dialog that may be shared among different calls from
     this application. This method will create a file selection dialog widget when
     it is called the first time. This dialog will be returned by all subsequent
@@ -321,7 +321,7 @@ tixCommand.tix_filedialog([*dlgclass*])
     as a string to specified what type of file selection dialog widget is desired.
     Possible options are `tix`, `FileSelectDialog` or `tixExFileSelectDialog`.
 
-tixCommand.tix_getimage(*self*, *name*)
+`tixCommand.tix_getimage(self, name)`
 :   Locates an image file of the name `name.xpm`, `name.xbm` or
     `name.ppm` in one of the bitmap directories (see the
     [`tix_addbitmapdir()`](tkinter.tix.md#tkinter.tix.tixCommand.tix_addbitmapdir "tkinter.tix.tixCommand.tix_addbitmapdir") method above). If more than one file with the same name
@@ -332,10 +332,10 @@ tixCommand.tix_getimage(*self*, *name*)
     successful, this method returns the name of the newly created image, which can
     be used to configure the `image` option of the Tk and Tix widgets.
 
-tixCommand.tix_option_get(*name*)
+`tixCommand.tix_option_get(name)`
 :   Gets the options maintained by the Tix scheme mechanism.
 
-tixCommand.tix_resetoptions(*newScheme*, *newFontSet*[, *newScmPrio*])
+`tixCommand.tix_resetoptions(newScheme, newFontSet[, newScmPrio])`
 :   Resets the scheme and fontset of the Tix application to *newScheme* and
     *newFontSet*, respectively. This affects only those widgets created after this
     call. Therefore, it is best to call the resetoptions method before the creation

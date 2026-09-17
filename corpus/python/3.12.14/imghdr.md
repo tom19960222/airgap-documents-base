@@ -19,7 +19,7 @@ byte stream.
 
 The [`imghdr`](imghdr.md#module-imghdr "imghdr: Determine the type of image contained in a file or byte stream. (deprecated)") module defines the following function:
 
-imghdr.what(*file*, *h=None*)
+`imghdr.what(file, h=None)`
 :   Test the image data contained in the file named *file* and return a
     string describing the image type. If *h* is provided, the *file*
     argument is ignored and *h* is assumed to contain the byte stream to test.
@@ -50,7 +50,7 @@ Added in version 3.5: The *exr* and *webp* formats were added.
 You can extend the list of file types [`imghdr`](imghdr.md#module-imghdr "imghdr: Determine the type of image contained in a file or byte stream. (deprecated)") can recognize by appending
 to this variable:
 
-imghdr.tests
+`imghdr.tests`
 :   A list of functions performing the individual tests. Each function takes two
     arguments: the byte-stream and an open file-like object. When [`what()`](imghdr.md#imghdr.what "imghdr.what") is
     called with a byte-stream, the file-like object will be `None`.

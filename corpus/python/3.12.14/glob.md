@@ -31,7 +31,7 @@ For example, `'[?]'` matches the character `'?'`.
 >
 > The [`pathlib`](pathlib.md#module-pathlib "pathlib: Object-oriented filesystem paths") module offers high-level path objects.
 
-glob.glob(*pathname*, *\**, *root_dir=None*, *dir_fd=None*, *recursive=False*, *include_hidden=False*)
+`glob.glob(pathname, *, root_dir=None, dir_fd=None, recursive=False, include_hidden=False)`
 :   Return a possibly empty list of path names that match *pathname*, which must be
     a string containing a path specification. *pathname* can be either absolute
     (like `/usr/src/Python-1.5/Makefile`) or relative (like
@@ -76,7 +76,7 @@ glob.glob(*pathname*, *\**, *root_dir=None*, *dir_fd=None*, *recursive=False*, *
 
     Changed in version 3.11: Added the *include_hidden* parameter.
 
-glob.iglob(*pathname*, *\**, *root_dir=None*, *dir_fd=None*, *recursive=False*, *include_hidden=False*)
+`glob.iglob(pathname, *, root_dir=None, dir_fd=None, recursive=False, include_hidden=False)`
 :   Return an [iterator](https://docs.python.org/3.12/glossary.html#term-iterator) which yields the same values as [`glob()`](glob.md#module-glob "glob: Unix shell style pathname pattern expansion.")
     without actually storing them all simultaneously.
 
@@ -95,7 +95,7 @@ glob.iglob(*pathname*, *\**, *root_dir=None*, *dir_fd=None*, *recursive=False*, 
 
     Changed in version 3.11: Added the *include_hidden* parameter.
 
-glob.escape(*pathname*)
+`glob.escape(pathname)`
 :   Escape all special characters (`'?'`, `'*'` and `'['`).
     This is useful if you want to match an arbitrary literal string that may
     have special characters in it. Special characters in drive/UNC

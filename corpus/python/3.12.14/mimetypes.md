@@ -24,7 +24,7 @@ The functions described below provide the primary interface for this module. If
 the module has not been initialized, they will call [`init()`](mimetypes.md#mimetypes.init "mimetypes.init") if they rely on
 the information [`init()`](mimetypes.md#mimetypes.init "mimetypes.init") sets up.
 
-mimetypes.guess_type(*url*, *strict=True*)
+`mimetypes.guess_type(url, strict=True)`
 :   Guess the type of a file based on its filename, path or URL, given by *url*.
     URL can be a string or a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
@@ -47,7 +47,7 @@ mimetypes.guess_type(*url*, *strict=True*)
 
     Changed in version 3.8: Added support for url being a [path-like object](https://docs.python.org/3.12/glossary.html#term-path-like-object).
 
-mimetypes.guess_all_extensions(*type*, *strict=True*)
+`mimetypes.guess_all_extensions(type, strict=True)`
 :   Guess the extensions for a file based on its MIME type, given by *type*. The
     return value is a list of strings giving all possible filename extensions,
     including the leading dot (`'.'`). The extensions are not guaranteed to have
@@ -56,7 +56,7 @@ mimetypes.guess_all_extensions(*type*, *strict=True*)
 
     The optional *strict* argument has the same meaning as with the [`guess_type()`](mimetypes.md#mimetypes.guess_type "mimetypes.guess_type") function.
 
-mimetypes.guess_extension(*type*, *strict=True*)
+`mimetypes.guess_extension(type, strict=True)`
 :   Guess the extension for a file based on its MIME type, given by *type*. The
     return value is a string giving a filename extension, including the leading dot
     (`'.'`). The extension is not guaranteed to have been associated with any
@@ -69,7 +69,7 @@ mimetypes.guess_extension(*type*, *strict=True*)
 Some additional functions and data items are available for controlling the
 behavior of the module.
 
-mimetypes.init(*files=None*)
+`mimetypes.init(files=None)`
 :   Initialize the internal data structures. If given, *files* must be a sequence
     of file names which should be used to augment the default type map. If omitted,
     the file names to use are taken from [`knownfiles`](mimetypes.md#mimetypes.knownfiles "mimetypes.knownfiles"); on Windows, the
@@ -86,13 +86,13 @@ mimetypes.init(*files=None*)
 
     Changed in version 3.2: Previously, Windows registry settings were ignored.
 
-mimetypes.read_mime_types(*filename*)
+`mimetypes.read_mime_types(filename)`
 :   Load the type map given in the file *filename*, if it exists. The type map is
     returned as a dictionary mapping filename extensions, including the leading dot
     (`'.'`), to strings of the form `'type/subtype'`. If the file *filename*
     does not exist or cannot be read, `None` is returned.
 
-mimetypes.add_type(*type*, *ext*, *strict=True*)
+`mimetypes.add_type(type, ext, strict=True)`
 :   Add a mapping from the MIME type *type* to the extension *ext*. When the
     extension is already known, the new type will replace the old one. When the type
     is already known the extension will be added to the list of known extensions.
@@ -100,28 +100,28 @@ mimetypes.add_type(*type*, *ext*, *strict=True*)
     When *strict* is `True` (the default), the mapping will be added to the
     official MIME types, otherwise to the non-standard ones.
 
-mimetypes.inited
+`mimetypes.inited`
 :   Flag indicating whether or not the global data structures have been initialized.
     This is set to `True` by [`init()`](mimetypes.md#mimetypes.init "mimetypes.init").
 
-mimetypes.knownfiles
+`mimetypes.knownfiles`
 :   List of type map file names commonly installed. These files are typically named
     `mime.types` and are installed in different locations by different
     packages.
 
-mimetypes.suffix_map
+`mimetypes.suffix_map`
 :   Dictionary mapping suffixes to suffixes. This is used to allow recognition of
     encoded files for which the encoding and the type are indicated by the same
     extension. For example, the `.tgz` extension is mapped to `.tar.gz`
     to allow the encoding and type to be recognized separately.
 
-mimetypes.encodings_map
+`mimetypes.encodings_map`
 :   Dictionary mapping filename extensions to encoding types.
 
-mimetypes.types_map
+`mimetypes.types_map`
 :   Dictionary mapping filename extensions to MIME types.
 
-mimetypes.common_types
+`mimetypes.common_types`
 :   Dictionary mapping filename extensions to non-standard, but commonly found MIME
     types.
 
@@ -146,7 +146,7 @@ The [`MimeTypes`](mimetypes.md#mimetypes.MimeTypes "mimetypes.MimeTypes") class 
 than one MIME-type database; it provides an interface similar to the one of the
 [`mimetypes`](mimetypes.md#module-mimetypes "mimetypes: Mapping of filename extensions to MIME types.") module.
 
-*class* mimetypes.MimeTypes(*filenames=()*, *strict=True*)
+`class mimetypes.MimeTypes(filenames=(), strict=True)`
 :   This class represents a MIME-types database. By default, it provides access to
     the same database as the rest of this module. The initial database is a copy of
     that provided by the module, and may be extended by loading additional
@@ -157,56 +157,56 @@ than one MIME-type database; it provides an interface similar to the one of the
     The optional *filenames* parameter can be used to cause additional files to be
     loaded “on top” of the default database.
 
-    suffix_map
+    `suffix_map`
     :   Dictionary mapping suffixes to suffixes. This is used to allow recognition of
         encoded files for which the encoding and the type are indicated by the same
         extension. For example, the `.tgz` extension is mapped to `.tar.gz`
         to allow the encoding and type to be recognized separately. This is initially a
         copy of the global [`suffix_map`](mimetypes.md#mimetypes.suffix_map "mimetypes.suffix_map") defined in the module.
 
-    encodings_map
+    `encodings_map`
     :   Dictionary mapping filename extensions to encoding types. This is initially a
         copy of the global [`encodings_map`](mimetypes.md#mimetypes.encodings_map "mimetypes.encodings_map") defined in the module.
 
-    types_map
+    `types_map`
     :   Tuple containing two dictionaries, mapping filename extensions to MIME types:
         the first dictionary is for the non-standards types and the second one is for
         the standard types. They are initialized by [`common_types`](mimetypes.md#mimetypes.common_types "mimetypes.common_types") and
         [`types_map`](mimetypes.md#mimetypes.types_map "mimetypes.types_map").
 
-    types_map_inv
+    `types_map_inv`
     :   Tuple containing two dictionaries, mapping MIME types to a list of filename
         extensions: the first dictionary is for the non-standards types and the
         second one is for the standard types. They are initialized by
         [`common_types`](mimetypes.md#mimetypes.common_types "mimetypes.common_types") and [`types_map`](mimetypes.md#mimetypes.types_map "mimetypes.types_map").
 
-    guess_extension(*type*, *strict=True*)
+    `guess_extension(type, strict=True)`
     :   Similar to the [`guess_extension()`](mimetypes.md#mimetypes.guess_extension "mimetypes.guess_extension") function, using the tables stored as part
         of the object.
 
-    guess_type(*url*, *strict=True*)
+    `guess_type(url, strict=True)`
     :   Similar to the [`guess_type()`](mimetypes.md#mimetypes.guess_type "mimetypes.guess_type") function, using the tables stored as part of
         the object.
 
-    guess_all_extensions(*type*, *strict=True*)
+    `guess_all_extensions(type, strict=True)`
     :   Similar to the [`guess_all_extensions()`](mimetypes.md#mimetypes.guess_all_extensions "mimetypes.guess_all_extensions") function, using the tables stored
         as part of the object.
 
-    read(*filename*, *strict=True*)
+    `read(filename, strict=True)`
     :   Load MIME information from a file named *filename*. This uses [`readfp()`](mimetypes.md#mimetypes.MimeTypes.readfp "mimetypes.MimeTypes.readfp") to
         parse the file.
 
         If *strict* is `True`, information will be added to list of standard types,
         else to the list of non-standard types.
 
-    readfp(*fp*, *strict=True*)
+    `readfp(fp, strict=True)`
     :   Load MIME type information from an open file *fp*. The file must have the format of
         the standard `mime.types` files.
 
         If *strict* is `True`, information will be added to the list of standard
         types, else to the list of non-standard types.
 
-    read_windows_registry(*strict=True*)
+    `read_windows_registry(strict=True)`
     :   Load MIME type information from the Windows registry.
 
         [Availability](intro.md#availability): Windows.
@@ -216,7 +216,7 @@ than one MIME-type database; it provides an interface similar to the one of the
 
         Added in version 3.2.
 
-    add_type(*type*, *ext*, *strict=True*)
+    `add_type(type, ext, strict=True)`
     :   Add a mapping from the MIME type *type* to the extension *ext*. When the
         extension is already known, the new type will replace the old one. When the type
         is already known the extension will be added to the list of known extensions.

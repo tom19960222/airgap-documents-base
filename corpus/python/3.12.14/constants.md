@@ -9,21 +9,21 @@ fetched_at: 2026-09-17T15:32:07+00:00
 
 A small number of constants live in the built-in namespace. They are:
 
-False
+`False`
 :   The false value of the [`bool`](functions.md#bool "bool") type. Assignments to `False`
     are illegal and raise a [`SyntaxError`](exceptions.md#SyntaxError "SyntaxError").
 
-True
+`True`
 :   The true value of the [`bool`](functions.md#bool "bool") type. Assignments to `True`
     are illegal and raise a [`SyntaxError`](exceptions.md#SyntaxError "SyntaxError").
 
-None
+`None`
 :   An object frequently used to represent the absence of a value, as when
     default arguments are not passed to a function. Assignments to `None`
     are illegal and raise a [`SyntaxError`](exceptions.md#SyntaxError "SyntaxError").
     `None` is the sole instance of the [`NoneType`](types.md#types.NoneType "types.NoneType") type.
 
-NotImplemented
+`NotImplemented`
 :   A special value which should be returned by the binary special methods
     (e.g. [`__eq__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__eq__ "object.__eq__"), [`__lt__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__lt__ "object.__lt__"), [`__add__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__add__ "object.__add__"), [`__rsub__()`](https://docs.python.org/3.12/reference/datamodel.html#object.__rsub__ "object.__rsub__"),
     etc.) to indicate that the operation is not implemented with respect to
@@ -54,12 +54,12 @@ NotImplemented
     it currently evaluates as true, it will emit a [`DeprecationWarning`](exceptions.md#DeprecationWarning "DeprecationWarning").
     It will raise a [`TypeError`](exceptions.md#TypeError "TypeError") in a future version of Python.
 
-Ellipsis
+`Ellipsis`
 :   The same as the ellipsis literal “`...`”. Special value used mostly in conjunction
     with extended slicing syntax for user-defined container data types.
     `Ellipsis` is the sole instance of the [`types.EllipsisType`](types.md#types.EllipsisType "types.EllipsisType") type.
 
-__debug__
+`__debug__`
 :   This constant is true if Python was not started with an [`-O`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-O) option.
     See also the [`assert`](https://docs.python.org/3.12/reference/simple_stmts.html#assert) statement.
 
@@ -76,25 +76,25 @@ if the [`-S`](https://docs.python.org/3.12/using/cmdline.html#cmdoption-S) comma
 built-in namespace. They are useful for the interactive interpreter shell and
 should not be used in programs.
 
-quit(*code=None*)
+`quit(code=None)`
 
-exit(*code=None*)
+`exit(code=None)`
 :   Objects that when printed, print a message like “Use quit() or Ctrl-D
     (i.e. EOF) to exit”, and when called, raise [`SystemExit`](exceptions.md#SystemExit "SystemExit") with the
     specified exit code.
 
-help
+`help`
 :   Object that when printed, prints the message “Type help() for interactive
     help, or help(object) for help about object.”, and when called,
     acts as described [`elsewhere`](functions.md#help "help").
 
-copyright
+`copyright`
 
-credits
+`credits`
 :   Objects that when printed or called, print the text of copyright or
     credits, respectively.
 
-license
+`license`
 :   Object that when printed, prints the message “Type license() to see the
     full license text”, and when called, displays the full license text in a
     pager-like fashion (one screen at a time).

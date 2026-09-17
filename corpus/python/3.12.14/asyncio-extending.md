@@ -43,12 +43,12 @@ for the sake of getting a complex and highly optimized code for free.
 
 For this purpose the following, *private* constructors are listed:
 
-Future.__init__(*\**, *loop=None*)
+`Future.__init__(*, loop=None)`
 :   Create a built-in future instance.
 
     *loop* is an optional event loop instance.
 
-Task.__init__(*coro*, *\**, *loop=None*, *name=None*, *context=None*)
+`Task.__init__(coro, *, loop=None, name=None, context=None)`
 :   Create a built-in task instance.
 
     *loop* is an optional event loop instance. The rest of arguments are described in
@@ -61,23 +61,23 @@ Task.__init__(*coro*, *\**, *loop=None*, *name=None*, *context=None*)
 A third party task implementation should call the following functions to keep a task
 visible by [`asyncio.all_tasks()`](asyncio-task.md#asyncio.all_tasks "asyncio.all_tasks") and [`asyncio.current_task()`](asyncio-task.md#asyncio.current_task "asyncio.current_task"):
 
-asyncio._register_task(*task*)
+`asyncio._register_task(task)`
 :   Register a new *task* as managed by *asyncio*.
 
     Call the function from a task constructor.
 
-asyncio._unregister_task(*task*)
+`asyncio._unregister_task(task)`
 :   Unregister a *task* from *asyncio* internal structures.
 
     The function should be called when a task is about to finish.
 
-asyncio._enter_task(*loop*, *task*)
+`asyncio._enter_task(loop, task)`
 :   Switch the current task to the *task* argument.
 
     Call the function just before executing a portion of embedded *coroutine*
     ([`coroutine.send()`](https://docs.python.org/3.12/reference/datamodel.html#coroutine.send "coroutine.send") or [`coroutine.throw()`](https://docs.python.org/3.12/reference/datamodel.html#coroutine.throw "coroutine.throw")).
 
-asyncio._leave_task(*loop*, *task*)
+`asyncio._leave_task(loop, task)`
 :   Switch the current task back from *task* to `None`.
 
     Call the function just after [`coroutine.send()`](https://docs.python.org/3.12/reference/datamodel.html#coroutine.send "coroutine.send") or [`coroutine.throw()`](https://docs.python.org/3.12/reference/datamodel.html#coroutine.throw "coroutine.throw")

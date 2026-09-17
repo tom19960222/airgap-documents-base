@@ -17,42 +17,42 @@ supplied are names for control characters as follows:
 
 | Name | Meaning |
 | --- | --- |
-| curses.ascii.NUL |  |
-| curses.ascii.SOH | Start of heading, console interrupt |
-| curses.ascii.STX | Start of text |
-| curses.ascii.ETX | End of text |
-| curses.ascii.EOT | End of transmission |
-| curses.ascii.ENQ | Enquiry, goes with [`ACK`](curses.ascii.md#curses.ascii.ACK "curses.ascii.ACK") flow control |
-| curses.ascii.ACK | Acknowledgement |
-| curses.ascii.BEL | Bell |
-| curses.ascii.BS | Backspace |
-| curses.ascii.TAB | Tab |
-| curses.ascii.HT | Alias for [`TAB`](curses.ascii.md#curses.ascii.TAB "curses.ascii.TAB"): “Horizontal tab” |
-| curses.ascii.LF | Line feed |
-| curses.ascii.NL | Alias for [`LF`](curses.ascii.md#curses.ascii.LF "curses.ascii.LF"): “New line” |
-| curses.ascii.VT | Vertical tab |
-| curses.ascii.FF | Form feed |
-| curses.ascii.CR | Carriage return |
-| curses.ascii.SO | Shift-out, begin alternate character set |
-| curses.ascii.SI | Shift-in, resume default character set |
-| curses.ascii.DLE | Data-link escape |
-| curses.ascii.DC1 | XON, for flow control |
-| curses.ascii.DC2 | Device control 2, block-mode flow control |
-| curses.ascii.DC3 | XOFF, for flow control |
-| curses.ascii.DC4 | Device control 4 |
-| curses.ascii.NAK | Negative acknowledgement |
-| curses.ascii.SYN | Synchronous idle |
-| curses.ascii.ETB | End transmission block |
-| curses.ascii.CAN | Cancel |
-| curses.ascii.EM | End of medium |
-| curses.ascii.SUB | Substitute |
-| curses.ascii.ESC | Escape |
-| curses.ascii.FS | File separator |
-| curses.ascii.GS | Group separator |
-| curses.ascii.RS | Record separator, block-mode terminator |
-| curses.ascii.US | Unit separator |
-| curses.ascii.SP | Space |
-| curses.ascii.DEL | Delete |
+| `curses.ascii.NUL` |  |
+| `curses.ascii.SOH` | Start of heading, console interrupt |
+| `curses.ascii.STX` | Start of text |
+| `curses.ascii.ETX` | End of text |
+| `curses.ascii.EOT` | End of transmission |
+| `curses.ascii.ENQ` | Enquiry, goes with [`ACK`](curses.ascii.md#curses.ascii.ACK "curses.ascii.ACK") flow control |
+| `curses.ascii.ACK` | Acknowledgement |
+| `curses.ascii.BEL` | Bell |
+| `curses.ascii.BS` | Backspace |
+| `curses.ascii.TAB` | Tab |
+| `curses.ascii.HT` | Alias for [`TAB`](curses.ascii.md#curses.ascii.TAB "curses.ascii.TAB"): “Horizontal tab” |
+| `curses.ascii.LF` | Line feed |
+| `curses.ascii.NL` | Alias for [`LF`](curses.ascii.md#curses.ascii.LF "curses.ascii.LF"): “New line” |
+| `curses.ascii.VT` | Vertical tab |
+| `curses.ascii.FF` | Form feed |
+| `curses.ascii.CR` | Carriage return |
+| `curses.ascii.SO` | Shift-out, begin alternate character set |
+| `curses.ascii.SI` | Shift-in, resume default character set |
+| `curses.ascii.DLE` | Data-link escape |
+| `curses.ascii.DC1` | XON, for flow control |
+| `curses.ascii.DC2` | Device control 2, block-mode flow control |
+| `curses.ascii.DC3` | XOFF, for flow control |
+| `curses.ascii.DC4` | Device control 4 |
+| `curses.ascii.NAK` | Negative acknowledgement |
+| `curses.ascii.SYN` | Synchronous idle |
+| `curses.ascii.ETB` | End transmission block |
+| `curses.ascii.CAN` | Cancel |
+| `curses.ascii.EM` | End of medium |
+| `curses.ascii.SUB` | Substitute |
+| `curses.ascii.ESC` | Escape |
+| `curses.ascii.FS` | File separator |
+| `curses.ascii.GS` | Group separator |
+| `curses.ascii.RS` | Record separator, block-mode terminator |
+| `curses.ascii.US` | Unit separator |
+| `curses.ascii.SP` | Space |
+| `curses.ascii.DEL` | Delete |
 
 Note that many of these have little practical significance in modern usage. The
 mnemonics derive from teleprinter conventions that predate digital computers.
@@ -60,55 +60,55 @@ mnemonics derive from teleprinter conventions that predate digital computers.
 The module supplies the following functions, patterned on those in the standard
 C library:
 
-curses.ascii.isalnum(*c*)
+`curses.ascii.isalnum(c)`
 :   Checks for an ASCII alphanumeric character; it is equivalent to `isalpha(c) or
     isdigit(c)`.
 
-curses.ascii.isalpha(*c*)
+`curses.ascii.isalpha(c)`
 :   Checks for an ASCII alphabetic character; it is equivalent to `isupper(c) or
     islower(c)`.
 
-curses.ascii.isascii(*c*)
+`curses.ascii.isascii(c)`
 :   Checks for a character value that fits in the 7-bit ASCII set.
 
-curses.ascii.isblank(*c*)
+`curses.ascii.isblank(c)`
 :   Checks for an ASCII whitespace character; space or horizontal tab.
 
-curses.ascii.iscntrl(*c*)
+`curses.ascii.iscntrl(c)`
 :   Checks for an ASCII control character (in the range 0x00 to 0x1f or 0x7f).
 
-curses.ascii.isdigit(*c*)
+`curses.ascii.isdigit(c)`
 :   Checks for an ASCII decimal digit, `'0'` through `'9'`. This is equivalent
     to `c in string.digits`.
 
-curses.ascii.isgraph(*c*)
+`curses.ascii.isgraph(c)`
 :   Checks for ASCII any printable character except space.
 
-curses.ascii.islower(*c*)
+`curses.ascii.islower(c)`
 :   Checks for an ASCII lower-case character.
 
-curses.ascii.isprint(*c*)
+`curses.ascii.isprint(c)`
 :   Checks for any ASCII printable character including space.
 
-curses.ascii.ispunct(*c*)
+`curses.ascii.ispunct(c)`
 :   Checks for any printable ASCII character which is not a space or an alphanumeric
     character.
 
-curses.ascii.isspace(*c*)
+`curses.ascii.isspace(c)`
 :   Checks for ASCII white-space characters; space, line feed, carriage return, form
     feed, horizontal tab, vertical tab.
 
-curses.ascii.isupper(*c*)
+`curses.ascii.isupper(c)`
 :   Checks for an ASCII uppercase letter.
 
-curses.ascii.isxdigit(*c*)
+`curses.ascii.isxdigit(c)`
 :   Checks for an ASCII hexadecimal digit. This is equivalent to `c in
     string.hexdigits`.
 
-curses.ascii.isctrl(*c*)
+`curses.ascii.isctrl(c)`
 :   Checks for an ASCII control character (ordinal values 0 to 31).
 
-curses.ascii.ismeta(*c*)
+`curses.ascii.ismeta(c)`
 :   Checks for a non-ASCII character (ordinal values 0x80 and above).
 
 These functions accept either integers or single-character strings; when the argument is a
@@ -121,21 +121,21 @@ the host machine’s character encoding.
 The following two functions take either a single-character string or integer
 byte value; they return a value of the same type.
 
-curses.ascii.ascii(*c*)
+`curses.ascii.ascii(c)`
 :   Return the ASCII value corresponding to the low 7 bits of *c*.
 
-curses.ascii.ctrl(*c*)
+`curses.ascii.ctrl(c)`
 :   Return the control character corresponding to the given character (the character
     bit value is bitwise-anded with 0x1f).
 
-curses.ascii.alt(*c*)
+`curses.ascii.alt(c)`
 :   Return the 8-bit character corresponding to the given ASCII character (the
     character bit value is bitwise-ored with 0x80).
 
 The following function takes either a single-character string or integer value;
 it returns a string.
 
-curses.ascii.unctrl(*c*)
+`curses.ascii.unctrl(c)`
 :   Return a string representation of the ASCII character *c*. If *c* is printable,
     this string is the character itself. If the character is a control character
     (0x00–0x1f) the string consists of a caret (`'^'`) followed by the
@@ -143,7 +143,7 @@ curses.ascii.unctrl(*c*)
     string is `'^?'`. If the character has its meta bit (0x80) set, the meta bit
     is stripped, the preceding rules applied, and `'!'` prepended to the result.
 
-curses.ascii.controlnames
+`curses.ascii.controlnames`
 :   A 33-element string array that contains the ASCII mnemonics for the thirty-two
     ASCII control characters from 0 (NUL) to 0x1f (US), in order, plus the mnemonic
     `SP` for the space character.

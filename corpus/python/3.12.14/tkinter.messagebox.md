@@ -20,7 +20,7 @@ limited to:
 
 ![../_images/tk_msg.png](../_images/tk_msg.png)
 
-*class* tkinter.messagebox.Message(*master=None*, *\*\*options*)
+`class tkinter.messagebox.Message(master=None, **options)`
 :   Create a message window with an application-specified message, an icon
     and a set of buttons.
     Each of the buttons in the message window is identified by a unique symbolic name (see the *type* options).
@@ -68,96 +68,96 @@ limited to:
     > :   Arranges for a [predefined set of buttons](tkinter.messagebox.md#messagebox-types)
     >     to be displayed.
 
-    show(*\*\*options*)
+    `show(**options)`
     :   Display a message window and wait for the user to select one of the buttons. Then return the symbolic name of the selected button.
         Keyword arguments can override options specified in the constructor.
 
 **Information message box**
 
-tkinter.messagebox.showinfo(*title=None*, *message=None*, *\*\*options*)
+`tkinter.messagebox.showinfo(title=None, message=None, **options)`
 :   Creates and displays an information message box with the specified title
     and message.
 
 **Warning message boxes**
 
-tkinter.messagebox.showwarning(*title=None*, *message=None*, *\*\*options*)
+`tkinter.messagebox.showwarning(title=None, message=None, **options)`
 :   Creates and displays a warning message box with the specified title
     and message.
 
-tkinter.messagebox.showerror(*title=None*, *message=None*, *\*\*options*)
+`tkinter.messagebox.showerror(title=None, message=None, **options)`
 :   Creates and displays an error message box with the specified title
     and message.
 
 **Question message boxes**
 
-tkinter.messagebox.askquestion(*title=None*, *message=None*, *\**, *type=YESNO*, *\*\*options*)
+`tkinter.messagebox.askquestion(title=None, message=None, *, type=YESNO, **options)`
 :   Ask a question. By default shows buttons [`YES`](tkinter.messagebox.md#tkinter.messagebox.YES "tkinter.messagebox.YES") and [`NO`](tkinter.messagebox.md#tkinter.messagebox.NO "tkinter.messagebox.NO").
     Returns the symbolic name of the selected button.
 
-tkinter.messagebox.askokcancel(*title=None*, *message=None*, *\*\*options*)
+`tkinter.messagebox.askokcancel(title=None, message=None, **options)`
 :   Ask if operation should proceed. Shows buttons [`OK`](tkinter.messagebox.md#tkinter.messagebox.OK "tkinter.messagebox.OK") and [`CANCEL`](tkinter.messagebox.md#tkinter.messagebox.CANCEL "tkinter.messagebox.CANCEL").
     Returns `True` if the answer is ok and `False` otherwise.
 
-tkinter.messagebox.askretrycancel(*title=None*, *message=None*, *\*\*options*)
+`tkinter.messagebox.askretrycancel(title=None, message=None, **options)`
 :   Ask if operation should be retried. Shows buttons [`RETRY`](tkinter.messagebox.md#tkinter.messagebox.RETRY "tkinter.messagebox.RETRY") and [`CANCEL`](tkinter.messagebox.md#tkinter.messagebox.CANCEL "tkinter.messagebox.CANCEL").
     Return `True` if the answer is yes and `False` otherwise.
 
-tkinter.messagebox.askyesno(*title=None*, *message=None*, *\*\*options*)
+`tkinter.messagebox.askyesno(title=None, message=None, **options)`
 :   Ask a question. Shows buttons [`YES`](tkinter.messagebox.md#tkinter.messagebox.YES "tkinter.messagebox.YES") and [`NO`](tkinter.messagebox.md#tkinter.messagebox.NO "tkinter.messagebox.NO").
     Returns `True` if the answer is yes and `False` otherwise.
 
-tkinter.messagebox.askyesnocancel(*title=None*, *message=None*, *\*\*options*)
+`tkinter.messagebox.askyesnocancel(title=None, message=None, **options)`
 :   Ask a question. Shows buttons [`YES`](tkinter.messagebox.md#tkinter.messagebox.YES "tkinter.messagebox.YES"), [`NO`](tkinter.messagebox.md#tkinter.messagebox.NO "tkinter.messagebox.NO") and [`CANCEL`](tkinter.messagebox.md#tkinter.messagebox.CANCEL "tkinter.messagebox.CANCEL").
     Return `True` if the answer is yes, `None` if cancelled, and `False`
     otherwise.
 
 Symbolic names of buttons:
 
-tkinter.messagebox.ABORT *= 'abort'*
+`tkinter.messagebox.ABORT = 'abort'`
 
-tkinter.messagebox.RETRY *= 'retry'*
+`tkinter.messagebox.RETRY = 'retry'`
 
-tkinter.messagebox.IGNORE *= 'ignore'*
+`tkinter.messagebox.IGNORE = 'ignore'`
 
-tkinter.messagebox.OK *= 'ok'*
+`tkinter.messagebox.OK = 'ok'`
 
-tkinter.messagebox.CANCEL *= 'cancel'*
+`tkinter.messagebox.CANCEL = 'cancel'`
 
-tkinter.messagebox.YES *= 'yes'*
+`tkinter.messagebox.YES = 'yes'`
 
-tkinter.messagebox.NO *= 'no'*
+`tkinter.messagebox.NO = 'no'`
 
 Predefined sets of buttons:
 
-tkinter.messagebox.ABORTRETRYIGNORE *= 'abortretryignore'*
+`tkinter.messagebox.ABORTRETRYIGNORE = 'abortretryignore'`
 :   Displays three buttons whose symbolic names are [`ABORT`](tkinter.messagebox.md#tkinter.messagebox.ABORT "tkinter.messagebox.ABORT"),
     [`RETRY`](tkinter.messagebox.md#tkinter.messagebox.RETRY "tkinter.messagebox.RETRY") and [`IGNORE`](tkinter.messagebox.md#tkinter.messagebox.IGNORE "tkinter.messagebox.IGNORE").
 
-tkinter.messagebox.OK *= 'ok'*
+`tkinter.messagebox.OK = 'ok'`
 :   Displays one button whose symbolic name is [`OK`](tkinter.messagebox.md#tkinter.messagebox.OK "tkinter.messagebox.OK").
 
-tkinter.messagebox.OKCANCEL *= 'okcancel'*
+`tkinter.messagebox.OKCANCEL = 'okcancel'`
 :   Displays two buttons whose symbolic names are [`OK`](tkinter.messagebox.md#tkinter.messagebox.OK "tkinter.messagebox.OK") and
     [`CANCEL`](tkinter.messagebox.md#tkinter.messagebox.CANCEL "tkinter.messagebox.CANCEL").
 
-tkinter.messagebox.RETRYCANCEL *= 'retrycancel'*
+`tkinter.messagebox.RETRYCANCEL = 'retrycancel'`
 :   Displays two buttons whose symbolic names are [`RETRY`](tkinter.messagebox.md#tkinter.messagebox.RETRY "tkinter.messagebox.RETRY") and
     [`CANCEL`](tkinter.messagebox.md#tkinter.messagebox.CANCEL "tkinter.messagebox.CANCEL").
 
-tkinter.messagebox.YESNO *= 'yesno'*
+`tkinter.messagebox.YESNO = 'yesno'`
 :   Displays two buttons whose symbolic names are [`YES`](tkinter.messagebox.md#tkinter.messagebox.YES "tkinter.messagebox.YES") and
     [`NO`](tkinter.messagebox.md#tkinter.messagebox.NO "tkinter.messagebox.NO").
 
-tkinter.messagebox.YESNOCANCEL *= 'yesnocancel'*
+`tkinter.messagebox.YESNOCANCEL = 'yesnocancel'`
 :   Displays three buttons whose symbolic names are [`YES`](tkinter.messagebox.md#tkinter.messagebox.YES "tkinter.messagebox.YES"),
     [`NO`](tkinter.messagebox.md#tkinter.messagebox.NO "tkinter.messagebox.NO") and [`CANCEL`](tkinter.messagebox.md#tkinter.messagebox.CANCEL "tkinter.messagebox.CANCEL").
 
 Icon images:
 
-tkinter.messagebox.ERROR *= 'error'*
+`tkinter.messagebox.ERROR = 'error'`
 
-tkinter.messagebox.INFO *= 'info'*
+`tkinter.messagebox.INFO = 'info'`
 
-tkinter.messagebox.QUESTION *= 'question'*
+`tkinter.messagebox.QUESTION = 'question'`
 
-tkinter.messagebox.WARNING *= 'warning'*
+`tkinter.messagebox.WARNING = 'warning'`

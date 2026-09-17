@@ -25,7 +25,7 @@ shell for [`os.system()`](os.md#os.system "os.system") and [`os.popen()`](os.md#
 
 The [`pipes`](pipes.md#module-pipes "pipes: A Python interface to Unix shell pipelines. (deprecated) (Unix)") module defines the following class:
 
-*class* pipes.Template
+`class pipes.Template`
 :   An abstraction of a pipeline.
 
 Example:
@@ -45,18 +45,18 @@ Example:
 
 Template objects following methods:
 
-Template.reset()
+`Template.reset()`
 :   Restore a pipeline template to its initial state.
 
-Template.clone()
+`Template.clone()`
 :   Return a new, equivalent, pipeline template.
 
-Template.debug(*flag*)
+`Template.debug(flag)`
 :   If *flag* is true, turn debugging on. Otherwise, turn debugging off. When
     debugging is on, commands to be executed are printed, and the shell is given
     `set -x` command to be more verbose.
 
-Template.append(*cmd*, *kind*)
+`Template.append(cmd, kind)`
 :   Append a new action at the end. The *cmd* variable must be a valid bourne shell
     command. The *kind* variable consists of two letters.
 
@@ -70,13 +70,13 @@ Template.append(*cmd*, *kind*)
     the command line) or `'.'` (which means the command does not write anything,
     and hence must be last.)
 
-Template.prepend(*cmd*, *kind*)
+`Template.prepend(cmd, kind)`
 :   Add a new action at the beginning. See [`append()`](pipes.md#pipes.Template.append "pipes.Template.append") for explanations of the
     arguments.
 
-Template.open(*file*, *mode*)
+`Template.open(file, mode)`
 :   Return a file-like object, open to *file*, but read from or written to by the
     pipeline. Note that only one of `'r'`, `'w'` may be given.
 
-Template.copy(*infile*, *outfile*)
+`Template.copy(infile, outfile)`
 :   Copy *infile* to *outfile* through the pipe.

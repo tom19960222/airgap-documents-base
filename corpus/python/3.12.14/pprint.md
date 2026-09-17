@@ -30,7 +30,7 @@ Changed in version 3.10: Added support for pretty-printing [`dataclasses.datacla
 
 ## Functions
 
-pprint.pp(*object*, *stream=None*, *indent=1*, *width=80*, *depth=None*, *\**, *compact=False*, *sort_dicts=False*, *underscore_numbers=False*)
+`pprint.pp(object, stream=None, indent=1, width=80, depth=None, *, compact=False, sort_dicts=False, underscore_numbers=False)`
 :   Prints the formatted representation of *object*, followed by a newline.
     This function may be used in the interactive interpreter
     instead of the [`print()`](functions.md#print "print") function for inspecting values.
@@ -77,18 +77,18 @@ pprint.pp(*object*, *stream=None*, *indent=1*, *width=80*, *depth=None*, *\**, *
 
     Added in version 3.8.
 
-pprint.pprint(*object*, *stream=None*, *indent=1*, *width=80*, *depth=None*, *\**, *compact=False*, *sort_dicts=True*, *underscore_numbers=False*)
+`pprint.pprint(object, stream=None, indent=1, width=80, depth=None, *, compact=False, sort_dicts=True, underscore_numbers=False)`
 :   Alias for [`pp()`](pprint.md#pprint.pp "pprint.pp") with *sort_dicts* set to `True` by default,
     which would automatically sort the dictionaries’ keys,
     you might want to use [`pp()`](pprint.md#pprint.pp "pprint.pp") instead where it is `False` by default.
 
-pprint.pformat(*object*, *indent=1*, *width=80*, *depth=None*, *\**, *compact=False*, *sort_dicts=True*, *underscore_numbers=False*)
+`pprint.pformat(object, indent=1, width=80, depth=None, *, compact=False, sort_dicts=True, underscore_numbers=False)`
 :   Return the formatted representation of *object* as a string. *indent*,
     *width*, *depth*, *compact*, *sort_dicts* and *underscore_numbers* are
     passed to the [`PrettyPrinter`](pprint.md#pprint.PrettyPrinter "pprint.PrettyPrinter") constructor as formatting parameters
     and their meanings are as described in the documentation above.
 
-pprint.isreadable(*object*)
+`pprint.isreadable(object)`
 :   Determine if the formatted representation of *object* is “readable”, or can be
     used to reconstruct the value using [`eval()`](functions.md#eval "eval"). This always returns `False`
     for recursive objects.
@@ -98,12 +98,12 @@ pprint.isreadable(*object*)
     False
     ```
 
-pprint.isrecursive(*object*)
+`pprint.isrecursive(object)`
 :   Determine if *object* requires a recursive representation. This function is
     subject to the same limitations as noted in [`saferepr()`](pprint.md#pprint.saferepr "pprint.saferepr") below and may raise an
     [`RecursionError`](exceptions.md#RecursionError "RecursionError") if it fails to detect a recursive object.
 
-pprint.saferepr(*object*)
+`pprint.saferepr(object)`
 :   Return a string representation of *object*, protected against recursion in
     some common data structures, namely instances of [`dict`](stdtypes.md#dict "dict"), [`list`](stdtypes.md#list "list")
     and [`tuple`](stdtypes.md#tuple "tuple") or subclasses whose `__repr__` has not been overridden. If the
@@ -118,7 +118,7 @@ pprint.saferepr(*object*)
 
 ## PrettyPrinter Objects
 
-*class* pprint.PrettyPrinter(*indent=1*, *width=80*, *depth=None*, *stream=None*, *\**, *compact=False*, *sort_dicts=True*, *underscore_numbers=False*)
+`class pprint.PrettyPrinter(indent=1, width=80, depth=None, stream=None, *, compact=False, sort_dicts=True, underscore_numbers=False)`
 :   Construct a [`PrettyPrinter`](pprint.md#pprint.PrettyPrinter "pprint.PrettyPrinter") instance.
 
     Arguments have the same meaning as for [`pp()`](pprint.md#pprint.pp "pprint.pp").
@@ -159,11 +159,11 @@ pprint.saferepr(*object*)
 
 [`PrettyPrinter`](pprint.md#pprint.PrettyPrinter "pprint.PrettyPrinter") instances have the following methods:
 
-PrettyPrinter.pformat(*object*)
+`PrettyPrinter.pformat(object)`
 :   Return the formatted representation of *object*. This takes into account the
     options passed to the [`PrettyPrinter`](pprint.md#pprint.PrettyPrinter "pprint.PrettyPrinter") constructor.
 
-PrettyPrinter.pprint(*object*)
+`PrettyPrinter.pprint(object)`
 :   Print the formatted representation of *object* on the configured stream,
     followed by a newline.
 
@@ -172,21 +172,21 @@ functions of the same names. Using these methods on an instance is slightly
 more efficient since new [`PrettyPrinter`](pprint.md#pprint.PrettyPrinter "pprint.PrettyPrinter") objects don’t need to be
 created.
 
-PrettyPrinter.isreadable(*object*)
+`PrettyPrinter.isreadable(object)`
 :   Determine if the formatted representation of the object is “readable,” or can be
     used to reconstruct the value using [`eval()`](functions.md#eval "eval"). Note that this returns
     `False` for recursive objects. If the *depth* parameter of the
     [`PrettyPrinter`](pprint.md#pprint.PrettyPrinter "pprint.PrettyPrinter") is set and the object is deeper than allowed, this
     returns `False`.
 
-PrettyPrinter.isrecursive(*object*)
+`PrettyPrinter.isrecursive(object)`
 :   Determine if the object requires a recursive representation.
 
 This method is provided as a hook to allow subclasses to modify the way objects
 are converted to strings. The default implementation uses the internals of the
 [`saferepr()`](pprint.md#pprint.saferepr "pprint.saferepr") implementation.
 
-PrettyPrinter.format(*object*, *context*, *maxlevels*, *level*)
+`PrettyPrinter.format(object, context, maxlevels, level)`
 :   Returns three values: the formatted version of *object* as a string, a flag
     indicating whether the result is readable, and a flag indicating whether
     recursion was detected. The first argument is the object to be presented. The

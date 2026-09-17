@@ -862,7 +862,7 @@ The `typing` module defines the following classes, functions and decorators.
 These can be used as types in annotations. They do not support subscription
 using `[]`.
 
-typing.Any
+`typing.Any`
 :   Special type indicating an unconstrained type.
 
     - Every type is compatible with [`Any`](typing.md#typing.Any "typing.Any").
@@ -872,7 +872,7 @@ typing.Any
     avoiding type checker errors with classes that can duck type anywhere or
     are highly dynamic.
 
-typing.AnyStr
+`typing.AnyStr`
 :   A [constrained type variable](typing.md#typing-constrained-typevar).
 
     Definition:
@@ -912,7 +912,7 @@ typing.AnyStr
         return "hi there!" if cond else b"greetings!"
     ```
 
-typing.LiteralString
+`typing.LiteralString`
 :   Special type that includes only literal strings.
 
     Any string
@@ -946,9 +946,9 @@ typing.LiteralString
 
     Added in version 3.11.
 
-typing.Never
+`typing.Never`
 
-typing.NoReturn
+`typing.NoReturn`
 :   `Never` and `NoReturn` represent the
     [bottom type](https://en.wikipedia.org/wiki/Bottom_type),
     a type that has no members.
@@ -991,7 +991,7 @@ typing.NoReturn
 
     Added in version 3.11: Added [`Never`](typing.md#typing.Never "typing.Never").
 
-typing.Self
+`typing.Self`
 :   Special type to represent the current enclosed class.
 
     For example:
@@ -1053,7 +1053,7 @@ typing.Self
 
     Added in version 3.11.
 
-typing.TypeAlias
+`typing.TypeAlias`
 :   Special annotation for explicitly declaring a [type alias](typing.md#type-aliases).
 
     For example:
@@ -1102,7 +1102,7 @@ typing.TypeAlias
 These can be used as types in annotations. They all support subscription using
 `[]`, but each has a unique syntax.
 
-typing.Union
+`typing.Union`
 :   Union type; `Union[X, Y]` is equivalent to `X | Y` and means either X or Y.
 
     To define a union, use e.g. `Union[int, str]` or the shorthand `int | str`. Using that shorthand is recommended. Details:
@@ -1136,7 +1136,7 @@ typing.Union
     Changed in version 3.10: Unions can now be written as `X | Y`. See
     [union type expressions](stdtypes.md#types-union).
 
-typing.Optional
+`typing.Optional`
 :   `Optional[X]` is equivalent to `X | None` (or `Union[X, None]`).
 
     Note that this is not the same concept as an optional argument,
@@ -1161,7 +1161,7 @@ typing.Optional
     Changed in version 3.10: Optional can now be written as `X | None`. See
     [union type expressions](stdtypes.md#types-union).
 
-typing.Concatenate
+`typing.Concatenate`
 :   Special form for annotating higher-order functions.
 
     `Concatenate` can be used in conjunction with [Callable](typing.md#annotating-callables) and
@@ -1216,7 +1216,7 @@ typing.Concatenate
     > - [`ParamSpec`](typing.md#typing.ParamSpec "typing.ParamSpec")
     > - [Annotating callable objects](typing.md#annotating-callables)
 
-typing.Literal
+`typing.Literal`
 :   Special typing form to define “literal types”.
 
     `Literal` can be used to indicate to type checkers that the
@@ -1248,7 +1248,7 @@ typing.Literal
     will now raise a [`TypeError`](exceptions.md#TypeError "TypeError") exception during equality comparisons
     if one of their parameters are not [hashable](https://docs.python.org/3.12/glossary.html#term-hashable).
 
-typing.ClassVar
+`typing.ClassVar`
 :   Special type construct to mark class variables.
 
     As introduced in [**PEP 526**](https://peps.python.org/pep-0526/), a variable annotation wrapped in ClassVar
@@ -1277,7 +1277,7 @@ typing.ClassVar
 
     Added in version 3.5.3.
 
-typing.Final
+`typing.Final`
 :   Special typing construct to indicate final names to type checkers.
 
     Final names cannot be reassigned in any scope. Final names declared in class
@@ -1301,7 +1301,7 @@ typing.Final
 
     Added in version 3.8.
 
-typing.Required
+`typing.Required`
 :   Special typing construct to mark a [`TypedDict`](typing.md#typing.TypedDict "typing.TypedDict") key as required.
 
     This is mainly useful for `total=False` TypedDicts. See [`TypedDict`](typing.md#typing.TypedDict "typing.TypedDict")
@@ -1309,7 +1309,7 @@ typing.Required
 
     Added in version 3.11.
 
-typing.NotRequired
+`typing.NotRequired`
 :   Special typing construct to mark a [`TypedDict`](typing.md#typing.TypedDict "typing.TypedDict") key as potentially
     missing.
 
@@ -1317,7 +1317,7 @@ typing.NotRequired
 
     Added in version 3.11.
 
-typing.Annotated
+`typing.Annotated`
 :   Special typing form to add context-specific metadata to an annotation.
 
     Add metadata `x` to a given type `T` by using the annotation
@@ -1344,7 +1344,7 @@ typing.Annotated
     can scan through the metadata elements to determine if they are of interest
     (e.g., using [`isinstance()`](functions.md#isinstance "isinstance")).
 
-    Annotated[<type>, <metadata>]
+    `Annotated[<type>, <metadata>]`
 
     Here is an example of how you might use `Annotated` to add metadata to
     type annotations if you were doing range analysis:
@@ -1467,7 +1467,7 @@ typing.Annotated
 
     Added in version 3.9.
 
-typing.TypeGuard
+`typing.TypeGuard`
 :   Special typing construct for marking user-defined type guard functions.
 
     `TypeGuard` can be used to annotate the return type of a user-defined
@@ -1538,7 +1538,7 @@ typing.TypeGuard
 
     Added in version 3.10.
 
-typing.Unpack
+`typing.Unpack`
 :   Typing operator to conceptually mark an object as having been unpacked.
 
     For example, using the unpack operator `*` on a
@@ -1598,7 +1598,7 @@ These objects can be created through special syntax
 For compatibility with Python 3.11 and earlier, they can also be created
 without the dedicated syntax, as documented below.
 
-*class* typing.Generic
+`class typing.Generic`
 :   Abstract base class for generic types.
 
     A generic type is typically declared by adding a list of type parameters
@@ -1643,7 +1643,7 @@ without the dedicated syntax, as documented below.
             # Etc.
     ```
 
-*class* typing.TypeVar(*name*, *\*constraints*, *bound=None*, *covariant=False*, *contravariant=False*, *infer_variance=False*)
+`class typing.TypeVar(name, *constraints, bound=None, covariant=False, contravariant=False, infer_variance=False)`
 :   Type variable.
 
     The preferred way to construct a type variable is via the dedicated syntax
@@ -1751,28 +1751,28 @@ without the dedicated syntax, as documented below.
 
     At runtime, `isinstance(x, T)` will raise [`TypeError`](exceptions.md#TypeError "TypeError").
 
-    __name__
+    `__name__`
     :   The name of the type variable.
 
-    __covariant__
+    `__covariant__`
     :   Whether the type var has been explicitly marked as covariant.
 
-    __contravariant__
+    `__contravariant__`
     :   Whether the type var has been explicitly marked as contravariant.
 
-    __infer_variance__
+    `__infer_variance__`
     :   Whether the type variable’s variance should be inferred by type checkers.
 
         Added in version 3.12.
 
-    __bound__
+    `__bound__`
     :   The upper bound of the type variable, if any.
 
         Changed in version 3.12: For type variables created through [type parameter syntax](https://docs.python.org/3.12/reference/compound_stmts.html#type-params),
         the bound is evaluated only when the attribute is accessed, not when
         the type variable is created (see [Lazy evaluation](https://docs.python.org/3.12/reference/executionmodel.html#lazy-evaluation)).
 
-    __constraints__
+    `__constraints__`
     :   A tuple containing the constraints of the type variable, if any.
 
         Changed in version 3.12: For type variables created through [type parameter syntax](https://docs.python.org/3.12/reference/compound_stmts.html#type-params),
@@ -1783,7 +1783,7 @@ without the dedicated syntax, as documented below.
     [type parameter](https://docs.python.org/3.12/reference/compound_stmts.html#type-params) syntax introduced by [**PEP 695**](https://peps.python.org/pep-0695/).
     The `infer_variance` parameter was added.
 
-*class* typing.TypeVarTuple(*name*)
+`class typing.TypeVarTuple(name)`
 :   Type variable tuple. A specialized form of [type variable](typing.md#typevar)
     that enables *variadic* generics.
 
@@ -1902,7 +1902,7 @@ without the dedicated syntax, as documented below.
 
     See [**PEP 646**](https://peps.python.org/pep-0646/) for more details on type variable tuples.
 
-    __name__
+    `__name__`
     :   The name of the type variable tuple.
 
     Added in version 3.11.
@@ -1910,7 +1910,7 @@ without the dedicated syntax, as documented below.
     Changed in version 3.12: Type variable tuples can now be declared using the
     [type parameter](https://docs.python.org/3.12/reference/compound_stmts.html#type-params) syntax introduced by [**PEP 695**](https://peps.python.org/pep-0695/).
 
-*class* typing.ParamSpec(*name*, *\**, *bound=None*, *covariant=False*, *contravariant=False*)
+`class typing.ParamSpec(name, *, bound=None, covariant=False, contravariant=False)`
 :   Parameter specification variable. A specialized version of
     [type variables](typing.md#typevar).
 
@@ -1967,9 +1967,9 @@ without the dedicated syntax, as documented below.
        decorator when returning the `inner` function, or the static type
        checker must be told to ignore the `return inner`.
 
-    args
+    `args`
 
-    kwargs
+    `kwargs`
     :   Since `ParamSpec` captures both positional and keyword parameters,
         `P.args` and `P.kwargs` can be used to split a `ParamSpec` into its
         components. `P.args` represents the tuple of positional parameters in a
@@ -1980,7 +1980,7 @@ without the dedicated syntax, as documented below.
         `P.args` and `P.kwargs` are instances respectively of
         [`ParamSpecArgs`](typing.md#typing.ParamSpecArgs "typing.ParamSpecArgs") and [`ParamSpecKwargs`](typing.md#typing.ParamSpecKwargs "typing.ParamSpecKwargs").
 
-    __name__
+    `__name__`
     :   The name of the parameter specification.
 
     Parameter specification variables created with `covariant=True` or
@@ -2006,9 +2006,9 @@ without the dedicated syntax, as documented below.
     > - [`Concatenate`](typing.md#typing.Concatenate "typing.Concatenate")
     > - [Annotating callable objects](typing.md#annotating-callables)
 
-typing.ParamSpecArgs
+`typing.ParamSpecArgs`
 
-typing.ParamSpecKwargs
+`typing.ParamSpecKwargs`
 :   Arguments and keyword arguments attributes of a [`ParamSpec`](typing.md#typing.ParamSpec "typing.ParamSpec"). The
     `P.args` attribute of a `ParamSpec` is an instance of `ParamSpecArgs`,
     and `P.kwargs` is an instance of `ParamSpecKwargs`. They are intended
@@ -2028,7 +2028,7 @@ typing.ParamSpecKwargs
 
     Added in version 3.10.
 
-*class* typing.TypeAliasType(*name*, *value*, *\**, *type_params=()*)
+`class typing.TypeAliasType(name, value, *, type_params=())`
 :   The type of type aliases created through the [`type`](https://docs.python.org/3.12/reference/simple_stmts.html#type) statement.
 
     Example:
@@ -2041,7 +2041,7 @@ typing.ParamSpecKwargs
 
     Added in version 3.12.
 
-    __name__
+    `__name__`
     :   The name of the type alias:
 
         ```pycon
@@ -2050,7 +2050,7 @@ typing.ParamSpecKwargs
         'Alias'
         ```
 
-    __module__
+    `__module__`
     :   The module in which the type alias was defined:
 
         ```python3
@@ -2059,7 +2059,7 @@ typing.ParamSpecKwargs
         '__main__'
         ```
 
-    __type_params__
+    `__type_params__`
     :   The type parameters of the type alias, or an empty tuple if the alias is
         not generic:
 
@@ -2072,7 +2072,7 @@ typing.ParamSpecKwargs
         ()
         ```
 
-    __value__
+    `__value__`
     :   The type alias’s value. This is [lazily evaluated](https://docs.python.org/3.12/reference/executionmodel.html#lazy-evaluation),
         so names used in the definition of the alias are not resolved until the
         `__value__` attribute is accessed:
@@ -2096,7 +2096,7 @@ These functions and classes should not be used directly as annotations.
 Their intended purpose is to be building blocks for creating and declaring
 types.
 
-*class* typing.NamedTuple
+`class typing.NamedTuple`
 :   Typed version of [`collections.namedtuple()`](collections.md#collections.namedtuple "collections.namedtuple").
 
     Usage:
@@ -2178,7 +2178,7 @@ types.
 
     Changed in version 3.11: Added support for generic namedtuples.
 
-*class* typing.NewType(*name*, *tp*)
+`class typing.NewType(name, tp)`
 :   Helper class to create low-overhead [distinct types](typing.md#distinct).
 
     A `NewType` is considered a distinct type by a typechecker. At runtime,
@@ -2191,20 +2191,20 @@ types.
     first_user = UserId(1)  # "UserId" returns the argument unchanged at runtime
     ```
 
-    __module__
+    `__module__`
     :   The module in which the new type is defined.
 
-    __name__
+    `__name__`
     :   The name of the new type.
 
-    __supertype__
+    `__supertype__`
     :   The type that the new type is based on.
 
     Added in version 3.5.2.
 
     Changed in version 3.10: `NewType` is now a class rather than a function.
 
-*class* typing.Protocol(*Generic*)
+`class typing.Protocol(Generic)`
 :   Base class for protocol classes.
 
     Protocol classes are defined like this:
@@ -2255,7 +2255,7 @@ types.
 
     Added in version 3.8.
 
-@typing.runtime_checkable
+`@typing.runtime_checkable`
 :   Mark a protocol class as a runtime protocol.
 
     Such a protocol can be used with [`isinstance()`](functions.md#isinstance "isinstance") and [`issubclass()`](functions.md#issubclass "issubclass").
@@ -2314,7 +2314,7 @@ types.
     protocol. See [“What’s new in Python 3.12”](https://docs.python.org/3.12/whatsnew/3.12.html#whatsnew-typing-py312)
     for more details.
 
-*class* typing.TypedDict(*dict*)
+`class typing.TypedDict(dict)`
 :   Special construct to add type hints to a dictionary.
     At runtime it is a plain [`dict`](stdtypes.md#dict "dict").
 
@@ -2482,7 +2482,7 @@ types.
     (see [Annotations Best Practices](https://docs.python.org/3.12/howto/annotations.html#annotations-howto) for more information on annotations best practices),
     [`__total__`](typing.md#typing.TypedDict.__total__ "typing.TypedDict.__total__"), [`__required_keys__`](typing.md#typing.TypedDict.__required_keys__ "typing.TypedDict.__required_keys__"), and [`__optional_keys__`](typing.md#typing.TypedDict.__optional_keys__ "typing.TypedDict.__optional_keys__").
 
-    __total__
+    `__total__`
     :   `Point2D.__total__` gives the value of the `total` argument.
         Example:
 
@@ -2506,10 +2506,10 @@ types.
         `TypedDict` with `total=False`. Therefore, it is generally better to use
         [`__required_keys__`](typing.md#typing.TypedDict.__required_keys__ "typing.TypedDict.__required_keys__") and [`__optional_keys__`](typing.md#typing.TypedDict.__optional_keys__ "typing.TypedDict.__optional_keys__") for introspection.
 
-    __required_keys__
+    `__required_keys__`
     :   Added in version 3.9.
 
-    __optional_keys__
+    `__optional_keys__`
     :   `Point2D.__required_keys__` and `Point2D.__optional_keys__` return
         [`frozenset`](stdtypes.md#frozenset "frozenset") objects containing required and non-required keys, respectively.
 
@@ -2561,38 +2561,38 @@ types.
 The following protocols are provided by the typing module. All are decorated
 with [`@runtime_checkable`](typing.md#typing.runtime_checkable "typing.runtime_checkable").
 
-*class* typing.SupportsAbs
+`class typing.SupportsAbs`
 :   An ABC with one abstract method `__abs__` that is covariant
     in its return type.
 
-*class* typing.SupportsBytes
+`class typing.SupportsBytes`
 :   An ABC with one abstract method `__bytes__`.
 
-*class* typing.SupportsComplex
+`class typing.SupportsComplex`
 :   An ABC with one abstract method `__complex__`.
 
-*class* typing.SupportsFloat
+`class typing.SupportsFloat`
 :   An ABC with one abstract method `__float__`.
 
-*class* typing.SupportsIndex
+`class typing.SupportsIndex`
 :   An ABC with one abstract method `__index__`.
 
     Added in version 3.8.
 
-*class* typing.SupportsInt
+`class typing.SupportsInt`
 :   An ABC with one abstract method `__int__`.
 
-*class* typing.SupportsRound
+`class typing.SupportsRound`
 :   An ABC with one abstract method `__round__`
     that is covariant in its return type.
 
 ### ABCs for working with IO
 
-*class* typing.IO
+`class typing.IO`
 
-*class* typing.TextIO
+`class typing.TextIO`
 
-*class* typing.BinaryIO
+`class typing.BinaryIO`
 :   Generic type `IO[AnyStr]` and its subclasses `TextIO(IO[str])`
     and `BinaryIO(IO[bytes])`
     represent the types of I/O streams such as returned by
@@ -2600,7 +2600,7 @@ with [`@runtime_checkable`](typing.md#typing.runtime_checkable "typing.runtime_c
 
 ### Functions and decorators
 
-typing.cast(*typ*, *val*)
+`typing.cast(typ, val)`
 :   Cast a value to a type.
 
     This returns the value unchanged. To the type checker this
@@ -2608,7 +2608,7 @@ typing.cast(*typ*, *val*)
     runtime we intentionally don’t check anything (we want this
     to be as fast as possible).
 
-typing.assert_type(*val*, *typ*, */*)
+`typing.assert_type(val, typ, /)`
 :   Ask a static type checker to confirm that *val* has an inferred type of *typ*.
 
     At runtime this does nothing: it returns the first argument unchanged with no
@@ -2637,7 +2637,7 @@ typing.assert_type(*val*, *typ*, */*)
 
     Added in version 3.11.
 
-typing.assert_never(*arg*, */*)
+`typing.assert_never(arg, /)`
 :   Ask a static type checker to confirm that a line of code is unreachable.
 
     Example:
@@ -2675,7 +2675,7 @@ typing.assert_never(*arg*, */*)
 
     Added in version 3.11.
 
-typing.reveal_type(*obj*, */*)
+`typing.reveal_type(obj, /)`
 :   Ask a static type checker to reveal the inferred type of an expression.
 
     When a static type checker encounters a call to this function,
@@ -2708,7 +2708,7 @@ typing.reveal_type(*obj*, */*)
 
     Added in version 3.11.
 
-@typing.dataclass_transform(*\**, *eq_default=True*, *order_default=False*, *kw_only_default=False*, *frozen_default=False*, *field_specifiers=()*, *\*\*kwargs*)
+`@typing.dataclass_transform(*, eq_default=True, order_default=False, kw_only_default=False, frozen_default=False, field_specifiers=(), **kwargs)`
 :   Decorator to mark an object as providing
     [`dataclass`](dataclasses.md#dataclasses.dataclass "dataclasses.dataclass")-like behavior.
 
@@ -2820,7 +2820,7 @@ typing.reveal_type(*obj*, */*)
 
     Added in version 3.11.
 
-@typing.overload
+`@typing.overload`
 :   Decorator for creating overloaded functions and methods.
 
     The `@overload` decorator allows describing functions and methods
@@ -2858,7 +2858,7 @@ typing.reveal_type(*obj*, */*)
     Changed in version 3.11: Overloaded functions can now be introspected at runtime using
     [`get_overloads()`](typing.md#typing.get_overloads "typing.get_overloads").
 
-typing.get_overloads(*func*)
+`typing.get_overloads(func)`
 :   Return a sequence of [`@overload`](typing.md#typing.overload "typing.overload")-decorated definitions for
     *func*.
 
@@ -2874,14 +2874,14 @@ typing.get_overloads(*func*)
 
     Added in version 3.11.
 
-typing.clear_overloads()
+`typing.clear_overloads()`
 :   Clear all registered overloads in the internal registry.
 
     This can be used to reclaim the memory used by the registry.
 
     Added in version 3.11.
 
-@typing.final
+`@typing.final`
 :   Decorator to indicate final methods and final classes.
 
     Decorating a method with `@final` indicates to a type checker that the
@@ -2918,7 +2918,7 @@ typing.clear_overloads()
     If the decorated object does not support setting attributes,
     the decorator returns the object unchanged without raising an exception.
 
-@typing.no_type_check
+`@typing.no_type_check`
 :   Decorator to indicate that annotations are not type hints.
 
     This works as a class or function [decorator](https://docs.python.org/3.12/glossary.html#term-decorator). With a class, it
@@ -2929,13 +2929,13 @@ typing.clear_overloads()
 
     `@no_type_check` mutates the decorated object in place.
 
-@typing.no_type_check_decorator
+`@typing.no_type_check_decorator`
 :   Decorator to give another decorator the [`no_type_check()`](typing.md#typing.no_type_check "typing.no_type_check") effect.
 
     This wraps the decorator with something that wraps the decorated
     function in [`no_type_check()`](typing.md#typing.no_type_check "typing.no_type_check").
 
-@typing.override
+`@typing.override`
 :   Decorator to indicate that a method in a subclass is intended to override a
     method or attribute in a superclass.
 
@@ -2974,7 +2974,7 @@ typing.clear_overloads()
 
     Added in version 3.12.
 
-@typing.type_check_only
+`@typing.type_check_only`
 :   Decorator to mark a class or function as unavailable at runtime.
 
     This decorator is itself not available at runtime. It is mainly
@@ -2995,7 +2995,7 @@ typing.clear_overloads()
 
 ### Introspection helpers
 
-typing.get_type_hints(*obj*, *globalns=None*, *localns=None*, *include_extras=False*)
+`typing.get_type_hints(obj, globalns=None, localns=None, include_extras=False)`
 :   Return a dictionary containing type hints for a function, method, module
     or class object.
 
@@ -3039,7 +3039,7 @@ typing.get_type_hints(*obj*, *globalns=None*, *localns=None*, *include_extras=Fa
     if a default value equal to `None` was set.
     Now the annotation is returned unchanged.
 
-typing.get_origin(*tp*)
+`typing.get_origin(tp)`
 :   Get the unsubscripted version of a type: for a typing object of the form
     `X[Y, Z, ...]` return `X`.
 
@@ -3063,7 +3063,7 @@ typing.get_origin(*tp*)
 
     Added in version 3.8.
 
-typing.get_args(*tp*)
+`typing.get_args(tp)`
 :   Get type arguments with all substitutions performed: for a typing object
     of the form `X[Y, Z, ...]` return `(Y, Z, ...)`.
 
@@ -3082,7 +3082,7 @@ typing.get_args(*tp*)
 
     Added in version 3.8.
 
-typing.is_typeddict(*tp*)
+`typing.is_typeddict(tp)`
 :   Check if a type is a [`TypedDict`](typing.md#typing.TypedDict "typing.TypedDict").
 
     For example:
@@ -3102,7 +3102,7 @@ typing.is_typeddict(*tp*)
 
     Added in version 3.10.
 
-*class* typing.ForwardRef
+`class typing.ForwardRef`
 :   Class used for internal typing representation of string forward references.
 
     For example, `List["SomeClass"]` is implicitly transformed into
@@ -3119,7 +3119,7 @@ typing.is_typeddict(*tp*)
 
 ### Constant
 
-typing.TYPE_CHECKING
+`typing.TYPE_CHECKING`
 :   A special constant that is assumed to be `True` by 3rd party static
     type checkers. It is `False` at runtime.
 
@@ -3172,7 +3172,7 @@ program they are checking targets a minimum Python version of 3.9 or newer.
 
 #### Aliases to built-in types
 
-*class* typing.Dict(*dict, MutableMapping[KT, VT]*)
+`class typing.Dict(dict, MutableMapping[KT, VT])`
 :   Deprecated alias to [`dict`](stdtypes.md#dict "dict").
 
     Note that to annotate arguments, it is preferred
@@ -3182,7 +3182,7 @@ program they are checking targets a minimum Python version of 3.9 or newer.
     Deprecated since version 3.9: [`builtins.dict`](stdtypes.md#dict "dict") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.List(*list, MutableSequence[T]*)
+`class typing.List(list, MutableSequence[T])`
 :   Deprecated alias to [`list`](stdtypes.md#list "list").
 
     Note that to annotate arguments, it is preferred
@@ -3193,7 +3193,7 @@ program they are checking targets a minimum Python version of 3.9 or newer.
     Deprecated since version 3.9: [`builtins.list`](stdtypes.md#list "list") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Set(*set, MutableSet[T]*)
+`class typing.Set(set, MutableSet[T])`
 :   Deprecated alias to [`builtins.set`](stdtypes.md#set "set").
 
     Note that to annotate arguments, it is preferred
@@ -3203,14 +3203,14 @@ program they are checking targets a minimum Python version of 3.9 or newer.
     Deprecated since version 3.9: [`builtins.set`](stdtypes.md#set "set") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.FrozenSet(*frozenset, AbstractSet[T_co]*)
+`class typing.FrozenSet(frozenset, AbstractSet[T_co])`
 :   Deprecated alias to [`builtins.frozenset`](stdtypes.md#frozenset "frozenset").
 
     Deprecated since version 3.9: [`builtins.frozenset`](stdtypes.md#frozenset "frozenset")
     now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-typing.Tuple
+`typing.Tuple`
 :   Deprecated alias for [`tuple`](stdtypes.md#tuple "tuple").
 
     [`tuple`](stdtypes.md#tuple "tuple") and `Tuple` are special-cased in the type system; see
@@ -3219,7 +3219,7 @@ typing.Tuple
     Deprecated since version 3.9: [`builtins.tuple`](stdtypes.md#tuple "tuple") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Type(*Generic[CT_co]*)
+`class typing.Type(Generic[CT_co])`
 :   Deprecated alias to [`type`](functions.md#type "type").
 
     See [The type of class objects](typing.md#type-of-class-objects) for details on using [`type`](functions.md#type "type") or
@@ -3232,7 +3232,7 @@ typing.Tuple
 
 #### Aliases to types in [`collections`](collections.md#module-collections "collections: Container datatypes")
 
-*class* typing.DefaultDict(*collections.defaultdict, MutableMapping[KT, VT]*)
+`class typing.DefaultDict(collections.defaultdict, MutableMapping[KT, VT])`
 :   Deprecated alias to [`collections.defaultdict`](collections.md#collections.defaultdict "collections.defaultdict").
 
     Added in version 3.5.2.
@@ -3240,7 +3240,7 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.defaultdict`](collections.md#collections.defaultdict "collections.defaultdict") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.OrderedDict(*collections.OrderedDict, MutableMapping[KT, VT]*)
+`class typing.OrderedDict(collections.OrderedDict, MutableMapping[KT, VT])`
 :   Deprecated alias to [`collections.OrderedDict`](collections.md#collections.OrderedDict "collections.OrderedDict").
 
     Added in version 3.7.2.
@@ -3248,7 +3248,7 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.OrderedDict`](collections.md#collections.OrderedDict "collections.OrderedDict") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.ChainMap(*collections.ChainMap, MutableMapping[KT, VT]*)
+`class typing.ChainMap(collections.ChainMap, MutableMapping[KT, VT])`
 :   Deprecated alias to [`collections.ChainMap`](collections.md#collections.ChainMap "collections.ChainMap").
 
     Added in version 3.6.1.
@@ -3256,7 +3256,7 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.ChainMap`](collections.md#collections.ChainMap "collections.ChainMap") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Counter(*collections.Counter, Dict[T, int]*)
+`class typing.Counter(collections.Counter, Dict[T, int])`
 :   Deprecated alias to [`collections.Counter`](collections.md#collections.Counter "collections.Counter").
 
     Added in version 3.6.1.
@@ -3264,7 +3264,7 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.Counter`](collections.md#collections.Counter "collections.Counter") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Deque(*deque, MutableSequence[T]*)
+`class typing.Deque(deque, MutableSequence[T])`
 :   Deprecated alias to [`collections.deque`](collections.md#collections.deque "collections.deque").
 
     Added in version 3.6.1.
@@ -3277,9 +3277,9 @@ typing.Tuple
 > Deprecated since version 3.8, will be removed in version 3.13: The `typing.io` namespace is deprecated and will be removed.
 > These types should be directly imported from `typing` instead.
 
-*class* typing.Pattern
+`class typing.Pattern`
 
-*class* typing.Match
+`class typing.Match`
 :   Deprecated aliases corresponding to the return types from
     [`re.compile()`](re.md#re.compile "re.compile") and [`re.match()`](re.md#re.match "re.match").
 
@@ -3294,7 +3294,7 @@ typing.Tuple
     Deprecated since version 3.9: Classes `Pattern` and `Match` from [`re`](re.md#module-re "re: Regular expression operations.") now support `[]`.
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Text
+`class typing.Text`
 :   Deprecated alias for [`str`](stdtypes.md#str "str").
 
     `Text` is provided to supply a forward
@@ -3318,19 +3318,19 @@ typing.Tuple
 
 #### Aliases to container ABCs in [`collections.abc`](collections.abc.md#module-collections.abc "collections.abc: Abstract base classes for containers")
 
-*class* typing.AbstractSet(*Collection[T_co]*)
+`class typing.AbstractSet(Collection[T_co])`
 :   Deprecated alias to [`collections.abc.Set`](collections.abc.md#collections.abc.Set "collections.abc.Set").
 
     Deprecated since version 3.9: [`collections.abc.Set`](collections.abc.md#collections.abc.Set "collections.abc.Set") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.ByteString(*Sequence[int]*)
+`class typing.ByteString(Sequence[int])`
 :   This type represents the types [`bytes`](stdtypes.md#bytes "bytes"), [`bytearray`](stdtypes.md#bytearray "bytearray"),
     and [`memoryview`](stdtypes.md#memoryview "memoryview") of byte sequences.
 
     Deprecated since version 3.9, will be removed in version 3.14: Prefer [`collections.abc.Buffer`](collections.abc.md#collections.abc.Buffer "collections.abc.Buffer"), or a union like `bytes | bytearray | memoryview`.
 
-*class* typing.Collection(*Sized, Iterable[T_co], Container[T_co]*)
+`class typing.Collection(Sized, Iterable[T_co], Container[T_co])`
 :   Deprecated alias to [`collections.abc.Collection`](collections.abc.md#collections.abc.Collection "collections.abc.Collection").
 
     Added in version 3.6.
@@ -3338,63 +3338,63 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.abc.Collection`](collections.abc.md#collections.abc.Collection "collections.abc.Collection") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Container(*Generic[T_co]*)
+`class typing.Container(Generic[T_co])`
 :   Deprecated alias to [`collections.abc.Container`](collections.abc.md#collections.abc.Container "collections.abc.Container").
 
     Deprecated since version 3.9: [`collections.abc.Container`](collections.abc.md#collections.abc.Container "collections.abc.Container") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.ItemsView(*MappingView, AbstractSet[tuple[KT_co, VT_co]]*)
+`class typing.ItemsView(MappingView, AbstractSet[tuple[KT_co, VT_co]])`
 :   Deprecated alias to [`collections.abc.ItemsView`](collections.abc.md#collections.abc.ItemsView "collections.abc.ItemsView").
 
     Deprecated since version 3.9: [`collections.abc.ItemsView`](collections.abc.md#collections.abc.ItemsView "collections.abc.ItemsView") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.KeysView(*MappingView, AbstractSet[KT_co]*)
+`class typing.KeysView(MappingView, AbstractSet[KT_co])`
 :   Deprecated alias to [`collections.abc.KeysView`](collections.abc.md#collections.abc.KeysView "collections.abc.KeysView").
 
     Deprecated since version 3.9: [`collections.abc.KeysView`](collections.abc.md#collections.abc.KeysView "collections.abc.KeysView") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Mapping(*Collection[KT], Generic[KT, VT_co]*)
+`class typing.Mapping(Collection[KT], Generic[KT, VT_co])`
 :   Deprecated alias to [`collections.abc.Mapping`](collections.abc.md#collections.abc.Mapping "collections.abc.Mapping").
 
     Deprecated since version 3.9: [`collections.abc.Mapping`](collections.abc.md#collections.abc.Mapping "collections.abc.Mapping") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.MappingView(*Sized*)
+`class typing.MappingView(Sized)`
 :   Deprecated alias to [`collections.abc.MappingView`](collections.abc.md#collections.abc.MappingView "collections.abc.MappingView").
 
     Deprecated since version 3.9: [`collections.abc.MappingView`](collections.abc.md#collections.abc.MappingView "collections.abc.MappingView") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.MutableMapping(*Mapping[KT, VT]*)
+`class typing.MutableMapping(Mapping[KT, VT])`
 :   Deprecated alias to [`collections.abc.MutableMapping`](collections.abc.md#collections.abc.MutableMapping "collections.abc.MutableMapping").
 
     Deprecated since version 3.9: [`collections.abc.MutableMapping`](collections.abc.md#collections.abc.MutableMapping "collections.abc.MutableMapping")
     now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.MutableSequence(*Sequence[T]*)
+`class typing.MutableSequence(Sequence[T])`
 :   Deprecated alias to [`collections.abc.MutableSequence`](collections.abc.md#collections.abc.MutableSequence "collections.abc.MutableSequence").
 
     Deprecated since version 3.9: [`collections.abc.MutableSequence`](collections.abc.md#collections.abc.MutableSequence "collections.abc.MutableSequence")
     now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.MutableSet(*AbstractSet[T]*)
+`class typing.MutableSet(AbstractSet[T])`
 :   Deprecated alias to [`collections.abc.MutableSet`](collections.abc.md#collections.abc.MutableSet "collections.abc.MutableSet").
 
     Deprecated since version 3.9: [`collections.abc.MutableSet`](collections.abc.md#collections.abc.MutableSet "collections.abc.MutableSet") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Sequence(*Reversible[T_co], Collection[T_co]*)
+`class typing.Sequence(Reversible[T_co], Collection[T_co])`
 :   Deprecated alias to [`collections.abc.Sequence`](collections.abc.md#collections.abc.Sequence "collections.abc.Sequence").
 
     Deprecated since version 3.9: [`collections.abc.Sequence`](collections.abc.md#collections.abc.Sequence "collections.abc.Sequence") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.ValuesView(*MappingView, Collection[_VT_co]*)
+`class typing.ValuesView(MappingView, Collection[_VT_co])`
 :   Deprecated alias to [`collections.abc.ValuesView`](collections.abc.md#collections.abc.ValuesView "collections.abc.ValuesView").
 
     Deprecated since version 3.9: [`collections.abc.ValuesView`](collections.abc.md#collections.abc.ValuesView "collections.abc.ValuesView") now supports subscripting (`[]`).
@@ -3402,7 +3402,7 @@ typing.Tuple
 
 #### Aliases to asynchronous ABCs in [`collections.abc`](collections.abc.md#module-collections.abc "collections.abc: Abstract base classes for containers")
 
-*class* typing.Coroutine(*Awaitable[ReturnType], Generic[YieldType, SendType, ReturnType]*)
+`class typing.Coroutine(Awaitable[ReturnType], Generic[YieldType, SendType, ReturnType])`
 :   Deprecated alias to [`collections.abc.Coroutine`](collections.abc.md#collections.abc.Coroutine "collections.abc.Coroutine").
 
     See [Annotating generators and coroutines](typing.md#annotating-generators-and-coroutines)
@@ -3414,7 +3414,7 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.abc.Coroutine`](collections.abc.md#collections.abc.Coroutine "collections.abc.Coroutine") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.AsyncGenerator(*AsyncIterator[YieldType], Generic[YieldType, SendType]*)
+`class typing.AsyncGenerator(AsyncIterator[YieldType], Generic[YieldType, SendType])`
 :   Deprecated alias to [`collections.abc.AsyncGenerator`](collections.abc.md#collections.abc.AsyncGenerator "collections.abc.AsyncGenerator").
 
     See [Annotating generators and coroutines](typing.md#annotating-generators-and-coroutines)
@@ -3427,7 +3427,7 @@ typing.Tuple
     now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.AsyncIterable(*Generic[T_co]*)
+`class typing.AsyncIterable(Generic[T_co])`
 :   Deprecated alias to [`collections.abc.AsyncIterable`](collections.abc.md#collections.abc.AsyncIterable "collections.abc.AsyncIterable").
 
     Added in version 3.5.2.
@@ -3435,7 +3435,7 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.abc.AsyncIterable`](collections.abc.md#collections.abc.AsyncIterable "collections.abc.AsyncIterable") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.AsyncIterator(*AsyncIterable[T_co]*)
+`class typing.AsyncIterator(AsyncIterable[T_co])`
 :   Deprecated alias to [`collections.abc.AsyncIterator`](collections.abc.md#collections.abc.AsyncIterator "collections.abc.AsyncIterator").
 
     Added in version 3.5.2.
@@ -3443,7 +3443,7 @@ typing.Tuple
     Deprecated since version 3.9: [`collections.abc.AsyncIterator`](collections.abc.md#collections.abc.AsyncIterator "collections.abc.AsyncIterator") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Awaitable(*Generic[T_co]*)
+`class typing.Awaitable(Generic[T_co])`
 :   Deprecated alias to [`collections.abc.Awaitable`](collections.abc.md#collections.abc.Awaitable "collections.abc.Awaitable").
 
     Added in version 3.5.2.
@@ -3453,19 +3453,19 @@ typing.Tuple
 
 #### Aliases to other ABCs in [`collections.abc`](collections.abc.md#module-collections.abc "collections.abc: Abstract base classes for containers")
 
-*class* typing.Iterable(*Generic[T_co]*)
+`class typing.Iterable(Generic[T_co])`
 :   Deprecated alias to [`collections.abc.Iterable`](collections.abc.md#collections.abc.Iterable "collections.abc.Iterable").
 
     Deprecated since version 3.9: [`collections.abc.Iterable`](collections.abc.md#collections.abc.Iterable "collections.abc.Iterable") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Iterator(*Iterable[T_co]*)
+`class typing.Iterator(Iterable[T_co])`
 :   Deprecated alias to [`collections.abc.Iterator`](collections.abc.md#collections.abc.Iterator "collections.abc.Iterator").
 
     Deprecated since version 3.9: [`collections.abc.Iterator`](collections.abc.md#collections.abc.Iterator "collections.abc.Iterator") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-typing.Callable
+`typing.Callable`
 :   Deprecated alias to [`collections.abc.Callable`](collections.abc.md#collections.abc.Callable "collections.abc.Callable").
 
     See [Annotating callable objects](typing.md#annotating-callables) for details on how to use
@@ -3477,7 +3477,7 @@ typing.Callable
     Changed in version 3.10: `Callable` now supports [`ParamSpec`](typing.md#typing.ParamSpec "typing.ParamSpec") and [`Concatenate`](typing.md#typing.Concatenate "typing.Concatenate").
     See [**PEP 612**](https://peps.python.org/pep-0612/) for more details.
 
-*class* typing.Generator(*Iterator[YieldType], Generic[YieldType, SendType, ReturnType]*)
+`class typing.Generator(Iterator[YieldType], Generic[YieldType, SendType, ReturnType])`
 :   Deprecated alias to [`collections.abc.Generator`](collections.abc.md#collections.abc.Generator "collections.abc.Generator").
 
     See [Annotating generators and coroutines](typing.md#annotating-generators-and-coroutines)
@@ -3487,25 +3487,25 @@ typing.Callable
     Deprecated since version 3.9: [`collections.abc.Generator`](collections.abc.md#collections.abc.Generator "collections.abc.Generator") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Hashable
+`class typing.Hashable`
 :   Deprecated alias to [`collections.abc.Hashable`](collections.abc.md#collections.abc.Hashable "collections.abc.Hashable").
 
     Deprecated since version 3.12: Use [`collections.abc.Hashable`](collections.abc.md#collections.abc.Hashable "collections.abc.Hashable") directly instead.
 
-*class* typing.Reversible(*Iterable[T_co]*)
+`class typing.Reversible(Iterable[T_co])`
 :   Deprecated alias to [`collections.abc.Reversible`](collections.abc.md#collections.abc.Reversible "collections.abc.Reversible").
 
     Deprecated since version 3.9: [`collections.abc.Reversible`](collections.abc.md#collections.abc.Reversible "collections.abc.Reversible") now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.Sized
+`class typing.Sized`
 :   Deprecated alias to [`collections.abc.Sized`](collections.abc.md#collections.abc.Sized "collections.abc.Sized").
 
     Deprecated since version 3.12: Use [`collections.abc.Sized`](collections.abc.md#collections.abc.Sized "collections.abc.Sized") directly instead.
 
 #### Aliases to [`contextlib`](contextlib.md#module-contextlib "contextlib: Utilities for with-statement contexts.") ABCs
 
-*class* typing.ContextManager(*Generic[T_co]*)
+`class typing.ContextManager(Generic[T_co])`
 :   Deprecated alias to [`contextlib.AbstractContextManager`](contextlib.md#contextlib.AbstractContextManager "contextlib.AbstractContextManager").
 
     Added in version 3.5.4.
@@ -3514,7 +3514,7 @@ typing.Callable
     now supports subscripting (`[]`).
     See [**PEP 585**](https://peps.python.org/pep-0585/) and [Generic Alias Type](stdtypes.md#types-genericalias).
 
-*class* typing.AsyncContextManager(*Generic[T_co]*)
+`class typing.AsyncContextManager(Generic[T_co])`
 :   Deprecated alias to [`contextlib.AbstractAsyncContextManager`](contextlib.md#contextlib.AbstractAsyncContextManager "contextlib.AbstractAsyncContextManager").
 
     Added in version 3.6.2.
