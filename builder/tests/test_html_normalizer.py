@@ -40,6 +40,22 @@ def manifest(collection: str) -> Manifest:
     )
 
 
+# Sphinx 4 之後的簽章片段是 span，不是 code；3.12 文件屬於這一種。
+MODERN_SIGNATURE_PAGE = """
+<html><body><div class="body" role="main">
+<h1>os — Miscellaneous operating system interfaces</h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="os.getcwd">
+<span class="sig-prename descclassname"><span class="pre">os.</span></span><span
+class="sig-name descname"><span class="pre">getcwd</span></span><span
+class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink"
+href="#os.getcwd" title="Link to this definition">&#182;</a></dt>
+<dd><p>Return a string representing the current working directory.</p></dd>
+</dl>
+</div></body></html>
+"""
+
+
 class SphinxSignatureTests(unittest.TestCase):
     def test_python_signature_becomes_one_inline_code_span(self):
         _, markdown = to_markdown(
@@ -62,6 +78,14 @@ class SphinxSignatureTests(unittest.TestCase):
         )
         self.assertIn("# `os` — Miscellaneous operating system interfaces", markdown)
         self.assertIn("## See also [`shutil`](shutil.md#module-shutil)", markdown)
+
+    def test_span_based_signature_is_merged_like_the_code_based_one(self):
+        _, markdown = to_markdown(
+            MODERN_SIGNATURE_PAGE,
+            "https://docs.python.org/3.12/library/os.html",
+            manifest("python"),
+        )
+        self.assertIn("`os.getcwd()`", markdown)
 
     def test_page_title_and_body_survive_the_merge(self):
         title, markdown = to_markdown(

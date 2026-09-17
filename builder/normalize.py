@@ -78,10 +78,15 @@ def merge_sphinx_signatures(main) -> None:
     的字串：完整名稱在 corpus 內既 grep 不到、也不是 FTS 的單一片語。這裡以
     Sphinx 自己渲染出來的文字重建整段簽章，不新增上游沒有的字。
 
+    舊版 Sphinx（3.10 文件）把這些片段渲染成 ``code``，較新版本（3.12 文件）
+    改成 ``span``；兩種標記都要認得，同一個 collection 的不同版本才會有一致的
+    簽章格式。
+
     只處理 descriptor 標題本身（``dt``），說明內文（``dd``）不動。
     """
+    signature_part = "code.descname, code.sig-name, span.descname, span.sig-name"
     for dt in main.select("dt"):
-        if not dt.select_one("code.descname, code.sig-name"):
+        if not dt.select_one(signature_part):
             continue
         text = " ".join(dt.get_text().split())
         if not text:

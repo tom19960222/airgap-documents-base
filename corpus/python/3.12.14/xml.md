@@ -1,0 +1,125 @@
+---
+collection: python
+version: "3.12.14"
+title: "XML Processing Modules"
+source_url: https://docs.python.org/3.12/library/xml.html
+fetched_at: 2026-09-17T15:33:51+00:00
+---
+# XML Processing Modules
+
+**Source code:** [Lib/xml/](https://github.com/python/cpython/tree/3.12/Lib/xml/)
+
+---
+
+Python’s interfaces for processing XML are grouped in the `xml` package.
+
+> **Warning:**
+>
+> The XML modules are not secure against erroneous or maliciously
+> constructed data. If you need to parse untrusted or
+> unauthenticated data see the [XML vulnerabilities](xml.md#xml-vulnerabilities) and
+> [The defusedxml Package](xml.md#defusedxml-package) sections.
+
+It is important to note that modules in the [`xml`](xml.md#module-xml "xml: Package containing XML processing modules") package require that
+there be at least one SAX-compliant XML parser available. The Expat parser is
+included with Python, so the [`xml.parsers.expat`](pyexpat.md#module-xml.parsers.expat "xml.parsers.expat: An interface to the Expat non-validating XML parser.") module will always be
+available.
+
+The documentation for the [`xml.dom`](xml.dom.md#module-xml.dom "xml.dom: Document Object Model API for Python.") and [`xml.sax`](xml.sax.md#module-xml.sax "xml.sax: Package containing SAX2 base classes and convenience functions.") packages are the
+definition of the Python bindings for the DOM and SAX interfaces.
+
+The XML handling submodules are:
+
+- [`xml.etree.ElementTree`](xml.etree.elementtree.md#module-xml.etree.ElementTree "xml.etree.ElementTree: Implementation of the ElementTree API."): the ElementTree API, a simple and lightweight
+  XML processor
+
+- [`xml.dom`](xml.dom.md#module-xml.dom "xml.dom: Document Object Model API for Python."): the DOM API definition
+- [`xml.dom.minidom`](xml.dom.minidom.md#module-xml.dom.minidom "xml.dom.minidom: Minimal Document Object Model (DOM) implementation."): a minimal DOM implementation
+- [`xml.dom.pulldom`](xml.dom.pulldom.md#module-xml.dom.pulldom "xml.dom.pulldom: Support for building partial DOM trees from SAX events."): support for building partial DOM trees
+
+- [`xml.sax`](xml.sax.md#module-xml.sax "xml.sax: Package containing SAX2 base classes and convenience functions."): SAX2 base classes and convenience functions
+- [`xml.parsers.expat`](pyexpat.md#module-xml.parsers.expat "xml.parsers.expat: An interface to the Expat non-validating XML parser."): the Expat parser binding
+
+## XML vulnerabilities
+
+The XML processing modules are not secure against maliciously constructed data.
+An attacker can abuse XML features to carry out denial of service attacks,
+access local files, generate network connections to other machines, or
+circumvent firewalls.
+
+The following table gives an overview of the known attacks and whether
+the various modules are vulnerable to them.
+
+| kind | sax | etree | minidom | pulldom | xmlrpc |
+| --- | --- | --- | --- | --- | --- |
+| billion laughs | **Vulnerable** (1) | **Vulnerable** (1) | **Vulnerable** (1) | **Vulnerable** (1) | **Vulnerable** (1) |
+| quadratic blowup | **Vulnerable** (1) | **Vulnerable** (1) | **Vulnerable** (1) | **Vulnerable** (1) | **Vulnerable** (1) |
+| external entity expansion | Safe (5) | Safe (2) | Safe (3) | Safe (5) | Safe (4) |
+| [DTD](https://en.wikipedia.org/wiki/Document_type_definition) retrieval | Safe (5) | Safe | Safe | Safe (5) | Safe |
+| decompression bomb | Safe | Safe | Safe | Safe | **Vulnerable** |
+| large tokens | **Vulnerable** (6) | **Vulnerable** (6) | **Vulnerable** (6) | **Vulnerable** (6) | **Vulnerable** (6) |
+
+1. Expat 2.4.1 and newer is not vulnerable to the “billion laughs” and
+   “quadratic blowup” vulnerabilities. Items still listed as vulnerable due to
+   potential reliance on system-provided libraries. Check
+   `pyexpat.EXPAT_VERSION`.
+2. [`xml.etree.ElementTree`](xml.etree.elementtree.md#module-xml.etree.ElementTree "xml.etree.ElementTree: Implementation of the ElementTree API.") doesn’t expand external entities and raises a
+   [`ParseError`](xml.etree.elementtree.md#xml.etree.ElementTree.ParseError "xml.etree.ElementTree.ParseError") when an entity occurs.
+3. [`xml.dom.minidom`](xml.dom.minidom.md#module-xml.dom.minidom "xml.dom.minidom: Minimal Document Object Model (DOM) implementation.") doesn’t expand external entities and simply returns
+   the unexpanded entity verbatim.
+4. [`xmlrpc.client`](xmlrpc.client.md#module-xmlrpc.client "xmlrpc.client: XML-RPC client access.") doesn’t expand external entities and omits them.
+5. Since Python 3.7.1, external general entities are no longer processed by
+   default.
+6. Expat 2.6.0 and newer is not vulnerable to denial of service
+   through quadratic runtime caused by parsing large tokens.
+   Items still listed as vulnerable due to
+   potential reliance on system-provided libraries. Check
+   `pyexpat.EXPAT_VERSION`.
+
+billion laughs / exponential entity expansion
+:   The [Billion Laughs](https://en.wikipedia.org/wiki/Billion_laughs) attack – also known as exponential entity expansion –
+    uses multiple levels of nested entities. Each entity refers to another entity
+    several times, and the final entity definition contains a small string.
+    The exponential expansion results in several gigabytes of text and
+    consumes lots of memory and CPU time.
+
+quadratic blowup entity expansion
+:   A quadratic blowup attack is similar to a [Billion Laughs](https://en.wikipedia.org/wiki/Billion_laughs) attack; it abuses
+    entity expansion, too. Instead of nested entities it repeats one large entity
+    with a couple of thousand chars over and over again. The attack isn’t as
+    efficient as the exponential case but it avoids triggering parser countermeasures
+    that forbid deeply nested entities.
+
+external entity expansion
+:   Entity declarations can contain more than just text for replacement. They can
+    also point to external resources or local files. The XML
+    parser accesses the resource and embeds the content into the XML document.
+
+[DTD](https://en.wikipedia.org/wiki/Document_type_definition) retrieval
+:   Some XML libraries like Python’s [`xml.dom.pulldom`](xml.dom.pulldom.md#module-xml.dom.pulldom "xml.dom.pulldom: Support for building partial DOM trees from SAX events.") retrieve document type
+    definitions from remote or local locations. The feature has similar
+    implications as the external entity expansion issue.
+
+decompression bomb
+:   Decompression bombs (aka [ZIP bomb](https://en.wikipedia.org/wiki/Zip_bomb)) apply to all XML libraries
+    that can parse compressed XML streams such as gzipped HTTP streams or
+    LZMA-compressed
+    files. For an attacker it can reduce the amount of transmitted data by three
+    magnitudes or more.
+
+large tokens
+:   Expat needs to re-parse unfinished tokens; without the protection
+    introduced in Expat 2.6.0, this can lead to quadratic runtime that can
+    be used to cause denial of service in the application parsing XML.
+    The issue is known as [**CVE 2023-52425**](https://www.cve.org/CVERecord?id=CVE-2023-52425).
+
+The documentation for [defusedxml](https://pypi.org/project/defusedxml/) on PyPI has further information about
+all known attack vectors with examples and references.
+
+## The `defusedxml` Package
+
+[defusedxml](https://pypi.org/project/defusedxml/) is a pure Python package with modified subclasses of all stdlib
+XML parsers that prevent any potentially malicious operation. Use of this
+package is recommended for any server code that parses untrusted XML data. The
+package also ships with example exploits and extended documentation on more
+XML exploits such as XPath injection.

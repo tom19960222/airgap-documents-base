@@ -1,0 +1,147 @@
+---
+collection: python
+version: "3.12.14"
+title: "Graphical User Interfaces with Tk"
+source_url: https://docs.python.org/3.12/library/tk.html
+fetched_at: 2026-09-17T15:34:24+00:00
+---
+# Graphical User Interfaces with Tk
+
+Tk/Tcl has long been an integral part of Python. It provides a robust and
+platform independent windowing toolkit, that is available to Python programmers
+using the [`tkinter`](tkinter.md#module-tkinter "tkinter: Interface to Tcl/Tk for graphical user interfaces") package, and its extension, the [`tkinter.tix`](tkinter.tix.md#module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter") and
+the [`tkinter.ttk`](tkinter.ttk.md#module-tkinter.ttk "tkinter.ttk: Tk themed widget set") modules.
+
+The [`tkinter`](tkinter.md#module-tkinter "tkinter: Interface to Tcl/Tk for graphical user interfaces") package is a thin object-oriented layer on top of Tcl/Tk. To
+use [`tkinter`](tkinter.md#module-tkinter "tkinter: Interface to Tcl/Tk for graphical user interfaces"), you don’t need to write Tcl code, but you will need to
+consult the Tk documentation, and occasionally the Tcl documentation.
+[`tkinter`](tkinter.md#module-tkinter "tkinter: Interface to Tcl/Tk for graphical user interfaces") is a set of wrappers that implement the Tk widgets as Python
+classes.
+
+[`tkinter`](tkinter.md#module-tkinter "tkinter: Interface to Tcl/Tk for graphical user interfaces")’s chief virtues are that it is fast, and that it usually comes
+bundled with Python. Although its standard documentation is weak, good
+material is available, which includes: references, tutorials, a book and
+others. [`tkinter`](tkinter.md#module-tkinter "tkinter: Interface to Tcl/Tk for graphical user interfaces") is also famous for having an outdated look and feel,
+which has been vastly improved in Tk 8.5. Nevertheless, there are many other
+GUI libraries that you could be interested in. The Python wiki lists several
+alternative [GUI frameworks and tools](https://wiki.python.org/moin/GuiProgramming).
+
+- [`tkinter` — Python interface to Tcl/Tk](tkinter.md)
+  - [Architecture](tkinter.md#architecture)
+  - [Tkinter Modules](tkinter.md#tkinter-modules)
+  - [Tkinter Life Preserver](tkinter.md#tkinter-life-preserver)
+    - [A Hello World Program](tkinter.md#a-hello-world-program)
+    - [Important Tk Concepts](tkinter.md#important-tk-concepts)
+    - [Understanding How Tkinter Wraps Tcl/Tk](tkinter.md#understanding-how-tkinter-wraps-tcl-tk)
+    - [How do I…? What option does…?](tkinter.md#how-do-i-what-option-does)
+    - [Navigating the Tcl/Tk Reference Manual](tkinter.md#navigating-the-tcl-tk-reference-manual)
+  - [Threading model](tkinter.md#threading-model)
+  - [Handy Reference](tkinter.md#handy-reference)
+    - [Setting Options](tkinter.md#setting-options)
+    - [The Packer](tkinter.md#the-packer)
+    - [Packer Options](tkinter.md#packer-options)
+    - [Coupling Widget Variables](tkinter.md#coupling-widget-variables)
+    - [The Window Manager](tkinter.md#the-window-manager)
+    - [Tk Option Data Types](tkinter.md#tk-option-data-types)
+    - [Bindings and Events](tkinter.md#bindings-and-events)
+    - [The index Parameter](tkinter.md#the-index-parameter)
+    - [Images](tkinter.md#images)
+  - [File Handlers](tkinter.md#file-handlers)
+- [`tkinter.colorchooser` — Color choosing dialog](tkinter.colorchooser.md)
+- [`tkinter.font` — Tkinter font wrapper](tkinter.font.md)
+- [Tkinter Dialogs](dialog.md)
+  - [`tkinter.simpledialog` — Standard Tkinter input dialogs](dialog.md#module-tkinter.simpledialog)
+  - [`tkinter.filedialog` — File selection dialogs](dialog.md#module-tkinter.filedialog)
+    - [Native Load/Save Dialogs](dialog.md#native-load-save-dialogs)
+  - [`tkinter.commondialog` — Dialog window templates](dialog.md#module-tkinter.commondialog)
+- [`tkinter.messagebox` — Tkinter message prompts](tkinter.messagebox.md)
+- [`tkinter.scrolledtext` — Scrolled Text Widget](tkinter.scrolledtext.md)
+- [`tkinter.dnd` — Drag and drop support](tkinter.dnd.md)
+- [`tkinter.ttk` — Tk themed widgets](tkinter.ttk.md)
+  - [Using Ttk](tkinter.ttk.md#using-ttk)
+  - [Ttk Widgets](tkinter.ttk.md#ttk-widgets)
+  - [Widget](tkinter.ttk.md#widget)
+    - [Standard Options](tkinter.ttk.md#standard-options)
+    - [Scrollable Widget Options](tkinter.ttk.md#scrollable-widget-options)
+    - [Label Options](tkinter.ttk.md#label-options)
+    - [Compatibility Options](tkinter.ttk.md#compatibility-options)
+    - [Widget States](tkinter.ttk.md#widget-states)
+    - [ttk.Widget](tkinter.ttk.md#ttk-widget)
+  - [Combobox](tkinter.ttk.md#combobox)
+    - [Options](tkinter.ttk.md#options)
+    - [Virtual events](tkinter.ttk.md#virtual-events)
+    - [ttk.Combobox](tkinter.ttk.md#ttk-combobox)
+  - [Spinbox](tkinter.ttk.md#spinbox)
+    - [Options](tkinter.ttk.md#id1)
+    - [Virtual events](tkinter.ttk.md#id2)
+    - [ttk.Spinbox](tkinter.ttk.md#ttk-spinbox)
+  - [Notebook](tkinter.ttk.md#notebook)
+    - [Options](tkinter.ttk.md#id3)
+    - [Tab Options](tkinter.ttk.md#tab-options)
+    - [Tab Identifiers](tkinter.ttk.md#tab-identifiers)
+    - [Virtual Events](tkinter.ttk.md#id4)
+    - [ttk.Notebook](tkinter.ttk.md#ttk-notebook)
+  - [Progressbar](tkinter.ttk.md#progressbar)
+    - [Options](tkinter.ttk.md#id5)
+    - [ttk.Progressbar](tkinter.ttk.md#ttk-progressbar)
+  - [Separator](tkinter.ttk.md#separator)
+    - [Options](tkinter.ttk.md#id6)
+  - [Sizegrip](tkinter.ttk.md#sizegrip)
+    - [Platform-specific notes](tkinter.ttk.md#platform-specific-notes)
+    - [Bugs](tkinter.ttk.md#bugs)
+  - [Treeview](tkinter.ttk.md#treeview)
+    - [Options](tkinter.ttk.md#id7)
+    - [Item Options](tkinter.ttk.md#item-options)
+    - [Tag Options](tkinter.ttk.md#tag-options)
+    - [Column Identifiers](tkinter.ttk.md#column-identifiers)
+    - [Virtual Events](tkinter.ttk.md#id8)
+    - [ttk.Treeview](tkinter.ttk.md#ttk-treeview)
+  - [Ttk Styling](tkinter.ttk.md#ttk-styling)
+    - [Layouts](tkinter.ttk.md#layouts)
+- [`tkinter.tix` — Extension widgets for Tk](tkinter.tix.md)
+  - [Using Tix](tkinter.tix.md#using-tix)
+  - [Tix Widgets](tkinter.tix.md#tix-widgets)
+    - [Basic Widgets](tkinter.tix.md#basic-widgets)
+    - [File Selectors](tkinter.tix.md#file-selectors)
+    - [Hierarchical ListBox](tkinter.tix.md#hierarchical-listbox)
+    - [Tabular ListBox](tkinter.tix.md#tabular-listbox)
+    - [Manager Widgets](tkinter.tix.md#manager-widgets)
+    - [Image Types](tkinter.tix.md#image-types)
+    - [Miscellaneous Widgets](tkinter.tix.md#miscellaneous-widgets)
+    - [Form Geometry Manager](tkinter.tix.md#form-geometry-manager)
+  - [Tix Commands](tkinter.tix.md#tix-commands)
+- [IDLE — Python editor and shell](idle.md)
+  - [Menus](idle.md#menus)
+    - [File menu (Shell and Editor)](idle.md#file-menu-shell-and-editor)
+    - [Edit menu (Shell and Editor)](idle.md#edit-menu-shell-and-editor)
+    - [Format menu (Editor window only)](idle.md#format-menu-editor-window-only)
+    - [Run menu (Editor window only)](idle.md#run-menu-editor-window-only)
+    - [Shell menu (Shell window only)](idle.md#shell-menu-shell-window-only)
+    - [Debug menu (Shell window only)](idle.md#debug-menu-shell-window-only)
+    - [Options menu (Shell and Editor)](idle.md#options-menu-shell-and-editor)
+    - [Window menu (Shell and Editor)](idle.md#window-menu-shell-and-editor)
+    - [Help menu (Shell and Editor)](idle.md#help-menu-shell-and-editor)
+    - [Context menus](idle.md#context-menus)
+  - [Editing and Navigation](idle.md#editing-and-navigation)
+    - [Editor windows](idle.md#editor-windows)
+    - [Key bindings](idle.md#key-bindings)
+    - [Automatic indentation](idle.md#automatic-indentation)
+    - [Search and Replace](idle.md#search-and-replace)
+    - [Completions](idle.md#completions)
+    - [Calltips](idle.md#calltips)
+    - [Code Context](idle.md#code-context)
+    - [Shell window](idle.md#shell-window)
+    - [Text colors](idle.md#text-colors)
+  - [Startup and Code Execution](idle.md#startup-and-code-execution)
+    - [Command line usage](idle.md#command-line-usage)
+    - [Startup failure](idle.md#startup-failure)
+    - [Running user code](idle.md#running-user-code)
+    - [User output in Shell](idle.md#user-output-in-shell)
+    - [Developing tkinter applications](idle.md#developing-tkinter-applications)
+    - [Running without a subprocess](idle.md#running-without-a-subprocess)
+  - [Help and Preferences](idle.md#help-and-preferences)
+    - [Help sources](idle.md#help-sources)
+    - [Setting preferences](idle.md#setting-preferences)
+    - [IDLE on macOS](idle.md#idle-on-macos)
+    - [Extensions](idle.md#extensions)
+  - [idlelib — implementation of IDLE application](idle.md#module-idlelib)
