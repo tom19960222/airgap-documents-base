@@ -26,6 +26,14 @@ class Manifest:
     base_url: str = ""
     content_selector: str = ""
     deny_prefixes: list[str] = field(default_factory=list)
+    # Optional allowlist of in-scope path prefixes below ``base_url``.  An empty
+    # list keeps the historical behavior (everything below ``base_url`` except
+    # ``deny_prefixes``).  A non-empty list is fail-closed: only the listed
+    # prefixes are crawled, which is how a documentation site that mixes several
+    # sections under one version root can contribute just the sections a corpus
+    # is meant to document.  The base page itself stays in scope so the crawl
+    # has a seed.
+    allow_prefixes: list[str] = field(default_factory=list)
     max_pages: int = 5000
     delay_seconds: float = 0.5
     source_type: str = "html"
@@ -91,6 +99,9 @@ def in_scope(url: str, manifest: Manifest) -> bool:
     rel = url[len(manifest.base_url):]
     if any(rel.startswith(p) for p in manifest.deny_prefixes):
         return False
+    if manifest.allow_prefixes and rel not in ("", "index.html"):
+        if not any(rel.startswith(p) for p in manifest.allow_prefixes):
+            return False
     suffix = Path(urlparse(url).path).suffix.lower()
     if suffix and suffix not in {".html", ".htm"}:
         if suffix in NON_HTML_SUFFIXES:

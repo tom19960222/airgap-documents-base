@@ -15,7 +15,7 @@ import re
 from pathlib import PurePosixPath
 from urllib.parse import urldefrag, urljoin
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from markdownify import MarkdownConverter
 
 from common import Manifest, canonicalize, in_scope, load_manifest, url_key, url_to_relpath
@@ -68,6 +68,44 @@ def transform_admonitions(main) -> None:
             title.string = f"{label}:"
             title.name = "strong"
         box.name = "blockquote"
+
+
+def merge_sphinx_signatures(main) -> None:
+    """把 Sphinx 的 object 簽章併成單一 inline code。
+
+    docs.python.org 的簽章由多個相鄰節點組成（``sig-prename``、``sig-name``、
+    ``sig-paren``、``sig-param``…）。逐節點轉換會得到 `os.``getcwd`() 這種被切斷
+    的字串：完整名稱在 corpus 內既 grep 不到、也不是 FTS 的單一片語。這裡以
+    Sphinx 自己渲染出來的文字重建整段簽章，不新增上游沒有的字。
+
+    只處理 descriptor 標題本身（``dt``），說明內文（``dd``）不動。
+    """
+    for dt in main.select("dt"):
+        if not dt.select_one("code.descname, code.sig-name"):
+            continue
+        text = " ".join(dt.get_text().split())
+        if not text:
+            continue
+        dt.clear()
+        code = Tag(name="code")
+        code.string = text
+        dt.append(code)
+
+
+def unwrap_self_links_in_headings(main, page_url: str) -> None:
+    """拿掉標題中指向本頁自己的連結，只留文字。
+
+    docs.python.org 幾乎每頁的 h1 都是 ``os`` 這種指向同一頁 module 錨點的
+    self-link。轉成 Markdown 後標題會變成
+    ``# [`os`](os.md#module-os "os: ...") — ...``，讓 runtime 切段後的
+    section path 夾帶整段連結語法。這裡只拆掉 target 就是本頁的連結；指向
+    其他頁的標題連結保持原樣。
+    """
+    page = canonicalize(page_url, page_url)
+    for heading in main.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+        for anchor in heading.find_all("a", href=True):
+            if canonicalize(anchor["href"], page_url) == page:
+                anchor.unwrap()
 
 
 def clean(main, collection: str = "") -> None:
@@ -139,6 +177,9 @@ def to_markdown(html: str, page_url: str, manifest: Manifest) -> tuple[str, str]
         return None
     page_relpath = PurePosixPath(url_to_relpath(page_url, manifest).as_posix())
     clean(main, manifest.collection)
+    if manifest.collection == "python":
+        merge_sphinx_signatures(main)
+        unwrap_self_links_in_headings(main, page_url)
     transform_admonitions(main)
     rewrite_links(main, page_url, page_relpath, manifest)
     title = page_title(main, soup)

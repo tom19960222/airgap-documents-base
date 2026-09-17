@@ -13,6 +13,11 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python normalize.py manifests/ceph-19.toml   # raw → corpus/（離線可重跑）
 ```
 
+manifest 的 `base_url` 決定爬取範圍。同一個版本根路徑底下混了多個章節、但只有其中
+幾節屬於這份語料時（例如 docs.python.org 的 `library/` 與 `distutils/`），用
+`allow_prefixes` 明確列出要收的 prefix；留空維持原本「`base_url` 底下除
+`deny_prefixes` 以外全收」的行為。
+
 ### Git 來源（GitHub repo 內的 Markdown 文件）
 
 ```bash
