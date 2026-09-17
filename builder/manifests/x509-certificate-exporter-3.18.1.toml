@@ -1,0 +1,9 @@
+name = "x509-certificate-exporter-3.18.1"
+collection = "x509-certificate-exporter"
+version = "3.18.1"
+source_type = "git"
+repo_url = "https://github.com/enix/x509-certificate-exporter"
+git_ref = "e2f8c4121eaa35800a0c3e96b86b404ebcc1eb96"
+docs_paths = ["deploy/charts/x509-certificate-exporter/README.md"]
+sparse_paths = ["deploy/charts/x509-certificate-exporter/README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

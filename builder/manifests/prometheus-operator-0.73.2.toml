@@ -1,0 +1,10 @@
+name = "prometheus-operator-0.73.2"
+collection = "prometheus-operator"
+version = "0.73.2"
+source_type = "git"
+repo_url = "https://github.com/prometheus-operator/prometheus-operator"
+git_ref = "20beb0b00b0bb61840ec2461ace4f22e4037b474"
+docs_paths = ["Documentation", "README.md"]
+sparse_paths = ["Documentation", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"
+shortcode_profile = "prometheus-operator"

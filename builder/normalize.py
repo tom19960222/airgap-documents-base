@@ -144,7 +144,12 @@ def to_markdown(html: str, page_url: str, manifest: Manifest) -> tuple[str, str]
     title = page_title(main, soup)
     converter = SphinxConverter(heading_style="ATX", bullets="-", escape_underscores=False)
     markdown = converter.convert_soup(main)
-    markdown = re.sub(r"\n{3,}", "\n\n", markdown).strip() + "\n"
+    # Collapse converter-generated blank runs without stripping line-ending
+    # spaces.  Markdownify uses two spaces before a newline for ``<br>``;
+    # treating those spaces as generic trailing whitespace changes a hard
+    # break into a paragraph join.  Only newlines at the document boundary
+    # are layout noise, so preserve all other source whitespace byte-for-byte.
+    markdown = re.sub(r"\n{3,}", "\n\n", markdown).strip("\n") + "\n"
     return title, markdown
 
 

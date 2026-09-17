@@ -23,6 +23,8 @@ from git_source import (  # noqa: E402
     ASSET_SUFFIXES,
     _discover_source_files,
     _grid_border_positions,
+    _istio_site_config,
+    _istio_normalize_route,
     _simple_border_spans,
     _source_url,
 )
@@ -37,9 +39,17 @@ RST_IMAGE_INCLUDE_PATTERN = re.compile(r"^\s*\.\.\s+(?:image|figure|include)::",
 DIRECTIVE_PATTERN = re.compile(r"^(?P<indent> *)\.\.\s+(?P<name>[A-Za-z0-9_.-]+)::")
 GFM_SEPARATOR_PATTERN = re.compile(r"^\s*\|(?:\s*:?-{3,}:?\s*\|)+\s*$")
 MARKDOWN_LINK_OPEN_PATTERN = re.compile(r"!?\[[^\]\n]*\]\(")
+BARE_URL_PATTERN = re.compile(r"(?<![A-Za-z0-9_@])https?://[^\s<>\"]+", re.IGNORECASE)
 UNRESOLVED_PATTERN = re.compile(
     r"<!--\s*unresolved-rst-link:\s*kind=(?P<kind>\S+)\s+target=(?P<target>.*?)\s*-->"
 )
+UNRESOLVED_SOURCE_PATTERN = re.compile(
+    r"<!--\s*unresolved-source-link:\s*target=(?P<target>.*?)\s*-->"
+)
+UNRESOLVED_SITE_PATTERN = re.compile(
+    r"<!--\s*unresolved-site-link:\s*route=(?P<route>.*?)\s*-->"
+)
+FENCE_LINE_PATTERN = re.compile(r"^\s*(?:>\s*)*(?P<fence>`{3,}|~{3,})")
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
@@ -171,17 +181,72 @@ def _is_external(target: str) -> bool:
     )
 
 
+def _is_manifest_site_target(path_part: str, manifest: Manifest) -> bool:
+    """Identify site-root or same-origin links for an opted-in manifest."""
+
+    site_config = _istio_site_config(manifest)
+    if site_config is None:
+        return False
+    site_root, _ = site_config
+    root = urlsplit(site_root)
+    if path_part.startswith("/") and not path_part.startswith("//"):
+        return True
+    try:
+        parsed = urlsplit(path_part)
+    except ValueError:
+        return False
+    return (
+        parsed.scheme.lower() in {"http", "https"}
+        and parsed.netloc.lower() == root.netloc.lower()
+    )
+
+
+def _manifest_site_route(path_part: str, manifest: Manifest) -> str | None:
+    """Return the marker route represented by one rendered Istio site URL."""
+
+    site_config = _istio_site_config(manifest)
+    if site_config is None:
+        return None
+    site_root, _ = site_config
+    root = urlsplit(site_root)
+    target = path_part.strip()
+    if target.startswith("<") and target.endswith(">"):
+        target = target[1:-1].strip()
+    try:
+        parsed = urlsplit(target)
+    except ValueError:
+        return None
+    if target.startswith("/") and not target.startswith("//"):
+        path = parsed.path
+    elif (
+        parsed.scheme.lower() in {"http", "https"}
+        and parsed.netloc.lower() == root.netloc.lower()
+    ):
+        path = parsed.path or "/"
+        base_path = root.path.rstrip("/")
+        if base_path and (path == base_path or path.startswith(f"{base_path}/")):
+            path = path[len(base_path) :] or "/"
+    else:
+        return None
+    return _istio_normalize_route(path)
+
+
 def _iter_body_lines(body: str):
     """Yield ``(line_number, line, context)`` for rendered Markdown lines."""
 
-    in_fence = False
+    fence: tuple[str, int] | None = None
     directive: tuple[str, int] | None = None
     for line_number, line in enumerate(body.splitlines(), 1):
-        if line.startswith("```"):
-            in_fence = not in_fence
+        fence_match = FENCE_LINE_PATTERN.match(line)
+        if fence_match is not None:
+            marker = fence_match.group("fence")
+            if fence is None:
+                fence = (marker[0], len(marker))
+            elif marker[0] == fence[0] and len(marker) >= fence[1]:
+                fence = None
             yield line_number, line, "fenced-code"
             continue
-        if in_fence:
+        if fence is not None:
             yield line_number, line, "fenced-code"
             continue
         if directive is not None:
@@ -209,11 +274,21 @@ def _page_link_failures(
     unresolved: list[str] = []
     pinned_assets = 0
     normal_lines = [line for _, line, context in _iter_body_lines(body) if context == "normal"]
+    normal_body = "\n".join(normal_lines)
+    site_targets: Counter[str] = Counter()
+    site_markers = Counter(
+        match.group("route") for match in UNRESOLVED_SITE_PATTERN.finditer(normal_body)
+    )
 
     repository = urlsplit(manifest.repo_url.rstrip("/"))
     blob_prefix = repository.path.rstrip("/") + "/blob/"
-    for raw_target in extract_markdown_targets("\n".join(normal_lines)):
+    for raw_target in extract_markdown_targets(normal_body):
         path_part, _ = _split_target(raw_target)
+        if _is_manifest_site_target(path_part, manifest):
+            route = _manifest_site_route(path_part, manifest)
+            if route is not None:
+                site_targets[route] += 1
+            continue
         if not path_part or path_part.startswith("/") or _is_external(path_part):
             parsed = urlsplit(path_part)
             if parsed.scheme == repository.scheme and parsed.netloc == repository.netloc:
@@ -238,6 +313,25 @@ def _page_link_failures(
             unresolved.append(f"{page_path}: relative link is not a corpus Markdown page: {raw_target}")
         elif not target_path.is_file():
             unresolved.append(f"{page_path}: missing local link target: {raw_target}")
+
+    # A site URL can also occur as ordinary prose (or an autolink) rather than
+    # a Markdown destination.  Keep the same manifest-gated classification so
+    # those links cannot bypass validation merely by changing syntax.
+    bare_body = re.sub(r"`+[^`\n]*`+", "", normal_body)
+    for match in BARE_URL_PATTERN.finditer(bare_body):
+        target = match.group(0)
+        if match.start() >= 2 and bare_body[match.start() - 2 : match.start()] == "](":
+            continue
+        if _is_manifest_site_target(target, manifest):
+            route = _manifest_site_route(target, manifest)
+            if route is not None:
+                site_targets[route] += 1
+    for route, count in site_targets.items():
+        missing = count - site_markers[route]
+        if missing > 0:
+            failures.append(
+                f"{page_path}: {missing} unclassified site link(s) for route: {route}"
+            )
     return failures, pinned_assets, unresolved
 
 
@@ -276,6 +370,7 @@ def validate_corpus(
     directive_tables: Counter[str] = Counter()
     gfm_tables = 0
     unresolved_refs: Counter[str] = Counter()
+    unresolved_link_markers: Counter[str] = Counter()
     pinned_assets = 0
     page_meta: dict[Path, dict[str, str]] = {}
 
@@ -313,13 +408,26 @@ def validate_corpus(
         text = page_path.read_text(encoding="utf-8", errors="replace")
         metadata, body = parse_frontmatter(text)
         page_meta[relative_page] = metadata
-        for key in ("collection", "version", "title", "source_url", "fetched_at"):
+        required_metadata = ("collection", "version", "title", "source_url", "fetched_at")
+        if manifest.app_version:
+            required_metadata += ("app_version",)
+        if manifest.chart_version:
+            required_metadata += ("chart_version",)
+        for key in required_metadata:
             if not metadata.get(key):
                 metadata_failures.append(f"{relative_page}: missing frontmatter {key}")
         if metadata.get("collection") != manifest.collection:
             metadata_failures.append(f"{relative_page}: collection={metadata.get('collection')!r}")
         if metadata.get("version") != manifest.version:
             metadata_failures.append(f"{relative_page}: version={metadata.get('version')!r}")
+        if manifest.app_version and metadata.get("app_version") != manifest.app_version:
+            metadata_failures.append(
+                f"{relative_page}: app_version={metadata.get('app_version')!r}"
+            )
+        if manifest.chart_version and metadata.get("chart_version") != manifest.chart_version:
+            metadata_failures.append(
+                f"{relative_page}: chart_version={metadata.get('chart_version')!r}"
+            )
 
         table_report = _table_report(relative_page, body)
         residual_tables.extend(table_report["residual"])  # type: ignore[arg-type]
@@ -348,6 +456,11 @@ def validate_corpus(
 
         for match in UNRESOLVED_PATTERN.finditer(body):
             unresolved_refs[match.group("kind")] += 1
+            unresolved_link_markers["rst"] += 1
+        for _ in UNRESOLVED_SOURCE_PATTERN.finditer(normal_body):
+            unresolved_link_markers["source"] += 1
+        for _ in UNRESOLVED_SITE_PATTERN.finditer(normal_body):
+            unresolved_link_markers["site"] += 1
         page_link_errors, page_pinned_assets, page_unresolved_links = _page_link_failures(
             page_path, body, corpus_dir, manifest
         )
@@ -385,6 +498,7 @@ def validate_corpus(
         "preserved_directive_table_borders": dict(sorted(directive_tables.items())),
         "pinned_asset_links": pinned_assets,
         "unresolved_refs": dict(sorted(unresolved_refs.items())),
+        "unresolved_link_markers": dict(sorted(unresolved_link_markers.items())),
         "unresolved_source_links": unresolved_source_links,
         "failures": failures,
     }
@@ -407,6 +521,7 @@ def _print_report(report: dict[str, object]) -> None:
         "links: "
         f"pinned-assets={report['pinned_asset_links']}, "
         f"unresolved-rst-classified={report['unresolved_refs']}, "
+        f"unresolved-markers={report['unresolved_link_markers']}, "
         f"unresolved-source-classified={len(report['unresolved_source_links'])}"
     )
     if report["failures"]:

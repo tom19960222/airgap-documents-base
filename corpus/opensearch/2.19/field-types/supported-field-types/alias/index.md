@@ -1,0 +1,106 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Alias"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_field-types/supported-field-types/alias.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_field-types/supported-field-types/alias.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/field-types/supported-field-types/alias/"
+canonical_url: "https://docs.opensearch.org/latest/mappings/supported-field-types/alias/"
+canonical_route: "/mappings/supported-field-types/alias/"
+redirect_from: ["/opensearch/supported-field-types/alias/","/field-types/alias/","/mappings/supported-field-types/alias/"]
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+has_children: false
+layout: "default"
+nav_order: 10
+parent: "Supported field types"
+---
+# Alias field type
+**Introduced 1.0**
+{: .label .label-purple }
+
+An alias field type creates another name for an existing field. You can use aliases in the[search](#using-aliases-in-search-api-operations) and [field capabilities](#using-aliases-in-field-capabilities-api-operations) API operations, with some [exceptions](#exceptions). To set up an [alias](#alias-field), you need to specify the [original field](#original-field) name in the `path` parameter.
+
+## Example
+
+```json
+PUT movies
+{
+  "mappings" : {
+    "properties" : {
+      "year" : {
+        "type" : "date"
+      },
+      "release_date" : {
+        "type" : "alias",
+        "path" : "year"
+      }
+    }
+  }
+}
+```
+
+## Parameters
+
+Parameter | Description
+:--- | :---
+`path` | The full path to the original field, including all parent objects. For example, parent.child.field_name. Required.
+
+## Alias field
+
+Alias fields must obey the following rules:
+
+- An alias field can only have one original field.
+- In nested objects, the alias must have the same nesting level as the original field.
+
+To change the field that the alias references, update the mappings. Note that aliases in any previously stored percolator queries will still reference the original field.
+{: .note }
+
+## Original field
+
+The original field for an alias must obey the following rules:
+- The original field must be created before the alias is created.
+- The original field cannot be an object or another alias.
+
+## Using aliases in search API operations
+
+You can use aliases in the following read operations of the search API:
+- Queries
+- Sorts
+- Aggregations
+- `stored_fields`
+- `docvalue_fields`
+- Suggestions
+- Highlights
+- Scripts that access field values
+
+## Using aliases in field capabilities API operations
+
+To use an alias in the field capabilities API, specify it in the fields parameter.
+
+```json
+GET movies/_field_caps?fields=release_date
+```
+
+## Exceptions
+
+You cannot use aliases in the following situations:
+- In write requests, such as update requests.
+- In multi-fields or as a target of `copy_to`.
+- As a _source parameter for filtering results.
+- In APIs that take field names, such as term vectors.
+- In `terms`, `more_like_this`, and `geo_shape` queries (aliases are not supported when retrieving documents).
+
+## Wildcards
+
+In search and field capabilities wildcard queries, both the original field and the alias are matched against the wildcard pattern.
+
+```json
+GET movies/_field_caps?fields=release*
+```

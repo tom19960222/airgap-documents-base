@@ -1,0 +1,82 @@
+name = "opensearch-2.19"
+collection = "opensearch"
+version = "2.19"
+source_type = "git"
+repo_url = "https://github.com/opensearch-project/documentation-website"
+# Immutable documentation-website snapshot for the 2.19 documentation line.
+git_ref = "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+shortcode_profile = "jekyll"
+# The fixed docs config currently says 2.19.6; this corpus is mapped to the
+# OpenSearch application release represented by the request.
+app_version = "2.19.3"
+mutable_refs = ["main", "master"]
+# Keep application-facing Liquid values explicit while retaining the source
+# config values in generated frontmatter for provenance.
+site_overrides = { opensearch_version = "2.19.3", opensearch_dashboards_version = "2.19.1" }
+docs_paths = [
+  "_about",
+  "_aggregations",
+  "_analyzers",
+  "_api-reference",
+  "_automating-configurations",
+  "_developer-documentation",
+  "_field-types",
+  "_getting-started",
+  "_im-plugin",
+  "_ingest-pipelines",
+  "_install-and-configure",
+  "_integrations",
+  "_ml-commons-plugin",
+  "_monitoring-your-cluster",
+  "_observing-your-data",
+  "_query-dsl",
+  "_reporting",
+  "_search-plugins",
+  "_security-analytics",
+  "_security",
+  "_tools",
+  "_troubleshoot",
+  "_tuning-your-cluster",
+  "_tutorials",
+  "_upgrade-to",
+  "_vector-search",
+]
+# Keep Jekyll inputs used by the product pages available in the raw checkout.
+sparse_paths = [
+  "_about",
+  "_aggregations",
+  "_analyzers",
+  "_api-reference",
+  "_automating-configurations",
+  "_data",
+  "_developer-documentation",
+  "_field-types",
+  "_getting-started",
+  "_im-plugin",
+  "_includes",
+  "_ingest-pipelines",
+  "_install-and-configure",
+  "_integrations",
+  "_layouts",
+  "_ml-commons-plugin",
+  "_monitoring-your-cluster",
+  "_observing-your-data",
+  "_query-dsl",
+  "_reporting",
+  "_search-plugins",
+  "_security-analytics",
+  "_security",
+  "_tools",
+  "_troubleshoot",
+  "_tuning-your-cluster",
+  "_tutorials",
+  "_upgrade-to",
+  "_vector-search",
+  "_config.yml",
+  "_plugins",
+  "Gemfile",
+  "spec-insert",
+  "assets",
+  "images",
+]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

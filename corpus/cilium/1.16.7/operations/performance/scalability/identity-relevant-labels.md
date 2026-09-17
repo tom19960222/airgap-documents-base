@@ -1,0 +1,177 @@
+---
+collection: cilium
+version: "1.16.7"
+title: "Limiting Identity-Relevant Labels"
+source_url: https://github.com/cilium/cilium/blob/2ab5f8da5915992a1e548c290105dbc08f4be52d/Documentation/operations/performance/scalability/identity-relevant-labels.rst
+fetched_at: 2025-02-13T12:04:31Z
+---
+.. only:: not (epub or latex or html)
+
+   WARNING: You are looking at unreleased Cilium documentation.
+   Please use the official rendered version released here:
+   https://docs.cilium.io
+
+<a id="identity-relevant-labels"></a>
+
+# Limiting Identity-Relevant Labels
+
+We recommend that operators with larger environments limit the set of
+identity-relevant labels to avoid frequent creation of new security identities.
+Many Kubernetes labels are not useful for policy enforcement or visibility. A
+few good examples of such labels include timestamps or hashes. These labels,
+when included in evaluation, cause Cilium to generate a unique identity for each
+pod instead of a single identity for all of the pods that comprise a service or
+application.
+
+By default, Cilium considers all labels to be relevant for identities, with the
+following exceptions:
+
+| Label | Description |
+| --- | --- |
+| --------------------------------------------------- | --------------------------------------------------------- |
+| ``any:!io.kubernetes`` | Ignore all ``io.kubernetes`` labels |
+| ``any:!kubernetes\.io`` | Ignore all other ``kubernetes.io`` labels |
+| ``any:!statefulset\.kubernetes\.io/pod-name`` | Ignore ``statefulset.kubernetes.io/pod-name`` label |
+| ``any:!apps\.kubernetes\.io/pod-index`` | Ignore ``apps.kubernetes.io/pod-index`` label |
+| ``any:!batch\.kubernetes\.io/job-completion-index`` | Ignore ``batch.kubernetes.io/job-completion-index`` label |
+| ``any:!batch\.kubernetes\.io/controller-uid`` | Ignore ``batch.kubernetes.io/controller-uid`` label |
+| ``any:!beta\.kubernetes\.io`` | Ignore all ``beta.kubernetes.io`` labels |
+| ``any:!k8s\.io`` | Ignore all ``k8s.io`` labels |
+| ``any:!pod-template-generation`` | Ignore all ``pod-template-generation`` labels |
+| ``any:!pod-template-hash`` | Ignore all ``pod-template-hash`` labels |
+| ``any:!controller-revision-hash`` | Ignore all ``controller-revision-hash`` labels |
+| ``any:!annotation.*`` | Ignore all ``annotation`` labels |
+| ``any:!controller-uid`` | Ignore all ``controller-uid`` labels |
+| ``any:!etcd_node`` | Ignore all ``etcd_node`` labels |
+
+The above label patterns are all *exclusive label patterns*, that is to say
+they define which label keys should be ignored. These are identified by the
+presence of the ``!`` character.
+
+Label configurations that do not contain the ``!`` character are *inclusive
+label patterns*. Once at least one inclusive label pattern is added, only
+labels that match the inclusive label configuration may be considered relevant
+for identities. Additionally, when at least one inclusive label pattern is
+configured, the following inclusive label patterns are automatically added to
+the configuration:
+
+| Label | Description |
+| --- | --- |
+| ------------------------------------------ | ----------------------------------------------------- |
+| ``reserved:.*`` | Include all ``reserved:`` labels |
+| ``any:io\.kubernetes\.pod\.namespace`` | Include all ``io.kubernetes.pod.namespace`` labels |
+| ``any:io\.cilium\.k8s\.namespace\.labels`` | Include all ``io.cilium.k8s.namespace.labels`` labels |
+| ``any:io\.cilium\.k8s\.policy\.cluster`` | Include all ``io.cilium.k8s.policy.cluster`` labels |
+| ``any:app\.kubernetes\.io`` | Include all ``app.kubernetes.io`` labels |
+
+## Configuring Identity-Relevant Labels
+
+To limit the labels used for evaluating Cilium identities, edit the Cilium
+ConfigMap object using ``kubectl edit cm -n kube-system cilium-config`` and
+insert a line to define the label patterns to include or exclude. Alternatively,
+this attribute can also be set via helm option ``--set labels=<values>``.
+
+```yaml
+apiVersion: v1
+data:
+...
+  kube-proxy-replacement: "true"
+  labels:  "k8s:io.kubernetes\\.pod\\.namespace k8s:k8s-app k8s:app k8s:name"
+  enable-ipv4-masquerade: "true"
+  monitor-aggregation: medium
+...
+```
+
+> **Note:** The double backslash in ``\\.`` is required to escape the slash in
+> the YAML string so that the regular expression contains ``\.``.
+
+Label patterns are regular expressions that are implicitly anchored at the
+start of the label. For example ``example\.com`` will match labels that start
+with ``example.com``, whereas ``.*example\.com`` will match labels that contain
+``example.com`` anywhere. Be sure to escape periods in domain names to avoid
+the pattern matching too broadly and therefore including or excluding too many
+labels.
+
+Upon defining a custom list of label patterns in the ConfigMap, Cilium adds the
+provided list of label patterns to the default list of label patterns. After
+saving the ConfigMap, restart the Cilium Agents to pickup the new label pattern
+setting.
+
+```shell-session
+kubectl delete pods -n kube-system -l k8s-app=cilium
+```
+
+> **Note:** Configuring Cilium with label patterns via ``labels`` Helm value does
+> **not** override the default set of label patterns. That is to say,
+> you can consider this configuration to append a list of label
+> configurations to the defaults listed above.
+>
+> If you wish to configure this setting in a declarative way including
+> the exact set of label prefixes to be considered for determining
+> workload security identities, you should instead configure the
+> ``label-prefix-file`` configuration flag.
+
+Existing identities will not change as a result of this new configuration. To
+apply the new label pattern setting to existing identities, restart the
+corresponding Cilium pod on the node where the workload is running. Upon
+restart, new identities will be created. The old identities will be garbage
+collected by the Cilium Operator once they are no longer used by any Cilium
+endpoints.
+
+When specifying multiple label patterns to evaluate, provide the list of labels
+as a space-separated string.
+
+## Including Labels
+
+Labels can be defined as a list of labels to include. Only the labels specified
+and the default inclusive labels will be used to evaluate Cilium identities:
+
+```yaml
+labels: "k8s:io.kubernetes\\.pod\\.namespace k8s:k8s-app k8s:app k8s:name"
+```
+
+The above configuration would only include the following label keys when
+evaluating Cilium identities:
+
+- k8s:k8s-app
+- k8s:app
+- k8s:name
+- reserved:.*
+- io\.kubernetes\.pod\.namespace
+- io\.cilium\.k8s.namespace\.labels
+- io\.cilium\.k8s\.policy\.cluster
+- app\.kubernetes\.io
+
+Note that ``k8s:io\.kubernetes\.pod\.namespace`` is already included in default
+label ``io\.kubernetes\.pod\.namespace``.
+
+Labels with the same prefix as defined in the configuration will also be
+considered. This lists some examples of label keys that would also be evaluated
+for Cilium identities:
+
+- k8s-app-team
+- app-production
+- name-defined
+
+When a single inclusive label is added to the filter, all labels not defined
+in the default list will be excluded. For example, pods running with the
+security labels ``team=team-1, env=prod`` will have the label ``env=prod``
+ignored as soon Cilium is started with the filter ``k8s:team``.
+
+## Excluding Labels
+
+Label patterns can also be specified as a list of exclusions. Exclude labels
+by placing an exclamation mark after colon separating the prefix and pattern.
+When defined as a list of exclusions, Cilium will include the set of default
+labels, but will exclude any matches in the provided list when evaluating
+Cilium identities:
+
+```yaml
+labels: "k8s:!controller-uid k8s:!job-name"
+```
+
+The provided example would cause Cilium to exclude any of the following label
+matches:
+
+- k8s:controller-uid
+- k8s:job-name

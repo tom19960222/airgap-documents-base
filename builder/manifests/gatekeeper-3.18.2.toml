@@ -1,0 +1,9 @@
+name = "gatekeeper-3.18.2"
+collection = "gatekeeper"
+version = "3.18.2"
+source_type = "git"
+repo_url = "https://github.com/open-policy-agent/gatekeeper"
+git_ref = "35f8bb97ec9badb12266e2e3f74465ef718c6237"
+docs_paths = ["website/docs", "README.md"]
+sparse_paths = ["website/docs", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

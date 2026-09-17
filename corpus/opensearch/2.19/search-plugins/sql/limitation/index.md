@@ -1,0 +1,145 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Limitations"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_search-plugins/sql/limitation.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_search-plugins/sql/limitation.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/search-plugins/sql/limitation/"
+canonical_url: "https://docs.opensearch.org/latest/sql-and-ppl/limitation/"
+canonical_route: "/sql-and-ppl/limitation/"
+redirect_from: ["/search-plugins/sql/limitation/","/sql-and-ppl/limitation/"]
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 99
+parent: "SQL and PPL"
+---
+# Limitations
+
+The SQL plugin has the following limitations:
+
+## Aggregation over expression is not supported
+
+You can only apply aggregation to fields. Aggregations cannot accept an expression as a parameter. For example, `avg(log(age))` is not supported.
+
+## Subquery in the FROM clause
+
+Subquery in the `FROM` clause in this format: `SELECT outer FROM (SELECT inner)` is supported only when the query is merged into one query. For example, the following query is supported:
+
+```sql
+SELECT t.f, t.d
+FROM (
+    SELECT FlightNum as f, DestCountry as d
+    FROM opensearch_dashboards_sample_data_flights
+    WHERE OriginCountry = 'US') t
+```
+
+But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
+
+## JOIN queries
+
+Because OpenSearch doesn't natively support relational operations, `JOIN` queries are supported on a best-effort basis.
+
+### JOIN does not support aggregations on the joined result
+
+The `JOIN` query does not support aggregations on the joined result.
+
+For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id = depo.id GROUP BY depo.name` is not supported.
+
+### Performance
+
+`JOIN` queries are prone to expensive index scanning operations.
+
+`JOIN` queries may experience performance issues when working with result sets larger than 5 million matching records.
+To improve `JOIN` performance, reduce the number of records being joined by filtering your data first. For example, limit the join to a specific range of key values:
+
+```sql
+SELECT l.key, l.spanId, r.spanId
+  FROM logs_left AS l
+  JOIN logs_right AS r
+  ON l.key = r.key
+  WHERE l.key >= 17491637400000
+    AND l.key < 17491637500000
+    AND r.key >= 17491637400000
+    AND r.key < 17491637500000
+  LIMIT 10
+```
+
+By default, JOIN queries will automatically terminate after 60 seconds to prevent excessive resource consumption. You can adjust this timeout period using a hint in your query. For example, to set a 5-minute (300-second) timeout, use the following code:
+
+```sql
+SELECT /*! JOIN_TIME_OUT(300) */ left.a, right.b FROM left JOIN right ON left.id = right.id;
+```
+
+These performance restrictions don't apply when [querying external data sources](https://docs.opensearch.org/latest/dashboards/management/query-data-source/) <!-- unresolved-cross-corpus-link: collection=opensearch-dashboards route=/dashboards/management/query-data-source/ -->.
+
+## Pagination only supports basic queries
+
+The pagination query enables you to get back paginated responses.
+
+Currently, the pagination only supports basic queries. For example, the following query returns the data with cursor id.
+
+```json
+POST _plugins/_sql/
+{
+  "fetch_size" : 5,
+  "query" : "SELECT OriginCountry, DestCountry FROM opensearch_dashboards_sample_data_flights ORDER BY OriginCountry ASC"
+}
+```
+
+The response in JDBC format with cursor id.
+
+```json
+{
+  "schema": [
+    {
+      "name": "OriginCountry",
+      "type": "keyword"
+    },
+    {
+      "name": "DestCountry",
+      "type": "keyword"
+    }
+  ],
+  "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFCSllXVTJKVU4yeExiWEJSUkhsNFVrdDVXVEZSYkVKSmR3PT0iLCJjIjpbeyJuYW1lIjoiT3JpZ2luQ291bnRyeSIsInR5cGUiOiJrZXl3b3JkIn0seyJuYW1lIjoiRGVzdENvdW50cnkiLCJ0eXBlIjoia2V5d29yZCJ9XSwiZiI6MSwiaSI6ImtpYmFuYV9zYW1wbGVfZGF0YV9mbGlnaHRzIiwibCI6MTMwNTh9",
+  "total": 13059,
+  "datarows": [[
+    "AE",
+    "CN"
+  ]],
+  "size": 1,
+  "status": 200
+}
+```
+
+The query with `aggregation` and `join` does not support pagination for now.
+
+## Query processing engines
+
+The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the `V2` engine falls back to the `V1` engine in case of failure. If a query is supported in `V2` but not included in `V1`, the query will fail with an error response.
+
+### V1 engine limitations
+
+* The select literal expression without `FROM` clause is not supported. For example, `SELECT 1` is not supported.
+* The `WHERE` clause does not support expressions. For example, `SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` is not supported.
+* Most [relevancy search functions](../full-text/index.md) are implemented in the `V2` engine only.
+
+Such queries are successfully executed by the `V2` engine unless they have `V1`-specific functions. You will likely never meet these limitations.
+
+### V2 engine limitations
+
+* The [cursor feature](#pagination-only-supports-basic-queries) is supported by the `V1` engine only.
+  * For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
+* `json` formatted output is supported in `V1` engine only.
+* The `V2` engine does not track query execution time, so slow queries are not reported.
+* The `V2` query engine not only runs queries in the OpenSearch engine but also supports post-processing for complex queries. Accordingly, the `explain` output is no longer OpenSearch domain-specific language (DSL) but also includes query plan information from the `V2` query engine.
+* The `V2` query engine does not support aggregation queries such as `histogram`, `date_histogram`, `percentiles`, `topHits`, `stats`, `extended_stats`, `terms`, or `range`.
+* JOINs and sub-queries are not supported. To stay up to date on the development for JOINs and sub-queries, track [GitHub issue #1441](https://github.com/opensearch-project/sql/issues/1441) and [GitHub issue #892](https://github.com/opensearch-project/sql/issues/892).
+* OpenSearch does not natively support the array data type but does allow multi-value fields implicitly. The SQL/PPL plugin adheres strictly to the data type semantics defined in index mappings. When parsing OpenSearch responses, it expects data to match the declared type and does not interpret all data in an array. If the [`plugins.query.field_type_tolerance`](https://github.com/opensearch-project/sql/blob/main/docs/user/admin/settings.rst#plugins-query-field-type-tolerance) setting is enabled, the SQL/PPL plugin handles array datasets by returning scalar data types, allowing basic queries (for example, `SELECT * FROM tbl WHERE condition`). However, using multi-value fields in expressions or functions will result in exceptions. If this setting is disabled or not set, only the first element of an array is returned, preserving the default behavior.
+* PartiQL syntax for `nested` queries is not supported.

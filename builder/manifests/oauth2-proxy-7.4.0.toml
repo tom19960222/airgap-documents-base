@@ -1,0 +1,9 @@
+name = "oauth2-proxy-7.4.0"
+collection = "oauth2-proxy"
+version = "7.4.0"
+source_type = "git"
+repo_url = "https://github.com/oauth2-proxy/oauth2-proxy"
+git_ref = "aafa96655048bc1ed26487e92410f5fe64968fa2"
+docs_paths = ["docs/versioned_docs/version-7.4.x", "README.md"]
+sparse_paths = ["docs/versioned_docs/version-7.4.x", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

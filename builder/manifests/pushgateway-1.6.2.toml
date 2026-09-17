@@ -1,0 +1,9 @@
+name = "pushgateway-1.6.2"
+collection = "pushgateway"
+version = "1.6.2"
+source_type = "git"
+repo_url = "https://github.com/prometheus/pushgateway"
+git_ref = "dd0ca68e2cf68ba061ed9e73b19e1928a4f6338f"
+docs_paths = ["README.md", "CONTRIBUTING.md"]
+sparse_paths = ["README.md", "CONTRIBUTING.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

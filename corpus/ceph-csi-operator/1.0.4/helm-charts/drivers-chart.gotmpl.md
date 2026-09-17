@@ -1,0 +1,94 @@
+---
+collection: ceph-csi-operator
+version: "1.0.4"
+title: "Ceph-CSI Driver Helm Chart"
+source_url: https://github.com/ceph/ceph-csi-operator/blob/29a66b683aa8873001c729b7b120e18604cdb445/docs/helm-charts/drivers-chart.gotmpl.md
+fetched_at: 2026-07-07T13:06:31+05:30
+---
+{{ template "generatedDocsWarning" . }}
+
+Creates ceph-csi-operator resources to configure a [ceph-csi](https://github.com/ceph/ceph-csi) drivers using the [Helm](https://helm.sh) package manager.
+This chart is a simple packaging of templates that will optionally create ceph-csi-operator resources such as:
+
+* Driver CRs (RBD,cephFS,NFS)
+* CephConnection that contains the ceph details
+* ClientProfile for the RBD/CephFS/NFS clusterID and corresponding configurations
+* ClientProfileMapping for disaster recovery
+
+## Prerequisites
+
+* Kubernetes 1.32+
+* Helm 3.x
+
+See the [Helm support matrix](https://helm.sh/docs/topics/version_skew/) for more details.
+
+## Installing
+
+The Ceph-CSI Drivers helm chart will install the basic components necessary to install [ceph-csi](https://github.com/ceph/ceph-csi) on Kubernetes cluster.
+
+1. Install the Helm chart
+
+The `helm install` command deploys ceph-csi-drivers on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+
+ceph-csi-drivers currently publishes artifacts of the ceph-csi drivers to tagged versions.
+
+### **Released version**
+
+```console
+helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator-charts
+helm install ceph-csi-drivers --create-namespace --namespace ceph-csi-driver ceph-csi-operator/ceph-csi-drivers
+```
+
+For example settings, see the next section or [values.yaml](https://github.com/ceph/ceph-csi-operator/tree/29a66b683aa8873001c729b7b120e18604cdb445/deploy/charts/ceph-csi-drivers/values.yaml)
+
+### **OpenShift Installation**
+
+For OpenShift clusters, you must enable OpenShift support and configure the SCC ClusterRole name to match the operator installation:
+
+```console
+helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator-charts
+helm install ceph-csi-drivers --create-namespace --namespace ceph-csi-driver \
+  --set openshift.enabled=true \
+  --set openshift.sccClusterRoleName=ceph-csi-operator-scc-user \
+  ceph-csi-operator/ceph-csi-drivers
+```
+
+**Important:**
+* The operator chart must be installed first with `openshift.enabled=true` to create the SCC and ClusterRole
+* The `sccClusterRoleName` must match the ClusterRole created by the operator chart (format: `<operator-release-name>-scc-user`)
+* If you used a custom release name for the operator (e.g., `my-operator`), set `sccClusterRoleName=my-operator-scc-user`
+
+This will create ClusterRoleBindings in the driver namespace that bind the driver service accounts to the SCC ClusterRole created by the operator chart.
+
+## Configuration
+
+The following table lists the configurable parameters of the ceph-csi-drivers chart and their default values.
+
+{{ template "chart.valuesTable" . }}
+
+### **Development Build**
+
+To deploy from a local build from your development environment:
+
+1. Install the helm chart:
+
+```console
+cd deploy/charts/ceph-csi-drivers
+helm install ceph-csi-drivers --create-namespace --namespace ceph-csi-driver .
+```
+
+## Uninstalling the Chart
+
+To see the currently installed ceph-csi-drivers chart:
+
+```console
+helm ls --namespace ceph-csi-driver
+```
+
+To uninstall/delete the `ceph-csi-drivers` deployment:
+
+```console
+helm delete --namespace ceph-csi-driver ceph-csi-drivers
+```
+
+The command removes all the Kubernetes components associated with the chart and deletes the release.

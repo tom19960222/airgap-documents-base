@@ -1,0 +1,30 @@
+name = "opensearch-dashboards-2.19"
+collection = "opensearch-dashboards"
+version = "2.19"
+source_type = "git"
+repo_url = "https://github.com/opensearch-project/documentation-website"
+# Immutable documentation-website snapshot for the 2.19 documentation line.
+git_ref = "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+shortcode_profile = "jekyll"
+# The fixed docs config currently says 2.19.6; this corpus is mapped to the
+# OpenSearch Dashboards application release represented by the request.
+app_version = "2.19.1"
+mutable_refs = ["main", "master"]
+# Both product versions are used by shared documentation snippets.
+site_overrides = { opensearch_version = "2.19.3", opensearch_dashboards_version = "2.19.1" }
+docs_paths = ["_dashboards"]
+# _dashboards is a dedicated Jekyll collection; these shared inputs are kept
+# for include/data/assets resolution without duplicating dashboard pages.
+sparse_paths = [
+  "_dashboards",
+  "_data",
+  "_includes",
+  "_layouts",
+  "_plugins",
+  "_config.yml",
+  "Gemfile",
+  "spec-insert",
+  "assets",
+  "images",
+]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

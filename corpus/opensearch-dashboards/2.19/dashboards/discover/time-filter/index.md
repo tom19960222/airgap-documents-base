@@ -1,0 +1,48 @@
+---
+collection: "opensearch-dashboards"
+version: "2.19"
+title: "Time filter"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_dashboards/discover/time-filter.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_dashboards/discover/time-filter.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/dashboards/discover/time-filter/"
+canonical_url: "https://docs.opensearch.org/latest/dashboards/discover/time-filter/"
+canonical_route: "/dashboards/discover/time-filter/"
+redirect_from: ["/dashboards/get-started/time-filter/","/dashboards/discover/time-filter/"]
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.1"
+chart_version: ""
+layout: "default"
+nav_order: 20
+parent: "Analyzing data"
+---
+# Time filter
+
+The time filter is used to set the time range, including minutes, hours, days, weeks, months, or years, that is displayed on your dashboard.
+
+The default time range is **Last 15 minutes**. You can change the time range at the dashboard level or under **Dashboards Management** > **Advanced Settings** > **Time filter defaults**.
+{: .note}
+
+To change the time range at the dashboard level, follow these steps:
+
+1. From an OpenSearch Dashboards application (Discover, Dashboards, or Visualize), select the <img src="https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/> icon on the right of the search bar.
+2. Select one of the time filter options, as shown in the following image:
+   - **Quick select:** Choose a time based on the last or next number of seconds, minutes, hours, days, or another time unit.
+   - **Commonly used:** Choose a common time range like **Today**, **Last 7 days**, or **Last 30 days**.
+   - **Recently used date ranges:** Select a previously used time range.
+   - **Refresh every:** Set an automatic refresh period.
+
+    <img src="https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/images/dashboards/time-range.png" alt="Time range interface" width="400"/>
+
+3. Choose **Show dates** to set start and end times, and then select anywhere inside the toolbar to access the time filter pop-up window, as shown in the following image.
+
+   <img src="https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/images/dashboards/time-filter-popup.png" alt="Time filter pop-up window" width="400"/>
+
+4. Select **Absolute**, **Relative**, or **Now** and specify ranges.
+5. Choose **Update** to apply changes, as shown in the following image.
+
+   <img src="https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/images/dashboards/start-end-time.png" alt="Start and end times interface" width="400"/>

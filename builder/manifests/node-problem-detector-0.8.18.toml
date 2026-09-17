@@ -1,0 +1,9 @@
+name = "node-problem-detector-0.8.18"
+collection = "node-problem-detector"
+version = "0.8.18"
+source_type = "git"
+repo_url = "https://github.com/kubernetes/node-problem-detector"
+git_ref = "775a138ad6cff2bef32d7a6facfdcfed4437d768"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

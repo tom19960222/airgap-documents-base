@@ -1,0 +1,10 @@
+name = "cdi-1.56"
+collection = "cdi"
+version = "1.56.1"
+source_type = "git"
+repo_url = "https://github.com/kubevirt/containerized-data-importer"
+# v1.56.1 的 immutable commit。
+git_ref = "ee9a06635eed17f8a635915bbb2f354ce38c8f72"
+docs_paths = ["doc", "README.md"]
+sparse_paths = ["doc", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

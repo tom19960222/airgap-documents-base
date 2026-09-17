@@ -1,0 +1,81 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Refresh index"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_api-reference/index-apis/refresh.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_api-reference/index-apis/refresh.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/api-reference/index-apis/refresh/"
+canonical_url: "https://docs.opensearch.org/latest/api-reference/index-apis/refresh/"
+canonical_route: "/api-reference/index-apis/refresh/"
+redirect_from: []
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 61
+parent: "Index APIs"
+---
+# Refresh index
+Introduced 1.0
+{: .label .label-purple }
+
+The Refresh Index API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh Index API refreshes a stream's backing indexes.
+
+OpenSearch's refresh behavior depends on whether or not `index.refresh_interval` is set:
+
+- When set, indexes are refreshed based on the `index.refresh_interval` setting (in seconds). For more information about `index.refresh_interval` settings, see [Dynamic index-level index settings](../../../install-and-configure/configuring-opensearch/index-settings/index.md#dynamic-index-level-index-settings).
+- When not set, refreshes occur every second until the shard receives no search requests for at least the amount of time specified by the `index.search.idle.after` setting (in seconds). Default is `30s`.
+
+After a shard becomes idle, the indexes will not refresh until either the next search request or a Refresh Index API request is sent. The first search request on an idle shard will wait for the refresh operation to complete.
+
+To use the Refresh Index API, you must have write access to the indexes you want to refresh.
+
+## Endpoints
+
+```json
+POST /_refresh
+GET /_refresh
+POST /<index>/_refresh
+GET /<index>/_refresh
+```
+
+## Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `index` | String | A comma-separated list of index names to be refreshed. Wildcards are accepted.|
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `ignore_unavailable` | Boolean | When `false`, the request returns an error when it targets a missing or closed index. Default is `false`.
+| `allow_no_indices` | Boolean | When `false`, the Refresh Index API returns an error when a wildcard expression, index alias, or `_all` targets only closed or missing indexes, even when the request is made against open indexes. Default is `true`. |
+| `expand_wildcards` | String | The type of index that the wildcard patterns can match. If the request targets data streams, this argument determines whether the wildcard expressions match any hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are `all`, `open`, `closed`, `hidden`, and `none`.
+
+## Example requests
+
+### Refresh several data streams or indexes
+
+The following example request refreshes two indexes named `my-index-A` and `my-index-B`:
+
+```json
+POST /my-index-A,my-index-B/_refresh
+```
+
+### Refresh all data streams and indexes in a cluster
+
+The following request refreshes all data streams and indexes in a cluster:
+
+```json
+POST /_refresh
+```

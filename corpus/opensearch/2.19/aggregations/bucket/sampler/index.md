@@ -1,0 +1,97 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Sampler"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_aggregations/bucket/sampler.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_aggregations/bucket/sampler.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/aggregations/bucket/sampler/"
+canonical_url: "https://docs.opensearch.org/latest/aggregations/bucket/sampler/"
+canonical_route: "/aggregations/bucket/sampler/"
+redirect_from: ["/query-dsl/aggregations/bucket/sampler/"]
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 170
+parent: "Bucket aggregations"
+---
+# Sampler aggregations
+
+If you're aggregating a very large number of documents, you can use a `sampler` aggregation to reduce the scope to a small sample of documents, resulting in a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
+
+The results are approximate but closely represent the distribution of the real data. The `sampler` aggregation significantly improves query performance, but the estimated responses are not entirely reliable.
+
+The basic syntax is:
+
+```json
+“aggs”: {
+  "SAMPLE": {
+    "sampler": {
+      "shard_size": 100
+    },
+    "aggs": {...}
+  }
+}
+```
+
+## Shard size property
+
+The `shard_size` property tells OpenSearch how many documents (at most) to collect from each shard.
+
+The following example limits the number of documents collected on each shard to 1,000 and then buckets the documents by a `terms` aggregation:
+
+```json
+GET opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "sample": {
+      "sampler": {
+        "shard_size": 1000
+      },
+      "aggs": {
+        "terms": {
+          "terms": {
+            "field": "agent.keyword"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### Example response
+
+```json
+...
+"aggregations" : {
+  "sample" : {
+    "doc_count" : 1000,
+    "terms" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 0,
+      "buckets" : [
+        {
+          "key" : "Mozilla/5.0 (X11; Linux x86_64; rv:6.0a1) Gecko/20110421 Firefox/6.0a1",
+          "doc_count" : 368
+        },
+        {
+          "key" : "Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.50 Safari/534.24",
+          "doc_count" : 329
+        },
+        {
+          "key" : "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)",
+          "doc_count" : 303
+        }
+      ]
+    }
+  }
+ }
+}
+```

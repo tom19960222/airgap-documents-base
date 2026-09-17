@@ -1,0 +1,10 @@
+name = "k8s-dns-1.23"
+collection = "k8s-dns"
+version = "1.23.1"
+source_type = "git"
+repo_url = "https://github.com/kubernetes/dns"
+# 1.23.1 的 immutable commit。
+git_ref = "fd33e8663c6f83c771cdad6178614b882ae4fba0"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

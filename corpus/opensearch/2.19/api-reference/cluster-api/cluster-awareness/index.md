@@ -1,0 +1,129 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Cluster routing and awareness"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_api-reference/cluster-api/cluster-awareness.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_api-reference/cluster-api/cluster-awareness.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/api-reference/cluster-api/cluster-awareness/"
+canonical_url: "https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-awareness/"
+canonical_route: "/api-reference/cluster-api/cluster-awareness/"
+redirect_from: ["/api-reference/cluster-awareness/","/opensearch/rest-api/cluster-awareness/"]
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+has_children: false
+layout: "default"
+nav_order: 20
+parent: "Cluster APIs"
+---
+# Cluster routing and awareness
+**Introduced 1.0**
+{: .label .label-purple }
+
+To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogeneous instances, and routing traffic away from zones during zonal failure.
+
+## Endpoints
+
+```json
+PUT /_cluster/routing/awareness/<attribute>/weights
+GET /_cluster/routing/awareness/<attribute>/weights?local
+GET /_cluster/routing/awareness/<attribute>/weights
+```
+
+## Path parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+attribute | String | The name of the awareness attribute, usually `zone`. The attribute name must match the values listed in the request body when assigning weights to zones.
+
+## Request body fields
+
+Parameter | Type | Description
+:--- | :--- | :---
+weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ratio, for example, 2:3:5. In a 2:3:5 ratio with 3 zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic.
+_version | String | Implements optimistic concurrency control (OCC) through versioning. The parameter uses simple versioning, such as `1`, and increments upward based on each subsequent modification. This allows any servers from which a request originates to validate whether or not a zone has been modified.
+
+In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is prevented from receiving requests:
+
+```
+{
+      "weights":
+      {
+        "zone_1": "5",
+        "zone_2": "5",
+        "zone_3": "0"
+      }
+      "_version" : 1
+}
+```
+
+## Example requests
+
+### Weighted round robin search
+
+The following example request creates a round robin shard allocation for search traffic by using an undefined ratio:
+
+```json
+PUT /_cluster/routing/awareness/zone/weights
+{
+      "weights":
+      {
+        "zone_1": "1",
+        "zone_2": "1",
+        "zone_3": "0"
+      }
+      "_version" : 1
+}
+```
+
+### Getting weights for all zones
+
+The following example request gets weights for all zones.
+
+```json
+GET /_cluster/routing/awareness/zone/weights
+```
+
+### Deleting weights
+
+You can remove your weight ratio for each zone using the `DELETE` method:
+
+```json
+DELETE /_cluster/routing/awareness/zone/weights
+```
+
+## Example responses
+
+OpenSearch typically responds with the following when successfully allocating shards:
+
+```json
+{
+     "acknowledged": true
+}
+```
+
+### Getting weights for all zone
+
+OpenSearch responds with the weight of each zone:
+
+```json
+{
+      "weights":
+      {
+
+        "zone_1": "1.0",
+        "zone_2": "1.0",
+        "zone_3": "0.0"
+      },
+      "_version":1
+}
+
+## Next steps
+
+- For more information about zone commissioning, see [Cluster decommission](../cluster-decommission/index.md).
+- For more information about allocation awareness, see [Cluster formation](../../../tuning-your-cluster/index.md#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).

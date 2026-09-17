@@ -1,0 +1,159 @@
+---
+collection: fluent-bit
+version: "3.2"
+title: "Golang Output Plugins"
+source_url: https://github.com/fluent/fluent-bit-docs/blob/36106a0740d3f62f05d0e9e69b2c0e21dfa9de21/development/golang-output-plugins.md
+fetched_at: 2025-03-27T12:50:23+02:00
+app_version: "3.2.10"
+---
+# Golang Output Plugins
+
+Fluent Bit currently supports integration of Golang plugins built as shared objects for output plugins only. The interface for the Golang plugins is currently under development but is functional.
+
+## Getting Started
+
+Compile Fluent Bit with Golang support, e.g:
+
+```text
+$ cd build/
+$ cmake -DFLB_DEBUG=On -DFLB_PROXY_GO=On ../
+$ make
+```
+
+Once compiled, we can see a new option in the binary `-e` which stands for _external plugin_, e.g:
+
+```text
+$ bin/fluent-bit -h
+Usage: fluent-bit [OPTION]
+
+Available Options
+  -c  --config=FILE    specify an optional configuration file
+  -d, --daemon        run Fluent Bit in background mode
+  -f, --flush=SECONDS    flush timeout in seconds (default: 1)
+  -i, --input=INPUT    set an input
+  -m, --match=MATCH    set plugin match, same as '-p match=abc'
+  -o, --output=OUTPUT    set an output
+  -p, --prop="A=B"    set plugin configuration property
+  -e, --plugin=FILE    load an external plugin (shared lib)
+  ...
+```
+
+## Build a Go Plugin
+
+The _fluent-bit-go_ package is available to assist developers in creating Go plugins.
+
+[https://github.com/fluent/fluent-bit-go](https://github.com/fluent/fluent-bit-go)
+
+At a minimum, a Go plugin looks like this:
+
+```go
+package main
+
+import "github.com/fluent/fluent-bit-go/output"
+
+//export FLBPluginRegister
+func FLBPluginRegister(def unsafe.Pointer) int {
+    // Gets called only once when the plugin.so is loaded
+    return output.FLBPluginRegister(def, "gstdout", "Stdout GO!")
+}
+
+//export FLBPluginInit
+func FLBPluginInit(plugin unsafe.Pointer) int {
+    // Gets called only once for each instance you have configured.
+    return output.FLB_OK
+}
+
+//export FLBPluginFlushCtx
+func FLBPluginFlushCtx(ctx, data unsafe.Pointer, length C.int, tag *C.char) int {
+    // Gets called with a batch of records to be written to an instance.
+    return output.FLB_OK
+}
+
+//export FLBPluginExit
+func FLBPluginExit() int {
+    return output.FLB_OK
+}
+
+func main() {
+}
+```
+
+the code above is a template to write an output plugin, it's really important to keep the package name as `main` and add an explicit `main()` function. This is a requirement as the code will be build as a shared library.
+
+To build the code above, use the following line:
+
+```bash
+$ go build -buildmode=c-shared -o out_gstdout.so out_gstdout.go
+```
+
+Once built, a shared library called `out\_gstdout.so` will be available. It's really important to double check the final .so file is what we expect. Doing a `ldd` over the library we should see something similar to this:
+
+```text
+$ ldd out_gstdout.so
+    linux-vdso.so.1 =>  (0x00007fff561dd000)
+    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fc4aeef0000)
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fc4aeb27000)
+    /lib64/ld-linux-x86-64.so.2 (0x000055751a4fd000)
+```
+
+## Run Fluent Bit with the new plugin
+
+```bash
+$ bin/fluent-bit -e /path/to/out_gstdout.so -i cpu -o gstdout
+```
+
+## Configuration file
+
+Fluent Bit can load / run Golang plugin using two configuration file.
+
+- Plugins configuration file
+- [Main configuration file](../administration/configuring-fluent-bit/classic-mode/configuration-file.md)
+
+### Plugins configuration file
+
+| Key  | Description | Default Value|
+| ---- | ----------- | ------------ |
+| Path | A path for a Golang plugin. | |
+
+#### Example
+
+```python
+[PLUGINS]
+    Path /path/to/out_gstdout.so
+```
+
+### Main configuration file
+
+The keys for Golang plugin available as of this version are described in the following table:
+
+| Key  | Description | Default Value|
+| ---- | ----------- | ------------ |
+| Plugins_file    | Path for a plugins configuration file. A _plugins_ configuration file allows to define paths for external plugins, for an example [see here](https://github.com/fluent/fluent-bit/blob/master/conf/plugins.conf).                                                                                     |               |
+
+#### Example
+
+The following is an example of a main configuration file.
+
+```python
+[SERVICE]
+    plugins_file /path/to/plugins.conf
+
+[INPUT]
+    Name dummy
+
+[OUTPUT]
+    Name gstdout
+```
+
+#### Config key constraint
+
+Some config keys are reserved by Fluent Bit and must not be used by a custom plugin, they are: `alias`,`host`,`ipv6`,`listen`,`log_level`,`log_suppress_interval`,`match`,`match_regex`,`mem_buf_limit`,`port`,`retry_limit`,`routable`,`storage.pause_on_chunks_overlimit`, `storage.total_limit_size`, `storage.type`, `tag`,`threaded`,`tls`,`tls.ca_file`, `tls.ca_path`, `tls.crt_file`, `tls.debug`, `tls.key_file`, `tls.key_passwd`, `tls.verify`, `tls.vhost`, `workers`
+
+### Run using a configuration file
+
+We can load a main configuration file using `-c` option.
+Note: No need to specify a plugins configuration file from command line.
+
+```text
+fluent-bit -c fluent-bit.conf
+```

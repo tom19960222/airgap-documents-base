@@ -1,0 +1,61 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Breaking changes"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_about/breaking-changes.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_about/breaking-changes.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/breaking-changes/"
+canonical_url: "https://docs.opensearch.org/latest/breaking-changes/"
+canonical_route: "/breaking-changes/"
+redirect_from: []
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 5
+---
+## 1.x
+
+### Migrating to OpenSearch and limits on the number of nested JSON objects
+
+Migrating from Elasticsearch OSS version 6.8 to OpenSearch version 1.x will fail when a cluster contains any document that includes more than 10,000 nested JSON objects across all fields. Elasticsearch version 7.0 introduced the `index.mapping.nested_objects.limit` setting to guard against out-of-memory errors and assigned the setting a default of `10000`. OpenSearch adopted this setting at its inception and enforces the limitation on nested JSON objects. However, because the setting is not present in Elasticsearch 6.8 and not recognized by this version, migration to OpenSearch 1.x can result in incompatibility issues that block shard relocation between Elasticsearch 6.8 and OpenSearch versions 1.x when the number of nested JSON objects in any document surpasses the default limit.
+
+Therefore, we recommend evaluating your data for these limits before attempting to migrate from Elasticsearch 6.8.
+
+## 2.0.0
+
+### Remove mapping types parameter
+
+The `type` parameter has been removed from all OpenSearch API endpoints. Instead, indexes can be categorized by document type. For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
+
+### Deprecate non-inclusive terms
+
+Non-inclusive terms are deprecated in version 2.x and will be permanently removed in OpenSearch 3.0.  We are using the following replacements:
+
+- "Whitelist" is now "Allow list"
+- "Blacklist" is now "Deny list"
+- "Master" is now "Cluster Manager"
+
+### Add OpenSearch Notifications plugins
+
+In OpenSearch 2.0, the Alerting plugin is now integrated with new plugins for Notifications. If you want to continue to use the notification action in the Alerting plugin, install the new backend plugins `notifications-core` and `notifications`. If you want to manage notifications in OpenSearch Dashboards, use the new `notificationsDashboards` plugin. For more information, see [Notifications](../observing-your-data/notifications/index.md) on the OpenSearch documentation page.
+
+### Drop support for JDK 8
+
+A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, the Java high-level REST client no longer supports JDK 8. Restoring JDK 8 support is currently an `opensearch-java` proposal [#156](https://github.com/opensearch-project/opensearch-java/issues/156) and will require removing OpenSearch core as a dependency from the Java client (issue [#262](https://github.com/opensearch-project/opensearch-java/issues/262)).
+
+## 2.5.0
+
+### Wildcard query behavior for text fields
+
+OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
+
+## 2.19.0
+
+### Nested value support in the text embedding processor
+The `text_embedding` processor no longer replaces nested values like `_ingest._value` when evaluating fields like `title_tmp:_ingest._value.title_embedding`. Instead, you must directly specify the nested key as `books.title:title_embedding` to achieve the desired output. For more information, see issue [#1243](https://github.com/opensearch-project/neural-search/issues/1243).

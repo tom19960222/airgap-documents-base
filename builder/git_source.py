@@ -13,12 +13,16 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+import html
 import json
 import os
 import re
 import shutil
+import shlex
 import subprocess
 import sys
+import textwrap
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -28,6 +32,9 @@ from common import REPO_ROOT, Manifest, load_manifest
 
 FRONTMATTER_PATTERN = re.compile(r"^---\r?\n(.*?)\r?\n---\r?\n?", re.DOTALL)
 HEADING1_PATTERN = re.compile(r"^#\s+(.+)$", re.MULTILINE)
+SLACK_INCOMING_WEBHOOK_PATTERN = re.compile(
+    r"https://hooks\.slack\.com/services/T[A-Z0-9]{8,}/B[A-Z0-9]{8,}/[A-Za-z0-9_-]{20,}"
+)
 
 RST_SECTION_CHARS = set("=-^~\"'*`+_.|#")
 RST_DIRECTIVE_PATTERN = re.compile(
@@ -73,6 +80,21 @@ RST_ADMONITIONS = {
     "warning",
 }
 RST_CODE_DIRECTIVES = {"code", "code-block", "sourcecode", "prompt"}
+
+
+def redact_secret_like_examples(content: str) -> str:
+    """Replace credential-shaped documentation examples with explicit placeholders.
+
+    Some upstream projects publish syntactically valid Slack webhook examples.
+    GitHub push protection correctly treats that shape as a secret even when the
+    value is made of zeroes and ``X`` characters.  Keep the endpoint structure
+    useful while ensuring the generated corpus never carries a usable token.
+    """
+
+    return SLACK_INCOMING_WEBHOOK_PATTERN.sub(
+        "https://hooks.slack.com/services/WORKSPACE_ID/CHANNEL_ID/REDACTED_TOKEN",
+        content,
+    )
 
 
 def _indent_width(line: str) -> int:
@@ -859,9 +881,59 @@ def extract_frontmatter(content: str, default_title: str) -> tuple[str, str]:
     return title, body
 
 
+def extract_frontmatter_description(content: str) -> str:
+    """Return a source description without changing legacy frontmatter rules."""
+
+    match = FRONTMATTER_PATTERN.match(content)
+    if match is None:
+        return ""
+    raw_yaml = match.group(1)
+    try:
+        import yaml
+
+        parsed = yaml.safe_load(raw_yaml)
+        if isinstance(parsed, dict):
+            value = parsed.get("description")
+            if isinstance(value, str):
+                return value.strip()
+    except Exception:
+        pass
+
+    # Keep the fallback deliberately scalar-only.  A multiline YAML value is
+    # ambiguous without a parser and should not be guessed into corpus prose.
+    description_match = re.search(
+        r"^description:\s*(?:\"([^\"]*)\"|'([^']*)'|(.*))$",
+        raw_yaml,
+        re.MULTILINE,
+    )
+    if description_match is None:
+        return ""
+    return (
+        description_match.group(1)
+        or description_match.group(2)
+        or description_match.group(3)
+        or ""
+    ).strip()
+
+
+def _safe_repo_file(repo_dir: Path, candidate: Path) -> Path | None:
+    """Return a regular file only when it resolves inside ``repo_dir``."""
+
+    repo_root = repo_dir.resolve()
+    try:
+        resolved = candidate.resolve()
+        resolved.relative_to(repo_root)
+    except (OSError, ValueError):
+        return None
+    return resolved if resolved.is_file() else None
+
+
 def resolve_example_file(repo_dir: Path, file_path_str: str) -> Path | None:
     """尋找 Hugo shortcode 引用的範例檔案路徑。"""
-    rel = file_path_str.strip("/\\")
+    raw = file_path_str.strip()
+    if not raw or raw.startswith(("/", "\\")) or re.match(r"^[A-Za-z]:[\\/]", raw):
+        return None
+    rel = raw.replace("\\", "/")
     candidates = [
         repo_dir / "content/en/examples" / rel,
         repo_dir / "content/examples" / rel,
@@ -871,8 +943,9 @@ def resolve_example_file(repo_dir: Path, file_path_str: str) -> Path | None:
         repo_dir / rel,
     ]
     for cand in candidates:
-        if cand.is_file():
-            return cand
+        resolved = _safe_repo_file(repo_dir, cand)
+        if resolved is not None:
+            return resolved
     return None
 
 
@@ -907,7 +980,10 @@ HEADINGS: dict[str, str] = {
 
 def resolve_include_file(repo_dir: Path, file_path_str: str) -> Path | None:
     """尋找 Hugo shortcode 引用的 include 檔案路徑。"""
-    rel = file_path_str.strip("/\\")
+    raw = file_path_str.strip()
+    if not raw or raw.startswith(("/", "\\")) or re.match(r"^[A-Za-z]:[\\/]", raw):
+        return None
+    rel = raw.replace("\\", "/")
     candidates = [
         repo_dir / "content/en/includes" / rel,
         repo_dir / "content/includes" / rel,
@@ -916,13 +992,19 @@ def resolve_include_file(repo_dir: Path, file_path_str: str) -> Path | None:
         repo_dir / rel,
     ]
     for cand in candidates:
-        if cand.is_file():
-            return cand
+        resolved = _safe_repo_file(repo_dir, cand)
+        if resolved is not None:
+            return resolved
     return None
 
 
-def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
-    """處理 Kubernetes 等 Hugo 網站 markdown 中的 shortcode。"""
+def _clean_kubernetes_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
+    """處理 Kubernetes Hugo 網站 markdown 中的 shortcode。
+
+    Keep this implementation isolated from source-specific profiles.  Existing
+    Kubernetes manifests historically reached this function implicitly, and
+    their rendered output is part of the compatibility contract.
+    """
     if depth > 5:
         return content
     text = content
@@ -939,7 +1021,7 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
             try:
                 inc_text = resolved.read_text(encoding="utf-8", errors="replace")
                 inc_text = re.sub(r"^---\r?\n.*?\r?\n---\r?\n?", "", inc_text, flags=re.DOTALL)
-                return clean_hugo_shortcodes(inc_text, repo_dir, depth + 1)
+                return _clean_kubernetes_shortcodes(inc_text, repo_dir, depth + 1)
             except Exception:
                 return f"\n[Include {inc_path}]\n"
         return f"\n[Include {inc_path}]\n"
@@ -1140,7 +1222,7 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
         state_m = re.search(r'state=["\']?([a-zA-Z0-9_\-]+)["\']?', params_str, re.DOTALL)
         for_k8s_m = re.search(r'for_k8s_version=["\']?([a-zA-Z0-9_\.\-]+)["\']?', params_str, re.DOTALL)
         gate_m = re.search(r'feature_gate_name=["\']?([a-zA-Z0-9_\-]+)["\']?', params_str, re.DOTALL)
-        
+
         parts = []
         if state_m:
             parts.append(f"state: {state_m.group(1)}")
@@ -1199,7 +1281,7 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
         alt_m = re.search(r'alt=["\']([^"\']*)["\']', params_str, re.DOTALL)
         title_m = re.search(r'title=["\']([^"\']*)["\']', params_str, re.DOTALL)
         caption_m = re.search(r'caption=["\']([^"\']*)["\']', params_str, re.DOTALL)
-        
+
         src = src_m.group(1).strip() if src_m else ""
         alt = ""
         if alt_m and alt_m.group(1).strip():
@@ -1208,7 +1290,7 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
             alt = title_m.group(1).strip()
         elif caption_m and caption_m.group(1).strip():
             alt = caption_m.group(1).strip()
-            
+
         alt = " ".join(alt.split())
         if src:
             return f"\n\n![{alt}]({src})\n\n"
@@ -1298,6 +1380,2628 @@ def clean_hugo_shortcodes(content: str, repo_dir: Path, depth: int = 0) -> str:
     return text
 
 
+ISTIO_SHORTCODE_TOKEN_PATTERN = re.compile(
+    r"\{\{[<%](?P<body>.*?)[>%]\}\}",
+    re.DOTALL,
+)
+ISTIO_PAIRED_SHORTCODES = {
+    "gloss",
+    "idea",
+    "quote",
+    "tab",
+    "tabset",
+    "text",
+    "tip",
+    "warning",
+}
+ISTIO_ADMONITION_SHORTCODES = {"idea", "quote", "tip", "warning"}
+
+# These shortcodes are defined by the Istio documentation site, but the
+# referenced application repository is a different checkout from
+# ``istio/istio.io``.  Keep the application source immutable even when the
+# documentation checkout is rebuilt later.
+ISTIO_APPLICATION_REPO = "https://github.com/istio/istio"
+ISTIO_APPLICATION_COMMIT = "8825a6b7f8c9a2d66005a5f8b64e98aaee0dda99"
+ISTIO_RELEASE_URL = f"{ISTIO_APPLICATION_REPO}/releases/tag/1.24.0"
+
+
+@dataclass(frozen=True)
+class _ShortcodeToken:
+    body: str
+    start: int
+    end: int
+
+
+def _iter_shortcode_tokens(content: str) -> list[_ShortcodeToken]:
+    """Scan Hugo tags while allowing nested tags inside quoted arguments."""
+
+    tokens: list[_ShortcodeToken] = []
+    cursor = 0
+    while True:
+        opening = re.search(r"\{\{(?P<delimiter>[<%])", content[cursor:])
+        if opening is None:
+            break
+        start = cursor + opening.start()
+        body_start = cursor + opening.end()
+        delimiters = [">" if opening.group("delimiter") == "<" else "%"]
+        index = body_start
+        end: int | None = None
+        closed = False
+        while index < len(content):
+            if content.startswith("{{<", index):
+                delimiters.append(">")
+                index += 3
+                continue
+            if content.startswith("{{%", index):
+                delimiters.append("%")
+                index += 3
+                continue
+            if delimiters and content.startswith(delimiters[-1] + "}}", index):
+                index += 3
+                delimiters.pop()
+                if not delimiters:
+                    end = index
+                    closed = True
+                    break
+                continue
+            index += 1
+        if end is None:
+            # Keep an incomplete tag from surviving normalization.  The
+            # renderer will turn its remaining body into a readable marker.
+            end = len(content)
+        body_end = end - 3 if closed else end
+        tokens.append(_ShortcodeToken(content[body_start:body_end], start, end))
+        cursor = end
+        if end == len(content):
+            break
+    return tokens
+
+
+def _shortcode_parts(raw_body: str) -> tuple[str, str, bool]:
+    """Return ``(name, arguments, closing)`` for one Hugo tag body."""
+
+    body = raw_body.strip()
+    closing = body.startswith("/")
+    if closing:
+        body = body[1:].lstrip()
+    match = re.match(
+        r"(?P<name>[A-Za-z0-9_.-]+)(?:[ \t]+(?P<args>.*?))?$",
+        body,
+        re.DOTALL,
+    )
+    if match is None:
+        return "", body, closing
+    return match.group("name").lower(), (match.group("args") or "").strip(), closing
+
+
+def _shortcode_arguments(arguments: str) -> tuple[list[str], dict[str, str]]:
+    """Split Hugo shortcode arguments while tolerating incomplete quoting."""
+
+    try:
+        tokens = shlex.split(arguments, posix=True)
+    except ValueError:
+        tokens = arguments.split()
+    positional: list[str] = []
+    named: dict[str, str] = {}
+    for token in tokens:
+        match = re.match(
+            r"^(?P<key>[A-Za-z][A-Za-z0-9_-]*)=(?P<value>.*)$",
+            token,
+            re.DOTALL,
+        )
+        if match is None:
+            positional.append(token)
+        else:
+            named[match.group("key").lower()] = match.group("value")
+    return positional, named
+
+
+def _shortcode_marker(name: str, arguments: str) -> str:
+    """Represent an unsupported shortcode as readable Markdown text."""
+
+    cleaned = " ".join(arguments.split())
+    return f"[{name}{(' ' + cleaned) if cleaned else ''}]"
+
+
+def _repo_relative_file(repo_dir: Path, file_path_str: str) -> Path | None:
+    """Resolve a user-supplied path only when it stays inside the checkout."""
+
+    raw = file_path_str.strip()
+    if not raw or raw.startswith(("/", "\\")) or re.match(r"^[A-Za-z]:[\\/]", raw):
+        return None
+    candidate = repo_dir / Path(raw.replace("\\", "/"))
+    return _safe_repo_file(repo_dir, candidate)
+
+
+def _dedent_shortcode_body(inner: str) -> str:
+    """Remove only common source indentation from a shortcode body."""
+
+    return textwrap.dedent(inner.replace("\r\n", "\n").replace("\r", "\n")).strip("\n")
+
+
+def _render_fenced_shortcode(language: str, inner: str) -> str:
+    body = _dedent_shortcode_body(inner)
+    # A longer fence keeps code examples containing Markdown fences readable.
+    fence = "```"
+    fence_runs = [len(match.group(0)) for match in re.finditer(r"`{3,}", body)]
+    if fence_runs:
+        fence = "`" * max(3, max(fence_runs) + 1)
+    opening = f"{fence}{language}" if language else fence
+    return f"\n\n{opening}\n{body}\n{fence}\n\n"
+
+
+def _extract_shortcode_language(arguments: str) -> tuple[str, dict[str, str]]:
+    positional, named = _shortcode_arguments(arguments)
+    language = named.get("syntax", "") or named.get("language", "")
+    if not language and positional:
+        language = positional[0]
+    return language, named
+
+
+def _render_text_import(
+    arguments: str,
+    repo_dir: Path,
+    *,
+    depth: int,
+    active_files: frozenset[Path],
+) -> str:
+    positional, named = _shortcode_arguments(arguments)
+    file_name = named.get("file", "") or (positional[0] if positional else "")
+    imported = _repo_relative_file(repo_dir, file_name)
+    if imported is None or imported.stat().st_size > 1_000_000:
+        return _shortcode_marker("text_import", arguments)
+    if imported in active_files or depth > 8:
+        return f"[text_import recursion blocked: {file_name}]"
+    try:
+        imported_text = imported.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return _shortcode_marker("text_import", arguments)
+
+    snippet = named.get("snippet", "")
+    if snippet:
+        snippet_pattern = re.compile(
+            rf"(?ms)^\s*#\s*\$snippet\s+{re.escape(snippet)}\s*$"
+            rf"(?P<body>.*?)^\s*#\s*\$endsnippet\s*$"
+        )
+        snippet_match = snippet_pattern.search(imported_text)
+        if snippet_match is not None:
+            imported_text = snippet_match.group("body").strip("\r\n")
+    imported_text = _render_istio_shortcodes(
+        imported_text,
+        repo_dir,
+        depth=depth + 1,
+        active_files=active_files | {imported},
+    )
+    language = named.get("syntax", "") or named.get("language", "")
+    return _render_fenced_shortcode(language, imported_text)
+
+
+def _render_include(
+    arguments: str,
+    repo_dir: Path,
+    *,
+    depth: int,
+    active_files: frozenset[Path],
+) -> str:
+    positional, named = _shortcode_arguments(arguments)
+    file_name = named.get("file", "") or (positional[0] if positional else "")
+    included = resolve_include_file(repo_dir, file_name)
+    if included is None or included.stat().st_size > 1_000_000:
+        return _shortcode_marker("include", arguments)
+    if included in active_files or depth > 8:
+        return f"[include recursion blocked: {file_name}]"
+    try:
+        included_text = included.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return _shortcode_marker("include", arguments)
+    included_text = re.sub(
+        r"^---\r?\n.*?\r?\n---\r?\n?",
+        "",
+        included_text,
+        count=1,
+        flags=re.DOTALL,
+    )
+    rendered = _render_istio_shortcodes(
+        included_text,
+        repo_dir,
+        depth=depth + 1,
+        active_files=active_files | {included},
+    ).strip()
+    return f"\n\n{rendered}\n\n" if rendered else ""
+
+
+def _render_boilerplate(
+    arguments: str,
+    repo_dir: Path,
+    *,
+    depth: int,
+    active_files: frozenset[Path],
+) -> str:
+    positional, named = _shortcode_arguments(arguments)
+    name = named.get("file", "") or (positional[0] if positional else "")
+    if not name:
+        return _shortcode_marker("boilerplate", arguments)
+    relative = name if name.lower().endswith((".md", ".markdown")) else f"{name}.md"
+    boilerplate_root = (repo_dir / "content/en/boilerplates").resolve()
+    boilerplate = _repo_relative_file(boilerplate_root, relative)
+    if boilerplate is None:
+        return _shortcode_marker("boilerplate", arguments)
+    if boilerplate in active_files or depth > 8:
+        return f"[boilerplate recursion blocked: {name}]"
+    try:
+        raw = boilerplate.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return _shortcode_marker("boilerplate", arguments)
+    raw = re.sub(r"^---\r?\n.*?\r?\n---\r?\n?", "", raw, count=1, flags=re.DOTALL)
+    rendered = _render_istio_shortcodes(
+        raw,
+        repo_dir,
+        depth=depth + 1,
+        active_files=active_files | {boilerplate},
+    ).strip()
+    return f"\n\n{rendered}\n\n" if rendered else ""
+
+
+def _matching_shortcode_close(
+    tokens: list[_ShortcodeToken],
+    opening_index: int,
+    name: str,
+) -> int | None:
+    nested = 0
+    for index in range(opening_index + 1, len(tokens)):
+        candidate_name, _, closing = _shortcode_parts(tokens[index].body)
+        if candidate_name != name:
+            continue
+        if closing:
+            if nested == 0:
+                return index
+            nested -= 1
+        else:
+            nested += 1
+    return None
+
+
+def _render_istio_shortcode(
+    name: str,
+    arguments: str,
+    inner: str,
+    repo_dir: Path,
+    *,
+    depth: int,
+    active_files: frozenset[Path],
+) -> str:
+    if "{{" in arguments:
+        arguments = _render_istio_shortcodes(
+            arguments,
+            repo_dir,
+            depth=depth + 1,
+            active_files=active_files,
+        )
+    if name == "text":
+        language, _ = _extract_shortcode_language(arguments)
+        return _render_fenced_shortcode(language, inner)
+    if name == "text_import":
+        return _render_text_import(
+            arguments,
+            repo_dir,
+            depth=depth,
+            active_files=active_files,
+        )
+    if name == "include":
+        return _render_include(
+            arguments,
+            repo_dir,
+            depth=depth,
+            active_files=active_files,
+        )
+    if name == "boilerplate":
+        return _render_boilerplate(
+            arguments,
+            repo_dir,
+            depth=depth,
+            active_files=active_files,
+        )
+    if name in ISTIO_ADMONITION_SHORTCODES:
+        positional, named = _shortcode_arguments(arguments)
+        title = named.get("title", "") or (positional[0] if positional else "")
+        return format_admonition(name, title, inner)
+    if name == "tabset":
+        _, named = _shortcode_arguments(arguments)
+        category = named.get("category-name", "")
+        label = f"**Tabset ({category}):**" if category else ""
+        return f"\n\n{label}\n\n{inner.strip()}\n\n" if label else f"\n\n{inner.strip()}\n\n"
+    if name == "tab":
+        positional, named = _shortcode_arguments(arguments)
+        title = named.get("name", "") or named.get("title", "") or (positional[0] if positional else "")
+        label = f"**Tab: {title}**" if title else "**Tab:**"
+        return f"\n\n{label}\n\n{inner.strip()}\n\n"
+    if name == "gloss":
+        positional, _ = _shortcode_arguments(arguments)
+        rendered = inner.strip()
+        return rendered or (positional[0] if positional else "")
+    if name == "image":
+        positional, named = _shortcode_arguments(arguments)
+        source = named.get("src", "") or named.get("link", "") or (positional[0] if positional else "")
+        caption = named.get("caption", "") or named.get("alt", "") or named.get("title", "")
+        if source:
+            return f"\n\n![{' '.join(caption.split())}]({source})\n\n"
+        return _shortcode_marker(name, arguments)
+    if name in {"github_tree", "github_blob", "github_file"}:
+        # The source shortcode is normally followed by ``/path`` in the
+        # surrounding Markdown or shell command.  Render only the immutable
+        # base here so that that path, query, and fragment remain byte-for-byte
+        # intact for the subsequent link pass.
+        if name == "github_tree":
+            return f"{ISTIO_APPLICATION_REPO}/tree/{ISTIO_APPLICATION_COMMIT}"
+        if name == "github_blob":
+            return f"{ISTIO_APPLICATION_REPO}/blob/{ISTIO_APPLICATION_COMMIT}"
+        return f"https://raw.githubusercontent.com/istio/istio/{ISTIO_APPLICATION_COMMIT}"
+    if name == "istio_release_url":
+        return ISTIO_RELEASE_URL
+    # Paired but presentation-only containers retain their prose.  Unknown
+    # arguments remain visible so future source changes do not silently vanish.
+    return f"\n\n{_shortcode_marker(name, arguments)}\n\n{inner.strip()}\n\n"
+
+
+def _mask_istio_literals(content: str) -> tuple[str, list[str], list[str]]:
+    """Protect Markdown fences and inline code before parsing Istio tags."""
+
+    masked, fenced = _mask_gitbook_fences(content)
+    inline: list[str] = []
+
+    def protect_inline(match: re.Match[str]) -> str:
+        inline.append(match.group(0))
+        return f"\x00ISTIO_INLINE_{len(inline) - 1}\x01"
+
+    masked = re.sub(
+        r"(?P<ticks>`+)(?P<body>[^`\n]*?)(?P=ticks)",
+        protect_inline,
+        masked,
+    )
+    return masked, fenced, inline
+
+
+def _render_istio_shortcodes(
+    content: str,
+    repo_dir: Path,
+    *,
+    depth: int = 0,
+    active_files: frozenset[Path] = frozenset(),
+) -> str:
+    """Render Istio's Hugo shortcodes into searchable, readable Markdown."""
+
+    if depth > 10:
+        deep_tokens = _iter_shortcode_tokens(content)
+        if not deep_tokens:
+            return content
+        output: list[str] = []
+        cursor = 0
+        for token in deep_tokens:
+            output.append(content[cursor : token.start])
+            output.append(_shortcode_marker(*_shortcode_parts(token.body)[:2]))
+            cursor = token.end
+        output.append(content[cursor:])
+        return "".join(output)
+
+    def replace_escaped_shortcode_comment(match: re.Match[str]) -> str:
+        name, arguments, closing = _shortcode_parts(match.group("body"))
+        if not name:
+            return _shortcode_marker("shortcode", arguments)
+        return _shortcode_marker(name, arguments)
+
+    masked, fenced, inline = _mask_istio_literals(content)
+
+    # Istio uses escaped shortcode comments in its shortcode documentation to
+    # show source syntax without executing it.  Keep those examples readable,
+    # while ordinary Hugo comments remain intentionally hidden.
+    text = re.sub(
+        r"\{\{[<%]/\*(?P<body>.*?)\*/[>%]\}\}",
+        replace_escaped_shortcode_comment,
+        masked,
+        flags=re.DOTALL,
+    )
+    text = re.sub(r"\{\{/\*.*?\*/\}\}", "", text, flags=re.DOTALL)
+    text = re.sub(
+        r"\{\{[<%]\s*comment\s*[>%]\}\}.*?\{\{[<%]\s*/comment\s*[>%]\}\}",
+        "",
+        text,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+    tokens = _iter_shortcode_tokens(text)
+    if not tokens:
+        # A page may contain only ordinary Markdown.  Literal masking still
+        # happened above, so restore those spans before returning; otherwise
+        # the NUL sentinels would leak into the corpus whenever no shortcode
+        # token was present.
+        rendered = text
+
+        def restore_inline_literal(match: re.Match[str]) -> str:
+            index = int(match.group(1))
+            # A parent shortcode renderer may have supplied this sentinel;
+            # only the frame that created it owns its replacement value.
+            return inline[index] if index < len(inline) else match.group(0)
+
+        rendered = re.sub(
+            r"\x00ISTIO_INLINE_(\d+)\x01",
+            restore_inline_literal,
+            rendered,
+        )
+        for index, fence in enumerate(fenced):
+            rendered = rendered.replace(f"\x00GITBOOK_FENCE_{index}\x01", fence)
+        return rendered
+
+    output: list[str] = []
+    cursor = 0
+    index = 0
+    while index < len(tokens):
+        token = tokens[index]
+        output.append(text[cursor : token.start])
+        name, arguments, closing = _shortcode_parts(token.body)
+        if not name:
+            output.append(_shortcode_marker("shortcode", arguments))
+            cursor = token.end
+            index += 1
+            continue
+        if closing:
+            # A closing tag is consumed by its matching opening tag.  An
+            # unmatched generic close carries no useful prose of its own.
+            cursor = token.end
+            index += 1
+            continue
+
+        close_index = _matching_shortcode_close(tokens, index, name)
+        if close_index is None:
+            if name in {
+                "text_import",
+                "include",
+                "boilerplate",
+                "image",
+                "github_tree",
+                "github_blob",
+                "github_file",
+                "istio_release_url",
+            }:
+                output.append(
+                    _render_istio_shortcode(
+                        name,
+                        arguments,
+                        "",
+                        repo_dir,
+                        depth=depth,
+                        active_files=active_files,
+                    )
+                )
+            elif name in ISTIO_PAIRED_SHORTCODES:
+                output.append(_shortcode_marker(name, arguments))
+            else:
+                output.append(_shortcode_marker(name, arguments))
+            cursor = token.end
+            index += 1
+            continue
+
+        close_token = tokens[close_index]
+        inner = text[token.end : close_token.start]
+        rendered_inner = _render_istio_shortcodes(
+            inner,
+            repo_dir,
+            depth=depth + 1,
+            active_files=active_files,
+        )
+        output.append(
+            _render_istio_shortcode(
+                name,
+                arguments,
+                rendered_inner,
+                repo_dir,
+                depth=depth,
+                active_files=active_files,
+            )
+        )
+        cursor = close_token.end
+        index = close_index + 1
+    output.append(text[cursor:])
+    rendered = "".join(output)
+
+    def restore_inline(match: re.Match[str]) -> str:
+        index = int(match.group(1))
+        # Nested shortcode frames can carry a parent sentinel through this
+        # pass; leave it for the owning outer frame to restore.
+        return inline[index] if index < len(inline) else match.group(0)
+
+    rendered = re.sub(r"\x00ISTIO_INLINE_(\d+)\x01", restore_inline, rendered)
+    for index, fence in enumerate(fenced):
+        rendered = rendered.replace(f"\x00GITBOOK_FENCE_{index}\x01", fence)
+    return rendered
+
+
+@dataclass(frozen=True)
+class _GitBookToken:
+    body: str
+    start: int
+    end: int
+
+
+def _gitbook_fence_marker(line: str) -> tuple[str, int, str] | None:
+    """Return a Markdown fence marker, allowing blockquotes and 0-3 spaces."""
+
+    match = re.match(
+        r"^ {0,3}(?:>\s*)*(?P<marker>`{3,}|~{3,})(?P<rest>[^\r\n]*)(?:\r?\n|$)",
+        line,
+    )
+    if match is None:
+        return None
+    marker = match.group("marker")
+    return marker[0], len(marker), match.group("rest")
+
+
+def _mask_gitbook_fences(content: str) -> tuple[str, list[str]]:
+    """Replace fenced Markdown spans with sentinels before shortcode parsing.
+
+    A sentinel lets a paired GitBook tag span a code fence while ensuring that
+    every `{% ... %}` literal inside that fence remains byte-for-byte intact.
+    """
+
+    lines = content.splitlines(keepends=True)
+    masked: list[str] = []
+    protected: list[str] = []
+    index = 0
+    while index < len(lines):
+        marker = _gitbook_fence_marker(lines[index])
+        if marker is None:
+            masked.append(lines[index])
+            index += 1
+            continue
+
+        fence_char, fence_length, _ = marker
+        fence_lines = [lines[index]]
+        index += 1
+        while index < len(lines):
+            fence_lines.append(lines[index])
+            candidate = _gitbook_fence_marker(lines[index])
+            index += 1
+            if (
+                candidate is not None
+                and candidate[0] == fence_char
+                and candidate[1] >= fence_length
+                and not candidate[2].strip()
+            ):
+                break
+        protected.append("".join(fence_lines))
+        masked.append(f"\x00GITBOOK_FENCE_{len(protected) - 1}\x01")
+    return "".join(masked), protected
+
+
+def _iter_gitbook_tokens(content: str) -> list[_GitBookToken]:
+    """Scan GitBook `{% ... %}` tags, including whitespace-trimmed delimiters."""
+
+    tokens: list[_GitBookToken] = []
+    cursor = 0
+    while True:
+        match = re.search(r"(?<!\{)\{%-?", content[cursor:])
+        if match is None:
+            break
+        start = cursor + match.start()
+        body_start = cursor + match.end()
+        close = content.find("%}", body_start)
+        if close < 0:
+            tokens.append(_GitBookToken(content[body_start:], start, len(content)))
+            break
+        body_end = close
+        if body_end > body_start and content[body_end - 1] == "-":
+            body_end -= 1
+        tokens.append(_GitBookToken(content[body_start:body_end], start, close + 2))
+        cursor = close + 2
+    return tokens
+
+
+def _gitbook_shortcode_parts(raw_body: str) -> tuple[str, str, bool]:
+    """Return `(name, arguments, closing)` for a GitBook tag body."""
+
+    body = raw_body.strip()
+    closing = False
+    if body.startswith("/"):
+        closing = True
+        body = body[1:].lstrip()
+    elif body.lower().startswith("end"):
+        remainder = body[3:]
+        if remainder and (remainder[0].isspace() or re.match(r"[A-Za-z0-9_.-]", remainder[0])):
+            closing = True
+            body = remainder.lstrip()
+    match = re.match(
+        r"(?P<name>[A-Za-z0-9_.-]+)(?:[ \t]+(?P<args>.*?))?$",
+        body,
+        re.DOTALL,
+    )
+    if match is None:
+        return "", body, closing
+    return match.group("name").lower(), (match.group("args") or "").strip(), closing
+
+
+def _matching_gitbook_close(
+    tokens: list[_GitBookToken],
+    opening_index: int,
+    name: str,
+) -> int | None:
+    nested = 0
+    for index in range(opening_index + 1, len(tokens)):
+        candidate_name, _, closing = _gitbook_shortcode_parts(tokens[index].body)
+        if candidate_name != name:
+            continue
+        if closing:
+            if nested == 0:
+                return index
+            nested -= 1
+        else:
+            nested += 1
+    return None
+
+
+def _resolve_gitbook_include(repo_dir: Path, file_name: str) -> Path | None:
+    """Resolve only files below the checkout's `.gitbook/includes` directory."""
+
+    raw = file_name.strip().strip("\"'").replace("\\", "/")
+    if not raw or raw.startswith("/") or re.match(r"^[A-Za-z]:/", raw):
+        return None
+    parts = [part for part in raw.split("/") if part not in {"", "."}]
+    if ".." in parts:
+        return None
+    prefix = [".gitbook", "includes"]
+    if parts[:2] == prefix:
+        parts = parts[2:]
+    if not parts:
+        return None
+    include_root = (repo_dir / ".gitbook" / "includes").resolve()
+    return _safe_repo_file(include_root, include_root.joinpath(*parts))
+
+
+def _render_gitbook_include(
+    arguments: str,
+    repo_dir: Path,
+    *,
+    depth: int,
+    active_files: frozenset[Path],
+) -> str:
+    positional, named = _shortcode_arguments(arguments)
+    file_name = (
+        named.get("file", "")
+        or named.get("src", "")
+        or (positional[0] if positional else "")
+    )
+    included = _resolve_gitbook_include(repo_dir, file_name)
+    if included is None or included.stat().st_size > 1_000_000:
+        return _shortcode_marker("include", arguments)
+    if included in active_files or depth > 8:
+        return f"[include recursion blocked: {file_name}]"
+    try:
+        included_text = included.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return _shortcode_marker("include", arguments)
+    included_text = re.sub(
+        r"^---\r?\n.*?\r?\n---\r?\n?",
+        "",
+        included_text,
+        count=1,
+        flags=re.DOTALL,
+    )
+    rendered = _render_gitbook_shortcodes(
+        included_text,
+        repo_dir,
+        depth=depth + 1,
+        active_files=active_files | {included},
+    ).strip()
+    return f"\n\n{rendered}\n\n" if rendered else ""
+
+
+def _render_gitbook_shortcode(
+    name: str,
+    arguments: str,
+    inner: str,
+    repo_dir: Path,
+    *,
+    depth: int,
+    active_files: frozenset[Path],
+) -> str:
+    positional, named = _shortcode_arguments(arguments)
+    if name == "hint":
+        style = named.get("style", "info").lower()
+        kind = {"info": "note", "warning": "warning"}.get(style, style or "note")
+        return format_admonition(kind, named.get("title", ""), inner)
+    if name in {"tabs", "stepper", "columns", "column"}:
+        return f"\n\n{inner.strip()}\n\n" if inner.strip() else ""
+    if name == "tab":
+        title = named.get("title", "") or (positional[0] if positional else "")
+        label = f"**Tab: {title}**" if title else "**Tab:**"
+        return f"\n\n{label}\n\n{inner.strip()}\n\n"
+    if name == "step":
+        title = named.get("title", "") or (positional[0] if positional else "")
+        label = f"**Step: {title}**" if title else "**Step**"
+        return f"\n\n{label}\n\n{inner.strip()}\n\n"
+    if name == "embed":
+        url = named.get("url", "") or named.get("src", "") or (positional[0] if positional else "")
+        caption = " ".join(inner.split()) or url
+        return f"\n\n[{caption}]({url})\n\n" if url else _shortcode_marker(name, arguments)
+    if name == "content-ref":
+        url = named.get("url", "") or named.get("src", "") or (positional[0] if positional else "")
+        caption = " ".join(inner.split()) or named.get("title", "") or url
+        return f"\n\n[{caption}]({url})\n\n" if url else _shortcode_marker(name, arguments)
+    if name == "code":
+        language = named.get("language", "") or named.get("lang", "") or named.get("syntax", "")
+        if not language and positional:
+            language = positional[0]
+        rendered = _render_fenced_shortcode(language, inner)
+        title = named.get("title", "")
+        return f"\n\n**Code: {title}**\n{rendered}" if title else rendered
+    if name == "file":
+        url = named.get("src", "") or named.get("url", "") or (positional[0] if positional else "")
+        caption = " ".join(inner.split()) or named.get("title", "") or url
+        return f"\n\n[{caption}]({url})\n\n" if url else _shortcode_marker(name, arguments)
+    if name == "include":
+        return _render_gitbook_include(
+            arguments,
+            repo_dir,
+            depth=depth,
+            active_files=active_files,
+        )
+    marker = _shortcode_marker(name, arguments)
+    if inner.strip():
+        return f"\n\n{marker}\n\n{inner.strip()}\n\n"
+    return f"\n\n{marker}\n\n"
+
+
+def _render_gitbook_segment(
+    content: str,
+    repo_dir: Path,
+    *,
+    depth: int,
+    active_files: frozenset[Path],
+) -> str:
+    tokens = _iter_gitbook_tokens(content)
+    if not tokens:
+        return content
+    output: list[str] = []
+    cursor = 0
+    index = 0
+    while index < len(tokens):
+        token = tokens[index]
+        output.append(content[cursor : token.start])
+        name, arguments, closing = _gitbook_shortcode_parts(token.body)
+        if not name:
+            output.append(_shortcode_marker("gitbook", arguments))
+            cursor = token.end
+            index += 1
+            continue
+        if closing:
+            output.append(_shortcode_marker(f"end{name}", arguments))
+            cursor = token.end
+            index += 1
+            continue
+        close_index = _matching_gitbook_close(tokens, index, name)
+        if close_index is None:
+            output.append(
+                _render_gitbook_shortcode(
+                    name,
+                    arguments,
+                    "",
+                    repo_dir,
+                    depth=depth,
+                    active_files=active_files,
+                )
+            )
+            cursor = token.end
+            index += 1
+            continue
+        close_token = tokens[close_index]
+        inner = _render_gitbook_shortcodes(
+            content[token.end : close_token.start],
+            repo_dir,
+            depth=depth + 1,
+            active_files=active_files,
+        )
+        output.append(
+            _render_gitbook_shortcode(
+                name,
+                arguments,
+                inner,
+                repo_dir,
+                depth=depth,
+                active_files=active_files,
+            )
+        )
+        cursor = close_token.end
+        index = close_index + 1
+    output.append(content[cursor:])
+    return "".join(output)
+
+
+def _render_gitbook_shortcodes(
+    content: str,
+    repo_dir: Path,
+    *,
+    depth: int = 0,
+    active_files: frozenset[Path] = frozenset(),
+) -> str:
+    masked, protected = _mask_gitbook_fences(content)
+    rendered = _render_gitbook_segment(
+        masked,
+        repo_dir,
+        depth=depth,
+        active_files=active_files,
+    )
+    for index, fence in enumerate(protected):
+        rendered = rendered.replace(f"\x00GITBOOK_FENCE_{index}\x01", fence)
+    return rendered
+
+
+# ---------------------------------------------------------------------------
+# OpenSearch documentation-website Jekyll renderer
+# ---------------------------------------------------------------------------
+
+# The OpenSearch documentation site uses a small, deliberately boring subset
+# of Liquid in page bodies.  Keeping the implementation here (instead of
+# adding a general-purpose template engine) makes the air-gapped build
+# deterministic and gives us a place to enforce the source trust boundary.
+JEKYLL_INCLUDE_ALLOWLIST = frozenset(
+    {"copy-curl.html", "copy.html", "cards.html", "list.html", "youtube-player.html"}
+)
+JEKYLL_SITE_ALLOWLIST = frozenset(
+    {
+        "url",
+        "baseurl",
+        "opensearch_version",
+        "opensearch_major_minor_version",
+        "opensearch_dashboards_version",
+        "lucene_version",
+    }
+)
+JEKYLL_SITE_OVERRIDE_ALLOWLIST = frozenset(
+    {
+        # Keep overrides deliberately narrower than arbitrary Liquid context.
+        # These are the version/origin values that the source manifests may
+        # pin for an application-specific documentation snapshot.
+        "url",
+        "baseurl",
+        "opensearch_version",
+        "opensearch_major_minor_version",
+        "opensearch_dashboards_version",
+        "lucene_version",
+    }
+)
+JEKYLL_DEFAULT_SITE = {
+    "url": "https://docs.opensearch.org",
+    "baseurl": "/latest",
+    "opensearch_version": "2.19.6",
+    "opensearch_major_minor_version": "2.19",
+    "opensearch_dashboards_version": "2.19.6",
+    "lucene_version": "9_12_0",
+}
+
+
+class JekyllRenderError(ValueError):
+    """Raised when a page uses Liquid outside the supported profile."""
+
+    def __init__(self, message: str, source_path: Path | None = None, line: int | None = None):
+        self.source_path = source_path
+        self.line = line
+        location = ""
+        if source_path is not None:
+            location = f"{source_path}"
+            if line is not None:
+                location += f":{line}"
+            location += ": "
+        super().__init__(location + message)
+
+
+@dataclass(frozen=True)
+class _JekyllPage:
+    file_path: Path
+    repo_rel_path: str
+    metadata: dict[str, Any]
+    collection: str
+    route: str
+    canonical_url: str
+    canonical_route: str
+    permalink: str
+    redirect_aliases: tuple[str, ...]
+    output_rel_path: str
+    canonical_collision: bool = False
+
+
+@dataclass
+class _JekyllRegistry:
+    manifest: Manifest
+    pages: list[_JekyllPage]
+    by_source: dict[str, _JekyllPage]
+    by_route: dict[str, list[_JekyllPage]]
+    by_alias: dict[str, list[_JekyllPage]]
+
+    @property
+    def unique_routes(self) -> int:
+        return len(self.by_route)
+
+    @property
+    def route_collisions(self) -> dict[str, list[_JekyllPage]]:
+        return {route: pages for route, pages in self.by_route.items() if len(pages) > 1}
+
+
+_LIQUID_BLOCK_PATTERN = re.compile(
+    r"\{%-?\s*(?P<body>.*?)\s*-?%\}",
+    re.DOTALL,
+)
+_LIQUID_OUTPUT_PATTERN = re.compile(
+    r"(?<!\{)\{\{\-?\s*(?P<body>.*?)\s*\-?\}\}(?!\})",
+    re.DOTALL,
+)
+_LIQUID_LITERAL_MUSTACHE_PATTERN = re.compile(r"\{\{\{.*?\}\}\}", re.DOTALL)
+_JYAML_KEY_PATTERN = re.compile(r"^(?P<key>[A-Za-z_][A-Za-z0-9_-]*)\s*:", re.MULTILINE)
+
+
+def _yaml_scalar_fallback(value: str) -> Any:
+    """Parse the small scalar subset needed when PyYAML is unavailable."""
+
+    value = value.strip()
+    if not value:
+        return None
+    if value in {"true", "True", "TRUE"}:
+        return True
+    if value in {"false", "False", "FALSE"}:
+        return False
+    if value in {"null", "Null", "NULL", "~"}:
+        return None
+    try:
+        return json.loads(value)
+    except (TypeError, json.JSONDecodeError):
+        pass
+    if (value.startswith("'") and value.endswith("'")) or (
+        value.startswith('"') and value.endswith('"')
+    ):
+        return value[1:-1]
+    return value
+
+
+def _parse_yaml_mapping(raw_yaml: str) -> dict[str, Any]:
+    """Load source YAML without making the profile depend on a new package."""
+
+    try:
+        import yaml
+
+        parsed = yaml.safe_load(raw_yaml)
+    except (ImportError, OSError, ValueError):
+        parsed = None
+    if isinstance(parsed, dict):
+        return dict(parsed)
+
+    # This fallback intentionally only handles top-level values.  The normal
+    # builder environment installs PyYAML (it is already in requirements.txt),
+    # while this path still gives useful title/version behaviour in a minimal
+    # standard-library test environment.
+    result: dict[str, Any] = {}
+    lines = raw_yaml.replace("\r\n", "\n").replace("\r", "\n").splitlines()
+    current_key: str | None = None
+    current_lines: list[str] = []
+    for line in lines + [""]:
+        key_match = re.match(r"^(?P<key>[A-Za-z_][A-Za-z0-9_-]*)\s*:\s*(?P<value>.*)$", line)
+        if key_match and not line.startswith((" ", "\t")):
+            if current_key is not None:
+                result[current_key] = _yaml_scalar_fallback("\n".join(current_lines))
+            current_key = key_match.group("key")
+            current_lines = [key_match.group("value")]
+        elif current_key is not None:
+            current_lines.append(line.strip())
+    if current_key is not None and current_key not in result:
+        result[current_key] = _yaml_scalar_fallback("\n".join(current_lines))
+    return result
+
+
+def parse_jekyll_frontmatter(content: str, default_title: str = "") -> tuple[dict[str, Any], str]:
+    """Return complete page data and body from a Jekyll Markdown document."""
+
+    match = FRONTMATTER_PATTERN.match(content)
+    if match is None:
+        metadata: dict[str, Any] = {}
+        body = content
+    else:
+        metadata = _parse_yaml_mapping(match.group(1))
+        body = content[match.end() :]
+    if not str(metadata.get("title", "") or "").strip():
+        heading = HEADING1_PATTERN.search(body)
+        metadata["title"] = heading.group(1).strip() if heading else default_title
+    return metadata, body
+
+
+def _jekyll_fence_marker(line: str) -> tuple[str, int, int, str] | None:
+    """Return ``(char, length, indentation, rest)`` for a Markdown fence."""
+
+    match = re.match(
+        r"^(?P<indent> *)(?P<quotes>(?:>\s*)*)(?P<marker>`{3,}|~{3,})(?P<rest>[^\r\n]*)(?:\r?\n|$)",
+        line,
+    )
+    if match is None:
+        return None
+    return (
+        match.group("marker")[0],
+        len(match.group("marker")),
+        len(match.group("indent")),
+        match.group("rest"),
+    )
+
+
+def _mask_jekyll_fences(content: str) -> tuple[str, list[str]]:
+    """Mask fenced spans while allowing only safe ``site.*`` rendering later."""
+
+    lines = content.splitlines(keepends=True)
+    masked: list[str] = []
+    protected: list[str] = []
+    index = 0
+    while index < len(lines):
+        marker = _jekyll_fence_marker(lines[index])
+        if marker is None:
+            masked.append(lines[index])
+            index += 1
+            continue
+        char, length, indentation, _ = marker
+        # A line with a same-line closing marker is an inline code span, not a
+        # block-fence opener. Keep it as normal text so it cannot hide all
+        # following prose from Liquid/link passes.
+        if re.search(re.escape(char) * length + r"\s*$", marker[3]):
+            masked.append(lines[index])
+            index += 1
+            continue
+        fence_lines = [lines[index]]
+        index += 1
+        while index < len(lines):
+            candidate_line = lines[index]
+            candidate = _jekyll_fence_marker(candidate_line)
+            if (
+                candidate is not None
+                and candidate[0] == char
+                and candidate[1] >= length
+                and candidate[3].strip() == ""
+                # A fence nested below an ordered/bulleted list commonly has
+                # one extra indentation column on its closing line.  Kramdown
+                # accepts up to three columns of container indentation; use
+                # that allowance while still keeping a top-level 4-space code
+                # block from closing a top-level fence accidentally.
+                and candidate[2] <= indentation + 3
+            ):
+                fence_lines.append(candidate_line)
+                index += 1
+                break
+            # A fixed-source page has one known malformed JSON fence followed
+            # by a real Markdown heading. Treat a heading after a blank line as
+            # the implicit boundary so subsequent prose is not hidden in the
+            # code span. An unclosed fence without that structural boundary
+            # remains protected through EOF.
+            if (
+                candidate is None
+                and fence_lines
+                and not fence_lines[-1].strip()
+                # A single ``#`` is commonly a language comment inside the
+                # malformed block (for example ``# Array of hosts`` in a
+                # Python snippet).  Only a structural second-level-or-deeper
+                # heading may delimit the known malformed JSON fence.
+                and re.match(r"^ {0,3}#{2,6}\s", candidate_line)
+            ):
+                break
+            fence_lines.append(candidate_line)
+            index += 1
+        protected.append("".join(fence_lines))
+        masked.append(f"\x00JEKYLL_FENCE_{len(protected) - 1}\x01")
+    return "".join(masked), protected
+
+
+def _unmask_jekyll_fences(text: str, protected: list[str]) -> str:
+    for index, fence in enumerate(protected):
+        text = text.replace(f"\x00JEKYLL_FENCE_{index}\x01", fence)
+    return text
+
+
+def _split_jekyll_filters(expression: str) -> list[str]:
+    """Split a Liquid expression at unquoted pipe characters."""
+
+    parts: list[str] = []
+    start = 0
+    quote: str | None = None
+    escaped = False
+    for index, char in enumerate(expression):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote:
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in {"'", '"'}:
+            quote = char
+        elif char == "|":
+            parts.append(expression[start:index].strip())
+            start = index + 1
+    parts.append(expression[start:].strip())
+    return parts
+
+
+def _liquid_arguments(raw: str) -> list[str]:
+    raw = raw.strip()
+    if not raw:
+        return []
+    if raw.startswith(":"):
+        raw = raw[1:].lstrip()
+    try:
+        return shlex.split(raw, posix=True)
+    except ValueError as error:
+        raise JekyllRenderError(f"invalid Liquid filter arguments: {raw!r}") from error
+
+
+def _liquid_string(value: Any) -> str:
+    if value is None:
+        return ""
+    if value is True:
+        return "true"
+    if value is False:
+        return "false"
+    if isinstance(value, (list, tuple)):
+        return " ".join(_liquid_string(item) for item in value)
+    if isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    return str(value)
+
+
+def _liquid_path_parts(value: str) -> list[str | int]:
+    if not re.match(r"^[A-Za-z_]", value.strip()):
+        return []
+    parts: list[str | int] = []
+    for match in re.finditer(r"(?:^|\.)([A-Za-z_][A-Za-z0-9_-]*)|\[\s*(['\"]?)([^\]\"']+)\2\s*\]", value):
+        if match.group(1) is not None:
+            parts.append(match.group(1))
+        else:
+            raw = match.group(3).strip()
+            parts.append(int(raw) if raw.isdigit() else raw)
+    return parts
+
+
+def _liquid_lookup(value: str, context: dict[str, Any], *, strict: bool = True) -> Any:
+    value = value.strip()
+    literal = _yaml_scalar_fallback(value)
+    if value and (
+        (value[0] in {"'", '"'} and value[-1:] == value[0])
+        or value in {"true", "false", "nil", "null", "blank", "empty"}
+        or re.fullmatch(r"-?\d+(?:\.\d+)?", value)
+    ):
+        return literal
+    parts = _liquid_path_parts(value)
+    if not parts:
+        if strict:
+            raise JekyllRenderError(f"undefined Liquid variable: {value!r}")
+        return ""
+    current: Any = context
+    for part in parts:
+        if isinstance(part, int):
+            if not isinstance(current, (list, tuple)) or part >= len(current):
+                if strict:
+                    raise JekyllRenderError(f"undefined Liquid variable: {value!r}")
+                return ""
+            current = current[part]
+        elif isinstance(current, dict) and part in current:
+            current = current[part]
+        else:
+            if strict:
+                raise JekyllRenderError(f"undefined Liquid variable: {value!r}")
+            return ""
+    return current
+
+
+def _evaluate_liquid_expression(expression: str, context: dict[str, Any]) -> Any:
+    parts = _split_jekyll_filters(expression)
+    value = _liquid_lookup(parts[0], context)
+    for filter_part in parts[1:]:
+        match = re.match(r"^(?P<name>[A-Za-z_][A-Za-z0-9_-]*)\s*(?::\s*(?P<args>.*))?$", filter_part, re.DOTALL)
+        if match is None:
+            raise JekyllRenderError(f"invalid Liquid filter: {filter_part!r}")
+        name = match.group("name").lower()
+        args = _liquid_arguments(match.group("args") or "")
+        def filter_value(arg: str) -> Any:
+            # ``shlex`` removes quotes from filter arguments.  A token that is
+            # not a variable path is therefore a literal string (for example
+            # the ``"."`` in ``split: "."``).
+            if _liquid_path_parts(arg):
+                return _liquid_lookup(arg, context)
+            return _yaml_scalar_fallback(arg)
+
+        values = [filter_value(arg) for arg in args]
+        if name == "split":
+            value = _liquid_string(value).split(_liquid_string(values[0] if values else ""))
+        elif name == "append":
+            value = _liquid_string(value) + _liquid_string(values[0] if values else "")
+        elif name == "prepend":
+            value = _liquid_string(values[0] if values else "") + _liquid_string(value)
+        elif name == "first":
+            value = value[0] if isinstance(value, (list, tuple)) and value else ""
+        elif name == "last":
+            value = value[-1] if isinstance(value, (list, tuple)) and value else ""
+        elif name == "join":
+            value = _liquid_string(values[0] if values else "").join(_liquid_string(item) for item in value)
+        elif name == "replace":
+            old = _liquid_string(values[0] if values else "")
+            new = _liquid_string(values[1] if len(values) > 1 else "")
+            value = _liquid_string(value).replace(old, new)
+        elif name == "default":
+            if value in {None, "", False, []}:
+                value = values[0] if values else ""
+        elif name == "strip_html":
+            value = re.sub(r"<[^>]+>", "", _liquid_string(value))
+        elif name == "markdownify":
+            # Include descriptions use this filter.  The source descriptions
+            # are already Markdown/plain text, so preserve text and remove
+            # only presentation tags that would not be searchable.
+            value = re.sub(r"<[^>]+>", "", _liquid_string(value))
+        elif name == "escape":
+            value = html.escape(_liquid_string(value))
+        else:
+            raise JekyllRenderError(f"unsupported Liquid filter: {name!r}")
+    return value
+
+
+def _liquid_line_number(text: str, offset: int) -> int:
+    return text.count("\n", 0, offset) + 1
+
+
+_JEKYLL_RAW_TAG_PATTERN = re.compile(
+    r"\{%-?\s*(?P<name>raw|endraw)\s*-?%\}",
+    re.IGNORECASE,
+)
+
+
+def _protect_jekyll_raw_blocks(
+    text: str,
+    *,
+    source_path: Path | None = None,
+    line_offset: int = 0,
+) -> tuple[str, list[str]]:
+    """Remove Jekyll raw wrappers while protecting their literal contents.
+
+    Fenced pages need a separate pass because only ``site.*`` expressions are
+    evaluated there.  A raw block must therefore be replaced with a sentinel
+    before that pass, otherwise a literal ``{{ site.foo }}`` would be rendered
+    accidentally.  Treat malformed or nested wrappers as an error instead of
+    silently leaking template syntax into the corpus.
+    """
+
+    output: list[str] = []
+    literals: list[str] = []
+    cursor = 0
+    open_tag: re.Match[str] | None = None
+    for match in _JEKYLL_RAW_TAG_PATTERN.finditer(text):
+        name = match.group("name").lower()
+        if name == "raw":
+            if open_tag is not None:
+                line = line_offset + _liquid_line_number(text, match.start())
+                raise JekyllRenderError("nested raw/endraw block", source_path, line)
+            output.append(text[cursor : match.start()])
+            open_tag = match
+            cursor = match.end()
+            continue
+
+        if open_tag is None:
+            line = line_offset + _liquid_line_number(text, match.start())
+            raise JekyllRenderError("unmatched raw/endraw block", source_path, line)
+        literals.append(text[open_tag.end() : match.start()])
+        output.append(f"\x00JEKYLL_RAW_LITERAL_{len(literals) - 1}\x01")
+        cursor = match.end()
+        open_tag = None
+
+    if open_tag is not None:
+        line = line_offset + _liquid_line_number(text, open_tag.start())
+        raise JekyllRenderError("unmatched raw/endraw block", source_path, line)
+    output.append(text[cursor:])
+    return "".join(output), literals
+
+
+def _restore_jekyll_raw_blocks(text: str, literals: list[str]) -> str:
+    for index, literal in enumerate(literals):
+        text = text.replace(f"\x00JEKYLL_RAW_LITERAL_{index}\x01", literal)
+    return text
+
+
+def _render_jekyll_fence(
+    text: str,
+    context: dict[str, Any],
+    *,
+    source_path: Path | None = None,
+) -> str:
+    """Render allowlisted site expressions in one fence.
+
+    The fence itself remains literal Markdown.  Only site expressions outside
+    explicit raw spans are evaluated; raw wrappers are stripped while their
+    inner text is restored byte-for-byte.
+    """
+
+    protected, literals = _protect_jekyll_raw_blocks(text, source_path=source_path)
+    rendered = _render_site_expressions(protected, context, strict=True)
+    return _restore_jekyll_raw_blocks(rendered, literals)
+
+
+def _render_site_expressions(text: str, context: dict[str, Any], *, strict: bool = True) -> str:
+    """Render only allowlisted ``site.*`` expressions in a fenced span."""
+
+    def replace(match: re.Match[str]) -> str:
+        expression = match.group("body").strip()
+        first = _split_jekyll_filters(expression)[0]
+        if not first.startswith("site."):
+            return match.group(0)
+        try:
+            value = _evaluate_liquid_expression(expression, context)
+        except JekyllRenderError:
+            if strict:
+                raise
+            return match.group(0)
+        return _liquid_string(value)
+
+    return _LIQUID_OUTPUT_PATTERN.sub(replace, text)
+
+
+def _resolve_jekyll_include_path(repo_dir: Path, name: str) -> Path:
+    raw = name.strip().strip("\"'").replace("\\", "/")
+    if raw not in JEKYLL_INCLUDE_ALLOWLIST:
+        raise JekyllRenderError(
+            f"include is not in the direct allowlist: {name!r}; allowed={sorted(JEKYLL_INCLUDE_ALLOWLIST)}"
+        )
+    if any(part in {"", ".", ".."} for part in raw.split("/")) or "/" in raw:
+        raise JekyllRenderError(f"include path traversal rejected: {name!r}")
+    include_root = (repo_dir / "_includes").resolve()
+    resolved = _safe_repo_file(repo_dir, include_root / raw)
+    if resolved is None or resolved.parent != include_root:
+        raise JekyllRenderError(f"include file is missing or outside _includes: {name!r}")
+    if resolved.stat().st_size > 1_000_000:
+        raise JekyllRenderError(f"include file is too large: {name!r}")
+    return resolved
+
+
+def _parse_jekyll_include_arguments(raw: str, context: dict[str, Any]) -> dict[str, Any]:
+    try:
+        tokens = shlex.split(raw, posix=True)
+    except ValueError as error:
+        raise JekyllRenderError(f"invalid include arguments: {raw!r}") from error
+    result: dict[str, Any] = {}
+    for token in tokens:
+        match = re.match(r"^(?P<key>[A-Za-z_][A-Za-z0-9_-]*)=(?P<value>.*)$", token, re.DOTALL)
+        if match is None:
+            raise JekyllRenderError(f"include argument must be key=value: {token!r}")
+        key = match.group("key")
+        value = match.group("value")
+        path_parts = _liquid_path_parts(value)
+        if path_parts and (
+            value in context
+            or value.startswith(("page.", "site.", "include."))
+        ):
+            result[key] = _liquid_lookup(value, context)
+        else:
+            result[key] = _yaml_scalar_fallback(value)
+    return result
+
+
+def _plain_include_text(value: Any) -> str:
+    return re.sub(r"<[^>]+>", "", _liquid_string(value)).strip()
+
+
+def _render_jekyll_include(
+    name: str,
+    arguments: str,
+    repo_dir: Path,
+    context: dict[str, Any],
+    *,
+    active_includes: frozenset[str],
+) -> str:
+    normalized_name = name.strip().strip("\"'")
+    if normalized_name in active_includes:
+        return f"\n\n[include recursion blocked: {normalized_name}]\n\n"
+    include_path = _resolve_jekyll_include_path(repo_dir, normalized_name)
+    # Reading the file verifies sparse-checkout and source provenance.  The
+    # profile renders the five known templates semantically rather than
+    # interpreting arbitrary Liquid from a repository file.
+    try:
+        include_source = include_path.read_text(encoding="utf-8", errors="replace")
+    except OSError as error:
+        raise JekyllRenderError(f"cannot read include {normalized_name!r}: {error}") from error
+    nested = re.findall(r"\{%-?\s*include\s+([^%]+?)\s*-?%\}", include_source)
+    for nested_name in nested:
+        nested_name = nested_name.strip().split()[0].strip("\"'")
+        if nested_name in active_includes or nested_name == normalized_name:
+            return f"\n\n[include recursion blocked: {nested_name}]\n\n"
+        if nested_name not in JEKYLL_INCLUDE_ALLOWLIST:
+            raise JekyllRenderError(f"nested include is not allowlisted: {nested_name!r}")
+    include_context = dict(context)
+    include_context["include"] = _parse_jekyll_include_arguments(arguments, context)
+    values = include_context["include"]
+    if normalized_name in {"copy.html", "copy-curl.html"}:
+        unknown = set(values) - set()
+        if unknown:
+            raise JekyllRenderError(f"unexpected arguments for {normalized_name}: {sorted(unknown)}")
+        return ""
+    if normalized_name == "cards.html":
+        unknown = set(values) - {"cards", "documentation_link"}
+        if unknown or "cards" not in values:
+            raise JekyllRenderError(
+                f"cards include requires cards and accepts documentation_link; unexpected={sorted(unknown)}"
+            )
+        cards = values["cards"]
+        if not isinstance(cards, (list, tuple)):
+            raise JekyllRenderError("cards include argument must be a list")
+        output: list[str] = ["", "<div class=\"card-container\">", ""]
+        for card in cards:
+            if not isinstance(card, dict):
+                raise JekyllRenderError("cards include entries must be mappings")
+            heading = _plain_include_text(card.get("heading", ""))
+            if not heading:
+                raise JekyllRenderError("cards include entry is missing heading")
+            link = _liquid_string(card.get("link", "")).strip()
+            label = f"[{heading}]({link})" if link else heading
+            output.append(f"- {label}")
+            description = _plain_include_text(card.get("description", ""))
+            if description:
+                output.append(f"  {description}")
+            items = card.get("list")
+            if isinstance(items, (list, tuple)):
+                output.extend(f"  - {_plain_include_text(item)}" for item in items)
+            if values.get("documentation_link"):
+                output.append("  Documentation →")
+            output.append("")
+        output.extend(["</div>", ""])
+        return "\n".join(output)
+    if normalized_name == "list.html":
+        unknown = set(values) - {"list_title", "list_items"}
+        if unknown or "list_items" not in values:
+            raise JekyllRenderError(
+                f"list include requires list_items and accepts list_title; unexpected={sorted(unknown)}"
+            )
+        items = values["list_items"]
+        if not isinstance(items, (list, tuple)):
+            raise JekyllRenderError("list include argument must be a list")
+        output = [""]
+        if values.get("list_title"):
+            output.append(f"**{_plain_include_text(values['list_title'])}**")
+            output.append("")
+        for index, item in enumerate(items, 1):
+            if not isinstance(item, dict):
+                raise JekyllRenderError("list include entries must be mappings")
+            heading = _plain_include_text(item.get("heading", ""))
+            if not heading:
+                raise JekyllRenderError("list include entry is missing heading")
+            link = _liquid_string(item.get("link", "")).strip()
+            label = f"[{heading}]({link})" if link else heading
+            output.append(f"{index}. {label}")
+            description = _plain_include_text(item.get("description", ""))
+            if description:
+                output.append(f"   {description}")
+        output.append("")
+        return "\n".join(output)
+    if normalized_name == "youtube-player.html":
+        unknown = set(values) - {"id"}
+        if unknown or not values.get("id"):
+            raise JekyllRenderError(
+                f"youtube-player include requires id; unexpected={sorted(unknown)}"
+            )
+        video_id = html.escape(_liquid_string(values["id"]), quote=True)
+        return (
+            '\n\n<div class="embed-container">\n'
+            f'  <iframe src="https://www.youtube.com/embed/{video_id}" '
+            'width="640" height="385" frameborder="0" allowfullscreen="true"></iframe>\n'
+            "</div>\n\n"
+        )
+    raise JekyllRenderError(f"unhandled Jekyll include: {normalized_name!r}")
+
+
+def _is_literal_jekyll_output(expression: str) -> bool:
+    """Recognize template examples that are intentionally not Liquid."""
+
+    expression = expression.strip()
+    return bool(
+        expression.startswith(("#", "/", "^", "!", ">", "range ", "with ", "end "))
+        or expression.startswith("/")
+        or ("{{" in expression and expression.endswith("}}"))
+    )
+
+
+def _liquid_expression_root(expression: str) -> str | None:
+    """Return the leading variable name of a Liquid output expression."""
+
+    primary = _split_jekyll_filters(expression)[0].strip()
+    match = re.match(r"(?P<root>[A-Za-z_][A-Za-z0-9_-]*)", primary)
+    return match.group("root") if match is not None else None
+
+
+def _render_jekyll_segment(
+    text: str,
+    repo_dir: Path,
+    context: dict[str, Any],
+    *,
+    source_path: Path | None,
+    active_includes: frozenset[str] = frozenset(),
+) -> str:
+    """Render non-fenced page text, failing closed on unknown Liquid."""
+
+    protected_literals: list[str] = []
+
+    def protect_literal(match: re.Match[str]) -> str:
+        protected_literals.append(match.group(0))
+        return f"\x00JEKYLL_LITERAL_{len(protected_literals) - 1}\x01"
+
+    # Triple braces are Mustache/Handlebars examples, never an output tag.
+    text = _LIQUID_LITERAL_MUSTACHE_PATTERN.sub(protect_literal, text)
+
+    def protect_raw(match: re.Match[str]) -> str:
+        protected_literals.append(match.group("inner"))
+        return f"\x00JEKYLL_LITERAL_{len(protected_literals) - 1}\x01"
+
+    raw_pattern = re.compile(
+        r"\{%-?\s*raw\s*-?%\}(?P<inner>.*?)\{%-?\s*endraw\s*-?%\}",
+        re.DOTALL | re.IGNORECASE,
+    )
+    text = raw_pattern.sub(protect_raw, text)
+    if re.search(r"\{%-?\s*(?:raw|endraw)\b", text, re.IGNORECASE):
+        raise JekyllRenderError("unmatched raw/endraw block", source_path)
+
+    # Inline code is a literal context just like a fenced block.  Protect it
+    # before evaluating Liquid so examples such as ``{{page.title}}`` remain
+    # examples while the same expression in prose is rendered.
+    text = re.sub(
+        r"(?P<ticks>`+)(?P<body>[^`\n]*?)(?P=ticks)",
+        protect_literal,
+        text,
+    )
+
+    comment_pattern = re.compile(
+        r"\{%-?\s*comment\s*-?%\}.*?\{%-?\s*endcomment\s*-?%\}",
+        re.DOTALL | re.IGNORECASE,
+    )
+    text = comment_pattern.sub("", text)
+    if re.search(r"\{%-?\s*(?:comment|endcomment)\b", text, re.IGNORECASE):
+        raise JekyllRenderError("unmatched comment/endcomment block", source_path)
+
+    # Assignments are deliberately evaluated in source order.  This covers
+    # the version_parts/major_version_mask pattern used by OpenSearch RPM
+    # instructions and makes undefined variables fail before any output is
+    # written to the corpus.
+    assign_pattern = re.compile(
+        r"\{%-?\s*assign\s+(?P<name>[A-Za-z_][A-Za-z0-9_-]*)\s*=\s*(?P<expr>.*?)\s*-?%\}",
+        re.DOTALL | re.IGNORECASE,
+    )
+
+    def assign(match: re.Match[str]) -> str:
+        expression = match.group("expr").strip()
+        try:
+            context[match.group("name")] = _evaluate_liquid_expression(expression, context)
+        except JekyllRenderError as error:
+            raise JekyllRenderError(str(error), source_path, _liquid_line_number(text, match.start())) from error
+        return ""
+
+    text = assign_pattern.sub(assign, text)
+
+    include_pattern = re.compile(
+        r"\{%-?\s*include\s+(?P<name>[^%\s]+)(?:\s+(?P<args>.*?))?\s*-?%\}",
+        re.DOTALL | re.IGNORECASE,
+    )
+
+    def include(match: re.Match[str]) -> str:
+        try:
+            return _render_jekyll_include(
+                match.group("name"),
+                match.group("args") or "",
+                repo_dir,
+                context,
+                active_includes=active_includes,
+            )
+        except JekyllRenderError as error:
+            raise JekyllRenderError(str(error), source_path, _liquid_line_number(text, match.start())) from error
+
+    text = include_pattern.sub(include, text)
+
+    def output(match: re.Match[str]) -> str:
+        expression = match.group("body").strip()
+        root = _liquid_expression_root(expression)
+        if _is_literal_jekyll_output(expression) or (
+            not any(char.isspace() for char in expression)
+            and root not in context
+        ):
+            return match.group(0)
+        try:
+            return _liquid_string(_evaluate_liquid_expression(expression, context))
+        except JekyllRenderError as error:
+            raise JekyllRenderError(str(error), source_path, _liquid_line_number(text, match.start())) from error
+
+    text = _LIQUID_OUTPUT_PATTERN.sub(output, text)
+    residual = _LIQUID_BLOCK_PATTERN.search(text)
+    if residual is not None:
+        body = " ".join(residual.group("body").split())
+        raise JekyllRenderError(f"unsupported Liquid block tag: {body!r}", source_path, _liquid_line_number(text, residual.start()))
+
+    def restore(match: re.Match[str]) -> str:
+        return protected_literals[int(match.group(1))]
+
+    sentinel_pattern = re.compile(r"\x00JEKYLL_LITERAL_(\d+)\x01")
+    # A raw span may contain a protected triple-Mustache literal. Restoring
+    # the outer raw span exposes the inner sentinel, so expand the finite
+    # protection stack until no internal marker remains.
+    for _ in range(len(protected_literals) + 1):
+        if sentinel_pattern.search(text) is None:
+            return text
+        text = sentinel_pattern.sub(restore, text)
+    raise JekyllRenderError("Jekyll literal restoration did not converge", source_path)
+
+
+def normalize_jekyll_ial(body: str) -> str:
+    """Keep Kramdown classes/attributes and normalize presentation wrappers."""
+
+    masked, protected = _mask_jekyll_fences(body)
+
+    def normalize_segment(segment: str) -> str:
+        # ``nomarkdown`` is a Kramdown wrapper around inline HTML.  Its inner
+        # HTML is useful corpus content, whereas the wrapper itself is not.
+        segment = re.sub(r"\{::nomarkdown\}", "", segment, flags=re.IGNORECASE)
+        segment = re.sub(r"\{:/\}", "", segment)
+        segment = re.sub(r"(?m)^\s*\{:{1,2}toc\}\s*$", "<!-- local-toc -->", segment, flags=re.IGNORECASE)
+        return segment
+
+    normalized = normalize_segment(masked)
+    return _unmask_jekyll_fences(normalized, protected)
+
+
+def render_jekyll_template(
+    content: str,
+    repo_dir: Path,
+    *,
+    manifest: Manifest | None = None,
+    page_data: dict[str, Any] | None = None,
+    source_path: Path | None = None,
+) -> str:
+    """Render the supported OpenSearch Jekyll/Liquid page-body subset."""
+
+    site = dict(JEKYLL_DEFAULT_SITE)
+    if repo_dir.is_dir() and (repo_dir / "_config.yml").is_file():
+        try:
+            site.update(
+                {
+                    key: value
+                    for key, value in _parse_yaml_mapping(
+                        (repo_dir / "_config.yml").read_text(encoding="utf-8", errors="replace")
+                    ).items()
+                    if key in JEKYLL_SITE_ALLOWLIST and value is not None
+                }
+            )
+        except OSError:
+            pass
+    if manifest is not None:
+        overrides = manifest.site_overrides
+        if not isinstance(overrides, dict):
+            raise JekyllRenderError("site_overrides must be a mapping", source_path)
+        disallowed = set(overrides) - JEKYLL_SITE_OVERRIDE_ALLOWLIST
+        if disallowed:
+            raise JekyllRenderError(
+                f"site_overrides contains disallowed keys: {sorted(disallowed)}",
+                source_path,
+            )
+        for key, value in overrides.items():
+            if value is None or isinstance(value, (dict, list, tuple, set)):
+                raise JekyllRenderError(
+                    f"site_overrides.{key} must be a scalar value",
+                    source_path,
+                )
+            site[key] = value
+    context: dict[str, Any] = {"site": {key: site[key] for key in JEKYLL_SITE_ALLOWLIST if key in site}}
+    context.update(page_data or {})
+    context["page"] = page_data or {}
+    masked, protected = _mask_jekyll_fences(content)
+
+    def render_fence(match: re.Match[str]) -> str:
+        index = int(match.group(1))
+        return _render_jekyll_fence(
+            protected[index],
+            context,
+            source_path=source_path,
+        )
+
+    rendered = _render_jekyll_segment(
+        masked,
+        repo_dir,
+        context,
+        source_path=source_path,
+    )
+    rendered = re.sub(r"\x00JEKYLL_FENCE_(\d+)\x01", render_fence, rendered)
+    return normalize_jekyll_ial(rendered)
+
+
+# Short aliases make the profile easy to exercise in focused tests and keep
+# the source-specific API discoverable without changing the historical helper.
+render_jekyll = render_jekyll_template
+clean_jekyll = render_jekyll_template
+
+
+def validate_no_residual_template_syntax(body: str) -> list[str]:
+    """Return non-code Liquid/Kramdown residuals for corpus-wide validation."""
+
+    masked, protected = _mask_jekyll_fences(body)
+    validation_text = re.sub(
+        r"(?P<ticks>`+)(?P<body>[^`\n]*?)(?P=ticks)",
+        "",
+        masked,
+    )
+    failures: list[str] = []
+    for match in _LIQUID_BLOCK_PATTERN.finditer(validation_text):
+        failures.append(f"block:{match.group('body').strip()}")
+    for match in _LIQUID_OUTPUT_PATTERN.finditer(validation_text):
+        expression = match.group("body").strip()
+        # A raw-protected Mustache/Go/Jinja example is restored as a literal
+        # output expression after the protection span is removed.  The
+        # renderer has already failed on an unprotected unknown expression;
+        # here a compact no-whitespace token is the explicit literal
+        # exception (``{{play_name}}``, ``{{ctx.index}}`` and similar).
+        root = _liquid_expression_root(expression)
+        if not _is_literal_jekyll_output(expression) and not (
+            not any(char.isspace() for char in expression)
+            and root not in {"site", "page", "include"}
+        ):
+            failures.append(f"output:{expression}")
+    if re.search(
+        r"\{::nomarkdown\}|\{:/\}|^\s*\{:{1,2}toc\}\s*$",
+        validation_text,
+        flags=re.MULTILINE,
+    ):
+        failures.append("kramdown-wrapper")
+    # Fences are masked from the general Liquid scan, but raw/endraw wrappers
+    # are executable Jekyll syntax and must be removed there as well.  Keep a
+    # dedicated marker so a corpus check cannot report a false clean result
+    # merely because the whole fence was protected.
+    for fence in protected:
+        if re.search(r"\{%-?\s*(?:raw|endraw)\b", fence, flags=re.IGNORECASE):
+            failures.append("fence-raw")
+            break
+    # Fence contents are explicit code/literal exceptions.  Still check that
+    # the masking did not accidentally lose any source bytes.
+    if _unmask_jekyll_fences(masked, protected) != body:
+        failures.append("fence-restore")
+    return failures
+
+
+def _jekyll_config(repo_dir: Path) -> dict[str, Any]:
+    if not (repo_dir / "_config.yml").is_file():
+        return dict(JEKYLL_DEFAULT_SITE)
+    try:
+        loaded = _parse_yaml_mapping((repo_dir / "_config.yml").read_text(encoding="utf-8", errors="replace"))
+    except OSError:
+        return dict(JEKYLL_DEFAULT_SITE)
+    result = dict(JEKYLL_DEFAULT_SITE)
+    result.update({key: loaded[key] for key in JEKYLL_SITE_ALLOWLIST if key in loaded and loaded[key] is not None})
+    return result
+
+
+def _jekyll_route(value: str, *, baseurl: str = "", site_url: str = "") -> str:
+    """Canonicalize a Jekyll URL/permalink to a lower-case route key."""
+
+    value = str(value or "").strip()
+    if not value:
+        return "/"
+    parsed = urlsplit(value)
+    path = parsed.path if parsed.scheme or parsed.netloc else value.split("#", 1)[0].split("?", 1)[0]
+    path = unquote(path).replace("\\", "/")
+    base = str(baseurl or "").strip().rstrip("/")
+    if base and (path == base or path.startswith(base + "/")):
+        path = path[len(base) :] or "/"
+    path = "/" + re.sub(r"/+", "/", path).lstrip("/")
+    path = re.sub(r"/index(?:\.html?)?/?$", "/", path, flags=re.IGNORECASE)
+    if path.endswith(".html"):
+        path = path[:-5] + "/"
+    elif path.endswith(".htm"):
+        path = path[:-4] + "/"
+    elif not path.endswith("/"):
+        path += "/"
+    if path == "//":
+        path = "/"
+    return path.lower()
+
+
+def _jekyll_route_from_source(repo_rel_path: str, *, baseurl: str = "", site_url: str = "") -> str:
+    parts = Path(repo_rel_path).parts
+    if parts and parts[0].startswith("_"):
+        parts = (parts[0][1:],) + parts[1:]
+    if parts and Path(parts[-1]).suffix.lower() in {".md", ".markdown"}:
+        parts = parts[:-1] + (Path(parts[-1]).stem,)
+    if parts and parts[-1].lower() == "index":
+        parts = parts[:-1]
+    return _jekyll_route("/" + "/".join(parts), baseurl=baseurl, site_url=site_url)
+
+
+def _jekyll_permalink(metadata: dict[str, Any], repo_rel_path: str, *, collection: str, config: dict[str, Any]) -> str:
+    raw = metadata.get("permalink")
+    if raw:
+        value = str(raw)
+        source_parts = list(Path(repo_rel_path).parts)
+        if source_parts and source_parts[0].startswith("_"):
+            source_parts = source_parts[1:]
+        if source_parts and Path(source_parts[-1]).suffix:
+            source_parts[-1] = Path(source_parts[-1]).stem
+        if source_parts and source_parts[-1].lower() == "index":
+            source_parts = source_parts[:-1]
+        value = value.replace(":collection", collection).replace(":path", "/".join(source_parts))
+        return value
+    return _jekyll_route_from_source(repo_rel_path, baseurl=str(config.get("baseurl", "")), site_url=str(config.get("url", "")))
+
+
+def _jekyll_alias_values(
+    metadata: dict[str, Any],
+    *,
+    config: dict[str, Any] | None = None,
+) -> list[str]:
+    values: list[str] = []
+    for key, value in metadata.items():
+        if key.lower() != "redirect_from":
+            continue
+        if isinstance(value, (list, tuple)):
+            values.extend(str(item) for item in value if item is not None)
+        elif value:
+            values.append(str(value))
+    result: list[str] = []
+    seen: set[str] = set()
+    baseurl = str((config or {}).get("baseurl", ""))
+    site_url = str((config or {}).get("url", ""))
+    for value in values:
+        route = _jekyll_route(value, baseurl=baseurl, site_url=site_url)
+        if route not in seen:
+            seen.add(route)
+            result.append(value)
+    return result
+
+
+def _discover_jekyll_source_files(manifest: Manifest, repo_dir: Path) -> list[Path]:
+    discovered: list[Path] = []
+    seen: set[str] = set()
+    for doc_item in manifest.docs_paths:
+        item = repo_dir / doc_item
+        if not item.exists():
+            print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
+            continue
+        candidates = [item] if item.is_file() else sorted(item.rglob("*"))
+        for path in candidates:
+            if not path.is_file() or path.suffix.lower() not in {".md", ".markdown"}:
+                continue
+            relative_to_item = path.relative_to(item).as_posix() if item.is_dir() else path.name
+            if any(fnmatch.fnmatch(relative_to_item, pattern) for pattern in manifest.exclude_globs):
+                continue
+            key = path.relative_to(repo_dir).as_posix()
+            if key not in seen:
+                seen.add(key)
+                discovered.append(path)
+    return discovered
+
+
+def _route_to_output(route: str) -> str:
+    route = route.strip().lstrip("/")
+    if not route:
+        return "index.md"
+    if route.endswith("/"):
+        return f"{route}index.md"
+    suffix = Path(route).suffix.lower()
+    return route if suffix == ".md" else f"{route}.md"
+
+
+def _build_jekyll_registry(manifest: Manifest, repo_dir: Path) -> _JekyllRegistry:
+    config = _jekyll_config(repo_dir)
+    pages: list[_JekyllPage] = []
+    for file_path in _discover_jekyll_source_files(manifest, repo_dir):
+        repo_rel = file_path.relative_to(repo_dir).as_posix()
+        metadata, _ = parse_jekyll_frontmatter(file_path.read_text(encoding="utf-8", errors="replace"), Path(repo_rel).stem)
+        collection = Path(repo_rel).parts[0].lstrip("_") if Path(repo_rel).parts else manifest.collection
+        permalink = _jekyll_permalink(metadata, repo_rel, collection=collection, config=config)
+        canonical_value = str(metadata.get("canonical_url", "") or "")
+        # ``permalink`` is the page's actual public route.  ``canonical_url``
+        # is SEO metadata and may intentionally point at a shared route (for
+        # example, several upgrade pages canonicalize to one landing page).
+        # It must never decide the output path or hide a real permalink.
+        route = _jekyll_route(
+            permalink,
+            baseurl=str(config.get("baseurl", "")),
+            site_url=str(config.get("url", "")),
+        )
+        canonical_route = _jekyll_route(
+            canonical_value or permalink,
+            baseurl=str(config.get("baseurl", "")),
+            site_url=str(config.get("url", "")),
+        )
+        canonical_url = canonical_value or f"{str(config.get('url', '')).rstrip('/')}{str(config.get('baseurl', '')).rstrip('/')}{route}"
+        pages.append(
+            _JekyllPage(
+                file_path=file_path,
+                repo_rel_path=repo_rel,
+                metadata=metadata,
+                collection=collection,
+                route=route,
+                canonical_url=canonical_url,
+                canonical_route=canonical_route,
+                permalink=permalink if str(permalink).startswith("/") else f"/{permalink}",
+                redirect_aliases=tuple(_jekyll_alias_values(metadata, config=config)),
+                output_rel_path="",
+            )
+        )
+    route_groups: dict[str, list[_JekyllPage]] = {}
+    for page in pages:
+        route_groups.setdefault(page.route, []).append(page)
+    assigned: set[str] = set()
+    finalized: list[_JekyllPage] = []
+    for page in pages:
+        collision = len(route_groups[page.route]) > 1
+        output = _route_to_output(page.route) if not collision else f"__source__/{page.repo_rel_path}"
+        # A route such as /__source__/... must not overlap the explicit source
+        # namespace.  Such a source is uncommon, but its output remains clear.
+        if output in assigned:
+            output = f"__source__/{page.repo_rel_path}"
+        assigned.add(output)
+        finalized.append(
+            _JekyllPage(
+                file_path=page.file_path,
+                repo_rel_path=page.repo_rel_path,
+                metadata=page.metadata,
+                collection=page.collection,
+                route=page.route,
+                canonical_url=page.canonical_url,
+                canonical_route=page.canonical_route,
+                permalink=page.permalink,
+                redirect_aliases=page.redirect_aliases,
+                output_rel_path=output,
+                canonical_collision=collision,
+            )
+        )
+    by_source = {page.repo_rel_path: page for page in finalized}
+    by_route: dict[str, list[_JekyllPage]] = {}
+    by_alias: dict[str, list[_JekyllPage]] = {}
+    for page in finalized:
+        by_route.setdefault(page.route, []).append(page)
+    for page in finalized:
+        # A Jekyll page can expose aliases through redirect_from, and an
+        # explicit canonical_url can also identify a shared documentation
+        # route.  Register those paths only when they do not overlap a real
+        # permalink route; otherwise an alias would mask the page that owns
+        # that route.  Keep duplicate aliases from different pages so the
+        # resolver can report an ambiguity instead of guessing.
+        # Route keys are lower-cased and de-duplicated per page; if two pages
+        # claim the same alias, the resolver retains both and emits an
+        # explicit ambiguous-link marker.
+        aliases = list(page.redirect_aliases)
+        if page.canonical_route != page.route:
+            aliases.append(page.canonical_url)
+        seen_alias_routes: set[str] = set()
+        for alias in aliases:
+            alias_route = _jekyll_route(
+                alias,
+                baseurl=str(config.get("baseurl", "")),
+                site_url=str(config.get("url", "")),
+            )
+            if (
+                alias_route in seen_alias_routes
+                or alias_route == page.route
+                or alias_route in by_route
+            ):
+                continue
+            seen_alias_routes.add(alias_route)
+            by_alias.setdefault(alias_route, []).append(page)
+    return _JekyllRegistry(manifest, finalized, by_source, by_route, by_alias)
+
+
+def _peer_jekyll_registry(manifest: Manifest) -> _JekyllRegistry | None:
+    if manifest.collection not in {"opensearch", "opensearch-dashboards"}:
+        return None
+    peer_collection = "opensearch-dashboards" if manifest.collection == "opensearch" else "opensearch"
+    # Derive the repository root from the current manifest so tests can use a
+    # temporary ``REPO_ROOT`` without accidentally reading the live checkout.
+    try:
+        repository_root = manifest.raw_dir.parents[2]
+    except IndexError:
+        repository_root = REPO_ROOT
+
+    manifests_dir = repository_root / "builder" / "manifests"
+    if not manifests_dir.is_dir():
+        return None
+    # The filename is a convenient fast path, not the identity of a peer.
+    # Releases can use a patch-level version or a descriptive manifest name,
+    # so fall back to inspecting manifest content and match both collection
+    # and version exactly.
+    candidate_paths: list[Path] = []
+    preferred = manifests_dir / f"{peer_collection}-{manifest.version}.toml"
+    if preferred.is_file():
+        candidate_paths.append(preferred)
+    candidate_paths.extend(
+        path for path in sorted(manifests_dir.glob("*.toml")) if path != preferred
+    )
+    peer_manifest: Manifest | None = None
+    for peer_path in candidate_paths:
+        try:
+            candidate = load_manifest(peer_path)
+        except (OSError, TypeError, ValueError):
+            continue
+        if candidate.collection == peer_collection and candidate.version == manifest.version:
+            peer_manifest = candidate
+            break
+    if peer_manifest is None:
+        return None
+    peer_repo = peer_manifest.raw_dir / "repo"
+    if not peer_repo.is_dir():
+        return None
+    return _build_jekyll_registry(peer_manifest, peer_repo)
+
+
+def _source_relative_page_target(page: _JekyllPage, target: str, registry: _JekyllRegistry) -> _JekyllPage | None:
+    path_part = unquote(target.split("#", 1)[0].split("?", 1)[0]).strip()
+    if not path_part or path_part.startswith(("/", "//")):
+        return None
+    candidates = [Path(os.path.normpath(str(Path(page.repo_rel_path).parent / path_part)))]
+    if candidates[0].suffix == "":
+        candidates.extend(
+            [candidates[0].with_suffix(suffix) for suffix in (".md", ".markdown")]
+            + [candidates[0] / "index.md", candidates[0] / "index.markdown"]
+        )
+    elif candidates[0].suffix.lower() == ".md":
+        candidates.append(candidates[0].with_suffix(".markdown"))
+    for candidate in candidates:
+        found = registry.by_source.get(candidate.as_posix())
+        if found is not None:
+            return found
+    return None
+
+
+def _markdown_destination(raw_target: str) -> tuple[str, str]:
+    raw_target = raw_target.strip()
+    if raw_target.startswith("<"):
+        end = raw_target.find(">", 1)
+        if end >= 0:
+            return raw_target[1:end], raw_target[end + 1 :]
+    match = re.match(r"(?P<url>\S+)(?P<rest>.*)$", raw_target, re.DOTALL)
+    return (match.group("url"), match.group("rest")) if match else (raw_target, "")
+
+
+def _docs_route_from_target(target: str, site: dict[str, Any]) -> tuple[str, str] | None:
+    parsed = urlsplit(target)
+    configured_origin = urlsplit(str(site.get("url", "")).rstrip("/"))
+    if parsed.scheme or parsed.netloc:
+        if (parsed.scheme.lower(), parsed.netloc.lower()) != (
+            configured_origin.scheme.lower(),
+            configured_origin.netloc.lower(),
+        ):
+            return None
+    elif not target.startswith("/"):
+        return None
+    path = parsed.path if parsed.scheme or parsed.netloc else target.split("#", 1)[0].split("?", 1)[0]
+    route = _jekyll_route(path, baseurl=str(site.get("baseurl", "")), site_url=str(site.get("url", "")))
+    suffix = (f"?{parsed.query}" if parsed.query else "") + (f"#{parsed.fragment}" if parsed.fragment else "")
+    return route, suffix
+
+
+def _rewrite_jekyll_links(
+    body: str,
+    page: _JekyllPage,
+    registry: _JekyllRegistry,
+    peer_registry: _JekyllRegistry | None,
+    repo_dir: Path,
+) -> tuple[str, dict[str, int]]:
+    """Resolve docs-origin links and classify unresolved/cross-corpus links."""
+
+    site = _jekyll_config(repo_dir)
+    stats = {"unresolved": 0, "cross_corpus": 0, "assets": 0}
+    repo_root = repo_dir.resolve()
+
+    def resolve_target(target: str) -> tuple[str, str]:
+        destination, rest = _markdown_destination(target)
+        docs_route = _docs_route_from_target(destination, site)
+        target_page: _JekyllPage | None = None
+        target_registry = registry
+        route: str | None = None
+        suffix = ""
+        if docs_route is not None:
+            route, suffix = docs_route
+            current = registry.by_route.get(route, [])
+            if len(current) == 1:
+                target_page = current[0]
+            elif len(current) > 1:
+                stats["unresolved"] += 1
+                return destination + rest, f" <!-- unresolved-jekyll-link: route={route} -->"
+            elif peer_registry is not None:
+                peer = peer_registry.by_route.get(route, [])
+                if not peer:
+                    # A peer page may be reached through its source-derived
+                    # permalink even when canonical_url points elsewhere.
+                    # Treat that alias as a cross-corpus match only after
+                    # checking canonical routes, preserving ambiguity markers.
+                    peer = peer_registry.by_alias.get(route, [])
+                if len(peer) == 1:
+                    stats["cross_corpus"] += 1
+                    return destination + rest, f" <!-- unresolved-cross-corpus-link: collection={peer_registry.manifest.collection} route={route} -->"
+                if len(peer) > 1:
+                    stats["cross_corpus"] += 1
+                    return destination + rest, f" <!-- unresolved-cross-corpus-link: ambiguous route={route} -->"
+            # A docs-origin image/download is not a page route.  Preserve it
+            # as an immutable blob URL when the asset exists in the sparse
+            # checkout instead of manufacturing a page link ending in `/`.
+            parsed_destination = urlsplit(destination)
+            asset_path = parsed_destination.path
+            base = str(site.get("baseurl", "")).rstrip("/")
+            if base and (asset_path == base or asset_path.startswith(base + "/")):
+                asset_path = asset_path[len(base) :]
+            asset_candidate = (repo_dir / unquote(asset_path.lstrip("/"))).resolve()
+            try:
+                asset_rel = asset_candidate.relative_to(repo_root).as_posix()
+            except ValueError:
+                asset_rel = ""
+            if asset_rel and asset_candidate.is_file() and asset_candidate.suffix.lower() in ASSET_SUFFIXES:
+                stats["assets"] += 1
+                return _source_url(registry.manifest, asset_rel) + suffix + rest, ""
+            alias = registry.by_alias.get(route, [])
+            if len(alias) == 1:
+                target_page = alias[0]
+            elif len(alias) > 1:
+                stats["unresolved"] += 1
+                return destination + rest, f" <!-- unresolved-jekyll-link: ambiguous-redirect={route} -->"
+            if target_page is None:
+                stats["unresolved"] += 1
+                return destination + rest, f" <!-- unresolved-jekyll-link: route={route} -->"
+        else:
+            target_page = _source_relative_page_target(page, destination, registry)
+            if target_page is not None:
+                suffix = ""
+            elif destination.startswith(("#", "mailto:", "http:", "https:", "//")):
+                pinned = _pinned_repository_url(registry.manifest, destination)
+                return (pinned or destination) + rest, ""
+            else:
+                # A relative image/asset may live in the sparse checkout but
+                # is intentionally not a documentation page.
+                candidate = (repo_dir / Path(page.repo_rel_path).parent / destination).resolve()
+                try:
+                    repo_rel = candidate.relative_to(repo_root).as_posix()
+                except ValueError:
+                    repo_rel = ""
+                if repo_rel and candidate.is_file() and candidate.suffix.lower() in ASSET_SUFFIXES:
+                    stats["assets"] += 1
+                    return _source_url(registry.manifest, repo_rel) + rest, ""
+                stats["unresolved"] += 1
+                return destination + rest, f" <!-- unresolved-jekyll-link: target={destination} -->"
+        relative = os.path.relpath(target_page.output_rel_path, start=Path(page.output_rel_path).parent.as_posix()).replace(os.sep, "/")
+        return relative + suffix + rest, ""
+
+    link_open_pattern = re.compile(r"(?P<open>!?\[[^\]\n]*\]\()")
+
+    def rewrite_segment(segment: str) -> str:
+        output: list[str] = []
+        cursor = 0
+        while True:
+            match = link_open_pattern.search(segment, cursor)
+            if match is None:
+                output.append(segment[cursor:])
+                break
+            output.append(segment[cursor : match.end()])
+            index = match.end()
+            depth = 0
+            escaped = False
+            target_end: int | None = None
+            while index < len(segment):
+                char = segment[index]
+                if escaped:
+                    escaped = False
+                elif char == "\\":
+                    escaped = True
+                elif char == "(":
+                    depth += 1
+                elif char == ")":
+                    if depth == 0:
+                        target_end = index
+                        break
+                    depth -= 1
+                index += 1
+            if target_end is None:
+                output.append(segment[match.end() :])
+                break
+            raw_target = segment[match.end() : target_end]
+            rewritten, marker = resolve_target(raw_target)
+            output.append(rewritten)
+            output.append(")")
+            output.append(marker)
+            cursor = target_end + 1
+        return "".join(output)
+
+    masked, protected = _mask_jekyll_fences(body)
+    # A few fixed-source pages contain a malformed nested Markdown link such
+    # as [label]([display](target) (the outer closing parenthesis is missing),
+    # or [label]/(target). Repair only these unambiguous patterns before
+    # scanning; otherwise one malformed link can prevent all later links on
+    # the same segment from being resolved.
+    masked = re.sub(
+        r"\]\(\[[^\]\n]+\]\((?P<target>[^()\n]+)\)",
+        r"](\g<target>)",
+        masked,
+    )
+    masked = re.sub(r"\]\s*/\(", "](", masked)
+    rewritten = rewrite_segment(masked)
+
+    # nomarkdown inline HTML carries the same docs-origin URLs as Markdown
+    # links.  Attributes are handled separately because they do not have a
+    # closing parenthesis to scan.
+    attr_pattern = re.compile(r"(?P<prefix>\b(?:href|src)=\s*[\"'])(?P<target>[^\"']+)(?P<suffix>[\"'])", re.IGNORECASE)
+
+    def unresolved_attr(match: re.Match[str], detail: str) -> str:
+        # Keep the original URL usable for readers while recording why it was
+        # not rewritten. A data attribute is valid on both anchors and images,
+        # unlike inserting a Markdown comment inside an HTML tag.
+        marker = html.escape(f"unresolved:{detail}", quote=True)
+        return f"{match.group(0)} data-airgap-link-status=\"{marker}\""
+
+    def asset_url(destination: str, rest: str = "") -> str | None:
+        parsed_destination = urlsplit(destination)
+        asset_path = parsed_destination.path
+        base = str(site.get("baseurl", "")).rstrip("/")
+        if base and (asset_path == base or asset_path.startswith(base + "/")):
+            asset_path = asset_path[len(base) :]
+        asset_candidate = (repo_dir / unquote(asset_path.lstrip("/"))).resolve()
+        try:
+            asset_rel = asset_candidate.relative_to(repo_root).as_posix()
+        except ValueError:
+            return None
+        if (
+            not asset_rel
+            or not asset_candidate.is_file()
+            or asset_candidate.suffix.lower() not in ASSET_SUFFIXES
+        ):
+            return None
+        query_fragment = (f"?{parsed_destination.query}" if parsed_destination.query else "") + (
+            f"#{parsed_destination.fragment}" if parsed_destination.fragment else ""
+        )
+        stats["assets"] += 1
+        return _source_url(registry.manifest, asset_rel) + query_fragment + rest
+
+    def attr_replace(match: re.Match[str]) -> str:
+        target, rest = _markdown_destination(match.group("target"))
+        docs_route = _docs_route_from_target(target, site)
+        if docs_route is not None:
+            route, suffix = docs_route
+            pinned_asset = asset_url(target, rest)
+            if pinned_asset is not None:
+                return f"{match.group('prefix')}{pinned_asset}{match.group('suffix')}"
+            current = registry.by_route.get(route, [])
+            if len(current) == 1:
+                relative = os.path.relpath(
+                    current[0].output_rel_path,
+                    start=Path(page.output_rel_path).parent.as_posix(),
+                ).replace(os.sep, "/")
+                return f"{match.group('prefix')}{relative}{suffix}{rest}{match.group('suffix')}"
+            if len(current) > 1:
+                stats["unresolved"] += 1
+                return unresolved_attr(match, f"ambiguous route={route}")
+            if peer_registry is not None:
+                peer = peer_registry.by_route.get(route, [])
+                if not peer:
+                    peer = peer_registry.by_alias.get(route, [])
+                if len(peer) == 1:
+                    stats["cross_corpus"] += 1
+                    return unresolved_attr(
+                        match,
+                        f"cross-corpus collection={peer_registry.manifest.collection} route={route}",
+                    )
+                if len(peer) > 1:
+                    stats["cross_corpus"] += 1
+                    return unresolved_attr(match, f"cross-corpus ambiguous route={route}")
+            alias = registry.by_alias.get(route, [])
+            if len(alias) == 1:
+                relative = os.path.relpath(
+                    alias[0].output_rel_path,
+                    start=Path(page.output_rel_path).parent.as_posix(),
+                ).replace(os.sep, "/")
+                return f"{match.group('prefix')}{relative}{suffix}{rest}{match.group('suffix')}"
+            stats["unresolved"] += 1
+            detail = f"ambiguous redirect={route}" if len(alias) > 1 else f"route={route}"
+            return unresolved_attr(match, detail)
+
+        target_page = _source_relative_page_target(page, target, registry)
+        if target_page is not None:
+            relative = os.path.relpath(
+                target_page.output_rel_path,
+                start=Path(page.output_rel_path).parent.as_posix(),
+            ).replace(os.sep, "/")
+            return f"{match.group('prefix')}{relative}{rest}{match.group('suffix')}"
+        if target.startswith(("#", "mailto:", "http:", "https:", "//")):
+            pinned = _pinned_repository_url(registry.manifest, target)
+            if pinned is not None:
+                return f"{match.group('prefix')}{pinned}{rest}{match.group('suffix')}"
+            return match.group(0)
+        pinned_asset = asset_url(target, rest)
+        if pinned_asset is not None:
+            return f"{match.group('prefix')}{pinned_asset}{match.group('suffix')}"
+        stats["unresolved"] += 1
+        return unresolved_attr(match, f"target={target}")
+
+    rewritten = attr_pattern.sub(attr_replace, rewritten)
+    return _unmask_jekyll_fences(rewritten, protected), stats
+
+
+def _prometheus_operator_ref_candidates(
+    source_path: Path | None,
+    repo_dir: Path,
+    target_path: str,
+) -> list[Path]:
+    """Return Hugo page candidates used by the Prometheus Operator docs.
+
+    The repository keeps its Hugo content directly below ``Documentation``.
+    Most references are page-name references, so Hugo first finds a sibling
+    page and then a page at the Documentation root.  Keeping this lookup
+    source-aware lets the normal source-link pass map the result to the actual
+    corpus output path later.
+    """
+
+    normalized = target_path.replace("\\", "/").lstrip("/")
+    if not normalized:
+        return []
+    documentation = (repo_dir / "Documentation").resolve()
+    roots: list[Path] = []
+    if source_path is not None:
+        roots.append(source_path.resolve().parent)
+    roots.extend((documentation, repo_dir.resolve()))
+
+    candidates: list[Path] = []
+
+    def add_candidates(root: Path, relative: str) -> None:
+        candidate = root / relative
+        candidates.append(candidate)
+        if candidate.suffix == "":
+            candidates.extend(
+                candidate.with_suffix(extension)
+                for extension in (".md", ".markdown", ".rst")
+            )
+            candidates.extend(
+                (candidate / "index.md", candidate / "index.markdown", candidate / "index.rst")
+            )
+        elif candidate.suffix.lower() in {".md", ".markdown"}:
+            candidates.append(candidate.with_suffix(".rst"))
+
+    for root in roots:
+        add_candidates(root, normalized)
+
+    # Hugo callers occasionally include the content root in a ref.  Do not
+    # duplicate that prefix when trying the Documentation-root candidate.
+    if normalized.startswith("Documentation/"):
+        without_root = normalized[len("Documentation/") :]
+        if source_path is not None:
+            add_candidates(source_path.resolve().parent, without_root)
+        add_candidates(documentation, without_root)
+        add_candidates(repo_dir.resolve(), without_root)
+
+    unique: list[Path] = []
+    seen: set[Path] = set()
+    for candidate in candidates:
+        if candidate not in seen:
+            seen.add(candidate)
+            unique.append(candidate)
+    return unique
+
+
+def _prometheus_operator_ref(
+    name: str,
+    arguments: str,
+    repo_dir: Path,
+    source_path: Path | None,
+) -> str:
+    """Render a Prometheus Operator ``ref``/``relref`` to a source path."""
+
+    arguments = re.sub(r"/\s*$", "", arguments.strip())
+    positional, named = _shortcode_arguments(arguments)
+    target = (
+        named.get("path", "")
+        or named.get("target", "")
+        or (positional[0] if positional else "")
+    )
+    if not target:
+        return _shortcode_marker(name, arguments)
+    target = target.strip()
+    if target.startswith("#") or source_path is None:
+        return target
+
+    path_part, hash_mark, fragment = target.partition("#")
+    query = ""
+    if "?" in path_part:
+        path_part, query = path_part.split("?", 1)
+    suffix = (f"?{query}" if query else "") + (f"#{fragment}" if hash_mark else "")
+    for candidate in _prometheus_operator_ref_candidates(source_path, repo_dir, path_part):
+        resolved = _safe_repo_file(repo_dir, candidate)
+        if resolved is None or resolved.suffix.lower() not in {".md", ".markdown", ".rst"}:
+            continue
+        relative = os.path.relpath(
+            resolved,
+            start=source_path.resolve().parent,
+        ).replace(os.sep, "/")
+        return f"{relative}{suffix}"
+    # Keep an unknown reference explicit and searchable.  Valid refs in the
+    # fixed source inventory always take the branch above.
+    return _shortcode_marker(name, arguments)
+
+
+def _prometheus_operator_alert(arguments: str, inner: str) -> str:
+    """Turn the source site's self-closing alert into searchable Markdown."""
+
+    arguments = re.sub(r"/\s*$", "", arguments.strip())
+    _, named = _shortcode_arguments(arguments)
+    text = named.get("text", "").strip()
+    icon = named.get("icon", "").strip()
+    message = " ".join(part for part in (icon, text, inner.strip()) if part)
+    if not message:
+        return _shortcode_marker("alert", arguments)
+    return f"\n\n> **Note:** {message}\n\n"
+
+
+def _mask_prometheus_operator_literals(content: str) -> tuple[str, list[str]]:
+    """Protect Markdown/Hugo literal regions while rendering source tags."""
+
+    masked, protected = _mask_gitbook_fences(content)
+
+    def protect(match: re.Match[str]) -> str:
+        protected.append(match.group(0))
+        return f"\x00PROMETHEUS_LITERAL_{len(protected) - 1}\x01"
+
+    # Escaped Hugo tags and Hugo comments are documentation examples, not
+    # executable source tags.  Raw HTML blocks and inline code are literals as
+    # well, and must remain byte-for-byte unchanged.
+    masked = re.sub(
+        r"\{\{(?:[<%])?/\*.*?\*/(?:[>%])?\}\}",
+        protect,
+        masked,
+        flags=re.DOTALL,
+    )
+    masked = re.sub(r"(?is)<pre\b[^>]*>.*?</pre\s*>", protect, masked)
+    masked = re.sub(r"(?P<ticks>`+)(?P<body>[^`\n]*?)(?P=ticks)", protect, masked)
+    return masked, protected
+
+
+def _render_prometheus_operator_segment(
+    content: str,
+    repo_dir: Path,
+    *,
+    source_path: Path | None,
+    depth: int,
+) -> str:
+    if depth > 10:
+        tokens = _iter_shortcode_tokens(content)
+        if not tokens:
+            return content
+        output: list[str] = []
+        cursor = 0
+        for token in tokens:
+            output.append(content[cursor : token.start])
+            name, arguments, _ = _shortcode_parts(token.body)
+            output.append(_shortcode_marker(name or "shortcode", arguments))
+            cursor = token.end
+        output.append(content[cursor:])
+        return "".join(output)
+
+    tokens = _iter_shortcode_tokens(content)
+    if not tokens:
+        return content
+    output: list[str] = []
+    cursor = 0
+    index = 0
+    while index < len(tokens):
+        token = tokens[index]
+        output.append(content[cursor : token.start])
+        name, arguments, closing = _shortcode_parts(re.sub(r"\s+", " ", token.body.strip()))
+        self_closing = token.body.strip().endswith("/")
+        arguments = re.sub(r"/\s*$", "", arguments)
+        if not name:
+            output.append(_shortcode_marker("shortcode", arguments))
+            cursor = token.end
+            index += 1
+            continue
+        if closing:
+            output.append(_shortcode_marker(name, arguments))
+            cursor = token.end
+            index += 1
+            continue
+
+        close_index = None if self_closing else _matching_shortcode_close(tokens, index, name)
+        if close_index is None:
+            inner = ""
+            next_index = index + 1
+        else:
+            close_token = tokens[close_index]
+            inner = _render_prometheus_operator_segment(
+                content[token.end : close_token.start],
+                repo_dir,
+                source_path=source_path,
+                depth=depth + 1,
+            )
+            next_index = close_index + 1
+
+        if name in {"ref", "relref"}:
+            rendered = _prometheus_operator_ref(name, arguments, repo_dir, source_path)
+        elif name == "alert":
+            rendered = _prometheus_operator_alert(arguments, inner)
+        else:
+            marker = _shortcode_marker(name, arguments)
+            rendered = (
+                f"\n\n{marker}\n\n{inner.strip()}\n\n"
+                if inner.strip()
+                else f"\n\n{marker}\n\n"
+            )
+        output.append(rendered)
+        cursor = tokens[next_index - 1].end
+        index = next_index
+    output.append(content[cursor:])
+    return "".join(output)
+
+
+def _render_prometheus_operator_shortcodes(
+    content: str,
+    repo_dir: Path,
+    *,
+    source_path: Path | None = None,
+    depth: int = 0,
+) -> str:
+    """Render the small Hugo subset used by Prometheus Operator documents."""
+
+    # The profile uses NUL-delimited sentinels for literal spans.  Reject a
+    # source NUL before masking so an upstream byte cannot impersonate a
+    # sentinel or make restoration appear to converge on the wrong text.
+    if "\x00" in content:
+        raise ValueError("Prometheus Operator shortcode rendering rejects NUL bytes")
+
+    masked, protected = _mask_prometheus_operator_literals(content)
+    rendered = _render_prometheus_operator_segment(
+        masked,
+        repo_dir,
+        source_path=source_path,
+        depth=depth,
+    )
+    # Literal spans can nest (for example an escaped Hugo comment inside an
+    # inline-code span).  The outer span is protected later and therefore
+    # contains the inner sentinel.  Restore in reverse stack order and keep
+    # iterating until no generated marker remains; a single forward pass would
+    # leak the inner sentinel into the corpus.
+    marker_pattern = re.compile(r"\x00(?:GITBOOK_FENCE|PROMETHEUS_LITERAL)_\d+\x01")
+    for _ in range(len(protected) + 1):
+        changed = False
+        for index in range(len(protected) - 1, -1, -1):
+            for prefix in ("GITBOOK_FENCE", "PROMETHEUS_LITERAL"):
+                marker = f"\x00{prefix}_{index}\x01"
+                if marker in rendered:
+                    rendered = rendered.replace(marker, protected[index])
+                    changed = True
+        if marker_pattern.search(rendered) is None:
+            return rendered
+        if not changed:
+            break
+    raise ValueError("Prometheus Operator literal restoration did not converge")
+
+
+def clean_hugo_shortcodes(
+    content: str,
+    repo_dir: Path,
+    depth: int = 0,
+    *,
+    profile: str = "kubernetes",
+    source_path: Path | None = None,
+) -> str:
+    """Clean Hugo shortcodes using the manifest-selected source profile.
+
+    ``kubernetes`` remains the default for callers that used the historical
+    helper directly.  Manifests with no profile are not routed here by
+    ``normalize``.
+    """
+
+    if profile == "kubernetes":
+        return _clean_kubernetes_shortcodes(content, repo_dir, depth)
+    if profile == "istio":
+        return _render_istio_shortcodes(content, repo_dir, depth=depth)
+    if profile == "gitbook":
+        return _render_gitbook_shortcodes(content, repo_dir, depth=depth)
+    if profile in {"prometheus-operator", "prometheus_operator"}:
+        return _render_prometheus_operator_shortcodes(
+            content,
+            repo_dir,
+            source_path=source_path,
+            depth=depth,
+        )
+    if profile in {"jekyll", "opensearch", "opensearch-jekyll"}:
+        return render_jekyll_template(content, repo_dir)
+    raise ValueError(f"unknown Hugo shortcode profile: {profile!r}")
+
+
 def clean_gitlab_shortcodes(content: str) -> str:
     """Convert GitLab Docs Hugo shortcodes into readable plain Markdown."""
     text = content
@@ -1364,6 +4068,7 @@ def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Pat
         supported_suffixes.add(".html")
 
     discovered: list[tuple[Path, str]] = []
+    seen_sources: set[str] = set()
 
     def excluded(relative_path: str) -> bool:
         return any(fnmatch.fnmatch(relative_path, pattern) for pattern in manifest.exclude_globs)
@@ -1375,7 +4080,10 @@ def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Pat
             continue
         if item_path.is_file():
             if item_path.suffix.lower() in supported_suffixes and not excluded(Path(doc_item).name):
-                discovered.append((item_path, Path(doc_item).name))
+                source_key = item_path.relative_to(repo_dir).as_posix()
+                if source_key not in seen_sources:
+                    seen_sources.add(source_key)
+                    discovered.append((item_path, Path(doc_item).name))
             continue
         for path in sorted(item_path.rglob("*")):
             relative_path = path.relative_to(item_path).as_posix()
@@ -1384,8 +4092,62 @@ def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Pat
                 and path.suffix.lower() in supported_suffixes
                 and not excluded(relative_path)
             ):
-                discovered.append((path, relative_path))
-    return discovered
+                source_key = path.relative_to(repo_dir).as_posix()
+                if source_key not in seen_sources:
+                    seen_sources.add(source_key)
+                    discovered.append((path, relative_path))
+
+    def output_path(relative_path: str) -> str:
+        return Path(relative_path).with_suffix(".md").as_posix()
+
+    collision_groups: dict[str, list[int]] = {}
+    for index, (_, relative_path) in enumerate(discovered):
+        collision_groups.setdefault(output_path(relative_path), []).append(index)
+
+    disambiguate: set[int] = set()
+    for indices in collision_groups.values():
+        if len(indices) < 2:
+            continue
+
+        def collision_preference(index: int) -> tuple[bool, int, str, int]:
+            file_path, relative_path = discovered[index]
+            repo_relative_path = file_path.relative_to(repo_dir).as_posix()
+            # A source explicitly listed at the repository root should retain
+            # its historical basename when it collides with a docs directory.
+            return (
+                repo_relative_path != relative_path,
+                len(Path(repo_relative_path).parts),
+                repo_relative_path,
+                index,
+            )
+
+        keeper = min(indices, key=collision_preference)
+        disambiguate.update(index for index in indices if index != keeper)
+
+    # Preserve all original non-colliding output paths.  A collision candidate
+    # may propose one of those paths after repo-relative disambiguation, so
+    # reserve them before assigning the changed paths.
+    reserved_outputs = {
+        output_path(relative_path)
+        for index, (_, relative_path) in enumerate(discovered)
+        if index not in disambiguate
+    }
+    assigned_outputs: set[str] = set()
+    resolved: list[tuple[Path, str]] = []
+    for index, (file_path, relative_path) in enumerate(discovered):
+        output_relative_path = relative_path
+        if index in disambiguate:
+            output_relative_path = file_path.relative_to(repo_dir).as_posix()
+            while (
+                output_path(output_relative_path) in reserved_outputs
+                or output_path(output_relative_path) in assigned_outputs
+            ):
+                # Keep the repository-relative source path visible while
+                # making a second .md/.rst collision deterministic as well.
+                output_relative_path += ".source"
+        assigned_outputs.add(output_path(output_relative_path))
+        resolved.append((file_path, output_relative_path))
+    return resolved
 
 
 def _has_source_content(text: str) -> bool:
@@ -1406,26 +4168,146 @@ def _source_url(manifest: Manifest, repo_rel_path: str, doc_path: str = "") -> s
     return f"{base_repo_url}/blob/{manifest.git_ref}/{repo_rel_path}"
 
 
+def _mutable_ref_allowlist(manifest: Manifest) -> tuple[str, ...]:
+    """Return the exact branch/ref names eligible for URL pinning.
+
+    Older manifests do not carry ``mutable_refs`` yet, so retain the
+    historical ``main``/``master`` behavior for them.  An explicit empty
+    list remains an opt-out.  Ref names are treated as path literals by the
+    URL matcher; callers that build a regex must escape them first.
+    """
+
+    configured = getattr(manifest, "mutable_refs", ("main", "master"))
+    if isinstance(configured, str):
+        configured = [configured]
+    refs: list[str] = []
+    for value in configured or ():
+        ref = str(value).strip().strip("/")
+        if not ref or any(character in ref for character in "\x00?#"):
+            continue
+        if ref not in refs:
+            refs.append(ref)
+    return tuple(refs)
+
+
+def _mutable_ref_source_path(path: str, refs: tuple[str, ...]) -> str | None:
+    """Return the path after an allowlisted ref, including an empty suffix."""
+
+    for ref in sorted(refs, key=len, reverse=True):
+        if path == ref:
+            return ""
+        prefix = f"{ref}/"
+        if path.startswith(prefix):
+            return path[len(prefix) :]
+    return None
+
+
 def _pinned_repository_url(manifest: Manifest, target: str) -> str | None:
     """Pin mutable same-repository GitHub links to the manifest commit."""
 
     repository = urlsplit(manifest.repo_url.rstrip("/"))
-    parsed = urlsplit(target)
-    if (parsed.scheme, parsed.netloc) != (repository.scheme, repository.netloc):
+    try:
+        parsed = urlsplit(target)
+    except ValueError:
+        # A prose URL can contain a literal bracket (for example an IPv6
+        # placeholder).  It is not a pinning candidate and must remain intact.
         return None
+    if repository.netloc.lower() != "github.com" or not manifest.git_ref:
+        return None
+    mutable_refs = _mutable_ref_allowlist(manifest)
     prefix = repository.path.rstrip("/") + "/"
-    if not parsed.path.startswith(prefix):
-        return None
-    remainder = parsed.path[len(prefix) :]
-    parts = remainder.split("/", 2)
-    if len(parts) != 3 or parts[0] not in {"blob", "tree"}:
-        return None
-    is_mutable_master_link = parts[1] == "master"
-    is_blob_asset = parts[0] == "blob" and Path(parts[2]).suffix.lower() in ASSET_SUFFIXES
-    if not (is_mutable_master_link or is_blob_asset):
-        return None
-    pinned_path = f"{prefix}{parts[0]}/{manifest.git_ref}/{parts[2]}"
-    return urlunsplit((parsed.scheme, parsed.netloc, pinned_path, parsed.query, parsed.fragment))
+    same_github_host = (parsed.scheme.lower(), parsed.netloc.lower()) == (
+        repository.scheme.lower(),
+        repository.netloc.lower(),
+    )
+    if same_github_host and parsed.path.startswith(prefix):
+        remainder = parsed.path[len(prefix) :]
+        kind, separator, ref_and_path = remainder.partition("/")
+        if not separator or kind not in {"blob", "tree", "raw"}:
+            return None
+        mutable_source_path = _mutable_ref_source_path(ref_and_path, mutable_refs)
+        if mutable_source_path is not None:
+            is_mutable_branch_link = True
+            source_path = mutable_source_path
+        else:
+            # Keep the established asset policy for versioned/tagged blob
+            # links.  Non-asset tag/branch URLs are not mutable and remain
+            # byte-for-byte unchanged.
+            ref, source_separator, source_path = ref_and_path.partition("/")
+            if not source_separator:
+                source_path = ""
+            is_mutable_branch_link = False
+        # GitHub accepts a tree URL at the repository root, but blob/raw URLs
+        # require a path. Preserve that distinction while still pinning
+        # reference definitions such as ``[main]: .../tree/main``.
+        if not source_path and kind != "tree":
+            return None
+        is_blob_asset = kind == "blob" and Path(source_path).suffix.lower() in ASSET_SUFFIXES
+        if not (is_mutable_branch_link or is_blob_asset):
+            return None
+        pinned_path = f"{prefix}{kind}/{manifest.git_ref}"
+        if source_path:
+            pinned_path += f"/{source_path}"
+        return urlunsplit((parsed.scheme, parsed.netloc, pinned_path, parsed.query, parsed.fragment))
+
+    # GitHub's raw host omits the ``blob``/``raw`` path component:
+    # /<owner>/<repo>/<branch>/<path>.  It is still the same repository when
+    # the owner/repository path exactly matches the manifest.
+    raw_prefix = prefix
+    if parsed.scheme.lower() in {"http", "https"} and parsed.netloc.lower() == "raw.githubusercontent.com":
+        if not parsed.path.startswith(raw_prefix):
+            return None
+        remainder = parsed.path[len(raw_prefix) :]
+        path = None
+        for ref in sorted(mutable_refs, key=len, reverse=True):
+            ref_prefix = f"{ref}/"
+            if remainder.startswith(ref_prefix):
+                path = remainder[len(ref_prefix) :]
+                break
+        if not path:
+            return None
+        pinned_path = f"{raw_prefix}{manifest.git_ref}/{path}"
+        return urlunsplit((parsed.scheme, parsed.netloc, pinned_path, parsed.query, parsed.fragment))
+    return None
+
+
+def _pin_mutable_repository_urls_in_text(manifest: Manifest, text: str) -> str:
+    """Pin same-repository branch URLs embedded in ordinary prose.
+
+    Markdown permits an image inside a link label, and some documentation
+    passes a raw GitHub URL inside another URL's query string. Those shapes
+    are not standalone Markdown destinations, so the structural link parser
+    cannot see them. This final, repository-scoped pass changes only the
+    exact ``main``/``master`` branch segment; callers protect code literals
+    before invoking it.
+    """
+
+    repository = urlsplit(manifest.repo_url.rstrip("/").removesuffix(".git"))
+    if repository.netloc.lower() != "github.com" or not manifest.git_ref:
+        return text
+    mutable_refs = _mutable_ref_allowlist(manifest)
+    if not mutable_refs:
+        return text
+    repository_path = re.escape(repository.path.rstrip("/"))
+    mutable_ref_pattern = "|".join(
+        re.escape(ref) for ref in sorted(mutable_refs, key=len, reverse=True)
+    )
+    branch_boundary = r"(?=/|[?#)\]}>.,;:'\"]|\s|$)"
+    patterns = (
+        re.compile(
+            rf"(?P<prefix>https?://github\.com{repository_path}/(?:blob|tree|raw)/)"
+            rf"(?:{mutable_ref_pattern}){branch_boundary}",
+            re.IGNORECASE,
+        ),
+        re.compile(
+            rf"(?P<prefix>https?://raw\.githubusercontent\.com{repository_path}/)"
+            rf"(?:{mutable_ref_pattern}){branch_boundary}",
+            re.IGNORECASE,
+        ),
+    )
+    for pattern in patterns:
+        text = pattern.sub(lambda match: f"{match.group('prefix')}{manifest.git_ref}", text)
+    return text
 
 
 def _source_link_candidates(file_path: Path, target: str) -> list[Path]:
@@ -1452,6 +4334,202 @@ def _source_link_candidates(file_path: Path, target: str) -> list[Path]:
     return unique
 
 
+def _istio_site_config(manifest: Manifest) -> tuple[str, str] | None:
+    """Return the manifest-gated Istio version-site root and docs prefix.
+
+    Istio's Markdown uses site-root ``/docs`` routes while the corpus stores
+    pages relative to ``content/en/docs``.  The mapping is deliberately
+    enabled only by an explicit ``istio`` shortcode profile plus manifest
+    site configuration; no version URL is inferred from a collection name.
+    """
+
+    if getattr(manifest, "shortcode_profile", "") != "istio":
+        return None
+    overrides = getattr(manifest, "site_overrides", {})
+    if not isinstance(overrides, dict):
+        return None
+
+    configured_root = overrides.get("site_url") or overrides.get("version_url")
+    if configured_root:
+        site_root = str(configured_root).strip().rstrip("/")
+    else:
+        origin = str(overrides.get("url", "")).strip().rstrip("/")
+        baseurl = str(overrides.get("baseurl", "")).strip().strip("/")
+        if not origin:
+            return None
+        site_root = f"{origin}/{baseurl}" if baseurl else origin
+
+    try:
+        parsed_root = urlsplit(site_root)
+    except ValueError:
+        return None
+    if parsed_root.scheme.lower() not in {"http", "https"} or not parsed_root.netloc:
+        return None
+
+    docs_prefix = str(overrides.get("docs_prefix", "/docs")).strip()
+    if not docs_prefix.startswith("/"):
+        docs_prefix = f"/{docs_prefix}"
+    docs_prefix = re.sub(r"/{2,}", "/", docs_prefix).rstrip("/") or "/docs"
+    return site_root, docs_prefix
+
+
+def _istio_normalize_route(path: str) -> str:
+    """Normalize a Hugo route for lookup without changing URL suffixes."""
+
+    path = unquote(path).strip()
+    if not path.startswith("/"):
+        path = f"/{path}"
+    path = re.sub(r"/{2,}", "/", path)
+    if path != "/":
+        path = path.rstrip("/")
+    if path.lower().endswith((".html", ".htm")):
+        path = path.rsplit(".", 1)[0]
+    if path != "/" and path.endswith("/index"):
+        path = path[: -len("/index")] or "/"
+    return path or "/"
+
+
+def _istio_site_routes(
+    manifest: Manifest,
+    source_outputs: dict[str, str],
+) -> dict[str, str]:
+    """Map version-site routes to normalized corpus output paths."""
+
+    config = _istio_site_config(manifest)
+    if config is None:
+        return {}
+    _, docs_prefix = config
+    routes: dict[str, str] = {}
+    for output in source_outputs.values():
+        output_path = Path(output)
+        if output_path.suffix.lower() != ".md":
+            continue
+        if output_path.name.lower() in {"index.md", "_index.md"}:
+            relative_route = output_path.parent.as_posix()
+        else:
+            relative_route = output_path.with_suffix("").as_posix()
+        if relative_route == ".":
+            relative_route = ""
+        route = _istio_normalize_route(f"{docs_prefix}/{relative_route}")
+        routes.setdefault(route, output_path.as_posix())
+    return routes
+
+
+def _istio_site_link_rewrite(
+    target: str,
+    *,
+    target_rel: Path,
+    manifest: Manifest,
+    site_routes: dict[str, str],
+    repo_dir: Path | None = None,
+) -> tuple[str, str | None] | None:
+    """Rewrite an Istio site route and retain query/fragment byte-for-byte.
+
+    The return value is ``(destination, marker)``.  ``marker`` is populated
+    only when a site route is outside the corpus map, making every fallback
+    auditable by the validator.  Non-Istio, cross-site, and source-relative
+    links return ``None`` so the historical source-link logic remains intact.
+    """
+
+    config = _istio_site_config(manifest)
+    if config is None:
+        return None
+    site_root, docs_prefix = config
+
+    original = target.strip()
+    if not original:
+        return None
+    angle = original.startswith("<") and original.endswith(">")
+    destination = original[1:-1].strip() if angle else original
+    # An inline Markdown title is not a site destination.  The existing
+    # source-link parser intentionally leaves such malformed/extended shapes
+    # alone; keep that boundary here as well.
+    if any(character.isspace() for character in destination):
+        return None
+
+    path_part, hash_mark, fragment = destination.partition("#")
+    query = ""
+    if "?" in path_part:
+        path_part, query = path_part.split("?", 1)
+    suffix = (f"?{query}" if query else "") + (f"#{fragment}" if hash_mark else "")
+
+    parsed_root = urlsplit(site_root)
+    path: str
+    relative_docs_prefix = docs_prefix.lstrip("/")
+    if path_part.startswith("/") and not path_part.startswith("//"):
+        path = path_part
+    elif path_part == relative_docs_prefix or path_part.startswith(
+        f"{relative_docs_prefix}/"
+    ):
+        # A few upstream pages omit the leading slash while still spelling a
+        # Hugo site route (``docs/...``).  Treat that explicit docs prefix as
+        # site-rooted before the generic source-relative resolver runs.
+        path = f"/{path_part}"
+    else:
+        try:
+            parsed = urlsplit(path_part)
+        except ValueError:
+            return None
+        if parsed.scheme.lower() not in {"http", "https"} or not parsed.netloc:
+            return None
+        if parsed.netloc.lower() != parsed_root.netloc.lower():
+            return None
+        path = parsed.path or "/"
+        base_path = parsed_root.path.rstrip("/")
+        if base_path and (path == base_path or path.startswith(f"{base_path}/")):
+            path = path[len(base_path) :] or "/"
+        elif path != docs_prefix and not path.startswith(f"{docs_prefix}/"):
+            # Versioned and ``latest`` Istio site URLs both point at the same
+            # source route.  Remove one leading site-version component only
+            # when it is immediately followed by the configured docs prefix.
+            versioned_docs = re.match(r"^/[^/]+(?P<docs>/docs(?:/|$).*)$", path)
+            if versioned_docs is not None:
+                path = versioned_docs.group("docs")
+
+    normalized_path = _istio_normalize_route(path)
+    normalized_docs = _istio_normalize_route(docs_prefix)
+    in_docs_scope = normalized_path == normalized_docs or normalized_path.startswith(
+        f"{normalized_docs}/"
+    )
+    if in_docs_scope:
+        output = site_routes.get(normalized_path)
+        if output is not None:
+            relative = os.path.relpath(
+                output,
+                start=target_rel.parent.as_posix(),
+            ).replace(os.sep, "/")
+            rewritten = f"{relative}{suffix}"
+            return (f"<{rewritten}>" if angle else rewritten), None
+
+        # Markdown image links are site routes too, but assets are not emitted
+        # as corpus pages.  When the referenced file is present below an
+        # explicit docs root, pin it to the documentation checkout commit so
+        # the offline corpus never depends on a mutable site asset.
+        relative_asset = normalized_path[len(normalized_docs) :].lstrip("/")
+        if repo_dir is not None and Path(relative_asset).suffix.lower() in ASSET_SUFFIXES:
+            for docs_root in manifest.docs_paths:
+                candidate = _safe_repo_file(
+                    repo_dir,
+                    repo_dir / docs_root / Path(relative_asset),
+                )
+                if candidate is None:
+                    continue
+                repo_relative = candidate.relative_to(repo_dir.resolve()).as_posix()
+                pinned_source = _source_url(
+                    manifest,
+                    quote(repo_relative, safe="/"),
+                )
+                rewritten = f"{pinned_source}{suffix}"
+                return (f"<{rewritten}>" if angle else rewritten), None
+
+    # Keep all out-of-scope site paths as absolute links to the verified
+    # version site.  A marker is required for both an unmapped docs route and
+    # a route such as /blog or /about that is intentionally outside the corpus.
+    absolute = f"{site_root}{path if path.startswith('/') else f'/{path}'}{suffix}"
+    marker = f"unresolved-site-link: route={normalized_path}"
+    return (f"<{absolute}>" if angle else absolute), marker
+
+
 def _rewrite_source_links(
     body: str,
     file_path: Path,
@@ -1463,10 +4541,22 @@ def _rewrite_source_links(
     """Point source-relative Markdown links at corpus pages or fixed assets."""
 
     repo_root = repo_dir.resolve()
+    istio_site_routes = _istio_site_routes(manifest, source_outputs)
 
     def replacement(open_text: str, target: str) -> str:
         original = f"{open_text}{target})"
         target = target.strip()
+        site_rewrite = _istio_site_link_rewrite(
+            target,
+            target_rel=target_rel,
+            manifest=manifest,
+            site_routes=istio_site_routes,
+            repo_dir=repo_dir,
+        )
+        if site_rewrite is not None:
+            rewritten_target, marker = site_rewrite
+            suffix = f" <!-- {marker} -->" if marker else ""
+            return f"{open_text}{rewritten_target}){suffix}"
         pinned_repository_url = _pinned_repository_url(manifest, target)
         if pinned_repository_url is not None:
             return f"{open_text}{pinned_repository_url})"
@@ -1505,9 +4595,73 @@ def _rewrite_source_links(
         # text.
         return f"{original} <!-- unresolved-source-link: target={target} -->"
 
-    link_open_pattern = re.compile(r"(?P<open>!?\[[^\]\n]*\]\()")
+    # Istio pages commonly wrap a link label over multiple source lines and
+    # occasionally contain a generated marker with one nested ``[... ]``
+    # label.  Support that shape while fence/inline masking keeps literals
+    # untouched.
+    link_open_pattern = re.compile(
+        r"(?P<open>!?\[(?:[^\[\]]|\[[^\[\]]*\])*\]\()"
+    )
+    reference_definition_pattern = re.compile(
+        r"(?m)^(?P<prefix>[ \t]{0,3}\[[^\]\n]+\]:[ \t]*)(?P<rest>[^\r\n]*)(?P<newline>\r?\n|$)"
+    )
+
+    def rewrite_reference_definition(match: re.Match[str]) -> str:
+        """Pin only an absolute same-repository destination in a definition."""
+
+        original = match.group(0)
+        rest = match.group("rest")
+        if not rest:
+            return original
+        if rest.startswith("<"):
+            close = rest.find(">", 1)
+            if close < 0:
+                return original
+            target = rest[1:close]
+            suffix = rest[close + 1 :]
+            angle = True
+        else:
+            destination = re.match(r"\S+", rest)
+            if destination is None:
+                return original
+            target = destination.group(0)
+            suffix = rest[destination.end() :]
+            angle = False
+        if suffix and not suffix[0].isspace():
+            return original
+        title = suffix.strip()
+        if title and not (
+            (title.startswith('"') and title.endswith('"'))
+            or (title.startswith("'") and title.endswith("'"))
+            or (title.startswith("(") and title.endswith(")"))
+        ):
+            return original
+        pinned = _pinned_repository_url(manifest, target)
+        if pinned is None:
+            return original
+        destination = f"<{pinned}>" if angle else pinned
+        return f"{match.group('prefix')}{destination}{suffix}{match.group('newline')}"
 
     def rewrite_segment(segment: str) -> str:
+        literals: list[str] = []
+
+        def protect_literal(match: re.Match[str]) -> str:
+            literals.append(match.group(0))
+            return f"\x00SOURCE_LINK_LITERAL_{len(literals) - 1}\x01"
+
+        # Fences are masked by the caller.  Protect inline code, escaped Hugo
+        # examples, and raw HTML blocks here as well so URL pinning cannot
+        # alter source syntax shown as a literal.
+        segment = re.sub(
+            r"\{\{(?:[<%])?/\*.*?\*/(?:[>%])?\}\}",
+            protect_literal,
+            segment,
+            flags=re.DOTALL,
+        )
+        segment = re.sub(r"(?is)<pre\b[^>]*>.*?</pre\s*>", protect_literal, segment)
+        segment = re.sub(r"(?P<ticks>`+)(?P<body>[^`\n]*?)(?P=ticks)", protect_literal, segment)
+
+        segment = reference_definition_pattern.sub(rewrite_reference_definition, segment)
         output: list[str] = []
         cursor = 0
         while True:
@@ -1540,25 +4694,64 @@ def _rewrite_source_links(
                 break
             output.append(replacement(match.group("open"), segment[target_start:target_end]))
             cursor = target_end + 1
-        return "".join(output)
+        rewritten = "".join(output)
 
-    output: list[str] = []
-    normal: list[str] = []
-    in_fence = False
-    for line in body.splitlines(keepends=True):
-        if _is_fenced_markdown_line(line):
-            if normal:
-                output.append(rewrite_segment("".join(normal)))
-                normal = []
-            output.append(line)
-            in_fence = not in_fence
-        elif in_fence:
-            output.append(line)
-        else:
-            normal.append(line)
-    if normal:
-        output.append(rewrite_segment("".join(normal)))
-    return "".join(output)
+        # Reference definitions were handled as a whole above.  Keep malformed
+        # definitions byte-for-byte unchanged and prevent the bare-URL pass
+        # from partially pinning a destination that has no valid title/angle
+        # boundary.
+        rewritten = reference_definition_pattern.sub(protect_literal, rewritten)
+
+        # Pin bare URLs and Markdown autolinks in ordinary prose.  The same
+        # helper used by inline/reference destinations enforces exact
+        # repository identity and leaves external/cross-repository URLs alone.
+        def rewrite_bare_url(match: re.Match[str]) -> str:
+            target = match.group("url")
+            # Structural Markdown destinations were already handled above;
+            # their URL starts immediately after ``](``.  Do not process it a
+            # second time or append a duplicate unresolved-site marker.
+            if match.start() >= 2 and rewritten[match.start() - 2 : match.start()] == "](":
+                return target
+            site_rewrite = _istio_site_link_rewrite(
+                target,
+                target_rel=target_rel,
+                manifest=manifest,
+                site_routes=istio_site_routes,
+                repo_dir=repo_dir,
+            )
+            if site_rewrite is not None:
+                rewritten_target, marker = site_rewrite
+                suffix = f" <!-- {marker} -->" if marker else ""
+                return rewritten_target + suffix
+            return _pinned_repository_url(manifest, target) or target
+
+        rewritten = re.sub(
+            r"(?<![A-Za-z0-9_@])(?P<url>https?://[^\s<>\"]+)",
+            rewrite_bare_url,
+            rewritten,
+            flags=re.IGNORECASE,
+        )
+        rewritten = _pin_mutable_repository_urls_in_text(manifest, rewritten)
+
+        def restore_literal(match: re.Match[str]) -> str:
+            return literals[int(match.group(1))]
+
+        sentinel_pattern = re.compile(r"\x00SOURCE_LINK_LITERAL_(\d+)\x01")
+        # A protected reference definition can itself contain a protected
+        # inline-code sentinel. One substitution pass restores the outer
+        # definition and exposes the inner sentinel, so continue until the
+        # finite literal stack is fully expanded.
+        for _ in range(len(literals) + 1):
+            if sentinel_pattern.search(rewritten) is None:
+                return rewritten
+            rewritten = sentinel_pattern.sub(restore_literal, rewritten)
+        raise ValueError("source-link literal restoration did not converge")
+
+    masked, protected = _mask_gitbook_fences(body)
+    rewritten = rewrite_segment(masked)
+    for index, fence in enumerate(protected):
+        rewritten = rewritten.replace(f"\x00GITBOOK_FENCE_{index}\x01", fence)
+    return rewritten
 
 
 def _reference_key(label: str) -> str:
@@ -1934,8 +5127,190 @@ def _rewrite_rst_links(
     return "".join(output)
 
 
+def _frontmatter_json(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+
+def _jekyll_page_frontmatter(
+    page: _JekyllPage,
+    manifest: Manifest,
+    fetched_at: str,
+    site: dict[str, Any],
+) -> str:
+    """Serialize source page data plus deterministic corpus provenance."""
+
+    # Required corpus metadata comes first for the runtime index and for human
+    # inspection.  Remaining source frontmatter is retained as JSON-compatible
+    # YAML scalars so cards/list data and navigation metadata remain available
+    # to offline consumers.
+    source_data = dict(page.metadata)
+    title = str(source_data.get("title", "") or page.route.strip("/").split("/")[-1])
+    aliases = list(page.redirect_aliases)
+    canonical_url = page.canonical_url
+    app_version = manifest.app_version or str(source_data.get("app_version", "") or "")
+    chart_version = manifest.chart_version or str(source_data.get("chart_version", "") or "")
+    lines = [
+        "---",
+        f"collection: {_frontmatter_json(manifest.collection)}",
+        f"version: {_frontmatter_json(manifest.version)}",
+        f"title: {_frontmatter_json(title)}",
+        f"source_url: {_frontmatter_json(_source_url(manifest, page.repo_rel_path))}",
+        f"fetched_at: {_frontmatter_json(fetched_at)}",
+        f"source_path: {_frontmatter_json(page.repo_rel_path)}",
+        f"source_commit: {_frontmatter_json(manifest.git_ref)}",
+        f"renderer: {_frontmatter_json('jekyll/opensearch')}",
+        f"permalink: {_frontmatter_json(page.permalink)}",
+        f"canonical_url: {_frontmatter_json(canonical_url)}",
+        f"canonical_route: {_frontmatter_json(page.canonical_route)}",
+        f"redirect_from: {_frontmatter_json(aliases)}",
+        f"canonical_collision: {_frontmatter_json(page.canonical_collision)}",
+        f"source_config_opensearch_version: {_frontmatter_json(site.get('opensearch_version', ''))}",
+        f"source_config_opensearch_dashboards_version: {_frontmatter_json(site.get('opensearch_dashboards_version', ''))}",
+        f"app_version: {_frontmatter_json(app_version)}",
+        f"chart_version: {_frontmatter_json(chart_version)}",
+    ]
+    for key in sorted(source_data):
+        if key in {
+            "collection",
+            "version",
+            "title",
+            "source_url",
+            "fetched_at",
+            "source_path",
+            "source_commit",
+            "renderer",
+            "permalink",
+            "canonical_url",
+            "canonical_route",
+            "redirect_from",
+            "canonical_collision",
+            "source_config_opensearch_version",
+            "source_config_opensearch_dashboards_version",
+            "app_version",
+            "chart_version",
+        }:
+            continue
+        lines.append(f"{key}: {_frontmatter_json(source_data[key])}")
+    lines.extend(["---", ""])
+    return "\n".join(lines)
+
+
+def _normalize_jekyll(manifest: Manifest) -> None:
+    """Normalize an OpenSearch documentation-website checkout."""
+
+    repo_dir = manifest.raw_dir / "repo"
+    if not repo_dir.exists():
+        print(f"[{manifest.name}] raw repo not found at {repo_dir}. Please run fetch first.", file=sys.stderr)
+        sys.exit(1)
+    files = _discover_jekyll_source_files(manifest, repo_dir)
+    if not files:
+        print(
+            f"[{manifest.name}] Error: no processable Jekyll documentation files found in docs_paths: {manifest.docs_paths}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    registry = _build_jekyll_registry(manifest, repo_dir)
+    peer_registry = _peer_jekyll_registry(manifest)
+    config = _jekyll_config(repo_dir)
+
+    meta_file = manifest.raw_dir / "git_meta.json"
+    fetched_at = ""
+    if meta_file.exists():
+        try:
+            fetched_at = str(json.loads(meta_file.read_text(encoding="utf-8")).get("fetched_at", ""))
+        except (OSError, TypeError, ValueError):
+            fetched_at = ""
+    if not fetched_at:
+        fetched_at = get_git_commit_date(repo_dir)
+
+    rendered_pages: list[tuple[_JekyllPage, str, dict[str, int]]] = []
+    for page in registry.pages:
+        try:
+            raw_text = page.file_path.read_text(encoding="utf-8", errors="replace")
+        except OSError as error:
+            raise JekyllRenderError(f"cannot read source page: {error}", page.file_path) from error
+        source_data, body = parse_jekyll_frontmatter(raw_text, Path(page.repo_rel_path).stem)
+        # Registry metadata and the body parse intentionally come from the
+        # same source file; this guards against a source changing between the
+        # two read operations during a local rebuild.
+        if source_data != page.metadata:
+            raise JekyllRenderError("frontmatter changed while building registry", page.file_path)
+        try:
+            rendered = render_jekyll_template(
+                body,
+                repo_dir,
+                manifest=manifest,
+                page_data=source_data,
+                source_path=page.file_path,
+            )
+            rendered, link_stats = _rewrite_jekyll_links(
+                rendered,
+                page,
+                registry,
+                peer_registry,
+                repo_dir,
+            )
+        except JekyllRenderError:
+            raise
+        residual = validate_no_residual_template_syntax(rendered)
+        if residual:
+            raise JekyllRenderError(
+                f"non-code Liquid/Kramdown residuals: {', '.join(residual[:4])}", page.file_path
+            )
+        rendered = re.sub(r"[ \t]+$", "", rendered, flags=re.MULTILINE)
+        rendered = re.sub(r"\n{3,}", "\n\n", rendered).strip() + "\n"
+        output = _jekyll_page_frontmatter(page, manifest, fetched_at, config) + rendered
+        rendered_pages.append((page, redact_secret_like_examples(output), link_stats))
+
+    corpus_dir = manifest.corpus_dir
+    expected = {Path(page.output_rel_path) for page, _, _ in rendered_pages}
+    # Only derived Markdown under this exact corpus version is eligible for
+    # stale cleanup.  Raw checkouts and unrelated corpus versions are never
+    # touched.
+    if corpus_dir.is_dir():
+        for old in corpus_dir.rglob("*.md"):
+            if old.relative_to(corpus_dir) not in expected:
+                old.unlink()
+    for page, output, _ in rendered_pages:
+        out_path = corpus_dir / page.output_rel_path
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(output, encoding="utf-8")
+    # Removing stale files can leave a tree of empty directories after a
+    # permalink change.  Prune only empty directories below this exact
+    # collection/version; never remove the version root itself or touch raw
+    # checkouts and sibling corpus versions.
+    if corpus_dir.is_dir():
+        directories = sorted(
+            (path for path in corpus_dir.rglob("*") if path.is_dir()),
+            key=lambda path: len(path.relative_to(corpus_dir).parts),
+            reverse=True,
+        )
+        for directory in directories:
+            try:
+                directory.rmdir()
+            except OSError:
+                pass
+
+    stats = {
+        "unresolved": sum(item[2]["unresolved"] for item in rendered_pages),
+        "cross_corpus": sum(item[2]["cross_corpus"] for item in rendered_pages),
+        "assets": sum(item[2]["assets"] for item in rendered_pages),
+    }
+    collisions = len(registry.route_collisions)
+    print(
+        f"[{manifest.name}] discovered={len(files)} source={len(registry.pages)} "
+        f"unique={registry.unique_routes} corpus={len(rendered_pages)} "
+        f"canonical_collisions={collisions} unresolved={stats['unresolved']} "
+        f"unresolved_cross_corpus={stats['cross_corpus']} pinned_assets={stats['assets']}"
+    )
+
+
 def normalize(manifest: Manifest) -> None:
     """Normalize 階段：將 repo 內的 Markdown/HTML 文件轉入 corpus。"""
+    if manifest.shortcode_profile in {"jekyll", "opensearch", "opensearch-jekyll"}:
+        _normalize_jekyll(manifest)
+        return
+
     repo_dir = manifest.raw_dir / "repo"
     if not repo_dir.exists():
         print(f"[{manifest.name}] raw repo not found at {repo_dir}. Please run fetch first.", file=sys.stderr)
@@ -1957,10 +5332,19 @@ def normalize(manifest: Manifest) -> None:
     corpus_dir = manifest.corpus_dir
     written = 0
 
-    is_k8s = manifest.collection == "k8s"
     is_gitlab = manifest.collection == "gitlab"
+    shortcode_profile = manifest.shortcode_profile or (
+        "kubernetes" if manifest.collection == "k8s" else ""
+    )
 
     files_to_process = _discover_source_files(manifest, repo_dir)
+    if not files_to_process:
+        print(
+            f"[{manifest.name}] Error: no processable documentation files found in docs_paths: {manifest.docs_paths}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     source_outputs = {
         file_path.relative_to(repo_dir).as_posix(): Path(rel_out_path).with_suffix(".md").as_posix()
         for file_path, rel_out_path in files_to_process
@@ -1982,6 +5366,14 @@ def normalize(manifest: Manifest) -> None:
 
         target_rel = Path(rel_out_path_str).with_suffix(".md")
         default_title = target_rel.stem
+        preserve_description = bool(
+            manifest.preserve_description and manifest.shortcode_profile == "istio"
+        )
+        description = (
+            extract_frontmatter_description(raw_text)
+            if preserve_description and file_path.suffix.lower() in {".md", ".markdown"}
+            else ""
+        )
 
         if file_path.suffix.lower() == ".html":
             from normalize import to_markdown as html_to_markdown
@@ -2003,9 +5395,16 @@ def normalize(manifest: Manifest) -> None:
             )
         else:
             title, body = extract_frontmatter(raw_text, default_title=default_title)
+            if description and not body.strip():
+                body = description
 
-        if is_k8s:
-            body = clean_hugo_shortcodes(body, repo_dir)
+        if shortcode_profile:
+            body = clean_hugo_shortcodes(
+                body,
+                repo_dir,
+                profile=shortcode_profile,
+                source_path=file_path,
+            )
         elif is_gitlab:
             body = clean_gitlab_shortcodes(body)
 
@@ -2035,19 +5434,41 @@ def normalize(manifest: Manifest) -> None:
         out_path = corpus_dir / target_rel
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
-        frontmatter = "\n".join([
+        frontmatter_lines = [
             "---",
             f"collection: {manifest.collection}",
             f'version: "{manifest.version}"',
             f"title: {json.dumps(title, ensure_ascii=False)}",
             f"source_url: {source_url}",
             f"fetched_at: {fetched_at}",
-            "---",
-            "",
-        ])
+        ]
+        if manifest.app_version:
+            # Keep the application/document-line distinction explicit for
+            # generic Git sources whose manifest represents a frozen docs
+            # branch rather than the app release itself.
+            frontmatter_lines.append(
+                f"app_version: {json.dumps(manifest.app_version, ensure_ascii=False)}"
+            )
+        if manifest.chart_version:
+            frontmatter_lines.append(
+                f"chart_version: {json.dumps(manifest.chart_version, ensure_ascii=False)}"
+            )
+        if description:
+            frontmatter_lines.append(
+                f"description: {json.dumps(description, ensure_ascii=False)}"
+            )
+        frontmatter_lines.extend(["---", ""])
+        frontmatter = "\n".join(frontmatter_lines)
 
-        out_path.write_text(frontmatter + body, encoding="utf-8")
+        out_path.write_text(
+            redact_secret_like_examples(frontmatter + body),
+            encoding="utf-8",
+        )
         written += 1
+
+    if written == 0:
+        print(f"[{manifest.name}] Error: 0 pages written to corpus.", file=sys.stderr)
+        sys.exit(1)
 
     print(f"[{manifest.name}] corpus written: {written} pages")
 

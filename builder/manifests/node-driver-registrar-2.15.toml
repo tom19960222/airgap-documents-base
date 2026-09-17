@@ -1,0 +1,8 @@
+name = "node-driver-registrar-2.15"
+collection = "csi-node-driver-registrar"
+version = "2.15.0"
+source_type = "git"
+repo_url = "https://github.com/kubernetes-csi/node-driver-registrar"
+git_ref = "87d60a92e312fefe7965ccf2c2b88d6184e30077"
+docs_paths = ["README.md", "CONTRIBUTING.md"]
+sparse_paths = ["README.md", "CONTRIBUTING.md"]

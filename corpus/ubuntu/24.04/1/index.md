@@ -1,0 +1,726 @@
+---
+collection: ubuntu
+version: "24.04"
+title: "Changes in Ubuntu 24.04.1"
+source_url: https://documentation.ubuntu.com/release-notes/24.04/1/
+fetched_at: 2026-09-16T16:17:02+00:00
+---
+# Changes in Ubuntu 24.04.1
+
+This is a brief summary of bugs fixed between Ubuntu 24.04 LTS and 24.04.1. **This summary covers only changes to packages in *main* and *restricted*, which account for all packages in the officially-supported images; there are further changes to various packages in *universe* and *multiverse*.** Some of these fixes were by Ubuntu developers directly, while others were by upstream developers and backported to Ubuntu. For full details, see the individual package changelogs.
+
+## Installation bug fixes
+
+Updated CD images are provided with this release, including fixes for some installation bugs. (Many installation problems are hardware-specific; for those, see “Hardware support bugs” below.)
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| livecd-rootfs | [2068739](https://bugs.launchpad.net/bugs/2068739) | riscv64: use earlycon=sbi on command line |
+| livecd-rootfs | [2069828](https://bugs.launchpad.net/bugs/2069828) | Revert removal of unminimize call in server builds |
+| livecd-rootfs | [2064280](https://bugs.launchpad.net/bugs/2064280) | Re-enable ability to build HyperV desktop images |
+| livecd-rootfs | [2063203](https://bugs.launchpad.net/bugs/2063203) | Add experimental support for building ubuntu-core-desktop installer images |
+| livecd-rootfs | [2066905](https://bugs.launchpad.net/bugs/2066905) | No longer install LXD snap in unminimize script |
+| livecd-rootfs | [2072759](https://bugs.launchpad.net/bugs/2072759) | Build qcow2 images for ubuntu-core LXD support (LP: #2072759). |
+| livecd-rootfs | [2072956](https://bugs.launchpad.net/bugs/2072956) | riscv64: preinstalled server image for Microchip PIC64GX Curiosity Kit |
+| unminimize | [2066903](https://bugs.launchpad.net/bugs/2066903) | fix: No longer install LXD snap in unminimize script |
+| unminimize | [2072699](https://bugs.launchpad.net/bugs/2072699) | Add a postinst script to rm livecd-rootfs’ unminimize. |
+| livecd-rootfs | [2076307](https://bugs.launchpad.net/bugs/2076307) | Add ‘ubuntu-core-installer’ project. |
+| livecd-rootfs | [2077695](https://bugs.launchpad.net/bugs/2077695) | Drop unminimize spit out by livecd-rootfs. |
+| livecd-rootfs | [2077495](https://bugs.launchpad.net/bugs/2077495) | Force latest/stable/ubuntu-24.10 subiquity onto the ubuntu-core-installer ISO for now. |
+| livecd-rootfs | [2077899](https://bugs.launchpad.net/bugs/2077899) | Update ubuntu-classic-2404-amd64 model in ubuntu hooks. |
+
+## Upgrade bug fixes
+
+These changes fix upgrade issues, smoothing the way for future upgrades to later releases of Ubuntu (and not only).
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| ubuntu-release-upgrader | [2065229](https://bugs.launchpad.net/bugs/2065229) | DistUpgradeQuirks: prevent upgrades of TPM FDE desktops |
+| ubuntu-release-upgrader | [2065051](https://bugs.launchpad.net/bugs/2065051) | New quirk to add KMS overlay on Pi Server images |
+| ubuntu-release-upgrader | [2061891](https://bugs.launchpad.net/bugs/2061891) | DistUpgradeQuirks: keep {netfilter,iptables}-persistent instead of ufw |
+| ubuntu-release-upgrader | [2063464](https://bugs.launchpad.net/bugs/2063464) | DistUpgrade.cfg.jammy: Add systemd-resolved to PostUpgradeInstall |
+| ubuntu-release-upgrader | [2064090](https://bugs.launchpad.net/bugs/2064090) | Transition the automatically installed bit to t64 libraries, and do not write automatically installed bit in simulation |
+| ubuntu-release-upgrader | [2067886](https://bugs.launchpad.net/bugs/2067886) | DistUpgrade: drop quirk for systems with BIOS and XFS /boot |
+| ubuntu-release-upgrader | [2067071](https://bugs.launchpad.net/bugs/2067071) | DistUpgradeQuirks: make sure replacement.candidate is not None |
+| ubuntu-release-upgrader | [2067585](https://bugs.launchpad.net/bugs/2067585) | DistUpgrade: use tempfile for apt extended_states during simulation |
+| ubuntu-release-upgrader | [2076913](https://bugs.launchpad.net/bugs/2076913) | Fix typo in force_obsoletes. |
+| ubuntu-release-upgrader | [2077358](https://bugs.launchpad.net/bugs/2077358) | DistUpgrade: handle cache key error when removing obsolete packages |
+| ubuntu-release-upgrader | [2077344](https://bugs.launchpad.net/bugs/2077344) | deb2snap: switch snap-store and firmware-updater tracks |
+| ubuntu-release-upgrader | [2043820](https://bugs.launchpad.net/bugs/2043820) | DistUpgradeQuirks: disable stub resolver on upgrades from jammy |
+| ubuntu-release-upgrader | [2073278](https://bugs.launchpad.net/bugs/2073278) | DistUpgrade: show a message about denied package removals |
+| ubuntu-release-upgrader | [2067622](https://bugs.launchpad.net/bugs/2067622) | data: add cryptsetup-initramfs to removal_denylist.cfg |
+| ubuntu-release-upgrader | [2058648](https://bugs.launchpad.net/bugs/2058648) | DistUpgradeQuirks: abort if system is not /usr-merged |
+| ubuntu-release-upgrader | [2075968](https://bugs.launchpad.net/bugs/2075968) | DistUpgradeQuirks: disable cloud-init on upgrade |
+| ubuntu-release-upgrader | [2074309](https://bugs.launchpad.net/bugs/2074309) | DistUpgradeQuirks: abort if rabbitmq-server installed |
+| ubuntu-release-upgrader | [2054103](https://bugs.launchpad.net/bugs/2054103) | DistUpgradeQuirks: make sure GRUB “cloud_style_installation” is set in cloud images |
+| ubuntu-release-upgrader | [1874272](https://bugs.launchpad.net/bugs/1874272) | Reimplement obsolete removal with resolve_by_keep |
+
+## Desktop fixes
+
+These changes mainly affect desktop installations of Ubuntu and other Ubuntu-based desktop systems.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| remmina | [2062177](https://bugs.launchpad.net/bugs/2062177) | cherry pick a fix from upstream for RDP connections segfaulting with the newest freerdp3 version (lp: #2062177) |
+| nautilus | [2064643](https://bugs.launchpad.net/bugs/2064643) | New upstream stable bugfix release (lp: #2064643) |
+| gnome-shell-extension-appindicator | [2042844](https://bugs.launchpad.net/bugs/2042844) | appIndicator: Try to introspect the application for Activate method support. |
+| gnome-shell-extension-appindicator | [2042844](https://bugs.launchpad.net/bugs/2042844) | dbusMenu: Handle missing AboutToShow gracefully (LP: #2042844). |
+| gnome-shell-extension-appindicator | [2059818](https://bugs.launchpad.net/bugs/2059818) | Replace add_actor and remove_actor (LP: #2059818). |
+| pipewire | [2067338](https://bugs.launchpad.net/bugs/2067338) | Patch to handle long SysEx messages in MIDI bridge |
+| nautilus | [2067592](https://bugs.launchpad.net/bugs/2067592) | New upstream release (lp: #2067592) |
+| webkit2gtk | [2037015](https://bugs.launchpad.net/bugs/2037015) | Convert disable-dmabuf-nvidia.patch to disable-dmabuf.patch, adding detection for Broadcom to work around corruption and crashes occurring in Raspberry Pi X11 sessions. (LP: #2037015, LP: #2062146) |
+| webkit2gtk | [2062146](https://bugs.launchpad.net/bugs/2062146) | Convert disable-dmabuf-nvidia.patch to disable-dmabuf.patch, adding detection for Broadcom to work around corruption and crashes occurring in Raspberry Pi X11 sessions. (LP: #2037015, LP: #2062146) |
+| file-roller | [2067387](https://bugs.launchpad.net/bugs/2067387) | New upstream release (lp: #2067387) |
+| mesa | [2068918](https://bugs.launchpad.net/bugs/2068918) | Backport to noble. |
+| mesa | [2068918](https://bugs.launchpad.net/bugs/2068918) | New upstream release. |
+| mesa | [2061955](https://bugs.launchpad.net/bugs/2061955) | patches: Add ARL support. |
+| gnome-shell-extension-tiling-assistant | [2064646](https://bugs.launchpad.net/bugs/2064646) | fix a bug where clicking on the top panel sometime triggers the tiling action (lp: #2064646) |
+| nautilus | [1996927](https://bugs.launchpad.net/bugs/1996927) | d/p/u/nautilus-sendto.patch: If nautilus-sendto is installed, then use it when clicking ‘Email’ in the file context menu, else do the default upstream action, namely to use the XDG portal (LP: #1996927). |
+| gnome-calculator | [2067420](https://bugs.launchpad.net/bugs/2067420) | Merge with Debian (LP: #2067420), remaining change: |
+| gnome-shell | [2069381](https://bugs.launchpad.net/bugs/2069381) | d/p/ubuntu-authd: Revert unwanted change causing ibus not to launch |
+| gnome-shell | [2067610](https://bugs.launchpad.net/bugs/2067610) | d/p/ubuntu-authd: Properly draw qr-codes for longer URIs |
+| gnome-shell | [2067661](https://bugs.launchpad.net/bugs/2067661) | d/p/ubuntu-authd: Fix dialog text color when using light theme |
+| gnome-shell | [2067661](https://bugs.launchpad.net/bugs/2067661) | d/p/ubuntu-authd: Use right colors to draw the qr code in light mode |
+| gnome-shell | [2068080](https://bugs.launchpad.net/bugs/2068080) | d/p/ubuntu-authd: Properly handle new-password messages requests |
+| gnome-shell | [2068912](https://bugs.launchpad.net/bugs/2068912) | d/p/ubuntu-authd: Add translatable js files to [POTFILES.in](http://POTFILES.in) |
+| gnome-shell | [2012388](https://bugs.launchpad.net/bugs/2012388) | d/p: Resize tray icon windows to respect their actor representation |
+| gnome-shell | [2012388](https://bugs.launchpad.net/bugs/2012388) | d/p: Do not make tray icons to take any input event directly. This is all handled through their actor proxy representation |
+| xkeyboard-config | [2069963](https://bugs.launchpad.net/bugs/2069963) | Added Ergo-L layout and variant |
+| xdg-desktop-portal-gnome | [2064732](https://bugs.launchpad.net/bugs/2064732) | New upstream release |
+| linux-aws | [2070059](https://bugs.launchpad.net/bugs/2070059) | noble/linux-aws: 6.8.0-1011.12 -proposed tracker |
+| gnome-text-editor | [2070283](https://bugs.launchpad.net/bugs/2070283) | New upstream release |
+| evolution-data-server | [2070386](https://bugs.launchpad.net/bugs/2070386) | New upstream release |
+| mutter | [2068598](https://bugs.launchpad.net/bugs/2068598) | New upstream release 46.2 |
+| mutter | [2026194](https://bugs.launchpad.net/bugs/2026194) | Fixed mouse clicks falling through to the window behind |
+| mutter | [2061739](https://bugs.launchpad.net/bugs/2061739) | Fixed a crash in meta_wayland_transaction_commit |
+| mutter | [2066902](https://bugs.launchpad.net/bugs/2066902) | Fixed night light getting stuck on |
+| mutter | [2064735](https://bugs.launchpad.net/bugs/2064735) | New upstream release 46.1 (LP: #2064735): |
+| mutter | [2066931](https://bugs.launchpad.net/bugs/2066931) | Fixed blank screen on hybrid GPU machines using nouveau |
+| mutter | [2050865](https://bugs.launchpad.net/bugs/2050865) | Fixed a monitor hotplug crash |
+| mutter | [2038801](https://bugs.launchpad.net/bugs/2038801) | Improved performance on secondary GPU monitors |
+| mutter | [2070437](https://bugs.launchpad.net/bugs/2070437) | Support-Dynamic-triple-double-buffering.patch (LP: #2070437, LP: #2070438) |
+| mutter | [2070438](https://bugs.launchpad.net/bugs/2070438) | Support-Dynamic-triple-double-buffering.patch (LP: #2070437, LP: #2070438) |
+| mutter | [1967707](https://bugs.launchpad.net/bugs/1967707) | Add `backends-Handle-null-views-instead-of-creating-dummy-view.patch` to prevent “clutter_frame_clock_notify_presented: code should not be reached” log spam in some Nvidia Wayland sessions |
+| mutter | [2062377](https://bugs.launchpad.net/bugs/2062377) | Add backends-Restore-support-for-X11-cursor-themes.patch to restore support for X11 cursor themes, which was lost in Mutter 46.0 (LP: #2062377, LP: #2063869) |
+| mutter | [2063869](https://bugs.launchpad.net/bugs/2063869) | Add backends-Restore-support-for-X11-cursor-themes.patch to restore support for X11 cursor themes, which was lost in Mutter 46.0 (LP: #2062377, LP: #2063869) |
+| mutter | [2016013](https://bugs.launchpad.net/bugs/2016013) | Add place-Always-center-initial-setup.patch |
+| gnome-initial-setup | [2071447](https://bugs.launchpad.net/bugs/2071447) | New upstream version (lp: #2071447) |
+| gnome-initial-setup | [2069375](https://bugs.launchpad.net/bugs/2069375) | improve the keyboard navigation on the pro page (lp: #2069375) |
+| gnome-initial-setup | [2071449](https://bugs.launchpad.net/bugs/2071449) | Fixes and improvements to the ‘create initial user’ mode. We aren’t using gnome-initial-setup to create users in Ubuntu today, since our desktop installer is handling the user creation, but that’s wanted feature for oem installation to replace oem-setup which doesn’t exist in the new installer (lp: #2071449). |
+| gnome-remote-desktop | [2072771](https://bugs.launchpad.net/bugs/2072771) | New upstream release |
+| gnome-remote-desktop | [2072596](https://bugs.launchpad.net/bugs/2072596) | Use custom postinst to fix long delay when first installing 46 (Closes: #1070119) |
+| ubuntu-settings | [2072574](https://bugs.launchpad.net/bugs/2072574) | Drop obsolete evolution-data-server notify-with-tray override |
+| gnome-online-accounts | [2072782](https://bugs.launchpad.net/bugs/2072782) | New upstream release |
+| gnome-online-accounts | [2072775](https://bugs.launchpad.net/bugs/2072775) | Update WebDAV/CardDAV/CalDAV support for Fastmail and [mailbox.org](http://mailbox.org) |
+| gsettings-desktop-schemas | [2064656](https://bugs.launchpad.net/bugs/2064656) | Fixes systemd journal log spam in some languages once the language packs are updated |
+| gnome-calendar | [2072742](https://bugs.launchpad.net/bugs/2072742) | New upstream release (lp: #2072742) |
+| gnome-shell | [2069559](https://bugs.launchpad.net/bugs/2069559) | Add st-theme-node-Forget-properties-cache-on-stylesheet-chang.patch to fix crashes that occur when locking the screen from within the overview. But more generally can occur whenever any extension that modifies stylesheets (like ubuntu-dock or dash-to-dock) is unloaded (LP: #2069559). |
+| gnome-text-editor | [2075553](https://bugs.launchpad.net/bugs/2075553) | debian: Backport patches to fix crash on launch (lp: #2075553) |
+
+## Server and Cloud related fixes
+
+These changes mainly affect installations of Ubuntu on server systems and clouds.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| google-osconfig-agent | [2064580](https://bugs.launchpad.net/bugs/2064580) | Rebuild for Noble. |
+| google-osconfig-agent | [2064580](https://bugs.launchpad.net/bugs/2064580) | New upstream version for upstream tag 20240320.00. |
+| nbd | [2060745](https://bugs.launchpad.net/bugs/2060745) | d/p/0002-Set-sensible-default-for-port.patch: When no port is specified in nbdtab, set default to NBD_DEFAULT_PORT (i.e. “10809”) to fix issue where “0” is assumed. |
+| dhcpcd | [2064926](https://bugs.launchpad.net/bugs/2064926) | hooks/30-hostname: Exit with 0 if setting hostname is not needed This prevents retrying dhcpcd for 5 minutes during boot. |
+| cloud-init | [2064132](https://bugs.launchpad.net/bugs/2064132) | cherry-pick 51c6569f: fix(snapd): ubuntu do not snap refresh when snap absent |
+| cloud-init | [2064132](https://bugs.launchpad.net/bugs/2064132) | cherry-pick a6f7577d: bug(package_update): avoid snap refresh in images without |
+| openvswitch | [2066906](https://bugs.launchpad.net/bugs/2066906) | d/p/ofproto-dpif-xlate-Fix-continuations-with-associated- metering.patch: Cherry-pick fix required for OVN 24.03.2 (LP: #2066906). |
+| openvswitch | [2063112](https://bugs.launchpad.net/bugs/2063112) | d/tests: Bump number of 1G hugepages to 3 for arm64 (LP: #2063112). |
+| openvswitch | [2063152](https://bugs.launchpad.net/bugs/2063152) | d/tests: Skip tests not fitting memory constraints in arm64 CI (LP: #2063152). |
+| cloud-init | [2066979](https://bugs.launchpad.net/bugs/2066979) | cpick-417ee551: fix(ec2): Ensure metadata exists before configuring PBR. |
+| cloud-init | [2066985](https://bugs.launchpad.net/bugs/2066985) | cpick d771d1f4: fix(ec2): Correctly identify netplan renderer (#5361) |
+| ec2-hibinit-agent | [2066999](https://bugs.launchpad.net/bugs/2066999) | d/p/0015-ignore-setting-resume-offset-again-if-dev-snapshot-d.patch: do not set the snapshot swap area if /dev/snapshot does not exist. This is necessary to enable ARM hibernation. |
+| [netplan.io](http://netplan.io) | [2066258](https://bugs.launchpad.net/bugs/2066258) | d/p/lp2066258/0017-backends-escape-semicolons-in-service-units.patch: Escape isolated semicolons in systemd service units. |
+| horizon | [1728031](https://bugs.launchpad.net/bugs/1728031) | d/p/lp1728031.patch: Fix admin unable to reset user’s password. |
+| horizon | [2054799](https://bugs.launchpad.net/bugs/2054799) | d/p/lp2054799.patch: Fix Users/Groups tab list when a domain context is set. |
+| [netplan.io](http://netplan.io) | [2071333](https://bugs.launchpad.net/bugs/2071333) | debian/netplan-generator.postinst: Don’t call the generator if no networkd configuration file exists. |
+| ovn | [2066908](https://bugs.launchpad.net/bugs/2066908) | New upstream point release 24.03.2 (LP: #2066908). |
+| landscape-client | [2066983](https://bugs.launchpad.net/bugs/2066983) | d/landscape-sysinfo.wrapper: fix ‘cores’ variable to CORES in message- of-the-day load threshold calculation |
+| libvirt | [2071848](https://bugs.launchpad.net/bugs/2071848) | d/p/u/lp-2071848-fix-migration-with-disabled-vmx-features.patch: Fix migration issues with disabled vmx-\* CPU features. |
+| horizon | [2067632](https://bugs.launchpad.net/bugs/2067632) | d/u/_styles.scss: use static_url variable instead of absolute path (LP: #2067632). |
+| ceilometer | [2071939](https://bugs.launchpad.net/bugs/2071939) | d/patches/install-missing-files.patch: Ensure that all data files in the Python module directories are included in the binary package (LP: #2071939). |
+| gce-compute-image-packages | [2066314](https://bugs.launchpad.net/bugs/2066314) | Rebuild for Noble. |
+| open-iscsi | [2065180](https://bugs.launchpad.net/bugs/2065180) | initramfs-hook: Combine calls to manual_add_modules |
+| thin-provisioning-tools | [2065180](https://bugs.launchpad.net/bugs/2065180) | initramfs-hook: Combine calls to manual_add_modules |
+| ceph | [2064717](https://bugs.launchpad.net/bugs/2064717) | d/control: Add python3-{packaging,ceph-common} to (Build-)Depends as these are undocumented/detected runtime dependencies in ceph-volume (LP: #2064717). |
+| ceph | [2063456](https://bugs.launchpad.net/bugs/2063456) | d/cephadm.install: Install cephadmlib Python module which the cephadm script uses (LP: #2063456). |
+| ceph | [2065867](https://bugs.launchpad.net/bugs/2065867) | d/p/mgr-distutils.patch: Directly use vendored distutils from setuptools for Python that runs in the mgr daemon (LP: #2065867). |
+| google-compute-engine-oslogin | [2073166](https://bugs.launchpad.net/bugs/2073166) | New upstream version for upstream tag 20240320.00. |
+| google-osconfig-agent | [2073161](https://bugs.launchpad.net/bugs/2073161) | New upstream version for upstream tag 20240524.03. |
+| gce-compute-image-packages | [2073164](https://bugs.launchpad.net/bugs/2073164) | New upstream version 20240607.00. |
+| google-guest-agent | [2073163](https://bugs.launchpad.net/bugs/2073163) | New upstream version 20240716.00. |
+| google-guest-agent | [2057965](https://bugs.launchpad.net/bugs/2057965) | d/p/0006-add-after-cloud-config-service.patch: add patch to force ordering between cloud-init and the guest agent. |
+
+## Base platform fixes
+
+These changes affect the core fundamental components of all the Ubuntu flavors.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| apport | [2056758](https://bugs.launchpad.net/bugs/2056758) | report: fix determining bug report URL for Thunderbird |
+| openssl | [2054090](https://bugs.launchpad.net/bugs/2054090) | SECURITY UPDATE: Implicit rejection for RSA PKCS#1 |
+| wsl-setup | [2065349](https://bugs.launchpad.net/bugs/2065349) | Override cloud-init default_user configuration for Ubuntu distros to prevent creation of a default user which confused WSLg (LP: #2065349). |
+| initramfs-tools | [2065037](https://bugs.launchpad.net/bugs/2065037) | configure_network: Call dhcpcd with –nolink –noipv4ll to succeed getting a DHCP lease on the first try and avoid a 30 seconds delay |
+| ubuntu-advantage-tools | [2060732](https://bugs.launchpad.net/bugs/2060732) | Backport 32.3 to noble |
+| ubuntu-advantage-tools | [2067319](https://bugs.launchpad.net/bugs/2067319) | d/apparmor: adjust the profiles to account for usr-merge consequences |
+| ubuntu-advantage-tools | [2066929](https://bugs.launchpad.net/bugs/2066929) | d/apparmor: adjust rules for violations found during testing |
+| ubuntu-advantage-tools | [2065573](https://bugs.launchpad.net/bugs/2065573) | d/apparmor: allow access for /etc/os-release on all supported profiles |
+| ubuntu-advantage-tools | [2065616](https://bugs.launchpad.net/bugs/2065616) | apport: get path for timer job status from the correct place |
+| ubuntu-advantage-tools | [2060732](https://bugs.launchpad.net/bugs/2060732) | New upstream release 32 |
+| ubuntu-advantage-tools | [2033313](https://bugs.launchpad.net/bugs/2033313) | collect-logs: update default output file to pro_logs.tar.gz |
+| ubuntu-advantage-tools | [2031192](https://bugs.launchpad.net/bugs/2031192) | update logic that checks if a service is enabled |
+| systemd | [2047975](https://bugs.launchpad.net/bugs/2047975) | debian/systemd-resolved.postinst: ignore cp failure |
+| systemd | [2054761](https://bugs.launchpad.net/bugs/2054761) | debian/systemd.postinst: don’t restart user managers if too old |
+| systemd | [2064096](https://bugs.launchpad.net/bugs/2064096) | switch-root: use MS_MOVE for /run when switchig from initrd |
+| systemd | [2065964](https://bugs.launchpad.net/bugs/2065964) | test: check for kernel.apparmor_restrict_unprivileged_userns |
+| tzdata | [2062522](https://bugs.launchpad.net/bugs/2062522) | Fixup for avoid timezones being symlinks to symlinks |
+| tzdata | [2062522](https://bugs.launchpad.net/bugs/2062522) | Avoid timezones being symlinks to symlinks to avoid breaking C++20 standard expectation |
+| pam | [2064360](https://bugs.launchpad.net/bugs/2064360) | Correct Build depends for docbook5 |
+| pam | [2064350](https://bugs.launchpad.net/bugs/2064350) | Depend on libdb-dev again, bringing back pam_userdb |
+| snapd | [2061179](https://bugs.launchpad.net/bugs/2061179) | New upstream release, LP: #2061179 |
+| dracut | [2065180](https://bugs.launchpad.net/bugs/2065180) | perf(dracut-install): preload kmod resources for quicker module lookup |
+| llvm-toolchain-18 | [2064187](https://bugs.launchpad.net/bugs/2064187) | Disable mold for all to make sure it builds gold |
+| ubuntu-advantage-tools | [2067810](https://bugs.launchpad.net/bugs/2067810) | Adjust the esm_cache apparmor profile to allow reading of dpkg data directory (LP: #2067810): |
+| apparmor | [2064672](https://bugs.launchpad.net/bugs/2064672) | New upstream release. |
+| apparmor | [2046844](https://bugs.launchpad.net/bugs/2046844) | Add patch to add balena-etcher profile |
+| apparmor | [2046844](https://bugs.launchpad.net/bugs/2046844) | New upstream release. (LP: #2046844, LP: #2060100, LP: #2056297) |
+| apparmor | [2060100](https://bugs.launchpad.net/bugs/2060100) | New upstream release. (LP: #2046844, LP: #2060100, LP: #2056297) |
+| apparmor | [2056297](https://bugs.launchpad.net/bugs/2056297) | New upstream release. (LP: #2046844, LP: #2060100, LP: #2056297) |
+| apparmor | [2046844](https://bugs.launchpad.net/bugs/2046844) | d/p/u/enable-bwrap-profile.patch (LP: #2046844, LP: #2065708) |
+| apparmor | [2065708](https://bugs.launchpad.net/bugs/2065708) | d/p/u/enable-bwrap-profile.patch (LP: #2046844, LP: #2065708) |
+| systemd | [2067907](https://bugs.launchpad.net/bugs/2067907) | mountpoint-util: Deal with kernel API breakage in “norecovery” mount option. Also include fixup commit 055b465a3f (“shared/mountpoint-util: for old kernels, assume “norecovery” is supported by btrfs”). |
+| systemd | [2067922](https://bugs.launchpad.net/bugs/2067922) | cgroup-util: allow cg_read_pid() to skip unmapped (zero) pids |
+| systemd | [2067927](https://bugs.launchpad.net/bugs/2067927) | debian/extra: ship nice.conf for journald, not logind |
+| apparmor | [2072811](https://bugs.launchpad.net/bugs/2072811) | Due to regression, revert changes in previous update back to a source tree equivalent to 4.0.0-beta3-0ubuntu3 (LP: #2072811). |
+| needrestart | [2067482](https://bugs.launchpad.net/bugs/2067482) | Prevent needrestart restarting itself |
+| needrestart | [2065863](https://bugs.launchpad.net/bugs/2065863) | d/p/ubuntu-mode.patch: Don’t touch /run/reboot-required on kernel updates |
+| needrestart | [2068543](https://bugs.launchpad.net/bugs/2068543) | Ubuntu mode: disable it if restart mode has been explicitly set |
+| needrestart | [2068573](https://bugs.launchpad.net/bugs/2068573) | Add some inline documentation for the Ubuntu mode |
+| needrestart | [2063442](https://bugs.launchpad.net/bugs/2063442) | Don’t restart the google-guest-agent service |
+| dracut | [2065180](https://bugs.launchpad.net/bugs/2065180) | Cherry-pick upstream performance fixes (LP: #2065180): |
+| apport | [2067775](https://bugs.launchpad.net/bugs/2067775) | d/package-hooks/subiquity.py: update information collection |
+| apport | [2066995](https://bugs.launchpad.net/bugs/2066995) | apport: do not modify permission of existing /var/crash or create /var/crash with setgid permission (mode 3777) |
+| apport | [2066995](https://bugs.launchpad.net/bugs/2066995) | apport.postinst: Create /var/crash with mode 3777 |
+| apport | [2069360](https://bugs.launchpad.net/bugs/2069360) | whoopsie-upload-all: exit with 0 if whoopsie is disabled |
+| apport | [2067120](https://bugs.launchpad.net/bugs/2067120) | Fix retracing crashes on Ubuntu 24.04 LTS (noble) and add chaos-marmosets as dependency for the newly added system-tests |
+| apport | [2072751](https://bugs.launchpad.net/bugs/2072751) | Fix some issues in the hook for ubuntu-desktop-bootstrap |
+| dpkg | [2064539](https://bugs.launchpad.net/bugs/2064539) | Disable framepointer on ppc64el. LP: #2064539. |
+| dpkg | [2064538](https://bugs.launchpad.net/bugs/2064538) | Disable framepointer on s390x, leaving only -mbackchain. LP: #2064538. |
+| ubuntu-meta | [2072699](https://bugs.launchpad.net/bugs/2072699) | Added unminimize to cloud-minimal, server-minimal. |
+| glibc | [2064538](https://bugs.launchpad.net/bugs/2064538) | Fix framepointer flags for s390x and ppc64el (LP: #2064538, LP: #2064539) |
+| glibc | [2064539](https://bugs.launchpad.net/bugs/2064539) | Fix framepointer flags for s390x and ppc64el (LP: #2064538, LP: #2064539) |
+| systemd | [2055239](https://bugs.launchpad.net/bugs/2055239) | core/dbus-manager: mark unit file state as outdated only if some changes succeeded |
+| snapd | [2061179](https://bugs.launchpad.net/bugs/2061179) | New upstream release, LP: #2061179 |
+| e2fsprogs | [2036467](https://bugs.launchpad.net/bugs/2036467) | Fix superblock checksum mismatch during resize2fs operations, most notably during online resize of cloud images during boot. Read the superblock with Direct I/O to ensure we get the correct view of the disk. |
+| python3-defaults | [2075337](https://bugs.launchpad.net/bugs/2075337) | debpython/files.py: Use LC_ALL=C.UTF-8 when calling dpkg -L to avoid localization issues |
+
+## Kernel and Hardware support updates
+
+Considerable work has been done on improving support for many specific items of hardware.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| linux | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-meta | [2064266](https://bugs.launchpad.net/bugs/2064266) | linux-virtual: recommends linux-tools and ubuntu-kernel-accessories |
+| linux-raspi | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-raspi | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-raspi | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-raspi | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-raspi | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-raspi | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-raspi | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-raspi | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-raspi | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-raspi | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-aws | [2064325](https://bugs.launchpad.net/bugs/2064325) | noble/linux-aws: 6.8.0-1009.9 -proposed tracker |
+| linux-aws | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-aws | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-aws | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-aws | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-aws | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-aws | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-aws | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-aws | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-aws | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-aws | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-aws | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-aws | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-aws | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-aws | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-aws | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-aws | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-aws | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-aws | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-aws | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-aws | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-aws | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-aws | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-aws | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-aws | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-aws | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-aws | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-aws | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-aws | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-aws | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-aws | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-aws | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-aws | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-aws | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-aws | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-aws | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-aws | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-aws | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-aws | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-aws | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-aws | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-aws | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-aws | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-aws | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-aws | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-aws | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-aws | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-aws | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-aws | [2052945](https://bugs.launchpad.net/bugs/2052945) | noble/linux: 6.8.0-9.9 -proposed tracker |
+| linux-aws | [2052918](https://bugs.launchpad.net/bugs/2052918) | noble/linux: 6.8.0-8.8 -proposed tracker |
+| linux-gcp | [2064328](https://bugs.launchpad.net/bugs/2064328) | noble/linux-gcp: 6.8.0-1008.9 -proposed tracker |
+| linux-gcp | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-gcp | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-gcp | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-gcp | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-gcp | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-gcp | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-gcp | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-gcp | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-gcp | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-gcp | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-gcp | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-gcp | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-gcp | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-gcp | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-gcp | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gcp | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gcp | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gcp | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-gcp | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-gcp | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-gcp | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-gcp | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-gcp | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-gcp | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-gcp | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-gcp | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-gcp | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-gcp | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-gcp | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-gcp | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gcp | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gcp | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gcp | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-gcp | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-gcp | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-gcp | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-gcp | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-gcp | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-gcp | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-gcp | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-gcp | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-gcp | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-gcp | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-gcp | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-gcp | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-gcp | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-gcp | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-ibm | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce linux-*-cloud-tools-common, linux-*-tools-common and linux-\*-tools-host binary packages |
+| linux-ibm | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-ibm | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-ibm | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-ibm | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-ibm | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-ibm | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-ibm | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-ibm | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-ibm | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-ibm | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-ibm | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-ibm | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-ibm | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-ibm | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-ibm | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-ibm | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-ibm | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-ibm | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-ibm | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-ibm | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-ibm | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-ibm | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-ibm | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-ibm | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-ibm | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-ibm | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-ibm | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-ibm | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-ibm | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-ibm | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-ibm | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-ibm | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-ibm | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-ibm | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-ibm | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-ibm | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-ibm | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-ibm | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-ibm | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-ibm | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-ibm | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-ibm | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-ibm | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-ibm | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-ibm | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-ibm | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-ibm | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-ibm | [2052945](https://bugs.launchpad.net/bugs/2052945) | noble/linux: 6.8.0-9.9 -proposed tracker |
+| linux-ibm | [2052918](https://bugs.launchpad.net/bugs/2052918) | noble/linux: 6.8.0-8.8 -proposed tracker |
+| linux-lowlatency | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-lowlatency | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-lowlatency | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-lowlatency | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-lowlatency | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-lowlatency | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-lowlatency | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-lowlatency | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-lowlatency | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-lowlatency | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-lowlatency | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-lowlatency | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-lowlatency | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-lowlatency | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-lowlatency | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-lowlatency | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-lowlatency | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-lowlatency | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-lowlatency | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-lowlatency | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-lowlatency | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-lowlatency | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-lowlatency | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-lowlatency | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-lowlatency | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-lowlatency | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-lowlatency | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-lowlatency | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-lowlatency | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-lowlatency | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-lowlatency | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-lowlatency | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-lowlatency | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-lowlatency | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-lowlatency | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-lowlatency | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-lowlatency | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-lowlatency | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-lowlatency | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-lowlatency | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-lowlatency | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-lowlatency | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-lowlatency | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-lowlatency | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-lowlatency | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-lowlatency | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-lowlatency | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-lowlatency | [2052945](https://bugs.launchpad.net/bugs/2052945) | noble/linux: 6.8.0-9.9 -proposed tracker |
+| linux-lowlatency | [2052918](https://bugs.launchpad.net/bugs/2052918) | noble/linux: 6.8.0-8.8 -proposed tracker |
+| linux-riscv | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-riscv | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-riscv | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-riscv | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-riscv | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-riscv | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-oem-6.8 | [2064336](https://bugs.launchpad.net/bugs/2064336) | noble/linux-oem-6.8: 6.8.0-1006.6 -proposed tracker |
+| linux-oem-6.8 | [2024199](https://bugs.launchpad.net/bugs/2024199) | Resync CI Runner Configuration |
+| linux-oem-6.8 | [2065365](https://bugs.launchpad.net/bugs/2065365) | AMD Strix s2idle failure due to AMD VPE driver init |
+| linux-oem-6.8 | [2058333](https://bugs.launchpad.net/bugs/2058333) | daisy chained thunderbolt devices not working at reboot on AMD strix platforms |
+| linux-oem-6.8 | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-oem-6.8 | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-oem-6.8 | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-oem-6.8 | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-oem-6.8 | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-oem-6.8 | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-oem-6.8 | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-oem-6.8 | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-oem-6.8 | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-oem-6.8 | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-nvidia | [2061930](https://bugs.launchpad.net/bugs/2061930) | linux-nvidia-6.5_6.5.0-1014.14 breaks with earlier BIOS release, and modeset/resolutions are wrong (LP: #2061930) // Blocklist coresight_etm4x |
+| linux-nvidia | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-nvidia | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-nvidia | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-nvidia | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-azure | [2064327](https://bugs.launchpad.net/bugs/2064327) | noble/linux-azure: 6.8.0-1008.8 -proposed tracker |
+| linux-azure | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-azure | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-azure | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-azure | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-azure | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-azure | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-azure | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-azure | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-azure | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-azure | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-azure | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-azure | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-azure | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-azure | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-azure | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-azure | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-azure | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-azure | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-azure | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-azure | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-azure | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-azure | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-azure | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-azure | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-azure | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-azure | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-azure | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-azure | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-azure | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-azure | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-azure | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-azure | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-azure | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-azure | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-azure | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-azure | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-azure | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-azure | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-azure | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-azure | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-azure | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-azure | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-azure | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-azure | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-azure | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-azure | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-azure | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-firmware | [2063002](https://bugs.launchpad.net/bugs/2063002) | Add support for DCN 3.5 |
+| linux-gke | [2064329](https://bugs.launchpad.net/bugs/2064329) | noble/linux-gke: 6.8.0-1004.7 -proposed tracker |
+| linux-gke | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-gke | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-gke | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-gke | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-gke | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-gke | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-gke | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-gke | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-gke | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-gke | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-gke | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-gke | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-gke | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-gke | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-gke | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-gke | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-gke | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-gke | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-gke | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-gke | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-gke | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-gke | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-gke | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-gke | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-gke | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-gke | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-gke | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-gke | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-gke | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-gke | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-gke | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-gke | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-gke | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-gke | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-gke | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-gke | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-gke | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-gke | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-gke | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-gke | [2052945](https://bugs.launchpad.net/bugs/2052945) | noble/linux: 6.8.0-9.9 -proposed tracker |
+| linux-gke | [2052918](https://bugs.launchpad.net/bugs/2052918) | noble/linux: 6.8.0-8.8 -proposed tracker |
+| linux-gke | [2052691](https://bugs.launchpad.net/bugs/2052691) | noble/linux: 6.8.0-7.7 -proposed tracker |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2052592](https://bugs.launchpad.net/bugs/2052592) | noble/linux: 6.8.0-6.6 -proposed tracker |
+| linux-gke | [2049082](https://bugs.launchpad.net/bugs/2049082) | FIPS kernels should default to fips mode |
+| linux-gke | [2052136](https://bugs.launchpad.net/bugs/2052136) | noble/linux-unstable: 6.8.0-5.5 -proposed tracker |
+| linux-gke | [2051502](https://bugs.launchpad.net/bugs/2051502) | noble/linux-unstable: 6.8.0-4.4 -proposed tracker |
+| linux-gke | [1965303](https://bugs.launchpad.net/bugs/1965303) | Migrate from fbdev drivers to simpledrm and DRM fbdev emulation layer |
+| linux-gke | [2051488](https://bugs.launchpad.net/bugs/2051488) | noble/linux-unstable: 6.8.0-3.3 -proposed tracker |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2040194](https://bugs.launchpad.net/bugs/2040194) | apparmor restricts read access of user namespace mediation sysctls to root |
+| linux-gke | [2040192](https://bugs.launchpad.net/bugs/2040192) | AppArmor spams kernel log with assert when auditing |
+| linux-gke | [2040250](https://bugs.launchpad.net/bugs/2040250) | apparmor notification files verification |
+| linux-gke | [2040245](https://bugs.launchpad.net/bugs/2040245) | apparmor oops when racing to retrieve a notification |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2051110](https://bugs.launchpad.net/bugs/2051110) | noble/linux-unstable: 6.8.0-2.2 -proposed tracker |
+| linux-gke | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-gke | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-gke | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-gke | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-gke | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-gke | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-gke | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-gke | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-gke | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-gke | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-gke | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-gke | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-gke | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-gke | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-gke | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-gke | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-gke | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-gke | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-gke | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-gke | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-gke | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-gke | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-gke | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-gke | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-gke | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-gke | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-gke | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-gke | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-gke | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-gke | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-gke | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-gke | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-gke | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-gke | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-gke | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-gke | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-gke | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-gke | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-gke | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-gke | [2052945](https://bugs.launchpad.net/bugs/2052945) | noble/linux: 6.8.0-9.9 -proposed tracker |
+| linux-gke | [2052918](https://bugs.launchpad.net/bugs/2052918) | noble/linux: 6.8.0-8.8 -proposed tracker |
+| linux-gke | [2052691](https://bugs.launchpad.net/bugs/2052691) | noble/linux: 6.8.0-7.7 -proposed tracker |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2052592](https://bugs.launchpad.net/bugs/2052592) | noble/linux: 6.8.0-6.6 -proposed tracker |
+| linux-gke | [2049082](https://bugs.launchpad.net/bugs/2049082) | FIPS kernels should default to fips mode |
+| linux-gke | [2052136](https://bugs.launchpad.net/bugs/2052136) | noble/linux-unstable: 6.8.0-5.5 -proposed tracker |
+| linux-gke | [2051502](https://bugs.launchpad.net/bugs/2051502) | noble/linux-unstable: 6.8.0-4.4 -proposed tracker |
+| linux-gke | [1965303](https://bugs.launchpad.net/bugs/1965303) | Migrate from fbdev drivers to simpledrm and DRM fbdev emulation layer |
+| linux-gke | [2051488](https://bugs.launchpad.net/bugs/2051488) | noble/linux-unstable: 6.8.0-3.3 -proposed tracker |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gke | [2040194](https://bugs.launchpad.net/bugs/2040194) | apparmor restricts read access of user namespace mediation sysctls to root |
+| linux-gke | [2040192](https://bugs.launchpad.net/bugs/2040192) | AppArmor spams kernel log with assert when auditing |
+| linux-gke | [2040250](https://bugs.launchpad.net/bugs/2040250) | apparmor notification files verification |
+| linux-gke | [2040245](https://bugs.launchpad.net/bugs/2040245) | apparmor oops when racing to retrieve a notification |
+| linux-gke | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-gke | [2051110](https://bugs.launchpad.net/bugs/2051110) | noble/linux-unstable: 6.8.0-2.2 -proposed tracker |
+| nvidia-graphics-drivers-470 | [2067598](https://bugs.launchpad.net/bugs/2067598) | New upstream release |
+| nvidia-graphics-drivers-535 | [2067597](https://bugs.launchpad.net/bugs/2067597) | New upstream release |
+| nvidia-graphics-drivers-550 | [2067881](https://bugs.launchpad.net/bugs/2067881) | New upstream release |
+| nvidia-graphics-drivers-470-server | [2066904](https://bugs.launchpad.net/bugs/2066904) | New upstream release |
+| nvidia-graphics-drivers-535-server | [2066367](https://bugs.launchpad.net/bugs/2066367) | New upstream release |
+| nvidia-graphics-drivers-550-server | [2067041](https://bugs.launchpad.net/bugs/2067041) | New upstream release |
+| linux-oracle | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board |
+| linux-oracle | [1975592](https://bugs.launchpad.net/bugs/1975592) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-oracle | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable Nezha board (LP: #1975592) // Enable StarFive VisionFive 2 board |
+| linux-oracle | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-oracle | [2062933](https://bugs.launchpad.net/bugs/2062933) | noble/linux: 6.8.0-31.31 -proposed tracker |
+| linux-oracle | [2061893](https://bugs.launchpad.net/bugs/2061893) | noble/linux: 6.8.0-30.30 -proposed tracker |
+| linux-oracle | [2056706](https://bugs.launchpad.net/bugs/2056706) | System unstable, kernel ring buffer flooded with “BUG: Bad page state in process swapper/0” |
+| linux-oracle | [2061888](https://bugs.launchpad.net/bugs/2061888) | noble/linux: 6.8.0-29.29 -proposed tracker |
+| linux-oracle | [2050019](https://bugs.launchpad.net/bugs/2050019) | 24.04 FEAT] [SEC2353] zcrypt: extend error recovery to deal with device scans |
+| linux-oracle | [2051835](https://bugs.launchpad.net/bugs/2051835) | 24.04 FEAT] Memory hotplug vmem pages (s390x) |
+| linux-oracle | [2061867](https://bugs.launchpad.net/bugs/2061867) | noble/linux: 6.8.0-28.28 -proposed tracker |
+| linux-oracle | [2061851](https://bugs.launchpad.net/bugs/2061851) | linux-gcp 6.8.0-1005.5 (+ others) Noble kernel regression with new apparmor profiles/features |
+| linux-oracle | [2061083](https://bugs.launchpad.net/bugs/2061083) | noble/linux: 6.8.0-25.25 -proposed tracker |
+| linux-oracle | [2060909](https://bugs.launchpad.net/bugs/2060909) | Apply mitigations for the native BHI hardware vulnerability |
+| linux-oracle | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-oracle | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-oracle | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-oracle | [2049793](https://bugs.launchpad.net/bugs/2049793) | MTL] x86: Fix Cache info sysfs is not populated |
+| linux-oracle | [2060238](https://bugs.launchpad.net/bugs/2060238) | noble/linux: 6.8.0-22.22 -proposed tracker |
+| linux-oracle | [2060225](https://bugs.launchpad.net/bugs/2060225) | noble/linux: 6.8.0-21.21 -proposed tracker |
+| linux-oracle | [2058221](https://bugs.launchpad.net/bugs/2058221) | noble/linux: 6.8.0-20.20 -proposed tracker |
+| linux-oracle | [2058224](https://bugs.launchpad.net/bugs/2058224) | Noble update: v6.8.1 upstream stable release |
+| linux-oracle | [2048768](https://bugs.launchpad.net/bugs/2048768) | Autopkgtest failures on amd64 |
+| linux-oracle | [2057910](https://bugs.launchpad.net/bugs/2057910) | noble/linux: 6.8.0-19.19 -proposed tracker |
+| linux-oracle | [2057456](https://bugs.launchpad.net/bugs/2057456) | noble/linux: 6.8.0-18.18 -proposed tracker |
+| linux-oracle | [2056745](https://bugs.launchpad.net/bugs/2056745) | noble/linux: 6.8.0-17.17 -proposed tracker |
+| linux-oracle | [2056738](https://bugs.launchpad.net/bugs/2056738) | noble/linux: 6.8.0-16.16 -proposed tracker |
+| linux-oracle | [2056616](https://bugs.launchpad.net/bugs/2056616) | left-over ceph debugging printks |
+| linux-oracle | [2056354](https://bugs.launchpad.net/bugs/2056354) | qat: Improve error recovery flows |
+| linux-oracle | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-oracle | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-oracle | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set (LP: #2028253) // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-oracle | [2051342](https://bugs.launchpad.net/bugs/2051342) | Enable lowlatency settings in the generic kernel |
+| linux-oracle | [2056126](https://bugs.launchpad.net/bugs/2056126) | hwmon: (coretemp) Fix core count limitation |
+| linux-oracle | [2055871](https://bugs.launchpad.net/bugs/2055871) | noble/linux: 6.8.0-15.15 -proposed tracker |
+| linux-oracle | [2055551](https://bugs.launchpad.net/bugs/2055551) | noble/linux: 6.8.0-14.14 -proposed tracker |
+| linux-oracle | [2049390](https://bugs.launchpad.net/bugs/2049390) | Please change CONFIG_CONSOLE_LOGLEVEL_QUIET to 3 |
+| linux-oracle | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-oracle | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-oracle | [2055421](https://bugs.launchpad.net/bugs/2055421) | noble/linux: 6.8.0-13.13 -proposed tracker |
+| linux-oracle | [2038583](https://bugs.launchpad.net/bugs/2038583) | Turning COMPAT_32BIT_TIME off on s390x |
+| linux-oracle | [2052439](https://bugs.launchpad.net/bugs/2052439) | Don’t produce `linux-*-source-<version>` package |
+| linux-oracle | [2048183](https://bugs.launchpad.net/bugs/2048183) | Don’t produce `linux-*-cloud-tools-common`, `linux-*-tools-common` and `linux-*-tools-host` binary packages |
+| linux-oracle | [1951440](https://bugs.launchpad.net/bugs/1951440) | Enable CONFIG_INTEL_IOMMU_DEFAULT_ON and CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON |
+| linux-oracle | [1971699](https://bugs.launchpad.net/bugs/1971699) | disable Intel DMA remapping by default |
+| linux-oracle | [2053094](https://bugs.launchpad.net/bugs/2053094) | noble/linux: 6.8.0-11.11 -proposed tracker |
+| linux-oracle | [2053015](https://bugs.launchpad.net/bugs/2053015) | noble/linux: 6.8.0-10.10 -proposed tracker |
+| linux-oracle | [2052945](https://bugs.launchpad.net/bugs/2052945) | noble/linux: 6.8.0-9.9 -proposed tracker |
+| linux-oracle | [2052918](https://bugs.launchpad.net/bugs/2052918) | noble/linux: 6.8.0-8.8 -proposed tracker |
+| linux-nvidia-lowlatency | [2069770](https://bugs.launchpad.net/bugs/2069770) | noble/linux-nvidia-lowlatency: 6.8.0-1009.9.1 -proposed tracker |
+| flash-kernel | [2072500](https://bugs.launchpad.net/bugs/2072500) | db/all.db: Add Microchip PIC64GX Curiosity Kit |
+| linux-riscv | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable StarFive VisionFive 2 board |
+| ubuntu-raspi-settings | [2069827](https://bugs.launchpad.net/bugs/2069827) | etc/cloud/cloud.cfg.d/99-fake-cloud.cfg moved from ubuntu-raspi-settings-server to ubuntu-raspi-settings as it now applies to both server *and* desktop images |
+| linux-firmware | [2069412](https://bugs.launchpad.net/bugs/2069412) | CS42L43 and CS35L56 for soundwire on Intel LNL/ARL |
+| linux-firmware | [2071771](https://bugs.launchpad.net/bugs/2071771) | Missing firmware for Intel NPU driver on Intel Lunar Lake platform: Failed to request firmware: -2 |
+| linux-firmware | [2068001](https://bugs.launchpad.net/bugs/2068001) | Add support for DCN 3.5.1 |
+| linux-firmware | [2071812](https://bugs.launchpad.net/bugs/2071812) | Add support for AMD ISP 4.1.1 |
+| linux-firmware | [2073047](https://bugs.launchpad.net/bugs/2073047) | Regression on Linux 6.8.0-38: Bluetooth adapter (Intel AX200) stops working after a few suspend/resume cycles |
+
+## Unsorted changes
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| distro-info-data | [2064136](https://bugs.launchpad.net/bugs/2064136) | Add Ubuntu 24.10 “Oracular Oriole” |
+| lintian | [2064686](https://bugs.launchpad.net/bugs/2064686) | Add “oracular” as a known Ubuntu distribution (LP: #2064686). |
+| vim | [2064687](https://bugs.launchpad.net/bugs/2064687) | Ensure Ubuntu codenames are current (LP: #2064687). |
+| libfprint | [2067785](https://bugs.launchpad.net/bugs/2067785) | d/p: Add new Broadcom device IDs to reduce the power consumption |
+| cups | [2070315](https://bugs.launchpad.net/bugs/2070315) | d/p/fix-scheduler-start-if-only-domain-socket-to-listen.patch: don’t exit if no valid Listen or Port found |
+| `lxd-installer` | [2061017](https://bugs.launchpad.net/bugs/2061017) | scripts/lxc: check if socket is writeable |
+| chrony | [2068526](https://bugs.launchpad.net/bugs/2068526) | d/usr.sbin.chronyd: fix the apparmor profile to allow multiple PTP clocks/interfaces |
+| swtpm | [2071478](https://bugs.launchpad.net/bugs/2071478) | Add sys_admin capability to apparmor profile to allow access to kernel modules such as tpm_vtpm_proxy |
+| wtpm | [2072524](https://bugs.launchpad.net/bugs/2072524) | Allow non-owned lockfile write access in /var/lib/libvirt/swtpm/ to fix apparmor denials when working with TPM2 locks |

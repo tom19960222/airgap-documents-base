@@ -1,0 +1,130 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Keyword"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_analyzers/tokenizers/keyword.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_analyzers/tokenizers/keyword.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/analyzers/tokenizers/keyword/"
+canonical_url: "https://docs.opensearch.org/latest/analyzers/tokenizers/keyword/"
+canonical_route: "/analyzers/tokenizers/keyword/"
+redirect_from: []
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 50
+parent: "Tokenizers"
+---
+# Keyword tokenizer
+
+The `keyword` tokenizer ingests text and outputs it exactly as a single, unaltered token. This makes it particularly useful when you want the input to remain intact, such as when managing structured data like names, product codes, or email addresses.
+
+The `keyword` tokenizer can be paired with token filters to process the text, for example, to normalize it or to remove extraneous characters.
+
+## Example usage
+
+The following example request creates a new index named `my_index` and configures an analyzer with a `keyword` tokenizer:
+
+```json
+PUT /my_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_keyword_analyzer": {
+          "type": "custom",
+          "tokenizer": "keyword"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "content": {
+        "type": "text",
+        "analyzer": "my_keyword_analyzer"
+      }
+    }
+  }
+}
+```
+
+## Generated tokens
+
+Use the following request to examine the tokens generated using the analyzer:
+
+```json
+POST /my_index/_analyze
+{
+  "analyzer": "my_keyword_analyzer",
+  "text": "OpenSearch Example"
+}
+```
+
+The response contains the single token representing the original text:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "OpenSearch Example",
+      "start_offset": 0,
+      "end_offset": 18,
+      "type": "word",
+      "position": 0
+    }
+  ]
+}
+```
+
+## Parameters
+
+The `keyword` token filter can be configured with the following parameter.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :---
+`buffer_size`| Optional | Integer | Determines the character buffer size. Default is `256`. There is usually no need to change this setting.
+
+## Combining the keyword tokenizer with token filters
+
+To enhance the functionality of the `keyword` tokenizer, you can combine it with token filters. Token filters can transform the text, such as converting it to lowercase or removing unwanted characters.
+
+### Example: Using the pattern_replace filter and keyword tokenizer
+
+In this example, the `pattern_replace` filter uses a regular expression to replace all non-alphanumeric characters with an empty string:
+
+```json
+POST _analyze
+{
+  "tokenizer": "keyword",
+  "filter": [
+    {
+      "type": "pattern_replace",
+      "pattern": "[^a-zA-Z0-9]",
+      "replacement": ""
+    }
+  ],
+  "text": "Product#1234-XYZ"
+}
+```
+
+The `pattern_replace` filter removes non-alphanumeric characters and returns the following token:
+
+```json
+{
+  "tokens": [
+    {
+      "token": "Product1234XYZ",
+      "start_offset": 0,
+      "end_offset": 16,
+      "type": "word",
+      "position": 0
+    }
+  ]
+}
+```

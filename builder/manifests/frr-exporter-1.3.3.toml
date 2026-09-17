@@ -1,0 +1,9 @@
+name = "frr-exporter-1.3.3"
+collection = "frr-exporter"
+version = "1.3.3"
+source_type = "git"
+repo_url = "https://github.com/tynany/frr_exporter"
+git_ref = "9ee9720c0f5a3c9bf7a83003836ea423410d57e3"
+docs_paths = ["README.md"]
+sparse_paths = ["README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

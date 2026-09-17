@@ -1,0 +1,76 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Diversified sampler"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_aggregations/bucket/diversified-sampler.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_aggregations/bucket/diversified-sampler.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/aggregations/bucket/diversified-sampler/"
+canonical_url: "https://docs.opensearch.org/latest/aggregations/bucket/diversified-sampler/"
+canonical_route: "/aggregations/bucket/diversified-sampler/"
+redirect_from: ["/query-dsl/aggregations/bucket/diversified-sampler/"]
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 40
+parent: "Bucket aggregations"
+---
+# Diversified sampler
+
+The `diversified_sampler` aggregation lets you reduce the bias in the distribution of the sample pool by deduplicating documents containing the same `field`. It does so by using the `max_docs_per_value` and `field` settings, which limit the maximum number of documents collected on a shard for the provided `field`. The `max_docs_per_value` setting is an optional parameter used to determine the maximum number of documents that will be returned per `field`. The default value of this setting is `1`.
+
+Similarly to the [`sampler` aggregation](../sampler/index.md), you can use the `shard_size` setting to control the maximum number of documents collected on any one shard, as shown in the following example:
+
+```json
+GET opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "sample": {
+      "diversified_": {
+        "shard_size": 1000,
+        "field": "response.keyword"
+      },
+      "aggs": {
+        "terms": {
+          "terms": {
+            "field": "agent.keyword"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### Example response
+
+```json
+...
+"aggregations" : {
+  "sample" : {
+    "doc_count" : 3,
+    "terms" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 0,
+      "buckets" : [
+        {
+          "key" : "Mozilla/5.0 (X11; Linux x86_64; rv:6.0a1) Gecko/20110421 Firefox/6.0a1",
+          "doc_count" : 2
+        },
+        {
+          "key" : "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)",
+          "doc_count" : 1
+        }
+      ]
+    }
+  }
+
+ }
+}
+```

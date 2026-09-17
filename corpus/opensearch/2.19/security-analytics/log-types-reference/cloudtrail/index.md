@@ -1,0 +1,247 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "AWS CloudTrail"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_security-analytics/log-types-reference/cloudtrail.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_security-analytics/log-types-reference/cloudtrail.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/security-analytics/log-types-reference/cloudtrail/"
+canonical_url: "https://docs.opensearch.org/latest/security-analytics/log-types-reference/cloudtrail/"
+canonical_route: "/security-analytics/log-types-reference/cloudtrail/"
+redirect_from: []
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 28
+parent: "Supported log types"
+---
+# AWS CloudTrail
+
+The `cloudtrail` log type monitors events from the [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) accounts. OpenSearch can ingest AWS CloudTrail log data from both [Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) (Amazon S3) accounts and [Amazon Security Lake](https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html) accounts.
+
+The following code snippet contains all the `raw_field`, `ecs`, and `ocsf` mappings for this log type:
+
+```json
+  "mappings": [
+    {
+      "raw_field":"eventName",
+      "ecs":"aws.cloudtrail.event_name",
+      "ocsf": "api.operation"
+    },
+    {
+      "raw_field":"eventSource",
+      "ecs":"aws.cloudtrail.event_source",
+      "ocsf": "api.service.name"
+    },
+    {
+      "raw_field":"eventVersion",
+      "ecs":"aws.cloudtrail.event_version",
+      "ocsf": "metadata.product.version"
+    },
+    {
+      "raw_field":"eventID",
+      "ecs":"aws.cloudtrail.event_id",
+      "ocsf": "metadata.uid"
+    },
+    {
+      "raw_field":"eventType",
+      "ecs":"aws.cloudtrail.event_type",
+      "ocsf": "unmapped.eventType"
+    },
+    {
+      "raw_field":"eventCategory",
+      "ecs":"aws.cloudtrail.event_category",
+      "ocsf": "metadata.product.feature.name"
+    },
+    {
+      "raw_field":"errorMessage",
+      "ecs":"aws.cloudtrail.error_message",
+      "ocsf": "api.response.message"
+    },
+    {
+      "raw_field":"errorCode",
+      "ecs":"aws.cloudtrail.error_code",
+      "ocsf": "api.response.error"
+    },
+    {
+      "raw_field":"apiVersion",
+      "ecs":"aws.cloudtrail.api_version",
+      "ocsf": "api.version"
+    },
+    {
+      "raw_field":"awsRegion",
+      "ecs":"aws.cloudtrail.aws_region",
+      "ocsf": "cloud.region"
+    },
+    {
+      "raw_field":"additionalEventData.LoginTo",
+      "ecs":"aws.cloudtrail.additional_event_data.loginTo",
+      "ocsf": "dst_endpoint.svc_name"
+    },
+    {
+      "raw_field":"additionalEventData.MFAUsed",
+      "ecs":"aws.cloudtrail.additional_event_data.mfaUsed",
+      "ocsf": "mfa"
+    },
+    {
+      "raw_field":"responseElements",
+      "ecs":"aws.cloudtrail.response_elements.text",
+      "ocsf": "unmapped.responseElements"
+    },
+    {
+      "raw_field":"requestID",
+      "ecs":"aws.cloudtrail.request_id",
+      "ocsf": "api.request.uid"
+    },
+    {
+      "raw_field":"sourceIPAddress",
+      "ecs":"aws.cloudtrail.source_ip_address",
+      "ocsf": "src_endpoint.ip"
+    },
+    {
+      "raw_field":"userAgent",
+      "ecs":"aws.cloudtrail.user_agent",
+      "ocsf": "http_request.user_agent"
+    },
+    {
+      "raw_field":"vpcEndpointId",
+      "ecs":"aws.cloudtrail.vpc_endpoint_id",
+      "ocsf": "src_endpoint.uid"
+    },
+    {
+      "raw_field":"responseElements.pendingModifiedValues.masterUserPassword",
+      "ecs":"aws.cloudtrail.response_elements.pending_modified_values.master_user_password",
+      "ocsf": "unmapped.responseElements.pendingModifiedValues.masterUserPassword"
+    },
+    {
+      "raw_field":"responseElements.publiclyAccessible",
+      "ecs":"aws.cloudtrail.response_elements.publicly_accessible",
+      "ocsf": "unmapped.responseElements.publiclyAccessible"
+    },
+    {
+      "raw_field":"responseElements.ConsoleLogin",
+      "ecs":"aws.cloudtrail.response_elements.publicly_accessible",
+      "ocsf": "status_id"
+    },
+    {
+      "raw_field":"requestParameters.arn",
+      "ecs":"aws.cloudtrail.request_parameters.arn",
+      "ocsf": "unmapped.requestParameters.arn"
+    },
+    {
+      "raw_field":"requestParameters.attribute",
+      "ecs":"aws.cloudtrail.request_parameters.attribute",
+      "ocsf": "unmapped.requestParameters.attribute"
+    },
+    {
+      "raw_field":"requestParameters.userName",
+      "ecs":"aws.cloudtrail.request_parameters.username",
+      "ocsf": "unmapped.requestParameters.userName"
+    },
+    {
+      "raw_field":"requestParameters.roleArn",
+      "ecs":"aws.cloudtrail.request_parameters.roleArn",
+      "ocsf": "user.uuid"
+    },
+    {
+      "raw_field":"requestParameters.roleSessionName",
+      "ecs":"aws.cloudtrail.request_parameters.roleSessionName",
+      "ocsf": "user.name"
+    },
+    {
+      "raw_field":"requestParameters.containerDefinitions.command",
+      "ecs":"aws.cloudtrail.request_parameters.container_definitions.command",
+      "ocsf": "unmapped.requestParameters.containerDefinitions.command"
+    },
+    {
+      "raw_field":"userIdentity.type",
+      "ecs":"aws.cloudtrail.user_identity.type",
+      "ocsf": "actor.user.type"
+    },
+    {
+      "raw_field":"userIdentity.principalId",
+      "ecs":"aws.cloudtrail.user_identity.principalId",
+      "ocsf": "actor.user.uid"
+    },
+    {
+      "raw_field":"userIdentity.arn",
+      "ecs":"aws.cloudtrail.user_identity.arn",
+      "ocsf": "actor.user.uuid"
+    },
+    {
+      "raw_field":"userIdentity.accountId",
+      "ecs":"aws.cloudtrail.user_identity.accountId",
+      "ocsf": "actor.user.account_uid"
+    },
+    {
+      "raw_field":"userIdentity.accessKeyId",
+      "ecs":"aws.cloudtrail.user_identity.accessKeyId",
+      "ocsf": "actor.user.credential_uid"
+    },
+    {
+      "raw_field":"userIdentity.identityProvider",
+      "ecs":"aws.cloudtrail.user_identity.identityProvider",
+      "ocsf": "actor.idp.name"
+    },
+    {
+      "raw_field":"userIdentity.userName",
+      "ecs":"aws.cloudtrail.user_identity.userName",
+      "ocsf": "actor.user.name"
+    },
+    {
+      "raw_field":"userIdentity.invokedBy",
+      "ecs":"aws.cloudtrail.user_identity.invokedBy",
+      "ocsf": "actor.invoked_by"
+    },
+    {
+      "raw_field":"userIdentity.sessionContext.sessionIssuer.type",
+      "ecs":"aws.cloudtrail.user_identity.session_context.session_issuer.type",
+      "ocsf": "unmapped.userIdentity.sessionContext.sessionIssuer.type"
+    },
+    {
+      "raw_field":"userIdentity.sessionContext.sessionIssuer.arn",
+      "ecs":"aws.cloudtrail.user_identity.session_context.session_issuer.arn",
+      "ocsf": "actor.session.issuer"
+    },
+    {
+      "raw_field":"userIdentity.sessionContext.attributes.creationDate",
+      "ecs":"aws.cloudtrail.user_identity.session_context.attributes.creationDate",
+      "ocsf": "actor.session.created_time"
+    },
+    {
+      "raw_field":"userIdentity.sessionContext.attributes.mfaAuthenticated",
+      "ecs":"aws.cloudtrail.user_identity.session_context.attributes.mfaAuthenticated",
+      "ocsf": "actor.session.mfa"
+    },
+    {
+      "raw_field":"userIdentity.webIdFederationData.federatedProvider",
+      "ecs":"aws.cloudtrail.user_identity.web_id_federation_data.federatedProvider",
+      "ocsf": "actor.idp.name"
+    },
+    {
+      "raw_field":"resources[].ARN",
+      "ecs":"aws.cloudtrail.resources.ARN",
+      "ocsf": "resources[].uid"
+    },
+    {
+      "raw_field":"resources[].accountId",
+      "ecs":"aws.cloudtrail.resources.account_uid",
+      "ocsf": "resources[].account_uid"
+    },
+    {
+      "raw_field":"resources[].type",
+      "ecs":"aws.cloudtrail.resources.type",
+      "ocsf": "resources[].type"
+    },
+    {
+      "raw_field":"eventTime",
+      "ecs":"timestamp",
+      "ocsf": "time"
+    }
+  ]
+```

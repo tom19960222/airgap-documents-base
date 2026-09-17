@@ -1,0 +1,27 @@
+---
+collection: kernel
+version: "6.17"
+title: "NIC SR-IOV APIs"
+source_url: https://www.kernel.org/doc/html/v6.17/networking/sriov.html
+fetched_at: 2026-09-16T16:41:29+00:00
+---
+# NIC SR-IOV APIs
+
+Modern NICs are strongly encouraged to focus on implementing the `switchdev`
+model (see [Ethernet switch device driver model (switchdev)](switchdev.md#switchdev)) to configure forwarding and security of SR-IOV
+functionality.
+
+## Legacy API
+
+The old SR-IOV API is implemented in `rtnetlink` Netlink family as part of
+the `RTM_GETLINK` and `RTM_SETLINK` commands. On the driver side
+it consists of a number of `ndo_set_vf_*` and `ndo_get_vf_*` callbacks.
+
+Since the legacy APIs do not integrate well with the rest of the stack
+the API is considered frozen; no new functionality or extensions
+will be accepted. New drivers should not implement the uncommon callbacks;
+namely the following callbacks are off limits:
+
+> - `ndo_get_vf_port`
+> - `ndo_set_vf_port`
+> - `ndo_set_vf_rss_query_en`
