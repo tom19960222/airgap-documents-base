@@ -1,0 +1,9 @@
+name = "smartctl-exporter-0.14.0"
+collection = "smartctl-exporter"
+version = "0.14.0"
+source_type = "git"
+repo_url = "https://github.com/prometheus-community/smartctl_exporter"
+git_ref = "ef5c03de02cb793e6a1540bef943fe6a167de635"
+docs_paths = ["README.md", "EXAMPLE.md"]
+sparse_paths = ["README.md", "EXAMPLE.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

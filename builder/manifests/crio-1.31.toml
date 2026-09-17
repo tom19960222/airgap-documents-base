@@ -1,0 +1,10 @@
+name = "crio-1.31"
+collection = "crio"
+version = "1.31.5"
+source_type = "git"
+repo_url = "https://github.com/cri-o/cri-o"
+# v1.31.5 的 immutable commit。
+git_ref = "5184b74964ef620d64169a41fd27afdba6fe130e"
+docs_paths = ["docs", "tutorials", "install.md", "README.md", "CONTRIBUTING.md"]
+sparse_paths = ["docs", "tutorials", "install.md", "README.md", "CONTRIBUTING.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

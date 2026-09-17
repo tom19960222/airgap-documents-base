@@ -1,0 +1,9 @@
+name = "kube-state-metrics-2.12.0"
+collection = "kube-state-metrics"
+version = "2.12.0"
+source_type = "git"
+repo_url = "https://github.com/kubernetes/kube-state-metrics"
+git_ref = "1e8b837eb1fa1cb2dc3c37821637334e2dd47488"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

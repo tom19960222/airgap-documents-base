@@ -1,0 +1,581 @@
+---
+collection: ubuntu
+version: "24.04"
+title: "Changes in Ubuntu 24.04.3"
+source_url: https://documentation.ubuntu.com/release-notes/24.04/3/
+fetched_at: 2026-09-16T16:16:56+00:00
+---
+# Changes in Ubuntu 24.04.3
+
+This is a brief summary of bugs fixed between Ubuntu 24.04.2 and 24.04.3.
+**This summary covers only changes to packages in *main* and *restricted*,
+which account for all packages in the officially-supported images; there are
+further changes to various packages in *universe* and *multiverse*.** Some of
+these fixes were by Ubuntu developers directly, while others were by upstream
+developers and backported to Ubuntu. For full details, see the individual
+package changelogs.
+
+In addition to the bugs listed below, this update includes all security updates
+from the [Ubuntu Security Notice](https://ubuntu.com/security/notices?order=newest&amp;release=noble&amp;details=)
+affecting Ubuntu 24.04.2 LTS that were released up to and including August 4, 2025.
+
+## Installation bug fixes
+
+Updated CD images are provided with this release, including fixes for some installation bugs. (Many installation problems are hardware-specific; for those, see “Hardware support bugs” below.)
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| livecd-rootfs | [2098105](https://bugs.launchpad.net/bugs/2098105) | Fix build failure when using lowlatency-hwe-24.04, as ubuntustudio does. |
+| livecd-rootfs | [2098105](https://bugs.launchpad.net/bugs/2098105) | Enable the HWE stack for 24.04.2. |
+| livecd-rootfs | [2098306](https://bugs.launchpad.net/bugs/2098306) | Add 6.11 kernel apparmor features’ preseeds. |
+| livecd-rootfs | [2098622](https://bugs.launchpad.net/bugs/2098622) | Do not build HWE kernel layer on RISC-V as there is no HWE kernel there. |
+| livecd-rootfs | [2092205](https://bugs.launchpad.net/bugs/2092205) | risc-v: directly copy device trees to /boot/dtb. |
+| livecd-rootfs | [2099993](https://bugs.launchpad.net/bugs/2099993) | riscv: add SUBARCH ‘jh7110’. |
+| livecd-rootfs | [2083554](https://bugs.launchpad.net/bugs/2083554) | Remove some cruft referencing the subiquity snap, which can result in ‘error: snap “subiquity” is not installed’ messages being printed on the terminal. |
+| initramfs-tools | [2091904](https://bugs.launchpad.net/bugs/2091904) | configure_networking: Configure IPv4 or IPv6 based on iBFT IP address |
+| dracut | [2095518](https://bugs.launchpad.net/bugs/2095518) | Fix missing compressed blobs that match wildcard fwpath |
+| cd-boot-images-riscv64 | [2104572](https://bugs.launchpad.net/bugs/2104572) | Use “echo ‘search.file /.disk/info root’ > tree/EFI/boot/grub.cfg” to find the correct rootfs. |
+| u-boot | [2098421](https://bugs.launchpad.net/bugs/2098421) | Fix parsing of RISC-V ISA extensions Support new device-tree property riscv,isa-extensions replacing riscv,isa |
+| u-boot | [2110301](https://bugs.launchpad.net/bugs/2110301) | Backport from questing to enable boot on Pine64 Star64 and DeepComputing FML13V01 |
+
+## Desktop fixes
+
+These changes mainly affect desktop installations of Ubuntu and other Ubuntu-based desktop systems.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| pipewire | [2061687](https://bugs.launchpad.net/bugs/2061687) | replace our incomplete cherry pick by the version that landed upstream as part of merge request #2145 |
+| pipewire | [2100497](https://bugs.launchpad.net/bugs/2100497) | Fix duplicated audio samples played after silence |
+| gnome-shell-extension-desktop-icons-ng | [2067831](https://bugs.launchpad.net/bugs/2067831) | Backport code from upstream to fix arrow keys closing the rename popup instead of moving the cursor |
+| packagekit | [2066183](https://bugs.launchpad.net/bugs/2066183) | Backport patch to make PackageKit uninstallable from graphical software centers |
+| mutter | [2080698](https://bugs.launchpad.net/bugs/2080698) | Backport patch to avoid full framebuffer damage when dragging a window |
+| mutter | [2090824](https://bugs.launchpad.net/bugs/2090824) | Backport patches to fix crash with pointer-constraints and touch |
+| mutter | [1966635](https://bugs.launchpad.net/bugs/1966635) | Backport patches to fix touchscreen drag&drop |
+| mutter | [2090824](https://bugs.launchpad.net/bugs/2090824) | The above patches require and include the fix for. even though that bug does not exist on Noble. |
+| mutter | [2087831](https://bugs.launchpad.net/bugs/2087831) | debian/patches: Synchronize touchscreen enabled state when adding it to device mapper, which fixes suspend/resume related issue |
+| mutter | [2093237](https://bugs.launchpad.net/bugs/2093237) | Backport patches to fix crash when closing apps with subsurfaces |
+| mutter | [2097415](https://bugs.launchpad.net/bugs/2097415) | Backport patches to fix drag&drop from X11 to Wayland windows |
+| mutter | [2085634](https://bugs.launchpad.net/bugs/2085634) | Backport patches to fix possibly out of sync selection |
+| mutter | [2099879](https://bugs.launchpad.net/bugs/2099879) | Backport patches to fix handling of pixel formats with no alpha, which fixes rendering of dialogs in IntelliJ IDEA. |
+| mutter | [2063005](https://bugs.launchpad.net/bugs/2063005) | Add clutter-Repick-actors-when-touches-emulate-button-clicks.patch to resolve touchscreen problems on X11 |
+| mutter | [1904237](https://bugs.launchpad.net/bugs/1904237) | Add clutter-Repick-actors-when-touches-emulate-button-clicks.patch to resolve touchscreen problems on X11 |
+| mutter | [2111902](https://bugs.launchpad.net/bugs/2111902) | Backport patches to fix AMD platform Nvidia dGPU screen freeze in Wayland. |
+| mutter | [2111698](https://bugs.launchpad.net/bugs/2111698) | Fix issue where glxgears runs slower than display refresh rate |
+| mutter | [1978905](https://bugs.launchpad.net/bugs/1978905) | Add onscreen-native-Return-the-correct-number-of-EGL-modifier.patch to fix multi-monitor reverse PRIME support on desktops where Nvidia is primary and an integrated GPU is secondary. |
+| malcontent | [2092815](https://bugs.launchpad.net/bugs/2092815) | Fix opening Settings |
+| malcontent | [2091544](https://bugs.launchpad.net/bugs/2091544) | Re-show the control panel in the app list |
+| plymouth | [2096806](https://bugs.launchpad.net/bugs/2096806) | Add label-freetype-fix-fallback-not-working-when-fc-matc.patch to fix missing fonts resulting in missing text |
+| gtk4 | [2096803](https://bugs.launchpad.net/bugs/2096803) | missing-sources: Update emojibase to match what was done in gtk 4.16.8 to update the emoji chooser for Unicode 16 |
+| gtk4 | [2106744](https://bugs.launchpad.net/bugs/2106744) | Cherry-pick upstream fix for Orca not reading shortcuts in actions . |
+| gtk4 | [2098698](https://bugs.launchpad.net/bugs/2098698) | Depend on libgles2 (Closes: #1077287) |
+| gtk4 | [2066062](https://bugs.launchpad.net/bugs/2066062) | Fix keyboard navigation in lists with only a single item |
+| gnome-shell | [2098016](https://bugs.launchpad.net/bugs/2098016) | Backport patch for connecting to a new Wi-Fi network from the log-in screen |
+| gnome-shell | [2039340](https://bugs.launchpad.net/bugs/2039340) | Backport patch to fix setenv/getenv crash on startup |
+| gnome-shell-extension-ubuntu-dock | [1997550](https://bugs.launchpad.net/bugs/1997550) | Fix window selected from preview not getting focus |
+| gnome-shell | [2092181](https://bugs.launchpad.net/bugs/2092181) | Backport patches to fix the Shift behaviour in OSK |
+| xorg-server | [1861609](https://bugs.launchpad.net/bugs/1861609) | If a client application has not called DRI2ScreenInit(), DRI2Authenticate() and DRI2CreateDrawable2() cause the X server to crash. This patch adds some sanity checks to ensure the X server stays running. |
+| update-notifier | [2083937](https://bugs.launchpad.net/bugs/2083937) | Remove obsolete broken CFLAGS/LDFLAGS overrides |
+| update-notifier | [2103445](https://bugs.launchpad.net/bugs/2103445) | update-notifier: Do not call GdkX11 functions on Wayland |
+| gtk+3.0 | [2096777](https://bugs.launchpad.net/bugs/2096777) | missing-sources: Update emojibase to match what was done in gtk 3.24.48 to update the emoji chooser for Unicode 16 |
+| xserver-xorg-input-libinput | [2103967](https://bugs.launchpad.net/bugs/2103967) | d/patch: add map-some-specific-high-keycodes.patch, which forcibly maps mic mute key and touchpad function keys to F20-F23 |
+| xwayland | [2096653](https://bugs.launchpad.net/bugs/2096653) | Backport patches to avoid crash after the busy-loop fix. With the busy-loop fixed, XWayland can now proceed further and may encounter a new crash. |
+| grilo-plugins | [2093324](https://bugs.launchpad.net/bugs/2093324) | Re-enable dLeyna plugin |
+| grilo-plugins | [2093324](https://bugs.launchpad.net/bugs/2093324) | Recommend dleyna-server |
+| update-manager | [2109339](https://bugs.launchpad.net/bugs/2109339) | test_update_origin.py: Update to noble, and packaged archive keys |
+| update-manager | [2109339] |  |
+| update-manager | [1105371](https://bugs.launchpad.net/bugs/1105371) | Screen reader: announce status header for update dialogue . Although that was claimed to be fixed in the previous version, the part of the patch corresponding to it was actually left behind. |
+| update-manager | [2068805](https://bugs.launchpad.net/bugs/2068805) | When all packages are unselected, install button goes away; Fix it not coming back after once a package is selected again . |
+| update-manager | [1105371](https://bugs.launchpad.net/bugs/1105371) | Screen reader: announce status header for update dialogue and checkbox state when the highlighted package changes or is toggled. |
+| alsa-ucm-conf | [2100732](https://bugs.launchpad.net/bugs/2100732) | Add rt713 & rt1318 LED control |
+| alsa-ucm-conf | [2106464](https://bugs.launchpad.net/bugs/2106464) | Change the default output volume of headphone for rt722 |
+| libpciaccess | [2111684](https://bugs.launchpad.net/bugs/2111684) | AMD platform A + N config selected wrong primary GPU in Xorg d/p/0001-linux_sysfs-Identify-boot_vga-by-acpi-companion-hid.patch |
+| libpciaccess | [2115574](https://bugs.launchpad.net/bugs/2115574) | Revert to 0.17-3build1 since the previous update appears to cause inability to log in to the desktop on some systems |
+| nautilus | [1813171](https://bugs.launchpad.net/bugs/1813171) | Includes crash fix for (LP: #1813171) |
+| nautilus | [2095129](https://bugs.launchpad.net/bugs/2095129) | Includes crash fix for (LP: #2095129) |
+| gnome-initial-setup | [1797868](https://bugs.launchpad.net/bugs/1797868) | a11y: Add accessibility to some Ubuntu pages |
+
+## Server and Cloud related fixes
+
+These changes mainly affect installations of Ubuntu on server systems and clouds.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| cloud-init | [2097319](https://bugs.launchpad.net/bugs/2097319) | Pull in the upstream commit works around a limitation in AWS’s IMDS (GH-5971) |
+| cloud-init | [2094149](https://bugs.launchpad.net/bugs/2094149) | Revert breaking change on stable release |
+| cloud-init | [2097441](https://bugs.launchpad.net/bugs/2097441) | This patch missed waiting for mounts |
+| cloud-init | [2094179](https://bugs.launchpad.net/bugs/2094179) [2094208](https://bugs.launchpad.net/bugs/2094208) [2094857](https://bugs.launchpad.net/bugs/2094857) [2094858](https://bugs.launchpad.net/bugs/2094858) | Upstream snapshot based on 24.4.1. List of changes from upstream can be found at <https://raw.githubusercontent.com/canonical/cloud-init/24.4.1/ChangeLog> |
+| cloud-init | [2100963](https://bugs.launchpad.net/bugs/2100963) | cherry-pick fixes for MAAS traceback |
+| cloud-init | [2092333](https://bugs.launchpad.net/bugs/2092333) | d/control: Fix how cloud-init-base overwrites cloud-init files. |
+| gce-compute-image-packages | [2106629](https://bugs.launchpad.net/bugs/2106629) | This script overwrites any hostnames set via cloud-init. |
+| cloud-init | [2104165](https://bugs.launchpad.net/bugs/2104165) | Upstream snapshot based on 25.1.2. List of changes from upstream can be found at <https://raw.githubusercontent.com/canonical/cloud-init/25.1.2/ChangeLog> |
+
+## Base platform fixes
+
+These changes affect the core fundamental components of all the Ubuntu flavors.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| lvm2 | [2084233](https://bugs.launchpad.net/bugs/2084233) | Remove libaio from being skipped by memlock |
+| libvirt | [2084136](https://bugs.launchpad.net/bugs/2084136) | d/p/u/lp-2084136-fix-get-number-block-io-throttle-params.patch: Fix issue preventing the user to obtain the number of block I/O parameters. |
+| libvirt | [2095488](https://bugs.launchpad.net/bugs/2095488) | Fix compiler macro to correctly detect RISC-V |
+| libvirt | [2051239](https://bugs.launchpad.net/bugs/2051239) | Add full boot order support on s390x |
+| libvirt | [2100024](https://bugs.launchpad.net/bugs/2100024) | apparmor: Allow SGX if configured |
+| libvirt | [2108995](https://bugs.launchpad.net/bugs/2108995) | Move README.Debian to libvirt0 package . |
+| libvirt | [2106812](https://bugs.launchpad.net/bugs/2106812) | d/p/u/lp2106812-cpu_map-Drop-mpx-from-x86-cpu-models.patch: Memory protection extensions (MPX) were introduced in Intel Skylake generation CPUs and provided hardware support for bound checking. This feature will not be supported in Intel CPUs beginning with the Ice Lake generation. Remove missing mpx feature so that libvirts detects correctly CPU models (Icelake, ..) instead of the old Blackwell |
+| qemu | [2095169](https://bugs.launchpad.net/bugs/2095169) | Fix emulation of RISC-V Vector instructions |
+| qemu | [2049698](https://bugs.launchpad.net/bugs/2049698) | d/p/u/lp2049698/\*: Add full boot order support on s390x |
+| qemu | [2072564](https://bugs.launchpad.net/bugs/2072564) | Fix qemu-aarch64-static segfaults running ldconfig.real |
+| qemu | [2101944](https://bugs.launchpad.net/bugs/2101944) | d/p/u/lp2101944/\*: Synthesize IBPB_BRTYPE and SBPB CPUID bits to the guest as described in AMD’s Speculative Return Stack Overflow whitepaper. |
+| qemu | [2049698](https://bugs.launchpad.net/bugs/2049698) | d/p/u/lp2049698/\*: Add full boot order support on s390x |
+| qemu | [2072564](https://bugs.launchpad.net/bugs/2072564) | Fix qemu-aarch64-static segfaults running ldconfig.real |
+| qemu | [2101944](https://bugs.launchpad.net/bugs/2101944) | d/p/u/lp2101944/\*: Synthesize IBPB_BRTYPE and SBPB CPUID bits to the guest as described in AMD’s Speculative Return Stack Overflow whitepaper. |
+| libnvme | [2079836](https://bugs.launchpad.net/bugs/2079836) | Fix size reporting for nvme devices based on lba_count : |
+| cryptsetup | [2054390](https://bugs.launchpad.net/bugs/2054390) | Refine proc mounts entries traversal |
+| snapd | [2090938](https://bugs.launchpad.net/bugs/2090938) | AppArmor prompting (experimental): disallow /./ and /../ in path patterns. Fix ‘snap run’ getent based user lookup in case of bad PATH |
+| snapd | [2084730](https://bugs.launchpad.net/bugs/2084730) | Fix generation of AppArmor profile with incorrect revision during multi snap refresh. Fix refresh app awareness related deadlock edge case |
+| snapd | [2083961](https://bugs.launchpad.net/bugs/2083961) | Fix ignoring snaps in try mode when amending. Fix reloading of service activation units to avoid systemd errors |
+| snapd | [2085535](https://bugs.launchpad.net/bugs/2085535) | Alleviate impact of auto-refresh failure loop with progressive delay. Dropped timedatex in selinux-policy to avoid runtime issue |
+| snapd | [2086203](https://bugs.launchpad.net/bugs/2086203) | mount-control interface: add support for nfs mounts. network-{control,manager} interface: add missing dbus link rules |
+| wireless-regdb | [2096979](https://bugs.launchpad.net/bugs/2096979) | debian/control: Conflict with old boot-managed-by-snapd |
+| bluez | [2085162](https://bugs.launchpad.net/bugs/2085162) | Add git-reconnect-fix.patch to resolve reconnection problems for devices after a suspend or restart |
+| bluez | [2092158](https://bugs.launchpad.net/bugs/2092158) | add reconnect-hsp-on-a2dp-reconnect.patch to fix HSP/HFP connection after resuming from suspend on systems with NVIDIA proprietary driver. |
+| apport | [2097264](https://bugs.launchpad.net/bugs/2097264) | Fix FTBFS when building on the LP infra |
+| apport | [2098415](https://bugs.launchpad.net/bugs/2098415) | d/package-hooks/ubuntu-desktop-bootstrap.py: attach files with root and add subiquity traceback, curtin logs, subiquity or system journal, hardware information, and check if snap updated . |
+| apport | [2098423](https://bugs.launchpad.net/bugs/2098423) | d/package-hooks/subiquity.py: fix typo in path to curtin apt configuration . |
+| apport | [2006981](https://bugs.launchpad.net/bugs/2006981) | apport-gtk: check for available display on startup |
+| apport | [2100313](https://bugs.launchpad.net/bugs/2100313) | python3-apport: Bump python3-problem-report dependency to >= 2.28 for CompressedFile class |
+| apport | [2076269](https://bugs.launchpad.net/bugs/2076269) | do not check for exact encoded gzip data |
+| apport | [2112466](https://bugs.launchpad.net/bugs/2112466) | SECURITY REGRESSION: exception during core dump handling |
+| ubuntu-drivers-common | [2083329](https://bugs.launchpad.net/bugs/2083329) | Improve SimpleDRM+NVIDIA fix across kernel versions |
+| ubuntu-drivers-common | [2085962](https://bugs.launchpad.net/bugs/2085962) | fix searching for lrm drivers matching linux-image-virtual |
+| ubuntu-drivers-common | [2083709](https://bugs.launchpad.net/bugs/2083709) | fix install –gpgpu handling |
+| ubuntu-drivers-common | [2090924](https://bugs.launchpad.net/bugs/2090924) | Add –include-dkms option to listing drivers |
+| ubuntu-drivers-common | [2081970](https://bugs.launchpad.net/bugs/2081970) | Sort the output list of matching nvidia drivers |
+| ubuntu-drivers-common | [2081967](https://bugs.launchpad.net/bugs/2081967) | NVIDIA 560 release should suggest -open variant first |
+| ubuntu-drivers-common | [2081881](https://bugs.launchpad.net/bugs/2081881) | Add more useful help text for –gpgpu See. |
+| systemd | [2088069](https://bugs.launchpad.net/bugs/2088069) | stub: add magic cmdline option to force EFI handover |
+| systemd | [2091657](https://bugs.launchpad.net/bugs/2091657) | localed: use Ubuntu Core hack for locale.conf and vconsole.conf |
+| systemd | [2098183](https://bugs.launchpad.net/bugs/2098183) | Preserve IPv6 configurations when `KeepConfiguration=dhcp-on-stop` is set |
+| openssh | [2076023](https://bugs.launchpad.net/bugs/2076023) | sshd-socket-generator: do not parse server match config |
+| openssh | [2069041](https://bugs.launchpad.net/bugs/2069041) | d/p/sshd-socket-generator.patch: add note to sshd_config Explain that a systemctl daemon-reload is needed for changes to Port et al to take effect. |
+| openssh | [2080216](https://bugs.launchpad.net/bugs/2080216) | Explicitly listen on IPv4 by default, with socket-activated sshd |
+| zfs-linux | [2081678](https://bugs.launchpad.net/bugs/2081678) | task txg_sync:696 blocked |
+| zfs-linux | [2057693](https://bugs.launchpad.net/bugs/2057693) | Activating autotrim results in high load average due to uninterruptible threads |
+| zfs-linux | [2077926](https://bugs.launchpad.net/bugs/2077926) | crash in openzfs - 2.2.2 not supported on 6.8 |
+| zfs-linux | [2082060](https://bugs.launchpad.net/bugs/2082060) | Fix “field-spanning write” errors on zpool import : |
+| zfs-linux | [2110885](https://bugs.launchpad.net/bugs/2110885) | Prevent superblock access when filesystem is being torn down (e.g. snapshot unmount) |
+| rsyslog | [2056768](https://bugs.launchpad.net/bugs/2056768) | d/usr.sbin.rsyslog: add apparmor rule to allow reading systemd sessions |
+| rsyslog | [2073628](https://bugs.launchpad.net/bugs/2073628) | d/usr.sbin.rsyslogd: add AppArmor rule to allow the imjournal module to work |
+| rsyslog | [2061726](https://bugs.launchpad.net/bugs/2061726) | d/usr.sbin.rsyslogd: add AppArmor rule to allow access to disable_ipv6 inside /proc |
+| rsyslog | [2100765](https://bugs.launchpad.net/bugs/2100765) | d/t/logcheck: when checking the journal, only consider current boot |
+| software-properties | [2086844](https://bugs.launchpad.net/bugs/2086844) | cloudarchive: Enable support for the Epoxy Ubuntu Cloud Archive on 24.04 . |
+| software-properties | [2098805](https://bugs.launchpad.net/bugs/2098805) | announce “APT line” in add dialog. |
+| software-properties | [2098812](https://bugs.launchpad.net/bugs/2098812) | announce token validity |
+| software-properties | [2098807](https://bugs.launchpad.net/bugs/2098807) | announce compliance and hardening expander. |
+| software-properties | [2098809](https://bugs.launchpad.net/bugs/2098809) | announce “Add APT Repository” for this dialog. |
+| software-properties | [2091547](https://bugs.launchpad.net/bugs/2091547) | Updates: set labelled-by relation for the combo widgets |
+| [netplan.io](http://netplan.io) | [2103603](https://bugs.launchpad.net/bugs/2103603) | Backport [netplan.io](http://netplan.io) 1.1.2-2 |
+| ubuntu-settings | [2078759](https://bugs.launchpad.net/bugs/2078759) | workaround a netplan limitation leading to the file comments being removed on config refresh which confuses debsums |
+| [netplan.io](http://netplan.io) | [2083029](https://bugs.launchpad.net/bugs/2083029) | Fix networkd file permissions during `netplan try` restore |
+| [netplan.io](http://netplan.io) | [2083029](https://bugs.launchpad.net/bugs/2083029) | Prevent netplan-generate from running during `netplan try` |
+| apparmor | [2078467](https://bugs.launchpad.net/bugs/2078467) | d/p/u/fix-redefinition-of-ignored-var.patch Fixes a regression caused by a commit that changed the number of return values for the get_next_to_profile() function. |
+| libsdl2 | [2085140](https://bugs.launchpad.net/bugs/2085140) | Address a performance issue during joystick/gamepad detection, caused by device enumeration. Speed it up by using udev info instead of opening each device file. |
+| distro-info-data | [2107391](https://bugs.launchpad.net/bugs/2107391) | Add Ubuntu 25.10 “Questing Quokka” |
+| grub2-signed | [2055835](https://bugs.launchpad.net/bugs/2055835) | Rebuild against grub2 2.12-1ubuntu7.3 |
+| lintian | [2109817](https://bugs.launchpad.net/bugs/2109817) | Add questing as a known Ubuntu distribution. |
+| apt | [2073126](https://bugs.launchpad.net/bugs/2073126) | Revert increased key size requirements from 2.8.0-2.8.2 |
+| apt | [2078720](https://bugs.launchpad.net/bugs/2078720) | Fix keeping back removals of obsolete packages; and return an error if ResolveByKeep() is unsuccessful |
+| apt | [2083697](https://bugs.launchpad.net/bugs/2083697) | Fix buffer overflow, stack overflow, exponential complexity in apt-ftparchive Contents generation |
+| apt | [2073126] |  |
+| apt | [2073126](https://bugs.launchpad.net/bugs/2073126) | Only revoke weak RSA keys for now, add ‘next’ and ‘future’ levels (backported from 2.9.7) |
+| apt | [2073126](https://bugs.launchpad.net/bugs/2073126) | Introduce further mitigation on upgrades from 2.7.x to allow these systems to continue using rsa1024 repositories with warnings until the 24.04.2 point release |
+| apt | [2060721](https://bugs.launchpad.net/bugs/2060721) | Revert “Temporarily downgrade key assertions to “soon worthless”” We temporarily downgraded the errors to warnings to give the Launchpad PPAs time to be fixed, but warnings are not safe |
+| sbuild | [2109853](https://bugs.launchpad.net/bugs/2109853) | make sbuild usable for ‘user@org.com’ users |
+| util-linux | [2111723](https://bugs.launchpad.net/bugs/2111723) | debian/patches/ubuntu/lp-2111723-0001-lscpu-New-Arm-Cortex-part- numbers.patch: [PATCH 1/4] lscpu: New Arm Cortex part numbers. Thanks to Jeremy Linton [jeremy.linton@arm.com](mailto:jeremy.linton%40arm.com). |
+| util-linux | [2111723](https://bugs.launchpad.net/bugs/2111723) | debian/patches/ubuntu/lp-2111723-0002-lscpu-use-CPU-types-de- duplication.patch: [PATCH 2/4] lscpu: use CPU types de-duplication. Thanks to Karel Zak [kzak@redhat.com](mailto:kzak%40redhat.com). |
+| util-linux | [2111723](https://bugs.launchpad.net/bugs/2111723) | debian/patches/ubuntu/lp-2111723-0003-tests-update-lscpu-vmware_fpe- output.patch: [PATCH 3/4] tests: update lscpu vmware_fpe output. Thanks to Karel Zak [kzak@redhat.com](mailto:kzak%40redhat.com). |
+| util-linux | [2111723](https://bugs.launchpad.net/bugs/2111723) | debian/patches/ubuntu/lp-2111723-0004-tests-add-dump-from-ARM-with- A510-A710-A715-X3.patch: [PATCH 4/4] tests: add dump from ARM with A510+A710+A715+X3. Thanks to Karel Zak [kzak@redhat.com](mailto:kzak%40redhat.com). |
+| gnome-calculator | [2100300](https://bugs.launchpad.net/bugs/2100300) | Includes currency conversion fix |
+
+## Kernel and Hardware support updates
+
+Considerable work has been done on improving support for many specific items of hardware.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| linux-nvidia-lowlatency | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-nvidia-lowlatency | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-nvidia-lowlatency | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-nvidia-lowlatency | [2080970](https://bugs.launchpad.net/bugs/2080970) | Remove backport packaging logic for non-backport kernels |
+| linux-nvidia-lowlatency | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-nvidia-lowlatency | [2092141](https://bugs.launchpad.net/bugs/2092141) | ETE tracing failure on multi-socket system |
+| linux-nvidia-lowlatency | [2091186](https://bugs.launchpad.net/bugs/2091186) | Pull-request to address ACPI/HMAT messages at boot |
+| linux-nvidia-lowlatency | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-nvidia-lowlatency | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-nvidia-lowlatency | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-nvidia-lowlatency | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-nvidia-lowlatency | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-nvidia-lowlatency | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-nvidia-lowlatency | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-nvidia | [2092141](https://bugs.launchpad.net/bugs/2092141) | ETE tracing failure on multi-socket system |
+| linux-nvidia | [2091186](https://bugs.launchpad.net/bugs/2091186) | Pull-request to address ACPI/HMAT messages at boot |
+| linux-nvidia | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-nvidia | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-nvidia | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-nvidia | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-nvidia-tegra | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-nvidia-tegra | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-nvidia-tegra | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-nvidia-tegra | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-nvidia | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-nvidia | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-nvidia-tegra | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-nvidia-tegra | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-nvidia | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-nvidia-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-nvidia-6.11 | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-nvidia-6.11 | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-nvidia-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-nvidia-6.14 | [2061930](https://bugs.launchpad.net/bugs/2061930) | linux-nvidia-6.5_6.5.0-1014.14 breaks with earlier BIOS release, and modeset/resolutions are wrong |
+| linux-nvidia-6.14 | [2059814](https://bugs.launchpad.net/bugs/2059814) | Enable GDS in the 6.8 based linux-nvidia kernel |
+| linux-nvidia-6.14 | [2060327](https://bugs.launchpad.net/bugs/2060327) | Reapply the linux-nvidia kernel config options from the 5.15 and 6.5 kernels |
+| linux-nvidia-6.11 | [2112600](https://bugs.launchpad.net/bugs/2112600) | IOMMU: Support contiguous bit in translation tables |
+| linux-nvidia-6.14 | [2106281](https://bugs.launchpad.net/bugs/2106281) | Null pointer dereference in gVNIC driver |
+| linux-nvidia-tegra | [2109728](https://bugs.launchpad.net/bugs/2109728) | NVIDIA OOTM fails to compile due to small CONFIG_FRAME_WARN |
+| linux-nvidia-tegra | [2102249](https://bugs.launchpad.net/bugs/2102249) | Noble real-time patchset update: Merge changes from 6.6-rt LTS |
+| linux-nvidia-tegra | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-lowlatency | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-lowlatency | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-lowlatency | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-lowlatency | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-riscv | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-riscv | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-riscv | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-riscv | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-gke | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-gke | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-gke | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-gke | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-gcp | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-gcp | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-gcp | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-gcp | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-aws | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-aws | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-aws | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-aws | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-oracle | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-oracle | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-oracle | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-oracle | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-raspi | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-raspi | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-raspi | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-raspi | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| snapd | [2085535](https://bugs.launchpad.net/bugs/2085535) | Alleviate impact of auto-refresh failure loop with progressive delay. Dropped timedatex in selinux-policy to avoid runtime issue |
+| linux-firmware | [2093400](https://bugs.launchpad.net/bugs/2093400) | With OLED panel attached to amdgpu the glxgear fps is too low |
+| linux-firmware | [2093304](https://bugs.launchpad.net/bugs/2093304) | Add missing audio firmware files for Realtek rtl1320 amplifier |
+| linux-firmware | [2095334](https://bugs.launchpad.net/bugs/2095334) | No sound output from one of the speaker on HP ZBook[cs35l56] |
+| ubuntu-drivers-common | [2085962](https://bugs.launchpad.net/bugs/2085962) | fix searching for lrm drivers matching linux-image-virtual |
+| linux-aws | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-aws | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-gcp | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-gcp | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-gke | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-gke | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-ibm | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-ibm | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-lowlatency | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-lowlatency | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-oracle | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-oracle | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-riscv | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-riscv | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-oem-6.11 | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-oem-6.11 | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-gcp-6.11 | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-gcp-6.11 | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-oem-6.8 | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-oem-6.8 | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-hwe-6.11 | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-hwe-6.11 | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-azure | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-azure | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-azure | [2090880](https://bugs.launchpad.net/bugs/2090880) | Azure: backport SMB lease key fixes |
+| linux-azure | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-azure | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-azure | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-azure | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-lowlatency-hwe-6.11 | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-lowlatency-hwe-6.11 | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-azure-6.11 | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-azure-6.11 | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-oem-6.11 | [2103768](https://bugs.launchpad.net/bugs/2103768) | Add support for Realtek 8852BE-VT[10ec:b520] |
+| linux-oem-6.11 | [2103753](https://bugs.launchpad.net/bugs/2103753) | Run sysfs_attachment will be stuck forever (HID- SENSOR-200011.16.auto/iio:device4) |
+| linux-oem-6.11 | [2103680](https://bugs.launchpad.net/bugs/2103680) | System freezes when running the memory stress test |
+| linux-oem-6.11 | [2103569](https://bugs.launchpad.net/bugs/2103569) | Enable Realtek NIC ASPM on more Dell platforms |
+| linux-oem-6.11 | [2102065](https://bugs.launchpad.net/bugs/2102065) | [Enablement] TI AMP TAS2781 Enablement (2) |
+| linux-oem-6.11 | [2100820](https://bugs.launchpad.net/bugs/2100820) | proc_thermal_pci 0000:00:04.0: failed to add RAPL MMIO interface (2) |
+| linux-azure-nvidia | [2100199](https://bugs.launchpad.net/bugs/2100199) | iommu NULL pointer dereference in tegra241_vintf_alloc_lvcmdq |
+| linux-azure-nvidia | [2097573](https://bugs.launchpad.net/bugs/2097573) | Grace CMDQV Support |
+| linux-azure-nvidia | [2096924](https://bugs.launchpad.net/bugs/2096924) | New MANA patches for backport |
+| linux-firmware | [2097336](https://bugs.launchpad.net/bugs/2097336) | Update new FW for AMD ISP |
+| linux-firmware | [2098979](https://bugs.launchpad.net/bugs/2098979) | [SRU] Add amdnpu firmware |
+| linux-firmware | [2100740](https://bugs.launchpad.net/bugs/2100740) | Prevent MT7920 from waking up to L0 during s2idle |
+| linux-firmware | [2100769](https://bugs.launchpad.net/bugs/2100769) | Update amdgpu FW for GC 11.5.1 |
+| linux-firmware | [2101841](https://bugs.launchpad.net/bugs/2101841) | Dell AIO of Intel ARL platform may freeze after playing video streaming |
+| linux-firmware | [2102196](https://bugs.launchpad.net/bugs/2102196) | The GSC firmware load failed on Intel ARL platforms |
+| linux-firmware | [2097336](https://bugs.launchpad.net/bugs/2097336) | Update new FW for AMD ISP |
+| linux-firmware | [2098979](https://bugs.launchpad.net/bugs/2098979) | [SRU] Add amdnpu firmware |
+| linux-firmware | [2100740](https://bugs.launchpad.net/bugs/2100740) | Prevent MT7920 from waking up to L0 during s2idle |
+| linux-firmware | [2100769](https://bugs.launchpad.net/bugs/2100769) | Update amdgpu FW for GC 11.5.1 |
+| linux-firmware | [2101841](https://bugs.launchpad.net/bugs/2101841) | Dell AIO of Intel ARL platform may freeze after playing video streaming |
+| linux-firmware | [2102196](https://bugs.launchpad.net/bugs/2102196) | The GSC firmware load failed on Intel ARL platforms |
+| linux-base | [2018128](https://bugs.launchpad.net/bugs/2018128) | Add missing Apport links for kernel packages |
+| linux-aws | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-ibm | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-oem-6.8 | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-oracle | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-riscv | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-azure | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-gke | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-gcp | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-lowlatency | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-oem-6.11 | [2106502](https://bugs.launchpad.net/bugs/2106502) | kernel NULL pointer dereference in cvs_dev_fw_dl_data after suspend/resume |
+| linux-oem-6.11 | [2106354](https://bugs.launchpad.net/bugs/2106354) | Qualcomm WCN785x Bluetooth (USB ID 13d3:3623): Headphones fail to connect or have non-functional microphone |
+| linux-oem-6.11 | [2105970](https://bugs.launchpad.net/bugs/2105970) | Fix the mic-mute led on HP G12 laptops w/ ALC3315+CS amplifier |
+| linux-azure-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-azure-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-azure-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-azure-nvidia | [2092141](https://bugs.launchpad.net/bugs/2092141) | ETE tracing failure on multi-socket system |
+| linux-azure-nvidia | [2091186](https://bugs.launchpad.net/bugs/2091186) | Pull-request to address ACPI/HMAT messages at boot |
+| linux-azure-nvidia | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-azure-nvidia | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-azure-nvidia | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-azure-nvidia | [2090880](https://bugs.launchpad.net/bugs/2090880) | Azure: backport SMB lease key fixes |
+| linux-azure-nvidia | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-azure-nvidia | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-azure-nvidia | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-azure-nvidia | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-azure-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-azure-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-azure-nvidia | [2093957](https://bugs.launchpad.net/bugs/2093957) | Enable Coresight in Perf |
+| linux-azure-nvidia | [2092141](https://bugs.launchpad.net/bugs/2092141) | ETE tracing failure on multi-socket system |
+| linux-azure-nvidia | [2091186](https://bugs.launchpad.net/bugs/2091186) | Pull-request to address ACPI/HMAT messages at boot |
+| linux-azure-nvidia | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-azure-nvidia | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-azure-nvidia | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-azure-nvidia | [2090880](https://bugs.launchpad.net/bugs/2090880) | Azure: backport SMB lease key fixes |
+| linux-azure-nvidia | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux-azure-nvidia | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux-azure-nvidia | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux-azure-nvidia | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux-raspi | [2089555](https://bugs.launchpad.net/bugs/2089555) | mmc0 error on boot with eMMC CM5 |
+| linux-raspi | [2099685](https://bugs.launchpad.net/bugs/2099685) | GPIO sysfs disabled in raspi kernel |
+| linux-hwe-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-oem-6.11 | [2107762](https://bugs.launchpad.net/bugs/2107762) | Fix UCSI call trace on some platforms |
+| linux-oem-6.11 | [2107310](https://bugs.launchpad.net/bugs/2107310) | Fix Cirrus codec CS42L43 resume failure |
+| linux-oem-6.11 | [2107439](https://bugs.launchpad.net/bugs/2107439) | Cannot recognize two 4k@60hz external monitors on SD25 DOCK |
+| linux-oem-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-gcp-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-lowlatency-hwe-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-azure-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-hwe-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-oem-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-azure-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-gcp-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-raspi | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| linux-raspi | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux-raspi | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux-aws-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-lowlatency-hwe-6.11 | [2106022](https://bugs.launchpad.net/bugs/2106022) | log_check/kernel_tainted failed with kernel warnings at kernel/time/timer_migration.c:543 on Oracular |
+| linux-firmware | [2103768](https://bugs.launchpad.net/bugs/2103768) | Add support for Realtek 8852BE-VT[10ec:b520] |
+| linux-firmware | [2102200](https://bugs.launchpad.net/bugs/2102200) | Support wifi 6GHz for Philippines on Qualcomm WCN6856 |
+| linux-firmware | [2105425](https://bugs.launchpad.net/bugs/2105425) | Support GPU driver on Qualcomm QCS6490 / SA8775 |
+| linux-firmware | [2106436](https://bugs.launchpad.net/bugs/2106436) | Add support for QAT Gen5 device with the 420xx (CPM2.2) firmware |
+| linux-firmware | [2106802](https://bugs.launchpad.net/bugs/2106802) | Fix amplifier cs35l56 dsp fw name for HP LAPZ platform |
+| linux-firmware | [2103582](https://bugs.launchpad.net/bugs/2103582) | /sys/power/suspend_stats/total_hw_sleep not increased after suspend/resume on AMD GPU of DCN 3.5 |
+| linux-oem-6.11 | [2111220](https://bugs.launchpad.net/bugs/2111220) | ACPICA: Add support for printing AML arguments when trace point enabled |
+| linux-oem-6.11 | [2109314](https://bugs.launchpad.net/bugs/2109314) | Mediatek MT7920 WLAN card does not respect Wireless Radio Control in BIOS |
+| linux-oem-6.11 | [2106923](https://bugs.launchpad.net/bugs/2106923) | Fix divide by zero errors in DML2 |
+| linux-oem-6.11 | [2110092](https://bugs.launchpad.net/bugs/2110092) | Support AMD Image Signal Processing (ISP) unit V4.0 |
+| linux-oem-6.11 | [2106807](https://bugs.launchpad.net/bugs/2106807) | Privacy LED may not be turned on on OEM Renegade platform with Intel IPU7 camera |
+| linux-oem-6.14 | [2111220](https://bugs.launchpad.net/bugs/2111220) | ACPICA: Add support for printing AML arguments when trace point enabled |
+| linux-oem-6.14 | [2110092](https://bugs.launchpad.net/bugs/2110092) | Support AMD Image Signal Processing (ISP) unit V4.0 |
+| linux-oem-6.14 | [2106807](https://bugs.launchpad.net/bugs/2106807) | Privacy LED may not be turned on on OEM Renegade platform with Intel IPU7 camera |
+| linux-firmware | [2107603](https://bugs.launchpad.net/bugs/2107603) | [SRU] Fix hardware error 0x85 of WCN785x bluetooth |
+| linux-firmware | [2109472](https://bugs.launchpad.net/bugs/2109472) | Left/right audio channels swapped on platforms equips TI TAS2781 Class-D Amplifier |
+| linux-firmware | [2109796](https://bugs.launchpad.net/bugs/2109796) | [SRU][O/N] Support Wi-fi and Bluetooth for Nvidia DGX Spark Platform |
+| linux-firmware | [2111517](https://bugs.launchpad.net/bugs/2111517) | Update GuC firmware to v70.44.1 |
+| linux-gcp-6.14 | [2106281](https://bugs.launchpad.net/bugs/2106281) | Null pointer dereference in gVNIC driver |
+| linux-gcp-6.14 | [2106091](https://bugs.launchpad.net/bugs/2106091) | Missing bpftool binary on riscv64 |
+| linux-gcp-6.14 | [2106115](https://bugs.launchpad.net/bugs/2106115) | Expose IFLA_VXLAN_FAN_MAP version via sysctl/proc |
+| linux-gcp-6.14 | [2104297](https://bugs.launchpad.net/bugs/2104297) | not able to install a Power9 bare metal with Ubuntu 25.04 Plucky |
+| linux-gcp-6.14 | [2106281](https://bugs.launchpad.net/bugs/2106281) | Null pointer dereference in gVNIC driver |
+| linux-gcp-6.14 | [2102237](https://bugs.launchpad.net/bugs/2102237) | Disconnected paths for mqueues show a TODO in the kernel logs |
+| linux-gcp-6.14 | [2102680](https://bugs.launchpad.net/bugs/2102680) | Installation of AppArmor on a 6.14 kernel produces error message “Illegal number: yes” |
+| linux-gcp-6.14 | [2103460](https://bugs.launchpad.net/bugs/2103460) | QRT AppArmorUnixDomainConnect test failures on Plucky 6.14 kernel |
+| linux-gcp-6.14 | [2103981](https://bugs.launchpad.net/bugs/2103981) | Mouse cursor flashes using the ‘xe’ DRM driver |
+| linux-gcp-6.14 | [2100858](https://bugs.launchpad.net/bugs/2100858) | Snapdragon X Elite: Sync concept kernel changes |
+| linux-gcp-6.14 | [2103653](https://bugs.launchpad.net/bugs/2103653) | python perf module missing in plucky’s kernel |
+| linux-gcp-6.14 | [2100858](https://bugs.launchpad.net/bugs/2100858) | Snapdragon X Elite: Sync concept kernel changes |
+| linux-gcp-6.14 | [1613393](https://bugs.launchpad.net/bugs/1613393) | Provide linux-perf package |
+| linux-gcp-6.14 | [2007308](https://bugs.launchpad.net/bugs/2007308) | linux-tools-common: bpftool wrapper causes build failure for xdp-tools |
+| linux-gcp-6.14 | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gcp-6.14 | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-gcp-6.14 | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set |
+| linux-gcp-6.14 | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-gcp-6.14 | [2096812](https://bugs.launchpad.net/bugs/2096812) | [25.04 FEAT] In-kernel crypto support MSA 11 HMAC |
+| linux-oracle-6.14 | [2106281](https://bugs.launchpad.net/bugs/2106281) | Null pointer dereference in gVNIC driver |
+| linux-oracle-6.14 | [2106091](https://bugs.launchpad.net/bugs/2106091) | Missing bpftool binary on riscv64 |
+| linux-oracle-6.14 | [2106115](https://bugs.launchpad.net/bugs/2106115) | Expose IFLA_VXLAN_FAN_MAP version via sysctl/proc |
+| linux-oracle-6.14 | [2104297](https://bugs.launchpad.net/bugs/2104297) | not able to install a Power9 bare metal with Ubuntu 25.04 Plucky |
+| linux-signed-aws-6.14 | [2027818](https://bugs.launchpad.net/bugs/2027818) | SIGNEDv5: add ubuntu-core-initrd support to the linux-generate ancillary package |
+| linux-firmware | [2114157](https://bugs.launchpad.net/bugs/2114157) | glxgears -fullscreen has noises on the gear edges on AMD Hawk Point platforms with QHD panel |
+| linux-oem-6.14 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky fails to boot on (older) Macs |
+| linux-riscv-6.14 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky fails to boot on (older) Macs |
+| linux-signed-aws | [2027818](https://bugs.launchpad.net/bugs/2027818) | SIGNEDv5: add ubuntu-core-initrd support to the linux-generate ancillary package |
+| linux-hwe-6.14 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky fails to boot on (older) Macs |
+| linux-gcp-6.14 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky fails to boot on (older) Macs |
+| linux-oracle-6.14 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky fails to boot on (older) Macs |
+| linux-aws-6.14 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky fails to boot on (older) Macs |
+| linux | [2050083](https://bugs.launchpad.net/bugs/2050083) | generate and ship vmlinux.h to allow packages to build BPF CO-RE |
+| linux | [2091941](https://bugs.launchpad.net/bugs/2091941) | Unable to boot as a guest on VMware ESX |
+| linux | [2090852](https://bugs.launchpad.net/bugs/2090852) | [SRU] power: intel_pstate: HWP interrupt support for maximum ratio changed |
+| linux | [2086210](https://bugs.launchpad.net/bugs/2086210) | Backport some AppArmor complain-mode profile bugfixes from Oracular |
+| linux | [2095370](https://bugs.launchpad.net/bugs/2095370) | AppArmor early policy load not functioning |
+| linux | [2067900](https://bugs.launchpad.net/bugs/2067900) | apparmor unconfined profile blocks pivot_root |
+| linux | [2098104](https://bugs.launchpad.net/bugs/2098104) | Patchset for TUXEDO devices |
+| net-snmp | [2056257](https://bugs.launchpad.net/bugs/2056257) | d/p/lp-2056257-Add-Linux-6.7-compatibility-parsing-proc-net-snmp.patch: fix parsing on newer kernels |
+| flash-kernel | [2097008](https://bugs.launchpad.net/bugs/2097008) | db/all.db: Add CM5 Lite to flash-kernel database |
+| flash-kernel | [2092737](https://bugs.launchpad.net/bugs/2092737) | db/all.db: Fix entries with “Kernel-Flavors: arm64”. |
+| flash-kernel | [2116161](https://bugs.launchpad.net/bugs/2116161) | db/all.db: Add entry for DeepComputing FML13V03 |
+| broadcom-sta | [2110927](https://bugs.launchpad.net/bugs/2110927) | Support linux 6.14 |
+| linux | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-lowlatency | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-lowlatency | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-lowlatency | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-nvidia | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-nvidia | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-nvidia | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-riscv | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-riscv | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-riscv | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-nvidia-lowlatency | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-nvidia-lowlatency | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-nvidia-lowlatency | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-gke | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-gke | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-gke | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-gke | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-gcp | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-gcp | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-gcp | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-gcp | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-aws | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-aws | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-aws | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-aws | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-oracle | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-oracle | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-oracle | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-raspi | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-raspi | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-raspi | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-nvidia-tegra | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-nvidia-tegra | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-nvidia-tegra | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-azure | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-azure | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-azure | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-azure-nvidia | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-azure-nvidia | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-azure-nvidia | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-azure-nvidia | [2089884](https://bugs.launchpad.net/bugs/2089884) | Noble update: upstream stable patchset 2024-11-29 |
+| linux-azure-nvidia | [2089340](https://bugs.launchpad.net/bugs/2089340) | Noble update: upstream stable patchset 2024-11-22 |
+| linux-azure-nvidia | [2087519](https://bugs.launchpad.net/bugs/2087519) | Noble update: upstream stable patchset 2024-11-08 |
+| linux-nvidia-tegra | [2102249](https://bugs.launchpad.net/bugs/2102249) | Noble real-time patchset update: Merge changes from 6.6-rt LTS |
+
+## Unsorted changes
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| openldap | [2090806](https://bugs.launchpad.net/bugs/2090806) | Fixup TIMEOUT and NETWORK_TIMEOUT options so they work correctly when SSL is involved. Before they would never timeout, causing freezes on connection failure. Now they timeout as expected. |
+| landscape-client | [2052834](https://bugs.launchpad.net/bugs/2052834) | include all non-filtered network interfaces that have a valid MAC address in the API response. |
+| landscape-client | [2084586](https://bugs.launchpad.net/bugs/2084586) | d/control: add python3-yaml dependency to landscape-client |
+| fwupd | [2097728](https://bugs.launchpad.net/bugs/2097728) | Fix updating dell dock PD F/W |
+| fwupd | [2104109](https://bugs.launchpad.net/bugs/2104109) | Fix updating dell dock RMM F/W |
+| fwupd | [2110209](https://bugs.launchpad.net/bugs/2110209) | Fix dell dock RMM FW info missing on some devices |
+| pollinate | [2097596](https://bugs.launchpad.net/bugs/2097596) | Relicensing check_pollen |
+| freeradius | [2087740](https://bugs.launchpad.net/bugs/2087740) | fix duplicate packet sends on COA calls |
+| freeradius | [2104372](https://bugs.launchpad.net/bugs/2104372) | Fix crash due to ping packet from status server |
+| dns-root-data | [2086795](https://bugs.launchpad.net/bugs/2086795) | Backport data update to include DNSSEC root trust anchor of KSK-2024 |
+| open-iscsi | [2097808](https://bugs.launchpad.net/bugs/2097808) | IPv6 support for iBFT iSCSI boot |
+| open-iscsi | [2098515](https://bugs.launchpad.net/bugs/2098515) | add a flag to skip network configuration when iscsi is set to ‘auto’ but no iBFT data is present. Thanks to Alec Warren [alecwarren19@gmail.com](mailto:alecwarren19%40gmail.com). |
+| libinput | [2095464](https://bugs.launchpad.net/bugs/2095464) | Disable pressure event for Dell haptic touchpads |
+| libinput | [2108966](https://bugs.launchpad.net/bugs/2108966) | Correct ThinkPad X9-15 Gen1 Touchpad Functionality |
+| nvidia-graphics-drivers-550-server | [2114726](https://bugs.launchpad.net/bugs/2114726) | Add transitionals to 570 |
+| thermald | [2092701](https://bugs.launchpad.net/bugs/2092701) | Downgrade “Unsupported condition” error messages |
+| sosreport | [2091858](https://bugs.launchpad.net/bugs/2091858) | New 4.8.2 upstream release. |
+| sosreport | [2101134](https://bugs.launchpad.net/bugs/2101134) | Resolve obfuscation issues |
+| sosreport | [2102199](https://bugs.launchpad.net/bugs/2102199) | Resolve username clean issues |
+| tzdata | [2107950](https://bugs.launchpad.net/bugs/2107950) | Update the ICU timezone data to 2025b |
+| libfprint | [2097831](https://bugs.launchpad.net/bugs/2097831) | d/p: Add new Synaptics devices 06cb:0107 and 06cb:0108 |
+| libfprint | [2114712](https://bugs.launchpad.net/bugs/2114712) | d/p: Add new Synaptics device 06cb:019d |
+| pci.ids | [2100918](https://bugs.launchpad.net/bugs/2100918) | Correct the labeling of Intel Wireless-AC 9560 CNVi Wi-Fi interface on Jasper Lake platforms. |
+| ubuntu-advantage-tools | [2106660](https://bugs.launchpad.net/bugs/2106660) | Backport 35.1ubuntu0 to noble |
+| ubuntu-advantage-tools | [2106660](https://bugs.launchpad.net/bugs/2106660) | LXD: store the configuration in /var/lib/ubuntu-advantage instead of /var/lib/ubuntu-pro |
+| ubuntu-advantage-tools | [2083665](https://bugs.launchpad.net/bugs/2083665) | d/control: drop strict dependency on python3-pkg-resources |
+| ubuntu-advantage-tools | [2070095] |  |
+| ubuntu-advantage-tools | [2084677](https://bugs.launchpad.net/bugs/2084677) | only run the apt upgrade hook when run as root |
+| ubuntu-advantage-tools | [2091327](https://bugs.launchpad.net/bugs/2091327) | deduplicate entries in ‘pro help’ output |
+| ubuntu-advantage-tools | [2098862](https://bugs.launchpad.net/bugs/2098862) | apt-hook: set C++ standards version to c++17 for APT 2.9.30 compatibility |
+| ubuntu-advantage-tools | [2098862](https://bugs.launchpad.net/bugs/2098862) | tests: remove argparse error tests from unit tests |
+| ubuntu-advantage-tools | [2083665](https://bugs.launchpad.net/bugs/2083665) | Drop direct dependency on python3-pkg-resources to resolve priority mismatch |
+| ubuntu-advantage-tools | [2112382](https://bugs.launchpad.net/bugs/2112382) | Backport 36ubuntu0 to noble |
+| ubuntu-advantage-tools | [2111610](https://bugs.launchpad.net/bugs/2111610) | return all affected packages for a cve |
+| rpi-eeprom | [2095175](https://bugs.launchpad.net/bugs/2095175) | Include Breaks/Replaces on rpi-eeprom-firwmare to ensure partial upgrades from earlier version can succeed |
+| google-guest-agent | [2096765](https://bugs.launchpad.net/bugs/2096765) | New upstream version for upstream tag 20250116.00. |
+| google-osconfig-agent | [2096657](https://bugs.launchpad.net/bugs/2096657) | New upstream version for upstream tag 20250115.01. |
+| gce-compute-image-packages | [2106629](https://bugs.launchpad.net/bugs/2106629) | No change rebuild for Noble. |
+| gce-compute-image-packages | [2106195](https://bugs.launchpad.net/bugs/2106195) | New upstream version for upstream tag 20250328.00. |
+| runc-app | [2076981](https://bugs.launchpad.net/bugs/2076981) | Do not install example/test utilities |
+| runc-app | [2098665](https://bugs.launchpad.net/bugs/2098665) | d/control: build with golang 1.24 |
+| runc-app | [2076340](https://bugs.launchpad.net/bugs/2076340) | d/rules: set GO111MODULE to auto. No-change rebuild to pick up changed build flags on ppc64el and s390x. |
+| wireless-regdb | [2096979](https://bugs.launchpad.net/bugs/2096979) | Backport to noble |
+| wireless-regdb | [2094190](https://bugs.launchpad.net/bugs/2094190) | New upstream version 2024.10.07 |
+| horizon | [2045394](https://bugs.launchpad.net/bugs/2045394) | d/openstack-dashboard.postinst: Retry compress to avoid race condition in pyscss. Thanks to Santiago Vila [sanvila@debian.org](mailto:sanvila%40debian.org) and Thomas Goirand [zigo@debian.org](mailto:zigo%40debian.org) |
+| rdma-core | [2100089](https://bugs.launchpad.net/bugs/2100089) | Revert non-MANA 50.0-2ubuntu0.1 changes |
+| rdma-core | [2100089](https://bugs.launchpad.net/bugs/2100089) | Incorporate all upstream changes to Microsoft Azure Network Adapter (MANA) RDMA provider |
+| libtraceevent | [2062118](https://bugs.launchpad.net/bugs/2062118) | d/p/0004-fix-file-endianness.patch: make file_bigendian the same as host_bignendian in tep_alloc() |
+| libtraceevent | [2101149](https://bugs.launchpad.net/bugs/2101149) | d/p/0004-fix-file-endianness.patch: make file_bigendian the same as host_bignendian in tep_alloc() |
+| broadcom-sta | [2110927](https://bugs.launchpad.net/bugs/2110927) | Support linux 6.14 |
+| edk2 | [2101903](https://bugs.launchpad.net/bugs/2101903) | ovmf: cherry-pick patch from upstream to “use user-specified opt/ovmf/X-PciMmio64Mb value unconditionally”. . |
+| autopkgtest | [2106167](https://bugs.launchpad.net/bugs/2106167) | No-change backport from Plucky |
+| walinuxagent | [2063046](https://bugs.launchpad.net/bugs/2063046) | Drop the use of nose : |
+| sl-modem | [2111377](https://bugs.launchpad.net/bugs/2111377) | Support linux 6.14 |
+| alsa-lib | [2111271](https://bugs.launchpad.net/bugs/2111271) | Add patch to allow HDA-Intel configuration support (lp: #2111271). |
+| nginx | [2081308](https://bugs.launchpad.net/bugs/2081308) | Add ConditionFileIsExecutable to SystemD service file, prevents starting of service if nginx is not installed |
+| acct | [2095035](https://bugs.launchpad.net/bugs/2095035) | debian/patches/07_sprintf-buffer-overflow.patch: Fix buffer overflow in dev_hash.c |
+| remmina | [2111952](https://bugs.launchpad.net/bugs/2111952) | d/p/lp-2111952-01- skip_credential_prompt_if_already_saved.patch: Do not prompt user for credentials if they are already saved. Thanks to Hiroyuki Tanaka [myheroyuki@outlook.com](mailto:myheroyuki%40outlook.com). |
+| ubuntu-raspi-settings | [2069827](https://bugs.launchpad.net/bugs/2069827) | etc/cloud/cloud.cfg.d/99-fake-cloud.cfg moved from ubuntu-raspi-settings-server to ubuntu-raspi-settings as it now applies to both server *and* desktop images |
+| gzip | [2083700](https://bugs.launchpad.net/bugs/2083700) | d/p/0001-maint-fix-s390-buffer-flushes.patch: align the behavior of dfltcc_inflate to do the same as gzip_inflate when it hits a premature EOF |
+| dnsmasq | [2026757](https://bugs.launchpad.net/bugs/2026757) | d/p/fix-crash-when-reloading-DHCP-config-on-SIGHUP.patch: Confusion in the code to free old DHCP configuration when it’s being reloaded causes invalid pointers to be followed and a crash . |
+| mysql-8.0 | [2112151](https://bugs.launchpad.net/bugs/2112151) | Add su directive to logrotate config to run as mysql user and adm group . |
+| mysql-8.0 | [1850980](https://bugs.launchpad.net/bugs/1850980) | Update logrotate script to test if mysql-server is online before flushing logs . |
+| ceph | [2097605](https://bugs.launchpad.net/bugs/2097605) | d/p/snapshot-upgrade-fix.patch: Remove logging as it crashed Ganesha |
+| ceph | [2097605](https://bugs.launchpad.net/bugs/2097605) | New upstream stable release . |
+| ceph | [2089565](https://bugs.launchpad.net/bugs/2089565) | d/p/snapshot-upgrade-fix.patch: Fix upgrade crashing . |
+| firmware-sof | [2114252](https://bugs.launchpad.net/bugs/2114252) | Update cs42l43 and cs35l56 to v2.12.1 for 6.14 kernel |
+| samba | [2107395](https://bugs.launchpad.net/bugs/2107395) | d/p/fix-motd-gpo-list-empty.patch: fix crash when listing an empty MOTD GPO |
+| samba | [2107395](https://bugs.launchpad.net/bugs/2107395) | d/p/fix-update-motd-gpo.patch: replace patch with upstream’s version, which includes another fix for the case of updating an existing MOTD GPO |
+| samba | [2078854](https://bugs.launchpad.net/bugs/2078854) | d/p/gpo-segfault-fix.patch: fix segfault in samba-gpupdate |
+| samba | [2088094](https://bugs.launchpad.net/bugs/2088094) | d/p/deprecated-readfp-configparser.patch: fix crash in samba-tool due to using removed method |
+| samba | [2092308](https://bugs.launchpad.net/bugs/2092308) | d/p/fix-update-motd-gpo.patch: fix crash when updating an already existing MOTD GPO |
+| squid | [2085197](https://bugs.launchpad.net/bugs/2085197) | New upstream version 6.13 |
+| gvfs | [2109538](https://bugs.launchpad.net/bugs/2109538) | disks2: Increasing reference count when updating volume to fix crashes when mounting encrypted partitions |
+| power-profiles-daemon | [2115041](https://bugs.launchpad.net/bugs/2115041) | Recognize the custom ACPI platform profile |

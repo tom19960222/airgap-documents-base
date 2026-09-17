@@ -1,0 +1,8 @@
+name = "csi-external-attacher-4.9"
+collection = "csi-external-attacher"
+version = "4.9.0"
+source_type = "git"
+repo_url = "https://github.com/kubernetes-csi/external-attacher"
+git_ref = "d87f235946455e247a9dc6401e3fbafc7031b220"
+docs_paths = ["doc", "README.md", "CONTRIBUTING.md"]
+sparse_paths = ["doc", "README.md", "CONTRIBUTING.md"]

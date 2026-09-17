@@ -1,0 +1,9 @@
+name = "opensearch-chart-2.27.0"
+collection = "opensearch-chart"
+version = "2.27.0"
+source_type = "git"
+repo_url = "https://github.com/opensearch-project/helm-charts"
+git_ref = "e43cf7dea1c01570971c70ff7d120b165bcfc28e"
+docs_paths = ["charts/opensearch/README.md"]
+sparse_paths = ["charts/opensearch/README.md", "charts/opensearch/values.yaml", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

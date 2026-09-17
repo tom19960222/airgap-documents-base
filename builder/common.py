@@ -35,6 +35,30 @@ class Manifest:
     sparse_paths: list[str] = field(default_factory=list)
     exclude_globs: list[str] = field(default_factory=list)
     source_url_template: str = ""
+    # Optional source-specific Hugo shortcode profile.  An empty value keeps
+    # existing manifests unchanged; git_source supplies the historical
+    # Kubernetes profile implicitly for the k8s collection.
+    shortcode_profile: str = ""
+    # Optional application release represented by a documentation snapshot.
+    # Jekyll sources may advertise a newer site-config version than the app
+    # release that the corpus is intended to document.
+    app_version: str = ""
+    # Optional Helm chart release represented by a combined app/chart source.
+    # Most charts have their own manifest; this keeps the second version axis
+    # explicit when one immutable repository snapshot documents both.
+    chart_version: str = ""
+    # Branch/ref names that source-link normalization is allowed to treat as
+    # mutable.  Keep the historical main/master behavior for manifests that
+    # predate this explicit allowlist; an empty list is an intentional opt-out.
+    mutable_refs: list[str] = field(default_factory=lambda: ["main", "master"])
+    # Preserve source frontmatter descriptions only for manifests that opt in.
+    # This is intentionally disabled by default so existing collections keep
+    # their historical frontmatter and body semantics.
+    preserve_description: bool = False
+    # Optional allowlisted Jekyll ``site.*`` values for a source snapshot.
+    # Keeping this as manifest data avoids source-specific version defaults in
+    # the renderer while preserving the source config as provenance.
+    site_overrides: dict[str, object] = field(default_factory=dict)
 
     @property
     def raw_dir(self) -> Path:

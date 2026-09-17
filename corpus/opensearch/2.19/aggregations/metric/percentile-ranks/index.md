@@ -1,0 +1,84 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Percentile ranks"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_aggregations/metric/percentile-ranks.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_aggregations/metric/percentile-ranks.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/aggregations/metric/percentile-ranks/"
+canonical_url: "https://docs.opensearch.org/latest/aggregations/metric/percentile-ranks/"
+canonical_route: "/aggregations/metric/percentile-ranks/"
+redirect_from: ["/query-dsl/aggregations/metric/percentile-ranks/"]
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+layout: "default"
+nav_order: 80
+parent: "Metric aggregations"
+---
+# Percentile rank aggregations
+
+Percentile rank is the percentile of values at or below a threshold grouped by a specified value. For example, if a value is greater than or equal to 80% of the values, it has a percentile rank of 80.
+
+```json
+GET opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "percentile_rank_taxful_total_price": {
+      "percentile_ranks": {
+        "field": "taxful_total_price",
+        "values": [
+          10,
+          15
+        ]
+      }
+    }
+  }
+}
+```
+
+#### Example response
+
+```json
+...
+"aggregations" : {
+  "percentile_rank_taxful_total_price" : {
+    "values" : {
+      "10.0" : 0.055096056411283456,
+      "15.0" : 0.0830092961834656
+    }
+  }
+ }
+}
+```
+
+This response indicates that the value `10` is at the `5.5`th percentile and the value `15` is at the `8.3`rd percentile.
+
+As with the `percentiles` aggregation, you can control the level of approximation by setting the optional `tdigest.compression` field. A larger value increases the precision of the approximation but uses more heap space. The default value is 100.
+
+For example, use the following request to set `compression` to `200`:
+
+```json
+GET opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "percentile_rank_taxful_total_price": {
+      "percentile_ranks": {
+        "field": "taxful_total_price",
+        "values": [
+          10,
+          15
+        ],
+        "tdigest": {
+          "compression": 200
+        }
+      }
+    }
+  }
+}

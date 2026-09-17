@@ -1,0 +1,683 @@
+---
+collection: ubuntu
+version: "24.04"
+title: "Changes in Ubuntu 24.04.4"
+source_url: https://documentation.ubuntu.com/release-notes/24.04/4/
+fetched_at: 2026-09-16T16:16:54+00:00
+---
+# Changes in Ubuntu 24.04.4
+
+This is a brief summary of bugs fixed between Ubuntu 24.04.3 and 24.04.4.
+**This summary covers only changes to packages in *main* and *restricted*,
+which account for all packages in the officially-supported images; there are
+further changes to various packages in *universe* and *multiverse*.** Some of
+these fixes were by Ubuntu developers directly, while others were by upstream
+developers and backported to Ubuntu. For full details, see the individual
+package changelogs.
+
+In addition to the bugs listed below, this update includes all security updates
+from the [Ubuntu Security Notice](https://ubuntu.com/security/notices?order=newest&amp;release=noble&amp;details=)
+affecting Ubuntu 24.04.4 LTS that were released up to and including February 12, 2026.
+
+## Installation bug fixes
+
+Updated CD images are provided with this release, including fixes for some installation bugs. (Many installation problems are hardware-specific; for those, see “Hardware support bugs” below.)
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| livecd-rootfs | [2116199](https://bugs.launchpad.net/bugs/2116199) | Add 6.14 kernel apparmor features’ preseeds |
+| livecd-rootfs | [2069391](https://bugs.launchpad.net/bugs/2069391) | Override cloud-init.service in /etc so as to not invalidate debsums |
+
+## Upgrade bug fixes
+
+These changes fix upgrade issues, smoothing the way for future upgrades to later releases of Ubuntu (and not only).
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| ubuntu-release-upgrader | [2138637](https://bugs.launchpad.net/bugs/2138637) | Run [pre-build.sh](http://pre-build.sh): updating mirrors for point release |
+
+## Desktop fixes
+
+These changes mainly affect desktop installations of Ubuntu and other Ubuntu-based desktop systems.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| simple-scan | [2112619](https://bugs.launchpad.net/bugs/2112619) | d/p/lp2112619-postprocessing-fixes.patch: fix postprocessing error handling and script output |
+| wireplumber | [2122640](https://bugs.launchpad.net/bugs/2122640) | Prevent bluetooth profile switch to output some sound on another device during the transition |
+| gnome-remote-desktop | [2127792](https://bugs.launchpad.net/bugs/2127792) | d/p/lp-2127792-fix-nvenc-blackwell.patch: Fix NVENC video streaming on blackwell GPUs |
+| nautilus | [2130347](https://bugs.launchpad.net/bugs/2130347) | Fix trash banner visibility |
+| gnome-settings-daemon | [2016914](https://bugs.launchpad.net/bugs/2016914) | d/p/u/handle-invalid-token.patch: Fix SIGSEGV on start-up when an invalid token is provided: . |
+| pipewire | [2131647](https://bugs.launchpad.net/bugs/2131647) | Fix v4l2oopback devices not work with pipewire |
+| gnome-remote-desktop | [2072130](https://bugs.launchpad.net/bugs/2072130) | Backport headless session persistence |
+| wayland-protocols | [2126037](https://bugs.launchpad.net/bugs/2126037) | Backport to noble |
+| software-properties | [2111400](https://bugs.launchpad.net/bugs/2111400) | cloudarchive: Enable support for the Flamingo Ubuntu Cloud Archive on 24.04 |
+| gnome-shell-extension-desktop-icons-ng | [2117725](https://bugs.launchpad.net/bugs/2117725) | a11y: Use human name for desktop windows |
+| gnome-shell-extension-desktop-icons-ng | [2116085](https://bugs.launchpad.net/bugs/2116085) | a11y: Describe the popup in new folder |
+| ubuntu-drivers-common | [2071829](https://bugs.launchpad.net/bugs/2071829) | Remove outdated dependency to fix ADT failures |
+| ubuntu-drivers-common | [2115537](https://bugs.launchpad.net/bugs/2115537) | Clarify gpgpu flag help text |
+| gdm3 | [2124220](https://bugs.launchpad.net/bugs/2124220) | Add hardware matching rule for preferring wayland |
+| gdm3 | [2120413](https://bugs.launchpad.net/bugs/2120413) | Add retry_preferred_display_server_before_fallback.patch to fix the problem that the existing retry strategy cannot retry the preferred session when the preferred session accidentally crashes during startup |
+| gdm3 | [2115451](https://bugs.launchpad.net/bugs/2115451) | Add local-display-factory-Match-simpledrm-in-a-substring-inst.patch to ensure the login screen does not start before the real DRM kernel driver is loaded |
+| gdm3 | [2124220](https://bugs.launchpad.net/bugs/2124220) | Prefer Wayland if a specific environment variable is set |
+| wsl-pro-service | [2106757](https://bugs.launchpad.net/bugs/2106757) | Upgrade to upstream version 0.1.18: : |
+| adsys | [2125134](https://bugs.launchpad.net/bugs/2125134) | internal/ad/adsys-gpolist: Allow searching GPO list by UserPrincipalName |
+| gdm3 | [2129777](https://bugs.launchpad.net/bugs/2129777) | Fix fallback session with auto-login |
+| gnome-control-center | [2114995](https://bugs.launchpad.net/bugs/2114995) | Fix accessibility in the Appearance panel: now the name of the stock backgrounds is pronounced when using a screen reader |
+| gnome-control-center | [2115973](https://bugs.launchpad.net/bugs/2115973) | d/p/a11y: several accessibility patches |
+| gnome-shell | [2120331](https://bugs.launchpad.net/bugs/2120331) | Fix quicksettings connections to enterprise AP |
+| gnome-shell | [2120734](https://bugs.launchpad.net/bugs/2120734) | Update Wi-Fi icons between disconnect and adapter deactivation |
+| gnome-shell | [2121786](https://bugs.launchpad.net/bugs/2121786) | d/p: Fix memory leak when using a custom theme |
+| gnome-shell | [2115948](https://bugs.launchpad.net/bugs/2115948) | authPrompt: Notify error messages in GDM login/unlock |
+| gnome-shell | [2115948](https://bugs.launchpad.net/bugs/2115948) | Fix accessibility issues in Gnome Shell/GDM/Unlock |
+| ubuntu-drivers-common | [2125156](https://bugs.launchpad.net/bugs/2125156) | Prevent coinstallation of conflicting Nvidia Drivers |
+| mutter | [2130619](https://bugs.launchpad.net/bugs/2130619) | Fix possible crash during output changes, introduced in the previous upload |
+| mutter | [2085423](https://bugs.launchpad.net/bugs/2085423) | d/p: Fix privacy screen enum definitions |
+| mutter | [2121517](https://bugs.launchpad.net/bugs/2121517) | d/p: Correctly track the current privacy screen state |
+| gdm3 | [2131283](https://bugs.launchpad.net/bugs/2131283) | Add Preferring Wayland to Dell Gorgon Point Platform |
+| gnome-shell-extension-desktop-icons-ng | [2131690](https://bugs.launchpad.net/bugs/2131690) | Fix grouping icons |
+| mutter | [1971434](https://bugs.launchpad.net/bugs/1971434) | d/p: Make sure the monitor is powered off when screen blanks |
+| mutter | [2133206](https://bugs.launchpad.net/bugs/2133206) | d/p: Fix input deadlock when dragging windows with touch on X11 |
+| mutter | [2131575](https://bugs.launchpad.net/bugs/2131575) | d/p: monitor-manager: Improve tiled monitor handling |
+| gnome-shell | [2116717](https://bugs.launchpad.net/bugs/2116717) | d/p: Never close a notification banner that is about to show |
+| gnome-shell | [1991001](https://bugs.launchpad.net/bugs/1991001) | d/p: Fix magnifier zoom in ‘cursor pushes content around’ mode |
+| mutter | [2135115](https://bugs.launchpad.net/bugs/2135115) | d/p: Silence warning introduced in the previous upload |
+| gdm3 | [2072130](https://bugs.launchpad.net/bugs/2072130) | Backport remote session persistence |
+| gnome-shell | [2127933](https://bugs.launchpad.net/bugs/2127933) | d/p/lp-2127933-fix-unattended-ethernet-icon.patch: Update indicator icon on connectivity changes |
+| wsl-setup | [2138661](https://bugs.launchpad.net/bugs/2138661) | Case-fold Windows username before sanitization |
+
+## Server and Cloud related fixes
+
+These changes mainly affect installations of Ubuntu on server systems and clouds.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| samba | [2116098](https://bugs.launchpad.net/bugs/2116098) | Upcoming changes to Windows Server enforce security checks even on schannel secured NETLOGON connections causing winbind’s netlogon dc discovery calls to fail: : |
+| heat | [2116890](https://bugs.launchpad.net/bugs/2116890) | Fix wrong shebang in [loguserdata.py](http://loguserdata.py) |
+| qemu | [2101053](https://bugs.launchpad.net/bugs/2101053) | d/p/u/lp-2101053-pci-acpi-Windows-PCI-Label-Id-bug-workaround.patch: fix windows virtio network by tolerating a bad acpi call |
+| sssd | [2109673](https://bugs.launchpad.net/bugs/2109673) | Updating apparmor profile for smartcard authentication. Allow access to sssd configuration directory, pcscd socket and libraries required for PKCS#11 module initialization |
+| openvswitch | [2109823](https://bugs.launchpad.net/bugs/2109823) | New upstream 3.3.4 release |
+| mysql-8.0 | [2120936](https://bugs.launchpad.net/bugs/2120936) | Modify logrotate script to silently exit if mysql service is not active: . |
+| isc-kea | [2121327](https://bugs.launchpad.net/bugs/2121327) | d/usr.sbin.kea-lfc: add lock permission to logger_lockfile |
+| azure-vm-utils | [2116077](https://bugs.launchpad.net/bugs/2116077) | Backport from devel, first time in Noble: . |
+| openvpn | [2108860](https://bugs.launchpad.net/bugs/2108860) | d/p/handle_intentional_route_push_float_ip.patch: Fix floating IP due to “route VPN_IP net_gateway”, which can lead to incorrect blocking of a source IP switch for 60 seconds immediately after connection setup |
+| cloud-init | [2120495](https://bugs.launchpad.net/bugs/2120495) | Upstream snapshot based on 25.2: . List of changes from upstream can be found at <https://raw.githubusercontent.com/canonical/cloud-init/25.2/ChangeLog> |
+| horizon | [2110279](https://bugs.launchpad.net/bugs/2110279) | New upstream release for OpenStack Caracal |
+| openssh | [2111226](https://bugs.launchpad.net/bugs/2111226) | d/p/systemd-socket-activation.patch: allow AF_VSOCK sockets |
+| nova | [2091033](https://bugs.launchpad.net/bugs/2091033) | libvirt: Wrap un-proxied listDevices() and listAllDevices() |
+| nova | [2098892](https://bugs.launchpad.net/bugs/2098892) | libvirt: Fix regression of listDevices() return type |
+| nova | [2054446](https://bugs.launchpad.net/bugs/2054446) | Fix device type when booting from ISO image |
+| libvirt | [2117467](https://bugs.launchpad.net/bugs/2117467) | d/p/u/lp-2117467-virdevmapper-device-name-for-targets.patch: virdevmapper: Always use device name for finding targets. This ensures that all the target devices of a multipath device are added to the namespace/cgroup of the guest domain. Closes: . |
+| libvirt | [2120278](https://bugs.launchpad.net/bugs/2120278) | d/p/u-aa/lp2079869-\* : virt-aa-helper: Avoid duplicate when append rule |
+| cinder | [2121812](https://bugs.launchpad.net/bugs/2121812) | d/p/lp2121812.patch: Fix defaults for netapp node model |
+| nova | [2095364](https://bugs.launchpad.net/bugs/2095364) | Fix 500 error when using the /servers/detail endpoint when missing a request_specs record in the database |
+| dovecot | [2107773](https://bugs.launchpad.net/bugs/2107773) | Update PBKDF2 salt length to be FIPS 140-3 compliant: . |
+| azure-proxy-agent | [2125930](https://bugs.launchpad.net/bugs/2125930) | d/p/fix-systemd-deps-cycle.patch: ensure the service is terminated on system shutdown |
+| azure-proxy-agent | [2122345](https://bugs.launchpad.net/bugs/2122345) | d/p/fix-systemd-deps-cycle.patch: fix dependency cycle in the unit file. Use DefaultDependencies=no to remove the dependency on basic.target |
+| azure-proxy-agent | [2115197](https://bugs.launchpad.net/bugs/2115197) | Backport to noble |
+| edk2 | [2122286](https://bugs.launchpad.net/bugs/2122286) | d/rules: Build OVMF.amdsev.fd |
+| ubuntu-advantage-tools | [2129712](https://bugs.launchpad.net/bugs/2129712) | Backport 37.1ubuntu0 to noble |
+| ubuntu-advantage-tools | [2129712](https://bugs.launchpad.net/bugs/2129712) | do-release-upgrade: immediately release the APT lock acquired to run the post-upgrade hook |
+| ubuntu-advantage-tools | [2123870](https://bugs.launchpad.net/bugs/2123870) | d/apparmor/ubuntu_pro_[apt_news |
+| ubuntu-advantage-tools | [2125453](https://bugs.launchpad.net/bugs/2125453) | New upstream release 37 |
+| ubuntu-advantage-tools | [2107604](https://bugs.launchpad.net/bugs/2107604) | upgrade-lts-contract |
+| mdevctl | [2121264](https://bugs.launchpad.net/bugs/2121264) | d/p/main-binary-already-installed.patch: adjust binary path in udev rules |
+| [netplan.io](http://netplan.io) | [2127195](https://bugs.launchpad.net/bugs/2127195) | Backport [netplan.io](http://netplan.io) 1.1.2-8ubuntu1 |
+| libvirt | [2127492](https://bugs.launchpad.net/bugs/2127492) | d/p/u-aa/lp2127492-\*: apparmor: Allow AMD-SEV device access for AMD-SEV VM |
+| qemu | [2127974](https://bugs.launchpad.net/bugs/2127974) | smbios: Fix buffer overrun when using path= option |
+| multipath-tools | [2116901](https://bugs.launchpad.net/bugs/2116901) | d/p/0005-hpe-msa-gen7-support.patch: add support for HPE MSA gen7 arrays |
+| ceph | [2134985](https://bugs.launchpad.net/bugs/2134985) | d/clean: Remove entries added in 19.2.3 SRU to fix regression in rendering ceph-mgr-dashboard due to missing JavaScript files |
+| heat | [2097539](https://bugs.launchpad.net/bugs/2097539) | Fix stack update when reauth = trusts: . |
+| numactl | [2136104](https://bugs.launchpad.net/bugs/2136104) | d/p/fix-stray-errno.patch: save and restore errno when probing for SET_PREFERRED_MANY |
+| keystone | [2112477](https://bugs.launchpad.net/bugs/2112477) | Fix query for all users in a group while using AD nested group searches |
+| openldap | [2127665](https://bugs.launchpad.net/bugs/2127665) | New upstream version: : |
+| openldap | [2125685](https://bugs.launchpad.net/bugs/2125685) | pbkdf2 iteration configuration support |
+| openldap | [2121816](https://bugs.launchpad.net/bugs/2121816) | Enable build of ppm password quality check module |
+| frr | [2113448](https://bugs.launchpad.net/bugs/2113448) | d/p/lp2113448-evpn-vxlan-macs: fix forgetting learned MACs on redundant EVPN over VXLAN links |
+| qemu | [2131822](https://bugs.launchpad.net/bugs/2131822) | Do not expose arch-caps when not available on AMD CPUs |
+
+## Kernel and Hardware support updates
+
+Considerable work has been done on improving support for many specific items of hardware.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| linux-riscv-6.14 | [2112578](https://bugs.launchpad.net/bugs/2112578) | riscv64: KVM does not release harts |
+| linux-nvidia-6.14 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky fails to boot on (older) Macs |
+| linux-aws | [2081030](https://bugs.launchpad.net/bugs/2081030) | Clean up packaging bits |
+| linux-oem-6.14 | [2120350](https://bugs.launchpad.net/bugs/2120350) | noble/linux-oem-6.14: 6.14.0-1010.10 -proposed tracker |
+| linux-oem-6.11 | [2116646](https://bugs.launchpad.net/bugs/2116646) | noble/linux-oem-6.11: 6.11.0-1027.27 -proposed tracker |
+| linux-azure-nvidia-6.14 | [2117629](https://bugs.launchpad.net/bugs/2117629) | noble/linux-azure-nvidia-6.14: 6.14.0-1003.3 -proposed tracker |
+| linux-gke | [2116645](https://bugs.launchpad.net/bugs/2116645) | noble/linux: 6.8.0-70.70 -proposed tracker |
+| linux-gke | [2116645](https://bugs.launchpad.net/bugs/2116645) | noble/linux: 6.8.0-70.70 -proposed tracker |
+| bluez | [2119741](https://bugs.launchpad.net/bugs/2119741) | d/patches: device-Fix-Pair-Method-not-setting-auto_connect.patch to fix devices not setting autoconnect correctly |
+| linux-gkeop | [2081030](https://bugs.launchpad.net/bugs/2081030) | Clean up packaging bits |
+| oem-sutton-deon-meta | [2092164](https://bugs.launchpad.net/bugs/2092164) | Meta package for Sutton Deon |
+| oem-sutton-delphi-meta | [2092163](https://bugs.launchpad.net/bugs/2092163) | Meta package for Sutton Delphi |
+| oem-sutton-debby-meta | [2092162](https://bugs.launchpad.net/bugs/2092162) | Meta package for Sutton Debby |
+| oem-sutton-davan-meta | [2106606](https://bugs.launchpad.net/bugs/2106606) | Meta package for Sutton Davan |
+| oem-sutton-darwin-meta | [2100412](https://bugs.launchpad.net/bugs/2100412) | Meta package for Sutton Darwin |
+| oem-sutton-darsha-meta | [2099860](https://bugs.launchpad.net/bugs/2099860) | Meta package for Sutton Darsha |
+| oem-sutton-darra-meta | [2102003](https://bugs.launchpad.net/bugs/2102003) | Meta package for Sutton Darra |
+| oem-sutton-darko-meta | [2093145](https://bugs.launchpad.net/bugs/2093145) | Meta package for Sutton Darko |
+| oem-sutton-dapper-meta | [2100411](https://bugs.launchpad.net/bugs/2100411) | Meta package for Sutton Dapper |
+| oem-sutton-danya-meta | [2091341](https://bugs.launchpad.net/bugs/2091341) | Meta package for Sutton Danya |
+| oem-sutton-danton-meta | [2091340](https://bugs.launchpad.net/bugs/2091340) | Meta package for Sutton Danton |
+| oem-sutton-dannon-meta | [2092789](https://bugs.launchpad.net/bugs/2092789) | Meta package for Sutton Dannon |
+| oem-sutton-danik-meta | [2089111](https://bugs.launchpad.net/bugs/2089111) | Meta package for Sutton Danik |
+| oem-sutton-daniela-meta | [2089553](https://bugs.launchpad.net/bugs/2089553) | Meta package for Sutton Daniela |
+| oem-sutton-danica-meta | [2099859](https://bugs.launchpad.net/bugs/2099859) | Meta package for Sutton Danica |
+| oem-sutton-dangola-meta | [2092788](https://bugs.launchpad.net/bugs/2092788) | Meta package for Sutton Dangola |
+| oem-sutton-dancho-meta | [2100409](https://bugs.launchpad.net/bugs/2100409) | Meta package for Sutton Dancho |
+| oem-sutton-damian-meta | [2100407](https://bugs.launchpad.net/bugs/2100407) | Meta package for Sutton Damian |
+| oem-sutton-dalida-meta | [2100406](https://bugs.launchpad.net/bugs/2100406) | Meta package for Sutton Dalida |
+| oem-sutton-dalia-meta | [2089782](https://bugs.launchpad.net/bugs/2089782) | Meta package for Sutton Dalia |
+| oem-sutton-daley-meta | [2101930](https://bugs.launchpad.net/bugs/2101930) | Meta package for Sutton Daley |
+| oem-sutton-dakota-meta | [2100405](https://bugs.launchpad.net/bugs/2100405) | Meta package for Sutton Dakota |
+| oem-sutton-dakari-meta | [2100402](https://bugs.launchpad.net/bugs/2100402) | Meta package for Sutton Dakari |
+| oem-sutton-daiwa-meta | [2093144](https://bugs.launchpad.net/bugs/2093144) | Meta package for Sutton Daiwa |
+| oem-sutton-daisy-meta | [2092787](https://bugs.launchpad.net/bugs/2092787) | Meta package for Sutton Daisy |
+| oem-sutton-dada-meta | [2091339](https://bugs.launchpad.net/bugs/2091339) | Meta package for Sutton Dada |
+| oem-sutton-dacia-meta | [2089108](https://bugs.launchpad.net/bugs/2089108) | Meta package for Sutton Dacia |
+| oem-sutton-cayla-meta | [2089107](https://bugs.launchpad.net/bugs/2089107) | Meta package for Sutton Cayla |
+| oem-sutton-cason-meta | [2089106](https://bugs.launchpad.net/bugs/2089106) | Meta package for Sutton Cason |
+| oem-sutton-calix-meta | [2089105](https://bugs.launchpad.net/bugs/2089105) | Meta package for Sutton Calix |
+| oem-sutton-caley-meta | [2089104](https://bugs.launchpad.net/bugs/2089104) | Meta package for Sutton Caley |
+| oem-sutton-calanthe-meta | [2047834](https://bugs.launchpad.net/bugs/2047834) | Meta package for Sutton Calanthe |
+| oem-sutton-baz-meta | [2089552](https://bugs.launchpad.net/bugs/2089552) | Meta package for Sutton Baz |
+| oem-sutton-bast-meta | [2089115](https://bugs.launchpad.net/bugs/2089115) | Meta package for Sutton Bast |
+| oem-sutton-bash-meta | [2089114](https://bugs.launchpad.net/bugs/2089114) | Meta package for Sutton Bash |
+| oem-somerville-boldore-meta | [2089077](https://bugs.launchpad.net/bugs/2089077) | Meta package for Somerville Boldore |
+| oem-somerville-aggron-meta | [2089075](https://bugs.launchpad.net/bugs/2089075) | Meta package for Somerville Aggron |
+| oem-somerville-delcatty-meta | [2089080](https://bugs.launchpad.net/bugs/2089080) | Meta package for Somerville Delcatty |
+| linux-firmware | [2119501](https://bugs.launchpad.net/bugs/2119501) | [SRU] AMD Image Signal Processing (ISP) firmware update |
+| linux-firmware | [2110106](https://bugs.launchpad.net/bugs/2110106) | Support WiFi 6GHz for Philippines on Intel iwlwifi chips |
+| linux-firmware | [2117463](https://bugs.launchpad.net/bugs/2117463) | Update GC 11.5.1 microcode |
+| linux-firmware | [2119210](https://bugs.launchpad.net/bugs/2119210) | Navi44 fails to load amdgpu |
+| linux-firmware | [2118886](https://bugs.launchpad.net/bugs/2118886) | Bluetooth firmware is missing for Intel AX203 card |
+| linux-firmware | [2119501](https://bugs.launchpad.net/bugs/2119501) | [SRU] AMD Image Signal Processing (ISP) firmware update |
+| linux-firmware | [2119627](https://bugs.launchpad.net/bugs/2119627) | Update GC 11.5.0 microcode |
+| nvidia-graphics-drivers-570 | [2117176](https://bugs.launchpad.net/bugs/2117176) | New upstream release 570.172.08 |
+| nvidia-graphics-drivers-535-server | [2117177](https://bugs.launchpad.net/bugs/2117177) | New upstream release 535.261.03 |
+| nvidia-graphics-drivers-570-server | [2117176](https://bugs.launchpad.net/bugs/2117176) | New upstream release 570.172.08 |
+| linux-gcp-6.14 | [2081030](https://bugs.launchpad.net/bugs/2081030) | Clean up packaging bits |
+| nvidia-graphics-drivers-580 | [2118901](https://bugs.launchpad.net/bugs/2118901) | New upstream release 580.65.06 |
+| nvidia-graphics-drivers-580-server | [2118389](https://bugs.launchpad.net/bugs/2118389) | New upstream release 580.65.06 |
+| linux-riscv-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-oem-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-meta-oem-6.14 | [2122009](https://bugs.launchpad.net/bugs/2122009) | Migrate oem-6.11 to oem-6.14 |
+| linux-gcp-6.14 | [2081030](https://bugs.launchpad.net/bugs/2081030) | Clean up packaging bits |
+| linux-gcp-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-aws | [2120002](https://bugs.launchpad.net/bugs/2120002) | noble/linux-aws: 6.8.0-1037.39 -proposed tracker |
+| linux-aws | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-aws | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-aws | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-aws | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-aws | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-aws | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-aws | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-aws | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-aws | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-gcp | [2120013](https://bugs.launchpad.net/bugs/2120013) | noble/linux-gcp: 6.8.0-1038.40 -proposed tracker |
+| linux-gcp | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-gcp | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-gcp | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-gcp | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-gcp | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-gcp | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-gcp | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-gcp | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-gcp | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-gke | [2120014](https://bugs.launchpad.net/bugs/2120014) | noble/linux-gke: 6.8.0-1034.38 -proposed tracker |
+| linux-gke | [2117098](https://bugs.launchpad.net/bugs/2117098) | Add NVIDIA Grace platform support and 64k page size flavor for noble:gke |
+| linux-gke | [2117098](https://bugs.launchpad.net/bugs/2117098) | backport arm64 THP improvements from 6.9 |
+| linux-gke | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-gke | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-gke | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-gke | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-gke | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-gke | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-gke | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-gke | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-gke | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-gkeop | [2120015](https://bugs.launchpad.net/bugs/2120015) | noble/linux-gkeop: 6.8.0-1021.23 -proposed tracker |
+| linux-gkeop | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-gkeop | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-gkeop | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-gkeop | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-gkeop | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-gkeop | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-gkeop | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-gkeop | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-gkeop | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-lowlatency | [2120021](https://bugs.launchpad.net/bugs/2120021) | noble/linux-lowlatency: 6.8.0-81.81.1 -proposed tracker |
+| linux-lowlatency | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-lowlatency | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-lowlatency | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-lowlatency | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-lowlatency | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-lowlatency | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-lowlatency | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-lowlatency | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-lowlatency | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-nvidia | [2120024](https://bugs.launchpad.net/bugs/2120024) | noble/linux-nvidia: 6.8.0-1037.40 -proposed tracker |
+| linux-nvidia | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-nvidia | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-nvidia | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-nvidia | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-nvidia | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-nvidia | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-nvidia | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-nvidia | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-nvidia | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-nvidia-lowlatency | [2120022](https://bugs.launchpad.net/bugs/2120022) | noble/linux-nvidia-lowlatency: 6.8.0-1037.40.1 -proposed tracker |
+| linux-nvidia-lowlatency | [2120024](https://bugs.launchpad.net/bugs/2120024) | noble/linux-nvidia: 6.8.0-1037.40 -proposed tracker |
+| linux-nvidia-lowlatency | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-nvidia-lowlatency | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-nvidia-lowlatency | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-nvidia-lowlatency | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-nvidia-lowlatency | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-nvidia-lowlatency | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-nvidia-lowlatency | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-nvidia-lowlatency | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-nvidia-lowlatency | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| firmware-sof | [2121849](https://bugs.launchpad.net/bugs/2121849) | Update the signed ipc4 lib for the Intel LNL platform |
+| firmware-sof | [2119516](https://bugs.launchpad.net/bugs/2119516) | Add support for Intel Panther Lake sof audio |
+| linux-aws-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-hwe-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-ibm | [2120017](https://bugs.launchpad.net/bugs/2120017) | noble/linux-ibm: 6.8.0-1035.35 -proposed tracker |
+| linux-ibm | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-ibm | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-ibm | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-ibm | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-ibm | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-ibm | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-ibm | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-ibm | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-ibm | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| oem-somerville-deerling-meta | [2089078](https://bugs.launchpad.net/bugs/2089078) | Meta package for Somerville Deerling |
+| oem-somerville-tauros-meta | [2089087](https://bugs.launchpad.net/bugs/2089087) | Meta package for Somerville Tauros |
+| oem-somerville-tyrogue-meta | [2089090](https://bugs.launchpad.net/bugs/2089090) | Meta package for Somerville Tyrogue |
+| oem-somerville-wooper-meta | [2089091](https://bugs.launchpad.net/bugs/2089091) | Meta package for Somerville Wooper |
+| linux-oracle-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-azure-fde-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-azure-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-signed-azure-6.14 | [2027818](https://bugs.launchpad.net/bugs/2027818) | SIGNEDv5: add ubuntu-core-initrd support to the linux-generate ancillary package |
+| linux-raspi | [2120029](https://bugs.launchpad.net/bugs/2120029) | noble/linux-raspi: 6.8.0-1037.41 -proposed tracker |
+| linux-raspi | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-raspi | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-raspi | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-raspi | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-raspi | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-raspi | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-raspi | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-raspi | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-raspi | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-raspi | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-azure | [2121671](https://bugs.launchpad.net/bugs/2121671) | noble/linux: 6.8.0-81.81 -proposed tracker |
+| linux-azure | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-azure | [2117123](https://bugs.launchpad.net/bugs/2117123) | rcu: Eliminate deadlocks involving do_exit() and RCU tasks |
+| linux-azure | [2117716](https://bugs.launchpad.net/bugs/2117716) | i915: support ARL-H gpu |
+| linux-azure | [2115447](https://bugs.launchpad.net/bugs/2115447) | Ubuntu 24.04.2: NULL pointer dereference with Ceph and selinux |
+| linux-azure | [2119458](https://bugs.launchpad.net/bugs/2119458) | Noble update: upstream stable patchset 2025-08-04 |
+| linux-azure | [2118927](https://bugs.launchpad.net/bugs/2118927) | Noble update: upstream stable patchset 2025-07-28 |
+| linux-azure | [2117533](https://bugs.launchpad.net/bugs/2117533) | Noble update: upstream stable patchset 2025-07-22 |
+| linux-azure | [2116878](https://bugs.launchpad.net/bugs/2116878) | Noble update: upstream stable patchset 2025-07-14 |
+| linux-nvidia-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-azure-nvidia-6.14 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-firmware | [2121207](https://bugs.launchpad.net/bugs/2121207) | AMD Krackan point system freeze at black screen while booting up |
+| linux-firmware | [2116108](https://bugs.launchpad.net/bugs/2116108) | [SRU] Add GuC/HuC firmware support for Panther lake |
+| linux-firmware | [2119494](https://bugs.launchpad.net/bugs/2119494) | Fix low volume issue on left speaker on Dell Oasis series |
+| linux-firmware | [2121645](https://bugs.launchpad.net/bugs/2121645) | Fix incorrect volume issue on left/right channels on Dell Renegade platform |
+| linux-firmware | [2123814](https://bugs.launchpad.net/bugs/2123814) | [SRU] multiple functions in GUI unusable, stall with AMD Krackan 2 |
+| nvidia-graphics-drivers-570 | [2125755](https://bugs.launchpad.net/bugs/2125755) | New upstream release 570.195.03 |
+| nvidia-graphics-drivers-580 | [2125754](https://bugs.launchpad.net/bugs/2125754) | New upstream release 580.95.05 |
+| nvidia-graphics-drivers-580 | [1876632](https://bugs.launchpad.net/bugs/1876632) | Preserve video memory on suspend/resume |
+| nvidia-graphics-drivers-535-server | [2125765](https://bugs.launchpad.net/bugs/2125765) | New upstream release 535.274.02 |
+| nvidia-graphics-drivers-570-server | [2125755](https://bugs.launchpad.net/bugs/2125755) | New upstream release 570.195.03 |
+| nvidia-graphics-drivers-580-server | [2125754](https://bugs.launchpad.net/bugs/2125754) | New upstream release 580.95.05 |
+| nvidia-graphics-drivers-550 | [2125411](https://bugs.launchpad.net/bugs/2125411) | Release transitionals to 580 |
+| bluez | [2122382](https://bugs.launchpad.net/bugs/2122382) | Improve audio profiles compatibility: d/patches: audio-upgrade-versions-to-latest-possible-to-qualify.patch d/patches: cleanup-endpoints-when-devices-been-removed.patch d/patches: profiles-avdtp-Fix-reply-for-bad-media-transport-for.patch |
+| linux-oem-6.17 | [2127747](https://bugs.launchpad.net/bugs/2127747) | noble/linux-oem-6.17: 6.17.0-1005.5 -proposed tracker |
+| linux-oem-6.17 | [2126040](https://bugs.launchpad.net/bugs/2126040) | questing/linux: 6.17.0-6.6 -proposed tracker |
+| linux-oem-6.17 | [2126948](https://bugs.launchpad.net/bugs/2126948) | Questing update: v6.17.1 upstream stable release |
+| linux-oem-6.17 | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| oem-somerville-jellicent-meta | [2090856](https://bugs.launchpad.net/bugs/2090856) | Meta package for Somerville Jellicent |
+| oem-somerville-seaking-meta | [2102066](https://bugs.launchpad.net/bugs/2102066) | Meta package for Somerville Seaking |
+| oem-somerville-woobat-meta | [2089675](https://bugs.launchpad.net/bugs/2089675) | Meta package for Somerville Woobat |
+| egl-wayland | [2117339](https://bugs.launchpad.net/bugs/2117339) | Add d/p/Fix-the-ABI-version-check.patch. Fix OpenGL in NVIDIA Wayland sessions |
+| linux-firmware | [2129011](https://bugs.launchpad.net/bugs/2129011) | [SRU] eDP showing garbage on GPT1 platforms |
+| linux-firmware | [2129150](https://bugs.launchpad.net/bugs/2129150) | [SRU] Update GC 11.5.1 firmware to enable MES WA on Strix Halo |
+| linux-firmware | [2129172](https://bugs.launchpad.net/bugs/2129172) | [SRU] Fix eDP showing garbage on GPT2 platforms |
+| linux-firmware | [2122659](https://bugs.launchpad.net/bugs/2122659) | Fix power state transition on navi4x |
+| linux-firmware | [2094768](https://bugs.launchpad.net/bugs/2094768) | Missing vendor/product/sku specific ISH firmware for Dell laptops |
+| linux-firmware | [2125139](https://bugs.launchpad.net/bugs/2125139) | [SRU] Fix amdgpu loading errors on Navi3x systems |
+| linux-firmware | [2129976](https://bugs.launchpad.net/bugs/2129976) | amdtee firmware disappeared in noble |
+| linux-firmware | [2127958](https://bugs.launchpad.net/bugs/2127958) | To support MT7922 BT and WiFi |
+| linux-firmware | [2101850](https://bugs.launchpad.net/bugs/2101850) | Intel IPU7x enablement on PTL |
+| oem-stella-animalhunters-meta | [2089092](https://bugs.launchpad.net/bugs/2089092) | Meta package for Stella Animalhunters |
+| oem-stella-aron-meta | [2089093](https://bugs.launchpad.net/bugs/2089093) | Meta package for Stella Aron |
+| oem-stella-asobo-meta | [2089094](https://bugs.launchpad.net/bugs/2089094) | Meta package for Stella Asobo |
+| oem-stella-brus-meta | [2089096](https://bugs.launchpad.net/bugs/2089096) | Meta package for Stella Brus |
+| oem-stella-bergmite-meta | [2089095](https://bugs.launchpad.net/bugs/2089095) | Meta package for Stella Bergmite |
+| oem-stella-chippo-meta | [2089549](https://bugs.launchpad.net/bugs/2089549) | Meta package for Stella Chippo |
+| oem-stella-demaon-meta | [2101005](https://bugs.launchpad.net/bugs/2101005) | Meta package for Stella Demaon |
+| oem-stella-graveler-meta | [2089097](https://bugs.launchpad.net/bugs/2089097) | Meta package for Stella Graveler |
+| oem-stella-jaiko-meta | [2089098](https://bugs.launchpad.net/bugs/2089098) | Meta package for Stella Jaiko |
+| oem-stella-wakuburger-meta | [2101014](https://bugs.launchpad.net/bugs/2101014) | Meta package for Stella Wakuburger |
+| oem-stella-wakuwaku-meta | [2093798](https://bugs.launchpad.net/bugs/2093798) | Meta package for Stella Wakuwaku |
+| oem-stella-yoshio-meta | [2089102](https://bugs.launchpad.net/bugs/2089102) | Meta package for Stella Yoshio |
+| oem-stella-mangetsu-meta | [2101007](https://bugs.launchpad.net/bugs/2101007) | Meta package for Stella Mangetsu |
+| oem-stella-mejina-meta | [2101008](https://bugs.launchpad.net/bugs/2101008) | Meta package for Stella Mejina |
+| oem-stella-mii-meta | [2089099](https://bugs.launchpad.net/bugs/2089099) | Meta package for Stella Mii |
+| oem-stella-milk-meta | [2090809](https://bugs.launchpad.net/bugs/2090809) | Meta package for Stella Milk |
+| oem-stella-miyoko-meta | [2101010](https://bugs.launchpad.net/bugs/2101010) | Meta package for Stella Miyoko |
+| oem-stella-moa-meta | [2089551](https://bugs.launchpad.net/bugs/2089551) | Meta package for Stella Moa |
+| oem-stella-morina-meta | [2089100](https://bugs.launchpad.net/bugs/2089100) | Meta package for Stella Morina |
+| oem-stella-sensei-meta | [2089101](https://bugs.launchpad.net/bugs/2089101) | Meta package for Stella Sensei |
+| oem-stella-sharmee-meta | [2092160](https://bugs.launchpad.net/bugs/2092160) | Meta package for Stella Sharmee |
+| oem-stella-spiana-meta | [2101012](https://bugs.launchpad.net/bugs/2101012) | Meta package for Stella Spiana |
+| oem-stella-temujin-meta | [2092786](https://bugs.launchpad.net/bugs/2092786) | Meta package for Stella Temujin |
+| oem-stella-tamako-meta | [2102193](https://bugs.launchpad.net/bugs/2102193) | Meta package for Stella Tamako |
+| oem-stella-tragis-meta | [2101013](https://bugs.launchpad.net/bugs/2101013) | Meta package for Stella Tragis |
+| wireless-regdb | [2119591](https://bugs.launchpad.net/bugs/2119591) | Backport to noble |
+| linux-oem-6.17 | [2129985](https://bugs.launchpad.net/bugs/2129985) | noble/linux-oem-6.17: 6.17.0-1006.6 -proposed tracker |
+| linux-oem-6.17 | [2116169](https://bugs.launchpad.net/bugs/2116169) | Support Intel Scorpius Peak, Whale Peak WiFi/Bluetooth |
+| linux-oem-6.17 | [2127833](https://bugs.launchpad.net/bugs/2127833) | Add support for WNC WWAN OMAR-H R15 5G module |
+| linux-oem-6.17 | [2128695](https://bugs.launchpad.net/bugs/2128695) | questing/linux: 6.17.0-7.7 -proposed tracker |
+| linux-oem-6.17 | [2106681](https://bugs.launchpad.net/bugs/2106681) | Plucky preinstalled server fails to boot on rb3gen2: // Questing preinstalled server fails to boot on sa8775p boards |
+| linux-oem-6.17 | [2121347](https://bugs.launchpad.net/bugs/2121347) | Plucky preinstalled server fails to boot on rb3gen2 |
+| linux-gcp-6.17 | [2131275](https://bugs.launchpad.net/bugs/2131275) | noble/linux-gcp-6.17: 6.17.0-1004.4~24.04.3 -proposed tracker |
+| linux-signed-gcp-6.17 | [2027818](https://bugs.launchpad.net/bugs/2027818) | SIGNEDv5: add ubuntu-core-initrd support to the linux-generate ancillary package |
+| linux-nvidia-6.17 | [2131581](https://bugs.launchpad.net/bugs/2131581) | noble/linux-nvidia-6.17: 6.17.0-1003.3 -proposed tracker |
+| linux-nvidia-6.17 | [2131154](https://bugs.launchpad.net/bugs/2131154) | kexec reports it cannot determine the file type of arm64 kernel images |
+| linux-nvidia-6.17 | [2130289](https://bugs.launchpad.net/bugs/2130289) | KVM initialization hitting exception at boot time with kernel 6.17 |
+| linux-nvidia-6.17 | [2131047](https://bugs.launchpad.net/bugs/2131047) | Backport arm64: cpufeature: Add Olympus MIDR to BBML2 allow list |
+| linux-nvidia-6.17 | [2128695](https://bugs.launchpad.net/bugs/2128695) | questing/linux: 6.17.0-7.7 -proposed tracker |
+| linux-nvidia-6.17 | [2106681](https://bugs.launchpad.net/bugs/2106681) | Plucky preinstalled server fails to boot on rb3gen2: // Questing preinstalled server fails to boot on sa8775p boards |
+| linux-nvidia-6.17 | [2121347](https://bugs.launchpad.net/bugs/2121347) | Plucky preinstalled server fails to boot on rb3gen2 |
+| linux-nvidia-6.17 | [2127212](https://bugs.launchpad.net/bugs/2127212) | noble/linux-nvidia-6.17: 6.17.0-1001.1 -proposed tracker |
+| linux-nvidia-6.17 | [2061930](https://bugs.launchpad.net/bugs/2061930) | linux-nvidia-6.5_6.5.0-1014.14 breaks with earlier BIOS release, and modeset/resolutions are wrong: // Blocklist coresight_etm4x |
+| linux-nvidia-6.17 | [2060327](https://bugs.launchpad.net/bugs/2060327) | Reapply the linux-nvidia kernel config options from the 5.15 and 6.5 kernels |
+| linux-nvidia-6.17 | [2126040](https://bugs.launchpad.net/bugs/2126040) | questing/linux: 6.17.0-6.6 -proposed tracker |
+| linux-nvidia-6.17 | [2126948](https://bugs.launchpad.net/bugs/2126948) | Questing update: v6.17.1 upstream stable release |
+| linux-nvidia-6.17 | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-meta | [2128721](https://bugs.launchpad.net/bugs/2128721) | missing transitionals for intel-iotg kernels |
+| linux-oem-6.14 | [2134520](https://bugs.launchpad.net/bugs/2134520) | noble/linux-oem-6.14: 6.14.0-1018.18 -proposed tracker |
+| linux-oem-6.14 | [2134491](https://bugs.launchpad.net/bugs/2134491) | Export CWSR size to userspace |
+| linux-oem-6.14 | [2134488](https://bugs.launchpad.net/bugs/2134488) | Seamless boot doesn’t work on Strix or Strix Halo |
+| linux-oem-6.14 | [2133922](https://bugs.launchpad.net/bugs/2133922) | Fix speaker mute and mic mute leds on more HP 200 G2a platforms |
+| linux-oem-6.14 | [2133144](https://bugs.launchpad.net/bugs/2133144) | Enable RTL ASPM for more new Dell platforms |
+| linux-oem-6.14 | [2133143](https://bugs.launchpad.net/bugs/2133143) | Could not output video from type-c to VGA adapter |
+| linux-oem-6.17 | [2134511](https://bugs.launchpad.net/bugs/2134511) | noble/linux-oem-6.17: 6.17.0-1008.8 -proposed tracker |
+| linux-oem-6.17 | [2134491](https://bugs.launchpad.net/bugs/2134491) | Export CWSR size to userspace |
+| linux-oem-6.17 | [2134488](https://bugs.launchpad.net/bugs/2134488) | Seamless boot doesn’t work on Strix or Strix Halo |
+| linux-oem-6.17 | [2133922](https://bugs.launchpad.net/bugs/2133922) | Fix speaker mute and mic mute leds on more HP 200 G2a platforms |
+| linux-oem-6.17 | [2133143](https://bugs.launchpad.net/bugs/2133143) | Could not output video from type-c to VGA adapter |
+| linux-oem-6.17 | [2133144](https://bugs.launchpad.net/bugs/2133144) | Enable RTL ASPM for more new Dell platforms |
+| linux-oem-6.17 | [2133476](https://bugs.launchpad.net/bugs/2133476) | Fix speaker mute and mic mute leds on new HP ZBook platforms |
+| nvidia-graphics-drivers-570-server | [2129682](https://bugs.launchpad.net/bugs/2129682) | Fix dependencies between packages |
+| nvidia-graphics-drivers-580-server | [2129682](https://bugs.launchpad.net/bugs/2129682) | Fix dependencies between packages |
+| nvidia-graphics-drivers-580 | [2129682](https://bugs.launchpad.net/bugs/2129682) | Fix dependencies between packages |
+| linux-firmware | [2127969](https://bugs.launchpad.net/bugs/2127969) | [SRU] Upgrade Intel xe GUC to v70.49.4 for Intel Panther Lake |
+| linux-firmware | [2130381](https://bugs.launchpad.net/bugs/2130381) | [SRU][R/Q/N] mt7925: Support 802.11d and CQM events for roaming |
+| linux-firmware | [2131725](https://bugs.launchpad.net/bugs/2131725) | Support for Cirrus Logic audio solution CS42L43 with amplifiers on new Dell PTL platform |
+| linux-firmware | [2133664](https://bugs.launchpad.net/bugs/2133664) | Add TI tas2781 support for HP platforms |
+| linux-firmware | [2131936](https://bugs.launchpad.net/bugs/2131936) | Update aic100 fw for power issues |
+| linux-firmware | [2133787](https://bugs.launchpad.net/bugs/2133787) | Support Qualcomm RB4 graphics firmware |
+| linux-firmware | [2133923](https://bugs.launchpad.net/bugs/2133923) | Linux-firmware: Add qualcomm serial engine firmware qupv3fw.elf |
+| linux-oem-6.14 | [2136790](https://bugs.launchpad.net/bugs/2136790) | noble/linux-oem-6.14: 6.14.0-1019.19 -proposed tracker |
+| alsa-ucm-conf | [2126737](https://bugs.launchpad.net/bugs/2126737) | Fix missing audio support for MediaTek Genio EVK platforms: by creating the following patches based on upstream commits: |
+| linux-oem-6.17 | [2136788](https://bugs.launchpad.net/bugs/2136788) | noble/linux-oem-6.17: 6.17.0-1009.9 -proposed tracker |
+| linux-oem-6.17 | [2134584](https://bugs.launchpad.net/bugs/2134584) | [SRU] Fix system crash of intel ice ethernet on E810 |
+| linux-oem-6.17 | [2133482](https://bugs.launchpad.net/bugs/2133482) | Enable wireless protocol 802.11d for MTK WiFi mt7925 |
+| linux-aws-6.17 | [2131154](https://bugs.launchpad.net/bugs/2131154) | kexec reports it cannot determine the file type of arm64 kernel images |
+| thermald | [2122576](https://bugs.launchpad.net/bugs/2122576) | Add support for Intel Panther Lake platforms |
+| b43-fwcutter | [2138509](https://bugs.launchpad.net/bugs/2138509) | debian/firmware-b43-installer.postinst: Fix download url to github |
+| nvidia-graphics-drivers-535 | [2138271](https://bugs.launchpad.net/bugs/2138271) | New upstream release 535.288.01 |
+| nvidia-graphics-drivers-570 | [2137576](https://bugs.launchpad.net/bugs/2137576) | New upstream release 570.211.01 UDA |
+| nvidia-graphics-drivers-580 | [2138245](https://bugs.launchpad.net/bugs/2138245) | New upstream release 580.126.09 |
+| nvidia-graphics-drivers-535-server | [2138271](https://bugs.launchpad.net/bugs/2138271) | New upstream release 535.288.01 ERD17 |
+| nvidia-graphics-drivers-570-server | [2137576](https://bugs.launchpad.net/bugs/2137576) | New upstream release 570.211.01 ERD |
+| nvidia-graphics-drivers-580-server | [2138245](https://bugs.launchpad.net/bugs/2138245) | New upstream release 580.126.09 ERD5 |
+| nvidia-graphics-drivers-590 | [2137575](https://bugs.launchpad.net/bugs/2137575) | New upstream release 590.48.01 |
+| nvidia-graphics-drivers-590-server | [2137575](https://bugs.launchpad.net/bugs/2137575) | New upstream release 590.48.01 |
+| linux-firmware | [2135079](https://bugs.launchpad.net/bugs/2135079) | tas2781: Add more symbol links on SPI devices on HP platforms |
+| linux-firmware | [2136743](https://bugs.launchpad.net/bugs/2136743) | Update Intel IPU7 product signed firmware binary |
+| linux-firmware | [2136987](https://bugs.launchpad.net/bugs/2136987) | Firmware updates for Intel WIFI core98 software release |
+| linux-firmware | [2136991](https://bugs.launchpad.net/bugs/2136991) | Upgrade Intel xe GUC to v70.55.3 for Intel Panther Lake |
+| linux-firmware | [2137522](https://bugs.launchpad.net/bugs/2137522) | [SRU] iwlwifi: add new fw versions to satisfy 6.17 kernel requirement |
+| linux-firmware | [2137181](https://bugs.launchpad.net/bugs/2137181) | Update last Intel VPU fw support for Jammy |
+| linux-firmware | [2136894](https://bugs.launchpad.net/bugs/2136894) | [SRU][R/Q/N] mt7925: Fix invalid reporting of support for EMLSR on MLO link and add support for Indonesia 6GHz |
+| linux-firmware | [2128240](https://bugs.launchpad.net/bugs/2128240) | Missing firmware for Intel NPU for Intel Panther Lake |
+| linux-oracle-6.17 | [2133191](https://bugs.launchpad.net/bugs/2133191) | noble/linux-oracle-6.17: 6.17.0-1004.4~24.04.2 -proposed tracker |
+| linux-oracle-6.17 | [2131154](https://bugs.launchpad.net/bugs/2131154) | kexec reports it cannot determine the file type of arm64 kernel images |
+| linux-oracle-6.17 | [2128695](https://bugs.launchpad.net/bugs/2128695) | questing/linux: 6.17.0-7.7 -proposed tracker |
+| linux-oracle-6.17 | [2106681](https://bugs.launchpad.net/bugs/2106681) | Plucky preinstalled server fails to boot on rb3gen2: // Questing preinstalled server fails to boot on sa8775p boards |
+| linux-oracle-6.17 | [2121347](https://bugs.launchpad.net/bugs/2121347) | Plucky preinstalled server fails to boot on rb3gen2 |
+| linux-oracle-6.17 | [2126043](https://bugs.launchpad.net/bugs/2126043) | questing/linux-oracle: 6.17.0-1003.3 -proposed tracker |
+| linux-oracle-6.17 | [2126040](https://bugs.launchpad.net/bugs/2126040) | questing/linux: 6.17.0-6.6 -proposed tracker |
+| linux-oracle-6.17 | [2126948](https://bugs.launchpad.net/bugs/2126948) | Questing update: v6.17.1 upstream stable release |
+| linux-oracle-6.17 | [1981437](https://bugs.launchpad.net/bugs/1981437) | RISC-V kernel config is out of sync with other archs |
+| linux-oracle-6.17 | [2125323](https://bugs.launchpad.net/bugs/2125323) | questing/linux-oracle: 6.17.0-1002.2 -proposed tracker |
+| linux-oracle-6.17 | [2125319](https://bugs.launchpad.net/bugs/2125319) | questing/linux: 6.17.0-5.5 -proposed tracker |
+| linux-oracle-6.17 | [2122310](https://bugs.launchpad.net/bugs/2122310) | [SRU] Failed to create source package: Unmet build dependencies: bpftool:native |
+| linux-oracle-6.17 | [2124257](https://bugs.launchpad.net/bugs/2124257) | iproute2 breaking netplan DEP-8 tests in Questing, unexpected “fan-map” in JSON output |
+| linux-oracle-6.17 | [2110092](https://bugs.launchpad.net/bugs/2110092) | Support AMD Image Signal Processing (ISP) unit V4.0 |
+| linux-oracle-6.17 | [2121477](https://bugs.launchpad.net/bugs/2121477) | 25.10 Snapdragon X Elite: Sync concept kernel changes |
+| linux-oracle-6.17 | [2122647](https://bugs.launchpad.net/bugs/2122647) | questing/linux-oracle: 6.17.0-1001.1 -proposed tracker |
+| linux-oracle-6.17 | [2122321](https://bugs.launchpad.net/bugs/2122321) | questing/linux: 6.17.0-4.4 -proposed tracker |
+| linux-oracle-6.17 | [2115758](https://bugs.launchpad.net/bugs/2115758) | initramfs-tools: autopkgtest fails on arm64 with Possible missing firmware /lib/firmware/apple/dfrmtfw-\*.bin for built-in driver apple_z2 |
+| linux-oracle-6.17 | [2121873](https://bugs.launchpad.net/bugs/2121873) | Support TDX host in questing |
+| linux-oracle-6.17 | [2118499](https://bugs.launchpad.net/bugs/2118499) | minimal kernel lacks modules for blk disk in arm64 openstack environments where config_drive is required |
+| linux-oracle-6.17 | [2121512](https://bugs.launchpad.net/bugs/2121512) | questing/linux: 6.17.0-3.3 -proposed tracker |
+| linux-oracle-6.17 | [2105402](https://bugs.launchpad.net/bugs/2105402) | Plucky/Questing fails to boot on (older) Macs |
+| linux-oracle-6.17 | [2121374](https://bugs.launchpad.net/bugs/2121374) | questing/linux: 6.17.0-2.2 -proposed tracker |
+| linux-oracle-6.17 | [2116138](https://bugs.launchpad.net/bugs/2116138) | enable Mediatek media platform drivers on arm64 |
+| linux-oracle-6.17 | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set |
+| linux-oracle-6.17 | [2102680](https://bugs.launchpad.net/bugs/2102680) | Installation of AppArmor on a 6.14 kernel produces error message “Illegal number: yes” |
+| linux-oracle-6.17 | [2028253](https://bugs.launchpad.net/bugs/2028253) | update apparmor and LSM stacking patch set: // [FFe] apparmor-4.0.0-alpha2 for unprivileged user namespace restrictions in mantic |
+| linux-oracle-6.17 | [2032602](https://bugs.launchpad.net/bugs/2032602) | update apparmor and LSM stacking patch set |
+| linux-oracle-6.17 | [2121054](https://bugs.launchpad.net/bugs/2121054) | questing/linux-unstable: 6.17.0-1.1 -proposed tracker |
+| linux-oracle-6.17 | [1728366](https://bugs.launchpad.net/bugs/1728366) | Enable CONFIG_IPV6_OPTIMISTIC_DAD |
+| linux-meta | [2128721](https://bugs.launchpad.net/bugs/2128721) | missing transitionals for intel-iotg kernels |
+| linux-oem-6.14 | [2138288](https://bugs.launchpad.net/bugs/2138288) | noble/linux-oem-6.14: 6.14.0-1020.20 -proposed tracker |
+| oem-somerville-remoraid-meta | [2089548](https://bugs.launchpad.net/bugs/2089548) | Meta package for Somerville Remoraid |
+| crash | [2125145](https://bugs.launchpad.net/bugs/2125145) | Enable crash to open coredumps generated on 6.14 HWE kernels |
+| linux-hwe-6.17 | [2132312](https://bugs.launchpad.net/bugs/2132312) | noble/linux-hwe-6.17: 6.17.0-9.9~24.04.2 -proposed tracker |
+| linux-hwe-6.17 | [2131154](https://bugs.launchpad.net/bugs/2131154) | kexec reports it cannot determine the file type of arm64 kernel images |
+| linux-riscv-6.17 | [2137844](https://bugs.launchpad.net/bugs/2137844) | noble/linux-riscv-6.17: 6.17.0-14.14.1~24.04.1 -proposed tracker |
+| linux-riscv-6.17 | [2013232](https://bugs.launchpad.net/bugs/2013232) | Enable StarFive VisionFive 2 board |
+| linux-meta | [2128721](https://bugs.launchpad.net/bugs/2128721) | missing transitionals for intel-iotg kernels |
+| linux-raspi | [2138307](https://bugs.launchpad.net/bugs/2138307) | noble/linux: 6.8.0-100.100 -proposed tracker |
+| linux-raspi | [2122531](https://bugs.launchpad.net/bugs/2122531) | Turbo boost stuck disabled on Clevo PD5x_7xSNC_SND_SNE |
+| linux-raspi | [2138244](https://bugs.launchpad.net/bugs/2138244) | [noble] write-sealed memfd mappings fail to map read-only |
+| linux-raspi | [2137901](https://bugs.launchpad.net/bugs/2137901) | noble/linux: 6.8.0-98.98 -proposed tracker |
+| linux-raspi | [2137528](https://bugs.launchpad.net/bugs/2137528) | TPM timeouts occur on some Infineon TPMs |
+| linux-raspi | [2130244](https://bugs.launchpad.net/bugs/2130244) | power: intel_pstate: Fix unchecked MSR |
+| linux-raspi | [2131265](https://bugs.launchpad.net/bugs/2131265) | [SRU] ixgbe: Add support for E610 in Noble |
+| linux-raspi | [2135716](https://bugs.launchpad.net/bugs/2135716) | Enabling crypto selftests causes boot stall on 6.8 |
+| linux-raspi | [2135261](https://bugs.launchpad.net/bugs/2135261) | Noble update: upstream stable patchset 2025-12-12 |
+| linux-raspi | [1928890](https://bugs.launchpad.net/bugs/1928890) | vrf_route_leaking.sh in net from ubuntu_kernel_selftests linux ADT test failure with linux/5.11.0-18.19 (Ping received ICMP Packet too big) |
+| linux-raspi | [2112357](https://bugs.launchpad.net/bugs/2112357) | ubuntu_bpf failed to build on Noble ( error: ‘struct prog_test_def’ has no member named ‘should_tmon’) |
+| linux-raspi | [2012859](https://bugs.launchpad.net/bugs/2012859) | fib_tests.sh in ubuntu_kernel_selftests failed with IPv4 mangling tests Connection check - server side |
+| linux-raspi | [2031531](https://bugs.launchpad.net/bugs/2031531) | net:rtnetlink.sh in ubuntu_kernel_selftests failed with FAIL: address proto IPv4 / IPv6 |
+| linux-raspi | [2136740](https://bugs.launchpad.net/bugs/2136740) | Noble update: upstream stable patchset 2025-12-17 |
+| linux-raspi | [2136361](https://bugs.launchpad.net/bugs/2136361) | Noble update: upstream stable patchset 2025-12-16 |
+| linux-raspi | [2136221](https://bugs.launchpad.net/bugs/2136221) | Noble update: upstream stable patchset 2025-12-15 |
+| linux-raspi | [2134382](https://bugs.launchpad.net/bugs/2134382) | Noble update: upstream stable patchset 2025-12-08 |
+| linux-raspi | [2071861](https://bugs.launchpad.net/bugs/2071861) | ftrace:test.d–event–subsystem-enable.tc fails on some instances |
+| linux-raspi | [2134640](https://bugs.launchpad.net/bugs/2134640) | Noble update: upstream stable patchset 2025-12-11 |
+| linux-raspi | [2134499](https://bugs.launchpad.net/bugs/2134499) | Noble update: upstream stable patchset 2025-12-09 |
+| linux-raspi | [2133786](https://bugs.launchpad.net/bugs/2133786) | Noble update: upstream stable patchset 2025-12-03 |
+| linux-raspi | [2133301](https://bugs.launchpad.net/bugs/2133301) | Noble update: upstream stable patchset 2025-11-28 |
+| linux-raspi | [2127971](https://bugs.launchpad.net/bugs/2127971) | Ubuntu x86_64 6.8 kernels won’t build if CONFIG_FB_HYPERV config option is enabled |
+| linux-raspi | [2130344](https://bugs.launchpad.net/bugs/2130344) | Noble update: upstream stable patchset 2025-10-30 |
+| linux-raspi | [2129559](https://bugs.launchpad.net/bugs/2129559) | Noble update: upstream stable patchset 2025-10-22 |
+| linux | [2138307](https://bugs.launchpad.net/bugs/2138307) | noble/linux: 6.8.0-100.100 -proposed tracker |
+| linux | [2122531](https://bugs.launchpad.net/bugs/2122531) | Turbo boost stuck disabled on Clevo PD5x_7xSNC_SND_SNE |
+| linux | [2138244](https://bugs.launchpad.net/bugs/2138244) | [noble] write-sealed memfd mappings fail to map read-only |
+| linux | [2137901](https://bugs.launchpad.net/bugs/2137901) | noble/linux: 6.8.0-98.98 -proposed tracker |
+| linux | [2137528](https://bugs.launchpad.net/bugs/2137528) | TPM timeouts occur on some Infineon TPMs |
+| linux | [2130244](https://bugs.launchpad.net/bugs/2130244) | power: intel_pstate: Fix unchecked MSR |
+| linux | [2131265](https://bugs.launchpad.net/bugs/2131265) | [SRU] ixgbe: Add support for E610 in Noble |
+| linux | [2135716](https://bugs.launchpad.net/bugs/2135716) | Enabling crypto selftests causes boot stall on 6.8 |
+| linux | [2135261](https://bugs.launchpad.net/bugs/2135261) | Noble update: upstream stable patchset 2025-12-12 |
+| linux | [1928890](https://bugs.launchpad.net/bugs/1928890) | vrf_route_leaking.sh in net from ubuntu_kernel_selftests linux ADT test failure with linux/5.11.0-18.19 (Ping received ICMP Packet too big) |
+| linux | [2112357](https://bugs.launchpad.net/bugs/2112357) | ubuntu_bpf failed to build on Noble ( error: ‘struct prog_test_def’ has no member named ‘should_tmon’) |
+| linux | [2012859](https://bugs.launchpad.net/bugs/2012859) | fib_tests.sh in ubuntu_kernel_selftests failed with IPv4 mangling tests Connection check - server side |
+| linux | [2031531](https://bugs.launchpad.net/bugs/2031531) | net:rtnetlink.sh in ubuntu_kernel_selftests failed with FAIL: address proto IPv4 / IPv6 |
+| linux | [2136740](https://bugs.launchpad.net/bugs/2136740) | Noble update: upstream stable patchset 2025-12-17 |
+| linux | [2136361](https://bugs.launchpad.net/bugs/2136361) | Noble update: upstream stable patchset 2025-12-16 |
+| linux | [2136221](https://bugs.launchpad.net/bugs/2136221) | Noble update: upstream stable patchset 2025-12-15 |
+| linux | [2134382](https://bugs.launchpad.net/bugs/2134382) | Noble update: upstream stable patchset 2025-12-08 |
+| linux | [2071861](https://bugs.launchpad.net/bugs/2071861) | ftrace:test.d–event–subsystem-enable.tc fails on some instances |
+| linux | [2134640](https://bugs.launchpad.net/bugs/2134640) | Noble update: upstream stable patchset 2025-12-11 |
+| linux | [2134499](https://bugs.launchpad.net/bugs/2134499) | Noble update: upstream stable patchset 2025-12-09 |
+| linux | [2133786](https://bugs.launchpad.net/bugs/2133786) | Noble update: upstream stable patchset 2025-12-03 |
+| linux | [2133301](https://bugs.launchpad.net/bugs/2133301) | Noble update: upstream stable patchset 2025-11-28 |
+| linux | [2127971](https://bugs.launchpad.net/bugs/2127971) | Ubuntu x86_64 6.8 kernels won’t build if CONFIG_FB_HYPERV config option is enabled |
+| linux | [2130344](https://bugs.launchpad.net/bugs/2130344) | Noble update: upstream stable patchset 2025-10-30 |
+| linux | [2129559](https://bugs.launchpad.net/bugs/2129559) | Noble update: upstream stable patchset 2025-10-22 |
+| linux-firmware-nvidia-tegra | [2127473](https://bugs.launchpad.net/bugs/2127473) | Add firmware files for Thor, notably display and bluetooth |
+| linux-nvidia-6.17 | [2059814](https://bugs.launchpad.net/bugs/2059814) | Enable GDS in the 6.8 based linux-nvidia kernel |
+| linux-nvidia-6.17 | [2138269](https://bugs.launchpad.net/bugs/2138269) | Add PCIe Hotplug Driver for CX7 on DGX Spark |
+
+## Base platform fixes
+
+These changes affect the core fundamental components of all the Ubuntu flavors.
+
+| Source Package | Bug # | Description |
+| --- | --- | --- |
+| dotnet8 | [2119537](https://bugs.launchpad.net/bugs/2119537) | New upstream release |
+| malcontent | [2116954](https://bugs.launchpad.net/bugs/2116954) | Fix wrong a11y role in button |
+| powermgmt-base | [1980991](https://bugs.launchpad.net/bugs/1980991) | Fix on_ac_power incorrectly reporting AC state on some machines with USB type-C ports: . |
+| powermgmt-base | [1980991](https://bugs.launchpad.net/bugs/1980991) | on_ac_power: improve reporting of AC power status in more scenarios |
+| tecla | [2116166](https://bugs.launchpad.net/bugs/2116166) | a11y: Add accessibility to the keyboard layout by using `gtk_accessible_announce()` to read the popup with the key combinations |
+| screen-resolution-extra | [2090974](https://bugs.launchpad.net/bugs/2090974) | Make nvidia-polkit executable |
+| gtk4 | [2105946](https://bugs.launchpad.net/bugs/2105946) | d/p/lp2105946-gtklistbase-Do-not-select-invalid-positions.patch: cherry-pick fix from upstream to fix a crash when pressing the arrow keys in an empty directory: . |
+| xserver-xorg-video-vesa | [2062159](https://bugs.launchpad.net/bugs/2062159) | d/p/fix-implicit-declarations.patch: patching the file to fix FTBFS on multiple platforms: . |
+| xserver-xorg-video-vesa | [2083867](https://bugs.launchpad.net/bugs/2083867) | Rebuild to pick-up debhelper frame-pointer flags: . |
+| xserver-xorg-video-nouveau | [2062144](https://bugs.launchpad.net/bugs/2062144) | d/p/nouveau-fixup-driver-for-new-macro-gating.patch: fix implicit declarations: . |
+| xserver-xorg-video-nouveau | [2083855](https://bugs.launchpad.net/bugs/2083855) | Rebuild to pick-up frame-pointer flags: . |
+| fwupd | [2116567](https://bugs.launchpad.net/bugs/2116567) | Add Dell SD25TB5 and AIO system MTK scalar IC firmware update |
+| mesa | [2111265](https://bugs.launchpad.net/bugs/2111265) | Migrate to llvm-20 |
+| coreutils | [2115274](https://bugs.launchpad.net/bugs/2115274) | Avoid returning permission denied errors when running ls -l when reading file attributes |
+| s390-tools | [2103414](https://bugs.launchpad.net/bugs/2103414) | Add missing commit/patch d/p/lp-2103414-cpumf-lscpumf-Add-support-for-IBM-z17-counter-sets.patch that caused a failed verification of 2.31.0-0ubuntu5.2: . |
+| s390-tools | [2103414](https://bugs.launchpad.net/bugs/2103414) | Add d/p/lp-2103414-s390-tools-libutil-Add-machine-type-3932.patch and d/p/lp-2103414-libutil-Add-machine-type-definition-for-z17.patch to achieve support for IBM z17 (and z16 GA2) hw specific CPU-MF counters: . |
+| s390-tools | [2078347](https://bugs.launchpad.net/bugs/2078347) | Add d/p/lp-2078347-udev-Introduce-rule-to-set-newly-hotplugged-CPUs.patch that fixes CPUs from staying offline: . |
+| s390-tools | [2044104](https://bugs.launchpad.net/bugs/2044104) | Add d/p/lp-2044104-zdev-option-to-identify-files-created-by-zdev.patch to avoid rebuild initramfs by chzdev -e if zdev:early=0 set: . |
+| s390-tools-signed | [2103414](https://bugs.launchpad.net/bugs/2103414) | Rebuild against 2.31.0-0ubuntu5.3 |
+| s390-tools-signed | [2103414](https://bugs.launchpad.net/bugs/2103414) | Rebuild against 2.31.0-0ubuntu5.2 |
+| s390-tools-signed | [2078347](https://bugs.launchpad.net/bugs/2078347) | Rebuild against 2.31.0-0ubuntu5.2 |
+| s390-tools-signed | [2044104](https://bugs.launchpad.net/bugs/2044104) | Rebuild against 2.31.0-0ubuntu5.2 |
+| systemd-hwe | [2121006](https://bugs.launchpad.net/bugs/2121006) | Fix hardware name for Intel Wireless-AC 9560 on Jasper Lake |
+| dconf | [2072586](https://bugs.launchpad.net/bugs/2072586) | Restore permissions on database write to prevent restrictive umask from rendering the db inaccessible |
+| landscape-client | [2087852](https://bugs.launchpad.net/bugs/2087852) | d/p/fix-apt-source-file-management.patch: restore .list and .sources files when a repo profile is disassociated |
+| landscape-client | [2099283](https://bugs.launchpad.net/bugs/2099283) | d/p/package-reporter-high-cpu.patch: backport fix to reduce CPU usage of package-reporter by avoiding creating Origin objects from the Python apt package |
+| landscape-client | [2087852](https://bugs.launchpad.net/bugs/2087852) | d/p/2087852-feat-manage-ubuntu-sources-glob.patch: include DEB822 formatted sources when managing apt sources by regex matching .sources files |
+| dpkg | [2082636](https://bugs.launchpad.net/bugs/2082636) | Add RUSTFLAGS to define frame pointers for Rust toolchain: . |
+| lftp | [2091440](https://bugs.launchpad.net/bugs/2091440) | d/p/cd-zVM-segfault-fix.patch: fix segfault on z/VM cd |
+| dotnet8 | [2122356](https://bugs.launchpad.net/bugs/2122356) | New upstream release |
+| network-manager | [2116940](https://bugs.launchpad.net/bugs/2116940) | fix nmcli that could not report 6ghz wifi channels correctly |
+| wpa | [2117180](https://bugs.launchpad.net/bugs/2117180) | Bump DEFAULT_BSS_MAX_COUNT to 1000 |
+| snapd | [2118396](https://bugs.launchpad.net/bugs/2118396) | New upstream release |
+| snapd | [2114923](https://bugs.launchpad.net/bugs/2114923) | snap-confine: add support for host policy for limiting users able to run snaps: Reject system key mismatch advise when not yet seeded |
+| snapd | [2112551](https://bugs.launchpad.net/bugs/2112551) | Fix bug preventing remodel from core18 to core18 when snapd snap is unchanged: Make removal of last active revision of a snap equal to snap remove |
+| snapd | [2114779](https://bugs.launchpad.net/bugs/2114779) | Fix bug preventing remodel from core18 to core18 when snapd snap is unchanged: Allow non-gpt in fallback mode to support RPi |
+| snapd | [2112544](https://bugs.launchpad.net/bugs/2112544) | Switch from using core to snapd snap for snap debug connectivity: Fix offline remodel case where we switched to a channel without an actual refresh |
+| snapd | [2112332](https://bugs.launchpad.net/bugs/2112332) | Switch from using core to snapd snap for snap debug connectivity: Exclude snap/snapd/preseeding when generating preseed tarball |
+| snapd | [1952500](https://bugs.launchpad.net/bugs/1952500) | Switch from using core to snapd snap for snap debug connectivity: Fix snap command progress reporting |
+| snapd | [1849346](https://bugs.launchpad.net/bugs/1849346) | Switch from using core to snapd snap for snap debug connectivity: Interfaces: kerberos-tickets |
+| snapd | [2098780](https://bugs.launchpad.net/bugs/2098780) | Interfaces: posix-mq |
+| snapd | [2033883](https://bugs.launchpad.net/bugs/2033883) | Interfaces: block-devices |
+| snapd | [2107443](https://bugs.launchpad.net/bugs/2107443) | Fix a regression during seeding when using early-config: reset SHELL to /bin/bash in non-classic snaps |
+| snapd | [2104066](https://bugs.launchpad.net/bugs/2104066) | Fix potential validation set deadlock due to bases waiting on snaps: Only cancel notices requests on stop/shutdown |
+| snapd | [2102456](https://bugs.launchpad.net/bugs/2102456) | Modify snap-confine AppArmor template to allow all glibc HWCAPS subdirectories to prevent launch errors: update secboot to bf2f40ea35c4 and modify snap- bootstrap to remove usage of go templates to reduce size by 4MB |
+| snapd | [2106121](https://bugs.launchpad.net/bugs/2106121) | Fix snap-bootstrap to mount kernel snap from /sysroot/writable/system-data: fix snap-bootstrap busy loop |
+| snapd | [2088456](https://bugs.launchpad.net/bugs/2088456) | Interfaces: opengl |
+| systemd | [2112237](https://bugs.launchpad.net/bugs/2112237) | initramfs-tools: copy hwdb.bin to initramfs |
+| systemd | [2115263](https://bugs.launchpad.net/bugs/2115263) | d/t/`tests-in-lxd`: drop patching workaround |
+| systemd | [2044104](https://bugs.launchpad.net/bugs/2044104) | initramfs-tools: filter out zdev rules in the initramfs hook: Backport the logic from plucky onward, but adjust the version string for noble. |
+| systemd | [2115391](https://bugs.launchpad.net/bugs/2115391) | pcrlock: handle measurement logs where hash algs in header. Fix pcrlock log to function correctly reading the TPM eventlog on hyper-v VMs |
+| systemd | [2115418](https://bugs.launchpad.net/bugs/2115418) | network/dhcp6: consider the DHCPv6 protocol as finished when conflict addresses exist |
+| systemd | [2110585](https://bugs.launchpad.net/bugs/2110585) | Drop support for using actual brightness |
+| tcpdump | [2071891](https://bugs.launchpad.net/bugs/2071891) | Fixes segfault when running as the root user |
+| systemd-hwe | [2126468](https://bugs.launchpad.net/bugs/2126468) | hwdb: enable autosuspend for Dell DW5826e WWAN modem |
+| libgtop2 | [2116763](https://bugs.launchpad.net/bugs/2116763) | Expand fields with data from lscpu |
+| distro-info-data | [2126961](https://bugs.launchpad.net/bugs/2126961) | Add Ubuntu 26.04 LTS “Resolute Raccoon” |
+| nullboot | [2110302](https://bugs.launchpad.net/bugs/2110302) | New upstream release 0.5.3 |
+| sosreport | [2114840](https://bugs.launchpad.net/bugs/2114840) | New 4.9.2 upstream release |
+| lintian | [2127769](https://bugs.launchpad.net/bugs/2127769) | Add ‘resolute’ to known distro series |
+| snapd | [2124239](https://bugs.launchpad.net/bugs/2124239) | New upstream release |
+| snapd | [2122054](https://bugs.launchpad.net/bugs/2122054) | Packaging: modify [Makefile.am](http://Makefile.am) to fix out-of-tree use of ‘make hack’: Snap installation: skip snap icon download when running in a cloud or using a proxy store |
+| snapd | [2117558](https://bugs.launchpad.net/bugs/2117558) | Snap installation: use http(s) proxy for icon downloads: snap-confine: fix error message with /root/snap not accessible |
+| snapd | [1916244](https://bugs.launchpad.net/bugs/1916244) | core-initrd: remove debian folder: Interfaces: gpio-chardev |
+| snapd | [2121238](https://bugs.launchpad.net/bugs/2121238) | Interfaces: content |
+| snapd | [2117121](https://bugs.launchpad.net/bugs/2117121) | Unhide ‘snap help’ sign and export-key under Development category: Cleanly support socket activation for classic snap |
+| snapd | [2112626](https://bugs.launchpad.net/bugs/2112626) | Support ‘snap debug api’ queries to user session agents: Improve progress reporting for snap install/refresh |
+| snapd | [2114704](https://bugs.launchpad.net/bugs/2114704) | Fix /v2/apps error for root user when user services are present: Extend output to indicate when snap data snapshot was created during remove |
+| python3-defaults | [2127093](https://bugs.launchpad.net/bugs/2127093) | No-change rebuild into -security to fix dep issues |
+| malcontent | [2128350](https://bugs.launchpad.net/bugs/2128350) | d/p: Fix filtering snaps after snapd 2.72 |
+| libdrm | [2127944](https://bugs.launchpad.net/bugs/2127944) | patches: Identify APUs from hardware |
+| packagekit | [2060730](https://bugs.launchpad.net/bugs/2060730) | d/p/apt-Handle-gstreamer-64bit-suffix-on-any-architecture.patch: Fix matching GStreamer capabilities on ARM64 and other architectures |
+| packagekit | [2060730](https://bugs.launchpad.net/bugs/2060730) | d/p/apt-Fix-matching-gstreamer-pkgs-where-the-only-modifier-i.patch: Fix matching GStreamer capabilities, which would find no results in some specific but common edge-cases: . |
+| network-manager | [2127925](https://bugs.launchpad.net/bugs/2127925) | d/p/lp2127925-fix-autoreconnect-blocker.patch: unblock autoreconnect when a previously failed connection is now successful |
+| xdg-dbus-proxy | [2083258](https://bugs.launchpad.net/bugs/2083258) | d/p/0001-Fix-GVariant-reference-leaks.patch: Fix GVariant memory leaks |
+| gtk4 | [2122598](https://bugs.launchpad.net/bugs/2122598) | Default to the Cairo renderer on s390x |
+| gce-compute-image-packages | [2113788](https://bugs.launchpad.net/bugs/2113788) | No change rebuild for Noble: . |
+| gce-compute-image-packages | [2113788](https://bugs.launchpad.net/bugs/2113788) | New upstream version for upstream tag 20250501.00 |
+| gce-compute-image-packages | [2112595](https://bugs.launchpad.net/bugs/2112595) | This version fixes: (`Domains=local` is appending `.local` to the FQDN) as well. |
+| libinput | [2127963](https://bugs.launchpad.net/bugs/2127963) | Fix built-in volume button could not change the volume on Dell Pro Rugged tablet: d/p/0001-quirks-add-quirks-for-Dell-Pro-Rugged-tablets-for-vo.patch |
+| libinput | [2130298](https://bugs.launchpad.net/bugs/2130298) | Add Dell laptop touchpad quirks: d/p/0006-quirks-add-Dell-laptop-touchpad-quirks.patch d/p/0007-quirks-add-quirks-for-Dell-laptop-with-Sensel-Touchp.patch |
+| xserver-xorg-video-amdgpu | [2130348](https://bugs.launchpad.net/bugs/2130348) | Crashes with certain DRM properties |
+| glib2.0 | [2119581](https://bugs.launchpad.net/bugs/2119581) | debian/patches: Fix a crash on arg0 matching. This is causing a crash in tracker if the battery charging state changes while tracker is indexing files, as tracker-extract-3 will try to emit property changes with a NULL arg0 |
+| landscape-client | [2120978](https://bugs.launchpad.net/bugs/2120978) | Extend `landscape-config`, registration, and computer info messages for UP4W integration |
+| gtk4 | [2051886](https://bugs.launchpad.net/bugs/2051886) | Fix touchscreen issues on Xorg: , #2119066, #2119065, #2125309) |
+| gtk4 | [2119066](https://bugs.launchpad.net/bugs/2119066) | Fix touchscreen issues on Xorg |
+| gtk4 | [2119065](https://bugs.launchpad.net/bugs/2119065) | Fix touchscreen issues on Xorg |
+| gtk4 | [2125309](https://bugs.launchpad.net/bugs/2125309) | Fix touchscreen issues on Xorg |
+| apparmor | [2115234](https://bugs.launchpad.net/bugs/2115234) | profiles: make /sys/devices PCI paths hex-aware |
+| dotnet8 | [2130895](https://bugs.launchpad.net/bugs/2130895) | New upstream release |
+| whoopsie | [2130649](https://bugs.launchpad.net/bugs/2130649) | Enable `ShellJournal` and `JournalAll` fields |
+| dhcpcd | [2131252](https://bugs.launchpad.net/bugs/2131252) | Fix intermittent dumplease failures when parsing stdin |
+| libmbim | [2121842](https://bugs.launchpad.net/bugs/2121842) | Add Intel mbim service to send AT command |
+| util-linux | [2123886](https://bugs.launchpad.net/bugs/2123886) | Add ARM core support for Vera systems |
+| opensbi | [2121785](https://bugs.launchpad.net/bugs/2121785) | Backport of 1.7-1 to support StarFive VisionFive 2 Lite |
+| systemd | [2125405](https://bugs.launchpad.net/bugs/2125405) | basic: validate timezones in get_timezones() |
+| systemd | [2132666](https://bugs.launchpad.net/bugs/2132666) | ukify: fix insertion of padding in merged sections |
+| systemd | [2130554](https://bugs.launchpad.net/bugs/2130554) | core: downgrade a log message from warning to debug |
+| snapd | [2132084](https://bugs.launchpad.net/bugs/2132084) | New upstream release |
+| snapd | [2127189](https://bugs.launchpad.net/bugs/2127189) | Prompting: remove polkit authentication when modifying/deleting prompting rules: Prompting: do not record notices for unchanged rules on snapd startup |
+| snapd | [1851490](https://bugs.launchpad.net/bugs/1851490) | Avoid race between store download stream and cache cleanup executing in parallel when invoked by snap download task: Use “current” instead of revision number for icons |
+| snapd | [2121853](https://bugs.launchpad.net/bugs/2121853) | Avoid race between store download stream and cache cleanup executing in parallel when invoked by snap download task: Add snapctl version command |
+| snapd | [2127214](https://bugs.launchpad.net/bugs/2127214) | Avoid race between store download stream and cache cleanup executing in parallel when invoked by snap download task: Ensure no more than one partition on disk can match a gadget partition |
+| snapd | [2127244](https://bugs.launchpad.net/bugs/2127244) | Avoid race between store download stream and cache cleanup executing in parallel when invoked by snap download task: snap-confine: update AppArmor profile to allow read/write to journal as workaround for snap-confine fd inheritance prevented by newer AppArmor |
+| snapd | [2127766](https://bugs.launchpad.net/bugs/2127766) | Avoid race between store download stream and cache cleanup executing in parallel when invoked by snap download task: Add new tracing mechanism with independently running strace and shim synchronization |
+| network-manager | [2128668](https://bugs.launchpad.net/bugs/2128668) | Use iptables instead of nftables as firewall backend, to match UFW |
+| sl-modem | [2134844](https://bugs.launchpad.net/bugs/2134844) | Support 6.17 kernel |
+| u-boot | [2121690](https://bugs.launchpad.net/bugs/2121690) | Added patches to support for StarFive VisionFive Lite and Milk-V Mars CM: : |
+| u-boot | [2091618](https://bugs.launchpad.net/bugs/2091618) | d/p/rpi-squashfs.patch: Enable squashfs support on rpi and amd64/arm64 QEMU builds for internal image testing |
+| fwupd | [2131001](https://bugs.launchpad.net/bugs/2131001) | Add PS5512 usb firmware update |
+| qpdf | [2129676](https://bugs.launchpad.net/bugs/2129676) | d/p/lp2129676-relax-fips-for-pdfs.patch: Utilize the GNUTLS_FIPS140_LAX around MD5 initialization |
+| qpdf | [2131944](https://bugs.launchpad.net/bugs/2131944) | d/p/lp2131944-fix-failing-tests-on-s390x.patch: Fix failing tests on s390x due to different error output |
+| xwayland | [2126037](https://bugs.launchpad.net/bugs/2126037) | xwayland-glamor-gbm-make-wl_drm-optional.diff: Fix glamor with mesa 25.2+ |
+| libdrm | [2126037](https://bugs.launchpad.net/bugs/2126037) | Backport to noble |
+| mesa | [2126037](https://bugs.launchpad.net/bugs/2126037) | Backport to noble |
+| flash-kernel | [2132298](https://bugs.launchpad.net/bugs/2132298) | Add StarFive VisionFive 2 Lite, Milk-V Mars CM and Milk-V Mars CM Lite to database |
+| flash-kernel | [2134398](https://bugs.launchpad.net/bugs/2134398) | db/all.db: Removed duplicated entry for Lenovo ThinkPad X13s |
+| python-apt | [2138617](https://bugs.launchpad.net/bugs/2138617) | Mirror list update for 24.04.4 |
+| dotnet8 | [2138326](https://bugs.launchpad.net/bugs/2138326) | New upstream release |
+| boost1.83 | [2122352](https://bugs.launchpad.net/bugs/2122352) | Cherry-pick two changes from upstream (#565, #737) to fix a multiprecision bug |
+| devscripts | [2061609](https://bugs.launchpad.net/bugs/2061609) | Fix Perl warnings in chdist and debcheckout |
+| linux-firmware-raspi | [2139343](https://bugs.launchpad.net/bugs/2139343) | Add missing links for Raspberry Pi 500 wifi firmwares |
+| base-files | [2140756](https://bugs.launchpad.net/bugs/2140756) | /etc/issue{,.net}, /etc/{lsb,os}-release: bump version to 24.04.4 |
+| initramfs-tools | [2140344](https://bugs.launchpad.net/bugs/2140344) | Add missing USB drivers for StarFive JH7110 SoC |

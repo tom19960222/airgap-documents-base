@@ -1,0 +1,143 @@
+---
+collection: "opensearch"
+version: "2.19"
+title: "Thai"
+source_url: "https://github.com/opensearch-project/documentation-website/blob/cc01280fc1f773421cbcb409bdc8fd7beae2638e/_analyzers/language-analyzers/thai.md"
+fetched_at: "2026-09-10T18:32:31-04:00"
+source_path: "_analyzers/language-analyzers/thai.md"
+source_commit: "cc01280fc1f773421cbcb409bdc8fd7beae2638e"
+renderer: "jekyll/opensearch"
+permalink: "/analyzers/language-analyzers/thai/"
+canonical_url: "https://docs.opensearch.org/latest/analyzers/language-analyzers/thai/"
+canonical_route: "/analyzers/language-analyzers/thai/"
+redirect_from: []
+canonical_collision: false
+source_config_opensearch_version: "2.19.6"
+source_config_opensearch_dashboards_version: "2.19.6"
+app_version: "2.19.3"
+chart_version: ""
+grand_parent: "Analyzers"
+layout: "default"
+nav_order: 320
+parent: "Language analyzers"
+---
+# Thai analyzer
+
+The built-in `thai` analyzer can be applied to a text field using the following command:
+
+```json
+PUT /thai-index
+{
+  "mappings": {
+    "properties": {
+      "content": {
+        "type": "text",
+        "analyzer": "thai"
+      }
+    }
+  }
+}
+```
+
+## Stem exclusion
+
+You can use `stem_exclusion` with this language analyzer using the following command:
+
+```json
+PUT index_with_stem_exclusion_thai_analyzer
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "stem_exclusion_thai_analyzer": {
+          "type": "thai",
+          "stem_exclusion": ["อำนาจ", "การอนุมัติ"]
+        }
+      }
+    }
+  }
+}
+```
+
+## Thai analyzer internals
+
+The `thai` analyzer is built using the following components:
+
+- Tokenizer: `thai`
+
+- Token filters:
+  - lowercase
+  - decimal_digit
+  - stop (Thai)
+  - keyword
+
+## Custom Thai analyzer
+
+You can create a custom Thai analyzer using the following command:
+
+```json
+PUT /thai-index
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "thai_stop": {
+          "type": "stop",
+          "stopwords": "_thai_"
+        },
+        "thai_keywords": {
+          "type": "keyword_marker",
+          "keywords": []
+        }
+      },
+      "analyzer": {
+        "thai_analyzer": {
+          "tokenizer": "thai",
+          "filter": [
+            "lowercase",
+            "decimal_digit",
+            "thai_stop",
+            "thai_keywords"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "content": {
+        "type": "text",
+        "analyzer": "thai_analyzer"
+      }
+    }
+  }
+}
+```
+
+## Generated tokens
+
+Use the following request to examine the tokens generated using the analyzer:
+
+```json
+POST /thai-index/_analyze
+{
+  "field": "content",
+  "text": "นักเรียนกำลังศึกษาอยู่ที่มหาวิทยาลัยไทย หมายเลข 123456."
+}
+```
+
+The response contains the generated tokens:
+
+```json
+{
+  "tokens": [
+    {"token": "นักเรียน","start_offset": 0,"end_offset": 8,"type": "word","position": 0},
+    {"token": "กำลัง","start_offset": 8,"end_offset": 13,"type": "word","position": 1},
+    {"token": "ศึกษา","start_offset": 13,"end_offset": 18,"type": "word","position": 2},
+    {"token": "มหาวิทยาลัย","start_offset": 25,"end_offset": 36,"type": "word","position": 5},
+    {"token": "ไทย","start_offset": 36,"end_offset": 39,"type": "word","position": 6},
+    {"token": "หมายเลข","start_offset": 40,"end_offset": 47,"type": "word","position": 7},
+    {"token": "123456","start_offset": 48,"end_offset": 54,"type": "word","position": 8}
+  ]
+}
+```

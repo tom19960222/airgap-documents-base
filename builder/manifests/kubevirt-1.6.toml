@@ -1,0 +1,10 @@
+name = "kubevirt-1.6"
+collection = "kubevirt"
+version = "1.6.4"
+source_type = "git"
+repo_url = "https://github.com/kubevirt/kubevirt"
+# v1.6.4 的 immutable commit；這是 upstream source docs，不是 user-guide 網站。
+git_ref = "ac5324e8f6e7cda1cfe92542df3ceb0cd0d8e68f"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

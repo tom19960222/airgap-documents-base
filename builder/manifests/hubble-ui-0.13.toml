@@ -1,0 +1,10 @@
+name = "hubble-ui-0.13"
+collection = "hubble-ui"
+version = "0.13.1"
+source_type = "git"
+repo_url = "https://github.com/cilium/hubble-ui"
+# v0.13.1 的 immutable commit。
+git_ref = "a06e19ba65299c63a58034a360aeedde9266ec01"
+docs_paths = ["README.md"]
+sparse_paths = ["README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

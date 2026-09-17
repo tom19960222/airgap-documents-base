@@ -1,0 +1,9 @@
+name = "cephcsi-3.15"
+collection = "cephcsi"
+version = "3.15.1"
+source_type = "git"
+repo_url = "https://github.com/ceph/ceph-csi"
+git_ref = "f8b8b1416793ceaf6e01592b77f438e8b4c3b6b8"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+mutable_refs = ["main", "master"]

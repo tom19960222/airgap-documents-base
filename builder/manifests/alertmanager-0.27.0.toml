@@ -1,0 +1,9 @@
+name = "alertmanager-0.27.0"
+collection = "alertmanager"
+version = "0.27.0"
+source_type = "git"
+repo_url = "https://github.com/prometheus/alertmanager"
+git_ref = "0aa3c2aad14cff039931923ab16b26b7481783b5"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

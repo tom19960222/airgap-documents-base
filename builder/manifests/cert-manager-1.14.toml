@@ -1,0 +1,10 @@
+name = "cert-manager-1.14"
+collection = "cert-manager"
+version = "1.14"
+app_version = "1.14.7"
+source_type = "git"
+repo_url = "https://github.com/cert-manager/website"
+git_ref = "d2e1bdfbbe23fcf24dcb68ab54353a65a4131c20"
+docs_paths = ["content/v1.14-docs"]
+sparse_paths = ["content/v1.14-docs"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

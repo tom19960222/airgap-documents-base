@@ -1,0 +1,8 @@
+name = "ubuntu-26.04"
+collection = "ubuntu"
+version = "26.04"
+base_url = "https://documentation.ubuntu.com/release-notes/26.04/"
+content_selector = "article[role=main]"
+deny_prefixes = []
+max_pages = 500
+delay_seconds = 0.3

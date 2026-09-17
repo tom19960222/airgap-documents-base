@@ -1,0 +1,8 @@
+name = "csi-external-resizer-1.14"
+collection = "csi-external-resizer"
+version = "1.14.0"
+source_type = "git"
+repo_url = "https://github.com/kubernetes-csi/external-resizer"
+git_ref = "c82d78bf133263d5aae6c53f05a466f00c79a7cc"
+docs_paths = ["README.md", "CONTRIBUTING.md"]
+sparse_paths = ["README.md", "CONTRIBUTING.md"]

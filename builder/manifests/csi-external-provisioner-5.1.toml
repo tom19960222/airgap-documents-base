@@ -1,0 +1,8 @@
+name = "csi-external-provisioner-5.1"
+collection = "csi-external-provisioner"
+version = "5.1.0"
+source_type = "git"
+repo_url = "https://github.com/kubernetes-csi/external-provisioner"
+git_ref = "656955bc2294f10a5ec505acfac6091048e30a08"
+docs_paths = ["doc", "README.md", "CONTRIBUTING.md"]
+sparse_paths = ["doc", "README.md", "CONTRIBUTING.md"]

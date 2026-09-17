@@ -1,0 +1,24 @@
+name = "istio-1.24"
+collection = "istio"
+version = "1.24"
+source_type = "git"
+repo_url = "https://github.com/istio/istio.io"
+# Immutable source snapshot for the Istio 1.24 documentation line.
+git_ref = "34199a22213d0bbfe10ab1759d89242ee752ac12"
+docs_paths = ["content/en/docs"]
+# Images and shell snippets referenced by the Markdown pages live below the
+# docs tree.  Boilerplates and the text_import demonstration file are outside
+# that tree and are included explicitly for the Istio shortcode profile.
+sparse_paths = ["content/en/docs", "content/en/boilerplates", "test/snippet_example.txt"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"
+shortcode_profile = "istio"
+# Application release represented by this documentation snapshot.  The docs
+# repository commit above remains the immutable documentation source; GitHub
+# application shortcodes use their own pinned Istio 1.24.0 commit.
+app_version = "1.24.0"
+# Verified Istio 1.24 site configuration used to map /docs routes into the
+# corpus and to classify routes that remain outside the offline docs scope.
+site_overrides = { url = "https://istio.io", baseurl = "/v1.24", docs_prefix = "/docs" }
+# Istio section-index pages keep their source description and use it as body
+# fallback when the source contains frontmatter but no prose.
+preserve_description = true

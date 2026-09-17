@@ -1,0 +1,9 @@
+name = "thanos-0.37.1"
+collection = "thanos"
+version = "0.37.1"
+source_type = "git"
+repo_url = "https://github.com/thanos-io/thanos"
+git_ref = "e0812e2f46f81af3324686d910d885d8f2751d46"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

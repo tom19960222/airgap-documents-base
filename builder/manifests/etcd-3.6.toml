@@ -1,0 +1,10 @@
+name = "etcd-3.6"
+collection = "etcd"
+version = "3.6.10"
+source_type = "git"
+repo_url = "https://github.com/etcd-io/etcd"
+# v3.6.10 的 immutable commit。
+git_ref = "db8d13a5421fcbd1c5825a148735b80c7d36cd2d"
+docs_paths = ["Documentation", "README.md"]
+sparse_paths = ["Documentation", "README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

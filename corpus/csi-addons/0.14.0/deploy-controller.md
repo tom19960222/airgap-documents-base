@@ -1,0 +1,144 @@
+---
+collection: csi-addons
+version: "0.14.0"
+title: "Deploying the CSI-Addons Controller"
+source_url: https://github.com/csi-addons/kubernetes-csi-addons/blob/621cfdc3b7d36922a8d328324643540eeac2671d/docs/deploy-controller.md
+fetched_at: 2026-01-12T14:50:51Z
+---
+# Deploying the CSI-Addons Controller
+
+The CSI-Addons Controller can be deployed by different ways:
+
+## Configuration
+
+**Available command-line arguments:**
+
+| Option                        | Default value | Description                                    |
+| ----------------------------- | ------------- | ---------------------------------------------- |
+| `--metrics-bind-address`      | `:8080`       | The address the metric endpoint binds to.      |
+| `--health-probe-bind-address` | `:8081`       | The address the probe endpoint binds to.       |
+| `--leader-elect`              | `false`       | Enable leader election for controller manager. |
+| `--reclaim-space-timeout`     | `3m`          | Timeout for reclaimspace operation             |
+| `--max-concurrent-reconciles` | 100           | Maximum number of concurrent reconciles        |
+| `--enable-auth`               | true          | Enable adding SA tokens to headers and TLS     |
+
+> Note: Some of the above configuration options can also be configured using [`"csi-addons-config"` configmap](csi-addons-config.md).
+
+## Installation for latest deployments
+
+The latest CSI-Addons Controller can be installed using the YAML files in `deploy/controller` from `main` branch.
+
+## Installation for versioned deployments
+
+The versioned deployment of the CSI-Addons Controller can be installed using the specific version's YAML files as shown below:
+
+> Note: set the `RELEASE` variable to the required version.
+
+```console
+$ export RELEASE="v0.8.0"
+
+$ kubectl create -f https://github.com/csi-addons/kubernetes-csi-addons/releases/download/${RELEASE}/crds.yaml
+...
+customresourcedefinition.apiextensions.k8s.io/csiaddonsnodes.csiaddons.openshift.io created
+customresourcedefinition.apiextensions.k8s.io/networkfences.csiaddons.openshift.io created
+customresourcedefinition.apiextensions.k8s.io/reclaimspacecronjobs.csiaddons.openshift.io created
+customresourcedefinition.apiextensions.k8s.io/reclaimspacejobs.csiaddons.openshift.io created
+
+$ kubectl create -f https://github.com/csi-addons/kubernetes-csi-addons/releases/download/${RELEASE}/rbac.yaml
+...
+serviceaccount/csi-addons-controller-manager created
+role.rbac.authorization.k8s.io/csi-addons-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/csi-addons-manager-role created
+clusterrole.rbac.authorization.k8s.io/csi-addons-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/csi-addons-proxy-role created
+rolebinding.rbac.authorization.k8s.io/csi-addons-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/csi-addons-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/csi-addons-proxy-rolebinding created
+configmap/csi-addons-manager-config created
+service/csi-addons-controller-manager-metrics-service created
+
+$ kubectl create -f https://github.com/csi-addons/kubernetes-csi-addons/releases/download/${RELEASE}/setup-controller.yaml
+...
+deployment.apps/csi-addons-controller-manager created
+```
+
+This is the recommended and easiest way to deploy the controller.
+
+- The "crds.yaml" create the required crds for csi-addons operations.
+
+- The "rbac.yaml" creates the required rbac.
+
+- The "setup-controller.yaml" creates the csi-addons-controller-manager.
+
+## Installation by operator-sdk
+
+A CSI-Addons bundle can be used to install the CSI-Addons Controller with the
+following steps:
+
+```console
+kubectl create namespace storage-csi-addons
+make operator-sdk
+./bin/operator-sdk run bundle -n storage-csi-addons quay.io/csiaddons/k8s-bundle:latest
+```
+
+In the future, the bundle is expected to become available in the
+[OperatorHub](https://operatorhub.io/).
+
+## Installation with `kustomize`
+
+This project uses `kustomize` and a `Makefile` for deploying. By running the
+command
+
+```console
+$ make deploy
+...
+customresourcedefinition.apiextensions.k8s.io/csiaddonsnodes.csiaddons.openshift.io created
+customresourcedefinition.apiextensions.k8s.io/reclaimspacejobs.csiaddons.openshift.io created
+serviceaccount/csi-addons-controller-manager created
+role.rbac.authorization.k8s.io/csi-addons-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/csi-addons-manager-role created
+clusterrole.rbac.authorization.k8s.io/csi-addons-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/csi-addons-proxy-role created
+rolebinding.rbac.authorization.k8s.io/csi-addons-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/csi-addons-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/csi-addons-proxy-rolebinding created
+configmap/csi-addons-manager-config created
+service/csi-addons-controller-manager-metrics-service created
+deployment.apps/csi-addons-controller-manager created
+```
+
+the different components for the Controller will get deployed in the
+`csi-addons-system` Namespace.
+
+```console
+$ kubectl -n csi-addons-system get all
+NAME                                                 READY   STATUS    RESTARTS   AGE
+pod/csi-addons-controller-manager-687d47b8c7-9m56f   2/2     Running   0          49s
+
+NAME                                                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/csi-addons-controller-manager-metrics-service   ClusterIP   172.30.153.17   <none>        8443/TCP   49s
+
+NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/csi-addons-controller-manager   1/1     1            1           49s
+
+NAME                                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/csi-addons-controller-manager-687d47b8c7   1         1         1       49s
+```
+
+## Resource Requirements
+
+The resource requirements for the CSI-Addons Controller depends on the number of
+PersistentVolumeClaims, Pods, Nodes and CSI-Addons CRs that are deployed in the
+cluster. The resource requirements can be adjusted by the user depending on the
+requirements of the cluster after observation. The default resource requirements
+for the CSI-Addons Controller are as follows:
+
+```yaml
+resources:
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+```

@@ -1,0 +1,29 @@
+---
+collection: cilium
+version: "1.16.7"
+title: "crdlist"
+source_url: https://github.com/cilium/cilium/blob/2ab5f8da5915992a1e548c290105dbc08f4be52d/Documentation/crdlist.rst
+fetched_at: 2025-02-13T12:04:31Z
+---
+- CiliumBGPAdvertisement
+- CiliumBGPClusterConfig
+- CiliumBGPNodeConfig
+- CiliumBGPNodeConfigOverride
+- CiliumBGPPeerConfig
+- CiliumBGPPeeringPolicy
+- CiliumCIDRGroup
+- CiliumClusterwideEnvoyConfig
+- [CiliumClusterwideNetworkPolicy](network/kubernetes/policy.md#ciliumclusterwidenetworkpolicy)
+- CiliumEgressGatewayPolicy
+- [CiliumEndpoint](network/kubernetes/ciliumendpoint.md#ciliumendpoint)
+- [CiliumEndpointSlice](network/kubernetes/ciliumendpointslice.md#ciliumendpointslice)
+- CiliumEnvoyConfig
+- CiliumExternalWorkload
+- CiliumIdentity
+- CiliumL2AnnouncementPolicy
+- CiliumLoadBalancerIPPool
+- CiliumLocalRedirectPolicy
+- [CiliumNetworkPolicy](network/kubernetes/policy.md#ciliumnetworkpolicy)
+- CiliumNode
+- CiliumNodeConfig
+- CiliumPodIPPool

@@ -1,0 +1,9 @@
+name = "prometheus-pushgateway-chart-2.4.1"
+collection = "prometheus-pushgateway-chart"
+version = "2.4.1"
+source_type = "git"
+repo_url = "https://github.com/prometheus-community/helm-charts"
+git_ref = "1c1f688d57805389d051777bef8f55176494e09e"
+docs_paths = ["charts/prometheus-pushgateway/README.md"]
+sparse_paths = ["charts/prometheus-pushgateway/README.md", "charts/prometheus-pushgateway/values.yaml"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

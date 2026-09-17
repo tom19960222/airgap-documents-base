@@ -1,0 +1,10 @@
+name = "cilium-1.16"
+collection = "cilium"
+version = "1.16.7"
+source_type = "git"
+repo_url = "https://github.com/cilium/cilium"
+# v1.16.7 的 immutable commit；Documentation 內的 RST 由既有 git-source RST profile/映射處理。
+git_ref = "2ab5f8da5915992a1e548c290105dbc08f4be52d"
+docs_paths = ["Documentation"]
+sparse_paths = ["Documentation"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

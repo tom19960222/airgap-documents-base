@@ -1,0 +1,10 @@
+name = "cilium-certgen-0.2"
+collection = "cilium-certgen"
+version = "0.2.0"
+source_type = "git"
+repo_url = "https://github.com/cilium/certgen"
+# v0.2.0 的 immutable commit。
+git_ref = "e0a9610f6ca926ee382f1536498de988fafa3706"
+docs_paths = ["README.md"]
+sparse_paths = ["README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

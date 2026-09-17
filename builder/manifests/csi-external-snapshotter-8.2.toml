@@ -1,0 +1,8 @@
+name = "csi-external-snapshotter-8.2"
+collection = "csi-external-snapshotter"
+version = "8.2.0"
+source_type = "git"
+repo_url = "https://github.com/kubernetes-csi/external-snapshotter"
+git_ref = "0f215370c7ca3eeef4ab7028824d3bc66e1f63bd"
+docs_paths = ["README.md", "CONTRIBUTING.md"]
+sparse_paths = ["README.md", "CONTRIBUTING.md"]

@@ -1,0 +1,9 @@
+name = "kube-prometheus-chart-9.0.5"
+collection = "kube-prometheus-chart"
+version = "9.0.5"
+source_type = "git"
+repo_url = "https://github.com/bitnami/charts"
+git_ref = "d502935e8ae025beb7690cc8d611f1e71972a594"
+docs_paths = ["bitnami/kube-prometheus/README.md"]
+sparse_paths = ["bitnami/kube-prometheus/README.md"]
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"

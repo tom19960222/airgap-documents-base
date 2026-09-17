@@ -1,0 +1,9 @@
+name = "ceph-csi-operator-1.0"
+collection = "ceph-csi-operator"
+version = "1.0.4"
+source_type = "git"
+repo_url = "https://github.com/ceph/ceph-csi-operator"
+git_ref = "29a66b683aa8873001c729b7b120e18604cdb445"
+docs_paths = ["docs", "README.md"]
+sparse_paths = ["docs", "README.md"]
+mutable_refs = ["main", "master"]
