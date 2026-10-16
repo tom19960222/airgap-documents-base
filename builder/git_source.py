@@ -4064,6 +4064,8 @@ def clean_gitlab_shortcodes(content: str) -> str:
 
 def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Path, str]]:
     supported_suffixes = {".md", ".markdown", ".rst"}
+    if manifest.shortcode_profile == "opencode":
+        supported_suffixes.add(".mdx")
     if manifest.content_selector:
         supported_suffixes.add(".html")
 
@@ -4079,11 +4081,12 @@ def _discover_source_files(manifest: Manifest, repo_dir: Path) -> list[tuple[Pat
             print(f"[{manifest.name}] Warning: path not found in repo: {doc_item}", file=sys.stderr)
             continue
         if item_path.is_file():
-            if item_path.suffix.lower() in supported_suffixes and not excluded(Path(doc_item).name):
+            is_openapi = manifest.shortcode_profile == "opencode" and item_path.name == "openapi.json"
+            if (item_path.suffix.lower() in supported_suffixes or is_openapi) and not excluded(Path(doc_item).name):
                 source_key = item_path.relative_to(repo_dir).as_posix()
                 if source_key not in seen_sources:
                     seen_sources.add(source_key)
-                    discovered.append((item_path, Path(doc_item).name))
+                    discovered.append((item_path, "api.md" if is_openapi else Path(doc_item).name))
             continue
         for path in sorted(item_path.rglob("*")):
             relative_path = path.relative_to(item_path).as_posix()
@@ -4320,9 +4323,9 @@ def _source_link_candidates(file_path: Path, target: str) -> list[Path]:
         candidate = Path(os.path.normpath(str(base / target_path)))
         candidates.append(candidate)
         if candidate.suffix == "":
-            for suffix in (".rst", ".md", ".markdown"):
+            for suffix in (".rst", ".md", ".markdown", ".mdx"):
                 candidates.append(candidate.with_suffix(suffix))
-            candidates.extend((candidate / "index.rst", candidate / "index.md"))
+            candidates.extend((candidate / "index.rst", candidate / "index.md", candidate / "index.mdx"))
         elif candidate.suffix.lower() in {".md", ".markdown"}:
             candidates.append(candidate.with_suffix(".rst"))
     unique: list[Path] = []
@@ -5367,15 +5370,19 @@ def normalize(manifest: Manifest) -> None:
         target_rel = Path(rel_out_path_str).with_suffix(".md")
         default_title = target_rel.stem
         preserve_description = bool(
-            manifest.preserve_description and manifest.shortcode_profile == "istio"
+            manifest.preserve_description and manifest.shortcode_profile in {"istio", "opencode"}
         )
         description = (
             extract_frontmatter_description(raw_text)
-            if preserve_description and file_path.suffix.lower() in {".md", ".markdown"}
+            if preserve_description and file_path.suffix.lower() in {".md", ".markdown", ".mdx"}
             else ""
         )
 
-        if file_path.suffix.lower() == ".html":
+        if shortcode_profile == "opencode" and file_path.suffix.lower() == ".json":
+            from opencode_source import render_openapi
+
+            title, body = render_openapi(raw_text)
+        elif file_path.suffix.lower() == ".html":
             from normalize import to_markdown as html_to_markdown
 
             page_url = f"{manifest.base_url.rstrip('/')}/{rel_out_path_str}"
@@ -5398,7 +5405,12 @@ def normalize(manifest: Manifest) -> None:
             if description and not body.strip():
                 body = description
 
-        if shortcode_profile:
+        if shortcode_profile == "opencode":
+            from opencode_source import render_mdx
+
+            if file_path.suffix.lower() == ".mdx":
+                body = render_mdx(body, manifest.site_overrides)
+        elif shortcode_profile:
             body = clean_hugo_shortcodes(
                 body,
                 repo_dir,
@@ -5408,7 +5420,7 @@ def normalize(manifest: Manifest) -> None:
         elif is_gitlab:
             body = clean_gitlab_shortcodes(body)
 
-        if file_path.suffix.lower() in {".md", ".markdown", ".rst"}:
+        if file_path.suffix.lower() in {".md", ".markdown", ".rst", ".mdx"}:
             if file_path.suffix.lower() == ".rst":
                 body = _rewrite_rst_links(
                     body,
@@ -5427,6 +5439,10 @@ def normalize(manifest: Manifest) -> None:
                 source_outputs,
                 manifest,
             )
+            if shortcode_profile == "opencode":
+                from opencode_source import rewrite_site_links
+
+                body = rewrite_site_links(body, target_rel, source_outputs, manifest)
         title = _inline_rst_to_markdown(title)
         body = re.sub(r"[ \t]+$", "", body, flags=re.MULTILINE)
         body = re.sub(r"\n{3,}", "\n\n", body).strip() + "\n"

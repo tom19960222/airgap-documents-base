@@ -28,6 +28,16 @@ cd builder
 .venv/bin/python git_source.py all manifests/node-driver-registrar-2.13.toml
 ```
 
+OpenCode 文件已收錄 1.x `1.19.2`（36 頁）與 2.x `2.0.30`（62 頁），版本查核日期為
+2026-10-16。兩者都保留官方英文原文並固定來源 commit；2.x 另包含由官方 OpenAPI
+JSON 轉成的 HTTP API reference。MDX 的 tabs、提示、範例與內部連結會轉成 Markdown。
+來源與驗證範圍見 [OpenCode 來源紀錄](docs/research/2026-10-16-opencode-1-2-source.md)。
+
+```bash
+builder/.venv/bin/python builder/git_source.py all builder/manifests/opencode-1.19.2.toml
+builder/.venv/bin/python builder/git_source.py all builder/manifests/opencode-2.0.30.toml
+```
+
 Ceph 20.2.4 的全量產出可用 validator 重跑 metadata、RST table 與 offline link
 檢查：
 

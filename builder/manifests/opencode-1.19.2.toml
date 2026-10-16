@@ -1,0 +1,20 @@
+name = "opencode-1.19.2"
+collection = "opencode"
+version = "1.19.2"
+source_type = "git"
+repo_url = "https://github.com/anomalyco/opencode"
+git_ref = "7901b7d325c34852caa84fc2c325f3a08dd7a473"
+docs_paths = ["packages/web/src/content/docs"]
+sparse_paths = ["packages/web/src/content/docs", "packages/web/src/assets", "packages/web/config.mjs"]
+# 英文原文在根目錄；子目錄是翻譯副本。
+exclude_globs = ["*/*.mdx"]
+shortcode_profile = "opencode"
+source_url_template = "{repo_url}/blob/{git_ref}/{path}"
+mutable_refs = ["dev", "main", "master"]
+preserve_description = true
+
+[site_overrides]
+docs_url = "https://opencode.ai/docs"
+console = "https://opencode.ai/auth"
+email = "help@anoma.ly"
+github = "https://github.com/anomalyco/opencode"
