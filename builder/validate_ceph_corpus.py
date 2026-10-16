@@ -445,6 +445,10 @@ def validate_corpus(
         # RST role syntax inside a preserved double-backtick teaching example
         # is content, not an unresolved output construct.
         construct_body = re.sub(r"``[^\n]*?``", "", normal_body)
+        if manifest.shortcode_profile == "opencode":
+            # MDX 的單反引號是 Markdown inline code；其中的 `_` 不是 RST
+            # named reference。先依正確語法界定 literal，避免跨 code span 誤配。
+            construct_body = re.sub(r"(`+)[^`\n]*?\1", "", construct_body)
         for pattern, label in (
             (RST_LINK_PATTERN, "residual RST link role"),
             (RST_SHORTHAND_PATTERN, "residual RST shorthand role"),
